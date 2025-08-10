@@ -161,7 +161,8 @@ if sys.version_info >= (3, 11):
         if sys.version_info < (3, 12):
             @staticmethod
             @deprecated(
-                "Deprecated since Python 3.4; removed in Python 3.12. The module spec is now used by the import machinery to generate a module repr."
+                "Deprecated since Python 3.4; removed in Python 3.12. "
+                "The module spec is now used by the import machinery to generate a module repr."
             )
             def module_repr(module: types.ModuleType) -> str: ...
 
@@ -181,14 +182,16 @@ else:
         if sys.version_info >= (3, 10):
             @staticmethod
             @deprecated(
-                "Deprecated since Python 3.4; removed in Python 3.12. The module spec is now used by the import machinery to generate a module repr."
+                "Deprecated since Python 3.4; removed in Python 3.12. "
+                "The module spec is now used by the import machinery to generate a module repr."
             )
             def module_repr(module: types.ModuleType) -> str: ...
             def get_resource_reader(self, module: types.ModuleType) -> importlib.readers.NamespaceReader: ...
         else:
             @classmethod
             @deprecated(
-                "Deprecated since Python 3.4; removed in Python 3.12. The module spec is now used by the import machinery to generate a module repr."
+                "Deprecated since Python 3.4; removed in Python 3.12. "
+                "The module spec is now used by the import machinery to generate a module repr."
             )
             def module_repr(cls, module: types.ModuleType) -> str: ...
 

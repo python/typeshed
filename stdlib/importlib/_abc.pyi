@@ -9,7 +9,8 @@ if sys.version_info >= (3, 10):
         def load_module(self, fullname: str) -> types.ModuleType: ...
         if sys.version_info < (3, 12):
             @deprecated(
-                "Deprecated since Python 3.4; removed in Python 3.12. The module spec is now used by the import machinery to generate a module repr."
+                "Deprecated since Python 3.4; removed in Python 3.12. "
+                "The module spec is now used by the import machinery to generate a module repr."
             )
             def module_repr(self, module: types.ModuleType) -> str: ...
 
