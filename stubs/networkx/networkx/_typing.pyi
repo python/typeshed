@@ -1,3 +1,5 @@
+# Stub-only module, can't be imported at runtime.
+
 from typing import TypeVar
 from typing_extensions import TypeAlias
 
