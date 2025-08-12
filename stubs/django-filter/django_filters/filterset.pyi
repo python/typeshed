@@ -1,4 +1,5 @@
 from collections import OrderedDict
+from collections.abc import Collection
 from enum import Enum
 from typing import Any, ClassVar
 
@@ -18,8 +19,8 @@ class UnknownFieldBehavior(Enum):
 
 class FilterSetOptions:
     model: type[Model] | None
-    fields: list[str] | dict[str, list[str]] | str | None
-    exclude: list[str] | None
+    fields: Collection[str] | dict[str, Collection[str]] | str | None
+    exclude: Collection[str] | None
     filter_overrides: dict[type[models.Field[Any, Any]], dict[str, Any]]  # Field override mapping
     form: type[Form]
     unknown_field_behavior: UnknownFieldBehavior
@@ -81,5 +82,7 @@ class BaseFilterSet:
 class FilterSet(BaseFilterSet, metaclass=FilterSetMetaclass): ...
 
 def filterset_factory(
-    model: type[Model], filterset: FilterSetMetaclass = ..., fields: list[str] | dict[str, list[str]] | str | None = None
+    model: type[Model],
+    filterset: FilterSetMetaclass = ...,
+    fields: Collection[str] | dict[str, Collection[str]] | str | None = None,
 ) -> type[FilterSet]: ...
