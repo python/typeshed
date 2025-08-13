@@ -1,13 +1,13 @@
 import os
 from collections.abc import Callable, Mapping, MutableMapping
 from logging import Logger
-from typing import IO, Any, SupportsIndex, TypedDict, TypeVar, overload
+from typing import IO, Any, ClassVar, SupportsIndex, TypedDict, TypeVar, overload
 from typing_extensions import TypeAlias, Unpack
 from urllib.parse import ParseResult
 
 from .fileaware_mapping import FileAwareMapping
 
-Openable = ...
+Openable: tuple[type, ...]
 logger: Logger
 
 class NoValue: ...
@@ -29,22 +29,22 @@ _BooleanTrueStrings: TypeAlias = tuple[str, ...]
 
 class Env:
     ENVIRON: MutableMapping[_Str, _Str]
-    NOTSET: NoValue
-    BOOLEAN_TRUE_STRINGS: _BooleanTrueStrings
-    URL_CLASS = ParseResult
-    POSTGRES_FAMILY: _List[_Str]
-    DEFAULT_DATABASE_ENV: _Str = "DATABASE_URL"
-    DB_SCHEMES: _Dict[_Str, _Str]
-    DEFAULT_CACHE_ENV: _Str = "CACHE_URL"
-    CACHE_SCHEMES: _Dict[_Str, _Str]
-    DEFAULT_EMAIL_ENV: _Str = "EMAIL_URL"
-    EMAIL_SCHEMES: _Dict[_Str, _Str]
-    DEFAULT_SEARCH_ENV: _Str = "SEARCH_URL"
-    SEARCH_SCHEMES: _Dict[_Str, _Str]
-    ELASTICSEARCH_FAMILY: _List[_Str]
-    CLOUDSQL: _Str
-    DEFAULT_CHANNELS_ENV: _Str = "CHANNELS_URL"
-    CHANNELS_SCHEMES: _Dict[_Str, _Str]
+    NOTSET: ClassVar[NoValue]
+    BOOLEAN_TRUE_STRINGS: ClassVar[_BooleanTrueStrings]
+    URL_CLASS: ClassVar[type[ParseResult]]
+    POSTGRES_FAMILY: ClassVar[_List[_Str]]
+    DEFAULT_DATABASE_ENV: ClassVar[_Str] = "DATABASE_URL"
+    DB_SCHEMES: ClassVar[_Dict[_Str, _Str]]
+    DEFAULT_CACHE_ENV: ClassVar[_Str] = "CACHE_URL"
+    CACHE_SCHEMES: ClassVar[_Dict[_Str, _Str]]
+    DEFAULT_EMAIL_ENV: ClassVar[_Str] = "EMAIL_URL"
+    EMAIL_SCHEMES: ClassVar[_Dict[_Str, _Str]]
+    DEFAULT_SEARCH_ENV: ClassVar[_Str] = "SEARCH_URL"
+    SEARCH_SCHEMES: ClassVar[_Dict[_Str, _Str]]
+    ELASTICSEARCH_FAMILY: ClassVar[_List[_Str]]
+    CLOUDSQL: ClassVar[_Str]
+    DEFAULT_CHANNELS_ENV: ClassVar[_Str] = "CHANNELS_URL"
+    CHANNELS_SCHEMES: ClassVar[_Dict[_Str, _Str]]
     smart_cast: _Bool
     escape_proxy: _Bool
     prefix: _Str
@@ -63,7 +63,7 @@ class Env:
     def json(self, var: _Str, default: Any | NoValue = ...) -> Any: ...
     def list(self, var: _Str, cast: _Cast[_List] | None = None, default: _List | NoValue = ...) -> _List: ...
     def tuple(self, var: _Str, cast: _Cast[_Tuple] | None = None, default: _Tuple | NoValue = ...) -> _Tuple: ...
-    def dict(self, var: _Str, cast: _Cast[_Dict] | None = None, default: _Dict | NoValue = ...) -> _Dict: ...
+    def dict(self, var: _Str, cast: _Cast[_Dict] | None = ..., default: _Dict | NoValue = ...) -> _Dict: ...
     def url(self, var: _Str, default: _Str | NoValue = ...) -> _Str: ...
     def db_url(self, var: _Str = ..., default: _Str | NoValue = ..., engine: _Str | None = None) -> _Dict: ...
 
