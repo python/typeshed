@@ -94,8 +94,8 @@ _JSON: TypeAlias = dict[str, _JSONValue]
 
 @type_check_only
 class _Job(TypedDict, total=False):
-    _class: str
-    url: str
+    _class: Required[str]
+    url: Required[str]
     color: str
     name: Required[str]
     fullname: Required[str]
