@@ -171,11 +171,6 @@ gevent.socket.socket.closed
 gevent.socket.wait_readwrite
 gevent.socket.wait_write
 
-# See https://github.com/python/typeshed/pull/14503/files#r2247065318 for why a
-# default of `0` is exposed, even though the physical default that stubtest
-# can see is `-1`.
-gevent.socket.SocketType.__init__
-
 # we have punted on ssl, the gevent version of these functions have an additional
 # argument for timeouts/blocking and there are some with different default values
 # for nbytes/length, for now we ignore that fact
