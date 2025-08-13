@@ -4,7 +4,7 @@ from _typeshed import Incomplete
 from abc import abstractmethod
 from collections import Counter
 from collections.abc import Callable, Generator, Iterable, Iterator, Mapping, Sequence
-from typing import Any, ClassVar, Final, Literal, Protocol, SupportsIndex, TypeVar, overload
+from typing import Any, ClassVar, Final, Literal, Protocol, SupportsIndex, TypeVar, overload, type_check_only
 from typing_extensions import Self, TypeAlias, deprecated
 
 from docutils.frontend import Values
@@ -17,6 +17,7 @@ _ContentModelQuantifier: TypeAlias = Literal[".", "?", "+", "*"]
 _ContentModelItem: TypeAlias = tuple[_ContentModelCategory, _ContentModelQuantifier]
 _ContentModelTuple: TypeAlias = tuple[_ContentModelItem, ...]
 
+@type_check_only
 class _DomModule(Protocol):
     Document: type[xml.dom.minidom.Document]
 
