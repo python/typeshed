@@ -377,3 +377,7 @@ if sys.version_info >= (3, 14):
     # These return annotations, which can be arbitrary objects
     AnnotateFunc: TypeAlias = Callable[[Format], dict[str, AnnotationForm]]
     EvaluateFunc: TypeAlias = Callable[[Format], AnnotationForm]
+
+# Suitable for dictionary view objects
+class Viewable(Sized, Iterable[_KT_co], Protocol): ...
+class SupportsGetItemViewable(Viewable[_KT], SupportsGetItem[_KT, _VT_co], Protocol): ...
