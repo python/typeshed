@@ -1,6 +1,6 @@
 from collections.abc import Iterator, MutableMapping
 
-class FileAwareMapping(MutableMapping):
+class FileAwareMapping(MutableMapping[str, str]):
     env: dict[str, str]
     cache: bool
     files_cache: dict[str, str]
