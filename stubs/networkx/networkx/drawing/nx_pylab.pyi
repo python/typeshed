@@ -71,7 +71,7 @@ class _DrawNetworkxKwds(TypedDict, Generic[_Node], total=False):
     edgecolors: Literal["face", "none"] | ColorType | Collection[ColorType] | Collection[float] | None
     margins: float | tuple[float, float] | None
     # draw edges keywords; keep in sync with draw_networkx_edges
-    edgelist: Incomplete
+    edgelist: Collection[_Node | Hashable] | None  # (u, v, k) for multigraphs and (u, v) for simple graphs
     width: float | Collection[float]
     edge_color: ColorType | Collection[ColorType]
     style: str | Collection[str]
@@ -153,7 +153,7 @@ def draw_networkx(
     ax: Axes | None = None,
     **kwds: Unpack[_DrawNetworkxKwds[_Node]],
 ) -> None: ...
-def draw_networkx_nodes(
+def draw_networkx_nodes(  # keep in sync with _DrawNetworkxKwds above
     G: Graph[_Node],
     pos: Mapping[_Node, Collection[float]],
     nodelist: Collection[_Node] | None = None,
@@ -172,7 +172,7 @@ def draw_networkx_nodes(
     hide_ticks: bool = True,
 ) -> PathCollection: ...
 @overload  # arrows=None -> LineCollection if G is undirected, list[FancyArrowPatch] if G is directed
-def draw_networkx_edges(
+def draw_networkx_edges(  # keep in sync with _DrawNetworkxKwds above
     G: Graph[_Node],
     pos: Mapping[_Node, Collection[float]],
     edgelist: Collection[_Node | Hashable] | None = None,  # (u, v, k) for multigraphs and (u, v) for simple graphs
@@ -268,7 +268,7 @@ def draw_networkx_edges(
     node_shape: str = "o",
     hide_ticks: bool = True,
 ) -> LineCollection: ...
-def draw_networkx_labels(
+def draw_networkx_labels(  # keep in sync with _DrawNetworkxKwds above
     G: Graph[_Node],
     pos: Mapping[_Node, Collection[float]],
     labels: Mapping[_Node, object] | None = None,  # labels are explicitly converted to str
