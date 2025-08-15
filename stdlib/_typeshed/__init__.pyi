@@ -3,7 +3,7 @@
 # See the README.md file in this directory for more information.
 
 import sys
-from collections.abc import Awaitable, Callable, Iterable, Sequence, Set as AbstractSet, Sized
+from collections.abc import Awaitable, Callable, Iterable, Iterator, Sequence, Set as AbstractSet, Sized
 from dataclasses import Field
 from os import PathLike
 from types import FrameType, TracebackType
@@ -275,6 +275,16 @@ class SupportsWrite(Protocol[_T_contra]):
 class SupportsFlush(Protocol):
     def flush(self) -> object: ...
 
+# Suitable for dictionary view objects
+class Viewable(Protocol[_T_co]):
+    def __len__(self) -> int: ...
+    def __iter__(self) -> Iterator[_T_co]: ...
+
+class SupportsGetItemViewable(Protocol[_KT, _VT_co]):
+    def __len__(self) -> int: ...
+    def __iter__(self) -> Iterator[_KT]: ...
+    def __getitem__(self, key: _KT, /) -> _VT_co: ...
+
 # Unfortunately PEP 688 does not allow us to distinguish read-only
 # from writable buffers. We use these aliases for readability for now.
 # Perhaps a future extension of the buffer protocol will allow us to
@@ -377,7 +387,3 @@ if sys.version_info >= (3, 14):
     # These return annotations, which can be arbitrary objects
     AnnotateFunc: TypeAlias = Callable[[Format], dict[str, AnnotationForm]]
     EvaluateFunc: TypeAlias = Callable[[Format], AnnotationForm]
-
-# Suitable for dictionary view objects
-class Viewable(Sized, Iterable[_KT_co], Protocol): ...
-class SupportsGetItemViewable(Viewable[_KT], SupportsGetItem[_KT, _VT_co], Protocol): ...
