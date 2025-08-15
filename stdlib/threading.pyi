@@ -5,7 +5,7 @@ from _typeshed import ProfileFunction, TraceFunction
 from collections.abc import Callable, Iterable, Mapping
 from contextvars import ContextVar
 from types import TracebackType
-from typing import Any, TypeVar, final
+from typing import Any, Final, TypeVar, final
 from typing_extensions import deprecated
 
 _T = TypeVar("_T")
@@ -67,7 +67,7 @@ if sys.version_info >= (3, 10):
 
 def stack_size(size: int = 0, /) -> int: ...
 
-TIMEOUT_MAX: float
+TIMEOUT_MAX: Final[float]
 
 ThreadError = _thread.error
 local = _thread._local

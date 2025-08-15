@@ -8,7 +8,7 @@ _File: TypeAlias = str | IO[bytes]
 
 class Error(Exception): ...
 
-WAVE_FORMAT_PCM: Final = 1
+WAVE_FORMAT_PCM: Final = 0x0001
 
 class _wave_params(NamedTuple):
     nchannels: int
