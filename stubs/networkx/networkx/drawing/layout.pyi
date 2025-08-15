@@ -6,6 +6,7 @@ import numpy as np
 from networkx._typing import Array1D, Array2D, ArrayLike1D, Seed
 from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
+from numpy.typing import NDArray
 
 __all__ = [
     "bipartite_layout",
@@ -146,7 +147,7 @@ def forceatlas2_layout(
     dim: int = 2,
     store_pos_as: str | None = None,
 ) -> dict[_Node, Array1D[np.float32]]: ...
-def rescale_layout(pos: np.ndarray, scale: float = 1) -> Array2D[np.float64]: ...
+def rescale_layout(pos: NDArray[np.number[Any]], scale: float = 1) -> Array2D[np.float64]: ...  # ignore the bit base
 def rescale_layout_dict(pos: Mapping[_Node, Collection[float]], scale: float = 1) -> dict[_Node, Array1D[np.float64]]: ...
 def bfs_layout(
     G: Graph[_Node],
