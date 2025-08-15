@@ -9,7 +9,7 @@ from typing_extensions import Required, TypeAlias
 
 from . import Filter, Filterer, Formatter, Handler, Logger, _FilterType, _FormatStyle, _Level
 
-DEFAULT_LOGGING_CONFIG_PORT: int
+DEFAULT_LOGGING_CONFIG_PORT: Final = 9030
 RESET_ERROR: Final[int]  # undocumented
 IDENTIFIER: Final[Pattern[str]]  # undocumented
 

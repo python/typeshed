@@ -7,7 +7,7 @@ from re import Pattern
 from string import Template
 from time import struct_time
 from types import FrameType, GenericAlias, TracebackType
-from typing import Any, ClassVar, Final, Generic, Literal, Protocol, TextIO, TypeVar, overload
+from typing import Any, ClassVar, Final, Generic, Literal, Protocol, TextIO, TypeVar, overload, type_check_only
 from typing_extensions import Self, TypeAlias, deprecated
 
 __all__ = [
@@ -67,11 +67,13 @@ _Level: TypeAlias = int | str
 _FormatStyle: TypeAlias = Literal["%", "{", "$"]
 
 if sys.version_info >= (3, 12):
+    @type_check_only
     class _SupportsFilter(Protocol):
         def filter(self, record: LogRecord, /) -> bool | LogRecord: ...
 
     _FilterType: TypeAlias = Filter | Callable[[LogRecord], bool | LogRecord] | _SupportsFilter
 else:
+    @type_check_only
     class _SupportsFilter(Protocol):
         def filter(self, record: LogRecord, /) -> bool: ...
 
@@ -657,4 +659,4 @@ class StringTemplateStyle(PercentStyle):  # undocumented
 
 _STYLES: Final[dict[str, tuple[PercentStyle, str]]]
 
-BASIC_FORMAT: Final[str]
+BASIC_FORMAT: Final = "%(levelname)s:%(name)s:%(message)s"

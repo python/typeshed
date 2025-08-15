@@ -66,7 +66,7 @@ from sqlite3 import (
     Row as Row,
     Warning as Warning,
 )
-from typing import Literal
+from typing import Final, Literal
 from typing_extensions import deprecated
 
 if sys.version_info >= (3, 12):
@@ -212,7 +212,7 @@ if sys.version_info >= (3, 11):
 
 if sys.version_info < (3, 14):
     # Deprecated and removed from _sqlite3 in 3.12, but removed from here in 3.14.
-    version: str
+    version: Final[str]
 
 if sys.version_info < (3, 12):
     if sys.version_info >= (3, 10):
@@ -227,9 +227,9 @@ if sys.version_info < (3, 12):
 if sys.version_info < (3, 10):
     from _sqlite3 import OptimizedUnicode as OptimizedUnicode
 
-paramstyle: str
+paramstyle: Final = "qmark"
 threadsafety: Literal[0, 1, 3]
-apilevel: str
+apilevel: Final[str]
 Date = date
 Time = time
 Timestamp = datetime
@@ -240,7 +240,7 @@ def TimestampFromTicks(ticks: float) -> Timestamp: ...
 
 if sys.version_info < (3, 14):
     # Deprecated in 3.12, removed in 3.14.
-    version_info: tuple[int, int, int]
+    version_info: Final[tuple[int, int, int]]
 
-sqlite_version_info: tuple[int, int, int]
+sqlite_version_info: Final[tuple[int, int, int]]
 Binary = memoryview
