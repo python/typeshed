@@ -33,7 +33,7 @@ _SendErrs: TypeAlias = dict[str, _Reply]
 SMTP_PORT: Final = 25
 SMTP_SSL_PORT: Final = 465
 CRLF: Final[str]
-bCRLF: Final[str]
+bCRLF: Final[bytes]
 
 OLDSTYLE_AUTH: Final[Pattern[str]]
 
