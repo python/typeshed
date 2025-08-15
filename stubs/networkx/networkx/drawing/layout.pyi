@@ -1,5 +1,6 @@
 from collections.abc import Collection, Mapping
 from typing import Any, Literal
+from typing_extensions import TypeAlias
 
 import numpy as np
 from networkx._typing import Array1D, Array2D, ArrayLike1D, Seed
@@ -25,26 +26,24 @@ __all__ = [
     "arf_layout",
 ]
 
+_FloatArrayLike1D: TypeAlias = ArrayLike1D[float, np.number[Any]]  # Any because we don't care about the bit base
+
 def random_layout(
     G: Graph[_Node],
-    center: ArrayLike1D[float, np.number] | None = None,
+    center: _FloatArrayLike1D | None = None,
     dim: int = 2,
     seed: Seed | None = None,
     store_pos_as: str | None = None,
 ) -> dict[_Node, Array1D[np.float32]]: ...
 def circular_layout(
-    G: Graph[_Node],
-    scale: float = 1,
-    center: ArrayLike1D[float, np.number] | None = None,
-    dim: int = 2,
-    store_pos_as: str | None = None,
+    G: Graph[_Node], scale: float = 1, center: _FloatArrayLike1D | None = None, dim: int = 2, store_pos_as: str | None = None
 ) -> dict[_Node, Array1D[np.float64]]: ...
 def shell_layout(
     G: Graph[_Node],
     nlist: Collection[Collection[_Node]] | None = None,
     rotate: float | None = None,
     scale: float = 1,
-    center: ArrayLike1D[float, np.number] | None = None,
+    center: _FloatArrayLike1D | None = None,
     dim: int = 2,
     store_pos_as: str | None = None,
 ) -> dict[_Node, Array1D[np.float64]]: ...
@@ -53,7 +52,7 @@ def bipartite_layout(
     nodes: Collection[_Node] | None = None,
     align: Literal["vertical", "horizontal"] = "vertical",
     scale: float = 1,
-    center: ArrayLike1D[float, np.number] | None = None,
+    center: _FloatArrayLike1D | None = None,
     aspect_ratio: float = ...,
     store_pos_as: str | None = None,
 ) -> dict[_Node, Array1D[np.float64]]: ...
@@ -66,7 +65,7 @@ def spring_layout(
     threshold: float = 0.0001,
     weight: str | None = "weight",
     scale: float | None = 1,
-    center: ArrayLike1D[float, np.number] | None = None,
+    center: _FloatArrayLike1D | None = None,
     dim: int = 2,
     seed: Seed | None = None,
     store_pos_as: str | None = None,
@@ -83,7 +82,7 @@ def kamada_kawai_layout(
     pos: Mapping[_Node, Collection[float]] | None = None,
     weight: str | None = "weight",
     scale: float = 1,
-    center: ArrayLike1D[float, np.number] | None = None,
+    center: _FloatArrayLike1D | None = None,
     dim: int = 2,
     store_pos_as: str | None = None,
 ) -> dict[_Node, Array1D[np.float64]]: ...
@@ -91,21 +90,17 @@ def spectral_layout(
     G: Graph[_Node],
     weight: str | None = "weight",
     scale: float = 1,
-    center: ArrayLike1D[float, np.number] | None = None,
+    center: _FloatArrayLike1D | None = None,
     dim: int = 2,
     store_pos_as: str | None = None,
 ) -> dict[_Node, Array1D[np.float64]]: ...
 def planar_layout(
-    G: Graph[_Node],
-    scale: float = 1,
-    center: ArrayLike1D[float, np.number] | None = None,
-    dim: int = 2,
-    store_pos_as: str | None = None,
+    G: Graph[_Node], scale: float = 1, center: _FloatArrayLike1D | None = None, dim: int = 2, store_pos_as: str | None = None
 ) -> dict[_Node, Array1D[np.float64]]: ...
 def spiral_layout(
     G: Graph[_Node],
     scale: float = 1,
-    center: ArrayLike1D[float, np.number] | None = None,
+    center: _FloatArrayLike1D | None = None,
     dim: int = 2,
     resolution: float = 0.35,
     equidistant: bool = False,
@@ -116,7 +111,7 @@ def multipartite_layout(
     subset_key: str | Mapping[Any, Collection[_Node]] = "subset",  # layers can be "any" hashable
     align: Literal["vertical", "horizontal"] = "vertical",
     scale: float = 1,
-    center: ArrayLike1D[float, np.number] | None = None,
+    center: _FloatArrayLike1D | None = None,
     store_pos_as: str | None = None,
 ) -> dict[_Node, Array1D[np.float64]]: ...
 def arf_layout(
@@ -159,6 +154,6 @@ def bfs_layout(
     *,
     align: Literal["vertical", "horizontal"] = "vertical",
     scale: float = 1,
-    center: ArrayLike1D[float, np.number] | None = None,
+    center: _FloatArrayLike1D | None = None,
     store_pos_as: str | None = None,
 ) -> dict[_Node, Array1D[np.float64]]: ...
