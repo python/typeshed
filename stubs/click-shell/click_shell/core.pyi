@@ -9,9 +9,7 @@ logger: Logger
 
 def get_invoke(command: click.Command) -> Callable[[ClickCmd, str], bool]: ...
 def get_help(command: click.Command) -> Callable[[ClickCmd], None]: ...
-def get_complete(
-    command: click.Command,
-) -> Callable[[ClickCmd, str, str, int, int], list[str]]: ...
+def get_complete(command: click.Command) -> Callable[[ClickCmd, str, str, int, int], list[str]]: ...
 
 class ClickShell(ClickCmd):
     def add_command(self, cmd: click.Command, name: str) -> None: ...
@@ -26,10 +24,7 @@ def make_click_shell(
 class Shell(click.Group):
     def __init__(
         self,
-        prompt: str
-        | Callable[[], str]
-        | Callable[[click.Context, str], str]
-        | None = None,
+        prompt: str | Callable[[], str] | Callable[[click.Context, str], str] | None = None,
         intro: str | None = None,
         hist_file: str | None = None,
         on_finished: Callable[[click.Context], None] | None = None,
