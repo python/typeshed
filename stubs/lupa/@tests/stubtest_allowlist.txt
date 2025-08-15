@@ -1,0 +1,9 @@
+# These are type aliases and not real objects
+lupa.lua51.LuaKey
+lupa.lua51.LuaObject
+lupa.lua52.LuaKey
+lupa.lua52.LuaObject
+lupa.lua53.LuaKey
+lupa.lua53.LuaObject
+lupa.lua54.LuaKey
+lupa.lua54.LuaObject
