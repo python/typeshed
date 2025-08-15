@@ -67,6 +67,7 @@ from sqlite3 import (
     Warning as Warning,
 )
 from typing import Final, Literal
+from typing_extensions import deprecated
 
 if sys.version_info >= (3, 12):
     from _sqlite3 import (
@@ -216,6 +217,9 @@ if sys.version_info < (3, 14):
 if sys.version_info < (3, 12):
     if sys.version_info >= (3, 10):
         # deprecation wrapper that has a different name for the argument...
+        @deprecated(
+            "Deprecated since 3.10; removed in Python 3.12. Instead, open database in URI mode using `cache=shared` parameter."
+        )
         def enable_shared_cache(enable: int) -> None: ...
     else:
         from _sqlite3 import enable_shared_cache as enable_shared_cache
