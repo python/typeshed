@@ -466,7 +466,6 @@ typing._Final.__init_subclass__
 typing\.Protocol
 typing(_extensions)?\._TypedDict
 typing(_extensions)?\.Any.*
-typing(_extensions)?\.Generic
 typing(_extensions)?\.TypedDict
 typing_extensions\.ParamSpec.*
 typing_extensions\.TypeVar.*
