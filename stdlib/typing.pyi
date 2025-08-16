@@ -235,7 +235,6 @@ class _SpecialForm(_Final):
         def __ror__(self, other: Any) -> _SpecialForm: ...
 
 Union: _SpecialForm
-Generic: _SpecialForm
 Protocol: _SpecialForm
 Callable: _SpecialForm
 Type: _SpecialForm
@@ -439,6 +438,14 @@ Annotated: _SpecialForm
 
 # Predefined type variables.
 AnyStr = TypeVar("AnyStr", str, bytes)  # noqa: Y001
+
+if sys.version_info >= (3, 12):
+    class Generic:
+        @classmethod
+        def __class_getitem__(cls, args: TypeVar | ParamSpec | tuple[TypeVar | ParamSpec, ...]) -> _Final: ...
+else:
+    # Dummy case; true definition accessible in typing
+    Generic: _SpecialForm
 
 class _ProtocolMeta(ABCMeta):
     if sys.version_info >= (3, 12):
