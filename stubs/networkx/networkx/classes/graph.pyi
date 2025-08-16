@@ -8,6 +8,7 @@ from networkx.classes.coreviews import AdjacencyView, AtlasView
 from networkx.classes.digraph import DiGraph
 from networkx.classes.reportviews import DegreeView, EdgeView, NodeView
 
+_DefaultT = TypeVar("_DefaultT")
 _Node = TypeVar("_Node", bound=Hashable)
 _NodeWithData: TypeAlias = tuple[_Node, dict[str, Any]]
 _NodePlus: TypeAlias = _Node | _NodeWithData[_Node]
@@ -82,7 +83,7 @@ class Graph(Collection[_Node]):
     def neighbors(self, n: _Node) -> Iterator[_Node]: ...
     @cached_property
     def edges(self) -> EdgeView[_Node]: ...
-    def get_edge_data(self, u: _Node, v: _Node, default: Any = None) -> dict[str, Any]: ...
+    def get_edge_data(self, u: _Node, v: _Node, default: _DefaultT | None = None) -> dict[str, Any] | _DefaultT: ...
     # default:  any Python object
     def adjacency(self) -> Iterator[tuple[_Node, dict[_Node, dict[str, Any]]]]: ...
     @cached_property
