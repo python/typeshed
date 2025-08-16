@@ -56,11 +56,10 @@ jobs:
       - run: uv pip install -r requirements-tests.txt --system
       - name: Install required APT packages
         run: |
-          sudo apt-get update -qy
-          DEPENDENCIES=$( python tests/get_external_apt_dependencies.py )
-          if [ -n "$DEPENDENCIES" ]; then
-              printf "Installing APT packages:\n  $(echo $DEPENDENCIES | sed 's/ /\n  /g')\n"
-              sudo apt-get install -qy $DEPENDENCIES
+          PACKAGES=$(python tests/get_stubtest_system_requirements.py)
+          if [ -n "$PACKAGES" ]; then
+            printf "Installing APT packages:\n  $(echo $PACKAGES | sed 's/ /\n  /g')\n"
+            sudo apt-get update -q && sudo apt-get install -qy $PACKAGES
           fi
       - name: Run mypy_test.py
         run: |
@@ -108,24 +107,23 @@ jobs:
         with:
           version-file: "requirements-tests.txt"
       - name: Install typeshed test-suite requirements
-        # Install these so we can run `get_external_stub_requirements.py`
+        # Install these so we can run `get_*_requirements.py`
         run: uv pip install -r requirements-tests.txt --system
       - name: Install required APT packages
         run: |
-          sudo apt-get update -qy
-          DEPENDENCIES=$( python tests/get_external_apt_dependencies.py )
-          if [ -n "$DEPENDENCIES" ]; then
-              printf "Installing APT packages:\n  $(echo $DEPENDENCIES | sed 's/ /\n  /g')\n"
-              sudo apt-get install -qy $DEPENDENCIES
+          PACKAGES=$(python tests/get_stubtest_system_requirements.py)
+          if [ -n "$PACKAGES" ]; then
+            printf "Installing APT packages:\n  $(echo $PACKAGES | sed 's/ /\n  /g')\n"
+            sudo apt-get update -q && sudo apt-get install -qy $PACKAGES
           fi
       - name: Create an isolated venv for testing
         run: uv venv .venv
       - name: Install 3rd-party stub dependencies
         run: |
-          DEPENDENCIES=$( python tests/get_external_stub_requirements.py )
-          if [ -n "$DEPENDENCIES" ]; then
-              printf "Installing packages:\n  $(echo $DEPENDENCIES | sed 's/ /\n  /g')\n"
-              uv pip install --python-version ${{ matrix.python-version }} $DEPENDENCIES
+          PACKAGES=$(python tests/get_external_stub_requirements.py)
+          if [ -n "$PACKAGES" ]; then
+              printf "Installing python packages:\n  $(echo $PACKAGES | sed 's/ /\n  /g')\n"
+              uv pip install --python-version ${{ matrix.python-version }} $PACKAGES
           fi
       - name: Activate the isolated venv for the rest of the job
         run: echo "$PWD/.venv/bin" >> $GITHUB_PATH
