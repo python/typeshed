@@ -444,7 +444,7 @@ if sys.version_info >= (3, 12):
     class _Generic:
         @classmethod
         def __class_getitem__(cls, args: TypeVar | ParamSpec | tuple[TypeVar | ParamSpec, ...]) -> _Final: ...
-    
+
     Generic: type[_Generic]
 else:
     # Dummy case; true definition accessible in typing
