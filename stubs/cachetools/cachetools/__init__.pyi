@@ -95,6 +95,7 @@ class TTLCache(_TimedCache[_KT, _VT]):
     def expire(self, time: float | datetime | None = None) -> list[tuple[_KT, _VT]]: ...
 
 class TLRUCache(_TimedCache[_KT, _VT]):
+    @overload
     def __init__(
         self,
         maxsize: float,
@@ -102,9 +103,17 @@ class TLRUCache(_TimedCache[_KT, _VT]):
         timer: Callable[[], float] = ...,
         getsizeof: Callable[[_VT], float] | None = None,
     ) -> None: ...
+    @overload
+    def __init__(
+        self,
+        maxsize: float,
+        ttu: Callable[[_KT, _VT, datetime], timedelta],
+        timer: Callable[[], datetime] = ...,
+        getsizeof: Callable[[_VT], float] | None = None,
+    ) -> None: ...
     @property
-    def ttu(self) -> Callable[[_KT, _VT, float], float]: ...
-    def expire(self, time: float | None = None) -> list[tuple[_KT, _VT]]: ...
+    def ttu(self) -> Callable[[_KT, _VT, float], float] | Callable[[_KT, _VT, datetime], timedelta]: ...
+    def expire(self, time: float | datetime | None = None) -> list[tuple[_KT, _VT]]: ...
 
 @overload
 def cached(
