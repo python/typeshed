@@ -81,7 +81,9 @@ class TTLCache(_TimedCache[_KT, _VT]):
     @overload
     def __init__(self, maxsize: float, ttl: float, timer: Callable[[], float], getsizeof: Callable[[_VT], float]) -> None: ...
     @overload
-    def __init__(self, maxsize: float, ttl: timedelta, timer: Callable[[], datetime], getsizeof: Callable[[_VT], float]) -> None: ...
+    def __init__(
+        self, maxsize: float, ttl: timedelta, timer: Callable[[], datetime], getsizeof: Callable[[_VT], float]
+    ) -> None: ...
     @overload
     def __init__(
         self, maxsize: float, ttl: float, timer: Callable[[], float] = ..., *, getsizeof: Callable[[_VT], float]
