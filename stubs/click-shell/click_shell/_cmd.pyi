@@ -1,11 +1,18 @@
 from cmd import Cmd
-from typing import Any
+from typing import Any, ClassVar, TextIO
 
 import click
 
 class ClickCmd(Cmd):
-    nocommand = ...
-    def __init__(self, ctx: click.Context | None = None, hist_file: str | None = None, *args: Any, **kwargs: Any) -> None: ...
+    nocommand: ClassVar[str]
+    def __init__(
+        self,
+        ctx: click.Context,
+        hist_file: str | None = None,
+        completekey: str = "tab",
+        stdin: TextIO | None = None,
+        stdout: TextIO | None = None,
+    ) -> None: ...
     def preloop(self) -> None: ...
     def postloop(self) -> None: ...
     def cmdloop(self, intro: str | None = None) -> None: ...
