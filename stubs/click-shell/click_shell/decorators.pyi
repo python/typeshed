@@ -1,7 +1,7 @@
 from collections.abc import Callable
 from typing import Any
 
-from click import _AnyCallable
+from click.decorators import _AnyCallable
 
 from .core import Shell
 

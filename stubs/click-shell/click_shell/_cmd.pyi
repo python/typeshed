@@ -1,4 +1,5 @@
 from cmd import Cmd
+from collections.abc import Callable
 from typing import Any, ClassVar, TextIO
 
 import click
@@ -7,7 +8,8 @@ class ClickCmd(Cmd):
     nocommand: ClassVar[str]
     def __init__(
         self,
-        ctx: click.Context,
+        ctx: click.Context | None = None,
+        on_finished: Callable[[click.Context], None] | None = None,
         hist_file: str | None = None,
         completekey: str = "tab",
         stdin: TextIO | None = None,
