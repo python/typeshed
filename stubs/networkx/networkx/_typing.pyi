@@ -21,6 +21,7 @@ if sys.version_info >= (3, 10):
     ArrayLike1D: TypeAlias = Collection[_ScalarT] | SupportsArray[_GenericT, tuple[int]]
 else:
     # networkx does not support Python 3.9 but pyright still runs on 3.9 in CI
+    # See https://github.com/python/typeshed/issues/10722
     ArrayLike1D: TypeAlias = Collection[_ScalarT] | np.ndarray[tuple[int], np.dtype[_GenericT]]
 
 Array1D: TypeAlias = np.ndarray[tuple[int], np.dtype[_GenericT]]
