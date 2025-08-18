@@ -12,7 +12,7 @@ __all__ = ["all_pairs_lowest_common_ancestor", "tree_all_pairs_lowest_common_anc
 @_dispatchable
 def all_pairs_lowest_common_ancestor(
     G: DiGraph[_Node], pairs: Iterable[tuple[_Node, _Node]] | None = None
-) -> Generator[tuple[tuple[_Node, _Node], _Node | None], None, None]: ...
+) -> Generator[tuple[tuple[_Node, _Node], _Node | None]]: ...
 @_dispatchable
 def lowest_common_ancestor(
     G: DiGraph[_Node], node1: _Node, node2: _Node, default: _DefaultT | None = None
