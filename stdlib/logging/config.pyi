@@ -106,7 +106,7 @@ class ConvertingTuple(tuple[Any, ...], ConvertingMixin):  # undocumented
     @overload
     def __getitem__(self, key: slice) -> Any: ...
 
-class BaseConfigurator:  # undocumented
+class BaseConfigurator:
     CONVERT_PATTERN: Pattern[str]
     WORD_PATTERN: Pattern[str]
     DOT_PATTERN: Pattern[str]
