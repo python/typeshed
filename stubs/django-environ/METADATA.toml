@@ -1,2 +1,3 @@
 version = "0.12.*"
 upstream_repository = "https://github.com/joke2k/django-environ"
+requires = ["django-stubs"]
