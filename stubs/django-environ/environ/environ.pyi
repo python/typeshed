@@ -1,4 +1,16 @@
 from _typeshed import StrPath
+
+# Use aliases to avoid name conflicts with Path methods
+from builtins import (
+    bool as _bool,
+    bytes as _bytes,
+    dict as _dict,
+    float as _float,
+    int as _int,
+    list as _list,
+    str as _str,
+    tuple as _tuple,
+)
 from collections.abc import Callable, Mapping, MutableMapping
 from logging import Logger
 from typing import IO, Any, ClassVar, SupportsIndex, TypedDict, TypeVar, overload, type_check_only
@@ -12,21 +24,9 @@ logger: Logger
 
 class NoValue: ...
 
-# Some type aliases to make our life easier
-_Str = str
-_Bytes = bytes
-_Bool = bool
-_Int = int
-_Float = float
-_List = list
-_Tuple = tuple
-_Dict = dict
-
 _T = TypeVar("_T")
-_Cast: TypeAlias = Callable[[_Str], _T]
+_Cast: TypeAlias = Callable[[str], _T]
 _SchemeValue: TypeAlias = _Cast[Any] | tuple[_Cast[Any], Any]
-_BooleanTrueStrings: TypeAlias = tuple[str, ...]
-
 _EmptyDict: TypeAlias = dict[object, object]  # stands for {}
 
 @type_check_only
@@ -123,90 +123,90 @@ class CacheConfig(TypedDict, total=False):
     OPTIONS: dict[str, Any]
 
 class Env:
-    ENVIRON: MutableMapping[_Str, _Str]
+    ENVIRON: MutableMapping[_str, _str]
     NOTSET: ClassVar[NoValue]
-    BOOLEAN_TRUE_STRINGS: ClassVar[_BooleanTrueStrings]
+    BOOLEAN_TRUE_STRINGS: ClassVar[_tuple[str, ...]]
     URL_CLASS: ClassVar[type[ParseResult]]
-    POSTGRES_FAMILY: ClassVar[_List[_Str]]
-    DEFAULT_DATABASE_ENV: ClassVar[_Str] = "DATABASE_URL"
-    DB_SCHEMES: ClassVar[_Dict[_Str, _Str]]
-    DEFAULT_CACHE_ENV: ClassVar[_Str] = "CACHE_URL"
-    CACHE_SCHEMES: ClassVar[_Dict[_Str, _Str]]
-    DEFAULT_EMAIL_ENV: ClassVar[_Str] = "EMAIL_URL"
-    EMAIL_SCHEMES: ClassVar[_Dict[_Str, _Str]]
-    DEFAULT_SEARCH_ENV: ClassVar[_Str] = "SEARCH_URL"
-    SEARCH_SCHEMES: ClassVar[_Dict[_Str, _Str]]
-    ELASTICSEARCH_FAMILY: ClassVar[_List[_Str]]
-    CLOUDSQL: ClassVar[_Str]
-    DEFAULT_CHANNELS_ENV: ClassVar[_Str] = "CHANNELS_URL"
-    CHANNELS_SCHEMES: ClassVar[_Dict[_Str, _Str]]
-    smart_cast: _Bool
-    escape_proxy: _Bool
-    prefix: _Str
-    scheme: Mapping[_Str, _SchemeValue]
+    POSTGRES_FAMILY: ClassVar[_list[_str]]
+    DEFAULT_DATABASE_ENV: ClassVar[_str] = "DATABASE_URL"
+    DB_SCHEMES: ClassVar[_dict[_str, _str]]
+    DEFAULT_CACHE_ENV: ClassVar[_str] = "CACHE_URL"
+    CACHE_SCHEMES: ClassVar[_dict[_str, _str]]
+    DEFAULT_EMAIL_ENV: ClassVar[_str] = "EMAIL_URL"
+    EMAIL_SCHEMES: ClassVar[_dict[_str, _str]]
+    DEFAULT_SEARCH_ENV: ClassVar[_str] = "SEARCH_URL"
+    SEARCH_SCHEMES: ClassVar[_dict[_str, _str]]
+    ELASTICSEARCH_FAMILY: ClassVar[_list[_str]]
+    CLOUDSQL: ClassVar[_str]
+    DEFAULT_CHANNELS_ENV: ClassVar[_str] = "CHANNELS_URL"
+    CHANNELS_SCHEMES: ClassVar[_dict[_str, _str]]
+    smart_cast: _bool
+    escape_proxy: _bool
+    prefix: _str
+    scheme: Mapping[_str, _SchemeValue]
 
     def __init__(self, **scheme: _SchemeValue) -> None: ...
     def __call__(
-        self, var: _Str, cast: _Cast[_T] | None = None, default: _T | NoValue = ..., parse_default: _Bool = False
+        self, var: _str, cast: _Cast[_T] | None = None, default: _T | NoValue = ..., parse_default: _bool = False
     ) -> _T: ...
-    def __contains__(self, var: _Str) -> _Bool: ...
-    def str(self, var: _Str, default: _Str | NoValue = ..., multiline: _Bool = False) -> _Str: ...
-    def bytes(self, var: _Str, default: _Bytes | NoValue = ..., encoding: _Str = "utf8") -> _Bytes: ...
-    def bool(self, var: _Str, default: _Bool | NoValue = ...) -> _Bool: ...
-    def int(self, var: _Str, default: _Int | NoValue = ...) -> _Int: ...
-    def float(self, var: _Str, default: _Float | NoValue = ...) -> _Float: ...
-    def json(self, var: _Str, default: Any | NoValue = ...) -> Any: ...
-    def list(self, var: _Str, cast: _Cast[_List] | None = None, default: _List | NoValue = ...) -> _List: ...
-    def tuple(self, var: _Str, cast: _Cast[_Tuple] | None = None, default: _Tuple | NoValue = ...) -> _Tuple: ...
-    def dict(self, var: _Str, cast: _Cast[_Dict] | None = ..., default: _Dict | NoValue = ...) -> _Dict: ...
-    def url(self, var: _Str, default: _Str | NoValue = ...) -> _Str: ...
+    def __contains__(self, var: _str) -> _bool: ...
+    def str(self, var: _str, default: _str | NoValue = ..., multiline: _bool = False) -> _str: ...
+    def bytes(self, var: _str, default: _bytes | NoValue = ..., encoding: _str = "utf8") -> _bytes: ...
+    def bool(self, var: _str, default: _bool | NoValue = ...) -> _bool: ...
+    def int(self, var: _str, default: _int | NoValue = ...) -> _int: ...
+    def float(self, var: _str, default: _float | NoValue = ...) -> _float: ...
+    def json(self, var: _str, default: Any | NoValue = ...) -> Any: ...
+    def list(self, var: _str, cast: _Cast[_list] | None = None, default: _list | NoValue = ...) -> _list: ...
+    def tuple(self, var: _str, cast: _Cast[_tuple] | None = None, default: _tuple | NoValue = ...) -> _tuple: ...
+    def dict(self, var: _str, cast: _Cast[_dict] | None = ..., default: _dict | NoValue = ...) -> _dict: ...
+    def url(self, var: _str, default: _str | NoValue = ...) -> _str: ...
     def db_url(
-        self, var: _Str = ..., default: _Str | NoValue = ..., engine: _Str | None = None
+        self, var: _str = ..., default: _str | NoValue = ..., engine: _str | None = None
     ) -> MemoryDbConfig | DbConfig | _EmptyDict: ...
 
     db = db_url
 
     def cache_url(
-        self, var: _Str = ..., default: _Str | NoValue = ..., backend: _Str | None = None
+        self, var: _str = ..., default: _str | NoValue = ..., backend: _str | None = None
     ) -> CacheConfig | _EmptyDict: ...
 
     cache = cache_url
 
-    def email_url(self, var: _Str = ..., default: _Str | NoValue = ..., backend: _Str | None = None) -> EmailConfig: ...
+    def email_url(self, var: _str = ..., default: _str | NoValue = ..., backend: _str | None = None) -> EmailConfig: ...
 
     email = email_url
 
     def search_url(
-        self, var: _Str = ..., default: _Str | NoValue = ..., engine: _Str | None = None
+        self, var: _str = ..., default: _str | NoValue = ..., engine: _str | None = None
     ) -> SimpleSearchConfig | SolrSearchConfig | ElasticsearchSearchConfig | WhooshSearchConfig | XapianSearchConfig: ...
-    def channels_url(self, var: _Str = ..., default: _Str | NoValue = ..., backend: _Str | None = None) -> ChannelsConfig: ...
+    def channels_url(self, var: _str = ..., default: _str | NoValue = ..., backend: _str | None = None) -> ChannelsConfig: ...
 
     channels = channels_url
 
-    def path(self, var: _Str, default: _Str | NoValue = ..., **kwargs: Unpack[PathKwargs]) -> Path: ...
+    def path(self, var: _str, default: _str | NoValue = ..., **kwargs: Unpack[PathKwargs]) -> Path: ...
     def get_value(
-        self, var: _Str, cast: _Cast[_T] | None = None, default: _T | NoValue = ..., parse_default: _Bool = False
+        self, var: _str, cast: _Cast[_T] | None = None, default: _T | NoValue = ..., parse_default: _bool = False
     ) -> _T: ...
     @classmethod
-    def parse_value(cls, value: _Str, cast: _Cast[_T]) -> _T: ...
+    def parse_value(cls, value: _str, cast: _Cast[_T]) -> _T: ...
     @classmethod
-    def db_url_config(cls, url: _Str | ParseResult, engine: _Str | None = None) -> _Dict: ...
+    def db_url_config(cls, url: _str | ParseResult, engine: _str | None = None) -> _dict: ...
     @classmethod
-    def cache_url_config(cls, url: _Str | ParseResult, backend: _Str | None = None) -> _Dict: ...
+    def cache_url_config(cls, url: _str | ParseResult, backend: _str | None = None) -> _dict: ...
     @classmethod
-    def email_url_config(cls, url: _Str | ParseResult, backend: _Str | None = None) -> _Dict: ...
+    def email_url_config(cls, url: _str | ParseResult, backend: _str | None = None) -> _dict: ...
     @classmethod
-    def channels_url_config(cls, url: _Str | ParseResult, backend: _Str | None = None) -> _Dict: ...
+    def channels_url_config(cls, url: _str | ParseResult, backend: _str | None = None) -> _dict: ...
     @classmethod
-    def search_url_config(cls, url: _Str | ParseResult, engine: _Str | None = None) -> _Dict: ...
+    def search_url_config(cls, url: _str | ParseResult, engine: _str | None = None) -> _dict: ...
     @classmethod
     def read_env(
         cls,
         env_file: StrPath | None = None,
-        overwrite: _Bool = False,
-        parse_comments: _Bool = False,
-        encoding: _Str = "utf8",
-        **overrides: _Dict[_Str, _Str],
+        overwrite: _bool = False,
+        parse_comments: _bool = False,
+        encoding: _str = "utf8",
+        **overrides: _dict[_str, _str],
     ) -> None: ...
 
 class FileAwareEnv(Env):
