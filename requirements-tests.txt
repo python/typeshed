@@ -21,7 +21,7 @@ stubdefaulter==0.1.0; python_version < "3.14"
 termcolor>=2.3
 tomli==2.2.1; python_version < "3.11"
 tomlkit==0.13.3
-typing_extensions>=4.14.0rc1
+typing_extensions>=4.15.0rc1
 uv==0.8.6
 
 # Utilities for typeshed infrastructure scripts.
