@@ -443,7 +443,6 @@ AnyStr = TypeVar("AnyStr", str, bytes)  # noqa: Y001
 class _Generic:
     if sys.version_info < (3, 12):
         __slots__ = ()
-        _is_protocol: bool = False
 
     if sys.version_info >= (3, 10):
         @classmethod
