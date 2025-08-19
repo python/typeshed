@@ -1,4 +1,5 @@
 from collections.abc import Generator, Iterable
+from typing import overload
 from typing_extensions import TypeVar
 
 from networkx.classes.digraph import DiGraph
@@ -13,10 +14,12 @@ __all__ = ["all_pairs_lowest_common_ancestor", "tree_all_pairs_lowest_common_anc
 def all_pairs_lowest_common_ancestor(
     G: DiGraph[_Node], pairs: Iterable[tuple[_Node, _Node]] | None = None
 ) -> Generator[tuple[tuple[_Node, _Node], _Node | None]]: ...
+@overload
 @_dispatchable
-def lowest_common_ancestor(
-    G: DiGraph[_Node], node1: _Node, node2: _Node, default: _DefaultT | None = None
-) -> _Node | _DefaultT: ...
+def lowest_common_ancestor(G: DiGraph[_Node], node1: _Node, node2: _Node, default: None = None) -> _Node | None: ...
+@overload
+@_dispatchable
+def lowest_common_ancestor(G: DiGraph[_Node], node1: _Node, node2: _Node, default: _DefaultT) -> _Node | _DefaultT: ...
 @_dispatchable
 def tree_all_pairs_lowest_common_ancestor(
     G: DiGraph[_Node], root: _Node | None = None, pairs: Iterable[tuple[_Node, _Node]] | None = None
