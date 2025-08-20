@@ -78,9 +78,8 @@ def canonicalize(
 ) -> None: ...
 
 # The tag for Element can be set to the Comment or ProcessingInstruction
-# functions defined in this module. _ElementCallable could be a recursive
-# type, but defining it that way uncovered a bug in pytype.
-_ElementCallable: TypeAlias = Callable[..., Element[Any]]
+# functions defined in this module.
+_ElementCallable: TypeAlias = Callable[..., Element[_ElementCallable]]
 _CallableElement: TypeAlias = Element[_ElementCallable]
 
 _Tag = TypeVar("_Tag", default=str, bound=str | _ElementCallable)
