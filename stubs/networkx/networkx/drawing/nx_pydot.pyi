@@ -4,7 +4,7 @@ from typing import Any
 
 from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
-from pydot import Dot  # type: ignore[import-not-found]
+from pydot import Dot  # type: ignore[import-not-found]  # pyright: ignore[reportMissingImports]
 
 __all__ = ["write_dot", "read_dot", "graphviz_layout", "pydot_layout", "to_pydot", "from_pydot"]
 
