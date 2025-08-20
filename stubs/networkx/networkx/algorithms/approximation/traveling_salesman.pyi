@@ -15,6 +15,7 @@ __all__ = [
     "simulated_annealing_tsp",
     "threshold_accepting_tsp",
 ]
+
 _SupportsLenAndGetItemT = TypeVar("_SupportsLenAndGetItemT", bound=SupportsLenAndGetItem[Any])
 
 def swap_two_nodes(soln: _SupportsLenAndGetItemT, seed) -> _SupportsLenAndGetItemT: ...
