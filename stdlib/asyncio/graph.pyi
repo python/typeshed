@@ -6,11 +6,11 @@ from typing import Any, overload
 
 __all__ = ("capture_call_graph", "format_call_graph", "print_call_graph", "FrameCallGraphEntry", "FutureCallGraph")
 
-@dataclass(frozen=True)
+@dataclass(frozen=True, slots=True)
 class FrameCallGraphEntry:
     frame: FrameType
 
-@dataclass(frozen=True)
+@dataclass(frozen=True, slots=True)
 class FutureCallGraph:
     future: Future[Any]
     call_stack: tuple[FrameCallGraphEntry, ...]

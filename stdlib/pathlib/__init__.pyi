@@ -113,6 +113,9 @@ class PurePosixPath(PurePath): ...
 class PureWindowsPath(PurePath): ...
 
 class Path(PurePath):
+    if sys.version_info >= (3, 14):
+        __slots__ = ("_info",)
+
     if sys.version_info >= (3, 12):
         def __new__(cls, *args: StrPath, **kwargs: Unused) -> Self: ...  # pyright: ignore[reportInconsistentConstructor]
     else:
