@@ -24,9 +24,7 @@ def write_dot(
     G: Graph[_Node], path: str | IO[str] | IO[bytes] | _SupportsOpen[OpenTextModeWriting, IO[str] | IO[bytes]]
 ) -> None: ...
 @_dispatchable
-def read_dot(
-    path: str | IO[str] | IO[bytes] | _SupportsOpen[OpenTextModeReading, IO[str] | IO[bytes]],
-) -> Graph[Any]: ...  # type of node cannot be known statically
+def read_dot(path: str | IO[str] | IO[bytes] | _SupportsOpen[OpenTextModeReading, IO[str] | IO[bytes]]) -> Graph[str]: ...
 def graphviz_layout(
     G: Graph[_Node], prog: str = "neato", root: str | None = None, args: str = ""
 ) -> dict[_Node, tuple[float, float]]: ...
