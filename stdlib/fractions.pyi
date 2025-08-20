@@ -3,7 +3,7 @@ from collections.abc import Callable
 from decimal import Decimal
 from numbers import Rational, Real
 from typing import Any, Literal, Protocol, SupportsIndex, overload, type_check_only
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Self, TypeAlias, disjoint_base
 
 _ComparableNum: TypeAlias = int | float | Decimal | Real
 
@@ -13,6 +13,7 @@ __all__ = ["Fraction"]
 class _ConvertibleToIntegerRatio(Protocol):
     def as_integer_ratio(self) -> tuple[int | Rational, int | Rational]: ...
 
+@disjoint_base
 class Fraction(Rational):
     @overload
     def __new__(cls, numerator: int | Rational = 0, denominator: int | Rational | None = None) -> Self: ...

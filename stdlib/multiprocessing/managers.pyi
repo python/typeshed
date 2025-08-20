@@ -15,7 +15,7 @@ from collections.abc import (
 )
 from types import GenericAlias, TracebackType
 from typing import Any, AnyStr, ClassVar, Generic, SupportsIndex, TypeVar, overload
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Self, TypeAlias, disjoint_base
 
 from . import pool
 from .connection import Connection, _Address
@@ -37,6 +37,7 @@ class Namespace:
 
 _Namespace: TypeAlias = Namespace
 
+@disjoint_base
 class Token:
     typeid: str | bytes | None
     address: _Address | None

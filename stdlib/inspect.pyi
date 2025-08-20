@@ -26,7 +26,7 @@ from types import (
     WrapperDescriptorType,
 )
 from typing import Any, ClassVar, Final, Literal, NamedTuple, Protocol, TypeVar, overload, type_check_only
-from typing_extensions import ParamSpec, Self, TypeAlias, TypeGuard, TypeIs, deprecated
+from typing_extensions import ParamSpec, Self, TypeAlias, TypeGuard, TypeIs, deprecated, disjoint_base
 
 if sys.version_info >= (3, 14):
     from annotationlib import Format
@@ -335,6 +335,7 @@ else:
 class _void: ...
 class _empty: ...
 
+@disjoint_base
 class Signature:
     def __init__(
         self, parameters: Sequence[Parameter] | None = None, *, return_annotation: Any = ..., __validate_parameters__: bool = True
@@ -415,6 +416,7 @@ if sys.version_info >= (3, 12):
     ) -> Literal["AGEN_CREATED", "AGEN_RUNNING", "AGEN_SUSPENDED", "AGEN_CLOSED"]: ...
     def getasyncgenlocals(agen: AsyncGeneratorType[Any, Any]) -> dict[str, Any]: ...
 
+@disjoint_base
 class Parameter:
     def __init__(self, name: str, kind: _ParameterKind, *, default: Any = ..., annotation: Any = ...) -> None: ...
     empty = _empty
@@ -446,6 +448,7 @@ class Parameter:
     def __eq__(self, other: object) -> bool: ...
     def __hash__(self) -> int: ...
 
+@disjoint_base
 class BoundArguments:
     arguments: OrderedDict[str, Any]
     @property

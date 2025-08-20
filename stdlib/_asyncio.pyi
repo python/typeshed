@@ -4,12 +4,13 @@ from collections.abc import Awaitable, Callable, Coroutine, Generator
 from contextvars import Context
 from types import FrameType, GenericAlias
 from typing import Any, Literal, TextIO, TypeVar
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Self, TypeAlias, disjoint_base
 
 _T = TypeVar("_T")
 _T_co = TypeVar("_T_co", covariant=True)
 _TaskYieldType: TypeAlias = Future[object] | None
 
+@disjoint_base
 class Future(Awaitable[_T]):
     _state: str
     @property
@@ -49,6 +50,7 @@ else:
 # While this is true in general, here it's sort-of okay to have a covariant subclass,
 # since the only reason why `asyncio.Future` is invariant is the `set_result()` method,
 # and `asyncio.Task.set_result()` always raises.
+@disjoint_base
 class Task(Future[_T_co]):  # type: ignore[type-var]  # pyright: ignore[reportInvalidTypeArguments]
     if sys.version_info >= (3, 12):
         def __init__(

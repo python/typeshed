@@ -1,6 +1,6 @@
 from _typeshed import ReadableBuffer, SupportsRead
 from typing import Any, NoReturn
-from typing_extensions import TypeAlias
+from typing_extensions import TypeAlias, disjoint_base
 from xml.dom.minidom import Document, DocumentFragment, DOMImplementation, Element, Node, TypeInfo
 from xml.dom.xmlbuilder import DOMBuilderFilter, Options
 from xml.parsers.expat import XMLParserType
@@ -16,6 +16,7 @@ FILTER_SKIP = DOMBuilderFilter.FILTER_SKIP
 FILTER_INTERRUPT = DOMBuilderFilter.FILTER_INTERRUPT
 theDOMImplementation: DOMImplementation
 
+@disjoint_base
 class ElementInfo:
     tagName: str
     def __init__(self, tagName: str, model: _Model | None = None) -> None: ...
@@ -65,12 +66,14 @@ class ExpatBuilder:
     def attlist_decl_handler(self, elem: str, name: str, type: str, default: str | None, required: bool) -> None: ...
     def xml_decl_handler(self, version: str, encoding: str | None, standalone: int) -> None: ...
 
+@disjoint_base
 class FilterVisibilityController:
     filter: DOMBuilderFilter
     def __init__(self, filter: DOMBuilderFilter) -> None: ...
     def startContainer(self, node: Node) -> int: ...
     def acceptNode(self, node: Node) -> int: ...
 
+@disjoint_base
 class FilterCrutch:
     def __init__(self, builder: ExpatBuilder) -> None: ...
 

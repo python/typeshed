@@ -4,7 +4,7 @@ from _typeshed import Incomplete, ReadableBuffer, SupportsRead, SupportsWrite
 from collections.abc import Iterable, Sequence
 from types import TracebackType
 from typing import Any, ClassVar, Generic, Literal, NoReturn, Protocol, TypeVar, overload, type_check_only
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Self, TypeAlias, disjoint_base
 from xml.dom.minicompat import EmptyNodeList, NodeList
 from xml.dom.xmlbuilder import DocumentLS, DOMImplementationLS
 from xml.sax.xmlreader import XMLReader
@@ -187,6 +187,7 @@ class DocumentFragment(Node):
 _AttrChildrenVar = TypeVar("_AttrChildrenVar", bound=_AttrChildren)
 _AttrChildrenPlusFragment = TypeVar("_AttrChildrenPlusFragment", bound=_AttrChildren | DocumentFragment)
 
+@disjoint_base
 class Attr(Node):
     nodeType: ClassVar[Literal[2]]
     nodeName: str  # same as Attr.name
@@ -230,6 +231,7 @@ class Attr(Node):
 
 # In the DOM, this interface isn't specific to Attr, but our implementation is
 # because that's the only place we use it.
+@disjoint_base
 class NamedNodeMap:
     def __init__(self, attrs: dict[str, Attr], attrsNS: dict[_NSName, Attr], ownerElement: Element) -> None: ...
     @property
@@ -261,6 +263,7 @@ class NamedNodeMap:
 
 AttributeList = NamedNodeMap
 
+@disjoint_base
 class TypeInfo:
     namespace: str | None
     name: str | None
@@ -269,6 +272,7 @@ class TypeInfo:
 _ElementChildrenVar = TypeVar("_ElementChildrenVar", bound=_ElementChildren)
 _ElementChildrenPlusFragment = TypeVar("_ElementChildrenPlusFragment", bound=_ElementChildren | DocumentFragment)
 
+@disjoint_base
 class Element(Node):
     nodeType: ClassVar[Literal[1]]
     nodeName: str  # same as Element.tagName
@@ -346,6 +350,7 @@ class Childless:
     def normalize(self) -> None: ...
     def replaceChild(self, newChild: _NodesThatAreChildren | DocumentFragment, oldChild: _NodesThatAreChildren) -> NoReturn: ...
 
+@disjoint_base
 class ProcessingInstruction(Childless, Node):
     nodeType: ClassVar[Literal[7]]
     nodeName: str  # same as ProcessingInstruction.target
@@ -372,6 +377,7 @@ class ProcessingInstruction(Childless, Node):
     def __init__(self, target: str, data: str) -> None: ...
     def writexml(self, writer: SupportsWrite[str], indent: str = "", addindent: str = "", newl: str = "") -> None: ...
 
+@disjoint_base
 class CharacterData(Childless, Node):
     nodeValue: str
     attributes: None
@@ -459,6 +465,7 @@ class CDATASection(Text):
 
     def writexml(self, writer: SupportsWrite[str], indent: str = "", addindent: str = "", newl: str = "") -> None: ...
 
+@disjoint_base
 class ReadOnlySequentialNamedNodeMap(Generic[_N]):
     def __init__(self, seq: Sequence[_N] = ()) -> None: ...
     def __len__(self) -> int: ...
@@ -473,6 +480,7 @@ class ReadOnlySequentialNamedNodeMap(Generic[_N]):
     @property
     def length(self) -> int: ...
 
+@disjoint_base
 class Identified:
     publicId: str | None
     systemId: str | None
@@ -564,6 +572,7 @@ class DOMImplementation(DOMImplementationLS):
     def createDocumentType(self, qualifiedName: str | None, publicId: str | None, systemId: str | None) -> DocumentType: ...
     def getInterface(self, feature: str) -> Self | None: ...
 
+@disjoint_base
 class ElementInfo:
     tagName: str
     def __init__(self, name: str) -> None: ...
@@ -576,6 +585,7 @@ class ElementInfo:
 
 _DocumentChildrenPlusFragment = TypeVar("_DocumentChildrenPlusFragment", bound=_DocumentChildren | DocumentFragment)
 
+@disjoint_base
 class Document(Node, DocumentLS):
     nodeType: ClassVar[Literal[9]]
     nodeName: Literal["#document"]

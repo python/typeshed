@@ -4,7 +4,7 @@ from _weakrefset import WeakSet as WeakSet
 from collections.abc import Callable, Iterable, Iterator, Mapping, MutableMapping
 from types import GenericAlias
 from typing import Any, ClassVar, Generic, TypeVar, final, overload
-from typing_extensions import ParamSpec, Self
+from typing_extensions import ParamSpec, Self, disjoint_base
 
 __all__ = [
     "ref",
@@ -52,6 +52,7 @@ class ProxyType(Generic[_T]):  # "weakproxy"
     def __getattr__(self, attr: str) -> Any: ...
     __hash__: ClassVar[None]  # type: ignore[assignment]
 
+@disjoint_base
 class ReferenceType(Generic[_T]):  # "weakref"
     __callback__: Callable[[Self], Any]
     def __new__(cls, o: _T, callback: Callable[[Self], Any] | None = ..., /) -> Self: ...
@@ -64,6 +65,7 @@ ref = ReferenceType
 
 # everything below here is implemented in weakref.py
 
+@disjoint_base
 class WeakMethod(ref[_CallableT]):
     def __new__(cls, meth: _CallableT, callback: Callable[[Self], Any] | None = None) -> Self: ...
     def __call__(self) -> _CallableT | None: ...
@@ -129,6 +131,7 @@ class WeakValueDictionary(MutableMapping[_KT, _VT]):
     @overload
     def __ior__(self, other: Iterable[tuple[_KT, _VT]]) -> Self: ...
 
+@disjoint_base
 class KeyedRef(ref[_T], Generic[_KT, _T]):
     key: _KT
     def __new__(type, ob: _T, callback: Callable[[Self], Any], key: _KT) -> Self: ...

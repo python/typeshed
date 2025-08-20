@@ -3,10 +3,12 @@ from asyncio.protocols import BaseProtocol
 from collections.abc import Iterable, Mapping
 from socket import _Address
 from typing import Any
+from typing_extensions import disjoint_base
 
 # Keep asyncio.__all__ updated with any changes to __all__ here
 __all__ = ("BaseTransport", "ReadTransport", "WriteTransport", "Transport", "DatagramTransport", "SubprocessTransport")
 
+@disjoint_base
 class BaseTransport:
     def __init__(self, extra: Mapping[str, Any] | None = None) -> None: ...
     def get_extra_info(self, name: str, default: Any = None) -> Any: ...
@@ -46,5 +48,6 @@ class SubprocessTransport(BaseTransport):
     def terminate(self) -> None: ...
     def kill(self) -> None: ...
 
+@disjoint_base
 class _FlowControlMixin(Transport):
     def __init__(self, extra: Mapping[str, Any] | None = None, loop: AbstractEventLoop | None = None) -> None: ...

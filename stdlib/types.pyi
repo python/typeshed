@@ -17,7 +17,7 @@ from collections.abc import (
 )
 from importlib.machinery import ModuleSpec
 from typing import Any, ClassVar, Literal, TypeVar, final, overload
-from typing_extensions import ParamSpec, Self, TypeAliasType, TypeVarTuple, deprecated
+from typing_extensions import ParamSpec, Self, TypeAliasType, TypeVarTuple, deprecated, disjoint_base
 
 if sys.version_info >= (3, 14):
     from _typeshed import AnnotateFunc
@@ -331,6 +331,7 @@ class MappingProxyType(Mapping[_KT, _VT_co]):
     def __or__(self, value: Mapping[_T1, _T2], /) -> dict[_KT | _T1, _VT_co | _T2]: ...
     def __ror__(self, value: Mapping[_T1, _T2], /) -> dict[_KT | _T1, _VT_co | _T2]: ...
 
+@disjoint_base
 class SimpleNamespace:
     __hash__: ClassVar[None]  # type: ignore[assignment]
     if sys.version_info >= (3, 13):
@@ -345,6 +346,7 @@ class SimpleNamespace:
     if sys.version_info >= (3, 13):
         def __replace__(self, **kwargs: Any) -> Self: ...
 
+@disjoint_base
 class ModuleType:
     __name__: str
     __file__: str | None
@@ -661,7 +663,7 @@ _P = ParamSpec("_P")
 def coroutine(func: Callable[_P, Generator[Any, Any, _R]]) -> Callable[_P, Awaitable[_R]]: ...
 @overload
 def coroutine(func: _Fn) -> _Fn: ...
-
+@disjoint_base
 class GenericAlias:
     @property
     def __origin__(self) -> type | TypeAliasType: ...

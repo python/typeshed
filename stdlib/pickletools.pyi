@@ -1,7 +1,7 @@
 import sys
 from collections.abc import Callable, Iterator, MutableMapping
 from typing import IO, Any, Final
-from typing_extensions import TypeAlias
+from typing_extensions import TypeAlias, disjoint_base
 
 __all__ = ["dis", "genops", "optimize"]
 
@@ -14,6 +14,7 @@ TAKEN_FROM_ARGUMENT4: Final = -3
 TAKEN_FROM_ARGUMENT4U: Final = -4
 TAKEN_FROM_ARGUMENT8U: Final = -5
 
+@disjoint_base
 class ArgumentDescriptor:
     name: str
     n: int
@@ -117,6 +118,7 @@ def read_long4(f: IO[bytes]) -> int: ...
 
 long4: ArgumentDescriptor
 
+@disjoint_base
 class StackObject:
     name: str
     obtype: type[Any] | tuple[type[Any], ...]
@@ -142,6 +144,7 @@ anyobject: StackObject
 markobject: StackObject
 stackslice: StackObject
 
+@disjoint_base
 class OpcodeInfo:
     name: str
     code: str

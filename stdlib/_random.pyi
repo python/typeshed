@@ -1,8 +1,9 @@
-from typing_extensions import TypeAlias
+from typing_extensions import TypeAlias, disjoint_base
 
 # Actually Tuple[(int,) * 625]
 _State: TypeAlias = tuple[int, ...]
 
+@disjoint_base
 class Random:
     def __init__(self, seed: object = ...) -> None: ...
     def seed(self, n: object = None, /) -> None: ...

@@ -137,7 +137,7 @@ from collections.abc import Iterable
 from enum import IntEnum, IntFlag
 from io import BufferedReader, BufferedRWPair, BufferedWriter, IOBase, RawIOBase, TextIOWrapper
 from typing import Any, Final, Literal, Protocol, SupportsIndex, overload, type_check_only
-from typing_extensions import Self
+from typing_extensions import Self, disjoint_base
 
 __all__ = [
     "fromfd",
@@ -1299,6 +1299,7 @@ class _SendableFile(Protocol):
     # def mode(self) -> str: ...
     # def fileno(self) -> int: ...
 
+@disjoint_base
 class socket(_socket.socket):
     def __init__(
         self, family: AddressFamily | int = -1, type: SocketKind | int = -1, proto: int = -1, fileno: int | None = None

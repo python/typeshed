@@ -7,7 +7,7 @@ from io import BufferedIOBase, RawIOBase, TextIOBase, UnsupportedOperation as Un
 from os import _Opener
 from types import TracebackType
 from typing import IO, Any, BinaryIO, Final, Generic, Literal, Protocol, TextIO, TypeVar, overload, type_check_only
-from typing_extensions import Self
+from typing_extensions import Self, disjoint_base
 
 _T = TypeVar("_T")
 
@@ -19,6 +19,7 @@ def open_code(path: str) -> IO[bytes]: ...
 
 BlockingIOError = builtins.BlockingIOError
 
+@disjoint_base
 class _IOBase:
     def __iter__(self) -> Iterator[bytes]: ...
     def __next__(self) -> bytes: ...
@@ -62,6 +63,7 @@ class _BufferedIOBase(_IOBase):
     def read(self, size: int | None = -1, /) -> bytes: ...
     def read1(self, size: int = -1, /) -> bytes: ...
 
+@disjoint_base
 class FileIO(RawIOBase, _RawIOBase, BinaryIO):  # type: ignore[misc]  # incompatible definitions of writelines in the base classes
     mode: str
     # The type of "name" equals the argument passed in to the constructor,
@@ -76,6 +78,7 @@ class FileIO(RawIOBase, _RawIOBase, BinaryIO):  # type: ignore[misc]  # incompat
     def seek(self, pos: int, whence: int = 0, /) -> int: ...
     def read(self, size: int | None = -1, /) -> bytes | MaybeNone: ...
 
+@disjoint_base
 class BytesIO(BufferedIOBase, _BufferedIOBase, BinaryIO):  # type: ignore[misc]  # incompatible definitions of methods in the base classes
     def __init__(self, initial_bytes: ReadableBuffer = b"") -> None: ...
     # BytesIO does not contain a "name" field. This workaround is necessary
@@ -116,6 +119,7 @@ class _BufferedReaderStream(Protocol):
 
 _BufferedReaderStreamT = TypeVar("_BufferedReaderStreamT", bound=_BufferedReaderStream, default=_BufferedReaderStream)
 
+@disjoint_base
 class BufferedReader(BufferedIOBase, _BufferedIOBase, BinaryIO, Generic[_BufferedReaderStreamT]):  # type: ignore[misc]  # incompatible definitions of methods in the base classes
     raw: _BufferedReaderStreamT
     def __init__(self, raw: _BufferedReaderStreamT, buffer_size: int = 8192) -> None: ...
@@ -123,6 +127,7 @@ class BufferedReader(BufferedIOBase, _BufferedIOBase, BinaryIO, Generic[_Buffere
     def seek(self, target: int, whence: int = 0, /) -> int: ...
     def truncate(self, pos: int | None = None, /) -> int: ...
 
+@disjoint_base
 class BufferedWriter(BufferedIOBase, _BufferedIOBase, BinaryIO):  # type: ignore[misc]  # incompatible definitions of writelines in the base classes
     raw: RawIOBase
     def __init__(self, raw: RawIOBase, buffer_size: int = 8192) -> None: ...
@@ -130,6 +135,7 @@ class BufferedWriter(BufferedIOBase, _BufferedIOBase, BinaryIO):  # type: ignore
     def seek(self, target: int, whence: int = 0, /) -> int: ...
     def truncate(self, pos: int | None = None, /) -> int: ...
 
+@disjoint_base
 class BufferedRandom(BufferedIOBase, _BufferedIOBase, BinaryIO):  # type: ignore[misc]  # incompatible definitions of methods in the base classes
     mode: str
     name: Any
@@ -139,6 +145,7 @@ class BufferedRandom(BufferedIOBase, _BufferedIOBase, BinaryIO):  # type: ignore
     def peek(self, size: int = 0, /) -> bytes: ...
     def truncate(self, pos: int | None = None, /) -> int: ...
 
+@disjoint_base
 class BufferedRWPair(BufferedIOBase, _BufferedIOBase, Generic[_BufferedReaderStreamT]):
     def __init__(self, reader: _BufferedReaderStreamT, writer: RawIOBase, buffer_size: int = 8192, /) -> None: ...
     def peek(self, size: int = 0, /) -> bytes: ...
@@ -181,6 +188,7 @@ class _WrappedBuffer(Protocol):
 
 _BufferT_co = TypeVar("_BufferT_co", bound=_WrappedBuffer, default=_WrappedBuffer, covariant=True)
 
+@disjoint_base
 class TextIOWrapper(TextIOBase, _TextIOBase, TextIO, Generic[_BufferT_co]):  # type: ignore[misc]  # incompatible definitions of write in the base classes
     def __init__(
         self,
@@ -215,6 +223,7 @@ class TextIOWrapper(TextIOBase, _TextIOBase, TextIO, Generic[_BufferT_co]):  # t
     def seek(self, cookie: int, whence: int = 0, /) -> int: ...
     def truncate(self, pos: int | None = None, /) -> int: ...
 
+@disjoint_base
 class StringIO(TextIOBase, _TextIOBase, TextIO):  # type: ignore[misc]  # incompatible definitions of write in the base classes
     def __init__(self, initial_value: str | None = "", newline: str | None = "\n") -> None: ...
     # StringIO does not contain a "name" field. This workaround is necessary
@@ -227,6 +236,7 @@ class StringIO(TextIOBase, _TextIOBase, TextIO):  # type: ignore[misc]  # incomp
     def seek(self, pos: int, whence: int = 0, /) -> int: ...
     def truncate(self, pos: int | None = None, /) -> int: ...
 
+@disjoint_base
 class IncrementalNewlineDecoder:
     def __init__(self, decoder: codecs.IncrementalDecoder | None, translate: bool, errors: str = "strict") -> None: ...
     def decode(self, input: ReadableBuffer | str, final: bool = False) -> str: ...

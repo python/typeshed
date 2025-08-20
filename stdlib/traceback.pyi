@@ -3,7 +3,7 @@ from _typeshed import SupportsWrite, Unused
 from collections.abc import Generator, Iterable, Iterator, Mapping
 from types import FrameType, TracebackType
 from typing import Any, ClassVar, Literal, overload
-from typing_extensions import Self, TypeAlias, deprecated
+from typing_extensions import Self, TypeAlias, deprecated, disjoint_base
 
 __all__ = [
     "extract_stack",
@@ -244,6 +244,7 @@ class TracebackException:
     if sys.version_info >= (3, 11):
         def print(self, *, file: SupportsWrite[str] | None = None, chain: bool = True) -> None: ...
 
+@disjoint_base
 class FrameSummary:
     if sys.version_info >= (3, 11):
         def __init__(

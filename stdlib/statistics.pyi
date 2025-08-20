@@ -4,7 +4,7 @@ from collections.abc import Callable, Hashable, Iterable, Sequence
 from decimal import Decimal
 from fractions import Fraction
 from typing import Literal, NamedTuple, SupportsFloat, SupportsIndex, TypeVar
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Self, TypeAlias, disjoint_base
 
 __all__ = [
     "StatisticsError",
@@ -77,7 +77,7 @@ def quantiles(
 ) -> list[_NumberT]: ...
 def stdev(data: Iterable[_NumberT], xbar: _NumberT | None = None) -> _NumberT: ...
 def variance(data: Iterable[_NumberT], xbar: _NumberT | None = None) -> _NumberT: ...
-
+@disjoint_base
 class NormalDist:
     def __init__(self, mu: float = 0.0, sigma: float = 1.0) -> None: ...
     @property
