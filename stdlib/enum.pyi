@@ -242,7 +242,7 @@ else:
         _IntEnumBase = Enum
 
     @disjoint_base
-    class IntEnum(int, ReprEnum):
+    class IntEnum(int, _IntEnumBase):
         _value_: int
         @_magic_enum_attr
         def value(self) -> int: ...
