@@ -4,13 +4,12 @@ from typing import Any
 from typing_extensions import Self
 
 from networkx.classes.coreviews import AdjacencyView
-from networkx.classes.graph import Graph, _EdgeWithData, _Node
+from networkx.classes.graph import Graph, _Node
 from networkx.classes.reportviews import (
     DiDegreeView,
     InDegreeView,
     InEdgeView,
     InMultiDegreeView,
-    InMultiEdgeDataView,
     InMultiEdgeView,
     OutDegreeView,
     OutEdgeView,
@@ -40,7 +39,7 @@ class DiGraph(Graph[_Node]):
     def out_edges(self) -> OutEdgeView[_Node]: ...
     @cached_property
     # Including subtypes' possible return types for LSP
-    def in_edges(self) -> InEdgeView[_Node] | InMultiEdgeView[_Node] | InMultiEdgeDataView[_Node, _EdgeWithData[_Node]]: ...
+    def in_edges(self) -> InEdgeView[_Node] | InMultiEdgeView[_Node]: ...
     @cached_property
     def degree(self) -> DiDegreeView[_Node]: ...
     @cached_property

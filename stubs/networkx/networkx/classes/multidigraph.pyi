@@ -3,12 +3,11 @@ from typing import Any
 
 from networkx.classes.coreviews import MultiAdjacencyView
 from networkx.classes.digraph import DiGraph
-from networkx.classes.graph import _EdgeWithData, _Node
+from networkx.classes.graph import _Node
 from networkx.classes.multigraph import MultiGraph
 from networkx.classes.reportviews import (
     DiMultiDegreeView,
     InMultiDegreeView,
-    InMultiEdgeDataView,
     InMultiEdgeView,
     OutMultiDegreeView,
     OutMultiEdgeView,
@@ -29,7 +28,7 @@ class MultiDiGraph(MultiGraph[_Node], DiGraph[_Node]):
     @cached_property
     def out_edges(self) -> OutMultiEdgeView[_Node]: ...
     @cached_property
-    def in_edges(self) -> InMultiEdgeView[_Node] | InMultiEdgeDataView[_Node, _EdgeWithData[_Node]]: ...
+    def in_edges(self) -> InMultiEdgeView[_Node]: ...
     @cached_property
     def degree(self) -> DiMultiDegreeView[_Node]: ...
     @cached_property
