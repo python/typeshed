@@ -2,9 +2,8 @@ from _typeshed import Incomplete
 from collections.abc import Generator
 from typing import Final, Literal
 
+from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
-
-from ..classes.graph import Graph, _Node
 
 __all__ = [
     "write_graphml",
@@ -51,7 +50,7 @@ class GraphML:
     xml_type: Incomplete
     python_type: Incomplete
     def construct_types(self) -> None: ...
-    convert_bool: dict[Literal["true", "false", "0", 0, "1", 1], bool]
+    convert_bool: Final[dict[Literal["true", "false", "0", 0, "1", 1], bool]]
     def get_xml_type(self, key): ...
 
 class GraphMLWriter(GraphML):

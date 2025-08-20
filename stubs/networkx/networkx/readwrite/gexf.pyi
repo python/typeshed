@@ -1,10 +1,9 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
-from typing import Literal
+from typing import Final, Literal
 
+from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
-
-from ..classes.graph import Graph, _Node
 
 __all__ = ["write_gexf", "read_gexf", "relabel_gexf_graph", "generate_gexf"]
 
@@ -20,7 +19,7 @@ class GEXF:
     xml_type: Incomplete
     python_type: Incomplete
     def construct_types(self) -> None: ...
-    convert_bool: dict[Literal["true", "false", "True", "False", "0", 0, "1", 1], bool]
+    convert_bool: Final[dict[Literal["true", "false", "True", "False", "0", 0, "1", 1], bool]]
     NS_GEXF: Incomplete
     NS_VIZ: Incomplete
     NS_XSI: Incomplete
