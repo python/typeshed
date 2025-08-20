@@ -570,19 +570,6 @@ if sys.version_info >= (3, 11):
         code_context: list[str] | None
         index: int | None  # type: ignore[assignment]
 
-    class Traceback(_Traceback):
-        positions: dis.Positions | None
-        def __new__(
-            cls,
-            filename: str,
-            lineno: int,
-            function: str,
-            code_context: list[str] | None,
-            index: int | None,
-            *,
-            positions: dis.Positions | None = None,
-        ) -> Self: ...
-
     class _FrameInfo(NamedTuple):
         frame: FrameType
         filename: str
@@ -591,19 +578,63 @@ if sys.version_info >= (3, 11):
         code_context: list[str] | None
         index: int | None  # type: ignore[assignment]
 
-    class FrameInfo(_FrameInfo):
-        positions: dis.Positions | None
-        def __new__(
-            cls,
-            frame: FrameType,
-            filename: str,
-            lineno: int,
-            function: str,
-            code_context: list[str] | None,
-            index: int | None,
-            *,
-            positions: dis.Positions | None = None,
-        ) -> Self: ...
+    if sys.version_info >= (3, 12):
+        class Traceback(_Traceback):
+            positions: dis.Positions | None
+            def __new__(
+                cls,
+                filename: str,
+                lineno: int,
+                function: str,
+                code_context: list[str] | None,
+                index: int | None,
+                *,
+                positions: dis.Positions | None = None,
+            ) -> Self: ...
+
+        class FrameInfo(_FrameInfo):
+            positions: dis.Positions | None
+            def __new__(
+                cls,
+                frame: FrameType,
+                filename: str,
+                lineno: int,
+                function: str,
+                code_context: list[str] | None,
+                index: int | None,
+                *,
+                positions: dis.Positions | None = None,
+            ) -> Self: ...
+
+    else:
+        @disjoint_base
+        class Traceback(_Traceback):
+            positions: dis.Positions | None
+            def __new__(
+                cls,
+                filename: str,
+                lineno: int,
+                function: str,
+                code_context: list[str] | None,
+                index: int | None,
+                *,
+                positions: dis.Positions | None = None,
+            ) -> Self: ...
+
+        @disjoint_base
+        class FrameInfo(_FrameInfo):
+            positions: dis.Positions | None
+            def __new__(
+                cls,
+                frame: FrameType,
+                filename: str,
+                lineno: int,
+                function: str,
+                code_context: list[str] | None,
+                index: int | None,
+                *,
+                positions: dis.Positions | None = None,
+            ) -> Self: ...
 
 else:
     class Traceback(NamedTuple):

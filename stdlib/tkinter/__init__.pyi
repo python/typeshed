@@ -6,7 +6,7 @@ from tkinter.constants import *
 from tkinter.font import _FontDescription
 from types import GenericAlias, TracebackType
 from typing import Any, ClassVar, Generic, Literal, NamedTuple, Protocol, TypedDict, TypeVar, overload, type_check_only
-from typing_extensions import TypeAlias, TypeVarTuple, Unpack, deprecated
+from typing_extensions import TypeAlias, TypeVarTuple, Unpack, deprecated, disjoint_base
 
 if sys.version_info >= (3, 11):
     from enum import StrEnum
@@ -198,7 +198,11 @@ if sys.version_info >= (3, 11):
         releaselevel: str
         serial: int
 
-    class _VersionInfoType(_VersionInfoTypeBase): ...
+    if sys.version_info >= (3, 12):
+        class _VersionInfoType(_VersionInfoTypeBase): ...
+    else:
+        @disjoint_base
+        class _VersionInfoType(_VersionInfoTypeBase): ...
 
 if sys.version_info >= (3, 11):
     class EventType(StrEnum):

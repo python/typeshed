@@ -30,17 +30,24 @@ class _Attributes(TypedDict, Generic[_EndPositionT], total=False):
 # The various AST classes are implemented in C, and imported from _ast at runtime,
 # but they consider themselves to live in the ast module,
 # so we'll define the stubs in this file.
-@disjoint_base
-class AST:
-    if sys.version_info >= (3, 10):
+if sys.version_info >= (3, 12):
+    @disjoint_base
+    class AST:
         __match_args__ = ()
-    _attributes: ClassVar[tuple[str, ...]]
-    _fields: ClassVar[tuple[str, ...]]
-    if sys.version_info >= (3, 13):
-        _field_types: ClassVar[dict[str, Any]]
+        _attributes: ClassVar[tuple[str, ...]]
+        _fields: ClassVar[tuple[str, ...]]
+        if sys.version_info >= (3, 13):
+            _field_types: ClassVar[dict[str, Any]]
 
-    if sys.version_info >= (3, 14):
-        def __replace__(self) -> Self: ...
+        if sys.version_info >= (3, 14):
+            def __replace__(self) -> Self: ...
+
+else:
+    class AST:
+        if sys.version_info >= (3, 10):
+            __match_args__ = ()
+        _attributes: ClassVar[tuple[str, ...]]
+        _fields: ClassVar[tuple[str, ...]]
 
 class mod(AST): ...
 
