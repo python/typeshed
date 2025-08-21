@@ -844,7 +844,7 @@ class InfoExtractor:
         self,
         url: str,
         *args: Unused,
-        info_dict: _InfoDict = {},  # type: ignore[assignment]
+        info_dict: _InfoDict = {},  # type: ignore[typeddict-item]  # pyright: ignore[reportArgumentType]
         note: str = "Extracting generic embeds",
         **kwargs: Unused,
     ) -> list[dict[str, Any]]: ...
