@@ -47,7 +47,7 @@ if sys.version_info >= (3, 14):
         with InterpreterPoolExecutor(initializer=_initializer, initargs=("x",)):  # type: ignore
             ...
 
-        context = InterpreterPoolExecutor.prepare_context(initializer=_initializer, initargs=(1,), shared={})
+        context = InterpreterPoolExecutor.prepare_context(initializer=_initializer, initargs=(1,))
         worker_context = context[0]()
         assert_type(worker_context, concurrent.futures.interpreter.WorkerContext)
         resolve_task = context[1]
