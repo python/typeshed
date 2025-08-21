@@ -339,8 +339,8 @@ class InfoExtractor:
         errnote: str | None = None,
         fatal: bool = True,
         data: _DataType | None = None,
-        headers: Mapping[str, str] = None,
-        query: Mapping[str, str] = None,
+        headers: Mapping[str, str] | None = None,
+        query: Mapping[str, str] | None = None,
         expected_status: int | None = None,
     ) -> Response | Literal[False]: ...
     @classmethod
@@ -841,7 +841,12 @@ class InfoExtractor:
     ) -> bool: ...
     def _error_or_warning(self, err: str, _count: int | None = None, _retries: int = 0, *, fatal: bool = True) -> None: ...
     def _extract_generic_embeds(
-        self, url: str, *args: Unused, info_dict: _InfoDict = {}, note: str = "Extracting generic embeds", **kwargs: Unused
+        self,
+        url: str,
+        *args: Unused,
+        info_dict: _InfoDict = {},  # type: ignore[assignment]
+        note: str = "Extracting generic embeds",
+        **kwargs: Unused,
     ) -> list[dict[str, Any]]: ...
     @classmethod
     def _extract_from_webpage(cls, url: str, webpage: str) -> Iterator[_InfoDict]: ...
