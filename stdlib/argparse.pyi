@@ -468,7 +468,7 @@ class Namespace(_AttributeHolder):
     __hash__: ClassVar[None]  # type: ignore[assignment]
 
 if sys.version_info >= (3, 14):
-    @deprecated("Deprecated since Python 3.14. Simply open files after parsing arguments.")
+    @deprecated("Deprecated since Python 3.14. Open files after parsing arguments instead.")
     class FileType:
         # undocumented
         _mode: str
