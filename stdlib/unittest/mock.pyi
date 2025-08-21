@@ -3,7 +3,7 @@ from _typeshed import MaybeNone
 from collections.abc import Awaitable, Callable, Coroutine, Iterable, Mapping, Sequence
 from contextlib import _GeneratorContextManager
 from types import TracebackType
-from typing import Any, ClassVar, Final, Generic, Literal, TypeVar, overload
+from typing import Any, ClassVar, Final, Generic, Literal, TypeVar, overload, type_check_only
 from typing_extensions import ParamSpec, Self, TypeAlias
 
 _T = TypeVar("_T")
@@ -52,7 +52,7 @@ else:
         "seal",
     )
 
-FILTER_DIR: Any
+FILTER_DIR: bool  # controls the way mock objects respond to `dir` function
 
 class _SentinelObject:
     name: Any
@@ -61,7 +61,7 @@ class _SentinelObject:
 class _Sentinel:
     def __getattr__(self, name: str) -> Any: ...
 
-sentinel: Any
+sentinel: _Sentinel
 DEFAULT: Any
 
 _ArgsKwargs: TypeAlias = tuple[tuple[Any, ...], Mapping[str, Any]]
@@ -262,6 +262,7 @@ class _patch(Generic[_T]):
 # This class does not exist at runtime, it's a hack to make this work:
 #     @patch("foo")
 #     def bar(..., mock: MagicMock) -> None: ...
+@type_check_only
 class _patch_pass_arg(_patch[_T]):
     @overload
     def __call__(self, func: _TT) -> _TT: ...
@@ -288,6 +289,7 @@ class _patch_dict:
 
 # This class does not exist at runtime, it's a hack to add methods to the
 # patch() function.
+@type_check_only
 class _patcher:
     TEST_PREFIX: str
     dict: type[_patch_dict]
@@ -327,7 +329,7 @@ class _patcher:
         create: bool = ...,
         spec_set: Any | None = ...,
         autospec: Any | None = ...,
-        new_callable: None = ...,
+        new_callable: None = None,
         **kwargs: Any,
     ) -> _patch_pass_arg[MagicMock | AsyncMock]: ...
     @overload
@@ -366,7 +368,7 @@ class _patcher:
         create: bool = ...,
         spec_set: Any | None = ...,
         autospec: Any | None = ...,
-        new_callable: None = ...,
+        new_callable: None = None,
         **kwargs: Any,
     ) -> _patch_pass_arg[MagicMock | AsyncMock]: ...
     @staticmethod
@@ -426,7 +428,7 @@ class _ANY:
     def __ne__(self, other: object) -> Literal[False]: ...
     __hash__: ClassVar[None]  # type: ignore[assignment]
 
-ANY: Any
+ANY: _ANY
 
 if sys.version_info >= (3, 10):
     def create_autospec(

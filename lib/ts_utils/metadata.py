@@ -8,6 +8,7 @@ from __future__ import annotations
 import datetime
 import functools
 import re
+import sys
 import urllib.parse
 from collections.abc import Mapping
 from dataclasses import dataclass
@@ -15,7 +16,11 @@ from pathlib import Path
 from typing import Annotated, Any, Final, NamedTuple, final
 from typing_extensions import TypeGuard
 
-import tomli
+if sys.version_info >= (3, 11):
+    import tomllib
+else:
+    import tomli as tomllib
+
 import tomlkit
 from packaging.requirements import Requirement
 from packaging.specifiers import Specifier
@@ -35,6 +40,7 @@ __all__ = [
     "read_stubtest_settings",
 ]
 
+DEFAULT_STUBTEST_PLATFORMS = ["linux"]
 
 _STUBTEST_PLATFORM_MAPPING: Final = {"linux": "apt_dependencies", "darwin": "brew_dependencies", "win32": "choco_dependencies"}
 # Some older websites have a bad pattern of using query params for navigation.
@@ -52,7 +58,7 @@ def _is_nested_dict(obj: object) -> TypeGuard[dict[str, dict[str, Any]]]:
 @functools.cache
 def get_oldest_supported_python() -> str:
     with PYPROJECT_PATH.open("rb") as config:
-        val = tomli.load(config)["tool"]["typeshed"]["oldest_supported_python"]
+        val = tomllib.load(config)["tool"]["typeshed"]["oldest_supported_python"]
     assert type(val) is str
     return val
 
@@ -76,7 +82,8 @@ class StubtestSettings:
     choco_dependencies: list[str]
     extras: list[str]
     ignore_missing_stub: bool
-    platforms: list[str]
+    supported_platforms: list[str] | None  # None means all platforms
+    ci_platforms: list[str]
     stubtest_requirements: list[str]
     mypy_plugins: list[str]
     mypy_plugins_config: dict[str, dict[str, Any]]
@@ -92,7 +99,7 @@ class StubtestSettings:
 def read_stubtest_settings(distribution: str) -> StubtestSettings:
     """Return an object describing the stubtest settings for a single stubs distribution."""
     with metadata_path(distribution).open("rb") as f:
-        data: dict[str, object] = tomli.load(f).get("tool", {}).get("stubtest", {})
+        data: dict[str, object] = tomllib.load(f).get("tool", {}).get("stubtest", {})
 
     skip: object = data.get("skip", False)
     apt_dependencies: object = data.get("apt_dependencies", [])
@@ -100,7 +107,8 @@ def read_stubtest_settings(distribution: str) -> StubtestSettings:
     choco_dependencies: object = data.get("choco_dependencies", [])
     extras: object = data.get("extras", [])
     ignore_missing_stub: object = data.get("ignore_missing_stub", False)
-    specified_platforms: object = data.get("platforms", ["linux"])
+    supported_platforms: object = data.get("supported_platforms")
+    ci_platforms: object = data.get("ci_platforms", DEFAULT_STUBTEST_PLATFORMS)
     stubtest_requirements: object = data.get("stubtest_requirements", [])
     mypy_plugins: object = data.get("mypy_plugins", [])
     mypy_plugins_config: object = data.get("mypy_plugins_config", {})
@@ -109,7 +117,8 @@ def read_stubtest_settings(distribution: str) -> StubtestSettings:
     assert type(ignore_missing_stub) is bool
 
     # It doesn't work for type-narrowing if we use a for loop here...
-    assert _is_list_of_strings(specified_platforms)
+    assert supported_platforms is None or _is_list_of_strings(supported_platforms)
+    assert _is_list_of_strings(ci_platforms)
     assert _is_list_of_strings(apt_dependencies)
     assert _is_list_of_strings(brew_dependencies)
     assert _is_list_of_strings(choco_dependencies)
@@ -118,11 +127,16 @@ def read_stubtest_settings(distribution: str) -> StubtestSettings:
     assert _is_list_of_strings(mypy_plugins)
     assert _is_nested_dict(mypy_plugins_config)
 
-    unrecognised_platforms = set(specified_platforms) - _STUBTEST_PLATFORM_MAPPING.keys()
-    assert not unrecognised_platforms, f"Unrecognised platforms specified for {distribution!r}: {unrecognised_platforms}"
+    unrecognised_platforms = set(ci_platforms) - _STUBTEST_PLATFORM_MAPPING.keys()
+    assert not unrecognised_platforms, f"Unrecognised ci_platforms specified for {distribution!r}: {unrecognised_platforms}"
+
+    if supported_platforms is not None:
+        assert set(ci_platforms).issubset(
+            supported_platforms
+        ), f"ci_platforms must be a subset of supported_platforms for {distribution!r}"
 
     for platform, dep_key in _STUBTEST_PLATFORM_MAPPING.items():
-        if platform not in specified_platforms:
+        if platform not in ci_platforms:
             assert dep_key not in data, (
                 f"Stubtest is not run on {platform} in CI for {distribution!r}, "
                 f"but {dep_key!r} are specified in METADATA.toml"
@@ -135,7 +149,8 @@ def read_stubtest_settings(distribution: str) -> StubtestSettings:
         choco_dependencies=choco_dependencies,
         extras=extras,
         ignore_missing_stub=ignore_missing_stub,
-        platforms=specified_platforms,
+        supported_platforms=supported_platforms,
+        ci_platforms=ci_platforms,
         stubtest_requirements=stubtest_requirements,
         mypy_plugins=mypy_plugins,
         mypy_plugins_config=mypy_plugins_config,
@@ -199,7 +214,8 @@ _KNOWN_METADATA_TOOL_FIELDS: Final = {
         "choco_dependencies",
         "extras",
         "ignore_missing_stub",
-        "platforms",
+        "supported_platforms",
+        "ci_platforms",
         "stubtest_requirements",
         "mypy_plugins",
         "mypy_plugins_config",

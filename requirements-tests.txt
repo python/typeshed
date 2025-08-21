@@ -1,7 +1,7 @@
 # Type checkers that we test our stubs against. These should always
 # be pinned to a specific version to make failure reproducible.
-mypy==1.16.1
-pyright==1.1.403
+mypy==1.17.1
+pyright==1.1.404
 
 # Libraries used by our various scripts.
 # TODO (2025-05-09): Installing this on Python 3.14 on Windows fails at
@@ -19,10 +19,10 @@ ruff==0.12.2
 # TODO (2025-05-07): Dependency libcst doesn't support Python 3.14 yet.
 stubdefaulter==0.1.0; python_version < "3.14"
 termcolor>=2.3
-tomli==2.2.1
+tomli==2.2.1; python_version < "3.11"
 tomlkit==0.13.3
-typing_extensions>=4.14.0rc1
-uv==0.7.19
+typing_extensions>=4.15.0rc1
+uv==0.8.6
 
 # Utilities for typeshed infrastructure scripts.
 ts_utils @ file:lib

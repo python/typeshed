@@ -5,7 +5,7 @@ from _typeshed import DataclassInstance
 from builtins import type as Type  # alias to avoid name clashes with fields named "type"
 from collections.abc import Callable, Iterable, Mapping
 from types import GenericAlias
-from typing import Any, Generic, Literal, Protocol, TypeVar, overload, type_check_only
+from typing import Any, Final, Generic, Literal, Protocol, TypeVar, overload, type_check_only
 from typing_extensions import Never, TypeIs
 
 _T = TypeVar("_T")
@@ -58,7 +58,7 @@ class _DataclassFactory(Protocol):
 class _MISSING_TYPE(enum.Enum):
     MISSING = enum.auto()
 
-MISSING = _MISSING_TYPE.MISSING
+MISSING: Final = _MISSING_TYPE.MISSING
 
 if sys.version_info >= (3, 10):
     class KW_ONLY: ...
@@ -165,6 +165,7 @@ else:
     ) -> Callable[[type[_T]], type[_T]]: ...
 
 # See https://github.com/python/mypy/issues/10750
+@type_check_only
 class _DefaultFactory(Protocol[_T_co]):
     def __call__(self) -> _T_co: ...
 
