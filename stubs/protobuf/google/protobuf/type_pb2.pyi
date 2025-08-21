@@ -79,6 +79,8 @@ global___Syntax = Syntax
 class Type(google.protobuf.message.Message):
     """A protocol buffer message type."""
 
+    __slots__ = ()
+
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     NAME_FIELD_NUMBER: builtins.int
@@ -147,6 +149,8 @@ global___Type = Type
 @typing.final
 class Field(google.protobuf.message.Message):
     """A single field of a message type."""
+
+    __slots__ = ()
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -348,6 +352,8 @@ global___Field = Field
 class Enum(google.protobuf.message.Message):
     """Enum type definition."""
 
+    __slots__ = ()
+
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     NAME_FIELD_NUMBER: builtins.int
@@ -409,6 +415,8 @@ global___Enum = Enum
 class EnumValue(google.protobuf.message.Message):
     """Enum value definition."""
 
+    __slots__ = ()
+
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     NAME_FIELD_NUMBER: builtins.int
@@ -438,6 +446,8 @@ class Option(google.protobuf.message.Message):
     """A protocol buffer option, which can be attached to a message, field,
     enumeration, etc.
     """
+
+    __slots__ = ()
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 

@@ -7,6 +7,7 @@ from .base import BaseMultipartGeometry, GeometrySequence, _GeoT_co
 
 class GeometryCollection(BaseMultipartGeometry[_GeoT_co]):
     # Overloads of __new__ are used because mypy is unable to narrow the typevar otherwise
+    __slots__ = []
     @overload
     def __new__(
         self, geoms: BaseMultipartGeometry[_GeoT_co] | GeometrySequence[BaseMultipartGeometry[_GeoT_co]] | Collection[_GeoT_co]

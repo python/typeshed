@@ -46,6 +46,8 @@ class SourceContext(google.protobuf.message.Message):
     protobuf element, like the file in which it is defined.
     """
 
+    __slots__ = ()
+
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     FILE_NAME_FIELD_NUMBER: builtins.int

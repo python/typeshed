@@ -37,6 +37,8 @@ DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 class Version(google.protobuf.message.Message):
     """The version number of protocol compiler."""
 
+    __slots__ = ()
+
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     MAJOR_FIELD_NUMBER: builtins.int
@@ -70,6 +72,8 @@ global___Version = Version
 @typing.final
 class CodeGeneratorRequest(google.protobuf.message.Message):
     """An encoded CodeGeneratorRequest is written to the plugin's stdin."""
+
+    __slots__ = ()
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -159,6 +163,8 @@ global___CodeGeneratorRequest = CodeGeneratorRequest
 class CodeGeneratorResponse(google.protobuf.message.Message):
     """The plugin writes an encoded CodeGeneratorResponse to stdout."""
 
+    __slots__ = ()
+
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     class _Feature:
@@ -183,6 +189,8 @@ class CodeGeneratorResponse(google.protobuf.message.Message):
     @typing.final
     class File(google.protobuf.message.Message):
         """Represents a single generated file."""
+
+        __slots__ = ()
 
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 

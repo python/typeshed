@@ -57,6 +57,8 @@ class Api(google.protobuf.message.Message):
     detailed terminology.
     """
 
+    __slots__ = ()
+
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     NAME_FIELD_NUMBER: builtins.int
@@ -148,6 +150,8 @@ global___Api = Api
 @typing.final
 class Method(google.protobuf.message.Message):
     """Method represents a method of an API interface."""
+
+    __slots__ = ()
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -288,6 +292,8 @@ class Mixin(google.protobuf.message.Message):
           ...
         }
     """
+
+    __slots__ = ()
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 

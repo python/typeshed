@@ -82,10 +82,13 @@ class Struct(google.protobuf.message.Message, google.protobuf.internal.well_know
     The JSON representation for `Struct` is JSON object.
     """
 
+    __slots__ = ()
+
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     @typing.final
     class FieldsEntry(google.protobuf.message.Message):
+        __slots__ = ()
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
         KEY_FIELD_NUMBER: builtins.int
@@ -116,6 +119,8 @@ class Value(google.protobuf.message.Message):
 
     The JSON representation for `Value` is JSON value.
     """
+
+    __slots__ = ()
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -201,6 +206,8 @@ class ListValue(google.protobuf.message.Message, google.protobuf.internal.well_k
 
     The JSON representation for `ListValue` is JSON array.
     """
+
+    __slots__ = ()
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 

@@ -103,6 +103,8 @@ class Duration(google.protobuf.message.Message, google.protobuf.internal.well_kn
     microsecond should be expressed in JSON format as "3.000001s".
     """
 
+    __slots__ = ()
+
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     SECONDS_FIELD_NUMBER: builtins.int

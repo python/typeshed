@@ -51,6 +51,7 @@ class FastIterOrderedMultiDict(OrderedMultiDict[_KT, _VT]):  # undocumented
     def iterkeys(self, multi: bool = False) -> Generator[_KT, None, None]: ...
 
 class OneToOne(dict[_KT, _VT]):
+    __slots__ = ("inv",)
     inv: OneToOne[_VT, _KT]
     def clear(self) -> None: ...
     def copy(self) -> Self: ...
@@ -87,6 +88,7 @@ def subdict(d: dict[_KT, _VT], keep: Iterable[_KT] | None = None, drop: Iterable
 class FrozenHashError(TypeError): ...  # undocumented
 
 class FrozenDict(dict[_KT, _VT]):
+    __slots__ = ("_hash",)
     def __copy__(self) -> Self: ...
     @classmethod
     def fromkeys(cls, keys: Iterable[_KT], value: _VT | None = None) -> Self: ...  # type: ignore[override]

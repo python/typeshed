@@ -109,6 +109,8 @@ class FileDescriptorSet(google.protobuf.message.Message):
     files it parses.
     """
 
+    __slots__ = ()
+
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     FILE_FIELD_NUMBER: builtins.int
@@ -122,6 +124,8 @@ global___FileDescriptorSet = FileDescriptorSet
 @typing.final
 class FileDescriptorProto(google.protobuf.message.Message):
     """Describes a complete .proto file."""
+
+    __slots__ = ()
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -263,10 +267,13 @@ global___FileDescriptorProto = FileDescriptorProto
 class DescriptorProto(google.protobuf.message.Message):
     """Describes a message type."""
 
+    __slots__ = ()
+
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     @typing.final
     class ExtensionRange(google.protobuf.message.Message):
+        __slots__ = ()
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
         START_FIELD_NUMBER: builtins.int
@@ -296,6 +303,8 @@ class DescriptorProto(google.protobuf.message.Message):
         fields or extension ranges in the same message. Reserved ranges may
         not overlap.
         """
+
+        __slots__ = ()
 
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -393,6 +402,7 @@ global___DescriptorProto = DescriptorProto
 
 @typing.final
 class ExtensionRangeOptions(google.protobuf.message.Message):
+    __slots__ = ()
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     class _VerificationState:
@@ -417,6 +427,7 @@ class ExtensionRangeOptions(google.protobuf.message.Message):
 
     @typing.final
     class Declaration(google.protobuf.message.Message):
+        __slots__ = ()
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
         NUMBER_FIELD_NUMBER: builtins.int
@@ -522,6 +533,8 @@ global___ExtensionRangeOptions = ExtensionRangeOptions
 @typing.final
 class FieldDescriptorProto(google.protobuf.message.Message):
     """Describes a field within a message."""
+
+    __slots__ = ()
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -783,6 +796,8 @@ global___FieldDescriptorProto = FieldDescriptorProto
 class OneofDescriptorProto(google.protobuf.message.Message):
     """Describes a oneof."""
 
+    __slots__ = ()
+
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     NAME_FIELD_NUMBER: builtins.int
@@ -800,6 +815,8 @@ global___OneofDescriptorProto = OneofDescriptorProto
 class EnumDescriptorProto(google.protobuf.message.Message):
     """Describes an enum type."""
 
+    __slots__ = ()
+
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     @typing.final
@@ -811,6 +828,8 @@ class EnumDescriptorProto(google.protobuf.message.Message):
         is inclusive such that it can appropriately represent the entire int32
         domain.
         """
+
+        __slots__ = ()
 
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -881,6 +900,8 @@ global___EnumDescriptorProto = EnumDescriptorProto
 class EnumValueDescriptorProto(google.protobuf.message.Message):
     """Describes a value within an enum."""
 
+    __slots__ = ()
+
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     NAME_FIELD_NUMBER: builtins.int
@@ -908,6 +929,8 @@ global___EnumValueDescriptorProto = EnumValueDescriptorProto
 class ServiceDescriptorProto(google.protobuf.message.Message):
     """Describes a service."""
 
+    __slots__ = ()
+
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     NAME_FIELD_NUMBER: builtins.int
@@ -933,6 +956,8 @@ global___ServiceDescriptorProto = ServiceDescriptorProto
 @typing.final
 class MethodDescriptorProto(google.protobuf.message.Message):
     """Describes a method of a service."""
+
+    __slots__ = ()
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1032,6 +1057,8 @@ class FileOptions(google.protobuf.message.Message):
       If this turns out to be popular, a web service will be set up
       to automatically assign option numbers.
     """
+
+    __slots__ = ()
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1321,6 +1348,7 @@ global___FileOptions = FileOptions
 
 @typing.final
 class MessageOptions(google.protobuf.message.Message):
+    __slots__ = ()
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     MESSAGE_SET_WIRE_FORMAT_FIELD_NUMBER: builtins.int
@@ -1462,6 +1490,7 @@ global___MessageOptions = MessageOptions
 
 @typing.final
 class FieldOptions(google.protobuf.message.Message):
+    __slots__ = ()
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     class _CType:
@@ -1577,6 +1606,7 @@ class FieldOptions(google.protobuf.message.Message):
 
     @typing.final
     class EditionDefault(google.protobuf.message.Message):
+        __slots__ = ()
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
         EDITION_FIELD_NUMBER: builtins.int
@@ -1591,6 +1621,8 @@ class FieldOptions(google.protobuf.message.Message):
     @typing.final
     class FeatureSupport(google.protobuf.message.Message):
         """Information about the support window of a feature."""
+
+        __slots__ = ()
 
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1845,6 +1877,7 @@ global___FieldOptions = FieldOptions
 
 @typing.final
 class OneofOptions(google.protobuf.message.Message):
+    __slots__ = ()
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     FEATURES_FIELD_NUMBER: builtins.int
@@ -1878,6 +1911,7 @@ global___OneofOptions = OneofOptions
 
 @typing.final
 class EnumOptions(google.protobuf.message.Message):
+    __slots__ = ()
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     ALLOW_ALIAS_FIELD_NUMBER: builtins.int
@@ -1959,6 +1993,7 @@ global___EnumOptions = EnumOptions
 
 @typing.final
 class EnumValueOptions(google.protobuf.message.Message):
+    __slots__ = ()
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     DEPRECATED_FIELD_NUMBER: builtins.int
@@ -2037,6 +2072,7 @@ global___EnumValueOptions = EnumValueOptions
 
 @typing.final
 class ServiceOptions(google.protobuf.message.Message):
+    __slots__ = ()
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     FEATURES_FIELD_NUMBER: builtins.int
@@ -2086,6 +2122,7 @@ global___ServiceOptions = ServiceOptions
 
 @typing.final
 class MethodOptions(google.protobuf.message.Message):
+    __slots__ = ()
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     class _IdempotencyLevel:
@@ -2184,6 +2221,8 @@ class UninterpretedOption(google.protobuf.message.Message):
     in them.
     """
 
+    __slots__ = ()
+
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     @typing.final
@@ -2194,6 +2233,8 @@ class UninterpretedOption(google.protobuf.message.Message):
         E.g.,{ ["foo", false], ["bar.baz", true], ["moo", false] } represents
         "foo.(bar.baz).moo".
         """
+
+        __slots__ = ()
 
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -2289,6 +2330,8 @@ class FeatureSet(google.protobuf.message.Message):
     be designed and implemented to handle this, hopefully before we ever hit a
     conflict here.
     """
+
+    __slots__ = ()
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -2487,6 +2530,8 @@ class FeatureSetDefaults(google.protobuf.message.Message):
     for the closest matching edition, followed by proto merges.
     """
 
+    __slots__ = ()
+
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     @typing.final
@@ -2496,6 +2541,8 @@ class FeatureSetDefaults(google.protobuf.message.Message):
         the defaults at the closest matching edition ordered at or before it should
         be used.  This field must be in strict ascending order by edition.
         """
+
+        __slots__ = ()
 
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -2576,10 +2623,13 @@ class SourceCodeInfo(google.protobuf.message.Message):
     FileDescriptorProto was generated.
     """
 
+    __slots__ = ()
+
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     @typing.final
     class Location(google.protobuf.message.Message):
+        __slots__ = ()
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
         PATH_FIELD_NUMBER: builtins.int
@@ -2763,10 +2813,13 @@ class GeneratedCodeInfo(google.protobuf.message.Message):
     source file, but may contain references to different source .proto files.
     """
 
+    __slots__ = ()
+
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     @typing.final
     class Annotation(google.protobuf.message.Message):
+        __slots__ = ()
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
         class _Semantic:

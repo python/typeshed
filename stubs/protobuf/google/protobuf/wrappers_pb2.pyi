@@ -67,6 +67,8 @@ class DoubleValue(google.protobuf.message.Message):
     has no plan to be removed.
     """
 
+    __slots__ = ()
+
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     VALUE_FIELD_NUMBER: builtins.int
@@ -86,6 +88,8 @@ class FloatValue(google.protobuf.message.Message):
     Not recommended for use in new APIs, but still useful for legacy APIs and
     has no plan to be removed.
     """
+
+    __slots__ = ()
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -107,6 +111,8 @@ class Int64Value(google.protobuf.message.Message):
     has no plan to be removed.
     """
 
+    __slots__ = ()
+
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     VALUE_FIELD_NUMBER: builtins.int
@@ -126,6 +132,8 @@ class UInt64Value(google.protobuf.message.Message):
     Not recommended for use in new APIs, but still useful for legacy APIs and
     has no plan to be removed.
     """
+
+    __slots__ = ()
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -147,6 +155,8 @@ class Int32Value(google.protobuf.message.Message):
     has no plan to be removed.
     """
 
+    __slots__ = ()
+
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     VALUE_FIELD_NUMBER: builtins.int
@@ -166,6 +176,8 @@ class UInt32Value(google.protobuf.message.Message):
     Not recommended for use in new APIs, but still useful for legacy APIs and
     has no plan to be removed.
     """
+
+    __slots__ = ()
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -187,6 +199,8 @@ class BoolValue(google.protobuf.message.Message):
     has no plan to be removed.
     """
 
+    __slots__ = ()
+
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     VALUE_FIELD_NUMBER: builtins.int
@@ -207,6 +221,8 @@ class StringValue(google.protobuf.message.Message):
     has no plan to be removed.
     """
 
+    __slots__ = ()
+
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     VALUE_FIELD_NUMBER: builtins.int
@@ -226,6 +242,8 @@ class BytesValue(google.protobuf.message.Message):
     Not recommended for use in new APIs, but still useful for legacy APIs and
     has no plan to be removed.
     """
+
+    __slots__ = ()
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
