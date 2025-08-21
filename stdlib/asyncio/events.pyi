@@ -614,10 +614,10 @@ class _AbstractEventLoopPolicy:
     if sys.version_info < (3, 14):
         if sys.version_info >= (3, 12):
             @abstractmethod
-            @deprecated("Deprecated as of Python 3.12; will be removed in Python 3.14")
+            @deprecated("Deprecated since Python 3.12; removed in Python 3.14.")
             def get_child_watcher(self) -> AbstractChildWatcher: ...
             @abstractmethod
-            @deprecated("Deprecated as of Python 3.12; will be removed in Python 3.14")
+            @deprecated("Deprecated since Python 3.12; removed in Python 3.14.")
             def set_child_watcher(self, watcher: AbstractChildWatcher) -> None: ...
         else:
             @abstractmethod
@@ -643,9 +643,9 @@ else:
 if sys.version_info >= (3, 14):
     def _get_event_loop_policy() -> _AbstractEventLoopPolicy: ...
     def _set_event_loop_policy(policy: _AbstractEventLoopPolicy | None) -> None: ...
-    @deprecated("Deprecated as of Python 3.14; will be removed in Python 3.16")
+    @deprecated("Deprecated since Python 3.14; will be removed in Python 3.16.")
     def get_event_loop_policy() -> _AbstractEventLoopPolicy: ...
-    @deprecated("Deprecated as of Python 3.14; will be removed in Python 3.16")
+    @deprecated("Deprecated since Python 3.14; will be removed in Python 3.16.")
     def set_event_loop_policy(policy: _AbstractEventLoopPolicy | None) -> None: ...
 
 else:
@@ -657,9 +657,9 @@ def new_event_loop() -> AbstractEventLoop: ...
 
 if sys.version_info < (3, 14):
     if sys.version_info >= (3, 12):
-        @deprecated("Deprecated as of Python 3.12; will be removed in Python 3.14")
+        @deprecated("Deprecated since Python 3.12; removed in Python 3.14.")
         def get_child_watcher() -> AbstractChildWatcher: ...
-        @deprecated("Deprecated as of Python 3.12; will be removed in Python 3.14")
+        @deprecated("Deprecated since Python 3.12; removed in Python 3.14.")
         def set_child_watcher(watcher: AbstractChildWatcher) -> None: ...
 
     else:
