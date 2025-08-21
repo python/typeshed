@@ -40,7 +40,7 @@ class PurePath(PathLike[str]):
             "_parts_normcase_cached",
             "_hash",
         )
-    elif sys.version_info >= (3, 11):
+    elif sys.version_info >= (3, 12):
         __slots__ = (
             "_raw_paths",
             "_drv",
