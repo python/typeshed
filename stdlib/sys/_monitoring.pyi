@@ -46,7 +46,7 @@ class _events:
         BRANCH_TAKEN: Final[int]
 
         @property
-        @deprecated("BRANCH is deprecated; use BRANCH_LEFT or BRANCH_TAKEN instead")
+        @deprecated("Deprecated since Python 3.14. Use `BRANCH_LEFT` or `BRANCH_TAKEN` instead.")
         def BRANCH(self) -> int: ...
 
     else:

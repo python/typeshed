@@ -765,10 +765,10 @@ class TarInfo:
     def __init__(self, name: str = "") -> None: ...
     if sys.version_info >= (3, 13):
         @property
-        @deprecated("Deprecated in Python 3.13; removal scheduled for Python 3.16")
+        @deprecated("Deprecated since Python 3.13; will be removed in Python 3.16.")
         def tarfile(self) -> TarFile | None: ...
         @tarfile.setter
-        @deprecated("Deprecated in Python 3.13; removal scheduled for Python 3.16")
+        @deprecated("Deprecated since Python 3.13; will be removed in Python 3.16.")
         def tarfile(self, tarfile: TarFile | None) -> None: ...
     else:
         tarfile: TarFile | None
