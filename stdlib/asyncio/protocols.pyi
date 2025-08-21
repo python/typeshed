@@ -1,6 +1,6 @@
 from _typeshed import ReadableBuffer
 from asyncio import transports
-from typing import Any, Final
+from typing import Any, ClassVar
 
 # Keep asyncio.__all__ updated with any changes to __all__ here
 __all__ = ("BaseProtocol", "Protocol", "DatagramProtocol", "SubprocessProtocol", "BufferedProtocol")
@@ -14,7 +14,7 @@ class BaseProtocol:
 
 class Protocol(BaseProtocol):
     # Need annotation or mypy will complain about 'Cannot determine type of "__slots__" in base class'
-    __slots__: Final[tuple[()]] = ()
+    __slots__: ClassVar[tuple[()]] = ()
     def data_received(self, data: bytes) -> None: ...
     def eof_received(self) -> bool | None: ...
 
@@ -35,7 +35,7 @@ class DatagramProtocol(BaseProtocol):
     def error_received(self, exc: Exception) -> None: ...
 
 class SubprocessProtocol(BaseProtocol):
-    __slots__: Final[tuple[()]] = ()
+    __slots__: ClassVar[tuple[()]] = ()
     def pipe_data_received(self, fd: int, data: bytes) -> None: ...
     def pipe_connection_lost(self, fd: int, exc: Exception | None) -> None: ...
     def process_exited(self) -> None: ...
