@@ -19,6 +19,7 @@ from ..YoutubeDL import YoutubeDL
 class _InfoDict(TypedDict, total=False):
     age_limit: int
     availability: Literal["private", "premium_only", "subscriber_only", "needs_auth", "unlisted", "public"] | None
+    available_at: int
     creator: str | None
     comment_count: int | None
     duration: int | None
