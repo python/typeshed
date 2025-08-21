@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from logging import Logger
 
 from pika.adapters.base_connection import BaseConnection
@@ -10,17 +9,15 @@ LOGGER: Logger
 class GeventConnection(BaseConnection):
     def __init__(
         self,
-        parameters: Incomplete | None = None,
-        on_open_callback: Incomplete | None = None,
-        on_open_error_callback: Incomplete | None = None,
-        on_close_callback: Incomplete | None = None,
-        custom_ioloop: Incomplete | None = None,
+        parameters=None,
+        on_open_callback=None,
+        on_open_error_callback=None,
+        on_close_callback=None,
+        custom_ioloop=None,
         internal_connection_workflow: bool = True,
     ) -> None: ...
     @classmethod
-    def create_connection(
-        cls, connection_configs, on_done, custom_ioloop: Incomplete | None = None, workflow: Incomplete | None = None
-    ): ...
+    def create_connection(cls, connection_configs, on_done, custom_ioloop=None, workflow=None): ...
 
 class _TSafeCallbackQueue:
     def __init__(self) -> None: ...
@@ -33,7 +30,7 @@ class _GeventSelectorIOLoop(AbstractSelectorIOLoop):
     READ: int
     WRITE: int
     ERROR: int
-    def __init__(self, gevent_hub: Incomplete | None = None) -> None: ...
+    def __init__(self, gevent_hub=None) -> None: ...
     def close(self) -> None: ...
     def start(self) -> None: ...
     def stop(self) -> None: ...
