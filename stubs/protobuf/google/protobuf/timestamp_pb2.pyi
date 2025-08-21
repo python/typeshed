@@ -134,8 +134,6 @@ class Timestamp(google.protobuf.message.Message, google.protobuf.internal.well_k
     ) to obtain a formatter capable of generating timestamps in this format.
     """
 
-    __slots__ = ()
-
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     SECONDS_FIELD_NUMBER: builtins.int

@@ -10,7 +10,6 @@ DESCRIPTOR: FileDescriptor
 
 @final
 class ServerReflectionRequest(message.Message, metaclass=MessageMeta):
-    __slots__ = ()
     HOST_FIELD_NUMBER: ClassVar[int]
     FILE_BY_FILENAME_FIELD_NUMBER: ClassVar[int]
     FILE_CONTAINING_SYMBOL_FIELD_NUMBER: ClassVar[int]
@@ -36,7 +35,6 @@ class ServerReflectionRequest(message.Message, metaclass=MessageMeta):
 
 @final
 class ExtensionRequest(message.Message, metaclass=MessageMeta):
-    __slots__ = ()
     CONTAINING_TYPE_FIELD_NUMBER: ClassVar[int]
     EXTENSION_NUMBER_FIELD_NUMBER: ClassVar[int]
     containing_type: str
@@ -46,7 +44,6 @@ class ExtensionRequest(message.Message, metaclass=MessageMeta):
 
 @final
 class ServerReflectionResponse(message.Message, metaclass=MessageMeta):
-    __slots__ = ()
     VALID_HOST_FIELD_NUMBER: ClassVar[int]
     ORIGINAL_REQUEST_FIELD_NUMBER: ClassVar[int]
     FILE_DESCRIPTOR_RESPONSE_FIELD_NUMBER: ClassVar[int]
@@ -72,7 +69,6 @@ class ServerReflectionResponse(message.Message, metaclass=MessageMeta):
 
 @final
 class FileDescriptorResponse(message.Message, metaclass=MessageMeta):
-    __slots__ = ()
     FILE_DESCRIPTOR_PROTO_FIELD_NUMBER: ClassVar[int]
     file_descriptor_proto: containers.RepeatedScalarFieldContainer[bytes]
     def __init__(self, file_descriptor_proto: Iterable[bytes] | None = ...) -> None: ...
@@ -80,7 +76,6 @@ class FileDescriptorResponse(message.Message, metaclass=MessageMeta):
 
 @final
 class ExtensionNumberResponse(message.Message, metaclass=MessageMeta):
-    __slots__ = ()
     BASE_TYPE_NAME_FIELD_NUMBER: ClassVar[int]
     EXTENSION_NUMBER_FIELD_NUMBER: ClassVar[int]
     base_type_name: str
@@ -90,7 +85,6 @@ class ExtensionNumberResponse(message.Message, metaclass=MessageMeta):
 
 @final
 class ListServiceResponse(message.Message, metaclass=MessageMeta):
-    __slots__ = ()
     SERVICE_FIELD_NUMBER: ClassVar[int]
     service: containers.RepeatedCompositeFieldContainer[ServiceResponse]
     def __init__(self, service: Iterable[ServiceResponse | Mapping[Incomplete, Incomplete]] | None = ...) -> None: ...
@@ -98,7 +92,6 @@ class ListServiceResponse(message.Message, metaclass=MessageMeta):
 
 @final
 class ServiceResponse(message.Message, metaclass=MessageMeta):
-    __slots__ = ()
     NAME_FIELD_NUMBER: ClassVar[int]
     name: str
     def __init__(self, name: str | None = ...) -> None: ...
@@ -106,7 +99,6 @@ class ServiceResponse(message.Message, metaclass=MessageMeta):
 
 @final
 class ErrorResponse(message.Message, metaclass=MessageMeta):
-    __slots__ = ()
     ERROR_CODE_FIELD_NUMBER: ClassVar[int]
     ERROR_MESSAGE_FIELD_NUMBER: ClassVar[int]
     error_code: int

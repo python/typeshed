@@ -50,8 +50,6 @@ class Empty(google.protobuf.message.Message):
         }
     """
 
-    __slots__ = ()
-
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     def __init__(self) -> None: ...

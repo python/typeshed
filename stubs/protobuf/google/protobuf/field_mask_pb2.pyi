@@ -246,8 +246,6 @@ class FieldMask(google.protobuf.message.Message, google.protobuf.internal.well_k
     `INVALID_ARGUMENT` error if any path is unmappable.
     """
 
-    __slots__ = ()
-
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     PATHS_FIELD_NUMBER: builtins.int

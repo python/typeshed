@@ -10,7 +10,6 @@ DESCRIPTOR: FileDescriptor
 
 @final
 class Channel(message.Message, metaclass=MessageMeta):
-    __slots__ = ()
     REF_FIELD_NUMBER: ClassVar[int]
     DATA_FIELD_NUMBER: ClassVar[int]
     CHANNEL_REF_FIELD_NUMBER: ClassVar[int]
@@ -33,7 +32,6 @@ class Channel(message.Message, metaclass=MessageMeta):
 
 @final
 class Subchannel(message.Message, metaclass=MessageMeta):
-    __slots__ = ()
     REF_FIELD_NUMBER: ClassVar[int]
     DATA_FIELD_NUMBER: ClassVar[int]
     CHANNEL_REF_FIELD_NUMBER: ClassVar[int]
@@ -56,7 +54,6 @@ class Subchannel(message.Message, metaclass=MessageMeta):
 
 @final
 class ChannelConnectivityState(message.Message, metaclass=MessageMeta):
-    __slots__ = ()
     State: Incomplete
     UNKNOWN: Incomplete
     IDLE: Incomplete
@@ -71,7 +68,6 @@ class ChannelConnectivityState(message.Message, metaclass=MessageMeta):
 
 @final
 class ChannelData(message.Message, metaclass=MessageMeta):
-    __slots__ = ()
     STATE_FIELD_NUMBER: ClassVar[int]
     TARGET_FIELD_NUMBER: ClassVar[int]
     TRACE_FIELD_NUMBER: ClassVar[int]
@@ -100,7 +96,6 @@ class ChannelData(message.Message, metaclass=MessageMeta):
 
 @final
 class ChannelTraceEvent(message.Message, metaclass=MessageMeta):
-    __slots__ = ()
     Severity: Incomplete
     CT_UNKNOWN: Incomplete
     CT_INFO: Incomplete
@@ -128,7 +123,6 @@ class ChannelTraceEvent(message.Message, metaclass=MessageMeta):
 
 @final
 class ChannelTrace(message.Message, metaclass=MessageMeta):
-    __slots__ = ()
     NUM_EVENTS_LOGGED_FIELD_NUMBER: ClassVar[int]
     CREATION_TIMESTAMP_FIELD_NUMBER: ClassVar[int]
     EVENTS_FIELD_NUMBER: ClassVar[int]
@@ -145,7 +139,6 @@ class ChannelTrace(message.Message, metaclass=MessageMeta):
 
 @final
 class ChannelRef(message.Message, metaclass=MessageMeta):
-    __slots__ = ()
     CHANNEL_ID_FIELD_NUMBER: ClassVar[int]
     NAME_FIELD_NUMBER: ClassVar[int]
     channel_id: int
@@ -155,7 +148,6 @@ class ChannelRef(message.Message, metaclass=MessageMeta):
 
 @final
 class SubchannelRef(message.Message, metaclass=MessageMeta):
-    __slots__ = ()
     SUBCHANNEL_ID_FIELD_NUMBER: ClassVar[int]
     NAME_FIELD_NUMBER: ClassVar[int]
     subchannel_id: int
@@ -165,7 +157,6 @@ class SubchannelRef(message.Message, metaclass=MessageMeta):
 
 @final
 class SocketRef(message.Message, metaclass=MessageMeta):
-    __slots__ = ()
     SOCKET_ID_FIELD_NUMBER: ClassVar[int]
     NAME_FIELD_NUMBER: ClassVar[int]
     socket_id: int
@@ -175,7 +166,6 @@ class SocketRef(message.Message, metaclass=MessageMeta):
 
 @final
 class ServerRef(message.Message, metaclass=MessageMeta):
-    __slots__ = ()
     SERVER_ID_FIELD_NUMBER: ClassVar[int]
     NAME_FIELD_NUMBER: ClassVar[int]
     server_id: int
@@ -185,7 +175,6 @@ class ServerRef(message.Message, metaclass=MessageMeta):
 
 @final
 class Server(message.Message, metaclass=MessageMeta):
-    __slots__ = ()
     REF_FIELD_NUMBER: ClassVar[int]
     DATA_FIELD_NUMBER: ClassVar[int]
     LISTEN_SOCKET_FIELD_NUMBER: ClassVar[int]
@@ -202,7 +191,6 @@ class Server(message.Message, metaclass=MessageMeta):
 
 @final
 class ServerData(message.Message, metaclass=MessageMeta):
-    __slots__ = ()
     TRACE_FIELD_NUMBER: ClassVar[int]
     CALLS_STARTED_FIELD_NUMBER: ClassVar[int]
     CALLS_SUCCEEDED_FIELD_NUMBER: ClassVar[int]
@@ -225,7 +213,6 @@ class ServerData(message.Message, metaclass=MessageMeta):
 
 @final
 class Socket(message.Message, metaclass=MessageMeta):
-    __slots__ = ()
     REF_FIELD_NUMBER: ClassVar[int]
     DATA_FIELD_NUMBER: ClassVar[int]
     LOCAL_FIELD_NUMBER: ClassVar[int]
@@ -251,7 +238,6 @@ class Socket(message.Message, metaclass=MessageMeta):
 
 @final
 class SocketData(message.Message, metaclass=MessageMeta):
-    __slots__ = ()
     STREAMS_STARTED_FIELD_NUMBER: ClassVar[int]
     STREAMS_SUCCEEDED_FIELD_NUMBER: ClassVar[int]
     STREAMS_FAILED_FIELD_NUMBER: ClassVar[int]
@@ -298,10 +284,8 @@ class SocketData(message.Message, metaclass=MessageMeta):
 
 @final
 class Address(message.Message, metaclass=MessageMeta):
-    __slots__ = ()
     @final
     class TcpIpAddress(message.Message, metaclass=MessageMeta):
-        __slots__ = ()
         IP_ADDRESS_FIELD_NUMBER: ClassVar[int]
         PORT_FIELD_NUMBER: ClassVar[int]
         ip_address: bytes
@@ -310,14 +294,12 @@ class Address(message.Message, metaclass=MessageMeta):
 
     @final
     class UdsAddress(message.Message, metaclass=MessageMeta):
-        __slots__ = ()
         FILENAME_FIELD_NUMBER: ClassVar[int]
         filename: str
         def __init__(self, filename: str | None = ...) -> None: ...
 
     @final
     class OtherAddress(message.Message, metaclass=MessageMeta):
-        __slots__ = ()
         NAME_FIELD_NUMBER: ClassVar[int]
         VALUE_FIELD_NUMBER: ClassVar[int]
         name: str
@@ -340,10 +322,8 @@ class Address(message.Message, metaclass=MessageMeta):
 
 @final
 class Security(message.Message, metaclass=MessageMeta):
-    __slots__ = ()
     @final
     class Tls(message.Message, metaclass=MessageMeta):
-        __slots__ = ()
         STANDARD_NAME_FIELD_NUMBER: ClassVar[int]
         OTHER_NAME_FIELD_NUMBER: ClassVar[int]
         LOCAL_CERTIFICATE_FIELD_NUMBER: ClassVar[int]
@@ -362,7 +342,6 @@ class Security(message.Message, metaclass=MessageMeta):
 
     @final
     class OtherSecurity(message.Message, metaclass=MessageMeta):
-        __slots__ = ()
         NAME_FIELD_NUMBER: ClassVar[int]
         VALUE_FIELD_NUMBER: ClassVar[int]
         name: str
@@ -382,7 +361,6 @@ class Security(message.Message, metaclass=MessageMeta):
 
 @final
 class SocketOption(message.Message, metaclass=MessageMeta):
-    __slots__ = ()
     NAME_FIELD_NUMBER: ClassVar[int]
     VALUE_FIELD_NUMBER: ClassVar[int]
     ADDITIONAL_FIELD_NUMBER: ClassVar[int]
@@ -399,7 +377,6 @@ class SocketOption(message.Message, metaclass=MessageMeta):
 
 @final
 class SocketOptionTimeout(message.Message, metaclass=MessageMeta):
-    __slots__ = ()
     DURATION_FIELD_NUMBER: ClassVar[int]
     duration: duration_pb2.Duration
     def __init__(self, duration: duration_pb2.Duration | Mapping[Incomplete, Incomplete] | None = ...) -> None: ...
@@ -407,7 +384,6 @@ class SocketOptionTimeout(message.Message, metaclass=MessageMeta):
 
 @final
 class SocketOptionLinger(message.Message, metaclass=MessageMeta):
-    __slots__ = ()
     ACTIVE_FIELD_NUMBER: ClassVar[int]
     DURATION_FIELD_NUMBER: ClassVar[int]
     active: bool
@@ -419,7 +395,6 @@ class SocketOptionLinger(message.Message, metaclass=MessageMeta):
 
 @final
 class SocketOptionTcpInfo(message.Message, metaclass=MessageMeta):
-    __slots__ = ()
     TCPI_STATE_FIELD_NUMBER: ClassVar[int]
     TCPI_CA_STATE_FIELD_NUMBER: ClassVar[int]
     TCPI_RETRANSMITS_FIELD_NUMBER: ClassVar[int]
@@ -514,7 +489,6 @@ class SocketOptionTcpInfo(message.Message, metaclass=MessageMeta):
 
 @final
 class GetTopChannelsRequest(message.Message, metaclass=MessageMeta):
-    __slots__ = ()
     START_CHANNEL_ID_FIELD_NUMBER: ClassVar[int]
     MAX_RESULTS_FIELD_NUMBER: ClassVar[int]
     start_channel_id: int
@@ -524,7 +498,6 @@ class GetTopChannelsRequest(message.Message, metaclass=MessageMeta):
 
 @final
 class GetTopChannelsResponse(message.Message, metaclass=MessageMeta):
-    __slots__ = ()
     CHANNEL_FIELD_NUMBER: ClassVar[int]
     END_FIELD_NUMBER: ClassVar[int]
     channel: containers.RepeatedCompositeFieldContainer[Channel]
@@ -534,7 +507,6 @@ class GetTopChannelsResponse(message.Message, metaclass=MessageMeta):
 
 @final
 class GetServersRequest(message.Message, metaclass=MessageMeta):
-    __slots__ = ()
     START_SERVER_ID_FIELD_NUMBER: ClassVar[int]
     MAX_RESULTS_FIELD_NUMBER: ClassVar[int]
     start_server_id: int
@@ -544,7 +516,6 @@ class GetServersRequest(message.Message, metaclass=MessageMeta):
 
 @final
 class GetServersResponse(message.Message, metaclass=MessageMeta):
-    __slots__ = ()
     SERVER_FIELD_NUMBER: ClassVar[int]
     END_FIELD_NUMBER: ClassVar[int]
     server: containers.RepeatedCompositeFieldContainer[Server]
@@ -554,7 +525,6 @@ class GetServersResponse(message.Message, metaclass=MessageMeta):
 
 @final
 class GetServerRequest(message.Message, metaclass=MessageMeta):
-    __slots__ = ()
     SERVER_ID_FIELD_NUMBER: ClassVar[int]
     server_id: int
     def __init__(self, server_id: int | None = ...) -> None: ...
@@ -562,7 +532,6 @@ class GetServerRequest(message.Message, metaclass=MessageMeta):
 
 @final
 class GetServerResponse(message.Message, metaclass=MessageMeta):
-    __slots__ = ()
     SERVER_FIELD_NUMBER: ClassVar[int]
     server: Server
     def __init__(self, server: Server | Mapping[Incomplete, Incomplete] | None = ...) -> None: ...
@@ -570,7 +539,6 @@ class GetServerResponse(message.Message, metaclass=MessageMeta):
 
 @final
 class GetServerSocketsRequest(message.Message, metaclass=MessageMeta):
-    __slots__ = ()
     SERVER_ID_FIELD_NUMBER: ClassVar[int]
     START_SOCKET_ID_FIELD_NUMBER: ClassVar[int]
     MAX_RESULTS_FIELD_NUMBER: ClassVar[int]
@@ -582,7 +550,6 @@ class GetServerSocketsRequest(message.Message, metaclass=MessageMeta):
 
 @final
 class GetServerSocketsResponse(message.Message, metaclass=MessageMeta):
-    __slots__ = ()
     SOCKET_REF_FIELD_NUMBER: ClassVar[int]
     END_FIELD_NUMBER: ClassVar[int]
     socket_ref: containers.RepeatedCompositeFieldContainer[SocketRef]
@@ -594,7 +561,6 @@ class GetServerSocketsResponse(message.Message, metaclass=MessageMeta):
 
 @final
 class GetChannelRequest(message.Message, metaclass=MessageMeta):
-    __slots__ = ()
     CHANNEL_ID_FIELD_NUMBER: ClassVar[int]
     channel_id: int
     def __init__(self, channel_id: int | None = ...) -> None: ...
@@ -602,7 +568,6 @@ class GetChannelRequest(message.Message, metaclass=MessageMeta):
 
 @final
 class GetChannelResponse(message.Message, metaclass=MessageMeta):
-    __slots__ = ()
     CHANNEL_FIELD_NUMBER: ClassVar[int]
     channel: Channel
     def __init__(self, channel: Channel | Mapping[Incomplete, Incomplete] | None = ...) -> None: ...
@@ -610,7 +575,6 @@ class GetChannelResponse(message.Message, metaclass=MessageMeta):
 
 @final
 class GetSubchannelRequest(message.Message, metaclass=MessageMeta):
-    __slots__ = ()
     SUBCHANNEL_ID_FIELD_NUMBER: ClassVar[int]
     subchannel_id: int
     def __init__(self, subchannel_id: int | None = ...) -> None: ...
@@ -618,7 +582,6 @@ class GetSubchannelRequest(message.Message, metaclass=MessageMeta):
 
 @final
 class GetSubchannelResponse(message.Message, metaclass=MessageMeta):
-    __slots__ = ()
     SUBCHANNEL_FIELD_NUMBER: ClassVar[int]
     subchannel: Subchannel
     def __init__(self, subchannel: Subchannel | Mapping[Incomplete, Incomplete] | None = ...) -> None: ...
@@ -626,7 +589,6 @@ class GetSubchannelResponse(message.Message, metaclass=MessageMeta):
 
 @final
 class GetSocketRequest(message.Message, metaclass=MessageMeta):
-    __slots__ = ()
     SOCKET_ID_FIELD_NUMBER: ClassVar[int]
     SUMMARY_FIELD_NUMBER: ClassVar[int]
     socket_id: int
@@ -636,7 +598,6 @@ class GetSocketRequest(message.Message, metaclass=MessageMeta):
 
 @final
 class GetSocketResponse(message.Message, metaclass=MessageMeta):
-    __slots__ = ()
     SOCKET_FIELD_NUMBER: ClassVar[int]
     socket: Socket
     def __init__(self, socket: Socket | Mapping[Incomplete, Incomplete] | None = ...) -> None: ...

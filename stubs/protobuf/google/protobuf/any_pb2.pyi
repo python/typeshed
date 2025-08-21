@@ -130,8 +130,6 @@ class Any(google.protobuf.message.Message, google.protobuf.internal.well_known_t
         }
     """
 
-    __slots__ = ()
-
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     TYPE_URL_FIELD_NUMBER: builtins.int

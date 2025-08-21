@@ -8,7 +8,6 @@ DESCRIPTOR: FileDescriptor
 
 @final
 class HealthCheckRequest(message.Message, metaclass=MessageMeta):
-    __slots__ = ()
     SERVICE_FIELD_NUMBER: ClassVar[int]
     service: str
     def __init__(self, service: str | None = ...) -> None: ...
@@ -16,7 +15,6 @@ class HealthCheckRequest(message.Message, metaclass=MessageMeta):
 
 @final
 class HealthCheckResponse(message.Message, metaclass=MessageMeta):
-    __slots__ = ()
     ServingStatus: Incomplete
     UNKNOWN: Incomplete
     SERVING: Incomplete
