@@ -113,6 +113,8 @@ urllib.request.HTTPPasswordMgrWithPriorAuth.__init__  # Args are passed as is to
 xml.etree.ElementTree.Element.__bool__  # Doesn't really exist; see comments in stub
 xml.etree.cElementTree.Element.__bool__  # Doesn't really exist; see comments in stub
 
+platform.platform  # runtime default is 0, we pretend it's a bool
+
 
 # =======
 # <= 3.12
