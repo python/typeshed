@@ -1151,8 +1151,8 @@ if sys.platform != "win32":
             in_fd: FileDescriptor,
             offset: int,
             count: int,
-            headers: Sequence[ReadableBuffer] = ...,
-            trailers: Sequence[ReadableBuffer] = ...,
+            headers: Sequence[ReadableBuffer] = (),
+            trailers: Sequence[ReadableBuffer] = (),
             flags: int = 0,
         ) -> int: ...  # FreeBSD and Mac OS X only
 

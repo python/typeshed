@@ -138,7 +138,7 @@ class TracebackException:
         @property
         def exc_type_str(self) -> str: ...
         @property
-        @deprecated("Deprecated in 3.13. Use exc_type_str instead.")
+        @deprecated("Deprecated since Python 3.13. Use `exc_type_str` instead.")
         def exc_type(self) -> type[BaseException] | None: ...
     else:
         exc_type: type[BaseException]

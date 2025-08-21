@@ -23,7 +23,7 @@ from functools import cache
 from optparse import Values
 from os import PathLike
 from re import Pattern
-from typing import IO, Any, AnyStr, BinaryIO, Generic, NamedTuple, TextIO, TypeVar, overload
+from typing import IO, Any, AnyStr, BinaryIO, Generic, Literal, NamedTuple, TextIO, TypeVar, overload
 from typing_extensions import Self, TypeAlias
 from urllib.parse import _QueryType, _QuoteVia
 from xml.etree import ElementTree as ET
@@ -573,7 +573,9 @@ def get_executable_path() -> str: ...
 def get_user_config_dirs(package_name: str) -> Iterator[str]: ...
 def get_system_config_dirs(package_name: str) -> Iterator[str]: ...
 def time_seconds(**kwargs: float) -> int: ...
-def jwt_encode_hs256(payload_data: Any, key: str, headers: Mapping[str, Any] = ...) -> bytes: ...  # Passed to json.dumps().
+def jwt_encode(
+    payload_data: Any, key: str, *, alg: Literal["HS256"] = "HS256", headers: Mapping[str, Any] | None = None
+) -> str: ...  # payload_data and headers are passed to json.dumps().
 def jwt_decode_hs256(jwt: str) -> Any: ...  # Returns json.loads() output.
 def supports_terminal_sequences(stream: IO[Any]) -> bool: ...
 def windows_enable_vt_mode() -> None: ...

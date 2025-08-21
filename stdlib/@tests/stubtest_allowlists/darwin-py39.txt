@@ -1,6 +1,6 @@
-# ===========
-# 3.9 to 3.11
-# ===========
+# =======
+# <= 3.11
+# =======
 
 # Added in Python 3.9.20
 email._header_value_parser.NLSET
