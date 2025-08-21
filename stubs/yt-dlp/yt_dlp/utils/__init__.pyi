@@ -149,7 +149,7 @@ from ._utils import (
     join_nonempty as join_nonempty,
     js_to_json as js_to_json,
     jwt_decode_hs256 as jwt_decode_hs256,
-    jwt_encode_hs256 as jwt_encode_hs256,
+    jwt_encode as jwt_encode,
     limit_length as limit_length,
     locked_file as locked_file,
     long_to_bytes as long_to_bytes,
