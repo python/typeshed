@@ -218,7 +218,8 @@ if sys.version_info < (3, 12):
     if sys.version_info >= (3, 10):
         # deprecation wrapper that has a different name for the argument...
         @deprecated(
-            "Deprecated since 3.10; removed in Python 3.12. Instead, open database in URI mode using `cache=shared` parameter."
+            "Deprecated since Python 3.10; removed in Python 3.12. "
+            "Open database in URI mode using `cache=shared` parameter instead."
         )
         def enable_shared_cache(enable: int) -> None: ...
     else:
