@@ -7,7 +7,6 @@
 # >= 3.11
 # =======
 
-enum.Enum.__init__
 typing.NewType.__mro_entries__
 
 
@@ -138,11 +137,17 @@ typing\.ByteString
 typing_extensions.TypeAliasType.__call__
 
 
+# ============
+# 3.11 to 3.13
+# ============
+
+enum.Enum.__init__
+
+
 # =============================================================
 # Allowlist entries that cannot or should not be fixed; >= 3.11
 # =============================================================
 
-argparse._MutuallyExclusiveGroup.add_mutually_exclusive_group  # deprecated, forwards arguments to super
 enum.auto.__init__  # The stub for enum.auto is nothing like the implementation
 enum.auto.value  # The stub for enum.auto is nothing like the implementation
 http.HTTPMethod.description  # mutable instance attribute at runtime but we pretend it's a property
@@ -196,11 +201,11 @@ importlib.metadata.DeprecatedList.sort
 typing.ParamSpec(Args|Kwargs).__origin__
 
 
-# =================================================================
-# Allowlist entries that cannot or should not be fixed; 3.9 to 3.12
-# =================================================================
+# ==================================================================
+# Allowlist entries that cannot or should not be fixed; 3.11 to 3.13
+# ==================================================================
 
-typing\.Annotated  # Super-special typing primitive
+argparse._MutuallyExclusiveGroup.add_mutually_exclusive_group  # deprecated, forwards arguments to super
 
 
 # =============================================================
@@ -230,6 +235,11 @@ typing_extensions\.TypeAliasType\.__(parameters|type_params|name|module|value)__
 
 unittest.test  # Modules that exist at runtime, but shouldn't be added to typeshed
 unittest\.test\..+  # Modules that exist at runtime, but shouldn't be added to typeshed
+
+# Incompatible changes introduced in Python 3.11.12
+# (Remove once 3.11.12 becomes available for all platforms)
+(email._header_value_parser.get_encoded_word)?
+(email._header_value_parser.make_quoted_pairs)?
 
 
 # =============================================================
@@ -275,11 +285,7 @@ sunau.Au_write.initfp
 threading.Lock  # Factory function at runtime, but that wouldn't let us use it in type hints
 types.SimpleNamespace.__init__  # class doesn't accept positional arguments but has default C signature
 typing_extensions\.Annotated  # Undocumented implementation details
-
-# Incompatible changes introduced in Python 3.11.12
-# (Remove once 3.11.12 becomes available for all platforms)
-(email._header_value_parser.get_encoded_word)?
-(email._header_value_parser.make_quoted_pairs)?
+typing\.Annotated  # Super-special typing primitive
 
 # These methods have no default implementation for Python < 3.13.
 _pickle.Pickler.persistent_id
