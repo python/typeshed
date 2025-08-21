@@ -1,3 +1,9 @@
+from ._deprecated import (
+    bytes_to_intlist as bytes_to_intlist,
+    compiled_regex_type as compiled_regex_type,
+    intlist_to_bytes as intlist_to_bytes,
+    jwt_encode_hs256 as jwt_encode_hs256,
+)
 from ._utils import (
     ACCENT_CHARS as ACCENT_CHARS,
     BOMS as BOMS,
