@@ -147,10 +147,7 @@ class InfoExtractor:
         method: str | type[NO_DEFAULT] = ...,
     ) -> None: ...
     def raise_geo_restricted(
-        self,
-        msg: str = "This video is not available from your location due to geo restriction",
-        countries: Collection[str] | None = None,
-        metadata_available: bool = False,
+        self, msg: str = ..., countries: Collection[str] | None = None, metadata_available: bool = False
     ) -> None: ...
     def raise_no_formats(self, msg: str, expected: bool = False, video_id: str | None = None) -> None: ...
     @staticmethod

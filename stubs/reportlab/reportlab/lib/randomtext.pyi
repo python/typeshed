@@ -16,25 +16,4 @@ objects: Final[Sequence[str]]
 
 def format_wisdom(text: str, line_length: int = 72) -> str: ...
 def chomsky(times: int = 1) -> str: ...
-def randomText(
-    theme: str | Sequence[str] = [
-        "strategic",
-        "direction",
-        "proactive",
-        "venture capital",
-        "reengineering",
-        "forecast",
-        "resources",
-        "SWOT analysis",
-        "forward-thinking",
-        "profit",
-        "growth",
-        "doubletalk",
-        "B2B",
-        "B2C",
-        "venture capital",
-        "IPO",
-        "NASDAQ meltdown - we're all doomed!",
-    ],
-    sentences: int = 5,
-) -> str: ...
+def randomText(theme: str | Sequence[str] = ..., sentences: int = 5) -> str: ...

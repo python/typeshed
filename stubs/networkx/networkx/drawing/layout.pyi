@@ -54,7 +54,7 @@ def bipartite_layout(
     align: Literal["vertical", "horizontal"] = "vertical",
     scale: float = 1,
     center: _FloatArrayLike1D | None = None,
-    aspect_ratio: float = 1.3333333333333333,
+    aspect_ratio: float = ...,
     store_pos_as: str | None = None,
 ) -> dict[_Node, Array1D[np.float64]]: ...
 def spring_layout(

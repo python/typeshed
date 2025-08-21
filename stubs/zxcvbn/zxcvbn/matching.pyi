@@ -63,22 +63,7 @@ def relevant_l33t_subtable(password: str, table: Mapping[str, Iterable[str]]) ->
 def enumerate_l33t_subs(table: Mapping[str, Iterable[str]]) -> list[dict[str, str]]: ...
 def translate(string: str, chr_map: Mapping[str, str]) -> str: ...
 def l33t_match(
-    password: str,
-    _ranked_dictionaries: dict[str, dict[str, int]] = ...,
-    _l33t_table: dict[str, list[str]] = {
-        "a": ["4", "@"],
-        "b": ["8"],
-        "c": ["(", "{", "[", "<"],
-        "e": ["3"],
-        "g": ["6", "9"],
-        "i": ["1", "!", "|"],
-        "l": ["1", "|", "7"],
-        "o": ["0"],
-        "s": ["$", "5"],
-        "t": ["+", "7"],
-        "x": ["%"],
-        "z": ["2"],
-    },
+    password: str, _ranked_dictionaries: dict[str, dict[str, int]] = ..., _l33t_table: dict[str, list[str]] = ...
 ) -> list[_Match]: ...
 def repeat_match(password: str, _ranked_dictionaries: dict[str, dict[str, int]] = ...) -> list[_Match]: ...
 def spatial_match(

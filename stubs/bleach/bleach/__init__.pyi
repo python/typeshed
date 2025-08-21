@@ -22,7 +22,7 @@ _HTMLAttrKey: TypeAlias = tuple[str | None, str]  # noqa: Y047
 def clean(
     text: str,
     tags: Iterable[str] = ...,
-    attributes: _Attributes = {"a": ["href", "title"], "abbr": ["title"], "acronym": ["title"]},
+    attributes: _Attributes = ...,
     protocols: Iterable[str] = ...,
     strip: bool = False,
     strip_comments: bool = True,

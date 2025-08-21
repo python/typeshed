@@ -25,5 +25,5 @@ class GetToken(AuthenticationBase):
         subject_token: str,
         requested_token_type: str,
         connection: str | None = None,
-        grant_type: str = "urn:auth0:params:oauth:grant-type:token-exchange:federated-connection-access-token",
+        grant_type: str = ...,
     ): ...
