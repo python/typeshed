@@ -193,6 +193,7 @@ sqlite3\.test\..+  # Modules that exist at runtime, but shouldn't be added to ty
 tkinter.EventType.__new__  # Derives from (str, Enum)
 types.CodeType.replace  # stubtest thinks default values are None but None doesn't work at runtime
 
+platform.platform  # runtime default is 0, we pretend it's a bool
 
 # =============================================================
 # Allowlist entries that cannot or should not be fixed; <= 3.11
