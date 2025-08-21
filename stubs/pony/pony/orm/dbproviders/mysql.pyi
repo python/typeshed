@@ -21,7 +21,7 @@ class MySQLTranslator(SQLTranslator):
     dialect: ClassVar[str]
 
 class MySQLValue(Value):
-    __slots__ = []
+    __slots__: list[str] = []
 
 class MySQLBuilder(SQLBuilder):
     dialect: ClassVar[str]

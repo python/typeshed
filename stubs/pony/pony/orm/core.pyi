@@ -573,10 +573,10 @@ class Attribute:
     def describe(attr) -> str: ...
 
 class Optional(Attribute):
-    __slots__ = []
+    __slots__: list[str] = []
 
 class Required(Attribute):
-    __slots__ = []
+    __slots__: list[str] = []
     def validate(attr, val, obj=None, entity=None, from_db: bool = False): ...
 
 class Discriminator(Required):
@@ -605,7 +605,7 @@ def composite_index(*attrs) -> None: ...
 def composite_key(*attrs) -> None: ...
 
 class PrimaryKey(Required):
-    __slots__ = []
+    __slots__: list[str] = []
     def __new__(cls, *args, **kwargs): ...
 
 class Collection(Attribute):
@@ -657,7 +657,7 @@ def construct_batchload_criteria_list(
 ): ...
 
 class Set(Collection):
-    __slots__ = []
+    __slots__: list[str] = []
     def validate(attr, val, obj=None, entity=None, from_db: bool = False): ...
     def prefetch_load_all(attr, objects): ...
     def load(attr, obj, items=None): ...

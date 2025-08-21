@@ -31,7 +31,7 @@ class SQLiteTranslator(SQLTranslator):
     StringMixin_LOWER: Incomplete
 
 class SQLiteValue(Value):
-    __slots__ = []
+    __slots__: list[str] = []
 
 class SQLiteBuilder(SQLBuilder):
     dialect: ClassVar[str]

@@ -24,11 +24,11 @@ class CTypesData:
     def __repr__(self, c_name: str | None = None): ...
 
 class CTypesGenericPrimitive(CTypesData):
-    __slots__ = []
+    __slots__: list[str] = []
     def __hash__(self) -> int: ...
 
 class CTypesGenericArray(CTypesData):
-    __slots__ = []
+    __slots__: list[str] = []
     def __iter__(self): ...
 
 class CTypesGenericPtr(CTypesData):
