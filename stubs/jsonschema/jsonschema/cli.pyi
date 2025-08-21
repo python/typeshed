@@ -52,7 +52,7 @@ parser: argparse.ArgumentParser
 @deprecated("The jsonschema CLI is deprecated and will be removed in a future version. Please use check-jsonschema instead.")
 def parse_args(args: Sequence[str] | None) -> dict[str, Any]: ...  # result of vars(argparse.Namespace())
 @deprecated("The jsonschema CLI is deprecated and will be removed in a future version. Please use check-jsonschema instead.")
-def main(args: Sequence[str] = ["--typeshed-packages", "../typeshed/stubs/jsonschema"]) -> None: ...
+def main(args: Sequence[str] = ...) -> None: ...
 @deprecated("The jsonschema CLI is deprecated and will be removed in a future version. Please use check-jsonschema instead.")
 def run(
     arguments: Mapping[str, Incomplete],
