@@ -862,6 +862,7 @@ In the future, this property will contain the last metadata change time."""
 # on the allowlist for use as a Protocol starting in 3.14.
 @runtime_checkable
 class PathLike(ABC, Protocol[AnyStr_co]):  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
+    __slots__ = ()
     @abstractmethod
     def __fspath__(self) -> AnyStr_co: ...
 

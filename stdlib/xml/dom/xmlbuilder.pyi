@@ -44,9 +44,11 @@ class DOMBuilder:
     def parseWithContext(self, input: DOMInputSource, cnode: Node, action: Literal[1, 2, 3, 4]) -> NoReturn: ...
 
 class DOMEntityResolver:
+    __slots__ = ("_opener",)
     def resolveEntity(self, publicId: str | None, systemId: str) -> DOMInputSource: ...
 
 class DOMInputSource:
+    __slots__ = ("byteStream", "characterStream", "stringData", "encoding", "publicId", "systemId", "baseURI")
     byteStream: SupportsRead[bytes] | None
     characterStream: SupportsRead[str] | None
     stringData: str | None

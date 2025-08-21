@@ -245,6 +245,23 @@ class TracebackException:
         def print(self, *, file: SupportsWrite[str] | None = None, chain: bool = True) -> None: ...
 
 class FrameSummary:
+    if sys.version_info >= (3, 13):
+        __slots__ = (
+            "filename",
+            "lineno",
+            "end_lineno",
+            "colno",
+            "end_colno",
+            "name",
+            "_lines",
+            "_lines_dedented",
+            "locals",
+            "_code",
+        )
+    elif sys.version_info >= (3, 11):
+        __slots__ = ("filename", "lineno", "end_lineno", "colno", "end_colno", "name", "_line", "locals")
+    else:
+        __slots__ = ("filename", "lineno", "name", "_line", "locals")
     if sys.version_info >= (3, 11):
         def __init__(
             self,
