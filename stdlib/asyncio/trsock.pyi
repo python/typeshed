@@ -14,6 +14,7 @@ _WriteBuffer: TypeAlias = bytearray | memoryview
 _CMSG: TypeAlias = tuple[int, int, bytes]
 
 class TransportSocket:
+    __slots__ = ("_sock",)
     def __init__(self, sock: socket.socket) -> None: ...
     @property
     def family(self) -> int: ...

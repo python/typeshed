@@ -146,7 +146,9 @@ if sys.version_info >= (3, 13):
 # from _typeshed import AnnotationForm
 
 class Any: ...
-class _Final: ...
+
+class _Final:
+    __slots__ = ("__weakref__",)
 
 def final(f: _T) -> _T: ...
 @final
@@ -229,6 +231,7 @@ _promote = object()
 # N.B. Keep this definition in sync with typing_extensions._SpecialForm
 @final
 class _SpecialForm(_Final):
+    __slots__ = ("_name", "__doc__", "_getitem")
     def __getitem__(self, parameters: Any) -> object: ...
     if sys.version_info >= (3, 10):
         def __or__(self, other: Any) -> _SpecialForm: ...
@@ -449,36 +452,43 @@ class _ProtocolMeta(ABCMeta):
 def runtime_checkable(cls: _TC) -> _TC: ...
 @runtime_checkable
 class SupportsInt(Protocol, metaclass=ABCMeta):
+    __slots__ = ()
     @abstractmethod
     def __int__(self) -> int: ...
 
 @runtime_checkable
 class SupportsFloat(Protocol, metaclass=ABCMeta):
+    __slots__ = ()
     @abstractmethod
     def __float__(self) -> float: ...
 
 @runtime_checkable
 class SupportsComplex(Protocol, metaclass=ABCMeta):
+    __slots__ = ()
     @abstractmethod
     def __complex__(self) -> complex: ...
 
 @runtime_checkable
 class SupportsBytes(Protocol, metaclass=ABCMeta):
+    __slots__ = ()
     @abstractmethod
     def __bytes__(self) -> bytes: ...
 
 @runtime_checkable
 class SupportsIndex(Protocol, metaclass=ABCMeta):
+    __slots__ = ()
     @abstractmethod
     def __index__(self) -> int: ...
 
 @runtime_checkable
 class SupportsAbs(Protocol[_T_co]):
+    __slots__ = ()
     @abstractmethod
     def __abs__(self) -> _T_co: ...
 
 @runtime_checkable
 class SupportsRound(Protocol[_T_co]):
+    __slots__ = ()
     @overload
     @abstractmethod
     def __round__(self) -> int: ...
@@ -820,6 +830,7 @@ class IO(Generic[AnyStr]):
     # At runtime these are all abstract properties,
     # but making them abstract in the stub is hugely disruptive, for not much gain.
     # See #8726
+    __slots__ = ()
     @property
     def mode(self) -> str: ...
     # Usually str, but may be bytes if a bytes path was passed to open(). See #10737.
@@ -878,11 +889,13 @@ class IO(Generic[AnyStr]):
     ) -> None: ...
 
 class BinaryIO(IO[bytes]):
+    __slots__ = ()
     @abstractmethod
     def __enter__(self) -> BinaryIO: ...
 
 class TextIO(IO[str]):
     # See comment regarding the @properties in the `IO` class
+    __slots__ = ()
     @property
     def buffer(self) -> BinaryIO: ...
     @property
@@ -1045,6 +1058,15 @@ if sys.version_info >= (3, 14):
 else:
     @final
     class ForwardRef(_Final):
+        __slots__ = (
+            "__forward_arg__",
+            "__forward_code__",
+            "__forward_evaluated__",
+            "__forward_value__",
+            "__forward_is_argument__",
+            "__forward_is_class__",
+            "__forward_module__",
+        )
         __forward_arg__: str
         __forward_code__: CodeType
         __forward_evaluated__: bool

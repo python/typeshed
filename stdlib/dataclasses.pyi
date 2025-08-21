@@ -170,6 +170,19 @@ class _DefaultFactory(Protocol[_T_co]):
     def __call__(self) -> _T_co: ...
 
 class Field(Generic[_T]):
+    __slots__ = (
+        "name",
+        "type",
+        "default",
+        "default_factory",
+        "repr",
+        "hash",
+        "init",
+        "compare",
+        "metadata",
+        "kw_only",
+        "_field_type",
+    )
     name: str
     type: Type[_T] | str | Any
     default: _T | Literal[_MISSING_TYPE.MISSING]
@@ -355,6 +368,7 @@ def is_dataclass(obj: object) -> TypeIs[DataclassInstance | type[DataclassInstan
 class FrozenInstanceError(AttributeError): ...
 
 class InitVar(Generic[_T]):
+    __slots__ = ("type",)
     type: Type[_T]
     def __init__(self, type: Type[_T]) -> None: ...
     @overload

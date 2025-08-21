@@ -3,6 +3,7 @@ from typing import Any, Final, Literal
 from .domreg import getDOMImplementation as getDOMImplementation, registerDOMImplementation as registerDOMImplementation
 
 class Node:
+    __slots__ = ()
     ELEMENT_NODE: Literal[1]
     ATTRIBUTE_NODE: Literal[2]
     TEXT_NODE: Literal[3]

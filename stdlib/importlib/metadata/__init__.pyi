@@ -97,6 +97,7 @@ class EntryPoint(_EntryPointBase):
 
 if sys.version_info >= (3, 12):
     class EntryPoints(tuple[EntryPoint, ...]):
+        __slots__ = ()
         def __getitem__(self, name: str) -> EntryPoint: ...  # type: ignore[override]
         def select(
             self,

@@ -73,6 +73,7 @@ class _TaskFactory(Protocol):
     def __call__(self, loop: AbstractEventLoop, factory: _CoroutineLike[_T], /) -> Future[_T]: ...
 
 class Handle:
+    __slots__ = ("_callback", "_args", "_cancelled", "_loop", "_source_traceback", "_repr", "__weakref__", "_context")
     _cancelled: bool
     _args: Sequence[Any]
     def __init__(
@@ -85,6 +86,7 @@ class Handle:
         def get_context(self) -> Context: ...
 
 class TimerHandle(Handle):
+    __slots__ = ["_scheduled", "_when"]
     def __init__(
         self,
         when: float,

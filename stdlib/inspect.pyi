@@ -336,6 +336,7 @@ class _void: ...
 class _empty: ...
 
 class Signature:
+    __slots__ = ("_return_annotation", "_parameters")
     def __init__(
         self, parameters: Sequence[Parameter] | None = None, *, return_annotation: Any = ..., __validate_parameters__: bool = True
     ) -> None: ...
@@ -416,6 +417,7 @@ if sys.version_info >= (3, 12):
     def getasyncgenlocals(agen: AsyncGeneratorType[Any, Any]) -> dict[str, Any]: ...
 
 class Parameter:
+    __slots__ = ("_name", "_kind", "_default", "_annotation")
     def __init__(self, name: str, kind: _ParameterKind, *, default: Any = ..., annotation: Any = ...) -> None: ...
     empty = _empty
 
@@ -447,6 +449,7 @@ class Parameter:
     def __hash__(self) -> int: ...
 
 class BoundArguments:
+    __slots__ = ("arguments", "_signature", "__weakref__")
     arguments: OrderedDict[str, Any]
     @property
     def args(self) -> tuple[Any, ...]: ...
