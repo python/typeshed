@@ -10,16 +10,16 @@ LOGGER: Logger
 class GeventConnection(BaseConnection):
     def __init__(
         self,
-        parameters: Incomplete | None = ...,
-        on_open_callback: Incomplete | None = ...,
-        on_open_error_callback: Incomplete | None = ...,
-        on_close_callback: Incomplete | None = ...,
-        custom_ioloop: Incomplete | None = ...,
-        internal_connection_workflow: bool = ...,
+        parameters: Incomplete | None = None,
+        on_open_callback: Incomplete | None = None,
+        on_open_error_callback: Incomplete | None = None,
+        on_close_callback: Incomplete | None = None,
+        custom_ioloop: Incomplete | None = None,
+        internal_connection_workflow: bool = True,
     ) -> None: ...
     @classmethod
     def create_connection(
-        cls, connection_configs, on_done, custom_ioloop: Incomplete | None = ..., workflow: Incomplete | None = ...
+        cls, connection_configs, on_done, custom_ioloop: Incomplete | None = None, workflow: Incomplete | None = None
     ): ...
 
 class _TSafeCallbackQueue:
@@ -33,7 +33,7 @@ class _GeventSelectorIOLoop(AbstractSelectorIOLoop):
     READ: int
     WRITE: int
     ERROR: int
-    def __init__(self, gevent_hub: Incomplete | None = ...) -> None: ...
+    def __init__(self, gevent_hub: Incomplete | None = None) -> None: ...
     def close(self) -> None: ...
     def start(self) -> None: ...
     def stop(self) -> None: ...
@@ -45,7 +45,7 @@ class _GeventSelectorIOLoop(AbstractSelectorIOLoop):
     def remove_handler(self, fd) -> None: ...
 
 class _GeventSelectorIOServicesAdapter(SelectorIOServicesAdapter):
-    def getaddrinfo(self, host, port, on_done, family: int = ..., socktype: int = ..., proto: int = ..., flags: int = ...): ...
+    def getaddrinfo(self, host, port, on_done, family: int = 0, socktype: int = 0, proto: int = 0, flags: int = 0): ...
 
 class _GeventIOLoopIOHandle(AbstractIOReference):
     def __init__(self, subject) -> None: ...

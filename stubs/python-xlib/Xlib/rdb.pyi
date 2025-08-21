@@ -92,7 +92,12 @@ class SkipNArgs(Option):
     def __init__(self, count: int) -> None: ...
 
 def get_display_opts(
-    options: Mapping[str, Option], argv: Sequence[str] = ...
+    options: Mapping[str, Option],
+    argv: Sequence[str] = [
+        "/Users/jelle/py/stubdefaulter/stubdefaulter/__main__.py",
+        "--typeshed-packages",
+        "../typeshed/stubs/python-xlib",
+    ],
 ) -> tuple[Display, str, ResourceDB, Sequence[str]]: ...
 
 stdopts: Final[dict[str, SepArg | NoArg | ResArgClass]]

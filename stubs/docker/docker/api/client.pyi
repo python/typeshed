@@ -43,7 +43,7 @@ class APIClient(
         version: str | None = None,
         timeout: int = 60,
         tls: bool | TLSConfig = False,
-        user_agent: str = ...,
+        user_agent: str = "docker-sdk-python/7.1.0",
         num_pools: int | None = None,
         credstore_env: Mapping[Incomplete, Incomplete] | None = None,
         use_ssh_client: bool = False,

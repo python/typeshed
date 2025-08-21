@@ -147,7 +147,10 @@ class InfoExtractor:
         method: str | type[NO_DEFAULT] = ...,
     ) -> None: ...
     def raise_geo_restricted(
-        self, msg: str = ..., countries: Collection[str] | None = None, metadata_available: bool = False
+        self,
+        msg: str = "This video is not available from your location due to geo restriction",
+        countries: Collection[str] | None = None,
+        metadata_available: bool = False,
     ) -> None: ...
     def raise_no_formats(self, msg: str, expected: bool = False, video_id: str | None = None) -> None: ...
     @staticmethod
@@ -175,11 +178,11 @@ class InfoExtractor:
     @staticmethod
     def playlist_result(
         entries: Iterable[_InfoDict],
-        playlist_id: str | None = ...,
-        playlist_title: str | None = ...,
-        playlist_description: str | None = ...,
+        playlist_id: str | None = None,
+        playlist_title: str | None = None,
+        playlist_description: str | None = None,
         *,
-        multi_video: bool = ...,
+        multi_video: bool = False,
         **kwargs: Any,  # Added to the dict return value.
     ) -> _InfoDict: ...
     def http_scheme(self) -> str: ...
@@ -197,112 +200,112 @@ class InfoExtractor:
     def description(cls, *, markdown: bool = True, search_examples: Sequence[str] | None = None) -> str: ...
     # Calls _get_subtitles which only raises NotImplementedError here.
     def extract_subtitles(self, *args: Any, **kwargs: Any) -> list[dict[str, Any]]: ...
-    def _configuration_arg(self, key: str, default: Any = ..., *, ie_key: str | None = ..., casesense: bool = ...) -> Any: ...
+    def _configuration_arg(self, key: str, default: Any = ..., *, ie_key: str | None = None, casesense: bool = False) -> Any: ...
     # These are dynamically created.
     def _download_xml_handle(
         self,
         url_or_request: str | Request,
         video_id: str,
-        note: str | None = ...,
-        errnote: str | None = ...,
-        transform_source: Callable[..., str] | None = ...,
-        fatal: bool = ...,
-        encoding: str | None = ...,
-        data: _DataType | None = ...,
-        headers: Mapping[str, str] = ...,
-        query: Mapping[str, str] = ...,
-        expected_status: int | None = ...,
-        impersonate: str | None = ...,
-        require_impersonation: bool = ...,
+        note: str | None = "Downloading XML",
+        errnote: str | None = "Unable to download XML",
+        transform_source: Callable[..., str] | None = None,
+        fatal: bool = True,
+        encoding: str | None = None,
+        data: _DataType | None = None,
+        headers: Mapping[str, str] = {},
+        query: Mapping[str, str] = {},
+        expected_status: int | None = None,
+        impersonate: str | None = None,
+        require_impersonation: bool = False,
     ) -> tuple[ET.ElementTree, Response]: ...
     def _download_xml(
         self,
         url_or_request: str | Request,
         video_id: str,
-        note: str | None = ...,
-        errnote: str | None = ...,
-        transform_source: Callable[..., str] | None = ...,
-        fatal: bool = ...,
-        encoding: str | None = ...,
-        data: _DataType | None = ...,
-        headers: Mapping[str, str] = ...,
-        query: Mapping[str, str] = ...,
-        expected_status: int | None = ...,
-        impersonate: str | None = ...,
-        require_impersonation: bool = ...,
+        note: str | None = "Downloading XML",
+        errnote: str | None = "Unable to download XML",
+        transform_source: Callable[..., str] | None = None,
+        fatal: bool = True,
+        encoding: str | None = None,
+        data: _DataType | None = None,
+        headers: Mapping[str, str] = {},
+        query: Mapping[str, str] = {},
+        expected_status: int | None = None,
+        impersonate: str | None = None,
+        require_impersonation: bool = False,
     ) -> ET.ElementTree: ...
     def _download_socket_json_handle(
         self,
         url_or_request: str | Request,
         video_id: str,
-        note: str | None = ...,
-        errnote: str | None = ...,
-        transform_source: Callable[..., str] | None = ...,
-        fatal: bool = ...,
-        encoding: str | None = ...,
-        data: _DataType | None = ...,
-        headers: Mapping[str, str] = ...,
-        query: Mapping[str, str] = ...,
-        expected_status: int | None = ...,
-        impersonate: str | None = ...,
-        require_impersonation: bool = ...,
+        note: str | None = "Polling socket",
+        errnote: str | None = "Unable to poll socket",
+        transform_source: Callable[..., str] | None = None,
+        fatal: bool = True,
+        encoding: str | None = None,
+        data: _DataType | None = None,
+        headers: Mapping[str, str] = {},
+        query: Mapping[str, str] = {},
+        expected_status: int | None = None,
+        impersonate: str | None = None,
+        require_impersonation: bool = False,
     ) -> tuple[dict[str, Any], Response]: ...
     def _download_socket_json(
         self,
         url_or_request: str | Request,
         video_id: str,
-        note: str | None = ...,
-        errnote: str | None = ...,
-        transform_source: Callable[..., str] | None = ...,
-        fatal: bool = ...,
-        encoding: str | None = ...,
-        data: _DataType | None = ...,
-        headers: Mapping[str, str] = ...,
-        query: Mapping[str, str] = ...,
-        expected_status: int | None = ...,
-        impersonate: str | None = ...,
-        require_impersonation: bool = ...,
+        note: str | None = "Polling socket",
+        errnote: str | None = "Unable to poll socket",
+        transform_source: Callable[..., str] | None = None,
+        fatal: bool = True,
+        encoding: str | None = None,
+        data: _DataType | None = None,
+        headers: Mapping[str, str] = {},
+        query: Mapping[str, str] = {},
+        expected_status: int | None = None,
+        impersonate: str | None = None,
+        require_impersonation: bool = False,
     ) -> dict[str, Any]: ...
     def _download_json_handle(
         self,
         url_or_request: str | Request,
         video_id: str,
-        note: str | None = ...,
-        errnote: str | None = ...,
-        transform_source: Callable[..., str] | None = ...,
-        fatal: bool = ...,
-        encoding: str | None = ...,
-        data: _DataType | None = ...,
-        headers: Mapping[str, str] = ...,
-        query: Mapping[str, str] = ...,
-        expected_status: int | None = ...,
-        impersonate: str | None = ...,
-        require_impersonation: bool = ...,
+        note: str | None = "Downloading JSON metadata",
+        errnote: str | None = "Unable to download JSON metadata",
+        transform_source: Callable[..., str] | None = None,
+        fatal: bool = True,
+        encoding: str | None = None,
+        data: _DataType | None = None,
+        headers: Mapping[str, str] = {},
+        query: Mapping[str, str] = {},
+        expected_status: int | None = None,
+        impersonate: str | None = None,
+        require_impersonation: bool = False,
     ) -> tuple[dict[str, Any], Response]: ...
     def _download_json(
         self,
         url_or_request: str | Request,
         video_id: str,
-        note: str | None = ...,
-        errnote: str | None = ...,
-        transform_source: Callable[..., str] | None = ...,
-        fatal: bool = ...,
-        encoding: str | None = ...,
-        data: _DataType | None = ...,
-        headers: Mapping[str, str] = ...,
-        query: Mapping[str, str] = ...,
-        expected_status: int | None = ...,
-        impersonate: str | None = ...,
-        require_impersonation: bool = ...,
+        note: str | None = "Downloading JSON metadata",
+        errnote: str | None = "Unable to download JSON metadata",
+        transform_source: Callable[..., str] | None = None,
+        fatal: bool = True,
+        encoding: str | None = None,
+        data: _DataType | None = None,
+        headers: Mapping[str, str] = {},
+        query: Mapping[str, str] = {},
+        expected_status: int | None = None,
+        impersonate: str | None = None,
+        require_impersonation: bool = False,
     ) -> dict[str, Any]: ...
     def _download_webpage(
         self,
         url_or_request: str | Request,
         video_id: str,
-        note: str | None = ...,
-        errnote: str | None = ...,
+        note: str | None = None,
+        errnote: str | None = None,
         transform_source: Callable[..., str] | None = ...,
-        fatal: bool = ...,
+        fatal: bool = True,
         encoding: str | None = ...,
         data: _DataType | None = ...,
         headers: Mapping[str, str] = ...,
@@ -315,9 +318,9 @@ class InfoExtractor:
         self,
         xml_string: str,
         video_id: str,
-        transform_source: Callable[..., str] | None = ...,
-        fatal: bool = ...,
-        errnote: str | None = ...,
+        transform_source: Callable[..., str] | None = None,
+        fatal: bool = True,
+        errnote: str | None = None,
     ) -> ET.Element: ...
     def _parse_mpd_formats(
         self, mpd_doc: ET.Element, mpd_id: str | None = ..., mpd_base_url: str = ..., mpd_url: str | None = ...
@@ -325,23 +328,23 @@ class InfoExtractor:
     def _real_extract(self, url: str) -> _InfoDict: ...
     @staticmethod
     def _availability(
-        is_private: bool | None = ...,
-        needs_premium: bool | None = ...,
-        needs_subscription: bool | None = ...,
-        needs_auth: bool | None = ...,
-        is_unlisted: bool | None = ...,
+        is_private: bool | None = None,
+        needs_premium: bool | None = None,
+        needs_subscription: bool | None = None,
+        needs_auth: bool | None = None,
+        is_unlisted: bool | None = None,
     ) -> Literal["needs_auth", "premium_only", "private", "public", "subscriber_only", "unlisted"] | None: ...
     def _request_webpage(
         self,
         url_or_req: str | Request,
         video_id: str,
-        note: str | None = ...,
-        errnote: str | None = ...,
-        fatal: bool = ...,
-        data: _DataType | None = ...,
-        headers: Mapping[str, str] = ...,
-        query: Mapping[str, str] = ...,
-        expected_status: int | None = ...,
+        note: str | None = None,
+        errnote: str | None = None,
+        fatal: bool = True,
+        data: _DataType | None = None,
+        headers: Mapping[str, str] = None,
+        query: Mapping[str, str] = None,
+        expected_status: int | None = None,
     ) -> Response | Literal[False]: ...
     @classmethod
     def _match_id(cls, url: str) -> str: ...
@@ -467,7 +470,7 @@ class InfoExtractor:
     def _check_formats(self, formats: list[dict[str, Any]], video_id: str) -> None: ...
     @staticmethod
     def _remove_duplicate_formats(formats: list[dict[str, Any]]) -> None: ...
-    def _is_valid_url(self, url: str, video_id: str, item: str = "video", headers: Mapping[str, Any] = ...) -> bool: ...
+    def _is_valid_url(self, url: str, video_id: str, item: str = "video", headers: Mapping[str, Any] = {}) -> bool: ...
     def _proto_relative_url(self, url: str, scheme: str | None = None) -> str: ...
     def _sleep(self, timeout: float, video_id: str, msg_template: str | None = None) -> None: ...
     def _extract_f4m_formats(
@@ -481,8 +484,8 @@ class InfoExtractor:
         fatal: bool = True,
         m3u8_id: str | None = None,
         data: str | None = None,
-        headers: Mapping[str, Any] = ...,
-        query: Mapping[str, Any] = ...,
+        headers: Mapping[str, Any] = {},
+        query: Mapping[str, Any] = {},
     ) -> list[dict[str, Any]]: ...
     def _parse_f4m_formats(
         self,
@@ -531,8 +534,8 @@ class InfoExtractor:
         fatal: bool = True,
         live: bool = False,
         data: Any = None,
-        headers: Mapping[str, Any] = ...,
-        query: Mapping[str, Any] = ...,
+        headers: Mapping[str, Any] = {},
+        query: Mapping[str, Any] = {},
     ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]: ...
     def _parse_m3u8_formats_and_subtitles(
         self,
@@ -548,8 +551,8 @@ class InfoExtractor:
         errnote: str | None = None,
         fatal: bool = True,
         data: Any = None,
-        headers: Mapping[str, Any] = ...,
-        query: Mapping[str, Any] = ...,
+        headers: Mapping[str, Any] = {},
+        query: Mapping[str, Any] = {},
         video_id: str | None = None,
     ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]: ...
     def _extract_m3u8_vod_duration(
@@ -559,8 +562,8 @@ class InfoExtractor:
         note: str | None = None,
         errnote: str | None = None,
         data: Any = None,
-        headers: Mapping[str, Any] = ...,
-        query: Mapping[str, Any] = ...,
+        headers: Mapping[str, Any] = {},
+        query: Mapping[str, Any] = {},
     ) -> int | None: ...
     def _parse_m3u8_vod_duration(self, m3u8_vod: str, video_id: str) -> int: ...
     def _extract_mpd_vod_duration(
@@ -570,8 +573,8 @@ class InfoExtractor:
         note: str | None = None,
         errnote: str | None = None,
         data: Any = None,
-        headers: Mapping[str, Any] = ...,
-        query: Mapping[str, Any] = ...,
+        headers: Mapping[str, Any] = {},
+        query: Mapping[str, Any] = {},
     ) -> int | None: ...
     @staticmethod
     def _xpath_ns(path: str, namespace: str | None = None) -> str: ...
@@ -660,8 +663,8 @@ class InfoExtractor:
         errnote: str | None = None,
         fatal: bool = True,
         data: Any = None,
-        headers: Mapping[str, Any] = ...,
-        query: Mapping[str, Any] = ...,
+        headers: Mapping[str, Any] = {},
+        query: Mapping[str, Any] = {},
     ) -> tuple[list[Any], dict[str, Any]]: ...
     def _parse_mpd_formats_and_subtitles(
         self,
@@ -700,8 +703,8 @@ class InfoExtractor:
         errnote: str | None = None,
         fatal: bool = True,
         data: Any = None,
-        headers: Mapping[str, Any] = ...,
-        query: Mapping[str, Any] = ...,
+        headers: Mapping[str, Any] = {},
+        query: Mapping[str, Any] = {},
     ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]: ...
     def _parse_ism_formats_and_subtitles(
         self, ism_doc: str, ism_url: str, ism_id: str | None = None
@@ -722,10 +725,10 @@ class InfoExtractor:
         self, manifest_url: str, video_id: str, hosts: Mapping[str, Any] = ...
     ) -> list[dict[str, Any]]: ...
     def _extract_akamai_formats_and_subtitles(
-        self, manifest_url: str, video_id: str, hosts: Mapping[str, Any] = ...
+        self, manifest_url: str, video_id: str, hosts: Mapping[str, Any] = {}
     ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]: ...
     def _extract_wowza_formats(
-        self, url: str, video_id: str, m3u8_entry_protocol: str = "m3u8_native", skip_protocols: Collection[str] = ...
+        self, url: str, video_id: str, m3u8_entry_protocol: str = "m3u8_native", skip_protocols: Collection[str] = []
     ) -> list[dict[str, Any]]: ...
     def _find_jwplayer_data(
         self, webpage: str, video_id: str | None = None, transform_source: Callable[..., str] = ...
@@ -786,7 +789,7 @@ class InfoExtractor:
         path: str = "/",
         secure: bool = False,
         discard: bool = False,
-        rest: dict[str, Any] = ...,
+        rest: dict[str, Any] = {},
         **kwargs: Unused,
     ) -> None: ...
     def _live_title(self, name: _T) -> _T: ...
@@ -841,7 +844,7 @@ class InfoExtractor:
     ) -> bool: ...
     def _error_or_warning(self, err: str, _count: int | None = None, _retries: int = 0, *, fatal: bool = True) -> None: ...
     def _extract_generic_embeds(
-        self, url: str, *args: Unused, info_dict: _InfoDict = ..., note: str = "Extracting generic embeds", **kwargs: Unused
+        self, url: str, *args: Unused, info_dict: _InfoDict = {}, note: str = "Extracting generic embeds", **kwargs: Unused
     ) -> list[dict[str, Any]]: ...
     @classmethod
     def _extract_from_webpage(cls, url: str, webpage: str) -> Iterator[_InfoDict]: ...

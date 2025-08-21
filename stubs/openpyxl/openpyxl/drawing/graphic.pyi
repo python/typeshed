@@ -45,7 +45,9 @@ class GraphicData(Serialisable):
     namespace: ClassVar[str]
     uri: String[Literal[False]]
     chart: Typed[ChartRelation, Literal[True]]
-    def __init__(self, uri: str = ..., chart: ChartRelation | None = None) -> None: ...
+    def __init__(
+        self, uri: str = "http://schemas.openxmlformats.org/drawingml/2006/chart", chart: ChartRelation | None = None
+    ) -> None: ...
 
 class GraphicObject(Serialisable):
     tagname: ClassVar[str]
