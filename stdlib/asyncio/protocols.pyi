@@ -13,7 +13,8 @@ class BaseProtocol:
     def resume_writing(self) -> None: ...
 
 class Protocol(BaseProtocol):
-    __slots__ = ()
+    # Need annotation or mypy will complain about 'Cannot determine type of "__slots__" in base class'
+    __slots__: tuple[()] = ()
     def data_received(self, data: bytes) -> None: ...
     def eof_received(self) -> bool | None: ...
 
