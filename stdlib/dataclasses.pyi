@@ -170,19 +170,37 @@ class _DefaultFactory(Protocol[_T_co]):
     def __call__(self) -> _T_co: ...
 
 class Field(Generic[_T]):
-    __slots__ = (
-        "name",
-        "type",
-        "default",
-        "default_factory",
-        "repr",
-        "hash",
-        "init",
-        "compare",
-        "metadata",
-        "kw_only",
-        "_field_type",
-    )
+    if sys.version_info >= (3, 14):
+        __slots__ = (
+            "name",
+            "type",
+            "default",
+            "default_factory",
+            "repr",
+            "hash",
+            "init",
+            "compare",
+            "metadata",
+            "kw_only",
+            "doc",
+            "_field_type",
+        )
+    elif sys.version_info >= (3, 10):
+        __slots__ = (
+            "name",
+            "type",
+            "default",
+            "default_factory",
+            "repr",
+            "hash",
+            "init",
+            "compare",
+            "metadata",
+            "kw_only",
+            "_field_type",
+        )
+    else:
+        __slots__ = ("name", "type", "default", "default_factory", "repr", "hash", "init", "compare", "metadata", "_field_type")
     name: str
     type: Type[_T] | str | Any
     default: _T | Literal[_MISSING_TYPE.MISSING]
