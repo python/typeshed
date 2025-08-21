@@ -170,6 +170,7 @@ gevent.socket.getnameinfo
 gevent.socket.socket.closed
 gevent.socket.wait_readwrite
 gevent.socket.wait_write
+gevent.socket.socket.__slots__
 
 # we have punted on ssl, the gevent version of these functions have an additional
 # argument for timeouts/blocking and there are some with different default values

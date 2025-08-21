@@ -90,7 +90,7 @@ def publish_cmdline(
     config_section: str | None = None,
     enable_exit_status: bool = True,
     argv: list[str] | None = None,
-    usage: str = ...,
+    usage: str = "%prog [options] [<source> [<destination>]]",
     description: str = ...,
 ): ...
 def publish_file(
@@ -182,7 +182,7 @@ def publish_cmdline_to_binary(
     config_section: str | None = None,
     enable_exit_status: bool = True,
     argv: list[str] | None = None,
-    usage: str = ...,
+    usage: str = "%prog [options] [<source> [<destination>]]",
     description: str = ...,
     destination=None,
     destination_class=...,
