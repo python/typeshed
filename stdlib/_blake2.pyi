@@ -91,6 +91,7 @@ class blake2s:
             inner_size: int = 0,
             last_node: bool = False,
             usedforsecurity: bool = True,
+            string: ReadableBuffer = None,
         ) -> Self: ...
     else:
         def __new__(
@@ -110,7 +111,6 @@ class blake2s:
             inner_size: int = 0,
             last_node: bool = False,
             usedforsecurity: bool = True,
-            string: ReadableBuffer = None,
         ) -> Self: ...
 
     def copy(self) -> Self: ...
