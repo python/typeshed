@@ -107,8 +107,6 @@ urllib.request.HTTPPasswordMgrWithPriorAuth.__init__  # Args are passed as is to
 xml.etree.ElementTree.Element.__bool__  # Doesn't really exist; see comments in stub
 xml.etree.cElementTree.Element.__bool__  # Doesn't really exist; see comments in stub
 
-platform.platform  # runtime default is 0, we pretend it's a bool
-
 
 # =======
 # <= 3.12
@@ -250,6 +248,7 @@ lib2to3.tests  # Modules that exist at runtime, but shouldn't be added to typesh
 lib2to3\.tests\..+  # Modules that exist at runtime, but shouldn't be added to typeshed
 pkgutil.ImpImporter\..*  # Removed in 3.12
 pkgutil.ImpLoader\..*  # Removed in 3.12
+platform.platform  # runtime default is 0, we pretend it's a bool
 poplib.POP3_SSL.stls  # bad declaration of inherited function. See poplib.pyi
 tkinter.test  # Modules that exist at runtime, but shouldn't be added to typeshed
 tkinter\.test\..+  # Modules that exist at runtime, but shouldn't be added to typeshed
