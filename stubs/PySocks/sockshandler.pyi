@@ -1,6 +1,5 @@
 import http.client
 import urllib.request
-from _typeshed import Incomplete
 from collections.abc import Mapping
 from typing import Any, TypeVar
 from typing_extensions import override
@@ -25,8 +24,8 @@ class SocksiPyConnection(http.client.HTTPConnection):  # undocumented
         rdns: bool = True,
         username: str | None = None,
         password: str | None = None,
-        *args: Incomplete,
-        **kwargs: Incomplete,
+        *args,
+        **kwargs,
     ) -> None: ...
     @override
     def connect(self) -> None: ...
@@ -42,8 +41,8 @@ class SocksiPyConnectionS(http.client.HTTPSConnection):  # undocumented
         rdns: bool = True,
         username: str | None = None,
         password: str | None = None,
-        *args: Incomplete,
-        **kwargs: Incomplete,
+        *args,
+        **kwargs,
     ) -> None: ...
     @override
     def connect(self) -> None: ...
@@ -51,7 +50,7 @@ class SocksiPyConnectionS(http.client.HTTPSConnection):  # undocumented
 class SocksiPyHandler(urllib.request.HTTPHandler, urllib.request.HTTPSHandler):
     args: object  # undocumented
     kw: object  # undocumented
-    def __init__(self, *args: Incomplete, **kwargs: Incomplete) -> None: ...
+    def __init__(self, *args, **kwargs) -> None: ...
     @override
     def http_open(self, req: urllib.request.Request) -> http.client.HTTPResponse: ...  # undocumented
     @override
