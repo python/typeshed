@@ -24,8 +24,8 @@ class SocksiPyConnection(http.client.HTTPConnection):  # undocumented
         rdns: bool = True,
         username: str | None = None,
         password: str | None = None,
-        *args,
-        **kwargs,
+        *args: Any,
+        **kwargs: Any,
     ) -> None: ...
     @override
     def connect(self) -> None: ...
@@ -41,8 +41,8 @@ class SocksiPyConnectionS(http.client.HTTPSConnection):  # undocumented
         rdns: bool = True,
         username: str | None = None,
         password: str | None = None,
-        *args,
-        **kwargs,
+        *args: Any,
+        **kwargs: Any,
     ) -> None: ...
     @override
     def connect(self) -> None: ...
@@ -50,7 +50,7 @@ class SocksiPyConnectionS(http.client.HTTPSConnection):  # undocumented
 class SocksiPyHandler(urllib.request.HTTPHandler, urllib.request.HTTPSHandler):
     args: object  # undocumented
     kw: object  # undocumented
-    def __init__(self, *args, **kwargs) -> None: ...
+    def __init__(self, *args: Any, **kwargs: Any) -> None: ...
     @override
     def http_open(self, req: urllib.request.Request) -> http.client.HTTPResponse: ...  # undocumented
     @override
