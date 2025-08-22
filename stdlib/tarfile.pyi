@@ -7,7 +7,7 @@ from collections.abc import Callable, Iterable, Iterator, Mapping
 from gzip import _ReadableFileobj as _GzipReadableFileobj, _WritableFileobj as _GzipWritableFileobj
 from types import TracebackType
 from typing import IO, ClassVar, Final, Literal, Protocol, overload, type_check_only
-from typing_extensions import Self, TypeAlias, deprecated, disjoint_base
+from typing_extensions import Self, TypeAlias, deprecated
 
 if sys.version_info >= (3, 14):
     from compression.zstd import ZstdDict
@@ -742,8 +742,30 @@ class LinkFallbackError(FilterError):
 def fully_trusted_filter(member: TarInfo, dest_path: str) -> TarInfo: ...
 def tar_filter(member: TarInfo, dest_path: str) -> TarInfo: ...
 def data_filter(member: TarInfo, dest_path: str) -> TarInfo: ...
-@disjoint_base
+
 class TarInfo:
+    __slots__ = (
+        "name",
+        "mode",
+        "uid",
+        "gid",
+        "size",
+        "mtime",
+        "chksum",
+        "type",
+        "linkname",
+        "uname",
+        "gname",
+        "devmajor",
+        "devminor",
+        "offset",
+        "offset_data",
+        "pax_headers",
+        "sparse",
+        "_tarfile",
+        "_sparse_structs",
+        "_link_target",
+    )
     name: str
     path: str
     size: int

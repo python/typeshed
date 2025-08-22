@@ -28,7 +28,7 @@ from _ssl import (
 from _typeshed import ReadableBuffer, StrOrBytesPath, WriteableBuffer
 from collections.abc import Callable, Iterable
 from typing import Any, Final, Literal, NamedTuple, TypedDict, overload, type_check_only
-from typing_extensions import Never, Self, TypeAlias, deprecated, disjoint_base
+from typing_extensions import Never, Self, TypeAlias, deprecated
 
 if sys.version_info >= (3, 13):
     from _ssl import HAS_PSK as HAS_PSK
@@ -287,44 +287,13 @@ class _ASN1Object(_ASN1ObjectBase):
     @classmethod
     def fromname(cls, name: str) -> Self: ...
 
-if sys.version_info >= (3, 12):
-    class Purpose(_ASN1Object, enum.Enum):
-        # Normally this class would inherit __new__ from _ASN1Object, but
-        # because this is an enum, the inherited __new__ is replaced at runtime with
-        # Enum.__new__.
-        def __new__(cls, value: object) -> Self: ...
-        SERVER_AUTH = (
-            129,
-            "serverAuth",
-            "TLS Web Server Authentication",
-            "1.3.6.1.5.5.7.3.2",
-        )  # pyright: ignore[reportCallIssue]
-        CLIENT_AUTH = (
-            130,
-            "clientAuth",
-            "TLS Web Client Authentication",
-            "1.3.6.1.5.5.7.3.1",
-        )  # pyright: ignore[reportCallIssue]
-
-else:
-    @disjoint_base
-    class Purpose(_ASN1Object, enum.Enum):
-        # Normally this class would inherit __new__ from _ASN1Object, but
-        # because this is an enum, the inherited __new__ is replaced at runtime with
-        # Enum.__new__.
-        def __new__(cls, value: object) -> Self: ...
-        SERVER_AUTH = (
-            129,
-            "serverAuth",
-            "TLS Web Server Authentication",
-            "1.3.6.1.5.5.7.3.2",
-        )  # pyright: ignore[reportCallIssue]
-        CLIENT_AUTH = (
-            130,
-            "clientAuth",
-            "TLS Web Client Authentication",
-            "1.3.6.1.5.5.7.3.1",
-        )  # pyright: ignore[reportCallIssue]
+class Purpose(_ASN1Object, enum.Enum):
+    # Normally this class would inherit __new__ from _ASN1Object, but
+    # because this is an enum, the inherited __new__ is replaced at runtime with
+    # Enum.__new__.
+    def __new__(cls, value: object) -> Self: ...
+    SERVER_AUTH = (129, "serverAuth", "TLS Web Server Authentication", "1.3.6.1.5.5.7.3.2")  # pyright: ignore[reportCallIssue]
+    CLIENT_AUTH = (130, "clientAuth", "TLS Web Client Authentication", "1.3.6.1.5.5.7.3.1")  # pyright: ignore[reportCallIssue]
 
 class SSLSocket(socket.socket):
     context: SSLContext
