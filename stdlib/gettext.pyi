@@ -120,7 +120,7 @@ else:
         languages: Iterable[str] | None = None,
         class_: None = None,
         fallback: Literal[False] = False,
-        codeset: str | None = ["unspecified"],
+        codeset: str = ...,
     ) -> GNUTranslations: ...
     @overload
     def translation(
@@ -130,7 +130,7 @@ else:
         *,
         class_: Callable[[io.BufferedReader], _NullTranslationsT],
         fallback: Literal[False] = False,
-        codeset: str | None = ["unspecified"],
+        codeset: str = ...,
     ) -> _NullTranslationsT: ...
     @overload
     def translation(
@@ -139,7 +139,7 @@ else:
         languages: Iterable[str] | None,
         class_: Callable[[io.BufferedReader], _NullTranslationsT],
         fallback: Literal[False] = False,
-        codeset: str | None = ["unspecified"],
+        codeset: str = ...,
     ) -> _NullTranslationsT: ...
     @overload
     def translation(
@@ -148,12 +148,10 @@ else:
         languages: Iterable[str] | None = None,
         class_: Callable[[io.BufferedReader], NullTranslations] | None = None,
         fallback: bool = False,
-        codeset: str | None = ["unspecified"],
+        codeset: str = ...,
     ) -> NullTranslations: ...
     @overload
-    def install(
-        domain: str, localedir: StrPath | None = None, codeset: None = ["unspecified"], names: Container[str] | None = None
-    ) -> None: ...
+    def install(domain: str, localedir: StrPath | None = None, names: Container[str] | None = None) -> None: ...
     @overload
     @deprecated("The `codeset` parameter is deprecated since Python 3.8; removed in Python 3.11.")
     def install(domain: str, localedir: StrPath | None, codeset: str, /, names: Container[str] | None = None) -> None: ...
