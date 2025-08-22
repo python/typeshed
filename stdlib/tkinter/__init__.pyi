@@ -3475,7 +3475,7 @@ class Text(Widget, XView, YView):
     def image_configure(
         self,
         index: _TextIndex,
-        cnf: dict[str, Any] | None = {},
+        cnf: dict[str, Any] | None = None,
         *,
         align: Literal["baseline", "bottom", "center", "top"] = ...,
         image: _ImageSpec = ...,

@@ -46,5 +46,9 @@ jobs:
           check-latest: true
       - name: Install dependencies
         run: pip install -r requirements-tests.txt
+      - name: Install stubdefaulter
+        run: pip install git+https://github.com/JelleZijlstra/stubdefaulter.git@d861cce40b1734c262d05dee2c1bf32358878103
+      - name: Run stubdefaulter
+        run: stubdefaulter --stdlib stdlib
       - name: Run stubtest
         run: python tests/stubtest_stdlib.py
