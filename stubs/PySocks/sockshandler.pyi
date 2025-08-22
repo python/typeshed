@@ -1,14 +1,15 @@
 import http.client
 import urllib.request
-from collections.abc import Mapping
+from _typeshed import SupportsKeysAndGetItem
 from typing import Any, TypeVar
 from typing_extensions import override
 
 import socks
 
-_T = TypeVar("_T")
+_K = TypeVar("_K")
+_V = TypeVar("_V")
 
-def merge_dict(a: Mapping[_T, Any], b: Mapping[_T, Any]) -> dict[_T, Any]: ...  # undocumented
+def merge_dict(a: dict[_K, _V], b: SupportsKeysAndGetItem[_K, _V]) -> dict[_K, _V]: ...  # undocumented
 def is_ip(s: str) -> bool: ...  # undocumented
 
 socks4_no_rdns: set[str]  # undocumented
