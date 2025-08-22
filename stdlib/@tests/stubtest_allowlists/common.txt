@@ -14,7 +14,7 @@ tkinter.simpledialog.TclVersion
 tkinter.simpledialog.TkVersion
 tkinter.Text.count  # stubtest somehow thinks that index1 parameter has a default value, but it doesn't in any of the overloads
 builtins.tuple  # should have @disjoint_base but hits pyright issue
-
+tarfile.TarInfo.__slots__  # it's a big dictionary at runtime and the dictionary values are a bit long
 
 # ===============================================================
 # TODO: Modules that exist at runtime, but are missing from stubs
