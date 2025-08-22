@@ -63,41 +63,43 @@ def hmac_new(key: bytes | bytearray, msg: ReadableBuffer = b"", digestmod: _Dige
 
 if sys.version_info >= (3, 13):
     def new(
-        name: str, data: ReadableBuffer = b"", *, usedforsecurity: bool = True, string: ReadableBuffer | None = b""
+        name: str, data: ReadableBuffer = b"", *, usedforsecurity: bool = True, string: ReadableBuffer | None = None
     ) -> HASH: ...
-    def openssl_md5(data: ReadableBuffer = b"", *, usedforsecurity: bool = True, string: ReadableBuffer | None = b"") -> HASH: ...
+    def openssl_md5(
+        data: ReadableBuffer = b"", *, usedforsecurity: bool = True, string: ReadableBuffer | None = None
+    ) -> HASH: ...
     def openssl_sha1(
-        data: ReadableBuffer = b"", *, usedforsecurity: bool = True, string: ReadableBuffer | None = b""
+        data: ReadableBuffer = b"", *, usedforsecurity: bool = True, string: ReadableBuffer | None = None
     ) -> HASH: ...
     def openssl_sha224(
-        data: ReadableBuffer = b"", *, usedforsecurity: bool = True, string: ReadableBuffer | None = b""
+        data: ReadableBuffer = b"", *, usedforsecurity: bool = True, string: ReadableBuffer | None = None
     ) -> HASH: ...
     def openssl_sha256(
-        data: ReadableBuffer = b"", *, usedforsecurity: bool = True, string: ReadableBuffer | None = b""
+        data: ReadableBuffer = b"", *, usedforsecurity: bool = True, string: ReadableBuffer | None = None
     ) -> HASH: ...
     def openssl_sha384(
-        data: ReadableBuffer = b"", *, usedforsecurity: bool = True, string: ReadableBuffer | None = b""
+        data: ReadableBuffer = b"", *, usedforsecurity: bool = True, string: ReadableBuffer | None = None
     ) -> HASH: ...
     def openssl_sha512(
-        data: ReadableBuffer = b"", *, usedforsecurity: bool = True, string: ReadableBuffer | None = b""
+        data: ReadableBuffer = b"", *, usedforsecurity: bool = True, string: ReadableBuffer | None = None
     ) -> HASH: ...
     def openssl_sha3_224(
-        data: ReadableBuffer = b"", *, usedforsecurity: bool = True, string: ReadableBuffer | None = b""
+        data: ReadableBuffer = b"", *, usedforsecurity: bool = True, string: ReadableBuffer | None = None
     ) -> HASH: ...
     def openssl_sha3_256(
-        data: ReadableBuffer = b"", *, usedforsecurity: bool = True, string: ReadableBuffer | None = b""
+        data: ReadableBuffer = b"", *, usedforsecurity: bool = True, string: ReadableBuffer | None = None
     ) -> HASH: ...
     def openssl_sha3_384(
-        data: ReadableBuffer = b"", *, usedforsecurity: bool = True, string: ReadableBuffer | None = b""
+        data: ReadableBuffer = b"", *, usedforsecurity: bool = True, string: ReadableBuffer | None = None
     ) -> HASH: ...
     def openssl_sha3_512(
-        data: ReadableBuffer = b"", *, usedforsecurity: bool = True, string: ReadableBuffer | None = b""
+        data: ReadableBuffer = b"", *, usedforsecurity: bool = True, string: ReadableBuffer | None = None
     ) -> HASH: ...
     def openssl_shake_128(
-        data: ReadableBuffer = b"", *, usedforsecurity: bool = True, string: ReadableBuffer | None = b""
+        data: ReadableBuffer = b"", *, usedforsecurity: bool = True, string: ReadableBuffer | None = None
     ) -> HASHXOF: ...
     def openssl_shake_256(
-        data: ReadableBuffer = b"", *, usedforsecurity: bool = True, string: ReadableBuffer | None = b""
+        data: ReadableBuffer = b"", *, usedforsecurity: bool = True, string: ReadableBuffer | None = None
     ) -> HASHXOF: ...
 
 else:
