@@ -46,7 +46,8 @@ jobs:
           check-latest: true
       - name: Install dependencies
         run: pip install -r requirements-tests.txt
+      # Temporary to get @disjoint_base support; can remove once mypy 1.18 is released
       - name: Install mypy from git
-        run: pip install git+https://github.com/python/mypy.git@657bdd84cff780a4b96c04525e2693c074a3fbf3
+        run: pip install git+https://github.com/python/mypy.git@13fa6c3066612fcb38672c1002809dd5b08ac8e9
       - name: Run stubtest
         run: python tests/stubtest_stdlib.py
