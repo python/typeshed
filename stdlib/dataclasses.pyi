@@ -171,6 +171,37 @@ class _DefaultFactory(Protocol[_T_co]):
 
 @disjoint_base
 class Field(Generic[_T]):
+    if sys.version_info >= (3, 14):
+        __slots__ = (
+            "name",
+            "type",
+            "default",
+            "default_factory",
+            "repr",
+            "hash",
+            "init",
+            "compare",
+            "metadata",
+            "kw_only",
+            "doc",
+            "_field_type",
+        )
+    elif sys.version_info >= (3, 10):
+        __slots__ = (
+            "name",
+            "type",
+            "default",
+            "default_factory",
+            "repr",
+            "hash",
+            "init",
+            "compare",
+            "metadata",
+            "kw_only",
+            "_field_type",
+        )
+    else:
+        __slots__ = ("name", "type", "default", "default_factory", "repr", "hash", "init", "compare", "metadata", "_field_type")
     name: str
     type: Type[_T] | str | Any
     default: _T | Literal[_MISSING_TYPE.MISSING]
@@ -357,6 +388,7 @@ class FrozenInstanceError(AttributeError): ...
 
 @disjoint_base
 class InitVar(Generic[_T]):
+    __slots__ = ("type",)
     type: Type[_T]
     def __init__(self, type: Type[_T]) -> None: ...
     @overload

@@ -1301,6 +1301,7 @@ class _SendableFile(Protocol):
 
 @disjoint_base
 class socket(_socket.socket):
+    __slots__ = ["__weakref__", "_io_refs", "_closed"]
     def __init__(
         self, family: AddressFamily | int = -1, type: SocketKind | int = -1, proto: int = -1, fileno: int | None = None
     ) -> None: ...

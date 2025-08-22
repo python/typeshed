@@ -15,6 +15,7 @@ _CMSG: TypeAlias = tuple[int, int, bytes]
 
 @disjoint_base
 class TransportSocket:
+    __slots__ = ("_sock",)
     def __init__(self, sock: socket.socket) -> None: ...
     @property
     def family(self) -> int: ...

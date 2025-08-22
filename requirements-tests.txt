@@ -1,7 +1,7 @@
 # Type checkers that we test our stubs against. These should always
 # be pinned to a specific version to make failure reproducible.
-mypy==1.16.1
-pyright==1.1.403
+mypy==1.17.1
+pyright==1.1.404
 
 # Libraries used by our various scripts.
 # TODO (2025-05-09): Installing this on Python 3.14 on Windows fails at

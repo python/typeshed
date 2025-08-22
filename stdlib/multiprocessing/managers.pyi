@@ -39,6 +39,7 @@ _Namespace: TypeAlias = Namespace
 
 @disjoint_base
 class Token:
+    __slots__ = ("typeid", "address", "id")
     typeid: str | bytes | None
     address: _Address | None
     id: str | bytes | int | None

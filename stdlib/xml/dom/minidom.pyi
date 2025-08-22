@@ -189,6 +189,7 @@ _AttrChildrenPlusFragment = TypeVar("_AttrChildrenPlusFragment", bound=_AttrChil
 
 @disjoint_base
 class Attr(Node):
+    __slots__ = ("_name", "_value", "namespaceURI", "_prefix", "childNodes", "_localName", "ownerDocument", "ownerElement")
     nodeType: ClassVar[Literal[2]]
     nodeName: str  # same as Attr.name
     nodeValue: str  # same as Attr.value
@@ -233,6 +234,7 @@ class Attr(Node):
 # because that's the only place we use it.
 @disjoint_base
 class NamedNodeMap:
+    __slots__ = ("_attrs", "_attrsNS", "_ownerElement")
     def __init__(self, attrs: dict[str, Attr], attrsNS: dict[_NSName, Attr], ownerElement: Element) -> None: ...
     @property
     def length(self) -> int: ...
@@ -265,6 +267,7 @@ AttributeList = NamedNodeMap
 
 @disjoint_base
 class TypeInfo:
+    __slots__ = ("namespace", "name")
     namespace: str | None
     name: str | None
     def __init__(self, namespace: Incomplete | None, name: str | None) -> None: ...
@@ -274,6 +277,20 @@ _ElementChildrenPlusFragment = TypeVar("_ElementChildrenPlusFragment", bound=_El
 
 @disjoint_base
 class Element(Node):
+    __slots__ = (
+        "ownerDocument",
+        "parentNode",
+        "tagName",
+        "nodeName",
+        "prefix",
+        "namespaceURI",
+        "_localName",
+        "childNodes",
+        "_attrs",
+        "_attrsNS",
+        "nextSibling",
+        "previousSibling",
+    )
     nodeType: ClassVar[Literal[1]]
     nodeName: str  # same as Element.tagName
     nodeValue: None
@@ -335,6 +352,7 @@ class Element(Node):
     def removeChild(self, oldChild: _ElementChildrenVar) -> _ElementChildrenVar: ...  # type: ignore[override]
 
 class Childless:
+    __slots__ = ()
     attributes: None
     childNodes: EmptyNodeList
     @property
@@ -352,6 +370,7 @@ class Childless:
 
 @disjoint_base
 class ProcessingInstruction(Childless, Node):
+    __slots__ = ("target", "data")
     nodeType: ClassVar[Literal[7]]
     nodeName: str  # same as ProcessingInstruction.target
     nodeValue: str  # same as ProcessingInstruction.data
@@ -379,6 +398,7 @@ class ProcessingInstruction(Childless, Node):
 
 @disjoint_base
 class CharacterData(Childless, Node):
+    __slots__ = ("_data", "ownerDocument", "parentNode", "previousSibling", "nextSibling")
     nodeValue: str
     attributes: None
 
@@ -403,6 +423,7 @@ class CharacterData(Childless, Node):
     def replaceData(self, offset: int, count: int, arg: str) -> None: ...
 
 class Text(CharacterData):
+    __slots__ = ()
     nodeType: ClassVar[Literal[3]]
     nodeName: Literal["#text"]
     nodeValue: str  # same as CharacterData.data, the content of the text node
@@ -454,6 +475,7 @@ class Comment(CharacterData):
     def writexml(self, writer: SupportsWrite[str], indent: str = "", addindent: str = "", newl: str = "") -> None: ...
 
 class CDATASection(Text):
+    __slots__ = ()
     nodeType: ClassVar[Literal[4]]  # type: ignore[assignment]
     nodeName: Literal["#cdata-section"]  # type: ignore[assignment]
     nodeValue: str  # same as CharacterData.data, the content of the CDATA Section
@@ -467,6 +489,7 @@ class CDATASection(Text):
 
 @disjoint_base
 class ReadOnlySequentialNamedNodeMap(Generic[_N]):
+    __slots__ = ("_seq",)
     def __init__(self, seq: Sequence[_N] = ()) -> None: ...
     def __len__(self) -> int: ...
     def getNamedItem(self, name: str) -> _N | None: ...
@@ -482,6 +505,7 @@ class ReadOnlySequentialNamedNodeMap(Generic[_N]):
 
 @disjoint_base
 class Identified:
+    __slots__ = ("publicId", "systemId")
     publicId: str | None
     systemId: str | None
 
@@ -574,6 +598,7 @@ class DOMImplementation(DOMImplementationLS):
 
 @disjoint_base
 class ElementInfo:
+    __slots__ = ("tagName",)
     tagName: str
     def __init__(self, name: str) -> None: ...
     def getAttributeType(self, aname: str) -> TypeInfo: ...
@@ -587,6 +612,7 @@ _DocumentChildrenPlusFragment = TypeVar("_DocumentChildrenPlusFragment", bound=_
 
 @disjoint_base
 class Document(Node, DocumentLS):
+    __slots__ = ("_elem_info", "doctype", "_id_search_stack", "childNodes", "_id_cache")
     nodeType: ClassVar[Literal[9]]
     nodeName: Literal["#document"]
     nodeValue: None

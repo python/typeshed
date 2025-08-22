@@ -16,6 +16,7 @@ TAKEN_FROM_ARGUMENT8U: Final = -5
 
 @disjoint_base
 class ArgumentDescriptor:
+    __slots__ = ("name", "n", "reader", "doc")
     name: str
     n: int
     reader: _Reader
@@ -120,6 +121,7 @@ long4: ArgumentDescriptor
 
 @disjoint_base
 class StackObject:
+    __slots__ = ("name", "obtype", "doc")
     name: str
     obtype: type[Any] | tuple[type[Any], ...]
     doc: str
@@ -146,6 +148,7 @@ stackslice: StackObject
 
 @disjoint_base
 class OpcodeInfo:
+    __slots__ = ("name", "code", "arg", "stack_before", "stack_after", "proto", "doc")
     name: str
     code: str
     arg: ArgumentDescriptor | None

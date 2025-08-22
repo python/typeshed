@@ -450,11 +450,13 @@ if sys.version_info >= (3, 14):
 else:
     @runtime_checkable
     class Reader(Protocol[_T_co]):
+        __slots__ = ()
         @abc.abstractmethod
         def read(self, size: int = ..., /) -> _T_co: ...
 
     @runtime_checkable
     class Writer(Protocol[_T_contra]):
+        __slots__ = ()
         @abc.abstractmethod
         def write(self, data: _T_contra, /) -> int: ...
 
