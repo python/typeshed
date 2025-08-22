@@ -13,6 +13,7 @@ tkinter.simpledialog.[A-Z_]+
 tkinter.simpledialog.TclVersion
 tkinter.simpledialog.TkVersion
 tkinter.Text.count  # stubtest somehow thinks that index1 parameter has a default value, but it doesn't in any of the overloads
+builtins.tuple  # should have @disjoint_base but hits pyright issue
 
 
 # ===============================================================
