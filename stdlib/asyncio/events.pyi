@@ -13,7 +13,7 @@ from concurrent.futures import Executor
 from contextvars import Context
 from socket import AddressFamily, SocketKind, _Address, _RetAddress, socket
 from typing import IO, Any, Literal, Protocol, TypeVar, overload, type_check_only
-from typing_extensions import Self, TypeAlias, TypeVarTuple, Unpack, deprecated, disjoint_base
+from typing_extensions import Self, TypeAlias, TypeVarTuple, Unpack, deprecated
 
 from . import _AwaitableLike, _CoroutineLike
 from .base_events import Server
@@ -72,7 +72,6 @@ _SSLContext: TypeAlias = bool | None | ssl.SSLContext
 class _TaskFactory(Protocol):
     def __call__(self, loop: AbstractEventLoop, factory: _CoroutineLike[_T], /) -> Future[_T]: ...
 
-@disjoint_base
 class Handle:
     __slots__ = ("_callback", "_args", "_cancelled", "_loop", "_source_traceback", "_repr", "__weakref__", "_context")
     _cancelled: bool
@@ -86,7 +85,6 @@ class Handle:
     if sys.version_info >= (3, 12):
         def get_context(self) -> Context: ...
 
-@disjoint_base
 class TimerHandle(Handle):
     __slots__ = ["_scheduled", "_when"]
     def __init__(

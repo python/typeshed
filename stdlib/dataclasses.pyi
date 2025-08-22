@@ -6,7 +6,7 @@ from builtins import type as Type  # alias to avoid name clashes with fields nam
 from collections.abc import Callable, Iterable, Mapping
 from types import GenericAlias
 from typing import Any, Final, Generic, Literal, Protocol, TypeVar, overload, type_check_only
-from typing_extensions import Never, TypeIs, disjoint_base
+from typing_extensions import Never, TypeIs
 
 _T = TypeVar("_T")
 _T_co = TypeVar("_T_co", covariant=True)
@@ -169,7 +169,6 @@ else:
 class _DefaultFactory(Protocol[_T_co]):
     def __call__(self) -> _T_co: ...
 
-@disjoint_base
 class Field(Generic[_T]):
     if sys.version_info >= (3, 14):
         __slots__ = (
@@ -386,7 +385,6 @@ def is_dataclass(obj: object) -> TypeIs[DataclassInstance | type[DataclassInstan
 
 class FrozenInstanceError(AttributeError): ...
 
-@disjoint_base
 class InitVar(Generic[_T]):
     __slots__ = ("type",)
     type: Type[_T]

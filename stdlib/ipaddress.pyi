@@ -1,7 +1,7 @@
 import sys
 from collections.abc import Iterable, Iterator
 from typing import Any, Final, Generic, Literal, TypeVar, overload
-from typing_extensions import Self, TypeAlias, disjoint_base
+from typing_extensions import Self, TypeAlias
 
 # Undocumented length constants
 IPV4LENGTH: Final = 32
@@ -117,7 +117,6 @@ class _BaseV4:
         @property
         def max_prefixlen(self) -> Literal[32]: ...
 
-@disjoint_base
 class IPv4Address(_BaseV4, _BaseAddress):
     __slots__ = ("_ip", "__weakref__")
     def __init__(self, address: object) -> None: ...
@@ -171,7 +170,6 @@ class _BaseV6:
         @property
         def max_prefixlen(self) -> Literal[128]: ...
 
-@disjoint_base
 class IPv6Address(_BaseV6, _BaseAddress):
     __slots__ = ("_ip", "_scope_id", "__weakref__")
     def __init__(self, address: object) -> None: ...

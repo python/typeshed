@@ -2,7 +2,7 @@ import sys
 from _tracemalloc import *
 from collections.abc import Sequence
 from typing import Any, SupportsIndex, overload
-from typing_extensions import TypeAlias, disjoint_base
+from typing_extensions import TypeAlias
 
 def get_object_traceback(obj: object) -> Traceback | None: ...
 def take_snapshot() -> Snapshot: ...
@@ -31,7 +31,6 @@ class Filter(BaseFilter):
         domain: int | None = None,
     ) -> None: ...
 
-@disjoint_base
 class Statistic:
     __slots__ = ("traceback", "size", "count")
     count: int
@@ -41,7 +40,6 @@ class Statistic:
     def __eq__(self, other: object) -> bool: ...
     def __hash__(self) -> int: ...
 
-@disjoint_base
 class StatisticDiff:
     __slots__ = ("traceback", "size", "size_diff", "count", "count_diff")
     count: int
@@ -55,7 +53,6 @@ class StatisticDiff:
 
 _FrameTuple: TypeAlias = tuple[str, int]
 
-@disjoint_base
 class Frame:
     __slots__ = ("_frame",)
     @property
@@ -77,7 +74,6 @@ class Frame:
 
 _TraceTuple: TypeAlias = tuple[int, int, Sequence[_FrameTuple], int | None] | tuple[int, int, Sequence[_FrameTuple]]
 
-@disjoint_base
 class Trace:
     __slots__ = ("_trace",)
     @property
@@ -90,7 +86,6 @@ class Trace:
     def __eq__(self, other: object) -> bool: ...
     def __hash__(self) -> int: ...
 
-@disjoint_base
 class Traceback(Sequence[Frame]):
     __slots__ = ("_frames", "_total_nframe")
     @property

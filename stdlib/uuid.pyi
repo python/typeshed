@@ -2,7 +2,7 @@ import builtins
 import sys
 from enum import Enum
 from typing import Final
-from typing_extensions import LiteralString, TypeAlias, disjoint_base
+from typing_extensions import LiteralString, TypeAlias
 
 _FieldsType: TypeAlias = tuple[int, int, int, int, int, int]
 
@@ -11,7 +11,6 @@ class SafeUUID(Enum):
     unsafe = -1
     unknown = None
 
-@disjoint_base
 class UUID:
     __slots__ = ("int", "is_safe", "__weakref__")
     def __init__(

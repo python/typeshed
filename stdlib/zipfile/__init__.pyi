@@ -6,7 +6,7 @@ from io import TextIOWrapper
 from os import PathLike
 from types import TracebackType
 from typing import IO, Final, Literal, Protocol, overload, type_check_only
-from typing_extensions import Self, TypeAlias, disjoint_base
+from typing_extensions import Self, TypeAlias
 
 __all__ = [
     "BadZipFile",
@@ -271,7 +271,6 @@ class PyZipFile(ZipFile):
     ) -> None: ...
     def writepy(self, pathname: str, basename: str = "", filterfunc: Callable[[str], bool] | None = None) -> None: ...
 
-@disjoint_base
 class ZipInfo:
     __slots__ = (
         "orig_filename",

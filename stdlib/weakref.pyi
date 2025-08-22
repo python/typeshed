@@ -65,7 +65,6 @@ ref = ReferenceType
 
 # everything below here is implemented in weakref.py
 
-@disjoint_base
 class WeakMethod(ref[_CallableT]):
     __slots__ = ("_func_ref", "_meth_type", "_alive", "__weakref__")
     def __new__(cls, meth: _CallableT, callback: Callable[[Self], Any] | None = None) -> Self: ...
@@ -132,7 +131,6 @@ class WeakValueDictionary(MutableMapping[_KT, _VT]):
     @overload
     def __ior__(self, other: Iterable[tuple[_KT, _VT]]) -> Self: ...
 
-@disjoint_base
 class KeyedRef(ref[_T], Generic[_KT, _T]):
     __slots__ = ("key",)
     key: _KT

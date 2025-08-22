@@ -1,6 +1,5 @@
 from _typeshed import SupportsRead
 from typing import Any, Final, Literal, NoReturn
-from typing_extensions import disjoint_base
 from xml.dom.minidom import Document, Node, _DOMErrorHandler
 
 __all__ = ["DOMBuilder", "DOMEntityResolver", "DOMInputSource"]
@@ -44,12 +43,10 @@ class DOMBuilder:
     def parse(self, input: DOMInputSource) -> Document: ...
     def parseWithContext(self, input: DOMInputSource, cnode: Node, action: Literal[1, 2, 3, 4]) -> NoReturn: ...
 
-@disjoint_base
 class DOMEntityResolver:
     __slots__ = ("_opener",)
     def resolveEntity(self, publicId: str | None, systemId: str) -> DOMInputSource: ...
 
-@disjoint_base
 class DOMInputSource:
     __slots__ = ("byteStream", "characterStream", "stringData", "encoding", "publicId", "systemId", "baseURI")
     byteStream: SupportsRead[bytes] | None

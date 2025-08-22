@@ -335,7 +335,6 @@ else:
 class _void: ...
 class _empty: ...
 
-@disjoint_base
 class Signature:
     __slots__ = ("_return_annotation", "_parameters")
     def __init__(
@@ -417,7 +416,6 @@ if sys.version_info >= (3, 12):
     ) -> Literal["AGEN_CREATED", "AGEN_RUNNING", "AGEN_SUSPENDED", "AGEN_CLOSED"]: ...
     def getasyncgenlocals(agen: AsyncGeneratorType[Any, Any]) -> dict[str, Any]: ...
 
-@disjoint_base
 class Parameter:
     __slots__ = ("_name", "_kind", "_default", "_annotation")
     def __init__(self, name: str, kind: _ParameterKind, *, default: Any = ..., annotation: Any = ...) -> None: ...
@@ -450,7 +448,6 @@ class Parameter:
     def __eq__(self, other: object) -> bool: ...
     def __hash__(self) -> int: ...
 
-@disjoint_base
 class BoundArguments:
     __slots__ = ("arguments", "_signature", "__weakref__")
     arguments: OrderedDict[str, Any]

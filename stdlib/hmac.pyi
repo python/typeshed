@@ -3,7 +3,7 @@ from _typeshed import ReadableBuffer, SizedBuffer
 from collections.abc import Callable
 from types import ModuleType
 from typing import overload
-from typing_extensions import TypeAlias, disjoint_base
+from typing_extensions import TypeAlias
 
 _DigestMod: TypeAlias = str | Callable[[], _HashObject] | ModuleType
 
@@ -18,7 +18,7 @@ digest_size: None
 def new(key: bytes | bytearray, msg: ReadableBuffer | None, digestmod: _DigestMod) -> HMAC: ...
 @overload
 def new(key: bytes | bytearray, *, digestmod: _DigestMod) -> HMAC: ...
-@disjoint_base
+
 class HMAC:
     __slots__ = ("_hmac", "_inner", "_outer", "block_size", "digest_size")
     digest_size: int

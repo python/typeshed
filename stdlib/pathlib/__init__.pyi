@@ -16,7 +16,7 @@ from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWra
 from os import PathLike, stat_result
 from types import GenericAlias, TracebackType
 from typing import IO, Any, BinaryIO, ClassVar, Literal, TypeVar, overload
-from typing_extensions import Never, Self, deprecated, disjoint_base
+from typing_extensions import Never, Self, deprecated
 
 _PathT = TypeVar("_PathT", bound=PurePath)
 
@@ -28,7 +28,6 @@ if sys.version_info >= (3, 14):
 if sys.version_info >= (3, 13):
     __all__ += ["UnsupportedOperation"]
 
-@disjoint_base
 class PurePath(PathLike[str]):
     if sys.version_info >= (3, 13):
         __slots__ = (
