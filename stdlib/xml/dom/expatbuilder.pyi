@@ -1,8 +1,6 @@
 from _typeshed import ReadableBuffer, SupportsRead
-from typing import Any, NoReturn
-from typing_extensions import TypeAlias, disjoint_base
 from typing import Any, Final, NoReturn
-from typing_extensions import TypeAlias
+from typing_extensions import TypeAlias, disjoint_base
 from xml.dom.minidom import Document, DocumentFragment, DOMImplementation, Element, Node, TypeInfo
 from xml.dom.xmlbuilder import DOMBuilderFilter, Options
 from xml.parsers.expat import XMLParserType

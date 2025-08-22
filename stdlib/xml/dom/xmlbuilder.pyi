@@ -1,7 +1,6 @@
 from _typeshed import SupportsRead
-from typing import Any, Literal, NoReturn
-from typing_extensions import disjoint_base
 from typing import Any, Final, Literal, NoReturn
+from typing_extensions import disjoint_base
 from xml.dom.minidom import Document, Node, _DOMErrorHandler
 
 __all__ = ["DOMBuilder", "DOMEntityResolver", "DOMInputSource"]

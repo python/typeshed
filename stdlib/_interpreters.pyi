@@ -1,9 +1,7 @@
 import types
 from collections.abc import Callable
-from typing import Any, Final, Literal, SupportsIndex, TypeVar
-from typing_extensions import TypeAlias, disjoint_base
 from typing import Any, Final, Literal, SupportsIndex, TypeVar, overload
-from typing_extensions import TypeAlias
+from typing_extensions import TypeAlias, disjoint_base
 
 _R = TypeVar("_R")
 
