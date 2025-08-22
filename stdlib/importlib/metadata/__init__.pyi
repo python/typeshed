@@ -115,10 +115,12 @@ if sys.version_info >= (3, 12):
         def groups(self) -> set[str]: ...
 
 elif sys.version_info >= (3, 10):
-    class DeprecatedList(list[_T]): ...
+    class DeprecatedList(list[_T]):
+        __slots__ = ()
 
     class EntryPoints(DeprecatedList[EntryPoint]):  # use as list is deprecated since 3.10
         # int argument is deprecated since 3.10
+        __slots__ = ()
         def __getitem__(self, name: int | str) -> EntryPoint: ...  # type: ignore[override]
         def select(
             self,
