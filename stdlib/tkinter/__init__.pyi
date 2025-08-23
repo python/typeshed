@@ -176,6 +176,7 @@ EXCEPTION: Final = _tkinter.EXCEPTION
 # Some widgets have an option named -compound that accepts different values
 # than the _Compound defined here. Many other options have similar things.
 _Anchor: TypeAlias = Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"]  # manual page: Tk_GetAnchor
+_JustifyValue: TypeAlias = Literal["left", "center", "right"]  # manual page: Tk_GetJustify
 _ButtonCommand: TypeAlias = str | Callable[[], Any]  # accepts string of tcl code, return value is returned from Button.invoke()
 _Compound: TypeAlias = Literal["top", "left", "center", "right", "bottom", "none"]  # -compound in manual page named 'options'
 # manual page: Tk_GetCursor
@@ -329,12 +330,12 @@ class Variable:
         @deprecated("Deprecated since Python 3.14. Use `trace_remove()` instead.")
         def trace_vdelete(self, mode, cbname) -> None: ...
         @deprecated("Deprecated since Python 3.14. Use `trace_info()` instead.")
-        def trace_vinfo(self): ...
+        def trace_vinfo(self) -> list[Incomplete]: ...
     else:
         def trace(self, mode, callback) -> str: ...
         def trace_variable(self, mode, callback) -> str: ...
         def trace_vdelete(self, mode, cbname) -> None: ...
-        def trace_vinfo(self): ...
+        def trace_vinfo(self) -> list[Incomplete]: ...
 
     def __eq__(self, other: object) -> bool: ...
     def __del__(self) -> None: ...
@@ -369,7 +370,7 @@ def mainloop(n: int = 0) -> None: ...
 getint = int
 getdouble = float
 
-def getboolean(s): ...
+def getboolean(s) -> bool: ...
 
 _Ts = TypeVarTuple("_Ts")
 
@@ -399,9 +400,9 @@ class Misc:
     def wait_visibility(self, window: Misc | None = None) -> None: ...
     def setvar(self, name: str = "PY_VAR", value: str = "1") -> None: ...
     def getvar(self, name: str = "PY_VAR"): ...
-    def getint(self, s): ...
-    def getdouble(self, s): ...
-    def getboolean(self, s): ...
+    def getint(self, s) -> int: ...
+    def getdouble(self, s) -> float: ...
+    def getboolean(self, s) -> bool: ...
     def focus_set(self) -> None: ...
     focus = focus_set
     def focus_force(self) -> None: ...
@@ -440,7 +441,7 @@ class Misc:
         def tk_busy_status(self) -> bool: ...
         busy_status = tk_busy_status
 
-    def clipboard_get(self, *, displayof: Misc = ..., type: str = ...) -> str: ...
+    def clipboard_get(self, *, displayof: Misc = ..., type: str = "UTF8_STRING") -> str: ...
     def clipboard_clear(self, *, displayof: Misc = ...) -> None: ...
     def clipboard_append(self, string: str, *, displayof: Misc = ..., format: str = ..., type: str = ...) -> None: ...
     def grab_current(self): ...
@@ -677,7 +678,7 @@ class XView:
     @overload
     def xview(self) -> tuple[float, float]: ...
     @overload
-    def xview(self, *args): ...
+    def xview(self, *args) -> None: ...
     def xview_moveto(self, fraction: float) -> None: ...
     @overload
     def xview_scroll(self, number: int, what: Literal["units", "pages"]) -> None: ...
@@ -688,7 +689,7 @@ class YView:
     @overload
     def yview(self) -> tuple[float, float]: ...
     @overload
-    def yview(self, *args): ...
+    def yview(self, *args) -> None: ...
     def yview_moveto(self, fraction: float) -> None: ...
     @overload
     def yview_scroll(self, number: int, what: Literal["units", "pages"]) -> None: ...
@@ -1014,27 +1015,27 @@ class Tk(Misc, Wm):
     # Tk has __getattr__ so that tk_instance.foo falls back to tk_instance.tk.foo
     # Please keep in sync with _tkinter.TkappType.
     # Some methods are intentionally missing because they are inherited from Misc instead.
-    def adderrorinfo(self, msg, /): ...
+    def adderrorinfo(self, msg: str, /): ...
     def call(self, command: Any, /, *args: Any) -> Any: ...
-    def createcommand(self, name, func, /): ...
+    def createcommand(self, name: str, func, /): ...
     if sys.platform != "win32":
-        def createfilehandler(self, file, mask, func, /): ...
-        def deletefilehandler(self, file, /): ...
+        def createfilehandler(self, file, mask: int, func, /): ...
+        def deletefilehandler(self, file, /) -> None: ...
 
-    def createtimerhandler(self, milliseconds, func, /): ...
-    def dooneevent(self, flags: int = ..., /): ...
+    def createtimerhandler(self, milliseconds: int, func, /): ...
+    def dooneevent(self, flags: int = 0, /): ...
     def eval(self, script: str, /) -> str: ...
-    def evalfile(self, fileName, /): ...
-    def exprboolean(self, s, /): ...
-    def exprdouble(self, s, /): ...
-    def exprlong(self, s, /): ...
-    def exprstring(self, s, /): ...
+    def evalfile(self, fileName: str, /): ...
+    def exprboolean(self, s: str, /): ...
+    def exprdouble(self, s: str, /): ...
+    def exprlong(self, s: str, /): ...
+    def exprstring(self, s: str, /): ...
     def globalgetvar(self, *args, **kwargs): ...
     def globalsetvar(self, *args, **kwargs): ...
     def globalunsetvar(self, *args, **kwargs): ...
     def interpaddr(self) -> int: ...
     def loadtk(self) -> None: ...
-    def record(self, script, /): ...
+    def record(self, script: str, /): ...
     if sys.version_info < (3, 11):
         @deprecated("Deprecated since Python 3.9; removed in Python 3.11. Use `splitlist()` instead.")
         def split(self, arg, /): ...
@@ -1042,7 +1043,7 @@ class Tk(Misc, Wm):
     def splitlist(self, arg, /): ...
     def unsetvar(self, *args, **kwargs): ...
     def wantobjects(self, *args, **kwargs): ...
-    def willdispatch(self): ...
+    def willdispatch(self) -> None: ...
 
 def Tcl(screenName: str | None = None, baseName: str | None = None, className: str = "Tk", useTk: bool = False) -> Tk: ...
 
@@ -1166,8 +1167,8 @@ class Grid:
 
 class BaseWidget(Misc):
     master: Misc
-    widgetName: Incomplete
-    def __init__(self, master, widgetName, cnf={}, kw={}, extra=()) -> None: ...
+    widgetName: str
+    def __init__(self, master, widgetName: str, cnf={}, kw={}, extra=()) -> None: ...
     def destroy(self) -> None: ...
 
 # This class represents any widget except Toplevel or Tk.
@@ -1276,7 +1277,7 @@ class Button(Widget):
         highlightcolor: str = ...,
         highlightthickness: _ScreenUnits = 1,
         image: _ImageSpec = "",
-        justify: Literal["left", "center", "right"] = "center",
+        justify: _JustifyValue = "center",
         name: str = ...,
         overrelief: _Relief | Literal[""] = "",
         padx: _ScreenUnits = ...,
@@ -1322,7 +1323,7 @@ class Button(Widget):
         highlightcolor: str = ...,
         highlightthickness: _ScreenUnits = ...,
         image: _ImageSpec = ...,
-        justify: Literal["left", "center", "right"] = ...,
+        justify: _JustifyValue = ...,
         overrelief: _Relief | Literal[""] = ...,
         padx: _ScreenUnits = ...,
         pady: _ScreenUnits = ...,
@@ -1901,7 +1902,7 @@ class Canvas(Widget, XView, YView):
         disabledstipple: str = ...,
         fill: str = ...,
         font: _FontDescription = ...,
-        justify: Literal["left", "center", "right"] = ...,
+        justify: _JustifyValue = ...,
         offset: _ScreenUnits = ...,
         state: Literal["normal", "hidden", "disabled"] = ...,
         stipple: str = ...,
@@ -1923,7 +1924,7 @@ class Canvas(Widget, XView, YView):
         disabledstipple: str = ...,
         fill: str = ...,
         font: _FontDescription = ...,
-        justify: Literal["left", "center", "right"] = ...,
+        justify: _JustifyValue = ...,
         offset: _ScreenUnits = ...,
         state: Literal["normal", "hidden", "disabled"] = ...,
         stipple: str = ...,
@@ -2028,7 +2029,7 @@ class Checkbutton(Widget):
         highlightthickness: _ScreenUnits = 1,
         image: _ImageSpec = "",
         indicatoron: bool = True,
-        justify: Literal["left", "center", "right"] = "center",
+        justify: _JustifyValue = "center",
         name: str = ...,
         offrelief: _Relief = ...,
         # The checkbutton puts a value to its variable when it's checked or
@@ -2087,7 +2088,7 @@ class Checkbutton(Widget):
         highlightthickness: _ScreenUnits = ...,
         image: _ImageSpec = ...,
         indicatoron: bool = ...,
-        justify: Literal["left", "center", "right"] = ...,
+        justify: _JustifyValue = ...,
         offrelief: _Relief = ...,
         offvalue: Any = ...,
         onvalue: Any = ...,
@@ -2145,7 +2146,7 @@ class Entry(Widget, XView):
         insertwidth: _ScreenUnits = ...,
         invalidcommand: _EntryValidateCommand = "",
         invcmd: _EntryValidateCommand = "",  # same as invalidcommand
-        justify: Literal["left", "center", "right"] = "left",
+        justify: _JustifyValue = "left",
         name: str = ...,
         readonlybackground: str = ...,
         relief: _Relief = "sunken",
@@ -2189,7 +2190,7 @@ class Entry(Widget, XView):
         insertwidth: _ScreenUnits = ...,
         invalidcommand: _EntryValidateCommand = ...,
         invcmd: _EntryValidateCommand = ...,
-        justify: Literal["left", "center", "right"] = ...,
+        justify: _JustifyValue = ...,
         readonlybackground: str = ...,
         relief: _Relief = ...,
         selectbackground: str = ...,
@@ -2306,7 +2307,7 @@ class Label(Widget):
         highlightcolor: str = ...,
         highlightthickness: _ScreenUnits = 0,
         image: _ImageSpec = "",
-        justify: Literal["left", "center", "right"] = "center",
+        justify: _JustifyValue = "center",
         name: str = ...,
         padx: _ScreenUnits = 1,
         pady: _ScreenUnits = 1,
@@ -2344,7 +2345,7 @@ class Label(Widget):
         highlightcolor: str = ...,
         highlightthickness: _ScreenUnits = ...,
         image: _ImageSpec = ...,
-        justify: Literal["left", "center", "right"] = ...,
+        justify: _JustifyValue = ...,
         padx: _ScreenUnits = ...,
         pady: _ScreenUnits = ...,
         relief: _Relief = ...,
@@ -2382,7 +2383,7 @@ class Listbox(Widget, XView, YView):
         highlightbackground: str = ...,
         highlightcolor: str = ...,
         highlightthickness: _ScreenUnits = ...,
-        justify: Literal["left", "center", "right"] = "left",
+        justify: _JustifyValue = "left",
         # There's no tkinter.ListVar, but seems like bare tkinter.Variable
         # actually works for this:
         #
@@ -2433,7 +2434,7 @@ class Listbox(Widget, XView, YView):
         highlightbackground: str = ...,
         highlightcolor: str = ...,
         highlightthickness: _ScreenUnits = ...,
-        justify: Literal["left", "center", "right"] = ...,
+        justify: _JustifyValue = ...,
         listvariable: Variable = ...,
         relief: _Relief = ...,
         selectbackground: str = ...,
@@ -2772,7 +2773,7 @@ class Menubutton(Widget):
         highlightthickness: _ScreenUnits = 0,
         image: _ImageSpec = "",
         indicatoron: bool = ...,
-        justify: Literal["left", "center", "right"] = ...,
+        justify: _JustifyValue = ...,
         menu: Menu = ...,
         name: str = ...,
         padx: _ScreenUnits = ...,
@@ -2813,7 +2814,7 @@ class Menubutton(Widget):
         highlightthickness: _ScreenUnits = ...,
         image: _ImageSpec = ...,
         indicatoron: bool = ...,
-        justify: Literal["left", "center", "right"] = ...,
+        justify: _JustifyValue = ...,
         menu: Menu = ...,
         padx: _ScreenUnits = ...,
         pady: _ScreenUnits = ...,
@@ -2850,7 +2851,7 @@ class Message(Widget):
         highlightbackground: str = ...,
         highlightcolor: str = ...,
         highlightthickness: _ScreenUnits = 0,
-        justify: Literal["left", "center", "right"] = "left",
+        justify: _JustifyValue = "left",
         name: str = ...,
         padx: _ScreenUnits = ...,
         pady: _ScreenUnits = ...,
@@ -2880,7 +2881,7 @@ class Message(Widget):
         highlightbackground: str = ...,
         highlightcolor: str = ...,
         highlightthickness: _ScreenUnits = ...,
-        justify: Literal["left", "center", "right"] = ...,
+        justify: _JustifyValue = ...,
         padx: _ScreenUnits = ...,
         pady: _ScreenUnits = ...,
         relief: _Relief = ...,
@@ -2921,7 +2922,7 @@ class Radiobutton(Widget):
         highlightthickness: _ScreenUnits = 1,
         image: _ImageSpec = "",
         indicatoron: bool = True,
-        justify: Literal["left", "center", "right"] = "center",
+        justify: _JustifyValue = "center",
         name: str = ...,
         offrelief: _Relief = ...,
         overrelief: _Relief | Literal[""] = "",
@@ -2969,7 +2970,7 @@ class Radiobutton(Widget):
         highlightthickness: _ScreenUnits = ...,
         image: _ImageSpec = ...,
         indicatoron: bool = ...,
-        justify: Literal["left", "center", "right"] = ...,
+        justify: _JustifyValue = ...,
         offrelief: _Relief = ...,
         overrelief: _Relief | Literal[""] = ...,
         padx: _ScreenUnits = ...,
@@ -3555,7 +3556,7 @@ class Text(Widget, XView, YView):
         fgstipple: str = ...,
         font: _FontDescription = ...,
         foreground: str = ...,
-        justify: Literal["left", "right", "center"] = ...,
+        justify: _JustifyValue = ...,
         lmargin1: _ScreenUnits = ...,
         lmargin2: _ScreenUnits = ...,
         lmargincolor: str = ...,
@@ -3639,7 +3640,6 @@ class _setit:
 
 # manual page: tk_optionMenu
 class OptionMenu(Menubutton):
-    widgetName: Incomplete
     menuname: Incomplete
     def __init__(
         # differs from other widgets
@@ -3851,7 +3851,7 @@ class Spinbox(Widget, XView):
         insertwidth: _ScreenUnits = ...,
         invalidcommand: _EntryValidateCommand = "",
         invcmd: _EntryValidateCommand = "",
-        justify: Literal["left", "center", "right"] = "left",
+        justify: _JustifyValue = "left",
         name: str = ...,
         readonlybackground: str = ...,
         relief: _Relief = "sunken",
@@ -3908,7 +3908,7 @@ class Spinbox(Widget, XView):
         insertwidth: _ScreenUnits = ...,
         invalidcommand: _EntryValidateCommand = ...,
         invcmd: _EntryValidateCommand = ...,
-        justify: Literal["left", "center", "right"] = ...,
+        justify: _JustifyValue = ...,
         readonlybackground: str = ...,
         relief: _Relief = ...,
         repeatdelay: int = ...,
@@ -4078,19 +4078,19 @@ class PanedWindow(Widget):
     config = configure
     def add(self, child: Widget, **kw) -> None: ...
     def remove(self, child) -> None: ...
-    forget: Incomplete
+    forget = remove
     def identify(self, x: int, y: int): ...
-    def proxy(self, *args): ...
-    def proxy_coord(self): ...
-    def proxy_forget(self): ...
-    def proxy_place(self, x, y): ...
-    def sash(self, *args): ...
-    def sash_coord(self, index): ...
-    def sash_mark(self, index): ...
-    def sash_place(self, index, x, y): ...
+    def proxy(self, *args) -> tuple[Incomplete, ...]: ...
+    def proxy_coord(self) -> tuple[Incomplete, ...]: ...
+    def proxy_forget(self) -> tuple[Incomplete, ...]: ...
+    def proxy_place(self, x, y) -> tuple[Incomplete, ...]: ...
+    def sash(self, *args) -> tuple[Incomplete, ...]: ...
+    def sash_coord(self, index) -> tuple[Incomplete, ...]: ...
+    def sash_mark(self, index) -> tuple[Incomplete, ...]: ...
+    def sash_place(self, index, x, y) -> tuple[Incomplete, ...]: ...
     def panecget(self, child, option): ...
     def paneconfigure(self, tagOrId, cnf=None, **kw): ...
-    paneconfig: Incomplete
+    paneconfig = paneconfigure
     def panes(self): ...
 
 def _test() -> None: ...
