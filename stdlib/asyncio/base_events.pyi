@@ -410,7 +410,7 @@ class BaseEventLoop(AbstractEventLoop):
             family: int = 0,
             proto: int = 0,
             flags: int = 0,
-            reuse_address: bool | None = None,
+            reuse_address: bool | None = ...,
             reuse_port: bool | None = None,
             allow_broadcast: bool | None = None,
             sock: socket | None = None,
