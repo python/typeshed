@@ -120,7 +120,7 @@ else:
         languages: Iterable[str] | None = None,
         class_: None = None,
         fallback: Literal[False] = False,
-        codeset: str | None = ...,
+        codeset: str | None = None,
     ) -> GNUTranslations: ...
     @overload
     def translation(
@@ -130,7 +130,7 @@ else:
         *,
         class_: Callable[[io.BufferedReader], _NullTranslationsT],
         fallback: Literal[False] = False,
-        codeset: str | None = ...,
+        codeset: str | None = None,
     ) -> _NullTranslationsT: ...
     @overload
     def translation(
@@ -139,7 +139,7 @@ else:
         languages: Iterable[str] | None,
         class_: Callable[[io.BufferedReader], _NullTranslationsT],
         fallback: Literal[False] = False,
-        codeset: str | None = ...,
+        codeset: str | None = None,
     ) -> _NullTranslationsT: ...
     @overload
     def translation(
@@ -148,7 +148,7 @@ else:
         languages: Iterable[str] | None = None,
         class_: Callable[[io.BufferedReader], NullTranslations] | None = None,
         fallback: bool = False,
-        codeset: str | None = ...,
+        codeset: str | None = None,
     ) -> NullTranslations: ...
     @overload
     def install(domain: str, localedir: StrPath | None = None, names: Container[str] | None = None) -> None: ...

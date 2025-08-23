@@ -20,7 +20,7 @@ class Future(Awaitable[_T]):
     @_log_traceback.setter
     def _log_traceback(self, val: Literal[False]) -> None: ...
     _asyncio_future_blocking: bool  # is a part of duck-typing contract for `Future`
-    def __init__(self, *, loop: AbstractEventLoop | None = ...) -> None: ...
+    def __init__(self, *, loop: AbstractEventLoop | None = None) -> None: ...
     def __del__(self) -> None: ...
     def get_loop(self) -> AbstractEventLoop: ...
     @property
@@ -56,7 +56,7 @@ class Task(Future[_T_co]):  # type: ignore[type-var]  # pyright: ignore[reportIn
             coro: _TaskCompatibleCoro[_T_co],
             *,
             loop: AbstractEventLoop | None = None,
-            name: str | None = ...,
+            name: str | None = None,
             context: Context | None = None,
             eager_start: bool = False,
         ) -> None: ...
@@ -66,12 +66,12 @@ class Task(Future[_T_co]):  # type: ignore[type-var]  # pyright: ignore[reportIn
             coro: _TaskCompatibleCoro[_T_co],
             *,
             loop: AbstractEventLoop | None = None,
-            name: str | None = ...,
+            name: str | None = None,
             context: Context | None = None,
         ) -> None: ...
     else:
         def __init__(
-            self, coro: _TaskCompatibleCoro[_T_co], *, loop: AbstractEventLoop | None = None, name: str | None = ...
+            self, coro: _TaskCompatibleCoro[_T_co], *, loop: AbstractEventLoop | None = None, name: str | None = None
         ) -> None: ...
 
     if sys.version_info >= (3, 12):

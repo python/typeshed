@@ -35,7 +35,7 @@ class Dialect:
     strict: bool
     def __new__(
         cls,
-        dialect: _DialectLike | None = ...,
+        dialect: _DialectLike | None = None,
         delimiter: str = ",",
         doublequote: bool = True,
         escapechar: str | None = None,
