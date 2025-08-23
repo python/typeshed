@@ -1,6 +1,6 @@
 import http.client
 import urllib.request
-from _typeshed import SupportsKeysAndGetItem
+from _typeshed import Incomplete, SupportsKeysAndGetItem
 from typing import Any, TypeVar
 from typing_extensions import override
 
@@ -49,8 +49,8 @@ class SocksiPyConnectionS(http.client.HTTPSConnection):  # undocumented
     def connect(self) -> None: ...
 
 class SocksiPyHandler(urllib.request.HTTPHandler, urllib.request.HTTPSHandler):
-    args: object  # undocumented
-    kw: object  # undocumented
+    args: tuple[Incomplete, ...]  # undocumented
+    kw: dict[str, Incomplete]  # undocumented
     def __init__(self, *args: Any, **kwargs: Any) -> None: ...
     @override
     def http_open(self, req: urllib.request.Request) -> http.client.HTTPResponse: ...  # undocumented
