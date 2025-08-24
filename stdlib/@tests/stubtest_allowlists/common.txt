@@ -450,7 +450,6 @@ tkinter.Misc.pack_propagate  # The noarg placeholder is a set value list
 tkinter.Tk.report_callback_exception  # A bit of a lie, since it's actually a method, but typing it as an attribute allows it to be assigned to
 tkinter.Wm.wm_iconphoto  # Default value of argument can't be used without runtime error
 tkinter.font.Font.__getitem__  # Argument name differs (doesn't matter for __dunder__ methods)
-tkinter.ttk.Style.element_create  # this is implemented with *args having a minimum size so arguments before it must be positional (but stubtest doesn't see that)
 traceback.TracebackException.from_exception  # explicitly expanding arguments going into TracebackException __init__
 turtle.ScrolledCanvas.find_all  # Dynamically created, has unnecessary *args
 turtle.ScrolledCanvas.select_clear  # Dynamically created, has unnecessary *args
