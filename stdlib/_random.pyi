@@ -6,7 +6,7 @@ _State: TypeAlias = tuple[int, ...]
 
 @disjoint_base
 class Random:
-    if sys.version_info >= (3, 11):
+    if sys.version_info >= (3, 10):
         def __init__(self, seed: object = ..., /) -> None: ...
     else:
         def __new__(self, seed: object = ..., /) -> Self: ...

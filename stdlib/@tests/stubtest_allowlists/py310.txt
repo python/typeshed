@@ -55,6 +55,8 @@ asyncio.locks.Lock.__init__
 asyncio.locks.Semaphore.__init__
 asyncio.queues.Queue.__init__
 
+_random.Random.__init__  # Issues with __new__/__init__ correspondence
+
 bdb.Breakpoint.clearBreakpoints  # Exists at runtime, but missing from stubs
 
 
