@@ -3,7 +3,7 @@ import sys
 from _typeshed import ReadableBuffer, Unused
 from collections.abc import Iterator
 from typing import Final, Literal, NoReturn, overload
-from typing_extensions import Self
+from typing_extensions import Self, disjoint_base
 
 ACCESS_DEFAULT: Final = 0
 ACCESS_READ: Final = 1
@@ -31,6 +31,7 @@ if sys.platform != "win32":
 
 PAGESIZE: Final[int]
 
+@disjoint_base
 class mmap:
     if sys.platform == "win32":
         def __new__(self, fileno: int, length: int, tagname: str | None = None, access: int = 0, offset: int = 0) -> Self: ...

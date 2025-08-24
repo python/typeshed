@@ -4,7 +4,7 @@ from _typeshed import SupportsAllComparisons, SupportsItems
 from collections.abc import Callable, Hashable, Iterable, Sized
 from types import GenericAlias
 from typing import Any, Final, Generic, Literal, NamedTuple, TypedDict, TypeVar, final, overload, type_check_only
-from typing_extensions import ParamSpec, Self, TypeAlias
+from typing_extensions import ParamSpec, Self, TypeAlias, disjoint_base
 
 __all__ = [
     "update_wrapper",
@@ -150,7 +150,7 @@ else:
 
 def total_ordering(cls: type[_T]) -> type[_T]: ...
 def cmp_to_key(mycmp: Callable[[_T, _T], int]) -> Callable[[_T], SupportsAllComparisons]: ...
-
+@disjoint_base
 class partial(Generic[_T]):
     @property
     def func(self) -> Callable[..., _T]: ...
