@@ -37,7 +37,7 @@ def warn_explicit(
     category: type[Warning],
     filename: str,
     lineno: int,
-    module: str | None = None,
+    module: str | None = ...,
     registry: dict[str | tuple[str, type[Warning], int], int] | None = None,
     module_globals: dict[str, Any] | None = None,
     source: Any | None = None,
