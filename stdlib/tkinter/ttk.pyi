@@ -94,7 +94,7 @@ if sys.platform == "win32" and sys.version_info >= (3, 13):
     _ElementCreateVsapiKwargsDict: TypeAlias = (
         _ElementCreateVsapiKwargsPadding | _ElementCreateVsapiKwargsMargin | _ElementCreateVsapiKwargsSize
     )
-    _ElementCreateArgs: TypeAlias = (
+    _ElementCreateArgs: TypeAlias = (  # noqa: Y047  # It doesn't recognise the usage below for whatever reason
         _ElementCreateArgsCrossPlatform
         | tuple[Literal["vsapi"], str, int, _ElementCreateVsapiKwargsDict]
         | tuple[Literal["vsapi"], str, int, _VsapiStatespec, _ElementCreateVsapiKwargsDict]
