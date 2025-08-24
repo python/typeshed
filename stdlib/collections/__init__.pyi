@@ -480,9 +480,15 @@ class ChainMap(MutableMapping[_KT, _VT]):
     __copy__ = copy
     # All arguments to `fromkeys` are passed to `dict.fromkeys` at runtime,
     # so the signature should be kept in line with `dict.fromkeys`.
-    @classmethod
-    @overload
-    def fromkeys(cls, iterable: Iterable[_T], /) -> ChainMap[_T, Any | None]: ...
+    if sys.version_info >= (3, 13):
+        @classmethod
+        @overload
+        def fromkeys(cls, iterable: Iterable[_T], /) -> ChainMap[_T, Any | None]: ...
+    else:
+        @classmethod
+        @overload
+        def fromkeys(cls, iterable: Iterable[_T]) -> ChainMap[_T, Any | None]: ...
+
     @classmethod
     @overload
     # Special-case None: the user probably wants to add non-None values later.
