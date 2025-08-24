@@ -438,9 +438,9 @@ following criteria is met:
 
 Case 1: If a package ships its own `py.typed` file, please follow these steps:
 
-1. Make sure *stubsabot* open a PR that sets the `obsolete_since` field in the
+1. Make sure **stubsabot** open a PR that sets the `obsolete_since` field in the
    `METADATA.toml` file to the first version of the package that shipped `py.typed`.
-2. After at least six months, make sure *stubsabot* open a PR to remove the stubs.
+2. After at least six months, make sure **stubsabot** open a PR to remove the stubs.
 
 Case 2: If third-party stubs should be removed for other reasons, please follow
 these steps:
@@ -451,7 +451,7 @@ these steps:
 3. Open a PR that sets the `no_longer_updated` field in the `METADATA.toml`
    file to `true`.
 4. When a new version of the package was automatically uploaded to PyPI (which
-   can take up to a day), make sure *stubsabot* open a PR to remove the stubs.
+   can take up to a day), make sure **stubsabot** open a PR to remove the stubs.
 
 If feeling kindly, please update [mypy](https://github.com/python/mypy/blob/master/mypy/stubinfo.py)
 for any stub obsoletions or removals.
