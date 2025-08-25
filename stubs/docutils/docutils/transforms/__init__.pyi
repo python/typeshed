@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from collections.abc import Iterable, Mapping
 from typing import Any, ClassVar, Final
 from typing_extensions import TypeAlias
@@ -18,7 +17,7 @@ class Transform:
     startnode: nodes.Node | None
     language: LanguageImporter
     def __init__(self, document: nodes.document, startnode: nodes.Node | None = None) -> None: ...
-    def __getattr__(self, name: str, /) -> Incomplete: ...  # method apply is not implemented
+    def apply(self, **kwargs: Any) -> None: ...  # this is to be overwritten in subclasses
 
 class Transformer(TransformSpec):
     transforms: list[_TransformTuple]
