@@ -1,4 +1,4 @@
-from _typeshed import StrPath
+from _typeshed import Incomplete, StrPath
 
 # Use aliases to avoid name conflicts with Path methods
 from builtins import (
@@ -13,8 +13,8 @@ from builtins import (
 )
 from collections.abc import Callable, Mapping, MutableMapping
 from logging import Logger
-from typing import IO, Any, ClassVar, Generic, SupportsIndex, TypedDict, TypeVar, overload, type_check_only
-from typing_extensions import Required, TypeAlias, Unpack
+from typing import IO, Any, ClassVar, Generic, Literal, SupportsIndex, TypedDict, TypeVar, overload, type_check_only
+from typing_extensions import NotRequired, Required, TypeAlias, Unpack
 from urllib.parse import ParseResult
 
 from .fileaware_mapping import FileAwareMapping
@@ -24,17 +24,66 @@ logger: Logger
 
 class NoValue: ...
 
-_T1 = TypeVar("_T1")
-_T2 = TypeVar("_T2")
-_Cast: TypeAlias = Callable[[str], _T1]
-_SchemeValue: TypeAlias = _Cast[Any] | tuple[_Cast[Any], Any]
+_T = TypeVar("_T")
+_KT = TypeVar("_KT")
+_VT = TypeVar("_VT")
+
+_Cast: TypeAlias = Callable[[str], _T]
+_SchemeValue: TypeAlias = _Cast[object] | tuple[_Cast[object], object]
 _EmptyDict: TypeAlias = dict[object, object]  # stands for {}
 
 @type_check_only
-class CastDict(TypedDict, Generic[_T1, _T2], total=False):
-    key: _Cast[_T1]
-    value: _Cast[_T2]
-    cast: dict[str, _Cast[Any]]  # value cast by key
+class CastDict(TypedDict, Generic[_KT, _VT], total=False):
+    key: _Cast[_KT]
+    value: _Cast[_VT]
+    # key-specific value casts
+    cast: dict[str, _Cast[object]]
+
+# One CastDict for each combination of 'key', 'value' and 'cast' (8 in total).
+# Use auxiliary '_type' to make them distinguishable for type checkers.
+@type_check_only
+class CastDict000(TypedDict):
+    _type: NotRequired[Literal["000"]]
+
+@type_check_only
+class CastDict001(TypedDict):
+    _type: NotRequired[Literal["001"]]
+    cast: dict[str, _Cast[object]]
+
+@type_check_only
+class CastDict010(TypedDict, Generic[_VT]):
+    _type: NotRequired[Literal["010"]]
+    value: _Cast[_VT]
+
+@type_check_only
+class CastDict011(TypedDict, Generic[_VT]):
+    _type: NotRequired[Literal["011"]]
+    value: _Cast[_VT]
+    cast: dict[str, _Cast[object]]
+
+@type_check_only
+class CastDict100(TypedDict, Generic[_KT]):
+    _type: NotRequired[Literal["100"]]
+    key: _Cast[_KT]
+
+@type_check_only
+class CastDict101(TypedDict, Generic[_KT]):
+    _type: NotRequired[Literal["101"]]
+    key: _Cast[_KT]
+    cast: dict[str, _Cast[object]]
+
+@type_check_only
+class CastDict110(TypedDict, Generic[_KT, _VT]):
+    _type: NotRequired[Literal["110"]]
+    key: _Cast[_KT]
+    value: _Cast[_VT]
+
+@type_check_only
+class CastDict111(TypedDict, Generic[_KT, _VT]):
+    _type: NotRequired[Literal["111"]]
+    key: _Cast[_KT]
+    value: _Cast[_VT]
+    cast: dict[str, _Cast[object]]
 
 @type_check_only
 class PathKwargs(TypedDict, total=False):
@@ -60,7 +109,7 @@ class DbConfig(MemoryDbConfig, total=False):
     AUTOCOMMIT: bool
     DISABLE_SERVER_SIDE_CURSORS: bool
     # Remaining options read from queryParams
-    OPTIONS: dict[str, Any]
+    OPTIONS: dict[str, Incomplete]
 
 @type_check_only
 class EmailConfig(TypedDict, total=False):
@@ -74,13 +123,13 @@ class EmailConfig(TypedDict, total=False):
     EMAIL_USE_TLS: bool
     EMAIL_USE_SSL: bool
     # Remaining options read from queryParams
-    OPTIONS: dict[str, Any]
+    OPTIONS: dict[str, Incomplete]
 
 # https://github.com/django/channels
 @type_check_only
 class ChannelsConfig(TypedDict, total=False):
     BACKEND: Required[str]
-    CONFIG: dict[str, Any]
+    CONFIG: dict[str, Incomplete]
 
 # https://github.com/django-haystack/django-haystack
 @type_check_only
@@ -95,13 +144,13 @@ class SimpleSearchConfig(TypedDict, total=False):
 class SolrSearchConfig(SimpleSearchConfig, total=False):
     URL: Required[str]
     TIMEOUT: int
-    KWARGS: dict[str, Any]
+    KWARGS: dict[str, Incomplete]
 
 @type_check_only
 class ElasticsearchSearchConfig(SimpleSearchConfig, total=False):
     URL: Required[str]
     TIMEOUT: int
-    KWARGS: dict[str, Any]
+    KWARGS: dict[str, Incomplete]
     INDEX_NAME: str
 
 @type_check_only
@@ -127,7 +176,7 @@ class CacheConfig(TypedDict, total=False):
     TIMEOUT: int
     VERSION: int
     # Remaining options read from queryParams
-    OPTIONS: dict[str, Any]
+    OPTIONS: dict[str, Incomplete]
 
 class Env:
     ENVIRON: MutableMapping[_str, _str]
@@ -155,20 +204,20 @@ class Env:
     def __init__(self, **scheme: _SchemeValue) -> None: ...
     @overload
     def __call__(
-        self, var: _str, cast: _Cast[_T1] | None = None, default: _T1 | NoValue = ..., parse_default: _bool = False
-    ) -> _T1: ...
+        self, var: _str, cast: _Cast[_T] | None = None, default: _T | NoValue = ..., parse_default: _bool = False
+    ) -> _T: ...
     @overload
     def __call__(
-        self, var: _str, cast: _list[_Cast[_T1]], default: _list[_T1] | NoValue = ..., parse_default: _bool = False
-    ) -> _list[_T1]: ...
+        self, var: _str, cast: _list[_Cast[_T]], default: _list[_T] | NoValue = ..., parse_default: _bool = False
+    ) -> _list[_T]: ...
     @overload
     def __call__(
-        self, var: _str, cast: _tuple[_Cast[_T1]], default: _tuple[_T1] | NoValue = ..., parse_default: _bool = False
-    ) -> _tuple[_T1]: ...
+        self, var: _str, cast: _tuple[_Cast[_T], ...], default: _tuple[_T, ...] | NoValue = ..., parse_default: _bool = False
+    ) -> _tuple[_T, ...]: ...
     @overload
     def __call__(
-        self, var: _str, cast: CastDict[_T1, _T2], default: _dict[_T1, _T2] | NoValue = ..., parse_default: _bool = False
-    ) -> _dict[_T1, _T2]: ...
+        self, var: _str, cast: CastDict[_KT, _VT], default: _dict[_KT, _VT] | NoValue = ..., parse_default: _bool = False
+    ) -> _dict[_KT, _VT | object]: ...
     @overload
     # Any (subclass of) list/tuple/dict builtin types are valid for cast.
     def __call__(
@@ -188,13 +237,18 @@ class Env:
     def bool(self, var: _str, default: _bool | NoValue = ...) -> _bool: ...
     def int(self, var: _str, default: _int | NoValue = ...) -> _int: ...
     def float(self, var: _str, default: _float | NoValue = ...) -> _float: ...
-    def json(self, var: _str, default: Any | NoValue = ...) -> Any: ...
-    def list(self, var: _str, cast: _Cast[_T1] | None = None, default: _list[_T1] | NoValue = ...) -> _list[_T1]: ...
-    def tuple(self, var: _str, cast: _Cast[_T1] | None = None, default: _tuple[_T1] | NoValue = ...) -> _tuple[_T1]: ...
     @overload
-    def dict(self, var: _str, cast: None = ..., default: _dict[_str, Any] | NoValue = ...) -> _dict[_str, Any]: ...
+    def json(self, var: _str, default: NoValue = ...) -> Any: ...
     @overload
-    def dict(self, var: _str, cast: _Cast[_T1], default: _dict[Any, _T1] | NoValue = ...) -> _dict[Any, _T1]: ...
+    def json(self, var: _str, default: _T) -> _T: ...
+    def list(self, var: _str, cast: _Cast[_T] | None = None, default: _list[_T] | NoValue = ...) -> _list[_T]: ...
+    def tuple(self, var: _str, cast: _Cast[_T] | None = None, default: _tuple[_T, ...] | NoValue = ...) -> _tuple[_T, ...]: ...
+    @overload
+    def dict(
+        self, var: _str, cast: CastDict[_KT, _VT] | None = None, default: _dict[_KT, _VT] | NoValue = ...
+    ) -> _dict[_KT, _VT | object]: ...
+    @overload
+    def dict(self, var: _str, cast: _Cast[_T], default: _T | NoValue = ...) -> _T: ...
     def url(self, var: _str, default: _str | NoValue = ...) -> _str: ...
     def db_url(
         self, var: _str = ..., default: _str | NoValue = ..., engine: _str | None = None
@@ -222,20 +276,20 @@ class Env:
     def path(self, var: _str, default: _str | NoValue = ..., **kwargs: Unpack[PathKwargs]) -> Path: ...
     @overload
     def get_value(
-        self, var: _str, cast: _Cast[_T1] | None = None, default: _T1 | NoValue = ..., parse_default: _bool = False
-    ) -> _T1: ...
+        self, var: _str, cast: _Cast[_T] | None = None, default: _T | NoValue = ..., parse_default: _bool = False
+    ) -> _T: ...
     @overload
     def get_value(
-        self, var: _str, cast: _list[_Cast[_T1]], default: _list[_T1] | NoValue = ..., parse_default: _bool = False
-    ) -> _list[_T1]: ...
+        self, var: _str, cast: _list[_Cast[_T]], default: _list[_T] | NoValue = ..., parse_default: _bool = False
+    ) -> _list[_T]: ...
     @overload
     def get_value(
-        self, var: _str, cast: _tuple[_Cast[_T1]], default: _tuple[_T1] | NoValue = ..., parse_default: _bool = False
-    ) -> _tuple[_T1]: ...
+        self, var: _str, cast: _tuple[_Cast[_T], ...], default: _tuple[_T, ...] | NoValue = ..., parse_default: _bool = False
+    ) -> _tuple[_T, ...]: ...
     @overload
     def get_value(
-        self, var: _str, cast: CastDict[_T1, _T2], default: _dict[_T1, _T2] | NoValue = ..., parse_default: _bool = False
-    ) -> _dict[_T1, _T2]: ...
+        self, var: _str, cast: CastDict[_KT, _VT], default: _dict[_KT, _VT] | NoValue = ..., parse_default: _bool = False
+    ) -> _dict[_KT, _VT | object]: ...
     @overload
     # Any (subclass of) list/tuple/dict builtin types are valid for cast.
     def get_value(
@@ -254,16 +308,40 @@ class Env:
     def parse_value(cls, value: _str, cast: None) -> _str: ...
     @classmethod
     @overload
-    def parse_value(cls, value: _str, cast: _Cast[_T1]) -> _T1: ...
+    def parse_value(cls, value: _str, cast: _Cast[_T]) -> _T: ...
     @classmethod
     @overload
-    def parse_value(cls, value: _str, cast: _list[_Cast[_T1]]) -> _list[_T1]: ...
+    def parse_value(cls, value: _str, cast: _list[_Cast[_T]]) -> _list[_T]: ...
     @classmethod
     @overload
-    def parse_value(cls, value: _str, cast: _tuple[_Cast[_T1], ...]) -> _tuple[_T1]: ...
+    def parse_value(cls, value: _str, cast: _tuple[_Cast[_T], ...]) -> _tuple[_T, ...]: ...
     @classmethod
     @overload
-    def parse_value(cls, value: _str, cast: CastDict[_T1, _T2]) -> _dict[_T1, _T2]: ...
+    def parse_value(cls, value: _str, cast: CastDict000) -> _dict[_str, _str]: ...
+    @classmethod
+    @overload
+    def parse_value(cls, value: _str, cast: CastDict001) -> _dict[_str, _str | object]: ...
+    @classmethod
+    @overload
+    def parse_value(cls, value: _str, cast: CastDict010[_VT]) -> _dict[_str, _VT]: ...
+    @classmethod
+    @overload
+    def parse_value(cls, value: _str, cast: CastDict011[_VT]) -> _dict[_str, _VT | object]: ...
+    @classmethod
+    @overload
+    def parse_value(cls, value: _str, cast: CastDict100[_KT]) -> _dict[_KT, _str]: ...
+    @classmethod
+    @overload
+    def parse_value(cls, value: _str, cast: CastDict101[_KT]) -> _dict[_KT, _str | object]: ...
+    @classmethod
+    @overload
+    def parse_value(cls, value: _str, cast: CastDict110[_KT, _VT]) -> _dict[_KT, _VT]: ...
+    @classmethod
+    @overload
+    def parse_value(cls, value: _str, cast: CastDict111[_KT, _VT]) -> _dict[_KT, _VT | object]: ...
+    @classmethod
+    @overload
+    def parse_value(cls, value: _str, cast: CastDict[_KT, _VT]) -> _dict[_KT, _VT | object]: ...
     @classmethod
     @overload
     # Any (subclass of) list/tuple/dict builtin types are valid for cast.
