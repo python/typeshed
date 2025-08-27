@@ -62,6 +62,7 @@ jobs:
           echo "Changed stubs: $STUBS"
           echo "STUBS=$STUBS" >> $GITHUB_ENV
       - name: Install required system packages
+        shell: bash
         run: |
           if [ -n "$STUBS" ]; then
             PACKAGES=$(python tests/get_stubtest_system_requirements.py $STUBS)
