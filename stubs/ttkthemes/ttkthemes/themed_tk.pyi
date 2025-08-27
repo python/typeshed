@@ -1,5 +1,5 @@
 import tkinter
-from typing import Any, Literal
+from typing import Any
 
 from ._widget import ThemedWidget
 
@@ -31,21 +31,21 @@ class ThemedTk(tkinter.Tk, ThemedWidget):
         toplevel: bool | None = ...,
         theme: str | None = ...,
         background: str = ...,
-        bd: str | float = ...,
+        bd: tkinter._ScreenUnits = ...,
         bg: str = ...,
-        border: str | float = ...,
-        borderwidth: str | float = ...,
+        border: tkinter._ScreenUnits = ...,
+        borderwidth: tkinter._ScreenUnits = ...,
         cursor: tkinter._Cursor = ...,
-        height: str | float = ...,
+        height: tkinter._ScreenUnits = ...,
         highlightbackground: str = ...,
         highlightcolor: str = ...,
-        highlightthickness: str | float = ...,
+        highlightthickness: tkinter._ScreenUnits = ...,
         menu: tkinter.Menu = ...,
-        padx: str | float = ...,
-        pady: str | float = ...,
-        relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
+        padx: tkinter._ScreenUnits = ...,
+        pady: tkinter._ScreenUnits = ...,
+        relief: tkinter._Relief = ...,
         takefocus: tkinter._TakeFocusValue = ...,
-        width: str | float = ...,
+        width: tkinter._ScreenUnits = ...,
     ) -> dict[str, tuple[str, str, str, Any, Any]] | None: ...
     def cget(self, k: str) -> Any: ...
     def configure(  # type: ignore[override]
@@ -56,21 +56,21 @@ class ThemedTk(tkinter.Tk, ThemedWidget):
         toplevel: bool | None = ...,
         theme: str | None = ...,
         background: str = ...,
-        bd: str | float = ...,
+        bd: tkinter._ScreenUnits = ...,
         bg: str = ...,
-        border: str | float = ...,
-        borderwidth: str | float = ...,
+        border: tkinter._ScreenUnits = ...,
+        borderwidth: tkinter._ScreenUnits = ...,
         cursor: tkinter._Cursor = ...,
-        height: str | float = ...,
+        height: tkinter._ScreenUnits = ...,
         highlightbackground: str = ...,
         highlightcolor: str = ...,
-        highlightthickness: str | float = ...,
+        highlightthickness: tkinter._ScreenUnits = ...,
         menu: tkinter.Menu = ...,
-        padx: str | float = ...,
-        pady: str | float = ...,
-        relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
+        padx: tkinter._ScreenUnits = ...,
+        pady: tkinter._ScreenUnits = ...,
+        relief: tkinter._Relief = ...,
         takefocus: tkinter._TakeFocusValue = ...,
-        width: str | float = ...,
+        width: tkinter._ScreenUnits = ...,
     ) -> dict[str, tuple[str, str, str, Any, Any]] | None: ...
     def __getitem__(self, k: str) -> Any: ...
     def __setitem__(self, k: str, v: Any) -> None: ...
