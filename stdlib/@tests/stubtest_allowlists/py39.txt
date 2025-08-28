@@ -140,7 +140,6 @@ collections.Mapping.__reversed__  # Set to None at runtime for a better error me
 # Adding these reflected dunders to `typing.AbstractSet` causes a large number of false-positives. See #7414.
 collections.Set.__rand__
 collections.Set.__ror__
-collections.Set.__rsub__
 collections.Set.__rxor__
 
 ssl.RAND_egd  # Depends on the existence and flags of SSL

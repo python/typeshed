@@ -51,7 +51,6 @@ _collections_abc.Mapping.__reversed__  # set to None at runtime for a better err
 # Adding these reflected dunders to `typing.AbstractSet` causes a large number of false-positives. See #7414.
 _collections_abc.Set.__rand__
 _collections_abc.Set.__ror__
-_collections_abc.Set.__rsub__
 _collections_abc.Set.__rxor__
 
 # Undocumented implementation details of a deprecated class

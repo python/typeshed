@@ -1267,6 +1267,7 @@ class set(MutableSet[_T]):
     def __ior__(self, value: AbstractSet[_T], /) -> Self: ...  # type: ignore[override,misc]
     def __sub__(self, value: AbstractSet[_T | None], /) -> set[_T]: ...  # type: ignore[override,misc]
     def __isub__(self, value: AbstractSet[object], /) -> Self: ...  # type: ignore[override,misc]
+    def __rsub__(self, value: AbstractSet[_S], /) -> set[_S]: ...  # type: ignore[override,misc]
     def __xor__(self, value: AbstractSet[_S], /) -> set[_T | _S]: ...  # type: ignore[override,misc]
     def __ixor__(self, value: AbstractSet[_T], /) -> Self: ...  # type: ignore[override,misc]
     def __le__(self, value: AbstractSet[object], /) -> bool: ...
