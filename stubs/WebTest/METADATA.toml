@@ -1,0 +1,3 @@
+version = "3.0.*"
+upstream_repository = "https://github.com/Pylons/webtest"
+requires = ["types-beautifulsoup4", "types-waitress", "types-WebOb"]
