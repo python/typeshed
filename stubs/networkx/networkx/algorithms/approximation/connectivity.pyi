@@ -1,7 +1,7 @@
 from collections.abc import Callable, Iterable
 
-from networkx.classes.graph import Graph, _Node
 from networkx.classes.digraph import DiGraph
+from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
 
 __all__ = [
@@ -12,7 +12,6 @@ __all__ = [
     "edge_connectivity",
     "all_pairs_node_connectivity",
 ]
-
 
 @_dispatchable
 def local_node_connectivity(
@@ -33,8 +32,7 @@ def node_connectivity(
 ) -> int | float: ...
 @_dispatchable
 def average_node_connectivity(
-    G: Graph[_Node],
-    flow_func: Callable[[DiGraph[_Node], _Node, _Node], DiGraph[_Node]] | None = None,
+    G: Graph[_Node], flow_func: Callable[[DiGraph[_Node], _Node, _Node], DiGraph[_Node]] | None = None
 ) -> float: ...
 @_dispatchable
 def all_pairs_node_connectivity(
