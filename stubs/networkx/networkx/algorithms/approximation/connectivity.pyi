@@ -1,6 +1,7 @@
 from collections.abc import Callable, Iterable
 
-from networkx.classes.graph import Graph, DiGraph, _Node
+from networkx.classes.graph import Graph, _Node
+from networkx.classes.digraph import DiGraph
 from networkx.utils.backends import _dispatchable
 
 __all__ = [
@@ -51,7 +52,7 @@ def local_edge_connectivity(
     residual: DiGraph[_Node] | None = None,
     cutoff: int | float | None = None,
 ) -> int | float: ...
-@nx._dispatchable
+@_dispatchable
 def edge_connectivity(
     G: Graph[_Node],
     s: _Node,
