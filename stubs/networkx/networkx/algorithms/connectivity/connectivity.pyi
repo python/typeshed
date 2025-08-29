@@ -53,8 +53,8 @@ def local_edge_connectivity(
 @_dispatchable
 def edge_connectivity(
     G: Graph[_Node],
-    s: _Node,
-    t: _Node,
+    s: _Node | None = None,
+    t: _Node | None = None,
     flow_func: Callable[[DiGraph[_Node], _Node, _Node], DiGraph[_Node]] | None = None,
     cutoff: float | None = None,
 ) -> float: ...
