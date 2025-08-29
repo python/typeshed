@@ -1,16 +1,61 @@
-from _typeshed import Incomplete
-from collections.abc import Iterable
+from collections.abc import Callable, Iterable
 
-from networkx.classes.graph import Graph, _Node
+from networkx.classes.graph import Graph, DiGraph, _Node
 from networkx.utils.backends import _dispatchable
 
-__all__ = ["local_node_connectivity", "node_connectivity", "all_pairs_node_connectivity"]
+__all__ = [
+    "average_node_connectivity",
+    "local_node_connectivity",
+    "node_connectivity",
+    "local_edge_connectivity",
+    "edge_connectivity",
+    "all_pairs_node_connectivity",
+]
+
 
 @_dispatchable
-def local_node_connectivity(G: Graph[_Node], source: _Node, target: _Node, cutoff: int | None = None): ...
+def local_node_connectivity(
+    G: Graph[_Node],
+    s: _Node,
+    t: _Node,
+    flow_func: Callable[[DiGraph[_Node], _Node, _Node], DiGraph[_Node]] | None = None,
+    auxiliary: DiGraph[_Node] | None = None,
+    residual: DiGraph[_Node] | None = None,
+    cutoff: int | float | None = None,
+) -> int | float: ...
 @_dispatchable
-def node_connectivity(G: Graph[_Node], s: _Node | None = None, t: _Node | None = None): ...
+def node_connectivity(
+    G: Graph[_Node],
+    s: _Node | None = None,
+    t: _Node | None = None,
+    flow_func: Callable[[DiGraph[_Node], _Node, _Node], DiGraph[_Node]] | None = None,
+) -> int | float: ...
+@_dispatchable
+def average_node_connectivity(
+    G: Graph[_Node],
+    flow_func: Callable[[DiGraph[_Node], _Node, _Node], DiGraph[_Node]] | None = None,
+) -> float: ...
 @_dispatchable
 def all_pairs_node_connectivity(
-    G: Graph[_Node], nbunch: Iterable[Incomplete] | None = None, cutoff: int | None = None
-) -> dict[Incomplete, dict[Incomplete, Incomplete]]: ...
+    G: Graph[_Node],
+    nbunch: Iterable[tuple[_Node, _Node]] | None = None,
+    flow_func: Callable[[DiGraph[_Node], _Node, _Node], DiGraph[_Node]] | None = None,
+) -> dict[_Node, dict[_Node, int | float]]: ...
+@_dispatchable
+def local_edge_connectivity(
+    G: Graph[_Node],
+    s: _Node,
+    t: _Node,
+    flow_func: Callable[[DiGraph[_Node], _Node, _Node], DiGraph[_Node]] | None = None,
+    auxiliary: DiGraph[_Node] | None = None,
+    residual: DiGraph[_Node] | None = None,
+    cutoff: int | float | None = None,
+) -> int | float: ...
+@nx._dispatchable
+def edge_connectivity(
+    G: Graph[_Node],
+    s: _Node,
+    t: _Node,
+    flow_func: Callable[[DiGraph[_Node], _Node, _Node], DiGraph[_Node]] | None = None,
+    cutoff: int | float | None = None,
+) -> int | float: ...
