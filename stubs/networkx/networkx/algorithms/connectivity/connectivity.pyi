@@ -12,6 +12,7 @@ __all__ = [
     "edge_connectivity",
     "all_pairs_node_connectivity",
 ]
+default_flow_func = edmonds_karp
 
 @_dispatchable
 def local_node_connectivity(
