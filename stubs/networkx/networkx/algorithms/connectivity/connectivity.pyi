@@ -1,5 +1,6 @@
 from collections.abc import Callable, Iterable
 
+from networkx.algorithms.flow import edmonds_karp
 from networkx.classes.digraph import DiGraph
 from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
