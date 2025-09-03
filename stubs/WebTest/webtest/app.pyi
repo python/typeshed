@@ -1,13 +1,27 @@
 import json
-from _typeshed.wsgi import WSGIApplication
-from collections.abc import Mapping, Sequence
+from _typeshed import SupportsItems, SupportsKeysAndGetItem
+from _typeshed.wsgi import WSGIApplication, WSGIEnvironment
+from collections.abc import Iterable, Sequence
 from http.cookiejar import CookieJar, DefaultCookiePolicy
 from typing import Any, Generic, Literal, TypeVar
 from typing_extensions import TypeAlias
 
 from webob.request import BaseRequest
+from webtest.forms import File, Upload
 from webtest.response import TestResponse
 
+# NOTE: While it is possible to pass different kinds of values depending on
+#       the exact configuration of the request, it seems more robust to
+#       restrict them to the types that are supported by all code paths.
+#       I don't expect anyone to try to pass different kinds of values
+#       in a non-JSON request.
+_ParamValue: TypeAlias = File | Upload | int | bytes | str
+_Params: TypeAlias = SupportsItems[str | bytes, _ParamValue] | Sequence[tuple[str | bytes, _ParamValue]]
+# NOTE: Using `Collection` rather than `Iterable` would probably be slightly
+#       safer since WebTest will check this parameter for truthyness. But since
+#       objects are truthy by default, this should only lead to issues in truly
+#       exotic cases.
+_ExtraEnviron: TypeAlias = SupportsKeysAndGetItem[str, Any] | Iterable[tuple[str, Any]]
 _Files: TypeAlias = Sequence[tuple[str, str] | tuple[str, str, bytes]]
 _AppT = TypeVar("_AppT", bound=WSGIApplication, default=WSGIApplication)
 
@@ -27,7 +41,7 @@ class TestApp(Generic[_AppT]):
     app: _AppT
     lint: bool
     relative_to: str | None
-    extra_environ: dict[str, Any]
+    extra_environ: WSGIEnvironment
     use_unicode: bool
     cookiejar: CookieJar
     JSONEncoder: json.JSONEncoder
@@ -35,7 +49,11 @@ class TestApp(Generic[_AppT]):
     def __init__(
         self,
         app: _AppT,
-        extra_environ: dict[str, Any] | None = None,
+        # NOTE: this extra_environ is different from the others and needs to
+        #       support __delitem__, it seems easiest to just treat this like
+        #       a regular WSGIEnvironment. The docs also say that this should
+        #       be a dictionary.
+        extra_environ: WSGIEnvironment | None = None,
         relative_to: str | None = None,
         use_unicode: bool = True,
         cookiejar: CookieJar | None = None,
@@ -57,9 +75,9 @@ class TestApp(Generic[_AppT]):
     def get(
         self,
         url: str,
-        params: Mapping[str, str] | str | None = None,
-        headers: Mapping[str, str] | None = None,
-        extra_environ: Mapping[str, Any] | None = None,
+        params: _Params | str | None = None,
+        headers: dict[str, str] | None = None,
+        extra_environ: _ExtraEnviron | None = None,
         status: int | str | None = None,
         expect_errors: bool = False,
         xhr: bool = False,
@@ -67,9 +85,9 @@ class TestApp(Generic[_AppT]):
     def post(
         self,
         url: str,
-        params: Mapping[str, str] | str = "",
-        headers: Mapping[str, str] | None = None,
-        extra_environ: Mapping[str, Any] | None = None,
+        params: _Params | str = "",
+        headers: dict[str, str] | None = None,
+        extra_environ: _ExtraEnviron | None = None,
         status: int | str | None = None,
         upload_files: _Files | None = None,
         expect_errors: bool = False,
@@ -79,9 +97,9 @@ class TestApp(Generic[_AppT]):
     def put(
         self,
         url: str,
-        params: Mapping[str, str] | str = "",
-        headers: Mapping[str, str] | None = None,
-        extra_environ: Mapping[str, Any] | None = None,
+        params: _Params | str = "",
+        headers: dict[str, str] | None = None,
+        extra_environ: _ExtraEnviron | None = None,
         status: int | str | None = None,
         upload_files: _Files | None = None,
         expect_errors: bool = False,
@@ -91,9 +109,9 @@ class TestApp(Generic[_AppT]):
     def patch(
         self,
         url: str,
-        params: Mapping[str, str] | str = "",
-        headers: Mapping[str, str] | None = None,
-        extra_environ: Mapping[str, Any] | None = None,
+        params: _Params | str = "",
+        headers: dict[str, str] | None = None,
+        extra_environ: _ExtraEnviron | None = None,
         status: int | str | None = None,
         upload_files: _Files | None = None,
         expect_errors: bool = False,
@@ -103,9 +121,9 @@ class TestApp(Generic[_AppT]):
     def delete(
         self,
         url: str,
-        params: Mapping[str, str] | str = "",
-        headers: Mapping[str, str] | None = None,
-        extra_environ: Mapping[str, Any] | None = None,
+        params: _Params | str = "",
+        headers: dict[str, str] | None = None,
+        extra_environ: _ExtraEnviron | None = None,
         status: int | str | None = None,
         expect_errors: bool = False,
         content_type: str | None = None,
@@ -114,8 +132,8 @@ class TestApp(Generic[_AppT]):
     def options(
         self,
         url: str,
-        headers: Mapping[str, str] | None = None,
-        extra_environ: Mapping[str, Any] | None = None,
+        headers: dict[str, str] | None = None,
+        extra_environ: _ExtraEnviron | None = None,
         status: int | str | None = None,
         expect_errors: bool = False,
         xhr: bool = False,
@@ -123,9 +141,9 @@ class TestApp(Generic[_AppT]):
     def head(
         self,
         url: str,
-        params: Mapping[str, str] | str | None = None,
-        headers: Mapping[str, str] | None = None,
-        extra_environ: Mapping[str, Any] | None = None,
+        params: _Params | str | None = None,
+        headers: dict[str, str] | None = None,
+        extra_environ: _ExtraEnviron | None = None,
         status: int | str | None = None,
         expect_errors: bool = False,
         xhr: bool = False,
@@ -135,8 +153,8 @@ class TestApp(Generic[_AppT]):
         url: str,
         params: Any = ...,
         *,
-        headers: Mapping[str, str] | None = None,
-        extra_environ: Mapping[str, Any] | None = None,
+        headers: dict[str, str] | None = None,
+        extra_environ: _ExtraEnviron | None = None,
         status: int | str | None = None,
         expect_errors: bool = False,
         content_type: str | None = None,
@@ -147,8 +165,8 @@ class TestApp(Generic[_AppT]):
         url: str,
         params: Any = ...,
         *,
-        headers: Mapping[str, str] | None = None,
-        extra_environ: Mapping[str, Any] | None = None,
+        headers: dict[str, str] | None = None,
+        extra_environ: _ExtraEnviron | None = None,
         status: int | str | None = None,
         expect_errors: bool = False,
         content_type: str | None = None,
@@ -159,8 +177,8 @@ class TestApp(Generic[_AppT]):
         url: str,
         params: Any = ...,
         *,
-        headers: Mapping[str, str] | None = None,
-        extra_environ: Mapping[str, Any] | None = None,
+        headers: dict[str, str] | None = None,
+        extra_environ: _ExtraEnviron | None = None,
         status: int | str | None = None,
         expect_errors: bool = False,
         content_type: str | None = None,
@@ -171,14 +189,14 @@ class TestApp(Generic[_AppT]):
         url: str,
         params: Any = ...,
         *,
-        headers: Mapping[str, str] | None = None,
-        extra_environ: Mapping[str, Any] | None = None,
+        headers: dict[str, str] | None = None,
+        extra_environ: _ExtraEnviron | None = None,
         status: int | str | None = None,
         expect_errors: bool = False,
         content_type: str | None = None,
         xhr: bool = False,
     ) -> TestResponse: ...
-    def encode_multipart(self, params: Sequence[tuple[str, str]], files: _Files) -> tuple[str, bytes]: ...
+    def encode_multipart(self, params: Iterable[tuple[str | bytes, _ParamValue]], files: _Files) -> tuple[str, bytes]: ...
     def request(
         self, url_or_req: str | TestRequest, status: int | str | None = None, expect_errors: bool = False, **req_params: Any
     ) -> TestResponse: ...
