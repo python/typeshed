@@ -197,6 +197,7 @@ class _Params(TypedDict, total=False):
     encoding: str | None
     extract_flat: bool | Literal["in_playlist", "discard", "discard_in_playlist"] | None
     live_from_start: bool | None
+    warn_when_outdated: bool | None
     wait_for_video: tuple[int, int] | None
     mark_watched: bool | None
     merge_output_format: str | None
@@ -251,5 +252,5 @@ class _ParsedOptions(NamedTuple):
     urls: Collection[str]
     ydl_opts: _Params
 
-def parse_options(argv: Collection[str] | None = ...) -> _ParsedOptions: ...
-def main(argv: list[str] | None = ...) -> int: ...
+def parse_options(argv: Collection[str] | None = None) -> _ParsedOptions: ...
+def main(argv: list[str] | None = None) -> int: ...
