@@ -56,7 +56,7 @@ jobs:
           function find_stubs {
             git diff --name-only origin/${{ github.base_ref }} HEAD | \
             egrep ^stubs/ | cut -d "/" -f 2 | sort -u | \
-            (while read stub; do [ -d "stubs/$stub" ] && echo "$stub" || true; done)
+            (while read stub; do [ -d "stubs/$stub" ] && echo -n "$stub " || true; done)
           }
           STUBS=$(find_stubs || echo '')
           echo "Changed stubs: $STUBS"
