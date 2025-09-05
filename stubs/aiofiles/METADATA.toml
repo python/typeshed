@@ -4,5 +4,3 @@ upstream_repository = "https://github.com/Tinche/aiofiles"
 [tool.stubtest]
 # linux and darwin are equivalent
 ci_platforms = ["linux", "win32"]
-
-# tickle

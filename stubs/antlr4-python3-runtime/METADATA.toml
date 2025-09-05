@@ -3,5 +3,3 @@ upstream_repository = "https://github.com/antlr/antlr4"
 
 [tool.stubtest]
 ci_platforms = ["linux", "win32"]
-
-# tickle
