@@ -10,7 +10,6 @@ importlib.abc.PathEntryFinder.find_spec  # Not defined on the actual class, but 
 tkinter.simpledialog.[A-Z_]+
 tkinter.simpledialog.TclVersion
 tkinter.simpledialog.TkVersion
-builtins.tuple  # should have @disjoint_base but hits pyright issue
 tarfile.TarInfo.__slots__  # it's a big dictionary at runtime and the dictionary values are a bit long
 
 
