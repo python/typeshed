@@ -1,42 +1,152 @@
-from _typeshed import Incomplete
+import logging
+import threading
+from datetime import timedelta
+from socket import SocketKind
+from typing import Annotated, Any, Literal, TypedDict, type_check_only
 
-SYSLOG_FACILITIES: Incomplete
-CONFIG_DEFAULTS: Incomplete
+from gunicorn.http import Request
+from gunicorn.http.wsgi import Response
 
-def loggers(): ...
+from ._types import Environ
+from .config import Config
 
-class SafeAtoms(dict):
-    def __init__(self, atoms) -> None: ...
-    def __getitem__(self, k): ...
+SYSLOG_FACILITIES: dict[str, int]
 
-def parse_syslog_address(addr): ...
+
+@type_check_only
+class _AtomsDict(TypedDict, total=False):
+    """
+    Dictionary of atoms for log formatting.
+    Additionally contains dynamic keys in the format '{key}i' (request headers),
+    '{key}o' (response headers), and '{key}e' (environment variables), all with str values.
+    """
+
+    h: str
+    l: str
+    u: str
+    t: str
+    r: str
+    s: str
+    m: str | None
+    U: str | None
+    q: str | None
+    H: str | None
+    b: str
+    B: int | None
+    f: str
+    a: str
+    T: int
+    D: int
+    M: int
+    L: str
+    p: str
+
+
+type _CriticalIntType = Annotated[int, "50"]
+type _ErrorIntType = Annotated[int, "40"]
+type _WarningIntType = Annotated[int, "30"]
+type _InfoIntType = Annotated[int, "20"]
+type _DebugIntType = Annotated[int, "10"]
+
+type _LogLevelIntType = _CriticalIntType | _ErrorIntType | _WarningIntType | _InfoIntType | _DebugIntType
+type _LogLevelStrType = Literal["CRITICAL", "ERROR", "WARNING", "INFO", "DEBUG"]
+type _LogLevelType = _LogLevelIntType | _LogLevelStrType
+
+
+@type_check_only
+class _RootConfig(TypedDict):
+    level: str
+    handlers: list[str]
+
+
+@type_check_only
+class _LoggerConfig(TypedDict):
+    level: _LogLevelStrType
+    handlers: list[str]
+    propagate: bool
+    qualname: str
+
+
+@type_check_only
+class _HandlerConfig(TypedDict, total=False):
+    # class: str [Should be provided!]
+    formatter: str
+    stream: str
+
+
+@type_check_only
+class _FormatterConfig(TypedDict, total=False):
+    # class: str [Should be provided!]
+    format: str
+    datefmt: str
+
+
+@type_check_only
+class _ConfigDefaults(TypedDict):
+    version: int
+    disable_existing_loggers: bool
+    root: _RootConfig
+    loggers: dict[str, _LoggerConfig]
+    handlers: dict[str, _HandlerConfig]
+    formatters: dict[str, _FormatterConfig]
+
+
+CONFIG_DEFAULTS: _ConfigDefaults
+
+
+def loggers() -> list[logging.Logger]: ...
+
+
+class SafeAtoms(dict[str, Any]):
+    def __init__(self, atoms: dict[str, Any]) -> None: ...
+    def __getitem__(self, k: str) -> str: ...
+
+
+type _SyslogAddressType = (
+    tuple[Literal[SocketKind.SOCK_DGRAM] | None, str]  # Unix Socket
+    | tuple[Literal[SocketKind.SOCK_DGRAM, SocketKind.SOCK_STREAM], tuple[str, int]]  # TCP/UDP Socket
+)
+
+
+def parse_syslog_address(addr: str) -> _SyslogAddressType: ...
+
+
+@type_check_only
+class _LogLevels(TypedDict):
+    critical: _CriticalIntType
+    error: _ErrorIntType
+    warning: _WarningIntType
+    info: _InfoIntType
+    debug: _DebugIntType
+
 
 class Logger:
-    LOG_LEVELS: Incomplete
-    loglevel: Incomplete
+    LOG_LEVELS: _LogLevels
+    loglevel: _LogLevelIntType
     error_fmt: str
     datefmt: str
     access_fmt: str
     syslog_fmt: str
-    atoms_wrapper_class = SafeAtoms
-    error_log: Incomplete
-    access_log: Incomplete
-    error_handlers: Incomplete
-    access_handlers: Incomplete
-    logfile: Incomplete
-    lock: Incomplete
-    cfg: Incomplete
-    def __init__(self, cfg) -> None: ...
-    def setup(self, cfg) -> None: ...
-    def critical(self, msg, *args, **kwargs) -> None: ...
-    def error(self, msg, *args, **kwargs) -> None: ...
-    def warning(self, msg, *args, **kwargs) -> None: ...
-    def info(self, msg, *args, **kwargs) -> None: ...
-    def debug(self, msg, *args, **kwargs) -> None: ...
-    def exception(self, msg, *args, **kwargs) -> None: ...
-    def log(self, lvl, msg, *args, **kwargs) -> None: ...
-    def atoms(self, resp, req, environ, request_time): ...
-    def access(self, resp, req, environ, request_time) -> None: ...
-    def now(self): ...
+    atoms_wrapper_class: type[SafeAtoms]
+    error_log: logging.Logger
+    access_log: logging.Logger
+    error_handlers: list[logging.Handler]
+    access_handlers: list[logging.Handler]
+    logfile: Any | None
+    lock: threading.Lock
+    cfg: Config
+
+    def __init__(self, cfg: Config) -> None: ...
+    def setup(self, cfg: Config) -> None: ...
+    def critical(self, msg: str, *args: Any, **kwargs: Any) -> None: ...
+    def error(self, msg: str, *args: Any, **kwargs: Any) -> None: ...
+    def warning(self, msg: str, *args: Any, **kwargs: Any) -> None: ...
+    def info(self, msg: str, *args: Any, **kwargs: Any) -> None: ...
+    def debug(self, msg: str, *args: Any, **kwargs: Any) -> None: ...
+    def exception(self, msg: str, *args: Any, **kwargs: Any) -> None: ...
+    def log(self, lvl: _LogLevelIntType | str, msg: str, *args: Any, **kwargs: Any) -> None: ...
+    def atoms(self, resp: Response, req: Request, environ: Environ, request_time: timedelta) -> _AtomsDict: ...
+    def access(self, resp: Response, req: Request, environ: Environ, request_time: timedelta) -> None: ...
+    def now(self) -> str: ...
     def reopen_files(self) -> None: ...
     def close_on_exec(self) -> None: ...
