@@ -1,11 +1,11 @@
 from collections.abc import Iterable
-from typing import Any, Callable, TypeAlias
+from typing import Any, Callable
 
-Status: TypeAlias = str
-Headers: TypeAlias = list[tuple[str, str]]
+type _StatusType = str
+type _HeadersType = list[tuple[str, str]]
 
-Environ: TypeAlias = dict[str, Any]
-StartResponse: TypeAlias = Callable[[Status, Headers], None]
-ResponseBody: TypeAlias = Iterable[bytes]
+type _EnvironType = dict[str, Any]
+type _StartResponseType = Callable[[_StatusType, _HeadersType], None]
+type _ResponseBodyType = Iterable[bytes]
 
-WSGIApp: TypeAlias = Callable[[Environ, StartResponse], ResponseBody]
+type _WSGIAppType = Callable[[_EnvironType, _StartResponseType], _ResponseBodyType]
