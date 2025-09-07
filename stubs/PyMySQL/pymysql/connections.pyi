@@ -35,7 +35,7 @@ def dump_packet(data): ...
 def _lenenc_int(i: int) -> bytes: ...
 
 class Connection(Generic[_C]):
-    ssl: bool | SSLContext
+    ssl: bool
     host: str
     port: int
     user: str | bytes | None
@@ -47,7 +47,7 @@ class Connection(Generic[_C]):
     bind_address: str | None
     use_unicode: bool
     client_flag: int
-    cursorclass: type[Cursor]
+    cursorclass: type[Incomplete]
     connect_timeout: int | None
     host_info: str
     sql_mode: str | None
