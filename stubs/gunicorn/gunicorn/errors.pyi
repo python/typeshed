@@ -1,9 +1,11 @@
-from _typeshed import Incomplete
-
 class HaltServer(BaseException):
-    reason: Incomplete
-    exit_status: Incomplete
-    def __init__(self, reason, exit_status: int = 1) -> None: ...
+    reason: str
+    exit_status: int
+
+    def __init__(self, reason: str, exit_status: int = 1) -> None: ...
+
 
 class ConfigError(Exception): ...
+
+
 class AppImportError(Exception): ...
