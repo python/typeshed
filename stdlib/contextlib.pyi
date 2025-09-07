@@ -87,12 +87,12 @@ class _GeneratorContextManagerBase(Generic[_G_co]):
 
 class _GeneratorContextManager(
     _GeneratorContextManagerBase[Generator[_T_co, _SendT_contra, _ReturnT_co]],
-    AbstractContextManager[_T_co, bool | None],
+    AbstractContextManager[_T_co, _ExitT_co],
     ContextDecorator[_ExcReturnT],  # _ExcReturnT is inferred by the type checker
 ):
     def __exit__(
         self, typ: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
-    ) -> bool | None: ...
+    ) -> _ExitT_co: ...
 
 def contextmanager(func: Callable[_P, Iterator[_T_co]]) -> Callable[_P, _GeneratorContextManager[_T_co]]: ...
 
@@ -104,12 +104,12 @@ if sys.version_info >= (3, 10):
 
     class _AsyncGeneratorContextManager(
         _GeneratorContextManagerBase[AsyncGenerator[_T_co, _SendT_contra]],
-        AbstractAsyncContextManager[_T_co, bool | None],
+        AbstractAsyncContextManager[_T_co, _ExitT_co],
         AsyncContextDecorator[_ExcReturnT],  # _ExcReturnT is inferred by the type checker
     ):
         async def __aexit__(
             self, typ: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
-        ) -> bool | None: ...
+        ) -> _ExitT_co: ...
 
 else:
     class _AsyncGeneratorContextManager(
