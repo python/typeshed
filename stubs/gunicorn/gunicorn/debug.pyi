@@ -1,12 +1,17 @@
-from _typeshed import Incomplete
-
 __all__ = ["spew", "unspew"]
 
-class Spew:
-    trace_names: Incomplete
-    show_values: Incomplete
-    def __init__(self, trace_names=None, show_values: bool = True) -> None: ...
-    def __call__(self, frame, event, arg): ...
+from collections.abc import Container
+from types import FrameType
+from typing import Any, Self
 
-def spew(trace_names=None, show_values: bool = False) -> None: ...
+
+class Spew:
+    trace_names: Container[str] | None = None
+    show_values: bool
+
+    def __init__(self, trace_names: Container[str] | None = None, show_values: bool = True) -> None: ...
+    def __call__(self, frame: FrameType, event: str, arg: Any) -> Self: ...
+
+
+def spew(trace_names: Container[str] | None = None, show_values: bool = False) -> None: ...
 def unspew() -> None: ...
