@@ -1,27 +1,59 @@
 import threading
-from _typeshed import Incomplete
+from collections.abc import Iterable, Set as AbstractSet
+from re import Pattern
+from typing import Callable, TypedDict, type_check_only
 
-COMPILED_EXT_RE: Incomplete
+try:
+    from inotify.adapters import Inotify
+    from inotify.constants import IN_CREATE, IN_DELETE, IN_DELETE_SELF, IN_MODIFY, IN_MOVE_SELF, IN_MOVED_FROM, IN_MOVED_TO
+except ImportError:
+    Inotify = object
+
+COMPILED_EXT_RE: Pattern[str]
+
 
 class Reloader(threading.Thread):
     daemon: bool
-    def __init__(self, extra_files=None, interval: int = 1, callback=None) -> None: ...
-    def add_extra_file(self, filename) -> None: ...
-    def get_files(self): ...
+
+    def __init__(
+        self,
+        extra_files: Iterable[str] | None = None,
+        interval: int = 1,
+        callback: Callable[[str], None] | None = None,
+    ) -> None: ...
+    def add_extra_file(self, filename: str) -> None: ...
+    def get_files(self) -> list[str]: ...
     def run(self) -> None: ...
+
 
 has_inotify: bool
 
+EventMask = int
+
+
 class InotifyReloader(threading.Thread):
-    event_mask: Incomplete
+    event_mask: EventMask
     daemon: bool
-    def __init__(self, extra_files=None, callback=None) -> None: ...
-    def add_extra_file(self, filename) -> None: ...
-    def get_dirs(self): ...
+
+    def __init__(
+        self,
+        extra_files: Iterable[str] | None = None,
+        callback: Callable[[str], None] | None = None,
+    ) -> None: ...
+    def add_extra_file(self, filename: str) -> None: ...
+    def get_dirs(self) -> AbstractSet[str]: ...
     def run(self) -> None: ...
 
-class InotifyReloader:
-    def __init__(self, extra_files=None, callback=None) -> None: ...
 
-preferred_reloader: Incomplete
-reloader_engines: Incomplete
+type PreferredReloaderType = type[InotifyReloader | Reloader]
+
+
+@type_check_only
+class _ReloadedEngines(TypedDict):
+    auto: PreferredReloaderType
+    pool: type[Reloader]
+    inotify: type[InotifyReloader]
+
+
+preferred_reloader: PreferredReloaderType
+reloader_engines: _ReloadedEngines
