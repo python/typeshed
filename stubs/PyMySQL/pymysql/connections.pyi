@@ -1,9 +1,9 @@
 from _typeshed import FileDescriptorOrPath, Incomplete
-from collections.abc import Mapping
-from socket import socket as _socket
+from collections.abc import Callable, Mapping
+from socket import _Address, socket as _socket
 from ssl import SSLContext, _PasswordType
-from typing import AnyStr, Generic, TypeVar, overload
-from typing_extensions import Self, deprecated
+from typing import Any, AnyStr, Generic, TypedDict, TypeVar, overload
+from typing_extensions import Self, Unpack, deprecated
 
 from .charset import charset_by_id as charset_by_id, charset_by_name as charset_by_name
 from .constants import CLIENT as CLIENT, COMMAND as COMMAND, FIELD_TYPE as FIELD_TYPE, SERVER_STATUS as SERVER_STATUS
@@ -34,21 +34,31 @@ MAX_PACKET_LEN: int
 def dump_packet(data): ...
 def _lenenc_int(i: int) -> bytes: ...
 
+class SSLOptions(TypedDict, total=False):
+    ssl: dict[str, Incomplete] | SSLContext | None
+    ssl_ca: str | None
+    ssl_cert: str | None
+    ssl_disabled: bool | None
+    ssl_key: str | None
+    ssl_key_password: _PasswordType | None
+    ssl_verify_cert: bool | None
+    ssl_verify_identity: bool | None
+
 class Connection(Generic[_C]):
     ssl: bool
     host: str
     port: int
     user: str | bytes | None
     password: bytes
-    db: str | None
-    unix_socket: str | None
+    db: str | bytes | None
+    unix_socket: _Address | None  # pyright: ignore[reportMissingTypeArgument] (microsoft/pyright/issues/10836)
     charset: str
     collation: str | None
     bind_address: str | None
     use_unicode: bool
     client_flag: int
-    cursorclass: type[Incomplete]
-    connect_timeout: int | None
+    cursorclass: type[_C]
+    connect_timeout: float | None
     host_info: str
     sql_mode: str | None
     init_command: str | None
@@ -56,24 +66,24 @@ class Connection(Generic[_C]):
     server_public_key: bytes | None
     encoding: str
     autocommit_mode: bool | None
-    encoders: dict[str, Incomplete]
-    decoders: dict[int, Incomplete]
+    encoders: dict[type[Any], Callable[[Any], str]]  # argument type depends on the key
+    decoders: dict[int, Callable[[str], Any]]  # return type depends on the key
 
     @overload
     def __init__(
         self: Connection[Cursor],  # different between overloads
         *,
-        user: str | None = None,
+        user: str | bytes | None = None,
         password: str | bytes = "",
         host: str | None = None,
-        database: str | None = None,
-        unix_socket: str | None = None,
+        database: str | bytes | None = None,
+        unix_socket: _Address | None = None,  # pyright: ignore[reportMissingTypeArgument] (microsoft/pyright/issues/10836)
         port: int = 0,
         charset: str = "",
         collation: str | None = None,
         sql_mode: str | None = None,
         read_default_file: str | None = None,
-        conv: dict[int | str, Incomplete] | None = None,
+        conv: dict[int | type[Any], Callable[[Any], str] | Callable[[str], Any]] | None = None,
         use_unicode: bool = True,
         client_flag: int = 0,
         cursorclass: None = None,
@@ -84,42 +94,33 @@ class Connection(Generic[_C]):
         local_infile: bool = False,
         max_allowed_packet: int = 16_777_216,
         defer_connect: bool = False,
-        auth_plugin_map: dict[str, Incomplete] | None = None,
+        auth_plugin_map: dict[str, Callable[[Connection[Any]], Any]] | None = None,
         read_timeout: float | None = None,
         write_timeout: float | None = None,
         bind_address: str | None = None,
         binary_prefix: bool = False,
         program_name: str | None = None,
         server_public_key: bytes | None = None,
-        ssl: dict[str, Incomplete] | SSLContext | None = None,
-        ssl_ca: str | None = None,
-        ssl_cert: str | None = None,
-        ssl_disabled: bool | None = None,
-        ssl_key: str | None = None,
-        ssl_key_password: _PasswordType | None = None,
-        ssl_verify_cert: bool | None = None,
-        ssl_verify_identity: bool | None = None,
-        compress: object | None = None,
-        named_pipe: object | None = None,
-        passwd: str | None = None,  # deprecated
-        db: str | None = None,  # deprecated
+        # compress: Unused = None,
+        # named_pipe: Unused = None,
+        **kwargs: Unpack[SSLOptions],
     ) -> None: ...
     @overload
     def __init__(
         # different between overloads
         self: Connection[_C],  # pyright: ignore[reportInvalidTypeVarUse]  #11780
         *,
-        user: str | None = None,
+        user: str | bytes | None = None,
         password: str | bytes = "",
         host: str | None = None,
-        database: str | None = None,
-        unix_socket: str | None = None,
+        database: str | bytes | None = None,
+        unix_socket: _Address | None = None,  # pyright: ignore[reportMissingTypeArgument] (microsoft/pyright/issues/10836)
         port: int = 0,
         charset: str = "",
         collation: str | None = None,
         sql_mode: str | None = None,
         read_default_file: str | None = None,
-        conv: dict[int | str, Incomplete] | None = None,
+        conv: dict[int | type[Any], Callable[[Any], str] | Callable[[str], Any]] | None = None,
         use_unicode: bool = True,
         client_flag: int = 0,
         cursorclass: type[_C] = ...,
@@ -130,26 +131,97 @@ class Connection(Generic[_C]):
         local_infile: bool = False,
         max_allowed_packet: int = 16_777_216,
         defer_connect: bool = False,
-        auth_plugin_map: dict[str, Incomplete] | None = None,
+        auth_plugin_map: dict[str, Callable[[Connection[Any]], Any]] | None = None,
         read_timeout: float | None = None,
         write_timeout: float | None = None,
         bind_address: str | None = None,
         binary_prefix: bool = False,
         program_name: str | None = None,
         server_public_key: bytes | None = None,
-        ssl: dict[str, Incomplete] | SSLContext | None = None,
-        ssl_ca: str | None = None,
-        ssl_cert: str | None = None,
-        ssl_disabled: bool | None = None,
-        ssl_key: str | None = None,
-        ssl_key_password: _PasswordType | None = None,
-        ssl_verify_cert: bool | None = None,
-        ssl_verify_identity: bool | None = None,
-        compress: object | None = None,
-        named_pipe: object | None = None,
+        # compress: Unused = None,
+        # named_pipe: Unused = None,
+        **kwargs: Unpack[SSLOptions],
+    ) -> None: ...
+    @overload
+    @deprecated("'passwd' and 'db' arguments are deprecated. Use 'password' and 'database' instead.")
+    def __init__(
+        self: Connection[Cursor],  # different between overloads
+        *,
+        user: str | bytes | None = None,
+        password: str | bytes = "",
+        host: str | None = None,
+        database: str | bytes | None = None,
+        unix_socket: _Address | None = None,  # pyright: ignore[reportMissingTypeArgument] (microsoft/pyright/issues/10836)
+        port: int = 0,
+        charset: str = "",
+        collation: str | None = None,
+        sql_mode: str | None = None,
+        read_default_file: str | None = None,
+        conv: dict[int | type[Any], Callable[[Any], str] | Callable[[str], Any]] | None = None,
+        use_unicode: bool = True,
+        client_flag: int = 0,
+        cursorclass: None = None,
+        init_command: str | None = None,
+        connect_timeout: float = 10,
+        read_default_group: str | None = None,
+        autocommit: bool | None = False,
+        local_infile: bool = False,
+        max_allowed_packet: int = 16_777_216,
+        defer_connect: bool = False,
+        auth_plugin_map: dict[str, Callable[[Connection[Any]], Any]] | None = None,
+        read_timeout: float | None = None,
+        write_timeout: float | None = None,
+        bind_address: str | None = None,
+        binary_prefix: bool = False,
+        program_name: str | None = None,
+        server_public_key: bytes | None = None,
+        # compress: Unused = None,
+        # named_pipe: Unused = None,
         passwd: str | None = None,  # deprecated
         db: str | None = None,  # deprecated
+        **kwargs: Unpack[SSLOptions],
     ) -> None: ...
+    @overload
+    @deprecated("'passwd' and 'db' arguments are deprecated. Use 'password' and 'database' instead.")
+    def __init__(
+        # different between overloads
+        self: Connection[_C],  # pyright: ignore[reportInvalidTypeVarUse]  #11780
+        *,
+        user: str | bytes | None = None,
+        password: str | bytes = "",
+        host: str | None = None,
+        database: str | bytes | None = None,
+        unix_socket: _Address | None = None,  # pyright: ignore[reportMissingTypeArgument] (microsoft/pyright/issues/10836)
+        port: int = 0,
+        charset: str = "",
+        collation: str | None = None,
+        sql_mode: str | None = None,
+        read_default_file: str | None = None,
+        conv: dict[int | type[Any], Callable[[Any], str] | Callable[[str], Any]] | None = None,
+        use_unicode: bool = True,
+        client_flag: int = 0,
+        cursorclass: type[_C] = ...,
+        init_command: str | None = None,
+        connect_timeout: float = 10,
+        read_default_group: str | None = None,
+        autocommit: bool | None = False,
+        local_infile: bool = False,
+        max_allowed_packet: int = 16_777_216,
+        defer_connect: bool = False,
+        auth_plugin_map: dict[str, Callable[[Connection[Any]], Any]] | None = None,
+        read_timeout: float | None = None,
+        write_timeout: float | None = None,
+        bind_address: str | None = None,
+        binary_prefix: bool = False,
+        program_name: str | None = None,
+        server_public_key: bytes | None = None,
+        # compress: Unused = None,
+        # named_pipe: Unused = None,
+        passwd: str | None = None,  # deprecated
+        db: str | None = None,  # deprecated
+        **kwargs: Unpack[SSLOptions],
+    ) -> None: ...
+
     socket: _socket | None
     rfile: Incomplete
     wfile: Incomplete
@@ -184,7 +256,7 @@ class Connection(Generic[_C]):
     def insert_id(self): ...
     def thread_id(self): ...
     def character_set_name(self): ...
-    def get_host_info(self): ...
+    def get_host_info(self) -> str: ...
     def get_proto_info(self): ...
     def get_server_info(self): ...
     def show_warnings(self): ...
@@ -202,7 +274,7 @@ class Connection(Generic[_C]):
     NotSupportedError: type[NotSupportedError]
 
 class MySQLResult:
-    connection: Connection[Incomplete] | None
+    connection: Connection[Any] | None
     affected_rows: int | None
     insert_id: int | None
     server_status: int | None
@@ -213,7 +285,7 @@ class MySQLResult:
     rows: Incomplete
     has_next: bool | None
     unbuffered_active: bool
-    def __init__(self, connection: Connection[Incomplete]) -> None: ...
+    def __init__(self, connection: Connection[Any]) -> None: ...
     def __del__(self) -> None: ...
     first_packet: Incomplete
     def read(self) -> None: ...
@@ -221,6 +293,6 @@ class MySQLResult:
 
 class LoadLocalFile:
     filename: FileDescriptorOrPath
-    connection: Connection[Incomplete]
-    def __init__(self, filename: FileDescriptorOrPath, connection: Connection[Incomplete]) -> None: ...
+    connection: Connection[Any]
+    def __init__(self, filename: FileDescriptorOrPath, connection: Connection[Any]) -> None: ...
     def send_data(self) -> None: ...
