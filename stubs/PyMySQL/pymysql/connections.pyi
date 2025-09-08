@@ -41,7 +41,7 @@ class Connection(Generic[_C]):
     user: str | bytes | None
     password: bytes
     db: str | bytes | None
-    unix_socket: _Address | None  # (microsoft/pyright/issues/10836)
+    unix_socket: _Address | None
     charset: str
     collation: str | None
     bind_address: str | None
@@ -67,7 +67,7 @@ class Connection(Generic[_C]):
         password: str | bytes = "",
         host: str | None = None,
         database: str | bytes | None = None,
-        unix_socket: _Address | None = None,  # (microsoft/pyright/issues/10836)
+        unix_socket: _Address | None = None,
         port: int = 0,
         charset: str = "",
         collation: str | None = None,
@@ -114,7 +114,7 @@ class Connection(Generic[_C]):
         password: str | bytes = "",
         host: str | None = None,
         database: str | bytes | None = None,
-        unix_socket: _Address | None = None,  # (microsoft/pyright/issues/10836)
+        unix_socket: _Address | None = None,
         port: int = 0,
         charset: str = "",
         collation: str | None = None,
@@ -161,7 +161,7 @@ class Connection(Generic[_C]):
         password: str | bytes = "",
         host: str | None = None,
         database: str | bytes | None = None,
-        unix_socket: _Address | None = None,  # (microsoft/pyright/issues/10836)
+        unix_socket: _Address | None = None,
         port: int = 0,
         charset: str = "",
         collation: str | None = None,
@@ -209,7 +209,7 @@ class Connection(Generic[_C]):
         password: str | bytes = "",
         host: str | None = None,
         database: str | bytes | None = None,
-        unix_socket: _Address | None = None,  # (microsoft/pyright/issues/10836)
+        unix_socket: _Address | None = None,
         port: int = 0,
         charset: str = "",
         collation: str | None = None,
