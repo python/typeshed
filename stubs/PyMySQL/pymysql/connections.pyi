@@ -247,10 +247,6 @@ class Connection(Generic[_C]):
         passwd: str | bytes | None = None,  # deprecated
         db: str | bytes | None = None,  # deprecated
     ) -> None: ...
-
-    socket: _socket | None
-    rfile: Incomplete
-    wfile: Incomplete
     def close(self) -> None: ...
     @property
     def open(self) -> bool: ...
