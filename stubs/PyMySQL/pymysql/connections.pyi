@@ -34,7 +34,7 @@ MAX_PACKET_LEN: int
 def dump_packet(data): ...
 def _lenenc_int(i: int) -> bytes: ...
 
-class SSLOptions(TypedDict, total=False):
+class _SSLOptions(TypedDict, total=False):
     ssl: dict[str, Incomplete] | SSLContext | None
     ssl_ca: str | None
     ssl_cert: str | None
@@ -103,7 +103,7 @@ class Connection(Generic[_C]):
         server_public_key: bytes | None = None,
         # compress: Unused = None,
         # named_pipe: Unused = None,
-        **kwargs: Unpack[SSLOptions],
+        **kwargs: Unpack[_SSLOptions],
     ) -> None: ...
     @overload
     def __init__(
@@ -140,7 +140,7 @@ class Connection(Generic[_C]):
         server_public_key: bytes | None = None,
         # compress: Unused = None,
         # named_pipe: Unused = None,
-        **kwargs: Unpack[SSLOptions],
+        **kwargs: Unpack[_SSLOptions],
     ) -> None: ...
     @overload
     @deprecated("'passwd' and 'db' arguments are deprecated. Use 'password' and 'database' instead.")
@@ -179,7 +179,7 @@ class Connection(Generic[_C]):
         # named_pipe: Unused = None,
         passwd: str | None = None,  # deprecated
         db: str | None = None,  # deprecated
-        **kwargs: Unpack[SSLOptions],
+        **kwargs: Unpack[_SSLOptions],
     ) -> None: ...
     @overload
     @deprecated("'passwd' and 'db' arguments are deprecated. Use 'password' and 'database' instead.")
@@ -191,7 +191,7 @@ class Connection(Generic[_C]):
         password: str | bytes = "",
         host: str | None = None,
         database: str | bytes | None = None,
-        unix_socket: _Address | None = None,  # pyright: ignore[reportMissingTypeArgument] (microsoft/pyright/issues/10836)
+        unix_socket: _Address | None = None,  # (microsoft/pyright/issues/10836)
         port: int = 0,
         charset: str = "",
         collation: str | None = None,
@@ -219,7 +219,7 @@ class Connection(Generic[_C]):
         # named_pipe: Unused = None,
         passwd: str | None = None,  # deprecated
         db: str | None = None,  # deprecated
-        **kwargs: Unpack[SSLOptions],
+        **kwargs: Unpack[_SSLOptions],
     ) -> None: ...
 
     socket: _socket | None
