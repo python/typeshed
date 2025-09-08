@@ -76,7 +76,7 @@ class Connection(Generic[_C]):
         conv: dict[int | type[Any], Callable[[Any], str] | Callable[[str], Any]] | None = None,
         use_unicode: bool = True,
         client_flag: int = 0,
-        cursorclass: None = None,
+        cursorclass: None = None,  # different between overloads
         init_command: str | None = None,
         connect_timeout: float = 10,
         read_default_group: str | None = None,
@@ -101,6 +101,7 @@ class Connection(Generic[_C]):
         ssl_verify_identity: bool | None = None,
         compress: Unused = None,
         named_pipe: Unused = None,
+        # different between overloads:
         passwd: None = None,  # deprecated
         db: None = None,  # deprecated
     ) -> None: ...
@@ -122,7 +123,7 @@ class Connection(Generic[_C]):
         conv: dict[int | type[Any], Callable[[Any], str] | Callable[[str], Any]] | None = None,
         use_unicode: bool = True,
         client_flag: int = 0,
-        cursorclass: type[_C] = ...,
+        cursorclass: type[_C] = ...,  # different between overloads
         init_command: str | None = None,
         connect_timeout: float = 10,
         read_default_group: str | None = None,
@@ -147,6 +148,7 @@ class Connection(Generic[_C]):
         ssl_verify_identity: bool | None = None,
         compress: Unused = None,
         named_pipe: Unused = None,
+        # different between overloads:
         passwd: None = None,  # deprecated
         db: None = None,  # deprecated
     ) -> None: ...
@@ -168,7 +170,7 @@ class Connection(Generic[_C]):
         conv: dict[int | type[Any], Callable[[Any], str] | Callable[[str], Any]] | None = None,
         use_unicode: bool = True,
         client_flag: int = 0,
-        cursorclass: None = None,
+        cursorclass: None = None,  # different between overloads
         init_command: str | None = None,
         connect_timeout: float = 10,
         read_default_group: str | None = None,
@@ -193,6 +195,7 @@ class Connection(Generic[_C]):
         ssl_verify_identity: bool | None = None,
         compress: Unused = None,
         named_pipe: Unused = None,
+        # different between overloads:
         passwd: str | bytes | None = None,  # deprecated
         db: str | bytes | None = None,  # deprecated
     ) -> None: ...
@@ -215,7 +218,7 @@ class Connection(Generic[_C]):
         conv: dict[int | type[Any], Callable[[Any], str] | Callable[[str], Any]] | None = None,
         use_unicode: bool = True,
         client_flag: int = 0,
-        cursorclass: type[_C] = ...,
+        cursorclass: type[_C] = ...,  # different between overloads
         init_command: str | None = None,
         connect_timeout: float = 10,
         read_default_group: str | None = None,
@@ -240,6 +243,7 @@ class Connection(Generic[_C]):
         ssl_verify_identity: bool | None = None,
         compress: Unused = None,
         named_pipe: Unused = None,
+        # different between overloads:
         passwd: str | bytes | None = None,  # deprecated
         db: str | bytes | None = None,  # deprecated
     ) -> None: ...
