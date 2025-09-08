@@ -54,3 +54,4 @@ class DictCursor(DictCursorMixin, Cursor): ...  # type: ignore[misc]
 
 class SSDictCursor(DictCursorMixin, SSCursor):  # type: ignore[misc]
     def fetchall_unbuffered(self) -> Iterator[dict[str, Any]]: ...  # type: ignore[override]
+    def read_next(self) -> dict[str, Any] | None: ...
