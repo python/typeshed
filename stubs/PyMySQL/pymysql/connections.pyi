@@ -1,9 +1,9 @@
-from _typeshed import FileDescriptorOrPath, Incomplete
+from _typeshed import FileDescriptorOrPath, Incomplete, Unused
 from collections.abc import Callable, Mapping
 from socket import _Address, socket as _socket
 from ssl import SSLContext, _PasswordType
-from typing import Any, AnyStr, Generic, TypedDict, TypeVar, overload
-from typing_extensions import Self, Unpack, deprecated
+from typing import Any, AnyStr, Generic, TypeVar, overload
+from typing_extensions import Self, deprecated
 
 from .charset import charset_by_id as charset_by_id, charset_by_name as charset_by_name
 from .constants import CLIENT as CLIENT, COMMAND as COMMAND, FIELD_TYPE as FIELD_TYPE, SERVER_STATUS as SERVER_STATUS
@@ -33,16 +33,6 @@ MAX_PACKET_LEN: int
 
 def dump_packet(data): ...
 def _lenenc_int(i: int) -> bytes: ...
-
-class _SSLOptions(TypedDict, total=False):
-    ssl: dict[str, Incomplete] | SSLContext | None
-    ssl_ca: str | None
-    ssl_cert: str | None
-    ssl_disabled: bool | None
-    ssl_key: str | None
-    ssl_key_password: _PasswordType | None
-    ssl_verify_cert: bool | None
-    ssl_verify_identity: bool | None
 
 class Connection(Generic[_C]):
     ssl: bool
@@ -101,9 +91,18 @@ class Connection(Generic[_C]):
         binary_prefix: bool = False,
         program_name: str | None = None,
         server_public_key: bytes | None = None,
-        # compress: Unused = None,
-        # named_pipe: Unused = None,
-        **kwargs: Unpack[_SSLOptions],
+        ssl: dict[str, Incomplete] | SSLContext | None = None,
+        ssl_ca: str | None = None,
+        ssl_cert: str | None = None,
+        ssl_disabled: bool | None = None,
+        ssl_key: str | None = None,
+        ssl_key_password: _PasswordType | None = None,
+        ssl_verify_cert: bool | None = None,
+        ssl_verify_identity: bool | None = None,
+        compress: Unused = None,
+        named_pipe: Unused = None,
+        passwd: None = None,  # deprecated
+        db: None = None,  # deprecated
     ) -> None: ...
     @overload
     def __init__(
@@ -138,9 +137,18 @@ class Connection(Generic[_C]):
         binary_prefix: bool = False,
         program_name: str | None = None,
         server_public_key: bytes | None = None,
-        # compress: Unused = None,
-        # named_pipe: Unused = None,
-        **kwargs: Unpack[_SSLOptions],
+        ssl: dict[str, Incomplete] | SSLContext | None = None,
+        ssl_ca: str | None = None,
+        ssl_cert: str | None = None,
+        ssl_disabled: bool | None = None,
+        ssl_key: str | None = None,
+        ssl_key_password: _PasswordType | None = None,
+        ssl_verify_cert: bool | None = None,
+        ssl_verify_identity: bool | None = None,
+        compress: Unused = None,
+        named_pipe: Unused = None,
+        passwd: None = None,  # deprecated
+        db: None = None,  # deprecated
     ) -> None: ...
     @overload
     @deprecated("'passwd' and 'db' arguments are deprecated. Use 'password' and 'database' instead.")
@@ -175,11 +183,18 @@ class Connection(Generic[_C]):
         binary_prefix: bool = False,
         program_name: str | None = None,
         server_public_key: bytes | None = None,
-        # compress: Unused = None,
-        # named_pipe: Unused = None,
-        passwd: str | None = None,  # deprecated
-        db: str | None = None,  # deprecated
-        **kwargs: Unpack[_SSLOptions],
+        ssl: dict[str, Incomplete] | SSLContext | None = None,
+        ssl_ca: str | None = None,
+        ssl_cert: str | None = None,
+        ssl_disabled: bool | None = None,
+        ssl_key: str | None = None,
+        ssl_key_password: _PasswordType | None = None,
+        ssl_verify_cert: bool | None = None,
+        ssl_verify_identity: bool | None = None,
+        compress: Unused = None,
+        named_pipe: Unused = None,
+        passwd: str | bytes | None = None,  # deprecated
+        db: str | bytes | None = None,  # deprecated
     ) -> None: ...
     @overload
     @deprecated("'passwd' and 'db' arguments are deprecated. Use 'password' and 'database' instead.")
@@ -215,11 +230,18 @@ class Connection(Generic[_C]):
         binary_prefix: bool = False,
         program_name: str | None = None,
         server_public_key: bytes | None = None,
-        # compress: Unused = None,
-        # named_pipe: Unused = None,
-        passwd: str | None = None,  # deprecated
-        db: str | None = None,  # deprecated
-        **kwargs: Unpack[_SSLOptions],
+        ssl: dict[str, Incomplete] | SSLContext | None = None,
+        ssl_ca: str | None = None,
+        ssl_cert: str | None = None,
+        ssl_disabled: bool | None = None,
+        ssl_key: str | None = None,
+        ssl_key_password: _PasswordType | None = None,
+        ssl_verify_cert: bool | None = None,
+        ssl_verify_identity: bool | None = None,
+        compress: Unused = None,
+        named_pipe: Unused = None,
+        passwd: str | bytes | None = None,  # deprecated
+        db: str | bytes | None = None,  # deprecated
     ) -> None: ...
 
     socket: _socket | None
