@@ -14,7 +14,6 @@ type _ReceiveType = Callable[[], Awaitable[dict[str, Any]]]
 type _SendType = Callable[[dict[str, Any]], Awaitable[None]]
 type _ASGIAppType = Callable[[_ScopeType, _ReceiveType, _SendType], Awaitable[None]]
 
-
 class BaseApplication:
     usage: str | None
     cfg: Config
@@ -31,7 +30,6 @@ class BaseApplication:
     def reload(self) -> None: ...
     def wsgi(self) -> _WSGIAppType | _ASGIAppType: ...
     def run(self) -> None: ...
-
 
 class Application(BaseApplication):
     def chdir(self) -> None: ...

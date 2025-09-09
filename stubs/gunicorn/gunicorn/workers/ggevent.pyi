@@ -13,7 +13,6 @@ from .._types import _AddressType
 
 VERSION: str
 
-
 class GeventWorker(AsyncWorker):
     server_class: type[StreamServer] | None
     wsgi_handler: type[WSGIHandler] | None
@@ -37,7 +36,6 @@ class GeventWorker(AsyncWorker):
     @override
     def init_process(self) -> None: ...
 
-
 class GeventResponse:
     status: str | None
     headers: dict[str, str] | None
@@ -45,14 +43,11 @@ class GeventResponse:
 
     def __init__(self, status: str, headers: dict[str, str], clength: int | None) -> None: ...
 
-
 class PyWSGIHandler(pywsgi.WSGIHandler):
     def log_request(self) -> None: ...
     def get_environ(self) -> dict[str, Any]: ...
 
-
 class PyWSGIServer(pywsgi.WSGIServer): ...
-
 
 class GeventPyWSGIWorker(GeventWorker):
     server_class: type[PyWSGIServer] | None

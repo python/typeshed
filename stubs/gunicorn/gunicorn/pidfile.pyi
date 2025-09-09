@@ -1,6 +1,5 @@
 from _typeshed import StrOrBytesPath
 
-
 class Pidfile:
     def __init__(self, fname: StrOrBytesPath) -> None: ...
     def create(self, pid: int) -> None: ...

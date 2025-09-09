@@ -5,7 +5,6 @@ from gunicorn.app.base import Application
 
 from .._types import _WSGIAppType
 
-
 class WSGIApplication(Application):
     app_uri: str | None
 
@@ -17,6 +16,5 @@ class WSGIApplication(Application):
     def load_pasteapp(self) -> _WSGIAppType: ...
     @override
     def load(self) -> _WSGIAppType: ...
-
 
 def run(prog: str | None = None) -> None: ...

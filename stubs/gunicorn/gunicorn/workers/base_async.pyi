@@ -8,7 +8,6 @@ from .._types import _AddressType
 
 ALREADY_HANDLED: object
 
-
 class AsyncWorker(base.Worker):
     worker_connections: int
     alive: bool

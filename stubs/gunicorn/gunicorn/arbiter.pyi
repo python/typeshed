@@ -9,7 +9,6 @@ from gunicorn.workers.base import Worker
 from ._types import _AddressType
 from .pidfile import Pidfile
 
-
 class Arbiter:
     WORKER_BOOT_ERROR: int
     APP_LOAD_ERROR: int

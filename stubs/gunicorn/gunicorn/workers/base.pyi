@@ -10,7 +10,6 @@ from gunicorn.workers.workertmp import WorkerTmp
 from .._types import _AddressType, _WSGIAppType
 from ..reloader import _ReloaderType
 
-
 class Worker:
     SIGNALS: list[int]
     PIPE: list[int]
@@ -33,14 +32,7 @@ class Worker:
     wsgi: _WSGIAppType
 
     def __init__(
-        self,
-        age: int,
-        ppid: int,
-        sockets: list[socket.socket],
-        app: BaseApplication,
-        timeout: int,
-        cfg: Config,
-        log: GLogger,
+        self, age: int, ppid: int, sockets: list[socket.socket], app: BaseApplication, timeout: int, cfg: Config, log: GLogger
     ) -> None: ...
     def notify(self) -> None: ...
     def run(self) -> None: ...

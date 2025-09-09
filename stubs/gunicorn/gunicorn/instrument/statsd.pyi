@@ -17,7 +17,6 @@ GAUGE_TYPE: str
 COUNTER_TYPE: str
 HISTOGRAM_TYPE: str
 
-
 class Statsd(Logger):
     prefix: str
     sock: socket.socket | None

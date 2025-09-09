@@ -6,7 +6,6 @@ from tornado.ioloop import IOLoop, PeriodicCallback
 
 TORNADO5: bool
 
-
 class TornadoWorker(Worker):
     alive: bool
     server_alive: bool

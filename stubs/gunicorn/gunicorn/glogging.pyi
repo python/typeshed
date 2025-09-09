@@ -12,7 +12,6 @@ from .config import Config
 
 SYSLOG_FACILITIES: dict[str, int]
 
-
 @type_check_only
 class _AtomsDict(TypedDict, total=False):
     """
@@ -41,7 +40,6 @@ class _AtomsDict(TypedDict, total=False):
     L: str
     p: str
 
-
 type _CriticalIntType = Annotated[int, "50"]
 type _ErrorIntType = Annotated[int, "40"]
 type _WarningIntType = Annotated[int, "30"]
@@ -52,12 +50,10 @@ type _LogLevelIntType = _CriticalIntType | _ErrorIntType | _WarningIntType | _In
 type _LogLevelStrType = Literal["critical", "error", "warning", "info", "debug"]
 type _LogLevelType = _LogLevelIntType | _LogLevelStrType
 
-
 @type_check_only
 class _RootConfig(TypedDict):
     level: str
     handlers: list[str]
-
 
 @type_check_only
 class _LoggerConfig(TypedDict):
@@ -66,20 +62,17 @@ class _LoggerConfig(TypedDict):
     propagate: bool
     qualname: str
 
-
 @type_check_only
 class _HandlerConfig(TypedDict, total=False):
     # class: str [Should be provided!]
     formatter: str
     stream: str
 
-
 @type_check_only
 class _FormatterConfig(TypedDict, total=False):
     # class: str [Should be provided!]
     format: str
     datefmt: str
-
 
 @type_check_only
 class _ConfigDefaults(TypedDict):
@@ -90,28 +83,21 @@ class _ConfigDefaults(TypedDict):
     handlers: dict[str, _HandlerConfig]
     formatters: dict[str, _FormatterConfig]
 
-
 CONFIG_DEFAULTS: _ConfigDefaults
 
-
 def loggers() -> list[logging.Logger]: ...
-
 
 class SafeAtoms(dict[str, Any]):
     def __init__(self, atoms: dict[str, Any]) -> None: ...
     @override
     def __getitem__(self, k: str) -> str: ...
 
-
 type _SyslogAddressType = (
     tuple[Literal[SocketKind.SOCK_DGRAM] | None, str]  # Unix Socket
     | tuple[Literal[SocketKind.SOCK_DGRAM, SocketKind.SOCK_STREAM], tuple[str, int]]  # TCP/UDP Socket
 )
 
-
 def parse_syslog_address(addr: str) -> _SyslogAddressType: ...
-
-
 @type_check_only
 class _LogLevels(TypedDict):
     critical: _CriticalIntType
@@ -119,7 +105,6 @@ class _LogLevels(TypedDict):
     warning: _WarningIntType
     info: _InfoIntType
     debug: _DebugIntType
-
 
 class Logger:
     LOG_LEVELS: _LogLevels

@@ -41,10 +41,8 @@ type _AddressValidatorType = Callable[[str | None], _AddressType | None]
 KNOWN_SETTINGS: list[Setting]
 PLATFORM: str
 
-
 def make_settings(ignore: Container[Setting] | None = None) -> dict[str, Setting]: ...
 def auto_int(_: Any, x: str) -> int: ...
-
 
 class Config:
     settings: dict[str, Setting]
@@ -86,11 +84,9 @@ class Config:
     @property
     def paste_global_conf(self) -> dict[str, str] | None: ...
 
-
 class SettingMeta(type):
     def __new__(cls, name: str, bases: tuple[type, ...], attrs: dict[str, Any]) -> type: ...
     def fmt_desc(cls, desc: str) -> None: ...
-
 
 class Setting(metaclass=SettingMeta):
     name: str | None
@@ -116,7 +112,6 @@ class Setting(metaclass=SettingMeta):
     def __lt__(self, other: Setting) -> bool: ...
 
     __cmp__ = __lt__
-
 
 @overload
 def validate_bool(val: bool) -> bool: ...
@@ -166,7 +161,6 @@ def validate_header_map_behaviour(val: str) -> str: ...
 def validate_header_map_behaviour(val: None) -> None: ...
 def get_default_config_file() -> str | None: ...
 
-
 class ConfigFile(Setting):
     name: str
     section: str
@@ -176,7 +170,6 @@ class ConfigFile(Setting):
     default: str
     desc: str
 
-
 class WSGIApp(Setting):
     name: str
     section: str
@@ -184,7 +177,6 @@ class WSGIApp(Setting):
     validator: _StringValidatorType
     default: None
     desc: str
-
 
 class Bind(Setting):
     name: str
@@ -196,7 +188,6 @@ class Bind(Setting):
     default: list[str]
     desc: str
 
-
 class Backlog(Setting):
     name: str
     section: str
@@ -206,7 +197,6 @@ class Backlog(Setting):
     type: Type[int]
     default: int
     desc: str
-
 
 class Workers(Setting):
     name: str
@@ -218,7 +208,6 @@ class Workers(Setting):
     default: int
     desc: str
 
-
 class WorkerClass(Setting):
     name: str
     section: str
@@ -227,7 +216,6 @@ class WorkerClass(Setting):
     validator: _ClassValidatorType
     default: str
     desc: str
-
 
 class WorkerThreads(Setting):
     name: str
@@ -239,7 +227,6 @@ class WorkerThreads(Setting):
     default: int
     desc: str
 
-
 class WorkerConnections(Setting):
     name: str
     section: str
@@ -249,7 +236,6 @@ class WorkerConnections(Setting):
     type: Type[int]
     default: int
     desc: str
-
 
 class MaxRequests(Setting):
     name: str
@@ -261,7 +247,6 @@ class MaxRequests(Setting):
     default: int
     desc: str
 
-
 class MaxRequestsJitter(Setting):
     name: str
     section: str
@@ -271,7 +256,6 @@ class MaxRequestsJitter(Setting):
     type: Type[int]
     default: int
     desc: str
-
 
 class Timeout(Setting):
     name: str
@@ -283,7 +267,6 @@ class Timeout(Setting):
     default: int
     desc: str
 
-
 class GracefulTimeout(Setting):
     name: str
     section: str
@@ -293,7 +276,6 @@ class GracefulTimeout(Setting):
     type: Type[int]
     default: int
     desc: str
-
 
 class Keepalive(Setting):
     name: str
@@ -305,7 +287,6 @@ class Keepalive(Setting):
     default: int
     desc: str
 
-
 class LimitRequestLine(Setting):
     name: str
     section: str
@@ -315,7 +296,6 @@ class LimitRequestLine(Setting):
     type: Type[int]
     default: int
     desc: str
-
 
 class LimitRequestFields(Setting):
     name: str
@@ -327,7 +307,6 @@ class LimitRequestFields(Setting):
     default: int
     desc: str
 
-
 class LimitRequestFieldSize(Setting):
     name: str
     section: str
@@ -338,7 +317,6 @@ class LimitRequestFieldSize(Setting):
     default: int
     desc: str
 
-
 class Reload(Setting):
     name: str
     section: str
@@ -348,7 +326,6 @@ class Reload(Setting):
     default: bool
     desc: str
 
-
 class ReloadEngine(Setting):
     name: str
     section: str
@@ -357,7 +334,6 @@ class ReloadEngine(Setting):
     validator: Callable[[str], str]
     default: str
     desc: str
-
 
 class ReloadExtraFiles(Setting):
     name: str
@@ -369,7 +345,6 @@ class ReloadExtraFiles(Setting):
     default: list[str]
     desc: str
 
-
 class Spew(Setting):
     name: str
     section: str
@@ -378,7 +353,6 @@ class Spew(Setting):
     action: str
     default: bool
     desc: str
-
 
 class ConfigCheck(Setting):
     name: str
@@ -389,7 +363,6 @@ class ConfigCheck(Setting):
     default: bool
     desc: str
 
-
 class PrintConfig(Setting):
     name: str
     section: str
@@ -398,7 +371,6 @@ class PrintConfig(Setting):
     action: str
     default: bool
     desc: str
-
 
 class PreloadApp(Setting):
     name: str
@@ -409,7 +381,6 @@ class PreloadApp(Setting):
     default: bool
     desc: str
 
-
 class Sendfile(Setting):
     name: str
     section: str
@@ -418,7 +389,6 @@ class Sendfile(Setting):
     action: str
     const: bool
     desc: str
-
 
 class ReusePort(Setting):
     name: str
@@ -429,7 +399,6 @@ class ReusePort(Setting):
     default: bool
     desc: str
 
-
 class Chdir(Setting):
     name: str
     section: str
@@ -439,7 +408,6 @@ class Chdir(Setting):
     default_doc: str
     desc: str
 
-
 class Daemon(Setting):
     name: str
     section: str
@@ -448,7 +416,6 @@ class Daemon(Setting):
     action: str
     default: bool
     desc: str
-
 
 class Env(Setting):
     name: str
@@ -460,7 +427,6 @@ class Env(Setting):
     default: list[str]
     desc: str
 
-
 class Pidfile(Setting):
     name: str
     section: str
@@ -470,7 +436,6 @@ class Pidfile(Setting):
     default: None
     desc: str
 
-
 class WorkerTmpDir(Setting):
     name: str
     section: str
@@ -479,7 +444,6 @@ class WorkerTmpDir(Setting):
     validator: _StringValidatorType
     default: None
     desc: str
-
 
 class User(Setting):
     name: str
@@ -491,7 +455,6 @@ class User(Setting):
     default_doc: str
     desc: str
 
-
 class Group(Setting):
     name: str
     section: str
@@ -501,7 +464,6 @@ class Group(Setting):
     default: int
     default_doc: str
     desc: str
-
 
 class Umask(Setting):
     name: str
@@ -513,7 +475,6 @@ class Umask(Setting):
     default: int
     desc: str
 
-
 class Initgroups(Setting):
     name: str
     section: str
@@ -523,7 +484,6 @@ class Initgroups(Setting):
     default: bool
     desc: str
 
-
 class TmpUploadDir(Setting):
     name: str
     section: str
@@ -532,14 +492,12 @@ class TmpUploadDir(Setting):
     default: None
     desc: str
 
-
 class SecureSchemeHeader(Setting):
     name: str
     section: str
     validator: _DictValidatorType
     default: dict[str, str]
     desc: str
-
 
 class ForwardedAllowIPS(Setting):
     name: str
@@ -550,7 +508,6 @@ class ForwardedAllowIPS(Setting):
     default: str
     desc: str
 
-
 class AccessLog(Setting):
     name: str
     section: str
@@ -559,7 +516,6 @@ class AccessLog(Setting):
     validator: _StringValidatorType
     default: None
     desc: str
-
 
 class DisableRedirectAccessToSyslog(Setting):
     name: str
@@ -570,7 +526,6 @@ class DisableRedirectAccessToSyslog(Setting):
     default: bool
     desc: str
 
-
 class AccessLogFormat(Setting):
     name: str
     section: str
@@ -579,7 +534,6 @@ class AccessLogFormat(Setting):
     validator: _StringValidatorType
     default: str
     desc: str
-
 
 class ErrorLog(Setting):
     name: str
@@ -590,7 +544,6 @@ class ErrorLog(Setting):
     default: str
     desc: str
 
-
 class Loglevel(Setting):
     name: str
     section: str
@@ -599,7 +552,6 @@ class Loglevel(Setting):
     validator: _StringValidatorType
     default: str
     desc: str
-
 
 class CaptureOutput(Setting):
     name: str
@@ -610,7 +562,6 @@ class CaptureOutput(Setting):
     default: bool
     desc: str
 
-
 class LoggerClass(Setting):
     name: str
     section: str
@@ -619,7 +570,6 @@ class LoggerClass(Setting):
     validator: _ClassValidatorType
     default: str
     desc: str
-
 
 class LogConfig(Setting):
     name: str
@@ -630,14 +580,12 @@ class LogConfig(Setting):
     default: None
     desc: str
 
-
 class LogConfigDict(Setting):
     name: str
     section: str
     validator: _DictValidatorType
     default: dict[str, Any]
     desc: str
-
 
 class LogConfigJson(Setting):
     name: str
@@ -648,7 +596,6 @@ class LogConfigJson(Setting):
     default: None
     desc: str
 
-
 class SyslogTo(Setting):
     name: str
     section: str
@@ -657,7 +604,6 @@ class SyslogTo(Setting):
     validator: _StringValidatorType
     default: str
     desc: str
-
 
 class Syslog(Setting):
     name: str
@@ -668,7 +614,6 @@ class Syslog(Setting):
     default: bool
     desc: str
 
-
 class SyslogPrefix(Setting):
     name: str
     section: str
@@ -677,7 +622,6 @@ class SyslogPrefix(Setting):
     validator: _StringValidatorType
     default: None
     desc: str
-
 
 class SyslogFacility(Setting):
     name: str
@@ -688,7 +632,6 @@ class SyslogFacility(Setting):
     default: str
     desc: str
 
-
 class EnableStdioInheritance(Setting):
     name: str
     section: str
@@ -697,7 +640,6 @@ class EnableStdioInheritance(Setting):
     default: bool
     action: str
     desc: str
-
 
 class StatsdHost(Setting):
     name: str
@@ -708,7 +650,6 @@ class StatsdHost(Setting):
     validator: _AddressValidatorType
     desc: str
 
-
 class DogstatsdTags(Setting):
     name: str
     section: str
@@ -717,7 +658,6 @@ class DogstatsdTags(Setting):
     default: str
     validator: _StringValidatorType
     desc: str
-
 
 class StatsdPrefix(Setting):
     name: str
@@ -728,7 +668,6 @@ class StatsdPrefix(Setting):
     validator: _StringValidatorType
     desc: str
 
-
 class Procname(Setting):
     name: str
     section: str
@@ -738,14 +677,12 @@ class Procname(Setting):
     default: None
     desc: str
 
-
 class DefaultProcName(Setting):
     name: str
     section: str
     validator: _StringValidatorType
     default: str
     desc: str
-
 
 class PythonPath(Setting):
     name: str
@@ -756,7 +693,6 @@ class PythonPath(Setting):
     default: None
     desc: str
 
-
 class Paste(Setting):
     name: str
     section: str
@@ -765,7 +701,6 @@ class Paste(Setting):
     validator: _StringValidatorType
     default: None
     desc: str
-
 
 class OnStarting(Setting):
     name: str
@@ -777,7 +712,6 @@ class OnStarting(Setting):
 
     def on_starting(server: Arbiter) -> None: ...  # type: ignore[misc]
 
-
 class OnReload(Setting):
     name: str
     section: str
@@ -787,7 +721,6 @@ class OnReload(Setting):
     desc: str
 
     def on_reload(server: Arbiter) -> None: ...  # type: ignore[misc]
-
 
 class WhenReady(Setting):
     name: str
@@ -799,7 +732,6 @@ class WhenReady(Setting):
 
     def when_ready(server: Arbiter) -> None: ...  # type: ignore[misc]
 
-
 class Prefork(Setting):
     name: str
     section: str
@@ -809,7 +741,6 @@ class Prefork(Setting):
     desc: str
 
     def pre_fork(server: Arbiter, worker: Worker) -> None: ...  # type: ignore[misc]
-
 
 class Postfork(Setting):
     name: str
@@ -821,7 +752,6 @@ class Postfork(Setting):
 
     def post_fork(server: Arbiter, worker: Worker) -> None: ...  # type: ignore[misc]
 
-
 class PostWorkerInit(Setting):
     name: str
     section: str
@@ -831,7 +761,6 @@ class PostWorkerInit(Setting):
     desc: str
 
     def post_worker_init(worker: Worker) -> None: ...  # type: ignore[misc]
-
 
 class WorkerInt(Setting):
     name: str
@@ -843,7 +772,6 @@ class WorkerInt(Setting):
 
     def worker_int(worker: Worker) -> None: ...  # type: ignore[misc]
 
-
 class WorkerAbort(Setting):
     name: str
     section: str
@@ -853,7 +781,6 @@ class WorkerAbort(Setting):
     desc: str
 
     def worker_abort(worker: Worker) -> None: ...  # type: ignore[misc]
-
 
 class PreExec(Setting):
     name: str
@@ -865,7 +792,6 @@ class PreExec(Setting):
 
     def pre_exec(server: Arbiter) -> None: ...  # type: ignore[misc]
 
-
 class PreRequest(Setting):
     name: str
     section: str
@@ -875,7 +801,6 @@ class PreRequest(Setting):
     desc: str
 
     def pre_request(worker: Worker, req: Request) -> None: ...  # type: ignore[misc]
-
 
 class PostRequest(Setting):
     name: str
@@ -887,7 +812,6 @@ class PostRequest(Setting):
 
     def post_request(worker: Worker, req: Request, environ: _EnvironType, resp: Response) -> None: ...  # type: ignore[misc]
 
-
 class ChildExit(Setting):
     name: str
     section: str
@@ -897,7 +821,6 @@ class ChildExit(Setting):
     desc: str
 
     def child_exit(server: Arbiter, worker: Worker) -> None: ...  # type: ignore[misc]
-
 
 class WorkerExit(Setting):
     name: str
@@ -909,7 +832,6 @@ class WorkerExit(Setting):
 
     def worker_exit(server: Arbiter, worker: Worker) -> None: ...  # type: ignore[misc]
 
-
 class NumWorkersChanged(Setting):
     name: str
     section: str
@@ -920,7 +842,6 @@ class NumWorkersChanged(Setting):
 
     def nworkers_changed(server: Arbiter, new_value: int, old_value: int | None) -> None: ...  # type: ignore[misc]
 
-
 class OnExit(Setting):
     name: str
     section: str
@@ -929,7 +850,6 @@ class OnExit(Setting):
     desc: str
 
     def on_exit(server: Arbiter) -> None: ...  # type: ignore[misc]
-
 
 class NewSSLContext(Setting):
     name: str
@@ -941,7 +861,6 @@ class NewSSLContext(Setting):
 
     def ssl_context(config: Config, default_ssl_context_factory: Callable[[], SSLContext]) -> SSLContext: ...  # type: ignore[misc]
 
-
 class ProxyProtocol(Setting):
     name: str
     section: str
@@ -951,7 +870,6 @@ class ProxyProtocol(Setting):
     action: str
     desc: str
 
-
 class ProxyAllowFrom(Setting):
     name: str
     section: str
@@ -959,7 +877,6 @@ class ProxyAllowFrom(Setting):
     validator: _ListStringValidatorType
     default: str
     desc: str
-
 
 class KeyFile(Setting):
     name: str
@@ -970,7 +887,6 @@ class KeyFile(Setting):
     default: None
     desc: str
 
-
 class CertFile(Setting):
     name: str
     section: str
@@ -980,7 +896,6 @@ class CertFile(Setting):
     default: None
     desc: str
 
-
 class SSLVersion(Setting):
     name: str
     section: str
@@ -989,7 +904,6 @@ class SSLVersion(Setting):
     default: _SSLMethod
     desc: str
 
-
 class CertReqs(Setting):
     name: str
     section: str
@@ -997,7 +911,6 @@ class CertReqs(Setting):
     validator: _IntValidatorType
     default: int
     desc: str
-
 
 class CACerts(Setting):
     name: str
@@ -1008,7 +921,6 @@ class CACerts(Setting):
     default: None
     desc: str
 
-
 class SuppressRaggedEOFs(Setting):
     name: str
     section: str
@@ -1017,7 +929,6 @@ class SuppressRaggedEOFs(Setting):
     default: bool
     validator: _BoolValidatorType
     desc: str
-
 
 class DoHandshakeOnConnect(Setting):
     name: str
@@ -1028,7 +939,6 @@ class DoHandshakeOnConnect(Setting):
     default: bool
     desc: str
 
-
 class Ciphers(Setting):
     name: str
     section: str
@@ -1036,7 +946,6 @@ class Ciphers(Setting):
     validator: _StringValidatorType
     default: None
     desc: str
-
 
 class PasteGlobalConf(Setting):
     name: str
@@ -1048,7 +957,6 @@ class PasteGlobalConf(Setting):
     default: list[str]
     desc: str
 
-
 class PermitObsoleteFolding(Setting):
     name: str
     section: str
@@ -1057,7 +965,6 @@ class PermitObsoleteFolding(Setting):
     action: str
     default: bool
     desc: str
-
 
 class StripHeaderSpaces(Setting):
     name: str
@@ -1068,7 +975,6 @@ class StripHeaderSpaces(Setting):
     default: bool
     desc: str
 
-
 class PermitUnconventionalHTTPMethod(Setting):
     name: str
     section: str
@@ -1077,7 +983,6 @@ class PermitUnconventionalHTTPMethod(Setting):
     action: str
     default: bool
     desc: str
-
 
 class PermitUnconventionalHTTPVersion(Setting):
     name: str
@@ -1088,7 +993,6 @@ class PermitUnconventionalHTTPVersion(Setting):
     default: bool
     desc: str
 
-
 class CasefoldHTTPMethod(Setting):
     name: str
     section: str
@@ -1098,7 +1002,6 @@ class CasefoldHTTPMethod(Setting):
     default: bool
     desc: str
 
-
 class ForwarderHeaders(Setting):
     name: str
     section: str
@@ -1106,7 +1009,6 @@ class ForwarderHeaders(Setting):
     validator: _ListStringValidatorType
     default: str
     desc: str
-
 
 class HeaderMap(Setting):
     name: str

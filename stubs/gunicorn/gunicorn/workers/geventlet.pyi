@@ -10,9 +10,7 @@ from .._types import _AddressType
 EVENTLET_WSGI_LOCAL: local | None
 EVENTLET_ALREADY_HANDLED: bool | None
 
-
 def patch_sendfile() -> None: ...
-
 
 class EventletWorker(AsyncWorker):
     def patch(self) -> None: ...

@@ -7,7 +7,6 @@ from gunicorn.glogging import Logger as GLogger
 
 from .config import Config
 
-
 class BaseSocket:
     def __init__(self, address: str, conf: Config, log: GLogger, fd: SupportsIndex | None = None) -> None: ...
     def __getattr__(self, name: str) -> Any: ...
@@ -15,17 +14,14 @@ class BaseSocket:
     def bind(self, sock: socket.socket) -> None: ...
     def close(self) -> None: ...
 
-
 class TCPSocket(BaseSocket):
     FAMILY: ClassVar[Literal[socket.AddressFamily.AF_INET, socket.AddressFamily.AF_INET6]]
 
     @override
     def set_options[T: socket.socket](self, sock: T, bound: bool = False) -> T: ...
 
-
 class TCP6Socket(TCPSocket):
     FAMILY: ClassVar[Literal[socket.AddressFamily.AF_INET6]]
-
 
 class UnixSocket(BaseSocket):
     FAMILY: ClassVar[Literal[socket.AddressFamily.AF_UNIX]]
@@ -33,7 +29,6 @@ class UnixSocket(BaseSocket):
     def __init__(self, addr: str, conf: Config, log: GLogger, fd: SupportsIndex | None = None) -> None: ...
     @override
     def bind(self, sock: socket.socket) -> None: ...
-
 
 def create_sockets(conf: Config, log: GLogger, fds: Iterable[SupportsIndex] | None = None) -> list[BaseSocket]: ...
 def close_sockets(listeners: Iterable[socket.socket], unlink: bool = True) -> None: ...

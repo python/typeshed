@@ -3,7 +3,6 @@ from gunicorn.config import Config
 PLATFORM: str
 IS_CYGWIN: bool
 
-
 class WorkerTmp:
     def __init__(self, cfg: Config) -> None: ...
     def notify(self) -> None: ...

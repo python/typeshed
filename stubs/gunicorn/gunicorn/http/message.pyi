@@ -17,7 +17,6 @@ METHOD_BADCHAR_RE: re.Pattern[str]
 VERSION_RE: re.Pattern[str]
 RFC9110_5_5_INVALID_AND_DANGEROUS: re.Pattern[str]
 
-
 class Message:
     cfg: Config
     unreader: Unreader
@@ -39,7 +38,6 @@ class Message:
     def parse_headers(self, data: bytes, from_trailer: bool = False) -> list[tuple[str, str]]: ...
     def set_body_reader(self) -> None: ...
     def should_close(self) -> bool: ...
-
 
 class Request(Message):
     method: str | None

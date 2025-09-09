@@ -12,7 +12,6 @@ from gunicorn.http import RequestParser
 from .._types import _AddressType
 from . import base
 
-
 class TConn:
     cfg: Config
     sock: socket.socket
@@ -26,7 +25,6 @@ class TConn:
     def init(self) -> None: ...
     def set_timeout(self) -> None: ...
     def close(self) -> None: ...
-
 
 class ThreadWorker(base.Worker):
     worker_connections: int

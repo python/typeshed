@@ -7,7 +7,6 @@ from gunicorn.http.unreader import Unreader
 
 from .._types import _AddressType
 
-
 class Parser:
     mesg_class: type[Request] | None
     cfg: Config
@@ -21,7 +20,6 @@ class Parser:
     def __next__(self) -> Request: ...
 
     next: Callable[[Parser], Request]
-
 
 class RequestParser(Parser):
     mesg_class: type[Request]
