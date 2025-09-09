@@ -4,6 +4,7 @@ from collections.abc import Container
 from ssl import SSLContext, _SSLMethod
 from typing import Any, Callable, Type, overload
 
+from gunicorn import glogging
 from gunicorn.arbiter import Arbiter
 from gunicorn.http import Request
 from gunicorn.http.wsgi import Response
@@ -71,7 +72,7 @@ class Config:
     @property
     def proc_name(self) -> str | None: ...
     @property
-    def logger_class(self) -> Type[Any]: ...
+    def logger_class(self) -> Type[glogging.Logger]: ...
     @property
     def is_ssl(self) -> bool: ...
     @property
