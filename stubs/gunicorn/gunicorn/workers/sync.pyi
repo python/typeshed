@@ -3,11 +3,9 @@ import socket
 from gunicorn.http import Request
 from gunicorn.workers.base import Worker
 
-from ..util import _AddressType
-
+from .._types import _AddressType
 
 class StopWaiting(Exception): ...
-
 
 class SyncWorker(Worker):
     def accept(self, listener: socket.socket) -> None: ...

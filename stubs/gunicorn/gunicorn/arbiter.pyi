@@ -7,8 +7,8 @@ from gunicorn.config import Config
 from gunicorn.glogging import Logger
 from gunicorn.workers.base import Worker
 
+from ._types import _AddressType
 from .pidfile import Pidfile
-from .util import _AddressType
 
 
 class Arbiter:

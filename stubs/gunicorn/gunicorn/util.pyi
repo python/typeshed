@@ -2,15 +2,10 @@ import types
 from _typeshed import FileDescriptorLike, FileDescriptorOrPath, HasFileno, StrOrBytesPath
 from inspect import _ParameterKind
 from socket import socket
-from typing import Any, Callable, Literal, LiteralString, NoReturn, Type
+from typing import Any, Callable, Literal, NoReturn, Type
 from urllib.parse import SplitResult
 
-from ._types import _WSGIAppType
-
-type _UnixSocketPathType = str
-type _FileDescriptorType = int
-type _TcpAddressType = tuple[LiteralString, int]
-type _AddressType = _UnixSocketPathType | _FileDescriptorType | _TcpAddressType
+from ._types import _AddressType, _WSGIAppType
 
 REDIRECT_TO: str
 hop_headers: set[str]

@@ -10,8 +10,7 @@ from gunicorn.http import Request
 from gunicorn.http.wsgi import Response
 from gunicorn.workers.base import Worker
 
-from ._types import _EnvironType
-from .util import _AddressType
+from ._types import _AddressType, _EnvironType
 
 type _OnStartingHookType = Callable[[Arbiter], None]
 type _OnReloadHookType = Callable[[Arbiter], None]
