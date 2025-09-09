@@ -1,36 +1,59 @@
-from _typeshed import Incomplete
+from types import FrameType
+from typing import Any, Type
+from typing_extensions import override
 
 from gevent import pywsgi
+from gevent.pywsgi import WSGIHandler
+from gevent.server import StreamServer
+from gevent.socket import socket as GeventSocket
+from gunicorn.http import Request
 from gunicorn.workers.base_async import AsyncWorker
 
-VERSION: Incomplete
+from .._types import _AddressType
+
+VERSION: str
+
 
 class GeventWorker(AsyncWorker):
-    server_class: Incomplete
-    wsgi_handler: Incomplete
-    sockets: Incomplete
+    server_class: Type[StreamServer] | None
+    wsgi_handler: Type[WSGIHandler] | None
+    sockets: list[GeventSocket]
+
     def patch(self) -> None: ...
+    @override
     def notify(self) -> None: ...
-    def timeout_ctx(self): ...
+    @override
+    def timeout_ctx(self) -> None: ...
+    @override
     def run(self) -> None: ...
-    def handle(self, listener, client, addr) -> None: ...
-    def handle_request(self, listener_name, req, sock, addr) -> None: ...
-    def handle_quit(self, sig, frame) -> None: ...
-    def handle_usr1(self, sig, frame) -> None: ...
+    @override
+    def handle(self, listener: GeventSocket, client: GeventSocket, addr: _AddressType) -> None: ...
+    @override
+    def handle_request(self, listener_name: str, req: Request, sock: GeventSocket, addr: _AddressType) -> None: ...
+    @override
+    def handle_quit(self, sig: int, frame: FrameType | None) -> None: ...
+    @override
+    def handle_usr1(self, sig: int, frame: FrameType | None) -> None: ...
+    @override
     def init_process(self) -> None: ...
 
+
 class GeventResponse:
-    status: Incomplete
-    headers: Incomplete
-    sent: Incomplete
-    def __init__(self, status, headers, clength) -> None: ...
+    status: str | None
+    headers: dict[str, str] | None
+    sent: int | None
+
+    def __init__(self, status: str, headers: dict[str, str], clength: int | None) -> None: ...
+
 
 class PyWSGIHandler(pywsgi.WSGIHandler):
     def log_request(self) -> None: ...
-    def get_environ(self): ...
+    def get_environ(self) -> dict[str, Any]: ...
+
 
 class PyWSGIServer(pywsgi.WSGIServer): ...
 
+
 class GeventPyWSGIWorker(GeventWorker):
-    server_class = PyWSGIServer
-    wsgi_handler = PyWSGIHandler
+    server_class: Type[PyWSGIServer] | None
+    wsgi_handler: Type[PyWSGIHandler] | None
