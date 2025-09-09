@@ -2,7 +2,7 @@ import logging
 import threading
 from datetime import timedelta
 from socket import SocketKind
-from typing import Annotated, Any, Literal, TypedDict, override, type_check_only
+from typing import Annotated, Any, Literal, TypeAlias, TypedDict, override, type_check_only
 
 from gunicorn.http import Request
 from gunicorn.http.wsgi import Response
@@ -14,12 +14,6 @@ SYSLOG_FACILITIES: dict[str, int]
 
 @type_check_only
 class _AtomsDict(TypedDict, total=False):
-    """
-    Dictionary of atoms for log formatting.
-    Additionally contains dynamic keys in the format '{key}i' (request headers),
-    '{key}o' (response headers), and '{key}e' (environment variables), all with str values.
-    """
-
     h: str
     l: str
     u: str
@@ -40,15 +34,14 @@ class _AtomsDict(TypedDict, total=False):
     L: str
     p: str
 
-type _CriticalIntType = Annotated[int, "50"]
-type _ErrorIntType = Annotated[int, "40"]
-type _WarningIntType = Annotated[int, "30"]
-type _InfoIntType = Annotated[int, "20"]
-type _DebugIntType = Annotated[int, "10"]
-
-type _LogLevelIntType = _CriticalIntType | _ErrorIntType | _WarningIntType | _InfoIntType | _DebugIntType
-type _LogLevelStrType = Literal["critical", "error", "warning", "info", "debug"]
-type _LogLevelType = _LogLevelIntType | _LogLevelStrType
+_CriticalIntType: TypeAlias = Annotated[int, "50"]
+_ErrorIntType: TypeAlias = Annotated[int, "40"]
+_WarningIntType: TypeAlias = Annotated[int, "30"]
+_InfoIntType: TypeAlias = Annotated[int, "20"]
+_DebugIntType: TypeAlias = Annotated[int, "10"]
+_LogLevelIntType: TypeAlias = _CriticalIntType | _ErrorIntType | _WarningIntType | _InfoIntType | _DebugIntType
+_LogLevelStrType: TypeAlias = Literal["critical", "error", "warning", "info", "debug"]
+_LogLevelType: TypeAlias = _LogLevelIntType | _LogLevelStrType
 
 @type_check_only
 class _RootConfig(TypedDict):
@@ -92,7 +85,7 @@ class SafeAtoms(dict[str, Any]):
     @override
     def __getitem__(self, k: str) -> str: ...
 
-type _SyslogAddressType = (
+_SyslogAddressType: TypeAlias = (
     tuple[Literal[SocketKind.SOCK_DGRAM] | None, str]  # Unix Socket
     | tuple[Literal[SocketKind.SOCK_DGRAM, SocketKind.SOCK_STREAM], tuple[str, int]]  # TCP/UDP Socket
 )

@@ -1,8 +1,10 @@
+# This file is part of gunicorn released under the MIT license.
+# See the NOTICE for more information.
 import argparse
 from _typeshed import ConvertibleToInt
-from collections.abc import Container
+from collections.abc import Callable, Container
 from ssl import SSLContext, _SSLMethod
-from typing import Any, Callable, Type, overload, override
+from typing import Any, TypeAlias, overload, override
 
 from gunicorn.arbiter import Arbiter
 from gunicorn.glogging import Logger as GLogger
@@ -12,31 +14,30 @@ from gunicorn.workers.base import Worker
 
 from ._types import _AddressType, _EnvironType
 
-type _OnStartingHookType = Callable[[Arbiter], None]
-type _OnReloadHookType = Callable[[Arbiter], None]
-type _WhenReadyHookType = Callable[[Arbiter], None]
-type _PreForkHookType = Callable[[Arbiter, Worker], None]
-type _PostForkHookType = Callable[[Arbiter, Worker], None]
-type _PostWorkerInitHookType = Callable[[Worker], None]
-type _WorkerIntHookType = Callable[[Worker], None]
-type _WorkerAbortHookType = Callable[[Worker], None]
-type _PreExecHookType = Callable[[Arbiter], None]
-type _PreRequestHookType = Callable[[Worker, Request], None]
-type _PostRequestHookType = Callable[[Worker, Request, _EnvironType, Response], None]
-type _ChildExitHookType = Callable[[Arbiter, Worker], None]
-type _WorkerExitHookType = Callable[[Arbiter, Worker], None]
-type _NumWorkersChangedHookType = Callable[[Arbiter, int, int | None], None]
-type _OnExitHookType = Callable[[Arbiter], None]
-type _SSLContextHookType = Callable[[Config, Callable[[], SSLContext]], SSLContext]
-
-type _BoolValidatorType = Callable[[bool | str | None], bool | None]
-type _StringValidatorType = Callable[[str | None], str | None]
-type _ListStringValidatorType = Callable[[str | list[str] | None], list[str]]
-type _IntValidatorType = Callable[[int | ConvertibleToInt], int]
-type _DictValidatorType = Callable[[dict[str, Any]], dict[str, Any]]
-type _ClassValidatorType = Callable[[object | str | None], Type[Any] | None]
-type _UserGroupValidatorType = Callable[[str | int | None], int]
-type _AddressValidatorType = Callable[[str | None], _AddressType | None]
+_OnStartingHookType: TypeAlias = Callable[[Arbiter], None]
+_OnReloadHookType: TypeAlias = Callable[[Arbiter], None]
+_WhenReadyHookType: TypeAlias = Callable[[Arbiter], None]
+_PreForkHookType: TypeAlias = Callable[[Arbiter, Worker], None]
+_PostForkHookType: TypeAlias = Callable[[Arbiter, Worker], None]
+_PostWorkerInitHookType: TypeAlias = Callable[[Worker], None]
+_WorkerIntHookType: TypeAlias = Callable[[Worker], None]
+_WorkerAbortHookType: TypeAlias = Callable[[Worker], None]
+_PreExecHookType: TypeAlias = Callable[[Arbiter], None]
+_PreRequestHookType: TypeAlias = Callable[[Worker, Request], None]
+_PostRequestHookType: TypeAlias = Callable[[Worker, Request, _EnvironType, Response], None]
+_ChildExitHookType: TypeAlias = Callable[[Arbiter, Worker], None]
+_WorkerExitHookType: TypeAlias = Callable[[Arbiter, Worker], None]
+_NumWorkersChangedHookType: TypeAlias = Callable[[Arbiter, int, int | None], None]
+_OnExitHookType: TypeAlias = Callable[[Arbiter], None]
+_SSLContextHookType: TypeAlias = Callable[[Config, Callable[[], SSLContext]], SSLContext]
+_BoolValidatorType: TypeAlias = Callable[[bool | str | None], bool | None]
+_StringValidatorType: TypeAlias = Callable[[str | None], str | None]
+_ListStringValidatorType: TypeAlias = Callable[[str | list[str] | None], list[str]]
+_IntValidatorType: TypeAlias = Callable[[int | ConvertibleToInt], int]
+_DictValidatorType: TypeAlias = Callable[[dict[str, Any]], dict[str, Any]]
+_ClassValidatorType: TypeAlias = Callable[[object | str | None], type[Any] | None]
+_UserGroupValidatorType: TypeAlias = Callable[[str | int | None], int]
+_AddressValidatorType: TypeAlias = Callable[[str | None], _AddressType | None]
 
 KNOWN_SETTINGS: list[Setting]
 PLATFORM: str
@@ -60,7 +61,7 @@ class Config:
     @property
     def worker_class_str(self) -> str: ...
     @property
-    def worker_class(self) -> Type[Worker]: ...
+    def worker_class(self) -> type[Worker]: ...
     @property
     def address(self) -> list[_AddressType]: ...
     @property
@@ -70,7 +71,7 @@ class Config:
     @property
     def proc_name(self) -> str | None: ...
     @property
-    def logger_class(self) -> Type[GLogger]: ...
+    def logger_class(self) -> type[GLogger]: ...
     @property
     def is_ssl(self) -> bool: ...
     @property
@@ -94,7 +95,7 @@ class Setting(metaclass=SettingMeta):
     section: str | None
     cli: list[str] | None
     validator: Callable[..., Any] | None
-    type: Type[Any] | Callable[..., Any] | None
+    type: type[Any] | Callable[..., Any] | None
     meta: str | None
     action: str | None
     default: Any
@@ -140,11 +141,11 @@ def validate_list_of_existing_files(val: None) -> list[str]: ...
 def validate_string_to_addr_list(val: str | None) -> list[str]: ...
 def validate_string_to_list(val: str | None) -> list[str]: ...
 @overload
-def validate_class(val: str) -> Type[Any]: ...
+def validate_class(val: str) -> type[Any]: ...
 @overload
 def validate_class(val: None) -> None: ...
 @overload
-def validate_class(val: object) -> Type[Any]: ...
+def validate_class(val: object) -> type[Any]: ...
 def validate_callable(arity: int) -> Callable[[str | Callable[..., Any]], Callable[..., Any]]: ...
 def validate_user(val: int | str | None) -> int: ...
 def validate_group(val: int | str | None) -> int: ...
@@ -194,7 +195,7 @@ class Backlog(Setting):
     cli: list[str]
     meta: str
     validator: _IntValidatorType
-    type: Type[int]
+    type: type[int]
     default: int
     desc: str
 
@@ -204,7 +205,7 @@ class Workers(Setting):
     cli: list[str]
     meta: str
     validator: _IntValidatorType
-    type: Type[int]
+    type: type[int]
     default: int
     desc: str
 
@@ -223,7 +224,7 @@ class WorkerThreads(Setting):
     cli: list[str]
     meta: str
     validator: _IntValidatorType
-    type: Type[int]
+    type: type[int]
     default: int
     desc: str
 
@@ -233,7 +234,7 @@ class WorkerConnections(Setting):
     cli: list[str]
     meta: str
     validator: _IntValidatorType
-    type: Type[int]
+    type: type[int]
     default: int
     desc: str
 
@@ -243,7 +244,7 @@ class MaxRequests(Setting):
     cli: list[str]
     meta: str
     validator: _IntValidatorType
-    type: Type[int]
+    type: type[int]
     default: int
     desc: str
 
@@ -253,7 +254,7 @@ class MaxRequestsJitter(Setting):
     cli: list[str]
     meta: str
     validator: _IntValidatorType
-    type: Type[int]
+    type: type[int]
     default: int
     desc: str
 
@@ -263,7 +264,7 @@ class Timeout(Setting):
     cli: list[str]
     meta: str
     validator: _IntValidatorType
-    type: Type[int]
+    type: type[int]
     default: int
     desc: str
 
@@ -273,7 +274,7 @@ class GracefulTimeout(Setting):
     cli: list[str]
     meta: str
     validator: _IntValidatorType
-    type: Type[int]
+    type: type[int]
     default: int
     desc: str
 
@@ -283,7 +284,7 @@ class Keepalive(Setting):
     cli: list[str]
     meta: str
     validator: _IntValidatorType
-    type: Type[int]
+    type: type[int]
     default: int
     desc: str
 
@@ -293,7 +294,7 @@ class LimitRequestLine(Setting):
     cli: list[str]
     meta: str
     validator: _IntValidatorType
-    type: Type[int]
+    type: type[int]
     default: int
     desc: str
 
@@ -303,7 +304,7 @@ class LimitRequestFields(Setting):
     cli: list[str]
     meta: str
     validator: _IntValidatorType
-    type: Type[int]
+    type: type[int]
     default: int
     desc: str
 
@@ -313,7 +314,7 @@ class LimitRequestFieldSize(Setting):
     cli: list[str]
     meta: str
     validator: _IntValidatorType
-    type: Type[int]
+    type: type[int]
     default: int
     desc: str
 

@@ -1,6 +1,6 @@
 import io
-from collections.abc import Generator, Iterable
-from typing import Callable
+from collections.abc import Callable, Generator, Iterator
+from typing import TypeAlias
 
 from gunicorn.http.message import Request
 from gunicorn.http.unreader import Unreader
@@ -32,14 +32,14 @@ class EOFReader:
     def __init__(self, unreader: Unreader) -> None: ...
     def read(self, size: int) -> bytes: ...
 
-type _ReaderType = ChunkedReader | LengthReader | EOFReader
+_ReaderType: TypeAlias = ChunkedReader | LengthReader | EOFReader
 
 class Body:
     reader: _ReaderType
     buf: io.BytesIO
 
     def __init__(self, reader: _ReaderType) -> None: ...
-    def __iter__(self) -> Iterable[bytes]: ...
+    def __iter__(self) -> Iterator[bytes]: ...
     def __next__(self) -> bytes: ...
     next: Callable[[Body], bytes]
     def getsize(self, size: int | None) -> int: ...

@@ -1,6 +1,6 @@
 import socket
-from _typeshed import Incomplete
-from concurrent.futures import ThreadPoolExecutor
+from collections import deque
+from concurrent.futures import Future, ThreadPoolExecutor
 from selectors import DefaultSelector
 from types import FrameType
 from typing import Any
@@ -31,7 +31,7 @@ class ThreadWorker(base.Worker):
     max_keepalived: int
     tpool: ThreadPoolExecutor
     poller: DefaultSelector
-    futures: Incomplete
+    futures: deque[Future[tuple[bool, TConn]]]
     nr_conns: int
     alive: bool
 
@@ -47,6 +47,6 @@ class ThreadWorker(base.Worker):
     def murder_keepalived(self) -> None: ...
     def is_parent_alive(self) -> bool: ...
     def run(self) -> None: ...
-    def finish_request(self, fs: Incomplete) -> None: ...
+    def finish_request(self, fs: Future[tuple[bool, TConn]]) -> None: ...
     def handle(self, conn: TConn) -> tuple[bool, TConn]: ...
     def handle_request(self, req: RequestParser, conn: TConn) -> bool: ...

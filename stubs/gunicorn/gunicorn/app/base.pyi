@@ -1,18 +1,10 @@
 from argparse import ArgumentParser, Namespace
-from collections.abc import Awaitable, Callable, Iterable
 from typing import Any, override
 
 from gunicorn.config import Config
 from gunicorn.glogging import Logger as GLogger
 
-type _EnvironType = dict[str, Any]
-type _StartResponseType = Callable[[str, list[tuple[str, str]]], None]
-type _ResponseBodyType = Iterable[bytes]
-type _WSGIAppType = Callable[[_EnvironType, _StartResponseType], _ResponseBodyType]
-type _ScopeType = dict[str, Any]
-type _ReceiveType = Callable[[], Awaitable[dict[str, Any]]]
-type _SendType = Callable[[dict[str, Any]], Awaitable[None]]
-type _ASGIAppType = Callable[[_ScopeType, _ReceiveType, _SendType], Awaitable[None]]
+from .._types import _ASGIAppType, _WSGIAppType
 
 class BaseApplication:
     usage: str | None

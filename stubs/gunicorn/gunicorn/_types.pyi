@@ -1,10 +1,10 @@
-from collections.abc import Awaitable, Iterable
-from typing import Any, Callable, LiteralString
+from collections.abc import Awaitable, Callable, Iterable
+from typing import Any, LiteralString, TypeAlias
 
-type _StatusType = str
-type _HeadersType = list[tuple[str, str]]
+_StatusType: TypeAlias = str
+_HeadersType: TypeAlias = list[tuple[str, str]]
 
-type _EnvironType = dict[str, Any]
+_EnvironType: TypeAlias = dict[str, Any]
 # """
 # WSGI environment dictionary containing request and server information.
 #
@@ -67,17 +67,16 @@ type _EnvironType = dict[str, Any]
 #     Proxy port, if proxy_protocol_info is present. Optional.
 # """
 
-type _StartResponseType = Callable[[_StatusType, _HeadersType], None]
-type _ResponseBodyType = Iterable[bytes]
+_StartResponseType: TypeAlias = Callable[[_StatusType, _HeadersType], None]
+_ResponseBodyType: TypeAlias = Iterable[bytes]
+_WSGIAppType: TypeAlias = Callable[[_EnvironType, _StartResponseType], _ResponseBodyType]  # noqa: Y047
 
-type _WSGIAppType = Callable[[_EnvironType, _StartResponseType], _ResponseBodyType]
+_ScopeType: TypeAlias = dict[str, Any]
+_ReceiveType: TypeAlias = Callable[[], Awaitable[dict[str, Any]]]
+_SendType: TypeAlias = Callable[[dict[str, Any]], Awaitable[None]]
+_ASGIAppType: TypeAlias = Callable[[_ScopeType, _ReceiveType, _SendType], Awaitable[None]]  # noqa: Y047
 
-type _ScopeType = dict[str, Any]
-type _ReceiveType = Callable[[], Awaitable[dict[str, Any]]]
-type _SendType = Callable[[dict[str, Any]], Awaitable[None]]
-type _ASGIAppType = Callable[[_ScopeType, _ReceiveType, _SendType], Awaitable[None]]
-
-type _UnixSocketPathType = str
-type _FileDescriptorType = int
-type _TcpAddressType = tuple[LiteralString, int]
-type _AddressType = _UnixSocketPathType | _FileDescriptorType | _TcpAddressType
+_UnixSocketPathType: TypeAlias = str
+_FileDescriptorType: TypeAlias = int
+_TcpAddressType: TypeAlias = tuple[LiteralString, int]  # noqa: Y047
+_AddressType: TypeAlias = _UnixSocketPathType | _FileDescriptorType | _TcpAddressType  # noqa: Y047

@@ -1,21 +1,7 @@
 import threading
-from collections.abc import Iterable, Set as AbstractSet
+from collections.abc import Callable, Iterable, Set as AbstractSet
 from re import Pattern
-from typing import Callable, TypedDict, override, type_check_only
-
-try:
-    from inotify.adapters import Inotify  # type: ignore[import-untyped]
-    from inotify.constants import (  # type: ignore[import-untyped]
-        IN_CREATE,
-        IN_DELETE,
-        IN_DELETE_SELF,
-        IN_MODIFY,
-        IN_MOVE_SELF,
-        IN_MOVED_FROM,
-        IN_MOVED_TO,
-    )
-except ImportError:
-    Inotify = object
+from typing import TypeAlias, TypedDict, override, type_check_only
 
 COMPILED_EXT_RE: Pattern[str]
 
@@ -42,8 +28,8 @@ class InotifyReloader(threading.Thread):
     @override
     def run(self) -> None: ...
 
-type _PreferredReloaderType = type[InotifyReloader | Reloader]
-type _ReloaderType = InotifyReloader | Reloader
+_PreferredReloaderType: TypeAlias = type[InotifyReloader | Reloader]
+_ReloaderType: TypeAlias = InotifyReloader | Reloader  # noqa: Y047
 
 @type_check_only
 class _ReloadedEngines(TypedDict):

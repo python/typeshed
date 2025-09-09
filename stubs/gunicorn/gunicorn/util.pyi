@@ -1,8 +1,9 @@
 import types
 from _typeshed import FileDescriptorLike, FileDescriptorOrPath, HasFileno, StrOrBytesPath
+from collections.abc import Callable
 from inspect import _ParameterKind
 from socket import socket
-from typing import Any, Callable, Literal, NoReturn
+from typing import Any, Literal, NoReturn
 from urllib.parse import SplitResult
 
 from ._types import _AddressType, _WSGIAppType
