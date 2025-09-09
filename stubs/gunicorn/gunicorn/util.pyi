@@ -2,7 +2,7 @@ import types
 from _typeshed import FileDescriptorLike, FileDescriptorOrPath, HasFileno, StrOrBytesPath
 from inspect import _ParameterKind
 from socket import socket
-from typing import Any, Callable, Literal, NoReturn, Type
+from typing import Any, Callable, Literal, NoReturn
 from urllib.parse import SplitResult
 
 from ._types import _AddressType, _WSGIAppType
@@ -16,7 +16,7 @@ def load_class(
     uri: str | object,
     default: str = "gunicorn.workers.sync.SyncWorker",
     section: str = "gunicorn.workers",
-) -> Type[Any]: ...
+) -> type[Any]: ...
 
 
 positionals: tuple[

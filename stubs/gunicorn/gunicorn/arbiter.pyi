@@ -1,6 +1,5 @@
 import socket
 from types import FrameType
-from typing import Type
 
 from gunicorn.app.base import BaseApplication
 from gunicorn.config import Config
@@ -31,7 +30,7 @@ class Arbiter:
     pid: int
     app: BaseApplication
     cfg: Config
-    worker_class: Type[Worker]
+    worker_class: type[Worker]
     address: list[_AddressType]
     timeout: int
     proc_name: str
