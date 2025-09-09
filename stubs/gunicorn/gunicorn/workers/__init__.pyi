@@ -1,3 +1,15 @@
-from _typeshed import Incomplete
+from typing import TypedDict, type_check_only
 
-SUPPORTED_WORKERS: Incomplete
+
+@type_check_only
+class _SupportedWorkers(TypedDict):
+    sync: str
+    eventlet: str
+    gevent: str
+    gevent_wsgi: str
+    gevent_pywsgi: str
+    tornado: str
+    gthread: str
+
+
+SUPPORTED_WORKERS: _SupportedWorkers
