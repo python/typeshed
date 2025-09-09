@@ -2,7 +2,7 @@ import argparse
 from _typeshed import ConvertibleToInt
 from collections.abc import Container
 from ssl import SSLContext, _SSLMethod
-from typing import Any, Callable, Type, overload
+from typing import Any, Callable, Type, overload, override
 
 from gunicorn import glogging
 from gunicorn.arbiter import Arbiter
@@ -54,6 +54,7 @@ class Config:
 
     def __init__(self, usage: str | None = None, prog: str | None = None) -> None: ...
     def __getattr__(self, name: str) -> Any: ...
+    @override
     def __setattr__(self, name: str, value: Any) -> None: ...
     def set(self, name: str, value: Any) -> None: ...
     def get_cmd_args_from_env(self) -> list[str]: ...
