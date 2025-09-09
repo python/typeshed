@@ -45,15 +45,16 @@ class InotifyReloader(threading.Thread):
     def run(self) -> None: ...
 
 
-type PreferredReloaderType = type[InotifyReloader | Reloader]
+type _PreferredReloaderType = type[InotifyReloader | Reloader]
+type _ReloaderType = InotifyReloader | Reloader
 
 
 @type_check_only
 class _ReloadedEngines(TypedDict):
-    auto: PreferredReloaderType
+    auto: _PreferredReloaderType
     pool: type[Reloader]
     inotify: type[InotifyReloader]
 
 
-preferred_reloader: PreferredReloaderType
+preferred_reloader: _PreferredReloaderType
 reloader_engines: _ReloadedEngines
