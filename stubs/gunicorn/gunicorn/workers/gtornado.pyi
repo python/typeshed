@@ -1,20 +1,26 @@
-from _typeshed import Incomplete
+from types import FrameType
+from typing import override
 
 from gunicorn.workers.base import Worker
+from tornado.ioloop import IOLoop, PeriodicCallback
 
-TORNADO5: Incomplete
+TORNADO5: bool
+
 
 class TornadoWorker(Worker):
+    alive: bool
+    server_alive: bool
+    ioloop: IOLoop
+    callbacks: list[PeriodicCallback]
+
     @classmethod
     def setup(cls) -> None: ...
-    def handle_exit(self, sig, frame) -> None: ...
-    alive: bool
+    @override
+    def handle_exit(self, sig: int, frame: FrameType | None) -> None: ...
     def handle_request(self) -> None: ...
     def watchdog(self) -> None: ...
-    server_alive: bool
     def heartbeat(self) -> None: ...
+    @override
     def init_process(self) -> None: ...
-    ioloop: Incomplete
-    callbacks: Incomplete
-    server: Incomplete
+    @override
     def run(self) -> None: ...
