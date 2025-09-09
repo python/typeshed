@@ -1,4 +1,4 @@
-from collections.abc import Iterable
+from collections.abc import Awaitable, Iterable
 from typing import Any, Callable, LiteralString
 
 type _StatusType = str
@@ -71,6 +71,11 @@ type _StartResponseType = Callable[[_StatusType, _HeadersType], None]
 type _ResponseBodyType = Iterable[bytes]
 
 type _WSGIAppType = Callable[[_EnvironType, _StartResponseType], _ResponseBodyType]
+
+type _ScopeType = dict[str, Any]
+type _ReceiveType = Callable[[], Awaitable[dict[str, Any]]]
+type _SendType = Callable[[dict[str, Any]], Awaitable[None]]
+type _ASGIAppType = Callable[[_ScopeType, _ReceiveType, _SendType], Awaitable[None]]
 
 type _UnixSocketPathType = str
 type _FileDescriptorType = int
