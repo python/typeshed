@@ -1,4 +1,3 @@
-import logging
 import socket
 from _typeshed import Incomplete
 from concurrent.futures import ThreadPoolExecutor
@@ -6,6 +5,7 @@ from selectors import DefaultSelector
 from types import FrameType
 
 from gunicorn.config import Config
+from gunicorn.glogging import Logger as GLogger
 from gunicorn.http import RequestParser
 
 from .._types import _AddressType
@@ -38,7 +38,7 @@ class ThreadWorker(base.Worker):
 
     def __init__(self, *args, **kwargs) -> None: ...
     @classmethod
-    def check_config(cls, cfg: Config, log: logging.Logger) -> None: ...
+    def check_config(cls, cfg: Config, log: GLogger) -> None: ...
     def init_process(self) -> None: ...
     def get_thread_pool(self) -> ThreadPoolExecutor: ...
     def handle_quit(self, sig: int, frame: FrameType | None) -> None: ...

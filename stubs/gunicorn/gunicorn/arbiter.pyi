@@ -4,7 +4,7 @@ from typing import Type
 
 from gunicorn.app.base import BaseApplication
 from gunicorn.config import Config
-from gunicorn.glogging import Logger
+from gunicorn.glogging import Logger as GLogger
 from gunicorn.workers.base import Worker
 
 from ._types import _AddressType
@@ -21,7 +21,7 @@ class Arbiter:
     SIG_QUEUE: list[int]
     SIGNALS: list[int]
     SIG_NAMES: dict[int, str]
-    log: Logger | None
+    log: GLogger | None
     pidfile: Pidfile | None
     systemd: bool
     worker_age: int
