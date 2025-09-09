@@ -4,8 +4,16 @@ from re import Pattern
 from typing import Callable, TypedDict, override, type_check_only
 
 try:
-    from inotify.adapters import Inotify
-    from inotify.constants import IN_CREATE, IN_DELETE, IN_DELETE_SELF, IN_MODIFY, IN_MOVE_SELF, IN_MOVED_FROM, IN_MOVED_TO
+    from inotify.adapters import Inotify  # type: ignore[import-untyped]
+    from inotify.constants import (  # type: ignore[import-untyped]
+        IN_CREATE,
+        IN_DELETE,
+        IN_DELETE_SELF,
+        IN_MODIFY,
+        IN_MOVE_SELF,
+        IN_MOVED_FROM,
+        IN_MOVED_TO,
+    )
 except ImportError:
     Inotify = object
 
