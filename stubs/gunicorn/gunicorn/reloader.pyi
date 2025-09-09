@@ -29,11 +29,9 @@ class Reloader(threading.Thread):
 
 has_inotify: bool
 
-EventMask = int
-
 
 class InotifyReloader(threading.Thread):
-    event_mask: EventMask
+    event_mask: int
     daemon: bool
 
     def __init__(
