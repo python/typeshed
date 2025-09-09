@@ -1,6 +1,6 @@
-from _typeshed import Incomplete
+from typing import LiteralString
 
-version_info: Incomplete
-__version__: Incomplete
+version_info: tuple[int, int, int]
+__version__: LiteralString
 SERVER: str
-SERVER_SOFTWARE: Incomplete
+SERVER_SOFTWARE: str
