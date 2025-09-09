@@ -3,6 +3,7 @@ from _typeshed import Incomplete
 from concurrent.futures import ThreadPoolExecutor
 from selectors import DefaultSelector
 from types import FrameType
+from typing import Any
 
 from gunicorn.config import Config
 from gunicorn.glogging import Logger as GLogger
@@ -36,7 +37,7 @@ class ThreadWorker(base.Worker):
     nr_conns: int
     alive: bool
 
-    def __init__(self, *args, **kwargs) -> None: ...
+    def __init__(self, *args: Any, **kwargs: Any) -> None: ...
     @classmethod
     def check_config(cls, cfg: Config, log: GLogger) -> None: ...
     def init_process(self) -> None: ...
