@@ -1,53 +1,64 @@
-from _typeshed import Incomplete
+import io
+import re
+from typing_extensions import override
+
+from gunicorn.config import Config
+from gunicorn.http.body import Body
+from gunicorn.http.unreader import Unreader
+
+from .._types import _AddressType
 
 MAX_REQUEST_LINE: int
 MAX_HEADERS: int
 DEFAULT_MAX_HEADERFIELD_SIZE: int
 RFC9110_5_6_2_TOKEN_SPECIALS: str
-TOKEN_RE: Incomplete
-METHOD_BADCHAR_RE: Incomplete
-VERSION_RE: Incomplete
-RFC9110_5_5_INVALID_AND_DANGEROUS: Incomplete
+TOKEN_RE: re.Pattern[str]
+METHOD_BADCHAR_RE: re.Pattern[str]
+VERSION_RE: re.Pattern[str]
+RFC9110_5_5_INVALID_AND_DANGEROUS: re.Pattern[str]
+
 
 class Message:
-    cfg: Incomplete
-    unreader: Incomplete
-    peer_addr: Incomplete
-    remote_addr: Incomplete
-    version: Incomplete
-    headers: Incomplete
-    trailers: Incomplete
-    body: Incomplete
-    scheme: Incomplete
+    cfg: Config
+    unreader: Unreader
+    peer_addr: _AddressType
+    remote_addr: _AddressType
+    version: tuple[int, int] | None
+    headers: list[tuple[str, str]]
+    trailers: list[tuple[str, str]]
+    body: Body | None
+    scheme: str
     must_close: bool
-    limit_request_fields: Incomplete
-    limit_request_field_size: Incomplete
-    max_buffer_headers: Incomplete
-    def __init__(self, cfg, unreader, peer_addr) -> None: ...
+    limit_request_fields: int
+    limit_request_field_size: int
+    max_buffer_headers: int
+
+    def __init__(self, cfg: Config, unreader: Unreader, peer_addr: _AddressType) -> None: ...
     def force_close(self) -> None: ...
-    def parse(self, unreader) -> None: ...
-    def parse_headers(self, data, from_trailer: bool = False): ...
+    def parse(self, unreader: Unreader) -> bytes: ...
+    def parse_headers(self, data: bytes, from_trailer: bool = False) -> list[tuple[str, str]]: ...
     def set_body_reader(self) -> None: ...
-    def should_close(self): ...
+    def should_close(self) -> bool: ...
+
 
 class Request(Message):
-    method: Incomplete
-    uri: Incomplete
-    path: Incomplete
-    query: Incomplete
-    fragment: Incomplete
-    limit_request_line: Incomplete
-    req_number: Incomplete
-    proxy_protocol_info: Incomplete
-    def __init__(self, cfg, unreader, peer_addr, req_number: int = 1) -> None: ...
-    def get_data(self, unreader, buf, stop: bool = False) -> None: ...
-    headers: Incomplete
-    def parse(self, unreader): ...
-    def read_line(self, unreader, buf, limit: int = 0): ...
-    def proxy_protocol(self, line): ...
+    method: str | None
+    uri: str | None
+    path: str | None
+    query: str | None
+    fragment: str | None
+    limit_request_line: int
+    req_number: int
+    proxy_protocol_info: dict[str, str | int] | None
+
+    def __init__(self, cfg: Config, unreader: Unreader, peer_addr: _AddressType, req_number: int = 1) -> None: ...
+    def get_data(self, unreader: Unreader, buf: io.BytesIO, stop: bool = False) -> None: ...
+    @override
+    def parse(self, unreader: Unreader) -> bytes: ...
+    def read_line(self, unreader: Unreader, buf: io.BytesIO, limit: int = 0) -> tuple[bytes, bytes]: ...
+    def proxy_protocol(self, line: str) -> bool: ...
     def proxy_protocol_access_check(self) -> None: ...
-    def parse_proxy_protocol(self, line) -> None: ...
-    version: Incomplete
-    def parse_request_line(self, line_bytes) -> None: ...
-    body: Incomplete
+    def parse_proxy_protocol(self, line: str) -> None: ...
+    def parse_request_line(self, line_bytes: bytes) -> None: ...
+    @override
     def set_body_reader(self) -> None: ...
