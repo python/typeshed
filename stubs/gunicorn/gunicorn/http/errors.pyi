@@ -1,72 +1,106 @@
-from _typeshed import Incomplete
+from collections.abc import Buffer
+
+from gunicorn.http import Message
+
 
 class ParseException(Exception): ...
 
+
 class NoMoreData(IOError):
-    buf: Incomplete
-    def __init__(self, buf=None) -> None: ...
+    buf: Buffer
+
+    def __init__(self, buf: Buffer | None = None) -> None: ...
+
 
 class ConfigurationProblem(ParseException):
-    info: Incomplete
+    info: str
     code: int
-    def __init__(self, info) -> None: ...
+
+    def __init__(self, info: str) -> None: ...
+
 
 class InvalidRequestLine(ParseException):
-    req: Incomplete
+    req: str
     code: int
-    def __init__(self, req) -> None: ...
+
+    def __init__(self, req: str) -> None: ...
+
 
 class InvalidRequestMethod(ParseException):
-    method: Incomplete
-    def __init__(self, method) -> None: ...
+    method: str
+
+    def __init__(self, method: str) -> None: ...
+
 
 class InvalidHTTPVersion(ParseException):
-    version: Incomplete
-    def __init__(self, version) -> None: ...
+    version: str | tuple[int, int]
+
+    def __init__(self, version: str | tuple[int, int]) -> None: ...
+
 
 class InvalidHeader(ParseException):
-    hdr: Incomplete
-    req: Incomplete
-    def __init__(self, hdr, req=None) -> None: ...
+    hdr: str
+    req: Message | None
+
+    def __init__(self, hdr: str, req: Message | None = None) -> None: ...
+
 
 class ObsoleteFolding(ParseException):
-    hdr: Incomplete
-    def __init__(self, hdr) -> None: ...
+    hdr: str
+
+    def __init__(self, hdr: str) -> None: ...
+
 
 class InvalidHeaderName(ParseException):
-    hdr: Incomplete
-    def __init__(self, hdr) -> None: ...
+    hdr: str
+
+    def __init__(self, hdr: str) -> None: ...
+
 
 class UnsupportedTransferCoding(ParseException):
-    hdr: Incomplete
+    hdr: str
     code: int
-    def __init__(self, hdr) -> None: ...
+
+    def __init__(self, hdr: str) -> None: ...
+
 
 class InvalidChunkSize(IOError):
-    data: Incomplete
-    def __init__(self, data) -> None: ...
+    data: bytes
+
+    def __init__(self, data: bytes) -> None: ...
+
 
 class ChunkMissingTerminator(IOError):
-    term: Incomplete
-    def __init__(self, term) -> None: ...
+    term: bytes
+
+    def __init__(self, term: bytes) -> None: ...
+
 
 class LimitRequestLine(ParseException):
-    size: Incomplete
-    max_size: Incomplete
-    def __init__(self, size, max_size) -> None: ...
+    size: int
+    max_size: int
+
+    def __init__(self, size: int, max_size: int) -> None: ...
+
 
 class LimitRequestHeaders(ParseException):
-    msg: Incomplete
-    def __init__(self, msg) -> None: ...
+    msg: str
+
+    def __init__(self, msg: str) -> None: ...
+
 
 class InvalidProxyLine(ParseException):
-    line: Incomplete
+    line: str
     code: int
-    def __init__(self, line) -> None: ...
+
+    def __init__(self, line: str) -> None: ...
+
 
 class ForbiddenProxyRequest(ParseException):
-    host: Incomplete
+    host: str
     code: int
-    def __init__(self, host) -> None: ...
+
+    def __init__(self, host: str) -> None: ...
+
 
 class InvalidSchemeHeaders(ParseException): ...
