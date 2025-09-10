@@ -2,8 +2,8 @@ from types import FrameType
 from typing import Any
 from typing_extensions import override
 
-from eventlet.greenio import GreenSocket  # type: ignore[import-not-found] # pyright: ignore[reportMissingTypeStubs]
-from eventlet.wsgi import local  # type: ignore[import-not-found] # pyright: ignore[reportMissingTypeStubs]
+from eventlet.greenio import GreenSocket  # type: ignore[import-not-found,import-untyped] # pyright: ignore[reportMissingTypeStubs]
+from eventlet.wsgi import local  # type: ignore[import-not-found,import-untyped] # pyright: ignore[reportMissingTypeStubs]
 from gunicorn.workers.base_async import AsyncWorker
 
 from .._types import _AddressType
