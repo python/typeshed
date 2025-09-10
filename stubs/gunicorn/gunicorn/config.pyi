@@ -1,10 +1,8 @@
-# This file is part of gunicorn released under the MIT license.
-# See the NOTICE for more information.
 import argparse
 from _typeshed import ConvertibleToInt
 from collections.abc import Callable, Container
 from ssl import SSLContext, _SSLMethod
-from typing import Any, overload
+from typing import Any, ClassVar, overload
 from typing_extensions import TypeAlias, override
 
 from gunicorn.arbiter import Arbiter
@@ -91,20 +89,20 @@ class SettingMeta(type):
     def fmt_desc(cls, desc: str) -> None: ...
 
 class Setting(metaclass=SettingMeta):
-    name: str | None
+    name: ClassVar[str | None]
     value: Any
-    section: str | None
-    cli: list[str] | None
-    validator: Callable[..., Any] | None
-    type: type[Any] | Callable[..., Any] | None
-    meta: str | None
-    action: str | None
-    default: Any
-    short: str | None
-    desc: str | None
-    nargs: int | str | None
-    const: bool | None
-    order: int
+    section: ClassVar[str | None]
+    cli: ClassVar[list[str] | None]
+    validator: ClassVar[Callable[..., Any] | None]
+    type: ClassVar[type[Any] | Callable[..., Any] | None]
+    meta: ClassVar[str | None]
+    action: ClassVar[str | None]
+    default: ClassVar[Any]
+    short: ClassVar[str | None]
+    desc: ClassVar[str | None]
+    nargs: ClassVar[int | str | None]
+    const: ClassVar[bool | None]
+    order: ClassVar[int]
 
     def __init__(self) -> None: ...
     def add_option(self, parser: argparse.ArgumentParser) -> None: ...
@@ -164,858 +162,858 @@ def validate_header_map_behaviour(val: None) -> None: ...
 def get_default_config_file() -> str | None: ...
 
 class ConfigFile(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    meta: str
-    validator: _StringValidatorType
-    default: str
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    meta: ClassVar[str]
+    validator: ClassVar[_StringValidatorType]
+    default: ClassVar[str]
+    desc: ClassVar[str]
 
 class WSGIApp(Setting):
-    name: str
-    section: str
-    meta: str
-    validator: _StringValidatorType
-    default: None
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    meta: ClassVar[str]
+    validator: ClassVar[_StringValidatorType]
+    default: ClassVar[None]
+    desc: ClassVar[str]
 
 class Bind(Setting):
-    name: str
-    action: str
-    section: str
-    cli: list[str]
-    meta: str
-    validator: _ListStringValidatorType
-    default: list[str]
-    desc: str
+    name: ClassVar[str]
+    action: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    meta: ClassVar[str]
+    validator: ClassVar[_ListStringValidatorType]
+    default: ClassVar[list[str]]
+    desc: ClassVar[str]
 
 class Backlog(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    meta: str
-    validator: _IntValidatorType
-    type: type[int]
-    default: int
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    meta: ClassVar[str]
+    validator: ClassVar[_IntValidatorType]
+    type: ClassVar[type[int]]
+    default: ClassVar[int]
+    desc: ClassVar[str]
 
 class Workers(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    meta: str
-    validator: _IntValidatorType
-    type: type[int]
-    default: int
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    meta: ClassVar[str]
+    validator: ClassVar[_IntValidatorType]
+    type: ClassVar[type[int]]
+    default: ClassVar[int]
+    desc: ClassVar[str]
 
 class WorkerClass(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    meta: str
-    validator: _ClassValidatorType
-    default: str
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    meta: ClassVar[str]
+    validator: ClassVar[_ClassValidatorType]
+    default: ClassVar[str]
+    desc: ClassVar[str]
 
 class WorkerThreads(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    meta: str
-    validator: _IntValidatorType
-    type: type[int]
-    default: int
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    meta: ClassVar[str]
+    validator: ClassVar[_IntValidatorType]
+    type: ClassVar[type[int]]
+    default: ClassVar[int]
+    desc: ClassVar[str]
 
 class WorkerConnections(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    meta: str
-    validator: _IntValidatorType
-    type: type[int]
-    default: int
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    meta: ClassVar[str]
+    validator: ClassVar[_IntValidatorType]
+    type: ClassVar[type[int]]
+    default: ClassVar[int]
+    desc: ClassVar[str]
 
 class MaxRequests(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    meta: str
-    validator: _IntValidatorType
-    type: type[int]
-    default: int
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    meta: ClassVar[str]
+    validator: ClassVar[_IntValidatorType]
+    type: ClassVar[type[int]]
+    default: ClassVar[int]
+    desc: ClassVar[str]
 
 class MaxRequestsJitter(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    meta: str
-    validator: _IntValidatorType
-    type: type[int]
-    default: int
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    meta: ClassVar[str]
+    validator: ClassVar[_IntValidatorType]
+    type: ClassVar[type[int]]
+    default: ClassVar[int]
+    desc: ClassVar[str]
 
 class Timeout(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    meta: str
-    validator: _IntValidatorType
-    type: type[int]
-    default: int
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    meta: ClassVar[str]
+    validator: ClassVar[_IntValidatorType]
+    type: ClassVar[type[int]]
+    default: ClassVar[int]
+    desc: ClassVar[str]
 
 class GracefulTimeout(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    meta: str
-    validator: _IntValidatorType
-    type: type[int]
-    default: int
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    meta: ClassVar[str]
+    validator: ClassVar[_IntValidatorType]
+    type: ClassVar[type[int]]
+    default: ClassVar[int]
+    desc: ClassVar[str]
 
 class Keepalive(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    meta: str
-    validator: _IntValidatorType
-    type: type[int]
-    default: int
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    meta: ClassVar[str]
+    validator: ClassVar[_IntValidatorType]
+    type: ClassVar[type[int]]
+    default: ClassVar[int]
+    desc: ClassVar[str]
 
 class LimitRequestLine(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    meta: str
-    validator: _IntValidatorType
-    type: type[int]
-    default: int
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    meta: ClassVar[str]
+    validator: ClassVar[_IntValidatorType]
+    type: ClassVar[type[int]]
+    default: ClassVar[int]
+    desc: ClassVar[str]
 
 class LimitRequestFields(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    meta: str
-    validator: _IntValidatorType
-    type: type[int]
-    default: int
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    meta: ClassVar[str]
+    validator: ClassVar[_IntValidatorType]
+    type: ClassVar[type[int]]
+    default: ClassVar[int]
+    desc: ClassVar[str]
 
 class LimitRequestFieldSize(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    meta: str
-    validator: _IntValidatorType
-    type: type[int]
-    default: int
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    meta: ClassVar[str]
+    validator: ClassVar[_IntValidatorType]
+    type: ClassVar[type[int]]
+    default: ClassVar[int]
+    desc: ClassVar[str]
 
 class Reload(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    validator: _BoolValidatorType
-    action: str
-    default: bool
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    validator: ClassVar[_BoolValidatorType]
+    action: ClassVar[str]
+    default: ClassVar[bool]
+    desc: ClassVar[str]
 
 class ReloadEngine(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    meta: str
-    validator: Callable[[str], str]
-    default: str
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    meta: ClassVar[str]
+    validator: ClassVar[Callable[[str], str]]
+    default: ClassVar[str]
+    desc: ClassVar[str]
 
 class ReloadExtraFiles(Setting):
-    name: str
-    action: str
-    section: str
-    cli: list[str]
-    meta: str
-    validator: _ListStringValidatorType
-    default: list[str]
-    desc: str
+    name: ClassVar[str]
+    action: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    meta: ClassVar[str]
+    validator: ClassVar[_ListStringValidatorType]
+    default: ClassVar[list[str]]
+    desc: ClassVar[str]
 
 class Spew(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    validator: _BoolValidatorType
-    action: str
-    default: bool
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    validator: ClassVar[_BoolValidatorType]
+    action: ClassVar[str]
+    default: ClassVar[bool]
+    desc: ClassVar[str]
 
 class ConfigCheck(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    validator: _BoolValidatorType
-    action: str
-    default: bool
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    validator: ClassVar[_BoolValidatorType]
+    action: ClassVar[str]
+    default: ClassVar[bool]
+    desc: ClassVar[str]
 
 class PrintConfig(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    validator: _BoolValidatorType
-    action: str
-    default: bool
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    validator: ClassVar[_BoolValidatorType]
+    action: ClassVar[str]
+    default: ClassVar[bool]
+    desc: ClassVar[str]
 
 class PreloadApp(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    validator: _BoolValidatorType
-    action: str
-    default: bool
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    validator: ClassVar[_BoolValidatorType]
+    action: ClassVar[str]
+    default: ClassVar[bool]
+    desc: ClassVar[str]
 
 class Sendfile(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    validator: _BoolValidatorType
-    action: str
-    const: bool
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    validator: ClassVar[_BoolValidatorType]
+    action: ClassVar[str]
+    const: ClassVar[bool]
+    desc: ClassVar[str]
 
 class ReusePort(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    validator: _BoolValidatorType
-    action: str
-    default: bool
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    validator: ClassVar[_BoolValidatorType]
+    action: ClassVar[str]
+    default: ClassVar[bool]
+    desc: ClassVar[str]
 
 class Chdir(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    validator: Callable[[str], str]
-    default: str
-    default_doc: str
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    validator: ClassVar[Callable[[str], str]]
+    default: ClassVar[str]
+    default_doc: ClassVar[str]
+    desc: ClassVar[str]
 
 class Daemon(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    validator: _BoolValidatorType
-    action: str
-    default: bool
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    validator: ClassVar[_BoolValidatorType]
+    action: ClassVar[str]
+    default: ClassVar[bool]
+    desc: ClassVar[str]
 
 class Env(Setting):
-    name: str
-    action: str
-    section: str
-    cli: list[str]
-    meta: str
-    validator: _ListStringValidatorType
-    default: list[str]
-    desc: str
+    name: ClassVar[str]
+    action: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    meta: ClassVar[str]
+    validator: ClassVar[_ListStringValidatorType]
+    default: ClassVar[list[str]]
+    desc: ClassVar[str]
 
 class Pidfile(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    meta: str
-    validator: _StringValidatorType
-    default: None
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    meta: ClassVar[str]
+    validator: ClassVar[_StringValidatorType]
+    default: ClassVar[None]
+    desc: ClassVar[str]
 
 class WorkerTmpDir(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    meta: str
-    validator: _StringValidatorType
-    default: None
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    meta: ClassVar[str]
+    validator: ClassVar[_StringValidatorType]
+    default: ClassVar[None]
+    desc: ClassVar[str]
 
 class User(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    meta: str
-    validator: _UserGroupValidatorType
-    default: int
-    default_doc: str
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    meta: ClassVar[str]
+    validator: ClassVar[_UserGroupValidatorType]
+    default: ClassVar[int]
+    default_doc: ClassVar[str]
+    desc: ClassVar[str]
 
 class Group(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    meta: str
-    validator: _UserGroupValidatorType
-    default: int
-    default_doc: str
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    meta: ClassVar[str]
+    validator: ClassVar[_UserGroupValidatorType]
+    default: ClassVar[int]
+    default_doc: ClassVar[str]
+    desc: ClassVar[str]
 
 class Umask(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    meta: str
-    validator: _IntValidatorType
-    type: Callable[[Any, str], int]
-    default: int
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    meta: ClassVar[str]
+    validator: ClassVar[_IntValidatorType]
+    type: ClassVar[Callable[[Any, str], int]]
+    default: ClassVar[int]
+    desc: ClassVar[str]
 
 class Initgroups(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    validator: _BoolValidatorType
-    action: str
-    default: bool
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    validator: ClassVar[_BoolValidatorType]
+    action: ClassVar[str]
+    default: ClassVar[bool]
+    desc: ClassVar[str]
 
 class TmpUploadDir(Setting):
-    name: str
-    section: str
-    meta: str
-    validator: _StringValidatorType
-    default: None
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    meta: ClassVar[str]
+    validator: ClassVar[_StringValidatorType]
+    default: ClassVar[None]
+    desc: ClassVar[str]
 
 class SecureSchemeHeader(Setting):
-    name: str
-    section: str
-    validator: _DictValidatorType
-    default: dict[str, str]
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    validator: ClassVar[_DictValidatorType]
+    default: ClassVar[dict[str, str]]
+    desc: ClassVar[str]
 
 class ForwardedAllowIPS(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    meta: str
-    validator: _ListStringValidatorType
-    default: str
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    meta: ClassVar[str]
+    validator: ClassVar[_ListStringValidatorType]
+    default: ClassVar[str]
+    desc: ClassVar[str]
 
 class AccessLog(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    meta: str
-    validator: _StringValidatorType
-    default: None
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    meta: ClassVar[str]
+    validator: ClassVar[_StringValidatorType]
+    default: ClassVar[None]
+    desc: ClassVar[str]
 
 class DisableRedirectAccessToSyslog(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    validator: _BoolValidatorType
-    action: str
-    default: bool
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    validator: ClassVar[_BoolValidatorType]
+    action: ClassVar[str]
+    default: ClassVar[bool]
+    desc: ClassVar[str]
 
 class AccessLogFormat(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    meta: str
-    validator: _StringValidatorType
-    default: str
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    meta: ClassVar[str]
+    validator: ClassVar[_StringValidatorType]
+    default: ClassVar[str]
+    desc: ClassVar[str]
 
 class ErrorLog(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    meta: str
-    validator: _StringValidatorType
-    default: str
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    meta: ClassVar[str]
+    validator: ClassVar[_StringValidatorType]
+    default: ClassVar[str]
+    desc: ClassVar[str]
 
 class Loglevel(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    meta: str
-    validator: _StringValidatorType
-    default: str
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    meta: ClassVar[str]
+    validator: ClassVar[_StringValidatorType]
+    default: ClassVar[str]
+    desc: ClassVar[str]
 
 class CaptureOutput(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    validator: _BoolValidatorType
-    action: str
-    default: bool
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    validator: ClassVar[_BoolValidatorType]
+    action: ClassVar[str]
+    default: ClassVar[bool]
+    desc: ClassVar[str]
 
 class LoggerClass(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    meta: str
-    validator: _ClassValidatorType
-    default: str
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    meta: ClassVar[str]
+    validator: ClassVar[_ClassValidatorType]
+    default: ClassVar[str]
+    desc: ClassVar[str]
 
 class LogConfig(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    meta: str
-    validator: _StringValidatorType
-    default: None
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    meta: ClassVar[str]
+    validator: ClassVar[_StringValidatorType]
+    default: ClassVar[None]
+    desc: ClassVar[str]
 
 class LogConfigDict(Setting):
-    name: str
-    section: str
-    validator: _DictValidatorType
-    default: dict[str, Any]
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    validator: ClassVar[_DictValidatorType]
+    default: ClassVar[dict[str, Any]]
+    desc: ClassVar[str]
 
 class LogConfigJson(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    meta: str
-    validator: _StringValidatorType
-    default: None
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    meta: ClassVar[str]
+    validator: ClassVar[_StringValidatorType]
+    default: ClassVar[None]
+    desc: ClassVar[str]
 
 class SyslogTo(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    meta: str
-    validator: _StringValidatorType
-    default: str
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    meta: ClassVar[str]
+    validator: ClassVar[_StringValidatorType]
+    default: ClassVar[str]
+    desc: ClassVar[str]
 
 class Syslog(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    validator: _BoolValidatorType
-    action: str
-    default: bool
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    validator: ClassVar[_BoolValidatorType]
+    action: ClassVar[str]
+    default: ClassVar[bool]
+    desc: ClassVar[str]
 
 class SyslogPrefix(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    meta: str
-    validator: _StringValidatorType
-    default: None
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    meta: ClassVar[str]
+    validator: ClassVar[_StringValidatorType]
+    default: ClassVar[None]
+    desc: ClassVar[str]
 
 class SyslogFacility(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    meta: str
-    validator: _StringValidatorType
-    default: str
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    meta: ClassVar[str]
+    validator: ClassVar[_StringValidatorType]
+    default: ClassVar[str]
+    desc: ClassVar[str]
 
 class EnableStdioInheritance(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    validator: _BoolValidatorType
-    default: bool
-    action: str
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    validator: ClassVar[_BoolValidatorType]
+    default: ClassVar[bool]
+    action: ClassVar[str]
+    desc: ClassVar[str]
 
 class StatsdHost(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    meta: str
-    default: None
-    validator: _AddressValidatorType
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    meta: ClassVar[str]
+    default: ClassVar[None]
+    validator: ClassVar[_AddressValidatorType]
+    desc: ClassVar[str]
 
 class DogstatsdTags(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    meta: str
-    default: str
-    validator: _StringValidatorType
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    meta: ClassVar[str]
+    default: ClassVar[str]
+    validator: ClassVar[_StringValidatorType]
+    desc: ClassVar[str]
 
 class StatsdPrefix(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    meta: str
-    default: str
-    validator: _StringValidatorType
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    meta: ClassVar[str]
+    default: ClassVar[str]
+    validator: ClassVar[_StringValidatorType]
+    desc: ClassVar[str]
 
 class Procname(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    meta: str
-    validator: _StringValidatorType
-    default: None
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    meta: ClassVar[str]
+    validator: ClassVar[_StringValidatorType]
+    default: ClassVar[None]
+    desc: ClassVar[str]
 
 class DefaultProcName(Setting):
-    name: str
-    section: str
-    validator: _StringValidatorType
-    default: str
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    validator: ClassVar[_StringValidatorType]
+    default: ClassVar[str]
+    desc: ClassVar[str]
 
 class PythonPath(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    meta: str
-    validator: _StringValidatorType
-    default: None
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    meta: ClassVar[str]
+    validator: ClassVar[_StringValidatorType]
+    default: ClassVar[None]
+    desc: ClassVar[str]
 
 class Paste(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    meta: str
-    validator: _StringValidatorType
-    default: None
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    meta: ClassVar[str]
+    validator: ClassVar[_StringValidatorType]
+    default: ClassVar[None]
+    desc: ClassVar[str]
 
 class OnStarting(Setting):
-    name: str
-    section: str
-    validator: Callable[[str | _OnStartingHookType], _OnStartingHookType]
-    type: Callable[..., Any]
-    default: _OnStartingHookType
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    validator: ClassVar[Callable[[str | _OnStartingHookType], _OnStartingHookType]]
+    type: ClassVar[Callable[..., Any]]
+    default: ClassVar[_OnStartingHookType]
+    desc: ClassVar[str]
 
     def on_starting(server: Arbiter) -> None: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
 
 class OnReload(Setting):
-    name: str
-    section: str
-    validator: Callable[[str | _OnReloadHookType], _OnReloadHookType]
-    type: Callable[..., Any]
-    default: _OnReloadHookType
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    validator: ClassVar[Callable[[str | _OnReloadHookType], _OnReloadHookType]]
+    type: ClassVar[Callable[..., Any]]
+    default: ClassVar[_OnReloadHookType]
+    desc: ClassVar[str]
 
     def on_reload(server: Arbiter) -> None: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
 
 class WhenReady(Setting):
-    name: str
-    section: str
-    validator: Callable[[str | _WhenReadyHookType], _WhenReadyHookType]
-    type: Callable[..., Any]
-    default: _WhenReadyHookType
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    validator: ClassVar[Callable[[str | _WhenReadyHookType], _WhenReadyHookType]]
+    type: ClassVar[Callable[..., Any]]
+    default: ClassVar[_WhenReadyHookType]
+    desc: ClassVar[str]
 
     def when_ready(server: Arbiter) -> None: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
 
 class Prefork(Setting):
-    name: str
-    section: str
-    validator: Callable[[str | _PreForkHookType], _PreForkHookType]
-    type: Callable[..., Any]
-    default: _PreForkHookType
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    validator: ClassVar[Callable[[str | _PreForkHookType], _PreForkHookType]]
+    type: ClassVar[Callable[..., Any]]
+    default: ClassVar[_PreForkHookType]
+    desc: ClassVar[str]
 
     def pre_fork(server: Arbiter, worker: Worker) -> None: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
 
 class Postfork(Setting):
-    name: str
-    section: str
-    validator: Callable[[str | _PostForkHookType], _PostForkHookType]
-    type: Callable[..., Any]
-    default: _PostForkHookType
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    validator: ClassVar[Callable[[str | _PostForkHookType], _PostForkHookType]]
+    type: ClassVar[Callable[..., Any]]
+    default: ClassVar[_PostForkHookType]
+    desc: ClassVar[str]
 
     def post_fork(server: Arbiter, worker: Worker) -> None: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
 
 class PostWorkerInit(Setting):
-    name: str
-    section: str
-    validator: Callable[[str | _PostWorkerInitHookType], _PostWorkerInitHookType]
-    type: Callable[..., Any]
-    default: _PostWorkerInitHookType
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    validator: ClassVar[Callable[[str | _PostWorkerInitHookType], _PostWorkerInitHookType]]
+    type: ClassVar[Callable[..., Any]]
+    default: ClassVar[_PostWorkerInitHookType]
+    desc: ClassVar[str]
 
     def post_worker_init(worker: Worker) -> None: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
 
 class WorkerInt(Setting):
-    name: str
-    section: str
-    validator: Callable[[str | _WorkerIntHookType], _WorkerIntHookType]
-    type: Callable[..., Any]
-    default: _WorkerIntHookType
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    validator: ClassVar[Callable[[str | _WorkerIntHookType], _WorkerIntHookType]]
+    type: ClassVar[Callable[..., Any]]
+    default: ClassVar[_WorkerIntHookType]
+    desc: ClassVar[str]
 
     def worker_int(worker: Worker) -> None: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
 
 class WorkerAbort(Setting):
-    name: str
-    section: str
-    validator: Callable[[str | _WorkerAbortHookType], _WorkerAbortHookType]
-    type: Callable[..., Any]
-    default: _WorkerAbortHookType
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    validator: ClassVar[Callable[[str | _WorkerAbortHookType], _WorkerAbortHookType]]
+    type: ClassVar[Callable[..., Any]]
+    default: ClassVar[_WorkerAbortHookType]
+    desc: ClassVar[str]
 
     def worker_abort(worker: Worker) -> None: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
 
 class PreExec(Setting):
-    name: str
-    section: str
-    validator: Callable[[str | _PreExecHookType], _PreExecHookType]
-    type: Callable[..., Any]
-    default: _PreExecHookType
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    validator: ClassVar[Callable[[str | _PreExecHookType], _PreExecHookType]]
+    type: ClassVar[Callable[..., Any]]
+    default: ClassVar[_PreExecHookType]
+    desc: ClassVar[str]
 
     def pre_exec(server: Arbiter) -> None: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
 
 class PreRequest(Setting):
-    name: str
-    section: str
-    validator: Callable[[str | _PreRequestHookType], _PreRequestHookType]
-    type: Callable[..., Any]
-    default: _PreRequestHookType
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    validator: ClassVar[Callable[[str | _PreRequestHookType], _PreRequestHookType]]
+    type: ClassVar[Callable[..., Any]]
+    default: ClassVar[_PreRequestHookType]
+    desc: ClassVar[str]
 
     def pre_request(worker: Worker, req: Request) -> None: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
 
 class PostRequest(Setting):
-    name: str
-    section: str
-    validator: Callable[[str | Callable[..., Any]], _PostRequestHookType]
-    type: Callable[..., Any]
-    default: _PostRequestHookType
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    validator: ClassVar[Callable[[str | Callable[..., Any]], _PostRequestHookType]]
+    type: ClassVar[Callable[..., Any]]
+    default: ClassVar[_PostRequestHookType]
+    desc: ClassVar[str]
 
     def post_request(worker: Worker, req: Request, environ: _EnvironType, resp: Response) -> None: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
 
 class ChildExit(Setting):
-    name: str
-    section: str
-    validator: Callable[[str | _ChildExitHookType], _ChildExitHookType]
-    type: Callable[..., Any]
-    default: _ChildExitHookType
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    validator: ClassVar[Callable[[str | _ChildExitHookType], _ChildExitHookType]]
+    type: ClassVar[Callable[..., Any]]
+    default: ClassVar[_ChildExitHookType]
+    desc: ClassVar[str]
 
     def child_exit(server: Arbiter, worker: Worker) -> None: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
 
 class WorkerExit(Setting):
-    name: str
-    section: str
-    validator: Callable[[str | _WorkerExitHookType], _WorkerExitHookType]
-    type: Callable[..., Any]
-    default: _WorkerExitHookType
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    validator: ClassVar[Callable[[str | _WorkerExitHookType], _WorkerExitHookType]]
+    type: ClassVar[Callable[..., Any]]
+    default: ClassVar[_WorkerExitHookType]
+    desc: ClassVar[str]
 
     def worker_exit(server: Arbiter, worker: Worker) -> None: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
 
 class NumWorkersChanged(Setting):
-    name: str
-    section: str
-    validator: Callable[[str | _NumWorkersChangedHookType], _NumWorkersChangedHookType]
-    type: Callable[..., Any]
-    default: _NumWorkersChangedHookType
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    validator: ClassVar[Callable[[str | _NumWorkersChangedHookType], _NumWorkersChangedHookType]]
+    type: ClassVar[Callable[..., Any]]
+    default: ClassVar[_NumWorkersChangedHookType]
+    desc: ClassVar[str]
 
     def nworkers_changed(server: Arbiter, new_value: int, old_value: int | None) -> None: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
 
 class OnExit(Setting):
-    name: str
-    section: str
-    validator: Callable[[str | _OnExitHookType], _OnExitHookType]
-    default: _OnExitHookType
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    validator: ClassVar[Callable[[str | _OnExitHookType], _OnExitHookType]]
+    default: ClassVar[_OnExitHookType]
+    desc: ClassVar[str]
 
     def on_exit(server: Arbiter) -> None: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
 
 class NewSSLContext(Setting):
-    name: str
-    section: str
-    validator: Callable[[str | _SSLContextHookType], _SSLContextHookType]
-    type: Callable[..., Any]
-    default: _SSLContextHookType
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    validator: ClassVar[Callable[[str | _SSLContextHookType], _SSLContextHookType]]
+    type: ClassVar[Callable[..., Any]]
+    default: ClassVar[_SSLContextHookType]
+    desc: ClassVar[str]
 
     def ssl_context(config: Config, default_ssl_context_factory: Callable[[], SSLContext]) -> SSLContext: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
 
 class ProxyProtocol(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    validator: _BoolValidatorType
-    default: bool
-    action: str
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    validator: ClassVar[_BoolValidatorType]
+    default: ClassVar[bool]
+    action: ClassVar[str]
+    desc: ClassVar[str]
 
 class ProxyAllowFrom(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    validator: _ListStringValidatorType
-    default: str
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    validator: ClassVar[_ListStringValidatorType]
+    default: ClassVar[str]
+    desc: ClassVar[str]
 
 class KeyFile(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    meta: str
-    validator: _StringValidatorType
-    default: None
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    meta: ClassVar[str]
+    validator: ClassVar[_StringValidatorType]
+    default: ClassVar[None]
+    desc: ClassVar[str]
 
 class CertFile(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    meta: str
-    validator: _StringValidatorType
-    default: None
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    meta: ClassVar[str]
+    validator: ClassVar[_StringValidatorType]
+    default: ClassVar[None]
+    desc: ClassVar[str]
 
 class SSLVersion(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    validator: Callable[[_SSLMethod], _SSLMethod]
-    default: _SSLMethod
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    validator: ClassVar[Callable[[_SSLMethod], _SSLMethod]]
+    default: ClassVar[_SSLMethod]
+    desc: ClassVar[str]
 
 class CertReqs(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    validator: _IntValidatorType
-    default: int
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    validator: ClassVar[_IntValidatorType]
+    default: ClassVar[int]
+    desc: ClassVar[str]
 
 class CACerts(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    meta: str
-    validator: _StringValidatorType
-    default: None
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    meta: ClassVar[str]
+    validator: ClassVar[_StringValidatorType]
+    default: ClassVar[None]
+    desc: ClassVar[str]
 
 class SuppressRaggedEOFs(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    action: str
-    default: bool
-    validator: _BoolValidatorType
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    action: ClassVar[str]
+    default: ClassVar[bool]
+    validator: ClassVar[_BoolValidatorType]
+    desc: ClassVar[str]
 
 class DoHandshakeOnConnect(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    validator: _BoolValidatorType
-    action: str
-    default: bool
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    validator: ClassVar[_BoolValidatorType]
+    action: ClassVar[str]
+    default: ClassVar[bool]
+    desc: ClassVar[str]
 
 class Ciphers(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    validator: _StringValidatorType
-    default: None
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    validator: ClassVar[_StringValidatorType]
+    default: ClassVar[None]
+    desc: ClassVar[str]
 
 class PasteGlobalConf(Setting):
-    name: str
-    action: str
-    section: str
-    cli: list[str]
-    meta: str
-    validator: _ListStringValidatorType
-    default: list[str]
-    desc: str
+    name: ClassVar[str]
+    action: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    meta: ClassVar[str]
+    validator: ClassVar[_ListStringValidatorType]
+    default: ClassVar[list[str]]
+    desc: ClassVar[str]
 
 class PermitObsoleteFolding(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    validator: _BoolValidatorType
-    action: str
-    default: bool
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    validator: ClassVar[_BoolValidatorType]
+    action: ClassVar[str]
+    default: ClassVar[bool]
+    desc: ClassVar[str]
 
 class StripHeaderSpaces(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    validator: _BoolValidatorType
-    action: str
-    default: bool
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    validator: ClassVar[_BoolValidatorType]
+    action: ClassVar[str]
+    default: ClassVar[bool]
+    desc: ClassVar[str]
 
 class PermitUnconventionalHTTPMethod(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    validator: _BoolValidatorType
-    action: str
-    default: bool
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    validator: ClassVar[_BoolValidatorType]
+    action: ClassVar[str]
+    default: ClassVar[bool]
+    desc: ClassVar[str]
 
 class PermitUnconventionalHTTPVersion(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    validator: _BoolValidatorType
-    action: str
-    default: bool
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    validator: ClassVar[_BoolValidatorType]
+    action: ClassVar[str]
+    default: ClassVar[bool]
+    desc: ClassVar[str]
 
 class CasefoldHTTPMethod(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    validator: _BoolValidatorType
-    action: str
-    default: bool
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    validator: ClassVar[_BoolValidatorType]
+    action: ClassVar[str]
+    default: ClassVar[bool]
+    desc: ClassVar[str]
 
 class ForwarderHeaders(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    validator: _ListStringValidatorType
-    default: str
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    validator: ClassVar[_ListStringValidatorType]
+    default: ClassVar[str]
+    desc: ClassVar[str]
 
 class HeaderMap(Setting):
-    name: str
-    section: str
-    cli: list[str]
-    validator: _StringValidatorType
-    default: str
-    desc: str
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    validator: ClassVar[_StringValidatorType]
+    default: ClassVar[str]
+    desc: ClassVar[str]

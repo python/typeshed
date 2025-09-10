@@ -3,7 +3,7 @@ import threading
 from datetime import timedelta
 from logging.config import _DictConfigArgs
 from socket import SocketKind
-from typing import Annotated, Any, Literal, TypedDict, type_check_only
+from typing import Annotated, Any, ClassVar, Literal, TypedDict, type_check_only
 from typing_extensions import TypeAlias, override
 
 from gunicorn.http import Request
@@ -69,13 +69,13 @@ class _LogLevels(TypedDict):
     debug: _DebugIntType
 
 class Logger:
-    LOG_LEVELS: _LogLevels
-    loglevel: _LogLevelIntType
-    error_fmt: str
-    datefmt: str
-    access_fmt: str
-    syslog_fmt: str
-    atoms_wrapper_class: type[SafeAtoms]
+    LOG_LEVELS: ClassVar[_LogLevels]
+    loglevel: ClassVar[_LogLevelIntType]
+    error_fmt: ClassVar[str]
+    datefmt: ClassVar[str]
+    access_fmt: ClassVar[str]
+    syslog_fmt: ClassVar[str]
+    atoms_wrapper_class: ClassVar[type[SafeAtoms]]
     error_log: logging.Logger
     access_log: logging.Logger
     error_handlers: list[logging.Handler]

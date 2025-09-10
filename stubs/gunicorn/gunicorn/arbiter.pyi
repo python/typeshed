@@ -1,5 +1,6 @@
 import socket
 from types import FrameType
+from typing import ClassVar
 
 from gunicorn.app.base import BaseApplication
 from gunicorn.config import Config
@@ -10,15 +11,15 @@ from ._types import _AddressType
 from .pidfile import Pidfile
 
 class Arbiter:
-    WORKER_BOOT_ERROR: int
-    APP_LOAD_ERROR: int
-    START_CTX: dict[int | str, str | list[str]]
-    LISTENERS: list[socket.socket]
-    WORKERS: dict[int, Worker]
-    PIPE: list[int]
-    SIG_QUEUE: list[int]
-    SIGNALS: list[int]
-    SIG_NAMES: dict[int, str]
+    WORKER_BOOT_ERROR: ClassVar[int]
+    APP_LOAD_ERROR: ClassVar[int]
+    START_CTX: ClassVar[dict[int | str, str | list[str]]]
+    LISTENERS: ClassVar[list[socket.socket]]
+    WORKERS: ClassVar[dict[int, Worker]]
+    PIPE: ClassVar[list[int]]
+    SIG_QUEUE: ClassVar[list[int]]
+    SIGNALS: ClassVar[list[int]]
+    SIG_NAMES: ClassVar[dict[int, str]]
     log: GLogger | None
     pidfile: Pidfile | None
     systemd: bool

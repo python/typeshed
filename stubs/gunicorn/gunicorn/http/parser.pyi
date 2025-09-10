@@ -1,5 +1,6 @@
 import socket
 from collections.abc import Callable, Iterable, Iterator
+from typing import ClassVar
 
 from gunicorn.config import Config
 from gunicorn.http.message import Request
@@ -8,7 +9,7 @@ from gunicorn.http.unreader import Unreader
 from .._types import _AddressType
 
 class Parser:
-    mesg_class: type[Request] | None
+    mesg_class: ClassVar[type[Request] | None]
     cfg: Config
     unreader: Unreader
     mesg: Request | None
@@ -22,4 +23,4 @@ class Parser:
     next: Callable[[Parser], Request]
 
 class RequestParser(Parser):
-    mesg_class: type[Request]
+    mesg_class: ClassVar[type[Request]]

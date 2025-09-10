@@ -1,5 +1,5 @@
 from types import FrameType
-from typing import Any
+from typing import Any, ClassVar
 from typing_extensions import override
 
 from gevent import pywsgi
@@ -14,8 +14,8 @@ from .._types import _AddressType
 VERSION: str
 
 class GeventWorker(AsyncWorker):
-    server_class: type[StreamServer] | None
-    wsgi_handler: type[WSGIHandler] | None
+    server_class: ClassVar[type[StreamServer] | None]
+    wsgi_handler: ClassVar[type[WSGIHandler] | None]
     sockets: list[GeventSocket]
 
     def patch(self) -> None: ...
@@ -37,9 +37,9 @@ class GeventWorker(AsyncWorker):
     def init_process(self) -> None: ...
 
 class GeventResponse:
-    status: str | None
-    headers: dict[str, str] | None
-    sent: int | None
+    status: ClassVar[str | None]
+    headers: ClassVar[dict[str, str] | None]
+    sent: ClassVar[int | None]
 
     def __init__(self, status: str, headers: dict[str, str], clength: int | None) -> None: ...
 
@@ -50,5 +50,5 @@ class PyWSGIHandler(pywsgi.WSGIHandler):
 class PyWSGIServer(pywsgi.WSGIServer): ...
 
 class GeventPyWSGIWorker(GeventWorker):
-    server_class: type[PyWSGIServer] | None
-    wsgi_handler: type[PyWSGIHandler] | None
+    server_class: ClassVar[type[PyWSGIServer] | None]
+    wsgi_handler: ClassVar[type[PyWSGIHandler] | None]

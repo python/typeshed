@@ -1,5 +1,6 @@
 import socket
 from types import FrameType
+from typing import ClassVar
 
 from gunicorn.app.base import BaseApplication
 from gunicorn.config import Config
@@ -11,8 +12,8 @@ from .._types import _AddressType, _WSGIAppType
 from ..reloader import _ReloaderType
 
 class Worker:
-    SIGNALS: list[int]
-    PIPE: list[int]
+    SIGNALS: ClassVar[list[int]]
+    PIPE: ClassVar[list[int]]
     age: int
     pid: str
     ppid: int
