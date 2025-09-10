@@ -1,4 +1,4 @@
-from collections.abc import Buffer
+from typing_extensions import Buffer
 
 from gunicorn.http import Message
 

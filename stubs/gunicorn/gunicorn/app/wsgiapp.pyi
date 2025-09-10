@@ -1,5 +1,5 @@
 from argparse import ArgumentParser, Namespace
-from typing import override
+from typing_extensions import override
 
 from gunicorn.app.base import Application
 

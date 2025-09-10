@@ -1,7 +1,8 @@
 import socket
 from collections.abc import Iterable
 from ssl import SSLContext, SSLSocket
-from typing import Any, ClassVar, Literal, SupportsIndex, override
+from typing import Any, ClassVar, Literal, SupportsIndex
+from typing_extensions import override
 
 from gunicorn.glogging import Logger as GLogger
 

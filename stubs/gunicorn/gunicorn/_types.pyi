@@ -1,5 +1,6 @@
 from collections.abc import Awaitable, Callable, Iterable
-from typing import Any, LiteralString, TypeAlias
+from typing import Any
+from typing_extensions import LiteralString, TypeAlias
 
 _StatusType: TypeAlias = str
 _HeadersType: TypeAlias = list[tuple[str, str]]

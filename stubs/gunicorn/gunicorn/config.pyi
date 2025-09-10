@@ -4,7 +4,8 @@ import argparse
 from _typeshed import ConvertibleToInt
 from collections.abc import Callable, Container
 from ssl import SSLContext, _SSLMethod
-from typing import Any, TypeAlias, overload, override
+from typing import Any, overload
+from typing_extensions import TypeAlias, override
 
 from gunicorn.arbiter import Arbiter
 from gunicorn.glogging import Logger as GLogger

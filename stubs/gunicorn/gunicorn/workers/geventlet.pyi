@@ -1,8 +1,9 @@
 from types import FrameType
-from typing import Any, override
+from typing import Any
+from typing_extensions import override
 
-from eventlet.greenio import GreenSocket  # type: ignore[import-untyped]
-from eventlet.wsgi import local  # type: ignore[import-untyped]
+from eventlet.greenio import GreenSocket  # type: ignore[import-not-found]
+from eventlet.wsgi import local  # type: ignore[import-not-found]
 from gunicorn.workers.base_async import AsyncWorker
 
 from .._types import _AddressType

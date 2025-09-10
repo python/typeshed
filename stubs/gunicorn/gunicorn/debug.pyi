@@ -2,7 +2,8 @@ __all__ = ["spew", "unspew"]
 
 from collections.abc import Container
 from types import FrameType
-from typing import Any, Self
+from typing import Any
+from typing_extensions import Self
 
 class Spew:
     trace_names: Container[str] | None = None

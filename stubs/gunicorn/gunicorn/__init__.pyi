@@ -1,4 +1,4 @@
-from typing import LiteralString
+from typing_extensions import LiteralString
 
 version_info: tuple[int, int, int]
 __version__: LiteralString

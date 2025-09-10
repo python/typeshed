@@ -1,8 +1,8 @@
 from types import FrameType
-from typing import override
+from typing_extensions import override
 
 from gunicorn.workers.base import Worker
-from tornado.ioloop import IOLoop, PeriodicCallback
+from tornado.ioloop import IOLoop, PeriodicCallback  # type: ignore[import-not-found]
 
 TORNADO5: bool
 

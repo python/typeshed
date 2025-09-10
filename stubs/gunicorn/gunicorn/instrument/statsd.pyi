@@ -1,6 +1,7 @@
 import socket
 from datetime import timedelta
-from typing import Any, override
+from typing import Any
+from typing_extensions import override
 
 from gunicorn.config import Config
 from gunicorn.glogging import Logger

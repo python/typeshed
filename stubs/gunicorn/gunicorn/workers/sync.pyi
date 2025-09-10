@@ -1,5 +1,5 @@
 import socket
-from typing import override
+from typing_extensions import override
 
 from gunicorn.http import Request
 from gunicorn.workers.base import Worker

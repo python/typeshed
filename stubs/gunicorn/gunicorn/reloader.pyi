@@ -1,7 +1,8 @@
 import threading
 from collections.abc import Callable, Iterable, Set as AbstractSet
 from re import Pattern
-from typing import TypeAlias, TypedDict, override, type_check_only
+from typing import TypedDict, type_check_only
+from typing_extensions import TypeAlias, override
 
 COMPILED_EXT_RE: Pattern[str]
 

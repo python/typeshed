@@ -2,7 +2,8 @@ import logging
 import threading
 from datetime import timedelta
 from socket import SocketKind
-from typing import Annotated, Any, Literal, TypeAlias, TypedDict, override, type_check_only
+from typing import Annotated, Any, Literal, TypedDict, type_check_only
+from typing_extensions import TypeAlias, override
 
 from gunicorn.http import Request
 from gunicorn.http.wsgi import Response

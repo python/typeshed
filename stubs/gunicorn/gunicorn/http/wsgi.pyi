@@ -4,7 +4,8 @@ import re
 import socket
 from _typeshed import ReadableBuffer
 from collections.abc import Callable
-from typing import Any, override
+from typing import Any
+from typing_extensions import override
 
 from gunicorn.config import Config
 from gunicorn.http import Request
