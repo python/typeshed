@@ -1,4 +1,5 @@
 import socket
+import sys
 from collections.abc import Iterable
 from ssl import SSLContext, SSLSocket
 from typing import Any, ClassVar, Literal, SupportsIndex
@@ -25,7 +26,10 @@ class TCP6Socket(TCPSocket):
     FAMILY: ClassVar[Literal[socket.AddressFamily.AF_INET6]]
 
 class UnixSocket(BaseSocket):
-    FAMILY: ClassVar[Literal[socket.AddressFamily.AF_UNIX]]
+    if sys.platform != "win32":
+        FAMILY: ClassVar[Literal[socket.AddressFamily.AF_UNIX]]
+    else:
+        FAMILY: ClassVar[Literal[0]]  # Stub for windows
 
     def __init__(self, addr: str, conf: Config, log: GLogger, fd: SupportsIndex | None = None) -> None: ...
     @override
