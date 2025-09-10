@@ -1,6 +1,7 @@
 import logging
 import threading
 from datetime import timedelta
+from logging.config import _DictConfigArgs
 from socket import SocketKind
 from typing import Annotated, Any, Literal, TypedDict, type_check_only
 from typing_extensions import TypeAlias, override
@@ -44,40 +45,7 @@ _LogLevelIntType: TypeAlias = _CriticalIntType | _ErrorIntType | _WarningIntType
 _LogLevelStrType: TypeAlias = Literal["critical", "error", "warning", "info", "debug"]
 _LogLevelType: TypeAlias = _LogLevelIntType | _LogLevelStrType
 
-@type_check_only
-class _RootConfig(TypedDict):
-    level: str
-    handlers: list[str]
-
-@type_check_only
-class _LoggerConfig(TypedDict):
-    level: _LogLevelStrType
-    handlers: list[str]
-    propagate: bool
-    qualname: str
-
-@type_check_only
-class _HandlerConfig(TypedDict, total=False):
-    # class: str [Should be provided!]
-    formatter: str
-    stream: str
-
-@type_check_only
-class _FormatterConfig(TypedDict, total=False):
-    # class: str [Should be provided!]
-    format: str
-    datefmt: str
-
-@type_check_only
-class _ConfigDefaults(TypedDict):
-    version: int
-    disable_existing_loggers: bool
-    root: _RootConfig
-    loggers: dict[str, _LoggerConfig]
-    handlers: dict[str, _HandlerConfig]
-    formatters: dict[str, _FormatterConfig]
-
-CONFIG_DEFAULTS: _ConfigDefaults
+CONFIG_DEFAULTS: _DictConfigArgs
 
 def loggers() -> list[logging.Logger]: ...
 
