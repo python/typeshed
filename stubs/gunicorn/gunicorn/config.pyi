@@ -712,7 +712,7 @@ class OnStarting(Setting):
     default: _OnStartingHookType
     desc: str
 
-    def on_starting(server: Arbiter) -> None: ...  # type: ignore[misc]
+    def on_starting(server: Arbiter) -> None: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
 
 class OnReload(Setting):
     name: str
@@ -722,7 +722,7 @@ class OnReload(Setting):
     default: _OnReloadHookType
     desc: str
 
-    def on_reload(server: Arbiter) -> None: ...  # type: ignore[misc]
+    def on_reload(server: Arbiter) -> None: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
 
 class WhenReady(Setting):
     name: str
@@ -732,7 +732,7 @@ class WhenReady(Setting):
     default: _WhenReadyHookType
     desc: str
 
-    def when_ready(server: Arbiter) -> None: ...  # type: ignore[misc]
+    def when_ready(server: Arbiter) -> None: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
 
 class Prefork(Setting):
     name: str
@@ -742,7 +742,7 @@ class Prefork(Setting):
     default: _PreForkHookType
     desc: str
 
-    def pre_fork(server: Arbiter, worker: Worker) -> None: ...  # type: ignore[misc]
+    def pre_fork(server: Arbiter, worker: Worker) -> None: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
 
 class Postfork(Setting):
     name: str
@@ -752,7 +752,7 @@ class Postfork(Setting):
     default: _PostForkHookType
     desc: str
 
-    def post_fork(server: Arbiter, worker: Worker) -> None: ...  # type: ignore[misc]
+    def post_fork(server: Arbiter, worker: Worker) -> None: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
 
 class PostWorkerInit(Setting):
     name: str
@@ -762,7 +762,7 @@ class PostWorkerInit(Setting):
     default: _PostWorkerInitHookType
     desc: str
 
-    def post_worker_init(worker: Worker) -> None: ...  # type: ignore[misc]
+    def post_worker_init(worker: Worker) -> None: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
 
 class WorkerInt(Setting):
     name: str
@@ -772,7 +772,7 @@ class WorkerInt(Setting):
     default: _WorkerIntHookType
     desc: str
 
-    def worker_int(worker: Worker) -> None: ...  # type: ignore[misc]
+    def worker_int(worker: Worker) -> None: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
 
 class WorkerAbort(Setting):
     name: str
@@ -782,7 +782,7 @@ class WorkerAbort(Setting):
     default: _WorkerAbortHookType
     desc: str
 
-    def worker_abort(worker: Worker) -> None: ...  # type: ignore[misc]
+    def worker_abort(worker: Worker) -> None: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
 
 class PreExec(Setting):
     name: str
@@ -792,7 +792,7 @@ class PreExec(Setting):
     default: _PreExecHookType
     desc: str
 
-    def pre_exec(server: Arbiter) -> None: ...  # type: ignore[misc]
+    def pre_exec(server: Arbiter) -> None: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
 
 class PreRequest(Setting):
     name: str
@@ -802,7 +802,7 @@ class PreRequest(Setting):
     default: _PreRequestHookType
     desc: str
 
-    def pre_request(worker: Worker, req: Request) -> None: ...  # type: ignore[misc]
+    def pre_request(worker: Worker, req: Request) -> None: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
 
 class PostRequest(Setting):
     name: str
@@ -812,7 +812,7 @@ class PostRequest(Setting):
     default: _PostRequestHookType
     desc: str
 
-    def post_request(worker: Worker, req: Request, environ: _EnvironType, resp: Response) -> None: ...  # type: ignore[misc]
+    def post_request(worker: Worker, req: Request, environ: _EnvironType, resp: Response) -> None: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
 
 class ChildExit(Setting):
     name: str
@@ -822,7 +822,7 @@ class ChildExit(Setting):
     default: _ChildExitHookType
     desc: str
 
-    def child_exit(server: Arbiter, worker: Worker) -> None: ...  # type: ignore[misc]
+    def child_exit(server: Arbiter, worker: Worker) -> None: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
 
 class WorkerExit(Setting):
     name: str
@@ -832,7 +832,7 @@ class WorkerExit(Setting):
     default: _WorkerExitHookType
     desc: str
 
-    def worker_exit(server: Arbiter, worker: Worker) -> None: ...  # type: ignore[misc]
+    def worker_exit(server: Arbiter, worker: Worker) -> None: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
 
 class NumWorkersChanged(Setting):
     name: str
@@ -842,7 +842,7 @@ class NumWorkersChanged(Setting):
     default: _NumWorkersChangedHookType
     desc: str
 
-    def nworkers_changed(server: Arbiter, new_value: int, old_value: int | None) -> None: ...  # type: ignore[misc]
+    def nworkers_changed(server: Arbiter, new_value: int, old_value: int | None) -> None: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
 
 class OnExit(Setting):
     name: str
@@ -851,7 +851,7 @@ class OnExit(Setting):
     default: _OnExitHookType
     desc: str
 
-    def on_exit(server: Arbiter) -> None: ...  # type: ignore[misc]
+    def on_exit(server: Arbiter) -> None: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
 
 class NewSSLContext(Setting):
     name: str
@@ -861,7 +861,7 @@ class NewSSLContext(Setting):
     default: _SSLContextHookType
     desc: str
 
-    def ssl_context(config: Config, default_ssl_context_factory: Callable[[], SSLContext]) -> SSLContext: ...  # type: ignore[misc]
+    def ssl_context(config: Config, default_ssl_context_factory: Callable[[], SSLContext]) -> SSLContext: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
 
 class ProxyProtocol(Setting):
     name: str
