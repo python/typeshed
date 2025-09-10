@@ -1,3 +1,5 @@
 version = "23.0.*"
 upstream_repository = "https://github.com/benoitc/gunicorn"
 requires = ["types-gevent", "types-tornado"]
+supported_platforms = ["linux", "darwin"]
+ci_platforms = ["linux", "darwin"]
