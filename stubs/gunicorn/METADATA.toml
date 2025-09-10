@@ -1,5 +1,8 @@
 version = "23.0.*"
 upstream_repository = "https://github.com/benoitc/gunicorn"
 requires = ["types-gevent", "types-tornado"]
+
+[tool.stubtest]
 supported_platforms = ["linux", "darwin"]
 ci_platforms = ["linux", "darwin"]
+stubtest_requirements = ["gevent", "eventlet", "tornado", "setproctitle", "PasteDeploy", "inotify"]
