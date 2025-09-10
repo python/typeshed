@@ -2,7 +2,7 @@ from types import FrameType
 from typing_extensions import override
 
 from gunicorn.workers.base import Worker
-from tornado.ioloop import IOLoop, PeriodicCallback  # type: ignore[import-not-found]
+from tornado.ioloop import IOLoop, PeriodicCallback  # type: ignore # pyright: ignore # noqa: PGH003
 
 TORNADO5: bool
 
