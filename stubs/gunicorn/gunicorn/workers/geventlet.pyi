@@ -1,14 +1,14 @@
 from types import FrameType
 from typing import Any
-from typing_extensions import override
+from typing_extensions import TypeAlias, override
 
-from eventlet.greenio import GreenSocket  # type: ignore # pyright: ignore # noqa: PGH003
-from eventlet.wsgi import local  # type: ignore # pyright: ignore # noqa: PGH003
 from gunicorn.workers.base_async import AsyncWorker
 
 from .._types import _AddressType
 
-EVENTLET_WSGI_LOCAL: local | None
+GreenSocket: TypeAlias = Any  # eventlet GreenSocket class
+
+EVENTLET_WSGI_LOCAL: Any  # eventlet local instance
 EVENTLET_ALREADY_HANDLED: bool | None
 
 def patch_sendfile() -> None: ...
