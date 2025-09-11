@@ -1,9 +1,8 @@
 from types import FrameType
+from typing import Any
 from typing_extensions import TypeAlias, override
 
 from gunicorn.workers.base import Worker
-
-from typing import Any
 
 IOLoop: TypeAlias = Any  # tornado IOLoop class
 PeriodicCallback: TypeAlias = Any  # tornado PeriodicCallback class
