@@ -14,25 +14,25 @@ _AttrValue: TypeAlias = str | dict[str, str]
 _AttrDict: TypeAlias = dict[str, _AttrValue]
 
 class _DictSAXHandler:
-    path: list[tuple[str, _AttrDict | None]] = []
-    stack: list[tuple[_AttrDict | None, list[str]]] = []
-    data: list[str] = []
+    path: list[tuple[str, _AttrDict | None]]
+    stack: list[tuple[_AttrDict | None, list[str]]]
+    data: list[str]
     item: _AttrDict | None
-    item_depth: int = 0
-    xml_attribs: bool = True
+    item_depth: int
+    xml_attribs: bool
     item_callback: Callable[[list[tuple[str, _AttrDict | None]], str | _AttrDict | None], bool]
-    attr_prefix: str = "@"
-    cdata_key: str = "#text"
-    force_cdata: bool = False
-    cdata_separator: str = ""
-    postprocessor: Callable[[list[tuple[str, _AttrDict | None]], str, _AttrValue], tuple[str, _AttrValue]] | None = None
+    attr_prefix: str
+    cdata_key: str
+    force_cdata: bool
+    cdata_separator: str
+    postprocessor: Callable[[list[tuple[str, _AttrDict | None]], str, _AttrValue], tuple[str, _AttrValue]] | None
     dict_constructor: type[dict[str, str]]
-    strip_whitespace: bool = True
-    namespace_separator: str = ":"
+    strip_whitespace: bool
+    namespace_separator: str
     namespaces: dict[str, str] | None
-    namespace_declarations: dict[str, str] = {}
-    force_list: bool | tuple[str] | Callable[[tuple[str, _AttrDict | None], str, str], bool] | None = None
-    comment_key: str = "#comment"
+    namespace_declarations: dict[str, str]
+    force_list: bool | tuple[str] | Callable[[tuple[str, _AttrDict | None], str, str], bool] | None
+    comment_key: str
     def __init__(
         self,
         item_depth: int = 0,
