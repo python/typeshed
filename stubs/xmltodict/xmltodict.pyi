@@ -1,9 +1,7 @@
-
+from _typeshed import ReadableBuffer, SupportsRead, SupportsWrite
 from collections.abc import Callable, Mapping
 from types import GeneratorType
 from typing import Any, TypeAlias, overload
-
-from _typeshed import Incomplete, ReadableBuffer, SupportsRead, SupportsWrite
 
 __author__: str
 __version__: str
@@ -12,77 +10,74 @@ __license__: str
 class ParsingInterrupted(Exception): ...
 
 # dict as attribute value may be a bug: https://github.com/martinblech/xmltodict/issues/163
-_AttrValue: TypeAlias = str|dict[str,str]
+_AttrValue: TypeAlias = str | dict[str, str]
 _AttrDict: TypeAlias = dict[str, _AttrValue]
 
 class _DictSAXHandler:
     path: list[tuple[str, _AttrDict | None]] = []
     stack: list[tuple[_AttrDict | None, list[str]]] = []
     data: list[str] = []
-    item: _AttrDict|None
+    item: _AttrDict | None
     item_depth: int = 0
     xml_attribs: bool = True
-    item_callback:Callable[[list[tuple[str, _AttrDict | None]], str | _AttrDict | None], bool]
+    item_callback: Callable[[list[tuple[str, _AttrDict | None]], str | _AttrDict | None], bool]
     attr_prefix: str = "@"
     cdata_key: str = "#text"
     force_cdata: bool = False
     cdata_separator: str = ""
-    postprocessor:Callable[[list[tuple[str, _AttrDict | None]], str, _AttrValue], tuple[str, _AttrValue]] | None=None
+    postprocessor: Callable[[list[tuple[str, _AttrDict | None]], str, _AttrValue], tuple[str, _AttrValue]] | None = None
     dict_constructor: type[dict[str, str]]
     strip_whitespace: bool = True
     namespace_separator: str = ":"
     namespaces: dict[str, str] | None
     namespace_declarations: dict[str, str] = {}
-    force_list:bool|tuple[str]|Callable[[tuple[str, _AttrDict | None], str, str], bool]|None=None
+    force_list: bool | tuple[str] | Callable[[tuple[str, _AttrDict | None], str, str], bool] | None = None
     comment_key: str = "#comment"
     def __init__(
         self,
         item_depth: int = 0,
-        item_callback:Callable[[list[tuple[str, _AttrDict | None]], str | _AttrDict | None], bool]=...,
+        item_callback: Callable[[list[tuple[str, _AttrDict | None]], str | _AttrDict | None], bool] = ...,
         xml_attribs: bool = True,
         attr_prefix: str = "@",
         cdata_key: str = "#text",
         force_cdata: bool = False,
         cdata_separator: str = "",
-        postprocessor:Callable[[list[tuple[str, _AttrDict | None]], str, _AttrValue], tuple[str, _AttrValue]] | None=None,
-        dict_constructor: type[dict[str, str]]=...,
+        postprocessor: Callable[[list[tuple[str, _AttrDict | None]], str, _AttrValue], tuple[str, _AttrValue]] | None = None,
+        dict_constructor: type[dict[str, str]] = ...,
         strip_whitespace: bool = True,
         namespace_separator: str = ":",
         namespaces: dict[str, str] | None = None,
-        force_list:bool|tuple[str]|Callable[[tuple[str, _AttrDict | None], str, str], bool]|None=None,
+        force_list: bool | tuple[str] | Callable[[tuple[str, _AttrDict | None], str, str], bool] | None = None,
         comment_key: str = "#comment",
     ) -> None: ...
     def startNamespaceDecl(self, prefix: str, uri: str) -> None: ...
-    def startElement(self, full_name:str, attrs: dict[str, str] | list[str]) -> None: ...
+    def startElement(self, full_name: str, attrs: dict[str, str] | list[str]) -> None: ...
     def endElement(self, full_name: str) -> None: ...
     def characters(self, data: str) -> None: ...
     def comments(self, data: str) -> None: ...
-    def push_data(self, item: _AttrDict|None, key: str, data: str) -> _AttrDict: ...
+    def push_data(self, item: _AttrDict | None, key: str, data: str) -> _AttrDict: ...
 
 def parse(
-    xml_input: str
-    | ReadableBuffer
-    | SupportsRead[bytes]
-    | GeneratorType[ReadableBuffer, None, None],
+    xml_input: str | ReadableBuffer | SupportsRead[bytes] | GeneratorType[ReadableBuffer, None, None],
     encoding: str | None = None,
-    expat:Any=...,
+    expat: Any = ...,
     process_namespaces: bool = False,
     namespace_separator: str = ":",
     disable_entities: bool = True,
     process_comments: bool = False,
     *,
     item_depth: int = 0,
-    item_callback:Callable[[list[tuple[str, _AttrDict | None]], str | _AttrDict | None], bool]=...,
+    item_callback: Callable[[list[tuple[str, _AttrDict | None]], str | _AttrDict | None], bool] = ...,
     xml_attribs: bool = True,
     attr_prefix: str = "@",
     cdata_key: str = "#text",
     force_cdata: bool = False,
     cdata_separator: str = "",
-    postprocessor:Callable[[list[tuple[str, _AttrDict | None]], str, _AttrValue], tuple[str, _AttrValue]] | None=None,
-    dict_constructor: type[dict[str, str]]=...,
+    postprocessor: Callable[[list[tuple[str, _AttrDict | None]], str, _AttrValue], tuple[str, _AttrValue]] | None = None,
+    dict_constructor: type[dict[str, str]] = ...,
     strip_whitespace: bool = True,
     namespaces: dict[str, str] | None = None,
-    force_list:bool|tuple[str]|Callable[[tuple[str, _AttrDict | None], str, str], bool]|None=None,
+    force_list: bool | tuple[str] | Callable[[tuple[str, _AttrDict | None], str, str], bool] | None = None,
     comment_key: str = "#comment",
 ) -> dict[str, Any]: ...
 @overload
