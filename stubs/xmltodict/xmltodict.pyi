@@ -1,7 +1,9 @@
-from _typeshed import Incomplete, ReadableBuffer, SupportsRead, SupportsWrite
+
 from collections.abc import Callable, Mapping
 from types import GeneratorType
-from typing import Any, overload
+from typing import Any, TypeAlias, overload
+
+from _typeshed import Incomplete, ReadableBuffer, SupportsRead, SupportsWrite
 
 __author__: str
 __version__: str
@@ -9,59 +11,79 @@ __license__: str
 
 class ParsingInterrupted(Exception): ...
 
+# dict as attribute value may be a bug: https://github.com/martinblech/xmltodict/issues/163
+_AttrValue: TypeAlias = str|dict[str,str]
+_AttrDict: TypeAlias = dict[str, _AttrValue]
+
 class _DictSAXHandler:
-    path: Incomplete
-    stack: Incomplete
-    data: Incomplete
-    item: Incomplete
-    item_depth: Incomplete
-    xml_attribs: Incomplete
-    item_callback: Incomplete
-    attr_prefix: Incomplete
-    cdata_key: Incomplete
-    force_cdata: Incomplete
-    cdata_separator: Incomplete
-    postprocessor: Incomplete
-    dict_constructor: Incomplete
-    strip_whitespace: Incomplete
-    namespace_separator: Incomplete
-    namespaces: Incomplete
-    namespace_declarations: Incomplete
-    force_list: Incomplete
-    comment_key: Incomplete
+    path: list[tuple[str, _AttrDict | None]] = []
+    stack: list[tuple[_AttrDict | None, list[str]]] = []
+    data: list[str] = []
+    item: _AttrDict|None
+    item_depth: int = 0
+    xml_attribs: bool = True
+    item_callback:Callable[[list[tuple[str, _AttrDict | None]], str | _AttrDict | None], bool]
+    attr_prefix: str = "@"
+    cdata_key: str = "#text"
+    force_cdata: bool = False
+    cdata_separator: str = ""
+    postprocessor:Callable[[list[tuple[str, _AttrDict | None]], str, _AttrValue], tuple[str, _AttrValue]] | None=None
+    dict_constructor: type[dict[str, str]]
+    strip_whitespace: bool = True
+    namespace_separator: str = ":"
+    namespaces: dict[str, str] | None
+    namespace_declarations: dict[str, str] = {}
+    force_list:bool|tuple[str]|Callable[[tuple[str, _AttrDict | None], str, str], bool]|None=None
+    comment_key: str = "#comment"
     def __init__(
         self,
         item_depth: int = 0,
-        item_callback=...,
+        item_callback:Callable[[list[tuple[str, _AttrDict | None]], str | _AttrDict | None], bool]=...,
         xml_attribs: bool = True,
         attr_prefix: str = "@",
         cdata_key: str = "#text",
         force_cdata: bool = False,
         cdata_separator: str = "",
-        postprocessor=None,
-        dict_constructor=...,
+        postprocessor:Callable[[list[tuple[str, _AttrDict | None]], str, _AttrValue], tuple[str, _AttrValue]] | None=None,
+        dict_constructor: type[dict[str, str]]=...,
         strip_whitespace: bool = True,
         namespace_separator: str = ":",
-        namespaces=None,
-        force_list=None,
+        namespaces: dict[str, str] | None = None,
+        force_list:bool|tuple[str]|Callable[[tuple[str, _AttrDict | None], str, str], bool]|None=None,
         comment_key: str = "#comment",
     ) -> None: ...
-    def startNamespaceDecl(self, prefix, uri) -> None: ...
-    def startElement(self, full_name, attrs) -> None: ...
-    def endElement(self, full_name) -> None: ...
-    def characters(self, data) -> None: ...
-    def comments(self, data) -> None: ...
-    def push_data(self, item, key, data): ...
+    def startNamespaceDecl(self, prefix: str, uri: str) -> None: ...
+    def startElement(self, full_name:str, attrs: dict[str, str] | list[str]) -> None: ...
+    def endElement(self, full_name: str) -> None: ...
+    def characters(self, data: str) -> None: ...
+    def comments(self, data: str) -> None: ...
+    def push_data(self, item: _AttrDict|None, key: str, data: str) -> _AttrDict: ...
 
 def parse(
-    xml_input: str | ReadableBuffer | SupportsRead[bytes] | GeneratorType[ReadableBuffer, Any, Any],
+    xml_input: str
+    | ReadableBuffer
+    | SupportsRead[bytes]
+    | GeneratorType[ReadableBuffer, None, None],
     encoding: str | None = None,
-    expat=...,
+    expat:Any=...,
     process_namespaces: bool = False,
     namespace_separator: str = ":",
     disable_entities: bool = True,
     process_comments: bool = False,
-    **kwargs: Any,
+    *,
+    item_depth: int = 0,
+    item_callback:Callable[[list[tuple[str, _AttrDict | None]], str | _AttrDict | None], bool]=...,
+    xml_attribs: bool = True,
+    attr_prefix: str = "@",
+    cdata_key: str = "#text",
+    force_cdata: bool = False,
+    cdata_separator: str = "",
+    postprocessor:Callable[[list[tuple[str, _AttrDict | None]], str, _AttrValue], tuple[str, _AttrValue]] | None=None,
+    dict_constructor: type[dict[str, str]]=...,
+    strip_whitespace: bool = True,
+    namespaces: dict[str, str] | None = None,
+    force_list:bool|tuple[str]|Callable[[tuple[str, _AttrDict | None], str, str], bool]|None=None,
+    comment_key: str = "#comment",
 ) -> dict[str, Any]: ...
 @overload
 def unparse(
@@ -74,12 +96,12 @@ def unparse(
     attr_prefix: str = "@",
     cdata_key: str = "#text",
     depth: int = 0,
-    preprocessor: Callable[[str, Incomplete], tuple[str, Incomplete]] | None = None,
+    preprocessor: Callable[[str, Any], tuple[str, Any]] | None = None,
     pretty: bool = False,
     newl: str = "\n",
     indent: str = "\t",
     namespace_separator: str = ":",
-    namespaces: dict[str, str] | None = None,
+    namespaces: Mapping[str, str] | None = None,
     expand_iter: str | None = None,
 ) -> None: ...
 @overload
@@ -93,11 +115,11 @@ def unparse(
     attr_prefix: str = "@",
     cdata_key: str = "#text",
     depth: int = 0,
-    preprocessor: Callable[[str, Incomplete], tuple[str, Incomplete]] | None = None,
+    preprocessor: Callable[[str, Any], tuple[str, Any]] | None = None,
     pretty: bool = False,
     newl: str = "\n",
     indent: str = "\t",
     namespace_separator: str = ":",
-    namespaces: dict[str, str] | None = None,
+    namespaces: Mapping[str, str] | None = None,
     expand_iter: str | None = None,
 ) -> str: ...
