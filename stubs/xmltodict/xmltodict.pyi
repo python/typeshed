@@ -1,7 +1,8 @@
 from _typeshed import ReadableBuffer, SupportsRead, SupportsWrite
 from collections.abc import Callable, Mapping
 from types import GeneratorType
-from typing import Any, TypeAlias, overload
+from typing import Any, overload
+from typing_extensions import TypeAlias
 
 __author__: str
 __version__: str
