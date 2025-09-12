@@ -10,7 +10,7 @@ __license__: str
 
 class ParsingInterrupted(Exception): ...
 
-# dict as attribute value may be a bug: https://github.com/martinblech/xmltodict/issues/163
+# dict as attribute value is exclusive to xmlns: https://github.com/bigpick/xmltodict/commit/22541b4874365cb8d2397f23087a866b3081fd9c
 _AttrValue: TypeAlias = str | dict[str, str]
 _AttrDict: TypeAlias = dict[str, _AttrValue]
 
