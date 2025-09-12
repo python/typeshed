@@ -249,7 +249,7 @@ class ServicerContext(Generic[_TRequest, _TResponse], metaclass=abc.ABCMeta):
 
 class ClientCallDetails(abc.ABC):
     def __new__(
-        cls,
+        _cls,
         method: str,
         timeout: float | None,
         metadata: Metadata | None,
