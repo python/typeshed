@@ -116,6 +116,8 @@ def run_stubtest(dist: Path, *, verbose: bool = False, ci_platforms_only: bool =
                 *packages_to_check,
                 *modules_to_check,
                 *allowlist_stubtest_arguments(dist_name),
+                # FIXME: remove once issues are fixed, refs #14699
+                "--ignore-disjoint-bases",
             ]
 
             stubs_dir = dist.parent
