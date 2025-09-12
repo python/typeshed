@@ -18,6 +18,7 @@ from .hooks import Hooks
 from .jobs import Jobs
 from .log_streams import LogStreams
 from .logs import Logs
+from .network_acls import NetworkAcls
 from .organizations import Organizations
 from .prompts import Prompts
 from .resource_servers import ResourceServers
@@ -51,6 +52,7 @@ class Auth0:
     jobs: Jobs
     log_streams: LogStreams
     logs: Logs
+    network_acls: NetworkAcls
     organizations: Organizations
     prompts: Prompts
     resource_servers: ResourceServers
