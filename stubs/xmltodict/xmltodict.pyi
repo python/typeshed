@@ -1,5 +1,5 @@
 from _typeshed import ReadableBuffer, SupportsRead, SupportsWrite
-from collections.abc import Callable, Mapping
+from collections.abc import Callable, Container, Mapping
 from types import GeneratorType
 from typing import Any, overload
 from typing_extensions import TypeAlias
@@ -24,7 +24,7 @@ class _DictSAXHandler:
     item_callback: Callable[[list[tuple[str, _AttrDict | None]], str | _AttrDict | None], bool]
     attr_prefix: str
     cdata_key: str
-    force_cdata: bool
+    force_cdata: bool | Container[str] | Callable[[tuple[str, _AttrDict | None], str, str], bool]
     cdata_separator: str
     postprocessor: Callable[[list[tuple[str, _AttrDict | None]], str, _AttrValue], tuple[str, _AttrValue]] | None
     dict_constructor: type[dict[str, str]]
@@ -32,7 +32,7 @@ class _DictSAXHandler:
     namespace_separator: str
     namespaces: dict[str, str] | None
     namespace_declarations: dict[str, str]
-    force_list: bool | tuple[str] | Callable[[tuple[str, _AttrDict | None], str, str], bool] | None
+    force_list: bool | Container[str] | Callable[[tuple[str, _AttrDict | None], str, str], bool] | None
     comment_key: str
     def __init__(
         self,
@@ -41,14 +41,14 @@ class _DictSAXHandler:
         xml_attribs: bool = True,
         attr_prefix: str = "@",
         cdata_key: str = "#text",
-        force_cdata: bool = False,
+        force_cdata: bool | Container[str] | Callable[[tuple[str, _AttrDict | None], str, str], bool] = False,
         cdata_separator: str = "",
         postprocessor: Callable[[list[tuple[str, _AttrDict | None]], str, _AttrValue], tuple[str, _AttrValue]] | None = None,
         dict_constructor: type[dict[str, str]] = ...,
         strip_whitespace: bool = True,
         namespace_separator: str = ":",
         namespaces: dict[str, str] | None = None,
-        force_list: bool | tuple[str] | Callable[[tuple[str, _AttrDict | None], str, str], bool] | None = None,
+        force_list: bool | Container[str] | Callable[[tuple[str, _AttrDict | None], str, str], bool] | None = None,
         comment_key: str = "#comment",
     ) -> None: ...
     def startNamespaceDecl(self, prefix: str, uri: str) -> None: ...
@@ -72,13 +72,13 @@ def parse(
     xml_attribs: bool = True,
     attr_prefix: str = "@",
     cdata_key: str = "#text",
-    force_cdata: bool = False,
+    force_cdata: bool | Container[str] | Callable[[tuple[str, _AttrDict | None], str, str], bool] = False,
     cdata_separator: str = "",
     postprocessor: Callable[[list[tuple[str, _AttrDict | None]], str, _AttrValue], tuple[str, _AttrValue]] | None = None,
     dict_constructor: type[dict[str, str]] = ...,
     strip_whitespace: bool = True,
     namespaces: dict[str, str] | None = None,
-    force_list: bool | tuple[str] | Callable[[tuple[str, _AttrDict | None], str, str], bool] | None = None,
+    force_list: bool | Container[str] | Callable[[tuple[str, _AttrDict | None], str, str], bool] | None = None,
     comment_key: str = "#comment",
 ) -> dict[str, Any]: ...
 @overload
