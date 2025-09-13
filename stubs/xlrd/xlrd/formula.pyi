@@ -63,7 +63,9 @@ class Ref3D(tuple[int, int, int, int, int, int, int, int, int, int, int, int]):
     rowxhi: int
     colxlo: int
     colxhi: int
-    def __init__(self, atuple: tuple[int, int, int, int, int, int, int, int, int, int, int, int]) -> None: ...
+    def __init__(  # pyright: ignore[reportInconsistentConstructor]
+        self, atuple: tuple[int, int, int, int, int, int, int, int, int, int, int, int]
+    ) -> None: ...
 
 def evaluate_name_formula(bk: Book, nobj: Name, namex: str, blah: int = 0, level: int = 0) -> None: ...
 def decompile_formula(
