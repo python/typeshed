@@ -1,3 +1,7 @@
 # DictCursorMixin changes method types of inherited classes, but doesn't contain much at runtime
 pymysql.cursors.DictCursorMixin.__iter__
 pymysql.cursors.DictCursorMixin.fetch[a-z]*
+
+# FIXME: new stubtest errors from mypy v1.18.1 that need to be looked at more closely.
+# See https://github.com/python/typeshed/pull/14699
+pymysql.connections.Connection.__init__
