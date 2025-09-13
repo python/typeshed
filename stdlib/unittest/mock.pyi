@@ -513,7 +513,8 @@ class _ANY:
     def __ne__(self, other: object) -> Literal[False]: ...
     __hash__: ClassVar[None]  # type: ignore[assignment]
 
-ANY: _ANY
+# See https://github.com/python/typeshed/issues/14701
+ANY: Any
 
 if sys.version_info >= (3, 10):
     def create_autospec(
