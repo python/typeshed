@@ -1,12 +1,12 @@
 from _typeshed import ReadableBuffer, SupportsRead, SupportsWrite
 from collections.abc import Callable, Container, Mapping
 from types import GeneratorType
-from typing import Any, overload
+from typing import Any, Final, overload
 from typing_extensions import TypeAlias
 
-__author__: str
-__version__: str
-__license__: str
+__author__: Final[str]
+__version__: Final[str]
+__license__: Final[str]
 
 class ParsingInterrupted(Exception): ...
 
@@ -27,7 +27,7 @@ class _DictSAXHandler:
     force_cdata: bool | Container[str] | Callable[[tuple[str, _AttrDict | None], str, str], bool]
     cdata_separator: str
     postprocessor: Callable[[list[tuple[str, _AttrDict | None]], str, _AttrValue], tuple[str, _AttrValue]] | None
-    dict_constructor: type[dict[str, str]]
+    dict_constructor: type
     strip_whitespace: bool
     namespace_separator: str
     namespaces: dict[str, str] | None
@@ -44,7 +44,7 @@ class _DictSAXHandler:
         force_cdata: bool | Container[str] | Callable[[tuple[str, _AttrDict | None], str, str], bool] = False,
         cdata_separator: str = "",
         postprocessor: Callable[[list[tuple[str, _AttrDict | None]], str, _AttrValue], tuple[str, _AttrValue]] | None = None,
-        dict_constructor: type[dict[str, str]] = ...,
+        dict_constructor: type = ...,
         strip_whitespace: bool = True,
         namespace_separator: str = ":",
         namespaces: dict[str, str] | None = None,
@@ -75,7 +75,7 @@ def parse(
     force_cdata: bool | Container[str] | Callable[[tuple[str, _AttrDict | None], str, str], bool] = False,
     cdata_separator: str = "",
     postprocessor: Callable[[list[tuple[str, _AttrDict | None]], str, _AttrValue], tuple[str, _AttrValue]] | None = None,
-    dict_constructor: type[dict[str, str]] = ...,
+    dict_constructor: type = ...,
     strip_whitespace: bool = True,
     namespaces: dict[str, str] | None = None,
     force_list: bool | Container[str] | Callable[[tuple[str, _AttrDict | None], str, str], bool] | None = None,
@@ -88,6 +88,7 @@ def unparse(
     encoding: str = "utf-8",
     full_document: bool = True,
     short_empty_elements: bool = False,
+    comment_key: str = "#comment",
     *,
     attr_prefix: str = "@",
     cdata_key: str = "#text",
@@ -95,7 +96,7 @@ def unparse(
     preprocessor: Callable[[str, Any], tuple[str, Any]] | None = None,
     pretty: bool = False,
     newl: str = "\n",
-    indent: str = "\t",
+    indent: str | int = "\t",
     namespace_separator: str = ":",
     namespaces: Mapping[str, str] | None = None,
     expand_iter: str | None = None,
@@ -103,10 +104,11 @@ def unparse(
 @overload
 def unparse(
     input_dict: Mapping[str, Any],
-    output: None = ...,
+    output: None = None,
     encoding: str = "utf-8",
     full_document: bool = True,
     short_empty_elements: bool = False,
+    comment_key: str = "#comment",
     *,
     attr_prefix: str = "@",
     cdata_key: str = "#text",
@@ -114,7 +116,7 @@ def unparse(
     preprocessor: Callable[[str, Any], tuple[str, Any]] | None = None,
     pretty: bool = False,
     newl: str = "\n",
-    indent: str = "\t",
+    indent: str | int = "\t",
     namespace_separator: str = ":",
     namespaces: Mapping[str, str] | None = None,
     expand_iter: str | None = None,
