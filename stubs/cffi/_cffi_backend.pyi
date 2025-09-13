@@ -3,7 +3,7 @@ import types
 from _typeshed import Incomplete, ReadableBuffer, WriteableBuffer
 from collections.abc import Callable, Hashable
 from typing import Any, ClassVar, Literal, Protocol, SupportsIndex, TypeVar, final, overload, type_check_only
-from typing_extensions import TypeAlias
+from typing_extensions import Self, TypeAlias
 
 _T = TypeVar("_T")
 
@@ -92,7 +92,7 @@ class _CDataBase:
 @final
 class buffer:
     __hash__: ClassVar[None]  # type: ignore[assignment]
-    def __init__(self, *args, **kwargs) -> None: ...
+    def __new__(cls, *args, **kwargs) -> Self: ...
     def __buffer__(self, flags: int, /) -> memoryview: ...
     def __delitem__(self, other, /) -> None: ...
     def __eq__(self, other, /): ...

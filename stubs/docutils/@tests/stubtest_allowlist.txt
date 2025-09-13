@@ -36,3 +36,9 @@ docutils.readers.TYPE_CHECKING
 docutils.utils.TYPE_CHECKING
 docutils.writers.TYPE_CHECKING
 docutils.writers._html_base.TYPE_CHECKING
+
+# FIXME: new stubtest errors from mypy v1.18.1 that need to be looked at more closely.
+# See https://github.com/python/typeshed/pull/14699
+docutils\.nodes\.\w+\.content_model
+docutils.parsers.docutils_xml.Unknown.content_model
+docutils.transforms.universal.SmartQuotes.nodes_to_skip
