@@ -1,7 +1,7 @@
 from _typeshed import MaybeNone
 from collections.abc import Callable, Iterable
 from typing import Any, Final, Generic, TypeVar, type_check_only
-from typing_extensions import TypeAlias
+from typing_extensions import Self, TypeAlias
 
 __all__ = [
     "LUA_VERSION",
@@ -78,7 +78,7 @@ class LuaRuntime:
     lua_implementation: Final[str]
     lua_version: Final[tuple[int, int]]
 
-    def __init__(self, /, unpack_returned_tuples: bool) -> None: ...
+    def __new__(cls, /, unpack_returned_tuples: bool) -> Self: ...
     # def add_pending_unref(self, ref: int) -> None: ...
     # def clean_up_pending_unrefs(self) -> int: ...
     def get_max_memory(self, total: bool = False) -> int | MaybeNone: ...
