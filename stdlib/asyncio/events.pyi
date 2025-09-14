@@ -602,9 +602,7 @@ class AbstractEventLoop:
     @abstractmethod
     async def shutdown_default_executor(self) -> None: ...
 
-# This class does not exist at runtime, but stubtest complains if it's marked as
-# @type_check_only because it has an alias that does exist at runtime. See mypy#19568.
-# @type_check_only
+@type_check_only
 class _AbstractEventLoopPolicy:
     @abstractmethod
     def get_event_loop(self) -> AbstractEventLoop: ...
