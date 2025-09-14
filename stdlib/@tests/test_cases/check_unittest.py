@@ -236,7 +236,7 @@ with patch.object(Decimal, "exp", new_callable=lambda: 42) as obj_explicit_new_c
 assert_type(ANY, _ANY)  # Make sure ANY has runtime type
 
 
-# Regression tests. See https://github.com/python/typeshed/issues/9296
+# Regression tests. See https://github.com/python/typeshed/issues/14701
 class TD(TypedDict):
     x: str
     y: float
