@@ -3,8 +3,8 @@
 from _typeshed import Incomplete
 from collections.abc import Sequence
 from datetime import datetime
-from typing import ClassVar, Final, NoReturn, SupportsInt, overload
-from typing_extensions import Never, deprecated, disjoint_base
+from typing import ClassVar, Final, SupportsInt, overload
+from typing_extensions import Never, Self, deprecated, disjoint_base
 
 import _win32typing
 
@@ -18,7 +18,7 @@ class com_error(Exception): ...
 
 @disjoint_base
 class HANDLEType:
-    def __new__(self, *args: Never) -> NoReturn: ...
+    def __new__(cls, *args: Never) -> Self: ...
     @property
     def handle(self) -> int: ...
     def Close(self) -> None: ...
