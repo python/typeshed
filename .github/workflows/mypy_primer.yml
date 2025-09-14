@@ -53,6 +53,7 @@ jobs:
             --custom-typeshed-repo typeshed_to_test \
             --new-typeshed $GITHUB_SHA --old-typeshed upstream_main \
             --num-shards 4 --shard-index ${{ matrix.shard-index }} \
+            --project-selector '^((?!materialize).)*$' \
             --debug \
             --output concise \
             | tee diff_${{ matrix.shard-index }}.txt
