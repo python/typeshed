@@ -1,6 +1,7 @@
+from typing_extensions import assert_type
+
 from pymysql.connections import Connection
 from pymysql.cursors import Cursor
-from typing_extensions import assert_type
 
 
 class MyCursor(Cursor):
