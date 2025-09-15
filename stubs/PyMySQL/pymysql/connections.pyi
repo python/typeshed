@@ -76,7 +76,7 @@ class Connection(Generic[_C]):
         conv: dict[int | type[Any], Callable[[Any], str] | Callable[[str], Any]] | None = None,
         use_unicode: bool = True,
         client_flag: int = 0,
-        cursorclass: None = None,  # different between overloads
+        cursorclass: type[Cursor] = Cursor,  # different between overloads
         init_command: str | None = None,
         connect_timeout: float = 10,
         read_default_group: str | None = None,
@@ -170,7 +170,7 @@ class Connection(Generic[_C]):
         conv: dict[int | type[Any], Callable[[Any], str] | Callable[[str], Any]] | None = None,
         use_unicode: bool = True,
         client_flag: int = 0,
-        cursorclass: None = None,  # different between overloads
+        cursorclass: type[Cursor] = Cursor,  # different between overloads
         init_command: str | None = None,
         connect_timeout: float = 10,
         read_default_group: str | None = None,
