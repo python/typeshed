@@ -22,7 +22,7 @@ from .err import (
 )
 
 _C = TypeVar("_C", bound=Cursor, default=Cursor)
-_C2 = TypeVar("_C2", bound=Cursor, default=Cursor)
+_C2 = TypeVar("_C2", bound=Cursor)
 
 SSL_ENABLED: bool
 DEFAULT_USER: str | None
@@ -61,8 +61,7 @@ class Connection(Generic[_C]):
 
     @overload
     def __init__(
-        # different between overloads
-        self: Connection[_C],  # pyright: ignore[reportInvalidTypeVarUse]  #11780
+        self,
         *,
         user: str | bytes | None = None,
         password: str | bytes = "",
@@ -77,7 +76,7 @@ class Connection(Generic[_C]):
         conv: dict[int | type[Any], Callable[[Any], str] | Callable[[str], Any]] | None = None,
         use_unicode: bool = True,
         client_flag: int = 0,
-        cursorclass: type[_C] = ...,  # different between overloads
+        cursorclass: type[_C] = ...,
         init_command: str | None = None,
         connect_timeout: float = 10,
         read_default_group: str | None = None,
@@ -109,8 +108,7 @@ class Connection(Generic[_C]):
     @overload
     @deprecated("'passwd' and 'db' arguments are deprecated. Use 'password' and 'database' instead.")
     def __init__(
-        # different between overloads
-        self: Connection[_C],  # pyright: ignore[reportInvalidTypeVarUse]  #11780
+        self,
         *,
         user: str | bytes | None = None,
         password: str | bytes = "",
@@ -125,7 +123,7 @@ class Connection(Generic[_C]):
         conv: dict[int | type[Any], Callable[[Any], str] | Callable[[str], Any]] | None = None,
         use_unicode: bool = True,
         client_flag: int = 0,
-        cursorclass: type[_C] = ...,  # different between overloads
+        cursorclass: type[_C] = ...,
         init_command: str | None = None,
         connect_timeout: float = 10,
         read_default_group: str | None = None,
