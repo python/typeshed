@@ -3,7 +3,7 @@ import types
 from _typeshed import Incomplete, ReadableBuffer, WriteableBuffer
 from collections.abc import Callable, Hashable
 from typing import Any, ClassVar, Literal, Protocol, SupportsIndex, TypeVar, final, overload, type_check_only
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Self, TypeAlias, disjoint_base
 
 _T = TypeVar("_T")
 
@@ -111,6 +111,7 @@ class buffer:
 _tmp_CType = CType
 _tmp_buffer = buffer
 
+@disjoint_base
 class FFI:
     CData: TypeAlias = _CDataBase
     CType: TypeAlias = _tmp_CType

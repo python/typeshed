@@ -1,5 +1,5 @@
 from typing import Literal, SupportsIndex, final, overload
-from typing_extensions import Never, Self
+from typing_extensions import Never, Self, disjoint_base
 
 import numpy as np
 from numpy.typing import NDArray
@@ -142,6 +142,7 @@ geos_version: tuple[int, int, int]
 geos_version_string: str
 registry: list[type[Geometry]]
 
+@disjoint_base
 class Geometry:
     def __hash__(self) -> int: ...
     def __eq__(self, other: object, /) -> bool: ...
