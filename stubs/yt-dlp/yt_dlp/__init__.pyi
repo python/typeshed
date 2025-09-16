@@ -232,6 +232,7 @@ class _Params(TypedDict, total=False):
     geo_bypass: bool | None
     geo_bypass_country: str | None
     geo_bypass_ip_block: str | None
+    useid: bool | None
     compat_opts: dict[str, Any] | None
     logger: _LoggerProtocol
     # Undocumented fields below.

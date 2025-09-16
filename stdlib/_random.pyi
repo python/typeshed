@@ -1,9 +1,10 @@
 import sys
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Self, TypeAlias, disjoint_base
 
 # Actually Tuple[(int,) * 625]
 _State: TypeAlias = tuple[int, ...]
 
+@disjoint_base
 class Random:
     if sys.version_info >= (3, 10):
         def __init__(self, seed: object = ..., /) -> None: ...

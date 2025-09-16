@@ -25,6 +25,9 @@ posixpath.join
 ntpath.join
 os.path.join
 
+# this is implemented with *args having a minimum size so arguments before it must be positional (but stubtest doesn't see that)
+tkinter.ttk.Style.element_create
+
 # typing.IO uses positional-or-keyword arguments, but in the stubs we prefer
 # to mark these as positional-only for compatibility with existing sub-classes.
 typing(_extensions)?\.BinaryIO\.write
@@ -54,6 +57,8 @@ asyncio.locks.Event.__init__
 asyncio.locks.Lock.__init__
 asyncio.locks.Semaphore.__init__
 asyncio.queues.Queue.__init__
+
+_random.Random.__init__  # Issues with __new__/__init__ correspondence
 
 bdb.Breakpoint.clearBreakpoints  # Exists at runtime, but missing from stubs
 
@@ -100,7 +105,6 @@ typing_extensions.Sentinel.__call__
 # <= 3.11
 # =======
 
-_?bz2.BZ2Decompressor.__init__  # function does not accept parameters but C signature is set
 enum.Enum._generate_next_value_
 importlib.abc.Finder.find_module
 urllib.request.HTTPPasswordMgrWithPriorAuth.__init__  # Args are passed as is to super, so super args are specified
