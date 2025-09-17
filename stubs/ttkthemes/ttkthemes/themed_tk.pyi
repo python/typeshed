@@ -1,5 +1,6 @@
 import tkinter
-from typing import Any
+from collections.abc import Callable
+from typing import Any, Literal
 
 from ._widget import ThemedWidget
 
@@ -31,21 +32,21 @@ class ThemedTk(tkinter.Tk, ThemedWidget):
         toplevel: bool | None = ...,
         theme: str | None = ...,
         background: str = ...,
-        bd: tkinter._ScreenUnits = ...,
+        bd: str | float = ...,
         bg: str = ...,
-        border: tkinter._ScreenUnits = ...,
-        borderwidth: tkinter._ScreenUnits = ...,
+        border: str | float = ...,
+        borderwidth: str | float = ...,
         cursor: tkinter._Cursor = ...,
-        height: tkinter._ScreenUnits = ...,
+        height: str | float = ...,
         highlightbackground: str = ...,
         highlightcolor: str = ...,
-        highlightthickness: tkinter._ScreenUnits = ...,
+        highlightthickness: str | float = ...,
         menu: tkinter.Menu = ...,
-        padx: tkinter._ScreenUnits = ...,
-        pady: tkinter._ScreenUnits = ...,
-        relief: tkinter._Relief = ...,
-        takefocus: tkinter._TakeFocusValue = ...,
-        width: tkinter._ScreenUnits = ...,
+        padx: str | float = ...,
+        pady: str | float = ...,
+        relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
+        takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = ...,
+        width: str | float = ...,
     ) -> dict[str, tuple[str, str, str, Any, Any]] | None: ...
     def cget(self, k: str) -> Any: ...
     def configure(  # type: ignore[override]
@@ -56,21 +57,21 @@ class ThemedTk(tkinter.Tk, ThemedWidget):
         toplevel: bool | None = ...,
         theme: str | None = ...,
         background: str = ...,
-        bd: tkinter._ScreenUnits = ...,
+        bd: str | float = ...,
         bg: str = ...,
-        border: tkinter._ScreenUnits = ...,
-        borderwidth: tkinter._ScreenUnits = ...,
+        border: str | float = ...,
+        borderwidth: str | float = ...,
         cursor: tkinter._Cursor = ...,
-        height: tkinter._ScreenUnits = ...,
+        height: str | float = ...,
         highlightbackground: str = ...,
         highlightcolor: str = ...,
-        highlightthickness: tkinter._ScreenUnits = ...,
+        highlightthickness: str | float = ...,
         menu: tkinter.Menu = ...,
-        padx: tkinter._ScreenUnits = ...,
-        pady: tkinter._ScreenUnits = ...,
-        relief: tkinter._Relief = ...,
-        takefocus: tkinter._TakeFocusValue = ...,
-        width: tkinter._ScreenUnits = ...,
+        padx: str | float = ...,
+        pady: str | float = ...,
+        relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
+        takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = ...,
+        width: str | float = ...,
     ) -> dict[str, tuple[str, str, str, Any, Any]] | None: ...
     def __getitem__(self, k: str) -> Any: ...
     def __setitem__(self, k: str, v: Any) -> None: ...
