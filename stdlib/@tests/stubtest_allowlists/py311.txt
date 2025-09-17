@@ -7,7 +7,6 @@
 # >= 3.11
 # =======
 
-enum.Enum.__init__
 typing.NewType.__mro_entries__
 
 
@@ -46,6 +45,9 @@ posixpath.join
 ntpath.join
 os.path.join
 
+# this is implemented with *args having a minimum size so arguments before it must be positional (but stubtest doesn't see that)
+tkinter.ttk.Style.element_create
+
 # typing.IO uses positional-or-keyword arguments, but in the stubs we prefer
 # to mark these as positional-only for compatibility with existing sub-classes.
 typing(_extensions)?\.BinaryIO\.write
@@ -69,7 +71,6 @@ importlib.metadata._meta.SimplePath.__truediv__  # Runtime definition of protoco
 # <= 3.11
 # =======
 
-_?bz2.BZ2Decompressor.__init__  # function does not accept parameters but C signature is set
 enum.Enum._generate_next_value_
 importlib.abc.Finder.find_module
 urllib.request.HTTPPasswordMgrWithPriorAuth.__init__  # Args are passed as is to super, so super args are specified
@@ -138,11 +139,17 @@ typing\.ByteString
 typing_extensions.TypeAliasType.__call__
 
 
+# ============
+# 3.11 to 3.13
+# ============
+
+enum.Enum.__init__
+
+
 # =============================================================
 # Allowlist entries that cannot or should not be fixed; >= 3.11
 # =============================================================
 
-argparse._MutuallyExclusiveGroup.add_mutually_exclusive_group  # deprecated, forwards arguments to super
 enum.auto.__init__  # The stub for enum.auto is nothing like the implementation
 enum.auto.value  # The stub for enum.auto is nothing like the implementation
 http.HTTPMethod.description  # mutable instance attribute at runtime but we pretend it's a property
@@ -196,11 +203,11 @@ importlib.metadata.DeprecatedList.sort
 typing.ParamSpec(Args|Kwargs).__origin__
 
 
-# =================================================================
-# Allowlist entries that cannot or should not be fixed; 3.9 to 3.12
-# =================================================================
+# ==================================================================
+# Allowlist entries that cannot or should not be fixed; 3.11 to 3.13
+# ==================================================================
 
-typing\.Annotated  # Super-special typing primitive
+argparse._MutuallyExclusiveGroup.add_mutually_exclusive_group  # deprecated, forwards arguments to super
 
 
 # =============================================================
@@ -221,6 +228,7 @@ lib2to3.tests  # Modules that exist at runtime, but shouldn't be added to typesh
 lib2to3\.tests\..+  # Modules that exist at runtime, but shouldn't be added to typeshed
 pkgutil.ImpImporter\..*  # Removed in 3.12
 pkgutil.ImpLoader\..*  # Removed in 3.12
+platform.platform  # runtime default is 0, we pretend it's a bool
 poplib.POP3_SSL.stls  # bad declaration of inherited function. See poplib.pyi
 tkinter.test  # Modules that exist at runtime, but shouldn't be added to typeshed
 tkinter\.test\..+  # Modules that exist at runtime, but shouldn't be added to typeshed
@@ -230,6 +238,11 @@ typing_extensions\.TypeAliasType\.__(parameters|type_params|name|module|value)__
 
 unittest.test  # Modules that exist at runtime, but shouldn't be added to typeshed
 unittest\.test\..+  # Modules that exist at runtime, but shouldn't be added to typeshed
+
+# Incompatible changes introduced in Python 3.11.12
+# (Remove once 3.11.12 becomes available for all platforms)
+(email._header_value_parser.get_encoded_word)?
+(email._header_value_parser.make_quoted_pairs)?
 
 
 # =============================================================
@@ -275,11 +288,7 @@ sunau.Au_write.initfp
 threading.Lock  # Factory function at runtime, but that wouldn't let us use it in type hints
 types.SimpleNamespace.__init__  # class doesn't accept positional arguments but has default C signature
 typing_extensions\.Annotated  # Undocumented implementation details
-
-# Incompatible changes introduced in Python 3.11.12
-# (Remove once 3.11.12 becomes available for all platforms)
-(email._header_value_parser.get_encoded_word)?
-(email._header_value_parser.make_quoted_pairs)?
+typing\.Annotated  # Super-special typing primitive
 
 # These methods have no default implementation for Python < 3.13.
 _pickle.Pickler.persistent_id

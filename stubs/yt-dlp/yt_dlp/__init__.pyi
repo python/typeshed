@@ -232,6 +232,7 @@ class _Params(TypedDict, total=False):
     geo_bypass: bool | None
     geo_bypass_country: str | None
     geo_bypass_ip_block: str | None
+    useid: bool | None
     compat_opts: dict[str, Any] | None
     logger: _LoggerProtocol
     # Undocumented fields below.
@@ -252,5 +253,5 @@ class _ParsedOptions(NamedTuple):
     urls: Collection[str]
     ydl_opts: _Params
 
-def parse_options(argv: Collection[str] | None = ...) -> _ParsedOptions: ...
-def main(argv: list[str] | None = ...) -> int: ...
+def parse_options(argv: Collection[str] | None = None) -> _ParsedOptions: ...
+def main(argv: list[str] | None = None) -> int: ...

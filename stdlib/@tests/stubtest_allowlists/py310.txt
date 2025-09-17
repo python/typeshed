@@ -25,6 +25,9 @@ posixpath.join
 ntpath.join
 os.path.join
 
+# this is implemented with *args having a minimum size so arguments before it must be positional (but stubtest doesn't see that)
+tkinter.ttk.Style.element_create
+
 # typing.IO uses positional-or-keyword arguments, but in the stubs we prefer
 # to mark these as positional-only for compatibility with existing sub-classes.
 typing(_extensions)?\.BinaryIO\.write
@@ -55,6 +58,8 @@ asyncio.locks.Lock.__init__
 asyncio.locks.Semaphore.__init__
 asyncio.queues.Queue.__init__
 
+_random.Random.__init__  # Issues with __new__/__init__ correspondence
+
 bdb.Breakpoint.clearBreakpoints  # Exists at runtime, but missing from stubs
 
 
@@ -70,22 +75,11 @@ importlib.metadata._meta.SimplePath.__truediv__  # Runtime definition of protoco
 # ===================================
 
 
-# ===========
-# 3.9 to 3.10
-# ===========
-
-builtins.float.__setformat__  # Internal method for CPython test suite
-typing._SpecialForm.__mro_entries__  # Exists at runtime, but missing from stubs
-
-# Will always raise. Not included to avoid type checkers inferring that
-# Sentinel instances are callable.
-typing_extensions.Sentinel.__call__
-
-
 # =======
 # <= 3.10
 # =======
 
+builtins.float.__setformat__  # Internal method for CPython test suite
 email.contentmanager.typ
 gettext.install  # codeset default value is ['unspecified'] so can't be specified
 gettext.translation  # codeset default value is ['unspecified'] so can't be specified
@@ -100,13 +94,17 @@ tempfile.SpooledTemporaryFile.seekable
 tempfile.SpooledTemporaryFile.writable
 
 tkinter.Tk.split  # Exists at runtime, but missing from stubs
+typing._SpecialForm.__mro_entries__  # Exists at runtime, but missing from stubs
+
+# Will always raise. Not included to avoid type checkers inferring that
+# Sentinel instances are callable.
+typing_extensions.Sentinel.__call__
 
 
 # =======
 # <= 3.11
 # =======
 
-_?bz2.BZ2Decompressor.__init__  # function does not accept parameters but C signature is set
 enum.Enum._generate_next_value_
 importlib.abc.Finder.find_module
 urllib.request.HTTPPasswordMgrWithPriorAuth.__init__  # Args are passed as is to super, so super args are specified
@@ -210,13 +208,6 @@ importlib.metadata.DeprecatedList.sort
 typing.ParamSpec(Args|Kwargs).__origin__
 
 
-# =================================================================
-# Allowlist entries that cannot or should not be fixed; 3.9 to 3.12
-# =================================================================
-
-typing\.Annotated  # Super-special typing primitive
-
-
 # =============================================================
 # Allowlist entries that cannot or should not be fixed; <= 3.10
 # =============================================================
@@ -261,6 +252,7 @@ lib2to3.tests  # Modules that exist at runtime, but shouldn't be added to typesh
 lib2to3\.tests\..+  # Modules that exist at runtime, but shouldn't be added to typeshed
 pkgutil.ImpImporter\..*  # Removed in 3.12
 pkgutil.ImpLoader\..*  # Removed in 3.12
+platform.platform  # runtime default is 0, we pretend it's a bool
 poplib.POP3_SSL.stls  # bad declaration of inherited function. See poplib.pyi
 tkinter.test  # Modules that exist at runtime, but shouldn't be added to typeshed
 tkinter\.test\..+  # Modules that exist at runtime, but shouldn't be added to typeshed
@@ -270,6 +262,11 @@ typing_extensions\.TypeAliasType\.__(parameters|type_params|name|module|value)__
 
 unittest.test  # Modules that exist at runtime, but shouldn't be added to typeshed
 unittest\.test\..+  # Modules that exist at runtime, but shouldn't be added to typeshed
+
+# Incompatible changes introduced in Python 3.10.17
+# (Remove once 3.10.17 becomes available for all platforms)
+(email._header_value_parser.get_encoded_word)?
+(email._header_value_parser.make_quoted_pairs)?
 
 
 # =============================================================
@@ -315,11 +312,7 @@ sunau.Au_write.initfp
 threading.Lock  # Factory function at runtime, but that wouldn't let us use it in type hints
 types.SimpleNamespace.__init__  # class doesn't accept positional arguments but has default C signature
 typing_extensions\.Annotated  # Undocumented implementation details
-
-# Incompatible changes introduced in Python 3.10.17
-# (Remove once 3.10.17 becomes available for all platforms)
-(email._header_value_parser.get_encoded_word)?
-(email._header_value_parser.make_quoted_pairs)?
+typing\.Annotated  # Super-special typing primitive
 
 # These methods have no default implementation for Python < 3.13.
 _pickle.Pickler.persistent_id

@@ -862,6 +862,7 @@ In the future, this property will contain the last metadata change time."""
 # on the allowlist for use as a Protocol starting in 3.14.
 @runtime_checkable
 class PathLike(ABC, Protocol[AnyStr_co]):  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
+    __slots__ = ()
     @abstractmethod
     def __fspath__(self) -> AnyStr_co: ...
 
@@ -1150,8 +1151,8 @@ if sys.platform != "win32":
             in_fd: FileDescriptor,
             offset: int,
             count: int,
-            headers: Sequence[ReadableBuffer] = ...,
-            trailers: Sequence[ReadableBuffer] = ...,
+            headers: Sequence[ReadableBuffer] = (),
+            trailers: Sequence[ReadableBuffer] = (),
             flags: int = 0,
         ) -> int: ...  # FreeBSD and Mac OS X only
 
@@ -1196,7 +1197,7 @@ if sys.platform != "win32":
 
 def getcwd() -> str: ...
 def getcwdb() -> bytes: ...
-def chmod(path: FileDescriptorOrPath, mode: int, *, dir_fd: int | None = None, follow_symlinks: bool = ...) -> None: ...
+def chmod(path: FileDescriptorOrPath, mode: int, *, dir_fd: int | None = None, follow_symlinks: bool = True) -> None: ...
 
 if sys.platform != "win32" and sys.platform != "linux":
     def chflags(path: StrOrBytesPath, flags: int, follow_symlinks: bool = True) -> None: ...  # some flavors of Unix

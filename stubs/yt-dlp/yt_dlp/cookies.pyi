@@ -32,8 +32,8 @@ class YDLLogger(_LoggerProtocol):
 class CookieLoadError(YoutubeDLError): ...
 
 class YoutubeDLCookieJar(MozillaCookieJar):
-    def __init__(self, filename: str | None = ..., delayload: bool = False, policy: CookiePolicy | None = None) -> None: ...
-    def open(self, file: str, *, write: bool = ...) -> Iterator[TextIO]: ...
+    def __init__(self, filename: str | None = None, delayload: bool = False, policy: CookiePolicy | None = None) -> None: ...
+    def open(self, file: str, *, write: bool = False) -> Iterator[TextIO]: ...
     def get_cookie_header(self, url: str) -> str: ...
     def get_cookies_for_url(self, url: str) -> list[Cookie]: ...
     def load(self, filename: str | None = None, ignore_discard: bool = True, ignore_expires: bool = True) -> None: ...
@@ -42,11 +42,11 @@ class YoutubeDLCookieJar(MozillaCookieJar):
 def load_cookies(cookie_file: str, browser_specification: str | None, ydl: YoutubeDL) -> YoutubeDLCookieJar: ...
 def extract_cookies_from_browser(
     browser_name: str,
-    profile: str | None = ...,
+    profile: str | None = None,
     logger: _LoggerProtocol = ...,
     *,
-    keyring: _LinuxKeyring | None = ...,
-    container: str | None = ...,
+    keyring: _LinuxKeyring | None = None,
+    container: str | None = None,
 ) -> YoutubeDLCookieJar: ...
 
 _T = TypeVar("_T", bound=MozillaCookieJar)
@@ -62,8 +62,8 @@ class LinuxChromeCookieDecryptor(ChromeCookieDecryptor):
         browser_keyring_name: str,
         logger: _LoggerProtocol,
         *,
-        keyring: _LinuxKeyring | None = ...,
-        meta_version: int | None = ...,
+        keyring: _LinuxKeyring | None = None,
+        meta_version: int | None = None,
     ) -> None: ...
     @staticmethod
     def derive_key(password: bytes) -> bytes: ...
@@ -81,8 +81,8 @@ def get_cookie_decryptor(
     browser_keyring_name: str,
     logger: _LoggerProtocol,
     *,
-    keyring: _LinuxKeyring | None = ...,
-    meta_version: int | None = ...,
+    keyring: _LinuxKeyring | None = None,
+    meta_version: int | None = None,
 ) -> ChromeCookieDecryptor: ...
 
 class ParserError(Exception): ...

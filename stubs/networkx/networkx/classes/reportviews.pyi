@@ -35,6 +35,7 @@ __all__ = [
 ]
 
 class NodeView(Mapping[_Node, dict[str, Any]], AbstractSet[_Node]):
+    __slots__ = ("_nodes",)
     def __init__(self, graph: Graph[_Node]) -> None: ...
     def __len__(self) -> int: ...
     def __iter__(self) -> Iterator[_Node]: ...
@@ -50,6 +51,7 @@ class NodeView(Mapping[_Node, dict[str, Any]], AbstractSet[_Node]):
     def data(self, data: Literal[True] | str = True, default=None) -> NodeDataView[_Node]: ...
 
 class NodeDataView(AbstractSet[_Node]):
+    __slots__ = ("_nodes", "_data", "_default")
     def __init__(self, nodedict: Mapping[str, Incomplete], data: bool | str = False, default=None) -> None: ...
     def __len__(self) -> int: ...
     def __iter__(self) -> Iterator[tuple[_Node, Incomplete]]: ...  # type: ignore[override]
@@ -76,24 +78,33 @@ class OutMultiDegreeView(DiDegreeView[_Node]): ...
 class EdgeViewABC(ABC): ...
 
 class OutEdgeDataView(EdgeViewABC, Generic[_Node, _D]):
+    __slots__ = ("_viewer", "_nbunch", "_data", "_default", "_adjdict", "_nodes_nbrs", "_report")
     def __init__(self, viewer, nbunch: _NBunch[_Node] = None, data: bool = False, *, default=None) -> None: ...
     def __len__(self) -> int: ...
     def __iter__(self) -> Iterator[_D]: ...
     def __contains__(self, e: _Edge[_Node]) -> bool: ...
 
-class EdgeDataView(OutEdgeDataView[_Node, _D]): ...
-class InEdgeDataView(OutEdgeDataView[_Node, _D]): ...
+class EdgeDataView(OutEdgeDataView[_Node, _D]):
+    __slots__ = ()
+
+class InEdgeDataView(OutEdgeDataView[_Node, _D]):
+    __slots__ = ()
 
 class OutMultiEdgeDataView(OutEdgeDataView[_Node, _D]):
+    __slots__ = ("keys",)
     keys: bool
     def __init__(
         self, viewer, nbunch: _NBunch[_Node] = None, data: bool = False, *, default=None, keys: bool = False
     ) -> None: ...
 
-class MultiEdgeDataView(OutEdgeDataView[_Node, _D]): ...
-class InMultiEdgeDataView(OutEdgeDataView[_Node, _D]): ...
+class MultiEdgeDataView(OutEdgeDataView[_Node, _D]):
+    __slots__ = ()
+
+class InMultiEdgeDataView(OutEdgeDataView[_Node, _D]):
+    __slots__ = ()
 
 class OutEdgeView(AbstractSet[Incomplete], Mapping[Incomplete, Incomplete], EdgeViewABC, Generic[_Node]):
+    __slots__ = ("_adjdict", "_graph", "_nodes_nbrs")
     def __init__(self, G: Graph[_Node]) -> None: ...
     def __len__(self) -> int: ...
     def __iter__(self) -> Iterator[tuple[_Node, _Node]]: ...
@@ -134,6 +145,7 @@ class OutEdgeView(AbstractSet[Incomplete], Mapping[Incomplete, Incomplete], Edge
     ) -> OutEdgeDataView[_Node, tuple[_Node, _Node, _U]]: ...
 
 class EdgeView(OutEdgeView[_Node]):
+    __slots__ = ()
     dataview = EdgeDataView
     # Have to override parent's overloads with the proper return type based on dataview
     @overload
@@ -170,6 +182,7 @@ class EdgeView(OutEdgeView[_Node]):
     ) -> EdgeDataView[_Node, tuple[_Node, _Node, _U]]: ...
 
 class InEdgeView(OutEdgeView[_Node]):
+    __slots__ = ()
     dataview = InEdgeDataView
     # Have to override parent's overloads with the proper return type based on dataview
     @overload
@@ -206,6 +219,7 @@ class InEdgeView(OutEdgeView[_Node]):
     ) -> InEdgeDataView[_Node, tuple[_Node, _Node, _U]]: ...
 
 class OutMultiEdgeView(OutEdgeView[_Node]):
+    __slots__ = ()
     def __iter__(self) -> Iterator[tuple[_Node, _Node, Incomplete]]: ...  # type: ignore[override]
     def __getitem__(self, e: tuple[_Node, _Node, Incomplete]) -> dict[str, Any]: ...  # type: ignore[override]
     dataview = OutMultiEdgeDataView
@@ -269,6 +283,7 @@ class OutMultiEdgeView(OutEdgeView[_Node]):
     ) -> OutMultiEdgeDataView[_Node, tuple[_Node, _Node, Incomplete, _U]]: ...
 
 class MultiEdgeView(OutMultiEdgeView[_Node]):
+    __slots__ = ()
     dataview = MultiEdgeDataView  # type: ignore[assignment]
     # Have to override parent's overloads with the proper return type based on dataview
     @overload  # type: ignore[override]  # Has an additional `keys` keyword argument
@@ -331,6 +346,7 @@ class MultiEdgeView(OutMultiEdgeView[_Node]):
     ) -> MultiEdgeDataView[_Node, tuple[_Node, _Node, Incomplete, _U]]: ...
 
 class InMultiEdgeView(OutMultiEdgeView[_Node]):
+    __slots__ = ()
     dataview = InMultiEdgeDataView  # type: ignore[assignment]
     # Have to override parent's overloads with the proper return type based on dataview
     @overload  # type: ignore[override]
