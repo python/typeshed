@@ -13,4 +13,4 @@ serial.serialwin32.Serial.write
 
 # FIXME: new stubtest errors from mypy v1.18.1 that need to be looked at more closely.
 # See https://github.com/python/typeshed/pull/14699
-serial.win32.ULONG_PTR
+# serial.win32.ULONG_PTR
