@@ -15,6 +15,5 @@ django_filters.fields.RangeField.__init__
 django_filters.filters.QuerySetRequestMixin.__init__
 django_filters.widgets.CSVWidget.__init__
 
-# FIXME: new stubtest errors from mypy v1.18.1 that need to be looked at more closely.
-# See https://github.com/python/typeshed/pull/14699
+# BaseCSVFilter constructs a custom class dynamically, which stubtest can't handle.
 django_filters(\.\w+)*\.OrderingFilter.field_class
