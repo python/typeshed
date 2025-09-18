@@ -41,6 +41,7 @@ __all__ = [
     "AsyncIterator",
     "Awaitable",
     "BinaryIO",
+    "ByteString",
     "Callable",
     "ChainMap",
     "ClassVar",
@@ -108,9 +109,6 @@ __all__ = [
     "overload",
     "runtime_checkable",
 ]
-
-if sys.version_info < (3, 14):
-    __all__ += ["ByteString"]
 
 if sys.version_info >= (3, 14):
     __all__ += ["evaluate_forward_ref"]
