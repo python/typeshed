@@ -1,6 +1,5 @@
 from _typeshed import ReadableBuffer, SupportsRead, SupportsWrite
-from collections.abc import Callable, Container, Mapping
-from types import GeneratorType
+from collections.abc import Callable, Container, Generator, Mapping
 from typing import Any, Final, overload
 from typing_extensions import TypeAlias
 
@@ -59,7 +58,7 @@ class _DictSAXHandler:
     def push_data(self, item: _AttrDict | None, key: str, data: str) -> _AttrDict: ...
 
 def parse(
-    xml_input: str | ReadableBuffer | SupportsRead[bytes] | GeneratorType[ReadableBuffer, None, None],
+    xml_input: str | ReadableBuffer | SupportsRead[bytes] | Generator[ReadableBuffer],
     encoding: str | None = None,
     expat: Any = ...,
     process_namespaces: bool = False,
@@ -93,6 +92,8 @@ def unparse(
     attr_prefix: str = "@",
     cdata_key: str = "#text",
     depth: int = 0,
+    # preprocessor is called like (preprocessor(key, value) for key, value in input_dict.items()).
+    # It is expected to return its input, or a modification thereof
     preprocessor: Callable[[str, Any], tuple[str, Any]] | None = None,
     pretty: bool = False,
     newl: str = "\n",
@@ -113,6 +114,8 @@ def unparse(
     attr_prefix: str = "@",
     cdata_key: str = "#text",
     depth: int = 0,
+    # preprocessor is called like (preprocessor(key, value) for key, value in input_dict.items()).
+    # It is expected to return its input, or a modification thereof
     preprocessor: Callable[[str, Any], tuple[str, Any]] | None = None,
     pretty: bool = False,
     newl: str = "\n",
