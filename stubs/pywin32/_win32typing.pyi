@@ -2,7 +2,7 @@
 from _typeshed import Incomplete, Unused
 from collections.abc import Iterable, Sequence
 from typing import Literal, NoReturn, SupportsIndex, final, overload
-from typing_extensions import Self, TypeAlias, deprecated
+from typing_extensions import Self, TypeAlias, deprecated, disjoint_base
 
 from win32.lib.pywintypes import TimeType
 
@@ -16,6 +16,7 @@ class PyOleEmpty: ...
 class PyOleMissing: ...
 class PyOleNothing: ...
 
+@disjoint_base
 class PyDSCAPSType:
     @property
     def dwFlags(self): ...
@@ -60,12 +61,14 @@ class PyDSCAPSType:
     @property
     def dwUnlockTransferRateHwBuffers(self): ...
 
+@disjoint_base
 class PyDSCBCAPSType:
     @property
     def dwBufferBytes(self): ...
     @property
     def dwFlags(self): ...
 
+@disjoint_base
 class PyDSCCAPSType:
     @property
     def dwChannels(self): ...
@@ -609,11 +612,13 @@ class PyConsoleScreenBuffer:
     def Close(self, *args): ...  # incomplete
     def Detach(self, *args): ...  # incomplete
 
+@disjoint_base
 class PyCredHandle:
     def Detach(self): ...
     def FreeCredentialsHandle(self) -> None: ...
     def QueryCredentialsAttributes(self, Attribute: int, /) -> str: ...
 
+@disjoint_base
 class PyCtxtHandle:
     def Detach(self): ...
     def CompleteAuthToken(self, Token: PySecBufferDesc, /) -> None: ...
@@ -814,6 +819,7 @@ class PyDEVMODEW:
     @DriverData.setter
     def DriverData(self, value: bytes) -> None: ...
 
+@disjoint_base
 class PyDISPLAY_DEVICE:
     @property
     def Size(self) -> int: ...
@@ -1650,6 +1656,7 @@ class PySTARTUPINFO:
     lpDesktop: str
     lpTitle: str
 
+@disjoint_base
 class PySecBuffer:
     def __new__(self, BufferSize, BufferType) -> Self: ...
     @property
@@ -1662,6 +1669,7 @@ class PySecBuffer:
     def MaxBufferSize(self): ...
     def Clear(self) -> None: ...
 
+@disjoint_base
 class PySecBufferDesc:
     def __new__(self, Version=...) -> Self: ...
     Version: Incomplete
@@ -2649,6 +2657,7 @@ class PyBIND_OPTS:
 
 class PyCMINVOKECOMMANDINFO: ...
 
+@disjoint_base
 class PyDSBCAPS:
     @property
     def dwFlags(self) -> int: ...
@@ -2659,6 +2668,7 @@ class PyDSBCAPS:
     @property
     def dwPlayCpuOverhead(self): ...
 
+@disjoint_base
 class PyDSBUFFERDESC:
     @property
     def dwFlags(self) -> int: ...
@@ -2667,6 +2677,7 @@ class PyDSBUFFERDESC:
     @property
     def lpwfxFormat(self): ...
 
+@disjoint_base
 class PyDSCAPS:
     @property
     def dwFlags(self) -> int: ...
@@ -2711,12 +2722,14 @@ class PyDSCAPS:
     @property
     def dwPlayCpuOverheadSwBuffers(self) -> int: ...
 
+@disjoint_base
 class PyDSCBCAPS:
     @property
     def dwFlags(self) -> int: ...
     @property
     def dwBufferBytes(self) -> int: ...
 
+@disjoint_base
 class PyDSCBUFFERDESC:
     @property
     def dwFlags(self) -> int: ...
@@ -2725,6 +2738,7 @@ class PyDSCBUFFERDESC:
     @property
     def lpwfxFormat(self): ...
 
+@disjoint_base
 class PyDSCCAPS:
     @property
     def dwFlags(self) -> int: ...
@@ -2751,6 +2765,7 @@ class PyDSOP_SCOPE_INIT_INFO:
     @property
     def filterFlags(self) -> PyDSOP_FILTER_FLAGS: ...
 
+@disjoint_base
 class PyDSOP_SCOPE_INIT_INFOs:
     def __new__(cls, size, /): ...
 
