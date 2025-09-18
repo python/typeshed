@@ -12,7 +12,8 @@ from docutils.transforms import Transform, Transformer
 from docutils.utils import Reporter
 
 _N = TypeVar("_N", bound=Node)
-_ContentModelCategory: TypeAlias = type[Element] | tuple[type[Element], ...]
+_ElementLikeType: TypeAlias = type[Element | Text | Body | Bibliographic | Inline]
+_ContentModelCategory: TypeAlias = _ElementLikeType | tuple[_ElementLikeType, ...]
 _ContentModelQuantifier: TypeAlias = Literal[".", "?", "+", "*"]
 _ContentModelItem: TypeAlias = tuple[_ContentModelCategory, _ContentModelQuantifier]
 _ContentModelTuple: TypeAlias = tuple[_ContentModelItem, ...]
