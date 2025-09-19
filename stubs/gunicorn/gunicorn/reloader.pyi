@@ -1,8 +1,9 @@
+import sys
 import threading
 from collections.abc import Callable, Iterable
 from re import Pattern
 from typing import TypedDict, type_check_only
-from typing_extensions import TypeAlias, override
+from typing_extensions import TypeAlias, override, NoReturn
 
 COMPILED_EXT_RE: Pattern[str]
 
@@ -19,15 +20,22 @@ class Reloader(threading.Thread):
 
 has_inotify: bool
 
-class InotifyReloader(threading.Thread):
-    event_mask: int
-    daemon: bool
+if sys.platform == "linux":
+    class InotifyReloader(threading.Thread):
+        event_mask: int
+        daemon: bool
 
-    def __init__(self, extra_files: Iterable[str] | None = None, callback: Callable[[str], None] | None = None) -> None: ...
-    def add_extra_file(self, filename: str) -> None: ...
-    def get_dirs(self) -> set[str]: ...
-    @override
-    def run(self) -> None: ...
+        def __init__(self, extra_files: Iterable[str] | None = None, callback: Callable[[str], None] | None = None) -> None: ...
+        def add_extra_file(self, filename: str) -> None: ...
+        def get_dirs(self) -> set[str]: ...
+        @override
+        def run(self) -> None: ...
+
+else:
+    class InotifyReloader:
+        def __init__(
+            self, extra_files: Iterable[str] | None = None, interval: int = 1, callback: Callable[[str], None] | None = None
+        ) -> NoReturn: ...
 
 _PreferredReloaderType: TypeAlias = type[InotifyReloader | Reloader]
 _ReloaderType: TypeAlias = InotifyReloader | Reloader  # noqa: Y047
