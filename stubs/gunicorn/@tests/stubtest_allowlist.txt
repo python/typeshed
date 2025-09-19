@@ -1,4 +1,4 @@
-# Helper
+# Is not present in runtime. For more details, see the file itself.
 gunicorn._types
 
 gunicorn.__main__

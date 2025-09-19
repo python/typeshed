@@ -1,3 +1,5 @@
+### This .pyi file is a helper for centralized storage types that are reused across different runtime modules. ###
+
 from collections.abc import Awaitable, Callable, Iterable
 from typing import Any
 from typing_extensions import LiteralString, TypeAlias
