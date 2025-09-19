@@ -62,6 +62,7 @@ _DictValidatorType: TypeAlias = Callable[[dict[str, Any]], dict[str, Any]]
 _ClassValidatorType: TypeAlias = Callable[[object | str | None], type[Any] | None]
 _UserGroupValidatorType: TypeAlias = Callable[[str | int | None], int]
 _AddressValidatorType: TypeAlias = Callable[[str | None], _AddressType | None]
+_CallableValidatorType: TypeAlias = Callable[[str | _HookType], _HookType]
 
 _ValidatorType: TypeAlias = (
     _BoolValidatorType
@@ -72,6 +73,7 @@ _ValidatorType: TypeAlias = (
     | _ClassValidatorType
     | _UserGroupValidatorType
     | _AddressValidatorType
+    | _CallableValidatorType
 )
 
 KNOWN_SETTINGS: list[Setting]
@@ -181,7 +183,7 @@ def validate_class(val: str) -> str: ...
 def validate_class(val: None) -> None: ...
 @overload
 def validate_class(val: object) -> object: ...
-def validate_callable(arity: int) -> Callable[[str | _HookType], _HookType]: ...
+def validate_callable(arity: int) -> _CallableValidatorType: ...
 def validate_user(val: int | str | None) -> int: ...
 def validate_group(val: int | str | None) -> int: ...
 def validate_post_request(val: str | _HookType) -> _PostRequestHookType: ...
@@ -741,7 +743,7 @@ class Paste(Setting):
 class OnStarting(Setting):
     name: ClassVar[str]
     section: ClassVar[str]
-    validator: ClassVar[Callable[[str | _OnStartingHookType], _OnStartingHookType]]
+    validator: ClassVar[_CallableValidatorType]
     type: ClassVar[Callable[..., Any]]
     default: ClassVar[_OnStartingHookType]
     desc: ClassVar[str]
@@ -751,7 +753,7 @@ class OnStarting(Setting):
 class OnReload(Setting):
     name: ClassVar[str]
     section: ClassVar[str]
-    validator: ClassVar[Callable[[str | _OnReloadHookType], _OnReloadHookType]]
+    validator: ClassVar[_CallableValidatorType]
     type: ClassVar[Callable[..., Any]]
     default: ClassVar[_OnReloadHookType]
     desc: ClassVar[str]
@@ -761,7 +763,7 @@ class OnReload(Setting):
 class WhenReady(Setting):
     name: ClassVar[str]
     section: ClassVar[str]
-    validator: ClassVar[Callable[[str | _WhenReadyHookType], _WhenReadyHookType]]
+    validator: ClassVar[_CallableValidatorType]
     type: ClassVar[Callable[..., Any]]
     default: ClassVar[_WhenReadyHookType]
     desc: ClassVar[str]
@@ -771,7 +773,7 @@ class WhenReady(Setting):
 class Prefork(Setting):
     name: ClassVar[str]
     section: ClassVar[str]
-    validator: ClassVar[Callable[[str | _PreForkHookType], _PreForkHookType]]
+    validator: ClassVar[_CallableValidatorType]
     type: ClassVar[Callable[..., Any]]
     default: ClassVar[_PreForkHookType]
     desc: ClassVar[str]
@@ -781,7 +783,7 @@ class Prefork(Setting):
 class Postfork(Setting):
     name: ClassVar[str]
     section: ClassVar[str]
-    validator: ClassVar[Callable[[str | _PostForkHookType], _PostForkHookType]]
+    validator: ClassVar[_CallableValidatorType]
     type: ClassVar[Callable[..., Any]]
     default: ClassVar[_PostForkHookType]
     desc: ClassVar[str]
@@ -791,7 +793,7 @@ class Postfork(Setting):
 class PostWorkerInit(Setting):
     name: ClassVar[str]
     section: ClassVar[str]
-    validator: ClassVar[Callable[[str | _PostWorkerInitHookType], _PostWorkerInitHookType]]
+    validator: ClassVar[_CallableValidatorType]
     type: ClassVar[Callable[..., Any]]
     default: ClassVar[_PostWorkerInitHookType]
     desc: ClassVar[str]
@@ -801,7 +803,7 @@ class PostWorkerInit(Setting):
 class WorkerInt(Setting):
     name: ClassVar[str]
     section: ClassVar[str]
-    validator: ClassVar[Callable[[str | _WorkerIntHookType], _WorkerIntHookType]]
+    validator: ClassVar[_CallableValidatorType]
     type: ClassVar[Callable[..., Any]]
     default: ClassVar[_WorkerIntHookType]
     desc: ClassVar[str]
@@ -811,7 +813,7 @@ class WorkerInt(Setting):
 class WorkerAbort(Setting):
     name: ClassVar[str]
     section: ClassVar[str]
-    validator: ClassVar[Callable[[str | _WorkerAbortHookType], _WorkerAbortHookType]]
+    validator: ClassVar[_CallableValidatorType]
     type: ClassVar[Callable[..., Any]]
     default: ClassVar[_WorkerAbortHookType]
     desc: ClassVar[str]
@@ -821,7 +823,7 @@ class WorkerAbort(Setting):
 class PreExec(Setting):
     name: ClassVar[str]
     section: ClassVar[str]
-    validator: ClassVar[Callable[[str | _PreExecHookType], _PreExecHookType]]
+    validator: ClassVar[_CallableValidatorType]
     type: ClassVar[Callable[..., Any]]
     default: ClassVar[_PreExecHookType]
     desc: ClassVar[str]
@@ -831,7 +833,7 @@ class PreExec(Setting):
 class PreRequest(Setting):
     name: ClassVar[str]
     section: ClassVar[str]
-    validator: ClassVar[Callable[[str | _PreRequestHookType], _PreRequestHookType]]
+    validator: ClassVar[_CallableValidatorType]
     type: ClassVar[Callable[..., Any]]
     default: ClassVar[_PreRequestHookType]
     desc: ClassVar[str]
@@ -841,7 +843,7 @@ class PreRequest(Setting):
 class PostRequest(Setting):
     name: ClassVar[str]
     section: ClassVar[str]
-    validator: ClassVar[Callable[[str | Callable[..., Any]], _PostRequestHookType]]
+    validator: ClassVar[_CallableValidatorType]
     type: ClassVar[Callable[..., Any]]
     default: ClassVar[_PostRequestHookType]
     desc: ClassVar[str]
@@ -851,7 +853,7 @@ class PostRequest(Setting):
 class ChildExit(Setting):
     name: ClassVar[str]
     section: ClassVar[str]
-    validator: ClassVar[Callable[[str | _ChildExitHookType], _ChildExitHookType]]
+    validator: ClassVar[_CallableValidatorType]
     type: ClassVar[Callable[..., Any]]
     default: ClassVar[_ChildExitHookType]
     desc: ClassVar[str]
@@ -861,7 +863,7 @@ class ChildExit(Setting):
 class WorkerExit(Setting):
     name: ClassVar[str]
     section: ClassVar[str]
-    validator: ClassVar[Callable[[str | _WorkerExitHookType], _WorkerExitHookType]]
+    validator: ClassVar[_CallableValidatorType]
     type: ClassVar[Callable[..., Any]]
     default: ClassVar[_WorkerExitHookType]
     desc: ClassVar[str]
@@ -871,7 +873,7 @@ class WorkerExit(Setting):
 class NumWorkersChanged(Setting):
     name: ClassVar[str]
     section: ClassVar[str]
-    validator: ClassVar[Callable[[str | _NumWorkersChangedHookType], _NumWorkersChangedHookType]]
+    validator: ClassVar[_CallableValidatorType]
     type: ClassVar[Callable[..., Any]]
     default: ClassVar[_NumWorkersChangedHookType]
     desc: ClassVar[str]
@@ -881,7 +883,7 @@ class NumWorkersChanged(Setting):
 class OnExit(Setting):
     name: ClassVar[str]
     section: ClassVar[str]
-    validator: ClassVar[Callable[[str | _OnExitHookType], _OnExitHookType]]
+    validator: ClassVar[_CallableValidatorType]
     default: ClassVar[_OnExitHookType]
     desc: ClassVar[str]
 
@@ -890,7 +892,7 @@ class OnExit(Setting):
 class NewSSLContext(Setting):
     name: ClassVar[str]
     section: ClassVar[str]
-    validator: ClassVar[Callable[[str | _SSLContextHookType], _SSLContextHookType]]
+    validator: ClassVar[_CallableValidatorType]
     type: ClassVar[Callable[..., Any]]
     default: ClassVar[_SSLContextHookType]
     desc: ClassVar[str]
