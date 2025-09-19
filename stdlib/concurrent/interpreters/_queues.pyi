@@ -1,5 +1,4 @@
 import queue
-from re import S
 import sys
 from typing import Final, SupportsIndex
 from typing_extensions import Self
@@ -65,6 +64,7 @@ if sys.version_info >= (3, 13):  # needed to satisfy pyright checks for Python <
                 unbounditems: _AnyUnbound | None = None,
                 _delay: float = 0.01,
             ) -> None: ...
+
         def put_nowait(self, obj: object, *, unbounditems: _AnyUnbound | None = None) -> None: ...
         if sys.version_info >= (3, 14):
             def get(self, block: bool = True, timeout: SupportsIndex | None = None, *, _delay: float = 0.01) -> object: ...
