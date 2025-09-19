@@ -35,6 +35,24 @@ _NumWorkersChangedHookType: TypeAlias = Callable[[Arbiter, int, int | None], obj
 _OnExitHookType: TypeAlias = Callable[[Arbiter], object]
 _SSLContextHookType: TypeAlias = Callable[[Config, Callable[[], SSLContext]], SSLContext]
 
+_HookType: TypeAlias = (
+    _OnStartingHookType
+    | _OnReloadHookType
+    | _WhenReadyHookType
+    | _PreForkHookType
+    | _PostForkHookType
+    | _PostWorkerInitHookType
+    | _WorkerIntHookType
+    | _WorkerAbortHookType
+    | _PreExecHookType
+    | _PreRequestHookType
+    | _PostRequestHookType
+    | _ChildExitHookType
+    | _WorkerExitHookType
+    | _NumWorkersChangedHookType
+    | _OnExitHookType
+    | _SSLContextHookType
+)
 # Validators
 _BoolValidatorType: TypeAlias = Callable[[bool | str | None], bool | None]
 _StringValidatorType: TypeAlias = Callable[[str | None], str | None]
@@ -163,7 +181,7 @@ def validate_class(val: str) -> str: ...
 def validate_class(val: None) -> None: ...
 @overload
 def validate_class(val: object) -> object: ...
-def validate_callable(arity: int) -> Callable[[str | _ValidatorType], _ValidatorType]: ...
+def validate_callable(arity: int) -> Callable[[str | _HookType], _HookType]: ...
 def validate_user(val: int | str | None) -> int: ...
 def validate_group(val: int | str | None) -> int: ...
 def validate_post_request(val: str | _ValidatorType) -> _PostRequestHookType: ...
