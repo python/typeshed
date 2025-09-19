@@ -1,3 +1,6 @@
+# InotifyReloader methods are absent on Darwin because inotify is Linux-only.
+# Defined in stub for type checking, but missing in runtime, causing stubtest errors.
+
 gunicorn.reloader.InotifyReloader.add_extra_file
 gunicorn.reloader.InotifyReloader.get_dirs
 gunicorn.reloader.InotifyReloader.run
