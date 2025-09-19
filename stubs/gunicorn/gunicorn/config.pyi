@@ -131,7 +131,7 @@ class Setting(metaclass=SettingMeta):
     value: _ConfigValueType
     section: ClassVar[str | None]
     cli: ClassVar[list[str] | None]
-    validator: ClassVar[_ValidatorType | None]
+    validator: ClassVar[Callable[..., Any] | None] # See `_ValidatorType`
     type: ClassVar[argparse._ActionType | None]
     meta: ClassVar[str | None]
     action: ClassVar[str | None]
