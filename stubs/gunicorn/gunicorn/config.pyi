@@ -112,6 +112,7 @@ class Setting(metaclass=SettingMeta):
     section: ClassVar[str | None]
     cli: ClassVar[list[str] | None]
     validator: ClassVar[_AnyValidatorType | None]
+    type: ClassVar[argparse._ActionType | None]
     meta: ClassVar[str | None]
     action: ClassVar[str | None]
     default: ClassVar[Any]
