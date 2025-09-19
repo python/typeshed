@@ -2,8 +2,8 @@ import sys
 import threading
 from collections.abc import Callable, Iterable
 from re import Pattern
-from typing import TypedDict, type_check_only
-from typing_extensions import TypeAlias, override, NoReturn
+from typing import NoReturn, TypedDict, type_check_only
+from typing_extensions import TypeAlias, override
 
 COMPILED_EXT_RE: Pattern[str]
 

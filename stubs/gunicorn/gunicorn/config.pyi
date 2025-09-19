@@ -2,8 +2,8 @@ import argparse
 from _typeshed import ConvertibleToInt
 from collections.abc import Callable, Container
 from ssl import SSLContext, _SSLMethod
-from typing import Annotated, Any, ClassVar
-from typing_extensions import TypeAlias, overload, override
+from typing import Annotated, Any, ClassVar, overload
+from typing_extensions import TypeAlias, override
 
 from gunicorn.arbiter import Arbiter
 from gunicorn.glogging import Logger as GLogger
@@ -64,7 +64,7 @@ _UserGroupValidatorType: TypeAlias = Callable[[str | int | None], int]
 _AddressValidatorType: TypeAlias = Callable[[str | None], _AddressType | None]
 _CallableValidatorType: TypeAlias = Callable[[str | _HookType], _HookType]
 
-_ValidatorType: TypeAlias = (
+_ValidatorType: TypeAlias = (  # noqa: Y047
     _BoolValidatorType
     | _StringValidatorType
     | _ListStringValidatorType

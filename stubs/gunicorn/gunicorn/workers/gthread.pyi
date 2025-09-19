@@ -3,7 +3,6 @@ from collections import deque
 from concurrent.futures import Future, ThreadPoolExecutor
 from selectors import DefaultSelector
 from types import FrameType
-from typing import Any
 
 from gunicorn.config import Config
 from gunicorn.glogging import Logger as GLogger
