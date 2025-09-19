@@ -1,6 +1,5 @@
 from _typeshed import ReadableBuffer, SupportsRead, SupportsWrite
 from collections.abc import Callable, Container, Generator, Mapping
-from types import GeneratorType
 from typing import Any, Final, overload
 from typing_extensions import TypeAlias
 
