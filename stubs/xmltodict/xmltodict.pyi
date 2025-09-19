@@ -1,7 +1,12 @@
 from _typeshed import ReadableBuffer, SupportsRead, SupportsWrite
 from collections.abc import Callable, Container, Generator, Mapping
-from typing import Any, overload
+from types import GeneratorType
+from typing import Any, Final, overload
 from typing_extensions import TypeAlias
+
+__author__: Final[str]
+__version__: Final[str]
+__license__: Final[str]
 
 class ParsingInterrupted(Exception): ...
 
