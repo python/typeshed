@@ -1,6 +1,7 @@
+import logging
 import socket
+from collections.abc import Mapping
 from datetime import timedelta
-from typing import Any
 from typing_extensions import override
 
 from gunicorn.config import Config
@@ -26,21 +27,84 @@ class Statsd(Logger):
 
     def __init__(self, cfg: Config) -> None: ...
     @override
-    def critical(self, msg: str, *args: Any, **kwargs: Any) -> None: ...
+    def critical(
+        self,
+        msg: object,
+        *args: object,
+        exc_info: logging._ExcInfoType = None,
+        stack_info: bool = False,
+        stacklevel: int = 1,
+        extra: Mapping[str, object] | None = None,
+    ) -> None: ...
     @override
-    def error(self, msg: str, *args: Any, **kwargs: Any) -> None: ...
+    def error(
+        self,
+        msg: object,
+        *args: object,
+        exc_info: logging._ExcInfoType = None,
+        stack_info: bool = False,
+        stacklevel: int = 1,
+        extra: Mapping[str, object] | None = None,
+    ) -> None: ...
     @override
-    def warning(self, msg: str, *args: Any, **kwargs: Any) -> None: ...
+    def warning(
+        self,
+        msg: object,
+        *args: object,
+        exc_info: logging._ExcInfoType = None,
+        stack_info: bool = False,
+        stacklevel: int = 1,
+        extra: Mapping[str, object] | None = None,
+    ) -> None: ...
     @override
-    def exception(self, msg: str, *args: Any, **kwargs: Any) -> None: ...
+    def info(
+        self,
+        msg: object,
+        *args: object,
+        exc_info: logging._ExcInfoType = None,
+        stack_info: bool = False,
+        stacklevel: int = 1,
+        extra: Mapping[str, object] | None = None,
+    ) -> None: ...
     @override
-    def info(self, msg: str, *args: Any, **kwargs: Any) -> None: ...
+    def debug(
+        self,
+        msg: object,
+        *args: object,
+        exc_info: logging._ExcInfoType = None,
+        stack_info: bool = False,
+        stacklevel: int = 1,
+        extra: Mapping[str, object] | None = None,
+    ) -> None: ...
     @override
-    def debug(self, msg: str, *args: Any, **kwargs: Any) -> None: ...
+    def exception(
+        self,
+        msg: object,
+        *args: object,
+        exc_info: logging._ExcInfoType = True,
+        stack_info: bool = False,
+        stacklevel: int = 1,
+        extra: Mapping[str, object] | None = None,
+    ) -> None: ...
     @override
-    def log(self, lvl: _LogLevelType, msg: str, *args: Any, **kwargs: Any) -> None: ...
+    def log(
+        self,
+        lvl: _LogLevelType,
+        msg: object,
+        *args: object,
+        exc_info: logging._ExcInfoType = None,
+        stack_info: bool = False,
+        stacklevel: int = 1,
+        extra: Mapping[str, object] | None = None,
+    ) -> None: ...
     @override
-    def access(self, resp: Response, req: Request, environ: _EnvironType, request_time: timedelta) -> None: ...
+    def access(
+        self,
+        resp: Response,
+        req: Request,
+        environ: _EnvironType,
+        request_time: timedelta,
+    ) -> None: ...
     def gauge(self, name: str, value: float) -> None: ...
     def increment(self, name: str, value: int, sampling_rate: float = 1.0) -> None: ...
     def decrement(self, name: str, value: int, sampling_rate: float = 1.0) -> None: ...

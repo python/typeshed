@@ -1,5 +1,6 @@
 import logging
 import threading
+from collections.abc import Mapping
 from datetime import timedelta
 from logging.config import _DictConfigArgs
 from socket import SocketKind
@@ -86,13 +87,70 @@ class Logger:
 
     def __init__(self, cfg: Config) -> None: ...
     def setup(self, cfg: Config) -> None: ...
-    def critical(self, msg: str, *args: Any, **kwargs: Any) -> None: ...
-    def error(self, msg: str, *args: Any, **kwargs: Any) -> None: ...
-    def warning(self, msg: str, *args: Any, **kwargs: Any) -> None: ...
-    def info(self, msg: str, *args: Any, **kwargs: Any) -> None: ...
-    def debug(self, msg: str, *args: Any, **kwargs: Any) -> None: ...
-    def exception(self, msg: str, *args: Any, **kwargs: Any) -> None: ...
-    def log(self, lvl: _LogLevelType, msg: str, *args: Any, **kwargs: Any) -> None: ...
+    def critical(
+        self,
+        msg: object,
+        *args: object,
+        exc_info: logging._ExcInfoType = None,
+        stack_info: bool = False,
+        stacklevel: int = 1,
+        extra: Mapping[str, object] | None = None,
+    ) -> None: ...
+    def error(
+        self,
+        msg: object,
+        *args: object,
+        exc_info: logging._ExcInfoType = None,
+        stack_info: bool = False,
+        stacklevel: int = 1,
+        extra: Mapping[str, object] | None = None,
+    ) -> None: ...
+    def warning(
+        self,
+        msg: object,
+        *args: object,
+        exc_info: logging._ExcInfoType = None,
+        stack_info: bool = False,
+        stacklevel: int = 1,
+        extra: Mapping[str, object] | None = None,
+    ) -> None: ...
+    def info(
+        self,
+        msg: object,
+        *args: object,
+        exc_info: logging._ExcInfoType = None,
+        stack_info: bool = False,
+        stacklevel: int = 1,
+        extra: Mapping[str, object] | None = None,
+    ) -> None: ...
+    def debug(
+        self,
+        msg: object,
+        *args: object,
+        exc_info: logging._ExcInfoType = None,
+        stack_info: bool = False,
+        stacklevel: int = 1,
+        extra: Mapping[str, object] | None = None,
+    ) -> None: ...
+    def exception(
+        self,
+        msg: object,
+        *args: object,
+        exc_info: logging._ExcInfoType = True,
+        stack_info: bool = False,
+        stacklevel: int = 1,
+        extra: Mapping[str, object] | None = None,
+    ) -> None: ...
+    def log(
+        self,
+        lvl: _LogLevelType,
+        msg: object,
+        *args: object,
+        exc_info: logging._ExcInfoType = None,
+        stack_info: bool = False,
+        stacklevel: int = 1,
+        extra: Mapping[str, object] | None = None,
+    ) -> None: ...
     def atoms(self, resp: Response, req: Request, environ: _EnvironType, request_time: timedelta) -> _AtomsDict: ...
     def access(self, resp: Response, req: Request, environ: _EnvironType, request_time: timedelta) -> None: ...
     def now(self) -> str: ...
