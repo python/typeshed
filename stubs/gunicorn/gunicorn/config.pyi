@@ -45,6 +45,17 @@ _ClassValidatorType: TypeAlias = Callable[[object | str | None], type[Any] | Non
 _UserGroupValidatorType: TypeAlias = Callable[[str | int | None], int]
 _AddressValidatorType: TypeAlias = Callable[[str | None], _AddressType | None]
 
+_AnyValidatorType: TypeAlias = (
+    _BoolValidatorType
+    | _StringValidatorType
+    | _ListStringValidatorType
+    | _IntValidatorType
+    | _DictValidatorType
+    | _ClassValidatorType
+    | _UserGroupValidatorType
+    | _AddressValidatorType
+)
+
 KNOWN_SETTINGS: list[Setting]
 PLATFORM: str
 
@@ -100,8 +111,7 @@ class Setting(metaclass=SettingMeta):
     value: _ConfigValueType
     section: ClassVar[str | None]
     cli: ClassVar[list[str] | None]
-    validator: ClassVar[Callable[..., Any] | None]
-    type: ClassVar[type[Any] | Callable[..., Any] | None]
+    validator: ClassVar[_AnyValidatorType | None]
     meta: ClassVar[str | None]
     action: ClassVar[str | None]
     default: ClassVar[Any]
