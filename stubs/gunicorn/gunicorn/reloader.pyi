@@ -34,7 +34,7 @@ if sys.platform == "linux":
 else:
     class InotifyReloader:
         def __init__(
-            self, extra_files: Iterable[str] | None = None, interval: int = 1, callback: Callable[[str], None] | None = None
+            self, extra_files: Iterable[str] | None = None, callback: Callable[[str], None] | None = None
         ) -> NoReturn: ...
 
 _PreferredReloaderType: TypeAlias = type[InotifyReloader | Reloader]
