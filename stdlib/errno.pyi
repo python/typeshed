@@ -121,6 +121,8 @@ if sys.platform == "darwin":
     ESHLIBVERS: Final[int]
     if sys.version_info >= (3, 11):
         EQFULL: Final[int]
+    if sys.version_info >= (3, 14):
+        ENOTCAPABLE: Final[int]
 
 if sys.platform != "darwin":
     EDEADLOCK: Final[int]
