@@ -2,8 +2,8 @@ import argparse
 from _typeshed import ConvertibleToInt
 from collections.abc import Callable, Container
 from ssl import SSLContext, _SSLMethod
-from typing import Any, ClassVar, overload
-from typing_extensions import TypeAlias, override
+from typing import Annotated, Any, ClassVar
+from typing_extensions import TypeAlias, overload, override
 
 from gunicorn.arbiter import Arbiter
 from gunicorn.glogging import Logger as GLogger
@@ -131,7 +131,7 @@ class Setting(metaclass=SettingMeta):
     value: _ConfigValueType
     section: ClassVar[str | None]
     cli: ClassVar[list[str] | None]
-    validator: ClassVar[Callable[..., Any] | None] # See `_ValidatorType`
+    validator: ClassVar[Callable[..., Any] | None]  # See `_ValidatorType`
     type: ClassVar[argparse._ActionType | None]
     meta: ClassVar[str | None]
     action: ClassVar[str | None]
@@ -154,15 +154,23 @@ class Setting(metaclass=SettingMeta):
 @overload
 def validate_bool(val: bool) -> bool: ...
 @overload
-def validate_bool(val: str | None) -> bool | None: ...
+def validate_bool(val: None) -> None: ...
+@overload
+def validate_bool(val: Annotated[str, "Case-insensitive boolean string ('true'/'false' in any case)"]) -> bool: ...
 def validate_dict(val: dict[str, Any]) -> dict[str, Any]: ...
 @overload
 def validate_pos_int(val: int) -> int: ...
 @overload
 def validate_pos_int(val: ConvertibleToInt) -> int: ...
 def validate_ssl_version(val: _SSLMethod) -> _SSLMethod: ...
-def validate_string(val: str | None) -> str | None: ...
-def validate_file_exists(val: str | None) -> str | None: ...
+@overload
+def validate_string(val: str) -> str: ...
+@overload
+def validate_string(val: None) -> None: ...
+@overload
+def validate_file_exists(val: str) -> str: ...
+@overload
+def validate_file_exists(val: None) -> None: ...
 @overload
 def validate_list_string(val: str) -> list[str]: ...
 @overload
@@ -743,7 +751,7 @@ class Paste(Setting):
 class OnStarting(Setting):
     name: ClassVar[str]
     section: ClassVar[str]
-    validator: ClassVar[_CallableValidatorType]
+    validator: ClassVar[_CallableValidatorType] = ...
     type: ClassVar[Callable[..., Any]]
     default: ClassVar[_OnStartingHookType]
     desc: ClassVar[str]
