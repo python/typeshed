@@ -1,12 +1,11 @@
 import types
 from _typeshed import FileDescriptorLike, FileDescriptorOrPath, HasFileno, StrOrBytesPath
-from inspect import _ParameterKind
+from inspect import _IntrospectableCallable, _ParameterKind
 from socket import socket
 from typing import Any, Literal, NoReturn
 from urllib.parse import SplitResult
 
 from ._types import _AddressType, _WSGIAppType
-from .config import _HookType
 
 REDIRECT_TO: str
 hop_headers: set[str]
@@ -18,7 +17,7 @@ def load_class(
 
 positionals: tuple[Literal[_ParameterKind.POSITIONAL_ONLY], Literal[_ParameterKind.POSITIONAL_OR_KEYWORD]]
 
-def get_arity(f: _HookType) -> int: ...
+def get_arity(f: _IntrospectableCallable) -> int: ...
 def get_username(uid: int) -> str: ...
 def set_owner_process(uid: int, gid: int, initgroups: bool = False) -> None: ...
 def chown(path: FileDescriptorOrPath, uid: int, gid: int) -> None: ...
