@@ -30,7 +30,7 @@ env:
 jobs:
   stubtest-stdlib:
     name: "stubtest: stdlib"
-    if: ${{ github.repository == 'python/typeshed' || github.event_name == 'workflow_dispatch' }}
+    if: ${{ github.repository == 'python/typeshed' || github.event_name != 'schedule' }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -58,7 +58,7 @@ jobs:
 
   stubtest-third-party:
     name: "stubtest: third party"
-    if: ${{ github.repository == 'python/typeshed' || github.event_name == 'workflow_dispatch' }}
+    if: ${{ github.repository == 'python/typeshed' || github.event_name != 'schedule' }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -110,7 +110,7 @@ jobs:
 
   stub-uploader:
     name: stub_uploader tests
-    if: ${{ github.repository == 'python/typeshed' || github.event_name == 'workflow_dispatch' }}
+    if: ${{ github.repository == 'python/typeshed' || github.event_name != 'schedule' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout typeshed
