@@ -1,6 +1,4 @@
-from typing_extensions import LiteralString
-
 version_info: tuple[int, int, int]
-__version__: LiteralString
+__version__: str
 SERVER: str
 SERVER_SOFTWARE: str
