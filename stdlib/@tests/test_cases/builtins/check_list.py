@@ -19,3 +19,12 @@ combined = [Foo()] + [Bar()]
 assert_type(combined, List[Union[Foo, Bar]])
 for item in combined:
     assert_type(item.asd(), int)
+
+l_int = [1, 2]
+l_str = ["a", "b"]
+# TODO: these pass pyright with the current stubs, but mypy erroneously emits errors:
+# _1: List[object] = l_int + l_str
+# _2: List[None] = l_int + l_str
+
+# combined = l_int + l_str
+# assert_type(combined, List[int | str])
