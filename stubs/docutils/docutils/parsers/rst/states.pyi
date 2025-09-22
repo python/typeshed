@@ -37,7 +37,7 @@ class RSTStateMachine(StateMachineWS[list[str]]):
     ) -> None: ...
 
 class NestedStateMachine(RSTStateMachine):
-    parent_state_machine: Incomplete
+    parent_state_machine: Incomplete | None
     def __init__(self, state_classes, initial_state, debug: bool = False, parent_state_machine=None) -> None: ...
     def run(  # type: ignore[override]
         self, input_lines: Sequence[str] | StringList, input_offset: int, memo, node, match_titles: bool = True

@@ -21,4 +21,4 @@ docutils.parsers.recommonmark_wrapper
 docutils.writers.odf_odt.pygmentsformatter # import `pygments` third-party library
 
 # `TYPE_CHECKING` variable is for internal use:
-.*\.TYPE_CHECKING
+docutils.*\.TYPE_CHECKING
