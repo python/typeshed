@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from abc import abstractmethod
 from typing import Final
 
 from reportlab.graphics import shapes
@@ -16,10 +15,8 @@ class PropHolder:
     def dumpProperties(self, prefix: str = "") -> None: ...
 
 class Widget(PropHolder, shapes.UserNode):
-    @abstractmethod
-    def draw(self): ...
-    @abstractmethod
-    def demo(self): ...
+    def draw(self): ...  # abstract, but not marked as @abstractmethod
+    def demo(self): ...  # abstract, but not marked as @abstractmethod
     def provideNode(self) -> shapes.Shape: ...
     def getBounds(self) -> tuple[float, float, float, float]: ...
 
