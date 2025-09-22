@@ -1,5 +1,5 @@
 import sys
-from abc import abstractmethod
+from abc import ABCMeta, abstractmethod
 from types import MappingProxyType
 from typing import (  # noqa: Y022,Y038,UP035,Y057,RUF100
     AbstractSet as Set,
@@ -8,7 +8,6 @@ from typing import (  # noqa: Y022,Y038,UP035,Y057,RUF100
     AsyncIterator as AsyncIterator,
     Awaitable as Awaitable,
     ByteString as ByteString,
-    Callable as Callable,
     ClassVar,
     Collection as Collection,
     Container as Container,
@@ -25,6 +24,7 @@ from typing import (  # noqa: Y022,Y038,UP035,Y057,RUF100
     MutableMapping as MutableMapping,
     MutableSequence as MutableSequence,
     MutableSet as MutableSet,
+    ParamSpec,
     Protocol,
     Reversible as Reversible,
     Sequence as Sequence,
@@ -67,6 +67,16 @@ if sys.version_info >= (3, 12):
 
 _KT_co = TypeVar("_KT_co", covariant=True)  # Key type covariant containers.
 _VT_co = TypeVar("_VT_co", covariant=True)  # Value type covariant containers.
+
+_R_co = TypeVar("_R_co", covariant=True)  # return type for Callable
+_P = ParamSpec("_P")
+
+@runtime_checkable
+class Callable(Protocol[_P, _R_co], metaclass=ABCMeta):
+    __slots__ = ()
+
+    @abstractmethod
+    def __call__(self, *args: _P.args, **kwargs: _P.kwargs) -> _R_co: ...
 
 @final
 class dict_keys(KeysView[_KT_co], Generic[_KT_co, _VT_co]):  # undocumented
