@@ -56,8 +56,8 @@ class TableStyle:
     def getCommands(self) -> list[_TableCommand]: ...
 
 class ShadowStyle(NamedTuple):
-    dx: int = 10
-    dy: int = -10
+    dx: Incomplete = 10
+    dy: Incomplete = -10
     color0: _Color = "grey"
     color1: _Color = "white"
     nshades: int = 30
