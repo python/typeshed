@@ -59,7 +59,7 @@ class ShadowStyle(NamedTuple):
     dx: int
     dy: int
     color0: _Color
-    color1: _Corner
+    color1: _Color
     nshades: int
 
 class Table(Flowable):
