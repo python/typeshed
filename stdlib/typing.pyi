@@ -237,7 +237,6 @@ class _SpecialForm(_Final):
 
 Union: _SpecialForm
 Protocol: _SpecialForm
-Callable: _SpecialForm
 Type: _SpecialForm
 NoReturn: _SpecialForm
 ClassVar: _SpecialForm
@@ -424,6 +423,7 @@ class _Alias:
     # Class for defining generic aliases for library types.
     def __getitem__(self, typeargs: Any) -> Any: ...
 
+Callable = _Alias()
 List = _Alias()
 Dict = _Alias()
 DefaultDict = _Alias()
