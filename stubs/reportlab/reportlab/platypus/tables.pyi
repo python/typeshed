@@ -56,11 +56,11 @@ class TableStyle:
     def getCommands(self) -> list[_TableCommand]: ...
 
 class ShadowStyle(NamedTuple):
-    dx: int
-    dy: int
-    color0: _Color
-    color1: _Color
-    nshades: int
+    dx: int = 10
+    dy: int = -10
+    color0: _Color = "grey"
+    color1: _Color = "white"
+    nshades: int = 30
 
 class Table(Flowable):
     ident: str | None
