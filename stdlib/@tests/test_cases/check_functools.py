@@ -86,9 +86,11 @@ assert_type(check_cache.cache_info().misses, int)
 def check_lru_cache(x: int) -> int:
     return x * 2
 
+
 @lru_cache(maxsize=32)
 def check_lru_cache_with_maxsize(x: int) -> int:
     return x * 2
+
 
 assert_type(check_lru_cache(3), int)
 assert_type(check_lru_cache_with_maxsize(3), int)
