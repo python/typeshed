@@ -11,6 +11,7 @@ T_co = TypeVar("T_co", covariant=True)
 # Tests for @wraps
 #
 
+
 def my_decorator(func: Callable[P, T_co]) -> Callable[P, T_co]:
     @wraps(func)
     def wrapper(*args: P.args, **kwargs: P.kwargs) -> T_co:
@@ -56,9 +57,11 @@ def check_wraps_method() -> None:
     # Wrapper().method(3)
     func_wrapper(3)
 
+
 #
 # Tests for @cache
 #
+
 
 @cache
 def check_cached(x: int) -> int:
@@ -76,6 +79,7 @@ assert_type(check_cached.cache_info().misses, int)
 #
 # Tests for @cached_property
 #
+
 
 class A:
     def __init__(self, x: int):
