@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from functools import cache, cached_property, wraps
+from functools import cache, cached_property, lru_cache, wraps
 from typing import Callable, TypeVar
 from typing_extensions import ParamSpec, assert_type
 
@@ -64,17 +64,43 @@ def check_wraps_method() -> None:
 
 
 @cache
-def check_cached(x: int) -> int:
+def check_cache(x: int) -> int:
     return x * 2
 
 
-assert_type(check_cached(3), int)
+assert_type(check_cache(3), int)
 # Type checkers should check the argument type, but this is currently not
 # possible. See https://github.com/python/typeshed/issues/6347 and
 # https://github.com/python/typeshed/issues/11280.
 # check_cached("invalid")  # xtype: ignore
 
-assert_type(check_cached.cache_info().misses, int)
+assert_type(check_cache.cache_info().misses, int)
+
+
+#
+# Tests for @lru_cache
+#
+
+
+@lru_cache
+def check_lru_cache(x: int) -> int:
+    return x * 2
+
+@lru_cache(maxsize=32)
+def check_lru_cache_with_maxsize(x: int) -> int:
+    return x * 2
+
+assert_type(check_lru_cache(3), int)
+assert_type(check_lru_cache_with_maxsize(3), int)
+# Type checkers should check the argument type, but this is currently not
+# possible. See https://github.com/python/typeshed/issues/6347 and
+# https://github.com/python/typeshed/issues/11280.
+# check_lru_cache("invalid")  # xtype: ignore
+# check_lru_cache_with_maxsize("invalid")  # xtype: ignore
+
+assert_type(check_lru_cache.cache_info().misses, int)
+assert_type(check_lru_cache_with_maxsize.cache_info().misses, int)
+
 
 #
 # Tests for @cached_property
