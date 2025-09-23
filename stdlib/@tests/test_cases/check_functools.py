@@ -72,7 +72,7 @@ assert_type(check_cached(3), int)
 # Type checkers should check the argument type, but this is currently not
 # possible. See https://github.com/python/typeshed/issues/6347 and
 # https://github.com/python/typeshed/issues/11280.
-# check_cached("invalid")  # type: ignore
+# check_cached("invalid")  # xtype: ignore
 
 assert_type(check_cached.cache_info().misses, int)
 
