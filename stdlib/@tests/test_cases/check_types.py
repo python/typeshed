@@ -3,8 +3,10 @@ from __future__ import annotations
 import sys
 import types
 from collections import UserDict
-from typing import Union
+from typing import Any, Literal, TypeVar, Union
 from typing_extensions import assert_type
+
+_T = TypeVar("_T")
 
 # test `types.SimpleNamespace`
 
@@ -58,3 +60,12 @@ class DCAtest:
     @foo.deleter
     def foo(self) -> None:
         self._value = None
+
+
+if sys.version_info > (3, 10):
+    union_type = int | list[_T]
+
+    # ideally this would be `_SpecialForm` (Union)
+    assert_type(union_type | Literal[1], types.UnionType | Any)
+    # pyright special cases this operation
+    assert_type(union_type[int], object)  # pyright: ignore[reportAssertTypeFailure]
