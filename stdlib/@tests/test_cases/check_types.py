@@ -67,5 +67,6 @@ if sys.version_info > (3, 10):
 
     # ideally this would be `_SpecialForm` (Union)
     assert_type(union_type | Literal[1], types.UnionType | Any)
-    # pyright special cases this operation
-    assert_type(union_type[int], object)  # pyright: ignore[reportAssertTypeFailure]
+    # Both mypy and pyright special-case this operation,
+    # but in different ways, so we just check that no error is emitted:
+    union_type[int]
