@@ -39,12 +39,11 @@ def tclobjs_to_py(adict: dict[Any, Any]) -> dict[Any, Any]: ...
 def setup_master(master: tkinter.Misc | None = None): ...
 
 _Padding: TypeAlias = (
-    float
-    | str
-    | tuple[float | str]
-    | tuple[float | str, float | str]
-    | tuple[float | str, float | str, float | str]
-    | tuple[float | str, float | str, float | str, float | str]
+    tkinter._ScreenUnits
+    | tuple[tkinter._ScreenUnits]
+    | tuple[tkinter._ScreenUnits, tkinter._ScreenUnits]
+    | tuple[tkinter._ScreenUnits, tkinter._ScreenUnits, tkinter._ScreenUnits]
+    | tuple[tkinter._ScreenUnits, tkinter._ScreenUnits, tkinter._ScreenUnits, tkinter._ScreenUnits]
 )
 
 # from ttk_widget (aka ttk::widget) manual page, differs from compound
@@ -70,10 +69,10 @@ _LayoutSpec: TypeAlias = list[tuple[str, _Layout | None]]
 # Keep these in sync with the appropriate methods in Style
 class _ElementCreateImageKwargs(TypedDict, total=False):
     border: _Padding
-    height: float | str
+    height: tkinter._ScreenUnits
     padding: _Padding
     sticky: str
-    width: float | str
+    width: tkinter._ScreenUnits
 
 _ElementCreateArgsCrossPlatform: TypeAlias = (
     # Could be any sequence here but types are not homogenous so just type it as tuple
@@ -89,8 +88,8 @@ if sys.platform == "win32" and sys.version_info >= (3, 13):
         padding: _Padding
 
     class _ElementCreateVsapiKwargsSize(TypedDict):
-        width: float | str
-        height: float | str
+        width: tkinter._ScreenUnits
+        height: tkinter._ScreenUnits
 
     _ElementCreateVsapiKwargsDict: TypeAlias = (
         _ElementCreateVsapiKwargsPadding | _ElementCreateVsapiKwargsMargin | _ElementCreateVsapiKwargsSize
@@ -144,10 +143,10 @@ class Style:
         /,
         *imagespec: _ImageStatespec,
         border: _Padding = ...,
-        height: float | str = ...,
+        height: tkinter._ScreenUnits = ...,
         padding: _Padding = ...,
         sticky: str = ...,
-        width: float | str = ...,
+        width: tkinter._ScreenUnits = ...,
     ) -> None: ...
     @overload
     def element_create(self, elementname: str, etype: Literal["from"], themename: str, fromelement: str = ..., /) -> None: ...
@@ -189,8 +188,8 @@ class Style:
             vs_statespec: _VsapiStatespec = ...,
             /,
             *,
-            width: float | str,
-            height: float | str,
+            width: tkinter._ScreenUnits,
+            height: tkinter._ScreenUnits,
         ) -> None: ...
 
     def element_names(self) -> tuple[str, ...]: ...
@@ -476,32 +475,32 @@ class Frame(Widget):
         self,
         master: tkinter.Misc | None = None,
         *,
-        border: float | str = ...,
-        borderwidth: float | str = ...,
+        border: tkinter._ScreenUnits = ...,
+        borderwidth: tkinter._ScreenUnits = ...,
         class_: str = "",
         cursor: tkinter._Cursor = "",
-        height: float | str = 0,
+        height: tkinter._ScreenUnits = 0,
         name: str = ...,
         padding: _Padding = ...,
         relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
         style: str = "",
         takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = "",
-        width: float | str = 0,
+        width: tkinter._ScreenUnits = 0,
     ) -> None: ...
     @overload
     def configure(
         self,
         cnf: dict[str, Any] | None = None,
         *,
-        border: float | str = ...,
-        borderwidth: float | str = ...,
+        border: tkinter._ScreenUnits = ...,
+        borderwidth: tkinter._ScreenUnits = ...,
         cursor: tkinter._Cursor = ...,
-        height: float | str = ...,
+        height: tkinter._ScreenUnits = ...,
         padding: _Padding = ...,
         relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
         style: str = ...,
         takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = ...,
-        width: float | str = ...,
+        width: tkinter._ScreenUnits = ...,
     ) -> dict[str, tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> tuple[str, str, str, Any, Any]: ...
@@ -514,8 +513,8 @@ class Label(Widget):
         *,
         anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"] = ...,
         background: str = "",
-        border: float | str = ...,  # alias for borderwidth
-        borderwidth: float | str = ...,  # undocumented
+        border: tkinter._ScreenUnits = ...,  # alias for borderwidth
+        borderwidth: tkinter._ScreenUnits = ...,  # undocumented
         class_: str = "",
         compound: _TtkCompound = "",
         cursor: tkinter._Cursor = "",
@@ -533,7 +532,7 @@ class Label(Widget):
         textvariable: tkinter.Variable = ...,
         underline: int = -1,
         width: int | Literal[""] = "",
-        wraplength: float | str = ...,
+        wraplength: tkinter._ScreenUnits = ...,
     ) -> None: ...
     @overload
     def configure(
@@ -542,8 +541,8 @@ class Label(Widget):
         *,
         anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"] = ...,
         background: str = ...,
-        border: float | str = ...,
-        borderwidth: float | str = ...,
+        border: tkinter._ScreenUnits = ...,
+        borderwidth: tkinter._ScreenUnits = ...,
         compound: _TtkCompound = ...,
         cursor: tkinter._Cursor = ...,
         font: _FontDescription = ...,
@@ -559,7 +558,7 @@ class Label(Widget):
         textvariable: tkinter.Variable = ...,
         underline: int = ...,
         width: int | Literal[""] = ...,
-        wraplength: float | str = ...,
+        wraplength: tkinter._ScreenUnits = ...,
     ) -> dict[str, tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> tuple[str, str, str, Any, Any]: ...
@@ -570,11 +569,11 @@ class Labelframe(Widget):
         self,
         master: tkinter.Misc | None = None,
         *,
-        border: float | str = ...,
-        borderwidth: float | str = ...,  # undocumented
+        border: tkinter._ScreenUnits = ...,
+        borderwidth: tkinter._ScreenUnits = ...,  # undocumented
         class_: str = "",
         cursor: tkinter._Cursor = "",
-        height: float | str = 0,
+        height: tkinter._ScreenUnits = 0,
         labelanchor: Literal["nw", "n", "ne", "en", "e", "es", "se", "s", "sw", "ws", "w", "wn"] = ...,
         labelwidget: tkinter.Misc = ...,
         name: str = ...,
@@ -584,17 +583,17 @@ class Labelframe(Widget):
         takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = "",
         text: float | str = "",
         underline: int = -1,
-        width: float | str = 0,
+        width: tkinter._ScreenUnits = 0,
     ) -> None: ...
     @overload
     def configure(
         self,
         cnf: dict[str, Any] | None = None,
         *,
-        border: float | str = ...,
-        borderwidth: float | str = ...,
+        border: tkinter._ScreenUnits = ...,
+        borderwidth: tkinter._ScreenUnits = ...,
         cursor: tkinter._Cursor = ...,
-        height: float | str = ...,
+        height: tkinter._ScreenUnits = ...,
         labelanchor: Literal["nw", "n", "ne", "en", "e", "es", "se", "s", "sw", "ws", "w", "wn"] = ...,
         labelwidget: tkinter.Misc = ...,
         padding: _Padding = ...,
@@ -603,7 +602,7 @@ class Labelframe(Widget):
         takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = ...,
         text: float | str = ...,
         underline: int = ...,
-        width: float | str = ...,
+        width: tkinter._ScreenUnits = ...,
     ) -> dict[str, tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> tuple[str, str, str, Any, Any]: ...
@@ -765,7 +764,7 @@ class Progressbar(Widget):
         *,
         class_: str = "",
         cursor: tkinter._Cursor = "",
-        length: float | str = 100,
+        length: tkinter._ScreenUnits = 100,
         maximum: float = 100,
         mode: Literal["determinate", "indeterminate"] = "determinate",
         name: str = ...,
@@ -782,7 +781,7 @@ class Progressbar(Widget):
         cnf: dict[str, Any] | None = None,
         *,
         cursor: tkinter._Cursor = ...,
-        length: float | str = ...,
+        length: tkinter._ScreenUnits = ...,
         maximum: float = ...,
         mode: Literal["determinate", "indeterminate"] = ...,
         orient: Literal["horizontal", "vertical"] = ...,
@@ -856,7 +855,7 @@ class Scale(Widget, tkinter.Scale):  # type: ignore[misc]
         command: str | Callable[[str], object] = "",
         cursor: tkinter._Cursor = "",
         from_: float = 0,
-        length: float | str = 100,
+        length: tkinter._ScreenUnits = 100,
         name: str = ...,
         orient: Literal["horizontal", "vertical"] = "horizontal",
         state: str = ...,  # undocumented
@@ -874,7 +873,7 @@ class Scale(Widget, tkinter.Scale):  # type: ignore[misc]
         command: str | Callable[[str], object] = ...,
         cursor: tkinter._Cursor = ...,
         from_: float = ...,
-        length: float | str = ...,
+        length: tkinter._ScreenUnits = ...,
         orient: Literal["horizontal", "vertical"] = ...,
         state: str = ...,
         style: str = ...,
@@ -894,7 +893,7 @@ class Scale(Widget, tkinter.Scale):  # type: ignore[misc]
         command: str | Callable[[str], object] = ...,
         cursor: tkinter._Cursor = ...,
         from_: float = ...,
-        length: float | str = ...,
+        length: tkinter._ScreenUnits = ...,
         orient: Literal["horizontal", "vertical"] = ...,
         state: str = ...,
         style: str = ...,
@@ -1314,18 +1313,18 @@ class LabeledScale(Frame):
         from_: float = 0,
         to: float = 10,
         *,
-        border: float | str = ...,
-        borderwidth: float | str = ...,
+        border: tkinter._ScreenUnits = ...,
+        borderwidth: tkinter._ScreenUnits = ...,
         class_: str = "",
         compound: Literal["top", "bottom"] = "top",
         cursor: tkinter._Cursor = "",
-        height: float | str = 0,
+        height: tkinter._ScreenUnits = 0,
         name: str = ...,
         padding: _Padding = ...,
         relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
         style: str = "",
         takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = "",
-        width: float | str = 0,
+        width: tkinter._ScreenUnits = 0,
     ) -> None: ...
     # destroy is overridden, signature does not change
     value: Any
