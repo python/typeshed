@@ -6,7 +6,6 @@ from typing import Any, Generic, Literal, NamedTuple, TypeVar, overload
 from typing_extensions import Self, deprecated
 
 __all__ = ("Cache", "FIFOCache", "LFUCache", "LRUCache", "RRCache", "TLRUCache", "TTLCache", "cached", "cachedmethod")
-
 __version__: str
 
 _KT = TypeVar("_KT")
@@ -121,8 +120,7 @@ def cached(
     key: Callable[..., _KT] = ...,
     lock: AbstractContextManager[Any] | None = None,
     condition: Condition | None = None,
-    *,
-    info: Literal[True],
+    info: Literal[True] = ...,
 ) -> Callable[[Callable[..., _R]], _cached_wrapper_info[_R]]: ...
 @overload
 def cached(
@@ -130,15 +128,7 @@ def cached(
     key: Callable[..., _KT] = ...,
     lock: AbstractContextManager[Any] | None = None,
     condition: Condition | None = None,
-    *,
-    info: Literal[False] = False,
-) -> Callable[[Callable[..., _R]], _cached_wrapper[_R]]: ...
-@overload
-def cached(  # без параметра info (по умолчанию False)
-    cache: MutableMapping[_KT, Any] | None,
-    key: Callable[..., _KT] = ...,
-    lock: AbstractContextManager[Any] | None = None,
-    condition: Condition | None = None,
+    info: Literal[False] = ...,
 ) -> Callable[[Callable[..., _R]], _cached_wrapper[_R]]: ...
 @overload
 @deprecated("Passing `info` as positional parameter is deprecated.")
