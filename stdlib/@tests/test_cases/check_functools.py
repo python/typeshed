@@ -1,12 +1,15 @@
 from __future__ import annotations
 
-from functools import cached_property, wraps
+from functools import cache, cached_property, wraps
 from typing import Callable, TypeVar
 from typing_extensions import ParamSpec, assert_type
 
 P = ParamSpec("P")
 T_co = TypeVar("T_co", covariant=True)
 
+#
+# Tests for @wraps
+#
 
 def my_decorator(func: Callable[P, T_co]) -> Callable[P, T_co]:
     @wraps(func)
@@ -53,6 +56,26 @@ def check_wraps_method() -> None:
     # Wrapper().method(3)
     func_wrapper(3)
 
+#
+# Tests for @cache
+#
+
+@cache
+def check_cached(x: int) -> int:
+    return x * 2
+
+
+assert_type(check_cached(3), int)
+# Type checkers should check the argument type, but this is currently not
+# possible. See https://github.com/python/typeshed/issues/6347 and
+# https://github.com/python/typeshed/issues/11280.
+# check_cached("invalid")  # type: ignore
+
+assert_type(check_cached.cache_info().misses, int)
+
+#
+# Tests for @cached_property
+#
 
 class A:
     def __init__(self, x: int):
