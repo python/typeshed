@@ -1262,7 +1262,7 @@ class Button(Widget):
         font: _FontDescription = "TkDefaultFont",
         foreground: str = ...,
         # width and height must be int for buttons containing just text, but
-        # buttons with an image accept any screen units.
+        # ints are also valid _ScreenUnits
         height: _ScreenUnits = 0,
         highlightbackground: str = ...,
         highlightcolor: str = ...,
@@ -1351,7 +1351,7 @@ class Canvas(Widget, XView, YView):
         cursor: _Cursor = "",
         # canvas manual page has a section named COORDINATES, and the first
         # part of it describes _ScreenUnits.
-        height: _ScreenUnits = ...,  # see COORDINATES in canvas manual page
+        height: _ScreenUnits = ...,
         highlightbackground: str = ...,
         highlightcolor: str = ...,
         highlightthickness: _ScreenUnits = ...,
