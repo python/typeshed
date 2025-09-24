@@ -960,7 +960,7 @@ class ExitedEvent(Event):
     exit_code: int
     inferior: Inferior
 
-class ThreadExitedEvent(Event): ...
+class ThreadExitedEvent(ThreadEvent): ...
 
 class StopEvent(ThreadEvent):
     details: dict[str, object]

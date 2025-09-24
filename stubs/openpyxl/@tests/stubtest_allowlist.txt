@@ -187,7 +187,3 @@ openpyxl.worksheet.smart_tag.CellSmartTagPr.__init__
 openpyxl.worksheet.smart_tag.CellSmartTags.__init__
 openpyxl.worksheet.table.TableColumn.__init__
 openpyxl.worksheet.table.XMLColumnProps.__init__
-
-# FIXME: new stubtest errors from mypy v1.18.1 that need to be looked at more closely.
-# See https://github.com/python/typeshed/pull/14699
-openpyxl.descriptors.sequence.UniqueSequence.seq_types
