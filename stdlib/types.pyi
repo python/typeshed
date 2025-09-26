@@ -450,7 +450,7 @@ class AsyncGeneratorType(AsyncGenerator[_YieldT_co, _SendT_contra]):
     def aclose(self) -> Coroutine[Any, Any, None]: ...
     def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
 
-# Non-default variations to accommodate couroutines
+# Non-default variations to accommodate coroutines
 _SendT_nd_contra = TypeVar("_SendT_nd_contra", contravariant=True)
 _ReturnT_nd_co = TypeVar("_ReturnT_nd_co", covariant=True)
 
