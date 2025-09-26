@@ -3146,9 +3146,6 @@ class Scrollbar(Widget):
     def set(self, first: float | str, last: float | str) -> None: ...
 
 _TextIndex: TypeAlias = _tkinter.Tcl_Obj | str | float | Misc
-_WhatToCount: TypeAlias = Literal[
-    "chars", "displaychars", "displayindices", "displaylines", "indices", "lines", "xpixels", "ypixels"
-]
 
 class Text(Widget, XView, YView):
     def __init__(
@@ -3268,7 +3265,15 @@ class Text(Widget, XView, YView):
         def count(self, index1: _TextIndex, index2: _TextIndex, *, return_ints: Literal[True]) -> int: ...
         @overload
         def count(
-            self, index1: _TextIndex, index2: _TextIndex, arg: _WhatToCount | Literal["update"], /, *, return_ints: Literal[True]
+            self,
+            index1: _TextIndex,
+            index2: _TextIndex,
+            arg: Literal[
+                "chars", "displaychars", "displayindices", "displaylines", "indices", "lines", "xpixels", "ypixels", "update"
+            ],
+            /,
+            *,
+            return_ints: Literal[True],
         ) -> int: ...
         @overload
         def count(
@@ -3276,7 +3281,7 @@ class Text(Widget, XView, YView):
             index1: _TextIndex,
             index2: _TextIndex,
             arg1: Literal["update"],
-            arg2: _WhatToCount,
+            arg2: Literal["chars", "displaychars", "displayindices", "displaylines", "indices", "lines", "xpixels", "ypixels"],
             /,
             *,
             return_ints: Literal[True],
@@ -3286,7 +3291,7 @@ class Text(Widget, XView, YView):
             self,
             index1: _TextIndex,
             index2: _TextIndex,
-            arg1: _WhatToCount,
+            arg1: Literal["chars", "displaychars", "displayindices", "displaylines", "indices", "lines", "xpixels", "ypixels"],
             arg2: Literal["update"],
             /,
             *,
@@ -3294,18 +3299,33 @@ class Text(Widget, XView, YView):
         ) -> int: ...
         @overload
         def count(
-            self, index1: _TextIndex, index2: _TextIndex, arg1: _WhatToCount, arg2: _WhatToCount, /, *, return_ints: Literal[True]
+            self,
+            index1: _TextIndex,
+            index2: _TextIndex,
+            arg1: Literal["chars", "displaychars", "displayindices", "displaylines", "indices", "lines", "xpixels", "ypixels"],
+            arg2: Literal["chars", "displaychars", "displayindices", "displaylines", "indices", "lines", "xpixels", "ypixels"],
+            /,
+            *,
+            return_ints: Literal[True],
         ) -> tuple[int, int]: ...
         @overload
         def count(
             self,
             index1: _TextIndex,
             index2: _TextIndex,
-            arg1: _WhatToCount | Literal["update"],
-            arg2: _WhatToCount | Literal["update"],
-            arg3: _WhatToCount | Literal["update"],
+            arg1: Literal[
+                "chars", "displaychars", "displayindices", "displaylines", "indices", "lines", "xpixels", "ypixels", "update"
+            ],
+            arg2: Literal[
+                "chars", "displaychars", "displayindices", "displaylines", "indices", "lines", "xpixels", "ypixels", "update"
+            ],
+            arg3: Literal[
+                "chars", "displaychars", "displayindices", "displaylines", "indices", "lines", "xpixels", "ypixels", "update"
+            ],
             /,
-            *args: _WhatToCount | Literal["update"],
+            *args: Literal[
+                "chars", "displaychars", "displayindices", "displaylines", "indices", "lines", "xpixels", "ypixels", "update"
+            ],
             return_ints: Literal[True],
         ) -> tuple[int, ...]: ...
         @overload
@@ -3315,7 +3335,9 @@ class Text(Widget, XView, YView):
             self,
             index1: _TextIndex,
             index2: _TextIndex,
-            arg: _WhatToCount | Literal["update"],
+            arg: Literal[
+                "chars", "displaychars", "displayindices", "displaylines", "indices", "lines", "xpixels", "ypixels", "update"
+            ],
             /,
             *,
             return_ints: Literal[False] = False,
@@ -3326,7 +3348,7 @@ class Text(Widget, XView, YView):
             index1: _TextIndex,
             index2: _TextIndex,
             arg1: Literal["update"],
-            arg2: _WhatToCount,
+            arg2: Literal["chars", "displaychars", "displayindices", "displaylines", "indices", "lines", "xpixels", "ypixels"],
             /,
             *,
             return_ints: Literal[False] = False,
@@ -3336,7 +3358,7 @@ class Text(Widget, XView, YView):
             self,
             index1: _TextIndex,
             index2: _TextIndex,
-            arg1: _WhatToCount,
+            arg1: Literal["chars", "displaychars", "displayindices", "displaylines", "indices", "lines", "xpixels", "ypixels"],
             arg2: Literal["update"],
             /,
             *,
@@ -3347,8 +3369,8 @@ class Text(Widget, XView, YView):
             self,
             index1: _TextIndex,
             index2: _TextIndex,
-            arg1: _WhatToCount,
-            arg2: _WhatToCount,
+            arg1: Literal["chars", "displaychars", "displayindices", "displaylines", "indices", "lines", "xpixels", "ypixels"],
+            arg2: Literal["chars", "displaychars", "displayindices", "displaylines", "indices", "lines", "xpixels", "ypixels"],
             /,
             *,
             return_ints: Literal[False] = False,
@@ -3358,11 +3380,19 @@ class Text(Widget, XView, YView):
             self,
             index1: _TextIndex,
             index2: _TextIndex,
-            arg1: _WhatToCount | Literal["update"],
-            arg2: _WhatToCount | Literal["update"],
-            arg3: _WhatToCount | Literal["update"],
+            arg1: Literal[
+                "chars", "displaychars", "displayindices", "displaylines", "indices", "lines", "xpixels", "ypixels", "update"
+            ],
+            arg2: Literal[
+                "chars", "displaychars", "displayindices", "displaylines", "indices", "lines", "xpixels", "ypixels", "update"
+            ],
+            arg3: Literal[
+                "chars", "displaychars", "displayindices", "displaylines", "indices", "lines", "xpixels", "ypixels", "update"
+            ],
             /,
-            *args: _WhatToCount | Literal["update"],
+            *args: Literal[
+                "chars", "displaychars", "displayindices", "displaylines", "indices", "lines", "xpixels", "ypixels", "update"
+            ],
             return_ints: Literal[False] = False,
         ) -> tuple[int, ...]: ...
     else:
@@ -3370,24 +3400,59 @@ class Text(Widget, XView, YView):
         def count(self, index1: _TextIndex, index2: _TextIndex) -> tuple[int] | None: ...
         @overload
         def count(
-            self, index1: _TextIndex, index2: _TextIndex, arg: _WhatToCount | Literal["update"], /
+            self,
+            index1: _TextIndex,
+            index2: _TextIndex,
+            arg: Literal[
+                "chars", "displaychars", "displayindices", "displaylines", "indices", "lines", "xpixels", "ypixels", "update"
+            ],
+            /,
         ) -> tuple[int] | None: ...
-        @overload
-        def count(self, index1: _TextIndex, index2: _TextIndex, arg1: Literal["update"], arg2: _WhatToCount, /) -> int | None: ...
-        @overload
-        def count(self, index1: _TextIndex, index2: _TextIndex, arg1: _WhatToCount, arg2: Literal["update"], /) -> int | None: ...
-        @overload
-        def count(self, index1: _TextIndex, index2: _TextIndex, arg1: _WhatToCount, arg2: _WhatToCount, /) -> tuple[int, int]: ...
         @overload
         def count(
             self,
             index1: _TextIndex,
             index2: _TextIndex,
-            arg1: _WhatToCount | Literal["update"],
-            arg2: _WhatToCount | Literal["update"],
-            arg3: _WhatToCount | Literal["update"],
+            arg1: Literal["update"],
+            arg2: Literal["chars", "displaychars", "displayindices", "displaylines", "indices", "lines", "xpixels", "ypixels"],
             /,
-            *args: _WhatToCount | Literal["update"],
+        ) -> int | None: ...
+        @overload
+        def count(
+            self,
+            index1: _TextIndex,
+            index2: _TextIndex,
+            arg1: Literal["chars", "displaychars", "displayindices", "displaylines", "indices", "lines", "xpixels", "ypixels"],
+            arg2: Literal["update"],
+            /,
+        ) -> int | None: ...
+        @overload
+        def count(
+            self,
+            index1: _TextIndex,
+            index2: _TextIndex,
+            arg1: Literal["chars", "displaychars", "displayindices", "displaylines", "indices", "lines", "xpixels", "ypixels"],
+            arg2: Literal["chars", "displaychars", "displayindices", "displaylines", "indices", "lines", "xpixels", "ypixels"],
+            /,
+        ) -> tuple[int, int]: ...
+        @overload
+        def count(
+            self,
+            index1: _TextIndex,
+            index2: _TextIndex,
+            arg1: Literal[
+                "chars", "displaychars", "displayindices", "displaylines", "indices", "lines", "xpixels", "ypixels", "update"
+            ],
+            arg2: Literal[
+                "chars", "displaychars", "displayindices", "displaylines", "indices", "lines", "xpixels", "ypixels", "update"
+            ],
+            arg3: Literal[
+                "chars", "displaychars", "displayindices", "displaylines", "indices", "lines", "xpixels", "ypixels", "update"
+            ],
+            /,
+            *args: Literal[
+                "chars", "displaychars", "displayindices", "displaylines", "indices", "lines", "xpixels", "ypixels", "update"
+            ],
         ) -> tuple[int, ...]: ...
 
     @overload
