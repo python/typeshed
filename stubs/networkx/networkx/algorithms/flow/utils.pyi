@@ -7,11 +7,13 @@ from ...classes.graph import Graph, _Node
 __all__ = ["CurrentEdge", "Level", "GlobalRelabelThreshold", "build_residual_network", "detect_unboundedness", "build_flow_dict"]
 
 class CurrentEdge:
+    __slots__ = ("_edges", "_it", "_curr")
     def __init__(self, edges) -> None: ...
     def get(self): ...
     def move_to_next(self) -> None: ...
 
 class Level:
+    __slots__ = ("active", "inactive")
     active: Incomplete
     inactive: Incomplete
 

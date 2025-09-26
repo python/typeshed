@@ -13,10 +13,10 @@ multiprocessing.managers._BaseDictProxy.fromkeys
 multiprocessing.process.BaseProcess.interrupt
 multiprocessing.synchronize.SemLock.locked
 
+
 # =========================
 # New errors in Python 3.14
 # =========================
-
 
 # Union and UnionType are aliases in 3.14 but type checkers need some changes
 typing_extensions.Union
@@ -37,6 +37,9 @@ concurrent.interpreters._crossinterp.UNBOUND_ERROR
 concurrent.interpreters._crossinterp.UNBOUND_REMOVE
 concurrent.interpreters._queues.UNBOUND_ERROR
 concurrent.interpreters._queues.UNBOUND_REMOVE
+
+importlib.util.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatibility
+
 
 # ====================================
 # Pre-existing errors from Python 3.13
@@ -65,7 +68,6 @@ typing.NewType.__mro_entries__
 
 builtins.ellipsis  # type is not exposed anywhere
 importlib._abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatibility
-importlib.util.Loader.exec_module
 
 # positional-only complaints caused by differences between typing aliases and the "real" classes in the stdlib
 _collections_abc.Coroutine.send
@@ -82,6 +84,9 @@ posixpath.join
 ntpath.join
 os.path.join
 
+# this is implemented with *args having a minimum size so arguments before it must be positional (but stubtest doesn't see that)
+tkinter.ttk.Style.element_create
+
 # typing.IO uses positional-or-keyword arguments, but in the stubs we prefer
 # to mark these as positional-only for compatibility with existing sub-classes.
 typing(_extensions)?\.BinaryIO\.write
@@ -92,6 +97,7 @@ typing(_extensions)?\.IO\.seek
 typing(_extensions)?\.IO\.truncate
 typing(_extensions)?\.IO\.write
 typing(_extensions)?\.IO\.writelines
+
 
 # =============================================================
 # Allowlist entries that cannot or should not be fixed; >= 3.14
@@ -113,6 +119,45 @@ typing(_extensions)?\.IO\.writelines
 (io|typing_extensions)\.Reader\.read
 (io|typing_extensions)\.Writer\.__class_getitem__
 (io|typing_extensions)\.Writer\.write
+
+
+# These multiprocessing proxy methods have *args, **kwargs signatures at runtime,
+# But have more precise (accurate) signatures in the stub
+multiprocessing.managers._BaseSetProxy.__iter__
+multiprocessing.managers._BaseSetProxy.__len__
+multiprocessing.managers._BaseSetProxy.clear
+multiprocessing.managers._BaseSetProxy.copy
+multiprocessing.managers._BaseSetProxy.pop
+
+
+# Changes from patch releases to be introduced in Python 3.14.0b3
+# (Remove once 3.14.0b3 becomes available for all platforms)
+(genericpath.__all__)?
+(genericpath.ALLOW_MISSING)?
+(ntpath.__all__)?
+(ntpath.ALLOW_MISSING)?
+(os.path.__all__)?
+(os.path.ALLOW_MISSING)?
+(os.path.realpath)?
+(posixpath.__all__)?
+(posixpath.ALLOW_MISSING)?
+(tarfile.__all__)?
+(tarfile.LinkFallbackError)?
+(tarfile.TarFile._extract_member)?
+(tarfile.TarFile.makelink_with_filter)?
+(_?hashlib.new)?
+(_?hashlib.(openssl_)?md5)?
+(_?hashlib.(openssl_)?sha1)?
+(_?hashlib.(openssl_)?sha224)?
+(_?hashlib.(openssl_)?sha256)?
+(_?hashlib.(openssl_)?sha384)?
+(_?hashlib.(openssl_)?sha3_224)?
+(_?hashlib.(openssl_)?sha3_256)?
+(_?hashlib.(openssl_)?sha3_384)?
+(_?hashlib.(openssl_)?sha3_512)?
+(_?hashlib.(openssl_)?sha512)?
+(_?hashlib.(openssl_)?shake_128)?
+(_?hashlib.(openssl_)?shake_256)?
 
 
 # =============================================================
@@ -137,12 +182,6 @@ multiprocessing.managers._BaseDictProxy.items
 multiprocessing.managers._BaseDictProxy.keys
 multiprocessing.managers._BaseDictProxy.popitem
 multiprocessing.managers._BaseDictProxy.values
-
-multiprocessing.managers._BaseSetProxy.__iter__
-multiprocessing.managers._BaseSetProxy.__len__
-multiprocessing.managers._BaseSetProxy.clear
-multiprocessing.managers._BaseSetProxy.copy
-multiprocessing.managers._BaseSetProxy.pop
 
 # To match `dict`, we lie about the runtime, but use overloads to match the correct behavior
 types.MappingProxyType.get
@@ -210,32 +249,3 @@ builtins.property.__set_name__  # Doesn't actually exist
 collections\.UserList\.index  # ignoring pos-or-keyword parameter
 dataclasses.KW_ONLY  # white lies around defaults
 importlib.metadata._meta.SimplePath.joinpath  # Runtime definition of protocol is incorrect
-
-# Changes from patch releases to be introduced in Python 3.14.0b3
-# (Remove once 3.14.0b3 becomes available for all platforms)
-(genericpath.__all__)?
-(genericpath.ALLOW_MISSING)?
-(ntpath.__all__)?
-(ntpath.ALLOW_MISSING)?
-(os.path.__all__)?
-(os.path.ALLOW_MISSING)?
-(os.path.realpath)?
-(posixpath.__all__)?
-(posixpath.ALLOW_MISSING)?
-(tarfile.__all__)?
-(tarfile.LinkFallbackError)?
-(tarfile.TarFile._extract_member)?
-(tarfile.TarFile.makelink_with_filter)?
-(_?hashlib.new)?
-(_?hashlib.(openssl_)?md5)?
-(_?hashlib.(openssl_)?sha1)?
-(_?hashlib.(openssl_)?sha224)?
-(_?hashlib.(openssl_)?sha256)?
-(_?hashlib.(openssl_)?sha384)?
-(_?hashlib.(openssl_)?sha3_224)?
-(_?hashlib.(openssl_)?sha3_256)?
-(_?hashlib.(openssl_)?sha3_384)?
-(_?hashlib.(openssl_)?sha3_512)?
-(_?hashlib.(openssl_)?sha512)?
-(_?hashlib.(openssl_)?shake_128)?
-(_?hashlib.(openssl_)?shake_256)?

@@ -5,8 +5,8 @@ from collections.abc import Callable, Iterable, Mapping, Sequence
 from tkinter.constants import *
 from tkinter.font import _FontDescription
 from types import GenericAlias, TracebackType
-from typing import Any, ClassVar, Generic, Literal, NamedTuple, Protocol, TypedDict, TypeVar, overload, type_check_only
-from typing_extensions import TypeAlias, TypeVarTuple, Unpack, deprecated
+from typing import Any, ClassVar, Final, Generic, Literal, NamedTuple, Protocol, TypedDict, TypeVar, overload, type_check_only
+from typing_extensions import TypeAlias, TypeVarTuple, Unpack, deprecated, disjoint_base
 
 if sys.version_info >= (3, 11):
     from enum import StrEnum
@@ -153,11 +153,11 @@ __all__ = [
 
 TclError = _tkinter.TclError
 wantobjects: int
-TkVersion: float
-TclVersion: float
-READABLE = _tkinter.READABLE
-WRITABLE = _tkinter.WRITABLE
-EXCEPTION = _tkinter.EXCEPTION
+TkVersion: Final[float]
+TclVersion: Final[float]
+READABLE: Final = _tkinter.READABLE
+WRITABLE: Final = _tkinter.WRITABLE
+EXCEPTION: Final = _tkinter.EXCEPTION
 
 # Quick guide for figuring out which widget class to choose:
 #   - Misc: any widget (don't use BaseWidget because Tk doesn't inherit from BaseWidget)
@@ -173,21 +173,9 @@ EXCEPTION = _tkinter.EXCEPTION
 #
 # You can also read the manual pages online: https://www.tcl.tk/doc/
 
-# Some widgets have an option named -compound that accepts different values
-# than the _Compound defined here. Many other options have similar things.
-_Anchor: TypeAlias = Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"]  # manual page: Tk_GetAnchor
-_ButtonCommand: TypeAlias = str | Callable[[], Any]  # accepts string of tcl code, return value is returned from Button.invoke()
-_Compound: TypeAlias = Literal["top", "left", "center", "right", "bottom", "none"]  # -compound in manual page named 'options'
 # manual page: Tk_GetCursor
 _Cursor: TypeAlias = str | tuple[str] | tuple[str, str] | tuple[str, str, str] | tuple[str, str, str, str]
-# example when it's sequence:  entry['invalidcommand'] = [entry.register(print), '%P']
-_EntryValidateCommand: TypeAlias = str | list[str] | tuple[str, ...] | Callable[[], bool]
-_ImageSpec: TypeAlias = _Image | str  # str can be from e.g. tkinter.image_names()
-_Relief: TypeAlias = Literal["raised", "sunken", "flat", "ridge", "solid", "groove"]  # manual page: Tk_GetRelief
 _ScreenUnits: TypeAlias = str | float  # Often the right type instead of int. Manual page: Tk_GetPixels
-# -xscrollcommand and -yscrollcommand in 'options' manual page
-_XYScrollCommand: TypeAlias = str | Callable[[float, float], object]
-_TakeFocusValue: TypeAlias = bool | Literal[0, 1, ""] | Callable[[str], bool | None]  # -takefocus in manual page named 'options'
 
 if sys.version_info >= (3, 11):
     @type_check_only
@@ -198,7 +186,11 @@ if sys.version_info >= (3, 11):
         releaselevel: str
         serial: int
 
-    class _VersionInfoType(_VersionInfoTypeBase): ...
+    if sys.version_info >= (3, 12):
+        class _VersionInfoType(_VersionInfoTypeBase): ...
+    else:
+        @disjoint_base
+        class _VersionInfoType(_VersionInfoTypeBase): ...
 
 if sys.version_info >= (3, 11):
     class EventType(StrEnum):
@@ -321,14 +313,21 @@ class Variable:
     def trace_add(self, mode: Literal["array", "read", "write", "unset"], callback: Callable[[str, str, str], object]) -> str: ...
     def trace_remove(self, mode: Literal["array", "read", "write", "unset"], cbname: str) -> None: ...
     def trace_info(self) -> list[tuple[tuple[Literal["array", "read", "write", "unset"], ...], str]]: ...
-    @deprecated("use trace_add() instead of trace()")
-    def trace(self, mode, callback): ...
-    @deprecated("use trace_add() instead of trace_variable()")
-    def trace_variable(self, mode, callback): ...
-    @deprecated("use trace_remove() instead of trace_vdelete()")
-    def trace_vdelete(self, mode, cbname) -> None: ...
-    @deprecated("use trace_info() instead of trace_vinfo()")
-    def trace_vinfo(self): ...
+    if sys.version_info >= (3, 14):
+        @deprecated("Deprecated since Python 3.14. Use `trace_add()` instead.")
+        def trace(self, mode, callback) -> str: ...
+        @deprecated("Deprecated since Python 3.14. Use `trace_add()` instead.")
+        def trace_variable(self, mode, callback) -> str: ...
+        @deprecated("Deprecated since Python 3.14. Use `trace_remove()` instead.")
+        def trace_vdelete(self, mode, cbname) -> None: ...
+        @deprecated("Deprecated since Python 3.14. Use `trace_info()` instead.")
+        def trace_vinfo(self) -> list[Incomplete]: ...
+    else:
+        def trace(self, mode, callback) -> str: ...
+        def trace_variable(self, mode, callback) -> str: ...
+        def trace_vdelete(self, mode, cbname) -> None: ...
+        def trace_vinfo(self) -> list[Incomplete]: ...
+
     def __eq__(self, other: object) -> bool: ...
     def __del__(self) -> None: ...
     __hash__: ClassVar[None]  # type: ignore[assignment]
@@ -359,10 +358,10 @@ class BooleanVar(Variable):
 
 def mainloop(n: int = 0) -> None: ...
 
-getint: Incomplete
-getdouble: Incomplete
+getint = int
+getdouble = float
 
-def getboolean(s): ...
+def getboolean(s) -> bool: ...
 
 _Ts = TypeVarTuple("_Ts")
 
@@ -392,9 +391,9 @@ class Misc:
     def wait_visibility(self, window: Misc | None = None) -> None: ...
     def setvar(self, name: str = "PY_VAR", value: str = "1") -> None: ...
     def getvar(self, name: str = "PY_VAR"): ...
-    def getint(self, s): ...
-    def getdouble(self, s): ...
-    def getboolean(self, s): ...
+    def getint(self, s) -> int: ...
+    def getdouble(self, s) -> float: ...
+    def getboolean(self, s) -> bool: ...
     def focus_set(self) -> None: ...
     focus = focus_set
     def focus_force(self) -> None: ...
@@ -569,7 +568,7 @@ class Misc:
     @overload
     def pack_propagate(self) -> None: ...
     propagate = pack_propagate
-    def grid_anchor(self, anchor: _Anchor | None = None) -> None: ...
+    def grid_anchor(self, anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"] | None = None) -> None: ...
     anchor = grid_anchor
     @overload
     def grid_bbox(
@@ -670,7 +669,7 @@ class XView:
     @overload
     def xview(self) -> tuple[float, float]: ...
     @overload
-    def xview(self, *args): ...
+    def xview(self, *args) -> None: ...
     def xview_moveto(self, fraction: float) -> None: ...
     @overload
     def xview_scroll(self, number: int, what: Literal["units", "pages"]) -> None: ...
@@ -681,7 +680,7 @@ class YView:
     @overload
     def yview(self) -> tuple[float, float]: ...
     @overload
-    def yview(self, *args): ...
+    def yview(self, *args) -> None: ...
     def yview_moveto(self, fraction: float) -> None: ...
     @overload
     def yview_scroll(self, number: int, what: Literal["units", "pages"]) -> None: ...
@@ -994,8 +993,8 @@ class Tk(Misc, Wm):
         menu: Menu = ...,
         padx: _ScreenUnits = ...,
         pady: _ScreenUnits = ...,
-        relief: _Relief = ...,
-        takefocus: _TakeFocusValue = ...,
+        relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
+        takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = ...,
         width: _ScreenUnits = ...,
     ) -> dict[str, tuple[str, str, str, Any, Any]] | None: ...
     @overload
@@ -1007,27 +1006,27 @@ class Tk(Misc, Wm):
     # Tk has __getattr__ so that tk_instance.foo falls back to tk_instance.tk.foo
     # Please keep in sync with _tkinter.TkappType.
     # Some methods are intentionally missing because they are inherited from Misc instead.
-    def adderrorinfo(self, msg, /): ...
+    def adderrorinfo(self, msg: str, /): ...
     def call(self, command: Any, /, *args: Any) -> Any: ...
-    def createcommand(self, name, func, /): ...
+    def createcommand(self, name: str, func, /): ...
     if sys.platform != "win32":
-        def createfilehandler(self, file, mask, func, /): ...
-        def deletefilehandler(self, file, /): ...
+        def createfilehandler(self, file, mask: int, func, /): ...
+        def deletefilehandler(self, file, /) -> None: ...
 
-    def createtimerhandler(self, milliseconds, func, /): ...
-    def dooneevent(self, flags: int = ..., /): ...
+    def createtimerhandler(self, milliseconds: int, func, /): ...
+    def dooneevent(self, flags: int = 0, /): ...
     def eval(self, script: str, /) -> str: ...
-    def evalfile(self, fileName, /): ...
-    def exprboolean(self, s, /): ...
-    def exprdouble(self, s, /): ...
-    def exprlong(self, s, /): ...
-    def exprstring(self, s, /): ...
+    def evalfile(self, fileName: str, /): ...
+    def exprboolean(self, s: str, /): ...
+    def exprdouble(self, s: str, /): ...
+    def exprlong(self, s: str, /): ...
+    def exprstring(self, s: str, /): ...
     def globalgetvar(self, *args, **kwargs): ...
     def globalsetvar(self, *args, **kwargs): ...
     def globalunsetvar(self, *args, **kwargs): ...
     def interpaddr(self) -> int: ...
     def loadtk(self) -> None: ...
-    def record(self, script, /): ...
+    def record(self, script: str, /): ...
     if sys.version_info < (3, 11):
         @deprecated("Deprecated since Python 3.9; removed in Python 3.11. Use `splitlist()` instead.")
         def split(self, arg, /): ...
@@ -1035,7 +1034,7 @@ class Tk(Misc, Wm):
     def splitlist(self, arg, /): ...
     def unsetvar(self, *args, **kwargs): ...
     def wantobjects(self, *args, **kwargs): ...
-    def willdispatch(self): ...
+    def willdispatch(self) -> None: ...
 
 def Tcl(screenName: str | None = None, baseName: str | None = None, className: str = "Tk", useTk: bool = False) -> Tk: ...
 
@@ -1045,7 +1044,7 @@ _InMiscNonTotal = TypedDict("_InMiscNonTotal", {"in": Misc}, total=False)
 @type_check_only
 class _PackInfo(_InMiscTotal):
     # 'before' and 'after' never appear in _PackInfo
-    anchor: _Anchor
+    anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"]
     expand: bool
     fill: Literal["none", "x", "y", "both"]
     side: Literal["left", "right", "top", "bottom"]
@@ -1066,7 +1065,7 @@ class Pack:
         cnf: Mapping[str, Any] | None = {},
         *,
         after: Misc = ...,
-        anchor: _Anchor = ...,
+        anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"] = ...,
         before: Misc = ...,
         expand: bool | Literal[0, 1] = 0,
         fill: Literal["none", "x", "y", "both"] = ...,
@@ -1086,7 +1085,7 @@ class Pack:
 
 @type_check_only
 class _PlaceInfo(_InMiscNonTotal):  # empty dict if widget hasn't been placed
-    anchor: _Anchor
+    anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"]
     bordermode: Literal["inside", "outside", "ignore"]
     width: str  # can be int()ed (even after e.g. widget.place(height='2.3c') or similar)
     height: str  # can be int()ed
@@ -1102,7 +1101,7 @@ class Place:
         self,
         cnf: Mapping[str, Any] | None = {},
         *,
-        anchor: _Anchor = ...,
+        anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"] = ...,
         bordermode: Literal["inside", "outside", "ignore"] = ...,
         width: _ScreenUnits = ...,
         height: _ScreenUnits = ...,
@@ -1159,8 +1158,8 @@ class Grid:
 
 class BaseWidget(Misc):
     master: Misc
-    widgetName: Incomplete
-    def __init__(self, master, widgetName, cnf={}, kw={}, extra=()) -> None: ...
+    widgetName: str
+    def __init__(self, master, widgetName: str, cnf={}, kw={}, extra=()) -> None: ...
     def destroy(self) -> None: ...
 
 # This class represents any widget except Toplevel or Tk.
@@ -1206,9 +1205,9 @@ class Toplevel(BaseWidget, Wm):
         name: str = ...,
         padx: _ScreenUnits = 0,
         pady: _ScreenUnits = 0,
-        relief: _Relief = "flat",
+        relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = "flat",
         screen: str = "",  # can't be changed after creating widget
-        takefocus: _TakeFocusValue = 0,
+        takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = 0,
         use: int = ...,
         visual: str | tuple[str, int] = "",
         width: _ScreenUnits = 0,
@@ -1231,8 +1230,8 @@ class Toplevel(BaseWidget, Wm):
         menu: Menu = ...,
         padx: _ScreenUnits = ...,
         pady: _ScreenUnits = ...,
-        relief: _Relief = ...,
-        takefocus: _TakeFocusValue = ...,
+        relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
+        takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = ...,
         width: _ScreenUnits = ...,
     ) -> dict[str, tuple[str, str, str, Any, Any]] | None: ...
     @overload
@@ -1247,15 +1246,15 @@ class Button(Widget):
         *,
         activebackground: str = ...,
         activeforeground: str = ...,
-        anchor: _Anchor = "center",
+        anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"] = "center",
         background: str = ...,
         bd: _ScreenUnits = ...,  # same as borderwidth
         bg: str = ...,  # same as background
         bitmap: str = "",
         border: _ScreenUnits = ...,  # same as borderwidth
         borderwidth: _ScreenUnits = ...,
-        command: _ButtonCommand = "",
-        compound: _Compound = "none",
+        command: str | Callable[[], Any] = "",
+        compound: Literal["top", "left", "center", "right", "bottom", "none"] = "none",
         cursor: _Cursor = "",
         default: Literal["normal", "active", "disabled"] = "disabled",
         disabledforeground: str = ...,
@@ -1268,17 +1267,17 @@ class Button(Widget):
         highlightbackground: str = ...,
         highlightcolor: str = ...,
         highlightthickness: _ScreenUnits = 1,
-        image: _ImageSpec = "",
+        image: _Image | str = "",
         justify: Literal["left", "center", "right"] = "center",
         name: str = ...,
-        overrelief: _Relief | Literal[""] = "",
+        overrelief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove", ""] = "",
         padx: _ScreenUnits = ...,
         pady: _ScreenUnits = ...,
-        relief: _Relief = ...,
+        relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
         repeatdelay: int = ...,
         repeatinterval: int = ...,
         state: Literal["normal", "active", "disabled"] = "normal",
-        takefocus: _TakeFocusValue = "",
+        takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = "",
         text: float | str = "",
         # We allow the textvariable to be any Variable, not necessarily
         # StringVar. This is useful for e.g. a button that displays the value
@@ -1295,15 +1294,15 @@ class Button(Widget):
         *,
         activebackground: str = ...,
         activeforeground: str = ...,
-        anchor: _Anchor = ...,
+        anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"] = ...,
         background: str = ...,
         bd: _ScreenUnits = ...,
         bg: str = ...,
         bitmap: str = ...,
         border: _ScreenUnits = ...,
         borderwidth: _ScreenUnits = ...,
-        command: _ButtonCommand = ...,
-        compound: _Compound = ...,
+        command: str | Callable[[], Any] = ...,
+        compound: Literal["top", "left", "center", "right", "bottom", "none"] = ...,
         cursor: _Cursor = ...,
         default: Literal["normal", "active", "disabled"] = ...,
         disabledforeground: str = ...,
@@ -1314,16 +1313,16 @@ class Button(Widget):
         highlightbackground: str = ...,
         highlightcolor: str = ...,
         highlightthickness: _ScreenUnits = ...,
-        image: _ImageSpec = ...,
+        image: _Image | str = ...,
         justify: Literal["left", "center", "right"] = ...,
-        overrelief: _Relief | Literal[""] = ...,
+        overrelief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove", ""] = ...,
         padx: _ScreenUnits = ...,
         pady: _ScreenUnits = ...,
-        relief: _Relief = ...,
+        relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
         repeatdelay: int = ...,
         repeatinterval: int = ...,
         state: Literal["normal", "active", "disabled"] = ...,
-        takefocus: _TakeFocusValue = ...,
+        takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = ...,
         text: float | str = ...,
         textvariable: Variable = ...,
         underline: int = ...,
@@ -1363,7 +1362,7 @@ class Canvas(Widget, XView, YView):
         insertwidth: _ScreenUnits = 2,
         name: str = ...,
         offset=...,  # undocumented
-        relief: _Relief = "flat",
+        relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = "flat",
         # Setting scrollregion to None doesn't reset it back to empty,
         # but setting it to () does.
         scrollregion: tuple[_ScreenUnits, _ScreenUnits, _ScreenUnits, _ScreenUnits] | tuple[()] = (),
@@ -1372,11 +1371,11 @@ class Canvas(Widget, XView, YView):
         selectforeground: str = ...,
         # man page says that state can be 'hidden', but it can't
         state: Literal["normal", "disabled"] = "normal",
-        takefocus: _TakeFocusValue = "",
+        takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = "",
         width: _ScreenUnits = ...,
-        xscrollcommand: _XYScrollCommand = "",
+        xscrollcommand: str | Callable[[float, float], object] = "",
         xscrollincrement: _ScreenUnits = 0,
-        yscrollcommand: _XYScrollCommand = "",
+        yscrollcommand: str | Callable[[float, float], object] = "",
         yscrollincrement: _ScreenUnits = 0,
     ) -> None: ...
     @overload
@@ -1402,17 +1401,17 @@ class Canvas(Widget, XView, YView):
         insertontime: int = ...,
         insertwidth: _ScreenUnits = ...,
         offset=...,  # undocumented
-        relief: _Relief = ...,
+        relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
         scrollregion: tuple[_ScreenUnits, _ScreenUnits, _ScreenUnits, _ScreenUnits] | tuple[()] = ...,
         selectbackground: str = ...,
         selectborderwidth: _ScreenUnits = ...,
         selectforeground: str = ...,
         state: Literal["normal", "disabled"] = ...,
-        takefocus: _TakeFocusValue = ...,
+        takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = ...,
         width: _ScreenUnits = ...,
-        xscrollcommand: _XYScrollCommand = ...,
+        xscrollcommand: str | Callable[[float, float], object] = ...,
         xscrollincrement: _ScreenUnits = ...,
-        yscrollcommand: _XYScrollCommand = ...,
+        yscrollcommand: str | Callable[[float, float], object] = ...,
         yscrollincrement: _ScreenUnits = ...,
     ) -> dict[str, tuple[str, str, str, Any, Any]] | None: ...
     @overload
@@ -1888,7 +1887,7 @@ class Canvas(Widget, XView, YView):
         *,
         activefill: str = ...,
         activestipple: str = ...,
-        anchor: _Anchor = ...,
+        anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"] = ...,
         angle: float | str = ...,
         disabledfill: str = ...,
         disabledstipple: str = ...,
@@ -1910,7 +1909,7 @@ class Canvas(Widget, XView, YView):
         *,
         activefill: str = ...,
         activestipple: str = ...,
-        anchor: _Anchor = ...,
+        anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"] = ...,
         angle: float | str = ...,
         disabledfill: str = ...,
         disabledstipple: str = ...,
@@ -1931,7 +1930,7 @@ class Canvas(Widget, XView, YView):
         y: float,
         /,
         *,
-        anchor: _Anchor = ...,
+        anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"] = ...,
         height: _ScreenUnits = ...,
         state: Literal["normal", "hidden", "disabled"] = ...,
         tags: str | list[str] | tuple[str, ...] = ...,
@@ -1944,7 +1943,7 @@ class Canvas(Widget, XView, YView):
         coords: tuple[float, float] | list[int] | list[float],
         /,
         *,
-        anchor: _Anchor = ...,
+        anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"] = ...,
         height: _ScreenUnits = ...,
         state: Literal["normal", "hidden", "disabled"] = ...,
         tags: str | list[str] | tuple[str, ...] = ...,
@@ -2001,15 +2000,15 @@ class Checkbutton(Widget):
         *,
         activebackground: str = ...,
         activeforeground: str = ...,
-        anchor: _Anchor = "center",
+        anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"] = "center",
         background: str = ...,
         bd: _ScreenUnits = ...,
         bg: str = ...,
         bitmap: str = "",
         border: _ScreenUnits = ...,
         borderwidth: _ScreenUnits = ...,
-        command: _ButtonCommand = "",
-        compound: _Compound = "none",
+        command: str | Callable[[], Any] = "",
+        compound: Literal["top", "left", "center", "right", "bottom", "none"] = "none",
         cursor: _Cursor = "",
         disabledforeground: str = ...,
         fg: str = ...,
@@ -2019,11 +2018,11 @@ class Checkbutton(Widget):
         highlightbackground: str = ...,
         highlightcolor: str = ...,
         highlightthickness: _ScreenUnits = 1,
-        image: _ImageSpec = "",
+        image: _Image | str = "",
         indicatoron: bool = True,
         justify: Literal["left", "center", "right"] = "center",
         name: str = ...,
-        offrelief: _Relief = ...,
+        offrelief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
         # The checkbutton puts a value to its variable when it's checked or
         # unchecked. We don't restrict the type of that value here, so
         # Any-typing is fine.
@@ -2036,17 +2035,17 @@ class Checkbutton(Widget):
         # done by setting variable to empty string (the default).
         offvalue: Any = 0,
         onvalue: Any = 1,
-        overrelief: _Relief | Literal[""] = "",
+        overrelief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove", ""] = "",
         padx: _ScreenUnits = 1,
         pady: _ScreenUnits = 1,
-        relief: _Relief = "flat",
+        relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = "flat",
         selectcolor: str = ...,
-        selectimage: _ImageSpec = "",
+        selectimage: _Image | str = "",
         state: Literal["normal", "active", "disabled"] = "normal",
-        takefocus: _TakeFocusValue = "",
+        takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = "",
         text: float | str = "",
         textvariable: Variable = ...,
-        tristateimage: _ImageSpec = "",
+        tristateimage: _Image | str = "",
         tristatevalue: Any = "",
         underline: int = -1,
         variable: Variable | Literal[""] = ...,
@@ -2060,15 +2059,15 @@ class Checkbutton(Widget):
         *,
         activebackground: str = ...,
         activeforeground: str = ...,
-        anchor: _Anchor = ...,
+        anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"] = ...,
         background: str = ...,
         bd: _ScreenUnits = ...,
         bg: str = ...,
         bitmap: str = ...,
         border: _ScreenUnits = ...,
         borderwidth: _ScreenUnits = ...,
-        command: _ButtonCommand = ...,
-        compound: _Compound = ...,
+        command: str | Callable[[], Any] = ...,
+        compound: Literal["top", "left", "center", "right", "bottom", "none"] = ...,
         cursor: _Cursor = ...,
         disabledforeground: str = ...,
         fg: str = ...,
@@ -2078,23 +2077,23 @@ class Checkbutton(Widget):
         highlightbackground: str = ...,
         highlightcolor: str = ...,
         highlightthickness: _ScreenUnits = ...,
-        image: _ImageSpec = ...,
+        image: _Image | str = ...,
         indicatoron: bool = ...,
         justify: Literal["left", "center", "right"] = ...,
-        offrelief: _Relief = ...,
+        offrelief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
         offvalue: Any = ...,
         onvalue: Any = ...,
-        overrelief: _Relief | Literal[""] = ...,
+        overrelief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove", ""] = ...,
         padx: _ScreenUnits = ...,
         pady: _ScreenUnits = ...,
-        relief: _Relief = ...,
+        relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
         selectcolor: str = ...,
-        selectimage: _ImageSpec = ...,
+        selectimage: _Image | str = ...,
         state: Literal["normal", "active", "disabled"] = ...,
-        takefocus: _TakeFocusValue = ...,
+        takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = ...,
         text: float | str = ...,
         textvariable: Variable = ...,
-        tristateimage: _ImageSpec = ...,
+        tristateimage: _Image | str = ...,
         tristatevalue: Any = ...,
         underline: int = ...,
         variable: Variable | Literal[""] = ...,
@@ -2136,24 +2135,24 @@ class Entry(Widget, XView):
         insertofftime: int = 300,
         insertontime: int = 600,
         insertwidth: _ScreenUnits = ...,
-        invalidcommand: _EntryValidateCommand = "",
-        invcmd: _EntryValidateCommand = "",  # same as invalidcommand
+        invalidcommand: str | list[str] | tuple[str, ...] | Callable[[], bool] = "",
+        invcmd: str | list[str] | tuple[str, ...] | Callable[[], bool] = "",  # same as invalidcommand
         justify: Literal["left", "center", "right"] = "left",
         name: str = ...,
         readonlybackground: str = ...,
-        relief: _Relief = "sunken",
+        relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = "sunken",
         selectbackground: str = ...,
         selectborderwidth: _ScreenUnits = ...,
         selectforeground: str = ...,
         show: str = "",
         state: Literal["normal", "disabled", "readonly"] = "normal",
-        takefocus: _TakeFocusValue = "",
+        takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = "",
         textvariable: Variable = ...,
         validate: Literal["none", "focus", "focusin", "focusout", "key", "all"] = "none",
-        validatecommand: _EntryValidateCommand = "",
-        vcmd: _EntryValidateCommand = "",  # same as validatecommand
+        validatecommand: str | list[str] | tuple[str, ...] | Callable[[], bool] = "",
+        vcmd: str | list[str] | tuple[str, ...] | Callable[[], bool] = "",  # same as validatecommand
         width: int = 20,
-        xscrollcommand: _XYScrollCommand = "",
+        xscrollcommand: str | Callable[[float, float], object] = "",
     ) -> None: ...
     @overload
     def configure(
@@ -2180,23 +2179,23 @@ class Entry(Widget, XView):
         insertofftime: int = ...,
         insertontime: int = ...,
         insertwidth: _ScreenUnits = ...,
-        invalidcommand: _EntryValidateCommand = ...,
-        invcmd: _EntryValidateCommand = ...,
+        invalidcommand: str | list[str] | tuple[str, ...] | Callable[[], bool] = ...,
+        invcmd: str | list[str] | tuple[str, ...] | Callable[[], bool] = ...,
         justify: Literal["left", "center", "right"] = ...,
         readonlybackground: str = ...,
-        relief: _Relief = ...,
+        relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
         selectbackground: str = ...,
         selectborderwidth: _ScreenUnits = ...,
         selectforeground: str = ...,
         show: str = ...,
         state: Literal["normal", "disabled", "readonly"] = ...,
-        takefocus: _TakeFocusValue = ...,
+        takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = ...,
         textvariable: Variable = ...,
         validate: Literal["none", "focus", "focusin", "focusout", "key", "all"] = ...,
-        validatecommand: _EntryValidateCommand = ...,
-        vcmd: _EntryValidateCommand = ...,
+        validatecommand: str | list[str] | tuple[str, ...] | Callable[[], bool] = ...,
+        vcmd: str | list[str] | tuple[str, ...] | Callable[[], bool] = ...,
         width: int = ...,
-        xscrollcommand: _XYScrollCommand = ...,
+        xscrollcommand: str | Callable[[float, float], object] = ...,
     ) -> dict[str, tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> tuple[str, str, str, Any, Any]: ...
@@ -2243,8 +2242,8 @@ class Frame(Widget):
         name: str = ...,
         padx: _ScreenUnits = 0,
         pady: _ScreenUnits = 0,
-        relief: _Relief = "flat",
-        takefocus: _TakeFocusValue = 0,
+        relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = "flat",
+        takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = 0,
         visual: str | tuple[str, int] = "",  # can't be changed with configure()
         width: _ScreenUnits = 0,
     ) -> None: ...
@@ -2265,8 +2264,8 @@ class Frame(Widget):
         highlightthickness: _ScreenUnits = ...,
         padx: _ScreenUnits = ...,
         pady: _ScreenUnits = ...,
-        relief: _Relief = ...,
-        takefocus: _TakeFocusValue = ...,
+        relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
+        takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = ...,
         width: _ScreenUnits = ...,
     ) -> dict[str, tuple[str, str, str, Any, Any]] | None: ...
     @overload
@@ -2281,14 +2280,14 @@ class Label(Widget):
         *,
         activebackground: str = ...,
         activeforeground: str = ...,
-        anchor: _Anchor = "center",
+        anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"] = "center",
         background: str = ...,
         bd: _ScreenUnits = ...,
         bg: str = ...,
         bitmap: str = "",
         border: _ScreenUnits = ...,
         borderwidth: _ScreenUnits = ...,
-        compound: _Compound = "none",
+        compound: Literal["top", "left", "center", "right", "bottom", "none"] = "none",
         cursor: _Cursor = "",
         disabledforeground: str = ...,
         fg: str = ...,
@@ -2298,14 +2297,14 @@ class Label(Widget):
         highlightbackground: str = ...,
         highlightcolor: str = ...,
         highlightthickness: _ScreenUnits = 0,
-        image: _ImageSpec = "",
+        image: _Image | str = "",
         justify: Literal["left", "center", "right"] = "center",
         name: str = ...,
         padx: _ScreenUnits = 1,
         pady: _ScreenUnits = 1,
-        relief: _Relief = "flat",
+        relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = "flat",
         state: Literal["normal", "active", "disabled"] = "normal",
-        takefocus: _TakeFocusValue = 0,
+        takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = 0,
         text: float | str = "",
         textvariable: Variable = ...,
         underline: int = -1,
@@ -2319,14 +2318,14 @@ class Label(Widget):
         *,
         activebackground: str = ...,
         activeforeground: str = ...,
-        anchor: _Anchor = ...,
+        anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"] = ...,
         background: str = ...,
         bd: _ScreenUnits = ...,
         bg: str = ...,
         bitmap: str = ...,
         border: _ScreenUnits = ...,
         borderwidth: _ScreenUnits = ...,
-        compound: _Compound = ...,
+        compound: Literal["top", "left", "center", "right", "bottom", "none"] = ...,
         cursor: _Cursor = ...,
         disabledforeground: str = ...,
         fg: str = ...,
@@ -2336,13 +2335,13 @@ class Label(Widget):
         highlightbackground: str = ...,
         highlightcolor: str = ...,
         highlightthickness: _ScreenUnits = ...,
-        image: _ImageSpec = ...,
+        image: _Image | str = ...,
         justify: Literal["left", "center", "right"] = ...,
         padx: _ScreenUnits = ...,
         pady: _ScreenUnits = ...,
-        relief: _Relief = ...,
+        relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
         state: Literal["normal", "active", "disabled"] = ...,
-        takefocus: _TakeFocusValue = ...,
+        takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = ...,
         text: float | str = ...,
         textvariable: Variable = ...,
         underline: int = ...,
@@ -2387,7 +2386,7 @@ class Listbox(Widget, XView, YView):
         #    ('foo', 'bar', 'baz')
         listvariable: Variable = ...,
         name: str = ...,
-        relief: _Relief = ...,
+        relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
         selectbackground: str = ...,
         selectborderwidth: _ScreenUnits = 0,
         selectforeground: str = ...,
@@ -2400,10 +2399,10 @@ class Listbox(Widget, XView, YView):
         selectmode: str | Literal["single", "browse", "multiple", "extended"] = "browse",  # noqa: Y051
         setgrid: bool = False,
         state: Literal["normal", "disabled"] = "normal",
-        takefocus: _TakeFocusValue = "",
+        takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = "",
         width: int = 20,
-        xscrollcommand: _XYScrollCommand = "",
-        yscrollcommand: _XYScrollCommand = "",
+        xscrollcommand: str | Callable[[float, float], object] = "",
+        yscrollcommand: str | Callable[[float, float], object] = "",
     ) -> None: ...
     @overload
     def configure(
@@ -2428,17 +2427,17 @@ class Listbox(Widget, XView, YView):
         highlightthickness: _ScreenUnits = ...,
         justify: Literal["left", "center", "right"] = ...,
         listvariable: Variable = ...,
-        relief: _Relief = ...,
+        relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
         selectbackground: str = ...,
         selectborderwidth: _ScreenUnits = ...,
         selectforeground: str = ...,
         selectmode: str | Literal["single", "browse", "multiple", "extended"] = ...,  # noqa: Y051
         setgrid: bool = ...,
         state: Literal["normal", "disabled"] = ...,
-        takefocus: _TakeFocusValue = ...,
+        takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = ...,
         width: int = ...,
-        xscrollcommand: _XYScrollCommand = ...,
-        yscrollcommand: _XYScrollCommand = ...,
+        xscrollcommand: str | Callable[[float, float], object] = ...,
+        yscrollcommand: str | Callable[[float, float], object] = ...,
     ) -> dict[str, tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> tuple[str, str, str, Any, Any]: ...
@@ -2488,9 +2487,9 @@ class Menu(Widget):
         foreground: str = ...,
         name: str = ...,
         postcommand: Callable[[], object] | str = "",
-        relief: _Relief = ...,
+        relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
         selectcolor: str = ...,
-        takefocus: _TakeFocusValue = 0,
+        takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = 0,
         tearoff: bool | Literal[0, 1] = 1,
         # I guess tearoffcommand arguments are supposed to be widget objects,
         # but they are widget name strings. Use nametowidget() to handle the
@@ -2518,9 +2517,9 @@ class Menu(Widget):
         font: _FontDescription = ...,
         foreground: str = ...,
         postcommand: Callable[[], object] | str = ...,
-        relief: _Relief = ...,
+        relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
         selectcolor: str = ...,
-        takefocus: _TakeFocusValue = ...,
+        takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = ...,
         tearoff: bool = ...,
         tearoffcommand: Callable[[str, str], object] | str = ...,
         title: str = ...,
@@ -2544,11 +2543,11 @@ class Menu(Widget):
         bitmap: str = ...,
         columnbreak: int = ...,
         command: Callable[[], object] | str = ...,
-        compound: _Compound = ...,
+        compound: Literal["top", "left", "center", "right", "bottom", "none"] = ...,
         font: _FontDescription = ...,
         foreground: str = ...,
         hidemargin: bool = ...,
-        image: _ImageSpec = ...,
+        image: _Image | str = ...,
         label: str = ...,
         menu: Menu = ...,
         state: Literal["normal", "active", "disabled"] = ...,
@@ -2565,17 +2564,17 @@ class Menu(Widget):
         bitmap: str = ...,
         columnbreak: int = ...,
         command: Callable[[], object] | str = ...,
-        compound: _Compound = ...,
+        compound: Literal["top", "left", "center", "right", "bottom", "none"] = ...,
         font: _FontDescription = ...,
         foreground: str = ...,
         hidemargin: bool = ...,
-        image: _ImageSpec = ...,
+        image: _Image | str = ...,
         indicatoron: bool = ...,
         label: str = ...,
         offvalue: Any = ...,
         onvalue: Any = ...,
         selectcolor: str = ...,
-        selectimage: _ImageSpec = ...,
+        selectimage: _Image | str = ...,
         state: Literal["normal", "active", "disabled"] = ...,
         underline: int = ...,
         variable: Variable = ...,
@@ -2591,11 +2590,11 @@ class Menu(Widget):
         bitmap: str = ...,
         columnbreak: int = ...,
         command: Callable[[], object] | str = ...,
-        compound: _Compound = ...,
+        compound: Literal["top", "left", "center", "right", "bottom", "none"] = ...,
         font: _FontDescription = ...,
         foreground: str = ...,
         hidemargin: bool = ...,
-        image: _ImageSpec = ...,
+        image: _Image | str = ...,
         label: str = ...,
         state: Literal["normal", "active", "disabled"] = ...,
         underline: int = ...,
@@ -2611,15 +2610,15 @@ class Menu(Widget):
         bitmap: str = ...,
         columnbreak: int = ...,
         command: Callable[[], object] | str = ...,
-        compound: _Compound = ...,
+        compound: Literal["top", "left", "center", "right", "bottom", "none"] = ...,
         font: _FontDescription = ...,
         foreground: str = ...,
         hidemargin: bool = ...,
-        image: _ImageSpec = ...,
+        image: _Image | str = ...,
         indicatoron: bool = ...,
         label: str = ...,
         selectcolor: str = ...,
-        selectimage: _ImageSpec = ...,
+        selectimage: _Image | str = ...,
         state: Literal["normal", "active", "disabled"] = ...,
         underline: int = ...,
         value: Any = ...,
@@ -2638,11 +2637,11 @@ class Menu(Widget):
         bitmap: str = ...,
         columnbreak: int = ...,
         command: Callable[[], object] | str = ...,
-        compound: _Compound = ...,
+        compound: Literal["top", "left", "center", "right", "bottom", "none"] = ...,
         font: _FontDescription = ...,
         foreground: str = ...,
         hidemargin: bool = ...,
-        image: _ImageSpec = ...,
+        image: _Image | str = ...,
         label: str = ...,
         menu: Menu = ...,
         state: Literal["normal", "active", "disabled"] = ...,
@@ -2660,17 +2659,17 @@ class Menu(Widget):
         bitmap: str = ...,
         columnbreak: int = ...,
         command: Callable[[], object] | str = ...,
-        compound: _Compound = ...,
+        compound: Literal["top", "left", "center", "right", "bottom", "none"] = ...,
         font: _FontDescription = ...,
         foreground: str = ...,
         hidemargin: bool = ...,
-        image: _ImageSpec = ...,
+        image: _Image | str = ...,
         indicatoron: bool = ...,
         label: str = ...,
         offvalue: Any = ...,
         onvalue: Any = ...,
         selectcolor: str = ...,
-        selectimage: _ImageSpec = ...,
+        selectimage: _Image | str = ...,
         state: Literal["normal", "active", "disabled"] = ...,
         underline: int = ...,
         variable: Variable = ...,
@@ -2687,11 +2686,11 @@ class Menu(Widget):
         bitmap: str = ...,
         columnbreak: int = ...,
         command: Callable[[], object] | str = ...,
-        compound: _Compound = ...,
+        compound: Literal["top", "left", "center", "right", "bottom", "none"] = ...,
         font: _FontDescription = ...,
         foreground: str = ...,
         hidemargin: bool = ...,
-        image: _ImageSpec = ...,
+        image: _Image | str = ...,
         label: str = ...,
         state: Literal["normal", "active", "disabled"] = ...,
         underline: int = ...,
@@ -2708,15 +2707,15 @@ class Menu(Widget):
         bitmap: str = ...,
         columnbreak: int = ...,
         command: Callable[[], object] | str = ...,
-        compound: _Compound = ...,
+        compound: Literal["top", "left", "center", "right", "bottom", "none"] = ...,
         font: _FontDescription = ...,
         foreground: str = ...,
         hidemargin: bool = ...,
-        image: _ImageSpec = ...,
+        image: _Image | str = ...,
         indicatoron: bool = ...,
         label: str = ...,
         selectcolor: str = ...,
-        selectimage: _ImageSpec = ...,
+        selectimage: _Image | str = ...,
         state: Literal["normal", "active", "disabled"] = ...,
         underline: int = ...,
         value: Any = ...,
@@ -2745,14 +2744,14 @@ class Menubutton(Widget):
         *,
         activebackground: str = ...,
         activeforeground: str = ...,
-        anchor: _Anchor = ...,
+        anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"] = ...,
         background: str = ...,
         bd: _ScreenUnits = ...,
         bg: str = ...,
         bitmap: str = "",
         border: _ScreenUnits = ...,
         borderwidth: _ScreenUnits = ...,
-        compound: _Compound = "none",
+        compound: Literal["top", "left", "center", "right", "bottom", "none"] = "none",
         cursor: _Cursor = "",
         direction: Literal["above", "below", "left", "right", "flush"] = "below",
         disabledforeground: str = ...,
@@ -2763,16 +2762,16 @@ class Menubutton(Widget):
         highlightbackground: str = ...,
         highlightcolor: str = ...,
         highlightthickness: _ScreenUnits = 0,
-        image: _ImageSpec = "",
+        image: _Image | str = "",
         indicatoron: bool = ...,
         justify: Literal["left", "center", "right"] = ...,
         menu: Menu = ...,
         name: str = ...,
         padx: _ScreenUnits = ...,
         pady: _ScreenUnits = ...,
-        relief: _Relief = "flat",
+        relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = "flat",
         state: Literal["normal", "active", "disabled"] = "normal",
-        takefocus: _TakeFocusValue = 0,
+        takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = 0,
         text: float | str = "",
         textvariable: Variable = ...,
         underline: int = -1,
@@ -2786,14 +2785,14 @@ class Menubutton(Widget):
         *,
         activebackground: str = ...,
         activeforeground: str = ...,
-        anchor: _Anchor = ...,
+        anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"] = ...,
         background: str = ...,
         bd: _ScreenUnits = ...,
         bg: str = ...,
         bitmap: str = ...,
         border: _ScreenUnits = ...,
         borderwidth: _ScreenUnits = ...,
-        compound: _Compound = ...,
+        compound: Literal["top", "left", "center", "right", "bottom", "none"] = ...,
         cursor: _Cursor = ...,
         direction: Literal["above", "below", "left", "right", "flush"] = ...,
         disabledforeground: str = ...,
@@ -2804,15 +2803,15 @@ class Menubutton(Widget):
         highlightbackground: str = ...,
         highlightcolor: str = ...,
         highlightthickness: _ScreenUnits = ...,
-        image: _ImageSpec = ...,
+        image: _Image | str = ...,
         indicatoron: bool = ...,
         justify: Literal["left", "center", "right"] = ...,
         menu: Menu = ...,
         padx: _ScreenUnits = ...,
         pady: _ScreenUnits = ...,
-        relief: _Relief = ...,
+        relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
         state: Literal["normal", "active", "disabled"] = ...,
-        takefocus: _TakeFocusValue = ...,
+        takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = ...,
         text: float | str = ...,
         textvariable: Variable = ...,
         underline: int = ...,
@@ -2829,7 +2828,7 @@ class Message(Widget):
         master: Misc | None = None,
         cnf: dict[str, Any] | None = {},
         *,
-        anchor: _Anchor = "center",
+        anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"] = "center",
         aspect: int = 150,
         background: str = ...,
         bd: _ScreenUnits = 1,
@@ -2847,8 +2846,8 @@ class Message(Widget):
         name: str = ...,
         padx: _ScreenUnits = ...,
         pady: _ScreenUnits = ...,
-        relief: _Relief = "flat",
-        takefocus: _TakeFocusValue = 0,
+        relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = "flat",
+        takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = 0,
         text: float | str = "",
         textvariable: Variable = ...,
         # there's width but no height
@@ -2859,7 +2858,7 @@ class Message(Widget):
         self,
         cnf: dict[str, Any] | None = None,
         *,
-        anchor: _Anchor = ...,
+        anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"] = ...,
         aspect: int = ...,
         background: str = ...,
         bd: _ScreenUnits = ...,
@@ -2876,9 +2875,9 @@ class Message(Widget):
         justify: Literal["left", "center", "right"] = ...,
         padx: _ScreenUnits = ...,
         pady: _ScreenUnits = ...,
-        relief: _Relief = ...,
-        takefocus: _TakeFocusValue = ...,
-        text: float | str = ...,
+        relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
+        takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = ...,
+        text: _ScreenUnits = ...,
         textvariable: Variable = ...,
         width: _ScreenUnits = ...,
     ) -> dict[str, tuple[str, str, str, Any, Any]] | None: ...
@@ -2894,15 +2893,15 @@ class Radiobutton(Widget):
         *,
         activebackground: str = ...,
         activeforeground: str = ...,
-        anchor: _Anchor = "center",
+        anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"] = "center",
         background: str = ...,
         bd: _ScreenUnits = ...,
         bg: str = ...,
         bitmap: str = "",
         border: _ScreenUnits = ...,
         borderwidth: _ScreenUnits = ...,
-        command: _ButtonCommand = "",
-        compound: _Compound = "none",
+        command: str | Callable[[], Any] = "",
+        compound: Literal["top", "left", "center", "right", "bottom", "none"] = "none",
         cursor: _Cursor = "",
         disabledforeground: str = ...,
         fg: str = ...,
@@ -2912,22 +2911,22 @@ class Radiobutton(Widget):
         highlightbackground: str = ...,
         highlightcolor: str = ...,
         highlightthickness: _ScreenUnits = 1,
-        image: _ImageSpec = "",
+        image: _Image | str = "",
         indicatoron: bool = True,
         justify: Literal["left", "center", "right"] = "center",
         name: str = ...,
-        offrelief: _Relief = ...,
-        overrelief: _Relief | Literal[""] = "",
+        offrelief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
+        overrelief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove", ""] = "",
         padx: _ScreenUnits = 1,
         pady: _ScreenUnits = 1,
-        relief: _Relief = "flat",
+        relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = "flat",
         selectcolor: str = ...,
-        selectimage: _ImageSpec = "",
+        selectimage: _Image | str = "",
         state: Literal["normal", "active", "disabled"] = "normal",
-        takefocus: _TakeFocusValue = "",
+        takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = "",
         text: float | str = "",
         textvariable: Variable = ...,
-        tristateimage: _ImageSpec = "",
+        tristateimage: _Image | str = "",
         tristatevalue: Any = "",
         underline: int = -1,
         value: Any = "",
@@ -2942,15 +2941,15 @@ class Radiobutton(Widget):
         *,
         activebackground: str = ...,
         activeforeground: str = ...,
-        anchor: _Anchor = ...,
+        anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"] = ...,
         background: str = ...,
         bd: _ScreenUnits = ...,
         bg: str = ...,
         bitmap: str = ...,
         border: _ScreenUnits = ...,
         borderwidth: _ScreenUnits = ...,
-        command: _ButtonCommand = ...,
-        compound: _Compound = ...,
+        command: str | Callable[[], Any] = ...,
+        compound: Literal["top", "left", "center", "right", "bottom", "none"] = ...,
         cursor: _Cursor = ...,
         disabledforeground: str = ...,
         fg: str = ...,
@@ -2960,21 +2959,21 @@ class Radiobutton(Widget):
         highlightbackground: str = ...,
         highlightcolor: str = ...,
         highlightthickness: _ScreenUnits = ...,
-        image: _ImageSpec = ...,
+        image: _Image | str = ...,
         indicatoron: bool = ...,
         justify: Literal["left", "center", "right"] = ...,
-        offrelief: _Relief = ...,
-        overrelief: _Relief | Literal[""] = ...,
+        offrelief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
+        overrelief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove", ""] = ...,
         padx: _ScreenUnits = ...,
         pady: _ScreenUnits = ...,
-        relief: _Relief = ...,
+        relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
         selectcolor: str = ...,
-        selectimage: _ImageSpec = ...,
+        selectimage: _Image | str = ...,
         state: Literal["normal", "active", "disabled"] = ...,
-        takefocus: _TakeFocusValue = ...,
+        takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = ...,
         text: float | str = ...,
         textvariable: Variable = ...,
-        tristateimage: _ImageSpec = ...,
+        tristateimage: _Image | str = ...,
         tristatevalue: Any = ...,
         underline: int = ...,
         value: Any = ...,
@@ -3018,15 +3017,15 @@ class Scale(Widget):
         length: _ScreenUnits = 100,
         name: str = ...,
         orient: Literal["horizontal", "vertical"] = "vertical",
-        relief: _Relief = "flat",
+        relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = "flat",
         repeatdelay: int = 300,
         repeatinterval: int = 100,
         resolution: float = 1.0,
         showvalue: bool = True,
         sliderlength: _ScreenUnits = 30,
-        sliderrelief: _Relief = "raised",
+        sliderrelief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = "raised",
         state: Literal["normal", "active", "disabled"] = "normal",
-        takefocus: _TakeFocusValue = "",
+        takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = "",
         tickinterval: float = 0.0,
         to: float = 100.0,
         troughcolor: str = ...,
@@ -3058,15 +3057,15 @@ class Scale(Widget):
         label: str = ...,
         length: _ScreenUnits = ...,
         orient: Literal["horizontal", "vertical"] = ...,
-        relief: _Relief = ...,
+        relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
         repeatdelay: int = ...,
         repeatinterval: int = ...,
         resolution: float = ...,
         showvalue: bool = ...,
         sliderlength: _ScreenUnits = ...,
-        sliderrelief: _Relief = ...,
+        sliderrelief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
         state: Literal["normal", "active", "disabled"] = ...,
-        takefocus: _TakeFocusValue = ...,
+        takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = ...,
         tickinterval: float = ...,
         to: float = ...,
         troughcolor: str = ...,
@@ -3088,7 +3087,7 @@ class Scrollbar(Widget):
         cnf: dict[str, Any] | None = {},
         *,
         activebackground: str = ...,
-        activerelief: _Relief = "raised",
+        activerelief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = "raised",
         background: str = ...,
         bd: _ScreenUnits = ...,
         bg: str = ...,
@@ -3107,10 +3106,10 @@ class Scrollbar(Widget):
         jump: bool = False,
         name: str = ...,
         orient: Literal["horizontal", "vertical"] = "vertical",
-        relief: _Relief = ...,
+        relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
         repeatdelay: int = 300,
         repeatinterval: int = 100,
-        takefocus: _TakeFocusValue = "",
+        takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = "",
         troughcolor: str = ...,
         width: _ScreenUnits = ...,
     ) -> None: ...
@@ -3120,7 +3119,7 @@ class Scrollbar(Widget):
         cnf: dict[str, Any] | None = None,
         *,
         activebackground: str = ...,
-        activerelief: _Relief = ...,
+        activerelief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
         background: str = ...,
         bd: _ScreenUnits = ...,
         bg: str = ...,
@@ -3134,10 +3133,10 @@ class Scrollbar(Widget):
         highlightthickness: _ScreenUnits = ...,
         jump: bool = ...,
         orient: Literal["horizontal", "vertical"] = ...,
-        relief: _Relief = ...,
+        relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
         repeatdelay: int = ...,
         repeatinterval: int = ...,
-        takefocus: _TakeFocusValue = ...,
+        takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = ...,
         troughcolor: str = ...,
         width: _ScreenUnits = ...,
     ) -> dict[str, tuple[str, str, str, Any, Any]] | None: ...
@@ -3193,7 +3192,7 @@ class Text(Widget, XView, YView):
         name: str = ...,
         padx: _ScreenUnits = 1,
         pady: _ScreenUnits = 1,
-        relief: _Relief = ...,
+        relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
         selectbackground: str = ...,
         selectborderwidth: _ScreenUnits = ...,
         selectforeground: str = ...,
@@ -3206,12 +3205,12 @@ class Text(Widget, XView, YView):
         # Literal inside Tuple doesn't actually work
         tabs: _ScreenUnits | str | tuple[_ScreenUnits | str, ...] = "",
         tabstyle: Literal["tabular", "wordprocessor"] = "tabular",
-        takefocus: _TakeFocusValue = "",
+        takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = "",
         undo: bool = False,
         width: int = 80,
         wrap: Literal["none", "char", "word"] = "char",
-        xscrollcommand: _XYScrollCommand = "",
-        yscrollcommand: _XYScrollCommand = "",
+        xscrollcommand: str | Callable[[float, float], object] = "",
+        yscrollcommand: str | Callable[[float, float], object] = "",
     ) -> None: ...
     @overload
     def configure(
@@ -3245,7 +3244,7 @@ class Text(Widget, XView, YView):
         maxundo: int = ...,
         padx: _ScreenUnits = ...,
         pady: _ScreenUnits = ...,
-        relief: _Relief = ...,
+        relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
         selectbackground: str = ...,
         selectborderwidth: _ScreenUnits = ...,
         selectforeground: str = ...,
@@ -3257,12 +3256,12 @@ class Text(Widget, XView, YView):
         state: Literal["normal", "disabled"] = ...,
         tabs: _ScreenUnits | str | tuple[_ScreenUnits | str, ...] = ...,
         tabstyle: Literal["tabular", "wordprocessor"] = ...,
-        takefocus: _TakeFocusValue = ...,
+        takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = ...,
         undo: bool = ...,
         width: int = ...,
         wrap: Literal["none", "char", "word"] = ...,
-        xscrollcommand: _XYScrollCommand = ...,
-        yscrollcommand: _XYScrollCommand = ...,
+        xscrollcommand: str | Callable[[float, float], object] = ...,
+        yscrollcommand: str | Callable[[float, float], object] = ...,
     ) -> dict[str, tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> tuple[str, str, str, Any, Any]: ...
@@ -3468,10 +3467,10 @@ class Text(Widget, XView, YView):
     def image_configure(
         self,
         index: _TextIndex,
-        cnf: dict[str, Any] | None = {},
+        cnf: dict[str, Any] | None = None,
         *,
         align: Literal["baseline", "bottom", "center", "top"] = ...,
-        image: _ImageSpec = ...,
+        image: _Image | str = ...,
         name: str = ...,
         padx: _ScreenUnits = ...,
         pady: _ScreenUnits = ...,
@@ -3482,7 +3481,7 @@ class Text(Widget, XView, YView):
         cnf: dict[str, Any] | None = {},
         *,
         align: Literal["baseline", "bottom", "center", "top"] = ...,
-        image: _ImageSpec = ...,
+        image: _Image | str = ...,
         name: str = ...,
         padx: _ScreenUnits = ...,
         pady: _ScreenUnits = ...,
@@ -3555,7 +3554,7 @@ class Text(Widget, XView, YView):
         offset: _ScreenUnits = ...,
         overstrike: bool = ...,
         overstrikefg: str = ...,
-        relief: _Relief = ...,
+        relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
         rmargin: _ScreenUnits = ...,
         rmargincolor: str = ...,
         selectbackground: str = ...,
@@ -3632,7 +3631,6 @@ class _setit:
 
 # manual page: tk_optionMenu
 class OptionMenu(Menubutton):
-    widgetName: Incomplete
     menuname: Incomplete
     def __init__(
         # differs from other widgets
@@ -3820,8 +3818,8 @@ class Spinbox(Widget, XView):
         borderwidth: _ScreenUnits = ...,
         buttonbackground: str = ...,
         buttoncursor: _Cursor = "",
-        buttondownrelief: _Relief = ...,
-        buttonuprelief: _Relief = ...,
+        buttondownrelief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
+        buttonuprelief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
         # percent substitutions don't seem to be supported, it's similar to Entry's validation stuff
         command: Callable[[], object] | str | list[str] | tuple[str, ...] = "",
         cursor: _Cursor = "xterm",
@@ -3842,28 +3840,28 @@ class Spinbox(Widget, XView):
         insertofftime: int = 300,
         insertontime: int = 600,
         insertwidth: _ScreenUnits = ...,
-        invalidcommand: _EntryValidateCommand = "",
-        invcmd: _EntryValidateCommand = "",
+        invalidcommand: str | list[str] | tuple[str, ...] | Callable[[], bool] = "",
+        invcmd: str | list[str] | tuple[str, ...] | Callable[[], bool] = "",
         justify: Literal["left", "center", "right"] = "left",
         name: str = ...,
         readonlybackground: str = ...,
-        relief: _Relief = "sunken",
+        relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = "sunken",
         repeatdelay: int = 400,
         repeatinterval: int = 100,
         selectbackground: str = ...,
         selectborderwidth: _ScreenUnits = ...,
         selectforeground: str = ...,
         state: Literal["normal", "disabled", "readonly"] = "normal",
-        takefocus: _TakeFocusValue = "",
+        takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = "",
         textvariable: Variable = ...,
         to: float = 0.0,
         validate: Literal["none", "focus", "focusin", "focusout", "key", "all"] = "none",
-        validatecommand: _EntryValidateCommand = "",
-        vcmd: _EntryValidateCommand = "",
+        validatecommand: str | list[str] | tuple[str, ...] | Callable[[], bool] = "",
+        vcmd: str | list[str] | tuple[str, ...] | Callable[[], bool] = "",
         values: list[str] | tuple[str, ...] = ...,
         width: int = 20,
         wrap: bool = False,
-        xscrollcommand: _XYScrollCommand = "",
+        xscrollcommand: str | Callable[[float, float], object] = "",
     ) -> None: ...
     @overload
     def configure(
@@ -3878,8 +3876,8 @@ class Spinbox(Widget, XView):
         borderwidth: _ScreenUnits = ...,
         buttonbackground: str = ...,
         buttoncursor: _Cursor = ...,
-        buttondownrelief: _Relief = ...,
-        buttonuprelief: _Relief = ...,
+        buttondownrelief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
+        buttonuprelief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
         command: Callable[[], object] | str | list[str] | tuple[str, ...] = ...,
         cursor: _Cursor = ...,
         disabledbackground: str = ...,
@@ -3899,27 +3897,27 @@ class Spinbox(Widget, XView):
         insertofftime: int = ...,
         insertontime: int = ...,
         insertwidth: _ScreenUnits = ...,
-        invalidcommand: _EntryValidateCommand = ...,
-        invcmd: _EntryValidateCommand = ...,
+        invalidcommand: str | list[str] | tuple[str, ...] | Callable[[], bool] = ...,
+        invcmd: str | list[str] | tuple[str, ...] | Callable[[], bool] = ...,
         justify: Literal["left", "center", "right"] = ...,
         readonlybackground: str = ...,
-        relief: _Relief = ...,
+        relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
         repeatdelay: int = ...,
         repeatinterval: int = ...,
         selectbackground: str = ...,
         selectborderwidth: _ScreenUnits = ...,
         selectforeground: str = ...,
         state: Literal["normal", "disabled", "readonly"] = ...,
-        takefocus: _TakeFocusValue = ...,
+        takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = ...,
         textvariable: Variable = ...,
         to: float = ...,
         validate: Literal["none", "focus", "focusin", "focusout", "key", "all"] = ...,
-        validatecommand: _EntryValidateCommand = ...,
-        vcmd: _EntryValidateCommand = ...,
+        validatecommand: str | list[str] | tuple[str, ...] | Callable[[], bool] = ...,
+        vcmd: str | list[str] | tuple[str, ...] | Callable[[], bool] = ...,
         values: list[str] | tuple[str, ...] = ...,
         width: int = ...,
         wrap: bool = ...,
-        xscrollcommand: _XYScrollCommand = ...,
+        xscrollcommand: str | Callable[[float, float], object] = ...,
     ) -> dict[str, tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> tuple[str, str, str, Any, Any]: ...
@@ -3973,8 +3971,8 @@ class LabelFrame(Widget):
         name: str = ...,
         padx: _ScreenUnits = 0,
         pady: _ScreenUnits = 0,
-        relief: _Relief = "groove",
-        takefocus: _TakeFocusValue = 0,
+        relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = "groove",
+        takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = 0,
         text: float | str = "",
         visual: str | tuple[str, int] = "",  # can't be changed with configure()
         width: _ScreenUnits = 0,
@@ -4001,8 +3999,8 @@ class LabelFrame(Widget):
         labelwidget: Misc = ...,
         padx: _ScreenUnits = ...,
         pady: _ScreenUnits = ...,
-        relief: _Relief = ...,
-        takefocus: _TakeFocusValue = ...,
+        relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
+        takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = ...,
         text: float | str = ...,
         width: _ScreenUnits = ...,
     ) -> dict[str, tuple[str, str, str, Any, Any]] | None: ...
@@ -4030,11 +4028,11 @@ class PanedWindow(Widget):
         orient: Literal["horizontal", "vertical"] = "horizontal",
         proxybackground: str = "",
         proxyborderwidth: _ScreenUnits = 2,
-        proxyrelief: _Relief = "flat",
-        relief: _Relief = "flat",
+        proxyrelief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = "flat",
+        relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = "flat",
         sashcursor: _Cursor = "",
         sashpad: _ScreenUnits = 0,
-        sashrelief: _Relief = "flat",
+        sashrelief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = "flat",
         sashwidth: _ScreenUnits = 3,
         showhandle: bool = False,
         width: _ScreenUnits = "",
@@ -4057,11 +4055,11 @@ class PanedWindow(Widget):
         orient: Literal["horizontal", "vertical"] = ...,
         proxybackground: str = ...,
         proxyborderwidth: _ScreenUnits = ...,
-        proxyrelief: _Relief = ...,
-        relief: _Relief = ...,
+        proxyrelief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
+        relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
         sashcursor: _Cursor = ...,
         sashpad: _ScreenUnits = ...,
-        sashrelief: _Relief = ...,
+        sashrelief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
         sashwidth: _ScreenUnits = ...,
         showhandle: bool = ...,
         width: _ScreenUnits = ...,
@@ -4071,19 +4069,19 @@ class PanedWindow(Widget):
     config = configure
     def add(self, child: Widget, **kw) -> None: ...
     def remove(self, child) -> None: ...
-    forget: Incomplete
+    forget = remove  # type: ignore[assignment]
     def identify(self, x: int, y: int): ...
-    def proxy(self, *args): ...
-    def proxy_coord(self): ...
-    def proxy_forget(self): ...
-    def proxy_place(self, x, y): ...
-    def sash(self, *args): ...
-    def sash_coord(self, index): ...
-    def sash_mark(self, index): ...
-    def sash_place(self, index, x, y): ...
+    def proxy(self, *args) -> tuple[Incomplete, ...]: ...
+    def proxy_coord(self) -> tuple[Incomplete, ...]: ...
+    def proxy_forget(self) -> tuple[Incomplete, ...]: ...
+    def proxy_place(self, x, y) -> tuple[Incomplete, ...]: ...
+    def sash(self, *args) -> tuple[Incomplete, ...]: ...
+    def sash_coord(self, index) -> tuple[Incomplete, ...]: ...
+    def sash_mark(self, index) -> tuple[Incomplete, ...]: ...
+    def sash_place(self, index, x, y) -> tuple[Incomplete, ...]: ...
     def panecget(self, child, option): ...
     def paneconfigure(self, tagOrId, cnf=None, **kw): ...
-    paneconfig: Incomplete
+    paneconfig = paneconfigure
     def panes(self): ...
 
 def _test() -> None: ...
