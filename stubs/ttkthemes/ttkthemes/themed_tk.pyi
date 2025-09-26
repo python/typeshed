@@ -1,5 +1,6 @@
 import tkinter
-from typing import Any
+from collections.abc import Callable
+from typing import Any, Literal
 
 from ._widget import ThemedWidget
 
@@ -43,8 +44,8 @@ class ThemedTk(tkinter.Tk, ThemedWidget):
         menu: tkinter.Menu = ...,
         padx: tkinter._ScreenUnits = ...,
         pady: tkinter._ScreenUnits = ...,
-        relief: tkinter._Relief = ...,
-        takefocus: tkinter._TakeFocusValue = ...,
+        relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
+        takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = ...,
         width: tkinter._ScreenUnits = ...,
     ) -> dict[str, tuple[str, str, str, Any, Any]] | None: ...
     def cget(self, k: str) -> Any: ...
@@ -68,8 +69,8 @@ class ThemedTk(tkinter.Tk, ThemedWidget):
         menu: tkinter.Menu = ...,
         padx: tkinter._ScreenUnits = ...,
         pady: tkinter._ScreenUnits = ...,
-        relief: tkinter._Relief = ...,
-        takefocus: tkinter._TakeFocusValue = ...,
+        relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
+        takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = ...,
         width: tkinter._ScreenUnits = ...,
     ) -> dict[str, tuple[str, str, str, Any, Any]] | None: ...
     def __getitem__(self, k: str) -> Any: ...

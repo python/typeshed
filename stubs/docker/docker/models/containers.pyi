@@ -1,7 +1,7 @@
 import datetime
 from _typeshed import Incomplete
 from collections.abc import Iterable, Mapping
-from typing import Literal, NamedTuple, TypedDict, overload
+from typing import Literal, NamedTuple, TypedDict, overload, type_check_only
 from typing_extensions import NotRequired
 
 from docker._types import ContainerWeightDevice, WaitContainerResponse
@@ -13,6 +13,7 @@ from docker.types.services import Mount
 from .images import Image
 from .resource import Collection, Model
 
+@type_check_only
 class _RestartPolicy(TypedDict):
     MaximumRetryCount: NotRequired[int]
     Name: NotRequired[Literal["always", "on-failure"]]
@@ -324,7 +325,7 @@ class ContainerCollection(Collection[Container]):
         cpu_shares: int | None = None,
         cpuset_cpus: str | None = None,
         cpuset_mems: str | None = None,
-        detach: Literal[True],
+        detach: bool = False,
         device_cgroup_rules: list[Incomplete] | None = None,
         device_read_bps: list[Mapping[str, str | int]] | None = None,
         device_read_iops: list[Mapping[str, str | int]] | None = None,
