@@ -27,7 +27,6 @@
         "stubs/auth0-python",
         "stubs/Authlib",
         "stubs/aws-xray-sdk",
-        "stubs/beautifulsoup4",
         "stubs/boltons",
         "stubs/braintree",
         "stubs/cffi",

@@ -30,12 +30,12 @@ env:
 jobs:
   stubtest-stdlib:
     name: "stubtest: stdlib"
-    if: ${{ github.repository == 'python/typeshed' || github.event_name == 'workflow_dispatch' }}
+    if: ${{ github.repository == 'python/typeshed' || github.event_name != 'schedule' }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: ["ubuntu-latest", "windows-latest", "macos-latest"]
-        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13", "3.14-dev"]
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
       fail-fast: false
 
     steps:
@@ -55,7 +55,7 @@ jobs:
 
   stubtest-third-party:
     name: "stubtest: third party"
-    if: ${{ github.repository == 'python/typeshed' || github.event_name == 'workflow_dispatch' }}
+    if: ${{ github.repository == 'python/typeshed' || github.event_name != 'schedule' }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -73,34 +73,41 @@ jobs:
             stubs/**/METADATA.toml
       - name: Install dependencies
         run: pip install --group=dev
-      - name: Run stubtest
+      - name: Install required system packages
         shell: bash
         run: |
           PACKAGES=$(python tests/get_stubtest_system_requirements.py)
 
           if [ "${{ runner.os }}" = "Linux" ]; then
             if [ -n "$PACKAGES" ]; then
+              printf "Installing APT packages:\n  $(echo $PACKAGES | sed 's/ /\n  /g')\n"
               sudo apt-get update -q && sudo apt-get install -qy $PACKAGES
             fi
-
-            PYTHON_EXECUTABLE="xvfb-run python"
           else
             if [ "${{ runner.os }}" = "macOS" ] && [ -n "$PACKAGES" ]; then
+              printf "Installing Homebrew packages:\n  $(echo $PACKAGES | sed 's/ /\n  /g')\n"
               brew install -q $PACKAGES
             fi
 
             if [ "${{ runner.os }}" = "Windows" ] && [ -n "$PACKAGES" ]; then
+              printf "Installing Chocolatey packages:\n  $(echo $PACKAGES | sed 's/ /\n  /g')\n"
               choco install -y $PACKAGES
             fi
-
+          fi
+      - name: Run stubtest
+        shell: bash
+        run: |
+          if [ "${{ runner.os }}" = "Linux" ]; then
+            PYTHON_EXECUTABLE="xvfb-run python"
+          else
             PYTHON_EXECUTABLE="python"
           fi
 
-          $PYTHON_EXECUTABLE tests/stubtest_third_party.py --specified-platforms-only --num-shards 4 --shard-index ${{ matrix.shard-index }}
+          $PYTHON_EXECUTABLE tests/stubtest_third_party.py --ci-platforms-only --num-shards 4 --shard-index ${{ matrix.shard-index }}
 
   stub-uploader:
     name: stub_uploader tests
-    if: ${{ github.repository == 'python/typeshed' || github.event_name == 'workflow_dispatch' }}
+    if: ${{ github.repository == 'python/typeshed' || github.event_name != 'schedule' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout typeshed
@@ -117,6 +124,8 @@ jobs:
           # Keep in sync with stub_uploader's check_scripts.yml workflow.
           python-version: "3.13"
       - uses: astral-sh/setup-uv@v6
+        with:
+          version-file: "typeshed/pyproject.toml"
       - name: Run tests
         run: |
           cd stub_uploader

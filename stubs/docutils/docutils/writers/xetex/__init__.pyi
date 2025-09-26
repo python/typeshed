@@ -21,8 +21,10 @@ class Babel(latex2e.Babel):
     quote_index: int
     quotes: tuple[str, ...]
     literal_double_quote: str
+    key: str
     def __init__(self, language_code: str, reporter: Reporter) -> None: ...
 
 class XeLaTeXTranslator(latex2e.LaTeXTranslator):
     is_xetex: bool  # type: ignore[misc]
     def __init__(self, document: nodes.document) -> None: ...
+    def to_latex_length(self, length_str: str, node: nodes.Node | None = None) -> str: ...

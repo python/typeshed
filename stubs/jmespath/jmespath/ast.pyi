@@ -1,4 +1,4 @@
-from typing import Literal, TypedDict
+from typing import Literal, TypedDict, type_check_only
 from typing_extensions import NotRequired, TypeAlias
 
 _NodeType: TypeAlias = Literal[
@@ -26,6 +26,7 @@ _NodeType: TypeAlias = Literal[
     "value_projection",
 ]
 
+@type_check_only
 class _ASTNode(TypedDict):
     type: _NodeType
     children: list[_ASTNode]
