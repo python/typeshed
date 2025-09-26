@@ -47,9 +47,6 @@ _Padding: TypeAlias = (
     | tuple[float | str, float | str, float | str, float | str]
 )
 
-# from ttk_widget (aka ttk::widget) manual page, differs from compound
-_TtkCompound: TypeAlias = Literal["", "text", "image", "top", "left", "center", "right", "bottom", "none"]
-
 # Last item (option value to apply) varies between different options so use Any.
 # It could also be any iterable with items matching the tuple, but that case
 # hasn't been added here for consistency with _Padding above.
@@ -216,7 +213,7 @@ class Button(Widget):
         *,
         class_: str = "",
         command: str | Callable[[], Any] = "",
-        compound: _TtkCompound = "",
+        compound: Literal["", "text", "image", "top", "left", "center", "right", "bottom", "none"] = "",
         cursor: tkinter._Cursor = "",
         default: Literal["normal", "active", "disabled"] = "normal",
         image: tkinter._Image | str = "",
@@ -236,7 +233,7 @@ class Button(Widget):
         cnf: dict[str, Any] | None = None,
         *,
         command: str | Callable[[], Any] = ...,
-        compound: _TtkCompound = ...,
+        compound: Literal["", "text", "image", "top", "left", "center", "right", "bottom", "none"] = ...,
         cursor: tkinter._Cursor = ...,
         default: Literal["normal", "active", "disabled"] = ...,
         image: tkinter._Image | str = ...,
@@ -261,7 +258,7 @@ class Checkbutton(Widget):
         *,
         class_: str = "",
         command: str | Callable[[], Any] = "",
-        compound: _TtkCompound = "",
+        compound: Literal["", "text", "image", "top", "left", "center", "right", "bottom", "none"] = "",
         cursor: tkinter._Cursor = "",
         image: tkinter._Image | str = "",
         name: str = ...,
@@ -286,7 +283,7 @@ class Checkbutton(Widget):
         cnf: dict[str, Any] | None = None,
         *,
         command: str | Callable[[], Any] = ...,
-        compound: _TtkCompound = ...,
+        compound: Literal["", "text", "image", "top", "left", "center", "right", "bottom", "none"] = ...,
         cursor: tkinter._Cursor = ...,
         image: tkinter._Image | str = ...,
         offvalue: Any = ...,
@@ -517,7 +514,7 @@ class Label(Widget):
         border: float | str = ...,  # alias for borderwidth
         borderwidth: float | str = ...,  # undocumented
         class_: str = "",
-        compound: _TtkCompound = "",
+        compound: Literal["", "text", "image", "top", "left", "center", "right", "bottom", "none"] = "",
         cursor: tkinter._Cursor = "",
         font: _FontDescription = ...,
         foreground: str = "",
@@ -544,7 +541,7 @@ class Label(Widget):
         background: str = ...,
         border: float | str = ...,
         borderwidth: float | str = ...,
-        compound: _TtkCompound = ...,
+        compound: Literal["", "text", "image", "top", "left", "center", "right", "bottom", "none"] = ...,
         cursor: tkinter._Cursor = ...,
         font: _FontDescription = ...,
         foreground: str = ...,
@@ -617,7 +614,7 @@ class Menubutton(Widget):
         master: tkinter.Misc | None = None,
         *,
         class_: str = "",
-        compound: _TtkCompound = "",
+        compound: Literal["", "text", "image", "top", "left", "center", "right", "bottom", "none"] = "",
         cursor: tkinter._Cursor = "",
         direction: Literal["above", "below", "left", "right", "flush"] = "below",
         image: tkinter._Image | str = "",
@@ -637,7 +634,7 @@ class Menubutton(Widget):
         self,
         cnf: dict[str, Any] | None = None,
         *,
-        compound: _TtkCompound = ...,
+        compound: Literal["", "text", "image", "top", "left", "center", "right", "bottom", "none"] = ...,
         cursor: tkinter._Cursor = ...,
         direction: Literal["above", "below", "left", "right", "flush"] = ...,
         image: tkinter._Image | str = ...,
@@ -806,7 +803,7 @@ class Radiobutton(Widget):
         *,
         class_: str = "",
         command: str | Callable[[], Any] = "",
-        compound: _TtkCompound = "",
+        compound: Literal["", "text", "image", "top", "left", "center", "right", "bottom", "none"] = "",
         cursor: tkinter._Cursor = "",
         image: tkinter._Image | str = "",
         name: str = ...,
@@ -827,7 +824,7 @@ class Radiobutton(Widget):
         cnf: dict[str, Any] | None = None,
         *,
         command: str | Callable[[], Any] = ...,
-        compound: _TtkCompound = ...,
+        compound: Literal["", "text", "image", "top", "left", "center", "right", "bottom", "none"] = ...,
         cursor: tkinter._Cursor = ...,
         image: tkinter._Image | str = ...,
         padding=...,
