@@ -1348,8 +1348,6 @@ class Canvas(Widget, XView, YView):
         closeenough: float = 1.0,
         confine: bool = True,
         cursor: _Cursor = "",
-        # canvas manual page has a section named COORDINATES, and the first
-        # part of it describes str or float type.
         height: float | str = ...,  # see COORDINATES in canvas manual page
         highlightbackground: str = ...,
         highlightcolor: str = ...,
