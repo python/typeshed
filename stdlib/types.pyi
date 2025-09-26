@@ -392,8 +392,8 @@ class CellType:
     cell_contents: Any
 
 _YieldT_co = TypeVar("_YieldT_co", covariant=True)
-_SendT_contra = TypeVar("_SendT_contra", contravariant=True)
-_ReturnT_co = TypeVar("_ReturnT_co", covariant=True)
+_SendT_contra = TypeVar("_SendT_contra", contravariant=True, default=None)
+_ReturnT_co = TypeVar("_ReturnT_co", covariant=True, default=None)
 
 @final
 class GeneratorType(Generator[_YieldT_co, _SendT_contra, _ReturnT_co]):
