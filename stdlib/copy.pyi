@@ -9,8 +9,8 @@ _SR = TypeVar("_SR", bound=_SupportsReplace)
 
 @type_check_only
 class _SupportsReplace(Protocol):
-    # In reality doesn't support args, but there's no other great way to express this.
-    def __replace__(self, *args: Any, **kwargs: Any) -> Self: ...
+    # Usually there are *some* kwargs, but there's no great way to express this.
+    def __replace__(self, /) -> Self: ...
 
 # None in CPython but non-None in Jython
 PyStringMap: Any
