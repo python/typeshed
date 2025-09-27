@@ -892,6 +892,7 @@ async def delete_closed_stubsabot_branches(session: aiohttp.ClientSession) -> No
             continue
         branch = ref.removeprefix("refs/heads/")
 
+        print(f"{branch=}")
         # Fetch all open PRs for an existing branch:
         async with session.get(
             f"{TYPESHED_API_URL}/pulls",
@@ -901,11 +902,15 @@ async def delete_closed_stubsabot_branches(session: aiohttp.ClientSession) -> No
             response.raise_for_status()
             open_prs = await response.json()
 
+        print(len(open_prs))
+        """
         # If we don't have an open PR for an existing branch,
         # it means PR was closed and branch was forgotten to be deleted:
         if not open_prs:
             print(colored(f"Deleting branch {branch} on origin...", "red"))
             subprocess.check_call(["git", "push", "origin", "--delete", branch])
+        """
+    subprocess.check_call(["git", "push", "origin", "--delete", f"refs/heads/{BRANCH_PREFIX}/braintree"])
 
 
 async def suggest_typeshed_update(update: Update, session: aiohttp.ClientSession, action_level: ActionLevel) -> None:
