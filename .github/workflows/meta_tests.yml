@@ -12,7 +12,6 @@ on:
       - "tests/**"
       - "lib/**"
       - ".github/workflows/meta_tests.yml"
-      - "requirements-tests.txt"
       - "pyproject.toml"
 
 permissions:
@@ -41,8 +40,8 @@ jobs:
           python-version: "3.13"
       - uses: astral-sh/setup-uv@v6
         with:
-          version-file: "requirements-tests.txt"
-      - run: uv pip install -r requirements-tests.txt --system
+          version-file: "pyproject.toml"
+      - run: uv pip install --group=dev --system
       - run: python ./tests/typecheck_typeshed.py --platform=${{ matrix.platform }}
   pyright:
     name: Check scripts and tests with pyright
@@ -58,8 +57,8 @@ jobs:
           python-version: "3.13"
       - uses: astral-sh/setup-uv@v6
         with:
-          version-file: "requirements-tests.txt"
-      - run: uv pip install -r requirements-tests.txt --system
+          version-file: "pyproject.toml"
+      - run: uv pip install --group=dev --system
       - name: Run pyright on typeshed
         uses: jakebailey/pyright-action@v2
         with:
@@ -77,10 +76,10 @@ jobs:
           python-version: "3.13"
       - uses: astral-sh/setup-uv@v6
         with:
-          version-file: "requirements-tests.txt"
+          version-file: "pyproject.toml"
       - name: Git config
         run: |
           git config --global user.name stubsabot
           git config --global user.email '<>'
-      - run: uv pip install -r requirements-tests.txt --system
+      - run: uv pip install --group=dev --system
       - run: python scripts/stubsabot.py --action-level local

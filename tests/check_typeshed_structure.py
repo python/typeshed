@@ -12,7 +12,7 @@ import re
 from pathlib import Path
 
 from ts_utils.metadata import read_metadata
-from ts_utils.paths import REQUIREMENTS_PATH, STDLIB_PATH, STUBS_PATH, TEST_CASES_DIR, TESTS_DIR, tests_path
+from ts_utils.paths import PYPROJECT_PATH, STDLIB_PATH, STUBS_PATH, TEST_CASES_DIR, TESTS_DIR, tests_path
 from ts_utils.utils import (
     get_all_testcase_directories,
     get_gitignore_spec,
@@ -166,10 +166,10 @@ def check_requirement_pins() -> None:
     """Check that type checkers and linters are pinned to an exact version."""
     requirements = parse_requirements()
     for package in linters:
-        assert package in requirements, f"type checker/linter '{package}' not found in {REQUIREMENTS_PATH.name}"
+        assert package in requirements, f"type checker/linter '{package}' not found in {PYPROJECT_PATH.name}"
         spec = requirements[package].specifier
-        assert len(spec) == 1, f"type checker/linter '{package}' has complex specifier in {REQUIREMENTS_PATH.name}"
-        msg = f"type checker/linter '{package}' is not pinned to an exact version in {REQUIREMENTS_PATH.name}"
+        assert len(spec) == 1, f"type checker/linter '{package}' has complex specifier in {PYPROJECT_PATH.name}"
+        msg = f"type checker/linter '{package}' is not pinned to an exact version in {PYPROJECT_PATH.name}"
         assert str(spec).startswith("=="), msg
 
 
