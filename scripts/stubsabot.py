@@ -881,6 +881,33 @@ def remove_stubs(distribution: str) -> None:
         f.writelines(lines)
 
 
+async def delete_closed_stubsabot_branches(session: aiohttp.ClientSession) -> None:
+    """Delete `stubsabot/*` branch if the PR is already closed."""
+    fork_owner = get_origin_owner()
+
+    branches = subprocess.run(["git", "ls-remote", "--heads", "origin"], capture_output=True, text=True, check=True)
+    for line in branches.stdout.splitlines():
+        _, ref = line.split()
+        if not ref.startswith(f"refs/heads/{BRANCH_PREFIX}/"):
+            continue
+        branch = ref.removeprefix("refs/heads/")
+
+        # Fetch all open PRs for an existing branch:
+        async with session.get(
+            f"{TYPESHED_API_URL}/pulls",
+            params={"state": "open", "head": f"{fork_owner}:{branch}", "base": "main"},
+            headers=get_github_api_headers(),
+        ) as response:
+            response.raise_for_status()
+            open_prs = await response.json()
+
+        # If we don't have an open PR for an existing branch,
+        # it means PR was closed and branch was forgotten to be deleted:
+        if not open_prs:
+            print(colored(f"Deleting branch {branch} on origin...", "red"))
+            subprocess.check_call(["git", "push", "origin", "--delete", branch])
+
+
 async def suggest_typeshed_update(update: Update, session: aiohttp.ClientSession, action_level: ActionLevel) -> None:
     if action_level <= ActionLevel.nothing:
         return
@@ -1002,6 +1029,9 @@ async def main() -> int:
     try:
         conn = aiohttp.TCPConnector(limit_per_host=10)
         async with aiohttp.ClientSession(connector=conn) as session:
+            # First we clean the old branches:
+            await delete_closed_stubsabot_branches(session)
+
             tasks = [
                 asyncio.create_task(determine_action(distribution, session))
                 for distribution in dists_to_update
