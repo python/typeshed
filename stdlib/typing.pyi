@@ -577,7 +577,7 @@ class Awaitable(Protocol[_T_co]):
     @abstractmethod
     def __await__(self) -> Generator[Any, Any, _T_co]: ...
 
-# Non-default variations to accommodate couroutines, and `AwaitableGenerator` having a 4th type parameter.
+# Non-default variations to accommodate coroutines, and `AwaitableGenerator` having a 4th type parameter.
 _SendT_nd_contra = TypeVar("_SendT_nd_contra", contravariant=True)
 _ReturnT_nd_co = TypeVar("_ReturnT_nd_co", covariant=True)
 
