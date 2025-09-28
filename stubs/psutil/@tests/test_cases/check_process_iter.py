@@ -23,7 +23,6 @@ clear_method()
 
 # Test type annotations work correctly
 from collections.abc import Iterator
-from typing import Any
 
 processes: Iterator[psutil.Process] = psutil.process_iter()
 processes_with_attrs: Iterator[psutil.Process] = psutil.process_iter(attrs=["pid"])
