@@ -1,7 +1,7 @@
 from logging import Logger
 from typing import Any
 
-import requests
+import requests  # type: ignore[import-untyped]
 from authlib.integrations.base_client.sync_app import OAuth1Base, OAuth2Base
 
 log: Logger
