@@ -71,6 +71,7 @@ def main() -> None:
     if args.python_version:
         python_version: str = args.python_version
     elif folder in "stubs":
+        python_version = get_oldest_supported_python()
         metadata_python_version = read_metadata(stub).requires_python
         for spec in metadata_python_version:
             if spec.operator.startswith(">"):
