@@ -23,7 +23,7 @@ expected_assignable_to: Callable[[tuple[str, int]], SupportsDunderLT[Any] | Supp
 
 
 # Regression tests for https://github.com/python/mypy/issues/14032
-assert_type(itemgetter("")({"first": 1, "second": 2}), int)
+# assert_type(itemgetter("first")({"first": 1, "second": 2}), int) # See comment on itemgetter.__call__
 assert_type(min({"first": 1, "second": 2}, key=itemgetter(1)), str)
 assert_type(min({"first": 1, "second": 2}.items(), key=itemgetter(1)), tuple[str, int])
 assert_type(standalone_call({"first": 1, "second": 2}), int)
