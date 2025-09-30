@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import copy
 import sys
-from typing import Any, Generic, TypeVar
+from typing import Generic, TypeVar
 from typing_extensions import Self, assert_type
 
 
@@ -29,11 +29,11 @@ class Box(Generic[_T_co]):
     def __init__(self, value: _T_co, /) -> None:
         self.value = value
 
-    def __replace__(self, value: Any) -> Box[Any]:
+    def __replace__(self, value: str) -> Box[str]:
         return Box(value)
 
 
 if sys.version_info >= (3, 13):
     box1: Box[int] = Box(42)
     box2 = copy.replace(box1, val="spam")
-    assert_type(box2, Box[Any])
+    assert_type(box2, Box[str])
