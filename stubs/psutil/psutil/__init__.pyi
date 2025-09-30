@@ -2,7 +2,7 @@ import sys
 from _typeshed import Incomplete
 from collections.abc import Callable, Iterable, Iterator
 from contextlib import AbstractContextManager
-from typing import Any, Literal, Protocol, overload
+from typing import Any, Literal, Protocol, overload, type_check_only
 from typing_extensions import Self, TypeAlias, deprecated
 
 from psutil._common import (
@@ -234,6 +234,7 @@ class Popen(Process):
     def __getattribute__(self, name: str) -> Any: ...
     def __dir__(self) -> list[str]: ...
 
+@type_check_only
 class _ProcessIterCallable(Protocol):
     def __call__(
         self, attrs: list[str] | tuple[str, ...] | set[str] | frozenset[str] | None = None, ad_value=None
