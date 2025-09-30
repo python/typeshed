@@ -195,7 +195,7 @@ class attrgetter(Generic[_T_co]):
     def __call__(self, obj: Any, /) -> _T_co: ...
 
 @final
-class itemgetter(Generic[_T_co]):
+class itemgetter(Generic[_T]):
     @overload
     def __new__(cls, item: _T, /) -> itemgetter[_T]: ...
     @overload
@@ -203,8 +203,13 @@ class itemgetter(Generic[_T_co]):
     # __key: _KT_contra in SupportsGetItem seems to be causing variance issues, ie:
     # TypeVar "_KT_contra@SupportsGetItem" is contravariant
     #   "tuple[int, int]" is incompatible with protocol "SupportsIndex"
-    # preventing [_T_co, _T] instead of [Any, _T]
-    def __call__(self, obj: SupportsGetItem[Any, _T]) -> _T: ...
+    # preventing [_T_co, ...] instead of [Any, ...]
+    #
+    # If we can't infer a literal key from __new__ (ie: `itemgetter[Literal[0]]` for `itemgetter(0)`),
+    # then we can't annotate __call__'s return type or it'll break on tuples
+    #
+    # These issues are best demonstrated by the `itertools.check_itertools_recipes.unique_justseen` test.
+    def __call__(self, obj: SupportsGetItem[Any, Any]) -> Any: ...
 
 @final
 class methodcaller:
