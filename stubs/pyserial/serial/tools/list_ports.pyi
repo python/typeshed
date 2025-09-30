@@ -1,6 +1,7 @@
 import re
 import sys
 from collections.abc import Generator
+
 from serial.tools.list_ports_common import ListPortInfo
 
 if sys.platform == "win32":
