@@ -1,4 +1,3 @@
-from _typeshed import FileDescriptorOrPath
 from collections.abc import Iterable
 from typing import BinaryIO, type_check_only
 
@@ -35,7 +34,7 @@ class _UnknownAsyncTextIO(AsyncBase[str]):
     @property
     def newlines(self) -> str | tuple[str, ...] | None: ...
     @property
-    def name(self) -> FileDescriptorOrPath: ...
+    def name(self) -> str: ...
     @property
     def mode(self) -> str: ...
 
