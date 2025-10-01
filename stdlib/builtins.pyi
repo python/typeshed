@@ -226,8 +226,8 @@ class type:
     @classmethod
     def __prepare__(metacls, name: str, bases: tuple[type, ...], /, **kwds: Any) -> MutableMapping[str, object]: ...
     if sys.version_info >= (3, 10):
-        def __or__(self, value: Any, /) -> types.UnionType: ...
-        def __ror__(self, value: Any, /) -> types.UnionType: ...
+        def __or__(self, value: Any, /) -> types.UnionType | Self: ...  # type: ignore[misc]
+        def __ror__(self, value: Any, /) -> types.UnionType | Self: ...  # type: ignore[misc]
     if sys.version_info >= (3, 12):
         __type_params__: tuple[TypeVar | ParamSpec | TypeVarTuple, ...]
     __annotations__: dict[str, AnnotationForm]
