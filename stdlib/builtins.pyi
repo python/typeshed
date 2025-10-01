@@ -90,6 +90,7 @@ _T2 = TypeVar("_T2")
 _T3 = TypeVar("_T3")
 _T4 = TypeVar("_T4")
 _T5 = TypeVar("_T5")
+_Expected = TypeVar("_Expected")
 _SupportsNextT_co = TypeVar("_SupportsNextT_co", bound=SupportsNext[Any], covariant=True)
 _SupportsAnextT_co = TypeVar("_SupportsAnextT_co", bound=SupportsAnext[Any], covariant=True)
 _AwaitableT = TypeVar("_AwaitableT", bound=Awaitable[Any])
@@ -1138,9 +1139,9 @@ class list(MutableSequence[_T]):
     # Overloading looks unnecessary, but is needed to work around complex mypy problems
     @overload
     # # `__add__` returns a new object, so we capture the expected result type with a type variable
-    def __add__(self, value: list[_T], /) -> list[_T1 | _T]: ...
+    def __add__(self, value: list[_T], /) -> list[_Expected | _T]: ...
     @overload
-    def __add__(self, value: list[_S], /) -> list[_T1 | _T | _S]: ...
+    def __add__(self, value: list[_S], /) -> list[_Expected | _T | _S]: ...
     def __iadd__(self, value: Iterable[_T], /) -> Self: ...  # type: ignore[misc]
     def __mul__(self, value: SupportsIndex, /) -> list[_T]: ...
     def __rmul__(self, value: SupportsIndex, /) -> list[_T]: ...
