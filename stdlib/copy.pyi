@@ -24,9 +24,7 @@ if sys.version_info >= (3, 13):
     __all__ += ["replace"]
 
     def replace(
-        obj: _SupportsReplace[_P, _RT_co], /,
-        *_: _P.args,  # does not accept positional arguments at runtime
-        **changes: _P.kwargs,
+        obj: _SupportsReplace[_P, _RT_co], /, *_: _P.args, **changes: _P.kwargs  # does not accept positional arguments at runtime
     ) -> _RT_co: ...
 
 class Error(Exception): ...
