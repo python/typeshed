@@ -23,5 +23,3 @@ uv==0.8.6
 
 # Utilities for typeshed infrastructure scripts.
 ts_utils @ file:lib
-
-cryptography>=3.2
