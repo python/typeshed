@@ -1350,10 +1350,10 @@ class property:
 
     def __init__(
         self,
-        fget: Callable[[Any], Any] | None  = None,
-        fset: Callable[[Any, Any], None] | None  = None,
-        fdel: Callable[[Any], None] | None  = None,
-        doc: str | None  = None,
+        fget: Callable[[Any], Any] | None = None,
+        fset: Callable[[Any, Any], None] | None = None,
+        fdel: Callable[[Any], None] | None = None,
+        doc: str | None = None,
     ) -> None: ...
     def getter(self, fget: Callable[[Any], Any], /) -> property: ...
     def setter(self, fset: Callable[[Any, Any], None], /) -> property: ...
@@ -1951,7 +1951,14 @@ class zip(Generic[_T_co]):
         ) -> zip[tuple[_T1, _T2, _T3]]: ...
         @overload
         def __new__(
-            cls, iter1: Iterable[_T1], iter2: Iterable[_T2], iter3: Iterable[_T3], iter4: Iterable[_T4], /, *, strict: bool = False
+            cls,
+            iter1: Iterable[_T1],
+            iter2: Iterable[_T2],
+            iter3: Iterable[_T3],
+            iter4: Iterable[_T4],
+            /,
+            *,
+            strict: bool = False,
         ) -> zip[tuple[_T1, _T2, _T3, _T4]]: ...
         @overload
         def __new__(
