@@ -45,6 +45,8 @@ importlib.util.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined
 # Pre-existing errors from Python 3.13
 # ====================================
 
+# No way to express keyword-only ParamSpec
+copy.replace
 
 # =======
 # >= 3.12
