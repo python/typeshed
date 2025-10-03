@@ -254,3 +254,4 @@ known-first-party = ["_utils", "ts_utils"]
 
 [tool.typeshed]
 oldest_supported_python = "3.9"
+newest_supported_python = "3.14"

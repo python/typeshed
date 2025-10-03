@@ -23,7 +23,8 @@ else:
 
 import tomlkit
 from packaging.requirements import Requirement
-from packaging.specifiers import Specifier
+from packaging.specifiers import Specifier, SpecifierSet
+from packaging.version import Version
 from tomlkit.items import String
 
 from .paths import PYPROJECT_PATH, STUBS_PATH, distribution_path
@@ -33,6 +34,7 @@ __all__ = [
     "PackageDependencies",
     "StubMetadata",
     "StubtestSettings",
+    "get_newest_supported_python",
     "get_oldest_supported_python",
     "get_recursive_requirements",
     "read_dependencies",
@@ -53,6 +55,51 @@ def _is_list_of_strings(obj: object) -> TypeGuard[list[str]]:
 
 def _is_nested_dict(obj: object) -> TypeGuard[dict[str, dict[str, Any]]]:
     return isinstance(obj, dict) and all(isinstance(k, str) and isinstance(v, dict) for k, v in obj.items())
+
+
+def _bump_minor_version(version: str) -> str:
+    v = Version(version)
+    major, minor, *_ = v.release
+    minor += 1
+    return str(Version(f"{major}.{minor}"))
+
+
+def _is_specifier_subset(base: SpecifierSet, other: SpecifierSet) -> bool:
+    """
+    Check `other` does not extend beyond `base`.
+    `other` is allowed to have only one bound (>= or <).
+    """
+    base_lower = None
+    base_upper = None
+    for spec in base:
+        if spec.operator.startswith(">"):
+            base_lower = Version(spec.version)
+        elif spec.operator.startswith("<"):
+            base_upper = Version(spec.version)
+    assert isinstance(base_lower, Version)
+    assert isinstance(base_upper, Version)
+
+    other_lower = None
+    other_upper = None
+    for spec in other:
+        if spec.operator.startswith(">"):
+            other_lower = Version(spec.version)
+        elif spec.operator.startswith("<"):
+            other_upper = Version(spec.version)
+
+    # Check lower bound
+    if other_lower and other_lower < base_lower:
+        return False
+    # Check upper bound
+    return not (other_upper and other_upper > base_upper)
+
+
+@functools.cache
+def get_newest_supported_python() -> str:
+    with PYPROJECT_PATH.open("rb") as config:
+        val = tomllib.load(config)["tool"]["typeshed"]["newest_supported_python"]
+    assert type(val) is str
+    return val
 
 
 @functools.cache
@@ -183,7 +230,7 @@ class StubMetadata:
     uploaded_to_pypi: Annotated[bool, "Whether or not a distribution is uploaded to PyPI"]
     partial_stub: Annotated[bool, "Whether this is a partial type stub package as per PEP 561."]
     stubtest_settings: StubtestSettings
-    requires_python: Annotated[Specifier, "Versions of Python supported by the stub package"]
+    requires_python: Annotated[SpecifierSet, "Versions of Python supported by the stub package"]
 
     @property
     def is_obsolete(self) -> bool:
@@ -310,18 +357,22 @@ def read_metadata(distribution: str) -> StubMetadata:
     assert type(partial_stub) is bool
     requires_python_str: object = data.get("requires_python")  # pyright: ignore[reportUnknownMemberType]
     oldest_supported_python = get_oldest_supported_python()
-    oldest_supported_python_specifier = Specifier(f">={oldest_supported_python}")
+    newest_supported_python = get_newest_supported_python()
+    newest_supported_python = _bump_minor_version(newest_supported_python)
+    supported_python_specifier = SpecifierSet(f">={oldest_supported_python},<{newest_supported_python}")
     if requires_python_str is None:
-        requires_python = oldest_supported_python_specifier
+        requires_python = supported_python_specifier
     else:
         assert isinstance(requires_python_str, str)
-        requires_python = Specifier(requires_python_str)
-        assert requires_python != oldest_supported_python_specifier, f'requires_python="{requires_python}" is redundant'
-        # Check minimum Python version is not less than the oldest version of Python supported by typeshed
-        assert oldest_supported_python_specifier.contains(
-            requires_python.version
-        ), f"'requires_python' contains versions lower than typeshed's oldest supported Python ({oldest_supported_python})"
-        assert requires_python.operator == ">=", "'requires_python' should be a minimum version specifier, use '>=3.x'"
+        requires_python = SpecifierSet(requires_python_str)
+
+        base_specs = {str(spec) for spec in supported_python_specifier}
+        metadata_specs = {str(spec) for spec in requires_python}
+        duplicates = base_specs & metadata_specs
+        assert not duplicates, f"'requires_python' contains redundant specifier(s): {','.join(duplicates)}"
+        assert _is_specifier_subset(
+            supported_python_specifier, requires_python
+        ), f"'requires_python' contains versions beyond the typeshed's supported Python ({supported_python_specifier})"
 
     empty_tools: dict[object, object] = {}
     tools_settings: object = data.get("tool", empty_tools)  # pyright: ignore[reportUnknownMemberType]
