@@ -3,11 +3,11 @@ from _typeshed import FileDescriptor
 from collections.abc import Callable, Sequence
 from types import TracebackType
 from typing import Any
-from typing_extensions import ParamSpec
+from typing_extensions import ParamSpec, disjoint_base
 
-import gevent.libev.watcher as watcher
 from gevent._ffi.loop import _ErrorHandler
 from gevent._types import _Callback
+from gevent.libev import watcher
 
 # this c extension is only available on posix
 if sys.platform != "win32":
@@ -20,7 +20,7 @@ if sys.platform != "win32":
     def recommended_backends() -> list[str | int]: ...
     def supported_backends() -> list[str | int]: ...
     def time() -> float: ...
-
+    @disjoint_base
     class loop:
         starting_timer_may_update_loop_time: bool
         error_handler: _ErrorHandler
@@ -43,7 +43,7 @@ if sys.platform != "win32":
         def reinit(self) -> None: ...
         def ref(self) -> None: ...
         def unref(self) -> None: ...
-        def break_(self, how: int = ...) -> None: ...
+        def break_(self, how: int = 1) -> None: ...
         def verify(self) -> None: ...
         def now(self) -> float: ...
         def update_now(self) -> None: ...
@@ -90,3 +90,13 @@ if sys.platform != "win32":
         def origflags_int(self) -> int: ...
         @property
         def sigfd(self) -> FileDescriptor: ...
+
+    __all__ = [
+        "get_version",
+        "get_header_version",
+        "supported_backends",
+        "recommended_backends",
+        "embeddable_backends",
+        "time",
+        "loop",
+    ]

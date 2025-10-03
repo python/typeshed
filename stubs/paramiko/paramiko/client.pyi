@@ -1,5 +1,6 @@
+from _typeshed import FileDescriptorOrPath
 from collections.abc import Iterable, Mapping
-from typing import NoReturn, Protocol
+from typing import NoReturn, Protocol, type_check_only
 
 from paramiko.auth_strategy import AuthStrategy
 from paramiko.channel import Channel, ChannelFile, ChannelStderrFile, ChannelStdinFile
@@ -9,10 +10,12 @@ from paramiko.sftp_client import SFTPClient
 from paramiko.transport import Transport, _SocketLike
 from paramiko.util import ClosingContextManager
 
+@type_check_only
 class _TransportFactory(Protocol):
     def __call__(
         self,
-        __sock: _SocketLike,
+        sock: _SocketLike,
+        /,
         *,
         gss_kex: bool,
         gss_deleg_creds: bool,
@@ -21,9 +24,9 @@ class _TransportFactory(Protocol):
 
 class SSHClient(ClosingContextManager):
     def __init__(self) -> None: ...
-    def load_system_host_keys(self, filename: str | None = None) -> None: ...
-    def load_host_keys(self, filename: str) -> None: ...
-    def save_host_keys(self, filename: str) -> None: ...
+    def load_system_host_keys(self, filename: FileDescriptorOrPath | None = None) -> None: ...
+    def load_host_keys(self, filename: FileDescriptorOrPath) -> None: ...
+    def save_host_keys(self, filename: FileDescriptorOrPath) -> None: ...
     def get_host_keys(self) -> HostKeys: ...
     def set_log_channel(self, name: str) -> None: ...
     def set_missing_host_key_policy(self, policy: type[MissingHostKeyPolicy] | MissingHostKeyPolicy) -> None: ...

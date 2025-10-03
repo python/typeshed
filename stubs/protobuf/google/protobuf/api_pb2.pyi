@@ -31,9 +31,10 @@ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
+
 import builtins
 import collections.abc
-import sys
+import typing
 
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
@@ -41,14 +42,9 @@ import google.protobuf.message
 import google.protobuf.source_context_pb2
 import google.protobuf.type_pb2
 
-if sys.version_info >= (3, 8):
-    import typing as typing_extensions
-else:
-    import typing_extensions
-
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
-@typing_extensions.final
+@typing.final
 class Api(google.protobuf.message.Message):
     """Api is a light-weight descriptor for an API Interface.
 
@@ -59,6 +55,11 @@ class Api(google.protobuf.message.Message):
     sometimes simply referred to as "APIs" in other contexts, such as the name of
     this message itself. See https://cloud.google.com/apis/design/glossary for
     detailed terminology.
+
+    New usages of this message as an alternative to ServiceDescriptorProto are
+    strongly discouraged. This message does not reliability preserve all
+    information necessary to model the schema and preserve semantics. Instead
+    make use of FileDescriptorSet which preserves the necessary information.
     """
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -70,16 +71,11 @@ class Api(google.protobuf.message.Message):
     SOURCE_CONTEXT_FIELD_NUMBER: builtins.int
     MIXINS_FIELD_NUMBER: builtins.int
     SYNTAX_FIELD_NUMBER: builtins.int
+    EDITION_FIELD_NUMBER: builtins.int
     name: builtins.str
     """The fully qualified name of this interface, including package name
     followed by the interface's simple name.
     """
-    @property
-    def methods(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Method]:
-        """The methods of this interface, in unspecified order."""
-    @property
-    def options(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[google.protobuf.type_pb2.Option]:
-        """Any metadata attached to the interface."""
     version: builtins.str
     """A version string for this interface. If specified, must have the form
     `major-version.minor-version`, as in `1.10`. If the minor version is
@@ -101,16 +97,28 @@ class Api(google.protobuf.message.Message):
     be omitted. Zero major versions must only be used for
     experimental, non-GA interfaces.
     """
+    syntax: google.protobuf.type_pb2.Syntax.ValueType
+    """The source syntax of the service."""
+    edition: builtins.str
+    """The source edition string, only valid when syntax is SYNTAX_EDITIONS."""
+    @property
+    def methods(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Method]:
+        """The methods of this interface, in unspecified order."""
+
+    @property
+    def options(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[google.protobuf.type_pb2.Option]:
+        """Any metadata attached to the interface."""
+
     @property
     def source_context(self) -> google.protobuf.source_context_pb2.SourceContext:
         """Source context for the protocol buffer service represented by this
         message.
         """
+
     @property
     def mixins(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Mixin]:
         """Included interfaces. See [Mixin][]."""
-    syntax: google.protobuf.type_pb2.Syntax.ValueType
-    """The source syntax of the service."""
+
     def __init__(
         self,
         *,
@@ -121,15 +129,42 @@ class Api(google.protobuf.message.Message):
         source_context: google.protobuf.source_context_pb2.SourceContext | None = ...,
         mixins: collections.abc.Iterable[global___Mixin] | None = ...,
         syntax: google.protobuf.type_pb2.Syntax.ValueType | None = ...,
+        edition: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["source_context", b"source_context"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["methods", b"methods", "mixins", b"mixins", "name", b"name", "options", b"options", "source_context", b"source_context", "syntax", b"syntax", "version", b"version"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["source_context", b"source_context"]) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "edition",
+            b"edition",
+            "methods",
+            b"methods",
+            "mixins",
+            b"mixins",
+            "name",
+            b"name",
+            "options",
+            b"options",
+            "source_context",
+            b"source_context",
+            "syntax",
+            b"syntax",
+            "version",
+            b"version",
+        ],
+    ) -> None: ...
 
 global___Api = Api
 
-@typing_extensions.final
+@typing.final
 class Method(google.protobuf.message.Message):
-    """Method represents a method of an API interface."""
+    """Method represents a method of an API interface.
+
+    New usages of this message as an alternative to MethodDescriptorProto are
+    strongly discouraged. This message does not reliability preserve all
+    information necessary to model the schema and preserve semantics. Instead
+    make use of FileDescriptorSet which preserves the necessary information.
+    """
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -140,6 +175,7 @@ class Method(google.protobuf.message.Message):
     RESPONSE_STREAMING_FIELD_NUMBER: builtins.int
     OPTIONS_FIELD_NUMBER: builtins.int
     SYNTAX_FIELD_NUMBER: builtins.int
+    EDITION_FIELD_NUMBER: builtins.int
     name: builtins.str
     """The simple name of this method."""
     request_type_url: builtins.str
@@ -150,11 +186,22 @@ class Method(google.protobuf.message.Message):
     """The URL of the output message type."""
     response_streaming: builtins.bool
     """If true, the response is streamed."""
+    syntax: google.protobuf.type_pb2.Syntax.ValueType
+    """The source syntax of this method.
+
+    This field should be ignored, instead the syntax should be inherited from
+    Api. This is similar to Field and EnumValue.
+    """
+    edition: builtins.str
+    """The source edition string, only valid when syntax is SYNTAX_EDITIONS.
+
+    This field should be ignored, instead the edition should be inherited from
+    Api. This is similar to Field and EnumValue.
+    """
     @property
     def options(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[google.protobuf.type_pb2.Option]:
         """Any metadata attached to the method."""
-    syntax: google.protobuf.type_pb2.Syntax.ValueType
-    """The source syntax of this method."""
+
     def __init__(
         self,
         *,
@@ -165,12 +212,33 @@ class Method(google.protobuf.message.Message):
         response_streaming: builtins.bool | None = ...,
         options: collections.abc.Iterable[google.protobuf.type_pb2.Option] | None = ...,
         syntax: google.protobuf.type_pb2.Syntax.ValueType | None = ...,
+        edition: builtins.str | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["name", b"name", "options", b"options", "request_streaming", b"request_streaming", "request_type_url", b"request_type_url", "response_streaming", b"response_streaming", "response_type_url", b"response_type_url", "syntax", b"syntax"]) -> None: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "edition",
+            b"edition",
+            "name",
+            b"name",
+            "options",
+            b"options",
+            "request_streaming",
+            b"request_streaming",
+            "request_type_url",
+            b"request_type_url",
+            "response_streaming",
+            b"response_streaming",
+            "response_type_url",
+            b"response_type_url",
+            "syntax",
+            b"syntax",
+        ],
+    ) -> None: ...
 
 global___Method = Method
 
-@typing_extensions.final
+@typing.final
 class Mixin(google.protobuf.message.Message):
     """Declares an API Interface to be included in this interface. The including
     interface must redeclare all the methods from the included interface, but
@@ -262,12 +330,7 @@ class Mixin(google.protobuf.message.Message):
     """If non-empty specifies a path under which inherited HTTP paths
     are rooted.
     """
-    def __init__(
-        self,
-        *,
-        name: builtins.str | None = ...,
-        root: builtins.str | None = ...,
-    ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["name", b"name", "root", b"root"]) -> None: ...
+    def __init__(self, *, name: builtins.str | None = ..., root: builtins.str | None = ...) -> None: ...
+    def ClearField(self, field_name: typing.Literal["name", b"name", "root", b"root"]) -> None: ...
 
 global___Mixin = Mixin

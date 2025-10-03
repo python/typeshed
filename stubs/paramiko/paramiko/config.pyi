@@ -1,3 +1,4 @@
+from _typeshed import FileDescriptorOrPath
 from collections.abc import Iterable
 from re import Pattern
 from typing import IO
@@ -5,6 +6,7 @@ from typing_extensions import Self
 
 from paramiko.ssh_exception import ConfigParseError as ConfigParseError, CouldNotCanonicalize as CouldNotCanonicalize
 
+invoke_import_error: ImportError | None
 SSH_PORT: int
 
 class SSHConfig:
@@ -14,7 +16,7 @@ class SSHConfig:
     @classmethod
     def from_text(cls, text: str) -> Self: ...
     @classmethod
-    def from_path(cls, path: str) -> Self: ...
+    def from_path(cls, path: FileDescriptorOrPath) -> Self: ...
     @classmethod
     def from_file(cls, flo: IO[str]) -> Self: ...
     def parse(self, file_obj: IO[str]) -> None: ...

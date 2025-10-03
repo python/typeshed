@@ -3,7 +3,7 @@ import sys
 from collections import deque
 from collections.abc import Callable
 from enum import Enum
-from typing import Any, ClassVar, Literal
+from typing import Any, ClassVar, Final, Literal
 from typing_extensions import TypeAlias
 
 from . import constants, events, futures, protocols, transports
@@ -14,25 +14,25 @@ if sys.version_info >= (3, 11):
     SSLAgainErrors: tuple[type[ssl.SSLWantReadError], type[ssl.SSLSyscallError]]
 
     class SSLProtocolState(Enum):
-        UNWRAPPED: str
-        DO_HANDSHAKE: str
-        WRAPPED: str
-        FLUSHING: str
-        SHUTDOWN: str
+        UNWRAPPED = "UNWRAPPED"
+        DO_HANDSHAKE = "DO_HANDSHAKE"
+        WRAPPED = "WRAPPED"
+        FLUSHING = "FLUSHING"
+        SHUTDOWN = "SHUTDOWN"
 
     class AppProtocolState(Enum):
-        STATE_INIT: str
-        STATE_CON_MADE: str
-        STATE_EOF: str
-        STATE_CON_LOST: str
+        STATE_INIT = "STATE_INIT"
+        STATE_CON_MADE = "STATE_CON_MADE"
+        STATE_EOF = "STATE_EOF"
+        STATE_CON_LOST = "STATE_CON_LOST"
 
     def add_flowcontrol_defaults(high: int | None, low: int | None, kb: int) -> tuple[int, int]: ...
 
 else:
-    _UNWRAPPED: Literal["UNWRAPPED"]
-    _DO_HANDSHAKE: Literal["DO_HANDSHAKE"]
-    _WRAPPED: Literal["WRAPPED"]
-    _SHUTDOWN: Literal["SHUTDOWN"]
+    _UNWRAPPED: Final = "UNWRAPPED"
+    _DO_HANDSHAKE: Final = "DO_HANDSHAKE"
+    _WRAPPED: Final = "WRAPPED"
+    _SHUTDOWN: Final = "SHUTDOWN"
 
 if sys.version_info < (3, 11):
     class _SSLPipe:
@@ -76,7 +76,7 @@ class _SSLProtocolTransport(transports._FlowControlMixin, transports.Transport):
     def get_extra_info(self, name: str, default: Any | None = None) -> dict[str, Any]: ...
     @property
     def _protocol_paused(self) -> bool: ...
-    def write(self, data: bytes | bytearray | memoryview) -> None: ...
+    def write(self, data: bytes | bytearray | memoryview[Any]) -> None: ...  # any memoryview format or shape
     def can_write_eof(self) -> Literal[False]: ...
     if sys.version_info >= (3, 11):
         def get_write_buffer_limits(self) -> tuple[int, int]: ...

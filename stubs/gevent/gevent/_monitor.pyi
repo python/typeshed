@@ -14,11 +14,12 @@ _T = TypeVar("_T")
 #        sorts of issues to reference a module that is not stubbed in typeshed, so
 #        for now we punt and just define an alias for Interface and implementer we
 #        can get rid of later
-def implementer(__interface: Any) -> Callable[[_T], _T]: ...
+def implementer(interface: Any, /) -> Callable[[_T], _T]: ...
 
 class MonitorWarning(RuntimeWarning): ...
 
 class _MonitorEntry:
+    __slots__ = ("function", "period", "last_run_time")
     function: Callable[[Hub], object]
     period: float
     last_run_time: float

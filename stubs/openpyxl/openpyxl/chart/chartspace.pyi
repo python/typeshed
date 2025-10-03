@@ -28,6 +28,7 @@ class ChartContainer(Serialisable):
     pivotFmts: Incomplete
 
     # Same as _3DBase
+    # https://github.com/python/mypy/issues/6700
     view3D: Typed[View3D, Literal[True]]
     floor: Typed[Surface, Literal[True]]
     sideWall: Typed[Surface, Literal[True]]
@@ -120,7 +121,7 @@ class ChartSpace(Serialisable):
         txPr: RichText | None = None,
         externalData: ExternalData | None = None,
         printSettings: PrintSettings | None = None,
-        userShapes: Incomplete | None = None,
+        userShapes=None,
         extLst: Unused = None,
     ) -> None: ...
     @overload
@@ -138,7 +139,7 @@ class ChartSpace(Serialisable):
         txPr: RichText | None = None,
         externalData: ExternalData | None = None,
         printSettings: PrintSettings | None = None,
-        userShapes: Incomplete | None = None,
+        userShapes=None,
         extLst: Unused = None,
     ) -> None: ...
     def to_tree(self, tagname: Unused = None, idx: Unused = None, namespace: Unused = None) -> Element: ...

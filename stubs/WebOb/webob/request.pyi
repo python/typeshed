@@ -1,38 +1,36 @@
 import datetime
 import io
-from _typeshed import (
-    ExcInfo,
-    Incomplete,
-    ReadableBuffer,
-    SupportsItems,
-    SupportsKeysAndGetItem,
-    SupportsNoArgReadline,
-    SupportsRead,
-)
+from _typeshed import OptExcInfo, SupportsKeysAndGetItem, SupportsNoArgReadline, SupportsRead, WriteableBuffer
 from _typeshed.wsgi import WSGIApplication, WSGIEnvironment
-from cgi import FieldStorage
 from collections.abc import Iterable, Mapping
 from re import Pattern
-from tempfile import _TemporaryFileWrapper
-from typing import IO, Any, ClassVar, Literal, Protocol, TypedDict, TypeVar, overload
+from typing import IO, Any, ClassVar, Literal, Protocol, TypedDict, TypeVar, overload, type_check_only
 from typing_extensions import Self, TypeAlias
 
+from webob._types import AsymmetricProperty, AsymmetricPropertyWithDelete, SymmetricProperty, SymmetricPropertyWithDelete
 from webob.acceptparse import _AcceptCharsetProperty, _AcceptEncodingProperty, _AcceptLanguageProperty, _AcceptProperty
 from webob.byterange import Range
-from webob.cachecontrol import _RequestCacheControl
+from webob.cachecontrol import CacheControl
+from webob.client import SendRequest
+from webob.compat import cgi_FieldStorage
 from webob.cookies import RequestCookies
-from webob.descriptors import _AsymmetricProperty, _AsymmetricPropertyWithDelete, _authorization, _DateProperty
+from webob.descriptors import _authorization, _DateProperty
 from webob.etag import IfRange, IfRangeDate, _ETagProperty
 from webob.headers import EnvironHeaders
 from webob.multidict import GetDict, MultiDict, NestedMultiDict, NoVars
-from webob.response import Response, _HTTPHeader
+from webob.response import Response
+
+__all__ = ["BaseRequest", "Request", "LegacyRequest"]
 
 _T = TypeVar("_T")
-_HTTPMethod: TypeAlias = Literal["GET", "HEAD", "POST", "PUT", "DELETE", "PATCH"]
+_HTTPMethod: TypeAlias = Literal["GET", "HEAD", "POST", "PUT", "DELETE", "CONNECT", "OPTIONS", "TRACE", "PATCH"]
 _ListOrTuple: TypeAlias = list[_T] | tuple[_T, ...]
+_RequestCacheControl: TypeAlias = CacheControl[Literal["request"]]
 
-class _SupportsReadAndNoArgReadline(SupportsRead[bytes], SupportsNoArgReadline[bytes], Protocol): ...
+@type_check_only
+class _SupportsReadAndNoArgReadline(SupportsRead[str | bytes], SupportsNoArgReadline[str | bytes], Protocol): ...
 
+@type_check_only
 class _RequestCacheControlDict(TypedDict, total=False):
     max_stale: int
     min_stale: int
@@ -42,9 +40,7 @@ class _RequestCacheControlDict(TypedDict, total=False):
     no_transform: bool
     max_age: int
 
-class _FieldStorageWithFile(FieldStorage):
-    file: IO[bytes]
-    filename: str
+_FieldStorageWithFile = cgi_FieldStorage
 
 class _NoDefault: ...
 
@@ -53,10 +49,12 @@ NoDefault: _NoDefault
 class BaseRequest:
     request_body_tempfile_limit: ClassVar[int]
     environ: WSGIEnvironment
-    method: _HTTPMethod
     def __init__(self, environ: WSGIEnvironment, **kw: Any) -> None: ...
-    def encget(self, key: str, default: Any = ..., encattr: str | None = None) -> Any: ...
-    def encset(self, key: str, val: Any, encattr: str | None = None) -> None: ...
+    @overload
+    def encget(self, key: str, default: _T, encattr: str | None = None) -> str | _T: ...
+    @overload
+    def encget(self, key: str, *, encattr: str | None = None) -> str: ...
+    def encset(self, key: str, val: str, encattr: str | None = None) -> None: ...
     @property
     def charset(self) -> str | None: ...
     def decode(self, charset: str | None = None, errors: str = "strict") -> Self: ...
@@ -64,41 +62,29 @@ class BaseRequest:
     def body_file(self) -> SupportsRead[bytes]: ...
     @body_file.setter
     def body_file(self, value: SupportsRead[bytes]) -> None: ...
-    content_length: int | None
-    body_file_raw: SupportsRead[bytes]
+    @body_file.deleter
+    def body_file(self) -> None: ...
+    content_length: SymmetricPropertyWithDelete[int | None]
+    body_file_raw: SymmetricProperty[SupportsRead[bytes]]
     is_body_seekable: bool
     @property
     def body_file_seekable(self) -> IO[bytes]: ...
-    url_encoding: str
-    @property
-    def scheme(self) -> str | None: ...
-    @scheme.setter
-    def scheme(self, value: str | None) -> None: ...
-    @property
-    def http_version(self) -> str | None: ...
-    @http_version.setter
-    def http_version(self, value: str | None) -> None: ...
-    remote_user: str | None
-    remote_host: str | None
-    remote_addr: str | None
-    query_string: str
-    @property
-    def server_name(self) -> str | None: ...
-    @server_name.setter
-    def server_name(self, value: str | None) -> None: ...
-    @property
-    def server_port(self) -> int | None: ...
-    @server_port.setter
-    def server_port(self, value: int | None) -> None: ...
-    script_name: str
-    @property
-    def path_info(self) -> str | None: ...
-    @path_info.setter
-    def path_info(self, value: str | None) -> None: ...
-    uscript_name: str  # bw compat
+    url_encoding: AsymmetricPropertyWithDelete[str, str | None]
+    scheme: SymmetricProperty[str]
+    method: AsymmetricPropertyWithDelete[_HTTPMethod, _HTTPMethod | None]
+    http_version: SymmetricProperty[str]
+    remote_user: SymmetricPropertyWithDelete[str | None]
+    remote_host: SymmetricPropertyWithDelete[str | None]
+    remote_addr: SymmetricPropertyWithDelete[str | None]
+    query_string: AsymmetricPropertyWithDelete[str, str | None]
+    server_name: SymmetricProperty[str]
+    server_port: SymmetricProperty[int]
+    script_name: AsymmetricPropertyWithDelete[str, str | None]
+    path_info: SymmetricProperty[str]
+    uscript_name = script_name  # bw compat
     upath_info = path_info  # bw compat
-    content_type: str | None
-    headers: _AsymmetricProperty[EnvironHeaders, SupportsItems[str, str] | Iterable[tuple[str, str]]]
+    content_type: AsymmetricPropertyWithDelete[str, str | None]
+    headers: AsymmetricProperty[EnvironHeaders, SupportsKeysAndGetItem[str, str] | Iterable[tuple[str, str]]]
     @property
     def client_addr(self) -> str | None: ...
     @property
@@ -118,24 +104,29 @@ class BaseRequest:
     def relative_url(self, other_url: str, to_application: bool = False) -> str: ...
     def path_info_pop(self, pattern: Pattern[str] | None = None) -> str | None: ...
     def path_info_peek(self) -> str | None: ...
-    urlvars: dict[str, str]
-    urlargs: tuple[str]
+    urlvars: SymmetricPropertyWithDelete[dict[str, str]]
+    urlargs: SymmetricPropertyWithDelete[tuple[str, ...]]
     @property
     def is_xhr(self) -> bool: ...
-    host: str
+    host: SymmetricPropertyWithDelete[str]
     @property
     def domain(self) -> str: ...
-    body: bytes
-    json: Any
-    json_body: Any
-    text: str
+    @property
+    def body(self) -> bytes: ...
+    @body.setter
+    def body(self, value: bytes | None) -> None: ...
+    @body.deleter
+    def body(self) -> None: ...
+    json: SymmetricPropertyWithDelete[Any]
+    json_body: SymmetricPropertyWithDelete[Any]
+    text: SymmetricPropertyWithDelete[str]
     @property
     def POST(self) -> MultiDict[str, str | _FieldStorageWithFile] | NoVars: ...
     @property
     def GET(self) -> GetDict: ...
     @property
     def params(self) -> NestedMultiDict[str, str | _FieldStorageWithFile]: ...
-    cookies: _AsymmetricProperty[RequestCookies, SupportsKeysAndGetItem[str, str] | Iterable[tuple[str, str]]]
+    cookies: AsymmetricProperty[RequestCookies, SupportsKeysAndGetItem[str, str] | Iterable[tuple[str, str]]]
     def copy(self) -> Self: ...
     def copy_get(self) -> Self: ...
     @property
@@ -144,7 +135,7 @@ class BaseRequest:
     def is_body_readable(self, flag: bool) -> None: ...
     def make_body_seekable(self) -> None: ...
     def copy_body(self) -> None: ...
-    def make_tempfile(self) -> _TemporaryFileWrapper[bytes]: ...
+    def make_tempfile(self) -> io.BufferedRandom: ...
     def remove_conditional_headers(
         self, remove_encoding: bool = True, remove_range: bool = True, remove_match: bool = True, remove_modified: bool = True
     ) -> None: ...
@@ -152,24 +143,24 @@ class BaseRequest:
     accept_charset: _AcceptCharsetProperty
     accept_encoding: _AcceptEncodingProperty
     accept_language: _AcceptLanguageProperty
-    authorization: _AsymmetricPropertyWithDelete[_authorization | None, tuple[str, str | dict[str, str]] | list[Any] | str | None]
-    cache_control: _AsymmetricPropertyWithDelete[
-        _RequestCacheControl | None, _RequestCacheControl | _RequestCacheControlDict | str | None
+    authorization: AsymmetricPropertyWithDelete[_authorization | None, tuple[str, str | dict[str, str]] | list[Any] | str | None]
+    cache_control: AsymmetricPropertyWithDelete[
+        _RequestCacheControl, _RequestCacheControl | _RequestCacheControlDict | str | None
     ]
     if_match: _ETagProperty
     if_none_match: _ETagProperty
     date: _DateProperty
     if_modified_since: _DateProperty
     if_unmodified_since: _DateProperty
-    if_range: _AsymmetricPropertyWithDelete[
-        IfRange | IfRangeDate | None, IfRange | IfRangeDate | datetime.datetime | datetime.date | str | None
+    if_range: AsymmetricPropertyWithDelete[
+        IfRange | IfRangeDate, IfRange | IfRangeDate | datetime.datetime | datetime.date | str | None
     ]
-    max_forwards: int | None
-    pragma: str | None
-    range: _AsymmetricPropertyWithDelete[Range, tuple[int, int | None] | list[int | None] | str | None]
-    referer: str | None
-    referrer: str | None
-    user_agent: str | None
+    max_forwards: SymmetricPropertyWithDelete[int | None]
+    pragma: SymmetricPropertyWithDelete[str | None]
+    range: AsymmetricPropertyWithDelete[Range | None, tuple[int, int | None] | list[int | None] | list[int] | str | None]
+    referer: SymmetricPropertyWithDelete[str | None]
+    referrer = referer
+    user_agent: SymmetricPropertyWithDelete[str | None]
     def as_bytes(self, skip_body: bool = False) -> bytes: ...
     def as_text(self) -> str: ...
     @classmethod
@@ -181,15 +172,21 @@ class BaseRequest:
     @overload
     def call_application(
         self, application: WSGIApplication, catch_exc_info: Literal[False] = False
-    ) -> tuple[str, list[_HTTPHeader], Iterable[bytes]]: ...
+    ) -> tuple[str, list[tuple[str, str]], Iterable[bytes]]: ...
     @overload
     def call_application(
         self, application: WSGIApplication, catch_exc_info: Literal[True]
-    ) -> tuple[str, list[_HTTPHeader], Iterable[bytes], ExcInfo | None]: ...
+    ) -> tuple[str, list[tuple[str, str]], Iterable[bytes], OptExcInfo | None]: ...
+    @overload
+    def call_application(
+        self, application: WSGIApplication, catch_exc_info: bool
+    ) -> (
+        tuple[str, list[tuple[str, str]], Iterable[bytes], OptExcInfo | None] | tuple[str, list[tuple[str, str]], Iterable[bytes]]
+    ): ...
     ResponseClass: type[Response]
     def send(self, application: WSGIApplication | None = None, catch_exc_info: bool = False) -> Response: ...
     get_response = send
-    def make_default_send_app(self) -> WSGIApplication: ...
+    def make_default_send_app(self) -> SendRequest: ...
     @classmethod
     def blank(
         cls,
@@ -198,20 +195,31 @@ class BaseRequest:
         base_url: str | None = None,
         headers: Mapping[str, str] | None = None,
         POST: str | bytes | Mapping[Any, Any] | Mapping[Any, _ListOrTuple[Any]] | None = None,
-        **kw,
+        **kw: Any,
     ) -> Self: ...
 
 class LegacyRequest(BaseRequest):
-    uscript_name: Incomplete
-    upath_info: Incomplete
-    def encget(self, key, default=..., encattr: Incomplete | None = None): ...
+    @property  # type: ignore[override]
+    def uscript_name(self) -> str: ...
+    @uscript_name.setter
+    def uscript_name(self, value: str) -> None: ...
+    @property  # type:ignore[override]
+    def upath_info(self) -> str: ...
+    @upath_info.setter
+    def upath_info(self, value: str) -> None: ...
+    def encget(self, key: str, default: Any = ..., encattr: str | None = None) -> Any: ...
 
 class AdhocAttrMixin:
     def __setattr__(self, attr: str, value: Any) -> None: ...
     def __getattr__(self, attr: str) -> Any: ...
     def __delattr__(self, attr: str) -> None: ...
 
-class Request(AdhocAttrMixin, BaseRequest): ...
+class Request(AdhocAttrMixin, BaseRequest):
+    # this is so Request doesn't count as callable, it's not very pretty
+    # but we run into trouble with overlapping overloads in wsgify if we
+    # don't exclude __call__ from arbitrary attribute access
+    __call__: None
+
 class DisconnectionError(IOError): ...
 
 def environ_from_url(path: str) -> WSGIEnvironment: ...
@@ -226,13 +234,14 @@ class LimitedLengthFile(io.RawIOBase):
     maxlen: int
     remaining: int
     def __init__(self, file: SupportsRead[bytes], maxlen: int) -> None: ...
+    def fileno(self) -> int: ...
     @staticmethod
     def readable() -> Literal[True]: ...
-    def readinto(self, buff: ReadableBuffer) -> int: ...
+    def readinto(self, buff: WriteableBuffer) -> int: ...
 
 class Transcoder:
     charset: str
     errors: str
     def __init__(self, charset: str, errors: str = "strict") -> None: ...
     def transcode_query(self, q: str) -> str: ...
-    def transcode_fs(self, fs: FieldStorage, content_type: str) -> io.BytesIO: ...
+    def transcode_fs(self, fs: cgi_FieldStorage, content_type: str) -> io.BytesIO: ...

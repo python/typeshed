@@ -21,7 +21,7 @@ class _HasTag(Protocol):
     tag: str
 
 class _HasGet(Protocol[_T_co]):
-    def get(self, __value: str) -> _T_co | None: ...
+    def get(self, value: str, /) -> _T_co | None: ...
 
 class _HasText(Protocol):
     text: str
@@ -34,7 +34,7 @@ class _HasTagAndText(_HasTag, _HasText, Protocol): ...  # noqa: Y046
 class _HasTagAndTextAndAttrib(_HasTag, _HasText, _HasAttrib, Protocol): ...  # noqa: Y046
 
 class _SupportsFindChartLines(Protocol):
-    def find(self, __path: str) -> ChartLines | None: ...
+    def find(self, path: str, /) -> ChartLines | None: ...
 
 class _SupportsFindAndIterAndAttribAndText(  # noqa: Y046
     _SupportsFindChartLines, Iterable[Incomplete], _HasAttrib, _HasText, Protocol
@@ -46,8 +46,8 @@ class _SupportsIterAndAttribAndTextAndGet(  # noqa: Y046
 ): ...
 
 class _ParentElement(Protocol[_T]):
-    def makeelement(self, __tag: str, __attrib: dict[str, str]) -> _T: ...
-    def append(self, __element: _T) -> object: ...
+    def makeelement(self, tag: str, attrib: dict[str, str], /) -> _T: ...
+    def append(self, element: _T, /) -> object: ...
 
 # from lxml.etree import _Element
 _lxml_Element: TypeAlias = Element  # noqa: Y042
@@ -77,7 +77,7 @@ def fromstring(text: str | ReadableBuffer, parser: XMLParser | None = None) -> E
 # from lxml.etree import fromstring
 # But made partial, removing parser arg
 @overload
-def fromstring(text: str | bytes, *, base_url: str | bytes = ...) -> _lxml_Element: ...  # type: ignore[overload-overlap]
+def fromstring(text: str | bytes, *, base_url: str | bytes = ...) -> _lxml_Element: ...
 
 # from defusedxml.ElementTree import fromstring
 @overload
@@ -108,7 +108,7 @@ def tostring(
     doctype: str = ...,
     exclusive: bool = ...,
     with_comments: bool = ...,
-    inclusive_ns_prefixes: Incomplete = ...,
+    inclusive_ns_prefixes=...,
 ) -> bytes: ...
 
 # from xml.etree.ElementTree import iterparse

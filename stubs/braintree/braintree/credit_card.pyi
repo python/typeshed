@@ -1,76 +1,96 @@
 from _typeshed import Incomplete
-from typing import Any
+from datetime import date, datetime
+from enum import Enum
+from typing import Final, Literal
 
-from braintree.address import Address as Address
-from braintree.configuration import Configuration as Configuration
-from braintree.credit_card_verification import CreditCardVerification as CreditCardVerification
-from braintree.resource import Resource as Resource
+from braintree.address import Address
+from braintree.credit_card_verification import CreditCardVerification
+from braintree.error_result import ErrorResult
+from braintree.resource import Resource
+from braintree.resource_collection import ResourceCollection
+from braintree.subscription import Subscription
+from braintree.successful_result import SuccessfulResult
 
 class CreditCard(Resource):
     class CardType:
-        AmEx: str
-        CarteBlanche: str
-        ChinaUnionPay: str
-        DinersClubInternational: str
-        Discover: str
-        Electron: str
-        Elo: str
-        Hiper: str
-        Hipercard: str
-        JCB: str
-        Laser: str
-        UK_Maestro: str
-        Maestro: str
-        MasterCard: str
-        Solo: str
-        Switch: str
-        Visa: str
-        Unknown: str
+        AmEx: Final = "American Express"
+        CarteBlanche: Final = "Carte Blanche"
+        ChinaUnionPay: Final = "China UnionPay"
+        DinersClubInternational: Final = "Diners Club"
+        Discover: Final = "Discover"
+        Electron: Final = "Electron"
+        Elo: Final = "Elo"
+        Hiper: Final = "Hiper"
+        Hipercard: Final = "Hipercard"
+        JCB: Final = "JCB"
+        Laser: Final = "Laser"
+        UK_Maestro: Final = "UK Maestro"
+        Maestro: Final = "Maestro"
+        MasterCard: Final = "MasterCard"
+        Solo: Final = "Solo"
+        Switch: Final = "Switch"
+        Visa: Final = "Visa"
+        Unknown: Final = "Unknown"
 
     class CustomerLocation:
-        International: str
-        US: str
+        International: Final = "international"
+        US: Final = "us"
 
     class CardTypeIndicator:
-        Yes: str
-        No: str
-        Unknown: str
+        Yes: Final = "Yes"
+        No: Final = "No"
+        Unknown: Final = "Unknown"
 
-    Commercial: Any
-    DurbinRegulated: Any
-    Debit: Any
-    Healthcare: Any
-    CountryOfIssuance: Any
-    IssuingBank: Any
-    Payroll: Any
-    Prepaid: Any
-    ProductId: Any
+    class DebitNetwork(Enum):
+        Accel = "ACCEL"
+        Maestro = "MAESTRO"
+        Nyce = "NYCE"
+        Pulse = "PULSE"
+        Star = "STAR"
+        Star_Access = "STAR_ACCESS"
+
+    Commercial: type[CardTypeIndicator]
+    DurbinRegulated: type[CardTypeIndicator]
+    Debit: type[CardTypeIndicator]
+    Healthcare: type[CardTypeIndicator]
+    CountryOfIssuance: type[CardTypeIndicator]
+    IssuingBank: type[CardTypeIndicator]
+    Payroll: type[CardTypeIndicator]
+    Prepaid: type[CardTypeIndicator]
+    ProductId: type[CardTypeIndicator]
+    PrepaidReloadable: type[CardTypeIndicator]
+    Business: type[CardTypeIndicator]
+    Consumer: type[CardTypeIndicator]
+    Corporate: type[CardTypeIndicator]
+    Purchase: type[CardTypeIndicator]
     @staticmethod
-    def create(params: Incomplete | None = None): ...
+    def create(params: dict[str, Incomplete] | None = None) -> SuccessfulResult | ErrorResult | None: ...
     @staticmethod
-    def update(credit_card_token, params: Incomplete | None = None): ...
+    def update(credit_card_token: str, params: dict[str, Incomplete] | None = None) -> SuccessfulResult | ErrorResult | None: ...
     @staticmethod
-    def delete(credit_card_token): ...
+    def delete(credit_card_token: str) -> SuccessfulResult: ...
     @staticmethod
-    def expired(): ...
+    def expired() -> ResourceCollection: ...
     @staticmethod
-    def expiring_between(start_date, end_date): ...
+    def expiring_between(start_date: date | datetime, end_date: date | datetime) -> ResourceCollection: ...
     @staticmethod
-    def find(credit_card_token): ...
+    def find(credit_card_token: str) -> CreditCard: ...
     @staticmethod
-    def from_nonce(nonce): ...
+    def from_nonce(nonce: str) -> CreditCard: ...
     @staticmethod
-    def create_signature(): ...
+    def create_signature() -> list[str | dict[str, list[str]] | dict[str, list[str | dict[str, list[str]]]]]: ...
     @staticmethod
-    def update_signature(): ...
+    def update_signature() -> list[str | dict[str, list[str]] | dict[str, list[str | dict[str, list[str]]]]]: ...
     @staticmethod
-    def signature(type): ...
-    is_expired: Any
-    billing_address: Any
-    subscriptions: Any
-    verification: Any
-    def __init__(self, gateway, attributes): ...
+    def signature(
+        type: Literal["create", "update", "update_via_customer"],
+    ) -> list[str | dict[str, list[str]] | dict[str, list[str | dict[str, list[str]]]]]: ...
+    is_expired = expired
+    billing_address: Address | None
+    subscriptions: list[Subscription]
+    verification: CreditCardVerification
+    def __init__(self, gateway, attributes) -> None: ...
     @property
-    def expiration_date(self): ...
+    def expiration_date(self) -> str | None: ...
     @property
-    def masked_number(self): ...
+    def masked_number(self) -> str: ...

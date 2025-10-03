@@ -14,6 +14,8 @@ fanstatic.core.DummyNeededResources.clear
 fanstatic.core.DummyNeededResources.library_url
 fanstatic.core.DummyNeededResources.resources
 
+fanstatic.compiler.mtime
+
 # Error: is inconsistent
 # ======================
 # The core API for Dependable is a bit annoying, since the base class

@@ -1,8 +1,7 @@
-from _typeshed import Incomplete
 from abc import ABCMeta, abstractmethod
 from collections.abc import Callable, Iterable, Sequence
 from typing import Any, Literal
-from typing_extensions import Self, TypeAlias, override
+from typing_extensions import Self, TypeAlias
 
 import tensorflow as tf
 from tensorflow import Operation, Tensor
@@ -12,9 +11,8 @@ from tensorflow.keras.initializers import _Initializer
 _Output: TypeAlias = Tensor | dict[str, Tensor]
 
 class Metric(tf.keras.layers.Layer[tf.Tensor, tf.Tensor], metaclass=ABCMeta):
-    def __init__(self, name: str | None = None, dtype: DTypeLike | None = None) -> None: ...
+    def __init__(self, dtype: DTypeLike | None = None, name: str | None = None) -> None: ...
     def __new__(cls, *args: Any, **kwargs: Any) -> Self: ...
-    def merge_state(self, metrics: Iterable[Self]) -> list[Operation]: ...
     def reset_state(self) -> None: ...
     @abstractmethod
     def update_state(
@@ -23,8 +21,7 @@ class Metric(tf.keras.layers.Layer[tf.Tensor, tf.Tensor], metaclass=ABCMeta):
     @abstractmethod
     def result(self) -> _Output: ...
     # Metric inherits from keras.Layer, but its add_weight method is incompatible with the one from "Layer".
-    @override
-    def add_weight(  # type: ignore
+    def add_weight(  # type: ignore[override]
         self,
         name: str,
         shape: Iterable[int | None] | None = (),
@@ -110,11 +107,11 @@ class SparseTopKCategoricalAccuracy(MeanMetricWrapper):
         self, k: int = 5, name: str | None = "sparse_top_k_categorical_accuracy", dtype: DTypeLike | None = None
     ) -> None: ...
 
-def serialize(metric: KerasSerializable, use_legacy_format: bool = False) -> dict[str, Any]: ...
+def serialize(metric: KerasSerializable) -> dict[str, Any]: ...
 def binary_crossentropy(
     y_true: TensorCompatible, y_pred: TensorCompatible, from_logits: bool = False, label_smoothing: float = 0.0, axis: int = -1
 ) -> Tensor: ...
 def categorical_crossentropy(
     y_true: TensorCompatible, y_pred: TensorCompatible, from_logits: bool = False, label_smoothing: float = 0.0, axis: int = -1
 ) -> Tensor: ...
-def __getattr__(name: str) -> Incomplete: ...
+def __getattr__(name: str): ...  # incomplete module

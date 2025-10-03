@@ -1,7 +1,9 @@
-from _typeshed import Incomplete, Unused
+from _typeshed import Unused
 from collections.abc import Iterable
 
 from openpyxl.descriptors.serialisable import Serialisable
+from openpyxl.workbook.child import _WorkbookChild
+from openpyxl.worksheet._read_only import ReadOnlyWorksheet
 
 from .named_styles import NamedStyle
 from .proxy import StyleProxy
@@ -32,6 +34,7 @@ class StyleArrayDescriptor:
     def __get__(self, instance: StyleableObject, cls: Unused) -> bool: ...
 
 class StyleableObject:
+    __slots__ = ("parent", "_style")
     font: StyleDescriptor
     fill: StyleDescriptor
     border: StyleDescriptor
@@ -41,8 +44,10 @@ class StyleableObject:
     style: NamedStyleDescriptor
     quotePrefix: StyleArrayDescriptor
     pivotButton: StyleArrayDescriptor
-    parent: Incomplete
-    def __init__(self, sheet, style_array: bytes | bytearray | Iterable[int] | None = None) -> None: ...
+    parent: _WorkbookChild | ReadOnlyWorksheet
+    def __init__(
+        self, sheet: _WorkbookChild | ReadOnlyWorksheet, style_array: bytes | bytearray | Iterable[int] | None = None
+    ) -> None: ...
     @property
     def style_id(self) -> int: ...
     @property

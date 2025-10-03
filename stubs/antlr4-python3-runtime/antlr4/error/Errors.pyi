@@ -21,11 +21,7 @@ class RecognitionException(Exception):
     offendingToken: Incomplete
     offendingState: int
     def __init__(
-        self,
-        message: str | None = None,
-        recognizer: Recognizer | None = None,
-        input: InputStream | None = None,
-        ctx: Incomplete | None = None,
+        self, message: str | None = None, recognizer: Recognizer | None = None, input: InputStream | None = None, ctx=None
     ) -> None: ...
     def getExpectedTokens(self): ...
 
@@ -41,11 +37,11 @@ class NoViableAltException(RecognitionException):
     offendingToken: Incomplete
     def __init__(
         self,
-        recognizer: Incomplete,
-        input: Incomplete | None = None,
-        startToken: Incomplete | None = None,
-        offendingToken: Incomplete | None = None,
-        deadEndConfigs: Incomplete | None = None,
+        recognizer,
+        input=None,
+        startToken=None,
+        offendingToken=None,
+        deadEndConfigs=None,
         ctx: ParserRuleContext | None = None,
     ) -> None: ...
 

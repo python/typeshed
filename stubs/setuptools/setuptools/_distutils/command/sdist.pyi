@@ -1,33 +1,38 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
+from collections.abc import Callable
+from typing import ClassVar
 
 from ..cmd import Command
 
+def show_formats() -> None: ...
+
 class sdist(Command):
-    description: str
+    description: ClassVar[str]
+
     def checking_metadata(self): ...
-    user_options: Incomplete
-    boolean_options: Incomplete
-    help_options: Incomplete
-    negative_opt: Incomplete
-    READMES: Incomplete
+
+    user_options: ClassVar[list[tuple[str, str | None, str]]]
+    boolean_options: ClassVar[list[str]]
+    help_options: ClassVar[list[tuple[str, str | None, str, Callable[[], Unused]]]]
+    negative_opt: ClassVar[dict[str, str]]
+    READMES: ClassVar[tuple[str, ...]]
     template: Incomplete
     manifest: Incomplete
-    use_defaults: int
-    prune: int
-    manifest_only: int
-    force_manifest: int
+    use_defaults: bool
+    prune: bool
+    manifest_only: bool
+    force_manifest: bool
     formats: Incomplete
-    keep_temp: int
+    keep_temp: bool
     dist_dir: Incomplete
     archive_files: Incomplete
-    metadata_check: int
+    metadata_check: int  # Soon to be updated to boolean upstream
     owner: Incomplete
     group: Incomplete
     def initialize_options(self) -> None: ...
     def finalize_options(self) -> None: ...
     filelist: Incomplete
     def run(self) -> None: ...
-    def check_metadata(self) -> None: ...
     def get_file_list(self) -> None: ...
     def add_defaults(self) -> None: ...
     def read_template(self) -> None: ...
@@ -37,3 +42,5 @@ class sdist(Command):
     def make_release_tree(self, base_dir, files) -> None: ...
     def make_distribution(self) -> None: ...
     def get_archive_files(self): ...
+
+def is_comment(line: str) -> bool: ...

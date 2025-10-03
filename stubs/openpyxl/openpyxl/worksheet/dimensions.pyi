@@ -1,6 +1,6 @@
-from _typeshed import ConvertibleToFloat, ConvertibleToInt, Incomplete, Unused
+from _typeshed import ConvertibleToFloat, ConvertibleToInt, Unused
 from collections.abc import Callable, Iterator
-from typing import ClassVar, Generic, Literal, TypeVar
+from typing import ClassVar, Literal, TypeVar
 from typing_extensions import Self
 
 from openpyxl.descriptors import Strict
@@ -12,6 +12,7 @@ from openpyxl.utils.cell import _RangeBoundariesTuple
 from openpyxl.worksheet.worksheet import Worksheet
 from openpyxl.xml.functions import Element
 
+_DimKeyT = TypeVar("_DimKeyT", bound=str | int)
 _DimT = TypeVar("_DimT", bound=Dimension)
 
 class Dimension(Strict, StyleableObject):
@@ -24,6 +25,9 @@ class Dimension(Strict, StyleableObject):
     collapsed: Bool[Literal[False]]
     style: Alias  # type: ignore[assignment]
 
+    # Dimensions are only meant to be used on Worksheet objects
+    parent: Worksheet
+
     def __init__(
         self,
         index: ConvertibleToInt,
@@ -32,7 +36,7 @@ class Dimension(Strict, StyleableObject):
         collapsed: _ConvertibleToBool,
         worksheet: Worksheet,
         visible: Unused = True,
-        style: Incomplete | None = None,
+        style=None,
     ) -> None: ...
     def __iter__(self) -> Iterator[tuple[str, str]]: ...
     def __copy__(self) -> Self: ...
@@ -50,15 +54,15 @@ class RowDimension(Dimension):
         index: int = 0,
         ht: ConvertibleToFloat | None = None,
         customHeight: Unused = None,
-        s: Incomplete | None = None,
+        s=None,
         customFormat: Unused = None,
         hidden: _ConvertibleToBool = None,
         outlineLevel: ConvertibleToInt | None = 0,
         outline_level: ConvertibleToInt | None = None,
         collapsed: _ConvertibleToBool = None,
-        visible: Incomplete | None = None,
-        height: Incomplete | None = None,
-        r: Incomplete | None = None,
+        visible=None,
+        height=None,
+        r=None,
         spans: Unused = None,
         thickBot: _ConvertibleToBool = None,
         thickTop: _ConvertibleToBool = None,
@@ -73,7 +77,7 @@ class ColumnDimension(Dimension):
     width: Float[Literal[False]]
     bestFit: Bool[Literal[False]]
     auto_size: Alias
-    index: String[Literal[False]]  # type:ignore[assignment]
+    index: String[Literal[False]]  # type: ignore[assignment]
     min: Integer[Literal[True]]
     max: Integer[Literal[True]]
     collapsed: Bool[Literal[False]]
@@ -88,7 +92,7 @@ class ColumnDimension(Dimension):
         outlineLevel: ConvertibleToInt | None = 0,
         outline_level: ConvertibleToInt | None = None,
         collapsed: _ConvertibleToBool = False,
-        style: Incomplete | None = None,
+        style=None,
         min: ConvertibleToInt | None = None,
         max: ConvertibleToInt | None = None,
         customWidth: Unused = False,
@@ -98,9 +102,11 @@ class ColumnDimension(Dimension):
     @property
     def customWidth(self) -> bool: ...
     def reindex(self) -> None: ...
+    @property
+    def range(self) -> str: ...
     def to_tree(self) -> Element | None: ...
 
-class DimensionHolder(BoundDictionary[str, _DimT], Generic[_DimT]):
+class DimensionHolder(BoundDictionary[_DimKeyT, _DimT]):
     worksheet: Worksheet
     max_outline: int | None
     default_factory: Callable[[], _DimT] | None
@@ -108,7 +114,7 @@ class DimensionHolder(BoundDictionary[str, _DimT], Generic[_DimT]):
     def __init__(
         self, worksheet: Worksheet, reference: str = "index", default_factory: Callable[[], _DimT] | None = None
     ) -> None: ...
-    def group(self, start: str, end: str | None = None, outline_level: int = 1, hidden: bool = False) -> None: ...
+    def group(self, start: _DimKeyT, end: _DimKeyT | None = None, outline_level: int = 1, hidden: bool = False) -> None: ...
     def to_tree(self) -> Element | None: ...
 
 class SheetFormatProperties(Serialisable):

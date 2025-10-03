@@ -1,4 +1,4 @@
-from _typeshed import Incomplete, Unused
+from _typeshed import Unused
 from abc import abstractmethod
 
 from pyasn1.type.base import Asn1Type
@@ -14,7 +14,7 @@ class AbstractItemEncoder:
     def encodeLength(self, length, defMode): ...
     @abstractmethod
     def encodeValue(self, value, asn1Spec, encodeFun, **options) -> None: ...
-    def encode(self, value, asn1Spec: Asn1Type | None = None, encodeFun: Incomplete | None = None, **options): ...
+    def encode(self, value, asn1Spec: Asn1Type | None = None, encodeFun=None, **options): ...
 
 class EndOfOctetsEncoder(AbstractItemEncoder):
     def encodeValue(self, value, asn1Spec, encodeFun, **options): ...
@@ -43,8 +43,7 @@ class ObjectIdentifierEncoder(AbstractItemEncoder):
     def encodeValue(self, value, asn1Spec, encodeFun, **options): ...
 
 class RealEncoder(AbstractItemEncoder):
-    # Mistake in the module, should be False, but is 0 at runtime
-    supportIndefLenMode: int  # type: ignore[assignment]
+    supportIndefLenMode: bool
     binEncBase: int
     def encodeValue(self, value, asn1Spec, encodeFun, **options): ...
 

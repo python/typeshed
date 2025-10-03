@@ -2,7 +2,7 @@ import weakref
 from collections.abc import Callable, Iterable, Sequence
 from types import FrameType, TracebackType
 from typing import Any, ClassVar, Generic, TypeVar, overload
-from typing_extensions import ParamSpec, Self
+from typing_extensions import ParamSpec, Self, disjoint_base
 
 import greenlet
 from gevent._types import _Loop
@@ -12,6 +12,7 @@ _T = TypeVar("_T")
 _G = TypeVar("_G", bound=greenlet.greenlet)
 _P = ParamSpec("_P")
 
+@disjoint_base
 class Greenlet(greenlet.greenlet, Generic[_P, _T]):
     # we can't use _P.args/_P.kwargs here because pyright will complain
     # mypy doesn't seem to mind though
@@ -19,7 +20,12 @@ class Greenlet(greenlet.greenlet, Generic[_P, _T]):
     kwargs: dict[str, Any]
     value: _T | None
     @overload
-    def __init__(self: Greenlet[_P, _T], run: Callable[_P, _T], *args: _P.args, **kwargs: _P.kwargs) -> None: ...
+    def __init__(
+        self: Greenlet[_P, _T],  # pyright: ignore[reportInvalidTypeVarUse]  #11780
+        run: Callable[_P, _T],
+        *args: _P.args,
+        **kwargs: _P.kwargs,
+    ) -> None: ...
     @overload
     def __init__(self: Greenlet[[], None]) -> None: ...
     @readproperty
@@ -56,7 +62,7 @@ class Greenlet(greenlet.greenlet, Generic[_P, _T]):
     def run(self) -> Any: ...
     @overload
     @classmethod
-    def spawn(cls, __run: Callable[_P, _T], *args: _P.args, **kwargs: _P.kwargs) -> Self: ...
+    def spawn(cls, run: Callable[_P, _T], /, *args: _P.args, **kwargs: _P.kwargs) -> Self: ...
     @overload
     @classmethod
     def spawn(cls) -> Greenlet[[], None]: ...
@@ -91,3 +97,5 @@ def killall(
     block: bool = True,
     timeout: float | None = None,
 ) -> None: ...
+
+__all__ = ["Greenlet", "joinall", "killall"]

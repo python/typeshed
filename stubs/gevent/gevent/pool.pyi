@@ -18,6 +18,7 @@ _S = TypeVar("_S")
 _P = ParamSpec("_P")
 
 class GroupMappingMixin:
+    __slots__ = ()
     def spawn(self, func: Callable[_P, _T], *args: _P.args, **kwargs: _P.kwargs) -> Greenlet[_P, _T]: ...
     # we would like to use ParamSpec for these, but since args and kwds are passed in as is
     # pyright will complain if we use _P.args/_P.kwargs, it appears to work on mypy though
@@ -47,18 +48,19 @@ class GroupMappingMixin:
         self, func: Callable[[_T], _S], iterable: Iterable[_T], callback: Callable[[list[_S]], object] | None = None
     ) -> Greenlet[..., list[_S]]: ...
     @overload
-    def imap(self, func: Callable[[_T1], _S], __iter1: Iterable[_T1], *, maxsize: int | None = None) -> IMap[[_T1], _S]: ...
+    def imap(self, func: Callable[[_T1], _S], iter1: Iterable[_T1], /, *, maxsize: int | None = None) -> IMap[[_T1], _S]: ...
     @overload
     def imap(
-        self, func: Callable[[_T1, _T2], _S], __iter1: Iterable[_T1], __iter2: Iterable[_T2], *, maxsize: int | None = None
+        self, func: Callable[[_T1, _T2], _S], iter1: Iterable[_T1], iter2: Iterable[_T2], /, *, maxsize: int | None = None
     ) -> IMap[[_T1, _T2], _S]: ...
     @overload
     def imap(
         self,
         func: Callable[[_T1, _T2, _T3], _S],
-        __iter1: Iterable[_T1],
-        __iter2: Iterable[_T2],
-        __iter3: Iterable[_T3],
+        iter1: Iterable[_T1],
+        iter2: Iterable[_T2],
+        iter3: Iterable[_T3],
+        /,
         *,
         maxsize: int | None = None,
     ) -> IMap[[_T1, _T2, _T3], _S]: ...
@@ -66,10 +68,11 @@ class GroupMappingMixin:
     def imap(
         self,
         func: Callable[[_T1, _T2, _T3, _T4], _S],
-        __iter1: Iterable[_T1],
-        __iter2: Iterable[_T2],
-        __iter3: Iterable[_T3],
-        __iter4: Iterable[_T4],
+        iter1: Iterable[_T1],
+        iter2: Iterable[_T2],
+        iter3: Iterable[_T3],
+        iter4: Iterable[_T4],
+        /,
         *,
         maxsize: int | None = None,
     ) -> IMap[[_T1, _T2, _T3, _T4], _S]: ...
@@ -77,11 +80,12 @@ class GroupMappingMixin:
     def imap(
         self,
         func: Callable[[_T1, _T2, _T3, _T4, _T5], _S],
-        __iter1: Iterable[_T1],
-        __iter2: Iterable[_T2],
-        __iter3: Iterable[_T3],
-        __iter4: Iterable[_T4],
-        __iter5: Iterable[_T5],
+        iter1: Iterable[_T1],
+        iter2: Iterable[_T2],
+        iter3: Iterable[_T3],
+        iter4: Iterable[_T4],
+        iter5: Iterable[_T5],
+        /,
         *,
         maxsize: int | None = None,
     ) -> IMap[[_T1, _T2, _T3, _T4, _T5], _S]: ...
@@ -89,30 +93,32 @@ class GroupMappingMixin:
     def imap(
         self,
         func: Callable[_P, _S],
-        __iter1: Iterable[Any],
-        __iter2: Iterable[Any],
-        __iter3: Iterable[Any],
-        __iter4: Iterable[Any],
-        __iter5: Iterable[Any],
-        __iter6: Iterable[Any],
+        iter1: Iterable[Any],
+        iter2: Iterable[Any],
+        iter3: Iterable[Any],
+        iter4: Iterable[Any],
+        iter5: Iterable[Any],
+        iter6: Iterable[Any],
+        /,
         *iterables: Iterable[Any],
         maxsize: int | None = None,
     ) -> IMap[_P, _S]: ...
     @overload
     def imap_unordered(
-        self, func: Callable[[_T1], _S], __iter1: Iterable[_T1], *, maxsize: int | None = None
+        self, func: Callable[[_T1], _S], iter1: Iterable[_T1], /, *, maxsize: int | None = None
     ) -> IMapUnordered[[_T1], _S]: ...
     @overload
     def imap_unordered(
-        self, func: Callable[[_T1, _T2], _S], __iter1: Iterable[_T1], __iter2: Iterable[_T2], *, maxsize: int | None = None
+        self, func: Callable[[_T1, _T2], _S], iter1: Iterable[_T1], iter2: Iterable[_T2], /, *, maxsize: int | None = None
     ) -> IMapUnordered[[_T1, _T2], _S]: ...
     @overload
     def imap_unordered(
         self,
         func: Callable[[_T1, _T2, _T3], _S],
-        __iter1: Iterable[_T1],
-        __iter2: Iterable[_T2],
-        __iter3: Iterable[_T3],
+        iter1: Iterable[_T1],
+        iter2: Iterable[_T2],
+        iter3: Iterable[_T3],
+        /,
         *,
         maxsize: int | None = None,
     ) -> IMapUnordered[[_T1, _T2, _T3], _S]: ...
@@ -120,10 +126,11 @@ class GroupMappingMixin:
     def imap_unordered(
         self,
         func: Callable[[_T1, _T2, _T3, _T4], _S],
-        __iter1: Iterable[_T1],
-        __iter2: Iterable[_T2],
-        __iter3: Iterable[_T3],
-        __iter4: Iterable[_T4],
+        iter1: Iterable[_T1],
+        iter2: Iterable[_T2],
+        iter3: Iterable[_T3],
+        iter4: Iterable[_T4],
+        /,
         *,
         maxsize: int | None = None,
     ) -> IMapUnordered[[_T1, _T2, _T3, _T4], _S]: ...
@@ -131,11 +138,12 @@ class GroupMappingMixin:
     def imap_unordered(
         self,
         func: Callable[[_T1, _T2, _T3, _T4, _T5], _S],
-        __iter1: Iterable[_T1],
-        __iter2: Iterable[_T2],
-        __iter3: Iterable[_T3],
-        __iter4: Iterable[_T4],
-        __iter5: Iterable[_T5],
+        iter1: Iterable[_T1],
+        iter2: Iterable[_T2],
+        iter3: Iterable[_T3],
+        iter4: Iterable[_T4],
+        iter5: Iterable[_T5],
+        /,
         *,
         maxsize: int | None = None,
     ) -> IMapUnordered[[_T1, _T2, _T3, _T4, _T5], _S]: ...
@@ -143,12 +151,13 @@ class GroupMappingMixin:
     def imap_unordered(
         self,
         func: Callable[_P, _S],
-        __iter1: Iterable[Any],
-        __iter2: Iterable[Any],
-        __iter3: Iterable[Any],
-        __iter4: Iterable[Any],
-        __iter5: Iterable[Any],
-        __iter6: Iterable[Any],
+        iter1: Iterable[Any],
+        iter2: Iterable[Any],
+        iter3: Iterable[Any],
+        iter4: Iterable[Any],
+        iter5: Iterable[Any],
+        iter6: Iterable[Any],
+        /,
         *iterables: Iterable[Any],
         maxsize: int | None = None,
     ) -> IMapUnordered[_P, _S]: ...
@@ -165,7 +174,7 @@ class Group(GroupMappingMixin):
     @overload
     def __init__(self) -> None: ...
     @overload
-    def __init__(self, __grenlets: Collection[Greenlet[..., object]]) -> None: ...
+    def __init__(self, grenlets: Collection[Greenlet[..., object]], /) -> None: ...
     def __len__(self) -> int: ...
     def __contains__(self, item: Greenlet[..., object]) -> bool: ...
     def __iter__(self) -> Iterator[Greenlet[..., object]]: ...

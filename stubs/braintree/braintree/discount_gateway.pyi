@@ -1,10 +1,9 @@
-from typing import Any
+from _typeshed import Incomplete
 
-from braintree.discount import Discount as Discount
-from braintree.resource_collection import ResourceCollection as ResourceCollection
+from braintree.discount import Discount
 
 class DiscountGateway:
-    gateway: Any
-    config: Any
+    gateway: Incomplete
+    config: Incomplete
     def __init__(self, gateway) -> None: ...
-    def all(self): ...
+    def all(self) -> list[Discount]: ...

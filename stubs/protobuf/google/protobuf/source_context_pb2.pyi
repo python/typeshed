@@ -31,20 +31,16 @@ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
+
 import builtins
-import sys
+import typing
 
 import google.protobuf.descriptor
 import google.protobuf.message
 
-if sys.version_info >= (3, 8):
-    import typing as typing_extensions
-else:
-    import typing_extensions
-
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
-@typing_extensions.final
+@typing.final
 class SourceContext(google.protobuf.message.Message):
     """`SourceContext` represents information about the source of a
     protobuf element, like the file in which it is defined.
@@ -57,11 +53,7 @@ class SourceContext(google.protobuf.message.Message):
     """The path-qualified name of the .proto file that contained the associated
     protobuf element.  For example: `"google/protobuf/source_context.proto"`.
     """
-    def __init__(
-        self,
-        *,
-        file_name: builtins.str | None = ...,
-    ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["file_name", b"file_name"]) -> None: ...
+    def __init__(self, *, file_name: builtins.str | None = ...) -> None: ...
+    def ClearField(self, field_name: typing.Literal["file_name", b"file_name"]) -> None: ...
 
 global___SourceContext = SourceContext

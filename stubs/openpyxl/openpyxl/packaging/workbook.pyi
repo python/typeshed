@@ -38,18 +38,14 @@ class ChildSheet(Serialisable):
     state: NoneSet[_VisibilityType]
     id: Incomplete
     def __init__(
-        self,
-        name: str,
-        sheetId: ConvertibleToInt,
-        state: _VisibilityType | Literal["none"] | None = "visible",
-        id: Incomplete | None = None,
+        self, name: str, sheetId: ConvertibleToInt, state: _VisibilityType | Literal["none"] | None = "visible", id=None
     ) -> None: ...
 
 class PivotCache(Serialisable):
     tagname: ClassVar[str]
     cacheId: Integer[Literal[False]]
     id: Incomplete
-    def __init__(self, cacheId: ConvertibleToInt, id: Incomplete | None = None) -> None: ...
+    def __init__(self, cacheId: ConvertibleToInt, id=None) -> None: ...
 
 class WorkbookPackage(Serialisable):
     tagname: ClassVar[str]
@@ -60,7 +56,7 @@ class WorkbookPackage(Serialisable):
     properties: Alias
     workbookProtection: Typed[WorkbookProtection, Literal[True]]
     bookViews: Incomplete
-    sheets: Incomplete
+    sheets: Incomplete  # NestedSequence[ChildSheet]
     functionGroups: Typed[FunctionGroupList, Literal[True]]
     externalReferences: Incomplete
     definedNames: Typed[DefinedNameList, Literal[True]]

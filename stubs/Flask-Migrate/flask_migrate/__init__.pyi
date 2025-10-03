@@ -1,11 +1,11 @@
 # pyright: reportInvalidStubStatement=none
 
 import sys
-from _typeshed import StrPath, SupportsKeysAndGetItem, SupportsWrite
+from _typeshed import StrPath, SupportsFlush, SupportsKeysAndGetItem, SupportsWrite
 from argparse import Namespace
 from collections.abc import Callable, Iterable, Sequence
 from logging import Logger
-from typing import Any, Protocol, TypeVar
+from typing import Any, Protocol, TypeVar, type_check_only
 from typing_extensions import ParamSpec, TypeAlias
 
 import flask
@@ -20,9 +20,8 @@ _AlembicConfigValue: TypeAlias = Any
 alembic_version: tuple[int, int, int]
 log: Logger
 
-# TODO: Use _typeshed.SupportsFlush when it's available in type checkers.
-class _SupportsWriteAndFlush(SupportsWrite[_T_contra], Protocol):
-    def flush(self) -> object: ...
+@type_check_only
+class _SupportsWriteAndFlush(SupportsWrite[_T_contra], SupportsFlush, Protocol): ...
 
 class Config:  # should inherit from alembic.config.Config which is not possible yet
     template_directory: str | None
@@ -132,5 +131,7 @@ def history(
 def heads(directory: str | None = None, verbose: bool = False, resolve_dependencies: bool = False) -> None: ...
 def branches(directory: str | None = None, verbose: bool = False) -> None: ...
 def current(directory: str | None = None, verbose: bool = False) -> None: ...
-def stamp(directory: str | None = None, revision: str = "head", sql: bool = False, tag: str | None = None) -> None: ...
+def stamp(
+    directory: str | None = None, revision: str = "head", sql: bool = False, tag: str | None = None, purge: bool = False
+) -> None: ...
 def check(directory: str | None = None) -> None: ...

@@ -174,7 +174,7 @@ class Group(Dependable):
     depends: set[Dependable]
     supports: set[Dependable]
     def __init__(self, depends: Iterable[Dependable]) -> None: ...
-    def set_dependencies(self, depends: Iterable[Dependable]) -> None: ...  # type:ignore[override]
+    def set_dependencies(self, depends: Iterable[Dependable]) -> None: ...  # type: ignore[override]
     def list_assets(self) -> set[Asset]: ...
     def need(self, slots: dict[Slot, Resource] | None = None) -> None: ...
 
@@ -188,7 +188,7 @@ class NeededResources:
         recompute_hashes: bool = True,
         base_url: str | None = None,
         script_name: str | None = None,
-        publisher_signature: str = ...,
+        publisher_signature: str = "fanstatic",
         resources: Iterable[Dependable] | None = None,
     ) -> None: ...
     def has_resources(self) -> bool: ...

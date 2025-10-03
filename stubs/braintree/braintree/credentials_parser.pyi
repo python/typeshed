@@ -1,19 +1,15 @@
-from _typeshed import Incomplete
-from typing import Any
-
-from braintree.environment import Environment as Environment
-from braintree.exceptions.configuration_error import ConfigurationError as ConfigurationError
+from braintree.environment import Environment
 
 class CredentialsParser:
-    client_id: Any
-    client_secret: Any
-    access_token: Any
+    client_id: str | None
+    client_secret: str | None
+    access_token: str | None
+    environment: Environment | None
+    merchant_id: str
     def __init__(
-        self, client_id: Incomplete | None = None, client_secret: Incomplete | None = None, access_token: Incomplete | None = None
+        self, client_id: str | None = None, client_secret: str | None = None, access_token: str | None = None
     ) -> None: ...
-    environment: Any
     def parse_client_credentials(self) -> None: ...
-    merchant_id: Any
     def parse_access_token(self) -> None: ...
-    def get_environment(self, credential): ...
-    def get_merchant_id(self, credential): ...
+    def get_environment(self, credential: str) -> Environment | None: ...
+    def get_merchant_id(self, credential: str) -> str: ...

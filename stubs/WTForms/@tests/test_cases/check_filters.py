@@ -35,11 +35,11 @@ field.process(None, extra_filters=[Filter1(), Filter2()])
 
 # but if we pass in some callables with an incompatible param spec
 # then we should get type errors
-Field(filters=(str.upper, str.lower, int, not_a_filter))  # type:ignore
-Field(filters=(Filter1(), Filter2(), also_not_a_filter))  # type:ignore
-Field(filters=[str.upper, str.lower, int, also_not_a_filter])  # type:ignore
-Field(filters=[Filter1(), Filter2(), not_a_filter])  # type:ignore
-field.process(None, extra_filters=(str.upper, str.lower, int, not_a_filter))  # type:ignore
-field.process(None, extra_filters=(Filter1(), Filter2(), also_not_a_filter))  # type:ignore
-field.process(None, extra_filters=[str.upper, str.lower, int, also_not_a_filter])  # type:ignore
-field.process(None, extra_filters=[Filter1(), Filter2(), not_a_filter])  # type:ignore
+Field(filters=(str.upper, str.lower, int, not_a_filter))  # type: ignore
+Field(filters=(Filter1(), Filter2(), also_not_a_filter))  # type: ignore
+Field(filters=[str.upper, str.lower, int, also_not_a_filter])  # type: ignore
+Field(filters=[Filter1(), Filter2(), not_a_filter])  # type: ignore
+field.process(None, extra_filters=(str.upper, str.lower, int, not_a_filter))  # type: ignore
+field.process(None, extra_filters=(Filter1(), Filter2(), also_not_a_filter))  # type: ignore
+field.process(None, extra_filters=[str.upper, str.lower, int, also_not_a_filter])  # type: ignore
+field.process(None, extra_filters=[Filter1(), Filter2(), not_a_filter])  # type: ignore

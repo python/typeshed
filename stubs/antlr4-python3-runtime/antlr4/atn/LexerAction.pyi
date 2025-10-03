@@ -4,16 +4,17 @@ from enum import IntEnum
 Lexer: Incomplete
 
 class LexerActionType(IntEnum):
-    CHANNEL: int
-    CUSTOM: int
-    MODE: int
-    MORE: int
-    POP_MODE: int
-    PUSH_MODE: int
-    SKIP: int
-    TYPE: int
+    CHANNEL = 0
+    CUSTOM = 1
+    MODE = 2
+    MORE = 3
+    POP_MODE = 4
+    PUSH_MODE = 5
+    SKIP = 6
+    TYPE = 7
 
 class LexerAction:
+    __slots__ = ("actionType", "isPositionDependent")
     actionType: Incomplete
     isPositionDependent: bool
     def __init__(self, action: LexerActionType) -> None: ...
@@ -26,6 +27,7 @@ class LexerSkipAction(LexerAction):
     def execute(self, lexer: Lexer): ...
 
 class LexerTypeAction(LexerAction):
+    __slots__ = "type"
     type: Incomplete
     def __init__(self, type: int) -> None: ...
     def execute(self, lexer: Lexer): ...
@@ -33,6 +35,7 @@ class LexerTypeAction(LexerAction):
     def __eq__(self, other): ...
 
 class LexerPushModeAction(LexerAction):
+    __slots__ = "mode"
     mode: Incomplete
     def __init__(self, mode: int) -> None: ...
     def execute(self, lexer: Lexer): ...
@@ -50,6 +53,7 @@ class LexerMoreAction(LexerAction):
     def execute(self, lexer: Lexer): ...
 
 class LexerModeAction(LexerAction):
+    __slots__ = "mode"
     mode: Incomplete
     def __init__(self, mode: int) -> None: ...
     def execute(self, lexer: Lexer): ...
@@ -57,6 +61,7 @@ class LexerModeAction(LexerAction):
     def __eq__(self, other): ...
 
 class LexerCustomAction(LexerAction):
+    __slots__ = ("ruleIndex", "actionIndex")
     ruleIndex: Incomplete
     actionIndex: Incomplete
     isPositionDependent: bool
@@ -66,6 +71,7 @@ class LexerCustomAction(LexerAction):
     def __eq__(self, other): ...
 
 class LexerChannelAction(LexerAction):
+    __slots__ = "channel"
     channel: Incomplete
     def __init__(self, channel: int) -> None: ...
     def execute(self, lexer: Lexer): ...
@@ -73,6 +79,7 @@ class LexerChannelAction(LexerAction):
     def __eq__(self, other): ...
 
 class LexerIndexedCustomAction(LexerAction):
+    __slots__ = ("offset", "action")
     offset: Incomplete
     action: Incomplete
     isPositionDependent: bool

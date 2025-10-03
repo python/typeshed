@@ -1,6 +1,6 @@
 from _typeshed import SupportsItems
 from collections.abc import Collection, Iterator, MutableMapping
-from typing import Any, Literal, Protocol, TypeVar, overload
+from typing import Any, Literal, Protocol, TypeVar, overload, type_check_only
 from typing_extensions import TypeAlias
 
 from markupsafe import Markup
@@ -9,26 +9,30 @@ from wtforms.form import BaseForm
 
 _FieldT = TypeVar("_FieldT", bound=Field)
 
+@type_check_only
 class _SupportsGettextAndNgettext(Protocol):
-    def gettext(self, __string: str) -> str: ...
-    def ngettext(self, __singular: str, __plural: str, __n: int) -> str: ...
+    def gettext(self, string: str, /) -> str: ...
+    def ngettext(self, singular: str, plural: str, n: int, /) -> str: ...
 
 # these are the methods WTForms depends on, the dict can either provide
 # a getlist or getall, if it only provides getall, it will wrapped, to
 # provide getlist instead
+@type_check_only
 class _MultiDictLikeBase(Protocol):
     def __iter__(self) -> Iterator[str]: ...
     def __len__(self) -> int: ...
-    def __contains__(self, __key: Any) -> bool: ...
+    def __contains__(self, key: Any, /) -> bool: ...
 
 # since how file uploads are represented in formdata is implementation-specific
 # we have to be generous in what we accept in the return of getlist/getall
 # we can make this generic if we ever want to be more specific
+@type_check_only
 class _MultiDictLikeWithGetlist(_MultiDictLikeBase, Protocol):
-    def getlist(self, __key: str) -> list[Any]: ...
+    def getlist(self, key: str, /) -> list[Any]: ...
 
+@type_check_only
 class _MultiDictLikeWithGetall(_MultiDictLikeBase, Protocol):
-    def getall(self, __key: str) -> list[Any]: ...
+    def getall(self, key: str, /) -> list[Any]: ...
 
 _MultiDictLike: TypeAlias = _MultiDictLikeWithGetall | _MultiDictLikeWithGetlist
 

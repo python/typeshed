@@ -1,7 +1,3 @@
-from _typeshed import Incomplete
-
-from braintree.configuration import Configuration as Configuration
-
 class WebhookTesting:
     @staticmethod
-    def sample_notification(kind, id, source_merchant_id: Incomplete | None = None): ...
+    def sample_notification(kind: str, id: str, source_merchant_id: str | None = None) -> dict[str, str | bytes]: ...

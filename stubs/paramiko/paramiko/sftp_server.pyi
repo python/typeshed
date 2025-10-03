@@ -1,3 +1,4 @@
+from _typeshed import FileDescriptorOrPath
 from logging import Logger
 from typing import Any
 
@@ -18,11 +19,17 @@ class SFTPServer(BaseSFTP, SubsystemHandler):
     server: SFTPServerInterface
     sock: Channel | None
     def __init__(
-        self, channel: Channel, name: str, server: ServerInterface, sftp_si: type[SFTPServerInterface], *largs: Any, **kwargs: Any
+        self,
+        channel: Channel,
+        name: str,
+        server: ServerInterface,
+        sftp_si: type[SFTPServerInterface] = ...,
+        *args: Any,
+        **kwargs: Any,
     ) -> None: ...
     def start_subsystem(self, name: str, transport: Transport, channel: Channel) -> None: ...
     def finish_subsystem(self) -> None: ...
     @staticmethod
     def convert_errno(e: int) -> int: ...
     @staticmethod
-    def set_file_attr(filename: str, attr: SFTPAttributes) -> None: ...
+    def set_file_attr(filename: FileDescriptorOrPath, attr: SFTPAttributes) -> None: ...
