@@ -3,9 +3,8 @@ from collections.abc import Callable, Generator, Iterable
 from enum import Enum
 from typing import Final, Generic, NamedTuple, TypeVar
 
+from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
-
-from ..classes.graph import Graph, _Node
 
 _T = TypeVar("_T")
 

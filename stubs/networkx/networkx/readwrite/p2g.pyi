@@ -1,9 +1,8 @@
 from _typeshed import Incomplete
 
+from networkx.classes.graph import Graph, _Node
+from networkx.classes.multidigraph import MultiDiGraph
 from networkx.utils.backends import _dispatchable
-
-from ..classes.graph import Graph, _Node
-from ..classes.multidigraph import MultiDiGraph
 
 def write_p2g(G: Graph[_Node], path, encoding: str = "utf-8") -> None: ...
 @_dispatchable

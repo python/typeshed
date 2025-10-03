@@ -392,8 +392,8 @@ class CellType:
     cell_contents: Any
 
 _YieldT_co = TypeVar("_YieldT_co", covariant=True)
-_SendT_contra = TypeVar("_SendT_contra", contravariant=True)
-_ReturnT_co = TypeVar("_ReturnT_co", covariant=True)
+_SendT_contra = TypeVar("_SendT_contra", contravariant=True, default=None)
+_ReturnT_co = TypeVar("_ReturnT_co", covariant=True, default=None)
 
 @final
 class GeneratorType(Generator[_YieldT_co, _SendT_contra, _ReturnT_co]):
@@ -450,16 +450,25 @@ class AsyncGeneratorType(AsyncGenerator[_YieldT_co, _SendT_contra]):
     def aclose(self) -> Coroutine[Any, Any, None]: ...
     def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
 
+# Non-default variations to accommodate coroutines
+_SendT_nd_contra = TypeVar("_SendT_nd_contra", contravariant=True)
+_ReturnT_nd_co = TypeVar("_ReturnT_nd_co", covariant=True)
+
 @final
-class CoroutineType(Coroutine[_YieldT_co, _SendT_contra, _ReturnT_co]):
+class CoroutineType(Coroutine[_YieldT_co, _SendT_nd_contra, _ReturnT_nd_co]):
     __name__: str
     __qualname__: str
     @property
     def cr_await(self) -> Any | None: ...
     @property
     def cr_code(self) -> CodeType: ...
-    @property
-    def cr_frame(self) -> FrameType: ...
+    if sys.version_info >= (3, 12):
+        @property
+        def cr_frame(self) -> FrameType | None: ...
+    else:
+        @property
+        def cr_frame(self) -> FrameType: ...
+
     @property
     def cr_running(self) -> bool: ...
     @property
@@ -469,8 +478,8 @@ class CoroutineType(Coroutine[_YieldT_co, _SendT_contra, _ReturnT_co]):
         def cr_suspended(self) -> bool: ...
 
     def close(self) -> None: ...
-    def __await__(self) -> Generator[Any, None, _ReturnT_co]: ...
-    def send(self, arg: _SendT_contra, /) -> _YieldT_co: ...
+    def __await__(self) -> Generator[Any, None, _ReturnT_nd_co]: ...
+    def send(self, arg: _SendT_nd_contra, /) -> _YieldT_co: ...
     @overload
     def throw(
         self, typ: type[BaseException], val: BaseException | object = ..., tb: TracebackType | None = ..., /

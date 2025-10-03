@@ -4,7 +4,7 @@ from typing import Final
 from typing_extensions import Self
 
 from networkx.classes.digraph import DiGraph
-from networkx.classes.graph import Graph, _Node
+from networkx.classes.graph import _Node
 from networkx.utils.backends import _dispatchable
 from numpy.random import RandomState
 
@@ -39,7 +39,7 @@ def minimum_branching(
     G: DiGraph[_Node], attr: str = "weight", default: float = 1, preserve_attrs: bool = False, partition: str | None = None
 ): ...
 @_dispatchable
-def minimal_branching(G, /, *, attr="weight", default=1, preserve_attrs=False, partition=None): ...
+def minimal_branching(G: DiGraph[_Node], /, *, attr="weight", default=1, preserve_attrs=False, partition=None): ...
 @_dispatchable
 def maximum_spanning_arborescence(
     G: DiGraph[_Node], attr: str = "weight", default: float = 1, preserve_attrs: bool = False, partition: str | None = None
@@ -65,7 +65,7 @@ class ArborescenceIterator:
 
     def __init__(
         self,
-        G: Graph[_Node],
+        G: DiGraph[_Node],
         weight: str = "weight",
         minimum: bool = True,
         init_partition: tuple[Incomplete, Incomplete] | None = None,

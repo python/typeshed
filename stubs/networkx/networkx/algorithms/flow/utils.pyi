@@ -1,8 +1,10 @@
 from _typeshed import Incomplete
+from typing import NoReturn, overload
+from typing_extensions import deprecated
 
+from networkx.classes.graph import Graph, _Node
+from networkx.classes.multigraph import MultiGraph
 from networkx.utils.backends import _dispatchable
-
-from ...classes.graph import Graph, _Node
 
 __all__ = ["CurrentEdge", "Level", "GlobalRelabelThreshold", "build_residual_network", "detect_unboundedness", "build_flow_dict"]
 
@@ -25,8 +27,11 @@ class GlobalRelabelThreshold:
     def is_reached(self) -> bool: ...
     def clear_work(self) -> None: ...
 
-@_dispatchable
-def build_residual_network(G: Graph[_Node], capacity): ...
+@overload
+@deprecated("MultiGraph and MultiDiGraph not supported (yet).")
+def build_residual_network(G: MultiGraph[_Node], capacity, *, backend: str | None = None, **backend_kwargs) -> NoReturn: ...
+@overload
+def build_residual_network(G: Graph[_Node], capacity, *, backend: str | None = None, **backend_kwargs): ...
 @_dispatchable
 def detect_unboundedness(R, s, t) -> None: ...
 @_dispatchable

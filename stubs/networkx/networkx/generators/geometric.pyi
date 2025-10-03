@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Iterable, Mapping
 
-from networkx.classes.graph import Graph
+from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
 
 __all__ = [
@@ -16,7 +16,7 @@ __all__ = [
 ]
 
 @_dispatchable
-def geometric_edges(G, radius: float, p: float = 2): ...
+def geometric_edges(G: Graph[_Node], radius: float, p: float = 2): ...
 @_dispatchable
 def random_geometric_graph(
     n: int | Iterable[Incomplete],

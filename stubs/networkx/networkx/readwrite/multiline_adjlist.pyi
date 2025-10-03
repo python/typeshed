@@ -1,8 +1,7 @@
 from collections.abc import Generator
 
+from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
-
-from ..classes.graph import Graph, _Node
 
 __all__ = ["generate_multiline_adjlist", "write_multiline_adjlist", "parse_multiline_adjlist", "read_multiline_adjlist"]
 

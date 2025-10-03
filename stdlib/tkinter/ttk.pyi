@@ -39,15 +39,13 @@ def tclobjs_to_py(adict: dict[Any, Any]) -> dict[Any, Any]: ...
 def setup_master(master: tkinter.Misc | None = None): ...
 
 _Padding: TypeAlias = (
-    tkinter._ScreenUnits
-    | tuple[tkinter._ScreenUnits]
-    | tuple[tkinter._ScreenUnits, tkinter._ScreenUnits]
-    | tuple[tkinter._ScreenUnits, tkinter._ScreenUnits, tkinter._ScreenUnits]
-    | tuple[tkinter._ScreenUnits, tkinter._ScreenUnits, tkinter._ScreenUnits, tkinter._ScreenUnits]
+    float
+    | str
+    | tuple[float | str]
+    | tuple[float | str, float | str]
+    | tuple[float | str, float | str, float | str]
+    | tuple[float | str, float | str, float | str, float | str]
 )
-
-# from ttk_widget (aka ttk::widget) manual page, differs from compound
-_TtkCompound: TypeAlias = Literal["", "text", "image", "top", "left", "center", "right", "bottom", "none"]
 
 # Last item (option value to apply) varies between different options so use Any.
 # It could also be any iterable with items matching the tuple, but that case
@@ -69,10 +67,10 @@ _LayoutSpec: TypeAlias = list[tuple[str, _Layout | None]]
 # Keep these in sync with the appropriate methods in Style
 class _ElementCreateImageKwargs(TypedDict, total=False):
     border: _Padding
-    height: tkinter._ScreenUnits
+    height: float | str
     padding: _Padding
     sticky: str
-    width: tkinter._ScreenUnits
+    width: float | str
 
 _ElementCreateArgsCrossPlatform: TypeAlias = (
     # Could be any sequence here but types are not homogenous so just type it as tuple
@@ -88,8 +86,8 @@ if sys.platform == "win32" and sys.version_info >= (3, 13):
         padding: _Padding
 
     class _ElementCreateVsapiKwargsSize(TypedDict):
-        width: tkinter._ScreenUnits
-        height: tkinter._ScreenUnits
+        width: float | str
+        height: float | str
 
     _ElementCreateVsapiKwargsDict: TypeAlias = (
         _ElementCreateVsapiKwargsPadding | _ElementCreateVsapiKwargsMargin | _ElementCreateVsapiKwargsSize
@@ -143,10 +141,10 @@ class Style:
         /,
         *imagespec: _ImageStatespec,
         border: _Padding = ...,
-        height: tkinter._ScreenUnits = ...,
+        height: float | str = ...,
         padding: _Padding = ...,
         sticky: str = ...,
-        width: tkinter._ScreenUnits = ...,
+        width: float | str = ...,
     ) -> None: ...
     @overload
     def element_create(self, elementname: str, etype: Literal["from"], themename: str, fromelement: str = ..., /) -> None: ...
@@ -188,8 +186,8 @@ class Style:
             vs_statespec: _VsapiStatespec = ...,
             /,
             *,
-            width: tkinter._ScreenUnits,
-            height: tkinter._ScreenUnits,
+            width: float | str,
+            height: float | str,
         ) -> None: ...
 
     def element_names(self) -> tuple[str, ...]: ...
@@ -215,7 +213,7 @@ class Button(Widget):
         *,
         class_: str = "",
         command: str | Callable[[], Any] = "",
-        compound: _TtkCompound = "",
+        compound: Literal["", "text", "image", "top", "left", "center", "right", "bottom", "none"] = "",
         cursor: tkinter._Cursor = "",
         default: Literal["normal", "active", "disabled"] = "normal",
         image: tkinter._Image | str = "",
@@ -235,7 +233,7 @@ class Button(Widget):
         cnf: dict[str, Any] | None = None,
         *,
         command: str | Callable[[], Any] = ...,
-        compound: _TtkCompound = ...,
+        compound: Literal["", "text", "image", "top", "left", "center", "right", "bottom", "none"] = ...,
         cursor: tkinter._Cursor = ...,
         default: Literal["normal", "active", "disabled"] = ...,
         image: tkinter._Image | str = ...,
@@ -260,7 +258,7 @@ class Checkbutton(Widget):
         *,
         class_: str = "",
         command: str | Callable[[], Any] = "",
-        compound: _TtkCompound = "",
+        compound: Literal["", "text", "image", "top", "left", "center", "right", "bottom", "none"] = "",
         cursor: tkinter._Cursor = "",
         image: tkinter._Image | str = "",
         name: str = ...,
@@ -285,7 +283,7 @@ class Checkbutton(Widget):
         cnf: dict[str, Any] | None = None,
         *,
         command: str | Callable[[], Any] = ...,
-        compound: _TtkCompound = ...,
+        compound: Literal["", "text", "image", "top", "left", "center", "right", "bottom", "none"] = ...,
         cursor: tkinter._Cursor = ...,
         image: tkinter._Image | str = ...,
         offvalue: Any = ...,
@@ -475,32 +473,32 @@ class Frame(Widget):
         self,
         master: tkinter.Misc | None = None,
         *,
-        border: tkinter._ScreenUnits = ...,
-        borderwidth: tkinter._ScreenUnits = ...,
+        border: float | str = ...,
+        borderwidth: float | str = ...,
         class_: str = "",
         cursor: tkinter._Cursor = "",
-        height: tkinter._ScreenUnits = 0,
+        height: float | str = 0,
         name: str = ...,
         padding: _Padding = ...,
         relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
         style: str = "",
         takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = "",
-        width: tkinter._ScreenUnits = 0,
+        width: float | str = 0,
     ) -> None: ...
     @overload
     def configure(
         self,
         cnf: dict[str, Any] | None = None,
         *,
-        border: tkinter._ScreenUnits = ...,
-        borderwidth: tkinter._ScreenUnits = ...,
+        border: float | str = ...,
+        borderwidth: float | str = ...,
         cursor: tkinter._Cursor = ...,
-        height: tkinter._ScreenUnits = ...,
+        height: float | str = ...,
         padding: _Padding = ...,
         relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
         style: str = ...,
         takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = ...,
-        width: tkinter._ScreenUnits = ...,
+        width: float | str = ...,
     ) -> dict[str, tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> tuple[str, str, str, Any, Any]: ...
@@ -513,10 +511,10 @@ class Label(Widget):
         *,
         anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"] = ...,
         background: str = "",
-        border: tkinter._ScreenUnits = ...,  # alias for borderwidth
-        borderwidth: tkinter._ScreenUnits = ...,  # undocumented
+        border: float | str = ...,  # alias for borderwidth
+        borderwidth: float | str = ...,  # undocumented
         class_: str = "",
-        compound: _TtkCompound = "",
+        compound: Literal["", "text", "image", "top", "left", "center", "right", "bottom", "none"] = "",
         cursor: tkinter._Cursor = "",
         font: _FontDescription = ...,
         foreground: str = "",
@@ -532,7 +530,7 @@ class Label(Widget):
         textvariable: tkinter.Variable = ...,
         underline: int = -1,
         width: int | Literal[""] = "",
-        wraplength: tkinter._ScreenUnits = ...,
+        wraplength: float | str = ...,
     ) -> None: ...
     @overload
     def configure(
@@ -541,9 +539,9 @@ class Label(Widget):
         *,
         anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"] = ...,
         background: str = ...,
-        border: tkinter._ScreenUnits = ...,
-        borderwidth: tkinter._ScreenUnits = ...,
-        compound: _TtkCompound = ...,
+        border: float | str = ...,
+        borderwidth: float | str = ...,
+        compound: Literal["", "text", "image", "top", "left", "center", "right", "bottom", "none"] = ...,
         cursor: tkinter._Cursor = ...,
         font: _FontDescription = ...,
         foreground: str = ...,
@@ -558,7 +556,7 @@ class Label(Widget):
         textvariable: tkinter.Variable = ...,
         underline: int = ...,
         width: int | Literal[""] = ...,
-        wraplength: tkinter._ScreenUnits = ...,
+        wraplength: float | str = ...,
     ) -> dict[str, tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> tuple[str, str, str, Any, Any]: ...
@@ -569,11 +567,11 @@ class Labelframe(Widget):
         self,
         master: tkinter.Misc | None = None,
         *,
-        border: tkinter._ScreenUnits = ...,
-        borderwidth: tkinter._ScreenUnits = ...,  # undocumented
+        border: float | str = ...,
+        borderwidth: float | str = ...,  # undocumented
         class_: str = "",
         cursor: tkinter._Cursor = "",
-        height: tkinter._ScreenUnits = 0,
+        height: float | str = 0,
         labelanchor: Literal["nw", "n", "ne", "en", "e", "es", "se", "s", "sw", "ws", "w", "wn"] = ...,
         labelwidget: tkinter.Misc = ...,
         name: str = ...,
@@ -583,17 +581,17 @@ class Labelframe(Widget):
         takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = "",
         text: float | str = "",
         underline: int = -1,
-        width: tkinter._ScreenUnits = 0,
+        width: float | str = 0,
     ) -> None: ...
     @overload
     def configure(
         self,
         cnf: dict[str, Any] | None = None,
         *,
-        border: tkinter._ScreenUnits = ...,
-        borderwidth: tkinter._ScreenUnits = ...,
+        border: float | str = ...,
+        borderwidth: float | str = ...,
         cursor: tkinter._Cursor = ...,
-        height: tkinter._ScreenUnits = ...,
+        height: float | str = ...,
         labelanchor: Literal["nw", "n", "ne", "en", "e", "es", "se", "s", "sw", "ws", "w", "wn"] = ...,
         labelwidget: tkinter.Misc = ...,
         padding: _Padding = ...,
@@ -602,7 +600,7 @@ class Labelframe(Widget):
         takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = ...,
         text: float | str = ...,
         underline: int = ...,
-        width: tkinter._ScreenUnits = ...,
+        width: float | str = ...,
     ) -> dict[str, tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> tuple[str, str, str, Any, Any]: ...
@@ -616,7 +614,7 @@ class Menubutton(Widget):
         master: tkinter.Misc | None = None,
         *,
         class_: str = "",
-        compound: _TtkCompound = "",
+        compound: Literal["", "text", "image", "top", "left", "center", "right", "bottom", "none"] = "",
         cursor: tkinter._Cursor = "",
         direction: Literal["above", "below", "left", "right", "flush"] = "below",
         image: tkinter._Image | str = "",
@@ -636,7 +634,7 @@ class Menubutton(Widget):
         self,
         cnf: dict[str, Any] | None = None,
         *,
-        compound: _TtkCompound = ...,
+        compound: Literal["", "text", "image", "top", "left", "center", "right", "bottom", "none"] = ...,
         cursor: tkinter._Cursor = ...,
         direction: Literal["above", "below", "left", "right", "flush"] = ...,
         image: tkinter._Image | str = ...,
@@ -764,7 +762,7 @@ class Progressbar(Widget):
         *,
         class_: str = "",
         cursor: tkinter._Cursor = "",
-        length: tkinter._ScreenUnits = 100,
+        length: float | str = 100,
         maximum: float = 100,
         mode: Literal["determinate", "indeterminate"] = "determinate",
         name: str = ...,
@@ -781,7 +779,7 @@ class Progressbar(Widget):
         cnf: dict[str, Any] | None = None,
         *,
         cursor: tkinter._Cursor = ...,
-        length: tkinter._ScreenUnits = ...,
+        length: float | str = ...,
         maximum: float = ...,
         mode: Literal["determinate", "indeterminate"] = ...,
         orient: Literal["horizontal", "vertical"] = ...,
@@ -805,7 +803,7 @@ class Radiobutton(Widget):
         *,
         class_: str = "",
         command: str | Callable[[], Any] = "",
-        compound: _TtkCompound = "",
+        compound: Literal["", "text", "image", "top", "left", "center", "right", "bottom", "none"] = "",
         cursor: tkinter._Cursor = "",
         image: tkinter._Image | str = "",
         name: str = ...,
@@ -826,7 +824,7 @@ class Radiobutton(Widget):
         cnf: dict[str, Any] | None = None,
         *,
         command: str | Callable[[], Any] = ...,
-        compound: _TtkCompound = ...,
+        compound: Literal["", "text", "image", "top", "left", "center", "right", "bottom", "none"] = ...,
         cursor: tkinter._Cursor = ...,
         image: tkinter._Image | str = ...,
         padding=...,
@@ -855,7 +853,7 @@ class Scale(Widget, tkinter.Scale):  # type: ignore[misc]
         command: str | Callable[[str], object] = "",
         cursor: tkinter._Cursor = "",
         from_: float = 0,
-        length: tkinter._ScreenUnits = 100,
+        length: float | str = 100,
         name: str = ...,
         orient: Literal["horizontal", "vertical"] = "horizontal",
         state: str = ...,  # undocumented
@@ -873,7 +871,7 @@ class Scale(Widget, tkinter.Scale):  # type: ignore[misc]
         command: str | Callable[[str], object] = ...,
         cursor: tkinter._Cursor = ...,
         from_: float = ...,
-        length: tkinter._ScreenUnits = ...,
+        length: float | str = ...,
         orient: Literal["horizontal", "vertical"] = ...,
         state: str = ...,
         style: str = ...,
@@ -893,7 +891,7 @@ class Scale(Widget, tkinter.Scale):  # type: ignore[misc]
         command: str | Callable[[str], object] = ...,
         cursor: tkinter._Cursor = ...,
         from_: float = ...,
-        length: tkinter._ScreenUnits = ...,
+        length: float | str = ...,
         orient: Literal["horizontal", "vertical"] = ...,
         state: str = ...,
         style: str = ...,
@@ -1313,18 +1311,18 @@ class LabeledScale(Frame):
         from_: float = 0,
         to: float = 10,
         *,
-        border: tkinter._ScreenUnits = ...,
-        borderwidth: tkinter._ScreenUnits = ...,
+        border: float | str = ...,
+        borderwidth: float | str = ...,
         class_: str = "",
         compound: Literal["top", "bottom"] = "top",
         cursor: tkinter._Cursor = "",
-        height: tkinter._ScreenUnits = 0,
+        height: float | str = 0,
         name: str = ...,
         padding: _Padding = ...,
         relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
         style: str = "",
         takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = "",
-        width: tkinter._ScreenUnits = 0,
+        width: float | str = 0,
     ) -> None: ...
     # destroy is overridden, signature does not change
     value: Any

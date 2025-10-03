@@ -2,9 +2,8 @@ from _typeshed import Incomplete
 from collections.abc import Mapping
 from typing import Any
 
+from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
-
-from ...classes.graph import Graph, _Node
 
 __all__ = ["adjacency_data", "adjacency_graph"]
 
