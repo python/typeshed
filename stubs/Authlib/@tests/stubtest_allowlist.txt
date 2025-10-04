@@ -1,5 +1,11 @@
 # TODO: check these entries
 authlib.jose.drafts._jwe_enc_cryptodome
+authlib.jose.JsonWebSignature.MAX_CONTENT_LENGTH
+authlib.oauth2.rfc7591.endpoint.ClientRegistrationEndpoint.generate_client_secret
+authlib.integrations.httpx_client.assertion_client
+authlib.integrations.httpx_client.oauth1_client
+authlib.integrations.httpx_client.oauth2_client
+authlib.integrations.httpx_client.utils
 
 # Are set to `None` by default, initialized later:
 authlib.jose.drafts._jwe_algorithms.ECDH1PUAlgorithm.description
