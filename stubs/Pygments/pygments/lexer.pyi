@@ -3,10 +3,27 @@ from _typeshed import Incomplete
 from collections.abc import Callable, Iterable, Iterator, Sequence
 from re import RegexFlag
 from typing import Any, ClassVar
+from typing_extensions import TypeAlias
 
 from pygments.filter import Filter
 from pygments.token import _TokenType
 from pygments.util import Future
+
+__all__ = [
+    "Lexer",
+    "RegexLexer",
+    "ExtendedRegexLexer",
+    "DelegatingLexer",
+    "LexerContext",
+    "include",
+    "inherit",
+    "bygroups",
+    "using",
+    "this",
+    "default",
+    "words",
+    "line_re",
+]
 
 line_re: re.Pattern[str]
 
@@ -110,17 +127,15 @@ class RegexLexerMeta(LexerMeta):
     ]: ...
     def __call__(cls, *args: Any, **kwds: Any) -> Any: ...
 
+_TokenListSecondItemType: TypeAlias = (
+    _TokenType
+    | Iterator[tuple[int, _TokenType, str]]
+    | Callable[[Lexer, _PseudoMatch, LexerContext], Iterator[tuple[int, _TokenType, str]]]
+)
+
 class RegexLexer(Lexer, metaclass=RegexLexerMeta):
     flags: ClassVar[RegexFlag]
-    tokens: ClassVar[
-        dict[
-            str,
-            list[
-                tuple[str, _TokenType | Iterator[tuple[int, _TokenType, str]]]
-                | tuple[str, _TokenType | Iterator[tuple[int, _TokenType, str]], str]
-            ],
-        ]
-    ]
+    tokens: ClassVar[dict[str, list[tuple[str, _TokenListSecondItemType] | tuple[str, _TokenListSecondItemType, str] | include]]]
     def get_tokens_unprocessed(self, text: str, stack: Iterable[str] = ("root",)) -> Iterator[tuple[int, _TokenType, str]]: ...
 
 class LexerContext:
