@@ -5,7 +5,7 @@ from contextlib import AbstractContextManager
 from pathlib import Path
 from types import ModuleType
 from typing import Any, BinaryIO, Literal, TextIO
-from typing_extensions import TypeAlias
+from typing_extensions import TypeAlias, deprecated
 
 if sys.version_info >= (3, 11):
     from importlib.resources.abc import Traversable
@@ -64,6 +64,7 @@ else:
     def read_text(package: Package, resource: Resource, encoding: str = "utf-8", errors: str = "strict") -> str: ...
     def path(package: Package, resource: Resource) -> AbstractContextManager[Path, Literal[False]]: ...
     def is_resource(package: Package, name: str) -> bool: ...
+    @deprecated("Deprecated since Python 3.11, use `files(anchor).iterdir()`")
     def contents(package: Package) -> Iterator[str]: ...
 
 if sys.version_info >= (3, 11):
