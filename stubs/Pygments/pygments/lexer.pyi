@@ -135,7 +135,17 @@ _TokenListSecondItemType: TypeAlias = (
 
 class RegexLexer(Lexer, metaclass=RegexLexerMeta):
     flags: ClassVar[RegexFlag]
-    tokens: ClassVar[dict[str, list[tuple[str, _TokenListSecondItemType] | tuple[str, _TokenListSecondItemType, str] | include]]]
+    tokens: ClassVar[
+        dict[
+            str,
+            list[
+                tuple[str | words, _TokenListSecondItemType]
+                | tuple[str | words, _TokenListSecondItemType, str]
+                | include
+                | default
+            ],
+        ]
+    ]
     def get_tokens_unprocessed(self, text: str, stack: Iterable[str] = ("root",)) -> Iterator[tuple[int, _TokenType, str]]: ...
 
 class LexerContext:
