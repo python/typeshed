@@ -1746,7 +1746,7 @@ _T = _TypeVar("_T", bound=AST)
 if sys.version_info >= (3, 13):
     @overload
     def parse(
-        source: str | ReadableBuffer,
+        source: str | ReadableBuffer | mod,
         filename: str | ReadableBuffer | os.PathLike[Any] = "<unknown>",
         mode: Literal["exec"] = "exec",
         *,
@@ -1756,7 +1756,7 @@ if sys.version_info >= (3, 13):
     ) -> Module: ...
     @overload
     def parse(
-        source: str | ReadableBuffer,
+        source: str | ReadableBuffer | mod,
         filename: str | ReadableBuffer | os.PathLike[Any],
         mode: Literal["eval"],
         *,
@@ -1766,7 +1766,7 @@ if sys.version_info >= (3, 13):
     ) -> Expression: ...
     @overload
     def parse(
-        source: str | ReadableBuffer,
+        source: str | ReadableBuffer | mod,
         filename: str | ReadableBuffer | os.PathLike[Any],
         mode: Literal["func_type"],
         *,
@@ -1776,7 +1776,7 @@ if sys.version_info >= (3, 13):
     ) -> FunctionType: ...
     @overload
     def parse(
-        source: str | ReadableBuffer,
+        source: str | ReadableBuffer | mod,
         filename: str | ReadableBuffer | os.PathLike[Any],
         mode: Literal["single"],
         *,
@@ -1786,7 +1786,7 @@ if sys.version_info >= (3, 13):
     ) -> Interactive: ...
     @overload
     def parse(
-        source: str | ReadableBuffer,
+        source: str | ReadableBuffer | mod,
         *,
         mode: Literal["eval"],
         type_comments: bool = False,
@@ -1795,7 +1795,7 @@ if sys.version_info >= (3, 13):
     ) -> Expression: ...
     @overload
     def parse(
-        source: str | ReadableBuffer,
+        source: str | ReadableBuffer | mod,
         *,
         mode: Literal["func_type"],
         type_comments: bool = False,
@@ -1804,7 +1804,7 @@ if sys.version_info >= (3, 13):
     ) -> FunctionType: ...
     @overload
     def parse(
-        source: str | ReadableBuffer,
+        source: str | ReadableBuffer | mod,
         *,
         mode: Literal["single"],
         type_comments: bool = False,
@@ -1813,7 +1813,7 @@ if sys.version_info >= (3, 13):
     ) -> Interactive: ...
     @overload
     def parse(
-        source: str | ReadableBuffer,
+        source: str | ReadableBuffer | mod,
         filename: str | ReadableBuffer | os.PathLike[Any] = "<unknown>",
         mode: str = "exec",
         *,
@@ -1825,7 +1825,7 @@ if sys.version_info >= (3, 13):
 else:
     @overload
     def parse(
-        source: str | ReadableBuffer,
+        source: str | ReadableBuffer | mod,
         filename: str | ReadableBuffer | os.PathLike[Any] = "<unknown>",
         mode: Literal["exec"] = "exec",
         *,
@@ -1834,7 +1834,7 @@ else:
     ) -> Module: ...
     @overload
     def parse(
-        source: str | ReadableBuffer,
+        source: str | ReadableBuffer | mod,
         filename: str | ReadableBuffer | os.PathLike[Any],
         mode: Literal["eval"],
         *,
@@ -1843,7 +1843,7 @@ else:
     ) -> Expression: ...
     @overload
     def parse(
-        source: str | ReadableBuffer,
+        source: str | ReadableBuffer | mod,
         filename: str | ReadableBuffer | os.PathLike[Any],
         mode: Literal["func_type"],
         *,
@@ -1852,7 +1852,7 @@ else:
     ) -> FunctionType: ...
     @overload
     def parse(
-        source: str | ReadableBuffer,
+        source: str | ReadableBuffer | mod,
         filename: str | ReadableBuffer | os.PathLike[Any],
         mode: Literal["single"],
         *,
@@ -1861,7 +1861,7 @@ else:
     ) -> Interactive: ...
     @overload
     def parse(
-        source: str | ReadableBuffer,
+        source: str | ReadableBuffer | mod,
         *,
         mode: Literal["eval"],
         type_comments: bool = False,
@@ -1869,7 +1869,7 @@ else:
     ) -> Expression: ...
     @overload
     def parse(
-        source: str | ReadableBuffer,
+        source: str | ReadableBuffer | mod,
         *,
         mode: Literal["func_type"],
         type_comments: bool = False,
@@ -1877,7 +1877,7 @@ else:
     ) -> FunctionType: ...
     @overload
     def parse(
-        source: str | ReadableBuffer,
+        source: str | ReadableBuffer | mod,
         *,
         mode: Literal["single"],
         type_comments: bool = False,
@@ -1885,7 +1885,7 @@ else:
     ) -> Interactive: ...
     @overload
     def parse(
-        source: str | ReadableBuffer,
+        source: str | ReadableBuffer | mod,
         filename: str | ReadableBuffer | os.PathLike[Any] = "<unknown>",
         mode: str = "exec",
         *,
