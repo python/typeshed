@@ -217,7 +217,7 @@ class py_object(_CanCastTo, _SimpleCData[_T]):
 
 class c_bool(_SimpleCData[bool]):
     _type_: ClassVar[Literal["?"]]
-    def __init__(self, value: SupportsBool | SupportsLen = ...) -> None: ...
+    def __init__(self, value: SupportsBool | SupportsLen | None = ...) -> None: ...
 
 class c_byte(_SimpleCData[int]):
     _type_: ClassVar[Literal["b"]]
