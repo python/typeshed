@@ -27,15 +27,15 @@ assert_type(ast.parse(inter1, mode="single"), ast.Interactive)
 func1: ast.FunctionType = ast.FunctionType(argtypes=[], returns=ast.Constant(value=None))
 assert_type(ast.parse(func1, mode="func_type"), ast.FunctionType)
 
-# Test any AST node can be passed and returns the same type
+# Test that any AST node can be passed and returns the same type
 binop: ast.BinOp = ast.BinOp(left=ast.Constant(1), op=ast.Add(), right=ast.Constant(2))
 assert_type(ast.parse(binop), ast.BinOp)
 
-funcdef: ast.FunctionDef = ast.FunctionDef(name="foo", args=ast.arguments(), body=[], decorator_list=[])
-assert_type(ast.parse(funcdef), ast.FunctionDef)
-
 constant: ast.Constant = ast.Constant(value=42)
 assert_type(ast.parse(constant), ast.Constant)
+
+expr_stmt: ast.Expr = ast.Expr(value=ast.Constant(value=42))
+assert_type(ast.parse(expr_stmt), ast.Expr)
 
 # Test with additional parameters
 assert_type(ast.parse(mod1, filename="test.py"), ast.Module)
