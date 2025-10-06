@@ -21,6 +21,7 @@ from types import (
     WrapperDescriptorType,
 )
 from typing_extensions import Never as _Never, ParamSpec as _ParamSpec, deprecated
+import typing_extensions
 
 if sys.version_info >= (3, 14):
     from _typeshed import EvaluateFunc
@@ -1136,7 +1137,18 @@ if sys.version_info >= (3, 12):
     def override(method: _F, /) -> _F: ...
     @final
     class TypeAliasType:
-        def __new__(cls, name: str, value: Any, *, type_params: tuple[TypeVar | ParamSpec | TypeVarTuple, ...] = ()) -> Self: ...
+        def __new__(
+            cls,
+            name: str,
+            value: Any,
+            *,
+            type_params: tuple[
+                TypeVar | typing_extensions.TypeVar |
+                ParamSpec | typing_extensions.ParamSpec |
+                TypeVarTuple | typing_extensions.TypeVarTuple,
+                ...
+            ] = ()
+        ) -> Self: ...
         @property
         def __value__(self) -> Any: ...  # AnnotationForm
         @property
