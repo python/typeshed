@@ -99,9 +99,14 @@ class SourceLoader(_LoaderBasics):
     def set_data(self, path: str, data: bytes) -> None: ...
     def get_source(self, fullname: str) -> str | None: ...
     def path_stats(self, path: str) -> Mapping[str, Any]: ...
-    def source_to_code(
-        self, data: ReadableBuffer | str | _ast.Module | _ast.Expression | _ast.Interactive, path: ReadableBuffer | StrPath
-    ) -> types.CodeType: ...
+    if sys.version_info >= (3, 12):
+        def source_to_code(
+            self, data: ReadableBuffer | str | _ast.Module | _ast.Expression | _ast.Interactive, path: bytes | StrPath
+        ) -> types.CodeType: ...
+    else:
+        def source_to_code(
+            self, data: ReadableBuffer | str | _ast.Module | _ast.Expression | _ast.Interactive, path: ReadableBuffer | StrPath
+        ) -> types.CodeType: ...
     def get_code(self, fullname: str) -> types.CodeType | None: ...
 
 class FileLoader:
@@ -123,13 +128,22 @@ class FileLoader:
 class SourceFileLoader(importlib.abc.FileLoader, FileLoader, importlib.abc.SourceLoader, SourceLoader):  # type: ignore[misc]  # incompatible method arguments in base classes
     def set_data(self, path: str, data: ReadableBuffer, *, _mode: int = 0o666) -> None: ...
     def path_stats(self, path: str) -> Mapping[str, Any]: ...
-    def source_to_code(  # type: ignore[override]  # incompatible with InspectLoader.source_to_code
-        self,
-        data: ReadableBuffer | str | _ast.Module | _ast.Expression | _ast.Interactive,
-        path: ReadableBuffer | StrPath,
-        *,
-        _optimize: int = -1,
-    ) -> types.CodeType: ...
+    if sys.version_info >= (3, 12):
+        def source_to_code(  # type: ignore[override]  # incompatible with InspectLoader.source_to_code
+            self,
+            data: ReadableBuffer | str | _ast.Module | _ast.Expression | _ast.Interactive,
+            path: bytes | StrPath,
+            *,
+            _optimize: int = -1,
+        ) -> types.CodeType: ...
+    else:
+        def source_to_code(  # type: ignore[override]  # incompatible with InspectLoader.source_to_code
+            self,
+            data: ReadableBuffer | str | _ast.Module | _ast.Expression | _ast.Interactive,
+            path: ReadableBuffer | StrPath,
+            *,
+            _optimize: int = -1,
+        ) -> types.CodeType: ...
 
 class SourcelessFileLoader(importlib.abc.FileLoader, FileLoader, _LoaderBasics):
     def get_code(self, fullname: str) -> types.CodeType | None: ...
