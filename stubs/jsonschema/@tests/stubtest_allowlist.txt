@@ -16,6 +16,7 @@ jsonschema.Draft3Validator.__match_args__
 jsonschema.Draft4Validator.__match_args__
 jsonschema.Draft6Validator.__match_args__
 jsonschema.Draft7Validator.__match_args__
+jsonschema.RefResolutionError.__match_args__
 jsonschema.TypeChecker.__match_args__
 jsonschema._types.TypeChecker.__match_args__
 jsonschema.cli._Outputter.__match_args__
