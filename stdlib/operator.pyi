@@ -195,7 +195,7 @@ class attrgetter(Generic[_T_co]):
     def __call__(self, obj: Any, /) -> _T_co: ...
 
 @final
-class itemgetter(Generic[_T]):
+class itemgetter(Generic[_T_co]):
     @overload
     def __new__(cls, item: _T, /) -> itemgetter[_T]: ...
     @overload
