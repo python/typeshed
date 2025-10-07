@@ -1831,6 +1831,7 @@ if sys.version_info >= (3, 13):
         feature_version: None | int | tuple[int, int] = None,
         optimize: Literal[-1, 0, 1, 2] = -1,
     ) -> mod: ...
+
 elif sys.version_info >= (3, 12):
     @overload
     def parse(
@@ -1910,6 +1911,7 @@ elif sys.version_info >= (3, 12):
         type_comments: bool = False,
         feature_version: None | int | tuple[int, int] = None,
     ) -> mod: ...
+
 else:
     @overload
     def parse(

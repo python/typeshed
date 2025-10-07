@@ -107,6 +107,7 @@ class SourceLoader(_LoaderBasics):
         def source_to_code(
             self, data: ReadableBuffer | str | _ast.Module | _ast.Expression | _ast.Interactive, path: ReadableBuffer | StrPath
         ) -> types.CodeType: ...
+
     def get_code(self, fullname: str) -> types.CodeType | None: ...
 
 class FileLoader:

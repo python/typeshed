@@ -1442,6 +1442,7 @@ if sys.version_info >= (3, 12):
         *,
         _feature_version: int = -1,
     ) -> Any: ...
+
 else:
     @overload
     def compile(
