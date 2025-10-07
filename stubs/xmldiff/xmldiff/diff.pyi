@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
+from typing import Literal
 
 class Differ:
     F: float
@@ -11,7 +12,7 @@ class Differ:
         self,
         F: float | None = None,
         uniqueattrs=None,
-        ratio_mode: str = "fast",
+        ratio_mode: Literal["accurate", "fast", "faster"] = "fast",
         fast_match: bool = False,
         best_match: bool = False,
         ignored_attrs=[],

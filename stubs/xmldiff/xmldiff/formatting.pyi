@@ -1,21 +1,21 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
-from typing import NamedTuple
+from typing import Final, NamedTuple
 
-DIFF_NS: str
-DIFF_PREFIX: str
-INSERT_NAME: Incomplete
-DELETE_NAME: Incomplete
-REPLACE_NAME: Incomplete
-RENAME_NAME: Incomplete
-WS_BOTH: int
-WS_TEXT: int
-WS_TAGS: int
-WS_NONE: int
-T_OPEN: int
-T_CLOSE: int
-T_SINGLE: int
-PLACEHOLDER_START: int
+DIFF_NS: Final[str]
+DIFF_PREFIX: Final[str]
+INSERT_NAME: Final[Incomplete]
+DELETE_NAME: Final[Incomplete]
+REPLACE_NAME: Final[Incomplete]
+RENAME_NAME: Final[Incomplete]
+WS_BOTH: Final[int]
+WS_TEXT: Final[int]
+WS_TAGS: Final[int]
+WS_NONE: Final[int]
+T_OPEN: Final[int]
+T_CLOSE: Final[int]
+T_SINGLE: Final[int]
+PLACEHOLDER_START: Final[int]
 
 class BaseFormatter:
     def __init__(self, normalize=1, pretty_print: bool = False) -> None: ...
