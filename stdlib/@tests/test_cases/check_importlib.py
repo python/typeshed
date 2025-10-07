@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import importlib.abc
 import importlib.util
 import pathlib
 import sys
@@ -10,9 +9,14 @@ from importlib.machinery import ModuleSpec
 from types import ModuleType
 from typing_extensions import Self
 
+if sys.version_info >= (3, 11):
+    from importlib.resources.abc import Traversable
+else:
+    from importlib.abc import Traversable
+
 
 # Assert that some Path classes are Traversable.
-def traverse(t: importlib.abc.Traversable) -> None:
+def traverse(t: Traversable) -> None:
     pass
 
 

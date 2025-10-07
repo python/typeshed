@@ -4,6 +4,8 @@ from collections.abc import Generator
 from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
 
+__all__ = ["network_simplex"]
+
 class _DataEssentialsAndFunctions:
     node_list: Incomplete
     node_indices: Incomplete
@@ -24,7 +26,9 @@ class _DataEssentialsAndFunctions:
     prev_node_dft: Incomplete
     last_descendent_dft: Incomplete
 
-    def __init__(self, G, multigraph, demand: str = "demand", capacity: str = "capacity", weight: str = "weight") -> None: ...
+    def __init__(
+        self, G: Graph[_Node], multigraph, demand: str = "demand", capacity: str = "capacity", weight: str = "weight"
+    ) -> None: ...
     def initialize_spanning_tree(self, n, faux_inf) -> None: ...
     def find_apex(self, p, q): ...
     def trace_path(self, p, w): ...
@@ -41,4 +45,6 @@ class _DataEssentialsAndFunctions:
     def find_leaving_edge(self, Wn, We): ...
 
 @_dispatchable
-def network_simplex(G: Graph[_Node], demand: str = "demand", capacity: str = "capacity", weight: str = "weight"): ...
+def network_simplex(
+    G: Graph[_Node], demand: str = "demand", capacity: str = "capacity", weight: str = "weight"
+) -> tuple[int | Incomplete, dict[Incomplete, dict[Incomplete, Incomplete]]]: ...

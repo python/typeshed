@@ -1,5 +1,6 @@
 import tkinter
-from _typeshed import Incomplete
+from collections.abc import Callable
+from typing import Any, Literal
 
 from ._widget import ThemedWidget
 
@@ -21,10 +22,56 @@ class ThemedTk(tkinter.Tk, ThemedWidget):
         background: bool | None = ...,  # old alias for themebg
         gif_override: bool = ...,
     ) -> None: ...
-    def set_theme(self, theme_name, toplevel: bool | None = None, themebg: bool | None = None) -> None: ...
-    # TODO: currently no good way to say "use the same big list of kwargs as parent class but also add these"
-    def config(self, kw: Incomplete | None = None, **kwargs): ...  # type: ignore[override]
-    def cget(self, k): ...
-    def configure(self, kw: Incomplete | None = None, **kwargs): ...  # type: ignore[override]
-    def __getitem__(self, k): ...
-    def __setitem__(self, k, v) -> None: ...
+    def set_theme(self, theme_name: str, toplevel: bool | None = None, themebg: bool | None = None) -> None: ...
+    # Keep this in sync with tkinter.Tk
+    def config(  # type: ignore[override]
+        self,
+        kw: dict[str, Any] | None = None,
+        *,
+        themebg: bool | None = ...,
+        toplevel: bool | None = ...,
+        theme: str | None = ...,
+        background: str = ...,
+        bd: float | str = ...,
+        bg: str = ...,
+        border: float | str = ...,
+        borderwidth: float | str = ...,
+        cursor: tkinter._Cursor = ...,
+        height: float | str = ...,
+        highlightbackground: str = ...,
+        highlightcolor: str = ...,
+        highlightthickness: float | str = ...,
+        menu: tkinter.Menu = ...,
+        padx: float | str = ...,
+        pady: float | str = ...,
+        relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
+        takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = ...,
+        width: float | str = ...,
+    ) -> dict[str, tuple[str, str, str, Any, Any]] | None: ...
+    def cget(self, k: str) -> Any: ...
+    def configure(  # type: ignore[override]
+        self,
+        kw: dict[str, Any] | None = None,
+        *,
+        themebg: bool | None = ...,
+        toplevel: bool | None = ...,
+        theme: str | None = ...,
+        background: str = ...,
+        bd: float | str = ...,
+        bg: str = ...,
+        border: float | str = ...,
+        borderwidth: float | str = ...,
+        cursor: tkinter._Cursor = ...,
+        height: float | str = ...,
+        highlightbackground: str = ...,
+        highlightcolor: str = ...,
+        highlightthickness: float | str = ...,
+        menu: tkinter.Menu = ...,
+        padx: float | str = ...,
+        pady: float | str = ...,
+        relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
+        takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = ...,
+        width: float | str = ...,
+    ) -> dict[str, tuple[str, str, str, Any, Any]] | None: ...
+    def __getitem__(self, k: str) -> Any: ...
+    def __setitem__(self, k: str, v: Any) -> None: ...

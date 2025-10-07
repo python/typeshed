@@ -3,8 +3,9 @@ import sys
 from _thread import _excepthook, _ExceptHookArgs, get_native_id as get_native_id
 from _typeshed import ProfileFunction, TraceFunction
 from collections.abc import Callable, Iterable, Mapping
+from contextvars import ContextVar
 from types import TracebackType
-from typing import Any, TypeVar, final
+from typing import Any, Final, TypeVar, final
 from typing_extensions import deprecated
 
 _T = TypeVar("_T")
@@ -45,10 +46,10 @@ if sys.version_info >= (3, 12):
 _profile_hook: ProfileFunction | None
 
 def active_count() -> int: ...
-@deprecated("Use active_count() instead")
+@deprecated("Deprecated since Python 3.10. Use `active_count()` instead.")
 def activeCount() -> int: ...
 def current_thread() -> Thread: ...
-@deprecated("Use current_thread() instead")
+@deprecated("Deprecated since Python 3.10. Use `current_thread()` instead.")
 def currentThread() -> Thread: ...
 def get_ident() -> int: ...
 def enumerate() -> list[Thread]: ...
@@ -66,7 +67,7 @@ if sys.version_info >= (3, 10):
 
 def stack_size(size: int = 0, /) -> int: ...
 
-TIMEOUT_MAX: float
+TIMEOUT_MAX: Final[float]
 
 ThreadError = _thread.error
 local = _thread._local
@@ -76,29 +77,43 @@ class Thread:
     @property
     def ident(self) -> int | None: ...
     daemon: bool
-    def __init__(
-        self,
-        group: None = None,
-        target: Callable[..., object] | None = None,
-        name: str | None = None,
-        args: Iterable[Any] = (),
-        kwargs: Mapping[str, Any] | None = None,
-        *,
-        daemon: bool | None = None,
-    ) -> None: ...
+    if sys.version_info >= (3, 14):
+        def __init__(
+            self,
+            group: None = None,
+            target: Callable[..., object] | None = None,
+            name: str | None = None,
+            args: Iterable[Any] = (),
+            kwargs: Mapping[str, Any] | None = None,
+            *,
+            daemon: bool | None = None,
+            context: ContextVar[Any] | None = None,
+        ) -> None: ...
+    else:
+        def __init__(
+            self,
+            group: None = None,
+            target: Callable[..., object] | None = None,
+            name: str | None = None,
+            args: Iterable[Any] = (),
+            kwargs: Mapping[str, Any] | None = None,
+            *,
+            daemon: bool | None = None,
+        ) -> None: ...
+
     def start(self) -> None: ...
     def run(self) -> None: ...
     def join(self, timeout: float | None = None) -> None: ...
     @property
     def native_id(self) -> int | None: ...  # only available on some platforms
     def is_alive(self) -> bool: ...
-    @deprecated("Get the daemon attribute instead")
+    @deprecated("Deprecated since Python 3.10. Read the `daemon` attribute instead.")
     def isDaemon(self) -> bool: ...
-    @deprecated("Set the daemon attribute instead")
+    @deprecated("Deprecated since Python 3.10. Set the `daemon` attribute instead.")
     def setDaemon(self, daemonic: bool) -> None: ...
-    @deprecated("Use the name attribute instead")
+    @deprecated("Deprecated since Python 3.10. Read the `name` attribute instead.")
     def getName(self) -> str: ...
-    @deprecated("Use the name attribute instead")
+    @deprecated("Deprecated since Python 3.10. Set the `name` attribute instead.")
     def setName(self, name: str) -> None: ...
 
 class _DummyThread(Thread):
@@ -116,6 +131,9 @@ class _RLock:
     __enter__ = acquire
     def __exit__(self, t: type[BaseException] | None, v: BaseException | None, tb: TracebackType | None) -> None: ...
 
+    if sys.version_info >= (3, 14):
+        def locked(self) -> bool: ...
+
 RLock = _thread.RLock  # Actually a function at runtime.
 
 class Condition:
@@ -124,13 +142,13 @@ class Condition:
     def __exit__(
         self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
     ) -> None: ...
-    def acquire(self, blocking: bool = ..., timeout: float = ...) -> bool: ...
+    def acquire(self, blocking: bool = True, timeout: float = -1) -> bool: ...
     def release(self) -> None: ...
     def wait(self, timeout: float | None = None) -> bool: ...
     def wait_for(self, predicate: Callable[[], _T], timeout: float | None = None) -> _T: ...
     def notify(self, n: int = 1) -> None: ...
     def notify_all(self) -> None: ...
-    @deprecated("Use notify_all() instead")
+    @deprecated("Deprecated since Python 3.10. Use `notify_all()` instead.")
     def notifyAll(self) -> None: ...
 
 class Semaphore:
@@ -145,7 +163,7 @@ class BoundedSemaphore(Semaphore): ...
 
 class Event:
     def is_set(self) -> bool: ...
-    @deprecated("Use is_set() instead")
+    @deprecated("Deprecated since Python 3.10. Use `is_set()` instead.")
     def isSet(self) -> bool: ...
     def set(self) -> None: ...
     def clear(self) -> None: ...

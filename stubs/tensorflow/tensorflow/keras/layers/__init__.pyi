@@ -395,7 +395,6 @@ class MultiHeadAttention(Layer[Any, tf.Tensor]):
         autocast: bool = True,
         name: str | None = None,
     ) -> None: ...
-    # @override
     @overload  # type: ignore[override]
     def __call__(
         self,
@@ -444,4 +443,4 @@ class GaussianDropout(Layer[tf.Tensor, tf.Tensor]):
         name: str | None = None,
     ) -> None: ...
 
-def __getattr__(name: str) -> Incomplete: ...
+def __getattr__(name: str): ...  # incomplete module

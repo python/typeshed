@@ -5,7 +5,7 @@ class Auth0Error(Exception):
     error_code: str
     message: str
     content: Incomplete | None
-    def __init__(self, status_code: int, error_code: str, message: str, content: Incomplete | None = None) -> None: ...
+    def __init__(self, status_code: int, error_code: str, message: str, content=None) -> None: ...
 
 class RateLimitError(Auth0Error):
     reset_at: int

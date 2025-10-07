@@ -19,9 +19,3 @@ gevent.libev.corecext.*
 # these won't work until we find out if we can install libev somehow with choco
 gevent.libev.corecffi
 gevent.libev.watcher
-
-# these don't work on windows
-gevent.ares
-gevent.resolver.ares
-gevent.resolver.cares
-gevent.resolver_ares

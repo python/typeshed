@@ -18,6 +18,7 @@ from tensorflow import (
     io as io,
     keras as keras,
     math as math,
+    random as random,
     types as types,
 )
 from tensorflow._aliases import (
@@ -99,6 +100,7 @@ class Tensor:
     @property
     def op(self) -> Operation: ...
     def numpy(self) -> AnyArray: ...
+    def __array__(self, dtype: DTypeLike | None = None) -> AnyArray: ...
     def __int__(self) -> int: ...
     def __abs__(self, name: str | None = None) -> Tensor: ...
     def __add__(self, other: TensorCompatible) -> Tensor: ...
@@ -161,7 +163,7 @@ class Variable(Tensor, metaclass=_VariableMetaclass):
         name: str | None = None,
         # Real type is VariableDef protobuf type. Can be added after adding script
         # to generate tensorflow protobuf stubs with mypy-protobuf.
-        variable_def: Incomplete | None = None,
+        variable_def=None,
         dtype: DTypeLike | None = None,
         import_scope: str | None = None,
         constraint: Callable[[Tensor], Tensor] | None = None,
@@ -203,7 +205,7 @@ class Operation:
         control_inputs: Iterable[Tensor | Operation] | None = None,
         input_types: Iterable[DType] | None = None,
         original_op: Operation | None = None,
-        op_def: Incomplete | None = None,
+        op_def=None,
     ) -> None: ...
     @property
     def inputs(self) -> list[Tensor]: ...
@@ -432,4 +434,4 @@ def gather_nd(
     name: str | None = None,
     bad_indices_policy: Literal["", "DEFAULT", "ERROR", "IGNORE"] = "",
 ) -> Tensor: ...
-def __getattr__(name: str) -> Incomplete: ...
+def __getattr__(name: str): ...  # incomplete module
