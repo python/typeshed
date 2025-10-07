@@ -3,7 +3,6 @@ from collections.abc import Iterable, Mapping, Sequence
 from typing import Any, overload
 from typing_extensions import TypeAlias
 
-from lxml.etree import _ElementTree as ET
 from xmldiff.actions import (
     DeleteAttrib,
     DeleteNamespace,
@@ -39,11 +38,14 @@ _ACTIONS: TypeAlias = (
     | InsertNamespace
     | DeleteNamespace
 )
+_ET: TypeAlias = Any  # lxml.etree._ElementTree
 
 @overload
-def diff_trees(left: ET, right: ET, *, diff_options: dict[str, Any] | None = None, formatter: BaseFormatter = ...) -> str: ...
+def diff_trees(left: _ET, right: _ET, *, diff_options: dict[str, Any] | None = None, formatter: BaseFormatter = ...) -> str: ...
 @overload
-def diff_trees(left: ET, right: ET, diff_options: dict[str, Any] | None = None, formatter: None = None) -> Iterable[_ACTIONS]: ...
+def diff_trees(
+    left: _ET, right: _ET, diff_options: dict[str, Any] | None = None, formatter: None = None
+) -> Iterable[_ACTIONS]: ...
 @overload
 def diff_texts(left: str, right: str, *, diff_options: dict[str, Any] | None = None, formatter: BaseFormatter = ...) -> str: ...
 @overload

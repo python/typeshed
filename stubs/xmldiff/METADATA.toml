@@ -1,3 +1,2 @@
 version = "2.7.*"
 upstream_repository = "https://github.com/Shoobx/xmldiff"
-requires = ["lxml-stubs"]
