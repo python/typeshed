@@ -14,6 +14,8 @@ six.get_method_self
 six.viewitems
 six.viewkeys
 six.viewvalues
+# Should be `byte2int: operator.itemgetter[int]`. But `itemgetter.__call__` returns `Any`
+six.byte2int
 
 # Utils
 six.Module_six_moves_urllib
