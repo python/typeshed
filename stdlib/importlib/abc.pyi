@@ -59,7 +59,8 @@ class InspectLoader(Loader):
     else:
         @staticmethod
         def source_to_code(
-            data: ReadableBuffer | str | _ast.Module | _ast.Expression | _ast.Interactive, path: ReadableBuffer | StrPath = "<string>"
+            data: ReadableBuffer | str | _ast.Module | _ast.Expression | _ast.Interactive,
+            path: ReadableBuffer | StrPath = "<string>",
         ) -> types.CodeType: ...
 
 class ExecutionLoader(InspectLoader):
