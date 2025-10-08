@@ -30,7 +30,7 @@ env:
 jobs:
   stubtest-stdlib:
     name: "stubtest: stdlib"
-    if: ${{ github.repository == 'python/typeshed' || github.event_name == 'workflow_dispatch' }}
+    if: ${{ github.repository == 'python/typeshed' || github.event_name != 'schedule' }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -39,9 +39,9 @@ jobs:
       fail-fast: false
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Set up Python ${{ matrix.python-version }} on ${{ matrix.os }}
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
           cache: pip
@@ -58,7 +58,7 @@ jobs:
 
   stubtest-third-party:
     name: "stubtest: third party"
-    if: ${{ github.repository == 'python/typeshed' || github.event_name == 'workflow_dispatch' }}
+    if: ${{ github.repository == 'python/typeshed' || github.event_name != 'schedule' }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -66,8 +66,8 @@ jobs:
         shard-index: [0, 1, 2, 3]
       fail-fast: false
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.13"
           cache: pip
@@ -110,19 +110,19 @@ jobs:
 
   stub-uploader:
     name: stub_uploader tests
-    if: ${{ github.repository == 'python/typeshed' || github.event_name == 'workflow_dispatch' }}
+    if: ${{ github.repository == 'python/typeshed' || github.event_name != 'schedule' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout typeshed
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           path: typeshed
       - name: Checkout stub_uploader
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: typeshed-internal/stub_uploader
           path: stub_uploader
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           # Keep in sync with stub_uploader's check_scripts.yml workflow.
           python-version: "3.13"
@@ -144,7 +144,7 @@ jobs:
     permissions:
       issues: write
     steps:
-      - uses: actions/github-script@v7
+      - uses: actions/github-script@v8
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
