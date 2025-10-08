@@ -201,7 +201,7 @@ class Pdb(Bdb, Cmd):
         def completenames(self, text: str, line: str, begidx: int, endidx: int) -> list[str]: ...  # type: ignore[override]
     if sys.version_info >= (3, 12):
         def set_convenience_variable(self, frame: FrameType, name: str, value: Any) -> None: ...
-    if sys.version_info == (3, 13):
+    if sys.version_info >= (3, 13) and sys.version_info < (3, 14):
         # Added in 3.13.8.
         @property
         def rlcompleter(self) -> type[Completer]: ...
