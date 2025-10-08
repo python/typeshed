@@ -1747,7 +1747,7 @@ if sys.version_info >= (3, 13):
     @overload
     def parse(
         source: _T,
-        filename: str | ReadableBuffer | os.PathLike[Any] = "<unknown>",
+        filename: str | bytes | os.PathLike[Any] = "<unknown>",
         mode: Literal["exec", "eval", "func_type", "single"] = "exec",
         *,
         type_comments: bool = False,
@@ -1757,7 +1757,7 @@ if sys.version_info >= (3, 13):
     @overload
     def parse(
         source: str | ReadableBuffer,
-        filename: str | ReadableBuffer | os.PathLike[Any] = "<unknown>",
+        filename: str | bytes | os.PathLike[Any] = "<unknown>",
         mode: Literal["exec"] = "exec",
         *,
         type_comments: bool = False,
@@ -1767,7 +1767,7 @@ if sys.version_info >= (3, 13):
     @overload
     def parse(
         source: str | ReadableBuffer,
-        filename: str | ReadableBuffer | os.PathLike[Any],
+        filename: str | bytes | os.PathLike[Any],
         mode: Literal["eval"],
         *,
         type_comments: bool = False,
@@ -1777,7 +1777,7 @@ if sys.version_info >= (3, 13):
     @overload
     def parse(
         source: str | ReadableBuffer,
-        filename: str | ReadableBuffer | os.PathLike[Any],
+        filename: str | bytes | os.PathLike[Any],
         mode: Literal["func_type"],
         *,
         type_comments: bool = False,
@@ -1787,7 +1787,7 @@ if sys.version_info >= (3, 13):
     @overload
     def parse(
         source: str | ReadableBuffer,
-        filename: str | ReadableBuffer | os.PathLike[Any],
+        filename: str | bytes | os.PathLike[Any],
         mode: Literal["single"],
         *,
         type_comments: bool = False,
@@ -1824,7 +1824,7 @@ if sys.version_info >= (3, 13):
     @overload
     def parse(
         source: str | ReadableBuffer,
-        filename: str | ReadableBuffer | os.PathLike[Any] = "<unknown>",
+        filename: str | bytes | os.PathLike[Any] = "<unknown>",
         mode: str = "exec",
         *,
         type_comments: bool = False,
@@ -1836,7 +1836,7 @@ else:
     @overload
     def parse(
         source: _T,
-        filename: str | ReadableBuffer | os.PathLike[Any] = "<unknown>",
+        filename: str | bytes | os.PathLike[Any] = "<unknown>",
         mode: Literal["exec", "eval", "func_type", "single"] = "exec",
         *,
         type_comments: bool = False,
@@ -1845,7 +1845,7 @@ else:
     @overload
     def parse(
         source: str | ReadableBuffer,
-        filename: str | ReadableBuffer | os.PathLike[Any] = "<unknown>",
+        filename: str | bytes | os.PathLike[Any] = "<unknown>",
         mode: Literal["exec"] = "exec",
         *,
         type_comments: bool = False,
@@ -1854,7 +1854,7 @@ else:
     @overload
     def parse(
         source: str | ReadableBuffer,
-        filename: str | ReadableBuffer | os.PathLike[Any],
+        filename: str | bytes | os.PathLike[Any],
         mode: Literal["eval"],
         *,
         type_comments: bool = False,
@@ -1863,7 +1863,7 @@ else:
     @overload
     def parse(
         source: str | ReadableBuffer,
-        filename: str | ReadableBuffer | os.PathLike[Any],
+        filename: str | bytes | os.PathLike[Any],
         mode: Literal["func_type"],
         *,
         type_comments: bool = False,
@@ -1872,7 +1872,7 @@ else:
     @overload
     def parse(
         source: str | ReadableBuffer,
-        filename: str | ReadableBuffer | os.PathLike[Any],
+        filename: str | bytes | os.PathLike[Any],
         mode: Literal["single"],
         *,
         type_comments: bool = False,
@@ -1905,7 +1905,7 @@ else:
     @overload
     def parse(
         source: str | ReadableBuffer,
-        filename: str | ReadableBuffer | os.PathLike[Any] = "<unknown>",
+        filename: str | bytes | os.PathLike[Any] = "<unknown>",
         mode: str = "exec",
         *,
         type_comments: bool = False,

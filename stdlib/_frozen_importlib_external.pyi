@@ -100,7 +100,7 @@ class SourceLoader(_LoaderBasics):
     def get_source(self, fullname: str) -> str | None: ...
     def path_stats(self, path: str) -> Mapping[str, Any]: ...
     def source_to_code(
-        self, data: ReadableBuffer | str | _ast.Module | _ast.Expression | _ast.Interactive, path: ReadableBuffer | StrPath
+        self, data: ReadableBuffer | str | _ast.Module | _ast.Expression | _ast.Interactive, path: bytes | StrPath
     ) -> types.CodeType: ...
     def get_code(self, fullname: str) -> types.CodeType | None: ...
 
@@ -126,7 +126,7 @@ class SourceFileLoader(importlib.abc.FileLoader, FileLoader, importlib.abc.Sourc
     def source_to_code(  # type: ignore[override]  # incompatible with InspectLoader.source_to_code
         self,
         data: ReadableBuffer | str | _ast.Module | _ast.Expression | _ast.Interactive,
-        path: ReadableBuffer | StrPath,
+        path: bytes | StrPath,
         *,
         _optimize: int = -1,
     ) -> types.CodeType: ...
