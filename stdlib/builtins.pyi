@@ -1401,7 +1401,7 @@ if sys.version_info >= (3, 10):
 @overload
 def compile(
     source: str | ReadableBuffer | _ast.Module | _ast.Expression | _ast.Interactive,
-    filename: str | ReadableBuffer | PathLike[Any],
+    filename: str | bytes | PathLike[Any],
     mode: str,
     flags: Literal[0],
     dont_inherit: bool = False,
@@ -1412,7 +1412,7 @@ def compile(
 @overload
 def compile(
     source: str | ReadableBuffer | _ast.Module | _ast.Expression | _ast.Interactive,
-    filename: str | ReadableBuffer | PathLike[Any],
+    filename: str | bytes | PathLike[Any],
     mode: str,
     *,
     dont_inherit: bool = False,
@@ -1422,7 +1422,7 @@ def compile(
 @overload
 def compile(
     source: str | ReadableBuffer | _ast.Module | _ast.Expression | _ast.Interactive,
-    filename: str | ReadableBuffer | PathLike[Any],
+    filename: str | bytes | PathLike[Any],
     mode: str,
     flags: Literal[1024],
     dont_inherit: bool = False,
@@ -1433,7 +1433,7 @@ def compile(
 @overload
 def compile(
     source: str | ReadableBuffer | _ast.Module | _ast.Expression | _ast.Interactive,
-    filename: str | ReadableBuffer | PathLike[Any],
+    filename: str | bytes | PathLike[Any],
     mode: str,
     flags: int,
     dont_inherit: bool = False,
