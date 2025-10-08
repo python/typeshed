@@ -4,15 +4,13 @@
 
 # Please keep sorted alphabetically
 
-collections\.ChainMap\.fromkeys  # https://github.com/python/mypy/issues/17023
-http.client.HTTPConnection.response_class  # the actual type at runtime is abc.ABCMeta
 importlib.abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatibility
 importlib.abc.MetaPathFinder.find_spec  # Not defined on the actual class, but expected to exist.
 importlib.abc.PathEntryFinder.find_spec  # Not defined on the actual class, but expected to exist.
 tkinter.simpledialog.[A-Z_]+
 tkinter.simpledialog.TclVersion
 tkinter.simpledialog.TkVersion
-tkinter.Text.count  # stubtest somehow thinks that index1 parameter has a default value, but it doesn't in any of the overloads
+tarfile.TarInfo.__slots__  # it's a big dictionary at runtime and the dictionary values are a bit long
 
 
 # ===============================================================
@@ -183,6 +181,12 @@ _collections_abc.AsyncGenerator.__anext__
 _collections_abc.AsyncGenerator.aclose
 _collections_abc.AsyncIterator.__anext__
 
+# Pretend typing.ByteString is a Union, to better match its documented semantics.
+# As a side effect, this changes the definition of collections.abc.ByteString, which is okay,
+# because it's not an ABC that makes any sense and was deprecated in 3.12
+_collections_abc\.ByteString
+typing\.ByteString
+
 _collections_abc.Callable  # Typing-related weirdness
 _collections_abc.Mapping.get  # Adding None to the Union messed up mypy
 _collections_abc.Sequence.index  # Supporting None in end is not mandatory
@@ -195,9 +199,12 @@ _frozen_importlib_external.FileLoader.get_filename
 _frozen_importlib_external.FileLoader.get_resource_reader
 _frozen_importlib_external.FileLoader.load_module
 
+# Mismatch of default values of `report` parameter:
+_markupbase.ParserBase.parse_comment
+_markupbase.ParserBase.parse_marked_section
+
 _pydecimal.*  # See comments in file
 _typeshed.*  # Utility types for typeshed, doesn't exist at runtime
-argparse.ArgumentParser.__init__  # stubtest doesn't recognise the runtime default (a class) as being compatible with a callback protocol (the stub annotation)
 argparse.Namespace.__getattr__  # The whole point of this class is its attributes are dynamic
 
 # Runtime AST node runtime constructor behaviour is too loose.
@@ -210,10 +217,10 @@ _?ast.stmt.__init__
 
 _ast.ImportFrom.level  # None on the class, but never None on instances
 
+argparse.Namespace.__setattr__  # should allow setting any attribute
+
 ast.ImportFrom.level  # None on the class, but never None on instances
 ast.NodeVisitor.visit_\w+  # Methods are discovered dynamically, see #3796
-_?asyncio.Future.__init__  # Usually initialized from c object
-asyncio.futures.Future.__init__  # Usually initialized from c object
 
 # Condition functions are exported in __init__
 asyncio.Condition.acquire
@@ -224,7 +231,6 @@ asyncio.locks.Condition.locked
 asyncio.locks.Condition.release
 
 builtins.memoryview.__contains__  # C type that implements __getitem__
-builtins.object.__init__  # default C signature is incorrect
 builtins.reveal_locals  # Builtins that type checkers pretends exist
 builtins.reveal_type  # Builtins that type checkers pretends exist
 builtins.type.__dict__  # read-only but not actually a property; stubtest thinks it's a mutable attribute.
@@ -254,8 +260,6 @@ configparser.SectionProxy.getint  # SectionProxy get functions are set in __init
 contextlib.AbstractAsyncContextManager.__class_getitem__
 contextlib.AbstractContextManager.__class_getitem__
 
-_?contextvars.Context.__init__  # C signature is broader than what is actually accepted
-
 copy.PyStringMap  # defined only in Jython
 
 # The Dialect properties are initialized as None in Dialect but their values are enforced in _Dialect
@@ -272,7 +276,9 @@ _?ctypes.Array._length_  # _length_ is abstract, https://github.com/python/types
 _?ctypes.Array.raw  # exists but stubtest can't see it; only available if _CT == c_char
 ctypes.CDLL._FuncPtr  # None at class level but initialized in __init__ to this value
 _?ctypes.Structure.__getattr__  # doesn't exist, but makes things easy if we pretend it does
+_?ctypes.Structure.__setattr__  # doesn't exist, but makes things easy if we pretend it does
 _?ctypes.Union.__getattr__  # doesn't exist, but makes things easy if we pretend it does
+_?ctypes.Union.__setattr__  # doesn't exist, but makes things easy if we pretend it does
 
 # Iterable classes that don't define __iter__ at runtime (usually iterable via __getitem__)
 # These would ideally be special-cased by type checkers; see https://github.com/python/mypy/issues/2220
@@ -303,6 +309,7 @@ functools._lru_cache_wrapper.cache_parameters  # Cannot be detected statically
 functools.cached_property.__set__  # doesn't exist, but cached_property is settable by another mechanism
 
 hmac.new  # Raises TypeError if optional argument digestmod is not provided
+html.parser.HTMLParser.parse_bogus_comment  # default values mismatch
 http.HTTPStatus.description  # set in __new__; work-around for enum wierdness
 http.HTTPStatus.phrase  # set in __new__; work-around for enum wierdness
 imaplib.IMAP4_SSL.ssl  # Depends on the existence and flags of SSL
@@ -320,8 +327,7 @@ importlib.machinery.ExtensionFileLoader.get_filename
 inspect.Parameter.__init__
 inspect.Signature.__init__
 
-inspect.Parameter.empty  # set as private marker _empty
-inspect.Signature.empty  # set as private marker _empty
+logging.LogRecord.__setattr__  # doesn't exist, but makes things easy if we pretend it does
 
 # Iterable classes that don't define __iter__ at runtime (usually iterable via __getitem__)
 # These would ideally be special-cased by type checkers; see https://github.com/python/mypy/issues/2220
@@ -366,11 +372,6 @@ multiprocessing.queues.JoinableQueue.__init__
 multiprocessing.queues.Queue.__init__
 multiprocessing.queues.SimpleQueue.__init__
 
-# alias for a class defined elsewhere,
-# mypy infers the variable has type `(*args) -> ForkingPickler`
-# but stubtest infers the runtime type as <class ForkingPickler>
-multiprocessing.reduction.AbstractReducer.ForkingPickler
-
 # These methods are dynamically created after object initialization,
 # copied from a wrapped lock object. Stubtest doesn't think they exist
 # because of that.
@@ -380,7 +381,9 @@ multiprocessing.synchronize.SemLock.acquire
 multiprocessing.synchronize.SemLock.release
 
 numbers.Number.__hash__  # typeshed marks this as abstract but code just sets this as None
+
 optparse.Values.__getattr__  # Some attributes are set in __init__ using setattr
+optparse.Values.__setattr__  # doesn't exist, but makes things easy if we pretend it does
 
 os._wrap_close.read  # Methods that come from __getattr__() at runtime
 os._wrap_close.readable  # Methods that come from __getattr__() at runtime
@@ -393,7 +396,6 @@ os.PathLike.__class_getitem__  # PathLike is a protocol; we don't expect all Pat
 
 pickle._Pickler\..*  # Best effort typing for undocumented internals
 pickle._Unpickler\..*  # Best effort typing for undocumented internals
-_?queue.SimpleQueue.__init__  # C signature is broader than what is actually accepted
 shutil.rmtree  # function with attributes, which we approximate with a callable protocol
 socketserver.BaseServer.get_request  # Not implemented, but expected to exist on subclasses.
 ssl.PROTOCOL_SSLv2  # Depends on the existence and flags of SSL
@@ -453,11 +455,9 @@ typing._Final.__init_subclass__
 typing\.Protocol
 typing(_extensions)?\._TypedDict
 typing(_extensions)?\.Any.*
-typing(_extensions)?\.Generic
 typing(_extensions)?\.TypedDict
 typing_extensions\.ParamSpec.*
 typing_extensions\.TypeVar.*
-typing_extensions\._SpecialForm.*
 
 # Special primitives
 typing(_extensions)?\.AbstractSet
@@ -486,7 +486,6 @@ typing(_extensions)?\.Reversible
 typing(_extensions)?\.Sequence
 typing(_extensions)?\.Sized
 typing(_extensions)?\.ValuesView
-typing_extensions\.Final
 typing_extensions\.LiteralString
 
 # Typing-related weirdness

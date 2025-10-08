@@ -46,6 +46,7 @@ from braintree.local_payment_reversed import LocalPaymentReversed as LocalPaymen
 from braintree.merchant import Merchant as Merchant
 from braintree.merchant_account import MerchantAccount as MerchantAccount
 from braintree.merchant_account_gateway import MerchantAccountGateway as MerchantAccountGateway
+from braintree.monetary_amount import MonetaryAmount as MonetaryAmount
 from braintree.oauth_access_revocation import OAuthAccessRevocation as OAuthAccessRevocation
 from braintree.partner_merchant import PartnerMerchant as PartnerMerchant
 from braintree.payment_facilitator import PaymentFacilitator as PaymentFacilitator
@@ -83,6 +84,7 @@ from braintree.transaction_details import TransactionDetails as TransactionDetai
 from braintree.transaction_gateway import TransactionGateway as TransactionGateway
 from braintree.transaction_line_item import TransactionLineItem as TransactionLineItem
 from braintree.transaction_search import TransactionSearch as TransactionSearch
+from braintree.transfer import Transfer as Transfer
 from braintree.unknown_payment_method import UnknownPaymentMethod as UnknownPaymentMethod
 from braintree.us_bank_account import UsBankAccount as UsBankAccount
 from braintree.validation_error_collection import ValidationErrorCollection as ValidationErrorCollection
