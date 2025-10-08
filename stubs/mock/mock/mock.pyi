@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 from collections.abc import Callable, Coroutine, Iterable, Mapping, Sequence
 from contextlib import AbstractContextManager
 from types import TracebackType
-from typing import Any, ClassVar, Generic, Literal, TypeVar, overload
+from typing import Any, ClassVar, Generic, Literal, TypeVar, overload, type_check_only
 from typing_extensions import ParamSpec, Self
 
 _F = TypeVar("_F", bound=Callable[..., Any])
@@ -211,6 +211,7 @@ class _patch_dict:
     start: Any
     stop: Any
 
+@type_check_only
 class _patcher:
     TEST_PREFIX: str
     dict: type[_patch_dict]
@@ -331,11 +332,11 @@ class MagicProxy(Base):
     def create_mock(self) -> Any: ...
     def __get__(self, obj: Any, _type=None) -> Any: ...
 
-class _ANY:
+class _ANY(Any):
     def __eq__(self, other: object) -> Literal[True]: ...
     def __ne__(self, other: object) -> Literal[False]: ...
 
-ANY: Any
+ANY: _ANY
 
 def create_autospec(
     spec: Any, spec_set: Any = False, instance: Any = False, _parent=None, _name=None, *, unsafe: bool = False, **kwargs: Any

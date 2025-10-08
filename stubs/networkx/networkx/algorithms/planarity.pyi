@@ -11,6 +11,10 @@ __all__ = ["check_planarity", "is_planar", "PlanarEmbedding"]
 def is_planar(G: Graph[_Node]) -> bool: ...
 @_dispatchable
 def check_planarity(G: Graph[_Node], counterexample: bool = False): ...
+@_dispatchable
+def get_counterexample(G: Graph[_Node]) -> Graph[_Node]: ...
+@_dispatchable
+def get_counterexample_recursive(G: Graph[_Node]) -> Graph[_Node]: ...
 
 class Interval:
     low: Incomplete
@@ -30,6 +34,26 @@ class ConflictPair:
     def lowest(self, planarity_state): ...
 
 class LRPlanarity:
+    __slots__ = [
+        "G",
+        "roots",
+        "height",
+        "lowpt",
+        "lowpt2",
+        "nesting_depth",
+        "parent_edge",
+        "DG",
+        "adjs",
+        "ordered_adjs",
+        "ref",
+        "side",
+        "S",
+        "stack_bottom",
+        "lowpt_edge",
+        "left_ref",
+        "right_ref",
+        "embedding",
+    ]
     G: Incomplete
     roots: Incomplete
     height: Incomplete
@@ -49,8 +73,8 @@ class LRPlanarity:
     right_ref: Incomplete
     embedding: Incomplete
 
-    def __init__(self, G) -> None: ...
-    def lr_planarity(self): ...
+    def __init__(self, G: Graph[_Node]) -> None: ...
+    def lr_planarity(self) -> PlanarEmbedding[Incomplete] | None: ...
     def lr_planarity_recursive(self): ...
     def dfs_orientation(self, v): ...
     def dfs_orientation_recursive(self, v) -> None: ...
@@ -77,3 +101,4 @@ class PlanarEmbedding(DiGraph[_Node]):
     def traverse_face(
         self, v: _Node, w: _Node, mark_half_edges: MutableSet[tuple[_Node, _Node]] | None = None
     ) -> list[_Node]: ...
+    def to_undirected(self, reciprocal: bool = False, as_view: bool = False) -> Graph[_Node]: ...  # type: ignore[override]
