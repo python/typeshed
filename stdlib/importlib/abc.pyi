@@ -51,17 +51,10 @@ class InspectLoader(Loader):
     @abstractmethod
     def get_source(self, fullname: str) -> str | None: ...
     def exec_module(self, module: types.ModuleType) -> None: ...
-    if sys.version_info >= (3, 12):
-        @staticmethod
-        def source_to_code(
-            data: ReadableBuffer | str | _ast.Module | _ast.Expression | _ast.Interactive, path: bytes | StrPath = "<string>"
-        ) -> types.CodeType: ...
-    else:
-        @staticmethod
-        def source_to_code(
-            data: ReadableBuffer | str | _ast.Module | _ast.Expression | _ast.Interactive,
-            path: ReadableBuffer | StrPath = "<string>",
-        ) -> types.CodeType: ...
+    @staticmethod
+    def source_to_code(
+        data: ReadableBuffer | str | _ast.Module | _ast.Expression | _ast.Interactive, path: bytes | StrPath = "<string>"
+    ) -> types.CodeType: ...
 
 class ExecutionLoader(InspectLoader):
     @abstractmethod
