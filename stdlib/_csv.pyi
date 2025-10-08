@@ -122,7 +122,7 @@ def reader(
 def register_dialect(
     name: str,
     /,
-    dialect: type[Dialect | csv.Dialect] = ...,
+    dialect: type[Dialect | csv.Dialect] | str = "excel",
     *,
     delimiter: str = ",",
     quotechar: str | None = '"',
