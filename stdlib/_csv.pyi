@@ -92,7 +92,7 @@ else:
         def writerows(self, rows: Iterable[Iterable[Any]]) -> None: ...
 
 def writer(
-    csvfile: SupportsWrite[str],
+    fileobj: SupportsWrite[str],
     /,
     dialect: _DialectLike = "excel",
     *,
@@ -106,7 +106,7 @@ def writer(
     strict: bool = False,
 ) -> _writer: ...
 def reader(
-    csvfile: Iterable[str],
+    iterable: Iterable[str],
     /,
     dialect: _DialectLike = "excel",
     *,
@@ -121,6 +121,7 @@ def reader(
 ) -> _reader: ...
 def register_dialect(
     name: str,
+    /,
     dialect: type[Dialect | csv.Dialect] = ...,
     *,
     delimiter: str = ",",
