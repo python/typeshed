@@ -10,7 +10,7 @@ MAXIMUM_RETRY_COUNT: int
 
 def check_closed(f): ...
 
-_PyHANDLE: TypeAlias = Any
+_PyHANDLE: TypeAlias = Any  # pywin32._win32typing.PyHANDLE
 
 class NpipeSocket:
     def __init__(self, handle: _PyHANDLE | None = None) -> None: ...
