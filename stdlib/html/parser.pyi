@@ -6,7 +6,7 @@ __all__ = ["HTMLParser"]
 
 class HTMLParser(ParserBase):
     CDATA_CONTENT_ELEMENTS: Final[tuple[str, ...]]
-    # Added in later patch versions: 3.9.23, 3.10.18, 3.11.13, 3.12.11, 3.13.6
+    # Added in Python 3.9.23, 3.10.18, 3.11.13, 3.12.11, 3.13.6
     RCDATA_CONTENT_ELEMENTS: Final[tuple[str, ...]]
 
     def __init__(self, *, convert_charrefs: bool = True) -> None: ...
@@ -30,7 +30,7 @@ class HTMLParser(ParserBase):
     def parse_html_declaration(self, i: int) -> int: ...  # undocumented
     def parse_pi(self, i: int) -> int: ...  # undocumented
     def parse_starttag(self, i: int) -> int: ...  # undocumented
-    # `escapable` parameter added in later patch versions: 3.9.23, 3.10.18, 3.11.13, 3.12.11, 3.13.6
+    # `escapable` parameter added in Python 3.9.23, 3.10.18, 3.11.13, 3.12.11, 3.13.6
     def set_cdata_mode(self, elem: str, *, escapable: bool = False) -> None: ...  # undocumented
     rawdata: str  # undocumented
     cdata_elem: str | None  # undocumented
