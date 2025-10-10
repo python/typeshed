@@ -8,3 +8,6 @@ auth0\..*_async
 
 # Inconsistently implemented, ommitted
 auth0\.management\.Auth0\..*
+
+# See https://github.com/auth0/auth0-python/issues/732
+auth0.management.__all__
