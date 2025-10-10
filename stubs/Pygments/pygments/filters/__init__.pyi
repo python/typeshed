@@ -1,3 +1,4 @@
+import re
 from collections.abc import Callable, Generator, Iterable, Iterator
 from typing import Any
 
@@ -12,7 +13,7 @@ def get_filter_by_name(filtername: str, **options: Any) -> Filter: ...
 def get_all_filters() -> Generator[str, None, None]: ...
 
 class CodeTagFilter(Filter):
-    tag_re: Any
+    tag_re: re.Pattern[str]
     # options are forwarded to Filter's constructor
     def __init__(self, **options: Any) -> None: ...
     def filter(self, lexer: Lexer, stream: Iterable[tuple[_TokenType, str]]) -> Iterator[tuple[_TokenType, str]]: ...

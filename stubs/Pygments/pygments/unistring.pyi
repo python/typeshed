@@ -1,5 +1,3 @@
-from typing import Any
-
 Cc: str
 Cf: str
 Cn: str
@@ -32,7 +30,7 @@ Zp: str
 Zs: str
 xid_continue: str
 xid_start: str
-cats: Any
+cats: list[str]
 
 def combine(*args: str) -> str: ...
 def allexcept(*args: str) -> str: ...
