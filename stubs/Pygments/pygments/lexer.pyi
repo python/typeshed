@@ -47,7 +47,9 @@ class Lexer(metaclass=LexerMeta):
     tabsize: int
     encoding: str
     filters: list[Filter]
+    # options are kept as a dict on the instance
     def __init__(self, **options: Any) -> None: ...
+    # options are forwarded to the filter's constructor
     def add_filter(self, filter_: str | Filter, **options: Any) -> None: ...
     def get_tokens(self, text: str, unfiltered: bool = False) -> Iterator[tuple[_TokenType, str]]: ...
     def get_tokens_unprocessed(self, text: str) -> Iterator[tuple[int, _TokenType, str]]: ...
@@ -56,6 +58,7 @@ class DelegatingLexer(Lexer):
     root_lexer: Lexer
     language_lexer: Lexer
     needle: Incomplete
+    # options are forwarded to the lexer's constructor
     def __init__(
         self, _root_lexer: type[Lexer], _language_lexer: type[Lexer], _needle: _TokenType = ..., **options: Any
     ) -> None: ...
@@ -86,6 +89,7 @@ class _This: ...
 
 this: _This
 
+# kwargs are forwarded to the lexer's constructor
 def using(
     _other: _This | Lexer, **kwargs: Any
 ) -> Callable[[Lexer, _PseudoMatch, LexerContext], Iterator[tuple[int, _TokenType, str]]]: ...
@@ -125,6 +129,7 @@ class RegexLexerMeta(LexerMeta):
             | tuple[str, _TokenType | Iterator[tuple[int, _TokenType, str]], str]
         ],
     ]: ...
+    # kwds are forwarded to `type.__call__`
     def __call__(cls, *args: Any, **kwds: Any) -> Any: ...
 
 _TokenListSecondItemType: TypeAlias = (
