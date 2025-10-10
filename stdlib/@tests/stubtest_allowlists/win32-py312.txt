@@ -21,7 +21,7 @@ _winapi.GetShortPathName
 # =======
 
 # Added in Python 3.12.11 (parameter `escapable`)
-email.parser.HTMLParser.set_cdata_mode
+html.parser.HTMLParser.set_cdata_mode
 
 
 # =============================================================

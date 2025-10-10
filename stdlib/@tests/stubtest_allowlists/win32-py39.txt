@@ -3,7 +3,7 @@
 # =======
 
 # Added in Python 3.9.23 (parameter `escapable`)
-email.parser.HTMLParser.set_cdata_mode
+html.parser.HTMLParser.set_cdata_mode
 
 
 # =======
