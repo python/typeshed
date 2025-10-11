@@ -55,6 +55,7 @@ tty
 # Other allowlist entries that cannot or should not be fixed
 # ==========================================================
 
+_stat.FILE_ATTRIBUTE_[A-Z_]+ # stdlib redefines these in stat.py
 multiprocessing.popen_fork  # exists on Windows but fails to import
 multiprocessing.popen_forkserver  # exists on Windows but fails to import
 multiprocessing.popen_spawn_posix  # exists on Windows but fails to import
