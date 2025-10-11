@@ -45,9 +45,6 @@ multiprocessing.popen_spawn_win32  # exists on Darwin but fails to import
 readline.append_history_file  # Only available if compiled with GNU readline, not editline
 select.poll  # Actually a function; we have a class so it can be used as a type
 
-# Some of these exist on non-windows, but they are useless and this is not intended
-stat.FILE_ATTRIBUTE_[A-Z_]+
-
 tkinter.Tk.createfilehandler  # Methods that come from __getattr__() at runtime
 tkinter.Tk.deletefilehandler  # Methods that come from __getattr__() at runtime
 
