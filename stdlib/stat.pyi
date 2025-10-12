@@ -1,5 +1,5 @@
 import sys
-from _stat import *
+from _stat import *  # pyright: ignore[reportGeneralTypeIssues]
 from typing import Final
 
 # _stat.c defines FILE_ATTRIBUTE_* constants conditionally,
