@@ -27,7 +27,6 @@
         "stubs/auth0-python",
         "stubs/Authlib",
         "stubs/aws-xray-sdk",
-        "stubs/beautifulsoup4",
         "stubs/boltons",
         "stubs/braintree",
         "stubs/cffi",
@@ -93,6 +92,7 @@
         "stubs/tqdm",
         "stubs/vobject",
         "stubs/workalendar",
+        "stubs/xmldiff",
     ],
     "typeCheckingMode": "strict",
     // TODO: Complete incomplete stubs
