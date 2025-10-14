@@ -2,3 +2,6 @@ psutil._pslinux
 psutil._psutil_linux
 psutil._psutil_windows
 psutil._pswindows
+
+# not always available on ARM64, but we test there
+psutil._psosx.cpu_freq
