@@ -5,3 +5,4 @@ psutil._pswindows
 
 # not always available on ARM64, but we test there
 psutil.cpu_freq
+psutil._psosx.cpu_freq
