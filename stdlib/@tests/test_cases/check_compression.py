@@ -40,7 +40,7 @@ def accept_decompressor(d: _Decompressor) -> None:
 
 
 # Test objects from compression._common._streams
-fp = cast(_Reader, io.BytesIO(b"hello world"))  # type: ignore
+fp = cast(_Reader, io.BytesIO(b"hello world"))
 DecompressReader(fp, decompressobj)
 DecompressReader(fp, BZ2Decompressor)
 DecompressReader(fp, LZMADecompressor)
@@ -53,7 +53,7 @@ accept_decompressor(ZstdDecompressor())
 accept_decompressor(CustomDecompressor())
 
 # Test objects from _compression
-fp = cast(_Reader_other, io.BytesIO(b"hello world"))  # type: ignore
+fp = cast(_Reader_other, io.BytesIO(b"hello world"))
 DecompressReader_other(fp, decompressobj)
 DecompressReader_other(fp, BZ2Decompressor)
 DecompressReader_other(fp, LZMADecompressor)
