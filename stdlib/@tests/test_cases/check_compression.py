@@ -13,7 +13,7 @@ from zlib import decompressobj
 if sys.version_info >= (3, 14):
     from compression._common._streams import DecompressReader, _Decompressor, _Reader
 else:
-    from _compression import DecompressReader, _Reader
+    from _compression import DecompressReader, _Decompressor, _Reader
 
 ###
 # Tests for DecompressReader/_Decompressor
