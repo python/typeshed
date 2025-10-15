@@ -4,7 +4,6 @@ import io
 import sys
 from _typeshed import ReadableBuffer
 from bz2 import BZ2Decompressor
-from compression.zstd import ZstdDecompressor
 from lzma import LZMADecompressor
 from typing import cast
 from typing_extensions import assert_type
@@ -12,6 +11,7 @@ from zlib import decompressobj
 
 if sys.version_info >= (3, 14):
     from compression._common._streams import DecompressReader, _Decompressor, _Reader
+    from compression.zstd import ZstdDecompressor
 else:
     from _compression import DecompressReader, _Decompressor, _Reader
 
@@ -47,10 +47,12 @@ fp = cast(_Reader, io.BytesIO(b"hello world"))
 DecompressReader(fp, decompressobj)
 DecompressReader(fp, BZ2Decompressor)
 DecompressReader(fp, LZMADecompressor)
-DecompressReader(fp, ZstdDecompressor)
 DecompressReader(fp, CustomDecompressor)
 accept_decompressor(decompressobj())
 accept_decompressor(BZ2Decompressor())
 accept_decompressor(LZMADecompressor())
-accept_decompressor(ZstdDecompressor())
 accept_decompressor(CustomDecompressor())
+
+if sys.version_info >= (3, 14):
+    DecompressReader(fp, ZstdDecompressor)
+    accept_decompressor(ZstdDecompressor())
