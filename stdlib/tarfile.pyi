@@ -134,6 +134,43 @@ class TarFile:
     extraction_filter: _FilterFunction | None
     if sys.version_info >= (3, 13):
         stream: bool
+        @overload
+        def __init__(
+            self,
+            name: StrOrBytesPath,  # name is required (not None)
+            mode: Literal["r", "a", "w", "x"] = "r",
+            fileobj: _Fileobj | None = None,
+            format: int | None = None,
+            tarinfo: type[TarInfo] | None = None,
+            dereference: bool | None = None,
+            ignore_zeros: bool | None = None,
+            encoding: str | None = None,
+            errors: str = "surrogateescape",
+            pax_headers: Mapping[str, str] | None = None,
+            debug: int | None = None,
+            errorlevel: int | None = None,
+            copybufsize: int | None = None,
+            stream: bool = False,
+        ) -> None: ...
+        @overload
+        def __init__(
+            self,
+            name: None = None,
+            mode: Literal["r", "a", "w", "x"] = "r",
+            *,
+            fileobj: _Fileobj,  # fileobj is required when name is None
+            format: int | None = None,
+            tarinfo: type[TarInfo] | None = None,
+            dereference: bool | None = None,
+            ignore_zeros: bool | None = None,
+            encoding: str | None = None,
+            errors: str = "surrogateescape",
+            pax_headers: Mapping[str, str] | None = None,
+            debug: int | None = None,
+            errorlevel: int | None = None,
+            copybufsize: int | None = None,
+            stream: bool = False,
+        ) -> None: ...
         def __init__(
             self,
             name: StrOrBytesPath | None = None,
@@ -152,6 +189,41 @@ class TarFile:
             stream: bool = False,
         ) -> None: ...
     else:
+        @overload
+        def __init__(
+            self,
+            name: StrOrBytesPath,  # name is required (not None)
+            mode: Literal["r", "a", "w", "x"] = "r",
+            fileobj: _Fileobj | None = None,
+            format: int | None = None,
+            tarinfo: type[TarInfo] | None = None,
+            dereference: bool | None = None,
+            ignore_zeros: bool | None = None,
+            encoding: str | None = None,
+            errors: str = "surrogateescape",
+            pax_headers: Mapping[str, str] | None = None,
+            debug: int | None = None,
+            errorlevel: int | None = None,
+            copybufsize: int | None = None,
+        ) -> None: ...
+        @overload
+        def __init__(
+            self,
+            name: None = None,
+            mode: Literal["r", "a", "w", "x"] = "r",
+            *,
+            fileobj: _Fileobj,  # fileobj is required when name is None
+            format: int | None = None,
+            tarinfo: type[TarInfo] | None = None,
+            dereference: bool | None = None,
+            ignore_zeros: bool | None = None,
+            encoding: str | None = None,
+            errors: str = "surrogateescape",
+            pax_headers: Mapping[str, str] | None = None,
+            debug: int | None = None,
+            errorlevel: int | None = None,
+            copybufsize: int | None = None,
+        ) -> None: ...
         def __init__(
             self,
             name: StrOrBytesPath | None = None,
