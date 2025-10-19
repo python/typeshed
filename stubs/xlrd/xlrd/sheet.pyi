@@ -46,7 +46,7 @@ class Cell(BaseObject):
     ctype: Literal[0, 1, 2, 3, 4, 5, 6]
     value: str | float
     xf_index: int | None
-    def __init__(self, ctype: int, value: str, xf_index: int | None = None) -> None: ...
+    def __init__(self, ctype: Literal[0, 1, 2, 3, 4, 5, 6], value: str, xf_index: int | None = None) -> None: ...
 
 empty_cell: Final[Cell]
 
