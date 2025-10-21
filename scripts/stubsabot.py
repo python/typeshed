@@ -620,6 +620,15 @@ async def has_no_longer_updated_release(release_to_download: PypiReleaseDownload
     return await with_extracted_archive(release_to_download, session=session, handler=parse_no_longer_updated_from_archive)
 
 
+def is_new_release(upload_datetime: datetime.datetime) -> bool:
+    if upload_datetime.tzinfo is None:
+        upload_datetime = upload_datetime.replace(tzinfo=datetime.timezone.utc)
+    else:
+        upload_datetime = upload_datetime.astimezone(datetime.timezone.utc)
+    yesterday = datetime.datetime.now(tz=datetime.timezone.utc) - datetime.timedelta(days=1)
+    return upload_datetime > yesterday
+
+
 async def determine_action(distribution: str, session: aiohttp.ClientSession) -> Update | NoUpdate | Obsolete | Remove | Error:
     try:
         return await determine_action_no_error_handling(distribution, session)
@@ -663,6 +672,12 @@ async def determine_action_no_error_handling(
     latest_version = latest_release.version
     obsolete_since = await find_first_release_with_py_typed(pypi_info, session=session)
     if obsolete_since is None and latest_version in stub_info.version_spec:
+        if is_new_release(latest_release.upload_date):
+            stubs = os.environ.get("STUBS", "").strip()
+            if stubs:
+                stubs = f"{stubs} {latest_release.distribution}"
+            else:
+                stubs = latest_release.distribution
         return NoUpdate(stub_info.distribution, "up to date")
 
     relevant_version = obsolete_since.version if obsolete_since else latest_version
