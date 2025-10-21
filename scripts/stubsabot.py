@@ -46,6 +46,8 @@ STUBSABOT_LABEL = "bot: stubsabot"
 
 POLICY_MONTHS_DELTA = 6
 
+DEFAULT_STUBTEST_FILE = Path("/tmp/stubs.txt")  # Sync with `stubsabot` github job
+
 
 class ActionLevel(enum.IntEnum):
     def __new__(cls, value: int, doc: str) -> Self:
@@ -629,6 +631,17 @@ def is_new_release(upload_datetime: datetime.datetime) -> bool:
     return upload_datetime > yesterday
 
 
+def append_stub_to_stubtest_list(distribution: str, *, file_path: Path = DEFAULT_STUBTEST_FILE) -> None:
+    if Path.exists(file_path):
+        with Path.open(file_path, "r") as f:
+            stubs = f.read().strip()
+    else:
+        stubs = ""
+    stubs = f"{stubs} {distribution}" if stubs else distribution
+    with Path.open(file_path, "w") as f:
+        f.write(stubs)
+
+
 async def determine_action(distribution: str, session: aiohttp.ClientSession) -> Update | NoUpdate | Obsolete | Remove | Error:
     try:
         return await determine_action_no_error_handling(distribution, session)
@@ -673,11 +686,7 @@ async def determine_action_no_error_handling(
     obsolete_since = await find_first_release_with_py_typed(pypi_info, session=session)
     if obsolete_since is None and latest_version in stub_info.version_spec:
         if is_new_release(latest_release.upload_date):
-            stubs = os.environ.get("STUBS", "").strip()
-            if stubs:
-                stubs = f"{stubs} {latest_release.distribution}"
-            else:
-                stubs = latest_release.distribution
+            append_stub_to_stubtest_list(latest_release.distribution)
         return NoUpdate(stub_info.distribution, "up to date")
 
     relevant_version = obsolete_since.version if obsolete_since else latest_version

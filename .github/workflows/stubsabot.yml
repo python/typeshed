@@ -42,6 +42,7 @@ jobs:
         id: runstubsabot
         run: |
           GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} python scripts/stubsabot.py --action-level everything
+          STUBS=$(cat /tmp/stubs.txt)
           echo "Stubs that should be tested by stubtest: $STUBS"
           echo "STUBS=$STUBS" >> $GITHUB_OUTPUT
 
