@@ -4,7 +4,7 @@ from _typeshed import FileDescriptorOrPath, Unused
 from abc import ABC, abstractmethod
 from collections.abc import AsyncGenerator, AsyncIterator, Awaitable, Callable, Generator, Iterator
 from types import TracebackType
-from typing import IO, Any, Generic, Protocol, TypeVar, overload, runtime_checkable, type_check_only
+from typing import Any, Generic, Protocol, TypeVar, overload, runtime_checkable, type_check_only
 from typing_extensions import ParamSpec, Self, TypeAlias
 
 __all__ = [
@@ -30,7 +30,6 @@ if sys.version_info >= (3, 11):
 
 _T = TypeVar("_T")
 _T_co = TypeVar("_T_co", covariant=True)
-_T_io = TypeVar("_T_io", bound=IO[str] | None)
 _ExitT_co = TypeVar("_ExitT_co", covariant=True, bound=bool | None, default=bool | None)
 _F = TypeVar("_F", bound=Callable[..., Any])
 _G_co = TypeVar("_G_co", bound=Generator[Any, Any, Any] | AsyncGenerator[Any, Any], covariant=True)
