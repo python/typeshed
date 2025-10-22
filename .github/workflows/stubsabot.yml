@@ -40,11 +40,20 @@ jobs:
         run: uv pip install -r requirements-tests.txt --system
       - name: Run stubsabot
         id: runstubsabot
+        shell: bash
         run: |
-          GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} python scripts/stubsabot.py --action-level everything
-          STUBS=$(cat /tmp/stubs.txt)
-          echo "Stubs that should be tested by stubtest: $STUBS"
+          # Parse stubsabot.py output to find stubs that should be tested.
+          set -o pipefail
+          exec 5>&1
+          STUBS=$(script -qfc "GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} python scripts/stubsabot.py --action-level everything" /dev/null \
+            | tee >(cat - >&5) \
+            | sed -r "s/\x1B\[[0-9;]*[mK]//g" \
+            | grep 'should be tested by stubsabot' \
+            | awk '{print $1}' \
+            | xargs)
+          exit_code=$?
           echo "STUBS=$STUBS" >> $GITHUB_OUTPUT
+          exit $exit_code
 
   stubtest-third-party:
     name: "stubtest: third party"
