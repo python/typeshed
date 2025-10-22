@@ -11,6 +11,7 @@ _T = TypeVar("_T")
 
 __version__: str
 
+# Sync with regex.__init__.__all__
 __all__ = [
     "cache_all",
     "compile",
