@@ -16,7 +16,6 @@ env:
 jobs:
   stubsabot:
     name: Upgrade stubs with stubsabot
-    if: github.repository == 'python/typeshed'
     runs-on: ubuntu-latest
     outputs:
       STUBS: ${{ steps.runstubsabot.outputs.STUBS }}
@@ -57,7 +56,6 @@ jobs:
 
   stubtest-third-party:
     name: "stubtest: third party"
-    if: github.repository == 'python/typeshed'
     runs-on: ${{ matrix.os }}
     needs: [stubsabot]
     strategy:
@@ -123,7 +121,7 @@ jobs:
     name: Create issue on failure
     runs-on: ubuntu-latest
     needs: [stubsabot, stubtest-third-party]
-    if: ${{ github.repository == 'python/typeshed' && always() && (needs.stubsabot.result == 'failure' || needs.stubtest-third-party.result == 'failure') }}
+    if: ${{ always() && (needs.stubsabot.result == 'failure' || needs.stubtest-third-party.result == 'failure') }}
     steps:
       - uses: actions/github-script@v8
         with:
