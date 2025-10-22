@@ -119,7 +119,7 @@ W = RegexFlag.W
 X = RegexFlag.X
 T = RegexFlag.T
 
-DEFAULT_VERSION = VERSION0
+DEFAULT_VERSION = VERSION1
 
 _Lexicon: TypeAlias = list[tuple[AnyStr, Callable[[Scanner[AnyStr], AnyStr], Any]]]
 
