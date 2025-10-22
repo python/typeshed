@@ -674,7 +674,7 @@ async def determine_action_no_error_handling(
     if obsolete_since is None and latest_version in stub_info.version_spec:
         if is_new_release(latest_release.upload_date):
             # Next print should be parsed by github action, see `stubsabot.yml`
-            print(colored(f"{stub_info.distribution} should be tested by stubsabot", "blue"))
+            print(colored(f"{stub_info.distribution} should be tested by stubtest", "blue"))
         return NoUpdate(stub_info.distribution, "up to date")
 
     relevant_version = obsolete_since.version if obsolete_since else latest_version
