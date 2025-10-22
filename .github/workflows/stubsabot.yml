@@ -41,7 +41,7 @@ jobs:
           # Parse stubsabot.py output to find stubs that should be tested.
           set -o pipefail
           exec 5>&1
-          STUBS=$(script -qfc "GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} python scripts/stubsabot.py --action-level everything" /dev/null \
+          STUBS=$(script -qfc "GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} python scripts/stubsabot.py --action-level nothing" /dev/null \
             | tee >(cat - >&5) \
             | sed -r "s/\x1B\[[0-9;]*[mK]//g" \
             | grep 'should be tested by stubsabot' \
