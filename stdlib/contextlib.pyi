@@ -143,6 +143,7 @@ class suppress(AbstractContextManager[None, bool]):
 # This is trying to describe what is needed for (most?) uses
 # of `redirect_stdout` and `redirect_stderr`.
 # https://github.com/python/typeshed/issues/14903
+@type_check_only
 class _SupportsRedirect(Protocol):
     def write(self, s: str, /) -> int: ...
     def flush(self) -> None: ...
