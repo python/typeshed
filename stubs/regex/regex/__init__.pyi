@@ -1,4 +1,4 @@
-from regex._main import *
+from ._main import *
 
 # Sync with regex._main.__all__
 __all__ = [

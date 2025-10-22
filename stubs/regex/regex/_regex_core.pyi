@@ -3,7 +3,7 @@ from collections.abc import Callable
 from typing import Any, AnyStr, Generic
 from typing_extensions import TypeAlias
 
-from regex import Pattern
+from ._main import Pattern
 
 __all__ = [
     "A",
