@@ -5,7 +5,7 @@ from abc import ABC, abstractmethod
 from collections.abc import AsyncGenerator, AsyncIterator, Awaitable, Callable, Generator, Iterator
 from types import TracebackType
 from typing import IO, Any, Generic, Protocol, TypeVar, overload, runtime_checkable, type_check_only
-from typing_extensions import ParamSpec, Self, TypeAlias
+from typing_extensions import Never, ParamSpec, Self, TypeAlias
 
 __all__ = [
     "contextmanager",
@@ -32,9 +32,9 @@ _T = TypeVar("_T")
 _T_co = TypeVar("_T_co", covariant=True)
 _T_io = TypeVar("_T_io", bound=IO[str] | None)
 _ExitT_co = TypeVar("_ExitT_co", covariant=True, bound=bool | None, default=bool | None)
-_F = TypeVar("_F", bound=Callable[..., Any])
 _G_co = TypeVar("_G_co", bound=Generator[Any, Any, Any] | AsyncGenerator[Any, Any], covariant=True)
 _P = ParamSpec("_P")
+_R = TypeVar("_R")
 
 _SendT_contra = TypeVar("_SendT_contra", contravariant=True, default=None)
 _ReturnT_co = TypeVar("_ReturnT_co", covariant=True, default=None)
@@ -66,9 +66,16 @@ class AbstractAsyncContextManager(ABC, Protocol[_T_co, _ExitT_co]):  # type: ign
         self, exc_type: type[BaseException] | None, exc_value: BaseException | None, traceback: TracebackType | None, /
     ) -> _ExitT_co: ...
 
-class ContextDecorator:
+_ExcReturnT = TypeVar("_ExcReturnT", Never, None, default=Never)
+
+# __exit__ can suppress exceptions by returning a true value.
+# _ExcReturnT describes function's return type after an exception occurs:
+# - Never (default, the context manager never suppresses exceptions)
+# - None (the context manager may suppress exceptions)
+# See #13512.
+class ContextDecorator(Generic[_ExcReturnT]):
     def _recreate_cm(self) -> Self: ...
-    def __call__(self, func: _F) -> _F: ...
+    def __call__(self, func: Callable[_P, _R]) -> Callable[_P, _R | _ExcReturnT]: ...
 
 class _GeneratorContextManagerBase(Generic[_G_co]):
     # Ideally this would use ParamSpec, but that requires (*args, **kwargs), which this isn't. see #6676
@@ -81,29 +88,30 @@ class _GeneratorContextManagerBase(Generic[_G_co]):
 class _GeneratorContextManager(
     _GeneratorContextManagerBase[Generator[_T_co, _SendT_contra, _ReturnT_co]],
     AbstractContextManager[_T_co, bool | None],
-    ContextDecorator,
+    ContextDecorator[_ExcReturnT],  # _ExcReturnT is inferred by the type checker
+    Generic[_T_co, _SendT_contra, _ReturnT_co, _ExcReturnT, _ExitT_co],
 ):
     def __exit__(
         self, typ: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
-    ) -> bool | None: ...
+    ) -> _ExitT_co: ...
 
 def contextmanager(func: Callable[_P, Iterator[_T_co]]) -> Callable[_P, _GeneratorContextManager[_T_co]]: ...
 
 if sys.version_info >= (3, 10):
-    _AF = TypeVar("_AF", bound=Callable[..., Awaitable[Any]])
-
-    class AsyncContextDecorator:
+    # _ExcReturnT: see ContextDecorator.
+    class AsyncContextDecorator(Generic[_ExcReturnT]):
         def _recreate_cm(self) -> Self: ...
-        def __call__(self, func: _AF) -> _AF: ...
+        def __call__(self, func: Callable[_P, _R]) -> Callable[_P, _R | _ExcReturnT]: ...
 
     class _AsyncGeneratorContextManager(
         _GeneratorContextManagerBase[AsyncGenerator[_T_co, _SendT_contra]],
         AbstractAsyncContextManager[_T_co, bool | None],
-        AsyncContextDecorator,
+        AsyncContextDecorator[_ExcReturnT],  # _ExcReturnT is inferred by the type checker
+        Generic[_T_co, _SendT_contra, _ReturnT_co, _ExcReturnT, _ExitT_co],
     ):
         async def __aexit__(
             self, typ: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
-        ) -> bool | None: ...
+        ) -> _ExitT_co: ...
 
 else:
     class _AsyncGeneratorContextManager(
