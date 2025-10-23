@@ -256,7 +256,8 @@ class error(NamedTuple):
     col: int
     message: str
     type: type[BugBearChecker]
-    vars: tuple[Incomplete]
+    # Arguments for formatting the message, i.e. message.format(*vars).
+    vars: tuple[object, ...]
 
 class Error:
     message: str
