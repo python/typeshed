@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+
 from braintree.android_pay_card import AndroidPayCard
 from braintree.apple_pay_card import ApplePayCard
 from braintree.credit_card import CreditCard
