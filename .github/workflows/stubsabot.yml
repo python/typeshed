@@ -52,7 +52,7 @@ jobs:
           ' 2>&1 | while IFS= read -r line; do
               echo "$line" >&5
               clean=$(echo "$line" | sed -r "s/\x1B\[[0-9;]*[mK]//g")
-              if [[ $clean == *"should be tested by stubsabot"* ]]; then
+              if [[ $clean == *"should be tested by stubtest"* ]]; then
                   echo "${clean%% *}" >> "$STUBS_FILE"
               fi
           done
