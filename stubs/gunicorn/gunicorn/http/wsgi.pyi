@@ -4,7 +4,8 @@ import re
 import socket
 from _typeshed import ReadableBuffer
 from collections.abc import Callable
-from typing import Any, Never
+from typing import Any
+from typing_extensions import Never
 
 from gunicorn.config import Config
 from gunicorn.http import Request
