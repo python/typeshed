@@ -13,7 +13,7 @@ class Spew:
     def __call__(
         self,
         frame: FrameType,
-        event: Literal["call"] | Literal["line"] | Literal["return"] | Literal["exception"] | Literal["opcode"],
+        event: Literal["call", "line", "return", "exception", "opcode"],
         arg: Any,  # `arg` is not used inside the function, stub is set Any
     ) -> Self: ...
 
