@@ -8,6 +8,7 @@ _StatusType: TypeAlias = str
 _HeadersType: TypeAlias = Iterable[tuple[str, str]]
 
 _EnvironType: TypeAlias = MutableMapping[str, Any]  # See https://peps.python.org/pep-0333/
+
 class _StartResponseType(Protocol):
     def __call__(
         self, status: _StatusType, headers: _HeadersType, exc_info: OptExcInfo | None = ..., /

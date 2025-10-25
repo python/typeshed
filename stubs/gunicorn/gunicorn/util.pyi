@@ -2,7 +2,7 @@ import types
 from _typeshed import FileDescriptorLike, FileDescriptorOrPath, HasFileno, StrOrBytesPath
 from inspect import _IntrospectableCallable, _ParameterKind
 from socket import socket
-from typing import Any, Literal, NoReturn
+from typing import Literal, NoReturn
 from urllib.parse import SplitResult
 
 from ._types import _AddressType, _WSGIAppType
@@ -12,8 +12,8 @@ hop_headers: set[str]
 
 def load_entry_point(distribution: str, group: str, name: str) -> type[object]: ...
 def load_class(
-    uri: str | type[Logger] | type[SyncWorker], default: str = "gunicorn.workers.sync.SyncWorker", section: str = "gunicorn.workers"
-) -> type[Logger] | type[SyncWorker]: ...
+    uri: type[Logger | SyncWorker] | str, default: str = "gunicorn.workers.sync.SyncWorker", section: str = "gunicorn.workers"
+) -> type[Logger | SyncWorker]: ...
 
 positionals: tuple[Literal[_ParameterKind.POSITIONAL_ONLY], Literal[_ParameterKind.POSITIONAL_OR_KEYWORD]]
 
