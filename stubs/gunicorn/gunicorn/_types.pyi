@@ -1,14 +1,18 @@
 ### This .pyi file is a helper for centralized storage types that are reused across different runtime modules. ###
-from _typeshed import FileDescriptor
+from _typeshed import FileDescriptor, OptExcInfo
 from collections.abc import Awaitable, Callable, Iterable, MutableMapping
-from typing import Any
+from typing import Any, Protocol
 from typing_extensions import LiteralString, TypeAlias
 
 _StatusType: TypeAlias = str
 _HeadersType: TypeAlias = Iterable[tuple[str, str]]
 
 _EnvironType: TypeAlias = MutableMapping[str, Any]  # See https://peps.python.org/pep-0333/
-_StartResponseType: TypeAlias = Callable[[_StatusType, _HeadersType], None]
+class _StartResponseType(Protocol):
+    def __call__(
+        self, status: _StatusType, headers: _HeadersType, exc_info: OptExcInfo | None = ..., /
+    ) -> Callable[[bytes], object]: ...
+
 _ResponseBodyType: TypeAlias = Iterable[bytes]
 _WSGIAppType: TypeAlias = Callable[[_EnvironType, _StartResponseType], _ResponseBodyType]  # noqa: Y047
 
