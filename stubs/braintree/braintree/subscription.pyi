@@ -8,6 +8,7 @@ from braintree.descriptor import Descriptor
 from braintree.discount import Discount
 from braintree.error_result import ErrorResult
 from braintree.resource import Resource
+from braintree.resource_collection import ResourceCollection
 from braintree.subscription_status_event import SubscriptionStatusEvent
 from braintree.successful_result import SuccessfulResult
 from braintree.transaction import Transaction
@@ -42,7 +43,7 @@ class Subscription(Resource):
     @staticmethod
     def cancel(subscription_id: str) -> SuccessfulResult | ErrorResult | None: ...
     @staticmethod
-    def search(*query): ...
+    def search(*query) -> ResourceCollection: ...
     @staticmethod
     def update_signature(): ...
     price: Decimal
