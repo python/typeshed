@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from datetime import datetime
 from decimal import Decimal
 from typing import Final
 
@@ -178,6 +179,7 @@ class Transaction(Resource):
     payment_facilitator: PaymentFacilitator
     transfer: Transfer
     subscription_id: str
+    created_at: datetime
     def __init__(self, gateway, attributes) -> None: ...
     @property
     def vault_billing_address(self): ...
