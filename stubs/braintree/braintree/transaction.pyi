@@ -177,6 +177,7 @@ class Transaction(Resource):
     network_transaction_id: Incomplete
     payment_facilitator: PaymentFacilitator
     transfer: Transfer
+    subscription_id: str
     def __init__(self, gateway, attributes) -> None: ...
     @property
     def vault_billing_address(self): ...
