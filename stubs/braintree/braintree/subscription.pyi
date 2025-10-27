@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from datetime import date
 from decimal import Decimal
 from typing import Final
 
@@ -46,6 +47,7 @@ class Subscription(Resource):
     def update_signature(): ...
     price: Decimal
     balance: Decimal
+    next_billing_date: date
     next_billing_period_amount: Decimal
     add_ons: list[AddOn]
     descriptor: Descriptor
