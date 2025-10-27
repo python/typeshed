@@ -5,8 +5,10 @@ from typing import Final
 from braintree.add_on import AddOn
 from braintree.descriptor import Descriptor
 from braintree.discount import Discount
+from braintree.error_result import ErrorResult
 from braintree.resource import Resource
 from braintree.subscription_status_event import SubscriptionStatusEvent
+from braintree.successful_result import SuccessfulResult
 from braintree.transaction import Transaction
 
 class Subscription(Resource):
@@ -27,7 +29,7 @@ class Subscription(Resource):
         Pending: Final = "Pending"
 
     @staticmethod
-    def create(params=None): ...
+    def create(params: dict[str, Incomplete] | None = None) -> SuccessfulResult | ErrorResult | None: ...
     @staticmethod
     def create_signature(): ...
     @staticmethod
