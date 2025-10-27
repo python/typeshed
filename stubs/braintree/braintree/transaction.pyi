@@ -26,6 +26,7 @@ from braintree.payment_facilitator import PaymentFacilitator
 from braintree.paypal_account import PayPalAccount
 from braintree.paypal_here import PayPalHere
 from braintree.resource import Resource
+from braintree.resource_collection import ResourceCollection
 from braintree.risk_data import RiskData
 from braintree.samsung_pay_card import SamsungPayCard
 from braintree.sepa_direct_debit_account import SepaDirectDebitAccount
@@ -108,7 +109,7 @@ class Transaction(Resource):
     @staticmethod
     def sale(params=None): ...
     @staticmethod
-    def search(*query): ...
+    def search(*query) -> ResourceCollection: ...
     @staticmethod
     def submit_for_settlement(transaction_id, amount=None, params=None): ...
     @staticmethod
