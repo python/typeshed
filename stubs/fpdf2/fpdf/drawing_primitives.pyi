@@ -1,7 +1,7 @@
 import decimal
 from collections.abc import Callable, Sequence
-from typing import Any, ClassVar, Literal, NamedTuple, TypeAlias, TypeVar, overload, type_check_only
-from typing_extensions import Self
+from typing import Any, ClassVar, Literal, NamedTuple, TypeVar, overload, type_check_only
+from typing_extensions import Self, TypeAlias
 
 from .drawing import Renderable
 

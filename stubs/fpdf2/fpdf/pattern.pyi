@@ -1,8 +1,8 @@
 from _typeshed import Incomplete, Unused
 from abc import ABC
 from collections.abc import Iterable
-from typing import Final, Literal, Never
-from typing_extensions import Self, TypeAlias
+from typing import Final, Literal
+from typing_extensions import Never, Self, TypeAlias
 
 from .drawing import BoundingBox, DeviceCMYK, DeviceGray, DeviceRGB, Transform
 from .enums import GradientSpreadMethod
