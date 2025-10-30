@@ -1,4 +1,3 @@
-import socket
 from types import FrameType
 from typing import ClassVar
 
