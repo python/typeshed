@@ -170,6 +170,9 @@ sys.ps1  # Available in interactive mode
 sys.ps2  # Available in interactive mode
 sys.tracebacklimit  # Must be set first
 
+# This is only present if Python was built with zlib-ng.
+(zlib\.ZLIBNG_VERSION)?
+
 
 # ==========================================================
 # Other allowlist entries that cannot or should not be fixed

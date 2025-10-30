@@ -159,10 +159,6 @@ multiprocessing.managers._BaseSetProxy.pop
 (_?hashlib.(openssl_)?shake_128)?
 (_?hashlib.(openssl_)?shake_256)?
 
-# These depend on how Python was built and may not always be available
-zlib.ZLIBNG_VERSION
-compression.zlib.ZLIBNG_VERSION
-
 
 # =============================================================
 # Allowlist entries that cannot or should not be fixed; >= 3.13

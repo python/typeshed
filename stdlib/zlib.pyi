@@ -28,7 +28,7 @@ Z_TREES: Final = 6
 
 if sys.version_info >= (3, 14):
     # Available when zlib was built with zlib-ng
-    ZLIBNG_VERSION: Final[str]  # type: ignore[attr-defined]
+    ZLIBNG_VERSION: Final[str]
 
 class error(Exception): ...
 
