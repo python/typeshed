@@ -172,6 +172,7 @@ sys.tracebacklimit  # Must be set first
 
 # This is only present if Python was built with zlib-ng.
 (zlib\.ZLIBNG_VERSION)?
+(compression\.zlib\.ZLIBNG_VERSION)?
 
 
 # ==========================================================
