@@ -10,6 +10,7 @@ from typing_extensions import Self, deprecated
 from ._fonttools_shims import _TTFont
 from .drawing import DeviceGray, DeviceRGB, Number
 from .enums import Align, TextEmphasis
+from .fpdf import FPDF
 from .syntax import PDFObject
 
 LOGGER: Logger
@@ -91,7 +92,7 @@ class CoreFont:
     cw: int
     fontkey: str
     emphasis: TextEmphasis
-    def __init__(self, fpdf, fontkey: str, style: int) -> None: ...
+    def __init__(self, i: int, fontkey: str, style: int) -> None: ...
     def get_text_width(self, text: str, font_size_pt: int, _: Unused) -> float: ...
     def encode_text(self, text: str) -> str: ...
 
@@ -102,7 +103,7 @@ class TTFFont:
         "name",
         "desc",
         "glyph_ids",
-        "hbfont",
+        "_hbfont",
         "sp",
         "ss",
         "up",
@@ -116,11 +117,17 @@ class TTFFont:
         "cmap",
         "ttfont",
         "missing_glyphs",
+        "biggest_size_pt",
+        "color_font",
+        "unicode_range",
+        "palette_index",
     )
     i: int
     type: str
     ttffile: Incomplete
+    _hbfont: HarfBuzzFont | None
     fontkey: str
+    biggest_size_pt: float
     ttfont: _TTFont
     scale: float
     desc: PDFFontDescriptor
@@ -135,10 +142,18 @@ class TTFFont:
     ss: int
     emphasis: TextEmphasis
     subset: SubsetMap
-    hbfont: HarfBuzzFont | None  # Not always defined.
-    def __init__(self, fpdf, font_file_path, fontkey: str, style: int) -> None: ...
+    palette_index: int
+    color_font: Incomplete | None
+    unicode_range: Incomplete  # not set, but part of __slots__
+
+    def __init__(
+        self, fpdf: FPDF, font_file_path, fontkey: str, style: int, unicode_range=None, axes_dict=None, palette_index=None
+    ) -> None: ...
+    @property
+    def hbfont(self) -> HarfBuzzFont: ...
     def __deepcopy__(self, memo) -> Self: ...
     def close(self) -> None: ...
+    def escape_text(self, text: str) -> str: ...
     def get_text_width(self, text: str, font_size_pt: int, text_shaping_params): ...
     def shaped_text_width(self, text: str, font_size_pt: int, text_shaping_params): ...
     def perform_harfbuzz_shaping(self, text: str, font_size_pt: int, text_shaping_params): ...

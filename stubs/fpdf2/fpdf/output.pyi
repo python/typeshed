@@ -1,11 +1,15 @@
 from _typeshed import Incomplete, Unused
-from collections import defaultdict
+from collections import OrderedDict, defaultdict
 from logging import Logger
+from re import Pattern
 from typing import Final
 
 from .annotations import AnnotationDict
+from .drawing import PaintSoftMask
 from .encryption import StandardSecurityHandler
 from .enums import OutputIntentSubType, PageLabelStyle, PDFResourceType
+from .font_type_3 import Type3Font
+from .fonts import CoreFont, TTFFont
 from .fpdf import FPDF
 from .image_datastructures import RasterImageInfo
 from .line_break import TotalPagesSubstitutionFragment
@@ -40,6 +44,27 @@ class CIDSystemInfo(PDFObject):
     registry: PDFString
     ordering: PDFString
     supplement: int
+
+class PDFType3Font(PDFObject):
+    type: Name
+    name: Name
+    subtype: Name
+    font_b_box: str
+    font_matrix: str
+    first_char: int
+    last_char: int
+    resources: str | None
+    to_unicode: Incomplete | None
+
+    def __init__(self, font3: Type3Font) -> None: ...
+    @property
+    def char_procs(self) -> str: ...
+    @property
+    def encoding(self) -> str: ...
+    @property
+    def widths(self) -> str: ...
+    def generate_resources(self, img_objs_per_index, gfxstate_objs_per_name, pattern_objs_per_name) -> None: ...
+    def differences_table(self) -> str: ...
 
 class PDFInfo(PDFObject):
     title: str | None
@@ -240,13 +265,31 @@ class OutputIntentDictionary:
     def serialize(self, _security_handler: StandardSecurityHandler | None = None, _obj_id=None): ...
 
 class ResourceCatalog:
+    GS_REGEX: Final[Pattern[str]]
+    IMG_REGEX: Final[Pattern[str]]
+    PATTERN_FILL_REGEX: Final[Pattern[str]]
+    PATTERN_STROKE_REGEX: Final[Pattern[str]]
+    FONT_REGEX: Final[Pattern[str]]
+
     resources: defaultdict[PDFResourceType, dict[Incomplete, Incomplete]]
     resources_per_page: defaultdict[tuple[int, PDFResourceType], set[Incomplete]]
+    graphics_styles: OrderedDict[Incomplete, Incomplete]
+    soft_mask_xobjects: list[Incomplete]
+    form_xobjects: list[Incomplete]
+    last_reserved_object_id: int
+    font_registry: dict[str, CoreFont | TTFFont]
+    next_xobject_index: int
 
-    def add(self, resource_type: PDFResourceType, resource, page_number: int) -> Incomplete | None: ...
+    def add(self, resource_type: PDFResourceType, resource, page_number: int) -> int | None: ...
+    def register_graphics_style(self, style) -> Name | None: ...
+    def register_soft_mask(self, soft_mask: PaintSoftMask) -> int: ...
+    def register_blend_form(self, blend_group) -> int: ...
+    def scan_stream(self, rendered: str) -> list[tuple[PDFResourceType, str]]: ...
+    def index_stream_resources(self, rendered: str, page_number: int) -> None: ...
     def get_items(self, resource_type: PDFResourceType): ...
     def get_resources_per_page(self, page_number: int, resource_type: PDFResourceType): ...
     def get_used_resources(self, resource_type: PDFResourceType) -> set[Incomplete]: ...
+    def get_font_from_family(self, font_family: str, font_style: str = "") -> CoreFont | TTFFont: ...
 
 class OutputProducer:
     fpdf: FPDF
@@ -269,3 +312,5 @@ def stream_content_for_raster_image(
     scale: float = 1,
     pdf_height_to_flip: float | None = None,
 ) -> str: ...
+def soft_mask_path_to_xobject(path, resource_catalog: ResourceCatalog) -> PDFContentStream: ...
+def blend_group_to_xobject(group, resource_catalog: ResourceCatalog) -> PDFContentStream: ...

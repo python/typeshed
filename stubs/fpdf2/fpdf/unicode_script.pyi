@@ -165,6 +165,13 @@ class UnicodeScript(IntEnum):
     VITHKUQI = 160
     KAWI = 161
     NAG_MUNDARI = 162
+    GARAY = 163
+    GURUNG_KHEMA = 164
+    KIRAT_RAI = 165
+    OL_ONAL = 166
+    SUNUWAR = 167
+    TODHRI = 168
+    TULU_TIGALARI = 169
     UNKNOWN = 999
 
 UNICODE_RANGE_TO_SCRIPT: Final[tuple[tuple[int, int, int]]]
