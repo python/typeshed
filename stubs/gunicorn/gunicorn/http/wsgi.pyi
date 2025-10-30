@@ -5,6 +5,7 @@ import socket
 from _typeshed import ReadableBuffer
 from collections.abc import Callable
 from typing import Any
+from typing_extensions import Never
 
 from gunicorn.config import Config
 from gunicorn.http import Request
@@ -21,7 +22,7 @@ class FileWrapper:
     close: Callable[[], None] | None
 
     def __init__(self, filelike: io.IOBase, blksize: int = 8192) -> None: ...
-    def __getitem__(self, key: Any) -> bytes: ...
+    def __getitem__(self, key: Never) -> bytes: ...
 
 class WSGIErrorsWrapper(io.RawIOBase):
     streams: list[io.TextIOBase]
