@@ -42,6 +42,7 @@ from typing import (  # noqa: Y022,UP035
     Any,
     BinaryIO,
     ClassVar,
+    Final,
     Generic,
     Mapping,
     MutableMapping,
@@ -191,7 +192,7 @@ class type:
     def __basicsize__(self) -> int: ...
     # type.__dict__ is read-only at runtime, but that can't be expressed currently.
     # See https://github.com/python/typeshed/issues/11033 for a discussion.
-    __dict__: ClassVar[types.MappingProxyType[str, Any]]  # type: ignore[override]
+    __dict__: Final[types.MappingProxyType[str, Any]]  # type: ignore[override]
     @property
     def __dictoffset__(self) -> int: ...
     @property
