@@ -1051,57 +1051,6 @@ class tuple(Sequence[_T_co]):
     def index(self, value: Any, start: SupportsIndex = 0, stop: SupportsIndex = sys.maxsize, /) -> int: ...
     def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
 
-# Doesn't exist at runtime, but deleting this breaks mypy and pyright. See:
-# https://github.com/python/typeshed/issues/7580
-# https://github.com/python/mypy/issues/8240
-# Obsolete, use types.FunctionType instead.
-@final
-@type_check_only
-class function:
-    # Make sure this class definition stays roughly in line with `types.FunctionType`
-    @property
-    def __closure__(self) -> tuple[CellType, ...] | None: ...
-    __code__: CodeType
-    __defaults__: tuple[Any, ...] | None
-    __dict__: dict[str, Any]
-    @property
-    def __globals__(self) -> dict[str, Any]: ...
-    __name__: str
-    __qualname__: str
-    __annotations__: dict[str, AnnotationForm]
-    if sys.version_info >= (3, 14):
-        __annotate__: AnnotateFunc | None
-    __kwdefaults__: dict[str, Any] | None
-    if sys.version_info >= (3, 10):
-        @property
-        def __builtins__(self) -> dict[str, Any]: ...
-    if sys.version_info >= (3, 12):
-        __type_params__: tuple[TypeVar | ParamSpec | TypeVarTuple, ...]
-
-    __module__: str
-    if sys.version_info >= (3, 13):
-        def __new__(
-            cls,
-            code: CodeType,
-            globals: dict[str, Any],
-            name: str | None = None,
-            argdefs: tuple[object, ...] | None = None,
-            closure: tuple[CellType, ...] | None = None,
-            kwdefaults: dict[str, object] | None = None,
-        ) -> Self: ...
-    else:
-        def __new__(
-            cls,
-            code: CodeType,
-            globals: dict[str, Any],
-            name: str | None = None,
-            argdefs: tuple[object, ...] | None = None,
-            closure: tuple[CellType, ...] | None = None,
-        ) -> Self: ...
-
-    # mypy uses `builtins.function.__get__` to represent methods, properties, and getset_descriptors so we type the return as Any.
-    def __get__(self, instance: object, owner: type | None = None, /) -> Any: ...
-
 @disjoint_base
 class list(MutableSequence[_T]):
     @overload
