@@ -30,6 +30,7 @@
         "stubs/boltons",
         "stubs/braintree",
         "stubs/cffi",
+        "stubs/colorful",
         "stubs/dateparser",
         "stubs/defusedxml",
         "stubs/docker",
