@@ -402,7 +402,6 @@ _T = TypeVar("_T")
 _FT = TypeVar("_FT", bound=Callable[..., Any] | type)
 
 # These type variables are used by the container types.
-_S = TypeVar("_S")
 _KT = TypeVar("_KT")  # Key type.
 _VT = TypeVar("_VT")  # Value type.
 _T_co = TypeVar("_T_co", covariant=True)  # Any type covariant containers.
