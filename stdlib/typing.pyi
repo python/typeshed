@@ -4,7 +4,6 @@
 import collections  # noqa: F401  # pyright: ignore[reportUnusedImport]
 import sys
 import typing_extensions
-from _collections_abc import dict_items, dict_keys, dict_values
 from _typeshed import IdentityFunction, ReadableBuffer, SupportsGetItem, SupportsGetItemViewable, SupportsKeysAndGetItem, Viewable
 from abc import ABCMeta, abstractmethod
 from re import Match as Match, Pattern as Pattern
@@ -20,7 +19,7 @@ from types import (
     TracebackType,
     WrapperDescriptorType,
 )
-from typing_extensions import Never as _Never, ParamSpec as _ParamSpec, deprecated
+from typing_extensions import ParamSpec as _ParamSpec, deprecated
 
 if sys.version_info >= (3, 14):
     from _typeshed import EvaluateFunc
