@@ -48,13 +48,7 @@ if sys.platform != "linux" and sys.platform != "win32":
         ident: int
         udata: Any
         def __init__(
-            self,
-            ident: FileDescriptorLike,
-            filter: int = ...,
-            flags: int = ...,
-            fflags: int = ...,
-            data: Any = ...,
-            udata: Any = ...,
+            self, ident: FileDescriptorLike, filter: int = ..., flags: int = ..., fflags: int = 0, data: Any = 0, udata: Any = 0
         ) -> None: ...
         __hash__: ClassVar[None]  # type: ignore[assignment]
 
@@ -114,12 +108,12 @@ if sys.platform != "linux" and sys.platform != "win32":
 if sys.platform == "linux":
     @final
     class epoll:
-        def __new__(self, sizehint: int = ..., flags: int = ...) -> Self: ...
+        def __new__(self, sizehint: int = -1, flags: int = 0) -> Self: ...
         def __enter__(self) -> Self: ...
         def __exit__(
             self,
             exc_type: type[BaseException] | None = None,
-            exc_value: BaseException | None = ...,
+            exc_value: BaseException | None = None,
             exc_tb: TracebackType | None = None,
             /,
         ) -> None: ...
@@ -160,4 +154,4 @@ if sys.platform != "linux" and sys.platform != "darwin" and sys.platform != "win
         def register(self, fd: FileDescriptorLike, eventmask: int = ...) -> None: ...
         def modify(self, fd: FileDescriptorLike, eventmask: int = ...) -> None: ...
         def unregister(self, fd: FileDescriptorLike) -> None: ...
-        def poll(self, timeout: float | None = ...) -> list[tuple[int, int]]: ...
+        def poll(self, timeout: float | None = None) -> list[tuple[int, int]]: ...

@@ -1023,10 +1023,10 @@ def fdopen(
     mode: OpenTextMode = "r",
     buffering: int = -1,
     encoding: str | None = None,
-    errors: str | None = ...,
-    newline: str | None = ...,
-    closefd: bool = ...,
-    opener: _Opener | None = ...,
+    errors: str | None = None,
+    newline: str | None = None,
+    closefd: bool = True,
+    opener: _Opener | None = None,
 ) -> TextIOWrapper: ...
 @overload
 def fdopen(
@@ -1036,8 +1036,8 @@ def fdopen(
     encoding: None = None,
     errors: None = None,
     newline: None = None,
-    closefd: bool = ...,
-    opener: _Opener | None = ...,
+    closefd: bool = True,
+    opener: _Opener | None = None,
 ) -> FileIO: ...
 @overload
 def fdopen(
@@ -1047,8 +1047,8 @@ def fdopen(
     encoding: None = None,
     errors: None = None,
     newline: None = None,
-    closefd: bool = ...,
-    opener: _Opener | None = ...,
+    closefd: bool = True,
+    opener: _Opener | None = None,
 ) -> BufferedRandom: ...
 @overload
 def fdopen(
@@ -1058,8 +1058,8 @@ def fdopen(
     encoding: None = None,
     errors: None = None,
     newline: None = None,
-    closefd: bool = ...,
-    opener: _Opener | None = ...,
+    closefd: bool = True,
+    opener: _Opener | None = None,
 ) -> BufferedWriter: ...
 @overload
 def fdopen(
@@ -1069,8 +1069,8 @@ def fdopen(
     encoding: None = None,
     errors: None = None,
     newline: None = None,
-    closefd: bool = ...,
-    opener: _Opener | None = ...,
+    closefd: bool = True,
+    opener: _Opener | None = None,
 ) -> BufferedReader: ...
 @overload
 def fdopen(
@@ -1080,8 +1080,8 @@ def fdopen(
     encoding: None = None,
     errors: None = None,
     newline: None = None,
-    closefd: bool = ...,
-    opener: _Opener | None = ...,
+    closefd: bool = True,
+    opener: _Opener | None = None,
 ) -> BinaryIO: ...
 @overload
 def fdopen(
@@ -1089,10 +1089,10 @@ def fdopen(
     mode: str,
     buffering: int = -1,
     encoding: str | None = None,
-    errors: str | None = ...,
-    newline: str | None = ...,
-    closefd: bool = ...,
-    opener: _Opener | None = ...,
+    errors: str | None = None,
+    newline: str | None = None,
+    closefd: bool = True,
+    opener: _Opener | None = None,
 ) -> IO[Any]: ...
 def close(fd: int) -> None: ...
 def closerange(fd_low: int, fd_high: int, /) -> None: ...
@@ -1481,12 +1481,12 @@ else:
         env: _ExecEnv,
         /,
         *,
-        file_actions: Sequence[tuple[Any, ...]] | None = ...,
+        file_actions: Sequence[tuple[Any, ...]] | None = (),
         setpgroup: int | None = ...,
-        resetids: bool = ...,
-        setsid: bool = ...,
-        setsigmask: Iterable[int] = ...,
-        setsigdef: Iterable[int] = ...,
+        resetids: bool = False,
+        setsid: bool = False,
+        setsigmask: Iterable[int] = (),
+        setsigdef: Iterable[int] = (),
         scheduler: tuple[Any, sched_param] | None = ...,
     ) -> int: ...
     def posix_spawnp(
@@ -1495,12 +1495,12 @@ else:
         env: _ExecEnv,
         /,
         *,
-        file_actions: Sequence[tuple[Any, ...]] | None = ...,
+        file_actions: Sequence[tuple[Any, ...]] | None = (),
         setpgroup: int | None = ...,
-        resetids: bool = ...,
-        setsid: bool = ...,
-        setsigmask: Iterable[int] = ...,
-        setsigdef: Iterable[int] = ...,
+        resetids: bool = False,
+        setsid: bool = False,
+        setsigmask: Iterable[int] = (),
+        setsigdef: Iterable[int] = (),
         scheduler: tuple[Any, sched_param] | None = ...,
     ) -> int: ...
     POSIX_SPAWN_OPEN: Final = 0
@@ -1587,12 +1587,12 @@ if sys.platform == "linux":
     MFD_HUGE_2GB: Final[int]
     MFD_HUGE_16GB: Final[int]
     def memfd_create(name: str, flags: int = ...) -> int: ...
-    def copy_file_range(src: int, dst: int, count: int, offset_src: int | None = ..., offset_dst: int | None = ...) -> int: ...
+    def copy_file_range(src: int, dst: int, count: int, offset_src: int | None = None, offset_dst: int | None = None) -> int: ...
 
 def waitstatus_to_exitcode(status: int) -> int: ...
 
 if sys.platform == "linux":
-    def pidfd_open(pid: int, flags: int = ...) -> int: ...
+    def pidfd_open(pid: int, flags: int = 0) -> int: ...
 
 if sys.version_info >= (3, 12) and sys.platform == "linux":
     PIDFD_NONBLOCK: Final = 2048
@@ -1616,8 +1616,8 @@ if sys.version_info >= (3, 10) and sys.platform == "linux":
         src: FileDescriptor,
         dst: FileDescriptor,
         count: int,
-        offset_src: int | None = ...,
-        offset_dst: int | None = ...,
+        offset_src: int | None = None,
+        offset_dst: int | None = None,
         flags: int = 0,
     ) -> int: ...
 
