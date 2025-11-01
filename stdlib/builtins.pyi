@@ -42,6 +42,7 @@ from typing import (  # noqa: Y022,UP035
     Any,
     BinaryIO,
     ClassVar,
+    Final,
     Generic,
     Mapping,
     MutableMapping,
@@ -189,8 +190,9 @@ class type:
     __bases__: tuple[type, ...]
     @property
     def __basicsize__(self) -> int: ...
-    @property
-    def __dict__(self) -> types.MappingProxyType[str, Any]: ...  # type: ignore[override]
+    # type.__dict__ is read-only at runtime, but that can't be expressed currently.
+    # See https://github.com/python/typeshed/issues/11033 for a discussion.
+    __dict__: Final[types.MappingProxyType[str, Any]]  # type: ignore[assignment]
     @property
     def __dictoffset__(self) -> int: ...
     @property
@@ -2058,6 +2060,10 @@ class BaseException:
     def __new__(cls, *args: Any, **kwds: Any) -> Self: ...
     def __setstate__(self, state: dict[str, Any] | None, /) -> None: ...
     def with_traceback(self, tb: TracebackType | None, /) -> Self: ...
+    # Necessary for security-focused static analyzers (e.g, pysa)
+    # See https://github.com/python/typeshed/pull/14900
+    def __str__(self) -> str: ...  # noqa: Y029
+    def __repr__(self) -> str: ...  # noqa: Y029
     if sys.version_info >= (3, 11):
         # only present after add_note() is called
         __notes__: list[str]
