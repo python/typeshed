@@ -1,7 +1,7 @@
 import datetime
 from _typeshed import Incomplete
 from collections.abc import Generator, Iterable, Iterator, Sequence
-from typing import Final, Literal
+from typing import Final, Literal, overload
 from typing_extensions import Self, TypeAlias
 
 from ._common import weekday as weekdaybase
@@ -112,6 +112,23 @@ class rrule(rrulebase):
 _RRule: TypeAlias = rrule
 
 class _iterinfo:
+    __slots__ = [
+        "rrule",
+        "lastyear",
+        "lastmonth",
+        "yearlen",
+        "nextyearlen",
+        "yearordinal",
+        "yearweekday",
+        "mmask",
+        "mrange",
+        "mdaymask",
+        "nmdaymask",
+        "wdaymask",
+        "wnomask",
+        "nwdaymask",
+        "eastermask",
+    ]
     rrule: _RRule
     def __init__(self, rrule: _RRule) -> None: ...
     yearlen: int | None
@@ -157,6 +174,35 @@ class rruleset(rrulebase):
     def exdate(self, exdate) -> None: ...
 
 class _rrulestr:
+    @overload
+    def __call__(
+        self,
+        s: str,
+        *,
+        forceset: Literal[True],
+        dtstart: datetime.date | None = None,
+        cache: bool | None = None,
+        unfold: bool = False,
+        compatible: bool = False,
+        ignoretz: bool = False,
+        tzids=None,
+        tzinfos=None,
+    ) -> rruleset: ...
+    @overload
+    def __call__(
+        self,
+        s: str,
+        *,
+        compatible: Literal[True],
+        dtstart: datetime.date | None = None,
+        cache: bool | None = None,
+        unfold: bool = False,
+        forceset: bool = False,
+        ignoretz: bool = False,
+        tzids=None,
+        tzinfos=None,
+    ) -> rruleset: ...
+    @overload
     def __call__(
         self,
         s: str,

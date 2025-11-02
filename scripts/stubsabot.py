@@ -22,12 +22,16 @@ from collections.abc import Callable, Iterator, Mapping, Sequence
 from dataclasses import dataclass, field
 from http import HTTPStatus
 from pathlib import Path
-from typing import Annotated, Any, ClassVar, NamedTuple, TypeVar
+from typing import Annotated, Any, ClassVar, Literal, NamedTuple, TypedDict, TypeVar
 from typing_extensions import Self, TypeAlias
+
+if sys.version_info >= (3, 11):
+    import tomllib
+else:
+    import tomli as tomllib
 
 import aiohttp
 import packaging.version
-import tomli
 import tomlkit
 from packaging.specifiers import Specifier
 from termcolor import colored
@@ -133,7 +137,7 @@ class Update:
     diff_analysis: DiffAnalysis | None
 
     def __str__(self) -> str:
-        return f"Updating {self.distribution} from '{self.old_version_spec}' to '{self.new_version_spec}'"
+        return f"{colored('updating', 'yellow')} from '{self.old_version_spec}' to '{self.new_version_spec}'"
 
     @property
     def new_version(self) -> str:
@@ -151,26 +155,35 @@ class Obsolete:
     links: dict[str, str]
 
     def __str__(self) -> str:
-        return f"Marking {self.distribution} as obsolete since {self.obsolete_since_version!r}"
+        return f"{colored('marking as obsolete', 'yellow')} since {self.obsolete_since_version!r}"
 
 
 @dataclass
 class Remove:
     distribution: str
-    reason: str
+    reason: Literal["ships py.typed file", "unmaintained"]
     links: dict[str, str]
 
     def __str__(self) -> str:
-        return f"Removing {self.distribution} as {self.reason}"
+        return f"{colored('removing', 'yellow')} ({self.reason})"
 
 
 @dataclass
 class NoUpdate:
     distribution: str
-    reason: str
+    reason: Literal["obsolete", "no longer updated", "up to date"]
 
     def __str__(self) -> str:
-        return f"Skipping {self.distribution}: {self.reason}"
+        return f"{colored('skipping', 'green')} ({self.reason})"
+
+
+@dataclass
+class Error:
+    distribution: str
+    message: str
+
+    def __str__(self) -> str:
+        return f"{colored('error', 'red')} ({self.message})"
 
 
 _T = TypeVar("_T")
@@ -191,7 +204,7 @@ async def with_extracted_archive(
         with zipfile.ZipFile(body) as zf:
             return handler(zf)
     elif packagetype == "sdist":
-        # sdist defaults to `.tar.gz` on Lunix and to `.zip` on Windows:
+        # sdist defaults to `.tar.gz` on Linux and to `.zip` on Windows:
         # https://docs.python.org/3.11/distutils/sourcedist.html
         if release_to_download.filename.endswith(".tar.gz"):
             with tarfile.open(fileobj=body, mode="r:gz") as zf:
@@ -313,57 +326,80 @@ def get_github_api_headers() -> Mapping[str, str]:
     return headers
 
 
+GitHost: TypeAlias = Literal["github", "gitlab"]
+
+
 @dataclass
-class GitHubInfo:
+class GitHostInfo:
+    host: GitHost
     repo_path: str
-    tags: list[dict[str, Any]] = field(repr=False)
+    tags: list[str] = field(repr=False)
 
 
-async def get_github_repo_info(session: aiohttp.ClientSession, stub_info: StubMetadata) -> GitHubInfo | None:
+async def get_host_repo_info(session: aiohttp.ClientSession, stub_info: StubMetadata) -> GitHostInfo | None:
     """
-    If the project represented by `stub_info` is hosted on GitHub,
-    return information regarding the project as it exists on GitHub.
+    If the project represented by `stub_info` is publicly hosted (e.g. on GitHub)
+    return information regarding the project as it exists on the public host.
 
     Else, return None.
     """
-    if stub_info.upstream_repository:
-        # We have various sanity checks for the upstream_repository field in ts_utils.metadata,
-        # so no need to repeat all of them here
-        split_url = urllib.parse.urlsplit(stub_info.upstream_repository)
-        if split_url.netloc == "github.com":
-            url_path = split_url.path.strip("/")
-            assert len(Path(url_path).parts) == 2
-            github_tags_info_url = f"https://api.github.com/repos/{url_path}/tags"
-            async with session.get(github_tags_info_url, headers=get_github_api_headers()) as response:
-                if response.status == HTTPStatus.OK:
-                    tags: list[dict[str, Any]] = await response.json()
-                    assert isinstance(tags, list)
-                    return GitHubInfo(repo_path=url_path, tags=tags)
+    if not stub_info.upstream_repository:
+        return None
+    # We have various sanity checks for the upstream_repository field in ts_utils.metadata,
+    # so no need to repeat all of them here
+    split_url = urllib.parse.urlsplit(stub_info.upstream_repository)
+    host = split_url.netloc.removesuffix(".com")
+    if host not in ("github", "gitlab"):
+        return None
+    url_path = split_url.path.strip("/")
+    assert len(Path(url_path).parts) == 2
+    if host == "github":
+        # https://docs.github.com/en/rest/git/tags
+        info_url = f"https://api.github.com/repos/{url_path}/tags"
+        headers = get_github_api_headers()
+    else:
+        assert host == "gitlab"
+        # https://docs.gitlab.com/api/tags/
+        project_id = urllib.parse.quote(url_path, safe="")
+        info_url = f"https://gitlab.com/api/v4/projects/{project_id}/repository/tags"
+        headers = None
+    async with session.get(info_url, headers=headers) as response:
+        if response.status == HTTPStatus.OK:
+            # Conveniently both GitHub and GitLab use the same key name.
+            tags = [tag["name"] for tag in await response.json()]
+            return GitHostInfo(host=host, repo_path=url_path, tags=tags)  # type: ignore[arg-type]
     return None
 
 
-class GitHubDiffInfo(NamedTuple):
+class GitHostDiffInfo(NamedTuple):
+    host: GitHost
     repo_path: str
     old_tag: str
     new_tag: str
-    diff_url: str
+
+    @property
+    def diff_url(self) -> str:
+        if self.host == "github":
+            return f"https://github.com/{self.repo_path}/compare/{self.old_tag}...{self.new_tag}"
+        else:
+            assert self.host == "gitlab"
+            return f"https://gitlab.com/{self.repo_path}/-/compare/{self.old_tag}...{self.new_tag}"
 
 
 async def get_diff_info(
     session: aiohttp.ClientSession, stub_info: StubMetadata, pypi_version: packaging.version.Version
-) -> GitHubDiffInfo | None:
+) -> GitHostDiffInfo | None:
     """Return a tuple giving info about the diff between two releases, if possible.
 
     Return `None` if the project isn't hosted on GitHub,
     or if a link pointing to the diff couldn't be found for any other reason.
     """
-    github_info = await get_github_repo_info(session, stub_info)
-    if github_info is None:
+    host_info = await get_host_repo_info(session, stub_info)
+    if host_info is None:
         return None
 
     versions_to_tags: dict[packaging.version.Version, str] = {}
-    for tag in github_info.tags:
-        tag_name = tag["name"]
+    for tag_name in host_info.tags:
         # Some packages in typeshed have tag names
         # that are invalid to be passed to the Version() constructor,
         # e.g. v.1.4.2
@@ -382,11 +418,17 @@ async def get_diff_info(
     else:
         old_tag = versions_to_tags[old_version]
 
-    diff_url = f"https://github.com/{github_info.repo_path}/compare/{old_tag}...{new_tag}"
-    return GitHubDiffInfo(repo_path=github_info.repo_path, old_tag=old_tag, new_tag=new_tag, diff_url=diff_url)
+    return GitHostDiffInfo(host=host_info.host, repo_path=host_info.repo_path, old_tag=old_tag, new_tag=new_tag)
 
 
-FileInfo: TypeAlias = dict[str, Any]
+FileStatus: TypeAlias = Literal["added", "modified", "removed", "renamed"]
+
+
+class FileInfo(TypedDict):
+    filename: str
+    status: FileStatus
+    additions: int
+    deletions: int
 
 
 def _plural_s(num: int, /) -> str:
@@ -481,16 +523,52 @@ class DiffAnalysis:
         return "Stubsabot analysis of the diff between the two releases:\n - " + "\n - ".join(data_points)
 
 
-async def analyze_diff(
-    github_repo_path: str, distribution: str, old_tag: str, new_tag: str, *, session: aiohttp.ClientSession
+async def analyze_github_diff(
+    repo_path: str, distribution: str, old_tag: str, new_tag: str, *, session: aiohttp.ClientSession
 ) -> DiffAnalysis | None:
-    url = f"https://api.github.com/repos/{github_repo_path}/compare/{old_tag}...{new_tag}"
+    url = f"https://api.github.com/repos/{repo_path}/compare/{old_tag}...{new_tag}"
     async with session.get(url, headers=get_github_api_headers()) as response:
         response.raise_for_status()
         json_resp: dict[str, list[FileInfo]] = await response.json()
         assert isinstance(json_resp, dict)
     # https://docs.github.com/en/rest/commits/commits#compare-two-commits
     py_files: list[FileInfo] = [file for file in json_resp["files"] if Path(file["filename"]).suffix == ".py"]
+    stub_path = distribution_path(distribution)
+    files_in_typeshed = set(stub_path.rglob("*.pyi"))
+    py_files_stubbed_in_typeshed = [file for file in py_files if (stub_path / f"{file['filename']}i") in files_in_typeshed]
+    return DiffAnalysis(py_files=py_files, py_files_stubbed_in_typeshed=py_files_stubbed_in_typeshed)
+
+
+async def analyze_gitlab_diff(
+    repo_path: str, distribution: str, old_tag: str, new_tag: str, *, session: aiohttp.ClientSession
+) -> DiffAnalysis | None:
+    # https://docs.gitlab.com/api/repositories/#compare-branches-tags-or-commits
+    project_id = urllib.parse.quote(repo_path, safe="")
+    url = f"https://gitlab.com/api/v4/projects/{project_id}/repository/compare?from={old_tag}&to={new_tag}"
+    async with session.get(url) as response:
+        response.raise_for_status()
+        json_resp: dict[str, Any] = await response.json()
+        assert isinstance(json_resp, dict)
+
+    py_files: list[FileInfo] = []
+    for file_diff in json_resp["diffs"]:
+        filename = file_diff["new_path"]
+        if Path(filename).suffix != ".py":
+            continue
+        status: FileStatus
+        if file_diff["new_file"]:
+            status = "added"
+        elif file_diff["renamed_file"]:
+            status = "renamed"
+        elif file_diff["deleted_file"]:
+            status = "removed"
+        else:
+            status = "modified"
+        diff_lines = file_diff["diff"].splitlines()
+        additions = sum(1 for ln in diff_lines if ln.startswith("+"))
+        deletions = sum(1 for ln in diff_lines if ln.startswith("-"))
+        py_files.append(FileInfo(filename=filename, status=status, additions=additions, deletions=deletions))
+
     stub_path = distribution_path(distribution)
     files_in_typeshed = set(stub_path.rglob("*.pyi"))
     py_files_stubbed_in_typeshed = [file for file in py_files if (stub_path / f"{file['filename']}i") in files_in_typeshed]
@@ -527,7 +605,7 @@ def parse_no_longer_updated_from_archive(source: zipfile.ZipFile | tarfile.TarFi
             return False
 
     with file as f:
-        toml_data: dict[str, object] = tomli.load(f)
+        toml_data: dict[str, object] = tomllib.load(f)
 
     no_longer_updated = toml_data.get("no_longer_updated", False)
     assert type(no_longer_updated) is bool
@@ -542,7 +620,16 @@ async def has_no_longer_updated_release(release_to_download: PypiReleaseDownload
     return await with_extracted_archive(release_to_download, session=session, handler=parse_no_longer_updated_from_archive)
 
 
-async def determine_action(distribution: str, session: aiohttp.ClientSession) -> Update | NoUpdate | Obsolete | Remove:
+async def determine_action(distribution: str, session: aiohttp.ClientSession) -> Update | NoUpdate | Obsolete | Remove | Error:
+    try:
+        return await determine_action_no_error_handling(distribution, session)
+    except Exception as exc:
+        return Error(distribution, str(exc))
+
+
+async def determine_action_no_error_handling(
+    distribution: str, session: aiohttp.ClientSession
+) -> Update | NoUpdate | Obsolete | Remove:
     stub_info = read_metadata(distribution)
     if stub_info.is_obsolete:
         assert type(stub_info.obsolete) is ObsoleteMetadata
@@ -555,7 +642,7 @@ async def determine_action(distribution: str, session: aiohttp.ClientSession) ->
                 "Typeshed release": f"{pypi_info.pypi_root}",
                 "Typeshed stubs": f"https://github.com/{TYPESHED_OWNER}/typeshed/tree/main/stubs/{stub_info.distribution}",
             }
-            return Remove(stub_info.distribution, reason="older than 6 months", links=links)
+            return Remove(stub_info.distribution, reason="ships py.typed file", links=links)
         else:
             return NoUpdate(stub_info.distribution, "obsolete")
     if stub_info.no_longer_updated:
@@ -567,7 +654,7 @@ async def determine_action(distribution: str, session: aiohttp.ClientSession) ->
                 "Typeshed release": f"{pypi_info.pypi_root}",
                 "Typeshed stubs": f"https://github.com/{TYPESHED_OWNER}/typeshed/tree/main/stubs/{stub_info.distribution}",
             }
-            return Remove(stub_info.distribution, reason="no longer updated", links=links)
+            return Remove(stub_info.distribution, reason="unmaintained", links=links)
         else:
             return NoUpdate(stub_info.distribution, "no longer updated")
 
@@ -605,8 +692,9 @@ async def determine_action(distribution: str, session: aiohttp.ClientSession) ->
     if diff_info is None:
         diff_analysis: DiffAnalysis | None = None
     else:
+        analyze_diff = {"github": analyze_github_diff, "gitlab": analyze_gitlab_diff}[diff_info.host]
         diff_analysis = await analyze_diff(
-            github_repo_path=diff_info.repo_path,
+            repo_path=diff_info.repo_path,
             distribution=distribution,
             old_tag=diff_info.old_tag,
             new_tag=diff_info.new_tag,
@@ -861,7 +949,7 @@ async def suggest_typeshed_remove(remove: Remove, session: aiohttp.ClientSession
     await create_or_update_pull_request(title=title, body=body, branch_name=branch_name, session=session)
 
 
-async def main() -> None:
+async def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--action-level",
@@ -890,11 +978,11 @@ async def main() -> None:
             print("Unexpected exception!")
             print(diff_result.stdout)
             print(diff_result.stderr)
-            sys.exit(diff_result.returncode)
+            return diff_result.returncode
         if diff_result.stdout:
             changed_files = ", ".join(repr(line) for line in diff_result.stdout.split("\n") if line)
             print(f"Cannot run stubsabot, as uncommitted changes are present in {changed_files}!")
-            sys.exit(1)
+            return 1
 
     if args.action_level > ActionLevel.fork:
         if os.environ.get("GITHUB_TOKEN") is None:
@@ -909,6 +997,8 @@ async def main() -> None:
     if args.action_level >= ActionLevel.local:
         subprocess.check_call(["git", "fetch", "--prune", "--all"])
 
+    error = False
+
     try:
         conn = aiohttp.TCPConnector(limit_per_host=10)
         async with aiohttp.ClientSession(connector=conn) as session:
@@ -921,9 +1011,13 @@ async def main() -> None:
             action_count = 0
             for task in asyncio.as_completed(tasks):
                 update = await task
+                print(f"{update.distribution}... ", end="")
                 print(update)
 
                 if isinstance(update, NoUpdate):
+                    continue
+                if isinstance(update, Error):
+                    error = True
                     continue
 
                 if args.action_count_limit is not None and action_count >= args.action_count_limit:
@@ -952,6 +1046,8 @@ async def main() -> None:
         if args.action_level >= ActionLevel.local and original_branch:
             subprocess.check_call(["git", "checkout", original_branch])
 
+    return 1 if error else 0
+
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    sys.exit(asyncio.run(main()))

@@ -1,6 +1,6 @@
 from _typeshed import SupportsItems, SupportsRead, Unused
 from collections.abc import Callable, Iterable, Mapping, MutableMapping
-from typing import Any, TypedDict
+from typing import Any, TypedDict, type_check_only
 from typing_extensions import Self, TypeAlias
 
 from . import adapters, auth as _auth, compat, cookies, exceptions, hooks, models, status_codes, utils
@@ -102,9 +102,10 @@ _Params: TypeAlias = (
 )
 _TextMapping: TypeAlias = MutableMapping[str, str]
 _HeadersUpdateMapping: TypeAlias = Mapping[str, str | bytes | None]
-_Timeout: TypeAlias = float | tuple[float, float] | tuple[float, None]
+_Timeout: TypeAlias = float | tuple[float | None, float | None]
 _Verify: TypeAlias = bool | str
 
+@type_check_only
 class _Settings(TypedDict):
     verify: _Verify | None
     proxies: _TextMapping
