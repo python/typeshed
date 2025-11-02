@@ -62,6 +62,9 @@ class DCAtest:
         self._value = None
 
 
+# check that NotImplemented is treated as an "Any"
+x: int = NotImplemented
+
 if sys.version_info > (3, 10):
     union_type = int | list[_T]
 
@@ -70,3 +73,13 @@ if sys.version_info > (3, 10):
     # Both mypy and pyright special-case this operation,
     # but in different ways, so we just check that no error is emitted:
     _ = union_type[int]
+
+    # test NotImplementedType usage
+    assert_type(NotImplemented, types.NotImplementedType)
+    _: types.NotImplementedType = types.NotImplementedType()
+    # test EllipsisType usage
+    assert_type(Ellipsis, types.EllipsisType)
+    _: types.EllipsisType = types.EllipsisType()
+    # test NoneType usage
+    assert_type(None, types.NoneType)
+    _: None = types.NoneType()
