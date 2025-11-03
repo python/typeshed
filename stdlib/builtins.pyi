@@ -2044,8 +2044,7 @@ else:
 
     @final
     @type_check_only
-    class _NotImplementedType(Any):
-        __call__: None
+    class _NotImplementedType(Any): ...
 
     NotImplemented: _NotImplementedType
 
