@@ -62,11 +62,7 @@ jobs:
             sudo apt-get update -q && sudo apt-get install -qy $PACKAGES
           fi
       - name: Run mypy_test.py
-        run: |
-          # python-version can sometimes be pinned to a specific version or to "-dev", but
-          # mypy understands only X.Y version numbers.
-          MYPY_PY_VERSION=$(echo ${{ matrix.python-version }} | cut -d - -f 1 | cut -d . -f 1-2)
-          python ./tests/mypy_test.py --platform=${{ matrix.platform }} --python-version=${MYPY_PY_VERSION}
+        run: python ./tests/mypy_test.py --platform=${{ matrix.platform }} --python-version=${{ matrix.python-version }}
 
   regression-tests:
     name: "mypy: Run test cases"
