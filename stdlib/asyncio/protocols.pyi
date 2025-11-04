@@ -14,7 +14,7 @@ class BaseProtocol:
 
 class Protocol(BaseProtocol):
     # Need annotation or mypy will complain about 'Cannot determine type of "__slots__" in base class'
-    __slots__: tuple[()] = ()
+    __slots__: tuple[str, ...] = ()
     def data_received(self, data: bytes) -> None: ...
     def eof_received(self) -> bool | None: ...
 
