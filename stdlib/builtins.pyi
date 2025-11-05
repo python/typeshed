@@ -79,7 +79,8 @@ if sys.version_info >= (3, 14):
     from _typeshed import AnnotateFunc
 
 _T = TypeVar("_T")
-_I = TypeVar("_I", int, bytes, float, bool, default=Any)  # possibly memoryview types  # type: ignore[misc]
+# Type ignore needed because of https://github.com/python/mypy/issues/20184.
+_I = TypeVar("_I", int, bytes, float, bool, default=Any)  # type: ignore[misc]  # possibly memoryview types
 _T_co = TypeVar("_T_co", covariant=True)
 _T_contra = TypeVar("_T_contra", contravariant=True)
 _R_co = TypeVar("_R_co", covariant=True)
