@@ -527,23 +527,6 @@ urllib.response.addbase.write  # Methods that come from __getattr__() at runtime
 urllib.response.addbase.writelines  # Methods that come from __getattr__() at runtime
 unittest.mock.patch  # function with attributes, which we approximate with a callable class
 
-# stubtest doesn't understand that Final class attributes are also read-only.
-uuid.UUID.bytes
-uuid.UUID.bytes_le
-uuid.UUID.clock_seq
-uuid.UUID.clock_seq_hi_variant
-uuid.UUID.clock_seq_low
-uuid.UUID.fields
-uuid.UUID.hex
-uuid.UUID.node
-uuid.UUID.time
-uuid.UUID.time_hi_version
-uuid.UUID.time_low
-uuid.UUID.time_mid
-uuid.UUID.urn
-uuid.UUID.variant
-uuid.UUID.version
-
 _?weakref\.CallableProxyType\.__getattr__  # Should have all attributes of proxy
 _?weakref\.(ref|ReferenceType)\.__init__  # C implementation has incorrect signature
 _?weakref\.(ref|ReferenceType)\.__call__  # C function default annotation is wrong
