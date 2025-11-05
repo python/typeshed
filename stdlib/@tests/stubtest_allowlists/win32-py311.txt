@@ -1,6 +1,14 @@
-# ===========
-# 3.9 to 3.11
-# ===========
+# =======
+# <= 3.12
+# =======
+
+# Added in Python 3.11.13 (parameter `escapable`)
+html.parser.HTMLParser.set_cdata_mode
+
+
+# =======
+# <= 3.11
+# =======
 
 # Incompatible changes introduced in Python 3.11.10
 # (Remove once 3.11.10 becomes available for Windows)
@@ -20,3 +28,7 @@ crypt
 nis
 ossaudiodev
 spwd
+
+# Incompatible changes introduced in Python 3.11.13
+# (Remove once 3.11.18 becomes available for Windows)
+(ntpath.realpath)?

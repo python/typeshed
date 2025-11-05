@@ -5,7 +5,7 @@ from collections.abc import Callable, Iterable, Iterator
 from io import TextIOWrapper
 from os import PathLike
 from types import TracebackType
-from typing import IO, Final, Literal, Protocol, overload
+from typing import IO, Final, Literal, Protocol, overload, type_check_only
 from typing_extensions import Self, TypeAlias
 
 __all__ = [
@@ -24,6 +24,9 @@ __all__ = [
     "LargeZipFile",
 ]
 
+if sys.version_info >= (3, 14):
+    __all__ += ["ZIP_ZSTANDARD"]
+
 # TODO: use TypeAlias for these two when mypy bugs are fixed
 # https://github.com/python/mypy/issues/16581
 _DateTuple = tuple[int, int, int, int, int, int]  # noqa: Y026
@@ -38,6 +41,7 @@ error = BadZipfile
 
 class LargeZipFile(Exception): ...
 
+@type_check_only
 class _ZipStream(Protocol):
     def read(self, n: int, /) -> bytes: ...
     # The following methods are optional:
@@ -46,11 +50,13 @@ class _ZipStream(Protocol):
     # def seek(self, n: int, /) -> object: ...
 
 # Stream shape as required by _EndRecData() and _EndRecData64().
+@type_check_only
 class _SupportsReadSeekTell(Protocol):
     def read(self, n: int = ..., /) -> bytes: ...
     def seek(self, cookie: int, whence: int, /) -> object: ...
     def tell(self) -> int: ...
 
+@type_check_only
 class _ClosableZipStream(_ZipStream, Protocol):
     def close(self) -> object: ...
 
@@ -90,18 +96,23 @@ class ZipExtFile(io.BufferedIOBase):
     def read1(self, n: int | None) -> bytes: ...  # type: ignore[override]
     def seek(self, offset: int, whence: int = 0) -> int: ...
 
+@type_check_only
 class _Writer(Protocol):
     def write(self, s: str, /) -> object: ...
 
+@type_check_only
 class _ZipReadable(Protocol):
     def seek(self, offset: int, whence: int = 0, /) -> int: ...
     def read(self, n: int = -1, /) -> bytes: ...
 
+@type_check_only
 class _ZipTellable(Protocol):
     def tell(self) -> int: ...
 
+@type_check_only
 class _ZipReadableTellable(_ZipReadable, _ZipTellable, Protocol): ...
 
+@type_check_only
 class _ZipWritable(Protocol):
     def flush(self) -> None: ...
     def close(self) -> None: ...
@@ -150,7 +161,7 @@ class ZipFile:
         def __init__(
             self,
             file: StrPath | _ZipWritable,
-            mode: Literal["w", "x"] = ...,
+            mode: Literal["w", "x"],
             compression: int = 0,
             allowZip64: bool = True,
             compresslevel: int | None = None,
@@ -162,7 +173,7 @@ class ZipFile:
         def __init__(
             self,
             file: StrPath | _ZipReadableTellable,
-            mode: Literal["a"] = ...,
+            mode: Literal["a"],
             compression: int = 0,
             allowZip64: bool = True,
             compresslevel: int | None = None,
@@ -197,7 +208,7 @@ class ZipFile:
         def __init__(
             self,
             file: StrPath | _ZipWritable,
-            mode: Literal["w", "x"] = ...,
+            mode: Literal["w", "x"],
             compression: int = 0,
             allowZip64: bool = True,
             compresslevel: int | None = None,
@@ -208,7 +219,7 @@ class ZipFile:
         def __init__(
             self,
             file: StrPath | _ZipReadableTellable,
-            mode: Literal["a"] = ...,
+            mode: Literal["a"],
             compression: int = 0,
             allowZip64: bool = True,
             compresslevel: int | None = None,
@@ -261,6 +272,29 @@ class PyZipFile(ZipFile):
     def writepy(self, pathname: str, basename: str = "", filterfunc: Callable[[str], bool] | None = None) -> None: ...
 
 class ZipInfo:
+    __slots__ = (
+        "orig_filename",
+        "filename",
+        "date_time",
+        "compress_type",
+        "compress_level",
+        "comment",
+        "extra",
+        "create_system",
+        "create_version",
+        "extract_version",
+        "reserved",
+        "flag_bits",
+        "volume",
+        "internal_attr",
+        "external_attr",
+        "header_offset",
+        "CRC",
+        "compress_size",
+        "file_size",
+        "_raw_time",
+        "_end_offset",
+    )
     filename: str
     date_time: _DateTuple
     compress_type: int
@@ -361,10 +395,21 @@ else:
 
 def is_zipfile(filename: StrOrBytesPath | _SupportsReadSeekTell) -> bool: ...
 
-ZIP_STORED: Final[int]
-ZIP_DEFLATED: Final[int]
 ZIP64_LIMIT: Final[int]
 ZIP_FILECOUNT_LIMIT: Final[int]
 ZIP_MAX_COMMENT: Final[int]
-ZIP_BZIP2: Final[int]
-ZIP_LZMA: Final[int]
+
+ZIP_STORED: Final = 0
+ZIP_DEFLATED: Final = 8
+ZIP_BZIP2: Final = 12
+ZIP_LZMA: Final = 14
+if sys.version_info >= (3, 14):
+    ZIP_ZSTANDARD: Final = 93
+
+DEFAULT_VERSION: Final[int]
+ZIP64_VERSION: Final[int]
+BZIP2_VERSION: Final[int]
+LZMA_VERSION: Final[int]
+if sys.version_info >= (3, 14):
+    ZSTANDARD_VERSION: Final[int]
+MAX_EXTRACT_VERSION: Final[int]

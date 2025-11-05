@@ -5,7 +5,7 @@ from _typeshed import DataclassInstance
 from builtins import type as Type  # alias to avoid name clashes with fields named "type"
 from collections.abc import Callable, Iterable, Mapping
 from types import GenericAlias
-from typing import Any, Generic, Literal, Protocol, TypeVar, overload, type_check_only
+from typing import Any, Final, Generic, Literal, Protocol, TypeVar, overload, type_check_only
 from typing_extensions import Never, TypeIs
 
 _T = TypeVar("_T")
@@ -58,7 +58,7 @@ class _DataclassFactory(Protocol):
 class _MISSING_TYPE(enum.Enum):
     MISSING = enum.auto()
 
-MISSING = _MISSING_TYPE.MISSING
+MISSING: Final = _MISSING_TYPE.MISSING
 
 if sys.version_info >= (3, 10):
     class KW_ONLY: ...
@@ -71,14 +71,28 @@ def asdict(obj: DataclassInstance, *, dict_factory: Callable[[list[tuple[str, An
 def astuple(obj: DataclassInstance) -> tuple[Any, ...]: ...
 @overload
 def astuple(obj: DataclassInstance, *, tuple_factory: Callable[[list[Any]], _T]) -> _T: ...
-@overload
-def dataclass(cls: None, /) -> Callable[[type[_T]], type[_T]]: ...
-@overload
-def dataclass(cls: type[_T], /) -> type[_T]: ...
 
 if sys.version_info >= (3, 11):
     @overload
     def dataclass(
+        cls: type[_T],
+        /,
+        *,
+        init: bool = True,
+        repr: bool = True,
+        eq: bool = True,
+        order: bool = False,
+        unsafe_hash: bool = False,
+        frozen: bool = False,
+        match_args: bool = True,
+        kw_only: bool = False,
+        slots: bool = False,
+        weakref_slot: bool = False,
+    ) -> type[_T]: ...
+    @overload
+    def dataclass(
+        cls: None = None,
+        /,
         *,
         init: bool = True,
         repr: bool = True,
@@ -95,6 +109,23 @@ if sys.version_info >= (3, 11):
 elif sys.version_info >= (3, 10):
     @overload
     def dataclass(
+        cls: type[_T],
+        /,
+        *,
+        init: bool = True,
+        repr: bool = True,
+        eq: bool = True,
+        order: bool = False,
+        unsafe_hash: bool = False,
+        frozen: bool = False,
+        match_args: bool = True,
+        kw_only: bool = False,
+        slots: bool = False,
+    ) -> type[_T]: ...
+    @overload
+    def dataclass(
+        cls: None = None,
+        /,
         *,
         init: bool = True,
         repr: bool = True,
@@ -110,6 +141,20 @@ elif sys.version_info >= (3, 10):
 else:
     @overload
     def dataclass(
+        cls: type[_T],
+        /,
+        *,
+        init: bool = True,
+        repr: bool = True,
+        eq: bool = True,
+        order: bool = False,
+        unsafe_hash: bool = False,
+        frozen: bool = False,
+    ) -> type[_T]: ...
+    @overload
+    def dataclass(
+        cls: None = None,
+        /,
         *,
         init: bool = True,
         repr: bool = True,
@@ -120,10 +165,42 @@ else:
     ) -> Callable[[type[_T]], type[_T]]: ...
 
 # See https://github.com/python/mypy/issues/10750
+@type_check_only
 class _DefaultFactory(Protocol[_T_co]):
     def __call__(self) -> _T_co: ...
 
 class Field(Generic[_T]):
+    if sys.version_info >= (3, 14):
+        __slots__ = (
+            "name",
+            "type",
+            "default",
+            "default_factory",
+            "repr",
+            "hash",
+            "init",
+            "compare",
+            "metadata",
+            "kw_only",
+            "doc",
+            "_field_type",
+        )
+    elif sys.version_info >= (3, 10):
+        __slots__ = (
+            "name",
+            "type",
+            "default",
+            "default_factory",
+            "repr",
+            "hash",
+            "init",
+            "compare",
+            "metadata",
+            "kw_only",
+            "_field_type",
+        )
+    else:
+        __slots__ = ("name", "type", "default", "default_factory", "repr", "hash", "init", "compare", "metadata", "_field_type")
     name: str
     type: Type[_T] | str | Any
     default: _T | Literal[_MISSING_TYPE.MISSING]
@@ -308,7 +385,8 @@ def is_dataclass(obj: object) -> TypeIs[DataclassInstance | type[DataclassInstan
 
 class FrozenInstanceError(AttributeError): ...
 
-class InitVar(Generic[_T], metaclass=type):
+class InitVar(Generic[_T]):
+    __slots__ = ("type",)
     type: Type[_T]
     def __init__(self, type: Type[_T]) -> None: ...
     @overload
