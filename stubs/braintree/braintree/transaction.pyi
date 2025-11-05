@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from datetime import datetime
 from decimal import Decimal
 from typing import Final
 
@@ -26,12 +27,14 @@ from braintree.payment_facilitator import PaymentFacilitator
 from braintree.paypal_account import PayPalAccount
 from braintree.paypal_here import PayPalHere
 from braintree.resource import Resource
+from braintree.resource_collection import ResourceCollection
 from braintree.risk_data import RiskData
 from braintree.samsung_pay_card import SamsungPayCard
 from braintree.sepa_direct_debit_account import SepaDirectDebitAccount
 from braintree.status_event import StatusEvent
 from braintree.subscription_details import SubscriptionDetails
 from braintree.three_d_secure_info import ThreeDSecureInfo
+from braintree.transfer import Transfer
 from braintree.us_bank_account import UsBankAccount
 from braintree.venmo_account import VenmoAccount
 from braintree.visa_checkout_card import VisaCheckoutCard
@@ -101,13 +104,13 @@ class Transaction(Resource):
     @staticmethod
     def credit(params=None): ...
     @staticmethod
-    def find(transaction_id): ...
+    def find(transaction_id: str) -> Transaction: ...
     @staticmethod
     def refund(transaction_id, amount_or_options=None): ...
     @staticmethod
     def sale(params=None): ...
     @staticmethod
-    def search(*query): ...
+    def search(*query) -> ResourceCollection: ...
     @staticmethod
     def submit_for_settlement(transaction_id, amount=None, params=None): ...
     @staticmethod
@@ -174,6 +177,9 @@ class Transaction(Resource):
     facilitator_details: FacilitatorDetails
     network_transaction_id: Incomplete
     payment_facilitator: PaymentFacilitator
+    transfer: Transfer
+    subscription_id: str
+    created_at: datetime
     def __init__(self, gateway, attributes) -> None: ...
     @property
     def vault_billing_address(self): ...

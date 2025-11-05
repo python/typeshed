@@ -10,6 +10,14 @@
 (fcntl.F_SETLEASE)?  # GNU extension
 
 
+# =======
+# <= 3.14
+# =======
+
+# Added in Python 3.9.25, 3.10.20, 3.11.15, 3.12.13, 3.13.10, 3.14.1 (parameter `scripting`)
+html.parser.HTMLParser.__init__
+
+
 # ==========================================
 # Modules that do not exist on MacOS systems
 # ==========================================
@@ -43,7 +51,6 @@ curses.LINES  # Initialized only after initscr call
 curses.has_key  # stubtest gets confused because this is both a module and a function in curses
 multiprocessing.popen_spawn_win32  # exists on Darwin but fails to import
 readline.append_history_file  # Only available if compiled with GNU readline, not editline
-select.kqueue.__init__  # default C signature is wrong
 select.poll  # Actually a function; we have a class so it can be used as a type
 
 # Some of these exist on non-windows, but they are useless and this is not intended
