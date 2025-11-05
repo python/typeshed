@@ -1,7 +1,4 @@
-# TODO: missing from stub
-shapely._ragged_array.__all__
-
-shapely\.geometry\.conftest
+shapely\.conftest
 shapely\.tests.*
 
 shapely\._typing  # stubs only module

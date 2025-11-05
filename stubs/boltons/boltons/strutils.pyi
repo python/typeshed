@@ -53,7 +53,7 @@ def format_int_list(int_list: list[int], delim: str = ",", range_delim: str = "-
 def complement_int_list(
     range_string: str, range_start: int = 0, range_end: int | None = None, delim: str = ",", range_delim: str = "-"
 ) -> str: ...
-def int_ranges_from_int_list(range_string: str, delim: str = ",", range_delim: str = "-") -> tuple[int, int]: ...
+def int_ranges_from_int_list(range_string: str, delim: str = ",", range_delim: str = "-") -> tuple[tuple[int, int], ...]: ...
 
 class MultiReplace:
     group_map: dict[str, str]
@@ -64,3 +64,38 @@ class MultiReplace:
 def multi_replace(text: str, sub_map: dict[str, str], **kwargs) -> str: ...
 def unwrap_text(text: str, ending: str | None = "\n\n") -> str: ...
 def removeprefix(text: str, prefix: str) -> str: ...
+
+__all__ = [
+    "camel2under",
+    "under2camel",
+    "slugify",
+    "split_punct_ws",
+    "unit_len",
+    "ordinalize",
+    "cardinalize",
+    "pluralize",
+    "singularize",
+    "asciify",
+    "is_ascii",
+    "is_uuid",
+    "html2text",
+    "strip_ansi",
+    "bytes2human",
+    "find_hashtags",
+    "a10n",
+    "gzip_bytes",
+    "gunzip_bytes",
+    "iter_splitlines",
+    "indent",
+    "escape_shell_args",
+    "args2cmd",
+    "args2sh",
+    "parse_int_list",
+    "format_int_list",
+    "complement_int_list",
+    "int_ranges_from_int_list",
+    "MultiReplace",
+    "multi_replace",
+    "unwrap_text",
+    "removeprefix",
+]

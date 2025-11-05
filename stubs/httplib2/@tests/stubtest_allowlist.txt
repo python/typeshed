@@ -1,5 +1,2 @@
-# TODO: missing from stub
-httplib2.__all__
-
 # __getattr__() replaced with actual field in stub
 httplib2.Response.dict

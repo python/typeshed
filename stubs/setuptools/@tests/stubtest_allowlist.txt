@@ -32,14 +32,7 @@ setuptools._distutils.dist.Distribution.get_obsoletes
 setuptools._distutils.archive_util.ARCHIVE_FORMATS
 setuptools._distutils.archive_util.check_archive_formats
 setuptools._distutils.cmd.Command.dump_options
-setuptools._distutils.command.build_clib.show_compilers
 setuptools._distutils.command.build_ext.extension_name_re
-setuptools._distutils.command.build_ext.show_compilers
-setuptools._distutils.command.build_scripts
-setuptools._distutils.command.check
-setuptools._distutils.command.clean
-setuptools._distutils.command.install_data
-setuptools._distutils.command.install_headers
 setuptools._distutils.command.install.HAS_USER_SITE
 setuptools._distutils.command.install.INSTALL_SCHEMES
 setuptools._distutils.command.install.SCHEME_KEYS
@@ -72,9 +65,9 @@ setuptools._distutils.command.build_scripts
 setuptools._distutils.command.check
 setuptools._distutils.command.clean
 setuptools._distutils.command.config
-setuptools._distutils.command.install_data
 setuptools._distutils.command.install_egg_info
 setuptools._distutils.command.install_headers
+setuptools._distutils.compat.numpy
 setuptools._distutils.compat.py39
 setuptools._distutils.core
 setuptools._distutils.cygwinccompiler
@@ -84,7 +77,6 @@ setuptools._distutils.fancy_getopt
 setuptools._distutils.file_util
 setuptools._distutils.log
 setuptools._distutils.text_file
-setuptools._distutils.unixccompiler
 setuptools._distutils.version
 setuptools._distutils.versionpredicate
 setuptools._distutils.zosccompiler

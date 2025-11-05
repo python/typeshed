@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from abc import abstractmethod
 from collections.abc import Collection, Iterable, Sequence
-from typing import Any, Literal, overload
+from typing import Any, Literal, NamedTuple, overload
 from typing_extensions import TypeAlias, Unpack
 
 from reportlab.lib.colors import Color
@@ -40,7 +40,9 @@ class CellStyle(PropertySet):
     background: _Color
     valign: Literal["TOP", "MIDDLE", "BOTTOM"]
     href: str | None
-    destination: Incomplete
+    direction: str | None
+    shaping: Incomplete | None
+    destination: Incomplete | None
     def __init__(self, name: str, parent: CellStyle | None = None) -> None: ...
     def copy(self, result: CellStyle | None = None) -> CellStyle: ...
 
@@ -52,6 +54,13 @@ class TableStyle:
     @overload
     def add(self, *cmd: Unpack[_RoundedCornersTableCommand]) -> None: ...
     def getCommands(self) -> list[_TableCommand]: ...
+
+class ShadowStyle(NamedTuple):
+    dx: int | Incomplete = 10  # TODO: is either `int` or `float`
+    dy: int | Incomplete = -10  # TODO: is either `int` or `float`
+    color0: _Color = "grey"
+    color1: _Color = "white"
+    nshades: int = 30
 
 class Table(Flowable):
     ident: str | None
@@ -83,10 +92,11 @@ class Table(Flowable):
         rowSplitRange: tuple[int, int] | None = None,
         spaceBefore: float | None = None,
         spaceAfter: float | None = None,
-        longTableOptimize: Incomplete | None = None,
+        longTableOptimize=None,
         minRowHeights: Sequence[float] | None = None,
         cornerRadii: _CornerRadii | _UNSET_ | None = ...,
         renderCB: TableRenderCB | None = None,
+        shadow: ShadowStyle | None = None,
     ) -> None: ...
     def identity(self, maxLen: int | None = 30) -> str: ...
     def normalizeData(self, data: Iterable[Iterable[Any]]) -> list[list[Any]]: ...

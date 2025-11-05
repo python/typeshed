@@ -9,7 +9,7 @@ are important to the project's success.
 
 1. [Prepare your environment](#preparing-the-environment).
 2. Find out [where to make your changes](#where-to-make-changes).
-3. [Prepare your changes](#preparing-changes):
+3. [Making your changes](#making-changes):
     * Small fixes and additions can be submitted directly as pull requests,
       but [contact us](README.md#discussion) before starting significant work.
     * Create your stubs, considering [what to include](#what-to-include) and
@@ -77,17 +77,10 @@ Note that some tests require extra setup steps to install the required dependenc
   Run the following commands from a Windows terminal to install all requirements:
 
   ```powershell
-  > python -m venv .venv
+  > py -m venv .venv
   > .venv\Scripts\activate
-  (.venv) > pip install -U pip
+  (.venv) > python -m pip install -U pip
   (.venv) > pip install -r requirements-tests.txt
-  ```
-
-  To be able to run pytype tests, you'll also need to install it manually
-as it's currently excluded from the requirements file:
-
-  ```powershell
-  (.venv) > pip install -U pytype
   ```
 
   </td>
@@ -104,36 +97,9 @@ as it's currently excluded from the requirements file:
   uv pip install -r requirements-tests.txt
   ```
 
-  ```shell
-  uv pip install -U pytype
-  ```
-
   </td>
 </tr>
 </table>
-
-## Code formatting
-
-The code is formatted using [`Black`](https://github.com/psf/black).
-Various other autofixes and lint rules are
-also performed by [`Ruff`](https://github.com/astral-sh/ruff) and
-[`Flake8`](https://github.com/pycqa/flake8),
-with plugin [`flake8-pyi`](https://github.com/pycqa/flake8-pyi).
-
-The repository is equipped with a [pre-commit.ci](https://pre-commit.ci/)
-configuration file. This means that you don't *need* to do anything yourself to
-run the code formatters or linters. When you push a commit, a bot will run
-those for you right away and add any autofixes to your PR. Anything
-that can't be autofixed will show up as a CI failure, hopefully with an error
-message that will make it clear what's gone wrong.
-
-That being said, if you *want* to run the formatters and linters locally
-when you commit, you're free to do so. To use the same configuration as we use
-in CI, we recommend doing this via pre-commit:
-
-```bash
-(.venv)$ pre-commit run --all-files
-```
 
 ## Where to make changes
 
@@ -247,11 +213,21 @@ This has the following keys:
   that need to be installed for stubtest to run successfully
 * `choco_dependencies` (default: `[]`): A list of Windows Chocolatey packages
   that need to be installed for stubtest to run successfully
-* `platforms` (default: `["linux"]`): A list of OSes on which to run stubtest.
-  Can contain `win32`, `linux`, and `darwin` values.
-  If not specified, stubtest is run only on `linux`.
-  Only add extra OSes to the test
-  if there are platform-specific branches in a stubs package.
+* `supported_platforms` (default: all platforms): A list of OSes on which
+  stubtest can be run. When a package is not platform-specific, this should
+  not be set. If the package is platform-specific, this should usually be set
+  to the supported platforms, unless stubtest is known to fail on a
+  specific platform.
+* `ci_platforms` (default: `["linux"]`): A list of OSes on which to run
+  stubtest as part of our continuous integration (CI) tests. Can contain
+  `win32`, `linux`, and `darwin` values. If not specified, stubtest is run
+  only on `linux`. Only add extra OSes to the test if there are
+  platform-specific branches in a stubs package.
+* `mypy_plugins` (default: `[]`): A list of Python modules to use as mypy plugins
+when running stubtest. For example: `mypy_plugins = ["mypy_django_plugin.main"]`
+* `mypy_plugins_config` (default: `{}`): A dictionary mapping plugin names to their
+configuration dictionaries for use by mypy plugins. For example:
+`mypy_plugins_config = {"django-stubs" = {"django_settings_module" = "@tests.django_settings"}}`
 
 `*_dependencies` are usually packages needed to `pip install` the implementation
 distribution.
@@ -260,7 +236,7 @@ The format of all `METADATA.toml` files can be checked by running
 `python3 ./tests/check_typeshed_structure.py`.
 
 
-## Preparing Changes
+## Making Changes
 
 ### Before you begin
 
@@ -274,6 +250,27 @@ with what you'd like to do or have ideas that will help you do it.
 Each Python module is represented by a .pyi "stub file". This is a syntactically valid Python file, where all methods are empty and [type annotations](https://typing.readthedocs.io/en/latest/spec/annotations.html) are used to describe function signatures and variable types.
 
 Typeshed follows the standard type system guidelines for [stub content](https://typing.readthedocs.io/en/latest/guides/writing_stubs.html#stub-content) and [coding style](https://typing.readthedocs.io/en/latest/guides/writing_stubs.html#style-guide).
+
+The code is formatted using [`Black`](https://github.com/psf/black).
+Various other autofixes and lint rules are
+also performed by [`Ruff`](https://github.com/astral-sh/ruff) and
+[`Flake8`](https://github.com/pycqa/flake8),
+with plugin [`flake8-pyi`](https://github.com/pycqa/flake8-pyi).
+
+The repository is equipped with a [pre-commit.ci](https://pre-commit.ci/)
+configuration file. This means that you don't *need* to do anything yourself to
+run the code formatters or linters. When you push a commit, a bot will run
+those for you right away and add any autofixes to your PR. Anything
+that can't be autofixed will show up as a CI failure, hopefully with an error
+message that will make it clear what's gone wrong.
+
+That being said, if you *want* to run the formatters and linters locally
+when you commit, you're free to do so. To use the same configuration as we use
+in CI, we recommend doing this via pre-commit:
+
+```bash
+(.venv)$ pre-commit run --all-files
+```
 
 ### What to include
 
@@ -308,13 +305,13 @@ def foo(x): ...  # unannotated argument and return type
 `Incomplete` can also be used for partially known types:
 
 ```python
-def foo(x: Incomplete | None = None) -> list[Incomplete]: ...
+def foo(x: Incomplete | None) -> list[Incomplete]: ...
 ```
 
 ### What to do when a project's documentation and implementation disagree
 
 Type stubs are meant to be external type annotations for a given
-library.  While they are useful documentation in its own merit, they
+library.  While they are useful documentation in their own right, they
 augment the project's concrete implementation, not the project's
 documentation.  Whenever you find them disagreeing, model the type
 information after the actual implementation and file an issue on the
@@ -439,59 +436,29 @@ following criteria is met:
 * the upstream package was declared or appears to be unmaintained, and
   retaining the stubs causes maintenance issues in typeshed.
 
-If a package ships its own `py.typed` file, please follow these steps:
+Case 1: If a package ships its own `py.typed` file, please follow these steps:
 
-1. Open an issue with the earliest month of removal in the subject.
-2. A maintainer will add the
-   ["stubs: removal" label](https://github.com/python/typeshed/labels/stubs%3A%20removal).
-3. Open a PR that sets the `obsolete_since` field in the `METADATA.toml`
-   file to the first version of the package that shipped `py.typed`.
-4. After at least six months, open a PR to remove the stubs.
+1. Make sure **stubsabot** open a PR that sets the `obsolete_since` field in the
+   `METADATA.toml` file to the first version of the package that shipped `py.typed`.
+2. After at least six months, make sure **stubsabot** open a PR to remove the stubs.
 
-If third-party stubs should be removed for other reasons, please follow these
-steps:
+Case 2: If third-party stubs should be removed for other reasons, please follow
+these steps:
 
 1. Open an issue explaining why the stubs should be removed.
 2. A maintainer will add the
-   ["stubs: removal" label](https://github.com/python/typeshed/labels/stubs%3A%20removal).
+   ["stubs: removal" label](https://github.com/python/typeshed/labels/%22stubs%3A%20removal%22).
 3. Open a PR that sets the `no_longer_updated` field in the `METADATA.toml`
    file to `true`.
-4. When a new version of the package was automatically uploaded to PyPI
-   (which can take up to a day), open a PR to remove the stubs.
+4. When a new version of the package was automatically uploaded to PyPI (which
+   can take up to a day), make sure **stubsabot** open a PR to remove the stubs.
 
 If feeling kindly, please update [mypy](https://github.com/python/mypy/blob/master/mypy/stubinfo.py)
 for any stub obsoletions or removals.
 
-## Maintainer guidelines
-
-The process for preparing and submitting changes also applies to
-maintainers.  This ensures high quality contributions and keeps
-everybody on the same page.  Avoid direct pushes to the repository.
-
-When reviewing pull requests, follow these guidelines:
-
-* Typing is hard. Try to be helpful and explain issues with the PR,
-  especially to new contributors.
-* When reviewing auto-generated stubs, just scan for red flags and obvious
-  errors. Leave possible manual improvements for separate PRs.
-* When reviewing large, hand-crafted PRs, you only need to look for red flags
-  and general issues, and do a few spot checks.
-* Review smaller, hand-crafted PRs thoroughly.
-
-When merging pull requests, follow these guidelines:
-
-* Always wait for tests to pass before merging PRs.
-* Use "[Squash and merge](https://github.com/blog/2141-squash-your-commits)" to merge PRs.
-* Make sure the commit message is meaningful. For example, remove irrelevant
-  intermediate commit messages.
-* The commit message for third-party stubs is used to generate the changelog.
-  It should be valid Markdown, be comprehensive, read like a changelog entry,
-  and assume that the reader has no access to the diff.
-* Delete branches for merged PRs (by maintainers pushing to the main repo).
-
 ### Marking PRs as "deferred"
 
-We sometimes use the ["status: deferred" label](https://github.com/python/typeshed/labels/status%3A%20deferred)
+We sometimes use the ["status: deferred" label](https://github.com/python/typeshed/labels/%22status%3A%20deferred%22)
 to mark PRs and issues that we'd like to accept, but that are blocked by some
 external factor. Blockers can include:
 
@@ -500,25 +467,9 @@ external factor. Blockers can include:
 - A dependency on a typing PEP that is still under consideration.
 - A pending change in a related project, such as stub-uploader.
 
-PRs should only be marked as "deferred" if there is a clear path towards getting
-the blocking issue resolved within a reasonable time frame. If a PR depends on
-a more amorphous change, such as a type system change that has not yet reached
-the PEP stage, it should instead be closed.
-
-Maintainers who add the "deferred" label should state clearly what exactly the
-blocker is, usually with a link to an open issue in another project.
-
 ### Closing stale PRs
 
 To keep the number of open PRs manageable, we may close PRs when they have been
 open for too long. Specifically, we close open PRs that either have failures in CI,
 serious merge conflicts or unaddressed feedback, and that have not seen any
 activity in three months.
-
-We want to maintain a welcoming atmosphere for contributors, so use a friendly
-message when closing the PR. Example message:
-
-    Thanks for contributing! I'm closing this PR for now, because it still
-    <fails some tests OR has unresolved review feedback OR has a merge conflict>
-    after three months of inactivity. If you are still interested, please feel free to open
-    a new PR (or ping us to reopen this one).

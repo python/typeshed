@@ -1,9 +1,10 @@
 import sys
+import types
 from collections import deque
 from collections.abc import Iterable
 
 # technically it is using _PySimpleQueue, which has the same interface as SimpleQueue
-from queue import Empty as Empty, Full as Full, SimpleQueue as SimpleQueue
+from queue import Empty as Empty, Full as Full
 from typing import Any, Generic, Literal, TypeVar, final, overload
 from typing_extensions import Self
 
@@ -19,13 +20,17 @@ else:
 
 _T = TypeVar("_T")
 
-class Queue(Generic[_T]):
+class SimpleQueue(Generic[_T]):
+    __slots__ = ("_maxsize", "getters", "putters", "hub", "_event_unlock", "queue", "__weakref__", "is_shutdown")
     @property
     def hub(self) -> Hub: ...  # readonly in Cython
     @property
     def queue(self) -> deque[_T]: ...  # readonly in Cython
     maxsize: int | None
     is_shutdown: bool
+
+    @classmethod
+    def __class_getitem__(cls, item: Any, /) -> types.GenericAlias: ...
     @overload
     def __init__(self, maxsize: int | None = None) -> None: ...
     @overload
@@ -42,26 +47,14 @@ class Queue(Generic[_T]):
     def put(self, item: _T, block: bool = True, timeout: float | None = None) -> None: ...
     def put_nowait(self, item: _T) -> None: ...
     def qsize(self) -> int: ...
-    def shutdown(self, immediate: bool = False) -> None: ...
     def __bool__(self) -> bool: ...
     def __iter__(self) -> Self: ...
     def __len__(self) -> int: ...
     def __next__(self) -> _T: ...
     next = __next__
 
-@final
-class UnboundQueue(Queue[_T]):
-    @overload
-    def __init__(self, maxsize: None = None) -> None: ...
-    @overload
-    def __init__(self, maxsize: None, items: Iterable[_T]) -> None: ...
-    @overload
-    def __init__(self, maxsize: None = None, *, items: Iterable[_T]) -> None: ...
-
-class PriorityQueue(Queue[_T]): ...
-class LifoQueue(Queue[_T]): ...
-
-class JoinableQueue(Queue[_T]):
+class Queue(SimpleQueue[_T]):
+    __slots__ = ("_cond", "unfinished_tasks")
     @property
     def unfinished_tasks(self) -> int: ...  # readonly in Cython
     @overload
@@ -72,8 +65,28 @@ class JoinableQueue(Queue[_T]):
     def __init__(self, maxsize: int | None = None, *, items: Iterable[_T], unfinished_tasks: int | None = None) -> None: ...
     def join(self, timeout: float | None = None) -> bool: ...
     def task_done(self) -> None: ...
+    def shutdown(self, immediate: bool = False) -> None: ...
+
+JoinableQueue = Queue
+
+@final
+class UnboundQueue(Queue[_T]):
+    __slots__ = ()
+    @overload
+    def __init__(self, maxsize: None = None) -> None: ...
+    @overload
+    def __init__(self, maxsize: None, items: Iterable[_T]) -> None: ...
+    @overload
+    def __init__(self, maxsize: None = None, *, items: Iterable[_T]) -> None: ...
+
+class PriorityQueue(Queue[_T]):
+    __slots__ = ()
+
+class LifoQueue(Queue[_T]):
+    __slots__ = ()
 
 class Channel(Generic[_T]):
+    __slots__ = ("getters", "putters", "hub", "_event_unlock", "__weakref__")
     @property
     def getters(self) -> deque[Waiter[Any]]: ...  # readonly in Cython
     @property
@@ -81,6 +94,8 @@ class Channel(Generic[_T]):
     @property
     def hub(self) -> Hub: ...  # readonly in Cython
     def __init__(self, maxsize: Literal[1] = 1) -> None: ...
+    @classmethod
+    def __class_getitem__(cls, item: Any, /) -> types.GenericAlias: ...
     @property
     def balance(self) -> int: ...
     def qsize(self) -> Literal[0]: ...
