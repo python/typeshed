@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 from collections.abc import Callable, Container, Iterable, Iterator
 from re import Pattern
 from typing import Final, Protocol, type_check_only
@@ -24,7 +25,7 @@ class NoCssSanitizerWarning(UserWarning): ...
 
 @type_check_only
 class _FilterConstructor(Protocol):
-    def __call__(self, *, source: BleachSanitizerFilter) -> Filter: ...
+    def __call__(self, *, source: BleachSanitizerFilter) -> Filter[Incomplete]: ...
 
 # _FilterConstructor used to be called _Filter
 # this alias is obsolete and can potentially be removed in the future
@@ -40,7 +41,7 @@ class Cleaner:
     protocols: Iterable[str]
     strip: bool
     strip_comments: bool
-    filters: Iterable[Filter]
+    filters: Iterable[_FilterConstructor]
     css_sanitizer: CSSSanitizer | None
     parser: BleachHTMLParser
     walker: TreeWalker
