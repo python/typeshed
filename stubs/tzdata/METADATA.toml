@@ -1,2 +1,2 @@
-version = "*.*"
+version = "*"
 upstream_repository = "https://github.com/python/tzdata"
