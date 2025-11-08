@@ -1,5 +1,5 @@
 import sys
-from ctypes import _Pointer, c_wchar
+from ctypes import _NameTypes, _Pointer, c_wchar
 from datetime import datetime, timedelta
 from typing import Any, ClassVar, Final
 
@@ -18,7 +18,8 @@ if sys.platform == "win32":
 
     class tzres:
         p_wchar: ClassVar[type[_Pointer[c_wchar]]]
-        def __init__(self, tzres_loc: str = "tzres.dll") -> None: ...
+        tzres_loc: _NameTypes
+        def __init__(self, tzres_loc: _NameTypes = "tzres.dll") -> None: ...
         def load_name(self, offset: int) -> str: ...
         def name_from_string(self, tzname_str: str) -> str: ...
 
