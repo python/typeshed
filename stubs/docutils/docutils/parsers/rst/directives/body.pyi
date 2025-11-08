@@ -13,15 +13,13 @@ class BasePseudoSection(Directive):
     option_spec: ClassVar[dict[str, _DirectiveFn]]
     node_class: ClassVar[type[nodes.Node] | None]
     invalid_parents: ClassVar[
-        Final[
-            tuple[
-                type[nodes.SubStructural],
-                type[nodes.Bibliographic],
-                type[nodes.Decorative],
-                type[nodes.Body],
-                type[nodes.Part],
-                type[nodes.topic],
-            ]
+        tuple[
+            type[nodes.SubStructural],
+            type[nodes.Bibliographic],
+            type[nodes.Decorative],
+            type[nodes.Body],
+            type[nodes.Part],
+            type[nodes.topic],
         ]
     ]
     def run(self): ...
