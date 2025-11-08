@@ -27,6 +27,7 @@ entitiesTrie: Trie
 attributeMap = dict
 
 class HTMLTokenizer:
+    # TODO: Use Protocol to allow subclasses to set `stream` that do not inherit from HTMLUnicodeInputStream
     stream: HTMLUnicodeInputStream | HTMLBinaryInputStream
     parser: Incomplete
     escapeFlag: bool
