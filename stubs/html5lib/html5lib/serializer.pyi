@@ -1,8 +1,7 @@
 from _typeshed import Incomplete
-from collections.abc import Generator
 from typing import overload
-from six import text_type
 
+from six import text_type
 
 k: str
 v: str | int
