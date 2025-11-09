@@ -1,16 +1,17 @@
 from _typeshed import Incomplete
+from collections.abc import Callable
 from types import TracebackType
-from typing import Final
+from typing import Any, Final
 
 from ..recorder import AWSXRayRecorder
 from .dummy_entities import DummySubsegment
 from .entity import Entity
 from .segment import Segment
 
-SUBSEGMENT_RECORDING_ATTRIBUTE: Final[str]
+SUBSEGMENT_RECORDING_ATTRIBUTE: Final = "_self___SUBSEGMENT_RECORDING_ATTRIBUTE__"
 
 def set_as_recording(decorated_func, wrapped) -> None: ...
-def is_already_recording(func): ...
+def is_already_recording(func: Callable[..., Any]) -> bool: ...  # return type does not matter
 def subsegment_decorator(wrapped, instance, args, kwargs): ...
 
 class SubsegmentContextManager:
