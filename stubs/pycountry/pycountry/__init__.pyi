@@ -47,7 +47,7 @@ class Subdivisions(pycountry.db.Database):
     data_class: type
     no_index: list[str]
     root_key: str
-    def get(
+    def get(  # type: ignore[override]
         self, *, default: SubdivisionHierarchy | None = ..., **kw: str
     ) -> SubdivisionHierarchy | None | list[SubdivisionHierarchy]: ...
     def match(self, query: str) -> list[SubdivisionHierarchy]: ...
