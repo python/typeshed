@@ -1,0 +1,5 @@
+version             = "24.6.*"
+upstream_repository = "https://github.com/pycountry/pycountry"
+
+[tool.stubtest]
+skip = false
