@@ -1,3 +1,5 @@
+from types import TracebackType
+from _typeshed import Self
 import importlib.machinery
 import sys
 import types
@@ -43,6 +45,14 @@ class LazyLoader(Loader):
     def exec_module(self, module: types.ModuleType) -> None: ...
 
 def source_hash(source_bytes: ReadableBuffer) -> bytes: ...
+
+if sys.version_info >= (3, 12):
+    class _incompatible_extension_module_restrictions:
+        def __init__(self, *, disable_check: bool) -> None: ...
+        def __enter__(self) -> Self: ...
+        def __exit__(
+            self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
+        ) -> None: ...
 
 if sys.version_info >= (3, 14):
     __all__ = [
