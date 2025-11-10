@@ -1,10 +1,26 @@
-from _operator import _SupportsComparison
 from collections.abc import MutableSequence, Sequence
-from typing import Final, Literal, TypeVar
+from typing import Any, Final, Literal, Protocol, TypeVar, type_check_only
 from typing_extensions import TypeAlias
+
+@type_check_only
+class _SupportsDunderLT(Protocol):
+    def __lt__(self, other: Any, /) -> bool: ...
+
+@type_check_only
+class _SupportsDunderGT(Protocol):
+    def __gt__(self, other: Any, /) -> bool: ...
+
+@type_check_only
+class _SupportsDunderLE(Protocol):
+    def __le__(self, other: Any, /) -> bool: ...
+
+@type_check_only
+class _SupportsDunderGE(Protocol):
+    def __ge__(self, other: Any, /) -> bool: ...
 
 _T = TypeVar("_T")
 _Mismatch: TypeAlias = tuple[_T, _T, int]
+_SupportsComparison: TypeAlias = _SupportsDunderLE | _SupportsDunderGE | _SupportsDunderGT | _SupportsDunderLT
 
 _MAX_LENGTH: Final = 80
 _PLACEHOLDER_LEN: Final = 12
