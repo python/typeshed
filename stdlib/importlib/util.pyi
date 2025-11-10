@@ -1,9 +1,7 @@
-from types import TracebackType
-from _typeshed import Self
 import importlib.machinery
 import sys
 import types
-from _typeshed import ReadableBuffer
+from _typeshed import ReadableBuffer, Self
 from collections.abc import Callable
 from importlib._bootstrap import module_from_spec as module_from_spec, spec_from_loader as spec_from_loader
 from importlib._bootstrap_external import (
@@ -14,6 +12,7 @@ from importlib._bootstrap_external import (
     spec_from_file_location as spec_from_file_location,
 )
 from importlib.abc import Loader
+from types import TracebackType
 from typing_extensions import ParamSpec, deprecated
 
 _P = ParamSpec("_P")
