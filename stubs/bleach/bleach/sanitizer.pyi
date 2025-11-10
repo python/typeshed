@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from collections.abc import Callable, Container, Iterable, Iterator
 from re import Pattern
 from typing import Final, Protocol, type_check_only
@@ -25,7 +24,7 @@ class NoCssSanitizerWarning(UserWarning): ...
 
 @type_check_only
 class _FilterConstructor(Protocol):
-    def __call__(self, *, source: BleachSanitizerFilter) -> Filter[Incomplete]: ...
+    def __call__(self, *, source: BleachSanitizerFilter) -> Filter: ...
 
 # _FilterConstructor used to be called _Filter
 # this alias is obsolete and can potentially be removed in the future

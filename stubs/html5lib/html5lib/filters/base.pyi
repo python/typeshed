@@ -1,7 +1,7 @@
 from collections.abc import Iterable, Iterator
 from typing import Any, Generic, TypeVar
 
-_T = TypeVar("_T")
+_T = TypeVar("_T", default=Any)
 
 class Filter(Generic[_T]):
     source: Iterable[_T]
