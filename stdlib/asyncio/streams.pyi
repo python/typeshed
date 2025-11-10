@@ -1,13 +1,15 @@
 import ssl
 import sys
 from _typeshed import ReadableBuffer, StrPath
-from collections.abc import AsyncIterator, Awaitable, Callable, Iterable, Sequence, Sized
-from typing import Any, Protocol, SupportsIndex
+from collections.abc import Awaitable, Callable, Iterable, Sequence, Sized
+from types import ModuleType
+from typing import Any, Protocol, SupportsIndex, type_check_only
 from typing_extensions import Self, TypeAlias
 
 from . import events, protocols, transports
 from .base_events import Server
 
+# Keep asyncio.__all__ updated with any changes to __all__ here
 if sys.platform == "win32":
     __all__ = ("StreamReader", "StreamWriter", "StreamReaderProtocol", "open_connection", "start_server")
 else:
@@ -23,6 +25,7 @@ else:
 
 _ClientConnectedCallback: TypeAlias = Callable[[StreamReader, StreamWriter], Awaitable[None] | None]
 
+@type_check_only
 class _ReaduntilBuffer(ReadableBuffer, Sized, Protocol): ...
 
 if sys.version_info >= (3, 10):
@@ -31,7 +34,7 @@ if sys.version_info >= (3, 10):
         port: int | str | None = None,
         *,
         limit: int = 65536,
-        ssl_handshake_timeout: float | None = ...,
+        ssl_handshake_timeout: float | None = None,
         **kwds: Any,
     ) -> tuple[StreamReader, StreamWriter]: ...
     async def start_server(
@@ -40,7 +43,7 @@ if sys.version_info >= (3, 10):
         port: int | str | None = None,
         *,
         limit: int = 65536,
-        ssl_handshake_timeout: float | None = ...,
+        ssl_handshake_timeout: float | None = None,
         **kwds: Any,
     ) -> Server: ...
 
@@ -51,7 +54,7 @@ else:
         *,
         loop: events.AbstractEventLoop | None = None,
         limit: int = 65536,
-        ssl_handshake_timeout: float | None = ...,
+        ssl_handshake_timeout: float | None = None,
         **kwds: Any,
     ) -> tuple[StreamReader, StreamWriter]: ...
     async def start_server(
@@ -61,7 +64,7 @@ else:
         *,
         loop: events.AbstractEventLoop | None = None,
         limit: int = 65536,
-        ssl_handshake_timeout: float | None = ...,
+        ssl_handshake_timeout: float | None = None,
         **kwds: Any,
     ) -> Server: ...
 
@@ -130,10 +133,13 @@ class StreamWriter:
         async def start_tls(
             self, sslcontext: ssl.SSLContext, *, server_hostname: str | None = None, ssl_handshake_timeout: float | None = None
         ) -> None: ...
-    if sys.version_info >= (3, 11):
+
+    if sys.version_info >= (3, 13):
+        def __del__(self, warnings: ModuleType = ...) -> None: ...
+    elif sys.version_info >= (3, 11):
         def __del__(self) -> None: ...
 
-class StreamReader(AsyncIterator[bytes]):
+class StreamReader:
     def __init__(self, limit: int = 65536, loop: events.AbstractEventLoop | None = None) -> None: ...
     def exception(self) -> Exception: ...
     def set_exception(self, exc: Exception) -> None: ...

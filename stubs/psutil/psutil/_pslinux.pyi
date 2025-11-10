@@ -1,6 +1,6 @@
 import enum
 from _typeshed import Incomplete
-from typing import Any, NamedTuple
+from typing import NamedTuple
 
 from psutil._common import (
     NIC_DUPLEX_FULL as NIC_DUPLEX_FULL,
@@ -15,21 +15,20 @@ from psutil._common import (
     supports_ipv6 as supports_ipv6,
     usage_percent as usage_percent,
 )
-from psutil._compat import PY3 as PY3
 
-__extra__all__: Any
+__extra__all__: Incomplete
 POWER_SUPPLY_PATH: str
 HAS_PROC_SMAPS: bool
 HAS_PROC_SMAPS_ROLLUP: bool
-HAS_PROC_IO_PRIORITY: Any
-HAS_CPU_AFFINITY: Any
-CLOCK_TICKS: Any
-PAGESIZE: Any
-BOOT_TIME: Any
-LITTLE_ENDIAN: Any
+HAS_PROC_IO_PRIORITY: Incomplete
+HAS_CPU_AFFINITY: Incomplete
+CLOCK_TICKS: Incomplete
+PAGESIZE: Incomplete
+BOOT_TIME: Incomplete
+LITTLE_ENDIAN: Incomplete
 DISK_SECTOR_SIZE: int
-AF_LINK: Any
-AddressFamily: Any
+AF_LINK: Incomplete
+AddressFamily: Incomplete
 IOPRIO_CLASS_NONE: int
 IOPRIO_CLASS_RT: int
 IOPRIO_CLASS_BE: int
@@ -41,8 +40,8 @@ class IOPriority(enum.IntEnum):
     IOPRIO_CLASS_BE = 2
     IOPRIO_CLASS_IDLE = 3
 
-PROC_STATUSES: Any
-TCP_STATUSES: Any
+PROC_STATUSES: Incomplete
+TCP_STATUSES: Incomplete
 
 class svmem(NamedTuple):
     total: int
@@ -58,31 +57,31 @@ class svmem(NamedTuple):
     slab: int
 
 class sdiskio(NamedTuple):
-    read_count: Any
-    write_count: Any
-    read_bytes: Any
-    write_bytes: Any
-    read_time: Any
-    write_time: Any
-    read_merged_count: Any
-    write_merged_count: Any
-    busy_time: Any
+    read_count: Incomplete
+    write_count: Incomplete
+    read_bytes: Incomplete
+    write_bytes: Incomplete
+    read_time: Incomplete
+    write_time: Incomplete
+    read_merged_count: Incomplete
+    write_merged_count: Incomplete
+    busy_time: Incomplete
 
 class popenfile(NamedTuple):
-    path: Any
-    fd: Any
-    position: Any
-    mode: Any
-    flags: Any
+    path: Incomplete
+    fd: Incomplete
+    position: Incomplete
+    mode: Incomplete
+    flags: Incomplete
 
 class pmem(NamedTuple):
-    rss: Any
-    vms: Any
-    shared: Any
-    text: Any
-    lib: Any
-    data: Any
-    dirty: Any
+    rss: Incomplete
+    vms: Incomplete
+    shared: Incomplete
+    text: Incomplete
+    lib: Incomplete
+    data: Incomplete
+    dirty: Incomplete
 
 class pfullmem(NamedTuple):
     rss: Incomplete
@@ -97,42 +96,53 @@ class pfullmem(NamedTuple):
     swap: Incomplete
 
 class pmmap_grouped(NamedTuple):
-    path: Any
-    rss: Any
-    size: Any
-    pss: Any
-    shared_clean: Any
-    shared_dirty: Any
-    private_clean: Any
-    private_dirty: Any
-    referenced: Any
-    anonymous: Any
-    swap: Any
+    path: Incomplete
+    rss: Incomplete
+    size: Incomplete
+    pss: Incomplete
+    shared_clean: Incomplete
+    shared_dirty: Incomplete
+    private_clean: Incomplete
+    private_dirty: Incomplete
+    referenced: Incomplete
+    anonymous: Incomplete
+    swap: Incomplete
 
-pmmap_ext: Any
+pmmap_ext: Incomplete
 
 class pio(NamedTuple):
-    read_count: Any
-    write_count: Any
-    read_bytes: Any
-    write_bytes: Any
-    read_chars: Any
-    write_chars: Any
+    read_count: Incomplete
+    write_count: Incomplete
+    read_bytes: Incomplete
+    write_bytes: Incomplete
+    read_chars: Incomplete
+    write_chars: Incomplete
 
 class pcputimes(NamedTuple):
-    user: Any
-    system: Any
-    children_user: Any
-    children_system: Any
-    iowait: Any
+    user: float
+    system: float
+    children_user: float
+    children_system: float
+    iowait: float
 
 def readlink(path): ...
 def file_flags_to_mode(flags): ...
 def is_storage_device(name): ...
 def set_scputimes_ntuple(procfs_path) -> None: ...
 
-scputimes: Any
-prlimit: Any
+class scputimes(NamedTuple):
+    # Note: scputimes has different fields depending on exactly how Linux
+    # is setup, but we'll include the "complete" set of fields
+    user: float
+    nice: float
+    system: float
+    idle: float
+    iowait: float
+    irq: float
+    softirq: float
+    steal: float
+    guest: float
+    guest_nice: float
 
 def calculate_avail_vmem(mems): ...
 def virtual_memory() -> svmem: ...
@@ -144,12 +154,12 @@ def cpu_count_cores() -> int | None: ...
 def cpu_stats(): ...
 def cpu_freq(): ...
 
-net_if_addrs: Any
+net_if_addrs: Incomplete
 
 class _Ipv6UnsupportedError(Exception): ...
 
-class Connections:
-    tmap: Any
+class NetConnections:
+    tmap: Incomplete
     def __init__(self) -> None: ...
     def get_proc_inodes(self, pid): ...
     def get_all_inodes(self): ...
@@ -165,7 +175,7 @@ def net_connections(kind: str = ...): ...
 def net_io_counters(): ...
 def net_if_stats(): ...
 
-disk_usage: Any
+disk_usage: Incomplete
 
 def disk_io_counters(perdisk: bool = ...): ...
 
@@ -190,7 +200,7 @@ def ppid_map(): ...
 def wrap_exceptions(fun): ...
 
 class Process:
-    pid: Any
+    pid: Incomplete
     def __init__(self, pid) -> None: ...
     def oneshot_enter(self) -> None: ...
     def oneshot_exit(self) -> None: ...
@@ -220,7 +230,7 @@ class Process:
     def rlimit(self, resource_, limits: Incomplete | None = ...): ...
     def status(self): ...
     def open_files(self): ...
-    def connections(self, kind: str = ...): ...
+    def net_connections(self, kind: str = ...): ...
     def num_fds(self): ...
     def ppid(self): ...
     def uids(self, _uids_re=...): ...

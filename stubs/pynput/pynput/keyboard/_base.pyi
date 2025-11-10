@@ -1,8 +1,8 @@
 import contextlib
 import enum
 import sys
-from collections.abc import Callable, Iterable, Iterator
-from typing import Any, ClassVar
+from collections.abc import Callable, Generator, Iterable, Iterator
+from typing import Any, ClassVar, cast
 from typing_extensions import Self
 
 from pynput._util import AbstractListener
@@ -25,71 +25,74 @@ class KeyCode:
     def from_dead(cls, char: str, **kwargs: Any) -> Self: ...
 
 class Key(enum.Enum):
-    alt = 0
-    alt_l = alt
-    alt_r = alt
-    alt_gr = alt
-    backspace = alt
-    caps_lock = alt
-    cmd = alt
-    cmd_l = alt
-    cmd_r = alt
-    ctrl = alt
-    ctrl_l = alt
-    ctrl_r = alt
-    delete = alt
-    down = alt
-    end = alt
-    enter = alt
-    esc = alt
-    f1 = alt
-    f2 = alt
-    f3 = alt
-    f4 = alt
-    f5 = alt
-    f6 = alt
-    f7 = alt
-    f8 = alt
-    f9 = alt
-    f10 = alt
-    f11 = alt
-    f12 = alt
-    f13 = alt
-    f14 = alt
-    f15 = alt
-    f16 = alt
-    f17 = alt
-    f18 = alt
-    f19 = alt
-    f20 = alt
+    alt = cast(KeyCode, ...)
+    alt_l = cast(KeyCode, ...)
+    alt_r = cast(KeyCode, ...)
+    alt_gr = cast(KeyCode, ...)
+    backspace = cast(KeyCode, ...)
+    caps_lock = cast(KeyCode, ...)
+    cmd = cast(KeyCode, ...)
+    cmd_l = cast(KeyCode, ...)
+    cmd_r = cast(KeyCode, ...)
+    ctrl = cast(KeyCode, ...)
+    ctrl_l = cast(KeyCode, ...)
+    ctrl_r = cast(KeyCode, ...)
+    delete = cast(KeyCode, ...)
+    down = cast(KeyCode, ...)
+    end = cast(KeyCode, ...)
+    enter = cast(KeyCode, ...)
+    esc = cast(KeyCode, ...)
+    f1 = cast(KeyCode, ...)
+    f2 = cast(KeyCode, ...)
+    f3 = cast(KeyCode, ...)
+    f4 = cast(KeyCode, ...)
+    f5 = cast(KeyCode, ...)
+    f6 = cast(KeyCode, ...)
+    f7 = cast(KeyCode, ...)
+    f8 = cast(KeyCode, ...)
+    f9 = cast(KeyCode, ...)
+    f10 = cast(KeyCode, ...)
+    f11 = cast(KeyCode, ...)
+    f12 = cast(KeyCode, ...)
+    f13 = cast(KeyCode, ...)
+    f14 = cast(KeyCode, ...)
+    f15 = cast(KeyCode, ...)
+    f16 = cast(KeyCode, ...)
+    f17 = cast(KeyCode, ...)
+    f18 = cast(KeyCode, ...)
+    f19 = cast(KeyCode, ...)
+    f20 = cast(KeyCode, ...)
     if sys.platform == "win32":
-        f21 = alt
-        f22 = alt
-        f23 = alt
-        f24 = alt
-    home = alt
-    left = alt
-    page_down = alt
-    page_up = alt
-    right = alt
-    shift = alt
-    shift_l = alt
-    shift_r = alt
-    space = alt
-    tab = alt
-    up = alt
-    media_play_pause = alt
-    media_volume_mute = alt
-    media_volume_down = alt
-    media_volume_up = alt
-    media_previous = alt
-    media_next = alt
-    insert = alt
-    menu = alt
-    num_lock = alt
-    pause = alt
-    print_screen = alt
-    scroll_lock = alt
+        f21 = cast(KeyCode, ...)
+        f22 = cast(KeyCode, ...)
+        f23 = cast(KeyCode, ...)
+        f24 = cast(KeyCode, ...)
+    home = cast(KeyCode, ...)
+    left = cast(KeyCode, ...)
+    page_down = cast(KeyCode, ...)
+    page_up = cast(KeyCode, ...)
+    right = cast(KeyCode, ...)
+    shift = cast(KeyCode, ...)
+    shift_l = cast(KeyCode, ...)
+    shift_r = cast(KeyCode, ...)
+    space = cast(KeyCode, ...)
+    tab = cast(KeyCode, ...)
+    up = cast(KeyCode, ...)
+    media_play_pause = cast(KeyCode, ...)
+    media_stop = cast(KeyCode, ...)
+    media_volume_mute = cast(KeyCode, ...)
+    media_volume_down = cast(KeyCode, ...)
+    media_volume_up = cast(KeyCode, ...)
+    media_previous = cast(KeyCode, ...)
+    media_next = cast(KeyCode, ...)
+    if sys.platform == "darwin":
+        media_eject = cast(KeyCode, ...)
+    insert = cast(KeyCode, ...)
+    menu = cast(KeyCode, ...)
+    num_lock = cast(KeyCode, ...)
+    pause = cast(KeyCode, ...)
+    print_screen = cast(KeyCode, ...)
+    scroll_lock = cast(KeyCode, ...)
 
 class Controller:
     _KeyCode: ClassVar[type[KeyCode]]  # undocumented
@@ -108,7 +111,7 @@ class Controller:
     def tap(self, key: str | Key | KeyCode) -> None: ...
     def touch(self, key: str | Key | KeyCode, is_press: bool) -> None: ...
     @contextlib.contextmanager
-    def pressed(self, *args: str | Key | KeyCode) -> Iterator[None]: ...
+    def pressed(self, *args: str | Key | KeyCode) -> Generator[None]: ...
     def type(self, string: str) -> None: ...
     @property
     def modifiers(self) -> contextlib.AbstractContextManager[Iterator[set[Key]]]: ...

@@ -1,15 +1,16 @@
 from collections.abc import Callable, Mapping, Sequence
-from typing import Any
-from typing_extensions import TypeAlias
+from typing import Any, Final
+from typing_extensions import TypeAlias, deprecated
 
 import docutils.parsers.rst.states
 from docutils import nodes
 from docutils.languages import _LanguageModule
-from docutils.nodes import Node
+from docutils.nodes import Node, system_message
 from docutils.parsers.rst.states import Inliner
-from docutils.utils import Reporter, SystemMessage
+from docutils.utils import Reporter
 
-DEFAULT_INTERPRETED_ROLE: str
+__docformat__: Final = "reStructuredText"
+DEFAULT_INTERPRETED_ROLE: Final = "title-reference"
 
 _RoleFn: TypeAlias = Callable[
     [str, str, str, int, docutils.parsers.rst.states.Inliner, Mapping[str, Any], Sequence[str]],
@@ -20,7 +21,7 @@ def register_canonical_role(name: str, role_fn: _RoleFn) -> None: ...
 def register_local_role(name: str, role_fn: _RoleFn) -> None: ...
 def role(
     role_name: str, language_module: _LanguageModule, lineno: int, reporter: Reporter
-) -> tuple[_RoleFn | None, list[SystemMessage]]: ...
+) -> tuple[_RoleFn | None, list[system_message]]: ...
 def set_implicit_options(role_fn: _RoleFn) -> None: ...
 def register_generic_role(canonical_name: str, node_class: type[Node]) -> None: ...
 
@@ -37,7 +38,7 @@ class GenericRole:
         inliner: Inliner,
         options: Mapping[str, Any] | None = None,
         content: Sequence[str] | None = None,
-    ) -> tuple[list[Node], list[SystemMessage]]: ...
+    ) -> tuple[list[Node], list[system_message]]: ...
 
 class CustomRole:
     name: str
@@ -62,7 +63,7 @@ class CustomRole:
         inliner: Inliner,
         options: Mapping[str, Any] | None = None,
         content: Sequence[str] | None = None,
-    ) -> tuple[list[Node], list[SystemMessage]]: ...
+    ) -> tuple[list[Node], list[system_message]]: ...
 
 def generic_custom_role(
     role: str,
@@ -72,7 +73,7 @@ def generic_custom_role(
     inliner: Inliner,
     options: Mapping[str, Any] | None = None,
     content: Sequence[str] | None = None,
-) -> tuple[list[Node], list[SystemMessage]]: ...
+) -> tuple[list[Node], list[system_message]]: ...
 def pep_reference_role(
     role: str,
     rawtext: str,
@@ -81,7 +82,7 @@ def pep_reference_role(
     inliner: Inliner,
     options: Mapping[str, Any] | None = None,
     content: Sequence[str] | None = None,
-) -> tuple[list[Node], list[SystemMessage]]: ...
+) -> tuple[list[Node], list[system_message]]: ...
 def rfc_reference_role(
     role: str,
     rawtext: str,
@@ -90,7 +91,7 @@ def rfc_reference_role(
     inliner: Inliner,
     options: Mapping[str, Any] | None = None,
     content: Sequence[str] | None = None,
-) -> tuple[list[Node], list[SystemMessage]]: ...
+) -> tuple[list[Node], list[system_message]]: ...
 def raw_role(
     role: str,
     rawtext: str,
@@ -99,7 +100,7 @@ def raw_role(
     inliner: Inliner,
     options: Mapping[str, Any] | None = None,
     content: Sequence[str] | None = None,
-) -> tuple[list[Node], list[SystemMessage]]: ...
+) -> tuple[list[Node], list[system_message]]: ...
 def code_role(
     role: str,
     rawtext: str,
@@ -108,7 +109,7 @@ def code_role(
     inliner: Inliner,
     options: Mapping[str, Any] | None = None,
     content: Sequence[str] | None = None,
-) -> tuple[list[Node], list[SystemMessage]]: ...
+) -> tuple[list[Node], list[system_message]]: ...
 def math_role(
     role: str,
     rawtext: str,
@@ -117,7 +118,7 @@ def math_role(
     inliner: Inliner,
     options: Mapping[str, Any] | None = None,
     content: Sequence[str] | None = None,
-) -> tuple[list[Node], list[SystemMessage]]: ...
+) -> tuple[list[Node], list[system_message]]: ...
 def unimplemented_role(
     role: str,
     rawtext: str,
@@ -126,6 +127,9 @@ def unimplemented_role(
     inliner: Inliner,
     options: Mapping[str, Any] | None = None,
     content: Sequence[str] | None = None,
-) -> tuple[list[Node], list[SystemMessage]]: ...
+) -> tuple[list[Node], list[system_message]]: ...
+@deprecated("Deprecated and will be removed in Docutils 2.0, Use `roles.normalize_options()` instead.")
 def set_classes(options: dict[str, str]) -> None: ...
+@deprecated("Deprecated and will be removed in Docutils 2.0, Use `roles.normalize_options()` instead.")
 def normalized_role_options(options: Mapping[str, Any] | None) -> dict[str, Any]: ...
+def normalize_options(options: Mapping[str, Any] | None) -> dict[str, Any]: ...

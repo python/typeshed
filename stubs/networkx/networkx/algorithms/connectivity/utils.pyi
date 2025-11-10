@@ -1,6 +1,9 @@
-from networkx.utils.backends import _dispatch
+from networkx.classes.graph import Graph, _Node
+from networkx.utils.backends import _dispatchable
 
-@_dispatch
-def build_auxiliary_node_connectivity(G): ...
-@_dispatch
-def build_auxiliary_edge_connectivity(G): ...
+__all__ = ["build_auxiliary_node_connectivity", "build_auxiliary_edge_connectivity"]
+
+@_dispatchable
+def build_auxiliary_node_connectivity(G: Graph[_Node]): ...
+@_dispatchable
+def build_auxiliary_edge_connectivity(G: Graph[_Node]): ...

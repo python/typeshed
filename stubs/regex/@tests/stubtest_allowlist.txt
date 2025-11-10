@@ -13,6 +13,3 @@ regex._regex.get_properties
 regex._regex.has_property_value
 regex._regex.CODE_SIZE
 regex._regex.MAGIC
-
-# Tests:
-regex.test_regex

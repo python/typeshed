@@ -1,0 +1,34 @@
+# =======
+# <= 3.12
+# =======
+
+# Added in Python 3.11.13 (parameter `escapable`)
+html.parser.HTMLParser.set_cdata_mode
+
+
+# =======
+# <= 3.11
+# =======
+
+# Incompatible changes introduced in Python 3.11.10
+# (Remove once 3.11.10 becomes available for Windows)
+email._header_value_parser.NLSET
+email._header_value_parser.SPECIALSNL
+email.errors.HeaderWriteError
+email.utils.getaddresses
+email.utils.parseaddr
+
+
+# =============================================================
+# Allowlist entries that cannot or should not be fixed; <= 3.12
+# =============================================================
+
+# Modules that don't exist on Windows
+crypt
+nis
+ossaudiodev
+spwd
+
+# Incompatible changes introduced in Python 3.11.13
+# (Remove once 3.11.18 becomes available for Windows)
+(ntpath.realpath)?

@@ -1,8 +1,6 @@
 This directory contains several tests:
 - `tests/mypy_test.py`
 tests the stubs with [mypy](https://github.com/python/mypy/)
-- `tests/pytype_test.py` tests the stubs with
-[pytype](https://github.com/google/pytype/).
 - `tests/pyright_test.py` tests the stubs with
 [pyright](https://github.com/microsoft/pyright).
 - `tests/regr_test.py` runs mypy against the test cases for typeshed's
@@ -19,7 +17,7 @@ in the `tests` and `scripts` directories.
 To run the tests, follow the [setup instructions](../CONTRIBUTING.md#preparing-the-environment)
 in the `CONTRIBUTING.md` document. In particular, you have to run with Python 3.9+.
 
-In order for `pytype_test` and `pyright_test` to work correctly, some third-party stubs
+In order for `pyright_test` to work correctly, some third-party stubs
 may require extra dependencies external to typeshed to be installed in your virtual environment
 prior to running the test.
 You can list or install all of a stubs package's external dependencies using the following script:
@@ -27,16 +25,14 @@ You can list or install all of a stubs package's external dependencies using the
 (.venv3)$ python tests/get_external_stub_requirements.py <third_party_stub>  # List external dependencies for <third_party_stub>
 (.venv3)$ python tests/get_external_stub_requirements.py <third_party_stub1> <third_party_stub2>  # List external dependencies for <third_party_stub1> and <third_party_stub2>
 (.venv3)$ python tests/get_external_stub_requirements.py  # List external dependencies for all third-party stubs in typeshed
-# Install external dependencies for all third-party stubs in typeshed
-(.venv3)$ DEPENDENCIES=$(python tests/get_external_stub_requirements.py)
-(.venv3)$ if [ -n "$DEPENDENCIES" ]; then pip install $DEPENDENCIES; fi
+(.venv3)$ python scripts/install_all_third_party_dependencies.py  # Install external dependencies for all third-party stubs in typeshed
 ```
 
 ## Run all tests for a specific stub
 
 Run using:
 ```bash
-(.venv3)$ python3 scripts/runtests.py <stdlib-or-stubs>/<stub-to-test>
+(.venv3)$ python3 tests/runtests.py <stdlib-or-stubs>/<stub-to-test>
 ```
 
 This script will run all tests below for a specific typeshed directory. If a
@@ -46,7 +42,7 @@ be selected. A summary of the results will be printed to the terminal.
 You must provide a single argument which is a path to the stubs to test, like
 so: `stdlib/os` or `stubs/requests`.
 
-Run `python scripts/runtests.py --help` for information on the various configuration options
+Run `python tests/runtests.py --help` for information on the various configuration options
 for this script. Note that if you use the `--run-stubtest` flag with the stdlib stubs,
 whether or not the test passes will depend on the exact version of Python
 you're using, as well as various other details regarding your local environment.
@@ -69,20 +65,6 @@ imported but doesn't check whether stubs match their implementation
 Run `python tests/mypy_test.py --help` for information on the various configuration options
 for this script.
 
-## pytype\_test.py
-
-Note: this test cannot be run on Windows
-systems unless you are using Windows Subsystem for Linux.
-It also requires a Python version < 3.11 as pytype does not yet support
-Python 3.11 and above.
-
-Run using:
-```bash
-(.venv3)$ python3 tests/pytype_test.py
-```
-
-This test works similarly to `mypy_test.py`, except it uses `pytype`.
-
 ## pyright\_test.py
 
 This test requires [Node.js](https://nodejs.org) to be installed. Although
@@ -102,7 +84,8 @@ the stubs in typeshed (including the standard library).
 ## regr\_test.py
 
 This test runs mypy against the test cases for typeshed's stdlib and third-party
-stubs. See [the README in the `test_cases` directory](../test_cases/README.md)
+stubs. See [the REGRESSION.md document](./REGRESSION.md)
+in this directory
 for more information about what
 these test cases are for and how they work. Run `python tests/regr_test.py --help`
 for information on the various configuration options.
@@ -136,7 +119,7 @@ on your typeshed fork).
 As a convenience, stubtest\_stdlib.py will look for local-only allowlist files
 and use those if they are present. Only version-specific local allowlists are supported.
 An example local allowlist file is
-`tests/stubtest_allowlists/py312.txt.local`. Use caution when taking advantage of this feature;
+`stdlib/@tests/stubtest_allowlists/py312.txt.local`. Use caution when taking advantage of this feature;
 the CI run of stubtest remains canonical.
 
 If you need a specific version of Python to repro a CI failure,
@@ -144,7 +127,7 @@ If you need a specific version of Python to repro a CI failure,
 
 Due to its dynamic nature, you may run into false positives. In this case, you
 can add to the allowlists for each affected Python version in
-`tests/stubtest_allowlists`. Please file issues for stubtest false positives
+`stdlib/@tests/stubtest_allowlists`. Please file issues for stubtest false positives
 at [mypy](https://github.com/python/mypy/issues).
 
 ## stubtest\_third\_party.py
@@ -163,7 +146,7 @@ it checks all third-party stubs, but you can provide the distributions to
 check on the command line:
 
 ```bash
-(.venv3)$ python3 tests/stubtest_third_party.py Pillow toml  # check stubs/Pillow and stubs/toml
+(.venv3)$ python3 tests/stubtest_third_party.py requests toml  # check stubs/requests and stubs/toml
 ```
 
 If you have the runtime package installed in your local virtual environment, you can also run stubtest
@@ -175,8 +158,10 @@ directly, with
 ```
 
 For each distribution, stubtest ignores definitions listed in a `@tests/stubtest_allowlist.txt` file,
-relative to the distribution. Additional packages that are needed to run stubtest for a
-distribution can be added to `tool.stubtest.stubtest_requirements` in `METADATA.toml`.
+relative to the distribution. Platform specific items can be ignored by listing them
+in a `@tests/stubtest_allowlist_{platform}.txt` file. Additional configuration
+can be found in the `tool.stubtest` section of the `METADATA.toml` file. See
+[CONTRIBUTING.md](../CONTRIBUTING.md#the-metadatatoml-file) for more information.
 
 ### Using stubtest to find objects missing from the stubs
 
@@ -196,6 +181,23 @@ stubtest reports to be missing to the stub. However, note that not *everything*
 that stubtest reports to be missing should necessarily be added to the stub.
 For some implementation details, it is often better to add allowlist entries
 for missing objects rather than trying to match the runtime in every detail.
+
+### Support for mypy plugins in stubtest
+
+For stubs that require mypy plugins to check correctly (such as Django), stubtest
+supports configuring mypy plugins through the METADATA.toml file. This allows stubtest to
+leverage type information provided by these plugins when validating stubs.
+
+To use this feature, add the following configuration to the `tool.stubtest` section in your METADATA.toml:
+
+```toml
+mypy_plugins = ["mypy_django_plugin.main"]
+mypy_plugins_config = { "django-stubs" = { "django_settings_module" = "@tests.django_settings" } }
+```
+
+For Django stubs specifically, you'll need to create a `django_settings.py` file in your `@tests` directory
+that contains the Django settings required by the plugin. This file will be referenced by the plugin
+configuration to properly validate Django-specific types during stubtest execution.
 
 ## typecheck\_typeshed.py
 

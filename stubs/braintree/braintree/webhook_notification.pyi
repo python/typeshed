@@ -51,8 +51,7 @@ class WebhookNotification(Resource):
         PaymentMethodCustomerDataUpdated: Final = "payment_method_customer_data_updated"
         PaymentMethodRevokedByCustomer: Final = "payment_method_revoked_by_customer"
         RecipientUpdatedGrantedPaymentMethod: Final = "recipient_updated_granted_payment_method"
-        SubMerchantAccountApproved: Final = "sub_merchant_account_approved"
-        SubMerchantAccountDeclined: Final = "sub_merchant_account_declined"
+        RefundFailed: Final = "refund_failed"
         SubscriptionBillingSkipped: Final = "subscription_billing_skipped"
         SubscriptionCanceled: Final = "subscription_canceled"
         SubscriptionChargedSuccessfully: Final = "subscription_charged_successfully"
@@ -62,14 +61,15 @@ class WebhookNotification(Resource):
         SubscriptionWentActive: Final = "subscription_went_active"
         SubscriptionWentPastDue: Final = "subscription_went_past_due"
         TransactionDisbursed: Final = "transaction_disbursed"
+        TransactionRetried: Final = "transaction_retried"
         TransactionReviewed: Final = "transaction_reviewed"
         TransactionSettled: Final = "transaction_settled"
         TransactionSettlementDeclined: Final = "transaction_settlement_declined"
 
     @staticmethod
-    def parse(signature, payload): ...
+    def parse(signature: str, payload: str) -> WebhookNotification: ...
     @staticmethod
-    def verify(challenge): ...
+    def verify(challenge: str) -> str: ...
     source_merchant_id: Incomplete
     subscription: Subscription
     merchant_account: MerchantAccount

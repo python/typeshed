@@ -1,11 +1,11 @@
 import enum
 from _typeshed import Incomplete
 from collections.abc import Iterable
-from typing import Any, NamedTuple
+from typing import NamedTuple
 
+from psutil import _psutil_windows
 from psutil._common import (
     ENCODING as ENCODING,
-    ENCODING_ERRS as ENCODING_ERRS,
     AccessDenied as AccessDenied,
     NoSuchProcess as NoSuchProcess,
     TimeoutExpired as TimeoutExpired,
@@ -17,7 +17,6 @@ from psutil._common import (
     parse_environ_block as parse_environ_block,
     usage_percent as usage_percent,
 )
-from psutil._compat import PY3 as PY3
 from psutil._psutil_windows import (
     ABOVE_NORMAL_PRIORITY_CLASS as ABOVE_NORMAL_PRIORITY_CLASS,
     BELOW_NORMAL_PRIORITY_CLASS as BELOW_NORMAL_PRIORITY_CLASS,
@@ -27,21 +26,22 @@ from psutil._psutil_windows import (
     REALTIME_PRIORITY_CLASS as REALTIME_PRIORITY_CLASS,
 )
 
-__extra__all__: Any
+__extra__all__: Incomplete
 CONN_DELETE_TCB: str
 ERROR_PARTIAL_COPY: int
-PYPY: Any
+PYPY: Incomplete
 AF_LINK: int
-AddressFamily: Any
-TCP_STATUSES: Any
+AddressFamily: Incomplete
+TCP_STATUSES: Incomplete
 
+# These noqas workaround https://github.com/astral-sh/ruff/issues/10874
 class Priority(enum.IntEnum):
-    ABOVE_NORMAL_PRIORITY_CLASS = ABOVE_NORMAL_PRIORITY_CLASS
-    BELOW_NORMAL_PRIORITY_CLASS = BELOW_NORMAL_PRIORITY_CLASS
-    HIGH_PRIORITY_CLASS = HIGH_PRIORITY_CLASS
-    IDLE_PRIORITY_CLASS = IDLE_PRIORITY_CLASS
-    NORMAL_PRIORITY_CLASS = NORMAL_PRIORITY_CLASS
-    REALTIME_PRIORITY_CLASS = REALTIME_PRIORITY_CLASS
+    ABOVE_NORMAL_PRIORITY_CLASS = _psutil_windows.ABOVE_NORMAL_PRIORITY_CLASS  # noqa: F811
+    BELOW_NORMAL_PRIORITY_CLASS = _psutil_windows.BELOW_NORMAL_PRIORITY_CLASS  # noqa: F811
+    HIGH_PRIORITY_CLASS = _psutil_windows.HIGH_PRIORITY_CLASS  # noqa: F811
+    IDLE_PRIORITY_CLASS = _psutil_windows.IDLE_PRIORITY_CLASS  # noqa: F811
+    NORMAL_PRIORITY_CLASS = _psutil_windows.NORMAL_PRIORITY_CLASS  # noqa: F811
+    REALTIME_PRIORITY_CLASS = _psutil_windows.REALTIME_PRIORITY_CLASS  # noqa: F811
 
 IOPRIO_VERYLOW: int
 IOPRIO_LOW: int
@@ -54,14 +54,14 @@ class IOPriority(enum.IntEnum):
     IOPRIO_NORMAL = 2
     IOPRIO_HIGH = 3
 
-pinfo_map: Any
+pinfo_map: Incomplete
 
 class scputimes(NamedTuple):
-    user: Any
-    system: Any
-    idle: Any
-    interrupt: Any
-    dpc: Any
+    user: float
+    system: float
+    idle: float
+    interrupt: float
+    dpc: float
 
 class svmem(NamedTuple):
     total: int
@@ -71,18 +71,18 @@ class svmem(NamedTuple):
     free: int
 
 class pmem(NamedTuple):
-    rss: Any
-    vms: Any
-    num_page_faults: Any
-    peak_wset: Any
-    wset: Any
-    peak_paged_pool: Any
-    paged_pool: Any
-    peak_nonpaged_pool: Any
-    nonpaged_pool: Any
-    pagefile: Any
-    peak_pagefile: Any
-    private: Any
+    rss: Incomplete
+    vms: Incomplete
+    num_page_faults: Incomplete
+    peak_wset: Incomplete
+    wset: Incomplete
+    peak_paged_pool: Incomplete
+    paged_pool: Incomplete
+    peak_nonpaged_pool: Incomplete
+    nonpaged_pool: Incomplete
+    pagefile: Incomplete
+    peak_pagefile: Incomplete
+    private: Incomplete
 
 class pfullmem(NamedTuple):
     rss: Incomplete
@@ -100,26 +100,25 @@ class pfullmem(NamedTuple):
     uss: Incomplete
 
 class pmmap_grouped(NamedTuple):
-    path: Any
-    rss: Any
+    path: Incomplete
+    rss: Incomplete
 
-pmmap_ext: Any
+pmmap_ext: Incomplete
 
 class pio(NamedTuple):
-    read_count: Any
-    write_count: Any
-    read_bytes: Any
-    write_bytes: Any
-    other_count: Any
-    other_bytes: Any
+    read_count: Incomplete
+    write_count: Incomplete
+    read_bytes: Incomplete
+    write_bytes: Incomplete
+    other_count: Incomplete
+    other_bytes: Incomplete
 
 def convert_dos_path(s): ...
-def py2_strencode(s): ...
 def getpagesize(): ...
 def virtual_memory() -> svmem: ...
 def swap_memory(): ...
 
-disk_io_counters: Any
+disk_io_counters: Incomplete
 
 def disk_usage(path): ...
 def disk_partitions(all): ...
@@ -154,17 +153,17 @@ class WindowsService:
     def description(self): ...
     def as_dict(self): ...
 
-pids: Any
-pid_exists: Any
-ppid_map: Any
+pids: Incomplete
+pid_exists: Incomplete
+ppid_map: Incomplete
 
 def is_permission_err(exc): ...
-def convert_oserror(exc, pid: Incomplete | None = None, name: Incomplete | None = None): ...
+def convert_oserror(exc, pid=None, name=None): ...
 def wrap_exceptions(fun): ...
 def retry_error_partial_copy(fun): ...
 
 class Process:
-    pid: Any
+    pid: Incomplete
     def __init__(self, pid) -> None: ...
     def oneshot_enter(self) -> None: ...
     def oneshot_exit(self) -> None: ...
@@ -178,9 +177,9 @@ class Process:
     def memory_maps(self) -> None: ...
     def kill(self): ...
     def send_signal(self, sig) -> None: ...
-    def wait(self, timeout: Incomplete | None = None): ...
+    def wait(self, timeout=None): ...
     def username(self): ...
-    def create_time(self): ...
+    def create_time(self, fast_only: bool = False): ...
     def num_threads(self): ...
     def threads(self): ...
     def cpu_times(self): ...
@@ -188,7 +187,7 @@ class Process:
     def resume(self) -> None: ...
     def cwd(self): ...
     def open_files(self): ...
-    def connections(self, kind: str = "inet"): ...
+    def net_connections(self, kind: str = "inet"): ...
     def nice_get(self): ...
     def nice_set(self, value): ...
     def ionice_get(self): ...
