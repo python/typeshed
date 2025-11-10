@@ -1,7 +1,7 @@
 import sys
 from abc import abstractmethod
 from time import struct_time
-from typing import Any, ClassVar, Final, Generic, Literal, NamedTuple, NoReturn, SupportsIndex, TypeVar, final, overload, type_check_only
+from typing import Any, ClassVar, Final, Generic, NoReturn, SupportsIndex, TypeVar, final, overload, type_check_only
 from typing_extensions import CapsuleType, Self, TypeAlias, deprecated, disjoint_base
 
 if sys.version_info >= (3, 11):
@@ -362,6 +362,7 @@ class datetime(date, Generic[_TzInfoT]):
             tzinfo: _TzInfo | None = ...,
             fold: int = ...,
         ) -> Self: ...
+
     @overload
     def replace(
         self,
