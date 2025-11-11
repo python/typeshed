@@ -1,3 +1,4 @@
+from typing import Literal
 import importlib.machinery
 import sys
 import types
@@ -52,6 +53,8 @@ if sys.version_info >= (3, 12):
         def __exit__(
             self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
         ) -> None: ...
+        @property
+        def override(self) -> Literal[-1, 1]: ... # undocumented
 
 if sys.version_info >= (3, 14):
     __all__ = [
