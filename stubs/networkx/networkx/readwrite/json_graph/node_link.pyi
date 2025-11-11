@@ -1,3 +1,5 @@
+from _typeshed import Incomplete
+from collections.abc import Mapping
 from typing import overload
 from typing_extensions import deprecated
 
@@ -36,10 +38,9 @@ def node_link_data(
 ): ...
 @_dispatchable
 def node_link_graph(
-    data,
+    data: Mapping[str, Incomplete],
     directed: bool = False,
     multigraph: bool = True,
-    attrs=None,
     *,
     source: str = "source",
     target: str = "target",
