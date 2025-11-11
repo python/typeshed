@@ -1,4 +1,3 @@
-from typing import Literal
 import importlib.machinery
 import sys
 import types
@@ -14,6 +13,7 @@ from importlib._bootstrap_external import (
 )
 from importlib.abc import Loader
 from types import TracebackType
+from typing import Literal
 from typing_extensions import ParamSpec, Self, deprecated
 
 _P = ParamSpec("_P")
@@ -54,7 +54,7 @@ if sys.version_info >= (3, 12):
             self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
         ) -> None: ...
         @property
-        def override(self) -> Literal[-1, 1]: ... # undocumented
+        def override(self) -> Literal[-1, 1]: ...  # undocumented
 
 if sys.version_info >= (3, 14):
     __all__ = [
