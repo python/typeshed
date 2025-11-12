@@ -1,4 +1,3 @@
-from typing import LiteralString
 import sys
 from _typeshed import (
     AnyStr_co,
@@ -34,6 +33,7 @@ from typing import (
     Final,
     Generic,
     Literal,
+    LiteralString,
     NoReturn,
     Protocol,
     TypeVar,
@@ -46,17 +46,16 @@ from typing_extensions import Self, TypeAlias, Unpack, deprecated
 
 from . import path as _path
 
-
 # Re-export common definitions from os.path to reduce duplication
 from .path import (
-    curdir as curdir,
-    pardir as pardir,
-    sep as sep,
     altsep as altsep,
-    extsep as extsep,
-    pathsep as pathsep,
+    curdir as curdir,
     defpath as defpath,
     devnull as devnull,
+    extsep as extsep,
+    pardir as pardir,
+    pathsep as pathsep,
+    sep as sep,
 )
 
 __all__ = [
