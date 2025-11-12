@@ -42,7 +42,7 @@ from typing import (
     runtime_checkable,
     type_check_only,
 )
-from typing_extensions import Self, TypeAlias, Unpack, deprecated
+from typing_extensions import Self, TypeAlias, Unpack, deprecated, LiteralString
 
 from . import path as _path
 
