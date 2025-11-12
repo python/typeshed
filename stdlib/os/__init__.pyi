@@ -33,7 +33,6 @@ from typing import (
     Final,
     Generic,
     Literal,
-    LiteralString,
     NoReturn,
     Protocol,
     TypeVar,
