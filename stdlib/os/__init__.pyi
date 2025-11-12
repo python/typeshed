@@ -1,3 +1,4 @@
+from typing import LiteralString
 import sys
 from _typeshed import (
     AnyStr_co,
@@ -44,6 +45,19 @@ from typing import (
 from typing_extensions import Self, TypeAlias, Unpack, deprecated
 
 from . import path as _path
+
+
+# Re-export common definitions from os.path to reduce duplication
+from .path import (
+    curdir as curdir,
+    pardir as pardir,
+    sep as sep,
+    altsep as altsep,
+    extsep as extsep,
+    pathsep as pathsep,
+    defpath as defpath,
+    devnull as devnull,
+)
 
 __all__ = [
     "F_OK",
@@ -674,19 +688,8 @@ if sys.platform != "win32":
     ST_NOSUID: Final[int]
     ST_RDONLY: Final[int]
 
-curdir: str
-pardir: str
-sep: str
-if sys.platform == "win32":
-    altsep: str
-else:
-    altsep: str | None
-extsep: str
-pathsep: str
-defpath: str
 linesep: Literal["\n", "\r\n"]
-devnull: str
-name: str
+name: LiteralString
 
 F_OK: Final = 0
 R_OK: Final = 4
