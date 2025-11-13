@@ -170,6 +170,8 @@ class Event:
     def wait(self, timeout: float | None = None) -> bool: ...
 
 excepthook = _excepthook
+if sys.version_info >= (3, 10):
+    __excepthook__ = _excepthook
 ExceptHookArgs = _ExceptHookArgs
 
 class Timer(Thread):
