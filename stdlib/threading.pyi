@@ -1,6 +1,6 @@
 import _thread
 import sys
-from _thread import _excepthook, _ExceptHookArgs, get_native_id as get_native_id
+from _thread import _ExceptHookArgs, get_native_id as get_native_id
 from _typeshed import ProfileFunction, TraceFunction
 from collections.abc import Callable, Iterable, Mapping
 from contextvars import ContextVar
