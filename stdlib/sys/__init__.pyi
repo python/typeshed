@@ -424,7 +424,7 @@ if sys.platform == "win32":
 
 def intern(string: str, /) -> str: ...
 
-__interactivehook__: Callable[[], Any]
+__interactivehook__: Callable[[], object]
 
 if sys.version_info >= (3, 13):
     def _is_gil_enabled() -> bool: ...
