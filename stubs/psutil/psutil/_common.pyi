@@ -1,8 +1,8 @@
 import enum
-from _typeshed import StrOrBytesPath, SupportsWrite
+from _typeshed import Incomplete, StrOrBytesPath, SupportsWrite
 from collections.abc import Callable
 from socket import AF_INET6 as AF_INET6, AddressFamily, SocketKind
-from typing import Any, Literal, NamedTuple, TypeVar, overload
+from typing import Literal, NamedTuple, TypeVar, overload
 
 POSIX: bool
 WINDOWS: bool
@@ -211,39 +211,39 @@ conn_tmap: dict[str, tuple[list[AddressFamily], list[SocketKind]]]
 
 class Error(Exception):
     __module__: str
-    msg: Any
+    msg: Incomplete
     def __init__(self, msg: str = ...) -> None: ...
 
 class NoSuchProcess(Error):
     __module__: str
-    pid: Any
-    name: Any
-    msg: Any
+    pid: Incomplete
+    name: Incomplete
+    msg: Incomplete
     def __init__(self, pid, name=None, msg=None) -> None: ...
 
 class ZombieProcess(NoSuchProcess):
     __module__: str
-    pid: Any
-    ppid: Any
-    name: Any
-    msg: Any
+    pid: Incomplete
+    ppid: Incomplete
+    name: Incomplete
+    msg: Incomplete
     def __init__(self, pid, name=None, ppid=None, msg=None) -> None: ...
 
 class AccessDenied(Error):
     __module__: str
-    pid: Any
-    name: Any
-    msg: Any
+    pid: Incomplete
+    name: Incomplete
+    msg: Incomplete
     def __init__(self, pid=None, name=None, msg=None) -> None: ...
 
 class TimeoutExpired(Error):
     __module__: str
-    seconds: Any
-    pid: Any
-    name: Any
+    seconds: Incomplete
+    pid: Incomplete
+    name: Incomplete
     def __init__(self, seconds, pid=None, name=None) -> None: ...
 
-_Func = TypeVar("_Func", bound=Callable[..., Any])
+_Func = TypeVar("_Func", bound=Callable[..., Incomplete])
 
 def usage_percent(used, total, round_: int | None = None) -> float: ...
 def memoize(fun: _Func) -> _Func: ...
@@ -261,10 +261,10 @@ def conn_to_ntuple(fd: int, fam: int, type_: int, laddr, raddr, status: str, sta
 def deprecated_method(replacement: str) -> Callable[[_Func], _Func]: ...
 
 class _WrapNumbers:
-    lock: Any
-    cache: Any
-    reminders: Any
-    reminder_keys: Any
+    lock: Incomplete
+    cache: Incomplete
+    reminders: Incomplete
+    reminder_keys: Incomplete
     def __init__(self) -> None: ...
     def run(self, input_dict, name): ...
     def cache_clear(self, name=None) -> None: ...
