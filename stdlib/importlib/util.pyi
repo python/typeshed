@@ -50,7 +50,7 @@ if sys.version_info >= (3, 12):
     class _incompatible_extension_module_restrictions:
         def __init__(self, *, disable_check: bool) -> None: ...
         disable_check: bool
-        old: Literal[-1, 0]  # exists only while entered
+        old: Literal[-1, 0, 1]  # exists only while entered
         def __enter__(self) -> Self: ...
         def __exit__(
             self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
