@@ -17,7 +17,7 @@ if sys.platform == "darwin":
         usage_percent as usage_percent,
     )
 
-    from . import _common, _psposix, _psutil_osx
+    from . import _common, _psposix, _psutil_osx, _psutil_posix
 
     _P = ParamSpec("_P")
     _R = TypeVar("_R")
@@ -75,7 +75,7 @@ if sys.platform == "darwin":
     def sensors_battery() -> _common.sbattery | None: ...
 
     net_io_counters = _psutil_osx.net_io_counters
-    net_if_addrs = _psposix.net_if_addrs
+    net_if_addrs = _psutil_posix.net_if_addrs
 
     def net_connections(kind: str = "inet") -> list[_common.sconn]: ...
     def net_if_stats() -> dict[str, _common.snicstats]: ...
