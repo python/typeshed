@@ -422,7 +422,10 @@ if sys.platform == "win32":
 
     def getwindowsversion() -> _WinVersion: ...
 
+@overload
 def intern(string: str, /) -> str: ...
+@overload
+def intern(string: LiteralString, /) -> LiteralString: ...
 
 __interactivehook__: Callable[[], object]
 
