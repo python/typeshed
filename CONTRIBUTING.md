@@ -311,7 +311,7 @@ def foo(x: Incomplete | None) -> list[Incomplete]: ...
 ### What to do when a project's documentation and implementation disagree
 
 Type stubs are meant to be external type annotations for a given
-library.  While they are useful documentation in its own merit, they
+library.  While they are useful documentation in their own right, they
 augment the project's concrete implementation, not the project's
 documentation.  Whenever you find them disagreeing, model the type
 information after the actual implementation and file an issue on the
