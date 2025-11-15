@@ -5,7 +5,7 @@ from builtins import object as _object
 from collections.abc import AsyncGenerator, Callable, Sequence
 from io import TextIOWrapper
 from types import FrameType, ModuleType, TracebackType
-from typing import Any, Final, Literal, NoReturn, Protocol, TextIO, TypeVar, final, type_check_only
+from typing import Any, Final, Literal, NoReturn, Protocol, TextIO, TypeVar, final, overload, type_check_only
 from typing_extensions import LiteralString, TypeAlias, deprecated
 
 _T = TypeVar("_T")
@@ -422,7 +422,10 @@ if sys.platform == "win32":
 
     def getwindowsversion() -> _WinVersion: ...
 
-def intern(string: str, /) -> str: ...
+@overload
+def intern(string: LiteralString, /) -> LiteralString: ...
+@overload
+def intern(string: str, /) -> str: ...  # type: ignore[misc]
 
 __interactivehook__: Callable[[], object]
 
