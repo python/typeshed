@@ -1,4 +1,4 @@
-from typing import Any, TypeVar
+from typing import Any, NoReturn, TypeVar
 
 from pygments.formatter import Formatter
 
@@ -46,7 +46,8 @@ class ImageFormatter(Formatter[_T]):
     hl_lines: Any
     hl_color: Any
     drawables: Any
-    def get_style_defs(self, arg: str = "") -> None: ...
+    # raises NotImplementedError
+    def get_style_defs(self, arg: str = "") -> NoReturn: ...
     def format(self, tokensource, outfile) -> None: ...
 
 class GifImageFormatter(ImageFormatter[_T]):
