@@ -425,7 +425,7 @@ if sys.platform == "win32":
 @overload
 def intern(string: LiteralString, /) -> LiteralString: ...
 @overload
-def intern(string: str, /) -> str: ...
+def intern(string: str, /) -> str: ...  # type: ignore[misc]
 
 __interactivehook__: Callable[[], object]
 
