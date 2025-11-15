@@ -24,7 +24,6 @@ HAS_PROC_IO_PRIORITY: Incomplete
 HAS_CPU_AFFINITY: Incomplete
 CLOCK_TICKS: Incomplete
 PAGESIZE: Incomplete
-BOOT_TIME: Incomplete
 LITTLE_ENDIAN: Incomplete
 UNSET: object
 DISK_SECTOR_SIZE: int
