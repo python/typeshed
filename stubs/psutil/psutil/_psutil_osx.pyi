@@ -17,8 +17,6 @@ if sys.platform == "darwin":
         net_if_flags as net_if_flags,
         net_if_is_running as net_if_is_running,
         net_if_mtu as net_if_mtu,
-        proc_priority_get as proc_priority_get,
-        proc_priority_set as proc_priority_set,
     )
 
     _T = TypeVar("_T")
