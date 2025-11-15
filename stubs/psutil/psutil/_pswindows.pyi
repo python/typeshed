@@ -33,7 +33,7 @@ if sys.platform == "win32":
 
     from . import _common
 
-    __extra__all__: list[str]
+    __extra__all__: Final[list[str]]
     CONN_DELETE_TCB: Final = "DELETE_TCB"
     ERROR_PARTIAL_COPY: Final = 299
     PYPY: Final[bool]
