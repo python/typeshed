@@ -1,4 +1,4 @@
-from antlr4 import InputStream
+from antlr4.InputStream import InputStream
 from antlr4.Lexer import TokenSource
 
 class Token:

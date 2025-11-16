@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing import Any, Literal, TypeVar
 
-from antlr4 import ParserRuleContext, RuleContext
+from antlr4.ParserRuleContext import ParserRuleContext, RuleContext
 from antlr4.Token import Token as Token
 
 INVALID_INTERVAL: Incomplete

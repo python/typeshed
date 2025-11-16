@@ -35,7 +35,6 @@ class ParserInterpreter(Parser):
     decisionToDFA: list[DFA]
     sharedContextCache: PredictionContextCache
     pushRecursionContextStates: set[int]
-    _interp: ParserATNSimulator
     def __init__(
         self, grammarFileName: str, tokenNames: list[str], ruleNames: list[str], atn: ATN, input: TokenStream
     ) -> None: ...

@@ -3,6 +3,7 @@ from typing import Literal, TextIO
 
 from antlr4.atn.ATNDeserializationOptions import ATNDeserializationOptions as ATNDeserializationOptions
 from antlr4.atn.ATNDeserializer import ATNDeserializer as ATNDeserializer
+from antlr4.atn.ParserATNSimulator import ParserATNSimulator
 from antlr4.BufferedTokenStream import TokenStream as TokenStream
 from antlr4.CommonTokenFactory import TokenFactory as TokenFactory
 from antlr4.error.Errors import (
@@ -12,7 +13,6 @@ from antlr4.error.Errors import (
 from antlr4.error.ErrorStrategy import DefaultErrorStrategy as DefaultErrorStrategy
 from antlr4.InputStream import InputStream as InputStream
 from antlr4.Lexer import Lexer as Lexer
-from antlr4.ParserInterpreter import ParserInterpreter
 from antlr4.ParserRuleContext import ParserRuleContext as ParserRuleContext
 from antlr4.Recognizer import Recognizer as Recognizer
 from antlr4.RuleContext import RuleContext as RuleContext
@@ -49,7 +49,7 @@ class Parser(Recognizer):
     _tracer: TraceListener | None
     _parseListeners: list[ParseTreeListener]
     _syntaxErrors: int
-    _interp: ParserInterpreter
+    _interp: ParserATNSimulator
     bypassAltsAtnCache: dict[Incomplete, Incomplete]
     buildParseTrees: bool
     def __init__(self, input: TokenStream, output: TextIO = ...) -> None: ...
