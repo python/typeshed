@@ -2,9 +2,11 @@ from collections.abc import Generator
 from typing import Any, Literal
 from typing_extensions import Self
 
-from antlr4.Recognizer import Recognizer as Parser
+from antlr4.Recognizer import Recognizer
 from antlr4.tree.Tree import INVALID_INTERVAL as INVALID_INTERVAL, ParseTreeVisitor as ParseTreeVisitor, RuleNode as RuleNode
 from antlr4.tree.Trees import Trees as Trees
+
+Parser: None
 
 class RuleContext(RuleNode):
     __slots__ = ("parentCtx", "invokingState")
@@ -25,5 +27,5 @@ class RuleContext(RuleNode):
     def getChildCount(self) -> int: ...
     def getChildren(self) -> Generator[Any, None, None]: ...
     def accept(self, visitor: ParseTreeVisitor) -> None: ...
-    def toStringTree(self, ruleNames: list[str] | None = None, recog: Parser | None = None) -> str: ...
+    def toStringTree(self, ruleNames: list[str] | None = None, recog: Recognizer | None = None) -> str: ...
     def toString(self, ruleNames: list[str], stop: RuleContext) -> str: ...
