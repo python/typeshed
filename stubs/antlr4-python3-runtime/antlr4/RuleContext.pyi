@@ -1,5 +1,6 @@
 from collections.abc import Generator
-from typing import Any, Literal, Self
+from typing import Any, Literal
+from typing_extensions import Self
 
 from antlr4.Recognizer import Recognizer as Parser
 from antlr4.tree.Tree import INVALID_INTERVAL as INVALID_INTERVAL, ParseTreeVisitor as ParseTreeVisitor, RuleNode as RuleNode
