@@ -80,6 +80,7 @@
         "stubs/PyMySQL",
         "stubs/python-dateutil",
         "stubs/python-jose",
+        "stubs/python-socketio",
         "stubs/pywin32",
         "stubs/PyYAML",
         "stubs/reportlab",
