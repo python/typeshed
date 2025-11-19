@@ -1,3 +1,0 @@
-version = "24.6.*"
-upstream_repository = "https://github.com/pycountry/pycountry"
-obsolete_since = "23.12.11" # Released on 2023-12-11
