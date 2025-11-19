@@ -201,7 +201,7 @@ class _CField(Generic[_CT, _GetT, _SetT]):
     size: int
     if sys.version_info >= (3, 14):
         name: str
-        type: type[_CT]
+        type: TypeAlias = _CT
         byte_offset: int
         byte_size: int
         is_bitfield: bool
