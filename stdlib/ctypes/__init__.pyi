@@ -10,7 +10,6 @@ from _ctypes import (
     _CArgObject as _CArgObject,
     _CData as _CData,
     _CDataType as _CDataType,
-    _CField as CField,
     _CTypeBaseType,
     _Pointer as _Pointer,
     _PointerLike as _PointerLike,
