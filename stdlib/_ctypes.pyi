@@ -197,16 +197,17 @@ _SetT = TypeVar("_SetT")
 
 @final
 class _CField(Generic[_CT, _GetT, _SetT]):
-    name: str
-    type: type[_CT]
     offset: int
-    byte_offset: int
-    byte_size: int
     size: int
-    is_bitfield: bool
-    bit_offset: int
-    bit_size: int
-    is_anonymous: bool
+    if sys.version_info >= (3, 14):
+        name: str
+        type: type[_CT]
+        byte_offset: int
+        byte_size: int
+        is_bitfield: bool
+        bit_offset: int
+        bit_size: int
+        is_anonymous: bool
     if sys.version_info >= (3, 10):
         @overload
         def __get__(self, instance: None, owner: type[Any] | None = None, /) -> Self: ...
