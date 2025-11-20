@@ -198,7 +198,7 @@ _SetT = TypeVar("_SetT")
 if sys.version_info >= (3, 14):
     @final
     @type_check_only
-    class _CField(Generic[_CT, _GetT, _SetT]):
+    class CField(Generic[_CT, _GetT, _SetT]):
         offset: int
         size: int
         name: str
@@ -214,6 +214,7 @@ if sys.version_info >= (3, 14):
         @overload
         def __get__(self, instance: Any, owner: type[Any] | None = None, /) -> _GetT: ...
         def __set__(self, instance: Any, value: _SetT, /) -> None: ...
+    _CField = CField
 
 else:
     @final
