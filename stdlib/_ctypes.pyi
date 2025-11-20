@@ -195,11 +195,12 @@ class CFuncPtr(_PointerLike, _CData, metaclass=_PyCFuncPtrType):
 _GetT = TypeVar("_GetT")
 _SetT = TypeVar("_SetT")
 
-@final
-class _CField(Generic[_CT, _GetT, _SetT]):
-    offset: int
-    size: int
-    if sys.version_info >= (3, 14):
+if sys.version_info >= (3, 14):
+    @final
+    @type_check_only
+    class _CField(Generic[_CT, _GetT, _SetT]):
+        offset: int
+        size: int
         name: str
         type: type[_CT]
         byte_offset: int
@@ -208,18 +209,30 @@ class _CField(Generic[_CT, _GetT, _SetT]):
         bit_offset: int
         bit_size: int
         is_anonymous: bool
-    if sys.version_info >= (3, 10):
         @overload
         def __get__(self, instance: None, owner: type[Any] | None = None, /) -> Self: ...
         @overload
         def __get__(self, instance: Any, owner: type[Any] | None = None, /) -> _GetT: ...
-    else:
-        @overload
-        def __get__(self, instance: None, owner: type[Any] | None, /) -> Self: ...
-        @overload
-        def __get__(self, instance: Any, owner: type[Any] | None, /) -> _GetT: ...
 
-    def __set__(self, instance: Any, value: _SetT, /) -> None: ...
+        def __set__(self, instance: Any, value: _SetT, /) -> None: ...
+else:
+    @final
+    @type_check_only
+    class _CField(Generic[_CT, _GetT, _SetT]):
+        offset: int
+        size: int
+        if sys.version_info >= (3, 10):
+            @overload
+            def __get__(self, instance: None, owner: type[Any] | None = None, /) -> Self: ...
+            @overload
+            def __get__(self, instance: Any, owner: type[Any] | None = None, /) -> _GetT: ...
+        else:
+            @overload
+            def __get__(self, instance: None, owner: type[Any] | None, /) -> Self: ...
+            @overload
+            def __get__(self, instance: Any, owner: type[Any] | None, /) -> _GetT: ...
+
+        def __set__(self, instance: Any, value: _SetT, /) -> None: ...
 
 # This class is not exposed. It calls itself _ctypes.UnionType.
 @type_check_only
