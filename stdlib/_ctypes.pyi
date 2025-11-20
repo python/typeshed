@@ -213,8 +213,8 @@ if sys.version_info >= (3, 14):
         def __get__(self, instance: None, owner: type[Any] | None = None, /) -> Self: ...
         @overload
         def __get__(self, instance: Any, owner: type[Any] | None = None, /) -> _GetT: ...
-
         def __set__(self, instance: Any, value: _SetT, /) -> None: ...
+
 else:
     @final
     @type_check_only
