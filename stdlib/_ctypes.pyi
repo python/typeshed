@@ -214,6 +214,7 @@ if sys.version_info >= (3, 14):
         @overload
         def __get__(self, instance: Any, owner: type[Any] | None = None, /) -> _GetT: ...
         def __set__(self, instance: Any, value: _SetT, /) -> None: ...
+
     _CField = CField
 
 else:
