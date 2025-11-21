@@ -1,4 +1,5 @@
 import sys
+from _typeshed import Incomplete
 from typing import Final
 
 if sys.platform == "linux":
@@ -31,4 +32,5 @@ if sys.platform == "darwin":
     AF_LINK: Final[int]
     def net_if_duplex_speed(nic_name: str, /) -> list[int]: ...
 
+def users() -> list[tuple[Incomplete, ...]]: ...
 def setpriority(pid: int, priority: int, /) -> None: ...
