@@ -1,4 +1,5 @@
 import sys
+from _typeshed import Incomplete
 from typing import Final
 
 if sys.platform == "linux":
