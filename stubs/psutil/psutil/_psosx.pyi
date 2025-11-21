@@ -11,6 +11,7 @@ if sys.platform == "darwin":
         ZombieProcess as ZombieProcess,
         conn_tmap as conn_tmap,
         conn_to_ntuple as conn_to_ntuple,
+        debug as debug,
         isfile_strict as isfile_strict,
         memoize_when_activated as memoize_when_activated,
         parse_environ_block as parse_environ_block,

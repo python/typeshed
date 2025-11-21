@@ -11,7 +11,6 @@ from psutil._common import (
     ZombieProcess as ZombieProcess,
     conn_tmap as conn_tmap,
     conn_to_ntuple as conn_to_ntuple,
-    debug as debug,
     memoize as memoize,
     pio,
     usage_percent as usage_percent,
