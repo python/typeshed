@@ -3,6 +3,7 @@ from .containers import (
     DeviceRequest as DeviceRequest,
     HostConfig as HostConfig,
     LogConfig as LogConfig,
+    TopResult as TopResult,
     Ulimit as Ulimit,
 )
 from .daemon import CancellableStream as CancellableStream
