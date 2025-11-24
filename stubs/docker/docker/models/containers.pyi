@@ -6,7 +6,7 @@ from typing_extensions import NotRequired
 
 from docker._types import ContainerWeightDevice, WaitContainerResponse
 from docker.types import EndpointConfig
-from docker.types.containers import DeviceRequest, LogConfig, TopResult, Ulimit
+from docker.types.containers import DeviceRequest, LogConfig, Ulimit
 from docker.types.daemon import CancellableStream
 from docker.types.services import Mount
 
@@ -17,6 +17,11 @@ from .resource import Collection, Model
 class _RestartPolicy(TypedDict):
     MaximumRetryCount: NotRequired[int]
     Name: NotRequired[Literal["always", "on-failure"]]
+
+@type_check_only
+class _TopResult(TypedDict):
+    Titles: list[str]
+    Processes: list[list[str]]
 
 class Container(Model):
     @property
@@ -91,7 +96,7 @@ class Container(Model):
     def start(self) -> None: ...
     def stats(self, **kwargs): ...
     def stop(self, *, timeout: float | None = None) -> None: ...
-    def top(self, *, ps_args: str | None = None) -> TopResult: ...
+    def top(self, *, ps_args: str | None = None) -> _TopResult: ...
     def unpause(self): ...
     def update(
         self,

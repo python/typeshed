@@ -6,7 +6,7 @@ from typing_extensions import TypeAlias
 from docker._types import WaitContainerResponse
 from docker.types.daemon import CancellableStream
 
-from ..types import ContainerConfig, EndpointConfig, HostConfig, NetworkingConfig, TopResult
+from ..types import ContainerConfig, EndpointConfig, HostConfig, NetworkingConfig
 
 @type_check_only
 class _HasId(TypedDict):
@@ -15,6 +15,11 @@ class _HasId(TypedDict):
 @type_check_only
 class _HasID(TypedDict):
     ID: str
+
+@type_check_only
+class _TopResult(TypedDict):
+    Titles: list[str]
+    Processes: list[list[str]]
 
 _Container: TypeAlias = _HasId | _HasID | str
 
@@ -145,7 +150,7 @@ class ContainerApiMixin:
     def start(self, container: _Container) -> None: ...
     def stats(self, container: _Container, decode: bool | None = None, stream: bool = True, one_shot: bool | None = None): ...
     def stop(self, container: _Container, timeout: int | None = None) -> None: ...
-    def top(self, container: _Container, ps_args: str | None = None) -> TopResult: ...
+    def top(self, container: _Container, ps_args: str | None = None) -> _TopResult: ...
     def unpause(self, container: _Container) -> None: ...
     def update_container(
         self,

@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Iterable, Mapping
-from typing import Any, Final, Literal, TypedDict, type_check_only
+from typing import Any, Final, Literal
 
 from docker._types import ContainerWeightDevice
 
@@ -172,8 +172,3 @@ class ContainerConfig(dict[str, Incomplete]):
         stop_timeout: int | None = None,
         runtime: str | None = None,
     ) -> None: ...
-
-@type_check_only
-class TopResult(TypedDict):
-    Titles: list[str]
-    Processes: list[list[str]]
