@@ -3,6 +3,7 @@
 # ====================================================================
 
 multiprocessing.managers.BaseListProxy.clear
+# inspect.signature gives the wrong signature
 multiprocessing.managers.BaseListProxy.copy
 multiprocessing.managers.DictProxy.__ior__
 multiprocessing.managers._BaseDictProxy.__ior__
