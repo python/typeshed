@@ -8,8 +8,7 @@ if sys.platform == "darwin":
 
     _T = TypeVar("_T")
 
-    # TODO: Add POSIX constants and check their aviability (see psutil_posix_add_constants)
-    AF_LINK: Incomplete
+    AF_LINK: Final = 18
 
     def getpagesize() -> int: ...
     def net_if_addrs(): ...
