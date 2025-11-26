@@ -27,7 +27,7 @@ class ExecApiMixin:
     def exec_start(
         self,
         exec_id: str,
-        detach: Literal[True] = ...,
+        detach: Literal[True],
         tty: bool = False,
         stream: bool = False,
         socket: bool = False,
@@ -35,13 +35,7 @@ class ExecApiMixin:
     ) -> str: ...
     @overload
     def exec_start(
-        self,
-        exec_id: str,
-        detach: Literal[False] = False,
-        tty: bool = False,
-        stream: bool = False,
-        socket: Literal[True] = ...,
-        demux: bool = False,
+        self, exec_id: str, detach: Literal[False], tty: bool, stream: bool, socket: Literal[True], demux: bool = False
     ) -> SocketIO | _BufferedReaderStream | SSHSocket: ...
     @overload
     def exec_start(
@@ -49,37 +43,75 @@ class ExecApiMixin:
         exec_id: str,
         detach: Literal[False] = False,
         tty: bool = False,
-        stream: Literal[True] = ...,
-        socket: Literal[False] = False,
-        demux: Literal[True] = ...,
+        stream: bool = False,
+        demux: bool = False,
+        *,
+        socket: Literal[True],
+    ) -> SocketIO | _BufferedReaderStream | SSHSocket: ...
+    @overload
+    def exec_start(
+        self, exec_id: str, detach: Literal[False], tty: bool, stream: Literal[True], socket: Literal[False], demux: Literal[True]
     ) -> CancellableStream[tuple[str | None, str | None]]: ...
     @overload
     def exec_start(
         self,
         exec_id: str,
-        detach: bool = False,
+        detach: Literal[False] = False,
         tty: bool = False,
-        stream: Literal[True] = ...,
-        socket: bool = False,
-        demux: bool = False,
+        socket: Literal[False] = False,
+        *,
+        stream: Literal[True],
+        demux: Literal[True],
+    ) -> CancellableStream[tuple[str | None, str | None]]: ...
+    @overload
+    def exec_start(
+        self,
+        exec_id: str,
+        detach: Literal[False],
+        tty: bool,
+        stream: Literal[True],
+        socket: Literal[False],
+        demux: Literal[False],
     ) -> CancellableStream[str]: ...
     @overload
     def exec_start(
         self,
         exec_id: str,
-        detach: bool = False,
+        detach: Literal[False] = False,
         tty: bool = False,
-        stream: bool = False,
-        socket: bool = False,
-        demux: Literal[True] = ...,
+        socket: Literal[False] = False,
+        demux: Literal[False] = False,
+        *,
+        stream: Literal[True],
+    ) -> CancellableStream[str]: ...
+    @overload
+    def exec_start(
+        self,
+        exec_id: str,
+        detach: Literal[False],
+        tty: bool,
+        stream: Literal[False],
+        socket: Literal[False],
+        demux: Literal[True],
     ) -> tuple[str | None, str | None]: ...
     @overload
     def exec_start(
         self,
         exec_id: str,
-        detach: bool = False,
+        detach: Literal[False] = False,
         tty: bool = False,
-        stream: bool = False,
-        socket: bool = False,
-        demux: bool = False,
+        stream: Literal[False] = False,
+        socket: Literal[False] = False,
+        *,
+        demux: Literal[True],
+    ) -> tuple[str | None, str | None]: ...
+    @overload
+    def exec_start(
+        self,
+        exec_id: str,
+        detach: Literal[False] = False,
+        tty: bool = False,
+        stream: Literal[False] = False,
+        socket: Literal[False] = False,
+        demux: Literal[False] = False,
     ) -> str: ...
