@@ -44,9 +44,9 @@ class ExecApiMixin:
         detach: Literal[False] = False,
         tty: bool = False,
         stream: bool = False,
-        demux: bool = False,
         *,
         socket: Literal[True],
+        demux: bool = False,
     ) -> SocketIO | _BufferedReaderStream | SSHSocket: ...
     @overload
     def exec_start(
@@ -79,10 +79,10 @@ class ExecApiMixin:
         exec_id: str,
         detach: Literal[False] = False,
         tty: bool = False,
-        socket: Literal[False] = False,
-        demux: Literal[False] = False,
         *,
         stream: Literal[True],
+        socket: Literal[False] = False,
+        demux: Literal[False] = False,
     ) -> CancellableStream[str]: ...
     @overload
     def exec_start(
