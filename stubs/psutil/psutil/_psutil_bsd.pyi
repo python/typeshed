@@ -4,7 +4,7 @@ import sys
 if sys.platform != "linux" and sys.platform != "win32" and sys.platform != "darwin":
     from collections.abc import Sequence
     from socket import AddressFamily, SocketKind
-    from typing import Final, Literal, overload
+    from typing import Final, overload
 
     AF_LINK: Final[int]
     RLIMIT_AS: Final[int]  # only FreeBSD
@@ -100,9 +100,7 @@ if sys.platform != "linux" and sys.platform != "win32" and sys.platform != "darw
     def proc_memory_maps(pid: int, /) -> list[tuple[str, str, str, int, int, int, int]]: ...  # only FreeBSD
     def proc_net_connections(  # only FreeBSD
         pid: int, af_filter: Sequence[AddressFamily | int | None], type_filter: Sequence[SocketKind | int | None], /
-    ) -> list[
-        tuple[int, int, int, tuple[str, int], tuple[str, int] | tuple[()], int] | tuple[int, int, int, str, Literal[""], int]
-    ]: ...
+    ) -> list[tuple[int, int, int, tuple[str, int], tuple[str, int] | tuple[()], int] | tuple[int, int, int, str, str, int]]: ...
     def proc_setrlimit(pid: int, resource: int, soft: int, hard: int, /) -> None: ...  # only FreeBSD
     def boot_time() -> float: ...
     def cpu_count_logical() -> int | None: ...
@@ -114,15 +112,13 @@ if sys.platform != "linux" and sys.platform != "win32" and sys.platform != "darw
     def net_connections(
         af_filter: Sequence[AddressFamily | int | None], type_filter: Sequence[SocketKind | int | None], /
     ) -> list[
-        tuple[int, int, int, tuple[str, int], tuple[str, int] | tuple[()], int, int]
-        | tuple[int, int, int, str, Literal[""], int, int]
+        tuple[int, int, int, tuple[str, int], tuple[str, int] | tuple[()], int, int] | tuple[int, int, int, str, str, int, int]
     ]: ...
     @overload  # for OpenBSD
     def net_connections(
         pid: int, af_filter: Sequence[AddressFamily | int | None], type_filter: Sequence[SocketKind | int | None], /
     ) -> list[
-        tuple[int, int, int, tuple[str, int], tuple[str, int] | tuple[()], int, int]
-        | tuple[int, int, int, str, Literal[""], int, int]
+        tuple[int, int, int, tuple[str, int], tuple[str, int] | tuple[()], int, int] | tuple[int, int, int, str, str, int, int]
     ]: ...
     @overload  # for NetBSD
     def net_connections(pid: int, kind: str, /) -> list[tuple[int, int, int, str, str, int, int]]: ...
