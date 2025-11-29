@@ -32,7 +32,8 @@ if sys.version_info >= (3, 14):
         httponly: Any
         version: Any
         samesite: Any
-        partitioned: Any # New in version 3.14.
+        partitioned: Any  # New in version 3.14.
+
 else:
     @type_check_only
     class _MorselDictType(TypedDict):
@@ -45,7 +46,6 @@ else:
         httponly: Any
         version: Any
         samesite: Any
-
 
 class Morsel(_MorselDictType, Generic[_T]):
     @property
