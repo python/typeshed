@@ -3,7 +3,6 @@ import sys
 if sys.platform == "linux":
     import enum
     import re
-    import socket
     from _typeshed import FileDescriptorOrPath, Incomplete
     from collections import defaultdict
     from collections.abc import Callable, Generator, Sequence
@@ -52,7 +51,7 @@ if sys.platform == "linux":
     DISK_SECTOR_SIZE: Final = 512
 
     class AddressFamily(enum.IntEnum):
-        AF_LINK = socket.AF_PACKET
+        AF_LINK: Final[int]
 
     AF_LINK: Final = AddressFamily.AF_LINK
 
