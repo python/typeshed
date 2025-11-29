@@ -2,7 +2,7 @@ import sys
 
 if sys.platform != "win32":
     import enum
-    from _typeshed import FileDescriptorOrPath, StrOrBytesPath, Unused
+    from _typeshed import FileDescriptorOrPath, Incomplete, StrOrBytesPath, Unused
     from collections.abc import Callable
 
     from ._common import sdiskusage
@@ -60,7 +60,7 @@ if sys.platform != "win32":
         proc_name: str | None = None,
         _waitpid: Unused = ...,
         _timer: Callable[[], float] = ...,
-        _min=...,
+        _min: Callable[..., Incomplete] = ...,
         _sleep: Callable[[float], None] = ...,
         _pid_exists: Callable[[int], bool] = ...,
     ) -> int | None: ...
