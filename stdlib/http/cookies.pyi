@@ -20,19 +20,32 @@ def _unquote(str: str) -> str: ...
 
 class CookieError(Exception): ...
 
-@type_check_only
-class _MorselDictType(TypedDict):
-    expires: Any
-    path: Any
-    comment: Any
-    domain: Any
-    max_age: Any
-    secure: Any
-    httponly: Any
-    version: Any
-    samesite: Any
-    if sys.version_info >= (3, 14):
-        partitioned: Any
+if sys.version_info >= (3, 14):
+    @type_check_only
+    class _MorselDictType(TypedDict):
+        expires: Any
+        path: Any
+        comment: Any
+        domain: Any
+        max_age: Any
+        secure: Any
+        httponly: Any
+        version: Any
+        samesite: Any
+        partitioned: Any # New in version 3.14.
+else:
+    @type_check_only
+    class _MorselDictType(TypedDict):
+        expires: Any
+        path: Any
+        comment: Any
+        domain: Any
+        max_age: Any
+        secure: Any
+        httponly: Any
+        version: Any
+        samesite: Any
+
 
 class Morsel(_MorselDictType, Generic[_T]):
     @property
