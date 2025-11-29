@@ -1,6 +1,7 @@
+import sys
 from collections.abc import Iterable, Mapping
 from types import GenericAlias
-from typing import Any, Generic, TypeVar, overload
+from typing import Any, Generic, TypedDict, TypeVar, overload, type_check_only
 from typing_extensions import TypeAlias
 
 __all__ = ["CookieError", "BaseCookie", "SimpleCookie"]
@@ -19,7 +20,22 @@ def _unquote(str: str) -> str: ...
 
 class CookieError(Exception): ...
 
-class Morsel(dict[str, Any], Generic[_T]):
+@type_check_only
+class _MorselDictType(TypedDict):
+    expires: Any
+    path: Any
+    comment: Any
+    domain: Any
+    max_age: Any
+    secure: Any
+    httponly: Any
+    version: Any
+    samesite: Any
+    if sys.version_info >= (3, 14):
+        partitioned: Any
+
+
+class Morsel(_MorselDictType, Generic[_T]):
     @property
     def value(self) -> str: ...
     @property
