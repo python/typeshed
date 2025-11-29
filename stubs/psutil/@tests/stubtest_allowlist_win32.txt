@@ -2,3 +2,4 @@ psutil._psosx
 psutil._pslinux
 psutil._psutil_osx
 psutil._psutil_linux
+psutil._psposix
