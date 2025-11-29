@@ -34,7 +34,6 @@ class _MorselDictType(TypedDict):
     if sys.version_info >= (3, 14):
         partitioned: Any
 
-
 class Morsel(_MorselDictType, Generic[_T]):
     @property
     def value(self) -> str: ...
