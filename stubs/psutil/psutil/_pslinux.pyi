@@ -51,7 +51,7 @@ if sys.platform == "linux":
     DISK_SECTOR_SIZE: Final = 512
 
     class AddressFamily(enum.IntEnum):
-        AF_LINK: Final[int]
+        AF_LINK = 17  # = socket.AF_PACKET
 
     AF_LINK: Final = AddressFamily.AF_LINK
 
