@@ -17,6 +17,7 @@ from .hooks import Hooks
 from .jobs import Jobs
 from .log_streams import LogStreams
 from .logs import Logs
+from .network_acls import NetworkAcls
 from .organizations import Organizations
 from .resource_servers import ResourceServers
 from .roles import Roles
@@ -50,6 +51,7 @@ __all__ = (
     "Jobs",
     "LogStreams",
     "Logs",
+    "NetworkAcls",
     "Organizations",
     "ResourceServers",
     "Roles",
