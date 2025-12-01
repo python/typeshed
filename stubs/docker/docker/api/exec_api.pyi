@@ -72,7 +72,7 @@ class ExecApiMixin:
         stream: Literal[True],
         socket: Literal[False],
         demux: Literal[False],
-    ) -> CancellableStream[str]: ...
+    ) -> CancellableStream[bytes]: ...
     @overload
     def exec_start(
         self,
@@ -83,7 +83,7 @@ class ExecApiMixin:
         stream: Literal[True],
         socket: Literal[False] = False,
         demux: Literal[False] = False,
-    ) -> CancellableStream[str]: ...
+    ) -> CancellableStream[bytes]: ...
     @overload
     def exec_start(
         self,
@@ -114,7 +114,7 @@ class ExecApiMixin:
         stream: Literal[False] = False,
         socket: Literal[False] = False,
         demux: Literal[False] = False,
-    ) -> str: ...
+    ) -> bytes: ...
     @overload
     def exec_start(
         self,
@@ -129,7 +129,8 @@ class ExecApiMixin:
         | SocketIO
         | _BufferedReaderStream
         | SSHSocket
-        | CancellableStream[str]
+        | CancellableStream[bytes]
         | CancellableStream[tuple[str | None, str | None]]
         | tuple[str | None, str | None]
+        | bytes
     ): ...
