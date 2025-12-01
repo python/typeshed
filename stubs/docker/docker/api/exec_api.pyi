@@ -32,7 +32,7 @@ class ExecApiMixin:
         stream: bool = False,
         socket: bool = False,
         demux: bool = False,
-    ) -> str: ...
+    ) -> bytes: ...
     @overload
     def exec_start(
         self, exec_id: str, detach: Literal[False], tty: bool, stream: bool, socket: Literal[True], demux: bool = False
@@ -51,7 +51,7 @@ class ExecApiMixin:
     @overload
     def exec_start(
         self, exec_id: str, detach: Literal[False], tty: bool, stream: Literal[True], socket: Literal[False], demux: Literal[True]
-    ) -> CancellableStream[tuple[str | None, str | None]]: ...
+    ) -> CancellableStream[tuple[bytes | None, bytes | None]]: ...
     @overload
     def exec_start(
         self,
@@ -62,7 +62,7 @@ class ExecApiMixin:
         *,
         stream: Literal[True],
         demux: Literal[True],
-    ) -> CancellableStream[tuple[str | None, str | None]]: ...
+    ) -> CancellableStream[tuple[bytes | None, bytes | None]]: ...
     @overload
     def exec_start(
         self,
@@ -72,7 +72,7 @@ class ExecApiMixin:
         stream: Literal[True],
         socket: Literal[False],
         demux: Literal[False],
-    ) -> CancellableStream[str]: ...
+    ) -> CancellableStream[bytes]: ...
     @overload
     def exec_start(
         self,
@@ -83,7 +83,7 @@ class ExecApiMixin:
         stream: Literal[True],
         socket: Literal[False] = False,
         demux: Literal[False] = False,
-    ) -> CancellableStream[str]: ...
+    ) -> CancellableStream[bytes]: ...
     @overload
     def exec_start(
         self,
@@ -93,7 +93,7 @@ class ExecApiMixin:
         stream: Literal[False],
         socket: Literal[False],
         demux: Literal[True],
-    ) -> tuple[str | None, str | None]: ...
+    ) -> tuple[bytes | None, bytes | None]: ...
     @overload
     def exec_start(
         self,
@@ -104,7 +104,7 @@ class ExecApiMixin:
         socket: Literal[False] = False,
         *,
         demux: Literal[True],
-    ) -> tuple[str | None, str | None]: ...
+    ) -> tuple[bytes | None, bytes | None]: ...
     @overload
     def exec_start(
         self,
@@ -114,4 +114,4 @@ class ExecApiMixin:
         stream: Literal[False] = False,
         socket: Literal[False] = False,
         demux: Literal[False] = False,
-    ) -> str: ...
+    ) -> bytes: ...
