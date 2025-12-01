@@ -267,6 +267,7 @@ class Structure(_CData, metaclass=_PyCStructType):
         _align_: ClassVar[int]
 
     if sys.version_info >= (3, 14):
+        # _layout_ can be defined by the user, but is not always present.
         _layout_: ClassVar[Literal["ms", "gcc-sysv"]]
 
     def __init__(self, *args: Any, **kw: Any) -> None: ...
