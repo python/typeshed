@@ -130,7 +130,7 @@ class ExecApiMixin:
         | _BufferedReaderStream
         | SSHSocket
         | CancellableStream[bytes]
-        | CancellableStream[tuple[str | None, str | None]]
-        | tuple[str | None, str | None]
+        | CancellableStream[tuple[bytes | None, bytes | None]]
+        | tuple[bytes | None, bytes | None]
         | bytes
     ): ...
