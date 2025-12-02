@@ -3,6 +3,7 @@
 # ====================================================================
 
 multiprocessing.managers.BaseListProxy.clear
+# inspect.signature gives the wrong signature
 multiprocessing.managers.BaseListProxy.copy
 multiprocessing.managers.DictProxy.__ior__
 multiprocessing.managers._BaseDictProxy.__ior__
@@ -10,8 +11,6 @@ multiprocessing.managers._BaseDictProxy.__or__
 multiprocessing.managers._BaseDictProxy.__reversed__
 multiprocessing.managers._BaseDictProxy.__ror__
 multiprocessing.managers._BaseDictProxy.fromkeys
-multiprocessing.process.BaseProcess.interrupt
-multiprocessing.synchronize.SemLock.locked
 
 
 # =========================
@@ -40,6 +39,9 @@ concurrent.interpreters._queues.UNBOUND_REMOVE
 
 importlib.util.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatibility
 
+# Condition functions are exported in __init__
+threading.Condition.locked
+multiprocessing.dummy.Condition.locked
 
 # ====================================
 # Pre-existing errors from Python 3.13
