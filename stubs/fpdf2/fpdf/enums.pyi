@@ -277,6 +277,20 @@ class BlendMode(CoerciveEnum):
     COLOR = Name("Color")
     LUMINOSITY = Name("Luminosity")
 
+class CompositingOperation(CoerciveEnum):
+    CLEAR = Name("Clear")
+    SOURCE = Name("Source")
+    DESTINATION = Name("Destination")
+    SOURCE_OVER = Name("SourceOver")
+    DESTINATION_OVER = Name("DestinationOver")
+    SOURCE_IN = Name("SourceIn")
+    DESTINATION_IN = Name("DestinationIn")
+    SOURCE_OUT = Name("SourceOut")
+    DESTINATION_OUT = Name("DestinationOut")
+    SOURCE_ATOP = Name("SourceAtop")
+    DESTINATION_ATOP = Name("DestinationAtop")
+    XOR = Name("XOR")
+
 class AnnotationFlag(CoerciveIntEnum):
     INVISIBLE = 1
     HIDDEN = 2
@@ -339,6 +353,7 @@ class PDFStyleKeys(Enum):
     STROKE_JOIN_STYLE = Name("LJ")
     STROKE_MITER_LIMIT = Name("ML")
     STROKE_DASH_PATTERN = Name("D")
+    SOFT_MASK = Name("SMask")
 
 class Corner(CoerciveEnum):
     TOP_RIGHT = "TOP_RIGHT"
@@ -414,8 +429,48 @@ class PDFResourceType(Enum):
     EXT_G_STATE = "ExtGState"
     COLOR_SPACE = "ColorSpace"
     PATTERN = "Pattern"
-    SHADDING = "Shading"
+    SHADING = "Shading"
     X_OBJECT = "XObject"
     FONT = "Font"
     PROC_SET = "ProcSet"
     PROPERTIES = "Properties"
+
+class GradientUnits(CoerciveEnum):
+    OBJECT_BOUNDING_BOX = "objectBoundingBox"
+    USER_SPACE_ON_USE = "userSpaceOnUse"
+
+class GradientSpreadMethod(CoerciveEnum):
+    PAD = "pad"
+    REFLECT = "reflect"
+    REPEAT = "repeat"
+
+class DocumentCompliance(Enum):
+    PDFA_1B = ("PDFA", 1, "B")
+    PDFA_2B = ("PDFA", 2, "B")
+    PDFA_2U = ("PDFA", 2, "U")
+    PDFA_3B = ("PDFA", 3, "B")
+    PDFA_3U = ("PDFA", 3, "U")
+    PDFA_4 = ("PDFA", 4, None)
+    PDFA_4E = ("PDFA", 4, "E")
+    PDFA_4F = ("PDFA", 4, "F")
+
+    @property
+    def profile(self) -> str: ...
+    @property
+    def part(self) -> int: ...
+    @property
+    def conformance(self) -> str | None: ...
+    @property
+    def label(self) -> str: ...
+    @classmethod
+    def coerce(cls, value: DocumentCompliance | str) -> DocumentCompliance: ...
+
+class AssociatedFileRelationship(CoerciveEnum):
+    SOURCE = "Source"
+    DATA = "Data"
+    ALTERNATIVE = "Alternative"
+    SUPPLEMENT = "Supplement"
+    ENCRYPTED_PAYLOAD = "EncryptedPayload"
+    FORM_DATA = "FormData"
+    SCHEMA = "Schema"
+    UNSPECIFIED = "Unspecified"
