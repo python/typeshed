@@ -49,6 +49,7 @@ mmap.mmap.find
 mmap.mmap.flush
 mmap.mmap.madvise
 mmap.mmap.rfind
+multiprocessing.process.BaseProcess.__init__
 
 # ====================================
 # Pre-existing errors from Python 3.13
