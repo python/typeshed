@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import array
+import sys
 from typing_extensions import assert_type
 
 # Casting to bytes.
