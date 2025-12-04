@@ -7,6 +7,7 @@ from typing import Any, Final, TypeVar
 __all__ = ["heappush", "heappop", "heapify", "heapreplace", "merge", "nlargest", "nsmallest", "heappushpop"]
 
 if sys.version_info >= (3, 14):
+    # Added to __all__ in 3.14.1
     __all__ += [
         "heapify_max",
         "heappop_max",
