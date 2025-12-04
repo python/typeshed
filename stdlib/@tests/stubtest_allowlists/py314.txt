@@ -47,7 +47,6 @@ multiprocessing.dummy.Condition.locked
 # parameters, but would raise a TypeError with Python 3.14.0.
 mmap.mmap.find
 mmap.mmap.flush
-mmap.mmap.madvise
 mmap.mmap.rfind
 multiprocessing.process.BaseProcess.__init__
 
