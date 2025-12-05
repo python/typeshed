@@ -1,10 +1,9 @@
 import sys
+from _typeshed import StrPath
 from abc import ABCMeta, abstractmethod
 from collections.abc import Iterator
 from io import BufferedReader
 from typing import IO, Any, Literal, Protocol, overload, runtime_checkable
-
-from _typeshed import StrPath
 
 if sys.version_info >= (3, 11):
     class ResourceReader(metaclass=ABCMeta):
