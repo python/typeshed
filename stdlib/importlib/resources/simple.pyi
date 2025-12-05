@@ -5,6 +5,8 @@ from io import TextIOWrapper
 from typing import IO, Any, BinaryIO, Literal, NoReturn, overload
 from typing_extensions import Never
 
+from _typeshed import StrPath
+
 if sys.version_info >= (3, 11):
     from .abc import Traversable, TraversableResources
 
@@ -50,7 +52,7 @@ if sys.version_info >= (3, 11):
         def iterdir(self) -> Iterator[ResourceHandle | ResourceContainer]: ...
         def open(self, *args: Never, **kwargs: Never) -> NoReturn: ...  # type: ignore[override]
         if sys.version_info < (3, 12):
-            def joinpath(self, *descendants: str) -> Traversable: ...
+            def joinpath(self, *descendants: StrPath) -> Traversable: ...
 
     class TraversableReader(TraversableResources, SimpleReader, metaclass=abc.ABCMeta):
         def files(self) -> ResourceContainer: ...
