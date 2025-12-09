@@ -1,6 +1,17 @@
-# ===========
-# 3.9 to 3.11
-# ===========
+# =========
+# Temporary
+# =========
+
+# Added in Python 3.9.25 (parameter `scripting`)
+html.parser.HTMLParser.__init__
+
+# Added in Python 3.9.23 (parameter `escapable`)
+html.parser.HTMLParser.set_cdata_mode
+
+
+# =======
+# <= 3.11
+# =======
 
 # Incompatible changes introduced in Python 3.9.20
 # (Remove once 3.9.20 becomes available for Windows)
@@ -51,6 +62,7 @@ xml.etree.cElementTree.XMLPullParser.flush
 xml.parsers.expat.XMLParserType.GetReparseDeferralEnabled
 xml.parsers.expat.XMLParserType.SetReparseDeferralEnabled
 xml.sax.expatreader.ExpatParser.flush
+zipfile.ZipInfo.__slots__
 
 
 # =============================================================

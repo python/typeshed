@@ -2,8 +2,8 @@ import sys
 from collections.abc import Callable
 from contextvars import Context
 from types import FrameType, TracebackType
-from typing import Any, Literal, Protocol, overload
-from typing_extensions import TypeAlias
+from typing import Any, Literal, Protocol, overload, type_check_only
+from typing_extensions import TypeAlias, disjoint_base
 
 _TraceEvent: TypeAlias = Literal["switch", "throw"]
 _TraceCallback: TypeAlias = Callable[[_TraceEvent, tuple[greenlet, greenlet]], object]
@@ -19,6 +19,7 @@ GREENLET_USE_TRACING: bool
 # to pass this around, can still pass it around without having to ignore type errors...
 _C_API: object
 
+@type_check_only
 class _ParentDescriptor(Protocol):
     def __get__(self, obj: greenlet, owner: type[greenlet] | None = None) -> greenlet | None: ...
     def __set__(self, obj: greenlet, value: greenlet) -> None: ...
@@ -26,6 +27,7 @@ class _ParentDescriptor(Protocol):
 class GreenletExit(BaseException): ...
 class error(Exception): ...
 
+@disjoint_base
 class greenlet:
     @property
     def dead(self) -> bool: ...

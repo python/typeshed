@@ -1,6 +1,22 @@
-# ===========
-# 3.9 to 3.11
-# ===========
+# =========
+# Temporary
+# =========
+
+# Added in Python 3.9.25 (parameter `scripting`)
+html.parser.HTMLParser.__init__
+
+
+# =======
+# <= 3.12
+# =======
+
+# Added in Python 3.9.23 (parameter `escapable`)
+html.parser.HTMLParser.set_cdata_mode
+
+
+# =======
+# <= 3.11
+# =======
 
 # Added in Python 3.9.20
 email._header_value_parser.NLSET
@@ -50,6 +66,7 @@ xml.etree.cElementTree.XMLPullParser.flush
 xml.parsers.expat.XMLParserType.GetReparseDeferralEnabled
 xml.parsers.expat.XMLParserType.SetReparseDeferralEnabled
 xml.sax.expatreader.ExpatParser.flush
+zipfile.ZipInfo.__slots__
 
 
 # =============================================================

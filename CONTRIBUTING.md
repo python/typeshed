@@ -77,17 +77,10 @@ Note that some tests require extra setup steps to install the required dependenc
   Run the following commands from a Windows terminal to install all requirements:
 
   ```powershell
-  > python -m venv .venv
+  > py -m venv .venv
   > .venv\Scripts\activate
-  (.venv) > pip install -U pip
+  (.venv) > python -m pip install -U pip
   (.venv) > pip install -r requirements-tests.txt
-  ```
-
-  To be able to run pytype tests, you'll also need to install it manually
-as it's currently excluded from the requirements file:
-
-  ```powershell
-  (.venv) > pip install -U pytype
   ```
 
   </td>
@@ -102,10 +95,6 @@ as it's currently excluded from the requirements file:
   ```shell
   uv venv
   uv pip install -r requirements-tests.txt
-  ```
-
-  ```shell
-  uv pip install -U pytype
   ```
 
   </td>
@@ -224,17 +213,21 @@ This has the following keys:
   that need to be installed for stubtest to run successfully
 * `choco_dependencies` (default: `[]`): A list of Windows Chocolatey packages
   that need to be installed for stubtest to run successfully
-* `platforms` (default: `["linux"]`): A list of OSes on which to run stubtest.
-  Can contain `win32`, `linux`, and `darwin` values.
-  If not specified, stubtest is run only on `linux`.
-  Only add extra OSes to the test
-  if there are platform-specific branches in a stubs package.
+* `supported_platforms` (default: all platforms): A list of OSes on which
+  stubtest can be run. When a package is not platform-specific, this should
+  not be set. If the package is platform-specific, this should usually be set
+  to the supported platforms, unless stubtest is known to fail on a
+  specific platform.
+* `ci_platforms` (default: `["linux"]`): A list of OSes on which to run
+  stubtest as part of our continuous integration (CI) tests. Can contain
+  `win32`, `linux`, and `darwin` values. If not specified, stubtest is run
+  only on `linux`. Only add extra OSes to the test if there are
+  platform-specific branches in a stubs package.
 * `mypy_plugins` (default: `[]`): A list of Python modules to use as mypy plugins
 when running stubtest. For example: `mypy_plugins = ["mypy_django_plugin.main"]`
 * `mypy_plugins_config` (default: `{}`): A dictionary mapping plugin names to their
 configuration dictionaries for use by mypy plugins. For example:
 `mypy_plugins_config = {"django-stubs" = {"django_settings_module" = "@tests.django_settings"}}`
-
 
 `*_dependencies` are usually packages needed to `pip install` the implementation
 distribution.
@@ -318,7 +311,7 @@ def foo(x: Incomplete | None) -> list[Incomplete]: ...
 ### What to do when a project's documentation and implementation disagree
 
 Type stubs are meant to be external type annotations for a given
-library.  While they are useful documentation in its own merit, they
+library.  While they are useful documentation in their own right, they
 augment the project's concrete implementation, not the project's
 documentation.  Whenever you find them disagreeing, model the type
 information after the actual implementation and file an issue on the
@@ -443,25 +436,22 @@ following criteria is met:
 * the upstream package was declared or appears to be unmaintained, and
   retaining the stubs causes maintenance issues in typeshed.
 
-If a package ships its own `py.typed` file, please follow these steps:
+Case 1: If a package ships its own `py.typed` file, please follow these steps:
 
-1. Open an issue with the earliest month of removal in the subject.
-2. A maintainer will add the
-   ["stubs: removal" label](https://github.com/python/typeshed/labels/%22stubs%3A%20removal%22).
-3. Open a PR that sets the `obsolete_since` field in the `METADATA.toml`
-   file to the first version of the package that shipped `py.typed`.
-4. After at least six months, open a PR to remove the stubs.
+1. Make sure **stubsabot** open a PR that sets the `obsolete_since` field in the
+   `METADATA.toml` file to the first version of the package that shipped `py.typed`.
+2. After at least six months, make sure **stubsabot** open a PR to remove the stubs.
 
-If third-party stubs should be removed for other reasons, please follow these
-steps:
+Case 2: If third-party stubs should be removed for other reasons, please follow
+these steps:
 
 1. Open an issue explaining why the stubs should be removed.
 2. A maintainer will add the
    ["stubs: removal" label](https://github.com/python/typeshed/labels/%22stubs%3A%20removal%22).
 3. Open a PR that sets the `no_longer_updated` field in the `METADATA.toml`
    file to `true`.
-4. When a new version of the package was automatically uploaded to PyPI
-   (which can take up to a day), open a PR to remove the stubs.
+4. When a new version of the package was automatically uploaded to PyPI (which
+   can take up to a day), make sure **stubsabot** open a PR to remove the stubs.
 
 If feeling kindly, please update [mypy](https://github.com/python/mypy/blob/master/mypy/stubinfo.py)
 for any stub obsoletions or removals.
