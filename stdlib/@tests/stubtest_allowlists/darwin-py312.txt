@@ -1,3 +1,11 @@
+# =========
+# Temporary
+# =========
+
+# Added in Python 3.12.13 (parameter `scripting`)
+html.parser.HTMLParser.__init__
+
+
 # ============
 # 3.11 to 3.12
 # ============
@@ -6,6 +14,14 @@
 fcntl.F_OFD_GETLK
 fcntl.F_OFD_SETLK
 fcntl.F_OFD_SETLKW
+
+
+# =======
+# <= 3.12
+# =======
+
+# Added in Python 3.12.11 (parameter `escapable`)
+html.parser.HTMLParser.set_cdata_mode
 
 
 # =============================================================
@@ -17,3 +33,11 @@ _msi
 msilib(.[a-z]+)?
 ossaudiodev
 spwd
+
+
+# ================
+# Unclear problems
+# ================
+
+# Added in 3.11.1, flagged by stubtest on Python < 3.14 for unknown reasons
+errno.ENOTCAPABLE

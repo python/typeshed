@@ -1,6 +1,17 @@
-# ===========
-# 3.9 to 3.11
-# ===========
+# =========
+# Temporary
+# =========
+
+# Added in Python 3.10.20 (parameter `scripting`)
+html.parser.HTMLParser.__init__
+
+# Added in Python 3.10.18 (parameter `escapable`)
+html.parser.HTMLParser.set_cdata_mode
+
+
+# =======
+# <= 3.11
+# =======
 
 # Incompatible changes introduced in Python 3.10.15
 # (Remove once 3.10.15 becomes available for Windows)
@@ -42,16 +53,7 @@ xml.etree.cElementTree.XMLPullParser.flush
 xml.parsers.expat.XMLParserType.GetReparseDeferralEnabled
 xml.parsers.expat.XMLParserType.SetReparseDeferralEnabled
 xml.sax.expatreader.ExpatParser.flush
-
-
-# =============================================================
-# Allowlist entries that cannot or should not be fixed; <= 3.11
-# =============================================================
-
-# pathlib methods that exist on Windows, but always raise NotImplementedError,
-# so are omitted from the stub
-pathlib.Path.is_mount
-pathlib.WindowsPath.is_mount
+zipfile.ZipInfo.__slots__
 
 
 # =============================================================
@@ -64,6 +66,6 @@ nis
 ossaudiodev
 spwd
 
-# pathlib functions that rely on modules that don't exist on Windows
-pathlib.Path.owner
-pathlib.Path.group
+# Incompatible changes introduced in Python 3.10.18
+# (Remove once 3.10.18 becomes available for Windows)
+(ntpath.realpath)?

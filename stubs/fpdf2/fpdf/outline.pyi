@@ -1,13 +1,15 @@
 from _typeshed import Incomplete
 from collections.abc import Generator, Iterable
-from typing import NamedTuple
+from dataclasses import dataclass
 
 from .fonts import TextStyle
 from .fpdf import FPDF
 from .structure_tree import StructElem
 from .syntax import Destination, PDFObject, PDFString
 
-class OutlineSection(NamedTuple):
+@dataclass
+class OutlineSection:
+    __slots__ = ("name", "level", "page_number", "dest", "struct_elem")
     name: str
     level: int
     page_number: int
@@ -15,6 +17,7 @@ class OutlineSection(NamedTuple):
     struct_elem: StructElem | None = None
 
 class OutlineItemDictionary(PDFObject):
+    __slots__ = ("_id", "title", "parent", "prev", "next", "first", "last", "count", "dest", "struct_elem")
     title: PDFString
     parent: Incomplete | None
     prev: Incomplete | None
@@ -27,6 +30,7 @@ class OutlineItemDictionary(PDFObject):
     def __init__(self, title: str, dest: Destination | None = None, struct_elem: StructElem | None = None) -> None: ...
 
 class OutlineDictionary(PDFObject):
+    __slots__ = ("_id", "type", "first", "last", "count")
     type: str
     first: Incomplete | None
     last: Incomplete | None

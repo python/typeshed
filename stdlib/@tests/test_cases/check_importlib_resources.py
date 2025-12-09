@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-import importlib.resources
-import pathlib
 import sys
 
 
@@ -11,6 +9,8 @@ class _CustomPathLike:
 
 
 if sys.version_info >= (3, 13):
+    import importlib.resources
+    import pathlib
 
     def f(pth: pathlib.Path | str | _CustomPathLike) -> None:
         importlib.resources.open_binary("pkg", pth)
@@ -29,4 +29,4 @@ if sys.version_info >= (3, 13):
         importlib.resources.read_binary("pkg", pth)
         importlib.resources.path("pkg", pth)
         importlib.resources.is_resource("pkg", pth)
-        importlib.resources.contents("pkg", pth)
+        importlib.resources.contents("pkg", pth)  # pyright: ignore[reportDeprecated]

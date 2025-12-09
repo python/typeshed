@@ -1,8 +1,3 @@
-# ========================
-# New errors in Python 3.9
-# ========================
-
-
 # ========
 # 3.9 only
 # ========
@@ -16,41 +11,24 @@ collections.MappingView.__class_getitem__
 hmac.HMAC.digest_cons
 hmac.HMAC.inner
 hmac.HMAC.outer
-
-
-# ===========
-# 3.9 to 3.10
-# ===========
-
-builtins.float.__setformat__  # Internal method for CPython test suite
-typing._SpecialForm.__mro_entries__  # Exists at runtime, but missing from stubs
-
-
-# ===================================
-# Pre-existing errors from Python 3.8
-# ===================================
-
-
-# ======
-# <= 3.9
-# ======
+xxsubtype  # module missing from the stubs
 
 builtins.input  # Incorrect default value in text signature, fixed in 3.10
 collections.AsyncGenerator.__anext__  # async at runtime, deliberately not in the stub, see #7491
 collections.AsyncGenerator.aclose  # async at runtime, deliberately not in the stub, see #7491
 collections.AsyncGenerator.asend  # async at runtime, deliberately not in the stub, see #7491. Pos-only differences also.
 collections.AsyncIterator.__anext__  # async at runtime, deliberately not in the stub, see #7491
-collections.ByteString  # see comments in py3_common.txt
+collections.ByteString  # see comments in common.txt
 collections.Callable
 collections.Mapping.get  # Adding None to the Union messed up mypy
 collections.Sequence.index  # Supporting None in end is not mandatory
-xxsubtype  # module missing from the stubs
 
 
 # =======
 # <= 3.10
 # =======
 
+builtins.float.__setformat__  # Internal method for CPython test suite
 email.contentmanager.typ
 gettext.install  # codeset default value is ['unspecified'] so can't be specified
 gettext.translation  # codeset default value is ['unspecified'] so can't be specified
@@ -65,14 +43,17 @@ tempfile.SpooledTemporaryFile.seekable
 tempfile.SpooledTemporaryFile.writable
 
 tkinter.Tk.split  # Exists at runtime, but missing from stubs
+typing._SpecialForm.__mro_entries__  # Exists at runtime, but missing from stubs
+
+# Will always raise. Not included to avoid type checkers inferring that
+# Sentinel instances are callable.
+typing_extensions.Sentinel.__call__
 
 
 # =======
 # <= 3.11
 # =======
 
-_?bz2.BZ2Decompressor.__init__  # function does not accept parameters but C signature is set
-configparser.ParsingError.filename
 enum.Enum._generate_next_value_
 importlib.abc.Finder.find_module
 urllib.request.HTTPPasswordMgrWithPriorAuth.__init__  # Args are passed as is to super, so super args are specified
@@ -119,24 +100,27 @@ tkinter.tix.TclVersion
 tkinter.tix.TkVersion
 
 
+# =======
+# <= 3.13
+# =======
+
+ast.Ellipsis.__new__  # Implementation has *args, but shouldn't allow any
+
+_?hashlib.scrypt  # Raises TypeError if salt, n, r or p are None
+
+importlib.abc.Traversable.open  # Problematic protocol signature at runtime, see source code comments.
+
+# Will always raise. Not included to avoid type checkers inferring that
+# TypeAliasType instances are callable.
+typing_extensions.TypeAliasType.__call__
+
+
 # ==============================================================
 # Allowlist entries that cannot or should not be fixed; 3.9 only
 # ==============================================================
 
 ast.FormattedValue.conversion  # None on the class, but never None on instances
 _ast.FormattedValue.conversion  # None on the class, but never None on instances
-
-
-# =================================================================
-# Allowlist entries that cannot or should not be fixed; 3.9 to 3.12
-# =================================================================
-
-typing\.Annotated  # Super-special typing primitive
-
-
-# ============================================================
-# Allowlist entries that cannot or should not be fixed; <= 3.9
-# ============================================================
 
 _ssl.RAND_egd  # Depends on the existence and flags of SSL
 builtins.classmethod.__get__  # Runtime signature is incorrect (https://github.com/python/cpython/issues/93021)
@@ -209,18 +193,24 @@ lib2to3.tests  # Modules that exist at runtime, but shouldn't be added to typesh
 lib2to3\.tests\..+  # Modules that exist at runtime, but shouldn't be added to typeshed
 pkgutil.ImpImporter\..*  # Removed in 3.12
 pkgutil.ImpLoader\..*  # Removed in 3.12
+platform.platform  # runtime default is 0, we pretend it's a bool
 poplib.POP3_SSL.stls  # bad declaration of inherited function. See poplib.pyi
 tkinter.test  # Modules that exist at runtime, but shouldn't be added to typeshed
 tkinter\.test\..+  # Modules that exist at runtime, but shouldn't be added to typeshed
 
-# Exist at runtime for internal reasons, no need to put them in the stub
-typing_extensions\.TypeAliasType\.__call__
-typing_extensions\.TypeAliasType\.__init_subclass__
 # We call them read-only properties, runtime implementation is slightly different
 typing_extensions\.TypeAliasType\.__(parameters|type_params|name|module|value)__
 
 unittest.test  # Modules that exist at runtime, but shouldn't be added to typeshed
 unittest\.test\..+  # Modules that exist at runtime, but shouldn't be added to typeshed
+
+# Incompatible changes introduced in Python 3.9.22
+# (Remove once 3.9.22 becomes available for all platforms)
+(email._header_value_parser.get_encoded_word)?
+
+# Incompatible changes introduced in Python 3.9.23
+# (Remove once 3.9.23 becomes available for all platforms)
+(email._header_value_parser.make_quoted_pairs)?
 
 
 # =============================================================
@@ -266,3 +256,26 @@ sunau.Au_write.initfp
 threading.Lock  # Factory function at runtime, but that wouldn't let us use it in type hints
 types.SimpleNamespace.__init__  # class doesn't accept positional arguments but has default C signature
 typing_extensions\.Annotated  # Undocumented implementation details
+typing\.Annotated  # Super-special typing primitive
+
+# These methods have no default implementation for Python < 3.13.
+_pickle.Pickler.persistent_id
+_pickle.Unpickler.persistent_load
+pickle.Pickler.persistent_id
+pickle.Unpickler.persistent_load
+
+# Incompatible changes introduced in Python 3.9.23
+# (Remove once 3.9.23 becomes available for all platforms)
+(genericpath.__all__)?
+(genericpath.ALLOW_MISSING)?
+(ntpath.__all__)?
+(ntpath.ALLOW_MISSING)?
+(os.path.__all__)?
+(os.path.ALLOW_MISSING)?
+(os.path.realpath)?
+(posixpath.__all__)?
+(posixpath.ALLOW_MISSING)?
+(posixpath.realpath)?
+(tarfile.LinkFallbackError)?
+(tarfile.TarFile._extract_member)?
+(tarfile.TarFile.makelink_with_filter)?

@@ -1,6 +1,7 @@
 from _typeshed import ConvertibleToInt, Unused
 from abc import abstractmethod
 from collections.abc import Iterable, Iterator
+from types import ModuleType
 from typing import Literal, SupportsIndex, SupportsInt, overload
 from typing_extensions import Self, TypeAlias
 
@@ -8,6 +9,7 @@ from netaddr.core import DictDotLookup
 from netaddr.strategy.ipv6 import ipv6_verbose
 
 class BaseIP:
+    __slots__ = ("_value", "_module", "__weakref__")
     def __init__(self) -> None: ...
     @property
     def value(self) -> int | None: ...
@@ -40,6 +42,7 @@ _IPAddressAddr: TypeAlias = BaseIP | int | str
 _IPNetworkAddr: TypeAlias = IPNetwork | IPAddress | tuple[int, int] | str
 
 class IPAddress(BaseIP):
+    __slots__ = ()
     def __init__(self, addr: _IPAddressAddr, version: Literal[4, 6] | None = None, flags: int = 0) -> None: ...
     def netmask_bits(self) -> int: ...
     def is_hostmask(self) -> bool: ...
@@ -79,6 +82,7 @@ class IPAddress(BaseIP):
     def is_ipv6_unique_local(self) -> bool: ...
 
 class IPListMixin:
+    __slots__ = ()
     def __iter__(self) -> Iterator[IPAddress]: ...
     @property
     def size(self) -> int: ...
@@ -92,9 +96,12 @@ class IPListMixin:
     def __contains__(self, other: BaseIP | _IPAddressAddr) -> bool: ...
     def __bool__(self) -> Literal[True]: ...
 
-def parse_ip_network(module, addr: tuple[int, int] | str, flags: int = 0, *, expand_partial: bool = False) -> tuple[int, int]: ...
+def parse_ip_network(
+    module: ModuleType, addr: tuple[int, int] | str, flags: int = 0, *, expand_partial: bool = False
+) -> tuple[int, int]: ...
 
 class IPNetwork(BaseIP, IPListMixin):
+    __slots__ = ("_prefixlen",)
     def __init__(
         self, addr: _IPNetworkAddr, version: Literal[4, 6] | None = None, flags: int = 0, *, expand_partial: bool = False
     ) -> None: ...
@@ -135,6 +142,7 @@ class IPNetwork(BaseIP, IPListMixin):
     def iter_hosts(self) -> Iterator[IPAddress]: ...
 
 class IPRange(BaseIP, IPListMixin):
+    __slots__ = ("_start", "_end")
     def __init__(self, start: _IPAddressAddr, end: _IPAddressAddr, flags: int = 0) -> None: ...
     def __contains__(self, other: BaseIP | _IPAddressAddr) -> bool: ...
     @property

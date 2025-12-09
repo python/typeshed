@@ -4,6 +4,7 @@ from typing import Any, Generic, Literal, TypeVar
 from typing_extensions import Self
 
 class Callpoint:
+    __slots__ = ("func_name", "lineno", "module_name", "module_path", "lasti", "line")
     func_name: str
     lineno: int
     module_name: str
@@ -93,3 +94,14 @@ class ParsedException:
     def from_string(cls, tb_str: str) -> Self: ...
 
 ParsedTB = ParsedException
+
+__all__ = [
+    "ExceptionInfo",
+    "TracebackInfo",
+    "Callpoint",
+    "ContextualExceptionInfo",
+    "ContextualTracebackInfo",
+    "ContextualCallpoint",
+    "print_exception",
+    "ParsedException",
+]

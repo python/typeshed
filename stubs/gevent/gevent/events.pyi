@@ -1,7 +1,7 @@
 import sys
 from collections.abc import Callable, Mapping, Sequence
 from types import ModuleType
-from typing import Any, Protocol, TypeVar
+from typing import Any, Protocol, TypeVar, type_check_only
 from typing_extensions import TypeAlias
 
 from gevent.hub import Hub
@@ -30,6 +30,7 @@ else:
 
 subscribers: list[Callable[[Any], object]]
 
+@type_check_only
 class _PeriodicMonitorThread(Protocol):
     def add_monitoring_function(self, function: Callable[[Hub], object], period: float | None) -> object: ...
 
@@ -163,3 +164,35 @@ class IGeventDidPatchAllEvent(IGeventDidPatchEvent): ...
 @implementer(IGeventDidPatchAllEvent)
 class GeventDidPatchAllEvent(_PatchAllMixin, GeventDidPatchEvent):
     ENTRY_POINT_NAME: str
+
+__all__ = [
+    "subscribers",
+    # monitor thread
+    "IEventLoopBlocked",
+    "EventLoopBlocked",
+    "IMemoryUsageThresholdExceeded",
+    "MemoryUsageThresholdExceeded",
+    "IMemoryUsageUnderThreshold",
+    "MemoryUsageUnderThreshold",
+    # Hub
+    "IPeriodicMonitorThread",
+    "IPeriodicMonitorThreadStartedEvent",
+    "PeriodicMonitorThreadStartedEvent",
+    # monkey
+    "IGeventPatchEvent",
+    "GeventPatchEvent",
+    "IGeventWillPatchEvent",
+    "DoNotPatch",
+    "GeventWillPatchEvent",
+    "IGeventDidPatchEvent",
+    "IGeventWillPatchModuleEvent",
+    "GeventWillPatchModuleEvent",
+    "IGeventDidPatchModuleEvent",
+    "GeventDidPatchModuleEvent",
+    "IGeventWillPatchAllEvent",
+    "GeventWillPatchAllEvent",
+    "IGeventDidPatchBuiltinModulesEvent",
+    "GeventDidPatchBuiltinModulesEvent",
+    "IGeventDidPatchAllEvent",
+    "GeventDidPatchAllEvent",
+]

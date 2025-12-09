@@ -1,3 +1,14 @@
+# =========
+# Temporary
+# =========
+
+# Will be added in 3.12.13
+pyexpat.XMLParserType.SetAllocTrackerActivationThreshold
+pyexpat.XMLParserType.SetAllocTrackerMaximumAmplification
+xml.parsers.expat.XMLParserType.SetAllocTrackerActivationThreshold
+xml.parsers.expat.XMLParserType.SetAllocTrackerMaximumAmplification
+
+
 # =========================
 # New errors in Python 3.12
 # =========================
@@ -7,7 +18,18 @@
 # >= 3.12
 # =======
 
-zoneinfo.ZoneInfo.from_file  # Pos-only parameters had different "names" in different Python versions
+# Types that require `__setattr__` and `__delattr__` for typing purposes:
+types.SimpleNamespace.__setattr__
+types.SimpleNamespace.__delattr__
+
+
+# ============
+# 3.12 to 3.13
+# ============
+
+# Initialized at runtime
+typing_extensions.TypeAliasType.__parameters__
+typing_extensions.TypeAliasType.__value__
 
 
 # ====================================
@@ -19,8 +41,14 @@ zoneinfo.ZoneInfo.from_file  # Pos-only parameters had different "names" in diff
 # >= 3.11
 # =======
 
-enum.Enum.__init__
 typing.NewType.__mro_entries__
+
+
+# ============
+# 3.11 to 3.13
+# ============
+
+enum.Enum.__init__
 
 
 # =======
@@ -45,7 +73,8 @@ posixpath.join
 ntpath.join
 os.path.join
 
-types.DynamicClassAttribute..*  # In the stub we pretend it's an alias for property, but it has positional-only differences
+# this is implemented with *args having a minimum size so arguments before it must be positional (but stubtest doesn't see that)
+tkinter.ttk.Style.element_create
 
 # typing.IO uses positional-or-keyword arguments, but in the stubs we prefer
 # to mark these as positional-only for compatibility with existing sub-classes.
@@ -98,6 +127,21 @@ tkinter.tix.TclVersion
 tkinter.tix.TkVersion
 
 
+# =======
+# <= 3.13
+# =======
+
+ast.Ellipsis.__new__  # Implementation has *args, but shouldn't allow any
+
+_?hashlib.scrypt  # Raises TypeError if salt, n, r or p are None
+
+importlib.abc.Traversable.open  # Problematic protocol signature at runtime, see source code comments.
+
+# Will always raise. Not included to avoid type checkers inferring that
+# TypeAliasType instances are callable.
+typing_extensions.TypeAliasType.__call__
+
+
 # =============================================================
 # Allowlist entries that cannot or should not be fixed; >= 3.12
 # =============================================================
@@ -135,7 +179,6 @@ typing_extensions.SupportsRound.__type_params__
 # Allowlist entries that cannot or should not be fixed; >= 3.11
 # =============================================================
 
-argparse._MutuallyExclusiveGroup.add_mutually_exclusive_group  # deprecated, forwards arguments to super
 enum.auto.__init__  # The stub for enum.auto is nothing like the implementation
 enum.auto.value  # The stub for enum.auto is nothing like the implementation
 http.HTTPMethod.description  # mutable instance attribute at runtime but we pretend it's a property
@@ -143,6 +186,13 @@ importlib.resources.abc.Traversable.open  # Problematic protocol signature at ru
 inspect._ParameterKind.description  # Still exists, but stubtest can't see it
 typing\._SpecialForm.*  # Super-special typing primitive
 typing\.LiteralString  # Super-special typing primitive
+
+
+# ==================================================================
+# Allowlist entries that cannot or should not be fixed; 3.11 to 3.13
+# ==================================================================
+
+argparse._MutuallyExclusiveGroup.add_mutually_exclusive_group  # deprecated, forwards arguments to super
 
 
 # =============================================================
@@ -159,8 +209,6 @@ builtins.property.__set_name__  # Doesn't actually exist
 collections\.UserList\.index  # ignoring pos-or-keyword parameter
 dataclasses.KW_ONLY  # white lies around defaults
 importlib.metadata._meta.SimplePath.joinpath  # Runtime definition of protocol is incorrect
-unittest.TestCase.__init_subclass__  # Runtime has *args, **kwargs, but will error if any are supplied
-unittest.case.TestCase.__init_subclass__  # Runtime has *args, **kwargs, but will error if any are supplied
 
 
 # ===============================================================
@@ -176,13 +224,6 @@ ctypes._endian.SIZEOF_TIME_T  # Incorrectly star import.
 # ==================================================================
 
 configparser.LegacyInterpolation.__init__  # runtime is *args, **kwargs, but it's just a passthrough
-
-
-# =================================================================
-# Allowlist entries that cannot or should not be fixed; 3.9 to 3.12
-# =================================================================
-
-typing\.Annotated  # Super-special typing primitive
 
 
 # =============================================================
@@ -228,3 +269,26 @@ sunau.Au_write.initfp
 threading.Lock  # Factory function at runtime, but that wouldn't let us use it in type hints
 types.SimpleNamespace.__init__  # class doesn't accept positional arguments but has default C signature
 typing_extensions\.Annotated  # Undocumented implementation details
+typing\.Annotated  # Super-special typing primitive
+
+# These methods have no default implementation for Python < 3.13.
+_pickle.Pickler.persistent_id
+_pickle.Unpickler.persistent_load
+pickle.Pickler.persistent_id
+pickle.Unpickler.persistent_load
+
+# Incompatible changes introduced in Python 3.12.11
+# (Remove once 3.12.11 becomes available for all platforms)
+(genericpath.__all__)?
+(genericpath.ALLOW_MISSING)?
+(ntpath.__all__)?
+(ntpath.ALLOW_MISSING)?
+(os.path.__all__)?
+(os.path.ALLOW_MISSING)?
+(os.path.realpath)?
+(posixpath.__all__)?
+(posixpath.ALLOW_MISSING)?
+(posixpath.realpath)?
+(tarfile.LinkFallbackError)?
+(tarfile.TarFile._extract_member)?
+(tarfile.TarFile.makelink_with_filter)?

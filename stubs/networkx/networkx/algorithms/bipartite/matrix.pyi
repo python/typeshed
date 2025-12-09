@@ -4,6 +4,8 @@ from collections.abc import Iterable
 from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
 
+__all__ = ["biadjacency_matrix", "from_biadjacency_matrix"]
+
 @_dispatchable
 def biadjacency_matrix(
     G: Graph[_Node],
@@ -12,6 +14,6 @@ def biadjacency_matrix(
     dtype=None,
     weight: str | None = "weight",
     format="csr",
-): ...
+): ...  # Return is a complex union of scipy classes depending on the format param
 @_dispatchable
 def from_biadjacency_matrix(A, create_using: Graph[_Node] | None = None, edge_attribute: str = "weight"): ...

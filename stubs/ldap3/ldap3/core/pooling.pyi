@@ -1,20 +1,19 @@
 from _typeshed import Incomplete
-from typing import Any
 
-POOLING_STRATEGIES: Any
+POOLING_STRATEGIES: Incomplete
 
 class ServerState:
-    server: Any
-    last_checked_time: Any
-    available: Any
+    server: Incomplete
+    last_checked_time: Incomplete
+    available: Incomplete
     def __init__(self, server, last_checked_time, available) -> None: ...
 
 class ServerPoolState:
-    server_states: Any
-    strategy: Any
-    server_pool: Any
+    server_states: Incomplete
+    strategy: Incomplete
+    server_pool: Incomplete
     last_used_server: int
-    initialize_time: Any
+    initialize_time: Incomplete
     def __init__(self, server_pool) -> None: ...
     def refresh(self) -> None: ...
     def get_current_server(self): ...
@@ -24,19 +23,14 @@ class ServerPoolState:
     def __len__(self) -> int: ...
 
 class ServerPool:
-    servers: Any
-    pool_states: Any
-    active: Any
-    exhaust: Any
-    single: Any
-    strategy: Any
+    servers: Incomplete
+    pool_states: Incomplete
+    active: Incomplete
+    exhaust: Incomplete
+    single: Incomplete
+    strategy: Incomplete
     def __init__(
-        self,
-        servers: Incomplete | None = None,
-        pool_strategy="ROUND_ROBIN",
-        active: bool = True,
-        exhaust: bool = False,
-        single_state: bool = True,
+        self, servers=None, pool_strategy="ROUND_ROBIN", active: bool = True, exhaust: bool = False, single_state: bool = True
     ) -> None: ...
     def __len__(self) -> int: ...
     def __getitem__(self, item): ...

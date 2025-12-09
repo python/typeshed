@@ -1,40 +1,8 @@
 # TODO: missing from stub
-gevent._abstract_linkable.__all__
-gevent._ffi.loop.__all__
-gevent._ffi.watcher.__all__
-gevent._greenlet_primitives.__all__
-gevent._ident.__all__
-gevent._imap.__all__
-gevent.backdoor.__all__
-gevent.baseserver.__all__
-gevent.event.__all__
-gevent.events.__all__
-gevent.exceptions.__all__
-gevent.fileobject.__all__
-gevent.greenlet.__all__
-gevent.hub.__all__
-gevent.libev.__all__
-gevent.libev.corecext.__all__
-gevent.libuv.__all__
-gevent.libuv.loop.__all__
-gevent.libuv.watcher.__all__
-gevent.local.__all__
-gevent.monkey.__all__
 gevent.os.__all__
-gevent.resolver.__all__
-gevent.resolver.blocking.__all__
-gevent.resolver.dnspython.__all__
-gevent.resolver.thread.__all__
-gevent.resolver_thread.__all__
-gevent.server.__all__
-gevent.signal.__all__
 gevent.socket.__all__
 gevent.ssl.__all__
 gevent.subprocess.__all__
-gevent.threadpool.__all__
-gevent.timeout.__all__
-gevent.util.__all__
-gevent.win32util.__all__
 
 # Error: failed to find stubs
 # =============================
@@ -66,7 +34,6 @@ gevent._ffi.ERROR
 gevent._ffi.GEVENT_DEBUG_LEVEL
 gevent._ffi.TRACE
 gevent._ffi.loop.AbstractLoop.async
-gevent._ffi.loop.assign_standard_callbacks
 gevent._fileobjectcommon.UniversalNewlineBytesWrapper
 gevent._waiter.Waiter.switch_args
 
@@ -79,8 +46,6 @@ gevent.libuv.watcher.watcher.feed
 # unnecessary python 2 compatibility stuff
 gevent._config.Config.trace_malloc
 gevent._imap.IMapUnordered.next
-gevent.monkey.patch_builtins
-gevent.monkey.patch_sys
 gevent.pywsgi.Environ.iteritems
 
 # weird method that doesn't work with this being generic, so we removed it
@@ -98,6 +63,10 @@ gevent.socket.SocketType.get_inheritable
 gevent.socket.SocketType.makefile
 gevent.socket.SocketType.sendfile
 gevent.socket.SocketType.set_inheritable
+
+# Pretends to re-export a type marked @disjoint_base in the stubs, but runtime
+# defines __slots__
+gevent.socket.SocketType$
 
 # zope.interface related attributes we can ignore
 gevent.[\w\.]+\.__implemented__
@@ -155,10 +124,6 @@ gevent._config._PositiveValueMixin.validate
 # internal API implementation detail we don't care about
 gevent._ffi.watcher.AbstractWatcherType.__new__
 
-# these are inconsistent due to the ParamSpec hack for positional only callables
-gevent.baseserver.BaseServer.do_close
-gevent.baseserver.BaseServer.do_handle
-
 # we don't care about write/writeall allowing a named parameter
 gevent._fileobjectcommon.FlushingBufferedWriter.write
 gevent._fileobjectcommon.WriteIsWriteallMixin.write
@@ -209,6 +174,7 @@ gevent.socket.getnameinfo
 gevent.socket.socket.closed
 gevent.socket.wait_readwrite
 gevent.socket.wait_write
+gevent.socket.socket.__slots__
 
 # we have punted on ssl, the gevent version of these functions have an additional
 # argument for timeouts/blocking and there are some with different default values

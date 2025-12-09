@@ -1,5 +1,5 @@
 from typing import Literal, SupportsIndex, final, overload
-from typing_extensions import Never
+from typing_extensions import Never, Self, disjoint_base
 
 import numpy as np
 from numpy.typing import NDArray
@@ -13,10 +13,14 @@ build_area: np.ufunc
 centroid: np.ufunc
 clip_by_rect: np.ufunc
 concave_hull: np.ufunc
+constrained_delaunay_triangles: np.ufunc
 contains: np.ufunc
 contains_properly: np.ufunc
 contains_xy: np.ufunc
 convex_hull: np.ufunc
+coverage_invalid_edges: np.ufunc
+coverage_is_valid: np.ufunc
+coverage_simplify: np.ufunc
 coverage_union: np.ufunc
 covered_by: np.ufunc
 covers: np.ufunc
@@ -27,11 +31,13 @@ destroy_prepared: np.ufunc
 difference: np.ufunc
 difference_prec: np.ufunc
 disjoint: np.ufunc
+disjoint_subset_union: np.ufunc
 distance: np.ufunc
 dwithin: np.ufunc
 envelope: np.ufunc
 equals: np.ufunc
 equals_exact: np.ufunc
+equals_identical: np.ufunc
 extract_unique_points: np.ufunc
 force_2d: np.ufunc
 force_3d: np.ufunc
@@ -45,6 +51,7 @@ get_dimensions: np.ufunc
 get_exterior_ring: np.ufunc
 get_geometry: np.ufunc
 get_interior_ring: np.ufunc
+get_m: np.ufunc
 get_num_coordinates: np.ufunc
 get_num_geometries: np.ufunc
 get_num_interior_rings: np.ufunc
@@ -53,6 +60,7 @@ get_point: np.ufunc
 get_precision: np.ufunc
 get_srid: np.ufunc
 get_type_id: np.ufunc
+has_m: np.ufunc
 get_x: np.ufunc
 get_y: np.ufunc
 get_z: np.ufunc
@@ -85,12 +93,16 @@ line_merge_directed: np.ufunc
 linearrings: np.ufunc
 linestrings: np.ufunc
 make_valid: np.ufunc
+make_valid_with_params: np.ufunc
+maximum_inscribed_circle: np.ufunc
 minimum_bounding_circle: np.ufunc
 minimum_bounding_radius: np.ufunc
 minimum_clearance: np.ufunc
+minimum_clearance_line: np.ufunc
 node: np.ufunc
 normalize: np.ufunc
 offset_curve: np.ufunc
+orient_polygons: np.ufunc
 oriented_envelope: np.ufunc
 overlaps: np.ufunc
 point_on_surface: np.ufunc
@@ -130,19 +142,20 @@ geos_version: tuple[int, int, int]
 geos_version_string: str
 registry: list[type[Geometry]]
 
+@disjoint_base
 class Geometry:
     def __hash__(self) -> int: ...
-    def __eq__(self, other: object) -> bool: ...
-    def __ne__(self, other: object) -> bool: ...
-    def __ge__(self, other: Never) -> bool: ...
-    def __gt__(self, other: Never) -> bool: ...
-    def __le__(self, other: Never) -> bool: ...
-    def __lt__(self, other: Never) -> bool: ...
+    def __eq__(self, other: object, /) -> bool: ...
+    def __ne__(self, other: object, /) -> bool: ...
+    def __ge__(self, other: Never, /) -> bool: ...
+    def __gt__(self, other: Never, /) -> bool: ...
+    def __le__(self, other: Never, /) -> bool: ...
+    def __lt__(self, other: Never, /) -> bool: ...
 
 @final
 class STRtree:
     count: int
-    def __init__(self, geoms: NDArray[np.object_], node_capacity: SupportsIndex, /, **kwargs: object) -> None: ...
+    def __new__(cls, geoms: NDArray[np.object_], node_capacity: SupportsIndex, /, **kwargs: object) -> Self: ...
     def dwithin(self, geoms: NDArray[np.object_], distances: NDArray[np.float64], /) -> NDArray[np.int64]: ...
     def nearest(self, geoms: NDArray[np.object_], /) -> NDArray[np.int64]: ...
     def query(self, geoms: NDArray[np.object_], predicate: SupportsIndex, /) -> NDArray[np.int64]: ...
