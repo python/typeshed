@@ -95,5 +95,5 @@ We don't keep requests for third-party library stubs open. Close those
 requests as "not planned" with an explanation like this:
 
     We gladly accept type stub contributions for third-party libraries that are published on PyPI in typeshed. To contribute a new library, please follow the steps outlines in [CONTRIBUTING.md](/python/typeshed/blob/main/CONTRIBUTING.md). The `create_baseline_stubs.py` script can be useful to create an initial version, suitable for inclusion in typeshed.
-    
+
     That said, we don't keep requests for third-party library stubs open, unless there are issues that need to be addressed before a PR can be opened. Therefore, I'm closing this issue.
