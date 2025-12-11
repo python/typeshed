@@ -4,8 +4,8 @@ from typing_extensions import TypeAlias, deprecated
 
 import docutils.parsers.rst.states
 from docutils import nodes
-from docutils.languages import _LanguageModule
 from docutils.nodes import Node, system_message
+from docutils.parsers.rst.languages import _RstLanguageModule
 from docutils.parsers.rst.states import Inliner
 from docutils.utils import Reporter
 
@@ -20,7 +20,7 @@ _RoleFn: TypeAlias = Callable[
 def register_canonical_role(name: str, role_fn: _RoleFn) -> None: ...
 def register_local_role(name: str, role_fn: _RoleFn) -> None: ...
 def role(
-    role_name: str, language_module: _LanguageModule, lineno: int, reporter: Reporter
+    role_name: str, language_module: _RstLanguageModule, lineno: int, reporter: Reporter
 ) -> tuple[_RoleFn | None, list[system_message]]: ...
 def set_implicit_options(role_fn: _RoleFn) -> None: ...
 def register_generic_role(canonical_name: str, node_class: type[Node]) -> None: ...
