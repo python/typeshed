@@ -50,14 +50,17 @@ email._header_value_parser.get_encoded_word
 
 # Incompatible changes introduced in Python 3.9.23
 # (Remove once 3.9.23 becomes available for GitHub Actions)
-ntpath.__all__
-ntpath.ALLOW_MISSING
-ntpath.realpath
 genericpath.__all__
 genericpath.ALLOW_MISSING
-os.path.__all__
-os.path.ALLOW_MISSING
-os.path.realpath
+(ntpath.__all__)?
+(ntpath.ALLOW_MISSING)?
+(ntpath.realpath)?
+(os.path.__all__)?
+(os.path.ALLOW_MISSING)?
+(os.path.realpath)?
+(posixpath.__all__)?
+(posixpath.ALLOW_MISSING)?
+(posixpath.realpath)?
 tarfile.LinkFallbackError
 tarfile.TarFile._extract_member
 tarfile.TarFile.makelink_with_filter
