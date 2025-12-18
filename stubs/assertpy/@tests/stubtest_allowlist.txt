@@ -1,5 +1,6 @@
 # Python 2 compatibility cruft:
 assertpy.collection.Iterable
+assertpy.collection.Iterable.__class_getitem__
 assertpy.contains.str_types
 assertpy.contains.xrange
 assertpy.dynamic.Iterable
