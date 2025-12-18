@@ -1,6 +1,6 @@
 import logging
 from collections.abc import Callable, Generator
-from typing import Any, Generic, TypeVar
+from typing import Any, TypeVar
 from typing_extensions import Self
 
 from .base import BaseMixin
@@ -40,7 +40,6 @@ class AssertionBuilder(
     ContainsMixin[_V],
     CollectionMixin[_V],
     BaseMixin,
-    Generic[_V],
 ):
     val: _V
     description: str
