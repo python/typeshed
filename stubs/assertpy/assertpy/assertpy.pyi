@@ -40,7 +40,7 @@ class AssertionBuilder(
     ContainsMixin[_V],
     CollectionMixin[_V],
     BaseMixin,
-    Generic[_V]
+    Generic[_V],
 ):
     val: _V
     description: str
