@@ -55,7 +55,7 @@ __all__ = [
 __version__: str
 
 @type_check_only
-class _DictLike(Protocol[_KT, _VT_co]):
+class _DictLike(Protocol[_KT, _VT_co]):  # type: ignore[misc] # Covariant type as parameter
     @overload
     def get(self, key: _KT, /) -> _VT_co | None: ...
     @overload
