@@ -190,7 +190,6 @@ class SupportsItemAccess(Protocol[_KT_contra, _VT]):
     def __setitem__(self, key: _KT_contra, value: _VT, /) -> None: ...
     def __delitem__(self, key: _KT_contra, /) -> None: ...
 
-
 # Protocol for sequence-like objects. This includes commonly used methods
 # from collections.abc.Sequence, and can be used in argument types when using
 # more specific protocols would be cumbersome.
