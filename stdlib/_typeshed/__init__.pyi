@@ -3,7 +3,18 @@
 # See the README.md file in this directory for more information.
 
 import sys
-from collections.abc import Awaitable, Callable, Iterable, Iterator, Sequence, Set as AbstractSet, Sized
+from collections.abc import (
+    Awaitable,
+    Callable,
+    ItemsView,
+    Iterable,
+    Iterator,
+    KeysView,
+    Sequence,
+    Set as AbstractSet,
+    Sized,
+    ValuesView,
+)
 from dataclasses import Field
 from os import PathLike
 from types import FrameType, TracebackType
@@ -178,6 +189,40 @@ class SupportsItemAccess(Protocol[_KT_contra, _VT]):
     def __getitem__(self, key: _KT_contra, /) -> _VT: ...
     def __setitem__(self, key: _KT_contra, value: _VT, /) -> None: ...
     def __delitem__(self, key: _KT_contra, /) -> None: ...
+
+
+# Protocol for sequence-like objects. This includes commonly used methods
+# from collections.abc.Sequence, and can be used in argument types when using
+# more specific protocols would be cumbersome.
+#
+# Please note that this protocol is not yet marked as stable, and may be
+# extended in the future to include more methods.
+class SequenceLike(Protocol[_T_co]):
+    def __contains__(self, value: object, /) -> bool: ...
+    @overload
+    def __getitem__(self, index: int, /) -> _T_co: ...
+    # This does not necessarily return a sequence of the same type.
+    @overload
+    def __getitem__(self, index: slice, /) -> Sequence[_T_co]: ...
+    def __iter__(self) -> Iterator[_T_co]: ...
+    def __len__(self) -> int: ...
+
+# Protocol for mapping-like objects. This includes the methods from
+# collections.abc.Mapping, and can be used in argument types when using
+# more specific protocols would be cumbersome.
+class MappingLike(Protocol[_KT, _VT_co]):
+    def __contains__(self, key: object, /) -> bool: ...
+    def __getitem__(self, key: _KT, /) -> _VT_co: ...
+    def __len__(self) -> int: ...
+    @overload
+    def get(self, key: _KT, /) -> _VT_co | None: ...
+    @overload
+    def get(self, key: _KT, default: _VT, /) -> _VT_co | _VT: ...
+    def items(self) -> ItemsView[_KT, _VT_co]: ...
+    def keys(self) -> KeysView[_KT]: ...
+    def values(self) -> ValuesView[_VT_co]: ...
+
+# Path- and I/O-related types
 
 StrPath: TypeAlias = str | PathLike[str]  # stable
 BytesPath: TypeAlias = bytes | PathLike[bytes]  # stable
