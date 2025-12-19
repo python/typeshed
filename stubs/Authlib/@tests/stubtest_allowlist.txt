@@ -47,7 +47,8 @@ authlib.oidc.core.OpenIDImplicitGrant.validate_consent_request
 authlib.oidc.core.grants.OpenIDImplicitGrant.validate_consent_request
 authlib.oidc.core.grants.implicit.OpenIDImplicitGrant.validate_consent_request
 
-# Exclude integrations dirs:
+# Exclude integrations dirs
+# Failed to import, getting ModuleNotFoundError for third-party libs:
 authlib.integrations.django_client.*
 authlib.integrations.django_oauth1.*
 authlib.integrations.django_oauth2.*
