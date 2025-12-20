@@ -1,4 +1,5 @@
 import _typeshed
+import builtins
 import sys
 from _typeshed import ReadableBuffer, StrOrBytesPath, WriteableBuffer
 from abc import abstractmethod
@@ -202,7 +203,7 @@ if sys.version_info >= (3, 14):
         offset: int
         size: int
         name: str
-        type: type[_CT]
+        type: builtins.type[_CT]
         byte_offset: int
         byte_size: int
         is_bitfield: bool
@@ -210,9 +211,9 @@ if sys.version_info >= (3, 14):
         bit_size: int
         is_anonymous: bool
         @overload
-        def __get__(self, instance: None, owner: type[Any] | None = None, /) -> Self: ...
+        def __get__(self, instance: None, owner: builtins.type[Any] | None = None, /) -> Self: ...
         @overload
-        def __get__(self, instance: Any, owner: type[Any] | None = None, /) -> _GetT: ...
+        def __get__(self, instance: Any, owner: builtins.type[Any] | None = None, /) -> _GetT: ...
         def __set__(self, instance: Any, value: _SetT, /) -> None: ...
 
     _CField = CField
