@@ -174,17 +174,10 @@ class Compiler:
         self, func: Callable[[Unpack[_Ts]], Unused], args: tuple[Unpack[_Ts]], msg: str | None = None, level: int = 1
     ) -> None: ...
     @overload
-    def spawn(
-        self, cmd: Sequence[StrOrBytesPath], *, search_path: Literal[False], verbose: Unused = False, env: _ENV | None = None
-    ) -> None: ...
+    def spawn(self, cmd: Sequence[StrOrBytesPath], *, search_path: Literal[False], env: _ENV | None = None) -> None: ...
     @overload
     def spawn(
-        self,
-        cmd: MutableSequence[bytes | StrPath],
-        *,
-        search_path: Literal[True] = True,
-        verbose: Unused = False,
-        env: _ENV | None = None,
+        self, cmd: MutableSequence[bytes | StrPath], *, search_path: Literal[True] = True, env: _ENV | None = None
     ) -> None: ...
     def mkpath(self, name: str, mode: int = 0o777) -> None: ...
     @overload
