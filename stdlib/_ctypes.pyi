@@ -198,7 +198,6 @@ _SetT = TypeVar("_SetT")
 
 if sys.version_info >= (3, 14):
     @final
-    @type_check_only
     class CField(Generic[_CT, _GetT, _SetT]):
         offset: int
         size: int
