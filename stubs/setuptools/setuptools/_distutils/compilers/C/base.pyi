@@ -175,12 +175,13 @@ class Compiler:
     ) -> None: ...
     @overload
     def spawn(
-        self, cmd: Sequence[StrOrBytesPath], search_path: Literal[False], verbose: Unused = False, env: _ENV | None = None
+        self, cmd: Sequence[StrOrBytesPath], *, search_path: Literal[False], verbose: Unused = False, env: _ENV | None = None
     ) -> None: ...
     @overload
     def spawn(
         self,
         cmd: MutableSequence[bytes | StrPath],
+        *,
         search_path: Literal[True] = True,
         verbose: Unused = False,
         env: _ENV | None = None,
