@@ -2266,8 +2266,13 @@ if sys.version_info >= (3, 11):
     # See `check_exception_group.py` for use-cases and comments.
     @disjoint_base
     class BaseExceptionGroup(BaseException, Generic[_BaseExceptionT_co]):
+        @overload
+        # mypy thinks this is an invalid type for cls/self
+        def __new__(  # type: ignore[misc]
+            cls: ExceptionGroup[_ExceptionT_co], message: str, exceptions: Sequence[_ExceptionT_co], /
+        ) -> ExceptionGroup[_ExceptionT_co]: ...
+        @overload
         def __new__(cls, message: str, exceptions: Sequence[_BaseExceptionT_co], /) -> Self: ...
-        def __init__(self, message: str, exceptions: Sequence[_BaseExceptionT_co], /) -> None: ...
         @property
         def message(self) -> str: ...
         @property
