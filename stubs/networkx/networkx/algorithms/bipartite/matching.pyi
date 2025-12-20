@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from collections.abc import Iterable
+from collections.abc import Iterable, Mapping
 
 from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
@@ -11,7 +11,9 @@ def hopcroft_karp_matching(G: Graph[_Node], top_nodes: Iterable[_Node] | None = 
 @_dispatchable
 def eppstein_matching(G: Graph[_Node], top_nodes: Iterable[Incomplete] | None = None) -> dict[Incomplete, Incomplete]: ...
 @_dispatchable
-def to_vertex_cover(G: Graph[_Node], matching: Iterable[Incomplete], top_nodes: Iterable[Incomplete] | None = None): ...
+def to_vertex_cover(
+    G: Graph[_Node], matching: Mapping[Incomplete, Incomplete], top_nodes: Iterable[Incomplete] | None = None
+): ...
 
 maximum_matching = hopcroft_karp_matching
 

@@ -3,6 +3,7 @@
 # ====================================================================
 
 multiprocessing.managers.BaseListProxy.clear
+# inspect.signature gives the wrong signature
 multiprocessing.managers.BaseListProxy.copy
 multiprocessing.managers.DictProxy.__ior__
 multiprocessing.managers._BaseDictProxy.__ior__
@@ -10,8 +11,6 @@ multiprocessing.managers._BaseDictProxy.__or__
 multiprocessing.managers._BaseDictProxy.__reversed__
 multiprocessing.managers._BaseDictProxy.__ror__
 multiprocessing.managers._BaseDictProxy.fromkeys
-multiprocessing.process.BaseProcess.interrupt
-multiprocessing.synchronize.SemLock.locked
 
 
 # =========================
@@ -40,6 +39,16 @@ concurrent.interpreters._queues.UNBOUND_REMOVE
 
 importlib.util.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatibility
 
+# Condition functions are exported in __init__
+threading.Condition.locked
+multiprocessing.dummy.Condition.locked
+
+# Starting with Python 3.14.1, these methods accept None for some of their
+# parameters, but would raise a TypeError with Python 3.14.0.
+mmap.mmap.find
+mmap.mmap.flush
+mmap.mmap.rfind
+multiprocessing.process.BaseProcess.__init__
 
 # ====================================
 # Pre-existing errors from Python 3.13
@@ -128,36 +137,6 @@ multiprocessing.managers._BaseSetProxy.__len__
 multiprocessing.managers._BaseSetProxy.clear
 multiprocessing.managers._BaseSetProxy.copy
 multiprocessing.managers._BaseSetProxy.pop
-
-
-# Changes from patch releases to be introduced in Python 3.14.0b3
-# (Remove once 3.14.0b3 becomes available for all platforms)
-(genericpath.__all__)?
-(genericpath.ALLOW_MISSING)?
-(ntpath.__all__)?
-(ntpath.ALLOW_MISSING)?
-(os.path.__all__)?
-(os.path.ALLOW_MISSING)?
-(os.path.realpath)?
-(posixpath.__all__)?
-(posixpath.ALLOW_MISSING)?
-(tarfile.__all__)?
-(tarfile.LinkFallbackError)?
-(tarfile.TarFile._extract_member)?
-(tarfile.TarFile.makelink_with_filter)?
-(_?hashlib.new)?
-(_?hashlib.(openssl_)?md5)?
-(_?hashlib.(openssl_)?sha1)?
-(_?hashlib.(openssl_)?sha224)?
-(_?hashlib.(openssl_)?sha256)?
-(_?hashlib.(openssl_)?sha384)?
-(_?hashlib.(openssl_)?sha3_224)?
-(_?hashlib.(openssl_)?sha3_256)?
-(_?hashlib.(openssl_)?sha3_384)?
-(_?hashlib.(openssl_)?sha3_512)?
-(_?hashlib.(openssl_)?sha512)?
-(_?hashlib.(openssl_)?shake_128)?
-(_?hashlib.(openssl_)?shake_256)?
 
 
 # =============================================================
