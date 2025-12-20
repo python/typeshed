@@ -159,7 +159,7 @@ def setup(
     # kwargs used directly in distutils.core.setup
     distclass: type[_DistributionT] = Distribution,  # type: ignore[assignment] # noqa: Y011
     # Custom Distributions could accept more params
-    **attrs: object,
+    **attrs: Any,
 ) -> _DistributionT: ...
 
 class Command(_Command):
