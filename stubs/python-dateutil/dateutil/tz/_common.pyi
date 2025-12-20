@@ -1,12 +1,17 @@
 import abc
+from collections.abc import Callable
 from datetime import datetime, timedelta, tzinfo
-from typing import ClassVar
+from typing import ClassVar, TypeVar
+from typing_extensions import ParamSpec
 
 ZERO: timedelta
 
 __all__ = ["tzname_in_python2", "enfold"]
 
-def tzname_in_python2(namefunc): ...
+_P = ParamSpec("_P")
+_R = TypeVar("_R")
+
+def tzname_in_python2(namefunc: Callable[_P, _R]) -> Callable[_P, _R]: ...
 def enfold(dt: datetime, fold: int = 1): ...
 
 # Doesn't actually have ABCMeta as the metaclass at runtime,
