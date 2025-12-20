@@ -1,0 +1,13 @@
+from collections.abc import Generator
+from typing import Any
+
+from django.db import models
+from django.forms import BaseForm, BaseFormSet
+from django.template import Library
+
+register: Library
+
+def include_empty_form(formset: BaseFormSet[Any]) -> Generator[BaseForm, None, None]: ...
+def as_script_options(formset: BaseFormSet[Any]) -> str: ...
+def as_form_type(form: BaseForm) -> str: ...
+def as_model_name(model: type[models.Model]) -> str: ...
