@@ -1,10 +1,12 @@
-from _typeshed import Incomplete
+from _typeshed import StrPath
 from abc import abstractmethod
-from collections.abc import Mapping, Sequence
-from typing import Any, Literal, TypedDict, TypeVar, overload, type_check_only
-from typing_extensions import NotRequired
+from collections.abc import ItemsView, Iterable, Mapping, Sequence
+from typing import Any, Literal, Protocol, TypedDict, TypeVar, overload, type_check_only
+from typing_extensions import Never, NotRequired
 
 from ._distutils.cmd import Command as _Command
+from ._distutils.dist import Distribution as _Distribution
+from ._distutils.extension import Extension as _Extension
 from .command.alias import alias
 from .command.bdist_egg import bdist_egg
 from .command.bdist_rpm import bdist_rpm
@@ -33,6 +35,11 @@ from .extension import Extension as Extension
 from .warnings import SetuptoolsDeprecationWarning as SetuptoolsDeprecationWarning
 
 _CommandT = TypeVar("_CommandT", bound=_Command)
+_DistributionT = TypeVar("_DistributionT", bound=_Distribution, default=Distribution)
+_T = TypeVar("_T")
+_KT = TypeVar("_KT")
+_VT = TypeVar("_VT")
+_VT_co = TypeVar("_VT_co", covariant=True)
 
 __all__ = [
     "setup",
@@ -48,6 +55,23 @@ __all__ = [
 __version__: str
 
 @type_check_only
+class _DictLike(Protocol[_KT, _VT_co]):  # type: ignore[misc] # Covariant type as parameter
+    @overload
+    def get(self, key: _KT, /) -> _VT_co | None: ...
+    @overload
+    def get(self, key: _KT, default: _VT_co, /) -> _VT_co: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues] # Covariant type as parameter
+    @overload
+    def get(self, key: _KT, default: _T, /) -> _VT_co | _T: ...
+    def items(self) -> ItemsView[_KT, _VT_co]: ...
+    def keys(self) -> Iterable[_KT]: ...
+    def __getitem__(self, key: _KT, /) -> _VT_co: ...
+    def __contains__(self, x: Any, /) -> bool: ...
+
+@type_check_only
+class _MutableDictLike(_DictLike[_KT, _VT], Protocol):
+    def __setitem__(self, key: _KT, value: _VT, /) -> None: ...
+
+@type_check_only
 class _BuildInfo(TypedDict):
     sources: list[str] | tuple[str, ...]
     obj_deps: NotRequired[dict[str, list[str] | tuple[str, ...]]]
@@ -60,49 +84,83 @@ find_namespace_packages = _Finder.find
 
 def setup(
     *,
-    name: str = ...,
-    version: str = ...,
-    description: str = ...,
-    long_description: str = ...,
-    long_description_content_type: str = ...,
-    author: str = ...,
-    author_email: str = ...,
-    maintainer: str = ...,
-    maintainer_email: str = ...,
-    url: str = ...,
-    download_url: str = ...,
-    packages: list[str] = ...,
-    py_modules: list[str] = ...,
-    scripts: list[str] = ...,
-    ext_modules: Sequence[Extension] = ...,
-    classifiers: list[str] = ...,
-    distclass: type[Distribution] = ...,
-    script_name: str = ...,
-    script_args: list[str] = ...,
-    options: Mapping[str, Incomplete] = ...,
-    license: str = ...,
-    keywords: list[str] | str = ...,
-    platforms: list[str] | str = ...,
-    cmdclass: Mapping[str, type[_Command]] = ...,
-    data_files: list[tuple[str, list[str]]] = ...,
-    package_dir: Mapping[str, str] = ...,
-    obsoletes: list[str] = ...,
-    provides: list[str] = ...,
-    requires: list[str] = ...,
-    command_packages: list[str] = ...,
-    command_options: Mapping[str, Mapping[str, tuple[Incomplete, Incomplete]]] = ...,
-    package_data: Mapping[str, list[str]] = ...,
-    include_package_data: bool = ...,
-    # libraries for `Distribution` or `build_clib`, not `Extension`, `build_ext` or `CCompiler`
-    libraries: list[tuple[str, _BuildInfo]] = ...,
-    headers: list[str] = ...,
-    ext_package: str = ...,
-    include_dirs: list[str] = ...,
-    password: str = ...,
-    fullname: str = ...,
+    # Attributes from distutils.dist.DistributionMetadata.set_*
+    # These take priority over attributes from distutils.dist.DistributionMetadata.__init__
+    keywords: str | Iterable[str] = ...,
+    platforms: str | Iterable[str] = ...,
+    classifiers: str | Iterable[str] = ...,
+    requires: Iterable[str] = ...,
+    provides: Iterable[str] = ...,
+    obsoletes: Iterable[str] = ...,
+    # Attributes from distutils.dist.DistributionMetadata.__init__
+    # These take priority over attributes from distutils.dist.Distribution.__init__
+    name: str | None = None,
+    version: str | None = None,
+    author: str | None = None,
+    author_email: str | None = None,
+    maintainer: str | None = None,
+    maintainer_email: str | None = None,
+    url: str | None = None,
+    license: str | None = None,
+    description: str | None = None,
+    long_description: str | None = None,
+    download_url: str | None = None,
+    # Attributes from distutils.dist.Distribution.__init__ (except self.metadata)
+    # These take priority over attributes from distutils.dist.Distribution.display_option_names
+    verbose=True,
+    dry_run=False,
+    help=False,
+    cmdclass: _MutableDictLike[str, type[_Command]] = {},
+    command_packages: str | list[str] | None = None,
+    script_name: StrPath | None = ...,  # default is actually set in distutils.core.setup
+    script_args: list[str] | None = ...,  # default is actually set in distutils.core.setup
+    command_options: _MutableDictLike[str, _DictLike[str, tuple[str, str]]] = {},
+    packages: list[str] | None = None,
+    package_dir: Mapping[str, str] | None = None,
+    py_modules: list[str] | None = None,
+    libraries: list[tuple[str, _BuildInfo]] | None = None,
+    headers: list[str] | None = None,
+    ext_modules: Sequence[_Extension] | None = None,
+    ext_package: str | None = None,
+    include_dirs: list[str] | None = None,
+    extra_path=None,
+    scripts: list[str] | None = None,
+    data_files: list[tuple[str, Sequence[str]]] | None = None,
+    password: str = "",
+    command_obj: _MutableDictLike[str, _Command] = {},
+    have_run: _MutableDictLike[str, bool] = {},
+    # kwargs used directly in distutils.dist.Distribution.__init__
+    options: Mapping[str, Mapping[str, str]] | None = None,
+    licence: Never = ...,  # Deprecated
+    # Attributes from distutils.dist.Distribution.display_option_names
+    # (this can more easily be copied from the `if TYPE_CHECKING` block)
+    help_commands: bool = False,
+    fullname: str | Literal[False] = False,
+    contact: str | Literal[False] = False,
+    contact_email: str | Literal[False] = False,
+    # kwargs used directly in setuptools.dist.Distribution.__init__
+    # and attributes from setuptools.dist.Distribution.__init__
+    package_data: _DictLike[str, list[str]] = {},
+    dist_files: list[tuple[str, str, str]] = [],
+    include_package_data: bool | None = None,
+    exclude_package_data: _DictLike[str, list[str]] | None = None,
+    src_root: str | None = None,
+    dependency_links: list[str] = [],
+    setup_requires: list[str] = [],
+    # From Distribution._DISTUTILS_UNSUPPORTED_METADATA set in Distribution._set_metadata_defaults
+    long_description_content_type: str | None = None,
+    project_urls={},
+    provides_extras={},
+    license_expression=None,
+    license_file=None,
+    license_files=None,
+    install_requires=[],
+    extras_require={},
+    # kwargs used directly in distutils.core.setup
+    distclass: type[_DistributionT] = Distribution,  # type: ignore[assignment] # noqa: Y011
     # Custom Distributions could accept more params
     **attrs: Any,
-) -> Distribution: ...
+) -> _DistributionT: ...
 
 class Command(_Command):
     command_consumes_arguments: bool
