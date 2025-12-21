@@ -68,6 +68,7 @@ class _DictLike(Protocol[_KT, _VT_co]):
 class _MutableDictLike(_DictLike[_KT, _VT_co], Protocol):
     # See note about using _VT_co instead of Any
     def __setitem__(self, key: _KT, value: Any, /) -> None: ...
+    def setdefault(self, key: _KT, default: Any, /) -> _VT_co: ...
 
 @type_check_only
 class _BuildInfo(TypedDict):
@@ -148,7 +149,7 @@ def setup(
     # From Distribution._DISTUTILS_UNSUPPORTED_METADATA set in Distribution._set_metadata_defaults
     long_description_content_type: str | None = None,
     project_urls: _DictLike[Incomplete, Incomplete] = {},
-    provides_extras: _DictLike[Incomplete, Incomplete] = {},
+    provides_extras: _MutableDictLike[Incomplete, Incomplete] = {},
     license_expression: str | None = None,
     license_file: Never = ...,  # Deprecated
     license_files: Iterable[str] | None = None,
