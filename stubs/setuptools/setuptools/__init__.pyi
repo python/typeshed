@@ -1,6 +1,5 @@
-from _typeshed import StrPath
+from _typeshed import Incomplete, StrPath
 from abc import abstractmethod
-from binascii import Incomplete
 from collections.abc import ItemsView, Iterable, Mapping, Sequence
 from typing import Any, Literal, Protocol, TypedDict, TypeVar, overload, type_check_only
 from typing_extensions import Never, NotRequired
