@@ -13,3 +13,9 @@ icalendar.cal.Component.set_inline
 # Stubtest gets confused by multiple inheritance.
 icalendar.prop.vSkip.__new__
 icalendar.vSkip.__new__
+
+# Internal helpers used by copyreg for pickle support
+icalendar.timezone.zoneinfo.pickle_tzicalvtz
+icalendar.timezone.zoneinfo.pickle_rrule_with_cache
+icalendar.timezone.zoneinfo.pickle_rruleset_with_cache
+icalendar.timezone.zoneinfo.unpickle_rruleset_with_cache
