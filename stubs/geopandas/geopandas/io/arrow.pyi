@@ -6,11 +6,11 @@ from typing import Any, Final
 from ..geodataframe import GeoDataFrame
 
 METADATA_VERSION: Final[str]
-SUPPORTED_VERSIONS_LITERAL: Incomplete
+SUPPORTED_VERSIONS_LITERAL = Incomplete
 SUPPORTED_VERSIONS: Final[list[str]]
 GEOARROW_ENCODINGS: Final[list[str]]
 SUPPORTED_ENCODINGS: Final[list[str]]
-PARQUET_GEOMETRY_ENCODINGS: Incomplete
+PARQUET_GEOMETRY_ENCODINGS = Incomplete
 
 def _read_parquet(
     path: str | os.PathLike[str],
