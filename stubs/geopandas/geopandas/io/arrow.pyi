@@ -1,17 +1,16 @@
 import os
 from _typeshed import Incomplete, SupportsGetItem, SupportsKeysAndGetItem
 from collections.abc import Iterable, Mapping
-from typing import Any, Final, Literal
-from typing_extensions import TypeAlias
+from typing import Any, Final
 
 from ..geodataframe import GeoDataFrame
 
 METADATA_VERSION: Final[str]
-SUPPORTED_VERSIONS_LITERAL: TypeAlias = Literal["0.1.0", "0.4.0", "1.0.0-beta.1", "1.0.0", "1.1.0"]
+SUPPORTED_VERSIONS_LITERAL: Incomplete
 SUPPORTED_VERSIONS: Final[list[str]]
 GEOARROW_ENCODINGS: Final[list[str]]
 SUPPORTED_ENCODINGS: Final[list[str]]
-PARQUET_GEOMETRY_ENCODINGS: TypeAlias = Literal["WKB", "geoarrow"]
+PARQUET_GEOMETRY_ENCODINGS: Incomplete
 
 def _read_parquet(
     path: str | os.PathLike[str],
