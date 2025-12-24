@@ -1428,9 +1428,9 @@ else:
         umask: int = -1,
     ) -> Any: ...  # morally: -> str | bytes
 
-PIPE: Final[int]
-STDOUT: Final[int]
-DEVNULL: Final[int]
+PIPE: Final[Literal[-1]]
+STDOUT: Final[Literal[-2]]
+DEVNULL: Final[Literal[-3]]
 
 class SubprocessError(Exception): ...
 
