@@ -65,8 +65,6 @@ if sys.platform == "linux":
     )
     def sensors_temperatures(fahrenheit: bool = False) -> dict[str, list[_ntp.shwtemp]]: ...
     def sensors_fans() -> dict[str, list[_ntp.sfan]]: ...
-    def heap_info() -> _ntp.pheap: ...
-    def heap_trim() -> None: ...
     PROCFS_PATH: str
     RLIMIT_AS: int
     RLIMIT_CORE: int
@@ -103,6 +101,10 @@ if sys.platform == "win32":
         win_service_get as win_service_get,
         win_service_iter as win_service_iter,
     )
+
+# Linux + glibc, Windows, macOS, FreeBSD, NetBSD:
+def heap_info() -> _ntp.pheap: ...
+def heap_trim() -> None: ...
 
 if sys.platform == "linux":
     from ._pslinux import sensors_battery as sensors_battery
