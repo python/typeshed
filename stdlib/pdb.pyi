@@ -65,7 +65,9 @@ class Pdb(Bdb, Cmd):
         @deprecated("The frame locals reference is no longer cached. Use 'curframe.f_locals' instead.")
         def curframe_locals(self) -> Mapping[str, Any]: ...
         @curframe_locals.setter
-        @deprecated("Setting 'curframe_locals' no longer has any effect. Update the contents of 'curframe.f_locals' instead.")
+        @deprecated(
+            "Setting 'curframe_locals' no longer has any effect as of 3.14. Update the contents of 'curframe.f_locals' instead."
+        )
         def curframe_locals(self, value: Mapping[str, Any]) -> None: ...
     else:
         curframe_locals: Mapping[str, Any]
