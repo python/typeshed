@@ -1,12 +1,12 @@
 from __future__ import annotations
 
 import inspect
+import sys
 from asyncio import iscoroutinefunction
 from collections.abc import Awaitable, Callable, Coroutine
 from types import CoroutineType
 from typing import Any
 from typing_extensions import assert_type
-import sys
 
 
 # asyncio.iscoroutinefunction is deprecated, expecting a warning.
