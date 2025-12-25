@@ -8,7 +8,7 @@ from linecache import _ModuleGlobals
 from rlcompleter import Completer
 from types import CodeType, FrameType, TracebackType
 from typing import IO, Any, ClassVar, Final, Literal, TypeVar
-from typing_extensions import ParamSpec, Self, TypeAlias
+from typing_extensions import ParamSpec, Self, TypeAlias, deprecated
 
 __all__ = ["run", "pm", "Pdb", "runeval", "runctx", "runcall", "set_trace", "post_mortem", "help"]
 if sys.version_info >= (3, 14):
@@ -60,7 +60,15 @@ class Pdb(Bdb, Cmd):
     stack: list[tuple[FrameType, int]]
     curindex: int
     curframe: FrameType | None
-    curframe_locals: Mapping[str, Any]
+    if sys.version_info >= (3, 13):
+        @property
+        @deprecated("curframe_locals is deprecated. Derived debuggers should access pdb.Pdb.curframe.f_locals instead.")
+        def curframe_locals(self) -> Mapping[str, Any]: ...
+        @curframe_locals.setter
+        @deprecated("curframe_locals is deprecated. Derived debuggers should access pdb.Pdb.curframe.f_locals instead.")
+        def curframe_locals(self, value: Mapping[str, Any]) -> None: ...
+    else:
+        curframe_locals: Mapping[str, Any]
     if sys.version_info >= (3, 14):
         mode: _Mode | None
         colorize: bool
