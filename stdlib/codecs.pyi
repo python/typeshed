@@ -5,7 +5,7 @@ from _typeshed import ReadableBuffer
 from abc import abstractmethod
 from collections.abc import Callable, Generator, Iterable
 from typing import Any, BinaryIO, ClassVar, Final, Literal, Protocol, TextIO, overload, type_check_only
-from typing_extensions import Self, TypeAlias, disjoint_base
+from typing_extensions import Self, TypeAlias, deprecated, disjoint_base
 
 __all__ = [
     "register",
@@ -191,9 +191,17 @@ def getincrementaldecoder(encoding: _BufferedEncoding) -> _BufferedIncrementalDe
 def getincrementaldecoder(encoding: str) -> _IncrementalDecoder: ...
 def getreader(encoding: str) -> _StreamReader: ...
 def getwriter(encoding: str) -> _StreamWriter: ...
-def open(
-    filename: str, mode: str = "r", encoding: str | None = None, errors: str = "strict", buffering: int = -1
-) -> StreamReaderWriter: ...
+
+if sys.version_info >= (3, 14):
+    @deprecated("codecs.open() is deprecated since Python 3.14. Use open() instead.")
+    def open(
+        filename: str, mode: str = "r", encoding: str | None = None, errors: str = "strict", buffering: int = -1
+    ) -> StreamReaderWriter: ...
+else:
+    def open(
+        filename: str, mode: str = "r", encoding: str | None = None, errors: str = "strict", buffering: int = -1
+    ) -> StreamReaderWriter: ...
+
 def EncodedFile(file: _Stream, data_encoding: str, file_encoding: str | None = None, errors: str = "strict") -> StreamRecoder: ...
 def iterencode(iterator: Iterable[str], encoding: str, errors: str = "strict") -> Generator[bytes, None, None]: ...
 def iterdecode(iterator: Iterable[bytes], encoding: str, errors: str = "strict") -> Generator[str, None, None]: ...
