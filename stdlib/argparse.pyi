@@ -103,7 +103,7 @@ class _ActionsContainer:
             conflict_handler: str = ...,
         ) -> _ArgumentGroup: ...
         @overload
-        @deprecated("Passing 'prefix_chars' to add_argument_group() is deprecated")
+        @deprecated("The `prefix_chars` parameter deprecated since Python 3.14.")
         def add_argument_group(
             self,
             title: str | None = None,
