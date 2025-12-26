@@ -39,7 +39,17 @@ def get_paths(scheme: str = ..., vars: dict[str, Any] | None = None, expand: boo
 def get_python_version() -> str: ...
 def get_platform() -> str: ...
 
-if sys.version_info >= (3, 11):
+if sys.version_info >= (3, 12):
+    @overload
+    def is_python_build() -> bool: ...
+    @overload
+    @deprecated(
+        "The check_home argument of sysconfig.is_python_build is deprecated and its value is ignored. "
+        "It will be removed in Python 3.15."
+    )
+    def is_python_build(check_home: object = None) -> bool: ...
+
+elif sys.version_info >= (3, 11):
     def is_python_build(check_home: object = None) -> bool: ...
 
 else:
