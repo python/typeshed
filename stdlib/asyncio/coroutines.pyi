@@ -24,7 +24,7 @@ if sys.version_info >= (3, 11):
     @deprecated("Deprecated since Python 3.14. Use `inspect.iscoroutinefunction()` instead.")
     def iscoroutinefunction(func: Callable[..., Coroutine[Any, Any, Any]]) -> bool: ...
     @overload
-    @deprecated("Deprecated in Python 3.14; use inspect.iscoroutinefunction() instead")
+    @deprecated("Deprecated since Python 3.14. Use `inspect.iscoroutinefunction()` instead.")
     def iscoroutinefunction(func: Callable[_P, Awaitable[_T]]) -> TypeGuard[Callable[_P, Coroutine[Any, Any, _T]]]: ...
     @overload
     @deprecated("Deprecated since Python 3.14. Use `inspect.iscoroutinefunction()` instead.")
