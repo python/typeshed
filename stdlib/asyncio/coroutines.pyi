@@ -21,7 +21,7 @@ def iscoroutine(obj: object) -> TypeIs[Coroutine[Any, Any, Any]]: ...
 
 if sys.version_info >= (3, 11):
     @overload
-    @deprecated("Deprecated in Python 3.14; use inspect.iscoroutinefunction() instead")
+    @deprecated("Deprecated since Python 3.14. Use `inspect.iscoroutinefunction()` instead.")
     def iscoroutinefunction(func: Callable[..., Coroutine[Any, Any, Any]]) -> bool: ...
     @overload
     @deprecated("Deprecated in Python 3.14; use inspect.iscoroutinefunction() instead")
