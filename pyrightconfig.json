@@ -1,14 +1,17 @@
 {
     "$schema": "https://raw.githubusercontent.com/microsoft/pyright/main/packages/vscode-pyright/schemas/pyrightconfig.schema.json",
     "typeshedPath": ".",
-    "include": ["stdlib", "stubs"],
+    "include": [
+        "stdlib",
+        "stubs",
+    ],
     "exclude": [
         // Stubs that don't work in all Python versions
         "stubs/seaborn",
         "stubs/shapely",
         "stubs/geopandas",
         // test cases use a custom config file
-        "**/@tests/test_cases"
+        "**/@tests/test_cases",
     ],
     "typeCheckingMode": "strict",
     // Allowed in base settings for incomplete stubs, checked in stricter settings
@@ -41,5 +44,5 @@
     // The name of the self/cls parameter is out of typeshed's control.
     "reportSelfClsParameterName": "none",
     // Not actionable in typeshed
-    "reportDeprecated": "none"
+    "reportDeprecated": "none",
 }
