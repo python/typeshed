@@ -30,8 +30,8 @@ class DatagramProtocol(BaseProtocol):
     def connection_made(self, transport: transports.DatagramTransport) -> None: ...  # type: ignore[override]
     # addr can be a tuple[int, int] for some unusual protocols like socket.AF_NETLINK and
     # a 4-tuple (host, port, flowinfo, scope_id) for IPv6,
-    # Use tuple[str | Any, int] to not cause typechecking issues on most usual cases.
-    # This could be improved by using tuple[AnyOf[str, int], int] if the AnyOf feature is accepted.
+    # Use tuple[Any, int, Unpack[tuple[Any, ...]]] to not cause typechecking issues on most usual cases.
+    # This could be improved by using tuple[AnyOf[str, int], int, Unpack[tuple[Any, ...]]] if the AnyOf feature is accepted.
     # See https://github.com/python/typing/issues/566
     def datagram_received(self, data: bytes, addr: tuple[Any, int, Unpack[tuple[Any, ...]]]) -> None: ...
     def error_received(self, exc: Exception) -> None: ...
