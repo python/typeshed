@@ -1,5 +1,7 @@
 from _typeshed import ReadableBuffer
 from asyncio import transports
+from typing import Any
+from typing_extensions import Unpack
 
 # Keep asyncio.__all__ updated with any changes to __all__ here
 __all__ = ("BaseProtocol", "Protocol", "DatagramProtocol", "SubprocessProtocol", "BufferedProtocol")
@@ -26,9 +28,12 @@ class BufferedProtocol(BaseProtocol):
 class DatagramProtocol(BaseProtocol):
     __slots__ = ()
     def connection_made(self, transport: transports.DatagramTransport) -> None: ...  # type: ignore[override]
-    # Address is a 2-tuple (host, port) for IPv4, 4-tuple (host, port, flowinfo, scope_id) for IPv6,
-    # or tuple[int, int] for some unusual protocols like socket.AF_NETLINK.
-    def datagram_received(self, data: bytes, addr: tuple[str | int, int] | tuple[str, int, int, int]) -> None: ...
+    # addr can be a tuple[int, int] for some unusual protocols like socket.AF_NETLINK and
+    # a 4-tuple (host, port, flowinfo, scope_id) for IPv6,
+    # Use tuple[str | Any, int] to not cause typechecking issues on most usual cases.
+    # This could be improved by using tuple[AnyOf[str, int], int] if the AnyOf feature is accepted.
+    # See https://github.com/python/typing/issues/566
+    def datagram_received(self, data: bytes, addr: tuple[str | Any, int, Unpack[tuple[Any, ...]]]) -> None: ...
     def error_received(self, exc: Exception) -> None: ...
 
 class SubprocessProtocol(BaseProtocol):
