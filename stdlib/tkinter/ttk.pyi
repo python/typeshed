@@ -54,8 +54,8 @@ _Statespec: TypeAlias = tuple[Unpack[tuple[str, ...]], Any]
 _ImageStatespec: TypeAlias = tuple[Unpack[tuple[str, ...]], tkinter._Image | str]
 _VsapiStatespec: TypeAlias = tuple[Unpack[tuple[str, ...]], int]
 
-P = ParamSpec("P")
-T = TypeVar("T")
+_P = ParamSpec("_P")
+_T = TypeVar("_T")
 
 class _Layout(TypedDict, total=False):
     side: Literal["left", "right", "top", "bottom"]
@@ -209,7 +209,7 @@ class Widget(tkinter.Widget):
     @overload
     def instate(self, statespec: Sequence[str], callback: None = None) -> bool: ...
     @overload
-    def instate(self, statespec: Sequence[str], callback: Callable[P, T], *args: P.args, **kw: P.kwargs) -> bool | T: ...
+    def instate(self, statespec: Sequence[str], callback: Callable[_P, _T], *args: _P.args, **kw: _P.kwargs) -> bool | _T: ...
     def state(self, statespec: Sequence[str] | None = None) -> tuple[str, ...]: ...
 
 class Button(Widget):
