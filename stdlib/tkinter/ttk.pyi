@@ -4,7 +4,7 @@ import tkinter
 from _typeshed import MaybeNone
 from collections.abc import Callable, Iterable, Sequence
 from tkinter.font import _FontDescription
-from typing import Any, Literal, TypedDict, overload, type_check_only
+from typing import Any, Literal, TypedDict, TypeVar, overload, type_check_only
 from typing_extensions import Never, TypeAlias, Unpack
 
 __all__ = [
@@ -53,6 +53,9 @@ _Padding: TypeAlias = (
 _Statespec: TypeAlias = tuple[Unpack[tuple[str, ...]], Any]
 _ImageStatespec: TypeAlias = tuple[Unpack[tuple[str, ...]], tkinter._Image | str]
 _VsapiStatespec: TypeAlias = tuple[Unpack[tuple[str, ...]], int]
+
+P = ParamSpec("P")
+T = TypeVar("T")
 
 class _Layout(TypedDict, total=False):
     side: Literal["left", "right", "top", "bottom"]
@@ -203,9 +206,10 @@ class Style:
 class Widget(tkinter.Widget):
     def __init__(self, master: tkinter.Misc | None, widgetname: str | None, kw: dict[str, Any] | None = None) -> None: ...
     def identify(self, x: int, y: int) -> str: ...
-    def instate(
-        self, statespec: Sequence[str], callback: Callable[..., Any] | None = None, *args: Any, **kw: Any
-    ) -> bool | Any: ...
+    @overload
+    def instate(self, statespec: Sequence[str], callback: None = None) -> bool: ...
+    @overload
+    def instate(self, statespec: Sequence[str], callback: Callable[P, T], *args: P.args, **kw: P.kwargs) -> bool | T: ...
     def state(self, statespec: Sequence[str] | None = None) -> tuple[str, ...]: ...
 
 class Button(Widget):
