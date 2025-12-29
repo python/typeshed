@@ -4,8 +4,8 @@ import tkinter
 from _typeshed import MaybeNone
 from collections.abc import Callable, Iterable, Sequence
 from tkinter.font import _FontDescription
-from typing import Any, Literal, ParamSpec, TypedDict, TypeVar, overload, type_check_only
-from typing_extensions import Never, TypeAlias, Unpack
+from typing import Any, Literal, TypedDict, TypeVar, overload, type_check_only
+from typing_extensions import Never, ParamSpec, TypeAlias, Unpack
 
 __all__ = [
     "Button",
