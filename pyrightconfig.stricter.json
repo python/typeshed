@@ -32,6 +32,7 @@
         "stubs/colorful",
         "stubs/dateparser",
         "stubs/defusedxml",
+        "stubs/django-environ",
         "stubs/docker",
         "stubs/docutils",
         "stubs/Flask-SocketIO",
