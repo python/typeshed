@@ -34,6 +34,7 @@
         "stubs/defusedxml",
         "stubs/docker",
         "stubs/docutils",
+        "stubs/ephem",
         "stubs/Flask-SocketIO",
         "stubs/fpdf2",
         "stubs/gdb",

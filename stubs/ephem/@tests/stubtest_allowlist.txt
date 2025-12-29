@@ -1,0 +1,3 @@
+ephem.tests.*
+ephem.stars.k
+ephem.stars.v

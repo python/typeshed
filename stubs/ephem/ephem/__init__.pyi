@@ -1,0 +1,288 @@
+from collections.abc import Callable
+from datetime import datetime as _datetime, timedelta as _timedelta, tzinfo as _tzinfo
+from typing import overload
+from typing_extensions import Never
+
+from . import _libastro
+
+__version__: str
+
+# Mathematical constants
+tau: float
+twopi: float
+halfpi: float
+quarterpi: float
+eighthpi: float
+degree: float
+arcminute: float
+arcsecond: float
+half_arcsecond: float
+tiny: float
+
+# Physical constants
+c: float
+meters_per_au: float
+earth_radius: float
+moon_radius: float
+sun_radius: float
+
+# Epoch constants
+B1900: float
+B1950: float
+J2000: float
+
+# Type imports from _libastro
+Angle = _libastro.Angle
+degrees = _libastro.degrees
+hours = _libastro.hours
+Date = _libastro.Date
+
+# Time constants
+hour: float
+minute: float
+second: float
+
+# Precision constants
+default_newton_precision: float
+rise_set_iterations: tuple[int, int, int, int, int, int, int]
+
+# Function imports from _libastro
+delta_t = _libastro.delta_t
+julian_date = _libastro.julian_date
+
+# Body type imports from _libastro
+Body = _libastro.Body
+Planet = _libastro.Planet
+PlanetMoon = _libastro.PlanetMoon
+FixedBody = _libastro.FixedBody
+EllipticalBody = _libastro.EllipticalBody
+ParabolicBody = _libastro.ParabolicBody
+HyperbolicBody = _libastro.HyperbolicBody
+EarthSatellite = _libastro.EarthSatellite
+
+# Database and coordinate functions from _libastro
+readdb = _libastro.readdb
+readtle = _libastro.readtle
+constellation = _libastro.constellation
+separation = _libastro.separation
+unrefract = _libastro.unrefract
+now = _libastro.now
+
+# Star atlas functions from _libastro
+millennium_atlas = _libastro.millennium_atlas
+uranometria = _libastro.uranometria
+uranometria2000 = _libastro.uranometria2000
+
+# Special planet classes from _libastro
+Jupiter = _libastro.Jupiter
+Saturn = _libastro.Saturn
+Moon = _libastro.Moon
+
+# Dynamically created planet classes
+class Mercury(Planet):
+    __planet__: int
+
+class Venus(Planet):
+    __planet__: int
+
+class Mars(Planet):
+    __planet__: int
+
+class Uranus(Planet):
+    __planet__: int
+
+class Neptune(Planet):
+    __planet__: int
+
+class Pluto(Planet):
+    __planet__: int
+
+class Sun(Planet):
+    __planet__: int
+
+# Planet moon classes
+class Phobos(PlanetMoon):
+    __planet__: int
+
+class Deimos(PlanetMoon):
+    __planet__: int
+
+class Io(PlanetMoon):
+    __planet__: int
+
+class Europa(PlanetMoon):
+    __planet__: int
+
+class Ganymede(PlanetMoon):
+    __planet__: int
+
+class Callisto(PlanetMoon):
+    __planet__: int
+
+class Mimas(PlanetMoon):
+    __planet__: int
+
+class Enceladus(PlanetMoon):
+    __planet__: int
+
+class Tethys(PlanetMoon):
+    __planet__: int
+
+class Dione(PlanetMoon):
+    __planet__: int
+
+class Rhea(PlanetMoon):
+    __planet__: int
+
+class Titan(PlanetMoon):
+    __planet__: int
+
+class Hyperion(PlanetMoon):
+    __planet__: int
+
+class Iapetus(PlanetMoon):
+    __planet__: int
+
+class Ariel(PlanetMoon):
+    __planet__: int
+
+class Umbriel(PlanetMoon):
+    __planet__: int
+
+class Titania(PlanetMoon):
+    __planet__: int
+
+class Oberon(PlanetMoon):
+    __planet__: int
+
+class Miranda(PlanetMoon):
+    __planet__: int
+
+# Newton's method
+def newton(f: Callable[[float], float], x0: float, x1: float, precision: float = ...) -> float: ...
+
+# Equinox and solstice functions
+def holiday(d0: Date | float, motion: float, offset: float) -> Date: ...
+def previous_vernal_equinox(date: Date | float) -> Date: ...
+def next_vernal_equinox(date: Date | float) -> Date: ...
+def previous_summer_solstice(date: Date | float) -> Date: ...
+def next_summer_solstice(date: Date | float) -> Date: ...
+def previous_autumnal_equinox(date: Date | float) -> Date: ...
+def next_autumnal_equinox(date: Date | float) -> Date: ...
+def previous_winter_solstice(date: Date | float) -> Date: ...
+def next_winter_solstice(date: Date | float) -> Date: ...
+
+# Synonyms
+next_spring_equinox = next_vernal_equinox
+previous_spring_equinox = previous_vernal_equinox
+next_fall_equinox = next_autumnal_equinox
+next_autumn_equinox = next_autumnal_equinox
+previous_fall_equinox = previous_autumnal_equinox
+previous_autumn_equinox = previous_autumnal_equinox
+
+# More general equinox/solstice functions
+def previous_equinox(date: Date | float) -> Date: ...
+def next_equinox(date: Date | float) -> Date: ...
+def previous_solstice(date: Date | float) -> Date: ...
+def next_solstice(date: Date | float) -> Date: ...
+def previous_new_moon(date: Date | float) -> Date: ...
+def next_new_moon(date: Date | float) -> Date: ...
+def previous_first_quarter_moon(date: Date | float) -> Date: ...
+def next_first_quarter_moon(date: Date | float) -> Date: ...
+def previous_full_moon(date: Date | float) -> Date: ...
+def next_full_moon(date: Date | float) -> Date: ...
+def previous_last_quarter_moon(date: Date | float) -> Date: ...
+def next_last_quarter_moon(date: Date | float) -> Date: ...
+
+# Exceptions
+class CircumpolarError(ValueError): ...
+class NeverUpError(CircumpolarError): ...
+class AlwaysUpError(CircumpolarError): ...
+
+# Observer class
+class Observer(_libastro.Observer):
+    __slots__: list[str] = ["name"]
+
+    name: object
+
+    def __init__(self, /, *args: object, **kwargs: object) -> None: ...
+    def copy(self) -> Observer: ...
+    __copy__ = copy
+    def compute_pressure(self) -> None: ...
+    def previous_transit(self, body: Body, start: Date | float | None = None) -> Date: ...
+    def next_transit(self, body: Body, start: Date | float | None = None) -> Date: ...
+    def previous_antitransit(self, body: Body, start: Date | float | None = None) -> Date: ...
+    def next_antitransit(self, body: Body, start: Date | float | None = None) -> Date: ...
+    def disallow_circumpolar(self, declination: float) -> None: ...
+    def previous_rising(self, body: Body, start: Date | float | None = None, use_center: bool = False) -> Date: ...
+    def previous_setting(self, body: Body, start: Date | float | None = None, use_center: bool = False) -> Date: ...
+    def next_rising(self, body: Body, start: Date | float | None = None, use_center: bool = False) -> Date: ...
+    def next_setting(self, body: Body, start: Date | float | None = None, use_center: bool = False) -> Date: ...
+    def next_pass(
+        self, body: EarthSatellite, singlepass: bool = True
+    ) -> tuple[Date | None, Date | None, Date | None, Date | None, Date | None, Date | None]: ...
+
+# Time conversion functions
+def localtime(date: Date | float) -> _datetime: ...
+
+class _UTC(_tzinfo):
+    ZERO: _timedelta
+    def tzname(self, dt: _datetime | None, /) -> Never: ...
+    def utcoffset(self, dt: _datetime | None) -> _timedelta: ...
+    def dst(self, dt: _datetime | None) -> _timedelta: ...
+
+UTC: _UTC
+
+def to_timezone(date: Date | float, tzinfo: _tzinfo) -> _datetime: ...
+
+# Coordinate classes
+class Coordinate:
+    epoch: Date
+
+    @overload
+    def __init__(self, body: Body, *, epoch: Date | float | None = None) -> None: ...
+    @overload
+    def __init__(self, coord1: float | str, coord2: float | str, *, epoch: Date | float | None = None) -> None: ...
+    @overload
+    def __init__(self, coord: Coordinate, *, epoch: Date | float | None = None) -> None: ...
+
+class Equatorial(Coordinate):
+    ra: Angle
+    dec: Angle
+
+    def get(self) -> tuple[Angle, Angle]: ...
+    def set(self, ra: float | str, dec: float | str) -> None: ...
+
+    to_radec = get
+    from_radec = set
+
+class LonLatCoordinate(Coordinate):
+    lon: Angle
+    lat: Angle
+
+    def set(self, lon: float | str, lat: float | str) -> None: ...
+    def get(self) -> tuple[Angle, Angle]: ...
+    @property
+    def long(self) -> Angle: ...
+    @long.setter
+    def long(self, value: Angle) -> None: ...
+
+class Ecliptic(LonLatCoordinate):
+    def to_radec(self) -> tuple[Angle, Angle]: ...
+    def from_radec(self, ra: float | str, dec: float | str) -> None: ...
+
+class Galactic(LonLatCoordinate):
+    def to_radec(self) -> tuple[Angle, Angle]: ...
+    def from_radec(self, ra: float | str, dec: float | str) -> None: ...
+
+# Backwards compatibility aliases
+date = Date
+angle = Angle
+LongLatCoordinate = LonLatCoordinate
+
+# Catalog functions
+@overload
+def star(name: str, observer: Observer, /) -> FixedBody: ...
+@overload
+def star(name: str, when: _libastro._DateInitType, epoch: _libastro._DateInitType) -> FixedBody: ...
+def city(name: str) -> Observer: ...
