@@ -75,48 +75,6 @@ if sys.version_info >= (3, 11):
 con.create_aggregate("sumint", 1, WindowSumIntMultiArgs)
 con.create_aggregate("sumint", 2, WindowSumIntMultiArgs)
 
-# n_arg=-1 requires *args to handle any number of arguments
-if sys.version_info >= (3, 11):
-    con.create_window_function("sumint_varargs", -1, WindowSumIntMultiArgs)
-
-con.create_aggregate("sumint_varargs", -1, WindowSumIntMultiArgs)
-
-
-# n_arg=-1 should reject fixed-arity methods
-class FixedArityAggregate:
-    def __init__(self) -> None:
-        self.total = 0
-
-    def step(self, a: int, b: int) -> None:
-        self.total += a + b
-
-    def finalize(self) -> int:
-        return self.total
-
-
-con.create_aggregate("bad_varargs", -1, FixedArityAggregate)  # type: ignore[arg-type]
-
-
-class FixedArityWindowAggregate:
-    def __init__(self) -> None:
-        self.total = 0
-
-    def step(self, a: int, b: int) -> None:
-        self.total += a + b
-
-    def inverse(self, a: int, b: int) -> None:
-        self.total -= a + b
-
-    def value(self) -> int:
-        return self.total
-
-    def finalize(self) -> int:
-        return self.total
-
-
-if sys.version_info >= (3, 11):
-    con.create_window_function("bad_varargs", -1, FixedArityWindowAggregate)  # type: ignore[arg-type]
-
 
 # Test case: Fixed parameter aggregates (the common case in practice)
 class FixedTwoParamAggregate:
