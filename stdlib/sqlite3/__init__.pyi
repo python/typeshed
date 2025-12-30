@@ -216,7 +216,6 @@ if sys.version_info < (3, 10):
 
 _CursorT = TypeVar("_CursorT", bound=Cursor)
 _SqliteData: TypeAlias = str | ReadableBuffer | int | float | None
-_SQLType = TypeVar("_SQLType", bound=_SqliteData)
 _SQLType_contra = TypeVar("_SQLType_contra", bound=_SqliteData, contravariant=True)
 
 # Data that is passed through adapters can be of any type accepted by an adapter.
