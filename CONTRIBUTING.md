@@ -24,7 +24,7 @@ it takes a bit longer. For more details, read below.
 
 ## Preparing the environment
 
-### Code away!
+### Code away
 
 Typeshed runs continuous integration (CI) on all pull requests. This means that
 if you file a pull request (PR), our full test suite
@@ -35,6 +35,16 @@ changes to your PR (using [Black](https://github.com/psf/black) and
 This frees you up to ignore all local setup on your side, focus on the
 code and rely on the CI to fix everything, or point you to the places that
 need fixing.
+
+### Code formatting
+
+Typeshed uses `Black`, `Ruff`, and `Flake8` (with `flake8-pyi`) to enforce
+formatting and style. CI will automatically apply many formatting fixes for
+you, but you can run the same checks locally via `pre-commit`:
+
+```bash
+(.venv)$ pre-commit run --all-files
+```
 
 ### ... Or create a local development environment
 
@@ -50,56 +60,39 @@ please refer to this
 
 Note that some tests require extra setup steps to install the required dependencies.
 
-<table>
-<tr>
-  <td>Linux / macOS / WSL</td>
-  <td>
+### Linux / macOS / WSL
 
-  On Linux and macOS, you will be able to run the full test suite on Python
-  3.9-3.12.
-  To install the necessary requirements, run the following commands from a
-  terminal window:
+On Linux and macOS, you will be able to run the full test suite on Python
+3.9-3.12.
+To install the necessary requirements, run the following commands from a
+terminal window:
 
-  ```bash
-  $ python3 -m venv .venv
-  $ source .venv/bin/activate
-  (.venv)$ pip install -U pip
-  (.venv)$ pip install -r requirements-tests.txt
-  ```
+```bash
+$ python3 -m venv .venv
+$ source .venv/bin/activate
+(.venv)$ pip install -U pip
+(.venv)$ pip install -r requirements-tests.txt
+```
 
-  </td>
-</tr>
-<tr><!-- disables zebra striping --></tr>
-<tr>
-  <td>Windows</td>
-  <td>
+### Windows
 
-  Run the following commands from a Windows terminal to install all requirements:
+Run the following commands from a Windows terminal to install all requirements:
 
-  ```powershell
-  > py -m venv .venv
-  > .venv\Scripts\activate
-  (.venv) > python -m pip install -U pip
-  (.venv) > pip install -r requirements-tests.txt
-  ```
+```powershell
+> py -m venv .venv
+> .venv\Scripts\activate
+(.venv) > python -m pip install -U pip
+(.venv) > pip install -r requirements-tests.txt
+```
 
-  </td>
-</tr>
-<tr><!-- disables zebra striping --></tr>
-<tr>
-  <td>Using uv</td>
-  <td>
+### Using uv
 
-  If you already have [uv](https://docs.astral.sh/uv/getting-started/installation/) installed, you can simply replace the commands above with:
+If you already have [uv](https://docs.astral.sh/uv/getting-started/installation/) installed, you can simply replace the commands above with:
 
-  ```shell
-  uv venv
-  uv pip install -r requirements-tests.txt
-  ```
-
-  </td>
-</tr>
-</table>
+```shell
+uv venv
+uv pip install -r requirements-tests.txt
+```
 
 ## Where to make changes
 
@@ -121,6 +114,7 @@ to use syntax and typing features not supported by that version.
 ### Third-party library stubs
 
 We accept stubs for third-party packages into typeshed as long as:
+
 * the package is publicly available on the [Python Package Index](https://pypi.org/);
 * the package supports any Python version supported by typeshed; and
 * the package does not ship with its own stubs or type annotations.
@@ -129,6 +123,7 @@ The fastest way to generate new stubs is to use `scripts/create_baseline_stubs.p
 
 Stubs for third-party packages go into the `stubs` directory. Each subdirectory
 there represents a PyPI distribution, and contains the following:
+
 * `METADATA.toml`, describing the package. See below for details.
 * Stubs (i.e. `*.pyi` files) for packages and modules that are shipped in the
   source distribution.
@@ -155,9 +150,9 @@ supported:
 
 * `version`: The versions of the library that the stubs support. Two
   formats are supported:
-    - A concrete version. This is especially suited for libraries that
+  * A concrete version. This is especially suited for libraries that
       use [Calendar Versioning](https://calver.org/).
-    - A version range ending in `.*`. This is suited for libraries that
+  * A version range ending in `.*`. This is suited for libraries that
       reflect API changes in the version number only, where the API-independent
       part is represented by the asterisk. In the case
       of [Semantic Versioning](https://semver.org/), this version could look
@@ -197,6 +192,7 @@ supported:
 
 In addition, we specify configuration for stubtest in the `tool.stubtest` table.
 This has the following keys:
+
 * `skip` (default: `false`): Whether stubtest should be run against this
   package. Please avoid setting this to `true`, and add a comment if you have
   to.
@@ -234,7 +230,6 @@ distribution.
 
 The format of all `METADATA.toml` files can be checked by running
 `python3 ./tests/check_typeshed_structure.py`.
-
 
 ## Making Changes
 
@@ -279,8 +274,9 @@ constants, etc.) of the module they cover, but it is not always
 clear exactly what is part of the interface.
 
 The following should always be included:
-- All objects listed in the module's documentation.
-- All objects included in ``__all__`` (if present).
+
+* All objects listed in the module's documentation.
+* All objects included in ``__all__`` (if present).
 
 Other objects may be included if they are being used in practice
 or if they are not prefixed with an underscore. This means
@@ -350,35 +346,36 @@ be used in typeshed as soon as the PEP has been accepted and implemented
 and most type checkers support the new feature.
 
 Supported features include:
-- [PEP 544](https://peps.python.org/pep-0544/) (Protocol)
-- [PEP 585](https://peps.python.org/pep-0585/) (builtin generics)
-- [PEP 586](https://peps.python.org/pep-0586/) (Literal)
-- [PEP 591](https://peps.python.org/pep-0591/) (Final/@final)
-- [PEP 589](https://peps.python.org/pep-0589/) (TypedDict)
-- [PEP 604](https://peps.python.org/pep-0604/) (`Foo | Bar` union syntax)
-- [PEP 612](https://peps.python.org/pep-0612/) (ParamSpec)
-- [PEP 647](https://peps.python.org/pep-0647/) (TypeGuard):
+
+* [PEP 544](https://peps.python.org/pep-0544/) (Protocol)
+* [PEP 585](https://peps.python.org/pep-0585/) (builtin generics)
+* [PEP 586](https://peps.python.org/pep-0586/) (Literal)
+* [PEP 591](https://peps.python.org/pep-0591/) (Final/@final)
+* [PEP 589](https://peps.python.org/pep-0589/) (TypedDict)
+* [PEP 604](https://peps.python.org/pep-0604/) (`Foo | Bar` union syntax)
+* [PEP 612](https://peps.python.org/pep-0612/) (ParamSpec)
+* [PEP 647](https://peps.python.org/pep-0647/) (TypeGuard):
   see [#5406](https://github.com/python/typeshed/issues/5406)
-- [PEP 655](https://peps.python.org/pep-0655/) (`Required` and `NotRequired`)
-- [PEP 673](https://peps.python.org/pep-0673/) (`Self`)
-- [PEP 675](https://peps.python.org/pep-0675/) (`LiteralString`)
-- [PEP 702](https://peps.python.org/pep-0702/) (`@deprecated()`)
+* [PEP 655](https://peps.python.org/pep-0655/) (`Required` and `NotRequired`)
+* [PEP 673](https://peps.python.org/pep-0673/) (`Self`)
+* [PEP 675](https://peps.python.org/pep-0675/) (`LiteralString`)
+* [PEP 702](https://peps.python.org/pep-0702/) (`@deprecated()`)
 
 Features from the `typing` module that are not present in all
 supported Python versions must be imported from `typing_extensions`
 instead in typeshed stubs. This currently affects:
 
-- `TypeAlias` (new in Python 3.10)
-- `Concatenate` (new in Python 3.10)
-- `ParamSpec` (new in Python 3.10)
-- `TypeGuard` (new in Python 3.10)
-- `Self` (new in Python 3.11)
-- `Never` (new in Python 3.11)
-- `LiteralString` (new in Python 3.11)
-- `TypeVarTuple` and `Unpack` (new in Python 3.11)
-- `Required` and `NotRequired` (new in Python 3.11)
-- `Buffer` (new in Python 3.12; in the `collections.abc` module)
-- `@deprecated` (new in Python 3.13; in the `warnings` module)
+* `TypeAlias` (new in Python 3.10)
+* `Concatenate` (new in Python 3.10)
+* `ParamSpec` (new in Python 3.10)
+* `TypeGuard` (new in Python 3.10)
+* `Self` (new in Python 3.11)
+* `Never` (new in Python 3.11)
+* `LiteralString` (new in Python 3.11)
+* `TypeVarTuple` and `Unpack` (new in Python 3.11)
+* `Required` and `NotRequired` (new in Python 3.11)
+* `Buffer` (new in Python 3.12; in the `collections.abc` module)
+* `@deprecated` (new in Python 3.13; in the `warnings` module)
 
 Some type checkers implicitly promote the `bytearray` and
 `memoryview` types to `bytes`.
@@ -462,10 +459,10 @@ We sometimes use the ["status: deferred" label](https://github.com/python/typesh
 to mark PRs and issues that we'd like to accept, but that are blocked by some
 external factor. Blockers can include:
 
-- An unambiguous bug in a type checker (i.e., a case where the
+* An unambiguous bug in a type checker (i.e., a case where the
   type checker is not implementing [the typing spec](https://typing.readthedocs.io/en/latest/spec/index.html)).
-- A dependency on a typing PEP that is still under consideration.
-- A pending change in a related project, such as stub-uploader.
+* A dependency on a typing PEP that is still under consideration.
+* A pending change in a related project, such as stub-uploader.
 
 ### Closing stale PRs
 

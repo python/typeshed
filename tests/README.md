@@ -1,4 +1,5 @@
-This directory contains several tests:
+# This directory contains several tests
+
 - `tests/mypy_test.py`
 tests the stubs with [mypy](https://github.com/python/mypy/)
 - `tests/pyright_test.py` tests the stubs with
@@ -21,6 +22,7 @@ In order for `pyright_test` to work correctly, some third-party stubs
 may require extra dependencies external to typeshed to be installed in your virtual environment
 prior to running the test.
 You can list or install all of a stubs package's external dependencies using the following script:
+
 ```bash
 (.venv3)$ python tests/get_external_stub_requirements.py <third_party_stub>  # List external dependencies for <third_party_stub>
 (.venv3)$ python tests/get_external_stub_requirements.py <third_party_stub1> <third_party_stub2>  # List external dependencies for <third_party_stub1> and <third_party_stub2>
@@ -31,6 +33,7 @@ You can list or install all of a stubs package's external dependencies using the
 ## Run all tests for a specific stub
 
 Run using:
+
 ```bash
 (.venv3)$ python3 tests/runtests.py <stdlib-or-stubs>/<stub-to-test>
 ```
@@ -51,6 +54,7 @@ For more information, see the docs on [`stubtest_stdlib.py`](#stubtest_stdlibpy)
 ## mypy\_test.py
 
 Run using:
+
 ```bash
 (.venv3)$ python3 tests/mypy_test.py
 ```
@@ -70,6 +74,7 @@ for this script.
 This test requires [Node.js](https://nodejs.org) to be installed. Although
 typeshed runs pyright in CI, it does not currently use this script. However,
 this script uses the same pyright version and configuration as the CI.
+
 ```bash
 (.venv3)$ python3 tests/pyright_test.py                                # Check all files
 (.venv3)$ python3 tests/pyright_test.py stdlib/sys.pyi                 # Check one file
@@ -95,13 +100,15 @@ for information on the various configuration options.
 This checks that typeshed's directory structure and metadata files are correct.
 
 Run using:
+
 ```bash
-$ python3 tests/check_typeshed_structure.py
+python3 tests/check_typeshed_structure.py
 ```
 
 ## stubtest\_stdlib.py
 
 Run using
+
 ```bash
 (.venv3)$ python3 tests/stubtest_stdlib.py
 ```
@@ -137,6 +144,7 @@ this script locally if you know you can trust the packages you're running
 stubtest on.
 
 Run using
+
 ```bash
 (.venv3)$ python3 tests/stubtest_third_party.py
 ```
@@ -151,6 +159,7 @@ check on the command line:
 
 If you have the runtime package installed in your local virtual environment, you can also run stubtest
 directly, with
+
 ```bash
 (.venv3)$ MYPYPATH=<path-to-module-stubs> python3 -m mypy.stubtest \
   --custom-typeshed-dir <path-to-typeshed> \
@@ -202,6 +211,7 @@ configuration to properly validate Django-specific types during stubtest executi
 ## typecheck\_typeshed.py
 
 Run using
+
 ```bash
 (.venv3)$ python3 tests/typecheck_typeshed.py
 ```

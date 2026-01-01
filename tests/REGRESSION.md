@@ -1,4 +1,4 @@
-## Regression tests for typeshed
+# Regression tests for typeshed
 
 Regression tests for the standard library stubs can be found in the
 `stdlib/@tests/test_cases` directory. Not all third-party-library stub
@@ -13,7 +13,7 @@ get right.** 100% test coverage for typeshed is neither necessary nor
 desirable, as it would lead to code duplication. Moreover, typeshed has
 multiple other mechanisms for spotting errors in the stubs.
 
-### The purpose of these tests
+## The purpose of these tests
 
 Different test cases in typeshed serve different purposes. For some typeshed
 stubs, the type annotations are complex enough that it's useful to have
@@ -126,7 +126,7 @@ test cases for `foo` should be put in a file named
 This means that mypy will only run the test case
 if `--python-version 3.11`, `--python-version 3.12`, etc.
 is passed on the command line to `tests/regr_test.py`,
-but it _won't_ run the test case if e.g. `--python-version 3.9`
+but it *won't* run the test case if e.g. `--python-version 3.9`
 is passed on the command line.
 
 However, `if sys.version_info >= (3, target):` is still required for `pyright`

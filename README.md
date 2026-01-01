@@ -19,7 +19,7 @@ it before submitting pull requests; do not report issues with annotations to
 the project the stubs are for, but instead report them here to typeshed.**
 
 Further documentation on stub files, typeshed, and Python's typing system in
-general, can also be found at https://typing.readthedocs.io/en/latest/.
+general, can also be found at <https://typing.readthedocs.io/en/latest/>.
 
 Typeshed supports Python versions 3.9 to 3.14.
 
@@ -35,7 +35,7 @@ be installed from PyPI. For example, if you are using `html5lib` and `requests`,
 you can install the type stubs using
 
 ```bash
-$ pip install types-html5lib types-requests
+pip install types-html5lib types-requests
 ```
 
 These PyPI packages follow [PEP 561](http://www.python.org/dev/peps/pep-0561/)
