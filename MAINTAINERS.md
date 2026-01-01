@@ -1,4 +1,4 @@
-At present the active maintainers are (alphabetically):
+# At present the active maintainers are (alphabetically)
 
 * Rebecca Chen (@rchen152)
 * Jukka Lehtosalo (@JukkaL)
