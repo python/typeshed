@@ -239,6 +239,9 @@ def setup_gdb_stubtest_command(venv_dir: Path, stubtest_cmd: list[str]) -> bool:
         print("!!! adding site", site_pkgs_path)
         print("!!! sys.path", sys.path)
 
+        import subprocess
+        subprocess.run("find / | grep librt", shell=True)
+
         exit_code = 1
         try:
             # gdb wraps stdout and stderr without a .fileno
