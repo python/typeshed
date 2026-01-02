@@ -167,7 +167,7 @@ class AbstractEventLoop:
             self,
             coro: _CoroutineLike[_T],
             *,
-            name: object = None,
+            name: str | None = None,
             context: Context | None = None,
             eager_start: bool | None = False,
         ) -> Task[_T]: ...
