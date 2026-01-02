@@ -24,7 +24,12 @@ class TaskGroup:
     async def __aexit__(self, et: type[BaseException] | None, exc: BaseException | None, tb: TracebackType | None) -> None: ...
     if sys.version_info >= (3, 14):
         def create_task(
-            self, coro: _CoroutineLike[_T], *, name: str | None = None, context: Context | None = None, eager_start: bool = False
+            self,
+            coro: _CoroutineLike[_T],
+            *,
+            name: str | None = None,
+            context: Context | None = None,
+            eager_start: bool | None = False,
         ) -> Task[_T]: ...
     elif sys.version_info >= (3, 12):
         def create_task(
