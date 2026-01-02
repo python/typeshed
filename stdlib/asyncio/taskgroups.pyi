@@ -31,7 +31,7 @@ class TaskGroup:
             context: Context | None = None,
             eager_start: bool | None = False,
         ) -> Task[_T]: ...
-    elif sys.version_info >= (3, 12):
+    else:
         def create_task(
             self, coro: _CoroutineLike[_T], *, name: str | None = None, context: Context | None = None
         ) -> Task[_T]: ...
