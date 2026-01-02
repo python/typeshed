@@ -236,6 +236,11 @@ def setup_gdb_stubtest_command(venv_dir: Path, stubtest_cmd: list[str]) -> bool:
         # Taken from https://github.com/pwndbg/pwndbg/blob/83d8d95b576b749e888f533ce927ad5a77fb957b/gdbinit.py#L37
         site_pkgs_path = glob(os.path.join({str(venv_dir)!r}, "lib/*/site-packages"))[0]
         site.addsitedir(site_pkgs_path)
+        print("!!! adding site", site_pkgs_path)
+        print("!!! sys.path", sys.path)
+
+        import subprocess
+        subprocess.run("find / | grep librt", shell=True)
 
         exit_code = 1
         try:
