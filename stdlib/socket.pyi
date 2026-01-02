@@ -522,6 +522,7 @@ if sys.platform != "win32":
 if sys.platform != "darwin":
     from _socket import BDADDR_ANY as BDADDR_ANY, BDADDR_LOCAL as BDADDR_LOCAL, BTPROTO_RFCOMM as BTPROTO_RFCOMM
 
+if sys.platform != "darwin" and sys.platform != "linux":
     __all__ += ["BDADDR_ANY", "BDADDR_LOCAL", "BTPROTO_RFCOMM"]
 
 if sys.platform == "darwin" and sys.version_info >= (3, 10):
@@ -966,12 +967,13 @@ if sys.platform != "win32":
 
 if sys.platform != "linux":
     __all__ += ["AF_LINK"]
-if sys.platform != "darwin":
+if sys.platform != "darwin" and sys.platform != "linux":
     __all__ += ["AF_BLUETOOTH"]
 
 if sys.platform != "win32" and sys.platform != "darwin":
     from _socket import BTPROTO_HCI as BTPROTO_HCI, BTPROTO_L2CAP as BTPROTO_L2CAP, BTPROTO_SCO as BTPROTO_SCO
 
+if sys.platform != "win32" and sys.platform != "darwin" and sys.platform != "linux":
     __all__ += ["BTPROTO_HCI", "BTPROTO_L2CAP", "BTPROTO_SCO"]
 
 if sys.platform != "win32" and sys.platform != "darwin" and sys.platform != "linux":
