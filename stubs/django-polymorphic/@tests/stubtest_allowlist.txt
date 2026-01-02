@@ -1,0 +1,99 @@
+# Module-level metadata
+polymorphic.__license__
+polymorphic.__title__
+
+# Child classes for inline admin (runtime-only helper classes)
+polymorphic.admin.GenericPolymorphicInlineModelAdmin.Child
+polymorphic.admin.PolymorphicInlineModelAdmin.Child
+polymorphic.admin.generic.GenericPolymorphicInlineModelAdmin.Child
+polymorphic.admin.inlines.PolymorphicInlineModelAdmin.Child
+
+# Admin __init__ methods with *args
+polymorphic.admin.PolymorphicChildModelAdmin.__init__
+polymorphic.admin.PolymorphicParentModelAdmin.__init__
+polymorphic.admin.childadmin.PolymorphicChildModelAdmin.__init__
+polymorphic.admin.parentadmin.PolymorphicParentModelAdmin.__init__
+
+# Admin get_form - stub includes change parameter for compatibility with Django base class
+polymorphic.admin.PolymorphicChildModelAdmin.get_form
+polymorphic.admin.childadmin.PolymorphicChildModelAdmin.get_form
+
+# QuerySet methods - version-specific Django parameters
+polymorphic.base.PolymorphicQuerySet.__repr__
+polymorphic.base.PolymorphicQuerySet.bulk_create
+polymorphic.query.PolymorphicQuerySet.__repr__
+polymorphic.query.PolymorphicQuerySet.bulk_create
+polymorphic.managers.PolymorphicQuerySet.__repr__
+polymorphic.managers.PolymorphicQuerySet.bulk_create
+
+# Formset factory functions - too complex to type precisely
+polymorphic.formsets.generic_polymorphic_inlineformset_factory
+polymorphic.formsets.polymorphic_inlineformset_factory
+polymorphic.formsets.polymorphic_modelformset_factory
+polymorphic.formsets.polymorphic_child_forms_factory
+polymorphic.formsets.generic.generic_polymorphic_inlineformset_factory
+polymorphic.formsets.models.polymorphic_child_forms_factory
+polymorphic.formsets.models.polymorphic_inlineformset_factory
+polymorphic.formsets.models.polymorphic_modelformset_factory
+
+# PolymorphicFormSetChild - runtime implementation details
+polymorphic.formsets.PolymorphicFormSetChild.__init__
+polymorphic.formsets.PolymorphicFormSetChild.content_type
+polymorphic.formsets.PolymorphicFormSetChild.get_form
+polymorphic.formsets.GenericPolymorphicFormSetChild.__init__
+polymorphic.formsets.GenericPolymorphicFormSetChild.get_form
+polymorphic.formsets.generic.GenericPolymorphicFormSetChild.__init__
+polymorphic.formsets.generic.GenericPolymorphicFormSetChild.get_form
+polymorphic.formsets.models.PolymorphicFormSetChild.__init__
+polymorphic.formsets.models.PolymorphicFormSetChild.content_type
+polymorphic.formsets.models.PolymorphicFormSetChild.get_form
+
+# BasePolymorphicModelFormSet - runtime helpers
+polymorphic.formsets.BasePolymorphicModelFormSet.child_forms
+polymorphic.formsets.BasePolymorphicModelFormSet.empty_forms
+polymorphic.formsets.BasePolymorphicModelFormSet.get_form_class
+polymorphic.formsets.models.BasePolymorphicModelFormSet.child_forms
+polymorphic.formsets.models.BasePolymorphicModelFormSet.empty_forms
+polymorphic.formsets.models.BasePolymorphicModelFormSet.get_form_class
+
+# Model attributes - Django auto-generated
+polymorphic.models.PolymorphicModel.DoesNotExist
+polymorphic.models.PolymorphicModel.MultipleObjectsReturned
+polymorphic.models.PolymorphicModel.polymorphic_ctype_id
+polymorphic.models.PolymorphicModel.translate_polymorphic_Q_object
+polymorphic.utils.PolymorphicModel.DoesNotExist
+polymorphic.utils.PolymorphicModel.MultipleObjectsReturned
+polymorphic.utils.PolymorphicModel.polymorphic_ctype_id
+polymorphic.utils.PolymorphicModel.translate_polymorphic_Q_object
+
+# Type annotation helpers (not runtime classes)
+polymorphic.models.PolymorphicModel@AnnotatedWith
+
+# ShowFieldBase private methods (internal helpers)
+polymorphic.showfields.ShowFieldBase._showfields_add_annotated_fields
+polymorphic.showfields.ShowFieldBase._showfields_add_deferred_fields
+polymorphic.showfields.ShowFieldBase._showfields_add_extra_select_fields
+
+# Optional dependencies - contrib modules may require additional packages
+polymorphic.contrib.extra_views
+
+# Template properties - read-only at runtime
+polymorphic.admin.PolymorphicChildModelAdmin.change_form_template
+polymorphic.admin.PolymorphicChildModelAdmin.delete_confirmation_template
+polymorphic.admin.PolymorphicChildModelAdmin.object_history_template
+polymorphic.admin.PolymorphicParentModelAdmin.change_list_template
+polymorphic.admin.childadmin.PolymorphicChildModelAdmin.change_form_template
+polymorphic.admin.childadmin.PolymorphicChildModelAdmin.delete_confirmation_template
+polymorphic.admin.childadmin.PolymorphicChildModelAdmin.object_history_template
+polymorphic.admin.parentadmin.PolymorphicParentModelAdmin.change_list_template
+
+# __all__ differences - stub uses list for easier editing
+polymorphic.admin.__all__
+polymorphic.formsets.__all__
+polymorphic.managers.__all__
+
+# Descriptor vs typed value - normal for stubs
+polymorphic.models.PolymorphicModel.objects
+polymorphic.models.PolymorphicModel.polymorphic_ctype
+polymorphic.utils.PolymorphicModel.objects
+polymorphic.utils.PolymorphicModel.polymorphic_ctype
