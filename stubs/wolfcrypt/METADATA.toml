@@ -1,0 +1,2 @@
+version = "5.8.*"
+upstream_repository = "https://github.com/wolfssl/wolfcrypt-py"

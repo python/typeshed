@@ -92,6 +92,7 @@
         "stubs/tensorflow",
         "stubs/tqdm",
         "stubs/vobject",
+        "stubs/wolfcrypt",
         "stubs/workalendar",
         "stubs/xmldiff",
     ],
