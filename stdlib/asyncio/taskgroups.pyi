@@ -29,7 +29,7 @@ class TaskGroup:
             *,
             name: str | None = None,
             context: Context | None = None,
-            eager_start: bool | None = False,
+            eager_start: bool | None = None,
         ) -> Task[_T]: ...
     else:
         def create_task(
