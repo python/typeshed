@@ -169,7 +169,7 @@ class AbstractEventLoop:
             *,
             name: str | None = None,
             context: Context | None = None,
-            eager_start: bool | None = False,
+            eager_start: bool | None = None,
         ) -> Task[_T]: ...
     elif sys.version_info >= (3, 11):
         @abstractmethod
