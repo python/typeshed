@@ -90,7 +90,7 @@ class BaseEventLoop(AbstractEventLoop):
             *,
             name: object = None,
             context: Context | None = None,
-            eager_start: bool | None = False,
+            eager_start: bool | None = None,
         ) -> Task[_T]: ...
     elif sys.version_info >= (3, 11):
         def create_task(self, coro: _CoroutineLike[_T], *, name: object = None, context: Context | None = None) -> Task[_T]: ...
