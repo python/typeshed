@@ -1,10 +1,9 @@
 from _typeshed import Incomplete
 from datetime import datetime
-from typing import NamedTuple
 
 from .actions import Action
-from .enums import AnnotationFlag, AnnotationName, FileAttachmentAnnotationName
-from .syntax import Destination, Name, PDFContentStream, PDFObject
+from .enums import AnnotationFlag, AnnotationName, AssociatedFileRelationship, FileAttachmentAnnotationName
+from .syntax import Destination, Name, PDFContentStream, PDFObject, PDFString
 
 DEFAULT_ANNOT_FLAGS: tuple[AnnotationFlag, ...]
 
@@ -87,6 +86,8 @@ class PDFEmbeddedFile(PDFContentStream):
         desc: str = "",
         creation_date: datetime | None = None,
         modification_date: datetime | None = None,
+        mime_type: str | None = None,
+        af_relationship: AssociatedFileRelationship | None = None,
         compress: bool = False,
         checksum: bool = False,
     ) -> None: ...
@@ -95,8 +96,20 @@ class PDFEmbeddedFile(PDFContentStream):
     def basename(self) -> str: ...
     def file_spec(self) -> FileSpec: ...
 
-class FileSpec(NamedTuple):
+class FileSpec(PDFObject):
+    type: Name
+    f: PDFString
+    uf: PDFString
     embedded_file: PDFEmbeddedFile
+    desc: PDFString  # Only exists if provided to __init__
+    a_f_relationship: Name  # Only exists if provided to __init__
     basename: str
-    desc: str
-    def serialize(self) -> str: ...
+    def __init__(
+        self,
+        embedded_file: PDFEmbeddedFile,
+        basename: str,
+        desc: str | None = None,
+        af_relationship: AssociatedFileRelationship | None = None,
+    ) -> None: ...
+    @property
+    def e_f(self) -> str: ...
