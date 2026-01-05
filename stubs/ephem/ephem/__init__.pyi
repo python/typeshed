@@ -1,7 +1,7 @@
 from collections.abc import Callable
 from datetime import datetime as _datetime, timedelta as _timedelta, tzinfo as _tzinfo
-from typing import overload
-from typing_extensions import Never
+from typing import Final, NoReturn, overload
+from typing_extensions import Self
 
 from . import _libastro
 
@@ -80,83 +80,83 @@ Moon = _libastro.Moon
 
 # Dynamically created planet classes
 class Mercury(Planet):
-    __planet__: int
+    __planet__: Final = 0
 
 class Venus(Planet):
-    __planet__: int
+    __planet__: Final = 1
 
 class Mars(Planet):
-    __planet__: int
+    __planet__: Final = 2
 
 class Uranus(Planet):
-    __planet__: int
+    __planet__: Final = 5
 
 class Neptune(Planet):
-    __planet__: int
+    __planet__: Final = 6
 
 class Pluto(Planet):
-    __planet__: int
+    __planet__: Final = 7
 
 class Sun(Planet):
-    __planet__: int
+    __planet__: Final = 8
 
 # Planet moon classes
 class Phobos(PlanetMoon):
-    __planet__: int
+    __planet__: Final = 10
 
 class Deimos(PlanetMoon):
-    __planet__: int
+    __planet__: Final = 11
 
 class Io(PlanetMoon):
-    __planet__: int
+    __planet__: Final = 12
 
 class Europa(PlanetMoon):
-    __planet__: int
+    __planet__: Final = 13
 
 class Ganymede(PlanetMoon):
-    __planet__: int
+    __planet__: Final = 14
 
 class Callisto(PlanetMoon):
-    __planet__: int
+    __planet__: Final = 15
 
 class Mimas(PlanetMoon):
-    __planet__: int
+    __planet__: Final = 16
 
 class Enceladus(PlanetMoon):
-    __planet__: int
+    __planet__: Final = 17
 
 class Tethys(PlanetMoon):
-    __planet__: int
+    __planet__: Final = 18
 
 class Dione(PlanetMoon):
-    __planet__: int
+    __planet__: Final = 19
 
 class Rhea(PlanetMoon):
-    __planet__: int
+    __planet__: Final = 20
 
 class Titan(PlanetMoon):
-    __planet__: int
+    __planet__: Final = 21
 
 class Hyperion(PlanetMoon):
-    __planet__: int
+    __planet__: Final = 22
 
 class Iapetus(PlanetMoon):
-    __planet__: int
+    __planet__: Final = 23
 
 class Ariel(PlanetMoon):
-    __planet__: int
+    __planet__: Final = 24
 
 class Umbriel(PlanetMoon):
-    __planet__: int
+    __planet__: Final = 25
 
 class Titania(PlanetMoon):
-    __planet__: int
+    __planet__: Final = 26
 
 class Oberon(PlanetMoon):
-    __planet__: int
+    __planet__: Final = 27
 
 class Miranda(PlanetMoon):
-    __planet__: int
+    __planet__: Final = 28
 
 # Newton's method
 def newton(f: Callable[[float], float], x0: float, x1: float, precision: float = ...) -> float: ...
@@ -205,8 +205,7 @@ class Observer(_libastro.Observer):
 
     name: object
 
-    def __init__(self, /, *args: object, **kwargs: object) -> None: ...
-    def copy(self) -> Observer: ...
+    def copy(self) -> Self: ...
     __copy__ = copy
     def compute_pressure(self) -> None: ...
     def previous_transit(self, body: Body, start: _libastro._DateInitType | None = None) -> Date: ...
@@ -227,7 +226,7 @@ def localtime(date: Date | float) -> _datetime: ...
 
 class _UTC(_tzinfo):
     ZERO: _timedelta
-    def tzname(self, dt: _datetime | None, /) -> Never: ...
+    def tzname(self, dt: _datetime | None, /) -> NoReturn: ...
     def utcoffset(self, dt: _datetime | None) -> _timedelta: ...
     def dst(self, dt: _datetime | None) -> _timedelta: ...
 
