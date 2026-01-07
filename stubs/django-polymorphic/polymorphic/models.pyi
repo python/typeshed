@@ -1,0 +1,33 @@
+from typing import Any, ClassVar
+from typing_extensions import Self
+
+from django.contrib.contenttypes.models import ContentType
+from django.db import models
+
+from .base import PolymorphicModelBase as PolymorphicModelBase
+from .managers import PolymorphicManager as PolymorphicManager
+
+class PolymorphicTypeUndefined(LookupError): ...
+class PolymorphicTypeInvalid(RuntimeError): ...
+
+class PolymorphicModel(models.Model, metaclass=PolymorphicModelBase):
+    polymorphic_model_marker: bool
+    polymorphic_query_multiline_output: bool
+    polymorphic_ctype: models.ForeignKey[ContentType | None, ContentType | None]
+    polymorphic_internal_model_fields: list[str]
+    objects: ClassVar[PolymorphicManager[Self]]
+    polymorphic_super_sub_accessors_replaced: bool
+    polymorphic_primary_key_name: str
+
+    class Meta:
+        abstract: ClassVar[bool]
+        base_manager_name: ClassVar[str]
+
+    def pre_save_polymorphic(self, using: str = ...) -> None: ...
+    def save(self, *args: Any, **kwargs: Any) -> None: ...
+    def get_real_instance_class(self) -> type[Self] | None: ...
+    def get_real_concrete_instance_class_id(self) -> int | None: ...
+    def get_real_concrete_instance_class(self) -> type[Self] | None: ...
+    def get_real_instance(self) -> Self: ...
+    def __init__(self, *args: Any, **kwargs: Any) -> None: ...
+    def _get_inheritance_relation_fields_and_models(self) -> dict[str, type[models.Model]]: ...
