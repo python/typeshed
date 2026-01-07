@@ -14,7 +14,7 @@ are important to the project's success.
       but [contact us](README.md#discussion) before starting significant work.
     * Create your stubs, considering [what to include](#what-to-include) and
       conforming to the [coding style](https://typing.readthedocs.io/en/latest/guides/writing_stubs.html#style-guide).
-4. Optionally [format and check your stubs](#code-formatting).
+4. Optionally [format and check your stubs](#stub-content-and-style).
 5. Optionally [run the tests](tests/README.md).
 6. [Submit your changes](#submitting-changes) by opening a pull request.
 7. Make sure that all tests in CI are passing.
@@ -311,7 +311,7 @@ def foo(x: Incomplete | None) -> list[Incomplete]: ...
 ### What to do when a project's documentation and implementation disagree
 
 Type stubs are meant to be external type annotations for a given
-library.  While they are useful documentation in its own merit, they
+library.  While they are useful documentation in their own right, they
 augment the project's concrete implementation, not the project's
 documentation.  Whenever you find them disagreeing, model the type
 information after the actual implementation and file an issue on the
