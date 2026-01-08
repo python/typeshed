@@ -1,7 +1,7 @@
 # Type checkers that we test our stubs against. These should always
 # be pinned to a specific version to make failure reproducible.
 mypy==1.18.2
-pyright==1.1.407
+pyright==1.1.408
 
 # Libraries used by our various scripts.
 aiohttp==3.13.3
