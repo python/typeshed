@@ -39,7 +39,7 @@ jobs:
       fail-fast: false
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Set up Python ${{ matrix.python-version }} on ${{ matrix.os }}
         uses: actions/setup-python@v6
         with:
@@ -50,9 +50,6 @@ jobs:
           check-latest: true
       - name: Install dependencies
         run: pip install -r requirements-tests.txt
-      # Temporary to get @disjoint_base support; can remove once mypy 1.18 is released
-      - name: Install mypy from git
-        run: pip install git+https://github.com/python/mypy.git@116b92bae7b5dbf5e6bd36fd9b0c6804973e5554
       - name: Run stubtest
         run: python tests/stubtest_stdlib.py
 
@@ -66,7 +63,7 @@ jobs:
         shard-index: [0, 1, 2, 3]
       fail-fast: false
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - uses: actions/setup-python@v6
         with:
           python-version: "3.13"
@@ -114,11 +111,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout typeshed
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           path: typeshed
       - name: Checkout stub_uploader
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           repository: typeshed-internal/stub_uploader
           path: stub_uploader
@@ -126,7 +123,7 @@ jobs:
         with:
           # Keep in sync with stub_uploader's check_scripts.yml workflow.
           python-version: "3.13"
-      - uses: astral-sh/setup-uv@v6
+      - uses: astral-sh/setup-uv@v7
         with:
           version-file: "typeshed/requirements-tests.txt"
       - name: Run tests
