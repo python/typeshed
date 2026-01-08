@@ -7,7 +7,6 @@ from types import TracebackType
 from typing import Any, Generic, Protocol, TypeVar, overload, runtime_checkable, type_check_only
 from typing_extensions import ParamSpec, Self, TypeAlias, deprecated
 
-
 __all__ = [
     "contextmanager",
     "closing",
