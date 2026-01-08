@@ -233,7 +233,7 @@ else:
 @functools.cache
 def get_gitignore_spec() -> pathspec.PathSpec:
     with GITIGNORE_PATH.open(encoding="UTF-8") as f:
-        return pathspec.GitIgnoreSpec.from_lines(f)
+        return pathspec.GitIgnoreSpec.from_lines(f)  # pyright: ignore[reportUnknownMemberType,reportUnknownVariableType]
 
 
 def spec_matches_path(spec: pathspec.PathSpec, path: Path) -> bool:
