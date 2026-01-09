@@ -8,7 +8,7 @@ from collections.abc import Callable, Iterable, Iterator, Mapping
 from email._policybase import _MessageT
 from socket import socket
 from typing import BinaryIO, Final, TypeVar, overload
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Self, TypeAlias, deprecated
 
 __all__ = [
     "HTTPResponse",
@@ -160,8 +160,11 @@ class HTTPResponse(io.BufferedIOBase, BinaryIO):  # type: ignore[misc]  # incomp
     def __exit__(
         self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: types.TracebackType | None
     ) -> None: ...
+    @deprecated("Deprecated since Python 3.9. Use `HTTPResponse.headers` attribute instead.")
     def info(self) -> email.message.Message: ...
+    @deprecated("Deprecated since Python 3.9. Use `HTTPResponse.url` attribute instead.")
     def geturl(self) -> str: ...
+    @deprecated("Deprecated since Python 3.9. Use `HTTPResponse.status` attribute instead.")
     def getcode(self) -> int: ...
     def begin(self) -> None: ...
 
