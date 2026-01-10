@@ -8,7 +8,6 @@ class ParsingInterrupted(Exception): ...
 # dict as attribute value is exclusive to xmlns: https://github.com/bigpick/xmltodict/commit/22541b4874365cb8d2397f23087a866b3081fd9c
 _AttrValue: TypeAlias = str | dict[str, str]
 _AttrDict: TypeAlias = dict[str, _AttrValue]
-_Namespaces: TypeAlias = dict[str, str] | dict[str, None] | dict[str, str | None]
 
 class _DictSAXHandler:
     path: list[tuple[str, _AttrDict | None]]
@@ -26,7 +25,7 @@ class _DictSAXHandler:
     dict_constructor: type
     strip_whitespace: bool
     namespace_separator: str
-    namespaces: _Namespaces | None
+    namespaces: Mapping[str, str | None] | None
     namespace_declarations: dict[str, str]
     force_list: bool | Container[str] | Callable[[tuple[str, _AttrDict | None], str, str], bool] | None
     comment_key: str
@@ -43,7 +42,7 @@ class _DictSAXHandler:
         dict_constructor: type = ...,
         strip_whitespace: bool = True,
         namespace_separator: str = ":",
-        namespaces: _Namespaces | None = None,
+        namespaces: Mapping[str, str | None] | None = None,
         force_list: bool | Container[str] | Callable[[tuple[str, _AttrDict | None], str, str], bool] | None = None,
         comment_key: str = "#comment",
     ) -> None: ...
@@ -73,7 +72,7 @@ def parse(
     postprocessor: Callable[[list[tuple[str, _AttrDict | None]], str, _AttrValue], tuple[str, _AttrValue]] | None = None,
     dict_constructor: type = ...,
     strip_whitespace: bool = True,
-    namespaces: _Namespaces | None = None,
+    namespaces: Mapping[str, str | None] | None = None,
     force_list: bool | Container[str] | Callable[[tuple[str, _AttrDict | None], str, str], bool] | None = None,
     comment_key: str = "#comment",
 ) -> dict[str, Any]: ...
