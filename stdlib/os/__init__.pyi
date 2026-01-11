@@ -1544,7 +1544,7 @@ else:
             setsid: bool = False,
             setsigmask: Iterable[int] = (),
             setsigdef: Iterable[int] = (),
-            scheduler: tuple[Any, sched_param] | None = ...,
+            scheduler: tuple[Any, sched_param] = ...,
         ) -> int: ...
         def posix_spawnp(
             path: StrOrBytesPath,
@@ -1558,7 +1558,7 @@ else:
             setsid: bool = False,
             setsigmask: Iterable[int] = (),
             setsigdef: Iterable[int] = (),
-            scheduler: tuple[Any, sched_param] | None = ...,
+            scheduler: tuple[Any, sched_param] = ...,
         ) -> int: ...
     else:
         def posix_spawn(
@@ -1573,7 +1573,7 @@ else:
             setsid: bool = False,
             setsigmask: Iterable[int] = (),
             setsigdef: Iterable[int] = (),
-            scheduler: tuple[Any, sched_param] | None = ...,
+            scheduler: tuple[Any, sched_param] = ...,
         ) -> int: ...
         def posix_spawnp(
             path: StrOrBytesPath,
@@ -1587,7 +1587,7 @@ else:
             setsid: bool = False,
             setsigmask: Iterable[int] = (),
             setsigdef: Iterable[int] = (),
-            scheduler: tuple[Any, sched_param] | None = ...,
+            scheduler: tuple[Any, sched_param] = ...,
         ) -> int: ...
 
     POSIX_SPAWN_OPEN: Final = 0
