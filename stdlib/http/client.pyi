@@ -228,9 +228,9 @@ class HTTPSConnection(HTTPConnection):
             self,
             host: str,
             port: int | None = None,
+            *,
             timeout: float | None = ...,
             source_address: tuple[str, int] | None = None,
-            *,
             context: ssl.SSLContext | None = None,
             blocksize: int = 8192,
         ) -> None: ...
