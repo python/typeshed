@@ -65,13 +65,22 @@ if sys.version_info >= (3, 13):
     ) -> _UrlopenRet: ...
 
 else:
+    @overload
+    def urlopen(
+        url: str | Request, data: _DataType | None = None, timeout: float | None = ..., *, context: ssl.SSLContext | None = None
+    ) -> _UrlopenRet: ...
+    @overload
+    @deprecated(
+        "The `cafile`, `capath`, `cadefault` parameters are deprecated since Python 3.6; "
+        "removed in Python 3.13. Use `context` parameter instead."
+    )
     def urlopen(
         url: str | Request,
         data: _DataType | None = None,
         timeout: float | None = ...,
         *,
-        cafile: str | None = None,
-        capath: str | None = None,
+        cafile: StrOrBytesPath | None = None,
+        capath: StrOrBytesPath | None = None,
         cadefault: bool = False,
         context: ssl.SSLContext | None = None,
     ) -> _UrlopenRet: ...
