@@ -4,8 +4,8 @@ from collections.abc import Callable, Iterable, Iterator
 from socket import socket
 from ssl import SSLContext
 from types import TracebackType
-from typing import Any, Final, Literal, TextIO
-from typing_extensions import Self
+from typing import Any, Final, Literal, TextIO, overload
+from typing_extensions import Self, deprecated
 
 __all__ = ["FTP", "error_reply", "error_temp", "error_perm", "error_proto", "all_errors", "FTP_TLS"]
 
@@ -120,6 +120,24 @@ class FTP_TLS(FTP):
             encoding: str = "utf-8",
         ) -> None: ...
     else:
+        @overload
+        def __init__(
+            self,
+            host: str = "",
+            user: str = "",
+            passwd: str = "",
+            acct: str = "",
+            *,
+            context: SSLContext | None = None,
+            timeout: float | None = ...,
+            source_address: tuple[str, int] | None = None,
+            encoding: str = "utf-8",
+        ) -> None: ...
+        @overload
+        @deprecated(
+            "The `keyfile`, `certfile` parameters are deprecated since Python 3.6; "
+            "removed in Python 3.12. Use `context` parameter instead."
+        )
         def __init__(
             self,
             host: str = "",
@@ -134,9 +152,9 @@ class FTP_TLS(FTP):
             *,
             encoding: str = "utf-8",
         ) -> None: ...
-    ssl_version: int
-    keyfile: str | None
-    certfile: str | None
+        ssl_version: int
+        keyfile: str | None
+        certfile: str | None
     context: SSLContext
     def login(self, user: str = "", passwd: str = "", acct: str = "", secure: bool = True) -> str: ...
     def auth(self) -> str: ...

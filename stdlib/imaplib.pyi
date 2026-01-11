@@ -9,7 +9,7 @@ from re import Pattern
 from socket import socket as _socket
 from ssl import SSLContext, SSLSocket
 from types import TracebackType
-from typing import IO, Any, Literal, SupportsAbs, SupportsInt
+from typing import IO, Any, Literal, SupportsAbs, SupportsInt, overload
 from typing_extensions import Self, TypeAlias, deprecated
 
 __all__ = ["IMAP4", "IMAP4_stream", "Internaldate2tuple", "Int2AP", "ParseFlags", "Time2Internaldate", "IMAP4_SSL"]
@@ -128,6 +128,15 @@ class IMAP4_SSL(IMAP4):
             self, host: str = "", port: int = 993, *, ssl_context: SSLContext | None = None, timeout: float | None = None
         ) -> None: ...
     else:
+        @overload
+        def __init__(
+            self, host: str = "", port: int = 993, *, ssl_context: SSLContext | None = None, timeout: float | None = None
+        ) -> None: ...
+        @overload
+        @deprecated(
+            "The `keyfile`, `certfile` parameters are deprecated since Python 3.6; "
+            "removed in Python 3.12. Use `ssl_context` parameter instead."
+        )
         def __init__(
             self,
             host: str = "",

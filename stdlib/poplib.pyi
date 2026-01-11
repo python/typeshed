@@ -4,7 +4,7 @@ import sys
 from builtins import list as _list  # conflicts with a method named "list"
 from re import Pattern
 from typing import Any, BinaryIO, Final, NoReturn, overload
-from typing_extensions import TypeAlias
+from typing_extensions import TypeAlias, deprecated
 
 __all__ = ["POP3", "error_proto", "POP3_SSL"]
 
@@ -58,6 +58,15 @@ class POP3_SSL(POP3):
         ) -> None: ...
         def stls(self, context: Any = None) -> NoReturn: ...
     else:
+        @overload
+        def __init__(
+            self, host: str, port: int = 995, *, timeout: float = ..., context: ssl.SSLContext | None = None
+        ) -> None: ...
+        @overload
+        @deprecated(
+            "The `keyfile`, `certfile` parameters are deprecated since Python 3.6; "
+            "removed in Python 3.12. Use `context` parameter instead."
+        )
         def __init__(
             self,
             host: str,

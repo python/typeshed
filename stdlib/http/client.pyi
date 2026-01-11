@@ -223,6 +223,22 @@ class HTTPSConnection(HTTPConnection):
             blocksize: int = 8192,
         ) -> None: ...
     else:
+        @overload
+        def __init__(
+            self,
+            host: str,
+            port: int | None = None,
+            timeout: float | None = ...,
+            source_address: tuple[str, int] | None = None,
+            *,
+            context: ssl.SSLContext | None = None,
+            blocksize: int = 8192,
+        ) -> None: ...
+        @overload
+        @deprecated(
+            "The `key_file`, `cert_file`, `check_hostname` parameters are deprecated since Python 3.6; "
+            "removed in Python 3.12. Use `context` parameter instead."
+        )
         def __init__(
             self,
             host: str,
@@ -236,6 +252,8 @@ class HTTPSConnection(HTTPConnection):
             check_hostname: bool | None = None,
             blocksize: int = 8192,
         ) -> None: ...
+        key_file: str | None
+        cert_file: str | None
 
 class HTTPException(Exception): ...
 
