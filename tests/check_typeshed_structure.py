@@ -7,12 +7,13 @@ correct places, and that various configuration files are correct.
 
 from __future__ import annotations
 
+import json
 import os
 import re
 from pathlib import Path
 
 from ts_utils.metadata import read_metadata
-from ts_utils.paths import REQUIREMENTS_PATH, STDLIB_PATH, STUBS_PATH, TEST_CASES_DIR, TESTS_DIR, tests_path
+from ts_utils.paths import PYRIGHT_CONFIG, REQUIREMENTS_PATH, STDLIB_PATH, STUBS_PATH, TEST_CASES_DIR, TESTS_DIR, tests_path
 from ts_utils.utils import (
     get_all_testcase_directories,
     get_gitignore_spec,
@@ -173,6 +174,25 @@ def check_requirement_pins() -> None:
         assert str(spec).startswith("=="), msg
 
 
+def check_pyright_exclude_order() -> None:
+    """Check that 'exclude' entries in pyrightconfig.stricter.json are sorted alphabetically."""
+    text = PYRIGHT_CONFIG.read_text(encoding="utf-8")
+
+    # Remove full-line // comments only
+    # (Can not remove inline comments)
+    text = re.sub(r"(?m)^\s*//.*\n?", "", text)
+    # Remove trailing commas before } or ]
+    text = re.sub(r",\s*([}\]])", r"\1", text)
+
+    data = json.loads(text)
+    exclude: list[str] = data.get("exclude", [])
+
+    for i in range(len(exclude) - 1):
+        assert (
+            exclude[i].lower() <= exclude[i + 1].lower()
+        ), f"Entry '{exclude[i]}' should come before '{exclude[i + 1]}' in the {PYRIGHT_CONFIG.name} exclude list"
+
+
 if __name__ == "__main__":
     check_versions_file()
     check_metadata()
@@ -182,3 +202,4 @@ if __name__ == "__main__":
     check_stubs()
     check_distutils()
     check_test_cases()
+    check_pyright_exclude_order()
