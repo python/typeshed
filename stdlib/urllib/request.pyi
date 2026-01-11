@@ -6,7 +6,7 @@ from email.message import Message
 from http.client import HTTPConnection, HTTPMessage, HTTPResponse
 from http.cookiejar import CookieJar
 from re import Pattern
-from typing import IO, Any, ClassVar, NoReturn, Protocol, TypeVar, overload, type_check_only
+from typing import IO, Any, ClassVar, Literal, NoReturn, Protocol, TypeVar, overload, type_check_only
 from typing_extensions import TypeAlias, deprecated
 from urllib.error import HTTPError as HTTPError
 from urllib.response import addclosehook, addinfourl
@@ -67,7 +67,14 @@ if sys.version_info >= (3, 13):
 else:
     @overload
     def urlopen(
-        url: str | Request, data: _DataType | None = None, timeout: float | None = ..., *, context: ssl.SSLContext | None = None
+        url: str | Request,
+        data: _DataType | None = None,
+        timeout: float | None = ...,
+        *,
+        cafile: None = None,
+        capath: None = None,
+        cadefault: Literal[False] = False,
+        context: ssl.SSLContext | None = None,
     ) -> _UrlopenRet: ...
     @overload
     @deprecated(
