@@ -3,7 +3,7 @@ import io
 import ssl
 import sys
 import types
-from _typeshed import MaybeNone, ReadableBuffer, SupportsRead, SupportsReadline, WriteableBuffer
+from _typeshed import MaybeNone, ReadableBuffer, StrOrBytesPath, SupportsRead, SupportsReadline, WriteableBuffer
 from collections.abc import Callable, Iterable, Iterator, Mapping
 from email._policybase import _MessageT
 from socket import socket
@@ -243,8 +243,8 @@ class HTTPSConnection(HTTPConnection):
             self,
             host: str,
             port: int | None = None,
-            key_file: str | None = None,
-            cert_file: str | None = None,
+            key_file: StrOrBytesPath | None = None,
+            cert_file: StrOrBytesPath | None = None,
             timeout: float | None = ...,
             source_address: tuple[str, int] | None = None,
             *,
@@ -252,8 +252,8 @@ class HTTPSConnection(HTTPConnection):
             check_hostname: bool | None = None,
             blocksize: int = 8192,
         ) -> None: ...
-        key_file: str | None
-        cert_file: str | None
+        key_file: StrOrBytesPath | None
+        cert_file: StrOrBytesPath | None
 
 class HTTPException(Exception): ...
 

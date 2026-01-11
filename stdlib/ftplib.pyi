@@ -1,5 +1,5 @@
 import sys
-from _typeshed import SupportsRead, SupportsReadline
+from _typeshed import StrOrBytesPath, SupportsRead, SupportsReadline
 from collections.abc import Callable, Iterable, Iterator
 from socket import socket
 from ssl import SSLContext
@@ -144,8 +144,8 @@ class FTP_TLS(FTP):
             user: str = "",
             passwd: str = "",
             acct: str = "",
-            keyfile: str | None = None,
-            certfile: str | None = None,
+            keyfile: StrOrBytesPath | None = None,
+            certfile: StrOrBytesPath | None = None,
             context: SSLContext | None = None,
             timeout: float | None = ...,
             source_address: tuple[str, int] | None = None,
@@ -153,8 +153,8 @@ class FTP_TLS(FTP):
             encoding: str = "utf-8",
         ) -> None: ...
         ssl_version: int
-        keyfile: str | None
-        certfile: str | None
+        keyfile: StrOrBytesPath | None
+        certfile: StrOrBytesPath | None
     context: SSLContext
     def login(self, user: str = "", passwd: str = "", acct: str = "", secure: bool = True) -> str: ...
     def auth(self) -> str: ...

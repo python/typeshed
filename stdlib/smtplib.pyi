@@ -1,6 +1,6 @@
 import sys
 from _socket import _Address as _SourceAddress
-from _typeshed import ReadableBuffer, SizedBuffer
+from _typeshed import ReadableBuffer, SizedBuffer, StrOrBytesPath
 from collections.abc import Sequence
 from email.message import Message as _Message
 from re import Pattern
@@ -139,7 +139,7 @@ class SMTP:
             "removed in Python 3.12. Use `context` parameter instead."
         )
         def starttls(
-            self, keyfile: str | None = None, certfile: str | None = None, context: SSLContext | None = None
+            self, keyfile: StrOrBytesPath | None = None, certfile: StrOrBytesPath | None = None, context: SSLContext | None = None
         ) -> _Reply: ...
 
     def sendmail(
@@ -196,14 +196,14 @@ class SMTP_SSL(SMTP):
             host: str = "",
             port: int = 0,
             local_hostname: str | None = None,
-            keyfile: str | None = None,
-            certfile: str | None = None,
+            keyfile: StrOrBytesPath | None = None,
+            certfile: StrOrBytesPath | None = None,
             timeout: float = ...,
             source_address: _SourceAddress | None = None,
             context: SSLContext | None = None,
         ) -> None: ...
-        keyfile: str | None
-        certfile: str | None
+        keyfile: StrOrBytesPath | None
+        certfile: StrOrBytesPath | None
 
 LMTP_PORT: Final = 2003
 

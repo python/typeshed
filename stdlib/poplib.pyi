@@ -1,6 +1,7 @@
 import socket
 import ssl
 import sys
+from _typeshed import StrOrBytesPath
 from builtins import list as _list  # conflicts with a method named "list"
 from re import Pattern
 from typing import Any, BinaryIO, Final, NoReturn, overload
@@ -71,11 +72,13 @@ class POP3_SSL(POP3):
             self,
             host: str,
             port: int = 995,
-            keyfile: str | None = None,
-            certfile: str | None = None,
+            keyfile: StrOrBytesPath | None = None,
+            certfile: StrOrBytesPath | None = None,
             timeout: float = ...,
             context: ssl.SSLContext | None = None,
         ) -> None: ...
+        keyfile: StrOrBytesPath | None
+        certfile: StrOrBytesPath | None
         # "context" is actually the last argument,
         # but that breaks LSP and it doesn't really matter because all the arguments are ignored
         def stls(self, context: Any = None, keyfile: Any = None, certfile: Any = None) -> NoReturn: ...

@@ -1,7 +1,7 @@
 import subprocess
 import sys
 import time
-from _typeshed import ReadableBuffer, SizedBuffer, Unused
+from _typeshed import ReadableBuffer, SizedBuffer, StrOrBytesPath, Unused
 from builtins import list as _list  # conflicts with a method named "list"
 from collections.abc import Callable, Generator
 from datetime import datetime
@@ -120,9 +120,6 @@ if sys.version_info >= (3, 14):
         def burst(self, interval: float = 0.1) -> Generator[tuple[str, float | None]]: ...
 
 class IMAP4_SSL(IMAP4):
-    if sys.version_info < (3, 12):
-        keyfile: str
-        certfile: str
     if sys.version_info >= (3, 12):
         def __init__(
             self, host: str = "", port: int = 993, *, ssl_context: SSLContext | None = None, timeout: float | None = None
@@ -141,11 +138,13 @@ class IMAP4_SSL(IMAP4):
             self,
             host: str = "",
             port: int = 993,
-            keyfile: str | None = None,
-            certfile: str | None = None,
+            keyfile: StrOrBytesPath | None = None,
+            certfile: StrOrBytesPath | None = None,
             ssl_context: SSLContext | None = None,
             timeout: float | None = None,
         ) -> None: ...
+        keyfile: StrOrBytesPath | None
+        certfile: StrOrBytesPath | None
     sslobj: SSLSocket
     if sys.version_info >= (3, 14):
         @property
