@@ -82,7 +82,7 @@ else:
         cafile: StrOrBytesPath | None = None,
         capath: StrOrBytesPath | None = None,
         cadefault: bool = False,
-        context: ssl.SSLContext | None = None,
+        context: None = None,
     ) -> _UrlopenRet: ...
 
 def install_opener(opener: OpenerDirector) -> None: ...
