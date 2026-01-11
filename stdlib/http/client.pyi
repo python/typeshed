@@ -228,10 +228,13 @@ class HTTPSConnection(HTTPConnection):
             self,
             host: str,
             port: int | None = None,
-            *,
+            key_file: None = None,
+            cert_file: None = None,
             timeout: float | None = ...,
             source_address: tuple[str, int] | None = None,
+            *,
             context: ssl.SSLContext | None = None,
+            check_hostname: None = None,
             blocksize: int = 8192,
         ) -> None: ...
         @overload

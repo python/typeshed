@@ -132,14 +132,14 @@ class SMTP:
         def starttls(self, *, context: SSLContext | None = None) -> _Reply: ...
     else:
         @overload
-        def starttls(self, *, context: SSLContext | None = None) -> _Reply: ...
+        def starttls(self, keyfile: None = None, certfile: None = None, context: SSLContext | None = None) -> _Reply: ...
         @overload
         @deprecated(
             "The `keyfile`, `certfile` parameters are deprecated since Python 3.6; "
             "removed in Python 3.12. Use `context` parameter instead."
         )
         def starttls(
-            self, keyfile: StrOrBytesPath | None = None, certfile: StrOrBytesPath | None = None, context: SSLContext | None = None
+            self, keyfile: StrOrBytesPath | None = None, certfile: StrOrBytesPath | None = None, context: None = None
         ) -> _Reply: ...
 
     def sendmail(
@@ -181,7 +181,8 @@ class SMTP_SSL(SMTP):
             host: str = "",
             port: int = 0,
             local_hostname: str | None = None,
-            *,
+            keyfile: None = None,
+            certfile: None = None,
             timeout: float = ...,
             source_address: _SourceAddress | None = None,
             context: SSLContext | None = None,
@@ -200,7 +201,7 @@ class SMTP_SSL(SMTP):
             certfile: StrOrBytesPath | None = None,
             timeout: float = ...,
             source_address: _SourceAddress | None = None,
-            context: SSLContext | None = None,
+            context: None = None,
         ) -> None: ...
         keyfile: StrOrBytesPath | None
         certfile: StrOrBytesPath | None

@@ -127,7 +127,13 @@ class IMAP4_SSL(IMAP4):
     else:
         @overload
         def __init__(
-            self, host: str = "", port: int = 993, *, ssl_context: SSLContext | None = None, timeout: float | None = None
+            self,
+            host: str = "",
+            port: int = 993,
+            keyfile: None = None,
+            certfile: None = None,
+            ssl_context: SSLContext | None = None,
+            timeout: float | None = None,
         ) -> None: ...
         @overload
         @deprecated(
@@ -140,7 +146,7 @@ class IMAP4_SSL(IMAP4):
             port: int = 993,
             keyfile: StrOrBytesPath | None = None,
             certfile: StrOrBytesPath | None = None,
-            ssl_context: SSLContext | None = None,
+            ssl_context: None = None,
             timeout: float | None = None,
         ) -> None: ...
         keyfile: StrOrBytesPath | None

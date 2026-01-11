@@ -61,7 +61,13 @@ class POP3_SSL(POP3):
     else:
         @overload
         def __init__(
-            self, host: str, port: int = 995, *, timeout: float = ..., context: ssl.SSLContext | None = None
+            self,
+            host: str,
+            port: int = 995,
+            keyfile: None = None,
+            certfile: None = None,
+            timeout: float = ...,
+            context: ssl.SSLContext | None = None,
         ) -> None: ...
         @overload
         @deprecated(
@@ -75,7 +81,7 @@ class POP3_SSL(POP3):
             keyfile: StrOrBytesPath | None = None,
             certfile: StrOrBytesPath | None = None,
             timeout: float = ...,
-            context: ssl.SSLContext | None = None,
+            context: None = None,
         ) -> None: ...
         keyfile: StrOrBytesPath | None
         certfile: StrOrBytesPath | None

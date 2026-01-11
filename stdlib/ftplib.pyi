@@ -127,10 +127,12 @@ class FTP_TLS(FTP):
             user: str = "",
             passwd: str = "",
             acct: str = "",
-            *,
+            keyfile: None = None,
+            certfile: None = None,
             context: SSLContext | None = None,
             timeout: float | None = ...,
             source_address: tuple[str, int] | None = None,
+            *,
             encoding: str = "utf-8",
         ) -> None: ...
         @overload
@@ -146,7 +148,7 @@ class FTP_TLS(FTP):
             acct: str = "",
             keyfile: StrOrBytesPath | None = None,
             certfile: StrOrBytesPath | None = None,
-            context: SSLContext | None = None,
+            context: None = None,
             timeout: float | None = ...,
             source_address: tuple[str, int] | None = None,
             *,
