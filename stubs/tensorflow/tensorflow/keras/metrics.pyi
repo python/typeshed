@@ -99,6 +99,9 @@ class Accuracy(MeanMetricWrapper):
 class CategoricalAccuracy(MeanMetricWrapper):
     def __init__(self, name: str | None = "categorical_accuracy", dtype: DTypeLike | None = None) -> None: ...
 
+class Mean(MeanMetricWrapper):
+    def __init__(self, name: str | None = "mean", dtype: DTypeLike | None = None) -> None: ...
+
 class TopKCategoricalAccuracy(MeanMetricWrapper):
     def __init__(self, k: int = 5, name: str | None = "top_k_categorical_accuracy", dtype: DTypeLike | None = None) -> None: ...
 
