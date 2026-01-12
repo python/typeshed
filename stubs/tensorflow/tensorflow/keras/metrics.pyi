@@ -1,5 +1,6 @@
 from abc import ABCMeta, abstractmethod
 from collections.abc import Callable, Iterable, Sequence
+from enum import Enum
 from typing import Any, Literal
 from typing_extensions import Self, TypeAlias
 
@@ -99,9 +100,6 @@ class Accuracy(MeanMetricWrapper):
 class CategoricalAccuracy(MeanMetricWrapper):
     def __init__(self, name: str | None = "categorical_accuracy", dtype: DTypeLike | None = None) -> None: ...
 
-class Mean(MeanMetricWrapper):
-    def __init__(self, name: str | None = "mean", dtype: DTypeLike | None = None) -> None: ...
-
 class TopKCategoricalAccuracy(MeanMetricWrapper):
     def __init__(self, k: int = 5, name: str | None = "top_k_categorical_accuracy", dtype: DTypeLike | None = None) -> None: ...
 
@@ -109,6 +107,19 @@ class SparseTopKCategoricalAccuracy(MeanMetricWrapper):
     def __init__(
         self, k: int = 5, name: str | None = "sparse_top_k_categorical_accuracy", dtype: DTypeLike | None = None
     ) -> None: ...
+
+class _Reduction(Enum):
+    SUM = "sum"
+    SUM_OVER_BATCH_SIZE = "sum_over_batch_size"
+    WEIGHTED_MEAN = "weighted_mean"
+
+class Reduce(Metric):
+    def __init__(self, reduction: _Reduction, name: str | None, dtype: DTypeLike | None = None) -> None: ...
+    def update_state(self, values: TensorCompatible, sample_weight: TensorCompatible | None = None) -> Operation: ...
+    def result(self) -> Tensor: ...
+
+class Mean(Reduce):
+    def __init__(self, name: str | None = "mean", dtype: DTypeLike | None = None) -> None: ...
 
 def serialize(metric: KerasSerializable) -> dict[str, Any]: ...
 def binary_crossentropy(
