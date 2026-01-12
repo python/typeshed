@@ -434,4 +434,7 @@ def gather_nd(
     name: str | None = None,
     bad_indices_policy: Literal["", "DEFAULT", "ERROR", "IGNORE"] = "",
 ) -> Tensor: ...
+def transpose(
+    a: Tensor, perm: Sequence[int] | IntArray | None = None, conjugate: _bool = False, name: str = "transpose"
+) -> Tensor: ...
 def __getattr__(name: str): ...  # incomplete module
