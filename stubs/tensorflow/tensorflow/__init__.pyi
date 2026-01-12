@@ -438,4 +438,7 @@ def gather_nd(
 def transpose(
     a: Tensor, perm: Sequence[int] | IntArray | None = None, conjugate: _bool = False, name: str = "transpose"
 ) -> Tensor: ...
+def clip_by_value(
+    t: Tensor | IndexedSlices, clip_value_min: TensorCompatible, clip_value_max: TensorCompatible, name: str | None = None
+) -> Tensor: ...
 def __getattr__(name: str): ...  # incomplete module
