@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 from abc import ABCMeta, abstractmethod
 from collections.abc import Callable, Iterable, Sequence
 from enum import Enum
@@ -117,6 +118,9 @@ class _Reduction(Enum):
     WEIGHTED_MEAN = "weighted_mean"
 
 class Reduce(Metric):
+    reduction: _Reduction
+    total: Incomplete
+    count: Incomplete  # only defined for some reductions
     def __init__(self, reduction: _Reduction, name: str | None, dtype: DTypeLike | None = None) -> None: ...
     def update_state(self, values: TensorCompatible, sample_weight: TensorCompatible | None = None) -> Operation: ...
     def result(self) -> Tensor: ...
