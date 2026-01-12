@@ -37,7 +37,7 @@ from tensorflow.core.protobuf import struct_pb2
 from tensorflow.dtypes import *
 from tensorflow.experimental.dtensor import Layout
 from tensorflow.keras import losses as losses
-from tensorflow.linalg import eye as eye
+from tensorflow.linalg import eye as eye, matmul as matmul
 
 # Most tf.math functions are exported as tf, but sadly not all are.
 from tensorflow.math import (
