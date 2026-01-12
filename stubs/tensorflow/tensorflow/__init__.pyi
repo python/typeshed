@@ -18,6 +18,7 @@ from tensorflow import (
     io as io,
     keras as keras,
     math as math,
+    nn as nn,
     random as random,
     types as types,
 )
