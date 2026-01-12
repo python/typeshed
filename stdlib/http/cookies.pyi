@@ -1,8 +1,8 @@
+from _typeshed import MaybeNone
 from collections.abc import Iterable, Mapping
 from types import GenericAlias
 from typing import Any, Generic, TypeVar, overload
 from typing_extensions import TypeAlias
-from _typeshed import MaybeNone
 
 __all__ = ["CookieError", "BaseCookie", "SimpleCookie"]
 
