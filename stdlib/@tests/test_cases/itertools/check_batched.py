@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from typing_extensions import assert_type
 import sys
+from typing_extensions import assert_type
 
 if sys.version_info >= (3, 13):
     from itertools import batched
