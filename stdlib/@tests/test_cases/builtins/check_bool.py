@@ -1,6 +1,5 @@
 from typing_extensions import Literal, assert_type
 
-
 assert_type(bool(), Literal[False])
 assert_type(bool(False), Literal[False])
 assert_type(bool(True), Literal[True])
