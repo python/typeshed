@@ -1,6 +1,6 @@
 from _typeshed import Unused
 from datetime import datetime as _datetime
-from typing import NoReturn, Protocol, TypedDict, overload, type_check_only
+from typing import Final, NoReturn, Protocol, TypedDict, overload, type_check_only
 from typing_extensions import Self, TypeAlias, deprecated, disjoint_base
 
 _DateInitType: TypeAlias = (
@@ -52,12 +52,12 @@ class _AngleDescriptorDegreesRadians:
     @overload
     def __set__(self, obj: object, value: float | str) -> None: ...
 
-J2000: float
-MJD0: float
-earth_radius: float
-meters_per_au: float
-moon_radius: float
-sun_radius: float
+J2000: Final[float]
+MJD0: Final[float]
+earth_radius: Final[float]
+meters_per_au: Final[float]
+moon_radius: Final[float]
+sun_radius: Final[float]
 
 @disjoint_base
 class Angle(float):  # type: ignore[type-var]

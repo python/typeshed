@@ -5,31 +5,31 @@ from typing_extensions import Self
 
 from . import _libastro
 
-__version__: str
+__version__: Final[str]
 
 # Mathematical constants
-tau: float
-twopi: float
-halfpi: float
-quarterpi: float
-eighthpi: float
-degree: float
-arcminute: float
-arcsecond: float
-half_arcsecond: float
-tiny: float
+tau: Final[float]
+twopi: Final[float]
+halfpi: Final[float]
+quarterpi: Final[float]
+eighthpi: Final[float]
+degree: Final[float]
+arcminute: Final[float]
+arcsecond: Final[float]
+half_arcsecond: Final[float]
+tiny: Final[float]
 
 # Physical constants
-c: float
-meters_per_au: float
-earth_radius: float
-moon_radius: float
-sun_radius: float
+c: Final[float]
+meters_per_au: Final[float]
+earth_radius: Final[float]
+moon_radius: Final[float]
+sun_radius: Final[float]
 
 # Epoch constants
-B1900: float
-B1950: float
-J2000: float
+B1900: Final[float]
+B1950: Final[float]
+J2000: Final[float]
 
 # Type imports from _libastro
 Angle = _libastro.Angle
@@ -38,13 +38,13 @@ hours = _libastro.hours
 Date = _libastro.Date
 
 # Time constants
-hour: float
-minute: float
-second: float
+hour: Final[float]
+minute: Final[float]
+second: Final[float]
 
 # Precision constants
-default_newton_precision: float
-rise_set_iterations: tuple[int, int, int, int, int, int, int]
+default_newton_precision: Final[float]
+rise_set_iterations: Final[tuple[int, int, int, int, int, int, int]]
 
 # Function imports from _libastro
 delta_t = _libastro.delta_t
