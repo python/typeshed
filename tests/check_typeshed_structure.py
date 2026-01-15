@@ -17,6 +17,7 @@ from ts_utils.paths import PYRIGHT_CONFIG, REQUIREMENTS_PATH, STDLIB_PATH, STUBS
 from ts_utils.utils import (
     get_all_testcase_directories,
     get_gitignore_spec,
+    json5_to_json,
     parse_requirements,
     parse_stdlib_versions_file,
     spec_matches_path,
@@ -177,13 +178,7 @@ def check_requirement_pins() -> None:
 def check_pyright_exclude_order() -> None:
     """Check that 'exclude' entries in pyrightconfig.stricter.json are sorted alphabetically."""
     text = PYRIGHT_CONFIG.read_text(encoding="utf-8")
-
-    # Remove full-line // comments only
-    # (Can not remove inline comments)
-    text = re.sub(r"(?m)^\s*//.*\n?", "", text)
-    # Remove trailing commas before } or ]
-    text = re.sub(r",\s*([}\]])", r"\1", text)
-
+    text = json5_to_json(text)
     data = json.loads(text)
     exclude: list[str] = data.get("exclude", [])
 
