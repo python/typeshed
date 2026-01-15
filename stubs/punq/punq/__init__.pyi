@@ -1,6 +1,6 @@
 from collections.abc import Callable
 from enum import Enum
-from typing import Any, Generic, NamedTuple, TypeVar, overload
+from typing import Any, Final, Generic, NamedTuple, NewType, TypeVar, overload
 
 __version__: str
 
@@ -15,27 +15,36 @@ class Scope(Enum):
     transient = 0
     singleton = 1
 
-_T = TypeVar("_T")
-_TOpt = TypeVar("_TOpt", default=object)
+_T = TypeVar("_T", default=Any)
 
 class _Registration(NamedTuple, Generic[_T]):
     service: type[_T] | str
     scope: Scope
-    builder: Callable[[], _T]
-    needs: dict[str, object]
-    args: dict[str, object]
+    builder: Callable[..., _T]
+    needs: dict[str, Any]  # the type hints of the builder's parameters
+    args: dict[str, Any]  # passed to builder at instantiation time
 
-empty: Any
+_Empty = NewType("_Empty", object)  # a class at runtime
+empty: Final[_Empty]
 
 class _Registry:
     def register_service_and_impl(
-        self, service: type | str, scope: Scope, impl: Callable[..., object], resolve_args: dict[str, object]
+        self,
+        service: type[_T] | str,
+        scope: Scope,
+        impl: type[_T],
+        resolve_args: dict[str, Any],  # forwarded to _Registration.builder
     ) -> None: ...
     def register_service_and_instance(self, service: type[_T] | str, instance: _T) -> None: ...
     def register_concrete_service(self, service: type | str, scope: Scope) -> None: ...
     def build_context(self, key: type | str, existing: _ResolutionContext | None = None) -> _ResolutionContext: ...
     def register(
-        self, service: type[_T] | str, factory: Callable[..., _T] = ..., instance: _T = ..., scope: Scope = ..., **kwargs: object
+        self,
+        service: type[_T] | str,
+        factory: Callable[..., _T] | _Empty = ...,
+        instance: _T | _Empty = ...,
+        scope: Scope = Scope.transient,
+        **kwargs: Any,  # forwarded to _Registration.builder
     ) -> None: ...
     def __getitem__(self, service: type[_T] | str) -> list[_Registration[_T]]: ...
 
@@ -45,38 +54,44 @@ class _ResolutionTarget(Generic[_T]):
     def __init__(self, key: type[_T] | str, impls: list[_Registration[_T]]) -> None: ...
     def is_generic_list(self) -> bool: ...
     @property
-    def generic_parameter(self) -> Any: ...
+    def generic_parameter(self) -> Any: ...  # returns the first annotated generic parameter of the service
     def next_impl(self) -> _Registration[_T]: ...
 
 class _ResolutionContext:
-    targets: dict[type | str, _ResolutionTarget[object]]
-    cache: dict[type | str, object]
+    targets: dict[type | str, _ResolutionTarget[Any]]
+    cache: dict[type | str, Any]  # resolved objects during this resolution
     service: type | str
-    def __init__(self, key: type | str, impls: list[_Registration[object]]) -> None: ...
+    def __init__(self, key: type | str, impls: list[_Registration[Any]]) -> None: ...
     def target(self, key: type[_T] | str) -> _ResolutionTarget[_T]: ...
     def has_cached(self, key: type | str) -> bool: ...
-    def __getitem__(self, key: type | str) -> object: ...
-    def __setitem__(self, key: type | str, value: object) -> None: ...
+    def __getitem__(self, key: type[_T] | str) -> _T: ...
+    def __setitem__(self, key: type[_T] | str, value: _T) -> None: ...
     def all_registrations(self, service: type[_T] | str) -> list[_Registration[_T]]: ...
 
 class Container:
     registrations: _Registry
     def __init__(self) -> None: ...
+    # all kwargs are forwarded to _Registration.builder
     @overload
-    def register(self, service: type[_TOpt] | str, *, instance: _TOpt, **kwargs: Any) -> Container: ...
+    def register(self, service: type[_T] | str, *, instance: _T, **kwargs: Any) -> Container: ...
     @overload
     def register(
-        self, service: type[_TOpt] | str, factory: Callable[..., _TOpt] = ..., *, scope: Scope = ..., **kwargs: Any
+        self,
+        service: type[_T] | str,
+        factory: Callable[..., _T] | _Empty = ...,
+        *,
+        scope: Scope = Scope.transient,
+        **kwargs: Any,
     ) -> Container: ...
     @overload
     def register(
         self,
-        service: type[_TOpt] | str,
-        factory: Callable[..., _TOpt] = ...,
-        instance: _TOpt = ...,
+        service: type[_T] | str,
+        factory: Callable[..., _T] | _Empty = ...,
+        instance: _T | _Empty = ...,
         scope: Scope = Scope.transient,
         **kwargs: Any,
     ): ...
-    def resolve_all(self, service: type[_TOpt] | str, **kwargs: Any) -> list[_TOpt]: ...
-    def resolve(self, service_key: type[_TOpt] | str, **kwargs: Any) -> _TOpt: ...
-    def instantiate(self, service_key: type[_TOpt] | str, **kwargs: Any) -> _TOpt: ...
+    def resolve_all(self, service: type[_T] | str, **kwargs: Any) -> list[_T]: ...
+    def resolve(self, service_key: type[_T] | str, **kwargs: Any) -> _T: ...
+    def instantiate(self, service_key: type[_T] | str, **kwargs: Any) -> _T: ...
