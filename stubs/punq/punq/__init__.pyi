@@ -76,12 +76,7 @@ class Container:
     def register(self, service: type[_T] | str, *, instance: _T, **kwargs: Any) -> Container: ...
     @overload
     def register(
-        self,
-        service: type[_T] | str,
-        factory: Callable[..., _T] | _Empty = ...,
-        *,
-        scope: Scope = Scope.transient,
-        **kwargs: Any,
+        self, service: type[_T] | str, factory: Callable[..., _T] | _Empty = ..., *, scope: Scope = Scope.transient, **kwargs: Any
     ) -> Container: ...
     @overload
     def register(

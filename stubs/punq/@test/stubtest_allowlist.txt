@@ -1,1 +1,0 @@
- punq._Empty.__init__
