@@ -33,7 +33,7 @@ class addinfo(addbase):
 
 class addinfourl(addinfo):
     url: str
-    code: int | None
+    code: int | None  # Deprecated since Python 3.9. Use `addinfourl.status` attribute instead.
     @property
     def status(self) -> int | None: ...
     def __init__(self, fp: IO[bytes], headers: Message, url: str, code: int | None = None) -> None: ...
