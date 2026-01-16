@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import os
-from typing import Any, Dict, Generic, Iterable, Mapping, TypeVar, Union
+from typing import Any, Dict, Generic, Iterable, Literal, Mapping, TypeVar, Union
 from typing_extensions import Self, assert_type
 
 ###################################################################
@@ -74,14 +74,14 @@ assert_type(d_any["key"], Any)
 assert_type(d_any.get("key"), Union[Any, None])
 assert_type(d_any.get("key", None), Union[Any, None])
 assert_type(d_any.get("key", any_value), Any)
-assert_type(d_any.get("key", str_value), Any)
-assert_type(d_any.get("key", int_value), Any)
+assert_type(d_any.get("key", str_value), Union[Any, str])
+assert_type(d_any.get("key", int_value), Union[Any, int])
 
 assert_type(d_str["key"], str)
 assert_type(d_str.get("key"), Union[str, None])
 assert_type(d_str.get("key", None), Union[str, None])
 # Pyright has str instead of Any here
-assert_type(d_str.get("key", any_value), Any)  # pyright: ignore[reportAssertTypeFailure]
+assert_type(d_str.get("key", any_value), Union[str, Any])
 assert_type(d_str.get("key", str_value), str)
 assert_type(d_str.get("key", int_value), Union[str, int])
 
@@ -89,18 +89,32 @@ assert_type(d_str.get("key", int_value), Union[str, int])
 result: str
 result = d_any["key"]
 result = d_any.get("key")  # type: ignore[assignment]
-result = d_any.get("key", None)  # type: ignore[assignment]
+# FIXME: https://github.com/python/mypy/issues/20576 prevents using ignore[assignment] here
+result = d_any.get("key", None)  # type: ignore
 result = d_any.get("key", any_value)
 result = d_any.get("key", str_value)
-result = d_any.get("key", int_value)
+# FIXME: https://github.com/python/mypy/issues/20576 prevents using ignore[assignment] here
+result = d_any.get("key", int_value)  # type: ignore
 
 result = d_str["key"]
 result = d_str.get("key")  # type: ignore[assignment]
-result = d_str.get("key", None)  # type: ignore[assignment]
-# Pyright has str | None here, see https://github.com/microsoft/pyright/discussions/9570
-result = d_str.get("key", any_value)  # pyright: ignore[reportAssignmentType]
+# FIXME: https://github.com/python/mypy/issues/20576 prevents using ignore[assignment] here
+result = d_str.get("key", None)  # type: ignore
+result = d_str.get("key", any_value)
 result = d_str.get("key", str_value)
 result = d_str.get("key", int_value)  # type: ignore[arg-type]
+
+
+def test_get_literal(d: dict[Literal["foo", "bar"], int], dynamic_key: str) -> None:
+    # Note: annotations also allow using keys of a disjoint type (e.g., int),
+    #   linters / type checkers are free to issue warnings in such cases.
+    #   statically, a .get(arg) is superfluous if the intersection of the
+    #   dict key type and the argument type is empty.
+    #   So we only test a case with non-empty intersection here.
+
+    # check that dict wth Literal keys can get/pop a string key.
+    d.get(dynamic_key)
+    d.pop(dynamic_key)
 
 
 # Return values also make things weird
@@ -140,11 +154,13 @@ def test8() -> str:
 
 
 def test9() -> str:
-    return d_str.get("key", None)  # type: ignore[return-value]
+    # FIXME: https://github.com/python/mypy/issues/20576 prevents using ignore[return-value] here
+    return d_str.get("key", None)  # type: ignore
 
 
 def test10() -> str:
-    return d_str.get("key", any_value)  # type: ignore[no-any-return]
+    # OK, return is Union[str, Any]
+    return d_str.get("key", any_value)
 
 
 def test11() -> str:
