@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import os
-from typing import Any, Dict, Generic, Iterable, Mapping, TypeVar, Union
+from typing import Any, Dict, Generic, Iterable, Literal, Mapping, TypeVar, Union
 from typing_extensions import Self, assert_type
 
 ###################################################################
@@ -101,6 +101,15 @@ result = d_str.get("key", None)  # type: ignore[assignment]
 result = d_str.get("key", any_value)  # pyright: ignore[reportAssignmentType]
 result = d_str.get("key", str_value)
 result = d_str.get("key", int_value)  # type: ignore[arg-type]
+
+
+def test_pop_literal(d: dict[Literal["foo", "bar"], int], key: str) -> None:
+    # Note: annotations also allow using keys of a disjoint type (e.g., int),
+    #   linters / type checkers are free to issue warnings in such cases.
+    #   statically, a .get(arg) is superfluous if the intersection of the
+    #   dict key type and the argument type is empty.
+    #   So we only test a case with non-empty intersection here.
+    d.pop(key)
 
 
 # Return values also make things weird
