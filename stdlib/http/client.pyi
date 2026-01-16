@@ -3,7 +3,7 @@ import io
 import ssl
 import sys
 import types
-from _typeshed import MaybeNone, ReadableBuffer, SupportsRead, SupportsReadline, WriteableBuffer
+from _typeshed import MaybeNone, ReadableBuffer, StrOrBytesPath, SupportsRead, SupportsReadline, WriteableBuffer
 from collections.abc import Callable, Iterable, Iterator, Mapping
 from email._policybase import _MessageT
 from socket import socket
@@ -161,7 +161,7 @@ class HTTPResponse(io.BufferedIOBase, BinaryIO):  # type: ignore[misc]  # incomp
         self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: types.TracebackType | None
     ) -> None: ...
     @deprecated("Deprecated since Python 3.9. Use `HTTPResponse.headers` attribute instead.")
-    def info(self) -> email.message.Message: ...
+    def info(self) -> HTTPMessage: ...
     @deprecated("Deprecated since Python 3.9. Use `HTTPResponse.url` attribute instead.")
     def geturl(self) -> str: ...
     @deprecated("Deprecated since Python 3.9. Use `HTTPResponse.status` attribute instead.")
@@ -223,12 +223,31 @@ class HTTPSConnection(HTTPConnection):
             blocksize: int = 8192,
         ) -> None: ...
     else:
+        @overload
         def __init__(
             self,
             host: str,
             port: int | None = None,
-            key_file: str | None = None,
-            cert_file: str | None = None,
+            key_file: None = None,
+            cert_file: None = None,
+            timeout: float | None = ...,
+            source_address: tuple[str, int] | None = None,
+            *,
+            context: ssl.SSLContext | None = None,
+            check_hostname: None = None,
+            blocksize: int = 8192,
+        ) -> None: ...
+        @overload
+        @deprecated(
+            "The `key_file`, `cert_file`, `check_hostname` parameters are deprecated since Python 3.6; "
+            "removed in Python 3.12. Use `context` parameter instead."
+        )
+        def __init__(
+            self,
+            host: str,
+            port: int | None = None,
+            key_file: StrOrBytesPath | None = None,
+            cert_file: StrOrBytesPath | None = None,
             timeout: float | None = ...,
             source_address: tuple[str, int] | None = None,
             *,
@@ -236,6 +255,8 @@ class HTTPSConnection(HTTPConnection):
             check_hostname: bool | None = None,
             blocksize: int = 8192,
         ) -> None: ...
+        key_file: StrOrBytesPath | None
+        cert_file: StrOrBytesPath | None
 
 class HTTPException(Exception): ...
 
