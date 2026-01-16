@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from collections.abc import Callable
 from typing import IO, Literal
 
 from reportlab.lib.colors import Color, _ConvertibleToColor
@@ -267,5 +268,7 @@ class Canvas(_PDFColorSetter):
     @property
     def acroForm(self): ...
     def drawBoundary(self, sb, x1: float, y1: float, width: float, height: float) -> None: ...
+    def setNamedCB(self, name: str, cb: Callable[..., object]) -> None: ...
+    def getNamedCB(self, name: str) -> Callable[..., object] | None: ...
 
 __all__ = ["Canvas", "ShowBoundaryValue"]
