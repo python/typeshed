@@ -1,7 +1,7 @@
 import datetime
 from _typeshed import Incomplete, StrPath, Unused
 from collections.abc import Callable, Generator, Iterable, Sequence
-from contextlib import _GeneratorContextManager
+from contextlib import _GeneratorContextManager, contextmanager
 from io import BytesIO
 from pathlib import PurePath
 from re import Pattern
@@ -20,6 +20,7 @@ from .enums import (
     AnnotationFlag,
     AnnotationName,
     Corner,
+    DocumentCompliance,
     EncryptionMethod,
     FileAttachmentAnnotationName,
     MethodReturnValue,
@@ -57,7 +58,7 @@ from .image_datastructures import (
 from .output import OutputProducer, PDFICCProfile, PDFPage
 from .recorder import FPDFRecorder
 from .structure_tree import StructureTreeBuilder
-from .syntax import DestinationXYZ
+from .syntax import Destination, DestinationXYZ
 from .table import Table
 from .transitions import Transition
 from .util import Padding, _Unit
@@ -109,6 +110,7 @@ _FontStyles: TypeAlias = Literal[
 ]
 
 FPDF_VERSION: Final[str]
+__version__: Final[str]
 PAGE_FORMATS: Final[dict[_Format, tuple[float, float]]]
 
 class ToCPlaceholder(NamedTuple):
@@ -135,9 +137,9 @@ class FPDF(GraphicsStateMixin):
 
     page: int
     pages: dict[int, PDFPage]
-    fonts: dict[str, CoreFont | TTFFont]
     fonts_used_per_page_number: dict[int, set[int]]
     links: dict[int, DestinationXYZ]
+    named_destinations: dict[str, Destination]
     embedded_files: list[PDFEmbeddedFile]
     image_cache: ImageCache
     images_used_per_page_number: dict[int, set[int]]
@@ -176,6 +178,7 @@ class FPDF(GraphicsStateMixin):
     compress: bool
     pdf_version: str
     creation_date: datetime.datetime
+    render_color_fonts: bool
 
     buffer: bytearray | None
 
@@ -188,11 +191,15 @@ class FPDF(GraphicsStateMixin):
 
     def __init__(
         self,
-        orientation: _Orientation = "portrait",
+        orientation: PageOrientation | _Orientation | None = PageOrientation.PORTRAIT,
         unit: _Unit | float = "mm",
         format: _Format | tuple[float, float] = "A4",
         font_cache_dir: Literal["DEPRECATED"] = "DEPRECATED",
+        *,
+        enforce_compliance: DocumentCompliance | str | None = None,
     ) -> None: ...
+    @property
+    def fonts(self) -> dict[str, CoreFont | TTFFont]: ...
     def set_encryption(
         self,
         owner_password: str,
@@ -304,6 +311,9 @@ class FPDF(GraphicsStateMixin):
     ) -> _GeneratorContextManager[PaintedPath]: ...
     def draw_path(self, path: PaintedPath, debug_stream=None) -> None: ...
     def set_dash_pattern(self, dash: float = 0, gap: float = 0, phase: float = 0) -> None: ...
+    @contextmanager
+    def glyph_drawing_context(self) -> Generator[DrawingContext]: ...
+    def draw_vector_glyph(self, path: PaintedPath, font) -> str | None: ...
     def line(self, x1: float, y1: float, x2: float, y2: float) -> None: ...
     def polyline(
         self,
@@ -380,20 +390,61 @@ class FPDF(GraphicsStateMixin):
         style: RenderStyle | Literal["D", "F", "DF", "FD"] | None = None,
     ) -> None: ...
     def use_pattern(self, shading) -> _GeneratorContextManager[None]: ...
+    @overload
+    @deprecated("The 'uni' parameter is deprecated since 2.5.1")
     def add_font(
         self,
         family: str | None = None,
         style: _FontStyle = "",
         fname: str | PurePath | None = None,
-        uni: bool | Literal["DEPRECATED"] = "DEPRECATED",
+        *,
+        uni: bool,
+        unicode_range: str | int | tuple[Incomplete, ...] | list[Incomplete] | None = None,
+        variations: dict[Incomplete, Incomplete] | None = None,
+        palette: int | None = None,
+    ) -> None: ...
+    @overload
+    @deprecated("The 'uni' parameter is deprecated since 2.5.1")
+    def add_font(
+        self,
+        family: str | None,
+        style: _FontStyle,
+        fname: str | PurePath | None,
+        uni: bool,
+        *,
+        unicode_range: str | int | tuple[Incomplete, ...] | list[Incomplete] | None = None,
+        variations: dict[Incomplete, Incomplete] | None = None,
+        palette: int | None = None,
+    ) -> None: ...
+    @overload
+    def add_font(
+        self,
+        family: str | None = None,
+        style: _FontStyle = "",
+        fname: str | PurePath | None = None,
+        *,
+        unicode_range: str | int | tuple[Incomplete, ...] | list[Incomplete] | None = None,
+        variations: dict[Incomplete, Incomplete] | None = None,
+        palette: int | None = None,
     ) -> None: ...
     def set_font(self, family: str | None = None, style: _FontStyles | TextEmphasis = "", size: int = 0) -> None: ...
     def set_font_size(self, size: float) -> None: ...
     def set_char_spacing(self, spacing: float) -> None: ...
     def set_stretching(self, stretching: float) -> None: ...
     def set_fallback_fonts(self, fallback_fonts: Iterable[str], exact_match: bool = True) -> None: ...
-    def add_link(self, y: float = 0, x: float = 0, page: int = -1, zoom: float | Literal["null"] = "null") -> int: ...
-    def set_link(self, link, y: float = 0, x: float = 0, page: int = -1, zoom: float | Literal["null"] = "null") -> None: ...
+    def add_link(
+        self, y: float = 0, x: float = 0, page: int = -1, zoom: float | Literal["null"] = "null", name: str | None = None
+    ) -> int: ...
+    def get_named_destination(self, name: str) -> str: ...
+    def set_link(
+        self,
+        link: int | None = None,
+        y: float = 0,
+        x: float = 0,
+        page: int = -1,
+        zoom: float | Literal["null"] = "null",
+        name: str | None = None,
+    ) -> None: ...
     def link(
         self,
         x: float,
@@ -412,6 +463,8 @@ class FPDF(GraphicsStateMixin):
         bytes: bytes | None = None,
         basename: str | None = None,
         modification_date: datetime.datetime | None = None,
+        mime_type: str | None = None,
+        associated_file_relationship: str | None = None,
         *,
         creation_date: datetime.datetime | None = ...,
         desc: str = ...,
@@ -623,6 +676,7 @@ class FPDF(GraphicsStateMixin):
     def preload_image(
         self, name: str | Image.Image | BytesIO, dims: tuple[float, float] | None = None
     ) -> tuple[str, Any, ImageInfo]: ...
+    def preload_glyph_image(self, glyph_image_bytes) -> tuple[str, BytesIO | Image.Image | None, ImageInfo]: ...
     def ln(self, h: float | None = None) -> None: ...
     def get_x(self) -> float: ...
     def set_x(self, x: float) -> None: ...
@@ -707,14 +761,29 @@ class FPDF(GraphicsStateMixin):
         repeat_headings: TableHeadingsDisplay | int = 1,
     ) -> _GeneratorContextManager[Table]: ...
     @overload
+    @deprecated("The 'dest' parameter is deprecated since 2.2.0")
     def output(  # type: ignore[overload-overlap]
         self,
         name: Literal[""] | None = "",
-        dest: Unused = "",
+        *,
+        dest: Unused,
         linearize: bool = False,
         output_producer_class: Callable[[FPDF], OutputProducer] = ...,
     ) -> bytearray: ...
     @overload
+    def output(  # type: ignore[overload-overlap]
+        self,
+        name: Literal[""] | None = "",
+        *,
+        linearize: bool = False,
+        output_producer_class: Callable[[FPDF], OutputProducer] = ...,
+    ) -> bytearray: ...
+    @overload
+    @deprecated("The 'dest' parameter is deprecated since 2.2.0")
     def output(
-        self, name: str, dest: Unused = "", linearize: bool = False, output_producer_class: Callable[[FPDF], OutputProducer] = ...
+        self, name: str, *, dest: Unused, linearize: bool = False, output_producer_class: Callable[[FPDF], OutputProducer] = ...
+    ) -> None: ...
+    @overload
+    def output(
+        self, name: str, *, linearize: bool = False, output_producer_class: Callable[[FPDF], OutputProducer] = ...
     ) -> None: ...
