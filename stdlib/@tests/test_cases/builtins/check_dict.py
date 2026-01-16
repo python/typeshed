@@ -88,7 +88,8 @@ assert_type(d_str.get("key", int_value), Union[str, int])
 # Now with context!
 result: str
 result = d_any["key"]
-result = d_any.get("key")  # type: ignore[assignment]
+# FIXME: https://github.com/python/mypy/issues/20576 prevents using ignore[assignment] here
+result = d_any.get("key")  # type: ignore
 # FIXME: https://github.com/python/mypy/issues/20576 prevents using ignore[assignment] here
 result = d_any.get("key", None)  # type: ignore
 result = d_any.get("key", any_value)
@@ -97,7 +98,8 @@ result = d_any.get("key", str_value)
 result = d_any.get("key", int_value)  # type: ignore
 
 result = d_str["key"]
-result = d_str.get("key")  # type: ignore[assignment]
+# FIXME: https://github.com/python/mypy/issues/20576 prevents using ignore[assignment] here
+result = d_str.get("key")  # type: ignore
 # FIXME: https://github.com/python/mypy/issues/20576 prevents using ignore[assignment] here
 result = d_str.get("key", None)  # type: ignore
 result = d_str.get("key", any_value)
@@ -126,7 +128,8 @@ def test_get_literal(d: dict[Literal["foo", "bar"], int], dynamic_key: str) -> N
 
 
 def test2() -> str:
-    return d_any.get("key")  # type: ignore[return-value]
+    # FIXME: https://github.com/python/mypy/issues/20576 prevents using ignore[return-value] here
+    return d_any.get("key")  # type: ignore
 
 
 # def test3() -> str:
@@ -150,7 +153,8 @@ def test7() -> str:
 
 
 def test8() -> str:
-    return d_str.get("key")  # type: ignore[return-value]
+    # FIXME: https://github.com/python/mypy/issues/20576 prevents using ignore[return-value] here
+    return d_str.get("key")  # type: ignore
 
 
 def test9() -> str:
