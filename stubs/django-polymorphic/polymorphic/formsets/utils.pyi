@@ -1,0 +1,3 @@
+from django.forms import Media
+
+def add_media(dest: Media, media: Media) -> None: ...
