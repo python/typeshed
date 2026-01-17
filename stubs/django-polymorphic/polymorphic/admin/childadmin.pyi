@@ -14,9 +14,9 @@ class PolymorphicChildModelAdmin(admin.ModelAdmin[Any]):
     base_fieldsets: Sequence[tuple[str | None, dict[str, Any]]] | None
     extra_fieldset_title: str
     show_in_index: bool
-    change_form_template: ClassVar[list[str]]
-    delete_confirmation_template: ClassVar[list[str]]
-    object_history_template: ClassVar[list[str]]
+    change_form_template: ClassVar[list[str]]  # type: ignore[misc]
+    delete_confirmation_template: ClassVar[list[str]]  # type: ignore[misc]
+    object_history_template: ClassVar[list[str]]  # type: ignore[misc]
     def get_form(
         self, request: HttpRequest, obj: Any | None = None, change: bool = False, **kwargs: Any
     ) -> type[ModelForm[Any]]: ...
