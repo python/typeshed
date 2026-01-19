@@ -443,4 +443,18 @@ class GaussianDropout(Layer[tf.Tensor, tf.Tensor]):
         name: str | None = None,
     ) -> None: ...
 
+class Activation(Layer[tf.Tensor, tf.Tensor]):
+    def __init__(
+        self,
+        activation: _Activation = None,
+        *,
+        # **kwargs passed to Layer
+        # **kwargs passed to Layer
+        activity_regularizer: _Regularizer = None,
+        trainable: bool = True,
+        dtype: _LayerDtype | None = None,
+        autocast: bool = True,
+        name: str | None = None,
+    ) -> None: ...
+
 def __getattr__(name: str): ...  # incomplete module
