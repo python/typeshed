@@ -205,8 +205,8 @@ typing\.ByteString
 
 _collections_abc.Callable  # Typing-related weirdness
 
-# lots of methods are positional-or-keyword in implementation
-# but this is unsafe as canonical types list/dist/set etc. only support positional args
+# While the implementation in _collections_abc.py uses positional-or-keyword args,
+# this is unsafe as canonical types list/dict/set etc. only support positional args.
 # See: https://github.com/python/typeshed/issues/14071
 # See: https://github.com/python/cpython/issues/135312
 _collections_abc.Mapping.get
