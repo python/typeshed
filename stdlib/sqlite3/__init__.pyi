@@ -222,7 +222,7 @@ _AdaptedInputData: TypeAlias = _SqliteData | Any
 _Parameters: TypeAlias = SupportsLenAndGetItem[_AdaptedInputData] | Mapping[str, _AdaptedInputData]
 # Controls the legacy transaction handling mode of sqlite3.
 _IsolationLevel: TypeAlias = Literal["DEFERRED", "EXCLUSIVE", "IMMEDIATE"] | None
-_RowFactoryOptions: TypeAlias = type[Row] | Callable[[Cursor, Row], object] | None
+_RowFactoryOptions: TypeAlias = type[Row] | Callable[[Cursor, tuple[Any, ...], object] | None
 
 @type_check_only
 class _AnyParamWindowAggregateClass(Protocol):
