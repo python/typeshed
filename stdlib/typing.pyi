@@ -403,7 +403,6 @@ _S = TypeVar("_S")
 _KT = TypeVar("_KT")  # Key type.
 _VT = TypeVar("_VT")  # Value type.
 _T_co = TypeVar("_T_co", covariant=True)  # Any type covariant containers.
-_T_contra = TypeVar("_T_contra", contravariant=True, default=Any)  # Any type contravariant containers.
 _KT_co = TypeVar("_KT_co", covariant=True)  # Key type covariant containers.
 _VT_co = TypeVar("_VT_co", covariant=True)  # Value type covariant containers.
 _TC = TypeVar("_TC", bound=type[object])
@@ -641,10 +640,13 @@ class AsyncGenerator(AsyncIterator[_YieldT_co], Protocol[_YieldT_co, _SendT_cont
     ) -> Coroutine[Any, Any, _YieldT_co]: ...
     def aclose(self) -> Coroutine[Any, Any, None]: ...
 
+_ContainerT_contra = TypeVar("_ContainerT_contra", contravariant=True, default=Any)
+
 @runtime_checkable
-class Container(Protocol[_T_contra]):
+class Container(Protocol[_ContainerT_contra]):
+    # This is generic more on vibes than anything else
     @abstractmethod
-    def __contains__(self, x: _T_contra, /) -> bool: ...
+    def __contains__(self, x: _ContainerT_contra, /) -> bool: ...
 
 @runtime_checkable
 class Collection(Iterable[_T_co], Container[Any], Protocol[_T_co]):
