@@ -403,6 +403,7 @@ _S = TypeVar("_S")
 _KT = TypeVar("_KT")  # Key type.
 _VT = TypeVar("_VT")  # Value type.
 _T_co = TypeVar("_T_co", covariant=True)  # Any type covariant containers.
+_T_contra = TypeVar("_T_contra", contravariant=True)  # Any type contravariant containers.
 _KT_co = TypeVar("_KT_co", covariant=True)  # Key type covariant containers.
 _VT_co = TypeVar("_VT_co", covariant=True)  # Value type covariant containers.
 _TC = TypeVar("_TC", bound=type[object])
@@ -641,18 +642,12 @@ class AsyncGenerator(AsyncIterator[_YieldT_co], Protocol[_YieldT_co, _SendT_cont
     def aclose(self) -> Coroutine[Any, Any, None]: ...
 
 @runtime_checkable
-class Container(Protocol[_T_co]):
-    # This Protocol is broken, as it should have used a contravariant type variable.
-    # But since it has been used in contravariant types, we cannot change it without
-    # causing breakage.
-    # Therefore, the key is annotated as `Any`, so that implemented can override it
-    # appropriately.
-    # A typical usage in Collection[X] types may be to set it to the upper bound of X.
+class Container(Protocol[_T_contra]):
     @abstractmethod
-    def __contains__(self, x: Any, /) -> bool: ...
+    def __contains__(self, x: _T_contra, /) -> bool: ...
 
 @runtime_checkable
-class Collection(Iterable[_T_co], Container[_T_co], Protocol[_T_co]):
+class Collection(Iterable[_T_co], Container[Any], Protocol[_T_co]):
     # Implement Sized (but don't have it as a base class).
     @abstractmethod
     def __len__(self) -> int: ...
