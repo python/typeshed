@@ -648,6 +648,7 @@ class Container(Protocol[_T_contra]):
 
 @runtime_checkable
 class Collection(Iterable[_T_co], Container[Any], Protocol[_T_co]):
+    # Note: need to use Container[Any] instead of Container[_T_co] to ensure covariance.
     # Implement Sized (but don't have it as a base class).
     @abstractmethod
     def __len__(self) -> int: ...
