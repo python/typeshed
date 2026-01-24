@@ -642,9 +642,14 @@ class AsyncGenerator(AsyncIterator[_YieldT_co], Protocol[_YieldT_co, _SendT_cont
 
 @runtime_checkable
 class Container(Protocol[_T_co]):
-    # This is generic more on vibes than anything else
+    # This Protocol is broken, as it should have used a contravariant type variable.
+    # But since it has been used in contravariant types, we cannot change it without
+    # causing breakage.
+    # Therefore, the key is annotated as `Any`, so that implemented can override it
+    # appropriately.
+    # A typical usage in Collection[X] types may be to set it to the upper bound of X.
     @abstractmethod
-    def __contains__(self, x: object, /) -> bool: ...
+    def __contains__(self, x: Any, /) -> bool: ...
 
 @runtime_checkable
 class Collection(Iterable[_T_co], Container[_T_co], Protocol[_T_co]):
