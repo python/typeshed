@@ -4,7 +4,7 @@ Regression tests for the standard library stubs can be found in the
 `stdlib/@tests/test_cases` directory. Not all third-party-library stub
 packages in typeshed have test cases, and not all of them need test cases --
 but for those that do, their test cases can be found in `@tests/test_cases`
-subdirectories for each stub package. For example, the test cases for
+subdirectories for each stubs package. For example, the test cases for
 `requests` can be found in the `stubs/requests/@tests/test_cases` directory.
 
 **Regression test cases should only be written for functions and classes which
