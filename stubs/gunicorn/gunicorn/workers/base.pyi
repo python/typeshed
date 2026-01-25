@@ -19,7 +19,7 @@ class Worker:
     ppid: int
     sockets: list[socket.socket]
     app: BaseApplication
-    timeout: int
+    timeout: float
     cfg: Config
     booted: bool
     aborted: bool
@@ -33,7 +33,7 @@ class Worker:
     wsgi: _WSGIAppType
 
     def __init__(
-        self, age: int, ppid: int, sockets: list[socket.socket], app: BaseApplication, timeout: int, cfg: Config, log: GLogger
+        self, age: int, ppid: int, sockets: list[socket.socket], app: BaseApplication, timeout: float, cfg: Config, log: GLogger
     ) -> None: ...
     def notify(self) -> None: ...
     def run(self) -> None: ...

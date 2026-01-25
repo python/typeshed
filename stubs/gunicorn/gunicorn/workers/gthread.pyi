@@ -1,7 +1,7 @@
 import socket
 from collections import deque
 from concurrent.futures import Future, ThreadPoolExecutor
-from selectors import DefaultSelector
+from selectors import BaseSelector
 from types import FrameType
 
 from gunicorn.config import Config
@@ -29,7 +29,7 @@ class ThreadWorker(base.Worker):
     worker_connections: int
     max_keepalived: int
     tpool: ThreadPoolExecutor
-    poller: DefaultSelector
+    poller: BaseSelector
     futures: deque[Future[tuple[bool, TConn]]]
     nr_conns: int
     alive: bool
