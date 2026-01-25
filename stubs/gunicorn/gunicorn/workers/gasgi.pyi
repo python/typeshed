@@ -1,5 +1,6 @@
-import asyncio
 from _typeshed import Incomplete
+from asyncio.base_events import Server
+from asyncio.events import AbstractEventLoop
 from typing import NoReturn
 
 from gunicorn.asgi.lifespan import LifespanManager
@@ -11,8 +12,8 @@ from .._types import _ASGIAppType
 
 class ASGIWorker(base.Worker):
     worker_connections: int
-    loop: asyncio.AbstractEventLoopPolicy | None
-    servers: list[asyncio.Server]
+    loop: AbstractEventLoop | None
+    servers: list[Server]
     nr_conns: int
     lifespan: LifespanManager | None
     state: dict[Incomplete, Incomplete]
