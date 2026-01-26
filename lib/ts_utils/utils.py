@@ -30,17 +30,17 @@ except ImportError:
 
 _REMOVE_COMMENT_RE = re.compile(
     r"""
-    (\"(?:\\.|[^\\\"])*?\")
+    (\"(?:\\.|[^\\\"])*?\")  # matches literal strings
     |
-    (\/\*.*?\*\/ | \/\/[^\r\n]*?(?:[\r\n]))
+    (\/\*.*?\*\/ | \/\/[^\r\n]*?(?:[\r\n]))  # matches single- and multi-line comments
     """,
     re.DOTALL | re.VERBOSE,
 )
 _REMOVE_TRAILING_COMMA_RE = re.compile(
     r"""
-    (\"(?:\\.|[^\\\"])*?\")
+    (\"(?:\\.|[^\\\"])*?\")  # matches literal strings
     |
-    ,\s*([\]}])
+    ,\s*([\]}])  # matches commas before '}' or ']'
     """,
     re.DOTALL | re.VERBOSE,
 )
