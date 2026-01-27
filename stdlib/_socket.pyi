@@ -104,8 +104,6 @@ if sys.platform == "linux":
         SOL_L2CAP: Final[int]
         SOL_RFCOMM: Final[int]
         SOL_SCO: Final[int]
-    
-    
 
 # --------------------
 # Many constants of these forms, documented in the Unix documentation on
