@@ -13,14 +13,6 @@ tkinter.simpledialog.TkVersion
 tarfile.TarInfo.__slots__  # it's a big dictionary at runtime and the dictionary values are a bit long
 
 
-# ===============================================================
-# TODO: Modules that exist at runtime, but are missing from stubs
-# ===============================================================
-
-turtledemo
-turtledemo\..+
-
-
 # ======================================================================
 # TODO: Module members that exist at runtime, but are missing from stubs
 # ======================================================================
