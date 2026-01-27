@@ -1,8 +1,10 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
+from contextlib import _AsyncGeneratorContextManager
 from typing import NoReturn
-from typing_extensions import TypeAlias
+from typing_extensions import Self, TypeAlias
 
+import httpx
 from authlib.oauth2.auth import ClientAuth, TokenAuth
 from authlib.oauth2.client import OAuth2Client as _OAuth2Client
 
@@ -24,7 +26,7 @@ class OAuth2ClientAuth(ClientAuth):
     def auth_flow(self, request: _Request) -> Generator[_Request, _Response, None]: ...
 
 # Inherits from httpx.AsyncClient
-class AsyncOAuth2Client(_OAuth2Client):
+class AsyncOAuth2Client(_OAuth2Client, httpx.AsyncClient):
     SESSION_REQUEST_PARAMS: list[str]
     client_auth_class = OAuth2ClientAuth
     token_auth_class = OAuth2Auth
@@ -43,8 +45,11 @@ class AsyncOAuth2Client(_OAuth2Client):
         leeway=60,
         **kwargs,
     ) -> None: ...
+    async def __aenter__(self) -> Self: ...
     async def request(self, method, url, withhold_token: bool = False, auth=..., **kwargs): ...
-    async def stream(self, method, url, withhold_token: bool = False, auth=..., **kwargs) -> Generator[Incomplete]: ...
+    def stream(
+        self, method, url, withhold_token: bool = False, auth=..., **kwargs
+    ) -> _AsyncGeneratorContextManager[httpx.Response]: ...
     async def ensure_active_token(self, token): ...  # type: ignore[override]
 
 # Inherits from httpx.Client
