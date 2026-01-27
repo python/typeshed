@@ -191,9 +191,9 @@ supported:
 * `partial_stub` (optional): This field marks the type stub package as
   [partial](https://peps.python.org/pep-0561/#partial-stub-packages). This is for
   3rd-party stubs that don't cover the entirety of the package's public API.
-* `requires_python` (optional): The minimum version of Python required to install
-  the type stub package. It must be in the form `>=3.*`. If omitted, the oldest
-  Python version supported by typeshed is used.
+* `requires_python` (optional): The Python version required to install the
+  the type stub package. It must be in the form `>=3.*`, `<3.*` or `>=3.*,<3.*`.
+  If omitted, the oldest Python version supported by typeshed is used.
 
 In addition, we specify configuration for stubtest in the `tool.stubtest` table.
 This has the following keys:
