@@ -11,7 +11,9 @@ _CMSGArg: TypeAlias = tuple[int, int, ReadableBuffer]
 # Addresses can be either tuples of varying lengths (AF_INET, AF_INET6,
 # AF_NETLINK, AF_TIPC) or strings/buffers (AF_UNIX).
 # See getsockaddrarg() in socketmodule.c.
-_Address: TypeAlias = tuple[Any, ...] | str | ReadableBuffer | int #int is included because of device_id not packed in a tuple is now accepted for BTPROTO_HCI
+_Address: TypeAlias = (
+    tuple[Any, ...] | str | ReadableBuffer | int
+)  # int is included because of device_id not packed in a tuple is now accepted for BTPROTO_HCI
 _RetAddress: TypeAlias = Any
 
 # ===== Constants =====
@@ -579,7 +581,7 @@ if sys.platform == "linux":
     SO_VM_SOCKETS_BUFFER_SIZE: Final = 0
     SO_VM_SOCKETS_BUFFER_MIN_SIZE: Final = 1
     VM_SOCKETS_INVALID_VERSION: Final = 0xFFFFFFFF  # undocumented
-    #Bluetooth constants new in 3.14
+    # Bluetooth constants new in 3.14
     if sys.version_info >= (3, 14):
         BDADDR_BREDR: int
         BDADDR_LE_PUBLIC: int
@@ -704,8 +706,6 @@ if sys.version_info >= (3, 12):
         SOL_L2CAP: Final[int]
         SOL_RFCOMM: Final[int]
         SOL_SCO: Final[int]
-    
-
 
 # These are alluded to under the "Socket families" section in the docs
 # https://docs.python.org/3/library/socket.html#socket-families
