@@ -34,19 +34,9 @@ SOCK_SEQPACKET: Final[int]
 
 if sys.platform == "linux":
     # Availability: Linux >= 2.6.27
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-    SOCK_CLOEXEC: Final[int]
-    SOCK_NONBLOCK: Final[int]
-=======
     if sys.version_info >= (3, 14):
->>>>>>> d8ee6b55025e32b0a50a8194b96ae71240f4a327
         SOCK_CLOEXEC: Final[int]
         SOCK_NONBLOCK: Final[int]
-        
-    
-    
 
 # --------------------
 # Many constants of these forms, documented in the Unix documentation on
