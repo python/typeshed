@@ -34,9 +34,8 @@ SOCK_SEQPACKET: Final[int]
 
 if sys.platform == "linux":
     # Availability: Linux >= 2.6.27
-    if sys.version_info >= (3, 14):
-        SOCK_CLOEXEC: Final[int]
-        SOCK_NONBLOCK: Final[int]
+    SOCK_CLOEXEC: Final[int]
+    SOCK_NONBLOCK: Final[int]
 
 # --------------------
 # Many constants of these forms, documented in the Unix documentation on
@@ -246,11 +245,6 @@ if sys.version_info >= (3, 14):
         SO_ORIGINAL_DST: Final[int]
 
     if sys.platform == "win32":
-        SOL_RFCOMM: Final[int]
-        SO_BTH_ENCRYPT: Final[int]
-        SO_BTH_MTU: Final[int]
-        SO_BTH_MTU_MAX: Final[int]
-        SO_BTH_MTU_MIN: Final[int]
         TCP_QUICKACK: Final[int]
 
     if sys.platform == "linux":
@@ -585,7 +579,47 @@ if sys.platform == "linux":
     SO_VM_SOCKETS_BUFFER_SIZE: Final = 0
     SO_VM_SOCKETS_BUFFER_MIN_SIZE: Final = 1
     VM_SOCKETS_INVALID_VERSION: Final = 0xFFFFFFFF  # undocumented
-
+    #Bluetooth constants new in 3.14
+    if sys.version_info >= (3, 14):
+        BDADDR_BREDR: int
+        BDADDR_LE_PUBLIC: int
+        BDADDR_LE_RANDOM: int
+        BT_CHANNEL_POLICY: int
+        BT_CHANNEL_POLICY_BREDR_ONLY: int
+        BT_CHANNEL_POLICY_BREDR_PREFERRED: int
+        BT_CODEC: int
+        BT_DEFER_SETUP: int
+        BT_FLUSHABLE: int
+        BT_FLUSHABLE_OFF: int
+        BT_FLUSHABLE_ON: int
+        BT_ISO_QOS: int
+        BT_MODE: int
+        BT_MODE_BASIC: int
+        BT_MODE_ERTM: int
+        BT_MODE_STREAM: int
+        BT_PHY: int
+        BT_PHY_BR_1M_1SLOT: int
+        BT_PHY_EDR_2M_1SLOT: int
+        BT_PHY_EDR_2M_3SLOT: int
+        BT_PHY_EDR_2M_5SLOT: int
+        BT_PHY_EDR_3M_1SLOT: int
+        BT_PHY_EDR_3M_3SLOT: int
+        BT_PHY_EDR_3M_5SLOT: int
+        BT_PHY_LE_1M_RX: int
+        BT_PHY_LE_1M_TX: int
+        BT_PHY_LE_2M_RX: int
+        BT_PHY_LE_2M_TX: int
+        BT_PHY_LE_CODED_RX: int
+        BT_PHY_LE_CODED_TX: int
+        BT_PKT_STATUS: int
+        BT_POWER: int
+        BT_POWER_FORCE_ACTIVE_OFF: int
+        BT_POWER_FORCE_ACTIVE_ON: int
+        BT_RCVMTU: int
+        BT_SCM_PKT_STATUS: int
+        BT_SNDMTU: int
+        BT_VOICE: int
+        BT_VOICE_FOR_MSBC: int
 # Documented as only available on BSD, macOS, but empirically sometimes
 # available on Windows
 if sys.platform != "linux":
@@ -636,6 +670,8 @@ if sys.version_info >= (3, 12):
         ETHERTYPE_IP: Final[int]
         ETHERTYPE_IPV6: Final[int]
         ETHERTYPE_VLAN: Final[int]
+        # --------------------
+        # Semi-documented constants
         BDADDR_BREDR: Final[int]
         BDADDR_LE_PUBLIC: Final[int]
         BDADDR_LE_RANDOM: Final[int]
@@ -704,75 +740,8 @@ if sys.version_info >= (3, 12):
         SOL_RFCOMM: Final[int]
         SOL_SCO: Final[int]
     
-# --------------------
-# Semi-documented constants
-        BDADDR_BREDR: Final[int]
-        BDADDR_LE_PUBLIC: Final[int]
-        BDADDR_LE_RANDOM: Final[int]
-        BT_CHANNEL_POLICY: Final[int]
-        BT_CHANNEL_POLICY_BREDR_ONLY: Final[int]
-        BT_CHANNEL_POLICY_BREDR_PREFERRED: Final[int]
-        BT_CODEC: Final[int]
-        BT_DEFER_SETUP: Final[int]
-        BT_FLUSHABLE: Final[int]
-        BT_FLUSHABLE_OFF: Final[int]
-        BT_FLUSHABLE_ON: Final[int]
-        BT_ISO_QOS: Final[int]
-        BT_MODE: Final[int]
-        BT_MODE_BASIC: Final[int]
-        BT_MODE_ERTM: Final[int]
-        BT_MODE_EXT_FLOWCTL: Final[int]
-        BT_MODE_LE_FLOWCTL: Final[int]
-        BT_MODE_STREAMING: Final[int]
-        BT_PHY: Final[int]
-        BT_PHY_BR_1M_1SLOT: Final[int]
-        BT_PHY_BR_1M_3SLOT: Final[int]
-        BT_PHY_BR_1M_5SLOT: Final[int]
-        BT_PHY_EDR_2M_1SLOT: Final[int]
-        BT_PHY_EDR_2M_3SLOT: Final[int]
-        BT_PHY_EDR_2M_5SLOT: Final[int]
-        BT_PHY_EDR_3M_1SLOT: Final[int]
-        BT_PHY_EDR_3M_3SLOT: Final[int]
-        BT_PHY_EDR_3M_5SLOT: Final[int]
-        BT_PHY_LE_1M_RX: Final[int]
-        BT_PHY_LE_1M_TX: Final[int]
-        BT_PHY_LE_2M_RX: Final[int]
-        BT_PHY_LE_2M_TX: Final[int]
-        BT_PHY_LE_CODED_RX: Final[int]
-        BT_PHY_LE_CODED_TX: Final[int]
-        BT_PKT_STATUS: Final[int]
-        BT_POWER: Final[int]
-        BT_POWER_FORCE_ACTIVE_OFF: Final[int]
-        BT_POWER_FORCE_ACTIVE_ON: Final[int]
-        BT_RCVMTU: Final[int]
-        BT_SECURITY: Final[int]
-        BT_SECURITY_FIPS: Final[int]
-        BT_SECURITY_HIGH: Final[int]
-        BT_SECURITY_LOW: Final[int]
-        BT_SECURITY_MEDIUM: Final[int]
-        BT_SECURITY_SDP: Final[int]
-        BT_SNDMTU: Final[int]
-        BT_VOICE: Final[int]
-        BT_VOICE_CVSD_16BIT: Final[int]
-        BT_VOICE_TRANSPARENT: Final[int]
-        BT_VOICE_TRANSPARENT_16BIT: Final[int]
-        HCI_CHANNEL_CONTROL: Final[int]
-        HCI_CHANNEL_LOGGING: Final[int]
-        HCI_CHANNEL_MONITOR: Final[int]
-        HCI_CHANNEL_RAW: Final[int]
-        HCI_CHANNEL_USER: Final[int]
-        HCI_DEV_NONE: Final[int]
-        L2CAP_LM: Final[int]
-        L2CAP_LM_AUTH: Final[int]
-        L2CAP_LM_ENCRYPT: Final[int]
-        L2CAP_LM_MASTER: Final[int]
-        L2CAP_LM_RELIABLE: Final[int]
-        L2CAP_LM_SECURE: Final[int]
-        L2CAP_LM_TRUSTED: Final[int]
-        SOL_BLUETOOTH: Final[int]
-        SOL_L2CAP: Final[int]
-        SOL_RFCOMM: Final[int]
-        SOL_SCO: Final[int]
+
+
 # These are alluded to under the "Socket families" section in the docs
 # https://docs.python.org/3/library/socket.html#socket-families
 # --------------------
