@@ -39,7 +39,7 @@ select.poll  # Actually a function; we have a class so it can be used as a type
 (_?socket\.BDADDR_LE_PUBLIC)?
 (_?socket\.BDADDR_LE_RANDOM)?
 (_?socket\.BT_CHANNEL_POLICY)?
-(_?socket\.BT_CHANNEL_POLICY_BREDR_ONLY)?        
+(_?socket\.BT_CHANNEL_POLICY_BREDR_ONLY)?
 (_?socket\.BT_CHANNEL_POLICY_BREDR_PREFERRED)?
 (_?socket\.BT_CODEC)?
 (_?socket\.BT_DEFER_SETUP)?
