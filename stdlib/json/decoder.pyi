@@ -18,6 +18,10 @@ class JSONDecoder:
     parse_constant: Callable[[str], Any]
     strict: bool
     object_pairs_hook: Callable[[list[tuple[str, Any]]], Any]
+    parse_object: Callable
+    parse_array: Callable
+    parse_string: Callable
+    memo: dict
     def __init__(
         self,
         *,
