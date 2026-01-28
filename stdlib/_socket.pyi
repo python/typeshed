@@ -11,7 +11,7 @@ _CMSGArg: TypeAlias = tuple[int, int, ReadableBuffer]
 # Addresses can be either tuples of varying lengths (AF_INET, AF_INET6,
 # AF_NETLINK, AF_TIPC) or strings/buffers (AF_UNIX).
 # See getsockaddrarg() in socketmodule.c.
-_Address: TypeAlias = tuple[Any, ...] | str | ReadableBuffer | int #int is included because of device_id not packed in a tuple is now accepted for BTPROTO_HCI 
+_Address: TypeAlias = tuple[Any, ...] | str | ReadableBuffer | int #int is included because of device_id not packed in a tuple is now accepted for BTPROTO_HCI
 _RetAddress: TypeAlias = Any
 
 # ===== Constants =====
@@ -34,6 +34,14 @@ SOCK_SEQPACKET: Final[int]
 
 if sys.platform == "linux":
     # Availability: Linux >= 2.6.27
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+    SOCK_CLOEXEC: Final[int]
+    SOCK_NONBLOCK: Final[int]
+=======
+    if sys.version_info >= (3, 14):
+>>>>>>> d8ee6b55025e32b0a50a8194b96ae71240f4a327
         SOCK_CLOEXEC: Final[int]
         SOCK_NONBLOCK: Final[int]
         
