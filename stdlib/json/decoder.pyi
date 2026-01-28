@@ -1,6 +1,6 @@
+from _typeshed import Incomplete
 from collections.abc import Callable
 from typing import Any
-from _typeshed import Incomplete
 
 __all__ = ["JSONDecoder", "JSONDecodeError"]
 
@@ -20,14 +20,13 @@ def JSONObject(
     object_pairs_hook: Callable[[Incomplete], Incomplete] | None,
     memo: dict[Incomplete, Incomplete] | None = None,
     _w: Callable[[str, int], Incomplete] = ...,
-    _ws: str = ...
+    _ws: str = ...,
 ) -> tuple[Incomplete, int]: ...
-
 def JSONArray(
     s_and_end: tuple[str, int],
     scan_once: Callable[[Incomplete], Incomplete],
     _w: Callable[[str, int], Incomplete] = ...,
-    _ws: str = ...
+    _ws: str = ...,
 ) -> tuple[list[Incomplete], int]: ...
 
 class JSONDecoder:
