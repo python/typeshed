@@ -44,9 +44,9 @@ if sys.platform == "linux":
 >>>>>>> d8ee6b55025e32b0a50a8194b96ae71240f4a327
         SOCK_CLOEXEC: Final[int]
         SOCK_NONBLOCK: Final[int]
-        
-    
-    
+
+
+
 
 # --------------------
 # Many constants of these forms, documented in the Unix documentation on
@@ -713,7 +713,7 @@ if sys.version_info >= (3, 12):
         SOL_L2CAP: Final[int]
         SOL_RFCOMM: Final[int]
         SOL_SCO: Final[int]
-    
+
 # --------------------
 # Semi-documented constants
         BDADDR_BREDR: Final[int]
