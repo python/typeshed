@@ -5,3 +5,11 @@
 # Starting with Python 3.14.1, these methods accept None for some of their
 # parameters, but would raise a TypeError with Python 3.14.0.
 mmap.mmap.madvise
+
+# Bluetooth constants new in 3.14 but missing at runtime on Ubuntu test runners
+_socket.BT_MODE_STREAM
+_socket.BT_PHY_LE_2M_RX
+_socket.BT_SCM_PKT_STATUS
+_socket.BT_VOICE_FOR_MSBC
+_socket.HCI_CHANNEL_RAW
+_socket.SOL_RFCOMM
