@@ -56,3 +56,10 @@ tkinter.Tk.deletefilehandler  # Methods that come from __getattr__() at runtime
 (_?locale.dgettext)?
 (_?locale.gettext)?
 (_?locale.textdomain)?
+
+# Bluetooth constants added for Python 3.14+ but missing at runtime on Windows test runners
+_socket.SO_BTH_ENCRYPT
+_socket.SO_BTH_MTU
+_socket.SO_BTH_MTU_MAX
+_socket.SO_BTH_MTU_MIN
+_socket.SOL_RFCOMM

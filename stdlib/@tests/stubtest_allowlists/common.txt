@@ -550,3 +550,10 @@ xml.etree.cElementTree.XMLParser.__init__  # Defined in C so has general signatu
 # These would ideally be special-cased by type checkers; see https://github.com/python/mypy/issues/2220
 xml.etree.ElementTree.Element.__iter__
 xml.etree.cElementTree.Element.__iter__
+
+# Bluetooth constants added for Python 3.14+ but missing at runtime on Windows test runners
+_socket.SO_BTH_ENCRYPT
+_socket.SO_BTH_MTU
+_socket.SO_BTH_MTU_MAX
+_socket.SO_BTH_MTU_MIN
+_socket.SOL_RFCOMM
