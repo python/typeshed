@@ -6,3 +6,10 @@
 # (Hard to add types for unless we add stubs for the undocumented _overlapped module...)
 asyncio.IocpProactor.finish_socket_func
 asyncio.windows_events.IocpProactor.finish_socket_func
+
+# Bluetooth constants added for Python 3.14+ but missing at runtime on Windows test runners
+_socket.SO_BTH_ENCRYPT
+_socket.SO_BTH_MTU
+_socket.SO_BTH_MTU_MAX
+_socket.SO_BTH_MTU_MIN
+_socket.SOL_RFCOMM

@@ -21,3 +21,8 @@ msilib(.[a-z]+)?
 
 # doesn't exist in all installations
 (nis)?
+
+# Bluetooth constants added for Python 3.14+ but missing at runtime on Ubuntu test runners
+
+_socket.HCI_CHANNEL_RAW
+_socket.SOL_RFCOMM

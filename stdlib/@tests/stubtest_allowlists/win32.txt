@@ -39,3 +39,10 @@ tty
 multiprocessing.popen_fork  # exists on Windows but fails to import
 multiprocessing.popen_forkserver  # exists on Windows but fails to import
 multiprocessing.popen_spawn_posix  # exists on Windows but fails to import
+
+# Bluetooth constants added for Python 3.14+ but missing at runtime on Windows test runners
+_socket.SO_BTH_ENCRYPT
+_socket.SO_BTH_MTU
+_socket.SO_BTH_MTU_MAX
+_socket.SO_BTH_MTU_MIN
+_socket.SOL_RFCOMM
