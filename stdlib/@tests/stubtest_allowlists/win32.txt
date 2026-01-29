@@ -46,4 +46,3 @@ _socket.SO_BTH_MTU
 _socket.SO_BTH_MTU_MAX
 _socket.SO_BTH_MTU_MIN
 _socket.SOL_RFCOMM
-
