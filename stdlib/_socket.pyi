@@ -674,21 +674,21 @@ if sys.version_info >= (3, 12):
         ETHERTYPE_VLAN: Final[int]
         # --------------------
         # Semi-documented constants
-        
+
         BT_MODE_EXT_FLOWCTL: Final[int]
         BT_MODE_LE_FLOWCTL: Final[int]
         BT_MODE_STREAMING: Final[int]
         BT_PHY_BR_1M_3SLOT: Final[int]
-        BT_PHY_BR_1M_5SLOT: Final[int]   
+        BT_PHY_BR_1M_5SLOT: Final[int]
         BT_SECURITY_FIPS: Final[int]
         BT_SECURITY_HIGH: Final[int]
         BT_SECURITY_LOW: Final[int]
         BT_SECURITY_MEDIUM: Final[int]
         BT_SECURITY_SDP: Final[int]
-        BT_SECURITY: Final[int] 
+        BT_SECURITY: Final[int]
         BT_VOICE_CVSD_16BIT: Final[int]
         BT_VOICE_TRANSPARENT_16BIT: Final[int]
-        BT_VOICE_TRANSPARENT: Final[int]       
+        BT_VOICE_TRANSPARENT: Final[int]
         HCI_CHANNEL_CONTROL: Final[int]
         HCI_CHANNEL_LOGGING: Final[int]
         HCI_CHANNEL_MONITOR: Final[int]
