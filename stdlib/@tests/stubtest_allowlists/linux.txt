@@ -132,3 +132,8 @@ termios.TIOCTTYGSTRUCT
 
 tkinter.Tk.createfilehandler  # Methods that come from __getattr__() at runtime
 tkinter.Tk.deletefilehandler  # Methods that come from __getattr__() at runtime
+
+# Bluetooth constants added for Python 3.14+ but missing at runtime on Ubuntu test runners
+
+_socket.HCI_CHANNEL_RAW
+_socket.SOL_RFCOMM
