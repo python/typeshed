@@ -11,9 +11,8 @@ _CMSGArg: TypeAlias = tuple[int, int, ReadableBuffer]
 # Addresses can be either tuples of varying lengths (AF_INET, AF_INET6,
 # AF_NETLINK, AF_TIPC) or strings/buffers (AF_UNIX).
 # See getsockaddrarg() in socketmodule.c.
-_Address: TypeAlias = (
-     tuple[Any, ...] | str | ReadableBuffer | int) 
- # int is included because of device_id not packed in a tuple is now accepted for BTPROTO_HCI
+_Address: TypeAlias = tuple[Any, ...] | str | ReadableBuffer | int
+# int is included because of device_id not packed in a tuple is now accepted for BTPROTO_HCI
 _RetAddress: TypeAlias = Any
 
 # ===== Constants =====
