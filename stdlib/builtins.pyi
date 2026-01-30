@@ -123,10 +123,10 @@ class object:
     def __delattr__(self, name: str, /) -> None: ...
     # Using 'Any' rather than 'object' for the argument because
     # classes may want to restrict the type.
-    # Using 'object' rather than 'bool' for the return type because
+    # Using 'Any | bool' rather than 'bool' for the return type because
     # classes may want to return a wider type (e.g. numpy array)
-    def __eq__(self, value: Any, /) -> object: ...  # noqa: Y032
-    def __ne__(self, value: Any, /) -> object: ...  # noqa: Y032
+    def __eq__(self, value: Any, /) -> Any | bool: ...  # noqa: Y032
+    def __ne__(self, value: Any, /) -> Any | bool: ...  # noqa: Y032
     def __str__(self) -> str: ...  # noqa: Y029
     def __repr__(self) -> str: ...  # noqa: Y029
     def __hash__(self) -> int: ...
