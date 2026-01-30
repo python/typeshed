@@ -106,7 +106,7 @@ class _InfoDict(TypedDict, total=False):
     rows: int | None
     columns: int | None
     playlist_count: int | None
-    entries: Iterable[_InfoDict] | PagedList | None
+    entries: Iterable[_InfoDict] | PagedList
     requested_formats: Iterable[_InfoDict]
     # deprecated fields:
     composer: Incomplete
