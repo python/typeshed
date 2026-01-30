@@ -8,6 +8,8 @@ from typing_extensions import Never, Required, TypeAlias, deprecated
 from urllib.request import Request, _DataType
 from xml.etree import ElementTree as ET
 
+from yt_dlp.utils import PagedList
+
 from ..cache import Cache
 from ..cookies import LenientSimpleCookie, YoutubeDLCookieJar
 from ..networking.common import Response, _RequestData
@@ -103,6 +105,8 @@ class _InfoDict(TypedDict, total=False):
     section_end: Incomplete
     rows: int | None
     columns: int | None
+    playlist_count: int | None
+    entries: Iterable[_InfoDict] | PagedList | None
     requested_formats: Iterable[_InfoDict]
     # deprecated fields:
     composer: Incomplete
