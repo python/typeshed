@@ -1,0 +1,45 @@
+# Admin __init__ methods with *args
+polymorphic.admin.PolymorphicChildModelAdmin.__init__
+polymorphic.admin.PolymorphicParentModelAdmin.__init__
+polymorphic.admin.childadmin.PolymorphicChildModelAdmin.__init__
+polymorphic.admin.parentadmin.PolymorphicParentModelAdmin.__init__
+
+# Admin get_form - stub includes change parameter for compatibility with Django base class
+polymorphic.admin.PolymorphicChildModelAdmin.get_form
+polymorphic.admin.childadmin.PolymorphicChildModelAdmin.get_form
+
+# QuerySet methods - version-specific Django parameters
+polymorphic.query.PolymorphicQuerySet.__repr__
+polymorphic.query.PolymorphicQuerySet.bulk_create
+polymorphic.query.PolymorphicQuerySet._p_list_class.__repr__
+polymorphic.managers.PolymorphicQuerySet.__repr__
+polymorphic.managers.PolymorphicQuerySet.bulk_create
+polymorphic.managers.PolymorphicQuerySet._p_list_class.__repr__
+
+# Model attributes - Django auto-generated
+polymorphic.models.PolymorphicModel.polymorphic_ctype_id
+
+# Type annotation helpers (not runtime classes)
+polymorphic.models.PolymorphicModel@AnnotatedWith
+
+# Optional dependencies - contrib modules may require additional packages
+polymorphic.contrib.extra_views
+
+# Template properties - read-only at runtime
+polymorphic.admin.PolymorphicChildModelAdmin.change_form_template
+polymorphic.admin.PolymorphicChildModelAdmin.delete_confirmation_template
+polymorphic.admin.PolymorphicChildModelAdmin.object_history_template
+polymorphic.admin.PolymorphicParentModelAdmin.change_list_template
+polymorphic.admin.childadmin.PolymorphicChildModelAdmin.change_form_template
+polymorphic.admin.childadmin.PolymorphicChildModelAdmin.delete_confirmation_template
+polymorphic.admin.childadmin.PolymorphicChildModelAdmin.object_history_template
+polymorphic.admin.parentadmin.PolymorphicParentModelAdmin.change_list_template
+
+# __all__ differences - stub uses list for easier editing
+polymorphic.admin.__all__
+polymorphic.formsets.__all__
+polymorphic.managers.__all__
+
+# Descriptor vs typed value - normal for stubs
+polymorphic.models.PolymorphicModel.objects
+polymorphic.models.PolymorphicModel.polymorphic_ctype
