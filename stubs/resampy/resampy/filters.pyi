@@ -6,10 +6,10 @@ import numpy as np
 __all__ = ["get_filter", "clear_cache", "sinc_window"]
 
 # Dictionary to cache loaded filters
-FILTER_CACHE: dict[str, tuple[np.ndarray[tuple[int, ...], np.dtype[np.floating[Any]]], int, float]] = {}
+FILTER_CACHE: dict[str, tuple[np.ndarray[tuple[int, ...], np.dtype[np.floating[Any]]], int, float]]
 
 # List of filter functions available
-FILTER_FUNCTIONS: list[str] = ["sinc_window"]
+FILTER_FUNCTIONS: list[str]
 
 def sinc_window(
     num_zeros: int = 64,
