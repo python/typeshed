@@ -20,19 +20,6 @@ _resample_loop_p = ...
 # JIT-compiled sequential version of _resample_loop
 _resample_loop_s = ...
 
-@guvectorize(
-    (
-        numba.float32[:, :, :],
-        numba.float32[:, :],
-        numba.float32[:],
-        numba.float32[:],
-        numba.int32,
-        numba.float32,
-        numba.float32[:, :],
-    ),
-    "(n),(m),(p),(p),(),()->(m)",
-    nopython=True,
-)
 def resample_f_p(
     x: np.ndarray[tuple[int, ...], np.dtype[np.floating[Any]]],
     t_out: np.ndarray[tuple[int, ...], np.dtype[np.floating[Any]]],
@@ -42,19 +29,6 @@ def resample_f_p(
     scale: float,
     y: np.ndarray[tuple[int, ...], np.dtype[np.floating[Any]]],
 ) -> None: ...
-@guvectorize(
-    (
-        numba.float32[:, :, :],
-        numba.float32[:, :],
-        numba.float32[:],
-        numba.float32[:],
-        numba.int32,
-        numba.float32,
-        numba.float32[:, :],
-    ),
-    "(n),(m),(p),(p),(),()->(m)",
-    nopython=True,
-)
 def resample_f_s(
     x: np.ndarray[tuple[int, ...], np.dtype[np.floating[Any]]],
     t_out: np.ndarray[tuple[int, ...], np.dtype[np.floating[Any]]],
