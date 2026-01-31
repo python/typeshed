@@ -1,8 +1,6 @@
 from typing import Any
 
-import numba
 import numpy as np
-from numba import guvectorize
 
 def _resample_loop(
     x: np.ndarray[tuple[int, ...], np.dtype[np.floating[Any]]],
