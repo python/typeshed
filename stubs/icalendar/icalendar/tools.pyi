@@ -1,6 +1,6 @@
 import datetime
 from typing import Final
-from typing_extensions import TypeGuard, TypeIs, deprecated
+from typing_extensions import Literal, TypeGuard, TypeIs, deprecated
 
 from pytz.tzinfo import BaseTzInfo
 
@@ -17,8 +17,8 @@ class UIDGenerator:
     @deprecated("Use the Python standard library's :func:`uuid.uuid5` instead.")
     def uid(host_name: str = "example.com", unique: str = "") -> vText: ...
 
-def is_date(dt: datetime.date) -> bool: ...  # and not datetime.date
-def is_datetime(dt: datetime.date) -> TypeIs[datetime.datetime]: ...
+def is_date(dt: datetime.date) -> Literal[True]: ...  # and not datetime.date
+def is_datetime(dt: datetime.date) -> Literal[False]: ...
 def to_datetime(dt: datetime.date) -> datetime.datetime: ...
 def is_pytz(tz: datetime.tzinfo) -> TypeIs[BaseTzInfo]: ...
 def is_pytz_dt(dt: datetime.date) -> TypeGuard[datetime.datetime]: ...  # and dt.tzinfo is BaseTZInfo
