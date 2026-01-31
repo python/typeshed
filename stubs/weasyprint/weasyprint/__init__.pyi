@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from pathlib import Path
 
 from .document import Document as Document, Page as Page
 from .urls import default_url_fetcher as default_url_fetcher
@@ -18,19 +19,19 @@ class HTML:
     def __init__(
         self,
         guess=None,
-        filename=None,
-        url=None,
+        filename: str | Path | None = None,
+        url: str | None = None,
         file_obj=None,
-        string=None,
-        encoding=None,
-        base_url=None,
+        string: str | None = None,
+        encoding: str | None = None,
+        base_url: str | Path | None = None,
         url_fetcher=None,
         media_type: str = "print",
     ) -> None: ...
-    def render(self, font_config=None, counter_style=None, color_profiles=None, **options): ...
+    def render(self, font_config=None, counter_style=None, color_profiles=None, **options) -> Document: ...
     def write_pdf(
         self, target=None, zoom: int = 1, finisher=None, font_config=None, counter_style=None, color_profiles=None, **options
-    ): ...
+    ) -> bytes | None: ...
 
 class CSS:
     base_url: Incomplete
