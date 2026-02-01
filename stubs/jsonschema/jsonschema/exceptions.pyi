@@ -6,7 +6,6 @@ from typing_extensions import Self, TypeAlias, deprecated
 
 from ._types import TypeChecker
 from ._utils import Unset
-from .protocols import Validator
 
 _RelevanceFuncType: TypeAlias = Callable[[ValidationError], SupportsRichComparison]
 
