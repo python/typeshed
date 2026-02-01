@@ -1,2 +1,3 @@
+# The functions are part of the internal API.
 resampy.interpn.resample_f_p
 resampy.interpn.resample_f_s
