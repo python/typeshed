@@ -21,7 +21,7 @@ class _Error(Exception):
     relative_schema_path: deque[str | int]
     context: list[ValidationError]
     cause: Exception | None
-    validator: Validator | Unset
+    validator: str | Unset
     validator_value: Any | Unset
     instance: Any | Unset
     schema: Mapping[str, Any] | bool | Unset
