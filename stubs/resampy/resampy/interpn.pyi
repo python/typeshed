@@ -9,13 +9,6 @@ def _resample_loop(
     scale: float,
     y: np.ndarray[tuple[int, ...], np.dtype[np.floating]],
 ) -> None: ...
-
-# JIT-compiled parallel version of _resample_loop
-_resample_loop_p = ...
-
-# JIT-compiled sequential version of _resample_loop
-_resample_loop_s = ...
-
 def resample_f_p(
     x: np.ndarray[tuple[int, ...], np.dtype[np.floating]],
     t_out: np.ndarray[tuple[int, ...], np.dtype[np.floating]],
