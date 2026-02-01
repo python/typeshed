@@ -1,5 +1,4 @@
 from collections.abc import Callable
-from typing import Any
 
 import numpy as np
 
@@ -18,8 +17,7 @@ def sinc_window(
     rolloff: float = 0.945,
 ) -> tuple[np.ndarray[tuple[int, ...], np.dtype[np.floating]], int, float]: ...
 def get_filter(
-    name_or_function: str | Callable[..., tuple[np.ndarray[tuple[int, ...], np.dtype[np.floating]], int, float]],
-    **kwargs,
+    name_or_function: str | Callable[..., tuple[np.ndarray[tuple[int, ...], np.dtype[np.floating]], int, float]], **kwargs
 ) -> tuple[np.ndarray[tuple[int, ...], np.dtype[np.floating]], int, float]: ...
 def load_filter(filter_name: str) -> tuple[np.ndarray[tuple[int, ...], np.dtype[np.floating]], int, float]: ...
 def clear_cache() -> None: ...
