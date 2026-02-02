@@ -235,8 +235,12 @@ class super:
     def __init__(self) -> None: ...
 
 # TODO (2026-02-02): For unknown reasons, mypy crashes when using Literal for these type aliases
-_PositiveInteger: TypeAlias = int  # Literal[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
-_NegativeInteger: TypeAlias = int  # Literal[-1, -2, -3, -4, -5, -6, -7, -8, -9, -10, -11, -12, -13, -14, -15, -16, -17, -18, -19, -20]
+_PositiveInteger: TypeAlias = (
+    int  # Literal[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
+)
+_NegativeInteger: TypeAlias = (
+    int  # Literal[-1, -2, -3, -4, -5, -6, -7, -8, -9, -10, -11, -12, -13, -14, -15, -16, -17, -18, -19, -20]
+)
 _LiteralInteger: TypeAlias = int  # _PositiveInteger | _NegativeInteger | Literal[0]  # noqa: Y026
 
 @disjoint_base
