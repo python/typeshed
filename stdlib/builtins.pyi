@@ -234,9 +234,10 @@ class super:
     @overload
     def __init__(self) -> None: ...
 
-_PositiveInteger: TypeAlias = Literal[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
-_NegativeInteger: TypeAlias = Literal[-1, -2, -3, -4, -5, -6, -7, -8, -9, -10, -11, -12, -13, -14, -15, -16, -17, -18, -19, -20]
-_LiteralInteger = _PositiveInteger | _NegativeInteger | Literal[0]  # noqa: Y026  # TODO: Use TypeAlias once mypy bugs are fixed
+# TODO (2026-02-02): For unknown reasons, mypy crashes when using Literal for these type aliases
+_PositiveInteger: TypeAlias = int  # Literal[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
+_NegativeInteger: TypeAlias = int  # Literal[-1, -2, -3, -4, -5, -6, -7, -8, -9, -10, -11, -12, -13, -14, -15, -16, -17, -18, -19, -20]
+_LiteralInteger: TypeAlias = int  # _PositiveInteger | _NegativeInteger | Literal[0]  # noqa: Y026
 
 @disjoint_base
 class int:
@@ -297,18 +298,20 @@ class int:
     def __rtruediv__(self, value: int, /) -> float: ...
     def __rmod__(self, value: int, /) -> int: ...
     def __rdivmod__(self, value: int, /) -> tuple[int, int]: ...
+    # TODO (2026-02-02): Remove the type ignore statements below when the integer type
+    # aliases above are fixed.
     @overload
-    def __pow__(self, x: Literal[0], /) -> Literal[1]: ...
+    def __pow__(self, x: Literal[0], /) -> Literal[1]: ...  # type: ignore[overlap,overload-overlap]
     @overload
-    def __pow__(self, value: Literal[0], mod: None, /) -> Literal[1]: ...
+    def __pow__(self, value: Literal[0], mod: None, /) -> Literal[1]: ...  # type: ignore[overlap,overload-overlap]
     @overload
-    def __pow__(self, value: _PositiveInteger, mod: None = None, /) -> int: ...
+    def __pow__(self, value: _PositiveInteger, mod: None = None, /) -> int: ...  # type: ignore[overlap]
     @overload
-    def __pow__(self, value: _NegativeInteger, mod: None = None, /) -> float: ...
+    def __pow__(self, value: _NegativeInteger, mod: None = None, /) -> float: ...  # type: ignore[overlap,overload-cannot-match]
     # positive __value -> int; negative __value -> float
     # return type must be Any as `int | float` causes too many false-positive errors
     @overload
-    def __pow__(self, value: int, mod: None = None, /) -> Any: ...
+    def __pow__(self, value: int, mod: None = None, /) -> Any: ...  # type: ignore[overload-cannot-match]
     @overload
     def __pow__(self, value: int, mod: int, /) -> int: ...
     def __rpow__(self, value: int, mod: int | None = None, /) -> Any: ...
@@ -381,10 +384,12 @@ class float:
     def __rtruediv__(self, value: float, /) -> float: ...
     def __rmod__(self, value: float, /) -> float: ...
     def __rdivmod__(self, value: float, /) -> tuple[float, float]: ...
+    # TODO (2026-02-02): Remove the type ignore statements below when the integer type
+    # aliases above are fixed.
     @overload
     def __rpow__(self, value: _PositiveInteger, mod: None = None, /) -> float: ...
     @overload
-    def __rpow__(self, value: _NegativeInteger, mod: None = None, /) -> complex: ...
+    def __rpow__(self, value: _NegativeInteger, mod: None = None, /) -> complex: ...  # type: ignore[overload-cannot-match]
     # Returning `complex` for the general case gives too many false-positive errors.
     @overload
     def __rpow__(self, value: float, mod: None = None, /) -> Any: ...
@@ -1817,23 +1822,25 @@ _SupportsSomeKindOfPow = (  # noqa: Y026  # TODO: Use TypeAlias once mypy bugs a
 
 # TODO: `pow(int, int, Literal[0])` fails at runtime,
 # but adding a `NoReturn` overload isn't a good solution for expressing that (see #8566).
+# TODO (2026-02-02): Remove the type ignore statements below when the integer type
+# aliases above are fixed.
 @overload
 def pow(base: int, exp: int, mod: int) -> int: ...
 @overload
-def pow(base: int, exp: Literal[0], mod: None = None) -> Literal[1]: ...
+def pow(base: int, exp: Literal[0], mod: None = None) -> Literal[1]: ...  # type: ignore[overload-overlap]
 @overload
 def pow(base: int, exp: _PositiveInteger, mod: None = None) -> int: ...
 @overload
-def pow(base: int, exp: _NegativeInteger, mod: None = None) -> float: ...
+def pow(base: int, exp: _NegativeInteger, mod: None = None) -> float: ...  # type: ignore[overload-cannot-match]
 
 # int base & positive-int exp -> int; int base & negative-int exp -> float
 # return type must be Any as `int | float` causes too many false-positive errors
 @overload
-def pow(base: int, exp: int, mod: None = None) -> Any: ...
+def pow(base: int, exp: int, mod: None = None) -> Any: ...  # type: ignore[overload-cannot-match]
 @overload
 def pow(base: _PositiveInteger, exp: float, mod: None = None) -> float: ...
 @overload
-def pow(base: _NegativeInteger, exp: float, mod: None = None) -> complex: ...
+def pow(base: _NegativeInteger, exp: float, mod: None = None) -> complex: ...  # type: ignore[overload-cannot-match]
 @overload
 def pow(base: float, exp: int, mod: None = None) -> float: ...
 
