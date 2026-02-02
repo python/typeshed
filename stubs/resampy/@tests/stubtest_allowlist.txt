@@ -1,3 +1,2 @@
-# The functions are part of the internal API.
-resampy.interpn.resample_f_p
-resampy.interpn.resample_f_s
+# Part of internal API which is not needed for public type stubs:
+resampy.interpn
