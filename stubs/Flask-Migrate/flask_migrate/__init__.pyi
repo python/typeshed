@@ -5,8 +5,8 @@ from _typeshed import StrPath, SupportsFlush, SupportsKeysAndGetItem, SupportsWr
 from argparse import Namespace
 from collections.abc import Callable, Iterable, Sequence
 from logging import Logger
-from typing import Any, Protocol, TypeVar, type_check_only
-from typing_extensions import ParamSpec, TypeAlias
+from typing import Any, Protocol, TypeAlias, TypeVar, type_check_only
+from typing_extensions import ParamSpec
 
 import flask
 from flask_sqlalchemy import SQLAlchemy

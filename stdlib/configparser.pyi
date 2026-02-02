@@ -2,8 +2,8 @@ import sys
 from _typeshed import MaybeNone, StrOrBytesPath, SupportsWrite
 from collections.abc import Callable, ItemsView, Iterable, Iterator, Mapping, MutableMapping, Sequence
 from re import Pattern
-from typing import Any, ClassVar, Final, Literal, TypeVar, overload, type_check_only
-from typing_extensions import TypeAlias, deprecated
+from typing import Any, ClassVar, Final, Literal, TypeAlias, TypeVar, overload, type_check_only
+from typing_extensions import deprecated
 
 if sys.version_info >= (3, 14):
     __all__ = (

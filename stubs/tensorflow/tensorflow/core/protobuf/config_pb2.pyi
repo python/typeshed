@@ -5,8 +5,8 @@ isort:skip_file
 
 import builtins
 import collections.abc
-import sys
 import typing
+import typing as typing_extensions
 
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
@@ -20,11 +20,6 @@ import tensorflow.core.protobuf.debug_pb2
 import tensorflow.core.protobuf.rewriter_config_pb2
 import tensorflow.tsl.protobuf.coordination_config_pb2
 import tensorflow.tsl.protobuf.rpc_options_pb2
-
-if sys.version_info >= (3, 10):
-    import typing as typing_extensions
-else:
-    import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 

@@ -12,8 +12,8 @@ from collections.abc import Callable, Sequence
 from concurrent.futures import Executor
 from contextvars import Context
 from socket import AddressFamily, AddressInfo, SocketKind, _Address, _RetAddress, socket
-from typing import IO, Any, Literal, Protocol, TypeVar, overload, type_check_only
-from typing_extensions import Self, TypeAlias, TypeVarTuple, Unpack, deprecated
+from typing import IO, Any, Literal, Protocol, TypeAlias, TypeVar, overload, type_check_only
+from typing_extensions import Self, TypeVarTuple, Unpack, deprecated
 
 from . import _AwaitableLike, _CoroutineLike
 from .base_events import Server
@@ -467,7 +467,7 @@ class AbstractEventLoop:
             ssl_handshake_timeout: float | None = None,
             ssl_shutdown_timeout: float | None = None,
         ) -> tuple[Transport, _ProtocolT]: ...
-    elif sys.version_info >= (3, 10):
+    else:
         async def connect_accepted_socket(
             self,
             protocol_factory: Callable[[], _ProtocolT],

@@ -3,12 +3,11 @@ import sys
 from bdb import Bdb, _Backend
 from cmd import Cmd
 from collections.abc import Callable, Iterable, Mapping, Sequence
-from inspect import _SourceObjectType
 from linecache import _ModuleGlobals
 from rlcompleter import Completer
 from types import CodeType, FrameType, TracebackType
-from typing import IO, Any, ClassVar, Final, Literal, TypeVar
-from typing_extensions import ParamSpec, Self, TypeAlias, deprecated
+from typing import IO, Any, ClassVar, Final, Literal, TypeAlias, TypeVar
+from typing_extensions import ParamSpec, Self, deprecated
 
 __all__ = ["run", "pm", "Pdb", "runeval", "runctx", "runcall", "set_trace", "post_mortem", "help"]
 if sys.version_info >= (3, 14):
@@ -259,10 +258,6 @@ class Pdb(Bdb, Cmd):
 def find_function(funcname: str, filename: str) -> tuple[str, str, int] | None: ...
 def main() -> None: ...
 def help() -> None: ...
-
-if sys.version_info < (3, 10):
-    def getsourcelines(obj: _SourceObjectType) -> tuple[list[str], int]: ...
-
 def lasti2lineno(code: CodeType, lasti: int) -> int: ...
 
 class _rstr(str):

@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Callable
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 import pythoncom
 
