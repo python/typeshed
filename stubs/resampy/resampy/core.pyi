@@ -10,12 +10,6 @@ _FloatArray = TypeVar("_FloatArray", bound=np.ndarray[tuple[int, ...], np.dtype[
 
 _FilterType: TypeAlias = str | Callable[[int], np.ndarray[tuple[int], np.dtype[np.float64]]]
 
-@type_check_only
-class _FilterKwArgs(TypedDict, total=False):
-    num_zeros: int
-    precision: int
-    rolloff: float
-
 def resample(
     x: _FloatArray,
     sr_orig: float,
