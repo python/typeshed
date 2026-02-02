@@ -3,7 +3,7 @@
 # https://github.com/astral-sh/uv/issues/8666
 name = "typeshed"
 version = "0"
-requires-python = ">=3.9" # Minimum version to run tests, used by uv run
+requires-python = ">=3.10" # Minimum version to run tests, used by uv run
 
 [tool.black]
 line-length = 130
@@ -13,7 +13,7 @@ skip-magic-trailing-comma = true
 [tool.ruff]
 line-length = 130
 # Oldest supported Python version
-target-version = "py39"
+target-version = "py310"
 fix = true
 exclude = [
     # virtual environment
@@ -263,4 +263,4 @@ extra-standard-library = [
 known-first-party = ["_utils", "ts_utils"]
 
 [tool.typeshed]
-oldest_supported_python = "3.9"
+oldest_supported_python = "3.10"
