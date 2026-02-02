@@ -23,7 +23,10 @@ def resample(
     axis: int = -1,
     filter: _FilterType = "kaiser_best",
     parallel: bool = False,
-    **kwargs: Unpack[_FilterKwArgs],
+    *,
+    num_zeros: int = ...,
+    precision: int = ...,
+    rolloff: float = ...,
 ) -> _FloatArray: ...
 def resample_nu(
     x: _FloatArray,
