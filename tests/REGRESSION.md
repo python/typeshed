@@ -25,7 +25,7 @@ the annotations correctly. Examples of tests like these are
 Other test cases, such as the samples for `ExitStack` in
 `stdlib/@tests/test_cases/check_contextlib.py` and the samples for `LogRecord`
 in `stdlib/@tests/test_cases/check_logging.py`, do not relate to
-stubs where the annotations are particularly complex, but they *do* relate to
+stubs where the annotations are particularly complex, but they _do_ relate to
 stubs where decisions have been taken that might be slightly unusual. These
 test cases serve a different purpose: to check that type checkers do not emit
 false-positive errors for idiomatic usage of these classes.
@@ -65,7 +65,7 @@ mypy's
 [`--warn-unused-ignores`](https://mypy.readthedocs.io/en/stable/command_line.html#cmdoption-mypy-warn-unused-ignores)
 setting and pyright's
 [`reportUnnecessaryTypeIgnoreComment`](https://github.com/microsoft/pyright/blob/main/docs/configuration.md#type-check-diagnostics-settings)
-setting) to test instances where a type checker *should* emit some kind of
+setting) to test instances where a type checker _should_ emit some kind of
 error, if the stubs are correct. Both settings are enabled by default for
 all `@tests/test_cases/` subdirectories in typeshed.
 
@@ -121,13 +121,13 @@ Some tests will only pass on mypy
 with a specific Python version passed on the command line to the `tests/regr_test.py` script.
 To mark a test-case file as being skippable on lower versions of Python,
 append `-py3*` to the filename.
-For example, if `foo` is a stdlib feature that's new in Python 3.11,
+For example, if `foo` is a stdlib feature that's new in Python 3.14,
 test cases for `foo` should be put in a file named
-`stdlib/@tests/test_cases/check_foo-py311.py`.
+`stdlib/@tests/test_cases/check_foo-py314.py`.
 This means that mypy will only run the test case
-if `--python-version 3.11`, `--python-version 3.12`, etc.
+if `--python-version 3.14`, `--python-version 3.15`, etc.
 is passed on the command line to `tests/regr_test.py`,
-but it _won't_ run the test case if e.g. `--python-version 3.9`
+but it _won't_ run the test case if e.g. `--python-version 3.13`
 is passed on the command line.
 
 However, `if sys.version_info >= (3, target):` is still required for `pyright`
