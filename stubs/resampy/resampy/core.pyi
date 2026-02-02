@@ -1,11 +1,14 @@
 from collections.abc import Callable
-from typing_extensions import TypeAlias, TypeVar, Unpack
+from typing import Any
+from typing_extensions import TypeAlias, TypeVar
 
 import numpy as np
 
 __all__ = ["resample", "resample_nu"]
 
-_FloatArray = TypeVar("_FloatArray", bound=np.ndarray[tuple[int, ...], np.dtype[np.floating]])
+_FloatArray = TypeVar("_FloatArray", bound=np.ndarray[tuple[int, ...], np.dtype[np.floating[Any]]])
+
+# np.floating[Any] because precision is not important
 
 _FilterType: TypeAlias = str | Callable[[int], np.ndarray[tuple[int], np.dtype[np.float64]]]
 
@@ -17,9 +20,9 @@ def resample(
     filter: _FilterType = "kaiser_best",
     parallel: bool = False,
     *,
-    num_zeros: int = ...,
-    precision: int = ...,
-    rolloff: float = ...,
+    num_zeros: int = 64,
+    precision: int = 9,
+    rolloff: float = 0.945,
 ) -> _FloatArray: ...
 def resample_nu(
     x: _FloatArray,
@@ -28,5 +31,8 @@ def resample_nu(
     axis: int = -1,
     filter: _FilterType = "kaiser_best",
     parallel: bool = False,
-    **kwargs: Unpack[_FilterKwArgs],
+    *,
+    num_zeros: int = 64,
+    precision: int = 9,
+    rolloff: float = 0.945,
 ) -> _FloatArray: ...
