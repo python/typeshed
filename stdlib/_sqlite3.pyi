@@ -18,8 +18,7 @@ from sqlite3 import (
     Warning as Warning,
     _IsolationLevel,
 )
-from typing import Any, Final, Literal, TypeVar, overload
-from typing_extensions import TypeAlias
+from typing import Any, Final, Literal, TypeAlias, TypeVar, overload
 
 if sys.version_info >= (3, 11):
     from sqlite3 import Blob as Blob
@@ -301,13 +300,5 @@ if sys.version_info < (3, 12):
     # takes a pos-or-keyword argument because there is a C wrapper
     def enable_shared_cache(do_enable: int) -> None: ...
 
-if sys.version_info >= (3, 10):
-    def register_adapter(type: type[_T], adapter: _Adapter[_T], /) -> None: ...
-    def register_converter(typename: str, converter: _Converter, /) -> None: ...
-
-else:
-    def register_adapter(type: type[_T], caster: _Adapter[_T], /) -> None: ...
-    def register_converter(name: str, converter: _Converter, /) -> None: ...
-
-if sys.version_info < (3, 10):
-    OptimizedUnicode = str
+def register_adapter(type: type[_T], adapter: _Adapter[_T], /) -> None: ...
+def register_converter(typename: str, converter: _Converter, /) -> None: ...

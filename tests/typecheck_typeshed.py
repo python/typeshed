@@ -7,14 +7,14 @@ import argparse
 import subprocess
 import sys
 from itertools import product
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 from ts_utils.utils import colored, print_error
 
 ReturnCode: TypeAlias = int
 
 SUPPORTED_PLATFORMS = ("linux", "darwin", "win32")
-SUPPORTED_VERSIONS = ("3.14", "3.13", "3.12", "3.11", "3.10", "3.9")
+SUPPORTED_VERSIONS = ("3.14", "3.13", "3.12", "3.11", "3.10")
 LOWEST_SUPPORTED_VERSION = min(SUPPORTED_VERSIONS, key=lambda x: int(x.split(".")[1]))
 DIRECTORIES_TO_TEST = ("scripts", "tests")
 EMPTY: list[str] = []

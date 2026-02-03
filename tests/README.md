@@ -1,26 +1,28 @@
 This directory contains several tests:
+
 - `tests/mypy_test.py`
-tests the stubs with [mypy](https://github.com/python/mypy/)
+  tests the stubs with [mypy](https://github.com/python/mypy/)
 - `tests/pyright_test.py` tests the stubs with
-[pyright](https://github.com/microsoft/pyright).
+  [pyright](https://github.com/microsoft/pyright).
 - `tests/regr_test.py` runs mypy against the test cases for typeshed's
-stubs, guarding against accidental regressions.
+  stubs, guarding against accidental regressions.
 - `tests/check_typeshed_structure.py` checks that typeshed's directory
-structure and metadata files are correct.
+  structure and metadata files are correct.
 - `tests/stubtest_stdlib.py` checks standard library stubs against the
-objects at runtime.
+  objects at runtime.
 - `tests/stubtest_third_party.py` checks third-party stubs against the
-objects at runtime.
+  objects at runtime.
 - `tests/typecheck_typeshed.py` runs mypy against typeshed's own code
-in the `tests` and `scripts` directories.
+  in the `tests` and `scripts` directories.
 
 To run the tests, follow the [setup instructions](../CONTRIBUTING.md#preparing-the-environment)
-in the `CONTRIBUTING.md` document. In particular, you have to run with Python 3.9+.
+in the `CONTRIBUTING.md` document.
 
 In order for `pyright_test` to work correctly, some third-party stubs
 may require extra dependencies external to typeshed to be installed in your virtual environment
 prior to running the test.
 You can list or install all of a stubs package's external dependencies using the following script:
+
 ```bash
 (.venv)$ python tests/get_external_stub_requirements.py <third_party_stub>  # List external dependencies for <third_party_stub>
 (.venv)$ python tests/get_external_stub_requirements.py <third_party_stub1> <third_party_stub2>  # List external dependencies for <third_party_stub1> and <third_party_stub2>
@@ -31,6 +33,7 @@ You can list or install all of a stubs package's external dependencies using the
 ## Run all tests for a specific stub
 
 Run using:
+
 ```bash
 (.venv)$ python3 tests/runtests.py <stdlib-or-stubs>/<stub-to-test>
 ```
@@ -48,9 +51,10 @@ whether or not the test passes will depend on the exact version of Python
 you're using, as well as various other details regarding your local environment.
 For more information, see the docs on [`stubtest_stdlib.py`](#stubtest_stdlibpy) below.
 
-## mypy\_test.py
+## mypy_test.py
 
 Run using:
+
 ```bash
 (.venv)$ python3 tests/mypy_test.py
 ```
@@ -65,11 +69,12 @@ imported but doesn't check whether stubs match their implementation
 Run `python tests/mypy_test.py --help` for information on the various configuration options
 for this script.
 
-## pyright\_test.py
+## pyright_test.py
 
 This test requires [Node.js](https://nodejs.org) to be installed. Although
 typeshed runs pyright in CI, it does not currently use this script. However,
 this script uses the same pyright version and configuration as the CI.
+
 ```bash
 (.venv)$ python3 tests/pyright_test.py                                # Check all files
 (.venv)$ python3 tests/pyright_test.py stdlib/sys.pyi                 # Check one file
@@ -81,7 +86,7 @@ checks that would typically fail on incomplete stubs (such as `Unknown` checks).
 In typeshed's CI, pyright is run with these configuration settings on a subset of
 the stubs in typeshed (including the standard library).
 
-## regr\_test.py
+## regr_test.py
 
 This test runs mypy against the test cases for typeshed's stdlib and third-party
 stubs. See [the REGRESSION.md document](./REGRESSION.md)
@@ -90,18 +95,20 @@ for more information about what
 these test cases are for and how they work. Run `python tests/regr_test.py --help`
 for information on the various configuration options.
 
-## check\_typeshed\_structure.py
+## check_typeshed_structure.py
 
 This checks that typeshed's directory structure and metadata files are correct.
 
 Run using:
+
 ```bash
 $ python3 tests/check_typeshed_structure.py
 ```
 
-## stubtest\_stdlib.py
+## stubtest_stdlib.py
 
 Run using
+
 ```bash
 (.venv)$ python3 tests/stubtest_stdlib.py
 ```
@@ -116,7 +123,7 @@ test it automatically (or
 [running the test via Github Actions](https://docs.github.com/en/actions/managing-workflow-runs/manually-running-a-workflow#running-a-workflow)
 on your typeshed fork).
 
-As a convenience, stubtest\_stdlib.py will look for local-only allowlist files
+As a convenience, stubtest_stdlib.py will look for local-only allowlist files
 and use those if they are present. Only version-specific local allowlists are supported.
 An example local allowlist file is
 `stdlib/@tests/stubtest_allowlists/py312.txt.local`. Use caution when taking advantage of this feature;
@@ -130,13 +137,14 @@ can add to the allowlists for each affected Python version in
 `stdlib/@tests/stubtest_allowlists`. Please file issues for stubtest false positives
 at [mypy](https://github.com/python/mypy/issues).
 
-## stubtest\_third\_party.py
+## stubtest_third_party.py
 
 :warning: This script downloads and executes arbitrary code from PyPI. Only run
 this script locally if you know you can trust the packages you're running
 stubtest on.
 
 Run using
+
 ```bash
 (.venv)$ python3 tests/stubtest_third_party.py
 ```
@@ -151,6 +159,7 @@ check on the command line:
 
 If you have the runtime package installed in your local virtual environment, you can also run stubtest
 directly, with
+
 ```bash
 (.venv)$ MYPYPATH=<path-to-module-stubs> python3 -m mypy.stubtest \
   --custom-typeshed-dir <path-to-typeshed> \
@@ -177,7 +186,7 @@ considered "incomplete".
 You can help make typeshed's stubs more complete by removing
 `ignore_missing_stub = true` from the `tests/METADATA.toml` file for a
 third-party stubs distribution, running stubtest, and then adding things that
-stubtest reports to be missing to the stub. However, note that not *everything*
+stubtest reports to be missing to the stub. However, note that not _everything_
 that stubtest reports to be missing should necessarily be added to the stub.
 For some implementation details, it is often better to add allowlist entries
 for missing objects rather than trying to match the runtime in every detail.
@@ -199,9 +208,10 @@ For Django stubs specifically, you'll need to create a `django_settings.py` file
 that contains the Django settings required by the plugin. This file will be referenced by the plugin
 configuration to properly validate Django-specific types during stubtest execution.
 
-## typecheck\_typeshed.py
+## typecheck_typeshed.py
 
 Run using
+
 ```bash
 (.venv)$ python3 tests/typecheck_typeshed.py
 ```

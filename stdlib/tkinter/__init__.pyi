@@ -5,8 +5,21 @@ from collections.abc import Callable, Iterable, Mapping, Sequence
 from tkinter.constants import *
 from tkinter.font import _FontDescription
 from types import GenericAlias, TracebackType
-from typing import Any, ClassVar, Final, Generic, Literal, NamedTuple, Protocol, TypedDict, TypeVar, overload, type_check_only
-from typing_extensions import TypeAlias, TypeVarTuple, Unpack, deprecated, disjoint_base
+from typing import (
+    Any,
+    ClassVar,
+    Final,
+    Generic,
+    Literal,
+    NamedTuple,
+    Protocol,
+    TypeAlias,
+    TypedDict,
+    TypeVar,
+    overload,
+    type_check_only,
+)
+from typing_extensions import TypeVarTuple, Unpack, deprecated, disjoint_base
 
 if sys.version_info >= (3, 11):
     from enum import StrEnum

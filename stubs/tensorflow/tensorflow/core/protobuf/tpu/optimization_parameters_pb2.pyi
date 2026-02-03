@@ -4,19 +4,14 @@ isort:skip_file
 """
 
 import builtins
-import sys
 import typing
+import typing as typing_extensions
 
 import google.protobuf.descriptor
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
 import google.protobuf.wrappers_pb2
 import tensorflow.compiler.xla.service.hlo_pb2
-
-if sys.version_info >= (3, 10):
-    import typing as typing_extensions
-else:
-    import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 

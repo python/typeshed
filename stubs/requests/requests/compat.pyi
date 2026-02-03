@@ -1,7 +1,6 @@
 from builtins import bytes as bytes, str as str
 from collections import OrderedDict as OrderedDict
-from typing import Literal
-from typing_extensions import TypeAlias
+from typing import Literal, TypeAlias
 from urllib.parse import (
     quote as quote,
     quote_plus as quote_plus,

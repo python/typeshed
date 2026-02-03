@@ -3,7 +3,7 @@
 # https://github.com/astral-sh/uv/issues/8666
 name = "typeshed"
 version = "0"
-requires-python = ">=3.9" # Minimum version to run tests, used by uv run
+requires-python = ">=3.10" # Minimum version to run tests, used by uv run
 
 [tool.black]
 line-length = 130
@@ -13,7 +13,7 @@ skip-magic-trailing-comma = true
 [tool.ruff]
 line-length = 130
 # Oldest supported Python version
-target-version = "py39"
+target-version = "py310"
 fix = true
 exclude = [
     # virtual environment
@@ -108,7 +108,7 @@ select = [
     "PYI044", # `from __future__ import annotations` has no effect in stub files, since type checkers automatically treat stubs as having those semantics
     "PYI055", # Multiple `type[T]` usages in a union. Combine them into one, e.g., `type[{union_str}]`.
     "PYI058", # Use `{return_type}` as the return value for simple `{method}` methods
-    # "PYI059", # TODO: Add when dropping Python 3.9 support
+    "PYI059", # Checks for classes inheriting from typing.Generic[] where Generic[] is not the last base class in the bases tuple.
     "PYI061", # Use `None` rather than `Literal[None]`
     "PYI062", # Duplicate literal member `{}`
     "PYI064", # `Final[Literal[{literal}]]` can be replaced with a bare Final
@@ -263,4 +263,4 @@ extra-standard-library = [
 known-first-party = ["_utils", "ts_utils"]
 
 [tool.typeshed]
-oldest_supported_python = "3.9"
+oldest_supported_python = "3.10"

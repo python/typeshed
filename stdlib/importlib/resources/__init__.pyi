@@ -4,8 +4,8 @@ from collections.abc import Iterator
 from contextlib import AbstractContextManager
 from pathlib import Path
 from types import ModuleType
-from typing import Any, BinaryIO, Literal, TextIO
-from typing_extensions import TypeAlias, deprecated
+from typing import Any, BinaryIO, Literal, TextIO, TypeAlias
+from typing_extensions import deprecated
 
 if sys.version_info >= (3, 11):
     from importlib.resources.abc import Traversable
@@ -30,8 +30,7 @@ __all__ = [
     "read_text",
 ]
 
-if sys.version_info >= (3, 10):
-    __all__ += ["ResourceReader"]
+__all__ += ["ResourceReader"]
 
 if sys.version_info < (3, 13):
     __all__ += ["Resource"]
@@ -82,5 +81,5 @@ else:
 
 if sys.version_info >= (3, 11):
     from importlib.resources.abc import ResourceReader as ResourceReader
-elif sys.version_info >= (3, 10):
+else:
     from importlib.abc import ResourceReader as ResourceReader

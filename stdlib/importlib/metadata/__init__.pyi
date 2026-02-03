@@ -5,13 +5,11 @@ import types
 from _collections_abc import dict_keys, dict_values
 from _typeshed import StrPath
 from collections.abc import Iterable, Iterator, Mapping
-from email.message import Message
 from importlib.abc import MetaPathFinder
 from os import PathLike
-from pathlib import Path
 from re import Pattern
-from typing import Any, ClassVar, Generic, NamedTuple, TypeVar, overload
-from typing_extensions import Self, TypeAlias, deprecated, disjoint_base
+from typing import Any, ClassVar, Generic, NamedTuple, TypeAlias, TypeVar, overload
+from typing_extensions import Self, deprecated, disjoint_base
 
 _T = TypeVar("_T")
 _KT = TypeVar("_KT")
@@ -30,17 +28,13 @@ __all__ = [
     "version",
 ]
 
-if sys.version_info >= (3, 10):
-    __all__ += ["PackageMetadata", "packages_distributions"]
+__all__ += ["PackageMetadata", "packages_distributions"]
 
-if sys.version_info >= (3, 10):
-    from importlib.metadata._meta import PackageMetadata as PackageMetadata, SimplePath
-    def packages_distributions() -> Mapping[str, list[str]]: ...
+from importlib.metadata._meta import PackageMetadata as PackageMetadata, SimplePath
 
-    _SimplePath: TypeAlias = SimplePath
+def packages_distributions() -> Mapping[str, list[str]]: ...
 
-else:
-    _SimplePath: TypeAlias = Path
+_SimplePath: TypeAlias = SimplePath
 
 class PackageNotFoundError(ModuleNotFoundError):
     @property
@@ -103,19 +97,17 @@ else:
         def module(self) -> str: ...
         @property
         def attr(self) -> str: ...
-        if sys.version_info >= (3, 10):
-            dist: ClassVar[Distribution | None]
-            def matches(
-                self,
-                *,
-                name: str = ...,
-                value: str = ...,
-                group: str = ...,
-                module: str = ...,
-                attr: str = ...,
-                extras: list[str] = ...,
-            ) -> bool: ...  # undocumented
-
+        dist: ClassVar[Distribution | None]
+        def matches(
+            self,
+            *,
+            name: str = ...,
+            value: str = ...,
+            group: str = ...,
+            module: str = ...,
+            attr: str = ...,
+            extras: list[str] = ...,
+        ) -> bool: ...  # undocumented
         def __hash__(self) -> int: ...
         def __iter__(self) -> Iterator[Any]: ...  # result of iter((str, Self)), really
 
@@ -138,7 +130,7 @@ if sys.version_info >= (3, 12):
         @property
         def groups(self) -> set[str]: ...
 
-elif sys.version_info >= (3, 10):
+else:
     class DeprecatedList(list[_T]):
         __slots__ = ()
 
@@ -234,27 +226,18 @@ class Distribution(_distribution_parent):
     ) -> Iterable[Distribution]: ...
     @staticmethod
     def at(path: StrPath) -> PathDistribution: ...
-
-    if sys.version_info >= (3, 10):
-        @property
-        def metadata(self) -> PackageMetadata: ...
-        @property
-        def entry_points(self) -> EntryPoints: ...
-    else:
-        @property
-        def metadata(self) -> Message: ...
-        @property
-        def entry_points(self) -> list[EntryPoint]: ...
-
+    @property
+    def metadata(self) -> PackageMetadata: ...
+    @property
+    def entry_points(self) -> EntryPoints: ...
     @property
     def version(self) -> str: ...
     @property
     def files(self) -> list[PackagePath] | None: ...
     @property
     def requires(self) -> list[str] | None: ...
-    if sys.version_info >= (3, 10):
-        @property
-        def name(self) -> str: ...
+    @property
+    def name(self) -> str: ...
     if sys.version_info >= (3, 13):
         @property
         def origin(self) -> types.SimpleNamespace | None: ...
@@ -275,7 +258,7 @@ class MetadataPathFinder(DistributionFinder):
     if sys.version_info >= (3, 11):
         @classmethod
         def invalidate_caches(cls) -> None: ...
-    elif sys.version_info >= (3, 10):
+    else:
         # Yes, this is an instance method that has a parameter named "cls"
         def invalidate_caches(cls) -> None: ...
 
@@ -292,28 +275,20 @@ def distributions(*, context: DistributionFinder.Context) -> Iterable[Distributi
 def distributions(
     *, context: None = None, name: str | None = ..., path: list[str] = ..., **kwargs: Any
 ) -> Iterable[Distribution]: ...
-
-if sys.version_info >= (3, 10):
-    def metadata(distribution_name: str) -> PackageMetadata: ...
-
-else:
-    def metadata(distribution_name: str) -> Message: ...
+def metadata(distribution_name: str) -> PackageMetadata: ...
 
 if sys.version_info >= (3, 12):
     def entry_points(
         *, name: str = ..., value: str = ..., group: str = ..., module: str = ..., attr: str = ..., extras: list[str] = ...
     ) -> EntryPoints: ...
 
-elif sys.version_info >= (3, 10):
+else:
     @overload
     def entry_points() -> SelectableGroups: ...
     @overload
     def entry_points(
         *, name: str = ..., value: str = ..., group: str = ..., module: str = ..., attr: str = ..., extras: list[str] = ...
     ) -> EntryPoints: ...
-
-else:
-    def entry_points() -> dict[str, list[EntryPoint]]: ...
 
 def version(distribution_name: str) -> str: ...
 def files(distribution_name: str) -> list[PackagePath] | None: ...

@@ -2,8 +2,7 @@ import collections
 from collections.abc import Callable, Iterable, Iterator
 from datetime import datetime, tzinfo
 from re import Pattern
-from typing import ClassVar, Final, Literal, overload
-from typing_extensions import TypeAlias
+from typing import ClassVar, Final, Literal, TypeAlias, overload
 
 from dateparser import _Settings
 from dateparser.conf import Settings

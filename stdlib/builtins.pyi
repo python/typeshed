@@ -42,8 +42,10 @@ from typing import (  # noqa: Y022,UP035
     Any,
     BinaryIO,
     ClassVar,
+    Concatenate,
     Final,
     Generic,
+    Literal,
     Mapping,
     MutableMapping,
     MutableSequence,
@@ -54,6 +56,8 @@ from typing import (  # noqa: Y022,UP035
     SupportsComplex,
     SupportsFloat,
     SupportsIndex,
+    TypeAlias,
+    TypeGuard,
     TypeVar,
     final,
     overload,
@@ -61,19 +65,7 @@ from typing import (  # noqa: Y022,UP035
 )
 
 # we can't import `Literal` from typing or mypy crashes: see #11247
-from typing_extensions import (  # noqa: Y023
-    Concatenate,
-    Literal,
-    LiteralString,
-    ParamSpec,
-    Self,
-    TypeAlias,
-    TypeGuard,
-    TypeIs,
-    TypeVarTuple,
-    deprecated,
-    disjoint_base,
-)
+from typing_extensions import LiteralString, ParamSpec, Self, TypeIs, TypeVarTuple, deprecated, disjoint_base  # noqa: Y023
 
 if sys.version_info >= (3, 14):
     from _typeshed import AnnotateFunc
@@ -152,12 +144,11 @@ class staticmethod(Generic[_P, _R_co]):
     def __get__(self, instance: None, owner: type, /) -> Callable[_P, _R_co]: ...
     @overload
     def __get__(self, instance: _T, owner: type[_T] | None = None, /) -> Callable[_P, _R_co]: ...
-    if sys.version_info >= (3, 10):
-        __name__: str
-        __qualname__: str
-        @property
-        def __wrapped__(self) -> Callable[_P, _R_co]: ...
-        def __call__(self, *args: _P.args, **kwargs: _P.kwargs) -> _R_co: ...
+    __name__: str
+    __qualname__: str
+    @property
+    def __wrapped__(self) -> Callable[_P, _R_co]: ...
+    def __call__(self, *args: _P.args, **kwargs: _P.kwargs) -> _R_co: ...
     if sys.version_info >= (3, 14):
         def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
         __annotate__: AnnotateFunc | None
@@ -173,11 +164,10 @@ class classmethod(Generic[_T, _P, _R_co]):
     def __get__(self, instance: _T, owner: type[_T] | None = None, /) -> Callable[_P, _R_co]: ...
     @overload
     def __get__(self, instance: None, owner: type[_T], /) -> Callable[_P, _R_co]: ...
-    if sys.version_info >= (3, 10):
-        __name__: str
-        __qualname__: str
-        @property
-        def __wrapped__(self) -> Callable[Concatenate[type[_T], _P], _R_co]: ...
+    __name__: str
+    __qualname__: str
+    @property
+    def __wrapped__(self) -> Callable[Concatenate[type[_T], _P], _R_co]: ...
     if sys.version_info >= (3, 14):
         def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
         __annotate__: AnnotateFunc | None
@@ -227,11 +217,8 @@ class type:
     def __subclasscheck__(self, subclass: type, /) -> bool: ...
     @classmethod
     def __prepare__(metacls, name: str, bases: tuple[type, ...], /, **kwds: Any) -> MutableMapping[str, object]: ...
-    if sys.version_info >= (3, 10):
-        # `int | str` produces an instance of `UnionType`, but `int | int` produces an instance of `type`,
-        # and `abc.ABC | abc.ABC` produces an instance of `abc.ABCMeta`.
-        def __or__(self: _typeshed.Self, value: Any, /) -> types.UnionType | _typeshed.Self: ...
-        def __ror__(self: _typeshed.Self, value: Any, /) -> types.UnionType | _typeshed.Self: ...
+    def __or__(self: _typeshed.Self, value: Any, /) -> types.UnionType | _typeshed.Self: ...
+    def __ror__(self: _typeshed.Self, value: Any, /) -> types.UnionType | _typeshed.Self: ...
     if sys.version_info >= (3, 12):
         __type_params__: tuple[TypeVar | ParamSpec | TypeVarTuple, ...]
     __annotations__: dict[str, AnnotationForm]
@@ -247,9 +234,14 @@ class super:
     @overload
     def __init__(self) -> None: ...
 
-_PositiveInteger: TypeAlias = Literal[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
-_NegativeInteger: TypeAlias = Literal[-1, -2, -3, -4, -5, -6, -7, -8, -9, -10, -11, -12, -13, -14, -15, -16, -17, -18, -19, -20]
-_LiteralInteger = _PositiveInteger | _NegativeInteger | Literal[0]  # noqa: Y026  # TODO: Use TypeAlias once mypy bugs are fixed
+# TODO (2026-02-02): For unknown reasons, mypy crashes when using Literal for these type aliases
+_PositiveInteger: TypeAlias = (
+    int  # Literal[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
+)
+_NegativeInteger: TypeAlias = (
+    int  # Literal[-1, -2, -3, -4, -5, -6, -7, -8, -9, -10, -11, -12, -13, -14, -15, -16, -17, -18, -19, -20]
+)
+_LiteralInteger: TypeAlias = int  # _PositiveInteger | _NegativeInteger | Literal[0]  # noqa: Y026
 
 @disjoint_base
 class int:
@@ -268,8 +260,7 @@ class int:
     def denominator(self) -> Literal[1]: ...
     def conjugate(self) -> int: ...
     def bit_length(self) -> int: ...
-    if sys.version_info >= (3, 10):
-        def bit_count(self) -> int: ...
+    def bit_count(self) -> int: ...
 
     if sys.version_info >= (3, 11):
         def to_bytes(
@@ -311,18 +302,20 @@ class int:
     def __rtruediv__(self, value: int, /) -> float: ...
     def __rmod__(self, value: int, /) -> int: ...
     def __rdivmod__(self, value: int, /) -> tuple[int, int]: ...
+    # TODO (2026-02-02): Remove the type ignore statements below when the integer type
+    # aliases above are fixed.
     @overload
-    def __pow__(self, x: Literal[0], /) -> Literal[1]: ...
+    def __pow__(self, x: Literal[0], /) -> Literal[1]: ...  # type: ignore[overlap,overload-overlap]
     @overload
-    def __pow__(self, value: Literal[0], mod: None, /) -> Literal[1]: ...
+    def __pow__(self, value: Literal[0], mod: None, /) -> Literal[1]: ...  # type: ignore[overlap,overload-overlap]
     @overload
-    def __pow__(self, value: _PositiveInteger, mod: None = None, /) -> int: ...
+    def __pow__(self, value: _PositiveInteger, mod: None = None, /) -> int: ...  # type: ignore[overlap]
     @overload
-    def __pow__(self, value: _NegativeInteger, mod: None = None, /) -> float: ...
+    def __pow__(self, value: _NegativeInteger, mod: None = None, /) -> float: ...  # type: ignore[overlap,overload-cannot-match]
     # positive __value -> int; negative __value -> float
     # return type must be Any as `int | float` causes too many false-positive errors
     @overload
-    def __pow__(self, value: int, mod: None = None, /) -> Any: ...
+    def __pow__(self, value: int, mod: None = None, /) -> Any: ...  # type: ignore[overload-cannot-match]
     @overload
     def __pow__(self, value: int, mod: int, /) -> int: ...
     def __rpow__(self, value: int, mod: int | None = None, /) -> Any: ...
@@ -395,10 +388,12 @@ class float:
     def __rtruediv__(self, value: float, /) -> float: ...
     def __rmod__(self, value: float, /) -> float: ...
     def __rdivmod__(self, value: float, /) -> tuple[float, float]: ...
+    # TODO (2026-02-02): Remove the type ignore statements below when the integer type
+    # aliases above are fixed.
     @overload
     def __rpow__(self, value: _PositiveInteger, mod: None = None, /) -> float: ...
     @overload
-    def __rpow__(self, value: _NegativeInteger, mod: None = None, /) -> complex: ...
+    def __rpow__(self, value: _NegativeInteger, mod: None = None, /) -> complex: ...  # type: ignore[overload-cannot-match]
     # Returning `complex` for the general case gives too many false-positive errors.
     @overload
     def __rpow__(self, value: float, mod: None = None, /) -> Any: ...
@@ -943,11 +938,7 @@ class memoryview(Sequence[_I]):
     def __setitem__(self, key: slice[SupportsIndex | None], value: ReadableBuffer, /) -> None: ...
     @overload
     def __setitem__(self, key: SupportsIndex | tuple[SupportsIndex, ...], value: _I, /) -> None: ...
-    if sys.version_info >= (3, 10):
-        def tobytes(self, order: Literal["C", "F", "A"] | None = "C") -> bytes: ...
-    else:
-        def tobytes(self, order: Literal["C", "F", "A"] | None = None) -> bytes: ...
-
+    def tobytes(self, order: Literal["C", "F", "A"] | None = "C") -> bytes: ...
     def tolist(self) -> list[int]: ...
     def toreadonly(self) -> memoryview: ...
     def release(self) -> None: ...
@@ -1086,9 +1077,8 @@ class function:
     if sys.version_info >= (3, 14):
         __annotate__: AnnotateFunc | None
     __kwdefaults__: dict[str, Any] | None
-    if sys.version_info >= (3, 10):
-        @property
-        def __builtins__(self) -> dict[str, Any]: ...
+    @property
+    def __builtins__(self) -> dict[str, Any]: ...
     if sys.version_info >= (3, 12):
         __type_params__: tuple[TypeVar | ParamSpec | TypeVarTuple, ...]
 
@@ -1389,20 +1379,18 @@ def bin(number: int | SupportsIndex, /) -> str: ...
 def breakpoint(*args: Any, **kws: Any) -> None: ...
 def callable(obj: object, /) -> TypeIs[Callable[..., object]]: ...
 def chr(i: int | SupportsIndex, /) -> str: ...
+def aiter(async_iterable: SupportsAiter[_SupportsAnextT_co], /) -> _SupportsAnextT_co: ...
+@type_check_only
+class _SupportsSynchronousAnext(Protocol[_AwaitableT_co]):
+    def __anext__(self) -> _AwaitableT_co: ...
 
-if sys.version_info >= (3, 10):
-    def aiter(async_iterable: SupportsAiter[_SupportsAnextT_co], /) -> _SupportsAnextT_co: ...
-    @type_check_only
-    class _SupportsSynchronousAnext(Protocol[_AwaitableT_co]):
-        def __anext__(self) -> _AwaitableT_co: ...
-
-    @overload
-    # `anext` is not, in fact, an async function. When default is not provided
-    # `anext` is just a passthrough for `obj.__anext__`
-    # See discussion in #7491 and pure-Python implementation of `anext` at https://github.com/python/cpython/blob/ea786a882b9ed4261eafabad6011bc7ef3b5bf94/Lib/test/test_asyncgen.py#L52-L80
-    def anext(i: _SupportsSynchronousAnext[_AwaitableT], /) -> _AwaitableT: ...
-    @overload
-    async def anext(i: SupportsAnext[_T], default: _VT, /) -> _T | _VT: ...
+@overload
+# `anext` is not, in fact, an async function. When default is not provided
+# `anext` is just a passthrough for `obj.__anext__`
+# See discussion in #7491 and pure-Python implementation of `anext` at https://github.com/python/cpython/blob/ea786a882b9ed4261eafabad6011bc7ef3b5bf94/Lib/test/test_asyncgen.py#L52-L80
+def anext(i: _SupportsSynchronousAnext[_AwaitableT], /) -> _AwaitableT: ...
+@overload
+async def anext(i: SupportsAnext[_T], default: _VT, /) -> _T | _VT: ...
 
 # compile() returns a CodeType, unless the flags argument includes PyCF_ONLY_AST (=1024),
 # in which case it returns ast.AST. We have overloads for flag 0 (the default) and for
@@ -1562,10 +1550,7 @@ def iter(object: Callable[[], _T | None], sentinel: None, /) -> Iterator[_T]: ..
 @overload
 def iter(object: Callable[[], _T], sentinel: object, /) -> Iterator[_T]: ...
 
-if sys.version_info >= (3, 10):
-    _ClassInfo: TypeAlias = type | types.UnionType | tuple[_ClassInfo, ...]
-else:
-    _ClassInfo: TypeAlias = type | tuple[_ClassInfo, ...]
+_ClassInfo: TypeAlias = type | types.UnionType | tuple[_ClassInfo, ...]
 
 def isinstance(obj: object, class_or_tuple: _ClassInfo, /) -> bool: ...
 def issubclass(cls: type, class_or_tuple: _ClassInfo, /) -> bool: ...
@@ -1841,23 +1826,25 @@ _SupportsSomeKindOfPow = (  # noqa: Y026  # TODO: Use TypeAlias once mypy bugs a
 
 # TODO: `pow(int, int, Literal[0])` fails at runtime,
 # but adding a `NoReturn` overload isn't a good solution for expressing that (see #8566).
+# TODO (2026-02-02): Remove the type ignore statements below when the integer type
+# aliases above are fixed.
 @overload
 def pow(base: int, exp: int, mod: int) -> int: ...
 @overload
-def pow(base: int, exp: Literal[0], mod: None = None) -> Literal[1]: ...
+def pow(base: int, exp: Literal[0], mod: None = None) -> Literal[1]: ...  # type: ignore[overload-overlap]
 @overload
 def pow(base: int, exp: _PositiveInteger, mod: None = None) -> int: ...
 @overload
-def pow(base: int, exp: _NegativeInteger, mod: None = None) -> float: ...
+def pow(base: int, exp: _NegativeInteger, mod: None = None) -> float: ...  # type: ignore[overload-cannot-match]
 
 # int base & positive-int exp -> int; int base & negative-int exp -> float
 # return type must be Any as `int | float` causes too many false-positive errors
 @overload
-def pow(base: int, exp: int, mod: None = None) -> Any: ...
+def pow(base: int, exp: int, mod: None = None) -> Any: ...  # type: ignore[overload-cannot-match]
 @overload
 def pow(base: _PositiveInteger, exp: float, mod: None = None) -> float: ...
 @overload
-def pow(base: _NegativeInteger, exp: float, mod: None = None) -> complex: ...
+def pow(base: _NegativeInteger, exp: float, mod: None = None) -> complex: ...  # type: ignore[overload-cannot-match]
 @overload
 def pow(base: float, exp: int, mod: None = None) -> float: ...
 
@@ -1947,83 +1934,45 @@ def vars(object: type, /) -> types.MappingProxyType[str, Any]: ...
 def vars(object: Any = ..., /) -> dict[str, Any]: ...
 @disjoint_base
 class zip(Generic[_T_co]):
-    if sys.version_info >= (3, 10):
-        @overload
-        def __new__(cls, *, strict: bool = False) -> zip[Any]: ...
-        @overload
-        def __new__(cls, iter1: Iterable[_T1], /, *, strict: bool = False) -> zip[tuple[_T1]]: ...
-        @overload
-        def __new__(cls, iter1: Iterable[_T1], iter2: Iterable[_T2], /, *, strict: bool = False) -> zip[tuple[_T1, _T2]]: ...
-        @overload
-        def __new__(
-            cls, iter1: Iterable[_T1], iter2: Iterable[_T2], iter3: Iterable[_T3], /, *, strict: bool = False
-        ) -> zip[tuple[_T1, _T2, _T3]]: ...
-        @overload
-        def __new__(
-            cls,
-            iter1: Iterable[_T1],
-            iter2: Iterable[_T2],
-            iter3: Iterable[_T3],
-            iter4: Iterable[_T4],
-            /,
-            *,
-            strict: bool = False,
-        ) -> zip[tuple[_T1, _T2, _T3, _T4]]: ...
-        @overload
-        def __new__(
-            cls,
-            iter1: Iterable[_T1],
-            iter2: Iterable[_T2],
-            iter3: Iterable[_T3],
-            iter4: Iterable[_T4],
-            iter5: Iterable[_T5],
-            /,
-            *,
-            strict: bool = False,
-        ) -> zip[tuple[_T1, _T2, _T3, _T4, _T5]]: ...
-        @overload
-        def __new__(
-            cls,
-            iter1: Iterable[Any],
-            iter2: Iterable[Any],
-            iter3: Iterable[Any],
-            iter4: Iterable[Any],
-            iter5: Iterable[Any],
-            iter6: Iterable[Any],
-            /,
-            *iterables: Iterable[Any],
-            strict: bool = False,
-        ) -> zip[tuple[Any, ...]]: ...
-    else:
-        @overload
-        def __new__(cls) -> zip[Any]: ...
-        @overload
-        def __new__(cls, iter1: Iterable[_T1], /) -> zip[tuple[_T1]]: ...
-        @overload
-        def __new__(cls, iter1: Iterable[_T1], iter2: Iterable[_T2], /) -> zip[tuple[_T1, _T2]]: ...
-        @overload
-        def __new__(cls, iter1: Iterable[_T1], iter2: Iterable[_T2], iter3: Iterable[_T3], /) -> zip[tuple[_T1, _T2, _T3]]: ...
-        @overload
-        def __new__(
-            cls, iter1: Iterable[_T1], iter2: Iterable[_T2], iter3: Iterable[_T3], iter4: Iterable[_T4], /
-        ) -> zip[tuple[_T1, _T2, _T3, _T4]]: ...
-        @overload
-        def __new__(
-            cls, iter1: Iterable[_T1], iter2: Iterable[_T2], iter3: Iterable[_T3], iter4: Iterable[_T4], iter5: Iterable[_T5], /
-        ) -> zip[tuple[_T1, _T2, _T3, _T4, _T5]]: ...
-        @overload
-        def __new__(
-            cls,
-            iter1: Iterable[Any],
-            iter2: Iterable[Any],
-            iter3: Iterable[Any],
-            iter4: Iterable[Any],
-            iter5: Iterable[Any],
-            iter6: Iterable[Any],
-            /,
-            *iterables: Iterable[Any],
-        ) -> zip[tuple[Any, ...]]: ...
-
+    @overload
+    def __new__(cls, *, strict: bool = False) -> zip[Any]: ...
+    @overload
+    def __new__(cls, iter1: Iterable[_T1], /, *, strict: bool = False) -> zip[tuple[_T1]]: ...
+    @overload
+    def __new__(cls, iter1: Iterable[_T1], iter2: Iterable[_T2], /, *, strict: bool = False) -> zip[tuple[_T1, _T2]]: ...
+    @overload
+    def __new__(
+        cls, iter1: Iterable[_T1], iter2: Iterable[_T2], iter3: Iterable[_T3], /, *, strict: bool = False
+    ) -> zip[tuple[_T1, _T2, _T3]]: ...
+    @overload
+    def __new__(
+        cls, iter1: Iterable[_T1], iter2: Iterable[_T2], iter3: Iterable[_T3], iter4: Iterable[_T4], /, *, strict: bool = False
+    ) -> zip[tuple[_T1, _T2, _T3, _T4]]: ...
+    @overload
+    def __new__(
+        cls,
+        iter1: Iterable[_T1],
+        iter2: Iterable[_T2],
+        iter3: Iterable[_T3],
+        iter4: Iterable[_T4],
+        iter5: Iterable[_T5],
+        /,
+        *,
+        strict: bool = False,
+    ) -> zip[tuple[_T1, _T2, _T3, _T4, _T5]]: ...
+    @overload
+    def __new__(
+        cls,
+        iter1: Iterable[Any],
+        iter2: Iterable[Any],
+        iter3: Iterable[Any],
+        iter4: Iterable[Any],
+        iter5: Iterable[Any],
+        iter6: Iterable[Any],
+        /,
+        *iterables: Iterable[Any],
+        strict: bool = False,
+    ) -> zip[tuple[Any, ...]]: ...
     def __iter__(self) -> Self: ...
     def __next__(self) -> _T_co: ...
 
@@ -2038,29 +1987,14 @@ def __import__(
 ) -> types.ModuleType: ...
 def __build_class__(func: Callable[[], CellType | Any], name: str, /, *bases: Any, metaclass: Any = ..., **kwds: Any) -> Any: ...
 
-if sys.version_info >= (3, 10):
-    from types import EllipsisType, NotImplementedType
+from types import EllipsisType, NotImplementedType
 
-    # Backwards compatibility hack for folks who relied on the ellipsis type
-    # existing in typeshed in Python 3.9 and earlier.
-    ellipsis = EllipsisType
+# Backwards compatibility hack for folks who relied on the ellipsis type
+# existing in typeshed in Python 3.9 and earlier.
+ellipsis = EllipsisType
 
-    Ellipsis: EllipsisType
-    NotImplemented: NotImplementedType
-else:
-    # Actually the type of Ellipsis is <type 'ellipsis'>, but since it's
-    # not exposed anywhere under that name, we make it private here.
-    @final
-    @type_check_only
-    class ellipsis: ...
-
-    Ellipsis: ellipsis
-
-    @final
-    @type_check_only
-    class _NotImplementedType(Any): ...
-
-    NotImplemented: _NotImplementedType
+Ellipsis: EllipsisType
+NotImplemented: NotImplementedType
 
 @disjoint_base
 class BaseException:
@@ -2113,15 +2047,11 @@ if sys.platform == "win32":
 class ArithmeticError(Exception): ...
 class AssertionError(Exception): ...
 
-if sys.version_info >= (3, 10):
-    @disjoint_base
-    class AttributeError(Exception):
-        def __init__(self, *args: object, name: str | None = None, obj: object = None) -> None: ...
-        name: str | None
-        obj: object
-
-else:
-    class AttributeError(Exception): ...
+@disjoint_base
+class AttributeError(Exception):
+    def __init__(self, *args: object, name: str | None = None, obj: object = None) -> None: ...
+    name: str | None
+    obj: object
 
 class BufferError(Exception): ...
 class EOFError(Exception): ...
@@ -2138,14 +2068,10 @@ class ImportError(Exception):
 class LookupError(Exception): ...
 class MemoryError(Exception): ...
 
-if sys.version_info >= (3, 10):
-    @disjoint_base
-    class NameError(Exception):
-        def __init__(self, *args: object, name: str | None = None) -> None: ...
-        name: str | None
-
-else:
-    class NameError(Exception): ...
+@disjoint_base
+class NameError(Exception):
+    def __init__(self, *args: object, name: str | None = None) -> None: ...
+    name: str | None
 
 class ReferenceError(Exception): ...
 class RuntimeError(Exception): ...
@@ -2161,9 +2087,8 @@ class SyntaxError(Exception):
     # Errors are displayed differently if this attribute exists on the exception.
     # The value is always None.
     print_file_and_line: None
-    if sys.version_info >= (3, 10):
-        end_lineno: int | None
-        end_offset: int | None
+    end_lineno: int | None
+    end_offset: int | None
 
     @overload
     def __init__(self) -> None: ...
@@ -2172,12 +2097,10 @@ class SyntaxError(Exception):
     # Second argument is the tuple (filename, lineno, offset, text)
     @overload
     def __init__(self, msg: str, info: tuple[str | None, int | None, int | None, str | None], /) -> None: ...
-    if sys.version_info >= (3, 10):
-        # end_lineno and end_offset must both be provided if one is.
-        @overload
-        def __init__(
-            self, msg: str, info: tuple[str | None, int | None, int | None, str | None, int | None, int | None], /
-        ) -> None: ...
+    @overload
+    def __init__(
+        self, msg: str, info: tuple[str | None, int | None, int | None, str | None, int | None, int | None], /
+    ) -> None: ...
     # If you provide more than two arguments, it still creates the SyntaxError, but
     # the arguments from the info tuple are not parsed. This form is omitted.
 
@@ -2253,9 +2176,7 @@ class ImportWarning(Warning): ...
 class UnicodeWarning(Warning): ...
 class BytesWarning(Warning): ...
 class ResourceWarning(Warning): ...
-
-if sys.version_info >= (3, 10):
-    class EncodingWarning(Warning): ...
+class EncodingWarning(Warning): ...
 
 if sys.version_info >= (3, 11):
     _BaseExceptionT_co = TypeVar("_BaseExceptionT_co", bound=BaseException, covariant=True, default=BaseException)

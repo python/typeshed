@@ -19,7 +19,7 @@ from dataclasses import dataclass
 from enum import IntEnum
 from functools import partial
 from pathlib import Path
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 from ts_utils.metadata import get_recursive_requirements, read_metadata
 from ts_utils.mypy import mypy_configuration_from_distribution, temporary_mypy_config_file
@@ -41,7 +41,7 @@ VENV_DIR = ".venv"
 TYPESHED = "typeshed"
 
 SUPPORTED_PLATFORMS = ["linux", "darwin", "win32"]
-SUPPORTED_VERSIONS = ["3.14", "3.13", "3.12", "3.11", "3.10", "3.9"]
+SUPPORTED_VERSIONS = ["3.14", "3.13", "3.12", "3.11", "3.10"]
 
 
 def distribution_with_test_cases(distribution_name: str) -> DistributionTests:
@@ -213,8 +213,8 @@ def run_testcases(
 
         flags.extend(["--custom-typeshed-dir", str(custom_typeshed)])
 
-        # If the test-case filename ends with -py39,
-        # only run the test if --python-version was set to 3.9 or higher (for example)
+        # If the test-case filename ends with -py314,
+        # only run the test if --python-version was set to 3.14 or higher (for example)
         for path in new_test_case_dir.rglob("*.py"):
             if match := re.fullmatch(r".*-py3(\d{1,2})", path.stem):
                 minor_version_required = int(match[1])
