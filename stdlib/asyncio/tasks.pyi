@@ -413,8 +413,8 @@ else:
 
 def all_tasks(loop: AbstractEventLoop | None = None) -> set[Task[Any]]: ...
 
-if sys.version_info >= (3, 13):
-    # `eager_start` parameter added in Python 3.13.3
+if sys.version_info >= (3, 14):
+    # `eager_start` only exists in Python 3.13.3
     def create_task(
         coro: _CoroutineLike[_T], *, name: str | None = None, context: Context | None = None, eager_start: bool | None = None
     ) -> Task[_T]: ...

@@ -161,8 +161,8 @@ class AbstractEventLoop:
     @abstractmethod
     def create_future(self) -> Future[Any]: ...
     # Tasks methods
-    if sys.version_info >= (3, 13):
-        # `eager_start` parameter added in Python 3.13.3
+    if sys.version_info >= (3, 14):
+        # `eager_start` only exists in Python 3.13.3
         @abstractmethod
         def create_task(
             self,

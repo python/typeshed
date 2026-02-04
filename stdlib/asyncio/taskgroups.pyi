@@ -22,8 +22,8 @@ class TaskGroup:
 
     async def __aenter__(self) -> Self: ...
     async def __aexit__(self, et: type[BaseException] | None, exc: BaseException | None, tb: TracebackType | None) -> None: ...
-    if sys.version_info >= (3, 13):
-        # `eager_start` parameter added in Python 3.13.3
+    if sys.version_info >= (3, 14):
+        # `eager_start` only exists in Python 3.13.3
         def create_task(
             self,
             coro: _CoroutineLike[_T],
