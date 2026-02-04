@@ -28,7 +28,7 @@ if sys.version_info >= (3, 14):
         authkey_r: int | None = None,
     ) -> None: ...
 
-if sys.version_info >= (3, 13):
+elif sys.version_info >= (3, 13):
     # `sys_argv` parameter added in Python 3.13.12
     def main(
         listener_fd: int | None,
