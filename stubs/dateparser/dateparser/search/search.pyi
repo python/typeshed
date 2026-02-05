@@ -1,15 +1,17 @@
+import re
+from _typeshed import Incomplete
 from collections.abc import Collection
-from typing import Any
+from typing import Final
 
 from ..date import _DetectLanguagesFunction
 
-RELATIVE_REG: Any
+RELATIVE_REG: Final[re.Pattern[str]]
 
 def date_is_relative(translation): ...
 
 class _ExactLanguageSearch:
-    loader: Any
-    language: Any
+    loader: Incomplete
+    language: Incomplete
     def __init__(self, loader) -> None: ...
     def get_current_language(self, shortname) -> None: ...
     def search(self, shortname, text, settings): ...
@@ -20,14 +22,14 @@ class _ExactLanguageSearch:
     def split_if_not_parsed(self, item, original): ...
     def parse_item(self, parser, item, translated_item, parsed, need_relative_base): ...
     def parse_found_objects(self, parser, to_parse, original, translated, settings): ...
-    def search_parse(self, shortname, text, settings): ...
+    def search_parse(self, shortname, text, settings) -> list[tuple[Incomplete, Incomplete]]: ...
 
 class DateSearchWithDetection:
-    loader: Any
-    available_language_map: Any
-    search: Any
+    loader: Incomplete
+    available_language_map: Incomplete
+    search: Incomplete
     def __init__(self) -> None: ...
-    language_detector: Any
+    language_detector: Incomplete
     def detect_language(
         self, text, languages, settings=None, detect_languages_function: _DetectLanguagesFunction | None = None
     ): ...
