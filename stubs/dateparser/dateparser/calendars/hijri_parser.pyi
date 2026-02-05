@@ -1,4 +1,5 @@
-from typing import Any, SupportsIndex
+from _typeshed import Incomplete
+from typing import SupportsIndex
 
 from dateparser.calendars import non_gregorian_parser
 
@@ -13,9 +14,9 @@ class hijri:
     def month_length(cls, year: int, month: int) -> int: ...
 
 class HijriDate:
-    year: Any
-    month: Any
-    day: Any
+    year: Incomplete
+    month: Incomplete
+    day: Incomplete
     def __init__(self, year, month, day) -> None: ...
     def weekday(self): ...
 

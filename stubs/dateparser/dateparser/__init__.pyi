@@ -18,6 +18,7 @@ class _Settings(TypedDict, total=False):
     TIMEZONE: str
     TO_TIMEZONE: str
     RETURN_AS_TIMEZONE_AWARE: bool
+    PREFER_MONTH_OF_YEAR: Literal["current", "first", "last"]
     PREFER_DAY_OF_MONTH: Literal["current", "first", "last"]
     PREFER_DATES_FROM: Literal["current_period", "future", "past"]
     RELATIVE_BASE: datetime.datetime
@@ -26,7 +27,13 @@ class _Settings(TypedDict, total=False):
     SKIP_TOKENS: list[str]
     NORMALIZE: bool
     RETURN_TIME_AS_PERIOD: bool
+    RETURN_TIME_SPAN: bool
+    DEFAULT_START_OF_WEEK: Literal["monday", "sunday"]
+    DEFAULT_DAYS_IN_MONTH: int
     PARSERS: list[_ParserKind]
+    DEFAULT_LANGUAGES: list[str]
+    LANGUAGE_DETECTION_CONFIDENCE_THRESHOLD: float
+    CACHE_SIZE_LIMIT: int
 
 def parse(
     date_string: str,
