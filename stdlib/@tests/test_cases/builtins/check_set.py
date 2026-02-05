@@ -12,3 +12,7 @@ def test_set_difference(x: set[Literal["foo", "bar"]], y: set[str], z: set[int])
     assert_type(z - x, set[int])
     assert_type(y - z, set[str])
     assert_type(z - y, set[int])
+
+
+def test_set_discard(x: set[Literal["foo", "bar"]], key: str) -> None:
+    x.discard(key)  # OK
