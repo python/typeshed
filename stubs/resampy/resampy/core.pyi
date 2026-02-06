@@ -6,10 +6,8 @@ import numpy as np
 
 __all__ = ["resample", "resample_nu"]
 
-_FloatArray = TypeVar("_FloatArray", bound=np.ndarray[tuple[int, ...], np.dtype[np.floating[Any]]])
-
 # np.floating[Any] because precision is not important
-
+_FloatArray = TypeVar("_FloatArray", bound=np.ndarray[tuple[int, ...], np.dtype[np.floating[Any]]])
 _FilterType: TypeAlias = str | Callable[[int], np.ndarray[tuple[int], np.dtype[np.float64]]]
 
 def resample(
