@@ -6,7 +6,6 @@ import logging.handlers
 import multiprocessing
 import queue
 from typing import Any
-
 from typing_extensions import assert_type
 
 # This pattern comes from the logging docs, and should therefore pass a type checker
