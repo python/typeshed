@@ -1,10 +1,13 @@
 from __future__ import annotations
 
+import io
 import logging
 import logging.handlers
 import multiprocessing
 import queue
 from typing import Any
+
+from typing_extensions import assert_type
 
 # This pattern comes from the logging docs, and should therefore pass a type checker
 # See https://docs.python.org/3/library/logging.html#logrecord-objects
@@ -28,3 +31,7 @@ logging.handlers.QueueHandler(multiprocessing.Queue())
 logging.handlers.QueueListener(queue.Queue())
 logging.handlers.QueueListener(queue.SimpleQueue())
 logging.handlers.QueueListener(multiprocessing.Queue())
+
+# FileHandler.stream can be None when delay=True or after close()
+fh = logging.FileHandler("test.log", delay=True)
+assert_type(fh.stream, io.TextIOWrapper | None)
