@@ -1,8 +1,8 @@
-# from fontTools.misc.loggingTools
+from _typeshed import Incomplete
 from abc import ABCMeta, abstractmethod
 from collections.abc import Mapping
 from logging import Logger
-from typing import Any, Protocol
+from typing import Protocol
 from typing_extensions import TypeAlias
 
 # from fonttools.ttLib.ttGlyphSet
@@ -13,8 +13,13 @@ class _TTGlyph(Protocol):
 
 _TTGlyphSet: TypeAlias = Mapping[str, _TTGlyph]  # Simplified for our needs
 
-# fonttools.ttLib.TTFont
-_TTFont: TypeAlias = Any  # noqa: Y047
+# from fonttools.ttLib.TTFont
+_TTFont: TypeAlias = Incomplete  # noqa: Y047
+
+# from fonttools.ttLib.tables.otTables
+CompositeMode: TypeAlias = Incomplete
+Paint: TypeAlias = Incomplete
+PaintFormat: TypeAlias = Incomplete
 
 # from fontTools.misc.loggingTools
 
@@ -53,3 +58,6 @@ class BasePen(DecomposingPen):
     def lineTo(self, pt: tuple[float, float]) -> None: ...
     def curveTo(self, *points: tuple[float, float]) -> None: ...
     def qCurveTo(self, *points: tuple[float, float]) -> None: ...
+
+# from fontTools.varLib.varStore
+VarStoreInstancer: TypeAlias = Incomplete
