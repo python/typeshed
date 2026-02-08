@@ -1,6 +1,7 @@
 from typing import Any, Literal
 
 from portage.dbapi.porttree import portdbapi
+
 from .config import config
 
 def doebuild(
