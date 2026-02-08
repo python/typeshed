@@ -1,8 +1,8 @@
-from _typeshed import Incomplete, StrPath
+from _typeshed import StrPath
 from collections.abc import Callable, Iterable
 from shlex import _ShlexInstream
 from typing import ClassVar, Final, Literal, NoReturn
-from typing_extensions import deprecated
+from typing_extensions import Never, deprecated
 
 from ...version import LooseVersion
 from . import unix
@@ -48,8 +48,8 @@ class Compiler(unix.Compiler):
         build_temp: StrPath | None = None,
         target_lang: str | None = None,
     ) -> None: ...
-    # cygwin doesn't support rpath. writes a warning and returns an empty list
-    def runtime_library_dir_option(self, dir: str) -> list[Incomplete]: ...  # type: ignore[override]
+    # cygwin doesn't support rpath; prints a warning and returns an empty list
+    def runtime_library_dir_option(self, dir: str) -> list[Never]: ...  # type: ignore[override]
     @property
     def out_extensions(self) -> dict[str, str]: ...
 
