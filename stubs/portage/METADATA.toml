@@ -1,0 +1,5 @@
+version = "3.0.*"
+upstream_repository = "https://gitweb.gentoo.org/proj/portage.git"
+
+[tool.stubtest]
+ci_platforms = ["linux"]
