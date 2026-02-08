@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from collections.abc import Callable, Iterable
+from collections.abc import Callable, Collection, Iterable
 
 from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
@@ -15,7 +15,7 @@ __all__ = [
 @_dispatchable
 def projected_graph(B: Graph[_Node], nodes: Iterable[Incomplete], multigraph: bool = False): ...
 @_dispatchable
-def weighted_projected_graph(B: Graph[_Node], nodes: Iterable[Incomplete], ratio: bool = False): ...
+def weighted_projected_graph(B: Graph[_Node], nodes: Collection[Incomplete], ratio: bool = False): ...
 @_dispatchable
 def collaboration_weighted_projected_graph(B: Graph[_Node], nodes: Iterable[Incomplete]): ...
 @_dispatchable
