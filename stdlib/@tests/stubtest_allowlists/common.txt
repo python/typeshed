@@ -59,7 +59,7 @@ _frozen_importlib_external.WindowsRegistryFinder.REGISTRY_KEY
 _frozen_importlib_external.WindowsRegistryFinder.REGISTRY_KEY_DEBUG
 
 builtins.OSError.characters_written  # GetSetDescriptor that always raises AttributeError
-builtins.ellipsis  # type is not exposed anywhere
+builtins.ellipsis  # does not exist at runtime, see https://github.com/python/typeshed/pull/14957
 builtins.float.__getformat__  # Internal method for CPython test suite
 
 # These super() dunders don't seem to be particularly useful,
