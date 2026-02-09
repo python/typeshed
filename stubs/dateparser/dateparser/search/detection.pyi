@@ -1,15 +1,15 @@
-from typing import Any
+from _typeshed import Incomplete
 
 class BaseLanguageDetector:
-    languages: Any
+    languages: Incomplete
     def __init__(self, languages) -> None: ...
     def iterate_applicable_languages(self, date_string, modify: bool = False, settings=None) -> None: ...
 
 class AutoDetectLanguage(BaseLanguageDetector):
-    language_pool: Any
-    allow_redetection: Any
+    language_pool: Incomplete
+    allow_redetection: Incomplete
     def __init__(self, languages, allow_redetection: bool = False) -> None: ...
-    languages: Any
+    languages: Incomplete
     def iterate_applicable_languages(self, date_string, modify: bool = False, settings=None) -> None: ...
 
 class ExactLanguages(BaseLanguageDetector):
