@@ -18,11 +18,11 @@ from typing import (
     SupportsFloat,
     SupportsIndex,
     SupportsInt,
+    TypeAlias,
     TypeVar,
-    final,
     overload,
 )
-from typing_extensions import Buffer, LiteralString, Self as _Self, TypeAlias
+from typing_extensions import Buffer, LiteralString, Self as _Self
 
 _KT = TypeVar("_KT")
 _KT_co = TypeVar("_KT_co", covariant=True)
@@ -318,13 +318,7 @@ ExcInfo: TypeAlias = tuple[type[BaseException], BaseException, TracebackType]
 OptExcInfo: TypeAlias = ExcInfo | tuple[None, None, None]
 
 # stable
-if sys.version_info >= (3, 10):
-    from types import NoneType as NoneType
-else:
-    # Used by type checkers for checks involving None (does not exist at runtime)
-    @final
-    class NoneType:
-        def __bool__(self) -> Literal[False]: ...
+from types import NoneType as NoneType
 
 # This is an internal CPython type that is like, but subtly different from, a NamedTuple
 # Subclasses of this type are found in multiple modules.

@@ -1,7 +1,6 @@
 import time
 from collections.abc import Callable, Sequence
-from typing import IO, Any
-from typing_extensions import TypeAlias
+from typing import IO, Any, TypeAlias
 
 __all__ = ["Timer", "timeit", "repeat", "default_timer"]
 

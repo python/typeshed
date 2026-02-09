@@ -1,5 +1,4 @@
-from typing import Any, Literal, SupportsIndex
-from typing_extensions import TypeAlias
+from typing import Any, Literal, SupportsIndex, TypeAlias
 
 _UnboundOp: TypeAlias = Literal[1, 2, 3]
 

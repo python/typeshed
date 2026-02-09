@@ -1,8 +1,7 @@
 import sys
 from _typeshed import SupportsMul, SupportsRMul
 from collections.abc import Iterable
-from typing import Any, Final, Literal, Protocol, SupportsFloat, SupportsIndex, TypeVar, overload, type_check_only
-from typing_extensions import TypeAlias
+from typing import Any, Final, Literal, Protocol, SupportsFloat, SupportsIndex, TypeAlias, TypeVar, overload, type_check_only
 
 _T = TypeVar("_T")
 _T_co = TypeVar("_T_co", covariant=True)

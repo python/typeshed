@@ -1,6 +1,5 @@
 import datetime
-from typing import Literal, TypedDict, type_check_only
-from typing_extensions import TypeAlias
+from typing import Literal, TypeAlias, TypedDict, type_check_only
 
 from .date import DateDataParser, _DetectLanguagesFunction
 
