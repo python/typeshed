@@ -148,6 +148,11 @@ extend-safe-fixes = [
 ]
 ignore = [
     ###
+    # TODO: Disabled temporarily, until Python 3.9 branches are removed in
+    # May 2026.
+    ###
+    "E402", # module level import not at top of file
+    ###
     # Rules that can conflict with the formatter (Black)
     # https://docs.astral.sh/ruff/formatter/#conflicting-lint-rules
     ###
