@@ -3,7 +3,7 @@
 # https://github.com/astral-sh/uv/issues/8666
 name = "typeshed"
 version = "0"
-requires-python = ">=3.9" # Minimum version to run tests, used by uv run
+requires-python = ">=3.10" # Minimum version to run tests, used by uv run
 
 [tool.black]
 line-length = 130
@@ -147,6 +147,12 @@ extend-safe-fixes = [
     "UP036", # Remove unnecessary `sys.version_info` blocks
 ]
 ignore = [
+    ###
+    # TODO: Disabled temporarily, until Python 3.9 support is fully removed in
+    # May 2026.
+    ###
+    "UP035", # import from typing
+    "UP036", # Remove unnecessary `sys.version_info` blocks
     ###
     # Rules that can conflict with the formatter (Black)
     # https://docs.astral.sh/ruff/formatter/#conflicting-lint-rules
