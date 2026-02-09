@@ -151,7 +151,6 @@ ignore = [
     # TODO: Disabled temporarily, until Python 3.9 support is fully removed in
     # May 2026.
     ###
-    "E402", # module level import not at top of file
     "UP035", # import from typing
     "UP036", # Remove unnecessary `sys.version_info` blocks
     "RUF100", # Remove unused `noqa` directive
