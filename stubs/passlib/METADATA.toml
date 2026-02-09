@@ -2,5 +2,6 @@ version = "1.7.*"
 upstream_repository = "https://foss.heptapod.net/python-libs/passlib"
 
 [tool.stubtest]
-# The runtime package has an undeclared dependency on setuptools
-stubtest_requirements = ["setuptools"]
+# The runtime package has an undeclared dependency on setuptools.
+# setuptools 82 dropped pkg_resources, which passlib relies on.
+stubtest_requirements = ["setuptools<82"]
