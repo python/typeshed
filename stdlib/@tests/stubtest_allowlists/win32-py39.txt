@@ -2,6 +2,12 @@
 # Temporary
 # =========
 
+# According to stubtest, these are sometimes not present at runtime, starting
+# with Python 3.9.13. Which is not true.
+(_frozen_importlib_external.PathFinder.find_distributions)?
+(importlib._bootstrap_external.PathFinder.find_distributions)?
+(importlib.machinery.PathFinder.find_distributions)?
+
 # Added in Python 3.9.14
 # (Remove once 3.9.14 becomes available for GitHub Actions)
 sys.set_int_max_str_digits
