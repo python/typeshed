@@ -1,5 +1,6 @@
 from _typeshed import StrPath, Unused
-from typing import Literal, TypeAlias, overload
+from typing import Literal, overload
+from typing_extensions import TypeAlias
 from xml.etree.ElementTree import ElementTree
 
 from .Menu import Menu, MenuEntry, Separator, XMLMenuBuilder

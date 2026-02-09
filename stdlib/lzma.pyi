@@ -36,8 +36,8 @@ from _lzma import (
 )
 from _typeshed import ReadableBuffer, StrOrBytesPath
 from io import TextIOWrapper
-from typing import IO, Literal, TypeAlias, overload
-from typing_extensions import Self
+from typing import IO, Literal, overload
+from typing_extensions import Self, TypeAlias
 
 if sys.version_info >= (3, 14):
     from compression._common._streams import BaseStream

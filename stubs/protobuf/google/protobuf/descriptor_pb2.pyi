@@ -12,13 +12,18 @@ without any other information (e.g. without reading its imports).
 
 import builtins
 import collections.abc
+import sys
 import typing
-import typing as typing_extensions
 
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
+
+if sys.version_info >= (3, 10):
+    import typing as typing_extensions
+else:
+    import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 

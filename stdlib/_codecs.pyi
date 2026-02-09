@@ -2,7 +2,8 @@ import codecs
 import sys
 from _typeshed import ReadableBuffer
 from collections.abc import Callable
-from typing import Literal, TypeAlias, final, overload, type_check_only
+from typing import Literal, final, overload, type_check_only
+from typing_extensions import TypeAlias
 
 # This type is not exposed; it is defined in unicodeobject.c
 # At runtime it calls itself builtins.EncodingMap
@@ -16,7 +17,10 @@ _Handler: TypeAlias = Callable[[UnicodeError], tuple[str | bytes, int]]
 _SearchFunction: TypeAlias = Callable[[str], codecs.CodecInfo | None]
 
 def register(search_function: _SearchFunction, /) -> None: ...
-def unregister(search_function: _SearchFunction, /) -> None: ...
+
+if sys.version_info >= (3, 10):
+    def unregister(search_function: _SearchFunction, /) -> None: ...
+
 def register_error(errors: str, handler: _Handler, /) -> None: ...
 def lookup_error(name: str, /) -> _Handler: ...
 

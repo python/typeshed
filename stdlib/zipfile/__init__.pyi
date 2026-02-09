@@ -5,8 +5,8 @@ from collections.abc import Callable, Iterable, Iterator
 from io import TextIOWrapper
 from os import PathLike
 from types import TracebackType
-from typing import IO, Final, Literal, Protocol, TypeAlias, overload, type_check_only
-from typing_extensions import Self
+from typing import IO, Final, Literal, Protocol, overload, type_check_only
+from typing_extensions import Self, TypeAlias
 
 __all__ = [
     "BadZipFile",
@@ -345,8 +345,9 @@ else:
         def name(self) -> str: ...
         @property
         def parent(self) -> PathLike[str]: ...  # undocumented
-        @property
-        def filename(self) -> PathLike[str]: ...  # undocumented
+        if sys.version_info >= (3, 10):
+            @property
+            def filename(self) -> PathLike[str]: ...  # undocumented
         if sys.version_info >= (3, 11):
             @property
             def suffix(self) -> str: ...
@@ -369,7 +370,12 @@ else:
         ) -> TextIOWrapper: ...
         @overload
         def open(self, mode: Literal["rb", "wb"], *, pwd: bytes | None = None) -> IO[bytes]: ...
-        def iterdir(self) -> Iterator[Self]: ...
+
+        if sys.version_info >= (3, 10):
+            def iterdir(self) -> Iterator[Self]: ...
+        else:
+            def iterdir(self) -> Iterator[Path]: ...
+
         def is_dir(self) -> bool: ...
         def is_file(self) -> bool: ...
         def exists(self) -> bool: ...
@@ -382,7 +388,11 @@ else:
             write_through: bool = False,
         ) -> str: ...
         def read_bytes(self) -> bytes: ...
-        def joinpath(self, *other: StrPath) -> Path: ...  # undocumented
+        if sys.version_info >= (3, 10):
+            def joinpath(self, *other: StrPath) -> Path: ...
+        else:
+            def joinpath(self, add: StrPath) -> Path: ...  # undocumented
+
         def __truediv__(self, add: StrPath) -> Path: ...
 
 def is_zipfile(filename: StrOrBytesPath | _SupportsReadSeekTell) -> bool: ...

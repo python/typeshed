@@ -1,5 +1,6 @@
 from collections.abc import Iterable, Mapping, Sequence
-from typing import Any, Literal, TypeAlias
+from typing import Any, Literal
+from typing_extensions import TypeAlias
 
 from matplotlib.axes import Axes
 from matplotlib.colors import Colormap

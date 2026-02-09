@@ -1,5 +1,6 @@
 from _typeshed import Unused
-from typing import Literal, TypeAlias, TypedDict, type_check_only
+from typing import Literal, TypedDict, type_check_only
+from typing_extensions import TypeAlias
 
 @type_check_only
 class _ContinueRequestResult(TypedDict):

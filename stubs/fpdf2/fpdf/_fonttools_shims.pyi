@@ -2,7 +2,8 @@
 from abc import ABCMeta, abstractmethod
 from collections.abc import Mapping
 from logging import Logger
-from typing import Any, Protocol, TypeAlias
+from typing import Any, Protocol
+from typing_extensions import TypeAlias
 
 # from fonttools.ttLib.ttGlyphSet
 class _TTGlyph(Protocol):

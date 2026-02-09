@@ -1,5 +1,4 @@
-from typing import TypeAlias
-from typing_extensions import Buffer
+from typing_extensions import Buffer, TypeAlias
 
 _AdpcmState: TypeAlias = tuple[int, int]
 _RatecvState: TypeAlias = tuple[int, tuple[tuple[int, int], ...]]

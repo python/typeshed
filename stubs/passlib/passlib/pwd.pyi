@@ -1,8 +1,8 @@
 import random
 from abc import abstractmethod
 from collections.abc import Callable, Iterator, MutableMapping, Sequence
-from typing import Any, Final, Literal, TypeAlias, overload
-from typing_extensions import Self
+from typing import Any, Final, Literal, overload
+from typing_extensions import Self, TypeAlias
 
 class SequenceGenerator:
     length: int | None

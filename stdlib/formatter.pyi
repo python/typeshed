@@ -1,5 +1,6 @@
 from collections.abc import Iterable
-from typing import IO, Any, TypeAlias
+from typing import IO, Any
+from typing_extensions import TypeAlias
 
 AS_IS: None
 _FontType: TypeAlias = tuple[str, bool, bool, bool]

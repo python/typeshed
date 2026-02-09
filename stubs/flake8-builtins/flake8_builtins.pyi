@@ -1,7 +1,8 @@
 import ast
 from argparse import Namespace
 from collections.abc import Iterator
-from typing import ClassVar, TypeAlias
+from typing import ClassVar
+from typing_extensions import TypeAlias
 
 from flake8.options.manager import OptionManager
 

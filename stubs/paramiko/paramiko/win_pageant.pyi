@@ -1,7 +1,8 @@
 import ctypes
 import sys
 from _typeshed import Incomplete
-from typing import Literal, TypeAlias
+from typing import Literal
+from typing_extensions import TypeAlias
 
 if sys.platform == "win32":
     win32con_WM_COPYDATA: int

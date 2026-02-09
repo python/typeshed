@@ -1,7 +1,8 @@
 from _typeshed import Incomplete, SupportsItems
 from collections.abc import Iterable, Iterator, KeysView, Mapping, Sequence
 from datetime import datetime, timedelta, tzinfo
-from typing import Any as tAny, TypeAlias
+from typing import Any as tAny
+from typing_extensions import TypeAlias
 
 from google.protobuf import struct_pb2
 

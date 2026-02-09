@@ -122,19 +122,20 @@ if sys.version_info >= (3, 12):
 if sys.version_info >= (3, 11):
     from ast import TryStar as TryStar
 
-from ast import (
-    Match as Match,
-    MatchAs as MatchAs,
-    MatchClass as MatchClass,
-    MatchMapping as MatchMapping,
-    MatchOr as MatchOr,
-    MatchSequence as MatchSequence,
-    MatchSingleton as MatchSingleton,
-    MatchStar as MatchStar,
-    MatchValue as MatchValue,
-    match_case as match_case,
-    pattern as pattern,
-)
+if sys.version_info >= (3, 10):
+    from ast import (
+        Match as Match,
+        MatchAs as MatchAs,
+        MatchClass as MatchClass,
+        MatchMapping as MatchMapping,
+        MatchOr as MatchOr,
+        MatchSequence as MatchSequence,
+        MatchSingleton as MatchSingleton,
+        MatchStar as MatchStar,
+        MatchValue as MatchValue,
+        match_case as match_case,
+        pattern as pattern,
+    )
 
 PyCF_ALLOW_TOP_LEVEL_AWAIT: Final = 8192
 PyCF_ONLY_AST: Final = 1024

@@ -5,8 +5,8 @@ isort:skip_file
 
 import builtins
 import collections.abc
+import sys
 import typing
-import typing as typing_extensions
 
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
@@ -21,6 +21,11 @@ import s2clientprotocol.raw_pb2
 import s2clientprotocol.score_pb2
 import s2clientprotocol.spatial_pb2
 import s2clientprotocol.ui_pb2
+
+if sys.version_info >= (3, 10):
+    import typing as typing_extensions
+else:
+    import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 

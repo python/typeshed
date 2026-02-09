@@ -2,7 +2,8 @@
 
 from _typeshed import Incomplete, ReadableBuffer
 from collections.abc import Iterable, Iterator, Mapping, Sequence
-from typing import Any, Protocol, TypeAlias, TypeVar, overload
+from typing import Any, Protocol, TypeVar, overload
+from typing_extensions import TypeAlias
 from xml.etree.ElementTree import Element, ElementTree, QName, XMLParser, _FileRead
 
 from openpyxl.chart.axis import ChartLines

@@ -1,5 +1,6 @@
 from _typeshed import Unused
-from typing import TypeAlias, TypedDict, type_check_only
+from typing import TypedDict, type_check_only
+from typing_extensions import TypeAlias
 
 _SourceReferenceID: TypeAlias = int
 

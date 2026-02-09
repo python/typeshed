@@ -1,5 +1,5 @@
 from logging import Logger
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 from win32com.server.policy import BasicWrapPolicy
 

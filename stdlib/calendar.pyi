@@ -4,7 +4,8 @@ import sys
 from _typeshed import Unused
 from collections.abc import Iterable, Sequence
 from time import struct_time
-from typing import ClassVar, Final, TypeAlias
+from typing import ClassVar, Final
+from typing_extensions import TypeAlias
 
 __all__ = [
     "IllegalMonthError",
@@ -33,7 +34,8 @@ __all__ = [
     "weekheader",
 ]
 
-__all__ += ["FRIDAY", "MONDAY", "SATURDAY", "SUNDAY", "THURSDAY", "TUESDAY", "WEDNESDAY"]
+if sys.version_info >= (3, 10):
+    __all__ += ["FRIDAY", "MONDAY", "SATURDAY", "SUNDAY", "THURSDAY", "TUESDAY", "WEDNESDAY"]
 if sys.version_info >= (3, 12):
     __all__ += [
         "Day",

@@ -3,7 +3,8 @@ from _typeshed import SupportsWrite, TraceFunction
 from collections.abc import Callable
 from pdb import Pdb
 from types import FrameType
-from typing import Any, Literal, Protocol, TypeAlias, TypeVar, type_check_only
+from typing import Any, Literal, Protocol, TypeVar, type_check_only
+from typing_extensions import TypeAlias
 
 from .watch_element import WatchElement
 

@@ -1,7 +1,8 @@
 from _typeshed import FileDescriptorLike
 from collections.abc import Mapping
 from selectors import BaseSelector, SelectorKey
-from typing import Any, TypeAlias
+from typing import Any
+from typing_extensions import TypeAlias
 
 from gevent._util import Lazy
 from gevent.hub import Hub

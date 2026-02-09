@@ -1,6 +1,7 @@
 import io
 from _typeshed import ReadableBuffer
-from typing import Any, Literal, NoReturn, TypeAlias
+from typing import Any, Literal, NoReturn
+from typing_extensions import TypeAlias
 
 cERROR_PIPE_BUSY: int
 cSECURITY_SQOS_PRESENT: int

@@ -1,6 +1,6 @@
 from collections.abc import Iterable
-from typing import TypeAlias, overload
-from typing_extensions import Self
+from typing import overload
+from typing_extensions import Self, TypeAlias
 
 from .._typing import ArrayLikeSeq
 from .base import BaseGeometry

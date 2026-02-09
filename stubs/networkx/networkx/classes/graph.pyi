@@ -1,7 +1,7 @@
 from collections.abc import Callable, Collection, Hashable, Iterable, Iterator, MutableMapping
 from functools import cached_property
-from typing import Any, ClassVar, TypeAlias, TypeVar, overload
-from typing_extensions import Self
+from typing import Any, ClassVar, TypeVar, overload
+from typing_extensions import Self, TypeAlias
 
 import numpy
 from networkx.classes.coreviews import AdjacencyView, AtlasView

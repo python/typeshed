@@ -3,7 +3,7 @@ import threading
 from collections.abc import Callable
 from multiprocessing.context import BaseContext
 from types import TracebackType
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 __all__ = ["Lock", "RLock", "Semaphore", "BoundedSemaphore", "Condition", "Event"]
 

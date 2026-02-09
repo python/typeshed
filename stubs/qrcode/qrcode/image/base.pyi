@@ -1,5 +1,6 @@
 from collections.abc import Callable
-from typing import IO, Any, TypeAlias
+from typing import IO, Any
+from typing_extensions import TypeAlias
 
 from ..main import ModulesType, QRCode
 from .styles.moduledrawers.base import QRModuleDrawer

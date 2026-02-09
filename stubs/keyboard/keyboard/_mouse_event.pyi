@@ -1,5 +1,6 @@
 import sys
-from typing import Literal, NamedTuple, TypeAlias
+from typing import Literal, NamedTuple
+from typing_extensions import TypeAlias
 
 _MouseEvent: TypeAlias = ButtonEvent | WheelEvent | MoveEvent  # noqa: Y047  # Used outside
 

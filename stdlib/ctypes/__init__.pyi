@@ -26,8 +26,8 @@ from _ctypes import (
 from _typeshed import StrPath, SupportsBool, SupportsLen
 from ctypes._endian import BigEndianStructure as BigEndianStructure, LittleEndianStructure as LittleEndianStructure
 from types import GenericAlias
-from typing import Any, ClassVar, Final, Generic, Literal, TypeAlias, TypeVar, overload, type_check_only
-from typing_extensions import Self, deprecated
+from typing import Any, ClassVar, Final, Generic, Literal, TypeVar, overload, type_check_only
+from typing_extensions import Self, TypeAlias, deprecated
 
 if sys.platform == "win32":
     from _ctypes import FormatError as FormatError, get_last_error as get_last_error, set_last_error as set_last_error

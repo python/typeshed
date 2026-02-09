@@ -1,4 +1,4 @@
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 _SixIntTuple: TypeAlias = tuple[int, int, int, int, int, int]
 

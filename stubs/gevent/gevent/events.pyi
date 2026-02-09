@@ -1,6 +1,7 @@
 from collections.abc import Callable, Mapping, Sequence
 from types import ModuleType
-from typing import Any, Protocol, TypeAlias, TypeVar, type_check_only
+from typing import Any, Protocol, TypeVar, type_check_only
+from typing_extensions import TypeAlias
 
 from gevent.hub import Hub
 from greenlet import greenlet as greenlet_t

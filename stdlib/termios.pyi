@@ -1,6 +1,7 @@
 import sys
 from _typeshed import FileDescriptorLike
-from typing import Any, Final, TypeAlias
+from typing import Any, Final
+from typing_extensions import TypeAlias
 
 # Must be a list of length 7, containing 6 ints and a list of NCCS 1-character bytes or ints.
 _Attr: TypeAlias = list[int | list[bytes | int]] | list[int | list[bytes]] | list[int | list[int]]

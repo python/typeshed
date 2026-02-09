@@ -1,4 +1,5 @@
-from typing import Final, Literal, TypeAlias
+from typing import Final, Literal
+from typing_extensions import TypeAlias
 
 _BoolInt: TypeAlias = Literal[0, 1]
 

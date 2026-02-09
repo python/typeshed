@@ -1,5 +1,6 @@
 from re import Pattern
-from typing import Final, TypeAlias
+from typing import Final
+from typing_extensions import TypeAlias
 
 always_safe: Final[str]
 urlencoded: Final[set[str]]

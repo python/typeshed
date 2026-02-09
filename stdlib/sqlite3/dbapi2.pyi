@@ -215,11 +215,18 @@ if sys.version_info < (3, 14):
     version: Final[str]
 
 if sys.version_info < (3, 12):
-    @deprecated(
-        "Deprecated since Python 3.10; removed in Python 3.12. "
-        "Open database in URI mode using `cache=shared` parameter instead."
-    )
-    def enable_shared_cache(enable: int) -> None: ...
+    if sys.version_info >= (3, 10):
+        # deprecation wrapper that has a different name for the argument...
+        @deprecated(
+            "Deprecated since Python 3.10; removed in Python 3.12. "
+            "Open database in URI mode using `cache=shared` parameter instead."
+        )
+        def enable_shared_cache(enable: int) -> None: ...
+    else:
+        from _sqlite3 import enable_shared_cache as enable_shared_cache
+
+if sys.version_info < (3, 10):
+    from _sqlite3 import OptimizedUnicode as OptimizedUnicode
 
 paramstyle: Final = "qmark"
 threadsafety: Literal[0, 1, 3]

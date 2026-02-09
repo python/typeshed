@@ -1,6 +1,7 @@
 from _typeshed import Incomplete, ReadableBuffer, StrPath, Unused
 from collections.abc import Generator, Iterable
-from typing import Protocol, TypeAlias, type_check_only
+from typing import Protocol, type_check_only
+from typing_extensions import TypeAlias
 
 from openpyxl.cell import _CellOrMergedCell
 from openpyxl.worksheet._write_only import WriteOnlyWorksheet

@@ -1,6 +1,7 @@
 from _typeshed.wsgi import ErrorStream, InputStream, WSGIApplication
 from collections.abc import Callable, Iterable, Iterator
-from typing import Any, NoReturn, TypeAlias
+from typing import Any, NoReturn
+from typing_extensions import TypeAlias
 
 __all__ = ["validator"]
 

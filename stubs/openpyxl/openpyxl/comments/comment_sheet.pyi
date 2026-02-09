@@ -1,6 +1,7 @@
 from _typeshed import ConvertibleToInt, Incomplete, Unused
 from collections.abc import Generator
-from typing import ClassVar, Literal, TypeAlias, overload
+from typing import ClassVar, Literal, overload
+from typing_extensions import TypeAlias
 
 from openpyxl.cell import _CellOrMergedCell
 from openpyxl.cell.text import Text

@@ -5,8 +5,8 @@ import sys
 from _typeshed import MaybeNone, ReadableBuffer
 from collections.abc import Callable, Iterator, Mapping
 from types import GenericAlias
-from typing import Any, AnyStr, Final, Generic, Literal, TypeAlias, TypeVar, final, overload
-from typing_extensions import deprecated
+from typing import Any, AnyStr, Final, Generic, Literal, TypeVar, final, overload
+from typing_extensions import TypeAlias, deprecated
 
 __all__ = [
     "match",

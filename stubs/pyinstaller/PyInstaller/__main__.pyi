@@ -1,6 +1,6 @@
 from _typeshed import SupportsKeysAndGetItem
 from collections.abc import Iterable
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 # Used to update PyInstaller.config.CONF
 _PyIConfig: TypeAlias = (

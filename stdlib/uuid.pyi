@@ -2,8 +2,8 @@ import builtins
 import sys
 from _typeshed import Unused
 from enum import Enum
-from typing import Final, NoReturn, TypeAlias
-from typing_extensions import LiteralString
+from typing import Final, NoReturn
+from typing_extensions import LiteralString, TypeAlias
 
 _FieldsType: TypeAlias = tuple[int, int, int, int, int, int]
 

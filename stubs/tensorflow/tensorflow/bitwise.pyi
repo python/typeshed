@@ -1,4 +1,5 @@
-from typing import Any, TypeAlias, overload
+from typing import Any, overload
+from typing_extensions import TypeAlias
 
 import numpy as np
 import tensorflow as tf

@@ -1,5 +1,5 @@
 from collections.abc import Callable, Iterable, Iterator
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 from .token import *
 

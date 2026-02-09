@@ -1,7 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Callable, Hashable, Mapping
-from typing import Concatenate, TypeAlias
-from typing_extensions import ParamSpec
+from typing_extensions import Concatenate, ParamSpec, TypeAlias
 
 from numpy import ufunc
 from pandas import DataFrame

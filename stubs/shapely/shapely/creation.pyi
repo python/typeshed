@@ -1,5 +1,6 @@
 from collections.abc import Sequence
-from typing import Literal, SupportsIndex, TypeAlias, overload
+from typing import Literal, SupportsIndex, overload
+from typing_extensions import TypeAlias
 
 import numpy as np
 from numpy.typing import NDArray

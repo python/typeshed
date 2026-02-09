@@ -1,6 +1,7 @@
 from _typeshed import ConvertibleToInt, Incomplete
 from collections.abc import Callable
-from typing import Final, Literal, TypeAlias
+from typing import Final, Literal
+from typing_extensions import TypeAlias
 
 from oauthlib.common import _HTTPMethod
 from oauthlib.oauth2.rfc6749.tokens import OAuth2Token

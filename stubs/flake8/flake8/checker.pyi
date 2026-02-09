@@ -3,7 +3,8 @@ import tokenize
 from _typeshed import Incomplete
 from collections.abc import Sequence
 from logging import Logger
-from typing import Any, TypeAlias
+from typing import Any
+from typing_extensions import TypeAlias
 
 from .plugins.finder import Checkers, LoadedPlugin
 from .processor import _LogicalMapping

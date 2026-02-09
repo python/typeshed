@@ -1,6 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Callable, Iterable
-from typing import Any, Literal, TypeAlias, overload
+from typing import Any, Literal, overload
+from typing_extensions import TypeAlias
 
 import pandas as pd
 from matplotlib.axes import Axes

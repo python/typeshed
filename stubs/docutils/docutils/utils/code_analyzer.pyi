@@ -1,5 +1,6 @@
 from collections.abc import Generator, Iterable
-from typing import Final, Literal, TypeAlias
+from typing import Final, Literal
+from typing_extensions import TypeAlias
 
 from docutils import ApplicationError
 

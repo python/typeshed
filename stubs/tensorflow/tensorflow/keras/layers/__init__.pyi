@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Callable, Iterable, Sequence
-from typing import Any, Generic, Literal, TypeAlias, TypeVar, overload, type_check_only
-from typing_extensions import Self
+from typing import Any, Generic, Literal, TypeVar, overload, type_check_only
+from typing_extensions import Self, TypeAlias
 
 import tensorflow as tf
 from tensorflow import Tensor, Variable

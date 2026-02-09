@@ -1,5 +1,6 @@
 from collections.abc import Callable
-from typing import Final, Literal, TypeAlias, TypedDict
+from typing import Final, Literal, TypedDict
+from typing_extensions import TypeAlias
 
 class _RPi_Info(TypedDict):
     P1_REVISION: int

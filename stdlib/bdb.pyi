@@ -3,8 +3,8 @@ from _typeshed import ExcInfo, TraceFunction, Unused
 from collections.abc import Callable, Iterable, Iterator, Mapping
 from contextlib import contextmanager
 from types import CodeType, FrameType, TracebackType
-from typing import IO, Any, Final, Literal, SupportsInt, TypeAlias, TypeVar
-from typing_extensions import ParamSpec
+from typing import IO, Any, Final, Literal, SupportsInt, TypeVar
+from typing_extensions import ParamSpec, TypeAlias
 
 __all__ = ["BdbQuit", "Bdb", "Breakpoint"]
 

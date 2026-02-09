@@ -1,6 +1,7 @@
 import sys
 from collections.abc import Callable, Mapping, Sequence
-from typing import ClassVar, Final, TypeAlias
+from typing import ClassVar, Final
+from typing_extensions import TypeAlias
 
 __docformat__: str
 

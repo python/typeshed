@@ -1,6 +1,6 @@
 from _typeshed import SupportsRead
 from datetime import date, datetime, time, tzinfo
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 _Readable: TypeAlias = SupportsRead[str | bytes]
 _TakesAscii: TypeAlias = str | bytes | _Readable

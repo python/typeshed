@@ -1,7 +1,8 @@
 from _typeshed import Incomplete
 from collections.abc import Iterable, Sequence
 from socket import socket
-from typing import Final, TypeAlias
+from typing import Final
+from typing_extensions import TypeAlias
 
 # Really complex, consider unpacking a TypedDict
 _AdjustmentsParams: TypeAlias = Incomplete

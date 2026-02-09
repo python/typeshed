@@ -1,5 +1,6 @@
 from collections.abc import Callable
-from typing import Any, TypeAlias
+from typing import Any
+from typing_extensions import TypeAlias
 
 from google.protobuf.descriptor import Descriptor, FieldDescriptor
 from google.protobuf.message import Message

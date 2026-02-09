@@ -1,5 +1,6 @@
 from collections.abc import Callable, Mapping, Sequence
-from typing import Any, Literal, TypeAlias
+from typing import Any, Literal
+from typing_extensions import TypeAlias
 
 import tensorflow as tf
 from requests.api import _HeadersMapping

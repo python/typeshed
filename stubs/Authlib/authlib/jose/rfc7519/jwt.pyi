@@ -1,7 +1,8 @@
 from _typeshed import Incomplete
 from collections.abc import Callable
 from re import Pattern
-from typing import Any, Final, Generic, TypeAlias, TypedDict, TypeVar, overload, type_check_only
+from typing import Any, Final, Generic, TypedDict, TypeVar, overload, type_check_only
+from typing_extensions import TypeAlias
 
 from ..rfc7517 import KeySet
 from .claims import JWTClaims

@@ -6,8 +6,8 @@ from abc import ABCMeta, abstractmethod
 from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
 from email._policybase import _MessageT
 from types import GenericAlias, TracebackType
-from typing import IO, Any, AnyStr, Generic, Literal, Protocol, TypeAlias, TypeVar, overload, type_check_only
-from typing_extensions import Self
+from typing import IO, Any, AnyStr, Generic, Literal, Protocol, TypeVar, overload, type_check_only
+from typing_extensions import Self, TypeAlias
 
 __all__ = [
     "Mailbox",

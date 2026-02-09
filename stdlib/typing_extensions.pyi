@@ -29,7 +29,7 @@ from collections.abc import (
 )
 from contextlib import AbstractAsyncContextManager as AsyncContextManager, AbstractContextManager as ContextManager
 from re import Match as Match, Pattern as Pattern
-from types import GenericAlias, ModuleType, UnionType
+from types import GenericAlias, ModuleType
 from typing import (  # noqa: Y022,Y037,Y038,Y039,UP035
     IO as IO,
     TYPE_CHECKING as TYPE_CHECKING,
@@ -66,6 +66,9 @@ from typing import (  # noqa: Y022,Y037,Y038,Y039,UP035
     overload as overload,
     type_check_only,
 )
+
+if sys.version_info >= (3, 10):
+    from types import UnionType
 
 # Please keep order the same as at runtime.
 __all__ = [
@@ -271,8 +274,11 @@ else:
     ) -> dict[str, AnnotationForm]: ...
 
 def get_args(tp: AnnotationForm) -> tuple[AnnotationForm, ...]: ...
-@overload
-def get_origin(tp: UnionType) -> type[UnionType]: ...
+
+if sys.version_info >= (3, 10):
+    @overload
+    def get_origin(tp: UnionType) -> type[UnionType]: ...
+
 @overload
 def get_origin(tp: GenericAlias) -> type: ...
 @overload
@@ -284,14 +290,32 @@ Annotated: _SpecialForm
 _AnnotatedAlias: Any  # undocumented
 
 # New and changed things in 3.10
-from typing import (
-    Concatenate as Concatenate,
-    ParamSpecArgs as ParamSpecArgs,
-    ParamSpecKwargs as ParamSpecKwargs,
-    TypeAlias as TypeAlias,
-    TypeGuard as TypeGuard,
-    is_typeddict as is_typeddict,
-)
+if sys.version_info >= (3, 10):
+    from typing import (
+        Concatenate as Concatenate,
+        ParamSpecArgs as ParamSpecArgs,
+        ParamSpecKwargs as ParamSpecKwargs,
+        TypeAlias as TypeAlias,
+        TypeGuard as TypeGuard,
+        is_typeddict as is_typeddict,
+    )
+else:
+    @final
+    class ParamSpecArgs:
+        @property
+        def __origin__(self) -> ParamSpec: ...
+        def __init__(self, origin: ParamSpec) -> None: ...
+
+    @final
+    class ParamSpecKwargs:
+        @property
+        def __origin__(self) -> ParamSpec: ...
+        def __init__(self, origin: ParamSpec) -> None: ...
+
+    Concatenate: _SpecialForm
+    TypeAlias: _SpecialForm
+    TypeGuard: _SpecialForm
+    def is_typeddict(tp: object) -> bool: ...
 
 # New and changed things in 3.11
 if sys.version_info >= (3, 11):
@@ -353,8 +377,9 @@ else:
         def __call__(self, obj: _T, /) -> _T: ...
         __supertype__: type | NewType
         __name__: str
-        def __or__(self, other: Any) -> _SpecialForm: ...
-        def __ror__(self, other: Any) -> _SpecialForm: ...
+        if sys.version_info >= (3, 10):
+            def __or__(self, other: Any) -> _SpecialForm: ...
+            def __ror__(self, other: Any) -> _SpecialForm: ...
 
 if sys.version_info >= (3, 12):
     from collections.abc import Buffer as Buffer
@@ -502,8 +527,9 @@ else:
         ) -> None: ...
         def has_default(self) -> bool: ...
         def __typing_prepare_subst__(self, alias: Any, args: Any) -> tuple[Any, ...]: ...
-        def __or__(self, right: Any) -> _SpecialForm: ...
-        def __ror__(self, left: Any) -> _SpecialForm: ...
+        if sys.version_info >= (3, 10):
+            def __or__(self, right: Any) -> _SpecialForm: ...
+            def __ror__(self, left: Any) -> _SpecialForm: ...
         if sys.version_info >= (3, 11):
             def __typing_subst__(self, arg: Any) -> Any: ...
 
@@ -536,8 +562,9 @@ else:
         def kwargs(self) -> ParamSpecKwargs: ...
         def has_default(self) -> bool: ...
         def __typing_prepare_subst__(self, alias: Any, args: Any) -> tuple[Any, ...]: ...
-        def __or__(self, right: Any) -> _SpecialForm: ...
-        def __ror__(self, left: Any) -> _SpecialForm: ...
+        if sys.version_info >= (3, 10):
+            def __or__(self, right: Any) -> _SpecialForm: ...
+            def __ror__(self, left: Any) -> _SpecialForm: ...
 
     @final
     class TypeVarTuple:
@@ -578,8 +605,9 @@ else:
         # Returns typing._GenericAlias, which isn't stubbed.
         def __getitem__(self, parameters: Incomplete | tuple[Incomplete, ...]) -> AnnotationForm: ...
         def __init_subclass__(cls, *args: Unused, **kwargs: Unused) -> NoReturn: ...
-        def __or__(self, right: Any, /) -> _SpecialForm: ...
-        def __ror__(self, left: Any, /) -> _SpecialForm: ...
+        if sys.version_info >= (3, 10):
+            def __or__(self, right: Any, /) -> _SpecialForm: ...
+            def __ror__(self, left: Any, /) -> _SpecialForm: ...
 
 # PEP 727
 class Doc:
@@ -677,6 +705,6 @@ class Sentinel:
     if sys.version_info >= (3, 14):
         def __or__(self, other: Any) -> UnionType: ...  # other can be any type form legal for unions
         def __ror__(self, other: Any) -> UnionType: ...  # other can be any type form legal for unions
-    else:
+    elif sys.version_info >= (3, 10):
         def __or__(self, other: Any) -> _SpecialForm: ...  # other can be any type form legal for unions
         def __ror__(self, other: Any) -> _SpecialForm: ...  # other can be any type form legal for unions

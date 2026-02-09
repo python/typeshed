@@ -3,7 +3,8 @@ from _socket import _Address
 from _typeshed import StrOrBytesPath
 from collections.abc import Callable, Iterable, Mapping
 from socket import AddressFamily, SocketKind
-from typing import Any, TypeAlias
+from typing import Any
+from typing_extensions import TypeAlias
 
 from ..socks import sockssocket
 from ..utils.networking import HTTPHeaderDict

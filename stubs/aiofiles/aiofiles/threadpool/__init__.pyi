@@ -9,7 +9,8 @@ from _typeshed import (
 from asyncio import AbstractEventLoop
 from collections.abc import Callable
 from concurrent.futures import Executor
-from typing import Literal, TypeAlias, overload
+from typing import Literal, overload
+from typing_extensions import TypeAlias
 
 from ..base import AiofilesContextManager
 from .binary import AsyncBufferedIOBase, AsyncBufferedReader, AsyncFileIO, AsyncIndirectBufferedIOBase, _UnknownAsyncBinaryIO

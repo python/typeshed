@@ -2,7 +2,8 @@
 # Can't NOQA on a specific line: https://github.com/plinss/flake8-noqa/issues/22
 import sys
 from collections.abc import Awaitable, Coroutine, Generator
-from typing import Any, TypeAlias, TypeVar
+from typing import Any, TypeVar
+from typing_extensions import TypeAlias
 
 # As at runtime, this depends on all submodules defining __all__ accurately.
 from .base_events import *

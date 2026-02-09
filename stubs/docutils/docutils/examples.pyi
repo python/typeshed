@@ -1,5 +1,6 @@
 from _typeshed import Incomplete, StrPath
-from typing import Literal, TypeAlias, overload
+from typing import Literal, overload
+from typing_extensions import TypeAlias
 
 from docutils.core import Publisher
 from docutils.nodes import document

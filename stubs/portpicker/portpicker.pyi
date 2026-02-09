@@ -1,5 +1,5 @@
 import socket
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 _Port: TypeAlias = int
 

@@ -7,7 +7,7 @@ import argparse
 import subprocess
 import sys
 from itertools import product
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 from ts_utils.utils import colored, print_error
 

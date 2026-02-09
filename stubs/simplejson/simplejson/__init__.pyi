@@ -1,7 +1,8 @@
 from _typeshed import SupportsRichComparison
 from collections import OrderedDict
 from collections.abc import Callable
-from typing import IO, Any, TypeAlias, TypeVar, overload
+from typing import IO, Any, TypeVar, overload
+from typing_extensions import TypeAlias
 
 from simplejson.decoder import JSONDecoder as JSONDecoder
 from simplejson.encoder import JSONEncoder as JSONEncoder, JSONEncoderForHTML as JSONEncoderForHTML

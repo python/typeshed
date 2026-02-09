@@ -1,7 +1,8 @@
 import unittest.case
 import unittest.result
 from collections.abc import Iterable, Iterator
-from typing import ClassVar, TypeAlias
+from typing import ClassVar
+from typing_extensions import TypeAlias
 
 _TestType: TypeAlias = unittest.case.TestCase | TestSuite
 

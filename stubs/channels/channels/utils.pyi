@@ -1,5 +1,6 @@
 from collections.abc import Awaitable, Callable
-from typing import Any, Protocol, TypeAlias, type_check_only
+from typing import Any, Protocol, type_check_only
+from typing_extensions import TypeAlias
 
 from asgiref.typing import ASGIApplication, ASGIReceiveCallable
 

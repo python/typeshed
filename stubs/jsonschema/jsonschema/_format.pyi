@@ -1,5 +1,6 @@
 from collections.abc import Callable, Iterable
-from typing import TypeAlias, TypeVar
+from typing import TypeVar
+from typing_extensions import TypeAlias
 
 _FormatCheckCallable: TypeAlias = Callable[[object], bool]
 _F = TypeVar("_F", bound=_FormatCheckCallable)

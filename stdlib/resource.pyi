@@ -30,24 +30,25 @@ if sys.platform != "win32":
     class struct_rusage(
         structseq[float], tuple[float, float, int, int, int, int, int, int, int, int, int, int, int, int, int, int]
     ):
-        __match_args__: Final = (
-            "ru_utime",
-            "ru_stime",
-            "ru_maxrss",
-            "ru_ixrss",
-            "ru_idrss",
-            "ru_isrss",
-            "ru_minflt",
-            "ru_majflt",
-            "ru_nswap",
-            "ru_inblock",
-            "ru_oublock",
-            "ru_msgsnd",
-            "ru_msgrcv",
-            "ru_nsignals",
-            "ru_nvcsw",
-            "ru_nivcsw",
-        )
+        if sys.version_info >= (3, 10):
+            __match_args__: Final = (
+                "ru_utime",
+                "ru_stime",
+                "ru_maxrss",
+                "ru_ixrss",
+                "ru_idrss",
+                "ru_isrss",
+                "ru_minflt",
+                "ru_majflt",
+                "ru_nswap",
+                "ru_inblock",
+                "ru_oublock",
+                "ru_msgsnd",
+                "ru_msgrcv",
+                "ru_nsignals",
+                "ru_nvcsw",
+                "ru_nivcsw",
+            )
 
         @property
         def ru_utime(self) -> float: ...

@@ -1,7 +1,8 @@
 from _typeshed import SupportsRead
 from pathlib import Path
 from types import ModuleType
-from typing import Any, Literal, TypeAlias
+from typing import Any, Literal
+from typing_extensions import TypeAlias
 
 from openpyxl.drawing.spreadsheet_drawing import _AnchorBase
 

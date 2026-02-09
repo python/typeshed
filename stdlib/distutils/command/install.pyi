@@ -1,3 +1,4 @@
+import sys
 from _typeshed import Incomplete
 from collections.abc import Callable
 from typing import Any, ClassVar, Final, Literal
@@ -8,6 +9,9 @@ HAS_USER_SITE: Final[bool]
 
 SCHEME_KEYS: Final[tuple[Literal["purelib"], Literal["platlib"], Literal["headers"], Literal["scripts"], Literal["data"]]]
 INSTALL_SCHEMES: Final[dict[str, dict[str, str]]]
+
+if sys.version_info < (3, 10):
+    WINDOWS_SCHEME: Final[dict[str, str]]
 
 class install(Command):
     description: str

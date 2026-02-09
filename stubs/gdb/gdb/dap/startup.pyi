@@ -3,7 +3,8 @@ import io
 import queue
 import threading
 from collections.abc import Callable, Iterable
-from typing import Any, ClassVar, TypeAlias, TypeVar
+from typing import Any, ClassVar, TypeVar
+from typing_extensions import TypeAlias
 
 import gdb
 

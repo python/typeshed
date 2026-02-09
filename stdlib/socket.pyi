@@ -357,9 +357,10 @@ if sys.platform != "darwin":
 
     __all__ += ["TCP_KEEPIDLE", "AF_IRDA", "MSG_ERRQUEUE"]
 
-from _socket import IP_RECVTOS as IP_RECVTOS
+if sys.version_info >= (3, 10):
+    from _socket import IP_RECVTOS as IP_RECVTOS
 
-__all__ += ["IP_RECVTOS"]
+    __all__ += ["IP_RECVTOS"]
 
 if sys.platform != "win32" and sys.platform != "darwin":
     from _socket import (
@@ -1086,7 +1087,10 @@ error = OSError
 class herror(error): ...
 class gaierror(error): ...
 
-timeout = TimeoutError
+if sys.version_info >= (3, 10):
+    timeout = TimeoutError
+else:
+    class timeout(error): ...
 
 class AddressFamily(IntEnum):
     AF_INET = 2

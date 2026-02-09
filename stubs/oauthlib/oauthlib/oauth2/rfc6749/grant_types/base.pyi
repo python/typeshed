@@ -2,7 +2,8 @@ from _typeshed import Incomplete
 from collections.abc import Callable, Iterable
 from itertools import chain
 from logging import Logger
-from typing import TypeAlias, TypeVar
+from typing import TypeVar
+from typing_extensions import TypeAlias
 
 from oauthlib.common import Request
 

@@ -1,7 +1,8 @@
 import sys
 from _typeshed import StrOrBytesPath
 from collections.abc import Callable, Sequence
-from typing import Literal, TypeAlias
+from typing import Literal
+from typing_extensions import TypeAlias
 
 if sys.platform != "win32":
     _Completer: TypeAlias = Callable[[str, int], str | None]

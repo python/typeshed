@@ -37,7 +37,8 @@ __all__ = [
     "get_native_id",
 ]
 
-__all__ += ["getprofile", "gettrace"]
+if sys.version_info >= (3, 10):
+    __all__ += ["getprofile", "gettrace"]
 
 if sys.version_info >= (3, 12):
     __all__ += ["setprofile_all_threads", "settrace_all_threads"]
@@ -60,8 +61,10 @@ if sys.version_info >= (3, 12):
     def setprofile_all_threads(func: ProfileFunction | None) -> None: ...
     def settrace_all_threads(func: TraceFunction | None) -> None: ...
 
-def gettrace() -> TraceFunction | None: ...
-def getprofile() -> ProfileFunction | None: ...
+if sys.version_info >= (3, 10):
+    def gettrace() -> TraceFunction | None: ...
+    def getprofile() -> ProfileFunction | None: ...
+
 def stack_size(size: int = 0, /) -> int: ...
 
 TIMEOUT_MAX: Final[float]
@@ -170,7 +173,8 @@ class Event:
     def wait(self, timeout: float | None = None) -> bool: ...
 
 excepthook: Callable[[_ExceptHookArgs], object]
-__excepthook__: Callable[[_ExceptHookArgs], object]
+if sys.version_info >= (3, 10):
+    __excepthook__: Callable[[_ExceptHookArgs], object]
 ExceptHookArgs = _ExceptHookArgs
 
 class Timer(Thread):

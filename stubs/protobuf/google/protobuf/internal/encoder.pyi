@@ -1,5 +1,5 @@
 from collections.abc import Callable
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 from google.protobuf.descriptor import FieldDescriptor
 

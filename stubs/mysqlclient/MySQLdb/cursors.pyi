@@ -1,8 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Iterable
 from re import Pattern
-from typing import TypeAlias
-from typing_extensions import LiteralString
+from typing_extensions import LiteralString, TypeAlias
 
 from .connections import _Literal
 

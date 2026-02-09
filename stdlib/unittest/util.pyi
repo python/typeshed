@@ -1,5 +1,6 @@
 from collections.abc import MutableSequence, Sequence
-from typing import Any, Final, Literal, Protocol, TypeAlias, TypeVar, type_check_only
+from typing import Any, Final, Literal, Protocol, TypeVar, type_check_only
+from typing_extensions import TypeAlias
 
 @type_check_only
 class _SupportsDunderLT(Protocol):

@@ -1,5 +1,5 @@
 from collections.abc import Iterable, Sequence
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 from Xlib.protocol import rq
 

@@ -1,6 +1,7 @@
 from _typeshed import Unused
 from collections.abc import Callable, Iterable, Mapping, Sequence
-from typing import Any, NamedTuple, TypeAlias
+from typing import Any, NamedTuple
+from typing_extensions import TypeAlias
 
 from django import forms
 from django.db.models import Choices

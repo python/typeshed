@@ -4,8 +4,8 @@ from _typeshed import StrOrLiteralStr, Unused
 from collections.abc import Callable, Generator, Iterable, Iterator, Sequence
 from contextlib import contextmanager
 from re import Pattern
-from typing import Any, ClassVar, Final, Literal, TypeAlias, TypeVar, overload
-from typing_extensions import Never, ParamSpec
+from typing import Any, ClassVar, Final, Literal, TypeVar, overload
+from typing_extensions import Never, ParamSpec, TypeAlias
 
 from pyflakes.messages import Message
 
@@ -19,7 +19,12 @@ builtin_vars: Final[list[str]]
 def parse_format_string(
     format_string: StrOrLiteralStr,
 ) -> Iterable[tuple[StrOrLiteralStr, StrOrLiteralStr | None, StrOrLiteralStr | None, StrOrLiteralStr | None]]: ...
-def getAlternatives(n: ast.If | ast.Try | ast.Match) -> list[ast.AST]: ...
+
+if sys.version_info >= (3, 10):
+    def getAlternatives(n: ast.If | ast.Try | ast.Match) -> list[ast.AST]: ...
+
+else:
+    def getAlternatives(n: ast.If | ast.Try) -> list[ast.AST]: ...
 
 FOR_TYPES: Final[tuple[type[ast.For], type[ast.AsyncFor]]]
 MAPPING_KEY_RE: Final[Pattern[str]]
@@ -144,16 +149,29 @@ class AnnotationState:
 def in_annotation(func: _F) -> _F: ...
 def in_string_annotation(func: _F) -> _F: ...
 
-_Match: TypeAlias = ast.Match
-_MatchCase: TypeAlias = ast.match_case
-_MatchValue: TypeAlias = ast.MatchValue
-_MatchSingleton: TypeAlias = ast.MatchSingleton
-_MatchSequence: TypeAlias = ast.MatchSequence
-_MatchStar: TypeAlias = ast.MatchStar
-_MatchMapping: TypeAlias = ast.MatchMapping
-_MatchClass: TypeAlias = ast.MatchClass
-_MatchAs: TypeAlias = ast.MatchAs
-_MatchOr: TypeAlias = ast.MatchOr
+if sys.version_info >= (3, 10):
+    _Match: TypeAlias = ast.Match
+    _MatchCase: TypeAlias = ast.match_case
+    _MatchValue: TypeAlias = ast.MatchValue
+    _MatchSingleton: TypeAlias = ast.MatchSingleton
+    _MatchSequence: TypeAlias = ast.MatchSequence
+    _MatchStar: TypeAlias = ast.MatchStar
+    _MatchMapping: TypeAlias = ast.MatchMapping
+    _MatchClass: TypeAlias = ast.MatchClass
+    _MatchAs: TypeAlias = ast.MatchAs
+    _MatchOr: TypeAlias = ast.MatchOr
+else:
+    # The methods using these should never be called on Python < 3.10.
+    _Match: TypeAlias = Never
+    _MatchCase: TypeAlias = Never
+    _MatchValue: TypeAlias = Never
+    _MatchSingleton: TypeAlias = Never
+    _MatchSequence: TypeAlias = Never
+    _MatchStar: TypeAlias = Never
+    _MatchMapping: TypeAlias = Never
+    _MatchClass: TypeAlias = Never
+    _MatchAs: TypeAlias = Never
+    _MatchOr: TypeAlias = Never
 
 if sys.version_info >= (3, 12):
     _TypeVar: TypeAlias = ast.TypeVar

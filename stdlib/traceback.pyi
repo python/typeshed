@@ -2,8 +2,8 @@ import sys
 from _typeshed import SupportsWrite, Unused
 from collections.abc import Generator, Iterable, Iterator, Mapping
 from types import FrameType, TracebackType
-from typing import Any, ClassVar, Literal, SupportsIndex, TypeAlias, overload
-from typing_extensions import Self, deprecated
+from typing import Any, ClassVar, Literal, SupportsIndex, overload
+from typing_extensions import Self, TypeAlias, deprecated
 
 __all__ = [
     "extract_stack",
@@ -33,31 +33,51 @@ if sys.version_info >= (3, 14):
 _FrameSummaryTuple: TypeAlias = tuple[str, int, str, str | None]
 
 def print_tb(tb: TracebackType | None, limit: int | None = None, file: SupportsWrite[str] | None = None) -> None: ...
-@overload
-def print_exception(
-    exc: type[BaseException] | None,
-    /,
-    value: BaseException | None = ...,
-    tb: TracebackType | None = ...,
-    limit: int | None = None,
-    file: SupportsWrite[str] | None = None,
-    chain: bool = True,
-) -> None: ...
-@overload
-def print_exception(
-    exc: BaseException, /, *, limit: int | None = None, file: SupportsWrite[str] | None = None, chain: bool = True
-) -> None: ...
-@overload
-def format_exception(
-    exc: type[BaseException] | None,
-    /,
-    value: BaseException | None = ...,
-    tb: TracebackType | None = ...,
-    limit: int | None = None,
-    chain: bool = True,
-) -> list[str]: ...
-@overload
-def format_exception(exc: BaseException, /, *, limit: int | None = None, chain: bool = True) -> list[str]: ...
+
+if sys.version_info >= (3, 10):
+    @overload
+    def print_exception(
+        exc: type[BaseException] | None,
+        /,
+        value: BaseException | None = ...,
+        tb: TracebackType | None = ...,
+        limit: int | None = None,
+        file: SupportsWrite[str] | None = None,
+        chain: bool = True,
+    ) -> None: ...
+    @overload
+    def print_exception(
+        exc: BaseException, /, *, limit: int | None = None, file: SupportsWrite[str] | None = None, chain: bool = True
+    ) -> None: ...
+    @overload
+    def format_exception(
+        exc: type[BaseException] | None,
+        /,
+        value: BaseException | None = ...,
+        tb: TracebackType | None = ...,
+        limit: int | None = None,
+        chain: bool = True,
+    ) -> list[str]: ...
+    @overload
+    def format_exception(exc: BaseException, /, *, limit: int | None = None, chain: bool = True) -> list[str]: ...
+
+else:
+    def print_exception(
+        etype: type[BaseException] | None,
+        value: BaseException | None,
+        tb: TracebackType | None,
+        limit: int | None = None,
+        file: SupportsWrite[str] | None = None,
+        chain: bool = True,
+    ) -> None: ...
+    def format_exception(
+        etype: type[BaseException] | None,
+        value: BaseException | None,
+        tb: TracebackType | None,
+        limit: int | None = None,
+        chain: bool = True,
+    ) -> list[str]: ...
+
 def print_exc(limit: int | None = None, file: SupportsWrite[str] | None = None, chain: bool = True) -> None: ...
 def print_last(limit: int | None = None, file: SupportsWrite[str] | None = None, chain: bool = True) -> None: ...
 def print_stack(f: FrameType | None = None, limit: int | None = None, file: SupportsWrite[str] | None = None) -> None: ...
@@ -72,11 +92,14 @@ if sys.version_info >= (3, 13):
     @overload
     def format_exception_only(exc: Unused, /, value: BaseException | None, *, show_group: bool = False) -> list[str]: ...
 
-else:
+elif sys.version_info >= (3, 10):
     @overload
     def format_exception_only(exc: BaseException | None, /) -> list[str]: ...
     @overload
     def format_exception_only(exc: Unused, /, value: BaseException | None) -> list[str]: ...
+
+else:
+    def format_exception_only(etype: type[BaseException] | None, value: BaseException | None) -> list[str]: ...
 
 def format_exc(limit: int | None = None, chain: bool = True) -> str: ...
 def format_tb(tb: TracebackType | None, limit: int | None = None) -> list[str]: ...
@@ -103,10 +126,12 @@ class TracebackException:
     # These fields only exist for `SyntaxError`s, but there is no way to express that in the type system.
     filename: str
     lineno: str | None
-    end_lineno: str | None
+    if sys.version_info >= (3, 10):
+        end_lineno: str | None
     text: str
     offset: int
-    end_offset: int | None
+    if sys.version_info >= (3, 10):
+        end_offset: int | None
     msg: str
 
     if sys.version_info >= (3, 13):
@@ -148,7 +173,7 @@ class TracebackException:
             max_group_depth: int = 10,
             _seen: set[int] | None = None,
         ) -> None: ...
-    else:
+    elif sys.version_info >= (3, 10):
         def __init__(
             self,
             exc_type: type[BaseException],
@@ -159,6 +184,18 @@ class TracebackException:
             lookup_lines: bool = True,
             capture_locals: bool = False,
             compact: bool = False,
+            _seen: set[int] | None = None,
+        ) -> None: ...
+    else:
+        def __init__(
+            self,
+            exc_type: type[BaseException],
+            exc_value: BaseException,
+            exc_traceback: TracebackType | None,
+            *,
+            limit: int | None = None,
+            lookup_lines: bool = True,
+            capture_locals: bool = False,
             _seen: set[int] | None = None,
         ) -> None: ...
 
@@ -175,7 +212,7 @@ class TracebackException:
             max_group_width: int = 15,
             max_group_depth: int = 10,
         ) -> Self: ...
-    else:
+    elif sys.version_info >= (3, 10):
         @classmethod
         def from_exception(
             cls,
@@ -185,6 +222,11 @@ class TracebackException:
             lookup_lines: bool = True,
             capture_locals: bool = False,
             compact: bool = False,
+        ) -> Self: ...
+    else:
+        @classmethod
+        def from_exception(
+            cls, exc: BaseException, *, limit: int | None = None, lookup_lines: bool = True, capture_locals: bool = False
         ) -> Self: ...
 
     def __eq__(self, other: object) -> bool: ...

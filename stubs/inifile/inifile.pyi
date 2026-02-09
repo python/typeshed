@@ -1,6 +1,7 @@
 from _typeshed import StrPath, SupportsKeysAndGetItem
 from collections.abc import Container, Iterable, Iterator, Mapping, MutableMapping, Sequence
-from typing import Literal, TypeAlias, TypeVar, overload
+from typing import Literal, TypeVar, overload
+from typing_extensions import TypeAlias
 from uuid import UUID
 
 _T = TypeVar("_T")

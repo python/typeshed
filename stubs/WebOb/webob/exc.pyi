@@ -2,8 +2,8 @@ from _typeshed import SupportsItems, SupportsKeysAndGetItem
 from _typeshed.wsgi import StartResponse, WSGIApplication, WSGIEnvironment
 from collections.abc import Iterable
 from string import Template
-from typing import Any, Literal, Protocol, TypeAlias, type_check_only
-from typing_extensions import Self
+from typing import Any, Literal, Protocol, type_check_only
+from typing_extensions import Self, TypeAlias
 
 from webob.response import Response
 

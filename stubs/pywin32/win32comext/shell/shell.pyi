@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 import _win32typing
 from win32.lib.pywintypes import com_error

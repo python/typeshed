@@ -4,7 +4,8 @@ from logging import Logger
 from socket import socket
 from threading import Condition, Event, Lock, Thread
 from types import ModuleType
-from typing import Any, Protocol, TypeAlias, type_check_only
+from typing import Any, Protocol, type_check_only
+from typing_extensions import TypeAlias
 
 from paramiko.auth_handler import AuthHandler, AuthOnlyHandler, _InteractiveCallback
 from paramiko.channel import Channel

@@ -19,7 +19,11 @@ from _csv import (
 
 if sys.version_info >= (3, 12):
     from _csv import QUOTE_NOTNULL as QUOTE_NOTNULL, QUOTE_STRINGS as QUOTE_STRINGS
-from _csv import Reader, Writer
+if sys.version_info >= (3, 10):
+    from _csv import Reader, Writer
+else:
+    from _csv import _reader as Reader, _writer as Writer
+
 from _typeshed import SupportsWrite
 from collections.abc import Collection, Iterable, Mapping, Sequence
 from types import GenericAlias

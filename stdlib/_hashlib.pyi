@@ -2,8 +2,8 @@ import sys
 from _typeshed import ReadableBuffer
 from collections.abc import Callable
 from types import ModuleType
-from typing import AnyStr, Protocol, TypeAlias, final, overload, type_check_only
-from typing_extensions import Self, disjoint_base
+from typing import AnyStr, Protocol, final, overload, type_check_only
+from typing_extensions import Self, TypeAlias, disjoint_base
 
 _DigestMod: TypeAlias = str | Callable[[], _HashObject] | ModuleType | None
 
@@ -35,7 +35,8 @@ class HASH:
     def hexdigest(self) -> str: ...
     def update(self, obj: ReadableBuffer, /) -> None: ...
 
-class UnsupportedDigestmodError(ValueError): ...
+if sys.version_info >= (3, 10):
+    class UnsupportedDigestmodError(ValueError): ...
 
 class HASHXOF(HASH):
     def digest(self, length: int) -> bytes: ...  # type: ignore[override]

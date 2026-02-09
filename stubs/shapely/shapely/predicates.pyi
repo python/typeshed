@@ -1,4 +1,6 @@
-from typing import Any, Literal, TypeAlias, TypeGuard, overload
+import sys
+from typing import Any, Literal, overload
+from typing_extensions import TypeAlias, TypeGuard
 
 import numpy as np
 from numpy.typing import NDArray
@@ -7,8 +9,12 @@ from ._typing import ArrayLike, ArrayLikeSeq, OptGeoArrayLike, OptGeoArrayLikeSe
 from .geometry.base import BaseGeometry
 from .lib import Geometry
 
-_NPTrue: TypeAlias = np.bool_[Literal[True]]
-_NPFalse: TypeAlias = np.bool_[Literal[False]]
+if sys.version_info >= (3, 10):
+    _NPTrue: TypeAlias = np.bool_[Literal[True]]
+    _NPFalse: TypeAlias = np.bool_[Literal[False]]
+else:
+    _NPTrue: TypeAlias = np.bool_
+    _NPFalse: TypeAlias = np.bool_
 
 __all__ = [
     "contains",

@@ -5,8 +5,8 @@ isort:skip_file
 
 import builtins
 import collections.abc
+import sys
 import typing
-import typing as typing_extensions
 
 import google.protobuf.any_pb2
 import google.protobuf.descriptor
@@ -19,6 +19,11 @@ import tensorflow.core.framework.variable_pb2
 import tensorflow.core.framework.versions_pb2
 import tensorflow.core.protobuf.struct_pb2
 import tensorflow.core.protobuf.trackable_object_graph_pb2
+
+if sys.version_info >= (3, 10):
+    import typing as typing_extensions
+else:
+    import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 

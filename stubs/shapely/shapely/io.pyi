@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
-from typing import Literal, TypeAlias, overload
+from typing import Literal, overload
+from typing_extensions import TypeAlias
 
 import numpy as np
 from numpy.typing import NDArray

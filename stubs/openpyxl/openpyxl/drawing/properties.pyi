@@ -1,5 +1,6 @@
 from _typeshed import Incomplete, Unused
-from typing import ClassVar, Literal, TypeAlias, overload
+from typing import ClassVar, Literal, overload
+from typing_extensions import TypeAlias
 
 from openpyxl.descriptors.base import Bool, NoneSet, String, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList

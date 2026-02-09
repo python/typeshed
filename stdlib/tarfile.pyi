@@ -6,8 +6,8 @@ from builtins import list as _list  # aliases to avoid name clashes with fields 
 from collections.abc import Callable, Iterable, Iterator, Mapping
 from gzip import _ReadableFileobj as _GzipReadableFileobj, _WritableFileobj as _GzipWritableFileobj
 from types import TracebackType
-from typing import IO, ClassVar, Final, Literal, Protocol, TypeAlias, overload, type_check_only
-from typing_extensions import Self, deprecated
+from typing import IO, ClassVar, Final, Literal, Protocol, overload, type_check_only
+from typing_extensions import Self, TypeAlias, deprecated
 
 if sys.version_info >= (3, 14):
     from compression.zstd import ZstdDict

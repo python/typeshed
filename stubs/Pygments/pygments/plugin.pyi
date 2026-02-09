@@ -1,3 +1,4 @@
+import sys
 from _typeshed import Incomplete
 from collections.abc import Generator
 
@@ -11,9 +12,15 @@ FORMATTER_ENTRY_POINT: str
 STYLE_ENTRY_POINT: str
 FILTER_ENTRY_POINT: str
 
-from importlib.metadata import EntryPoints
+if sys.version_info >= (3, 10):
+    from importlib.metadata import EntryPoints
+    def iter_entry_points(group_name: str) -> EntryPoints: ...
 
-def iter_entry_points(group_name: str) -> EntryPoints: ...
+else:
+    from importlib.metadata import EntryPoint
+
+    def iter_entry_points(group_name: str) -> tuple[EntryPoint, ...] | list[EntryPoint]: ...
+
 def find_plugin_lexers() -> Generator[type[Lexer]]: ...
 def find_plugin_formatters() -> Generator[tuple[str, type[Formatter[Incomplete]]]]: ...
 def find_plugin_styles() -> Generator[tuple[str, type[Style]]]: ...

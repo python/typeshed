@@ -7,10 +7,9 @@ from typing import (
     Any as _PATable,
     Literal,
     Protocol,
-    TypeAlias,
     type_check_only,
 )
-from typing_extensions import CapsuleType
+from typing_extensions import CapsuleType, TypeAlias
 
 import numpy as np
 from numpy.typing import NDArray

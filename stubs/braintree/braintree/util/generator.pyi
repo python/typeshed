@@ -1,7 +1,7 @@
 import datetime
 import decimal
 from collections.abc import Iterable, Mapping
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 integer_types = int
 text_type = str

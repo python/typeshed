@@ -3,7 +3,8 @@ import sys
 import traceback
 from collections.abc import Iterable
 from types import FrameType, FunctionType
-from typing import Any, TypeAlias, overload, type_check_only
+from typing import Any, overload, type_check_only
+from typing_extensions import TypeAlias
 
 @type_check_only
 class _HasWrapper:

@@ -26,8 +26,8 @@ from _decimal import (
 )
 from collections.abc import Container, Sequence
 from types import TracebackType
-from typing import Any, ClassVar, Literal, NamedTuple, TypeAlias, final, overload, type_check_only
-from typing_extensions import Self, disjoint_base
+from typing import Any, ClassVar, Literal, NamedTuple, final, overload, type_check_only
+from typing_extensions import Self, TypeAlias, disjoint_base
 
 if sys.version_info >= (3, 14):
     from _decimal import IEEE_CONTEXT_MAX_BITS as IEEE_CONTEXT_MAX_BITS, IEEEContext as IEEEContext

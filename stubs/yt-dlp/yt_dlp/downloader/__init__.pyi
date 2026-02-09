@@ -1,5 +1,6 @@
 from collections.abc import Mapping
-from typing import Any, Literal, TypeAlias
+from typing import Any, Literal
+from typing_extensions import TypeAlias
 
 from ..extractor.common import _InfoDict
 from ..utils._utils import NO_DEFAULT

@@ -1,8 +1,8 @@
 import sys
 from collections.abc import Callable
 from concurrent.futures import ThreadPoolExecutor
-from typing import Any, Literal, Protocol, TypeAlias, overload, type_check_only
-from typing_extensions import ParamSpec, Self, TypeVar, TypeVarTuple, Unpack
+from typing import Any, Literal, Protocol, overload, type_check_only
+from typing_extensions import ParamSpec, Self, TypeAlias, TypeVar, TypeVarTuple, Unpack
 
 _Task: TypeAlias = tuple[bytes, Literal["function", "script"]]
 _Ts = TypeVarTuple("_Ts")

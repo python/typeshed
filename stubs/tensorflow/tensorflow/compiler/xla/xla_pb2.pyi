@@ -19,8 +19,8 @@ limitations under the License.
 
 import builtins
 import collections.abc
+import sys
 import typing
-import typing as typing_extensions
 
 import google.protobuf.any_pb2
 import google.protobuf.descriptor
@@ -29,6 +29,11 @@ import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
 import tensorflow.compiler.xla.service.hlo_pb2
 import tensorflow.compiler.xla.xla_data_pb2
+
+if sys.version_info >= (3, 10):
+    import typing as typing_extensions
+else:
+    import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 

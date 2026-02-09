@@ -1,6 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Iterable
-from typing import Final, TypeAlias
+from typing import Final
+from typing_extensions import TypeAlias
 
 import grpc
 import grpc.aio
