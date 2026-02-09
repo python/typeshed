@@ -12,8 +12,6 @@ skip-magic-trailing-comma = true
 
 [tool.ruff]
 line-length = 130
-# Oldest supported Python version
-target-version = "py39"
 fix = true
 exclude = [
     # virtual environment
