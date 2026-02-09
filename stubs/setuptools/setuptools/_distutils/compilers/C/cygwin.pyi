@@ -24,7 +24,7 @@ class Compiler(unix.Compiler):
     linker_dll: str
     linker_dll_cxx: str
     dll_libraries: list[str]
-    def __init__(self, verbose: bool = False, dry_run: bool = False, force: bool = False) -> None: ...
+    def __init__(self, verbose: bool = False, force: bool = False) -> None: ...
     @property
     @deprecated(
         "gcc_version attribute of CygwinCCompiler is deprecated. "
@@ -55,7 +55,7 @@ class Compiler(unix.Compiler):
 
 class MinGW32Compiler(Compiler):
     compiler_type: ClassVar[str]
-    def __init__(self, verbose: bool = False, dry_run: bool = False, force: bool = False) -> None: ...
+    def __init__(self, verbose: bool = False, force: bool = False) -> None: ...
     def runtime_library_dir_option(self, dir: str) -> NoReturn: ...
 
 CONFIG_H_OK: Final = "ok"
