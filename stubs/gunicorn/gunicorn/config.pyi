@@ -1175,6 +1175,16 @@ class ASGILifespan(Setting):
     default: ClassVar[str]
     desc: ClassVar[str]
 
+class ASGIDisconnectGracePeriod(Setting):
+    name: ClassVar[str]
+    section: ClassVar[str]
+    cli: ClassVar[list[str]]
+    meta: ClassVar[str]
+    validator: ClassVar[_IntValidatorType]
+    type: ClassVar[type[int]]
+    default: ClassVar[int]
+    desc: ClassVar[str]
+
 class RootPath(Setting):
     name: ClassVar[str]
     section: ClassVar[str]
