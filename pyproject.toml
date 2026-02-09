@@ -153,7 +153,6 @@ ignore = [
     ###
     "UP035", # import from typing
     "UP036", # Remove unnecessary `sys.version_info` blocks
-    "RUF100", # Remove unused `noqa` directive
     ###
     # Rules that can conflict with the formatter (Black)
     # https://docs.astral.sh/ruff/formatter/#conflicting-lint-rules
