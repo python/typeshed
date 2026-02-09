@@ -12,8 +12,6 @@ skip-magic-trailing-comma = true
 
 [tool.ruff]
 line-length = 130
-# Oldest supported Python version
-target-version = "py39"
 fix = true
 exclude = [
     # virtual environment
@@ -255,12 +253,10 @@ extra-standard-library = [
     "_typeshed",
     "typing_extensions",
     # Extra modules not recognized by Ruff
-    # Added in Python 3.9
-    "zoneinfo",
     # Added in Python 3.14
     "compression",
 ]
 known-first-party = ["_utils", "ts_utils"]
 
 [tool.typeshed]
-oldest_supported_python = "3.9"
+oldest_supported_python = "3.10"
