@@ -54,7 +54,9 @@ class _parser:
     ordered_num_directives: OrderedDict[str, list[str]]
     def __init__(self, tokens: Iterable[Incomplete], settings: Settings) -> None: ...
     @classmethod
-    def parse(cls, datestring: str, settings: Settings, tz: datetime.tzinfo | None = None) -> tuple[Incomplete, str | None]: ...
+    def parse(
+        cls, datestring: str, settings: Settings, tz: datetime.tzinfo | None = None
+    ) -> tuple[datetime.datetime, str | None]: ...
 
 class tokenizer:
     digits: Literal["0123456789:"]
