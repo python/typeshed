@@ -1,10 +1,7 @@
 {
     "$schema": "https://raw.githubusercontent.com/microsoft/pyright/main/packages/vscode-pyright/schemas/pyrightconfig.schema.json",
     "typeshedPath": ".",
-    "include": [
-        "stdlib",
-        "stubs",
-    ],
+    "include": ["stdlib", "stubs"],
     "exclude": [
         // test cases use a custom pyrightconfig file
         "**/@tests/test_cases",
@@ -67,7 +64,6 @@
         "stubs/opentracing/opentracing/span.pyi",
         "stubs/paramiko/paramiko/_winapi.pyi",
         "stubs/parsimonious/parsimonious/nodes.pyi",
-        "stubs/passlib",
         "stubs/peewee",
         "stubs/pexpect",
         "stubs/pika",
@@ -94,7 +90,7 @@
         "stubs/tqdm",
         "stubs/vobject",
         "stubs/workalendar",
-        "stubs/xmldiff",
+        "stubs/xmldiff"
     ],
     "typeCheckingMode": "strict",
     // TODO: Complete incomplete stubs
@@ -125,5 +121,5 @@
     // The name of the self/cls parameter is out of typeshed's control.
     "reportSelfClsParameterName": "none",
     // Not actionable in typeshed
-    "reportDeprecated": "none",
+    "reportDeprecated": "none"
 }
