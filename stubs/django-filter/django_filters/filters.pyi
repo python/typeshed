@@ -2,7 +2,7 @@ from collections.abc import Callable, Iterable
 from typing import Any
 
 from django import forms
-from django.db.models import Q, QuerySet
+from django.db.models import QuerySet
 from django.forms import Field
 from django_stubs_ext import StrOrPromise
 
