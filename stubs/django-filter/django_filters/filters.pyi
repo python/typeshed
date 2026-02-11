@@ -131,7 +131,7 @@ class MultipleChoiceFilter(Filter):
     ) -> None: ...
     def is_noop(self, qs: QuerySet[Any], value: Any) -> bool: ...  # Value can be any filter input
     def filter(self, qs: QuerySet[Any], value: Any) -> QuerySet[Any]: ...
-    def get_filter_predicate(self, v: Any) -> Q: ...  # Predicate value can be any filter input type
+    def get_filter_predicate(self, v: Any) -> dict[str, Any]: ...  # Predicate value can be any filter input type
 
 class TypedMultipleChoiceFilter(MultipleChoiceFilter):
     field_class: type[forms.TypedMultipleChoiceField]  # More specific than parent MultipleChoiceField
