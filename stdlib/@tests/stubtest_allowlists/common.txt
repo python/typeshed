@@ -221,6 +221,9 @@ _collections_abc.MutableSet.remove
 _collections_abc.Sequence.count
 _collections_abc.Sequence.index
 _collections_abc.Set.isdisjoint
+_collections_abc.Set._from_iterable
+_collections_abc.ItemsView._from_iterable
+_collections_abc.KeysView._from_iterable
 
 _ctypes.CFuncPtr  # stubtest erroneously thinks it can't be subclassed
 
