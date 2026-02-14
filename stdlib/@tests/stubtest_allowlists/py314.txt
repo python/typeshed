@@ -1,18 +1,3 @@
-# ====================================================================
-# TODO: New errors in Python 3.14 that need to be fixed or moved below
-# ====================================================================
-
-multiprocessing.managers.BaseListProxy.clear
-# inspect.signature gives the wrong signature
-multiprocessing.managers.BaseListProxy.copy
-multiprocessing.managers.DictProxy.__ior__
-multiprocessing.managers._BaseDictProxy.__ior__
-multiprocessing.managers._BaseDictProxy.__or__
-multiprocessing.managers._BaseDictProxy.__reversed__
-multiprocessing.managers._BaseDictProxy.__ror__
-multiprocessing.managers._BaseDictProxy.fromkeys
-
-
 # =========================
 # New errors in Python 3.14
 # =========================
