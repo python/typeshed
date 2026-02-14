@@ -88,7 +88,6 @@ multiprocessing.managers._BaseSetProxy.pop
 multiprocessing.managers.BaseListProxy.clear
 multiprocessing.managers.BaseListProxy.copy
 multiprocessing.managers._BaseDictProxy.__reversed__
-multiprocessing.managers._BaseDictProxy.fromkeys
 
 
 # =============================================================
