@@ -1,12 +1,29 @@
-import decimal
 import sys
-from _typeshed import Incomplete, SupportsWrite
-from collections import OrderedDict
-from collections.abc import Callable, Generator, Iterable, Sequence
+from _typeshed import SupportsWrite, Unused
+from binascii import Incomplete
+from collections.abc import Generator, Iterable
 from contextlib import contextmanager
-from re import Pattern
-from typing import Any, ClassVar, Literal, NamedTuple, Protocol, TypeVar, overload, type_check_only
+from typing import Final, Literal, NamedTuple, Protocol, runtime_checkable, type_check_only
 from typing_extensions import Self, TypeAlias
+
+from ._fonttools_shims import BasePen, _TTGlyphSet
+from .drawing_primitives import (
+    DeviceCMYK as DeviceCMYK,
+    DeviceGray as DeviceGray,
+    DeviceRGB as DeviceRGB,
+    Number as Number,
+    NumberClass as NumberClass,
+    Point as Point,
+    Transform as Transform,
+    check_range as check_range,
+    color_from_hex_string as color_from_hex_string,
+    force_nodocument as force_nodocument,
+    number_to_str as number_to_str,
+)
+from .enums import BlendMode, CompositingOperation, GradientSpreadMethod, GradientUnits, PathPaintRule
+from .output import ResourceCatalog
+from .pattern import Gradient
+from .syntax import Name, Raw
 
 if sys.version_info >= (3, 10):
     from types import EllipsisType
@@ -14,167 +31,86 @@ else:
     # Rely on builtins.ellipsis
     from builtins import ellipsis as EllipsisType
 
-from .enums import PathPaintRule
-from .syntax import Name, Raw
-
-__pdoc__: dict[str, bool]
-
-_T = TypeVar("_T")
-_CallableT = TypeVar("_CallableT", bound=Callable[..., Any])
-
 @type_check_only
 class _SupportsSerialize(Protocol):
     def serialize(self) -> str: ...
 
-@type_check_only
-class _SupportsEndPoint(Protocol):
-    @property
-    def end_point(self) -> Point: ...
-
-def force_nodocument(item: _CallableT) -> _CallableT: ...
-def force_document(item: _CallableT) -> _CallableT: ...
-
-Number: TypeAlias = int | float | decimal.Decimal
-NumberClass: tuple[type, ...]
-WHITESPACE: frozenset[str]
-EOL_CHARS: frozenset[str]
-DELIMITERS: frozenset[str]
-STR_ESC: Pattern[str]
-STR_ESC_MAP: dict[str, str]
+# Type check only type alias
 _Primitive: TypeAlias = (
-    _SupportsSerialize
-    | Number
-    | str
-    | bytes
-    | bool
-    | Raw
-    | list[_Primitive]
-    | tuple[_Primitive, ...]
-    | dict[Name, _Primitive]
-    | None
+    _SupportsSerialize | Number | str | bytes | bool | list[_Primitive] | tuple[_Primitive, ...] | dict[Name, _Primitive] | None
 )
 
-class GraphicsStateDictRegistry(OrderedDict[Raw, Name]):
-    def register_style(self, style: GraphicsStyle) -> Name | None: ...
-
-def number_to_str(number: Number) -> str: ...
 def render_pdf_primitive(primitive: _Primitive) -> Raw: ...
 
-class _DeviceRGBBase(NamedTuple):
-    r: Number
-    g: Number
-    b: Number
-    a: Number | None
+class GradientPaint:
+    __slots__ = ("gradient", "units", "gradient_transform", "apply_page_ctm", "skip_alpha", "spread_method")
 
-class DeviceRGB(_DeviceRGBBase):
-    OPERATOR: ClassVar[str]
-    def __new__(cls, r: Number, g: Number, b: Number, a: Number | None = None) -> Self: ...
+    gradient: Gradient
+    units: GradientUnits
+    gradient_transform: Transform
+    apply_page_ctm: bool
+    skip_alpha: bool
+    spread_method: GradientSpreadMethod
+
+    def __init__(
+        self,
+        gradient: Gradient,
+        units: GradientUnits | str = GradientUnits.USER_SPACE_ON_USE,
+        gradient_transform: Transform | None = None,
+        apply_page_ctm: bool = True,
+        spread_method: GradientSpreadMethod | str | None = None,
+    ) -> None: ...
+    def emit_fill(self, resource_catalog, bbox: BoundingBox | None) -> str: ...
+    def emit_stroke(self, resource_catalog, bbox: BoundingBox | None) -> str: ...
+    def has_alpha(self) -> bool: ...
+
+class BoundingBox(NamedTuple):
+    x0: float
+    y0: float
+    x1: float
+    y1: float
+
+    @classmethod
+    def empty(cls) -> Self: ...
+    def is_valid(self) -> bool: ...
+    @classmethod
+    def from_points(cls, points: Iterable[Point]) -> Self: ...
+    def merge(self, other: BoundingBox) -> BoundingBox: ...
+    def transformed(self, tf: Transform) -> Self: ...
+    def expanded(self, dx: float, dy: float | None = None) -> BoundingBox: ...
+    def expanded_to_stroke(self, style: GraphicsStyle, row_norms: tuple[float, float] = (1.0, 1.0)) -> BoundingBox: ...
+    def to_tuple(self) -> tuple[float, float, float, float]: ...
+    def to_pdf_array(self) -> str: ...
+    def corners(self) -> tuple[tuple[float, float], tuple[float, float], tuple[float, float], tuple[float, float]]: ...
+    def project_interval_on_axis(self, x1: float, y1: float, x2: float, y2: float) -> tuple[float, float, float]: ...
+    def max_distance_to_point(self, cx: float, cy: float) -> float: ...
     @property
-    def colors(self) -> tuple[Number, Number, Number]: ...
+    def width(self) -> float: ...
     @property
-    def colors255(self) -> tuple[Number, Number, Number]: ...
-    def serialize(self) -> str: ...
-
-class _DeviceGrayBase(NamedTuple):
-    g: Number
-    a: Number | None
-
-class DeviceGray(_DeviceGrayBase):
-    OPERATOR: ClassVar[str]
-    def __new__(cls, g: Number, a: Number | None = None) -> Self: ...
-    @property
-    def colors(self) -> tuple[Number, Number, Number]: ...
-    @property
-    def colors255(self) -> tuple[Number, Number, Number]: ...
-    def serialize(self) -> str: ...
-
-class _DeviceCMYKBase(NamedTuple):
-    c: Number
-    m: Number
-    y: Number
-    k: Number
-    a: Number | None
-
-class DeviceCMYK(_DeviceCMYKBase):
-    OPERATOR: ClassVar[str]
-    def __new__(cls, c: Number, m: Number, y: Number, k: Number, a: Number | None = None) -> Self: ...
-    @property
-    def colors(self) -> tuple[Number, Number, Number, Number]: ...
-    def serialize(self) -> str: ...
-
-def rgb8(r: Number, g: Number, b: Number, a: Number | None = None) -> DeviceRGB: ...
-def gray8(g: Number, a: Number | None = None) -> DeviceGray: ...
-@overload
-def convert_to_device_color(r: DeviceCMYK) -> DeviceCMYK: ...
-@overload
-def convert_to_device_color(r: DeviceGray) -> DeviceGray: ...
-@overload
-def convert_to_device_color(r: DeviceRGB) -> DeviceRGB: ...
-@overload
-def convert_to_device_color(r: str) -> DeviceRGB: ...
-@overload
-def convert_to_device_color(r: int, g: Literal[-1] = -1, b: Literal[-1] = -1) -> DeviceGray: ...
-@overload
-def convert_to_device_color(r: Sequence[int] | int, g: int, b: int) -> DeviceGray | DeviceRGB: ...
-def cmyk8(c, m, y, k, a=None) -> DeviceCMYK: ...
-def color_from_hex_string(hexstr: str) -> DeviceRGB: ...
-def color_from_rgb_string(rgbstr: str) -> DeviceRGB: ...
-
-class Point(NamedTuple):
-    x: Number
-    y: Number
-    def render(self) -> str: ...
-    def dot(self, other: Point) -> Number: ...
-    def angle(self, other: Point) -> float: ...
-    def mag(self) -> Number: ...
-    def __add__(self, other: Point) -> Point: ...  # type: ignore[override]
-    def __sub__(self, other: Point) -> Point: ...
-    def __neg__(self) -> Point: ...
-    def __mul__(self, other: Number) -> Point: ...  # type: ignore[override]
-    def __rmul__(self, other: Number) -> Point: ...  # type: ignore[override]
-    def __truediv__(self, other: Number) -> Point: ...
-    def __floordiv__(self, other: Number) -> Point: ...
-    def __matmul__(self, other: Transform) -> Point: ...
-
-class Transform(NamedTuple):
-    a: Number
-    b: Number
-    c: Number
-    d: Number
-    e: Number
-    f: Number
-    @classmethod
-    def identity(cls) -> Self: ...
-    @classmethod
-    def translation(cls, x: Number, y: Number) -> Self: ...
-    @classmethod
-    def scaling(cls, x: Number, y: Number | None = None) -> Self: ...
-    @classmethod
-    def rotation(cls, theta: Number) -> Self: ...
-    @classmethod
-    def rotation_d(cls, theta_d: Number) -> Self: ...
-    @classmethod
-    def shearing(cls, x: Number, y: Number | None = None) -> Self: ...
-    def translate(self, x: Number, y: Number) -> Self: ...
-    def scale(self, x: Number, y: Number | None = None) -> Self: ...
-    def rotate(self, theta: Number) -> Self: ...
-    def rotate_d(self, theta_d: Number) -> Self: ...
-    def shear(self, x: Number, y: Number | None = None) -> Self: ...
-    def about(self, x: Number, y: Number) -> Transform: ...
-    def __mul__(self, other: Number) -> Transform: ...  # type: ignore[override]
-    def __rmul__(self, other: Number) -> Transform: ...  # type: ignore[override]
-    def __matmul__(self, other: Transform) -> Self: ...
-    def render(self, last_item: _T) -> tuple[str, _T]: ...
+    def height(self) -> float: ...
+    def __eq__(self, other: object) -> bool: ...
+    def __hash__(self) -> int: ...
 
 class GraphicsStyle:
-    INHERIT: ClassVar[EllipsisType]
-    MERGE_PROPERTIES: ClassVar[tuple[str, ...]]
-    TRANSPARENCY_KEYS: ClassVar[tuple[Name, ...]]
-    PDF_STYLE_KEYS: ClassVar[tuple[Name, ...]]
+    ca: Incomplete
+    BM: Incomplete
+    CA: Incomplete
+    SA: Incomplete
+    LW: Incomplete
+    LC: Incomplete
+    LJ: Incomplete
+    ML: Incomplete
+    SMask: Incomplete
+
+    INHERIT: Final[object]  # singleton value to indicate inheritance
+    MERGE_PROPERTIES: Final[tuple[str, ...]]
+    TRANSPARENCY_KEYS: Final[tuple[Name, ...]]
+    PDF_STYLE_KEYS: Final[tuple[Name, ...]]
+
     @classmethod
-    def merge(cls, parent, child) -> Self: ...
+    def merge(cls, parent: GraphicsStyle, child: GraphicsStyle) -> Self: ...
     def __init__(self) -> None: ...
-    def __deepcopy__(self, memo) -> Self: ...
+    def __deepcopy__(self, memo: Unused) -> Self: ...
     @property
     def allow_transparency(self): ...
     @allow_transparency.setter
@@ -235,113 +171,226 @@ class GraphicsStyle:
     def stroke_dash_phase(self): ...
     @stroke_dash_phase.setter
     def stroke_dash_phase(self, value: Number | EllipsisType): ...
+    @property
+    def soft_mask(self): ...
+    @soft_mask.setter
+    def soft_mask(self, value) -> None: ...
     def serialize(self) -> Raw | None: ...
     def resolve_paint_rule(self) -> PathPaintRule: ...
+
+@runtime_checkable
+class Renderable(Protocol):
+    def render(
+        self, resource_registry: ResourceCatalog, style: GraphicsStyle, last_item: Renderable, initial_point: Point
+    ) -> tuple[str, Renderable, Point]: ...
+    def bounding_box(self, start: Point) -> tuple[BoundingBox, Point]: ...
 
 class Move(NamedTuple):
     pt: Point
     @property
     def end_point(self) -> Point: ...
+    def bounding_box(self, start: Unused) -> tuple[BoundingBox, Point]: ...
     def render(
-        self, gsd_registry: GraphicsStateDictRegistry, style: GraphicsStyle, last_item: _SupportsEndPoint, initial_point: Point
-    ) -> tuple[str, Self, Point]: ...
+        self, resource_registry: ResourceCatalog, style: GraphicsStyle, last_item: Renderable, initial_point: Point
+    ) -> tuple[str, Renderable, Point]: ...
     def render_debug(
         self,
-        gsd_registry: GraphicsStateDictRegistry,
+        resource_registry: ResourceCatalog,
         style: GraphicsStyle,
-        last_item: _SupportsEndPoint,
+        last_item: Renderable,
         initial_point: Point,
         debug_stream: SupportsWrite[str],
         pfx: str,
-    ) -> tuple[str, Self, Point]: ...
+    ) -> tuple[str, Renderable, Point]: ...
 
 class RelativeMove(NamedTuple):
     pt: Point
+    def bounding_box(self, start: Point) -> tuple[BoundingBox, Point]: ...
     def render(
-        self, gsd_registry: GraphicsStateDictRegistry, style: GraphicsStyle, last_item: _SupportsEndPoint, initial_point: Point
-    ) -> tuple[str, Move, Point]: ...
+        self, resource_registry: ResourceCatalog, style: GraphicsStyle, last_item: Renderable, initial_point: Point
+    ) -> tuple[str, Renderable, Point]: ...
     def render_debug(
         self,
-        gsd_registry: GraphicsStateDictRegistry,
+        resource_registry: ResourceCatalog,
         style: GraphicsStyle,
-        last_item: _SupportsEndPoint,
+        last_item: Renderable,
         initial_point: Point,
         debug_stream: SupportsWrite[str],
         pfx: str,
-    ) -> tuple[str, Move, Point]: ...
+    ) -> tuple[str, Renderable, Point]: ...
 
 class Line(NamedTuple):
     pt: Point
     @property
     def end_point(self) -> Point: ...
+    def bounding_box(self, start: Point) -> tuple[BoundingBox, Point]: ...
     def render(
-        self, gsd_registry: GraphicsStateDictRegistry, style: GraphicsStyle, last_item: _SupportsEndPoint, initial_point: Point
-    ) -> tuple[str, Self, Point]: ...
+        self, resource_registry: ResourceCatalog, style: GraphicsStyle, last_item: Renderable, initial_point: Point
+    ) -> tuple[str, Renderable, Point]: ...
     def render_debug(
         self,
-        gsd_registry: GraphicsStateDictRegistry,
+        resource_registry: ResourceCatalog,
         style: GraphicsStyle,
-        last_item: _SupportsEndPoint,
+        last_item: Renderable,
         initial_point: Point,
         debug_stream: SupportsWrite[str],
         pfx: str,
-    ) -> tuple[str, Self, Point]: ...
+    ) -> tuple[str, Renderable, Point]: ...
 
 class RelativeLine(NamedTuple):
     pt: Point
-    def render(self, gsd_registry, style, last_item, initial_point): ...
-    def render_debug(self, gsd_registry, style, last_item, initial_point, debug_stream, pfx): ...
+    def bounding_box(self, start: Point) -> tuple[BoundingBox, Point]: ...
+    def render(
+        self, resource_registry: ResourceCatalog, style: GraphicsStyle, last_item: Renderable, initial_point: Point
+    ) -> tuple[str, Renderable, Point]: ...
+    def render_debug(
+        self,
+        resource_registry: ResourceCatalog,
+        style: GraphicsStyle,
+        last_item: Renderable,
+        initial_point: Point,
+        debug_stream: SupportsWrite[str],
+        pfx: str,
+    ) -> tuple[str, Renderable, Point]: ...
 
 class HorizontalLine(NamedTuple):
     x: Number
-    def render(self, gsd_registry, style, last_item, initial_point): ...
-    def render_debug(self, gsd_registry, style, last_item, initial_point, debug_stream, pfx): ...
+    def bounding_box(self, start: Point) -> tuple[BoundingBox, Point]: ...
+    def render(
+        self, resource_registry: ResourceCatalog, style: GraphicsStyle, last_item: Renderable, initial_point: Point
+    ) -> tuple[str, Renderable, Point]: ...
+    def render_debug(
+        self,
+        resource_registry: ResourceCatalog,
+        style: GraphicsStyle,
+        last_item: Renderable,
+        initial_point: Point,
+        debug_stream: SupportsWrite[str],
+        pfx: str,
+    ) -> tuple[str, Renderable, Point]: ...
 
 class RelativeHorizontalLine(NamedTuple):
     x: Number
-    def render(self, gsd_registry, style, last_item, initial_point): ...
-    def render_debug(self, gsd_registry, style, last_item, initial_point, debug_stream, pfx): ...
+    def bounding_box(self, start: Point) -> tuple[BoundingBox, Point]: ...
+    def render(
+        self, resource_registry: ResourceCatalog, style: GraphicsStyle, last_item: Renderable, initial_point: Point
+    ) -> tuple[str, Renderable, Point]: ...
+    def render_debug(
+        self,
+        resource_registry: ResourceCatalog,
+        style: GraphicsStyle,
+        last_item: Renderable,
+        initial_point: Point,
+        debug_stream: SupportsWrite[str],
+        pfx: str,
+    ) -> tuple[str, Renderable, Point]: ...
 
 class VerticalLine(NamedTuple):
     y: Number
-    def render(self, gsd_registry, style, last_item, initial_point): ...
-    def render_debug(self, gsd_registry, style, last_item, initial_point, debug_stream, pfx): ...
+    def bounding_box(self, start: Point) -> tuple[BoundingBox, Point]: ...
+    def render(
+        self, resource_registry: ResourceCatalog, style: GraphicsStyle, last_item: Renderable, initial_point: Point
+    ) -> tuple[str, Renderable, Point]: ...
+    def render_debug(
+        self,
+        resource_registry: ResourceCatalog,
+        style: GraphicsStyle,
+        last_item: Renderable,
+        initial_point: Point,
+        debug_stream: SupportsWrite[str],
+        pfx: str,
+    ) -> tuple[str, Renderable, Point]: ...
 
 class RelativeVerticalLine(NamedTuple):
     y: Number
-    def render(self, gsd_registry, style, last_item, initial_point): ...
-    def render_debug(self, gsd_registry, style, last_item, initial_point, debug_stream, pfx): ...
+    def bounding_box(self, start: Point) -> tuple[BoundingBox, Point]: ...
+    def render(
+        self, resource_registry: ResourceCatalog, style: GraphicsStyle, last_item: Renderable, initial_point: Point
+    ) -> tuple[str, Renderable, Point]: ...
+    def render_debug(
+        self,
+        resource_registry: ResourceCatalog,
+        style: GraphicsStyle,
+        last_item: Renderable,
+        initial_point: Point,
+        debug_stream: SupportsWrite[str],
+        pfx: str,
+    ) -> tuple[str, Renderable, Point]: ...
 
 class BezierCurve(NamedTuple):
     c1: Point
     c2: Point
     end: Point
     @property
-    def end_point(self) -> Point: ...
-    def render(self, gsd_registry, style, last_item, initial_point): ...
-    def render_debug(self, gsd_registry, style, last_item, initial_point, debug_stream, pfx): ...
+    def end_point(self): ...
+    def bounding_box(self, start: Point) -> tuple[BoundingBox, Point]: ...
+    def render(
+        self, resource_registry: ResourceCatalog, style: GraphicsStyle, last_item: Renderable, initial_point: Point
+    ) -> tuple[str, Renderable, Point]: ...
+    def render_debug(
+        self,
+        resource_registry: ResourceCatalog,
+        style: GraphicsStyle,
+        last_item: Renderable,
+        initial_point: Point,
+        debug_stream: SupportsWrite[str],
+        pfx: str,
+    ) -> tuple[str, Renderable, Point]: ...
 
 class RelativeBezierCurve(NamedTuple):
     c1: Point
     c2: Point
     end: Point
-    def render(self, gsd_registry, style, last_item, initial_point): ...
-    def render_debug(self, gsd_registry, style, last_item, initial_point, debug_stream, pfx): ...
+    def bounding_box(self, start: Point) -> tuple[BoundingBox, Point]: ...
+    def render(
+        self, resource_registry: ResourceCatalog, style: GraphicsStyle, last_item: Renderable, initial_point: Point
+    ) -> tuple[str, Renderable, Point]: ...
+    def render_debug(
+        self,
+        resource_registry: ResourceCatalog,
+        style: GraphicsStyle,
+        last_item: Renderable,
+        initial_point: Point,
+        debug_stream: SupportsWrite[str],
+        pfx: str,
+    ) -> tuple[str, Renderable, Point]: ...
 
 class QuadraticBezierCurve(NamedTuple):
     ctrl: Point
     end: Point
     @property
     def end_point(self) -> Point: ...
-    def to_cubic_curve(self, start_point): ...
-    def render(self, gsd_registry, style, last_item, initial_point): ...
-    def render_debug(self, gsd_registry, style, last_item, initial_point, debug_stream, pfx): ...
+    def to_cubic_curve(self, start_point: Point) -> BezierCurve: ...
+    def bounding_box(self, start: Point) -> tuple[BoundingBox, Point]: ...
+    def render(
+        self, resource_registry: ResourceCatalog, style: GraphicsStyle, last_item: Renderable, initial_point: Point
+    ) -> tuple[str, Renderable, Point]: ...
+    def render_debug(
+        self,
+        resource_registry: ResourceCatalog,
+        style: GraphicsStyle,
+        last_item: Renderable,
+        initial_point: Point,
+        debug_stream: SupportsWrite[str],
+        pfx: str,
+    ) -> tuple[str, Renderable, Point]: ...
 
 class RelativeQuadraticBezierCurve(NamedTuple):
     ctrl: Point
     end: Point
-    def render(self, gsd_registry, style, last_item, initial_point): ...
-    def render_debug(self, gsd_registry, style, last_item, initial_point, debug_stream, pfx): ...
+    def bounding_box(self, start: Point) -> tuple[BoundingBox, Point]: ...
+    def render(
+        self, resource_registry: ResourceCatalog, style: GraphicsStyle, last_item: Renderable, initial_point: Point
+    ) -> tuple[str, Renderable, Point]: ...
+    def render_debug(
+        self,
+        resource_registry: ResourceCatalog,
+        style: GraphicsStyle,
+        last_item: Renderable,
+        initial_point: Point,
+        debug_stream: SupportsWrite[str],
+        pfx: str,
+    ) -> tuple[str, Renderable, Point]: ...
 
 class Arc(NamedTuple):
     radii: Point
@@ -350,9 +399,20 @@ class Arc(NamedTuple):
     sweep: bool
     end: Point
     @staticmethod
-    def subdivde_sweep(sweep_angle: Number) -> Generator[tuple[Point, Point, Point]]: ...
-    def render(self, gsd_registry, style, last_item, initial_point): ...
-    def render_debug(self, gsd_registry, style, last_item, initial_point, debug_stream, pfx): ...
+    def subdivide_sweep(sweep_angle: float) -> Generator[tuple[Point, Point, Point]]: ...
+    def bounding_box(self, start: Point) -> tuple[BoundingBox, Point]: ...
+    def render(
+        self, resource_registry: ResourceCatalog, style: GraphicsStyle, last_item: Renderable, initial_point: Point
+    ) -> tuple[str, Renderable, Point]: ...
+    def render_debug(
+        self,
+        resource_registry: ResourceCatalog,
+        style: GraphicsStyle,
+        last_item: Renderable,
+        initial_point: Point,
+        debug_stream: SupportsWrite[str],
+        pfx: str,
+    ) -> tuple[str, Renderable, Point]: ...
 
 class RelativeArc(NamedTuple):
     radii: Point
@@ -360,65 +420,173 @@ class RelativeArc(NamedTuple):
     large: bool
     sweep: bool
     end: Point
-    def render(self, gsd_registry, style, last_item, initial_point): ...
-    def render_debug(self, gsd_registry, style, last_item, initial_point, debug_stream, pfx): ...
+    def bounding_box(self, start: Point) -> tuple[BoundingBox, Point]: ...
+    def render(
+        self, resource_registry: ResourceCatalog, style: GraphicsStyle, last_item: Renderable, initial_point: Point
+    ) -> tuple[str, Renderable, Point]: ...
+    def render_debug(
+        self,
+        resource_registry: ResourceCatalog,
+        style: GraphicsStyle,
+        last_item: Renderable,
+        initial_point: Point,
+        debug_stream: SupportsWrite[str],
+        pfx: str,
+    ) -> tuple[str, Renderable, Point]: ...
 
 class Rectangle(NamedTuple):
     org: Point
     size: Point
-    def render(self, gsd_registry, style, last_item, initial_point): ...
-    def render_debug(self, gsd_registry, style, last_item, initial_point, debug_stream, pfx): ...
+    def bounding_box(self, start: Point | None = None) -> tuple[BoundingBox, Point]: ...
+    def render(
+        self, resource_registry: ResourceCatalog, style: GraphicsStyle, last_item: Renderable, initial_point: Point
+    ) -> tuple[str, Renderable, Point]: ...
+    def render_debug(
+        self,
+        resource_registry: ResourceCatalog,
+        style: GraphicsStyle,
+        last_item: Renderable,
+        initial_point: Point,
+        debug_stream: SupportsWrite[str],
+        pfx: str,
+    ) -> tuple[str, Renderable, Point]: ...
 
 class RoundedRectangle(NamedTuple):
     org: Point
     size: Point
     corner_radii: Point
-    def render(self, gsd_registry, style, last_item, initial_point): ...
-    def render_debug(self, gsd_registry, style, last_item, initial_point, debug_stream, pfx): ...
+    def bounding_box(self, start: Point) -> tuple[BoundingBox, Point]: ...
+    def render(
+        self, resource_registry: ResourceCatalog, style: GraphicsStyle, last_item: Renderable, initial_point: Point
+    ) -> tuple[str, Renderable, Point]: ...
+    def render_debug(
+        self,
+        resource_registry: ResourceCatalog,
+        style: GraphicsStyle,
+        last_item: Renderable,
+        initial_point: Point,
+        debug_stream: SupportsWrite[str],
+        pfx: str,
+    ) -> tuple[str, Renderable, Point]: ...
 
 class Ellipse(NamedTuple):
     radii: Point
     center: Point
-    def render(self, gsd_registry, style, last_item, initial_point): ...
-    def render_debug(self, gsd_registry, style, last_item, initial_point, debug_stream, pfx): ...
+    def bounding_box(self, start: Point) -> tuple[BoundingBox, Point]: ...
+    def render(
+        self, resource_registry: ResourceCatalog, style: GraphicsStyle, last_item: Renderable, initial_point: Point
+    ) -> tuple[str, Renderable, Point]: ...
+    def render_debug(
+        self,
+        resource_registry: ResourceCatalog,
+        style: GraphicsStyle,
+        last_item: Renderable,
+        initial_point: Point,
+        debug_stream: SupportsWrite[str],
+        pfx: str,
+    ) -> tuple[str, Renderable, Point]: ...
+
+class TextRun(NamedTuple):
+    text: str
+    family: str
+    emphasis: str
+    size: float
+    dx: float = 0.0
+    dy: float = 0.0
+    abs_x: float | None = None
+    abs_y: float | None = None
+    transform: Transform | None = None
+    run_style: GraphicsStyle | None = None
+
+class Text(NamedTuple):
+    x: float
+    y: float
+    text_runs: tuple[TextRun, ...]
+    text_anchor: Literal["start", "middle", "end"] = "start"
+    def bounding_box(self, start: Point) -> tuple[BoundingBox, Point]: ...
+    def render(
+        self, resource_registry: ResourceCatalog, style: GraphicsStyle, last_item: Renderable, initial_point: Point
+    ) -> tuple[str, Renderable, Point]: ...
+    def render_debug(
+        self,
+        resource_registry: ResourceCatalog,
+        style: GraphicsStyle,
+        last_item: Renderable,
+        initial_point: Point,
+        debug_stream: SupportsWrite[str],
+        pfx: str,
+    ) -> tuple[str, Renderable, Point]: ...
 
 class ImplicitClose(NamedTuple):
-    def render(self, gsd_registry, style, last_item, initial_point): ...
-    def render_debug(self, gsd_registry, style, last_item, initial_point, debug_stream, pfx): ...
+    def bounding_box(self, start: Point) -> tuple[BoundingBox, Point]: ...
+    def render(
+        self, resource_registry: ResourceCatalog, style: GraphicsStyle, last_item: Renderable, initial_point: Point
+    ) -> tuple[str, Renderable, Point]: ...
+    def render_debug(
+        self,
+        resource_registry: ResourceCatalog,
+        style: GraphicsStyle,
+        last_item: Renderable,
+        initial_point: Point,
+        debug_stream: SupportsWrite[str],
+        pfx: str,
+    ) -> tuple[str, Renderable, Point]: ...
 
 class Close(NamedTuple):
-    def render(self, gsd_registry, style, last_item, initial_point): ...
-    def render_debug(self, gsd_registry, style, last_item, initial_point, debug_stream, pfx): ...
+    def bounding_box(self, start: Point) -> tuple[BoundingBox, Point]: ...
+    def render(
+        self, resource_registry: ResourceCatalog, style: GraphicsStyle, last_item: Renderable, initial_point: Point
+    ) -> tuple[str, Renderable, Point]: ...
+    def render_debug(
+        self,
+        resource_registry: ResourceCatalog,
+        style: GraphicsStyle,
+        last_item: Renderable,
+        initial_point: Point,
+        debug_stream: SupportsWrite[str],
+        pfx: str,
+    ) -> tuple[str, Renderable, Point]: ...
 
 class DrawingContext:
     def __init__(self) -> None: ...
-    def add_item(self, item, _copy: bool = True) -> None: ...
-    def render(self, gsd_registry, first_point, scale, height, starting_style): ...
-    def render_debug(self, gsd_registry, first_point, scale, height, starting_style, debug_stream): ...
+    def add_item(self, item: GraphicsContext | PaintedPath | PaintComposite, _copy: bool = True) -> None: ...
+    def render(
+        self, resource_registry: ResourceCatalog, first_point: Point, scale: float, height: float, starting_style: GraphicsStyle
+    ) -> None: ...
+    def render_debug(
+        self,
+        resource_registry: ResourceCatalog,
+        first_point: Point,
+        scale: float,
+        height: float,
+        starting_style: GraphicsStyle,
+        debug_stream: SupportsWrite[str],
+    ) -> None: ...
 
 class PaintedPath:
-    def __init__(self, x: Number = 0, y: Number = 0) -> None: ...
+    def __init__(self, x: float = 0, y: float = 0) -> None: ...
     def __deepcopy__(self, memo) -> Self: ...
     @property
     def style(self) -> GraphicsStyle: ...
     @property
-    def transform(self): ...
+    def transform(self) -> Transform | None: ...
     @transform.setter
-    def transform(self, tf) -> None: ...
+    def transform(self, tf: Transform) -> None: ...
     @property
-    def auto_close(self): ...
+    def auto_close(self) -> bool: ...
     @auto_close.setter
-    def auto_close(self, should) -> None: ...
+    def auto_close(self, should: bool) -> None: ...
     @property
-    def paint_rule(self): ...
+    def paint_rule(self) -> PathPaintRule: ...
     @paint_rule.setter
-    def paint_rule(self, style) -> None: ...
+    def paint_rule(self, style: PathPaintRule) -> None: ...
     @property
     def clipping_path(self): ...
     @clipping_path.setter
     def clipping_path(self, new_clipath) -> None: ...
+    def get_graphics_context(self) -> GraphicsContext: ...
     @contextmanager
-    def transform_group(self, transform) -> Generator[Self]: ...
+    def transform_group(self, transform: Transform) -> Generator[Self]: ...
     def add_path_element(self, item, _copy: bool = True) -> None: ...
     def remove_last_path_element(self) -> None: ...
     def rectangle(self, x: Number, y: Number, w: Number, h: Number, rx: Number = 0, ry: Number = 0) -> Self: ...
@@ -437,43 +605,216 @@ class PaintedPath:
     def quadratic_curve_to(self, x1: Number, y1: Number, x2: Number, y2: Number) -> Self: ...
     def quadratic_curve_relative(self, dx1: Number, dy1: Number, dx2: Number, dy2: Number) -> Self: ...
     def arc_to(
-        self, rx: Number, ry: Number, rotation: Number, large_arc: bool, positive_sweep: bool, x: Number, y: Number
+        self, rx: Number, ry: Number, rotation: Number, large_arc: Number, positive_sweep: Number, x: Number, y: Number
     ) -> Self: ...
     def arc_relative(
-        self, rx: Number, ry: Number, rotation: Number, large_arc: bool, positive_sweep: bool, dx: Number, dy: Number
+        self, rx: Number, ry: Number, rotation: Number, large_arc: Number, positive_sweep: Number, dx: Number, dy: Number
+    ) -> Self: ...
+    def text(
+        self,
+        x: float,
+        y: float,
+        content: str,
+        *,
+        font_family: str = "helvetica",
+        font_style: Literal["", "B", "I", "BI"] = "",
+        font_size: float = 12.0,
+        text_anchor: Literal["start", "middle", "end"] = "start",
     ) -> Self: ...
     def close(self) -> None: ...
-    def render(self, gsd_registry, style, last_item, initial_point, debug_stream=None, pfx=None): ...
-    def render_debug(self, gsd_registry, style, last_item, initial_point, debug_stream, pfx): ...
+    def bounding_box(self, start: Point, expand_for_stroke: bool = True) -> tuple[BoundingBox, Point]: ...
+    def render(
+        self,
+        resource_registry: ResourceCatalog,
+        style: GraphicsStyle,
+        last_item: Renderable,
+        initial_point: Point,
+        debug_stream: SupportsWrite[str] | None = None,
+        pfx: str | None = None,
+    ) -> tuple[str, Renderable, Point]: ...
+    def render_debug(
+        self,
+        resource_registry: ResourceCatalog,
+        style: GraphicsStyle,
+        last_item: Renderable,
+        initial_point: Point,
+        debug_stream: SupportsWrite[str],
+        pfx: str,
+    ) -> tuple[str, Renderable, Point]: ...
 
 class ClippingPath(PaintedPath):
     paint_rule: PathPaintRule
-    def __init__(self, x: Number = 0, y: Number = 0) -> None: ...
-    def render(self, gsd_registry, style, last_item, initial_point, debug_stream=None, pfx=None): ...
-    def render_debug(self, gsd_registry, style, last_item, initial_point, debug_stream, pfx): ...
+    def __init__(self, x: float = 0, y: float = 0) -> None: ...
+    def render(
+        self,
+        resource_registry: ResourceCatalog,
+        style: GraphicsStyle,
+        last_item: Renderable,
+        initial_point: Point,
+        debug_stream: SupportsWrite[str] | None = None,
+        pfx: str | None = None,
+    ) -> tuple[str, Renderable, Point]: ...
+    def render_debug(
+        self,
+        resource_registry: ResourceCatalog,
+        style: GraphicsStyle,
+        last_item: Renderable,
+        initial_point: Point,
+        debug_stream: SupportsWrite[str],
+        pfx: str,
+    ) -> tuple[str, Renderable, Point]: ...
 
 class GraphicsContext:
     style: GraphicsStyle
-    path_items: list[Incomplete]
+    path_items: list[Renderable]
+
     def __init__(self) -> None: ...
     def __deepcopy__(self, memo) -> Self: ...
     @property
     def transform(self) -> Transform | None: ...
     @transform.setter
-    def transform(self, tf) -> None: ...
+    def transform(self, tf: Transform) -> None: ...
     @property
     def clipping_path(self) -> ClippingPath | None: ...
     @clipping_path.setter
-    def clipping_path(self, new_clipath) -> None: ...
-    def add_item(self, item, _copy: bool = True) -> None: ...
+    def clipping_path(self, new_clipath: ClippingPath) -> None: ...
+    def add_item(self, item: Renderable, _copy: bool = True) -> None: ...
     def remove_last_item(self) -> None: ...
-    def merge(self, other_context) -> None: ...
+    def merge(self, other_context: GraphicsContext) -> None: ...
     def build_render_list(
-        self, gsd_registry, style, last_item, initial_point, debug_stream=None, pfx=None, _push_stack: bool = True
-    ): ...
+        self,
+        resource_registry: ResourceCatalog,
+        style: GraphicsStyle,
+        last_item: Renderable,
+        initial_point: Point,
+        debug_stream: SupportsWrite[str] | None = None,
+        pfx: str | None = None,
+        _push_stack: bool = True,
+    ) -> tuple[list[str], Renderable, Point]: ...
+    def bounding_box(
+        self, start: Point, style: GraphicsStyle | None = None, expand_for_stroke: bool = True, transformed: bool = True
+    ) -> tuple[BoundingBox, Point]: ...
     def render(
-        self, gsd_registry, style: DrawingContext, last_item, initial_point, debug_stream=None, pfx=None, _push_stack: bool = True
-    ): ...
+        self,
+        resource_registry: ResourceCatalog,
+        style: GraphicsStyle,
+        last_item: Renderable,
+        initial_point: Point,
+        debug_stream: SupportsWrite[str] | None = None,
+        pfx: str | None = None,
+        _push_stack: bool = True,
+    ) -> tuple[str, Renderable, Point]: ...
     def render_debug(
-        self, gsd_registry, style: DrawingContext, last_item, initial_point, debug_stream, pfx, _push_stack: bool = True
-    ): ...
+        self,
+        resource_registry: ResourceCatalog,
+        style: GraphicsStyle,
+        last_item: Renderable,
+        initial_point: Point,
+        debug_stream: SupportsWrite[str],
+        pfx: str,
+        _push_stack: bool = True,
+    ) -> tuple[str, Renderable, Point]: ...
+
+class PaintSoftMask:
+    __slots__ = ("mask_path", "invert", "resources", "use_luminosity", "object_id", "matrix")
+
+    mask_path: PaintedPath | GraphicsContext
+    invert: bool
+    use_luminosity: bool
+    resources: set[Incomplete]
+    object_id: int
+    matrix: Transform
+
+    def __init__(
+        self,
+        mask_path: PaintedPath | GraphicsContext,
+        invert: bool = False,
+        use_luminosity: bool = False,
+        matrix: Transform = ...,
+    ) -> None: ...
+    def serialize(self) -> str: ...
+    def get_bounding_box(self) -> tuple[float, float, float, float]: ...
+    def get_resource_dictionary(self, gfxstate_objs_per_name, pattern_objs_per_name) -> str: ...
+    def render(self, resource_registry: ResourceCatalog) -> str: ...
+    @staticmethod
+    def coverage_white(node: PaintedPath | GraphicsContext) -> PaintedPath | GraphicsContext: ...
+    @staticmethod
+    def alpha_layers_from(node: PaintedPath | GraphicsContext) -> GraphicsContext | None: ...
+    @classmethod
+    def from_AB(
+        cls,
+        A: GraphicsContext | None,
+        B: PaintedPath | GraphicsContext,
+        invert: bool,
+        registry,
+        region_bbox: BoundingBox | None = None,
+    ) -> Self: ...
+
+def clone_structure(node): ...
+
+class PaintComposite:
+    backdrop: PaintedPath | GraphicsContext
+    source: PaintedPath | GraphicsContext
+    mode: CompositingOperation
+
+    def __init__(
+        self, backdrop: PaintedPath | GraphicsContext, source: PaintedPath | GraphicsContext, operation: CompositingOperation
+    ) -> None: ...
+    def render(
+        self,
+        resource_registry: ResourceCatalog,
+        style: GraphicsStyle,
+        last_item: Renderable,
+        initial_point: Point,
+        debug_stream: SupportsWrite[str] | None = None,
+        pfx: str | None = None,
+    ) -> tuple[str, Renderable, Point]: ...
+    def render_debug(
+        self,
+        resource_registry: ResourceCatalog,
+        style: GraphicsStyle,
+        last_item: Renderable,
+        initial_point: Point,
+        debug_stream: SupportsWrite[str],
+        pfx: str,
+    ) -> tuple[str, Renderable, Point]: ...
+
+class PaintBlendComposite:
+    __slots__ = ("backdrop", "source", "blend_mode", "_form_index")
+
+    backdrop: GraphicsContext | PaintedPath
+    source: GraphicsContext | PaintedPath
+    blend_mode: BlendMode
+    _form_index: int | None
+
+    def __init__(
+        self, backdrop: GraphicsContext | PaintedPath, source: GraphicsContext | PaintedPath, blend_mode: BlendMode
+    ) -> None: ...
+    def render(
+        self,
+        resource_registry: ResourceCatalog,
+        style: GraphicsStyle,
+        last_item: Renderable,
+        initial_point: Point,
+        debug_stream: SupportsWrite[str] | None = None,
+        pfx: str | None = None,
+    ) -> tuple[str, Renderable, Point]: ...
+    def render_debug(
+        self,
+        resource_registry: ResourceCatalog,
+        style: GraphicsStyle,
+        last_item: Renderable,
+        initial_point: Point,
+        debug_stream: SupportsWrite[str],
+        pfx: str,
+    ) -> tuple[str, Renderable, Point]: ...
+
+class PathPen(BasePen):
+    pdf_path: PaintedPath
+    last_was_line_to: bool
+    first_is_move: bool | None
+
+    def __init__(self, pdf_path: PaintedPath, glyphSet: _TTGlyphSet | None = ...) -> None: ...
+    def arcTo(self, rx, ry, rotation, arc, sweep, end) -> None: ...
+
+class GlyphPathPen(PathPen): ...
