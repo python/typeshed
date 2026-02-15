@@ -128,8 +128,8 @@ class TarFile:
     errors: str
     fileobject: type[ExFileObject]  # undocumented
     pax_headers: Mapping[str, str]
-    debug: int
-    errorlevel: int
+    debug: Literal[0, 1, 2, 3]
+    errorlevel: Literal[0, 1, 2]
     offset: int  # undocumented
     extraction_filter: _FilterFunction | None
     if sys.version_info >= (3, 13):
@@ -146,8 +146,8 @@ class TarFile:
             encoding: str | None = None,
             errors: str = "surrogateescape",
             pax_headers: Mapping[str, str] | None = None,
-            debug: int | None = None,
-            errorlevel: int | None = None,
+            debug: Literal[0, 1, 2, 3] | None = None,  # default 0
+            errorlevel: Literal[0, 1, 2] | None = None,  # default 1
             copybufsize: int | None = None,  # undocumented
             stream: bool = False,
         ) -> None: ...
