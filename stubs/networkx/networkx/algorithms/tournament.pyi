@@ -15,6 +15,7 @@ __all__ = [
     "tournament_matrix",
 ]
 
+def index_satisfying(iterable, condition): ...
 @_dispatchable
 def is_tournament(G: Graph[_Node]) -> bool: ...
 @_dispatchable
