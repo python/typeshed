@@ -4,16 +4,15 @@ import re
 import socket
 from _typeshed import ReadableBuffer
 from collections.abc import Callable
-from typing import Any
-from typing_extensions import override
+from typing import Any, Final
 
 from gunicorn.config import Config
 from gunicorn.http import Request
 
 from .._types import _AddressType, _EnvironType, _HeadersType, _StatusType
 
-BLKSIZE: int
-HEADER_VALUE_RE: re.Pattern[str]
+BLKSIZE: Final = 0x3FFFFFFF
+HEADER_VALUE_RE: Final[re.Pattern[str]]
 log: logging.Logger
 
 class FileWrapper:
@@ -28,7 +27,6 @@ class WSGIErrorsWrapper(io.RawIOBase):
     streams: list[io.TextIOBase]
 
     def __init__(self, cfg: Config) -> None: ...
-    @override
     def write(self, data: ReadableBuffer) -> None: ...
 
 def base_environ(cfg: Config) -> _EnvironType: ...
