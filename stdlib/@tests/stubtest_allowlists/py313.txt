@@ -2,6 +2,9 @@
 # New errors in Python 3.13
 # =========================
 
+# No way to express keyword-only ParamSpec
+copy.replace
+
 
 # ====================================
 # Pre-existing errors from Python 3.12
