@@ -38,7 +38,7 @@ you can install the type stubs using
 $ pip install types-html5lib types-requests
 ```
 
-These PyPI packages follow [PEP 561](http://www.python.org/dev/peps/pep-0561/)
+These PyPI packages follow [PEP 561](https://peps.python.org/pep-0561/)
 and are automatically released (up to once a day) by
 [typeshed internal machinery](https://github.com/typeshed-internal/stub_uploader).
 
