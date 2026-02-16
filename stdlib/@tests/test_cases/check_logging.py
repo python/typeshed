@@ -28,3 +28,19 @@ logging.handlers.QueueHandler(multiprocessing.Queue())
 logging.handlers.QueueListener(queue.Queue())
 logging.handlers.QueueListener(queue.SimpleQueue())
 logging.handlers.QueueListener(multiprocessing.Queue())
+
+# These all raise at runtime.
+logging.basicConfig(filename="foo.log", handlers=[])  # type: ignore
+logging.basicConfig(filemode="w", handlers=[])  # type: ignore
+logging.basicConfig(stream=None, handlers=[])  # type: ignore
+logging.basicConfig(filename="foo.log", stream=None)  # type: ignore
+logging.basicConfig(filename=None, stream=None)  # type: ignore
+# These are ok.
+logging.basicConfig()
+logging.basicConfig(handlers=[])
+logging.basicConfig(filename="foo.log", filemode="w")
+logging.basicConfig(filename="foo.log", filemode="w", handlers=None)
+logging.basicConfig(stream=None)
+logging.basicConfig(stream=None, handlers=None)
+# dubious but accepted, has same meaning as 'stream=None'.
+logging.basicConfig(filename=None)
