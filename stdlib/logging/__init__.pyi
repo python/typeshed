@@ -578,17 +578,17 @@ if sys.version_info >= (3, 11):
 def makeLogRecord(dict: Mapping[str, object]) -> LogRecord: ...
 def basicConfig(
     *,
-    filename: StrPath | None = ...,
-    filemode: str = ...,
-    format: str = ...,
-    datefmt: str | None = ...,
-    style: _FormatStyle = ...,
-    level: _Level | None = ...,
-    stream: SupportsWrite[str] | None = ...,
-    handlers: Iterable[Handler] | None = ...,
-    force: bool | None = ...,
-    encoding: str | None = ...,
-    errors: str | None = ...,
+    filename: StrPath | None = None,
+    filemode: str = "a",
+    format: str = ...,  # default value depends on the value of `style`
+    datefmt: str | None = None,
+    style: _FormatStyle = "%",
+    level: _Level | None = None,
+    stream: SupportsWrite[str] | None = None,
+    handlers: Iterable[Handler] | None = None,
+    force: bool | None = False,
+    encoding: str | None = None,
+    errors: str | None = "backslashreplace",
 ) -> None: ...
 def shutdown(handlerList: Sequence[Any] = ...) -> None: ...  # handlerList is undocumented
 def setLoggerClass(klass: type[Logger]) -> None: ...
