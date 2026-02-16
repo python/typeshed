@@ -42,5 +42,7 @@ logging.basicConfig(filename="foo.log", filemode="w")
 logging.basicConfig(filename="foo.log", filemode="w", handlers=None)
 logging.basicConfig(stream=None)
 logging.basicConfig(stream=None, handlers=None)
+# 'filemode' is inert when 'filename' is not passed, but is accepted if 'handlers=None'.
+logging.basicConfig(filemode="w", stream=None)
 # dubious but accepted, has same meaning as 'stream=None'.
 logging.basicConfig(filename=None)

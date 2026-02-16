@@ -605,6 +605,7 @@ def basicConfig(
 @overload  # handlers is None, filename is not passed
 def basicConfig(
     *,
+    filemode: str = "a",
     format: str = ...,  # default value depends on the value of `style`
     datefmt: str | None = None,
     style: _FormatStyle = "%",
