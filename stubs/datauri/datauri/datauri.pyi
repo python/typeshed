@@ -1,7 +1,8 @@
 from collections.abc import Generator
 from re import Pattern
+from typing import Final
 
-RE_DATA_URI: Pattern[str]  # undocumented
+RE_DATA_URI: Final[Pattern[str]]  # undocumented
 
 class DataURIError(ValueError): ...
 
