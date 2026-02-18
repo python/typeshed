@@ -42,7 +42,13 @@ logging.basicConfig(filename="foo.log", filemode="w")
 logging.basicConfig(filename="foo.log", filemode="w", handlers=None)
 logging.basicConfig(stream=None)
 logging.basicConfig(stream=None, handlers=None)
-# 'filemode' is inert when 'filename' is not passed, but is accepted if 'handlers=None'.
-logging.basicConfig(filemode="w", stream=None)
 # dubious but accepted, has same meaning as 'stream=None'.
 logging.basicConfig(filename=None)
+# These are technically accepted at runtime, but are forbidden in the stubs to help
+# prevent user mistakes. Passing 'filemode' / 'encoding' / 'errors' does nothing
+# if 'filename' is not specified.
+logging.basicConfig(stream=None, filemode="w")  # type: ignore
+logging.basicConfig(stream=None, encoding="utf-8")  # type: ignore
+logging.basicConfig(stream=None, errors="strict")  # type: ignore
+logging.basicConfig(handlers=[], encoding="utf-8")  # type: ignore
+logging.basicConfig(handlers=[], errors="strict")  # type: ignore
