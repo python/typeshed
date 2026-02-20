@@ -21,6 +21,7 @@ __all__ = [
     "finditer",
     "fullmatch",
     "match",
+    "prefixmatch",
     "purge",
     "search",
     "split",
@@ -122,6 +123,32 @@ def match(
 ) -> Match[str] | None: ...
 @overload
 def match(
+    pattern: bytes | Pattern[bytes],
+    string: ReadableBuffer,
+    flags: int = 0,
+    pos: int | None = None,
+    endpos: int | None = None,
+    partial: bool = False,
+    concurrent: bool | None = None,
+    timeout: float | None = None,
+    ignore_unused: bool = False,
+    **kwargs: Any,
+) -> Match[bytes] | None: ...
+@overload
+def prefixmatch(
+    pattern: str | Pattern[str],
+    string: str,
+    flags: int = 0,
+    pos: int | None = None,
+    endpos: int | None = None,
+    partial: bool = False,
+    concurrent: bool | None = None,
+    timeout: float | None = None,
+    ignore_unused: bool = False,
+    **kwargs: Any,
+) -> Match[str] | None: ...
+@overload
+def prefixmatch(
     pattern: bytes | Pattern[bytes],
     string: ReadableBuffer,
     flags: int = 0,
@@ -426,6 +453,26 @@ class Pattern(Generic[AnyStr]):
     ) -> Match[str] | None: ...
     @overload
     def match(
+        self: Pattern[bytes],
+        string: ReadableBuffer,
+        pos: int | None = None,
+        endpos: int | None = None,
+        concurrent: bool | None = None,
+        partial: bool = False,
+        timeout: float | None = None,
+    ) -> Match[bytes] | None: ...
+    @overload
+    def prefixmatch(
+        self: Pattern[str],
+        string: str,
+        pos: int | None = None,
+        endpos: int | None = None,
+        concurrent: bool | None = None,
+        partial: bool = False,
+        timeout: float | None = None,
+    ) -> Match[str] | None: ...
+    @overload
+    def prefixmatch(
         self: Pattern[bytes],
         string: ReadableBuffer,
         pos: int | None = None,
