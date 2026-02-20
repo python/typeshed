@@ -1,6 +1,7 @@
 from _typeshed import IdentityFunction, Unused
 from collections.abc import Callable, Iterator, MutableMapping, Sequence
 from contextlib import AbstractContextManager
+from datetime import datetime, timedelta
 from threading import Condition
 from typing import Any, Generic, Literal, NamedTuple, TypeVar, overload
 from typing_extensions import Self, deprecated
@@ -79,16 +80,27 @@ class TTLCache(_TimedCache[_KT, _VT]):
     @overload
     def __init__(self, maxsize: float, ttl: float, timer: Callable[[], float] = ..., getsizeof: None = None) -> None: ...
     @overload
+    def __init__(self, maxsize: float, ttl: timedelta, timer: Callable[[], datetime] = ..., getsizeof: None = None) -> None: ...
+    @overload
     def __init__(self, maxsize: float, ttl: float, timer: Callable[[], float], getsizeof: Callable[[_VT], float]) -> None: ...
+    @overload
+    def __init__(
+        self, maxsize: float, ttl: timedelta, timer: Callable[[], datetime], getsizeof: Callable[[_VT], float]
+    ) -> None: ...
     @overload
     def __init__(
         self, maxsize: float, ttl: float, timer: Callable[[], float] = ..., *, getsizeof: Callable[[_VT], float]
     ) -> None: ...
+    @overload
+    def __init__(
+        self, maxsize: float, ttl: timedelta, timer: Callable[[], datetime] = ..., *, getsizeof: Callable[[_VT], float]
+    ) -> None: ...
     @property
-    def ttl(self) -> float: ...
-    def expire(self, time: float | None = None) -> list[tuple[_KT, _VT]]: ...
+    def ttl(self) -> float | timedelta: ...
+    def expire(self, time: float | datetime | None = None) -> list[tuple[_KT, _VT]]: ...
 
 class TLRUCache(_TimedCache[_KT, _VT]):
+    @overload
     def __init__(
         self,
         maxsize: float,
@@ -96,9 +108,17 @@ class TLRUCache(_TimedCache[_KT, _VT]):
         timer: Callable[[], float] = ...,
         getsizeof: Callable[[_VT], float] | None = None,
     ) -> None: ...
+    @overload
+    def __init__(
+        self,
+        maxsize: float,
+        ttu: Callable[[_KT, _VT, datetime], timedelta],
+        timer: Callable[[], datetime] = ...,
+        getsizeof: Callable[[_VT], float] | None = None,
+    ) -> None: ...
     @property
-    def ttu(self) -> Callable[[_KT, _VT, float], float]: ...
-    def expire(self, time: float | None = None) -> list[tuple[_KT, _VT]]: ...
+    def ttu(self) -> Callable[[_KT, _VT, float], float] | Callable[[_KT, _VT, datetime], timedelta]: ...
+    def expire(self, time: float | datetime | None = None) -> list[tuple[_KT, _VT]]: ...
 
 class _CacheInfo(NamedTuple):
     hits: int
