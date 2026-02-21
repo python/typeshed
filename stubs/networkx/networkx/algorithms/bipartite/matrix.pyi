@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from collections.abc import Iterable
+from collections.abc import Collection, Iterable
 
 from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
@@ -9,8 +9,8 @@ __all__ = ["biadjacency_matrix", "from_biadjacency_matrix"]
 @_dispatchable
 def biadjacency_matrix(
     G: Graph[_Node],
-    row_order: Iterable[_Node],
-    column_order: Iterable[Incomplete] | None = None,
+    row_order: Collection[_Node],
+    column_order: Collection[Incomplete] | None = None,
     dtype=None,
     weight: str | None = "weight",
     format="csr",

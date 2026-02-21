@@ -222,7 +222,11 @@ class OutMultiEdgeView(OutEdgeView[_Node]):
     __slots__ = ()
     def __iter__(self) -> Iterator[tuple[_Node, _Node, Incomplete]]: ...  # type: ignore[override]
     def __getitem__(self, e: tuple[_Node, _Node, Incomplete]) -> dict[str, Any]: ...  # type: ignore[override]
-    dataview = OutMultiEdgeDataView
+    dataview: type[  # Including subtypes' possible return types for LSP
+        OutMultiEdgeDataView[Incomplete, Incomplete]
+        | MultiEdgeDataView[Incomplete, Incomplete]
+        | InMultiEdgeDataView[Incomplete, Incomplete]
+    ]
     @overload  # type: ignore[override]  # Has an additional `keys` keyword argument
     def __call__(  # type: ignore[overload-overlap]
         self, nbunch: None = None, data: Literal[False] = False, *, default: Unused = None, keys: Literal[True]

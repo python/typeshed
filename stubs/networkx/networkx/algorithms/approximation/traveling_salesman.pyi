@@ -30,7 +30,7 @@ def traveling_salesman_problem(
     cycle: bool = True,
     method: Callable[..., Incomplete] | None = None,
     **kwargs,
-): ...
+) -> list[Incomplete]: ...
 @_dispatchable
 def asadpour_atsp(
     G: DiGraph[_Node], weight: str | None = "weight", seed: int | RandomState | None = None, source: str | None = None

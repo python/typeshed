@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from collections.abc import Collection
+from collections.abc import Callable, Collection
 from typing import Any, Literal
 
 from networkx._typing import Array2D
@@ -13,8 +13,10 @@ __all__ = ["attr_matrix", "attr_sparse_matrix"]
 @_dispatchable
 def attr_matrix(
     G: Graph[_Node],
-    edge_attr: str | None = None,
-    node_attr: str | None = None,  # runtime also accepts `Callable[[_Node], object]`, but it is not documented
+    edge_attr: str | Callable[[Incomplete, Incomplete], Incomplete] | None = None,
+    node_attr: (
+        str | Callable[[Incomplete], Incomplete] | None
+    ) = None,  # runtime also accepts `Callable[[_Node], object]`, but it is not documented
     normalized: bool = False,  # runtime also accepts `Callable[[_Node, _Node], object]`, but it is not documented
     rc_order: Collection[_Node] | None = None,
     dtype: DTypeLike | None = None,
@@ -28,8 +30,10 @@ def attr_matrix(
 @_dispatchable
 def attr_sparse_matrix(
     G: Graph[_Node],
-    edge_attr: str | None = None,
-    node_attr: str | None = None,  # runtime also accepts `Callable[[_Node], object]`, but it is not documented
+    edge_attr: str | Callable[[Incomplete, Incomplete], Incomplete] | None = None,
+    node_attr: (
+        str | Callable[[Incomplete], Incomplete] | None
+    ) = None,  # runtime also accepts `Callable[[_Node], object]`, but it is not documented
     normalized: bool = False,  # runtime also accepts `Callable[[_Node, _Node], object]`, but it is not documented
     rc_order: Collection[_Node] | None = None,
     dtype: DTypeLike | None = None,

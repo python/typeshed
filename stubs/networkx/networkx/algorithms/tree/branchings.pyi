@@ -63,7 +63,13 @@ class ArborescenceIterator:
     partition_key: str
     init_partition: Incomplete
 
-    def __init__(self, G: DiGraph[_Node], weight: str = "weight", minimum: bool = True, init_partition=None) -> None: ...
+    def __init__(
+        self,
+        G: DiGraph[_Node],
+        weight: str = "weight",
+        minimum: bool = True,
+        init_partition: tuple[Incomplete, Incomplete] | None = None,
+    ) -> None: ...
     partition_queue: Incomplete
 
     def __iter__(self) -> Self: ...
