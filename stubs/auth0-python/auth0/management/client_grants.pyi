@@ -25,31 +25,10 @@ class ClientGrants:
         client_id: str | None = None,
         allow_any_organization: bool | None = None,
     ) -> dict[str, Incomplete]: ...
-    async def all_async(
-        self,
-        audience: str | None = None,
-        page: int | None = None,
-        per_page: int | None = None,
-        include_totals: bool = False,
-        client_id: str | None = None,
-        allow_any_organization: bool | None = None,
-    ) -> dict[str, Incomplete]: ...
     def create(self, body: dict[str, Incomplete]) -> dict[str, Incomplete]: ...
-    async def create_async(self, body: dict[str, Incomplete]) -> dict[str, Incomplete]: ...
     def delete(self, id: str): ...
-    async def delete_async(self, id: str): ...
     def update(self, id: str, body: dict[str, Incomplete]) -> dict[str, Incomplete]: ...
-    async def update_async(self, id: str, body: dict[str, Incomplete]) -> dict[str, Incomplete]: ...
     def get_organizations(
-        self,
-        id: str,
-        page: int | None = None,
-        per_page: int | None = None,
-        include_totals: bool = False,
-        from_param: str | None = None,
-        take: int | None = None,
-    ) -> dict[str, Incomplete]: ...
-    async def get_organizations_async(
         self,
         id: str,
         page: int | None = None,
