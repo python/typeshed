@@ -84,6 +84,7 @@ class BaseEventLoop(AbstractEventLoop):
     def create_future(self) -> Future[Any]: ...
     # Tasks methods
     if sys.version_info >= (3, 14):
+        # `eager_start` only exists in Python 3.13.3
         def create_task(
             self,
             coro: _CoroutineLike[_T],
