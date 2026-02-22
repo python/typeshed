@@ -64,7 +64,6 @@ _AcceptLanguageProperty: TypeAlias = AsymmetricPropertyWithDelete[
 ]
 
 class AcceptOffer(NamedTuple):
-    __slots__ = ()
     type: str
     subtype: str
     params: tuple[tuple[str, str], ...]
