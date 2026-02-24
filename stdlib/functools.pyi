@@ -156,6 +156,11 @@ def total_ordering(cls: type[_T]) -> type[_T]: ...
 def cmp_to_key(mycmp: Callable[[_T, _T], int]) -> Callable[[_T], SupportsAllComparisons]: ...
 @disjoint_base
 class partial(Generic[_T]):
+    if sys.version_info >= (3, 14):
+        __slots__ = ("func", "args", "keywords", "_phcount", "_merger", "__dict__", "__weakref__")
+    else:
+        __slots__ = ("func", "args", "keywords", "__dict__", "__weakref__")
+
     @property
     def func(self) -> Callable[..., _T]: ...
     @property
@@ -255,7 +260,8 @@ def _make_key(
 
 if sys.version_info >= (3, 14):
     @final
-    class _PlaceholderType: ...
+    class _PlaceholderType:
+        __slots__ = ()
 
     Placeholder: Final[_PlaceholderType]
 
