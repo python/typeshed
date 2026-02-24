@@ -2,7 +2,7 @@ import codecs as codecs
 import sys
 from codecs import CodecInfo
 
-from . import aliases as aliases, utf_8 as utf_8, utf_8_sig as utf_8_sig
+from . import aliases as aliases
 
 class CodecRegistryError(LookupError, SystemError): ...
 
