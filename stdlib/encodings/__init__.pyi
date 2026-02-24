@@ -1,5 +1,10 @@
+import codecs
 import sys
 from codecs import CodecInfo
+
+import aliases
+import utf_8
+import utf_8_sig
 
 class CodecRegistryError(LookupError, SystemError): ...
 
