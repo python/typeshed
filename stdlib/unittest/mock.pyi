@@ -4,7 +4,7 @@ from collections.abc import Awaitable, Callable, Coroutine, Iterable, Mapping, S
 from contextlib import _GeneratorContextManager
 from types import TracebackType
 from typing import Any, ClassVar, Final, Generic, Literal, TypeVar, overload, type_check_only
-from typing_extensions import ParamSpec, Self, TypeAlias, disjoint_base
+from typing_extensions import ParamSpec, Self, TypeAlias, TypeGuard, disjoint_base
 
 _T = TypeVar("_T")
 _TT = TypeVar("_TT", bound=type[Any])
@@ -132,7 +132,7 @@ else:
 call: _Call
 
 class _CallList(list[_Call]):
-    def __contains__(self, value: Any) -> bool: ...
+    def __contains__(self, value: Any) -> TypeGuard[_Call]: ...
 
 class Base:
     def __init__(self, *args: Any, **kwargs: Any) -> None: ...
