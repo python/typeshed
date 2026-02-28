@@ -131,7 +131,7 @@ def parse(
     fuzzy_with_tokens: Literal[True] = ...,
     default: datetime | None = ...,
     tzinfos: _TzInfos | None = ...,
-) -> tuple[datetime, tuple[str]]: ...
+) -> tuple[datetime, tuple[str, ...]]: ...
 
 class _tzparser:
     class _result(_resultbase):
