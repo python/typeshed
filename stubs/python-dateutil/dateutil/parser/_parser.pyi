@@ -102,7 +102,7 @@ class parser:
         yearfirst: bool | None = ...,
         fuzzy: bool = ...,
         fuzzy_with_tokens: Literal[True] = ...,
-    ) -> tuple[datetime, tuple[str]]: ...
+    ) -> tuple[datetime, tuple[str, ...]]: ...
 
 DEFAULTPARSER: parser
 
