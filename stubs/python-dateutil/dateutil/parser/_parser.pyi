@@ -88,7 +88,7 @@ class parser:
         dayfirst: bool | None = ...,
         yearfirst: bool | None = ...,
         fuzzy: bool = ...,
-        fuzzy_with_tokens: Literal[False] = ...,
+        fuzzy_with_tokens: Literal[False] = False,
     ) -> datetime: ...
     @overload
     def parse(
@@ -101,7 +101,7 @@ class parser:
         dayfirst: bool | None = ...,
         yearfirst: bool | None = ...,
         fuzzy: bool = ...,
-        fuzzy_with_tokens: Literal[True] = ...,
+        fuzzy_with_tokens: Literal[True],
     ) -> tuple[datetime, tuple[str, ...]]: ...
 
 DEFAULTPARSER: parser
@@ -115,7 +115,7 @@ def parse(
     yearfirst: bool | None = ...,
     ignoretz: bool = ...,
     fuzzy: bool = ...,
-    fuzzy_with_tokens: Literal[False] = ...,
+    fuzzy_with_tokens: Literal[False] = False,
     default: datetime | None = ...,
     tzinfos: _TzInfos | None = ...,
 ) -> datetime: ...
@@ -128,7 +128,7 @@ def parse(
     yearfirst: bool | None = ...,
     ignoretz: bool = ...,
     fuzzy: bool = ...,
-    fuzzy_with_tokens: Literal[True] = ...,
+    fuzzy_with_tokens: Literal[True],
     default: datetime | None = ...,
     tzinfos: _TzInfos | None = ...,
 ) -> tuple[datetime, tuple[str, ...]]: ...
