@@ -1,4 +1,3 @@
-import codecs as codecs
 import sys
 from codecs import CodecInfo
 
