@@ -1,6 +1,6 @@
 from _typeshed import SupportsWrite
 from collections.abc import Callable, Iterable, Mapping
-from typing import Any, TypedDict, TypeVar, overload
+from typing import Any, TypedDict, TypeVar, overload, type_check_only
 from typing_extensions import Unpack
 
 from ..std import tqdm
@@ -14,6 +14,7 @@ _T3 = TypeVar("_T3")
 _T4 = TypeVar("_T4")
 _T5 = TypeVar("_T5")
 
+@type_check_only
 class _TqdmKwargs(TypedDict, total=False):
     # Concurrent-specific parameters
     tqdm_class: type[tqdm[object]]
