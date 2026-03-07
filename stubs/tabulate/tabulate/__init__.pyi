@@ -7,11 +7,11 @@ __all__ = ["tabulate", "tabulate_formats", "simple_separated_format"]
 __version__: Final[str]
 # These constants are meant to be configurable
 # https://github.com/astanin/python-tabulate#text-formatting
-PRESERVE_WHITESPACE: Final[bool]
-MIN_PADDING: Final[int]
+PRESERVE_WHITESPACE: bool
+MIN_PADDING: int
 # https://github.com/astanin/python-tabulate#wide-fullwidth-cjk-symbols
-WIDE_CHARS_MODE: Final[bool]
-SEPARATING_LINE: Final[str]
+WIDE_CHARS_MODE: bool
+SEPARATING_LINE: str
 
 class Line(NamedTuple):
     begin: str
