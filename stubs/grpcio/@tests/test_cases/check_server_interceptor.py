@@ -34,7 +34,7 @@ class NoopAioInterceptor(grpc.aio.ServerInterceptor):
 
 grpc.aio.server(interceptors=[NoopAioInterceptor()])
 
-aio_handler: grpc.aio.RpcMethodHandler[bytes, bytes] = grpc.aio.RpcMethodHandler()
+aio_handler = cast(grpc.aio.RpcMethodHandler[bytes, bytes], object())
 aio_handler.unary_unary = cast(Callable[[bytes, grpc.aio.ServicerContext[bytes, bytes]], Awaitable[bytes]], None)
 aio_handler.unary_stream = cast(Callable[[bytes, grpc.aio.ServicerContext[bytes, bytes]], AsyncIterator[bytes]], None)
 aio_handler.stream_unary = cast(Callable[[AsyncIterator[bytes], grpc.aio.ServicerContext[bytes, bytes]], Awaitable[bytes]], None)
