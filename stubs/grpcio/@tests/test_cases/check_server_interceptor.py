@@ -34,14 +34,20 @@ class NoopAioInterceptor(grpc.aio.ServerInterceptor):
 
 grpc.aio.server(interceptors=[NoopAioInterceptor()])
 
-aio_handler = grpc.aio.RpcMethodHandler[RequestT, ResponseT]()
-aio_handler.unary_unary = cast(Callable[[RequestT, grpc.aio.ServicerContext[RequestT, ResponseT]], Awaitable[ResponseT]], None)
+aio_handler: grpc.aio.RpcMethodHandler[bytes, bytes] = grpc.aio.RpcMethodHandler()
+aio_handler.unary_unary = cast(
+    Callable[[bytes, grpc.aio.ServicerContext[bytes, bytes]], Awaitable[bytes]],
+    None,
+)
 aio_handler.unary_stream = cast(
-    Callable[[RequestT, grpc.aio.ServicerContext[RequestT, ResponseT]], AsyncIterator[ResponseT]], None
+    Callable[[bytes, grpc.aio.ServicerContext[bytes, bytes]], AsyncIterator[bytes]],
+    None,
 )
 aio_handler.stream_unary = cast(
-    Callable[[AsyncIterator[RequestT], grpc.aio.ServicerContext[RequestT, ResponseT]], Awaitable[ResponseT]], None
+    Callable[[AsyncIterator[bytes], grpc.aio.ServicerContext[bytes, bytes]], Awaitable[bytes]],
+    None,
 )
 aio_handler.stream_stream = cast(
-    Callable[[AsyncIterator[RequestT], grpc.aio.ServicerContext[RequestT, ResponseT]], AsyncIterator[ResponseT]], None
+    Callable[[AsyncIterator[bytes], grpc.aio.ServicerContext[bytes, bytes]], AsyncIterator[bytes]],
+    None,
 )
