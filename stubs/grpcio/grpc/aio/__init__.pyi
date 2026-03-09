@@ -380,9 +380,7 @@ class RpcMethodHandler(Generic[_TRequest, _TResponse], metaclass=abc.ABCMeta):
     unary_unary: Callable[[_TRequest, ServicerContext[_TRequest, _TResponse]], Awaitable[_TResponse]] | None
     unary_stream: Callable[[_TRequest, ServicerContext[_TRequest, _TResponse]], AsyncIterator[_TResponse]] | None
     stream_unary: Callable[[AsyncIterator[_TRequest], ServicerContext[_TRequest, _TResponse]], Awaitable[_TResponse]] | None
-    stream_stream: Callable[
-        [AsyncIterator[_TRequest], ServicerContext[_TRequest, _TResponse]], AsyncIterator[_TResponse]
-    ] | None
+    stream_stream: Callable[[AsyncIterator[_TRequest], ServicerContext[_TRequest, _TResponse]], AsyncIterator[_TResponse]] | None
 
 # Server-Side Interceptor:
 
