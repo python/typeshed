@@ -38,6 +38,7 @@ _CommandT = TypeVar("_CommandT", bound=_Command)
 _DistributionT = TypeVar("_DistributionT", bound=_Distribution, default=Distribution)
 _KT = TypeVar("_KT")
 _VT_co = TypeVar("_VT_co", covariant=True)
+_T = TypeVar("_T")
 
 __all__ = [
     "setup",
@@ -58,7 +59,10 @@ __version__: str
 @type_check_only
 class _DictLike(Protocol[_KT, _VT_co]):
     # See note about using _VT_co instead of Any
-    def get(self, key: _KT, default: Any | None = None, /) -> _VT_co | None: ...
+    @overload
+    def get(self, key: _KT, /) -> _VT_co | None: ...
+    @overload
+    def get(self, key: _KT, default: _T, /) -> _VT_co | _T: ...
     def items(self) -> ItemsView[_KT, _VT_co]: ...
     def keys(self) -> Iterable[_KT]: ...
     def __getitem__(self, key: _KT, /) -> _VT_co: ...
