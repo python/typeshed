@@ -1,7 +1,7 @@
 import sys
 import types
 from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
-from typing import Any, ClassVar, Literal, NoReturn, ParamSpec, TypeAlias, TypeVar, final, overload
+from typing import Any, ClassVar, Literal, NoReturn, ParamSpec, TypeAlias, TypeVar, final
 
 from cysqlite.metadata import Column, ColumnMetadata, ForeignKey, Index, View
 
@@ -262,10 +262,6 @@ class Cursor:
 
 class Row:
     def as_dict(self) -> dict[str, Any]: ...
-    @overload
-    def get(self, key: str | int) -> Any | None: ...
-    @overload
-    def get(self, key: str | int, default: _T) -> Any | _T: ...
     def get(self, key: str | int, default: _T | None = ...) -> Any | _T | None: ...
     def items(self) -> list[tuple[str, Any]]: ...
     def keys(self) -> list[str]: ...
