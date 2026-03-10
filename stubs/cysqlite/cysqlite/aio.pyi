@@ -5,14 +5,7 @@ import types
 from collections.abc import Callable, Mapping, Sequence
 from typing import Any, Literal, TypeAlias, TypedDict
 
-from cysqlite._cysqlite import (
-    Atomic as Atomic,
-    Connection as Connection,
-    Cursor as Cursor,
-    Row as Row,
-    Savepoint as Savepoint,
-    Transaction as Transaction,
-)
+from ._cysqlite import Atomic, Connection, Cursor, Row, Savepoint, Transaction
 
 if sys.version_info >= (3, 13):
     from typing import Unpack
