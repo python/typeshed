@@ -109,6 +109,9 @@ class SparseTopKCategoricalAccuracy(MeanMetricWrapper):
         self, k: int = 5, name: str | None = "sparse_top_k_categorical_accuracy", dtype: DTypeLike | None = None
     ) -> None: ...
 
+class MeanSquaredError(MeanMetricWrapper):
+    def __init__(self, name: str | None = "mean_squared_error", dtype: DTypeLike | None = None) -> None: ...
+
 # TODO: Actually tensorflow.python.keras.utils.metrics_utils.Reduction, but that module
 # is currently missing from the stub.
 @type_check_only
