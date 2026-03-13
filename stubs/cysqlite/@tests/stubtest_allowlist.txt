@@ -1,17 +1,14 @@
 cysqlite._cysqlite.__test__
-cysqlite.Connection
 cysqlite.Connection.commit
 cysqlite.Connection.execute_simple
 cysqlite.Connection.executemany
 cysqlite.Connection.get_columns
 cysqlite.Connection.pragma
-cysqlite._cysqlite.Connection
 cysqlite._cysqlite.Connection.commit
 cysqlite._cysqlite.Connection.execute_simple
 cysqlite._cysqlite.Connection.executemany
 cysqlite._cysqlite.Connection.get_columns
 cysqlite._cysqlite.Connection.pragma
-cysqlite._cysqlite.Cursor
 cysqlite._cysqlite.Cursor.executemany
 cysqlite._cysqlite.__reduce_cython__
 cysqlite._cysqlite.__setstate_cython__
