@@ -12,6 +12,7 @@ _AdaptedInputData: TypeAlias = _SqliteData | Any
 _Parameters: TypeAlias = Sequence[_AdaptedInputData] | Mapping[str, _AdaptedInputData]
 _IsolationLevel: TypeAlias = Literal["DEFERRED", "EXCLUSIVE", "IMMEDIATE"] | None
 
+@type_check_only
 class _BackupKwargs(TypedDict, total=False):
     pages: int | None
     name: str | None
