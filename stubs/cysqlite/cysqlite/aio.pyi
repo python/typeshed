@@ -2,7 +2,7 @@ import asyncio
 import queue
 import types
 from collections.abc import Callable, Mapping, Sequence
-from typing import Any, Literal, TypeAlias, TypedDict
+from typing import Any, Literal, TypeAlias, TypedDict, type_check_only
 from typing_extensions import Buffer, Self, Unpack
 
 from ._cysqlite import Atomic, Connection, Cursor, Row, Savepoint, Transaction
@@ -19,6 +19,7 @@ class _BackupKwargs(TypedDict, total=False):
     progress: Callable[[int, int, bool], None] | None
     src_name: str | None
 
+@type_check_only
 class _ConnectKwargs(TypedDict, total=False):
     flags: int | None
     timeout: float
@@ -30,6 +31,7 @@ class _ConnectKwargs(TypedDict, total=False):
     autoconnect: bool
     pragmas: dict[str, Any] | None
 
+@type_check_only
 class _CheckPointKwargs(TypedDict, total=False):
     full: bool
     truncate: bool
