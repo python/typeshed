@@ -1,22 +1,10 @@
-import sys
 import types
+from _typeshed import Incomplete
 from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
 from typing import Any, ClassVar, Literal, NoReturn, ParamSpec, TypeAlias, TypeVar, final
-from typing_extensions import disjoint_base
+from typing_extensions import Buffer, Self, disjoint_base
 
 from cysqlite.metadata import Column, ColumnMetadata, ForeignKey, Index, View
-
-if sys.version_info >= (3, 12):
-    from collections.abc import Buffer
-else:
-    from typing_extensions import Buffer
-
-if sys.version_info >= (3, 11):
-    from typing import Self
-else:
-    from typing_extensions import Self
-
-from _typeshed import Incomplete
 
 _SqliteData: TypeAlias = str | Buffer | float | None
 _AdaptedInputData: TypeAlias = _SqliteData | Any
@@ -108,7 +96,6 @@ class Blob:
     def __setitem__(self, key: int | slice[int, int, int] | slice[int, int], value: Buffer) -> None: ...
 
 @final
-@disjoint_base
 class Connection(_callable_context_manager):
     cached_statements: int
     callback_error: BaseException | None
@@ -249,7 +236,6 @@ class Connection(_callable_context_manager):
     def __reduce__(self) -> Any: ...
 
 @final
-@disjoint_base
 class Cursor:
     conn: Connection
     description: tuple[str, ...]

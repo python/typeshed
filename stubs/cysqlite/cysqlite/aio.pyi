@@ -1,26 +1,11 @@
 import asyncio
 import queue
-import sys
 import types
 from collections.abc import Callable, Mapping, Sequence
 from typing import Any, Literal, TypeAlias, TypedDict
+from typing_extensions import Buffer, Self, Unpack
 
 from ._cysqlite import Atomic, Connection, Cursor, Row, Savepoint, Transaction
-
-if sys.version_info >= (3, 13):
-    from typing import Unpack
-else:
-    from typing_extensions import Unpack
-
-if sys.version_info >= (3, 12):
-    from collections.abc import Buffer
-else:
-    from typing_extensions import Buffer
-
-if sys.version_info >= (3, 11):
-    from typing import Self
-else:
-    from typing_extensions import Self
 
 _SqliteData: TypeAlias = str | Buffer | int | float | None
 _AdaptedInputData: TypeAlias = _SqliteData | Any
