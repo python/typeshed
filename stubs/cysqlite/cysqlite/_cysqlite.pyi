@@ -1,7 +1,7 @@
 import types
 from _typeshed import Incomplete
 from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
-from typing import Any, ClassVar, Literal, NoReturn, ParamSpec, TypeAlias, TypeVar, final
+from typing import Any, ClassVar, Final, Literal, NoReturn, ParamSpec, TypeAlias, TypeVar, final
 from typing_extensions import Buffer, Self, disjoint_base
 
 from cysqlite.metadata import Column, ColumnMetadata, ForeignKey, Index, View
@@ -14,8 +14,8 @@ _Query: TypeAlias = Literal["INSERT", "UPDATE", "DELETE"]
 _T = TypeVar("_T")
 _P = ParamSpec("_P")
 
-HAS_COLUMN_METADATA: int
-SENTINEL: object
+HAS_COLUMN_METADATA: Final[int]
+SENTINEL: Final[object]
 
 def compile_option(opt: str | Buffer) -> int: ...
 def connect(
@@ -41,12 +41,12 @@ def set_serialized() -> bool: ...
 def set_singlethread() -> bool: ...
 def set_stmt_journal_spill(nbytes: int) -> bool: ...
 
-sqlite_version: str
-sqlite_version_info: tuple[Any, ...]  # tuple entries can be either int or str
+sqlite_version: Final[str]
+sqlite_version_info: Final[tuple[Any, ...]]  # tuple entries can be either int or str
 
 def status(flag: int) -> tuple[int, int]: ...
 
-threadsafety: int
+threadsafety: Final[int]
 
 def vfs_list() -> list[str]: ...
 @disjoint_base

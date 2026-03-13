@@ -1,3 +1,5 @@
+from typing import Final
+
 from ._constants import *
 from ._cysqlite import (
     Blob as Blob,
@@ -21,5 +23,5 @@ from .exceptions import *
 version: Final[str]
 __version__: Final[str]
 version_info: Final[tuple[int, int, int]]
-apilevel: Final = "2.0"
-paramstyle: Final = "qmark"
+apilevel: Final[str] = "2.0"
+paramstyle: Final[str] = "qmark"
