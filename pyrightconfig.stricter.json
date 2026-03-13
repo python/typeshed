@@ -79,6 +79,7 @@
         "stubs/Pygments",
         "stubs/PyMySQL",
         "stubs/python-jose",
+        "stubs/python-socketio",
         "stubs/pywin32",
         "stubs/PyYAML",
         "stubs/reportlab",
