@@ -265,6 +265,7 @@ asyncio.locks.Condition.acquire
 asyncio.locks.Condition.locked
 asyncio.locks.Condition.release
 
+builtins.function  # stubtest believes this exists in the stubs when it doesn't
 builtins.memoryview.__contains__  # C type that implements __getitem__
 builtins.property.__set_name__  # Doesn't actually exist
 builtins.reveal_locals  # Builtins that type checkers pretends exist

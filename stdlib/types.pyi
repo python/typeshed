@@ -68,7 +68,6 @@ _T2 = TypeVar("_T2")
 _KT_co = TypeVar("_KT_co", covariant=True)
 _VT_co = TypeVar("_VT_co", covariant=True)
 
-# Make sure this class definition stays roughly in line with `builtins.function`
 @final
 class FunctionType:
     @property
