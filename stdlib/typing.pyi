@@ -399,7 +399,6 @@ _T = TypeVar("_T")
 _FT = TypeVar("_FT", bound=Callable[..., Any] | type)
 
 # These type variables are used by the container types.
-_S = TypeVar("_S")
 _KT = TypeVar("_KT")  # Key type.
 _VT = TypeVar("_VT")  # Value type.
 _T_co = TypeVar("_T_co", covariant=True)  # Any type covariant containers.
@@ -580,7 +579,7 @@ class Awaitable(Protocol[_T_co]):
     @abstractmethod
     def __await__(self) -> Generator[Any, Any, _T_co]: ...
 
-# Non-default variations to accommodate coroutines, and `AwaitableGenerator` having a 4th type parameter.
+# Non-default variations to accommodate coroutines having a 4th type parameter.
 _SendT_nd_contra = TypeVar("_SendT_nd_contra", contravariant=True)
 _ReturnT_nd_co = TypeVar("_ReturnT_nd_co", covariant=True)
 
@@ -600,17 +599,6 @@ class Coroutine(Awaitable[_ReturnT_nd_co], Generic[_YieldT_co, _SendT_nd_contra,
     def throw(self, typ: BaseException, val: None = None, tb: TracebackType | None = None, /) -> _YieldT_co: ...
     @abstractmethod
     def close(self) -> None: ...
-
-# NOTE: This type does not exist in typing.py or PEP 484 but mypy needs it to exist.
-# The parameters correspond to Generator, but the 4th is the original type.
-# Obsolete, use _typeshed._type_checker_internals.AwaitableGenerator instead.
-@type_check_only
-class AwaitableGenerator(
-    Awaitable[_ReturnT_nd_co],
-    Generator[_YieldT_co, _SendT_nd_contra, _ReturnT_nd_co],
-    Generic[_YieldT_co, _SendT_nd_contra, _ReturnT_nd_co, _S],
-    metaclass=ABCMeta,
-): ...
 
 @runtime_checkable
 class AsyncIterable(Protocol[_T_co]):
