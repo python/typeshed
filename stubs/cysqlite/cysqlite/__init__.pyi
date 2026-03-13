@@ -18,8 +18,8 @@ from ._cysqlite import (
 )
 from .exceptions import *
 
-version: str
-__version__: str
-version_info: tuple[int, int, int]
-apilevel: str
-paramstyle: str
+version: Final[str]
+__version__: Final[str]
+version_info: Final[tuple[int, int, int]]
+apilevel: Final = "2.0"
+paramstyle: Final = "qmark"
