@@ -1,10 +1,5 @@
-import sys
 from typing import Any, NamedTuple
-
-if sys.version_info >= (3, 12):
-    from collections.abc import Buffer
-else:
-    from typing_extensions import Buffer
+from typing_extensions import Buffer
 
 class Index(NamedTuple):
     name: str
