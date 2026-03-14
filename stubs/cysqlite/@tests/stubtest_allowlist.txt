@@ -1,10 +1,8 @@
 cysqlite._cysqlite.__test__
-cysqlite.Connection.commit
 cysqlite.Connection.execute_simple
 cysqlite.Connection.executemany
 cysqlite.Connection.get_columns
 cysqlite.Connection.pragma
-cysqlite._cysqlite.Connection.commit
 cysqlite._cysqlite.Connection.execute_simple
 cysqlite._cysqlite.Connection.executemany
 cysqlite._cysqlite.Connection.get_columns
