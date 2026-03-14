@@ -10,3 +10,7 @@ cysqlite._cysqlite.Connection.pragma
 cysqlite._cysqlite.Cursor.executemany
 cysqlite._cysqlite.__reduce_cython__
 cysqlite._cysqlite.__setstate_cython__
+# Base class method has unused an **kwargs parameter, but user-defined subclasses only
+# accept the specific parameters listed in the `params` class attribute.
+cysqlite.TableFunction.initialize
+cysqlite._cysqlite.TableFunction.initialize
