@@ -23,5 +23,5 @@ from .exceptions import *
 version: Final[str]
 __version__: Final[str]
 version_info: Final[tuple[int, int, int]]
-apilevel: Final[str] = "2.0"
-paramstyle: Final[str] = "qmark"
+apilevel: Final = "2.0"
+paramstyle: Final = "qmark"
