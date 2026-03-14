@@ -694,7 +694,7 @@ class Notebook(Widget):
         child: tkinter.Widget,
         *,
         state: Literal["normal", "disabled", "hidden"] = ...,
-        sticky: str | list[str] | tuple[str, ...] = ...,  # consists of letters 'n', 's', 'w', 'e', no repeats, may be empty
+        sticky: str = ...,  # consists of letters 'n', 's', 'w', 'e', no repeats, may be empty
         padding: _Padding = ...,
         text: str = ...,
         # `image` is a sequence of an image name, followed by zero or more
