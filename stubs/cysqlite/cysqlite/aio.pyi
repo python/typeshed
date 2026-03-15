@@ -38,7 +38,7 @@ class _CheckPointKwargs(TypedDict, total=False):
     restart: bool
     name: str | Buffer | None
 
-SHUTDOWN: object
+SHUTDOWN: Final[object]
 
 class AsyncConnection:
     conn: Connection
