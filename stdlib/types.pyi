@@ -323,8 +323,6 @@ class MappingProxyType(Mapping[_KT_co, _VT_co]):  # type: ignore[type-var]  # py
     @overload
     def get(self, key: _KT_co, /) -> _VT_co | None: ...  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues] # Covariant type as parameter
     @overload
-    def get(self, key: _KT_co, default: _VT_co, /) -> _VT_co: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues] # Covariant type as parameter
-    @overload
     def get(self, key: _KT_co, default: _T2, /) -> _VT_co | _T2: ...  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues] # Covariant type as parameter
     def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
     def __reversed__(self) -> Iterator[_KT_co]: ...
