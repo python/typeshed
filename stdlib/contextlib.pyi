@@ -178,9 +178,15 @@ class _BaseExitStack(Generic[_ExitT_co]):
     def callback(self, callback: Callable[_P, _T], /, *args: _P.args, **kwds: _P.kwargs) -> Callable[_P, _T]: ...
     def pop_all(self) -> Self: ...
 
+# this class is to avoid putting `metaclass=abc.ABCMeta` on the implementations directly, as this would make them
+# appear explicitly abstract to some tools. this is due to the implementations not subclassing `AbstractContextManager`
+#  see note on the subclasses
+@type_check_only
+class _BaseExitStackAbstract(_BaseExitStack[_ExitT_co], metaclass=abc.ABCMeta): ...
+
 # In reality this is a subclass of `AbstractContextManager`;
 # see #7961 for why we don't do that in the stub
-class ExitStack(_BaseExitStack[_ExitT_co], metaclass=abc.ABCMeta):
+class ExitStack(_BaseExitStackAbstract[_ExitT_co]):
     def close(self) -> None: ...
     def __enter__(self) -> Self: ...
     def __exit__(
@@ -194,7 +200,7 @@ _ACM_EF = TypeVar("_ACM_EF", bound=AbstractAsyncContextManager[Any, Any] | _Exit
 
 # In reality this is a subclass of `AbstractAsyncContextManager`;
 # see #7961 for why we don't do that in the stub
-class AsyncExitStack(_BaseExitStack[_ExitT_co], metaclass=abc.ABCMeta):
+class AsyncExitStack(_BaseExitStackAbstract[_ExitT_co]):
     async def enter_async_context(self, cm: AbstractAsyncContextManager[_T, _ExitT_co]) -> _T: ...
     def push_async_exit(self, exit: _ACM_EF) -> _ACM_EF: ...
     def push_async_callback(
