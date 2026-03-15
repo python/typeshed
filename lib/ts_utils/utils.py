@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import functools
-import os
 import re
 import sys
 import tempfile
@@ -16,7 +15,7 @@ from typing_extensions import TypeAlias
 import pathspec
 from packaging.requirements import Requirement
 
-from .paths import REQUIREMENTS_PATH, STDLIB_PATH, STUBS_PATH, TEST_CASES_DIR, allowlists_path, test_cases_path
+from .paths import GITIGNORE_PATH, REQUIREMENTS_PATH, STDLIB_PATH, STUBS_PATH, TEST_CASES_DIR, allowlists_path, test_cases_path
 
 if TYPE_CHECKING:
     from _typeshed import OpenTextMode
@@ -29,11 +28,41 @@ except ImportError:
         return text
 
 
+_REMOVE_COMMENT_RE = re.compile(
+    r"""
+    (\"(?:\\.|[^\\\"])*?\")  # matches literal strings
+    |
+    (\/\*.*?\*\/ | \/\/[^\r\n]*?(?:[\r\n]))  # matches single- and multi-line comments
+    """,
+    re.DOTALL | re.VERBOSE,
+)
+_REMOVE_TRAILING_COMMA_RE = re.compile(
+    r"""
+    (\"(?:\\.|[^\\\"])*?\")  # matches literal strings
+    |
+    ,\s*([\]}])  # matches commas before '}' or ']'
+    """,
+    re.DOTALL | re.VERBOSE,
+)
+
+
 PYTHON_VERSION: Final = f"{sys.version_info.major}.{sys.version_info.minor}"
 
 
 def strip_comments(text: str) -> str:
     return text.split("#")[0].strip()
+
+
+def jsonc_to_json(text: str) -> str:
+    """Conversion from JSONC format input to valid JSON."""
+    # Remove comments
+    if not text.endswith("\n"):
+        text += "\n"
+    text = _REMOVE_COMMENT_RE.sub(lambda m: m.group(1) or "", text)
+
+    # Remove trailing commas before } or ]
+    text = _REMOVE_TRAILING_COMMA_RE.sub(lambda m: m.group(1) or m.group(2), text)
+    return text
 
 
 # ====================================================================
@@ -49,6 +78,10 @@ def print_command(cmd: str | Iterable[str]) -> None:
 
 def print_info(message: str) -> None:
     print(colored(message, "blue"))
+
+
+def print_warning(message: str) -> None:
+    print(colored(message, "yellow"))
 
 
 def print_error(error: str, end: str = "\n", fix_path: tuple[str, str] = ("", "")) -> None:
@@ -215,7 +248,7 @@ else:
     def NamedTemporaryFile(mode: OpenTextMode) -> TemporaryFileWrapper[str]:  # noqa: N802
         def close(self: TemporaryFileWrapper[str]) -> None:
             TemporaryFileWrapper.close(self)  # pyright: ignore[reportUnknownMemberType]
-            os.remove(self.name)
+            Path(self.name).unlink()
 
         temp = tempfile.NamedTemporaryFile(mode, delete=False)  # noqa: SIM115, TID251
         temp.close = MethodType(close, temp)  # type: ignore[method-assign]
@@ -229,7 +262,7 @@ else:
 
 @functools.cache
 def get_gitignore_spec() -> pathspec.PathSpec:
-    with open(".gitignore", encoding="UTF-8") as f:
+    with GITIGNORE_PATH.open(encoding="UTF-8") as f:
         return pathspec.GitIgnoreSpec.from_lines(f)
 
 

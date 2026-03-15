@@ -17,7 +17,7 @@ class bdist_egg(Command):
     user_options: ClassVar[list[tuple[str, str | None, str]]]
     boolean_options: ClassVar[list[str]]
     bdist_dir: Incomplete
-    plat_name: Incomplete
+    plat_name: str
     keep_temp: bool
     dist_dir: Incomplete
     skip_build: bool
@@ -52,10 +52,5 @@ def can_scan() -> bool: ...
 INSTALL_DIRECTORY_ATTRS: Final[list[str]]
 
 def make_zipfile(
-    zip_filename: _StrPathT,
-    base_dir,
-    verbose: bool = False,
-    dry_run: bool = False,
-    compress: bool = True,
-    mode: _ZipFileMode = "w",
+    zip_filename: _StrPathT, base_dir, verbose: bool = False, compress: bool = True, mode: _ZipFileMode = "w"
 ) -> _StrPathT: ...

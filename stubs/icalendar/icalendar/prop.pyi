@@ -1,9 +1,9 @@
 import datetime
-from _typeshed import ConvertibleToFloat, ConvertibleToInt, SupportsKeysAndGetItem, Unused
+from _typeshed import ConvertibleToFloat, ConvertibleToInt, Incomplete, SupportsKeysAndGetItem, Unused
 from collections.abc import Iterable, Iterator
 from enum import Enum
 from re import Pattern
-from typing import Any, ClassVar, Final, Literal, Protocol, SupportsIndex, overload
+from typing import Any, ClassVar, Final, Literal, Protocol, SupportsIndex, overload, type_check_only
 from typing_extensions import Self, TypeAlias
 
 from .caselessdict import CaselessDict
@@ -16,6 +16,7 @@ __all__ = [
     "TimeBase",
     "TypesFactory",
     "WEEKDAY_RULE",
+    "tzid_from_dt",
     "vBinary",
     "vBoolean",
     "vCalAddress",
@@ -33,20 +34,20 @@ __all__ = [
     "vMonth",
     "vPeriod",
     "vRecur",
-    "vSkip",
     "vText",
     "vTime",
     "vUTCOffset",
     "vUri",
     "vWeekday",
-    "tzid_from_dt",
     "tzid_from_tzinfo",
+    "vSkip",
 ]
 
 _PropType: TypeAlias = type[Any]  # any of the v* classes in this file
 _PeriodTuple: TypeAlias = tuple[datetime.datetime, datetime.datetime | datetime.timedelta]
 _AnyTimeType: TypeAlias = datetime.datetime | datetime.date | datetime.timedelta | datetime.time | _PeriodTuple
 
+@type_check_only
 class _vType(Protocol):
     def to_ical(self) -> bytes | str: ...
 
@@ -71,16 +72,21 @@ class vBoolean(int):
     def from_ical(cls, ical: ICAL_TYPE) -> bool: ...
 
 class vText(str):
+    __slots__ = ("encoding", "params")
     encoding: str
     params: Parameters
     def __new__(cls, value: ICAL_TYPE, encoding: str = "utf-8", params: SupportsKeysAndGetItem[str, str] = {}) -> Self: ...
     def to_ical(self) -> bytes: ...
     @classmethod
     def from_ical(cls, ical: ICAL_TYPE) -> Self: ...
+    ALTREP: property
+    LANGUAGE: property
+    RELTYPE: property
 
 class vCalAddress(str):
+    __slots__ = ("params",)
     params: Parameters
-    def __new__(cls, value: ICAL_TYPE, encoding="utf-8", params: SupportsKeysAndGetItem[str, str] = {}) -> Self: ...
+    def __new__(cls, value: ICAL_TYPE, encoding: str = "utf-8", params: SupportsKeysAndGetItem[str, str] = {}) -> Self: ...
     def to_ical(self) -> bytes: ...
     @classmethod
     def from_ical(cls, ical: ICAL_TYPE) -> Self: ...
@@ -90,6 +96,18 @@ class vCalAddress(str):
     def name(self) -> str: ...
     @name.setter
     def name(self, value: str) -> None: ...
+    @name.deleter
+    def name(self) -> None: ...
+    CN: property
+    CUTYPE: property
+    DELEGATED_FROM: property
+    DELEGATED_TO: property
+    DIR: property
+    LANGUAGE: property
+    PARTSTAT: property
+    ROLE: property
+    RSVP: property
+    SENT_BY: property
 
 class vFloat(float):
     params: Parameters
@@ -111,7 +129,7 @@ class vDDDLists:
     def __init__(self, dt_list: Iterable[_AnyTimeType] | _AnyTimeType) -> None: ...
     def to_ical(self) -> bytes: ...
     @staticmethod
-    def from_ical(ical: str, timezone: str | datetime.timezone | None = None): ...
+    def from_ical(ical: str, timezone: str | datetime.timezone | None = None) -> list[Incomplete]: ...
     def __eq__(self, other: object) -> bool: ...
 
 class vCategory:
@@ -123,10 +141,18 @@ class vCategory:
     @staticmethod
     def from_ical(ical: ICAL_TYPE) -> str: ...
     def __eq__(self, other: object) -> bool: ...
+    RANGE: property
+    RELATED: property
+    TZID: property
 
 class TimeBase:
+    params: Parameters
+    ignore_for_equality: set[str]
     def __eq__(self, other: object) -> bool: ...
     def __hash__(self) -> int: ...
+    RANGE: property
+    RELATED: property
+    TZID: property
 
 class vDDDTypes(TimeBase):
     params: Parameters
@@ -186,8 +212,10 @@ class vPeriod(TimeBase):
     def from_ical(ical: str, timezone: datetime.timezone | str | None = None) -> tuple[Any, Any]: ...
     @property
     def dt(self) -> _PeriodTuple: ...
+    FBTYPE: property
 
 class vWeekday(str):
+    __slots__ = ("params", "relative", "weekday")
     week_days: Final[CaselessDict[int]]
     weekday: Literal["SU", "MO", "TU", "WE", "TH", "FR", "SA"] | None
     relative: int | None
@@ -198,6 +226,7 @@ class vWeekday(str):
     def from_ical(cls, ical: ICAL_TYPE) -> Self: ...
 
 class vFrequency(str):
+    __slots__ = ("params",)
     frequencies: Final[CaselessDict[str]]
     params: Parameters
     def __new__(cls, value: ICAL_TYPE, encoding: str = "utf-8", params: SupportsKeysAndGetItem[str, str] = {}) -> Self: ...
@@ -221,7 +250,7 @@ class vSkip(vText, Enum):
     FORWARD = "FORWARD"
     BACKWARD = "BACKWARD"
 
-    def __reduce_ex__(self, proto: Unused) -> tuple[Any, ...]: ...
+    def __reduce_ex__(self, _p: Unused) -> tuple[Self, tuple[str]]: ...
 
 # The type of the values depend on the key. Each key maps to a v* class, and
 # the allowed types are the types that the corresponding v* class can parse.
@@ -260,6 +289,7 @@ class vTime(TimeBase):
     def from_ical(ical: ICAL_TYPE) -> datetime.time: ...
 
 class vUri(str):
+    __slots__ = ("params",)
     params: Parameters
     def __new__(cls, value: ICAL_TYPE, encoding: str = "utf-8", params: SupportsKeysAndGetItem[str, str] = {}) -> Self: ...
     def to_ical(self) -> bytes: ...
@@ -288,6 +318,7 @@ class vUTCOffset:
     def __hash__(self) -> int: ...
 
 class vInline(str):
+    __slots__ = ("params",)
     params: Parameters
     def __new__(cls, value: ICAL_TYPE, encoding: str = "utf-8", params: SupportsKeysAndGetItem[str, str] = {}) -> Self: ...
     def to_ical(self) -> bytes: ...

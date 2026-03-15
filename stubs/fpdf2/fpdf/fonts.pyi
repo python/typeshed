@@ -20,6 +20,7 @@ class HarfBuzzFont(Incomplete):  # derives from uharfbuzz.Font
 
 @dataclass
 class FontFace:
+    __slots__ = ("family", "emphasis", "size_pt", "color", "fill_color")
     family: str | None
     emphasis: TextEmphasis | None
     size_pt: int | None
@@ -29,7 +30,7 @@ class FontFace:
     def __init__(
         self,
         family: str | None = None,
-        emphasis: Incomplete | None = None,
+        emphasis=None,
         size_pt: int | None = None,
         color: int | tuple[Number, Number, Number] | DeviceGray | DeviceRGB | None = None,
         fill_color: int | tuple[Number, Number, Number] | DeviceGray | DeviceRGB | None = None,
@@ -79,6 +80,7 @@ class TitleStyle(TextStyle): ...
 __pdoc__: Final[dict[str, bool]]
 
 class CoreFont:
+    __slots__ = ("i", "type", "name", "sp", "ss", "up", "ut", "cw", "fontkey", "emphasis")
     i: int
     type: str
     name: str
@@ -94,6 +96,27 @@ class CoreFont:
     def encode_text(self, text: str) -> str: ...
 
 class TTFFont:
+    __slots__ = (
+        "i",
+        "type",
+        "name",
+        "desc",
+        "glyph_ids",
+        "hbfont",
+        "sp",
+        "ss",
+        "up",
+        "ut",
+        "cw",
+        "ttffile",
+        "fontkey",
+        "emphasis",
+        "scale",
+        "subset",
+        "cmap",
+        "ttfont",
+        "missing_glyphs",
+    )
     i: int
     type: str
     ttffile: Incomplete
@@ -114,6 +137,7 @@ class TTFFont:
     subset: SubsetMap
     hbfont: HarfBuzzFont | None  # Not always defined.
     def __init__(self, fpdf, font_file_path, fontkey: str, style: int) -> None: ...
+    def __deepcopy__(self, memo) -> Self: ...
     def close(self) -> None: ...
     def get_text_width(self, text: str, font_size_pt: int, text_shaping_params): ...
     def shaped_text_width(self, text: str, font_size_pt: int, text_shaping_params): ...
@@ -136,6 +160,7 @@ class PDFFontDescriptor(PDFObject):
 
 @dataclass(order=True)
 class Glyph:
+    __slots__ = ("glyph_id", "unicode", "glyph_name", "glyph_width")
     glyph_id: int
     unicode: tuple[Incomplete, ...]
     glyph_name: str
@@ -149,13 +174,7 @@ class SubsetMap:
     def items(self) -> Generator[Incomplete, None, None]: ...
     def pick(self, unicode: int): ...
     def pick_glyph(self, glyph): ...
-    def get_glyph(
-        self,
-        glyph: Incomplete | None = None,
-        unicode: Incomplete | None = None,
-        glyph_name: Incomplete | None = None,
-        glyph_width: Incomplete | None = None,
-    ) -> Glyph: ...
+    def get_glyph(self, glyph=None, unicode=None, glyph_name=None, glyph_width=None) -> Glyph: ...
     def get_all_glyph_names(self): ...
 
 CORE_FONTS: dict[str, str]

@@ -1,9 +1,20 @@
-from _typeshed import Incomplete, SupportsGetItem
+from _typeshed import Incomplete, SupportsItemAccess
 from collections.abc import Callable, Generator
 
 from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
 from numpy.random import RandomState
+
+__all__ = [
+    "graph_edit_distance",
+    "optimal_edit_paths",
+    "optimize_graph_edit_distance",
+    "optimize_edit_paths",
+    "simrank_similarity",
+    "panther_similarity",
+    "panther_vector_similarity",
+    "generate_random_paths",
+]
 
 @_dispatchable
 def graph_edit_distance(
@@ -74,7 +85,7 @@ def simrank_similarity(
     importance_factor: float = 0.9,
     max_iterations: int = 1000,
     tolerance: float = 0.0001,
-): ...
+) -> float | dict[Incomplete, Incomplete]: ...
 @_dispatchable
 def panther_similarity(
     G: Graph[_Node],
@@ -83,15 +94,32 @@ def panther_similarity(
     path_length: int = 5,
     c: float = 0.5,
     delta: float = 0.1,
-    eps=None,
+    eps: float | None = None,
     weight: str | None = "weight",
-): ...
+    seed: int | RandomState | None = None,
+) -> dict[bytes, bytes]: ...
+@_dispatchable
+def panther_vector_similarity(
+    G: Graph[_Node],
+    source: _Node,
+    *,
+    D: int = 10,
+    k: int = 5,
+    path_length: int = 5,
+    c: float = 0.5,
+    delta: float = 0.1,
+    eps: float | None = None,
+    weight: str | None = "weight",
+    seed: int | RandomState | None = None,
+) -> dict[Incomplete, float]: ...
 @_dispatchable
 def generate_random_paths(
     G: Graph[_Node],
     sample_size: int,
     path_length: int = 5,
-    index_map: SupportsGetItem[Incomplete, Incomplete] | None = None,
+    index_map: SupportsItemAccess[Incomplete, Incomplete] | None = None,
     weight: str | None = "weight",
     seed: int | RandomState | None = None,
-) -> Generator[Incomplete, None, None]: ...
+    *,
+    source: _Node | None = None,
+) -> Generator[list[Incomplete]]: ...

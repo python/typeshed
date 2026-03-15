@@ -4,7 +4,7 @@ from _typeshed import Unused
 from collections.abc import Callable, Iterable, Iterator
 from logging import Logger
 from types import GenericAlias, TracebackType
-from typing import Any, Final, Generic, NamedTuple, Protocol, TypeVar
+from typing import Any, Final, Generic, NamedTuple, Protocol, TypeVar, type_check_only
 from typing_extensions import ParamSpec, Self
 
 FIRST_COMPLETED: Final = "FIRST_COMPLETED"
@@ -15,8 +15,7 @@ RUNNING: Final = "RUNNING"
 CANCELLED: Final = "CANCELLED"
 CANCELLED_AND_NOTIFIED: Final = "CANCELLED_AND_NOTIFIED"
 FINISHED: Final = "FINISHED"
-_FUTURE_STATES: list[str]
-_STATE_TO_DESCRIPTION_MAP: dict[str, str]
+_STATE_TO_DESCRIPTION_MAP: Final[dict[str, str]]
 LOGGER: Logger
 
 class Error(Exception): ...
@@ -54,15 +53,27 @@ class Future(Generic[_T]):
 
 class Executor:
     def submit(self, fn: Callable[_P, _T], /, *args: _P.args, **kwargs: _P.kwargs) -> Future[_T]: ...
-    def map(
-        self, fn: Callable[..., _T], *iterables: Iterable[Any], timeout: float | None = None, chunksize: int = 1
-    ) -> Iterator[_T]: ...
+    if sys.version_info >= (3, 14):
+        def map(
+            self,
+            fn: Callable[..., _T],
+            *iterables: Iterable[Any],
+            timeout: float | None = None,
+            chunksize: int = 1,
+            buffersize: int | None = None,
+        ) -> Iterator[_T]: ...
+    else:
+        def map(
+            self, fn: Callable[..., _T], *iterables: Iterable[Any], timeout: float | None = None, chunksize: int = 1
+        ) -> Iterator[_T]: ...
+
     def shutdown(self, wait: bool = True, *, cancel_futures: bool = False) -> None: ...
     def __enter__(self) -> Self: ...
     def __exit__(
         self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
     ) -> bool | None: ...
 
+@type_check_only
 class _AsCompletedFuture(Protocol[_T_co]):
     # as_completed only mutates non-generic aspects of passed Futures and does not do any nominal
     # checks. Therefore, we can use a Protocol here to allow as_completed to act covariantly.

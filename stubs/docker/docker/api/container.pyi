@@ -16,29 +16,68 @@ class _HasId(TypedDict):
 class _HasID(TypedDict):
     ID: str
 
+@type_check_only
+class _TopResult(TypedDict):
+    Titles: list[str]
+    Processes: list[list[str]]
+
 _Container: TypeAlias = _HasId | _HasID | str
 
 class ContainerApiMixin:
+    @overload
     def attach(
         self,
         container: _Container,
         stdout: bool = True,
         stderr: bool = True,
-        stream: bool = False,
+        stream: Literal[False] = False,
         logs: bool = False,
-        demux: bool = False,
-    ): ...
-    def attach_socket(self, container: _Container, params: Incomplete | None = None, ws: bool = False): ...
+        demux: Literal[False] = False,
+    ) -> bytes: ...
+    @overload
+    def attach(
+        self,
+        container: _Container,
+        stdout: bool = True,
+        stderr: bool = True,
+        stream: Literal[False] = False,
+        logs: bool = False,
+        *,
+        demux: Literal[True],
+    ) -> tuple[bytes | None, bytes | None]: ...
+    @overload
+    def attach(
+        self,
+        container: _Container,
+        stdout: bool = True,
+        stderr: bool = True,
+        *,
+        stream: Literal[True],
+        logs: bool = False,
+        demux: Literal[False] = False,
+    ) -> CancellableStream[bytes]: ...
+    @overload
+    def attach(
+        self,
+        container: _Container,
+        stdout: bool = True,
+        stderr: bool = True,
+        *,
+        stream: Literal[True],
+        logs: bool = False,
+        demux: Literal[True],
+    ) -> CancellableStream[tuple[bytes | None, bytes | None]]: ...
+    def attach_socket(self, container: _Container, params=None, ws: bool = False): ...
     def commit(
         self,
         container: _Container,
         repository: str | None = None,
         tag: str | None = None,
-        message: Incomplete | None = None,
-        author: Incomplete | None = None,
+        message=None,
+        author=None,
         pause: bool = True,
-        changes: Incomplete | None = None,
-        conf: Incomplete | None = None,
+        changes=None,
+        conf=None,
     ): ...
     def containers(
         self,
@@ -50,7 +89,7 @@ class ContainerApiMixin:
         before: str | None = None,
         limit: int = -1,
         size: bool = False,
-        filters: Incomplete | None = None,
+        filters=None,
     ): ...
     def create_container(
         self,
@@ -71,19 +110,19 @@ class ContainerApiMixin:
         entrypoint: str | list[str] | None = None,
         working_dir: str | None = None,
         domainname: str | None = None,
-        host_config: Incomplete | None = None,
+        host_config=None,
         mac_address: str | None = None,
         labels: dict[str, str] | list[str] | None = None,
         stop_signal: str | None = None,
-        networking_config: Incomplete | None = None,
-        healthcheck: Incomplete | None = None,
+        networking_config=None,
+        healthcheck=None,
         stop_timeout: int | None = None,
         runtime: str | None = None,
         use_config_proxy: bool = True,
         platform: str | None = None,
     ): ...
     def create_container_config(self, *args, **kwargs) -> ContainerConfig: ...
-    def create_container_from_config(self, config, name: Incomplete | None = None, platform: Incomplete | None = None): ...
+    def create_container_from_config(self, config, name=None, platform=None): ...
     def create_host_config(self, *args, **kwargs) -> HostConfig: ...
     def create_networking_config(self, *args, **kwargs) -> NetworkingConfig: ...
     def create_endpoint_config(self, *args, **kwargs) -> EndpointConfig: ...
@@ -137,7 +176,7 @@ class ContainerApiMixin:
     def pause(self, container: _Container) -> None: ...
     def port(self, container: _Container, private_port: int): ...
     def put_archive(self, container: _Container, path: str, data) -> bool: ...
-    def prune_containers(self, filters: Incomplete | None = None): ...
+    def prune_containers(self, filters=None): ...
     def remove_container(self, container: _Container, v: bool = False, link: bool = False, force: bool = False) -> None: ...
     def rename(self, container: _Container, name: str) -> None: ...
     def resize(self, container: _Container, height: int, width: int) -> None: ...
@@ -145,7 +184,7 @@ class ContainerApiMixin:
     def start(self, container: _Container) -> None: ...
     def stats(self, container: _Container, decode: bool | None = None, stream: bool = True, one_shot: bool | None = None): ...
     def stop(self, container: _Container, timeout: int | None = None) -> None: ...
-    def top(self, container: _Container, ps_args: str | None = None) -> str: ...
+    def top(self, container: _Container, ps_args: str | None = None) -> _TopResult: ...
     def unpause(self, container: _Container) -> None: ...
     def update_container(
         self,
@@ -160,7 +199,7 @@ class ContainerApiMixin:
         mem_reservation: float | str | None = None,
         memswap_limit: int | str | None = None,
         kernel_memory: int | str | None = None,
-        restart_policy: Incomplete | None = None,
+        restart_policy=None,
     ): ...
     def wait(
         self,

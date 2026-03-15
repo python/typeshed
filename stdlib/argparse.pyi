@@ -2,7 +2,7 @@ import sys
 from _typeshed import SupportsWrite, sentinel
 from collections.abc import Callable, Generator, Iterable, Sequence
 from re import Pattern
-from typing import IO, Any, ClassVar, Final, Generic, NoReturn, Protocol, TypeVar, overload
+from typing import IO, Any, ClassVar, Final, Generic, NoReturn, Protocol, TypeVar, overload, type_check_only
 from typing_extensions import Self, TypeAlias, deprecated
 
 __all__ = [
@@ -91,15 +91,40 @@ class _ActionsContainer:
         version: str = ...,
         **kwargs: Any,
     ) -> Action: ...
-    def add_argument_group(
-        self,
-        title: str | None = None,
-        description: str | None = None,
-        *,
-        prefix_chars: str = ...,
-        argument_default: Any = ...,
-        conflict_handler: str = ...,
-    ) -> _ArgumentGroup: ...
+    if sys.version_info >= (3, 14):
+        @overload
+        def add_argument_group(
+            self,
+            title: str | None = None,
+            description: str | None = None,
+            *,
+            # argument_default's type must be valid for the arguments in the group
+            argument_default: Any = ...,
+            conflict_handler: str = ...,
+        ) -> _ArgumentGroup: ...
+        @overload
+        @deprecated("The `prefix_chars` parameter deprecated since Python 3.14.")
+        def add_argument_group(
+            self,
+            title: str | None = None,
+            description: str | None = None,
+            *,
+            prefix_chars: str,
+            argument_default: Any = ...,
+            conflict_handler: str = ...,
+        ) -> _ArgumentGroup: ...
+    else:
+        def add_argument_group(
+            self,
+            title: str | None = None,
+            description: str | None = None,
+            *,
+            prefix_chars: str = ...,
+            # argument_default's type must be valid for the arguments in the group
+            argument_default: Any = ...,
+            conflict_handler: str = ...,
+        ) -> _ArgumentGroup: ...
+
     def add_mutually_exclusive_group(self, *, required: bool = False) -> _MutuallyExclusiveGroup: ...
     def _add_action(self, action: _ActionT) -> _ActionT: ...
     def _remove_action(self, action: Action) -> None: ...
@@ -112,6 +137,7 @@ class _ActionsContainer:
     def _handle_conflict_error(self, action: Action, conflicting_actions: Iterable[tuple[str, Action]]) -> NoReturn: ...
     def _handle_conflict_resolve(self, action: Action, conflicting_actions: Iterable[tuple[str, Action]]) -> None: ...
 
+@type_check_only
 class _FormatterClass(Protocol):
     def __call__(self, *, prog: str) -> HelpFormatter: ...
 
@@ -123,6 +149,11 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
     fromfile_prefix_chars: str | None
     add_help: bool
     allow_abbrev: bool
+    exit_on_error: bool
+
+    if sys.version_info >= (3, 14):
+        suggest_on_error: bool
+        color: bool
 
     # undocumented
     _positionals: _ArgumentGroup
@@ -130,22 +161,44 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
     _subparsers: _ArgumentGroup | None
 
     # Note: the constructor arguments are also used in _SubParsersAction.add_parser.
-    def __init__(
-        self,
-        prog: str | None = None,
-        usage: str | None = None,
-        description: str | None = None,
-        epilog: str | None = None,
-        parents: Sequence[ArgumentParser] = [],
-        formatter_class: _FormatterClass = ...,
-        prefix_chars: str = "-",
-        fromfile_prefix_chars: str | None = None,
-        argument_default: Any = None,
-        conflict_handler: str = "error",
-        add_help: bool = True,
-        allow_abbrev: bool = True,
-        exit_on_error: bool = True,
-    ) -> None: ...
+    if sys.version_info >= (3, 14):
+        def __init__(
+            self,
+            prog: str | None = None,
+            usage: str | None = None,
+            description: str | None = None,
+            epilog: str | None = None,
+            parents: Sequence[ArgumentParser] = [],
+            formatter_class: _FormatterClass = ...,
+            prefix_chars: str = "-",
+            fromfile_prefix_chars: str | None = None,
+            argument_default: Any = None,
+            conflict_handler: str = "error",
+            add_help: bool = True,
+            allow_abbrev: bool = True,
+            exit_on_error: bool = True,
+            *,
+            suggest_on_error: bool = False,
+            color: bool = True,
+        ) -> None: ...
+    else:
+        def __init__(
+            self,
+            prog: str | None = None,
+            usage: str | None = None,
+            description: str | None = None,
+            epilog: str | None = None,
+            parents: Sequence[ArgumentParser] = [],
+            formatter_class: _FormatterClass = ...,
+            prefix_chars: str = "-",
+            fromfile_prefix_chars: str | None = None,
+            argument_default: Any = None,
+            conflict_handler: str = "error",
+            add_help: bool = True,
+            allow_abbrev: bool = True,
+            exit_on_error: bool = True,
+        ) -> None: ...
+
     @overload
     def parse_args(self, args: Sequence[str] | None = None, namespace: None = None) -> Namespace: ...
     @overload
@@ -221,7 +274,11 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
     def _read_args_from_files(self, arg_strings: list[str]) -> list[str]: ...
     def _match_argument(self, action: Action, arg_strings_pattern: str) -> int: ...
     def _match_arguments_partial(self, actions: Sequence[Action], arg_strings_pattern: str) -> list[int]: ...
-    def _parse_optional(self, arg_string: str) -> tuple[Action | None, str, str | None] | None: ...
+    if sys.version_info >= (3, 12):
+        def _parse_optional(self, arg_string: str) -> list[tuple[Action | None, str, str | None, str | None]] | None: ...
+    else:
+        def _parse_optional(self, arg_string: str) -> tuple[Action | None, str, str | None] | None: ...
+
     def _get_option_tuples(self, option_string: str) -> list[tuple[Action, str, str | None]]: ...
     def _get_nargs_pattern(self, action: Action) -> str: ...
     def _get_values(self, action: Action, arg_strings: list[str]) -> Any: ...
@@ -252,7 +309,15 @@ class HelpFormatter:
         def __init__(self, formatter: HelpFormatter, parent: Self | None, heading: str | None = None) -> None: ...
         def format_help(self) -> str: ...
 
-    def __init__(self, prog: str, indent_increment: int = 2, max_help_position: int = 24, width: int | None = None) -> None: ...
+    if sys.version_info >= (3, 14):
+        def __init__(
+            self, prog: str, indent_increment: int = 2, max_help_position: int = 24, width: int | None = None, color: bool = True
+        ) -> None: ...
+    else:
+        def __init__(
+            self, prog: str, indent_increment: int = 2, max_help_position: int = 24, width: int | None = None
+        ) -> None: ...
+
     def _indent(self) -> None: ...
     def _dedent(self) -> None: ...
     def _add_item(self, func: Callable[..., str], args: Iterable[Any]) -> None: ...
@@ -269,7 +334,10 @@ class HelpFormatter:
     def _format_usage(
         self, usage: str | None, actions: Iterable[Action], groups: Iterable[_MutuallyExclusiveGroup], prefix: str | None
     ) -> str: ...
-    def _format_actions_usage(self, actions: Iterable[Action], groups: Iterable[_MutuallyExclusiveGroup]) -> str: ...
+    if sys.version_info < (3, 14):
+        # Removed in Python 3.14.3
+        def _format_actions_usage(self, actions: Iterable[Action], groups: Iterable[_MutuallyExclusiveGroup]) -> str: ...
+
     def _format_text(self, text: str) -> str: ...
     def _format_action(self, action: Action) -> str: ...
     def _format_action_invocation(self, action: Action) -> str: ...
@@ -431,29 +499,69 @@ class Namespace(_AttributeHolder):
     def __eq__(self, other: object) -> bool: ...
     __hash__: ClassVar[None]  # type: ignore[assignment]
 
-class FileType:
-    # undocumented
-    _mode: str
-    _bufsize: int
-    _encoding: str | None
-    _errors: str | None
-    def __init__(self, mode: str = "r", bufsize: int = -1, encoding: str | None = None, errors: str | None = None) -> None: ...
-    def __call__(self, string: str) -> IO[Any]: ...
+if sys.version_info >= (3, 14):
+    @deprecated("Deprecated since Python 3.14. Open files after parsing arguments instead.")
+    class FileType:
+        # undocumented
+        _mode: str
+        _bufsize: int
+        _encoding: str | None
+        _errors: str | None
+        def __init__(
+            self, mode: str = "r", bufsize: int = -1, encoding: str | None = None, errors: str | None = None
+        ) -> None: ...
+        def __call__(self, string: str) -> IO[Any]: ...
+
+else:
+    class FileType:
+        # undocumented
+        _mode: str
+        _bufsize: int
+        _encoding: str | None
+        _errors: str | None
+        def __init__(
+            self, mode: str = "r", bufsize: int = -1, encoding: str | None = None, errors: str | None = None
+        ) -> None: ...
+        def __call__(self, string: str) -> IO[Any]: ...
 
 # undocumented
 class _ArgumentGroup(_ActionsContainer):
     title: str | None
     _group_actions: list[Action]
-    def __init__(
-        self,
-        container: _ActionsContainer,
-        title: str | None = None,
-        description: str | None = None,
-        *,
-        prefix_chars: str = ...,
-        argument_default: Any = ...,
-        conflict_handler: str = ...,
-    ) -> None: ...
+    if sys.version_info >= (3, 14):
+        @overload
+        def __init__(
+            self,
+            container: _ActionsContainer,
+            title: str | None = None,
+            description: str | None = None,
+            *,
+            argument_default: Any = ...,
+            conflict_handler: str = ...,
+        ) -> None: ...
+        @overload
+        @deprecated("Undocumented `prefix_chars` parameter is deprecated since Python 3.14.")
+        def __init__(
+            self,
+            container: _ActionsContainer,
+            title: str | None = None,
+            description: str | None = None,
+            *,
+            prefix_chars: str,
+            argument_default: Any = ...,
+            conflict_handler: str = ...,
+        ) -> None: ...
+    else:
+        def __init__(
+            self,
+            container: _ActionsContainer,
+            title: str | None = None,
+            description: str | None = None,
+            *,
+            prefix_chars: str = ...,
+            argument_default: Any = ...,
+            conflict_handler: str = ...,
+        ) -> None: ...
 
 # undocumented
 class _MutuallyExclusiveGroup(_ArgumentGroup):
@@ -668,7 +776,7 @@ class _SubParsersAction(Action, Generic[_ArgumentParserT]):
 
     # Note: `add_parser` accepts all kwargs of `ArgumentParser.__init__`. It also
     # accepts its own `help` and `aliases` kwargs.
-    if sys.version_info >= (3, 13):
+    if sys.version_info >= (3, 14):
         def add_parser(
             self,
             name: str,
@@ -687,9 +795,35 @@ class _SubParsersAction(Action, Generic[_ArgumentParserT]):
             fromfile_prefix_chars: str | None = ...,
             argument_default: Any = ...,
             conflict_handler: str = ...,
-            add_help: bool = ...,
-            allow_abbrev: bool = ...,
-            exit_on_error: bool = ...,
+            add_help: bool = True,
+            allow_abbrev: bool = True,
+            exit_on_error: bool = True,
+            suggest_on_error: bool = False,
+            color: bool = False,
+            **kwargs: Any,  # Accepting any additional kwargs for custom parser classes
+        ) -> _ArgumentParserT: ...
+    elif sys.version_info >= (3, 13):
+        def add_parser(
+            self,
+            name: str,
+            *,
+            deprecated: bool = False,
+            help: str | None = ...,
+            aliases: Sequence[str] = ...,
+            # Kwargs from ArgumentParser constructor
+            prog: str | None = ...,
+            usage: str | None = ...,
+            description: str | None = ...,
+            epilog: str | None = ...,
+            parents: Sequence[_ArgumentParserT] = ...,
+            formatter_class: _FormatterClass = ...,
+            prefix_chars: str = ...,
+            fromfile_prefix_chars: str | None = ...,
+            argument_default: Any = ...,
+            conflict_handler: str = ...,
+            add_help: bool = True,
+            allow_abbrev: bool = True,
+            exit_on_error: bool = True,
             **kwargs: Any,  # Accepting any additional kwargs for custom parser classes
         ) -> _ArgumentParserT: ...
     else:
@@ -710,9 +844,9 @@ class _SubParsersAction(Action, Generic[_ArgumentParserT]):
             fromfile_prefix_chars: str | None = ...,
             argument_default: Any = ...,
             conflict_handler: str = ...,
-            add_help: bool = ...,
-            allow_abbrev: bool = ...,
-            exit_on_error: bool = ...,
+            add_help: bool = True,
+            allow_abbrev: bool = True,
+            exit_on_error: bool = True,
             **kwargs: Any,  # Accepting any additional kwargs for custom parser classes
         ) -> _ArgumentParserT: ...
 

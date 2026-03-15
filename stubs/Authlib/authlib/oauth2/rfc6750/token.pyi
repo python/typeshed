@@ -1,9 +1,9 @@
-from _typeshed import Incomplete
 from collections.abc import Callable
-from typing import Protocol
+from typing import Protocol, type_check_only
 
 from authlib.oauth2.rfc6749 import ClientMixin
 
+@type_check_only
 class _TokenGenerator(Protocol):
     def __call__(self, *, client: ClientMixin, grant_type: str, user, scope: str) -> str: ...
 
@@ -25,7 +25,7 @@ class BearerTokenGenerator:
         self,
         grant_type: str,
         client: ClientMixin,
-        user: Incomplete | None = None,
+        user=None,
         scope: str | None = None,
         expires_in: int | None = None,
         include_refresh_token: bool = True,
@@ -34,7 +34,7 @@ class BearerTokenGenerator:
         self,
         grant_type: str,
         client: ClientMixin,
-        user: Incomplete | None = None,
+        user=None,
         scope: str | None = None,
         expires_in: int | None = None,
         include_refresh_token: bool = True,

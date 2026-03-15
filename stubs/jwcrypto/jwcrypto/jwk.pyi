@@ -1,3 +1,4 @@
+from _typeshed import Unused
 from collections.abc import Callable, Sequence
 from enum import Enum
 from typing import Any, Literal, NamedTuple, TypeVar, overload
@@ -201,7 +202,10 @@ class JWK(dict[str, Any]):
         ),
     ) -> None: ...
     def import_from_pem(self, data: bytes, password: bytes | None = None, kid: str | None = None) -> None: ...
-    def export_to_pem(self, private_key: bool = False, password: bool = False) -> bytes: ...
+    @overload
+    def export_to_pem(self, private_key: Literal[False] = False, password: Unused = False) -> bytes: ...
+    @overload
+    def export_to_pem(self, private_key: Literal[True], password: bytes | None) -> bytes: ...
     @classmethod
     def from_pyca(
         cls,

@@ -1,7 +1,8 @@
 import time
-from collections.abc import Callable, Iterable
+from _typeshed import FileDescriptorOrPath, Incomplete
+from collections.abc import Callable, Iterable, Mapping
 from logging import Logger
-from typing import Any
+from typing import Any, Final, TypeVar
 
 from .context import Context
 from .emitters.udp_emitter import UDPEmitter
@@ -14,11 +15,13 @@ from .sampling.sampler import DefaultSampler
 from .streaming.default_streaming import DefaultStreaming
 
 log: Logger
-TRACING_NAME_KEY: str
-DAEMON_ADDR_KEY: str
-CONTEXT_MISSING_KEY: str
-XRAY_META: Any
-SERVICE_INFO: Any
+TRACING_NAME_KEY: Final = "AWS_XRAY_TRACING_NAME"
+DAEMON_ADDR_KEY: Final = "AWS_XRAY_DAEMON_ADDRESS"
+CONTEXT_MISSING_KEY: Final = "AWS_XRAY_CONTEXT_MISSING"
+XRAY_META: Final[dict[str, dict[str, str]]]
+SERVICE_INFO: Final[dict[str, str]]
+
+_T = TypeVar("_T")
 
 class AWSXRayRecorder:
     def __init__(self) -> None: ...
@@ -27,7 +30,7 @@ class AWSXRayRecorder:
         sampling: bool | None = None,
         plugins: Iterable[str] | None = None,
         context_missing: str | None = None,
-        sampling_rules: dict[str, Any] | str | None = None,
+        sampling_rules: dict[str, Any] | FileDescriptorOrPath | None = None,
         daemon_address: str | None = None,
         service: str | None = None,
         context: Context | None = None,
@@ -39,14 +42,17 @@ class AWSXRayRecorder:
         sampler: LocalSampler | DefaultSampler | None = None,
         stream_sql: bool | None = True,
     ) -> None: ...
-    def in_segment(self, name: str | None = None, **segment_kwargs) -> SegmentContextManager: ...
-    def in_subsegment(self, name: str | None = None, **subsegment_kwargs) -> SubsegmentContextManager: ...
+    def in_segment(
+        self, name: str | None = None, *, traceid: str | None = None, parent_id: str | None = None, sampling: bool | None = None
+    ) -> SegmentContextManager: ...
+    def in_subsegment(self, name: str | None = None, *, namespace: str = "local") -> SubsegmentContextManager: ...
     def begin_segment(
         self, name: str | None = None, traceid: str | None = None, parent_id: str | None = None, sampling: bool | None = None
     ) -> Segment | DummySegment: ...
     def end_segment(self, end_time: time.struct_time | None = None) -> None: ...
     def current_segment(self) -> Segment: ...
     def begin_subsegment(self, name: str, namespace: str = "local") -> DummySubsegment | Subsegment | None: ...
+    def begin_subsegment_without_sampling(self, name: str) -> DummySubsegment | Subsegment | None: ...
     def current_subsegment(self) -> Subsegment | DummySubsegment | None: ...
     def end_subsegment(self, end_time: time.struct_time | None = None) -> None: ...
     def put_annotation(self, key: str, value: Any) -> None: ...
@@ -59,14 +65,14 @@ class AWSXRayRecorder:
     def capture(self, name: str | None = None) -> SubsegmentContextManager: ...
     def record_subsegment(
         self,
-        wrapped: Callable[..., Any],
+        wrapped: Callable[..., _T],
         instance: Any,
-        args: list[Any],
-        kwargs: dict[str, Any],
+        args: Iterable[Incomplete],
+        kwargs: Mapping[str, Incomplete],
         name: str,
         namespace: str,
-        meta_processor: Callable[..., object],
-    ) -> Any: ...
+        meta_processor: Callable[..., object] | None,
+    ) -> _T: ...
     @property
     def enabled(self) -> bool: ...
     @enabled.setter
@@ -84,9 +90,9 @@ class AWSXRayRecorder:
     @service.setter
     def service(self, value: str) -> None: ...
     @property
-    def dynamic_naming(self) -> Any | DefaultDynamicNaming: ...
+    def dynamic_naming(self) -> DefaultDynamicNaming | None: ...
     @dynamic_naming.setter
-    def dynamic_naming(self, value: Any | DefaultDynamicNaming) -> None: ...
+    def dynamic_naming(self, value: DefaultDynamicNaming | str) -> None: ...
     @property
     def context(self) -> Context: ...
     @context.setter

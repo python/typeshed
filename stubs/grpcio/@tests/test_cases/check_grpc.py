@@ -44,3 +44,4 @@ assert_type(call_details.timeout, Optional[float])
 call_iter = cast(grpc._CallIterator[str], None)
 for call in call_iter:
     assert_type(call, str)
+assert_type(next(call_iter), str)

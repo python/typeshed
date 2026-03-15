@@ -18,7 +18,7 @@ class DefaultGroup(click.Group):
         commands: MutableMapping[str, click.Command] | Sequence[click.Command] | None = None,
         *,
         ignore_unknown_options: Literal[True] | None = True,
-        default_cmd_name: str | None = None,
+        default: str | None = None,
         default_if_no_args: bool = False,
         invoke_without_command: bool = False,
         no_args_is_help: bool | None = None,

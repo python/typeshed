@@ -7,15 +7,17 @@ correct places, and that various configuration files are correct.
 
 from __future__ import annotations
 
+import json
 import os
 import re
 from pathlib import Path
 
 from ts_utils.metadata import read_metadata
-from ts_utils.paths import REQUIREMENTS_PATH, STDLIB_PATH, STUBS_PATH, TEST_CASES_DIR, TESTS_DIR, tests_path
+from ts_utils.paths import PYRIGHT_CONFIG, REQUIREMENTS_PATH, STDLIB_PATH, STUBS_PATH, TEST_CASES_DIR, TESTS_DIR, tests_path
 from ts_utils.utils import (
     get_all_testcase_directories,
     get_gitignore_spec,
+    jsonc_to_json,
     parse_requirements,
     parse_stdlib_versions_file,
     spec_matches_path,
@@ -25,7 +27,11 @@ extension_descriptions = {".pyi": "stub", ".py": ".py"}
 
 # These type checkers and linters must have exact versions in the requirements file to ensure
 # consistent CI runs.
-linters = {"mypy", "pyright", "pytype", "ruff"}
+linters = {"mypy", "pyright", "ruff"}
+
+ALLOWED_PY_FILES_IN_TESTS_DIR = {
+    "django_settings.py"  # This file contains Django settings used by the mypy_django_plugin during stubtest execution.
+}
 
 
 def assert_consistent_filetypes(
@@ -81,7 +87,9 @@ def check_stubs() -> None:
 
 
 def check_tests_dir(tests_dir: Path) -> None:
-    py_files_present = any(file.suffix == ".py" for file in tests_dir.iterdir())
+    py_files_present = any(
+        file.suffix == ".py" and file.name not in ALLOWED_PY_FILES_IN_TESTS_DIR for file in tests_dir.iterdir()
+    )
     error_message = f"Test-case files must be in an `{TESTS_DIR}/{TEST_CASES_DIR}` directory, not in the `{TESTS_DIR}` directory"
     assert not py_files_present, error_message
 
@@ -113,11 +121,10 @@ def check_test_cases() -> None:
 
 def check_no_symlinks() -> None:
     """Check that there are no symlinks in the typeshed repository."""
-    files = [os.path.join(root, file) for root, _, files in os.walk(".") for file in files]
+    files = [Path(root, file) for root, _, files in os.walk(".") for file in files]
     no_symlink = "You cannot use symlinks in typeshed, please copy {} to its link."
     for file in files:
-        _, ext = os.path.splitext(file)
-        if ext == ".pyi" and os.path.islink(file):
+        if file.suffix == ".pyi" and file.is_symlink():
             raise ValueError(no_symlink.format(file))
 
 
@@ -141,18 +148,18 @@ def _find_stdlib_modules() -> set[str]:
     modules = set[str]()
     for path, _, files in os.walk(STDLIB_PATH):
         for filename in files:
-            base_module = ".".join(os.path.normpath(path).split(os.sep)[1:])
+            base_module = ".".join(Path(path).parts[1:])
             if filename == "__init__.pyi":
                 modules.add(base_module)
             elif filename.endswith(".pyi"):
-                mod, _ = os.path.splitext(filename)
+                mod = filename[:-4]
                 modules.add(f"{base_module}.{mod}" if base_module else mod)
     return modules
 
 
 def check_metadata() -> None:
     """Check that all METADATA.toml files are valid."""
-    for distribution in os.listdir("stubs"):
+    for distribution in os.listdir(STUBS_PATH):
         # This function does various sanity checks for METADATA.toml files
         read_metadata(distribution)
 
@@ -168,6 +175,19 @@ def check_requirement_pins() -> None:
         assert str(spec).startswith("=="), msg
 
 
+def check_pyright_exclude_order() -> None:
+    """Check that 'exclude' entries in pyrightconfig.stricter.json are sorted alphabetically."""
+    text = PYRIGHT_CONFIG.read_text(encoding="utf-8")
+    text = jsonc_to_json(text)
+    data = json.loads(text)
+    exclude: list[str] = data.get("exclude", [])
+
+    for i in range(len(exclude) - 1):
+        assert (
+            exclude[i].lower() <= exclude[i + 1].lower()
+        ), f"Entry '{exclude[i]}' should come before '{exclude[i + 1]}' in the {PYRIGHT_CONFIG.name} exclude list"
+
+
 if __name__ == "__main__":
     check_versions_file()
     check_metadata()
@@ -177,3 +197,4 @@ if __name__ == "__main__":
     check_stubs()
     check_distutils()
     check_test_cases()
+    check_pyright_exclude_order()

@@ -2,22 +2,16 @@ import datetime
 from typing_extensions import TypeAlias
 
 from .cal import Alarm, Event, Todo
+from .error import (
+    ComponentEndMissing as ComponentEndMissing,
+    ComponentStartMissing as ComponentStartMissing,
+    IncompleteAlarmInformation as IncompleteAlarmInformation,
+    LocalTimezoneMissing as LocalTimezoneMissing,
+)
 
-__all__ = [
-    "Alarms",
-    "AlarmTime",
-    "IncompleteAlarmInformation",
-    "ComponentEndMissing",
-    "ComponentStartMissing",
-    "LocalTimezoneMissing",
-]
+__all__ = ["Alarms", "AlarmTime", "IncompleteAlarmInformation", "ComponentEndMissing", "ComponentStartMissing"]
 
 Parent: TypeAlias = Event | Todo
-
-class IncompleteAlarmInformation(ValueError): ...
-class ComponentStartMissing(IncompleteAlarmInformation): ...
-class ComponentEndMissing(IncompleteAlarmInformation): ...
-class LocalTimezoneMissing(IncompleteAlarmInformation): ...
 
 class AlarmTime:
     def __init__(
@@ -27,7 +21,7 @@ class AlarmTime:
         acknowledged_until: datetime.datetime | None = None,
         snoozed_until: datetime.datetime | None = None,
         parent: Parent | None = None,
-    ): ...
+    ) -> None: ...
     @property
     def acknowledged(self) -> datetime.datetime | None: ...
     @property
@@ -39,7 +33,7 @@ class AlarmTime:
     def trigger(self) -> datetime.date: ...
 
 class Alarms:
-    def __init__(self, component: Alarm | Event | Todo | None = None): ...
+    def __init__(self, component: Alarm | Event | Todo | None = None) -> None: ...
     def add_component(self, component: Alarm | Parent) -> None: ...
     def set_parent(self, parent: Parent) -> None: ...
     def add_alarm(self, alarm: Alarm) -> None: ...

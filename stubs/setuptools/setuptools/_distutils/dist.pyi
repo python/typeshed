@@ -73,7 +73,6 @@ class Distribution:
     display_option_names: ClassVar[list[str]]
     negative_opt: ClassVar[dict[str, str]]
     verbose: bool
-    dry_run: bool
     help: bool
     command_packages: str | list[str] | None
     script_name: StrPath | None
@@ -96,9 +95,7 @@ class Distribution:
     command_obj: dict[str, Command]
     have_run: dict[str, bool]
     want_user_cfg: bool
-    def dump_option_dicts(
-        self, header: Incomplete | None = None, commands: Incomplete | None = None, indent: str = ""
-    ) -> None: ...
+    def dump_option_dicts(self, header=None, commands=None, indent: str = "") -> None: ...
     def find_config_files(self): ...
     commands: Incomplete
     def parse_command_line(self): ...

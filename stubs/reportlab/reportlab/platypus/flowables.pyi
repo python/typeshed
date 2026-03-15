@@ -1,6 +1,6 @@
 from _typeshed import Incomplete, SupportsRead, Unused
 from collections.abc import Callable, Iterable, Sequence
-from typing import Any, Literal, NoReturn, Protocol
+from typing import Any, Literal, NoReturn, Protocol, type_check_only
 from typing_extensions import Self, TypeAlias
 
 from reportlab.lib.colors import Color
@@ -64,6 +64,7 @@ _FlowableSublist: TypeAlias = Flowable | list[Flowable] | tuple[Flowable, ...]
 # NOTE: Technically can only be list or tuple, but would be annoying for variance
 _NestedFlowable: TypeAlias = Flowable | Sequence[_NestedFlowable]
 
+@type_check_only
 class _StyledFlowableFactory(Protocol):
     # NOTE: We leave style at Any so people can specify a specifc property set
     def __call__(self, value: str, /, *, style: Any) -> Flowable: ...
@@ -191,7 +192,7 @@ class KeepTogether(_ContainerSpace, Flowable):
     splitAtTop: bool
     # TODO: Consider using Sequence[Flowable] for covariance, even if reportlab
     #       only supports list/tuple
-    def __init__(self, flowables: _FlowableSublist | None, maxHeight: Incomplete | None = None) -> None: ...
+    def __init__(self, flowables: _FlowableSublist | None, maxHeight=None) -> None: ...
 
 class KeepTogetherSplitAtTop(KeepTogether):
     splitAtTop: bool
@@ -239,7 +240,7 @@ class HRFlowable(Flowable):
         spaceAfter: float = 1,
         hAlign: _HAlignment = "CENTER",
         vAlign: _VAlignment = "BOTTOM",
-        dash: Incomplete | None = None,
+        dash=None,
     ) -> None: ...
     def draw(self) -> None: ...
 
@@ -321,7 +322,7 @@ class BalancedColumns(_FindSplitterMixin, NullDraw):
         needed: float = 72,
         spaceBefore: float = 0,
         spaceAfter: float = 0,
-        showBoundary: Incomplete | None = None,
+        showBoundary=None,
         leftPadding: float | None = None,
         innerPadding: float | None = None,
         rightPadding: float | None = None,
@@ -387,7 +388,7 @@ class BulletDrawer:
         bulletOffsetY: int = 0,
         bulletDedent: int = 0,
         bulletDir: str = "ltr",
-        bulletFormat: Incomplete | None = None,
+        bulletFormat=None,
     ) -> None: ...
     def drawOn(self, indenter: DDIndenter, canv: Canvas, x: float, y: float) -> None: ...
 
@@ -400,7 +401,7 @@ class LIIndenter(DDIndenter):
         flowable: Flowable,
         leftIndent: float = 0,
         rightIndent: float = 0,
-        bullet: Incomplete | None = None,
+        bullet=None,
         spaceBefore: float | None = None,
         spaceAfter: float | None = None,
     ) -> None: ...
@@ -410,13 +411,11 @@ class ListItem:
     # TODO: Use Unpack for kwds with the ListStyle properties + value/spaceBefore/spaceAfter
     def __init__(self, flowables: _FlowableSublist, style: PropertySet | None = None, **kwds) -> None: ...
 
-class ListFlowable(_Container, Flowable):
+class ListFlowable(_Container, Flowable, _FindSplitterMixin):
     style: ListStyle
     # NOTE: style has to be a ListStyle, but this will be annoying with sheet["ul"]
     # TODO: Use Unpack for kwds with the ListStyle properties + spaceBefore/spaceAfter
-    def __init__(
-        self, flowables: Iterable[_NestedFlowable], start: Incomplete | None = None, style: PropertySet | None = None, **kwds
-    ) -> None: ...
+    def __init__(self, flowables: Iterable[_NestedFlowable], start=None, style: PropertySet | None = None, **kwds) -> None: ...
 
 class TopPadder(Flowable):
     # NOTE: TopPadder is mostly a transparent wrapper, we may consider trying

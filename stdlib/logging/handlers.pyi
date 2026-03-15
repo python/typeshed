@@ -8,16 +8,18 @@ from logging import FileHandler, Handler, LogRecord
 from re import Pattern
 from socket import SocketKind, socket
 from threading import Thread
-from typing import Any, ClassVar, Final, Protocol, TypeVar
+from types import TracebackType
+from typing import Any, ClassVar, Final, Protocol, TypeVar, type_check_only
+from typing_extensions import Self
 
 _T = TypeVar("_T")
 
-DEFAULT_TCP_LOGGING_PORT: Final[int]
-DEFAULT_UDP_LOGGING_PORT: Final[int]
-DEFAULT_HTTP_LOGGING_PORT: Final[int]
-DEFAULT_SOAP_LOGGING_PORT: Final[int]
-SYSLOG_UDP_PORT: Final[int]
-SYSLOG_TCP_PORT: Final[int]
+DEFAULT_TCP_LOGGING_PORT: Final = 9020
+DEFAULT_UDP_LOGGING_PORT: Final = 9021
+DEFAULT_HTTP_LOGGING_PORT: Final = 9022
+DEFAULT_SOAP_LOGGING_PORT: Final = 9023
+SYSLOG_UDP_PORT: Final = 514
+SYSLOG_TCP_PORT: Final = 514
 
 class WatchedFileHandler(FileHandler):
     dev: int  # undocumented
@@ -142,9 +144,19 @@ class SysLogHandler(Handler):
     priority_names: ClassVar[dict[str, int]]  # undocumented
     facility_names: ClassVar[dict[str, int]]  # undocumented
     priority_map: ClassVar[dict[str, str]]  # undocumented
-    def __init__(
-        self, address: tuple[str, int] | str = ("localhost", 514), facility: str | int = 1, socktype: SocketKind | None = None
-    ) -> None: ...
+    if sys.version_info >= (3, 14):
+        timeout: float | None
+        def __init__(
+            self,
+            address: tuple[str, int] | str = ("localhost", 514),
+            facility: str | int = 1,
+            socktype: SocketKind | None = None,
+            timeout: float | None = None,
+        ) -> None: ...
+    else:
+        def __init__(
+            self, address: tuple[str, int] | str = ("localhost", 514), facility: str | int = 1, socktype: SocketKind | None = None
+        ) -> None: ...
     if sys.version_info >= (3, 11):
         def createSocket(self) -> None: ...
 
@@ -213,6 +225,7 @@ class HTTPHandler(Handler):
     def mapLogRecord(self, record: LogRecord) -> dict[str, Any]: ...
     def getConnection(self, host: str, secure: bool) -> http.client.HTTPConnection: ...  # undocumented
 
+@type_check_only
 class _QueueLike(Protocol[_T]):
     def get(self) -> _T: ...
     def put_nowait(self, item: _T, /) -> None: ...
@@ -237,3 +250,9 @@ class QueueListener:
     def stop(self) -> None: ...
     def enqueue_sentinel(self) -> None: ...
     def handle(self, record: LogRecord) -> None: ...
+
+    if sys.version_info >= (3, 14):
+        def __enter__(self) -> Self: ...
+        def __exit__(
+            self, exc_type: type[BaseException] | None, exc_value: BaseException | None, traceback: TracebackType | None
+        ) -> None: ...
