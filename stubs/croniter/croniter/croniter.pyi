@@ -1,6 +1,6 @@
 import datetime
 from _typeshed import Unused
-from collections.abc import Generator
+from collections.abc import Generator, Iterable
 from re import Match, Pattern
 from typing import Any, Final, Generic, Literal, Protocol, TypeVar, overload, type_check_only
 from typing_extensions import Never, Self, TypeAlias
@@ -244,7 +244,7 @@ class croniter(Generic[_R_co]):
         second_at_beginning: bool = False,
         from_timestamp: float | None = None,
         strict: bool = False,
-        strict_year: int | list[int] | None = None,
+        strict_year: int | Iterable[int] | None = None,
     ) -> tuple[list[ExpandedExpression], dict[str, set[int]]]: ...
     @classmethod
     def is_valid(
@@ -254,7 +254,7 @@ class croniter(Generic[_R_co]):
         encoding: str = "UTF-8",
         second_at_beginning: bool = False,
         strict: bool = False,
-        strict_year: int | list[int] | None = None,
+        strict_year: int | Iterable[int] | None = None,
     ) -> bool: ...
     @classmethod
     def match(
