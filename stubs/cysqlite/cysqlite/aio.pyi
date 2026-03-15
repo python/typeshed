@@ -2,7 +2,7 @@ import asyncio
 import queue
 import types
 from collections.abc import Callable, Mapping, Sequence
-from typing import Any, Literal, TypeAlias, TypedDict, type_check_only
+from typing import Any, Final, Literal, TypeAlias, TypedDict, type_check_only
 from typing_extensions import Buffer, Self, Unpack
 
 from ._cysqlite import Atomic, Connection, Cursor, Row, Savepoint, Transaction
