@@ -96,6 +96,7 @@ _SupportsAnextT_co = TypeVar("_SupportsAnextT_co", bound=SupportsAnext[Any], cov
 _AwaitableT = TypeVar("_AwaitableT", bound=Awaitable[Any])
 _AwaitableT_co = TypeVar("_AwaitableT_co", bound=Awaitable[Any], covariant=True)
 _P = ParamSpec("_P")
+_NoneDefaultT = TypeVar("_NoneDefaultT", default=None)
 
 # Type variables for slice
 _StartT_co = TypeVar("_StartT_co", covariant=True, default=Any)  # slice -> slice[Any, Any, Any]
@@ -1218,13 +1219,7 @@ class dict(MutableMapping[_KT, _VT]):
     @classmethod
     @overload
     def fromkeys(cls, iterable: Iterable[_T], value: _S, /) -> dict[_T, _S]: ...
-    # Positional-only in dict, but not in MutableMapping
-    @overload  # type: ignore[override]
-    def get(self, key: _KT, default: None = None, /) -> _VT | None: ...
-    @overload
-    def get(self, key: _KT, default: _VT, /) -> _VT: ...
-    @overload
-    def get(self, key: _KT, default: _T, /) -> _VT | _T: ...
+    def get(self, key: _KT, default: _NoneDefaultT = None, /) -> _VT | _NoneDefaultT: ...  # type: ignore[assignment]
     @overload
     def pop(self, key: _KT, /) -> _VT: ...
     @overload
