@@ -1,0 +1,3 @@
+cysqlite._cysqlite.__test__
+cysqlite._cysqlite.__reduce_cython__
+cysqlite._cysqlite.__setstate_cython__
