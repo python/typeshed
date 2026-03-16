@@ -49,7 +49,7 @@ RASCS_StartAuthentication: int
 RASCS_WaitForCallback: int
 RASCS_WaitForModemReset: int
 
-def GetEapUserIdentity(phoneBook: str | None, entry: str, flags: int, hwnd=None, /): ...
+def GetEapUserIdentity(phoneBook: str | None, entry: str, flags: int, hwnd: _win32typing.PyHANDLE | int | None = None, /): ...
 
 RASEAPF_Logon: int
 RASEAPF_NonInteractive: int
