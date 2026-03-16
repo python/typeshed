@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 
+import _win32typing
 from win32.lib.pywintypes import error as error
 
 def AddCounter(hQuery, path: str, userData: int = ..., /): ...
