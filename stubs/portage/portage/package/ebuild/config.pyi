@@ -1,4 +1,5 @@
-from typing import Any
+from collections.abc import Hashable, Mapping
+from typing import Literal, TypeVar
 
 class config:
     def __init__(
@@ -20,4 +21,17 @@ class config:
     def __setitem__(self, key: str, value: str) -> None: ...
     def __delitem__(self, key: str) -> None: ...
     def __iter__(self) -> str: ...
-    def get(self, k: str, x: Any = ...) -> Any: ...
+    def get(self, k: str, x=...): ...
+
+_K = TypeVar("_K")
+_V = TypeVar("_V")
+
+def best_from_dict(
+    key: Hashable,
+    top_dict: Mapping[_K, _V],
+    key_order,
+    EmptyOnError: Literal[0, 1] = 1,
+    FullCopy: Literal[0, 1] = 1,
+    AllowEmpty: Literal[0, 1] = 1,
+) -> Literal[""] | dict[_K, _V]: ...
+def autouse(myvartree, use_cache: Literal[0, 1] = 1, mysettings: config | None = None) -> Literal[""]: ...

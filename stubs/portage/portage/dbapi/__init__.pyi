@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 from typing import Literal
 
 class dbapi:
@@ -29,6 +30,6 @@ class dbapi:
         mytree: str | None = ...,
         myrepo: str | None = ...,
     ) -> list[str]: ...
-    def match(self, mydep: str, use_cache: Literal[0, 1] = ...) -> list[str] | str: ...
+    def match(self, mydep: str, use_cache: Literal[0, 1] = 1) -> list[str] | str: ...
 
-def __getattr__(name: str): ...  # incomplete module
+def __getattr__(name: str) -> Incomplete: ...  # incomplete module

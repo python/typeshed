@@ -1,4 +1,5 @@
-from typing import Any, Literal
+from _typeshed import Incomplete
+from typing import Literal
 
 from portage.dbapi.porttree import portdbapi
 
@@ -38,17 +39,19 @@ def doebuild(
         "unpack",
     ],
     settings: config | None = ...,
-    debug: Literal[0, 1] = ...,
-    listonly: Literal[0, 1] = ...,
-    fetchonly: Literal[0, 1] = ...,
-    cleanup: Literal[0, 1] = ...,
-    use_cache: Literal[0, 1] = ...,
-    fetchall: Literal[0, 1] = ...,
+    debug: Literal[0, 1] = 0,
+    listonly: Literal[0, 1] = 0,
+    fetchonly: Literal[0, 1] = 0,
+    cleanup: Literal[0, 1] = 0,
+    use_cache: Literal[0, 1] = 1,
+    fetchall: Literal[0, 1] = 0,
     tree: Literal["vartree", "porttree", "bintree"] = ...,
     mydbapi: portdbapi | None = ...,
-    vartree: Any = ...,
-    prev_mtimes: dict[str, Any] | None = ...,
+    vartree=...,
+    prev_mtimes: dict[str, Incomplete] | None = ...,
     fd_pipes: dict[str, str] | None = ...,
     returnproc: int | bool = ...,
 ) -> Literal[0, 1] | bool | list[int]:  # Missing portage.process.MultiprocessingProcess
     ...
+
+def __getattr__(name: str) -> Incomplete: ...  # incomplete module
