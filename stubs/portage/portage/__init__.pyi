@@ -13,3 +13,5 @@ class _DBRootDict(TypedDict):
 db: Mapping[str, _DBRootDict]
 root: str
 settings: config
+
+def __getattr__(name: str): ...  # incomplete module
