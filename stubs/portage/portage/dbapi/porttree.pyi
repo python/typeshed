@@ -10,13 +10,13 @@ class portdbapi(dbapi):
     def xmatch(
         self,
         level: Literal[
-            bestmatch - visible,
-            match - all - cpv - only,
-            match - all,
-            match - visible,
-            minimum - all,
-            minimum - visible,
-            minimum - all - ignore - profile,
+            "bestmatch-visible",
+            "match-all-cpv-only",
+            "match-all",
+            "match-visible",
+            "minimum-all",
+            "minimum-visible",
+            "minimum-all-ignore-profile",
         ],
         origdep: str,
     ) -> list[str] | str: ...
