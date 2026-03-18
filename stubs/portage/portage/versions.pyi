@@ -12,7 +12,7 @@ class _pkg_str(str):
     def __new__(
         cls,
         cpv: str,
-        metadata: dict[str, Incomplete] | None = ...,
+        metadata: dict[str, Incomplete] | None = None,
         settings: config | None = None,
         eapi: str | None = None,
         repo: str | None = None,
@@ -27,7 +27,7 @@ class _pkg_str(str):
     def __init__(
         self,
         cpv: str,
-        metadata: dict[str, Incomplete] | None = ...,
+        metadata: dict[str, Incomplete] | None = None,
         settings: config | None = None,
         eapi: str | None = None,
         repo: str | None = None,
