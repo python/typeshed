@@ -27,8 +27,8 @@ class dbapi:
                 "SLOT",
             ]
         ],
-        mytree: str | None = ...,
-        myrepo: str | None = ...,
+        mytree: str | None = None,
+        myrepo: str | None = None,
     ) -> list[str]: ...
     def match(self, mydep: str, use_cache: Literal[0, 1] = 1) -> list[str] | str: ...
 

@@ -4,7 +4,7 @@ from typing_extensions import Self
 
 from .package.ebuild.config import config
 
-def vercmp(ver1: str, ver2: str, silent: Literal[0, 1] = ...) -> int | None: ...
+def vercmp(ver1: str, ver2: str, silent: Literal[0, 1] = 1) -> int | None: ...
 
 class _pkg_str(str):
     @property
