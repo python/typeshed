@@ -1,0 +1,6 @@
+portage.dbapi.dbapi.aux_get
+portage.dbapi.dbapi.match
+portage.dbapi.porttree.portagetree.__init__
+portage.dbapi.porttree.portdbapi.__init__
+portage.dbapi.porttree.portdbapi.xmatch
+portage.package.ebuild.doebuild.doebuild
