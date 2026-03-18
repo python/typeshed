@@ -13,14 +13,14 @@ class _pkg_str(str):
         cls,
         cpv: str,
         metadata: dict[str, Incomplete] | None = ...,
-        settings: config = ...,
-        eapi=...,
-        repo: str | None = ...,
-        slot: str | None = ...,
-        build_time: int | None = ...,
-        build_id: str | None = ...,
-        file_size: int | None = ...,
-        mtime: int | None = ...,
+        settings: config | None = None,
+        eapi: str | None = None,
+        repo: str | None = None,
+        slot: str | None = None,
+        build_time: int | None = None,
+        build_id: str | None = None,
+        file_size: int | None = None,
+        mtime: int | None = None,
         db=...,
         repoconfig=...,
     ) -> Self: ...
@@ -28,14 +28,14 @@ class _pkg_str(str):
         self,
         cpv: str,
         metadata: dict[str, Incomplete] | None = ...,
-        settings: config = ...,
-        eapi=...,
-        repo: str | None = ...,
-        slot: str | None = ...,
-        build_time: int | None = ...,
-        build_id: str | None = ...,
-        file_size: int | None = ...,
-        mtime: int | None = ...,
+        settings: config | None = None,
+        eapi: str | None = None,
+        repo: str | None = None,
+        slot: str | None = None,
+        build_time: int | None = None,
+        build_id: str | None = None,
+        file_size: int | None = None,
+        mtime: int | None = None,
         db=...,
         repoconfig=...,
     ) -> None: ...
@@ -43,6 +43,6 @@ class _pkg_str(str):
     def _long(var, default: int) -> int: ...
 
 def catpkgsplit(
-    mydata: str | _pkg_str, silent: Literal[0, 1] = ..., eapi: str | None = ...
+    mydata: str | _pkg_str, silent: Literal[0, 1] = 1, eapi: str | None = None
 ) -> tuple[str | None, str, str, str] | None: ...
 def __getattr__(name: str) -> Incomplete: ...  # incomplete module
