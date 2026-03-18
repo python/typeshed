@@ -1,4 +1,5 @@
 from collections.abc import Sequence
+from typing import Literal
 
 from portage.dbapi import dbapi
 
