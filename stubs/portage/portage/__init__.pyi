@@ -5,11 +5,11 @@ from .dbapi.porttree import portagetree
 from .package.ebuild.config import config
 
 @type_check_only
-class DBRootDict(TypedDict):
+class _DBRootDict(TypedDict):
     bintree: Any
     porttree: portagetree
     virtuals: Any
 
-db: Mapping[str, DBRootDict]
+db: Mapping[str, _DBRootDict]
 root: str
 settings: config

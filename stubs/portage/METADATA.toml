@@ -1,5 +1,6 @@
 version = "3.0.*"
 upstream_repository = "https://gitweb.gentoo.org/proj/portage.git"
+partial_stub = true
 
 [tool.stubtest]
-ci_platforms = ["linux"]
+ignore_missing_stub = true
