@@ -1,8 +1,8 @@
 import sys
 import types
-from _typeshed import Incomplete, ReadableBuffer, WriteableBuffer
+from _typeshed import ReadableBuffer, WriteableBuffer
 from collections.abc import Callable, Hashable
-from typing import Any, ClassVar, Literal, Optional, Protocol, Self, SupportsIndex, TypeVar, final, overload, type_check_only
+from typing import Any, ClassVar, Literal, Protocol, SupportsIndex, TypeVar, final, overload, type_check_only
 from typing_extensions import Self, TypeAlias, disjoint_base
 
 _T = TypeVar("_T")
@@ -27,11 +27,11 @@ if sys.platform != "win32":
 
 @final
 class CField:
-	bitshift: int
-	bitsize: int
-	flags: int
-	offset: int
-	type: 'CType'
+    bitshift: int
+    bitsize: int
+    flags: int
+    offset: int
+    type: 'CType'
 
 @final
 class CLibrary:
@@ -45,18 +45,18 @@ class CType:
     cname: str
     kind: Literal['enum', 'primitive', 'pointer', 'array', 'void', 'struct', 'union', 'function']
 
-	abi: int
-	args: tuple['CType', ...]
-	ellipsis: bool
-	result: 'CType'
+    abi: int
+    args: tuple['CType', ...]
+    ellipsis: bool
+    result: 'CType'
 
     item: 'CType'
-    length: Optional[int]
+    length: int | None
 
-	fields: Optional[list[tuple[str, CField]]]
+    fields: list[tuple[str, CField]] | None
 
-	relements: dict[str, int]
-	elements: dict[int, str]
+    relements: dict[str, int]
+    elements: dict[int, str]
 
 @final
 class Lib:
@@ -99,18 +99,18 @@ class _CDataBase:
 
 @final
 class buffer:
-	__hash__: ClassVar[None]  # type: ignore[assignment]
-	def __new__(cls, cdata: _CDataBase, size: int = -1) -> Self: ...
-	def __buffer__(self, flags: int, /) -> memoryview: ...
-	def __eq__(self, other: ReadableBuffer, /) -> bool: ...
-	def __ne__(self, other: ReadableBuffer, /) -> bool: ...
-	def __ge__(self, other: ReadableBuffer, /) -> bool: ...
-	def __gt__(self, other: ReadableBuffer, /) -> bool: ...
-	def __le__(self, other: ReadableBuffer, /) -> bool: ...
-	def __lt__(self, other: ReadableBuffer, /) -> bool: ...
-	def __len__(self) -> int: ...
-	def __getitem__(self, index: SupportsIndex | slice, /) -> bytes: ...
-	def __setitem__(self, index: SupportsIndex | slice, value: bytes, /) -> None: ...
+    __hash__: ClassVar[None]  # type: ignore[assignment]
+    def __new__(cls, cdata: _CDataBase, size: int = -1) -> Self: ...
+    def __buffer__(self, flags: int, /) -> memoryview: ...
+    def __eq__(self, other: ReadableBuffer, /) -> bool: ...
+    def __ne__(self, other: ReadableBuffer, /) -> bool: ...
+    def __ge__(self, other: ReadableBuffer, /) -> bool: ...
+    def __gt__(self, other: ReadableBuffer, /) -> bool: ...
+    def __le__(self, other: ReadableBuffer, /) -> bool: ...
+    def __lt__(self, other: ReadableBuffer, /) -> bool: ...
+    def __len__(self) -> int: ...
+    def __getitem__(self, index: SupportsIndex | slice, /) -> bytes: ...
+    def __setitem__(self, index: SupportsIndex | slice, value: bytes, /) -> None: ...
 
 # These aliases are to work around pyright complaints.
 # Pyright doesn't like it when a class object is defined as an alias
