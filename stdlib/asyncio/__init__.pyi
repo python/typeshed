@@ -33,6 +33,20 @@ if sys.platform == "win32":
 else:
     from .unix_events import *
 
+if sys.version_info >= (3, 14):
+    from .events import _AbstractEventLoopPolicy as AbstractEventLoopPolicy
+
+if sys.platform == "win32":
+    if sys.version_info >= (3, 14):
+        from .windows_events import (
+            _DefaultEventLoopPolicy as DefaultEventLoopPolicy,
+            _WindowsProactorEventLoopPolicy as WindowsProactorEventLoopPolicy,
+            _WindowsSelectorEventLoopPolicy as WindowsSelectorEventLoopPolicy,
+        )
+else:
+    if sys.version_info >= (3, 14):
+        from .unix_events import _DefaultEventLoopPolicy as DefaultEventLoopPolicy
+
 if sys.platform == "win32":
     if sys.version_info >= (3, 14):
 
@@ -41,6 +55,7 @@ if sys.platform == "win32":
             "Server",  # from base_events
             "iscoroutinefunction",  # from coroutines
             "iscoroutine",  # from coroutines
+            "AbstractEventLoopPolicy",  # from events
             "AbstractEventLoop",  # from events
             "AbstractServer",  # from events
             "Handle",  # from events
@@ -131,8 +146,11 @@ if sys.platform == "win32":
             "SelectorEventLoop",  # from windows_events
             "ProactorEventLoop",  # from windows_events
             "IocpProactor",  # from windows_events
+            "DefaultEventLoopPolicy",  # from windows_events
             "_DefaultEventLoopPolicy",  # from windows_events
+            "WindowsSelectorEventLoopPolicy",  # from windows_events
             "_WindowsSelectorEventLoopPolicy",  # from windows_events
+            "WindowsProactorEventLoopPolicy",  # from windows_events
             "_WindowsProactorEventLoopPolicy",  # from windows_events
             "EventLoop",  # from windows_events
         )
@@ -514,6 +532,7 @@ else:
             "Server",  # from base_events
             "iscoroutinefunction",  # from coroutines
             "iscoroutine",  # from coroutines
+            "AbstractEventLoopPolicy",  # from events
             "AbstractEventLoop",  # from events
             "AbstractServer",  # from events
             "Handle",  # from events
@@ -604,6 +623,7 @@ else:
             "DatagramTransport",  # from transports
             "SubprocessTransport",  # from transports
             "SelectorEventLoop",  # from unix_events
+            "DefaultEventLoopPolicy",  # from unix_events
             "EventLoop",  # from unix_events
         )
     elif sys.version_info >= (3, 13):
