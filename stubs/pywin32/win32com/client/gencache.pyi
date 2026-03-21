@@ -12,6 +12,9 @@ versionRedirectMap: dict[tuple[str, int, int, int], ModuleType | None]
 is_readonly: bool
 is_zip: bool
 demandGeneratedTypeLibraries: dict[tuple[str, int, int, int], Incomplete]
+
+def __init__() -> None: ...
+
 pickleVersion: int
 
 @contextmanager
