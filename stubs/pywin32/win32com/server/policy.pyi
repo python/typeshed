@@ -33,8 +33,11 @@ class DynamicPolicy(BasicWrapPolicy):
 
 DefaultPolicy = DesignatedWrapPolicy
 
+# Imports an arbitrary object by it's fully-qualified name.
 def resolve_func(spec: str) -> Any: ...
-def call_func(spec: str, *args) -> Any: ...
+
+# Imports and calls an arbitrary callable by it's fully-qualified name.
+def call_func(spec: str, *args: Any) -> Any: ...
 
 DISPATCH_METHOD: int
 DISPATCH_PROPERTYGET: int
