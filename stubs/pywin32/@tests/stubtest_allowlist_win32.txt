@@ -12,7 +12,6 @@ win32com.client.CLSIDToClass
 win32com.client.connect
 # Error: _GoodDispatchTypes is not a Union or subclass of tuple
 win32com.client.dynamic._GoodDispatchTypes
-win32com.client.gencache.*
 win32com.client.genpy
 win32com.client.makepy
 win32com.client.selecttlb
