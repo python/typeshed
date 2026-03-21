@@ -35,9 +35,6 @@ mmap.mmap.flush
 mmap.mmap.rfind
 multiprocessing.process.BaseProcess.__init__
 
-# Some names are exported via __getattr__ instead of __all__.
-asyncio.__all__
-
 # ====================================
 # Pre-existing errors from Python 3.13
 # ====================================
