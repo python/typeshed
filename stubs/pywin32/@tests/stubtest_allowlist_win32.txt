@@ -10,7 +10,8 @@ win32com.client.tlbrowse
 # Utilities to generate python bindings
 win32com.client.CLSIDToClass
 win32com.client.connect
-# "dynamic.CDipatch" is necessary for mypy to not throw AssertionError
+# Error: _GoodDispatchTypes is not a subclass of tuple
+win32com.client.dynamic._GoodDispatchTypes
 win32com.client.gencache.*
 win32com.client.genpy
 win32com.client.makepy
