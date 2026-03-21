@@ -31,7 +31,7 @@ def debug_attr_print(*args: object) -> None: ...
 PyIDispatchType = _win32typing.PyIDispatch
 PyIUnknownType = _win32typing.PyIUnknown
 
-_GoodDispatchTypes: TypeAlias = tuple[type[str], type[IIDType]]
+_GoodDispatchTypes: TypeAlias = str | IIDType
 
 @overload
 def Dispatch(
