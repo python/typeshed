@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from collections.abc import Iterable
 from typing import Literal
 
 import _win32typing
@@ -17,7 +18,7 @@ class ListEnumerator:
     def Clone(self): ...
 
 class ListEnumeratorGateway(ListEnumerator):
-    def Next(self, count: int) -> map[Incomplete]: ...
+    def Next(self, count: int) -> Iterable[Incomplete]: ...
 
 def NewEnum(
     seq,

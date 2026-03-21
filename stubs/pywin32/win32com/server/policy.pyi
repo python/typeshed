@@ -1,9 +1,10 @@
 from _typeshed import Incomplete
 from abc import ABC, abstractmethod
-from typing import Final
+from typing import Any, Final
 
 import _win32typing
 
+__author__: Final[str]
 S_OK: Final = 0
 IDispatchType: Incomplete
 IUnknownType: Incomplete
@@ -32,8 +33,8 @@ class DynamicPolicy(BasicWrapPolicy):
 
 DefaultPolicy = DesignatedWrapPolicy
 
-def resolve_func(spec: str): ...
-def call_func(spec: str, *args): ...
+def resolve_func(spec: str) -> Any: ...
+def call_func(spec: str, *args) -> Any: ...
 
 DISPATCH_METHOD: int
 DISPATCH_PROPERTYGET: int

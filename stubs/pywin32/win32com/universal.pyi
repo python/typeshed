@@ -23,7 +23,6 @@ class Arg:
     inOut: Incomplete
     default: Incomplete
     clsid: Incomplete
-    arg_info: Incomplete
     size: Incomplete
     offset: int
     def __init__(self, arg_info, name=None) -> None: ...

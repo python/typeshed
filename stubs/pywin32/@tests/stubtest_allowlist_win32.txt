@@ -11,7 +11,6 @@ win32com.client.tlbrowse
 win32com.client.CLSIDToClass
 win32com.client.connect
 # "dynamic.CDipatch" is necessary for mypy to not throw AssertionError
-win32com.client.dynamic.*
 win32com.client.gencache.*
 win32com.client.genpy
 win32com.client.makepy
