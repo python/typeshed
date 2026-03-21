@@ -151,3 +151,15 @@ class Y(X):
     @cached_property
     def some(self) -> Child:  # safe override
         return Child()
+
+
+class CachedParent:
+    @cache
+    def method(self) -> Parent:
+        return Parent()
+
+
+class CachedChild(CachedParent):
+    @cache
+    def method(self) -> Child:
+        return Child()
