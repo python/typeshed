@@ -34,18 +34,18 @@ else:
     from .unix_events import *
 
 if sys.version_info >= (3, 14):
-    from .events import _AbstractEventLoopPolicy as AbstractEventLoopPolicy
+    from .events import _AbstractEventLoopPolicy as AbstractEventLoopPolicy  # pyright: ignore[reportUnusedImport]
 
 if sys.platform == "win32":
     if sys.version_info >= (3, 14):
         from .windows_events import (
-            _DefaultEventLoopPolicy as DefaultEventLoopPolicy,
-            _WindowsProactorEventLoopPolicy as WindowsProactorEventLoopPolicy,
-            _WindowsSelectorEventLoopPolicy as WindowsSelectorEventLoopPolicy,
+            _DefaultEventLoopPolicy as DefaultEventLoopPolicy,  # pyright: ignore[reportUnusedImport]
+            _WindowsProactorEventLoopPolicy as WindowsProactorEventLoopPolicy,  # pyright: ignore[reportUnusedImport]
+            _WindowsSelectorEventLoopPolicy as WindowsSelectorEventLoopPolicy,  # pyright: ignore[reportUnusedImport]
         )
 else:
     if sys.version_info >= (3, 14):
-        from .unix_events import _DefaultEventLoopPolicy as DefaultEventLoopPolicy
+        from .unix_events import _DefaultEventLoopPolicy as DefaultEventLoopPolicy  # pyright: ignore[reportUnusedImport]
 
 if sys.platform == "win32":
     if sys.version_info >= (3, 14):
