@@ -4,6 +4,7 @@ from contextlib import contextmanager
 from types import ModuleType
 from typing import Literal, NoReturn
 
+from win32.lib.pywintypes import IIDType
 from win32com.client import dynamic
 
 bForDemandDefault: int
@@ -37,7 +38,7 @@ def MakeModuleForTypelib(
     bBuildHidden: bool | Literal[0, 1] = 1,
 ) -> ModuleType: ...
 def MakeModuleForTypelibInterface(
-    typelib_ob, progressInstance=None, bForDemand: Unused = ..., bBuildHidden: bool | Literal[0, 1] = 1
+    typelib_ob, progressInstance=None, bForDemand: bool | Literal[0, 1] = ..., bBuildHidden: bool | Literal[0, 1] = 1
 ) -> ModuleType | None: ...
 def EnsureModuleForTypelibInterface(
     typelib_ob, progressInstance=None, bForDemand: bool | Literal[0, 1] = ..., bBuildHidden: bool | Literal[0, 1] = 1
@@ -54,8 +55,7 @@ def EnsureModule(
     bBuildHidden: bool | Literal[0, 1] = 1,
 ) -> ModuleType | None: ...
 def EnsureDispatch(
-    prog_id: str | dynamic.PyIDispatchType | dynamic._GoodDispatchTypes | dynamic.PyIUnknownType,
-    bForDemand: bool | Literal[0, 1] = 1,
+    prog_id: str | dynamic.PyIDispatchType | IIDType | dynamic.PyIUnknownType, bForDemand: bool | Literal[0, 1] = 1
 ) -> dynamic.CDispatch: ...
 def AddModuleToCache(typelibclsid, lcid, major, minor, verbose: Unused = 1, bFlushNow: bool | Literal[0, 1] = ...) -> None: ...
 def GetGeneratedInfos() -> list[tuple[Incomplete, Incomplete, Incomplete, Incomplete]]: ...

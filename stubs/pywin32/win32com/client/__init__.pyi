@@ -5,6 +5,7 @@ from typing_extensions import TypeAlias
 
 import _win32typing
 from pythoncom import com_record
+from win32.lib.pywintypes import IIDType
 from win32com.client import dynamic
 
 _Stringifiable: TypeAlias = object
@@ -13,7 +14,7 @@ def GetObject(Pathname: str | None = None, Class=None, clsctx=None) -> CDispatch
 def GetActiveObject(Class: str, clsctx=...): ...
 def Moniker(Pathname: str, clsctx=...): ...
 def Dispatch(
-    dispatch: str | dynamic.PyIDispatchType | dynamic._GoodDispatchTypes | dynamic.PyIUnknownType,
+    dispatch: str | dynamic.PyIDispatchType | IIDType | dynamic.PyIUnknownType,
     userName: str | None = None,
     resultCLSID: _Stringifiable | None = None,
     typeinfo: _win32typing.PyITypeInfo | None = None,

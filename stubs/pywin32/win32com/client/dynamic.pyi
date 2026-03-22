@@ -1,6 +1,5 @@
 from _typeshed import Incomplete
 from typing import Any, Final, Literal, Protocol, TypeVar, overload, type_check_only
-from typing_extensions import TypeAlias
 
 import _win32typing
 from win32.lib.pywintypes import IIDType
@@ -13,7 +12,7 @@ _T = TypeVar("_T")
 class _DispatchCreateClass(Protocol[_T_co]):
     @staticmethod
     def __call__(
-        IDispatch: str | PyIDispatchType | _GoodDispatchTypes | PyIUnknownType,
+        IDispatch: str | PyIDispatchType | IIDType | PyIUnknownType,
         olerepr: build.DispatchItem | build.LazyDispatchItem,
         userName: str | None = None,
         lazydata=None,
@@ -31,11 +30,9 @@ def debug_attr_print(*args: object) -> None: ...
 PyIDispatchType = _win32typing.PyIDispatch
 PyIUnknownType = _win32typing.PyIUnknown
 
-_GoodDispatchTypes: TypeAlias = str | IIDType
-
 @overload
 def Dispatch(
-    IDispatch: str | PyIDispatchType | _GoodDispatchTypes | PyIUnknownType,
+    IDispatch: str | PyIDispatchType | IIDType | PyIUnknownType,
     userName: str | None,
     createClass: _DispatchCreateClass[_T],
     typeinfo: _win32typing.PyITypeInfo | None = None,
@@ -43,7 +40,7 @@ def Dispatch(
 ) -> _T: ...
 @overload
 def Dispatch(
-    IDispatch: str | PyIDispatchType | _GoodDispatchTypes | PyIUnknownType,
+    IDispatch: str | PyIDispatchType | IIDType | PyIUnknownType,
     userName: str | None = None,
     createClass: None = None,
     typeinfo: _win32typing.PyITypeInfo | None = None,
