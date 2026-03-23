@@ -105,7 +105,7 @@ class RefResolver:
         self,
         base_uri: str,
         referrer: dict[str, Incomplete],
-        store: SupportsKeysAndGetItem[str, str] | Iterable[tuple[str, str]] = ...,
+        store: SupportsKeysAndGetItem[str, Mapping[str, Any]] | Iterable[tuple[str, Mapping[str, Any]]] = ...,
         cache_remote: bool = True,
         handlers: SupportsKeysAndGetItem[str, _Handler] | Iterable[tuple[str, _Handler]] = (),
         urljoin_cache=None,
