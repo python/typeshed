@@ -31,7 +31,8 @@ class DatagramProtocol(BaseProtocol):
     # Use tuple[str | Any, int] to not cause typechecking issues on most usual cases.
     # This could be improved by using tuple[AnyOf[str, int], int] if the AnyOf feature is accepted.
     # See https://github.com/python/typing/issues/566
-    def datagram_received(self, data: bytes, addr: tuple[str | Any, int]) -> None: ...
+    # For IPv6, addr is a 4-tuple: (host, port, flowinfo, scope_id).
+    def datagram_received(self, data: bytes, addr: tuple[str | Any, int] | tuple[str, int, int, int]) -> None: ...
     def error_received(self, exc: Exception) -> None: ...
 
 class SubprocessProtocol(BaseProtocol):
