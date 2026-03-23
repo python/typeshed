@@ -14,7 +14,17 @@ class RequestException(OSError):
     ) -> None: ...
 
 class InvalidJSONError(RequestException): ...
-class JSONDecodeError(InvalidJSONError, CompatJSONDecodeError): ...
+
+class JSONDecodeError(InvalidJSONError, CompatJSONDecodeError):
+    # requests.JSONDecodeError.__init__ explicitly calls CompatJSONDecodeError.__init__(msg, doc, pos),
+    # so these attributes from json.JSONDecodeError are always present on instances.
+    # Re-declared here to help type checkers resolve them despite the complex MRO.
+    msg: str
+    doc: str
+    pos: int
+    lineno: int
+    colno: int
+    def __init__(self, msg: str, doc: str, pos: int) -> None: ...
 
 class HTTPError(RequestException):
     request: Request | PreparedRequest | Any
