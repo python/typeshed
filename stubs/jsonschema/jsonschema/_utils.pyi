@@ -1,4 +1,4 @@
-from _typeshed import Incomplete, SupportsKeysAndGetItem, SupportsNext, SupportsRichComparison
+from _typeshed import Incomplete, SupportsNext, SupportsRichComparison
 from collections.abc import Generator, Iterable, Iterator, Mapping, MutableMapping
 from typing import Any, Literal, TypeVar, overload
 
@@ -9,7 +9,7 @@ class URIDict(MutableMapping[str, MutableMapping[str, Any]]):
     store: dict[str, MutableMapping[str, Any]]
     def __init__(
         self,
-        m: SupportsKeysAndGetItem[str, MutableMapping[str, Any]] | Iterable[tuple[str, MutableMapping[str, Any]]],
+        m: Mapping[str, MutableMapping[str, Any]] | Iterable[tuple[str, MutableMapping[str, Any]]],
         /,
         **kwargs: MutableMapping[str, Any],
     ) -> None: ...
