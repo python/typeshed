@@ -57,7 +57,7 @@ class JSONWidget(Widget): ...
 _ModelT = TypeVar("_ModelT", bound=Model)
 
 class ForeignKeyWidget(Widget, Generic[_ModelT]):
-    model: _ModelT
+    model: type[_ModelT]
     field: str
     key_is_id: bool
     use_natural_foreign_keys: bool
