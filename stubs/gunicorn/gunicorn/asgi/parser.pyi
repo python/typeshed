@@ -54,12 +54,12 @@ class PythonProtocol:
 
     def __init__(
         self,
-        on_message_begin: Callable[[], None] | None = None,
-        on_url: Callable[[bytes], None] | None = None,
-        on_header: Callable[[bytes, bytes], None] | None = None,
+        on_message_begin: Callable[[], object] | None = None,
+        on_url: Callable[[bytes], object] | None = None,
+        on_header: Callable[[bytes, bytes], object] | None = None,
         on_headers_complete: Callable[[], bool] | None = None,
-        on_body: Callable[[bytes], None] | None = None,
-        on_message_complete: Callable[[], None] | None = None,
+        on_body: Callable[[bytes], object] | None = None,
+        on_message_complete: Callable[[], object] | None = None,
         limit_request_line: int = 8190,
         limit_request_fields: int = 100,
         limit_request_field_size: int = 8190,
