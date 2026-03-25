@@ -70,9 +70,9 @@ class ChunkMissingTerminator(IOError):
 
 class LimitRequestLine(ParseException):
     size: int
-    max_size: int
+    max_size: int | None
 
-    def __init__(self, size: int, max_size: int) -> None: ...
+    def __init__(self, size: int, max_size: int | None = None) -> None: ...
 
 class LimitRequestHeaders(ParseException):
     msg: str
