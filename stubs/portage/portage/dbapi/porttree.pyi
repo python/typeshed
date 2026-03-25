@@ -3,8 +3,10 @@ from collections.abc import Sequence
 from typing import Literal
 
 from portage.dbapi import _MyListString, dbapi
+from portage.repository.config import RepoConfigLoader
 
 class portdbapi(dbapi):
+    repositories: RepoConfigLoader
     def getFetchMap(
         self, mypkg: str, useflags: Sequence[str] | None = None, mytree: str | None = None
     ) -> dict[str, tuple[str, ...]]: ...

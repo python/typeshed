@@ -1,5 +1,7 @@
 from collections.abc import Mapping
-from typing import Literal, TypeVar
+from typing import Literal, TypeVar, overload
+
+_T = TypeVar("_T")
 
 class config:
     def __init__(
@@ -21,7 +23,10 @@ class config:
     def __setitem__(self, key: str, value: str) -> None: ...
     def __delitem__(self, key: str) -> None: ...
     def __iter__(self) -> str: ...
-    def get(self, k: str, x=...): ...
+    @overload
+    def get(self, k: str) -> str | None: ...
+    @overload
+    def get(self, k: str, x: _T) -> str | _T: ...
 
 _K = TypeVar("_K")
 _V = TypeVar("_V")
