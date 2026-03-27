@@ -438,7 +438,6 @@ class ContainerCollection(Collection[Container]):
     ) -> Container: ...
     @override
     def get(self, container_id: str) -> Container: ...
-    @override
     def list(
         self,
         all: bool = False,
@@ -449,7 +448,7 @@ class ContainerCollection(Collection[Container]):
         sparse: bool = False,
         ignore_removed: bool = False,
     ) -> list[Container]: ...
-    def prune(self, filters: dict[str, str | list[str] | bool] | None = None) -> dict[str, Any]: ...
+    def prune(self, filters: dict[str, Any] | None = None) -> dict[str, Any]: ...
 
 RUN_CREATE_KWARGS: list[str]
 RUN_HOST_CONFIG_KWARGS: list[str]

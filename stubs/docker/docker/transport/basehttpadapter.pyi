@@ -2,7 +2,7 @@ from collections.abc import Mapping
 from typing_extensions import override
 
 import requests.adapters
-from urllib3 import ConnectionPool
+from urllib3.connectionpool import ConnectionPool
 
 class BaseHTTPAdapter(requests.adapters.HTTPAdapter):
     @override
