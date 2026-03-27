@@ -1,5 +1,5 @@
-from _typeshed import Incomplete
 from collections.abc import Mapping
+from typing import Any
 
-class DictType(dict[str, Incomplete]):
-    def __init__(self, init: Mapping[str, Incomplete]) -> None: ...
+class DictType(dict[str, Any]):
+    def __init__(self, init: Mapping[str, Any]) -> None: ...
