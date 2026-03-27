@@ -1,6 +1,5 @@
 from collections.abc import Generator
 from typing import Any
-
 from typing_extensions import override
 
 from .resource import Collection, Model

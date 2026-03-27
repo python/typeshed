@@ -1,7 +1,7 @@
 from collections.abc import Mapping
+from typing_extensions import override
 
 import requests.adapters
-from typing_extensions import override
 from urllib3 import ConnectionPool
 
 class BaseHTTPAdapter(requests.adapters.HTTPAdapter):

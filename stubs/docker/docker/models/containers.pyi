@@ -3,7 +3,6 @@ from _io import _BufferedReaderStream
 from collections.abc import Iterable, Iterator, Mapping
 from socket import SocketIO
 from typing import Any, Literal, NamedTuple, TypedDict, overload, type_check_only
-
 from typing_extensions import NotRequired, override
 
 from docker._types import ContainerWeightDevice, WaitContainerResponse
