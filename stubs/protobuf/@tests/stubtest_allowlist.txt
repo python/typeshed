@@ -32,11 +32,3 @@ google.protobuf.internal.well_known_types.ListValue.__iter__
 # It's a list at runtime, but if we do that pyright complains about incompatible overrides
 # in subclasses that use a tuple for __slots__.
 google.protobuf.message.Message.__slots__
-
-# Thin wrapper around the C extension metaclass; users should use
-# google.protobuf.reflection.GeneratedProtocolMessageType instead
-google.protobuf.pyext
-google.protobuf.pyext.cpp_message
-
-# Package with only __init__.py, no public API
-google.protobuf.testdata
