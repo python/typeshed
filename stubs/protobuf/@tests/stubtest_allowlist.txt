@@ -26,12 +26,17 @@ google.protobuf.descriptor.ServiceDescriptor.__new__
 # It's a hack - just allow it.
 google.protobuf.internal.containers.BaseContainer.__hash__
 
-# Metaclass differs:
-google.protobuf.descriptor.OneofDescriptor
-
 # Runtime does not have __iter__ (yet...): hack in spirit of https://github.com/python/typeshed/issues/7813
 google.protobuf.internal.well_known_types.ListValue.__iter__
 
 # It's a list at runtime, but if we do that pyright complains about incompatible overrides
 # in subclasses that use a tuple for __slots__.
 google.protobuf.message.Message.__slots__
+
+# Thin wrapper around the C extension metaclass; users should use
+# google.protobuf.reflection.GeneratedProtocolMessageType instead
+google.protobuf.pyext
+google.protobuf.pyext.cpp_message
+
+# Package with only __init__.py, no public API
+google.protobuf.testdata
