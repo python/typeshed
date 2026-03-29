@@ -299,7 +299,10 @@ def enable_callback_tracebacks(enable: bool, /) -> None: ...
 
 if sys.version_info < (3, 12):
     # takes a pos-or-keyword argument because there is a C wrapper
-    @deprecated("Deprecated since Python 3.10; removed in Python 3.12.")
+    @deprecated(
+        "Deprecated since Python 3.10; removed in Python 3.12. "
+        "Open database in URI mode using `cache=shared` parameter instead."
+    )
     def enable_shared_cache(do_enable: int) -> None: ...  # undocumented
 
 if sys.version_info >= (3, 10):
