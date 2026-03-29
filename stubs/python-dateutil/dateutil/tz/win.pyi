@@ -1,12 +1,12 @@
 import sys
-from ctypes import _NameTypes, _Pointer, c_wchar
-from datetime import datetime, timedelta
-from typing import Any, ClassVar, Final
-
-from dateutil.tz import tzwin as tzwin, tzwinlocal as tzwinlocal
 
 if sys.platform == "win32":
+    from ctypes import _NameTypes, _Pointer, c_wchar
+    from datetime import datetime, timedelta
+    from typing import Any, ClassVar, Final
     from winreg import _KeyType
+
+    from dateutil.tz import tzwin as tzwin, tzwinlocal as tzwinlocal
 
     __all__ = ["tzwin", "tzwinlocal", "tzres"]
 
