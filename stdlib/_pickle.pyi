@@ -2,8 +2,9 @@ from _typeshed import ReadableBuffer, SupportsWrite
 from collections.abc import Callable, Iterable, Iterator, Mapping
 from pickle import PickleBuffer as PickleBuffer
 from typing import Any, Protocol, type_check_only
-from typing_extensions import TypeAlias
+from typing_extensions import TypeAlias, disjoint_base
 
+@type_check_only
 class _ReadableFileobj(Protocol):
     def read(self, n: int, /) -> bytes: ...
     def readline(self) -> bytes: ...
@@ -56,10 +57,10 @@ class PicklerMemoProxy:
     def clear(self, /) -> None: ...
     def copy(self, /) -> dict[int, tuple[int, Any]]: ...
 
+@disjoint_base
 class Pickler:
     fast: bool
     dispatch_table: Mapping[type, Callable[[Any], _ReducedType]]
-    reducer_override: Callable[[Any], Any]
     bin: bool  # undocumented
     def __init__(
         self,
@@ -77,12 +78,17 @@ class Pickler:
 
     # this method has no default implementation for Python < 3.13
     def persistent_id(self, obj: Any, /) -> Any: ...
+    # The following method is not defined on _Pickler, but can be defined on
+    # sub-classes. Should return `NotImplemented` if pickling the supplied
+    # object is not supported and returns the same types as `__reduce__()`.
+    def reducer_override(self, obj: object, /) -> _ReducedType: ...
 
 @type_check_only
 class UnpicklerMemoProxy:
     def clear(self, /) -> None: ...
     def copy(self, /) -> dict[int, tuple[int, Any]]: ...
 
+@disjoint_base
 class Unpickler:
     def __init__(
         self,

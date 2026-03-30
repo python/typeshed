@@ -1,6 +1,6 @@
 from _typeshed import Unused
 from collections.abc import Callable, MutableMapping
-from typing import Any, ClassVar, NoReturn, TypedDict, TypeVar
+from typing import Any, ClassVar, NoReturn, TypedDict, TypeVar, type_check_only
 
 from jmespath.functions import Functions
 
@@ -27,6 +27,7 @@ class Visitor:
     def visit(self, node: _TreeNode, *args: Any, **kwargs: Any) -> Any: ...
     def default_visit(self, node: _TreeNode, *args: Unused, **kwargs: Unused) -> NoReturn: ...
 
+@type_check_only
 class _TreeNode(TypedDict):
     type: str
     value: Any

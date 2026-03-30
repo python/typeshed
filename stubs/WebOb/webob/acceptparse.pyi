@@ -1,6 +1,6 @@
 from _typeshed import SupportsItems
 from collections.abc import Callable, Iterable, Iterator, Sequence
-from typing import Any, Literal, NamedTuple, Protocol, TypeVar, overload
+from typing import Any, Literal, NamedTuple, Protocol, TypeVar, overload, type_check_only
 from typing_extensions import Self, TypeAlias
 
 from webob._types import AsymmetricPropertyWithDelete
@@ -9,6 +9,7 @@ _T = TypeVar("_T")
 _ListOrTuple: TypeAlias = list[_T] | tuple[_T, ...]
 _ParsedAccept: TypeAlias = tuple[str, float, list[tuple[str, str]], list[str | tuple[str, str]]]
 
+@type_check_only
 class _SupportsStr(Protocol):
     def __str__(self) -> str: ...  # noqa: Y029
 
@@ -62,10 +63,14 @@ _AcceptLanguageProperty: TypeAlias = AsymmetricPropertyWithDelete[
     ),
 ]
 
-class AcceptOffer(NamedTuple):
+@type_check_only
+class _AcceptOffer(NamedTuple):
     type: str
     subtype: str
     params: tuple[tuple[str, str], ...]
+
+class AcceptOffer(_AcceptOffer):
+    __slots__ = ()
 
 class Accept:
     @classmethod

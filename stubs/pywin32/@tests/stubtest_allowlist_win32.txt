@@ -8,12 +8,8 @@ win32com.client.combrowse
 win32com.client.tlbrowse
 
 # Utilities to generate python bindings
-win32com.client.build.*
 win32com.client.CLSIDToClass
 win32com.client.connect
-# "dynamic.CDipatch" is necessary for mypy to not throw AssertionError
-win32com.client.dynamic.*
-win32com.client.gencache.*
 win32com.client.genpy
 win32com.client.makepy
 win32com.client.selecttlb
@@ -22,9 +18,6 @@ win32com.makegw.*
 (win32.lib.)?pywintypes.__import_pywin32_system_module__
 
 # COM object servers scripts
-win32com.server.factory
-win32com.server.localserver
-win32com.server.register
 win32com.servers.*
 # Active X Scripts
 win32com(ext)?.axscript.client.pyscript_rexec

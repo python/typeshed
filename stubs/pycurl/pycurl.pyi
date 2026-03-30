@@ -1,6 +1,6 @@
 import sys
 from _typeshed import Incomplete
-from typing import Final, final
+from typing import Any, Final, final
 from typing_extensions import Self
 
 version: str
@@ -22,8 +22,10 @@ class Curl:
     def perform(self) -> None: ...
     def perform_rb(self) -> bytes: ...
     def perform_rs(self) -> str: ...
-    def getinfo(self, info): ...
-    def getinfo_raw(self, info): ...
+    # For getinfo and getinfo_raw, the exact return type depends on the passed value:
+    # http://pycurl.io/docs/latest/curlobject.html#pycurl.Curl.getinfo
+    def getinfo(self, info: int) -> Any: ...
+    def getinfo_raw(self, info: int) -> Any: ...
     def reset(self) -> None: ...
     def unsetopt(self, option: int): ...
     def pause(self, bitmask): ...
@@ -83,9 +85,9 @@ CAINFO: Final = 10065
 CAINFO_BLOB: Final = 40309
 CAPATH: Final = 10097
 CLOSESOCKETFUNCTION: Final = 20208
-COMPILE_LIBCURL_VERSION_NUM: Final = 525824
-COMPILE_PY_VERSION_HEX: Final = 50925040
-COMPILE_SSL_LIB: Final = "schannel"
+COMPILE_LIBCURL_VERSION_NUM: Final[int]
+COMPILE_PY_VERSION_HEX: Final[int]
+COMPILE_SSL_LIB: Final[str]
 CONDITION_UNMET: Final = 2097187
 CONNECTTIMEOUT: Final = 78
 CONNECTTIMEOUT_MS: Final = 156
@@ -310,6 +312,7 @@ GSSAPI_DELEGATION_NONE: Final = 0
 GSSAPI_DELEGATION_POLICY_FLAG: Final = 1
 HAPROXYPROTOCOL: Final = 274
 HAPROXY_CLIENT_IP: Final = 10323
+ECH: Final = 10325
 HEADER: Final = 42
 HEADERFUNCTION: Final = 20079
 HEADEROPT: Final = 229
@@ -330,7 +333,7 @@ HTTPAUTH_NEGOTIATE: Final = 4
 HTTPAUTH_NONE: Final = 0
 HTTPAUTH_NTLM: Final = 8
 HTTPAUTH_NTLM_WB: Final = 32
-HTTPAUTH_ONLY: Final = -2147483648
+HTTPAUTH_ONLY: Final[int]
 HTTPGET: Final = 80
 HTTPHEADER: Final = 10023
 HTTPPOST: Final = 10024
@@ -407,6 +410,9 @@ MAXCONNECTS: Final = 71
 MAXFILESIZE: Final = 30117
 MAXFILESIZE_LARGE: Final = 30117
 MAXLIFETIME_CONN: Final = 314
+PREREQFUNCTION: Final = 20312
+PREREQFUNC_OK: Final = 0
+PREREQFUNC_ABORT: Final = 1
 MAXREDIRS: Final = 68
 MAX_RECV_SPEED_LARGE: Final = 30146
 MAX_SEND_SPEED_LARGE: Final = 30145
@@ -640,7 +646,7 @@ SSLVERSION_MAX_TLSv1_2: Final = 393216
 SSLVERSION_MAX_TLSv1_3: Final = 458752
 SSLVERSION_SSLv2: Final = 2
 SSLVERSION_SSLv3: Final = 3
-SSLVERSION_TLSv1: Final = 0
+SSLVERSION_TLSv1: Final = 1
 SSLVERSION_TLSv1_0: Final = 4
 SSLVERSION_TLSv1_1: Final = 5
 SSLVERSION_TLSv1_2: Final = 6
