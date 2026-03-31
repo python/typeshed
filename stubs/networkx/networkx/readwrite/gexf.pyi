@@ -15,7 +15,7 @@ def generate_gexf(
 def read_gexf(path, node_type=None, relabel: bool = False, version: str = "1.2draft"): ...
 
 class GEXF:
-    versions: Incomplete
+    versions: dict[str, dict[str, str]]
     xml_type: Incomplete
     python_type: Incomplete
     def construct_types(self) -> None: ...
