@@ -31,7 +31,7 @@ _USE_C_DESCRIPTORS: bool
 class DescriptorBase(metaclass=DescriptorMetaclass):
     has_options: bool
     def __init__(self, file, options, serialized_options, options_class_name) -> None: ...
-    def GetOptions(self) -> Any: ...
+    def GetOptions(self) -> Any: ...  # Any: overridden with specific *Options in subclasses
 
 class _NestedDescriptorBase(DescriptorBase):
     name: str
@@ -50,7 +50,7 @@ class _NestedDescriptorBase(DescriptorBase):
         serialized_end=None,
         serialized_options=None,
     ) -> None: ...
-    def CopyToProto(self, proto: Any) -> None: ...
+    def CopyToProto(self, proto: Any) -> None: ...  # Any: overridden with specific *Proto in subclasses
 
 class Descriptor(_NestedDescriptorBase):
     fields: Sequence[FieldDescriptor]
@@ -173,7 +173,7 @@ class FieldDescriptor(DescriptorBase):
     @property
     def is_packed(self) -> bool: ...
     has_default_value: bool
-    default_value: Any
+    default_value: Any  # Any: str, int, float, bytes, or bool
     containing_type: Descriptor | None
     message_type: Descriptor | None
     enum_type: EnumDescriptor | None
