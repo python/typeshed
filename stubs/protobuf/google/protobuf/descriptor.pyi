@@ -1,13 +1,19 @@
+from collections.abc import Mapping, Sequence
 from typing import Any
 
 from .descriptor_pb2 import (
+    DescriptorProto,
+    EnumDescriptorProto,
     EnumOptions,
     EnumValueOptions,
     FieldOptions,
+    FileDescriptorProto,
     FileOptions,
     MessageOptions,
+    MethodDescriptorProto,
     MethodOptions,
     OneofOptions,
+    ServiceDescriptorProto,
     ServiceOptions,
 )
 from .descriptor_pool import DescriptorPool
@@ -17,7 +23,7 @@ class Error(Exception): ...
 class TypeTransformationError(Error): ...
 
 class DescriptorMetaclass(type):
-    def __instancecheck__(cls, obj: Any) -> bool: ...
+    def __instancecheck__(cls, obj: object) -> bool: ...
 
 _internal_create_key: object
 _USE_C_DESCRIPTORS: bool
@@ -47,46 +53,46 @@ class _NestedDescriptorBase(DescriptorBase):
     def CopyToProto(self, proto: Any) -> None: ...
 
 class Descriptor(_NestedDescriptorBase):
-    fields: Any
-    fields_by_number: Any
-    fields_by_name: Any
+    fields: Sequence[FieldDescriptor]
+    fields_by_number: Mapping[int, FieldDescriptor]
+    fields_by_name: Mapping[str, FieldDescriptor]
     @property
-    def fields_by_camelcase_name(self) -> Any: ...
-    nested_types: Any
-    nested_types_by_name: Any
-    enum_types: Any
-    enum_types_by_name: Any
-    enum_values_by_name: Any
-    extensions: Any
-    extensions_by_name: Any
+    def fields_by_camelcase_name(self) -> Mapping[str, FieldDescriptor]: ...
+    nested_types: Sequence[Descriptor]
+    nested_types_by_name: Mapping[str, Descriptor]
+    enum_types: Sequence[EnumDescriptor]
+    enum_types_by_name: Mapping[str, EnumDescriptor]
+    enum_values_by_name: dict[str, EnumValueDescriptor]
+    extensions: Sequence[FieldDescriptor]
+    extensions_by_name: Mapping[str, FieldDescriptor]
     is_extendable: bool
-    extension_ranges: Any
-    oneofs: Any
-    oneofs_by_name: Any
+    extension_ranges: list[tuple[int, int]]
+    oneofs: Sequence[OneofDescriptor]
+    oneofs_by_name: Mapping[str, OneofDescriptor]
     def __init__(
         self,
         name: str,
         full_name: str,
-        filename: Any,
+        filename: str | None,
         containing_type: Descriptor | None,
         fields: list[FieldDescriptor],
         nested_types: list[FieldDescriptor],
         enum_types: list[EnumDescriptor],
         extensions: list[FieldDescriptor],
-        options: Any = None,
-        serialized_options: Any = None,
+        options: MessageOptions | None = None,
+        serialized_options: bytes | None = None,
         is_extendable: bool | None = True,
-        extension_ranges: Any = None,
+        extension_ranges: list[tuple[int, int]] | None = None,
         oneofs: list[OneofDescriptor] | None = None,
         file: FileDescriptor | None = None,
-        serialized_start: Any = None,
-        serialized_end: Any = None,
+        serialized_start: int | None = None,
+        serialized_end: int | None = None,
         syntax: str | None = None,
         is_map_entry: bool = False,
-        create_key: Any = None,
+        create_key: object | None = None,
     ): ...
     def EnumValueName(self, enum: str, value: int) -> str: ...
-    def CopyToProto(self, proto: Any) -> None: ...
+    def CopyToProto(self, proto: DescriptorProto) -> None: ...
     def GetOptions(self) -> MessageOptions: ...
 
 class FieldDescriptor(DescriptorBase):
@@ -217,9 +223,9 @@ class EnumDescriptor(_NestedDescriptorBase):
         serialized_end=None,
         create_key=None,
     ): ...
-    values: Any
-    values_by_name: Any
-    values_by_number: Any
+    values: Sequence[EnumValueDescriptor]
+    values_by_name: Mapping[str, EnumValueDescriptor]
+    values_by_number: Mapping[int, EnumValueDescriptor]
     def __init__(
         self,
         name,
@@ -236,7 +242,7 @@ class EnumDescriptor(_NestedDescriptorBase):
     ) -> None: ...
     @property
     def is_closed(self) -> bool: ...
-    def CopyToProto(self, proto: Any) -> None: ...
+    def CopyToProto(self, proto: EnumDescriptorProto) -> None: ...
     def GetOptions(self) -> EnumOptions: ...
 
 class EnumValueDescriptor(DescriptorBase):
@@ -254,7 +260,7 @@ class OneofDescriptor(DescriptorBase):
     full_name: str
     index: int
     containing_type: Descriptor
-    fields: list[FieldDescriptor]
+    fields: Sequence[FieldDescriptor]
     def __init__(
         self, name, full_name, index, containing_type, fields, options=None, serialized_options=None, create_key=None
     ) -> None: ...
@@ -262,8 +268,8 @@ class OneofDescriptor(DescriptorBase):
 
 class ServiceDescriptor(_NestedDescriptorBase):
     index: int
-    methods: list[MethodDescriptor]
-    methods_by_name: dict[str, MethodDescriptor]
+    methods: Sequence[MethodDescriptor]
+    methods_by_name: Mapping[str, MethodDescriptor]
     def __init__(
         self,
         name: str,
@@ -271,14 +277,14 @@ class ServiceDescriptor(_NestedDescriptorBase):
         index: int,
         methods: list[MethodDescriptor],
         options: ServiceOptions | None = None,
-        serialized_options: Any = None,
+        serialized_options: bytes | None = None,
         file: FileDescriptor | None = None,
-        serialized_start: Any = None,
-        serialized_end: Any = None,
-        create_key: Any = None,
+        serialized_start: int | None = None,
+        serialized_end: int | None = None,
+        create_key: object | None = None,
     ): ...
     def FindMethodByName(self, name: str) -> MethodDescriptor: ...
-    def CopyToProto(self, proto: Any) -> None: ...
+    def CopyToProto(self, proto: ServiceDescriptorProto) -> None: ...
     def GetOptions(self) -> ServiceOptions: ...
 
 class MethodDescriptor(DescriptorBase):
@@ -318,7 +324,7 @@ class MethodDescriptor(DescriptorBase):
         serialized_options=None,
         create_key=None,
     ) -> None: ...
-    def CopyToProto(self, proto: Any) -> None: ...
+    def CopyToProto(self, proto: MethodDescriptorProto) -> None: ...
     def GetOptions(self) -> MethodOptions: ...
 
 class FileDescriptor(DescriptorBase):
@@ -338,15 +344,15 @@ class FileDescriptor(DescriptorBase):
     ): ...
     _options: Any
     pool: DescriptorPool
-    message_types_by_name: dict[str, Descriptor]
+    message_types_by_name: Mapping[str, Descriptor]
     name: str
     package: str
     serialized_pb: bytes
-    enum_types_by_name: dict[str, EnumDescriptor]
-    extensions_by_name: dict[str, FieldDescriptor]
-    services_by_name: dict[str, ServiceDescriptor]
-    dependencies: list[FileDescriptor]
-    public_dependencies: list[FileDescriptor]
+    enum_types_by_name: Mapping[str, EnumDescriptor]
+    extensions_by_name: Mapping[str, FieldDescriptor]
+    services_by_name: Mapping[str, ServiceDescriptor]
+    dependencies: Sequence[FileDescriptor]
+    public_dependencies: Sequence[FileDescriptor]
     def __init__(
         self,
         name,
@@ -361,12 +367,12 @@ class FileDescriptor(DescriptorBase):
         pool=None,
         create_key=None,
     ) -> None: ...
-    def CopyToProto(self, proto: Any) -> None: ...
+    def CopyToProto(self, proto: FileDescriptorProto) -> None: ...
     def GetOptions(self) -> FileOptions: ...
 
 def _ParseOptions(message: Message, string: bytes) -> Message: ...
 def MakeDescriptor(
-    desc_proto: Any,
+    desc_proto: DescriptorProto,
     package: str = "",
     build_file_if_cpp: bool = True,
     syntax: str | None = None,

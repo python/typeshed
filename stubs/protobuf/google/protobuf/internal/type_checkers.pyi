@@ -1,3 +1,4 @@
+from collections.abc import Callable
 from typing import Any, Generic, TypeVar
 
 from google.protobuf.descriptor import EnumDescriptor, FieldDescriptor
@@ -47,8 +48,8 @@ class DoubleValueChecker:
 class FloatValueChecker(DoubleValueChecker):
     def CheckValue(self, proposed_value: float) -> float: ...
 
-TYPE_TO_BYTE_SIZE_FN: dict[int, Any]
-TYPE_TO_ENCODER: dict[int, Any]
-TYPE_TO_SIZER: dict[int, Any]
-TYPE_TO_DECODER: dict[int, Any]
+TYPE_TO_BYTE_SIZE_FN: dict[int, Callable[..., int]]
+TYPE_TO_ENCODER: dict[int, Callable[..., Any]]
+TYPE_TO_SIZER: dict[int, Callable[..., Any]]
+TYPE_TO_DECODER: dict[int, Callable[..., Any]]
 FIELD_TYPE_TO_WIRE_TYPE: dict[int, int]

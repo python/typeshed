@@ -35,7 +35,7 @@ def Parse(
     max_recursion_depth: int = 100,
 ) -> _MessageT: ...
 def ParseDict(
-    js_dict: Any,
+    js_dict: dict[str, Any],
     message: _MessageT,
     ignore_unknown_fields: bool = False,
     descriptor_pool: DescriptorPool | None = None,
