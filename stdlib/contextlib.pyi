@@ -47,6 +47,7 @@ _CM_EF = TypeVar("_CM_EF", bound=AbstractContextManager[Any, Any] | _ExitFunc)
 @runtime_checkable
 class AbstractContextManager(ABC, Protocol[_T_co, _ExitT_co]):  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
     __slots__ = ()
+    @abstractmethod  # is not actually abstract, but the default implementation can't be properly accounted for in the type system
     def __enter__(self) -> _T_co: ...
     @abstractmethod
     def __exit__(
@@ -59,6 +60,7 @@ class AbstractContextManager(ABC, Protocol[_T_co, _ExitT_co]):  # type: ignore[m
 @runtime_checkable
 class AbstractAsyncContextManager(ABC, Protocol[_T_co, _ExitT_co]):  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
     __slots__ = ()
+    @abstractmethod  # is not actually abstract, but the default implementation can't be properly accounted for in the type system
     async def __aenter__(self) -> _T_co: ...
     @abstractmethod
     async def __aexit__(
@@ -82,6 +84,7 @@ class _GeneratorContextManager(
     AbstractContextManager[_T_co, bool | None],
     ContextDecorator,
 ):
+    def __enter__(self) -> _T_co: ...
     def __exit__(
         self, typ: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
     ) -> bool | None: ...
@@ -106,6 +109,7 @@ if sys.version_info >= (3, 10):
         AbstractAsyncContextManager[_T_co, bool | None],
         AsyncContextDecorator,
     ):
+        async def __aenter__(self) -> _T_co: ...
         async def __aexit__(
             self, typ: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
         ) -> bool | None: ...
@@ -134,6 +138,7 @@ _SupportsCloseT = TypeVar("_SupportsCloseT", bound=_SupportsClose)
 
 class closing(AbstractContextManager[_SupportsCloseT, None]):
     def __init__(self, thing: _SupportsCloseT) -> None: ...
+    def __enter__(self) -> _SupportsCloseT: ...
     def __exit__(self, *exc_info: Unused) -> None: ...
 
 if sys.version_info >= (3, 10):
@@ -145,10 +150,12 @@ if sys.version_info >= (3, 10):
 
     class aclosing(AbstractAsyncContextManager[_SupportsAcloseT, None]):
         def __init__(self, thing: _SupportsAcloseT) -> None: ...
+        async def __aenter__(self) -> _SupportsAcloseT: ...
         async def __aexit__(self, *exc_info: Unused) -> None: ...
 
 class suppress(AbstractContextManager[None, bool]):
     def __init__(self, *exceptions: type[BaseException]) -> None: ...
+    def __enter__(self) -> None: ...
     def __exit__(
         self, exctype: type[BaseException] | None, excinst: BaseException | None, exctb: TracebackType | None
     ) -> bool: ...
@@ -165,6 +172,7 @@ _SupportsRedirectT = TypeVar("_SupportsRedirectT", bound=_SupportsRedirect | Non
 
 class _RedirectStream(AbstractContextManager[_SupportsRedirectT, None]):
     def __init__(self, new_target: _SupportsRedirectT) -> None: ...
+    def __enter__(self) -> _SupportsRedirectT: ...
     def __exit__(
         self, exctype: type[BaseException] | None, excinst: BaseException | None, exctb: TracebackType | None
     ) -> None: ...
