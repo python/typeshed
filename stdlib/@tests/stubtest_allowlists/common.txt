@@ -112,7 +112,6 @@ tkinter.Place.slaves
 
 turtle.ScrolledCanvas.adjustScrolls  # Undocumented implementation detail
 turtle.ScrolledCanvas.onResize  # Undocumented implementation detail
-typing_extensions.NewType.__mro_entries__  # just exists for an error message
 uuid.bytes_  # Attributes that are intended to be private
 uuid.int_  # Attributes that are intended to be private
 wave.Wave_read.initfp  # Undocumented implementation detail

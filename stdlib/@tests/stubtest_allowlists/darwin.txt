@@ -31,10 +31,6 @@ winsound
 
 _gdbm  # Only available if compiled with libgdbm
 
-# Not available on python distributions compiled without sqlite3 loadable extension support
-_sqlite3.Connection.load_extension
-_sqlite3.Connection.enable_load_extension
-
 _?curses.ACS_.*  # ACS codes are initialized only after initscr call
 curses.COLORS  # Initialized after start_color
 curses.COLOR_PAIRS  # Initialized after start_color
