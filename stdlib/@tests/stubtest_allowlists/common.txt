@@ -437,7 +437,6 @@ typing(_extensions)?\.Reversible
 typing(_extensions)?\.Sequence
 typing(_extensions)?\.Sized
 typing(_extensions)?\.ValuesView
-typing_extensions\.LiteralString
 
 # Typing-related weirdness
 typing._SpecialForm.__call__

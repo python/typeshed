@@ -53,6 +53,7 @@ tempfile.SpooledTemporaryFile.writable
 tkinter.Tk.split  # Exists at runtime, but missing from stubs
 typing._SpecialForm.__mro_entries__  # Exists at runtime, but missing from stubs
 
+typing_extensions.LiteralString
 # Will always raise. Not included to avoid type checkers inferring that
 # Sentinel instances are callable.
 typing_extensions.Sentinel.__call__
