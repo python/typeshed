@@ -10,12 +10,3 @@ wtforms.meta.DefaultMeta.__getattr__
 # Should allow setting and deleting any attribute
 wtforms.fields.core.Flags.__delattr__
 wtforms.fields.core.Flags.__setattr__
-
-# widget is both used as a ClassVar and instance variable and does
-# not necessarily reflect an upper bound on Widget, so we always use
-# our Widget Protocol definition that's contravariant on Self
-wtforms.fields.Field.widget
-wtforms.fields.FormField.widget
-wtforms.fields.SelectField.widget
-wtforms.fields.SelectMultipleField.widget
-wtforms.fields.TextAreaField.widget
