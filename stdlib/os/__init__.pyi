@@ -614,9 +614,12 @@ if sys.platform == "darwin" and sys.version_info >= (3, 12):
 SEEK_SET: Final = 0
 SEEK_CUR: Final = 1
 SEEK_END: Final = 2
-if sys.platform != "win32":
+if sys.platform == "linux":
     SEEK_DATA: Final = 3
     SEEK_HOLE: Final = 4
+elif sys.platform == "darwin":
+    SEEK_HOLE: Final = 3
+    SEEK_DATA: Final = 4
 
 O_RDONLY: Final[int]
 O_WRONLY: Final[int]
