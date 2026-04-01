@@ -83,7 +83,7 @@ class _ActionsContainer:
         const: Any = ...,
         default: Any = ...,
         type: _ActionType = ...,
-        choices: Iterable[_T] | None = ...,
+        choices: Iterable[Any] | None = ...,  # choices must match the type specified
         required: bool = ...,
         help: str | None = ...,
         metavar: str | tuple[str, ...] | None = ...,
