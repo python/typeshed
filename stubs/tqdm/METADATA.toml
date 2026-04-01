@@ -1,6 +1,6 @@
 version = "4.67.3"
 upstream_repository = "https://github.com/tqdm/tqdm"
-requires = ["types-requests"]
+dependencies = ["types-requests"]
 
 [tool.stubtest]
 extras = ["slack", "telegram"]

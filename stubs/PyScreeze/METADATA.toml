@@ -1,6 +1,6 @@
 version = "1.0.1"
 upstream_repository = "https://github.com/asweigart/pyscreeze"
-requires = ["Pillow>=10.3.0"]
+dependencies = ["Pillow>=10.3.0"]
 
 [tool.stubtest]
 # Linux has extra constants, win32 has different definitions

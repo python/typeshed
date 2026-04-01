@@ -1,6 +1,6 @@
 version = "2.9.*"
 upstream_repository = "https://github.com/cannatag/ldap3"
-requires = ["types-pyasn1"]
+dependencies = ["types-pyasn1"]
 
 [tool.stubtest]
 apt_dependencies = ["libkrb5-dev"]

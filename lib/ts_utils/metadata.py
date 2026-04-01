@@ -174,7 +174,7 @@ class StubMetadata:
 
     distribution: Annotated[str, "The name of the distribution on PyPI"]
     version_spec: Annotated[Specifier, "Upstream versions that the stubs are compatible with"]
-    requires: Annotated[list[Requirement], "The parsed requirements as listed in METADATA.toml"]
+    dependencies: Annotated[list[Requirement], "The parsed dependencies as listed in METADATA.toml"]
     extra_description: str | None
     stub_distribution: Annotated[str, "The name under which the distribution is uploaded to PyPI"]
     upstream_repository: Annotated[str, "The URL of the upstream repository"] | None
@@ -193,7 +193,7 @@ class StubMetadata:
 _KNOWN_METADATA_FIELDS: Final = frozenset(
     {
         "version",
-        "requires",
+        "dependencies",
         "extra_description",
         "stub_distribution",
         "upstream_repository",
@@ -235,7 +235,7 @@ def read_metadata(distribution: str) -> StubMetadata:
     This function does some basic validation,
     but does no parsing, transforming or normalization of the metadata.
     Use `read_dependencies` if you need to parse the dependencies
-    given in the `requires` field, for example.
+    given in the `dependencies` field, for example.
     """
     try:
         with metadata_path(distribution).open("rb") as f:
@@ -255,9 +255,9 @@ def read_metadata(distribution: str) -> StubMetadata:
     version_spec = Specifier(version)
     assert version_spec.operator in {"==", "~="}, f"Invalid 'version' field in METADATA.toml for {distribution!r}"
 
-    requires_s: object = data.get("requires", [])  # pyright: ignore[reportUnknownMemberType]
-    assert isinstance(requires_s, list)
-    requires = [parse_requires(distribution, req) for req in requires_s]
+    dependencies_s: object = data.get("dependencies", [])  # pyright: ignore[reportUnknownMemberType]
+    assert isinstance(dependencies_s, list)
+    dependencies = [parse_dependencies(distribution, dep) for dep in dependencies_s]
 
     extra_description: object = data.get("extra_description")  # pyright: ignore[reportUnknownMemberType]
     assert isinstance(extra_description, (str, type(None)))
@@ -336,7 +336,7 @@ def read_metadata(distribution: str) -> StubMetadata:
     return StubMetadata(
         distribution=distribution,
         version_spec=version_spec,
-        requires=requires,
+        dependencies=dependencies,
         extra_description=extra_description,
         stub_distribution=stub_distribution,
         upstream_repository=upstream_repository,
@@ -366,7 +366,7 @@ def update_metadata(distribution: str, **new_values: object) -> tomlkit.TOMLDocu
     return data
 
 
-def parse_requires(distribution: str, req: object) -> Requirement:
+def parse_dependencies(distribution: str, req: object) -> Requirement:
     assert isinstance(req, str), f"Invalid requirement {req!r} for {distribution!r}"
     return Requirement(req)
 
@@ -398,7 +398,7 @@ def read_dependencies(distribution: str) -> PackageDependencies:
     pypi_name_to_typeshed_name_mapping = get_pypi_name_to_typeshed_name_mapping()
     typeshed: list[Requirement] = []
     external: list[Requirement] = []
-    for dependency in read_metadata(distribution).requires:
+    for dependency in read_metadata(distribution).dependencies:
         if dependency.name in pypi_name_to_typeshed_name_mapping:
             req = Requirement(str(dependency))  # copy the requirement
             req.name = pypi_name_to_typeshed_name_mapping[dependency.name]
