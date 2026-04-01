@@ -37,11 +37,6 @@ wtforms.FormField.widget
 wtforms.SelectField.widget
 wtforms.SelectMultipleField.widget
 wtforms.TextAreaField.widget
-wtforms.fields.Field.widget
-wtforms.fields.FormField.widget
-wtforms.fields.SelectField.widget
-wtforms.fields.SelectMultipleField.widget
-wtforms.fields.TextAreaField.widget
 wtforms.fields.choices.SelectField.widget
 wtforms.fields.choices.SelectMultipleField.widget
 wtforms.fields.core.Field.widget
