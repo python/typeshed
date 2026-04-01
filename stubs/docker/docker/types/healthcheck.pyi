@@ -2,8 +2,21 @@ from typing import Any
 
 from .base import DictType
 
-class Healthcheck(DictType):
-    def __init__(self, **kwargs: Any) -> None: ...
+class Healthcheck(DictType[Any]):
+    def __init__(
+        self,
+        *,
+        test: str | list[str] | None = ...,
+        Test: str | list[str] | None = ...,
+        interval: int | None = ...,
+        Interval: int | None = ...,
+        timeout: int | None = ...,
+        Timeout: int | None = ...,
+        retries: int | None = ...,
+        Retries: int | None = ...,
+        start_period: int | None = ...,
+        StartPeriod: int | None = ...,
+    ) -> None: ...
     @property
     def test(self) -> list[str] | None: ...
     @test.setter

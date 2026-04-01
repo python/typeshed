@@ -1,5 +1,7 @@
 from collections.abc import Mapping
-from typing import Any
+from typing import TypeVar
 
-class DictType(dict[str, Any]):
-    def __init__(self, init: Mapping[str, Any]) -> None: ...
+_VT = TypeVar("_VT")
+
+class DictType(dict[str, _VT]):
+    def __init__(self, init: Mapping[str, _VT]) -> None: ...

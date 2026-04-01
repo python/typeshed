@@ -17,9 +17,11 @@ class LogConfigTypesEnum:
     FLUENTD: Final = "fluentd"
     NONE: Final = "none"
 
-class LogConfig(DictType):
+class LogConfig(DictType[Any]):
     types: type[LogConfigTypesEnum]
-    def __init__(self, **kwargs: Any) -> None: ...
+    def __init__(
+        self, *, type: str = ..., Type: str = ..., config: dict[str, str] = ..., Config: dict[str, str] = ...
+    ) -> None: ...
     @property
     def type(self) -> str: ...
     @type.setter
@@ -29,8 +31,10 @@ class LogConfig(DictType):
     def set_config_value(self, key: str, value: str) -> None: ...
     def unset_config(self, key: str) -> None: ...
 
-class Ulimit(DictType):
-    def __init__(self, **kwargs: Any) -> None: ...
+class Ulimit(DictType[Any]):
+    def __init__(
+        self, *, name: str = ..., Name: str = ..., soft: int = ..., Soft: int = ..., hard: int = ..., Hard: int = ...
+    ) -> None: ...
     @property
     def name(self) -> str: ...
     @name.setter
@@ -44,8 +48,21 @@ class Ulimit(DictType):
     @hard.setter
     def hard(self, value: int | None) -> None: ...
 
-class DeviceRequest(DictType):
-    def __init__(self, **kwargs: Any) -> None: ...
+class DeviceRequest(DictType[Any]):
+    def __init__(
+        self,
+        *,
+        driver: str = ...,
+        Driver: str = ...,
+        count: int = ...,
+        Count: int = ...,
+        device_ids: list[str] = ...,
+        DeviceIDs: list[str] = ...,
+        capabilities: list[list[str]] = ...,
+        Capabilities: list[list[str]] = ...,
+        options: dict[str, str] = ...,
+        Options: dict[str, str] = ...,
+    ) -> None: ...
     @property
     def driver(self) -> str: ...
     @driver.setter
@@ -72,7 +89,7 @@ class HostConfig(dict[str, Any]):
         self,
         version: str,
         binds: dict[str, Mapping[str, str]] | list[str] | None = None,
-        port_bindings: Mapping[int | str, Any] | None = None,
+        port_bindings: Mapping[int | str, Any] | None = None,  # Any: int, str, tuple, dict, or list
         lxc_conf: dict[str, str] | list[dict[str, str]] | None = None,
         publish_all_ports: bool = False,
         links: dict[str, str] | dict[str, None] | dict[str, str | None] | Iterable[tuple[str, str | None]] | None = None,
