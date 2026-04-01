@@ -5,4 +5,4 @@ dependencies = ["django-stubs>=4.2", "asgiref"]
 [tool.stubtest]
 mypy_plugins = ['mypy_django_plugin.main']
 mypy_plugins_config = {"django-stubs" = {"django_settings_module" = "@tests.django_settings"}}
-stubtest_requirements = ["daphne"]
+stubtest_dependencies = ["daphne"]

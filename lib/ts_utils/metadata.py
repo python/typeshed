@@ -84,7 +84,7 @@ class StubtestSettings:
     ignore_missing_stub: bool
     supported_platforms: list[str] | None  # None means all platforms
     ci_platforms: list[str]
-    stubtest_requirements: list[str]
+    stubtest_dependencies: list[str]
     mypy_plugins: list[str]
     mypy_plugins_config: dict[str, dict[str, Any]]
 
@@ -109,7 +109,7 @@ def read_stubtest_settings(distribution: str) -> StubtestSettings:
     ignore_missing_stub: object = data.get("ignore_missing_stub", False)
     supported_platforms: object = data.get("supported_platforms")
     ci_platforms: object = data.get("ci_platforms", DEFAULT_STUBTEST_PLATFORMS)
-    stubtest_requirements: object = data.get("stubtest_requirements", [])
+    stubtest_dependencies: object = data.get("stubtest_dependencies", [])
     mypy_plugins: object = data.get("mypy_plugins", [])
     mypy_plugins_config: object = data.get("mypy_plugins_config", {})
 
@@ -123,7 +123,7 @@ def read_stubtest_settings(distribution: str) -> StubtestSettings:
     assert _is_list_of_strings(brew_dependencies)
     assert _is_list_of_strings(choco_dependencies)
     assert _is_list_of_strings(extras)
-    assert _is_list_of_strings(stubtest_requirements)
+    assert _is_list_of_strings(stubtest_dependencies)
     assert _is_list_of_strings(mypy_plugins)
     assert _is_nested_dict(mypy_plugins_config)
 
@@ -151,7 +151,7 @@ def read_stubtest_settings(distribution: str) -> StubtestSettings:
         ignore_missing_stub=ignore_missing_stub,
         supported_platforms=supported_platforms,
         ci_platforms=ci_platforms,
-        stubtest_requirements=stubtest_requirements,
+        stubtest_dependencies=stubtest_dependencies,
         mypy_plugins=mypy_plugins,
         mypy_plugins_config=mypy_plugins_config,
     )
@@ -216,7 +216,7 @@ _KNOWN_METADATA_TOOL_FIELDS: Final = {
         "ignore_missing_stub",
         "supported_platforms",
         "ci_platforms",
-        "stubtest_requirements",
+        "stubtest_dependencies",
         "mypy_plugins",
         "mypy_plugins_config",
     }

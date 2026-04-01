@@ -4,5 +4,5 @@ dependencies = ["types-docutils"]
 partial_stub = true
 
 [tool.stubtest]
-stubtest_requirements = ["sphinx"]
+stubtest_dependencies = ["sphinx"]
 ignore_missing_stub = true

@@ -83,7 +83,7 @@ def run_stubtest(dist: Path, *, verbose: bool = False, ci_platforms_only: bool =
         dists_to_install = [dist_req, get_mypy_req()]
         # Internal requirements are added to MYPYPATH
         dists_to_install.extend(str(r) for r in requirements.external_pkgs)
-        dists_to_install.extend(stubtest_settings.stubtest_requirements)
+        dists_to_install.extend(stubtest_settings.stubtest_dependencies)
 
         # Since the "gdb" Python package is available only inside GDB, it is not
         # possible to install it through pip, so stub tests cannot install it.

@@ -4,4 +4,4 @@ dependencies = ["Pillow>=10.3.0"]
 obsolete_since = "2.8.6" # Released on 2026-02-19
 
 [tool.stubtest]
-stubtest_requirements = ["cryptography"]
+stubtest_dependencies = ["cryptography"]
