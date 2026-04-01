@@ -19,6 +19,9 @@ _random.Random.__init__  # Issues with __new__/__init__ correspondence
 
 bdb.Breakpoint.clearBreakpoints  # Exists at runtime, but missing from stubs
 
+# Only exists for an error message.
+typing_extensions.NewType.__mro_entries__
+
 
 # ============
 # 3.10 to 3.11

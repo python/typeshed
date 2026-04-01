@@ -30,6 +30,7 @@ typing_extensions.TypeAliasType.__value__
 # >= 3.11
 # =======
 
+# Only exists for an error message.
 typing.NewType.__mro_entries__
 
 

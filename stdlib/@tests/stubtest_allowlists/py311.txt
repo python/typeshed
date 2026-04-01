@@ -7,6 +7,7 @@
 # >= 3.11
 # =======
 
+# Only exists for an error message.
 typing.NewType.__mro_entries__
 
 
