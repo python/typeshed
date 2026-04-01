@@ -16,14 +16,3 @@ gevent.libev.watcher.watcher.feed
 
 # undocumented argument for internal use only
 gevent.libev.watcher.watcher.__init__
-
-
-# we have punted on socket, the gevent version of these functions sometimes use
-# named parameters, while the base implementation only allows positional arguments
-# we're fine with holding the geven implemenation to the same restrictions
-# additionally there's some functions with additional optional arguments, that
-# we are fine with ignoring for now as well
-gevent.socket.SocketType.recvmsg_into
-gevent.socket.SocketType.sendmsg
-gevent.socket.socket.recvmsg_into
-gevent.socket.socket.sendmsg
