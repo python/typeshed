@@ -34,12 +34,12 @@ fanstatic.core.Group.supports
 # The API for Compiler has very much the same problem, so these are
 # some more attributes/methods that have been made abstract for the
 # purposes of type checking
-fanstatic.Minifier.name
-fanstatic.Minifier.source_extension
-fanstatic.Minifier.target_extension
 fanstatic.compiler.CommandlineBase.command
 fanstatic.compiler.Compiler.name
 fanstatic.compiler.Compiler.source_extension
+fanstatic.compiler.Minifier.name
+fanstatic.compiler.Minifier.source_extension
+fanstatic.compiler.Minifier.target_extension
 fanstatic.compiler.NullCompiler.name
 fanstatic.registry.Registry.ENTRY_POINT
 
