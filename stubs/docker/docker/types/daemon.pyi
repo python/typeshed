@@ -1,8 +1,8 @@
 from collections.abc import Iterator
 from typing import Generic, TypeVar
+from typing_extensions import Self
 
 from requests import Response
-from typing_extensions import Self
 
 _T_co = TypeVar("_T_co", covariant=True)
 
