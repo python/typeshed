@@ -12,8 +12,10 @@ types.UnionType.__qualname__
 # Assigning `__new__` causes `func` not to get recognized.
 functools.partialmethod.__new__
 
-# decorator approximated by classmethod
+# Decorator approximated by classmethod
 concurrent.interpreters._crossinterp.classonly.*
+# Method using this decorator
+concurrent.interpreters._crossinterp.UnboundItem.singleton
 
 # object() sentinels at runtime represented by NewTypes in the stubs
 concurrent.interpreters._crossinterp.UNBOUND_ERROR
