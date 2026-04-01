@@ -105,7 +105,7 @@ CERT_REQUIRED: Final = VerifyMode.CERT_REQUIRED
 class VerifyFlags(enum.IntFlag):
     VERIFY_DEFAULT = 0
     VERIFY_CRL_CHECK_LEAF = 4
-    VERIFY_CRL_CHECK_CHAIN = 12
+    VERIFY_CRL_CHECK_CHAIN = 8
     VERIFY_X509_STRICT = 32
     VERIFY_X509_TRUSTED_FIRST = 32768
     if sys.version_info >= (3, 10):
