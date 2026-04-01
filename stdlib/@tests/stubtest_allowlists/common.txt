@@ -409,8 +409,6 @@ typing\.Protocol
 typing(_extensions)?\._TypedDict
 typing(_extensions)?\.Any.*
 typing(_extensions)?\.TypedDict
-typing_extensions\.ParamSpec.*
-typing_extensions\.TypeVar.*
 
 # Special primitives
 typing(_extensions)?\.AbstractSet
@@ -452,10 +450,6 @@ typing(_extensions)?\.TextIO\.encoding
 typing(_extensions)?\.TextIO\.errors
 typing(_extensions)?\.TextIO\.line_buffering
 typing(_extensions)?\.TextIO\.newlines
-
-# These are typing._SpecialGenericAlias at runtime, which is not a real type, but it
-# behaves like one in most cases
-typing(_extensions)?\.(Async)?ContextManager
 
 # Iterable classes that don't define __iter__ at runtime (usually iterable via __getitem__)
 # These would ideally be special-cased by type checkers; see https://github.com/python/mypy/issues/2220

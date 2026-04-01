@@ -78,6 +78,14 @@ tkinter.tix.Shell
 tkinter.tix.TclVersion
 tkinter.tix.TkVersion
 
+# Details of runtime definition don't need to be in stubs
+typing_extensions\.ParamSpec.*
+typing_extensions\.TypeVar.*
+
+# These are typing._SpecialGenericAlias at runtime, which is not a real type, but it
+# behaves like one in most cases
+typing(_extensions)?\.(Async)?ContextManager
+
 
 # =======
 # <= 3.13
