@@ -286,7 +286,6 @@ importlib._abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined
 # runtime is *args, **kwargs due to a wrapper; we have more accurate signatures in the stubs
 importlib.abc.FileLoader.get_filename
 importlib.abc.FileLoader.load_module
-importlib.machinery.ExtensionFileLoader.get_filename
 
 importlib.metadata._meta.SimplePath.joinpath  # Runtime definition of protocol is incorrect
 
