@@ -17,6 +17,7 @@
         "stdlib/encodings/__init__.pyi",
         "stdlib/lib2to3/fixes/*.pyi",
         "stdlib/numbers.pyi",
+        "stdlib/operator.pyi",
         "stdlib/tkinter/__init__.pyi",
         "stdlib/tkinter/dialog.pyi",
         "stdlib/tkinter/filedialog.pyi",
