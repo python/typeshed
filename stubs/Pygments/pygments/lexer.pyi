@@ -1,22 +1,41 @@
 from _typeshed import Incomplete
 from collections.abc import Iterable, Iterator, Sequence
-from re import RegexFlag
-from typing import ClassVar
+from re import Pattern, RegexFlag
+from typing import ClassVar, Final
 
 from pygments.token import _TokenType
 from pygments.util import Future
+
+__all__ = [
+    "Lexer",
+    "RegexLexer",
+    "ExtendedRegexLexer",
+    "DelegatingLexer",
+    "LexerContext",
+    "include",
+    "inherit",
+    "bygroups",
+    "using",
+    "this",
+    "default",
+    "words",
+    "line_re",
+]
+
+line_re: Final[Pattern[str]]
 
 class LexerMeta(type):
     def __new__(cls, name, bases, d): ...
     def analyse_text(self, text: str) -> float: ...  # actually defined in class Lexer
     # ClassVars of Lexer, but same situation as with StyleMeta and Style
-    name: str
+    name: str  # Set to None in Lexer, but always overridden with a non-None value in subclasses.
     aliases: Sequence[str]  # not intended mutable
     filenames: Sequence[str]
     alias_filenames: Sequence[str]
     mimetypes: Sequence[str]
     priority: float
-    url: str | None
+    url: str  # Set to None in Lexer, but always overridden with a non-None value in subclasses.
+    version_added: str  # Set to None in Lexer, but always overridden with a non-None value in subclasses.
 
 class Lexer(metaclass=LexerMeta):
     options: Incomplete

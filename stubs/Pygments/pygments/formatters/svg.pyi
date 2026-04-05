@@ -5,6 +5,8 @@ from pygments.formatter import Formatter
 
 _T = TypeVar("_T", str, bytes)
 
+__all__ = ["SvgFormatter"]
+
 class SvgFormatter(Formatter[_T]):
     name: str
     aliases: Incomplete

@@ -5,6 +5,8 @@ from pygments.formatter import Formatter
 
 _T = TypeVar("_T", str, bytes)
 
+__all__ = ["TerminalFormatter"]
+
 class TerminalFormatter(Formatter[_T]):
     name: str
     aliases: Incomplete

@@ -5,6 +5,8 @@ from pygments.formatter import Formatter
 
 _T = TypeVar("_T", str, bytes)
 
+__all__ = ["ImageFormatter", "GifImageFormatter", "JpgImageFormatter", "BmpImageFormatter"]
+
 class PilNotAvailable(ImportError): ...
 class FontNotFound(Exception): ...
 

@@ -6,6 +6,8 @@ from pygments.lexer import Lexer
 
 _T = TypeVar("_T", str, bytes)
 
+__all__ = ["LatexFormatter"]
+
 class LatexFormatter(Formatter[_T]):
     name: str
     aliases: Incomplete

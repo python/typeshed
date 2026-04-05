@@ -5,6 +5,8 @@ from pygments.formatter import Formatter
 
 _T = TypeVar("_T", str, bytes)
 
+__all__ = ["Terminal256Formatter", "TerminalTrueColorFormatter"]
+
 class EscapeSequence:
     fg: Incomplete
     bg: Incomplete

@@ -1,7 +1,10 @@
+import types
 from _typeshed import Incomplete
-from typing import Generic, TypeVar, overload
+from typing import Any, Generic, TypeVar, overload
 
 _T = TypeVar("_T", str, bytes)
+
+__all__ = ["Formatter"]
 
 class Formatter(Generic[_T]):
     name: Incomplete
@@ -19,5 +22,6 @@ class Formatter(Generic[_T]):
     def __init__(self: Formatter[bytes], *, encoding: str, outencoding: None = None, **options) -> None: ...
     @overload
     def __init__(self: Formatter[bytes], *, encoding: None = None, outencoding: str, **options) -> None: ...
+    def __class_getitem__(cls, name: Any) -> types.GenericAlias: ...
     def get_style_defs(self, arg: str = ""): ...
     def format(self, tokensource, outfile): ...
