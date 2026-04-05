@@ -1,5 +1,15 @@
 import sys
-from _typeshed import SupportsAdd, SupportsGetItem, SupportsMod, SupportsMul, SupportsRAdd, SupportsRMod, SupportsRMul, SupportsRSub, SupportsSub
+from _typeshed import (
+    SupportsAdd,
+    SupportsGetItem,
+    SupportsMod,
+    SupportsMul,
+    SupportsRAdd,
+    SupportsRMod,
+    SupportsRMul,
+    SupportsRSub,
+    SupportsSub,
+)
 from collections.abc import Callable, Container, Iterable, MutableMapping, MutableSequence, Sequence
 from operator import attrgetter as attrgetter, itemgetter as itemgetter, methodcaller as methodcaller
 from typing import Any, AnyStr, Protocol, SupportsAbs, SupportsIndex, TypeVar, overload, type_check_only
