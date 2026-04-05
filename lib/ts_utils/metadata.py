@@ -42,7 +42,7 @@ __all__ = [
 
 DEFAULT_STUBTEST_PLATFORMS = ["linux"]
 
-_STUBTEST_PLATFORM_MAPPING: Final = {"linux": "apt-dependencies", "darwin": "brew-dependencies", "win32": "choco-dependencies"}
+_STUBTEST_PLATFORM_MAPPING: Final = {"linux": "apt_dependencies", "darwin": "brew_dependencies", "win32": "choco_dependencies"}
 # Some older websites have a bad pattern of using query params for navigation.
 _QUERY_URL_ALLOWLIST = {"sourceware.org"}
 
