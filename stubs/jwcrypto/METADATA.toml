@@ -1,3 +1,3 @@
 version = "1.5.*"
-upstream_repository = "https://github.com/latchset/jwcrypto"
+upstream-repository = "https://github.com/latchset/jwcrypto"
 dependencies = ["cryptography"]
