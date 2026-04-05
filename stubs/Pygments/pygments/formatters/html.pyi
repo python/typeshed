@@ -5,6 +5,8 @@ from pygments.formatter import Formatter
 
 _T = TypeVar("_T", str, bytes)
 
+__all__ = ["HtmlFormatter"]
+
 class HtmlFormatter(Formatter[_T]):
     name: str
     aliases: Incomplete

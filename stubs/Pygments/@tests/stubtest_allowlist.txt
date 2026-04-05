@@ -3,7 +3,34 @@ pygments.lexer.LexerMeta.__new__
 pygments.style.StyleMeta.__new__
 
 # Defined in lexer classes, intended to be used as static method, but doesn't use @staticmethod
-pygments.lexer.LexerMeta.analyse_text
+pygments.lexer.Lexer(Meta)?.analyse_text
 
 # Inheriting from tuple is weird
 pygments.token._TokenType.__init__
+
+# Cannot import in stubtest (SystemExit: 2)
+pygments.__main__
+
+# Class attributes that are typed in the metaclass instead. See comment in stubs.
+pygments.lexer.Lexer.name
+pygments.lexer.Lexer.aliases
+pygments.lexer.Lexer.filenames
+pygments.lexer.Lexer.alias_filenames
+pygments.lexer.Lexer.mimetypes
+pygments.lexer.Lexer.priority
+pygments.lexer.Lexer.url
+pygments.lexer.Lexer.version_added
+pygments.style.Style.background_color
+pygments.style.Style.highlight_color
+pygments.style.Style.line_number_color
+pygments.style.Style.line_number_background_color
+pygments.style.Style.line_number_special_color
+pygments.style.Style.line_number_special_background_color
+pygments.style.Style.styles
+pygments.style.Style.name
+pygments.style.Style.aliases
+pygments.style.Style.web_style_gallery_exclude
+
+# Individual lexers and styles submodules are not stubbed at this time.
+pygments\.lexers\.(?!get_|find_|load_|guess_).*
+pygments\.styles\.(?!get_).*
