@@ -362,7 +362,9 @@ def update_metadata(distribution: str, **new_values: object) -> tomlkit.TOMLDocu
         raise NoSuchStubError(f"Typeshed has no stubs for {distribution!r}!") from None
     data.update(new_values)  # pyright: ignore[reportUnknownMemberType] # tomlkit.TOMLDocument.update is partially typed
     for key in list(data.keys()):
-        data[key.replace("_", "-")] = data.pop(key)
+        data[key.replace("_", "-")] = data.pop(
+            key
+        )  # pyright: ignore[reportUnknownMemberType] # tomlkit.TOMLDocument.pop is partially typed
     with path.open("w", encoding="UTF-8") as file:
         tomlkit.dump(data, file)  # pyright: ignore[reportUnknownMemberType] # tomlkit.dump has partially unknown Mapping type
     return data
