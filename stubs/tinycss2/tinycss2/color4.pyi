@@ -4,7 +4,7 @@ from typing import Literal
 from .ast import Node
 
 class Color:
-    COLOR_SPACES: set[str]
+    COLOR_SPACES: set[str] | None
     def __init__(self, space: str, coordinates: tuple[float | None, ...], alpha: float) -> None: ...
     def __iter__(self) -> Iterator[float | None]: ...
     def __getitem__(self, key: int) -> float: ...
@@ -13,3 +13,7 @@ class Color:
     def to(self, space: str) -> Color: ...
 
 def parse_color(input: str | Iterable[Node]) -> Color | Literal["currentcolor"] | None: ...
+
+COLOR_SPACES: set[str]
+D50: tuple[float, float, float]
+D65: tuple[float, float, float]
