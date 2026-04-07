@@ -1,0 +1,7 @@
+version = "2.48.*"
+upstream-repository = "https://github.com/googleapis/google-auth-library-python"
+dependencies = [
+    "types-requests",
+    "types-grpcio",
+    "cryptography",
+]

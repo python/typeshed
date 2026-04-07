@@ -1,0 +1,26 @@
+import datetime
+from collections.abc import Mapping
+from typing import Any
+
+from google.auth.transport import Request as _Request
+
+def is_on_gce(request: _Request) -> bool: ...
+def detect_gce_residency_linux() -> bool: ...
+def ping(request: _Request, timeout: int = 3, retry_count: int = 3) -> bool: ...
+def get(
+    request: _Request,
+    path: str,
+    root: str | None = None,
+    params: Mapping[str, str] | None = None,
+    recursive: bool = False,
+    retry_count: int = 5,
+    headers: Mapping[str, str] | None = None,
+    return_none_for_not_found_error: bool = False,
+    timeout: int = 3,
+) -> Mapping[str, Any] | str: ...
+def get_project_id(request: _Request) -> str | None: ...
+def get_universe_domain(request: _Request) -> str: ...
+def get_service_account_info(request: _Request, service_account: str = "default") -> Mapping[str, Any]: ...
+def get_service_account_token(
+    request: _Request, service_account: str = "default", scopes: str | list[str] | None = None
+) -> tuple[str, datetime.datetime]: ...

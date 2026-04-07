@@ -1,0 +1,13 @@
+import abc
+
+from google.oauth2.webauthn_types import GetRequest as GetRequest, GetResponse
+
+class WebAuthnHandler(abc.ABC, metaclass=abc.ABCMeta):
+    @abc.abstractmethod
+    def is_available(self) -> bool: ...
+    @abc.abstractmethod
+    def get(self, get_request: GetRequest) -> GetResponse: ...
+
+class PluginHandler(WebAuthnHandler):
+    def is_available(self) -> bool: ...
+    def get(self, get_request: GetRequest) -> GetResponse: ...
