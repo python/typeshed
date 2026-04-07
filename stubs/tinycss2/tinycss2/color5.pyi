@@ -13,5 +13,5 @@ class Color(color4.Color):
     COLOR_SPACES: set[str] | None
 
 def parse_color(
-    input: str | Iterable[Node], color_schemes: Literal["normal"] | Iterable[str] | None = ...
+    input: str | Iterable[Node], color_schemes: Literal["normal"] | Iterable[str] | None = None
 ) -> color4.Color | Color | Literal["currentcolor"] | None: ...
