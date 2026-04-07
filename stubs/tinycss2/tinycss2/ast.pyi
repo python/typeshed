@@ -1,33 +1,34 @@
-from typing import Final
+from typing import Literal
 
 class Node:
     source_line: int
     source_column: int
+    type: str
 
     def __init__(self, source_line: int, source_column: int) -> None: ...
     def serialize(self) -> str: ...
 
 class ParseError(Node):
-    type: Final = "error"
+    type: Literal["error"]
     kind: str
     message: str
     repr_format: str
     def __init__(self, line: int, column: int, kind: str, message: str) -> None: ...
 
 class Comment(Node):
-    type: Final = "comment"
+    type: Literal["comment"]
     value: str
     repr_format: str
     def __init__(self, line: int, column: int, value: str) -> None: ...
 
 class WhitespaceToken(Node):
-    type: Final = "whitespace"
+    type: Literal["whitespace"]
     value: str
     repr_format: str
     def __init__(self, line: int, column: int, value: str) -> None: ...
 
 class LiteralToken(Node):
-    type: Final = "literal"
+    type: Literal["literal"]
     value: str
     repr_format: str
     def __init__(self, line: int, column: int, value: str) -> None: ...
@@ -35,49 +36,49 @@ class LiteralToken(Node):
     def __ne__(self, other: object) -> bool: ...
 
 class IdentToken(Node):
-    type: Final = "ident"
+    type: Literal["ident"]
     value: str
     lower_value: str
     repr_format: str
     def __init__(self, line: int, column: int, value: str) -> None: ...
 
 class AtKeywordToken(Node):
-    type: Final = "at-keyword"
+    type: Literal["at-keyword"]
     value: str
     lower_value: str
     repr_format: str
     def __init__(self, line: int, column: int, value: str) -> None: ...
 
 class HashToken(Node):
-    type: Final = "hash"
+    type: Literal["hash"]
     value: str
     is_identifier: bool
     repr_format: str
     def __init__(self, line: int, column: int, value: str, is_identifier: bool) -> None: ...
 
 class StringToken(Node):
-    type: Final = "string"
+    type: Literal["string"]
     value: str
     representation: str
     repr_format: str
     def __init__(self, line: int, column: int, value: str, representation: str) -> None: ...
 
 class URLToken(Node):
-    type: Final = "url"
+    type: Literal["url"]
     value: str
     representation: str
     repr_format: str
     def __init__(self, line: int, column: int, value: str, representation: str) -> None: ...
 
 class UnicodeRangeToken(Node):
-    type: Final = "unicode-range"
+    type: Literal["unicode-range"]
     start: int
     end: int
     repr_format: str
     def __init__(self, line: int, column: int, start: int, end: int) -> None: ...
 
 class NumberToken(Node):
-    type: Final = "number"
+    type: Literal["number"]
     value: float
     int_value: int | None
     is_integer: bool
@@ -86,7 +87,7 @@ class NumberToken(Node):
     def __init__(self, line: int, column: int, value: float, int_value: int | None, representation: str) -> None: ...
 
 class PercentageToken(Node):
-    type: Final = "percentage"
+    type: Literal["percentage"]
     value: float
     int_value: int | None
     is_integer: bool
@@ -95,7 +96,7 @@ class PercentageToken(Node):
     def __init__(self, line: int, column: int, value: float, int_value: int | None, representation: str) -> None: ...
 
 class DimensionToken(Node):
-    type: Final = "dimension"
+    type: Literal["dimension"]
     value: float
     int_value: int | None
     is_integer: bool
@@ -106,25 +107,25 @@ class DimensionToken(Node):
     def __init__(self, line: int, column: int, value: float, int_value: int | None, representation: str, unit: str) -> None: ...
 
 class ParenthesesBlock(Node):
-    type: Final = "() block"
+    type: Literal["() block"]
     content: list[Node]
     repr_format: str
     def __init__(self, line: int, column: int, content: list[Node]) -> None: ...
 
 class SquareBracketsBlock(Node):
-    type: Final = "[] block"
+    type: Literal["[] block"]
     content: list[Node]
     repr_format: str
     def __init__(self, line: int, column: int, content: list[Node]) -> None: ...
 
 class CurlyBracketsBlock(Node):
-    type: Final = "{} block"
+    type: Literal["{} block"]
     content: list[Node]
     repr_format: str
     def __init__(self, line: int, column: int, content: list[Node]) -> None: ...
 
 class FunctionBlock(Node):
-    type: Final = "function"
+    type: Literal["function"]
     name: str
     lower_name: str
     arguments: list[Node]
@@ -132,7 +133,7 @@ class FunctionBlock(Node):
     def __init__(self, line: int, column: int, name: str, arguments: list[Node]) -> None: ...
 
 class Declaration(Node):
-    type: Final = "declaration"
+    type: Literal["declaration"]
     name: str
     lower_name: str
     value: list[Node]
@@ -141,14 +142,14 @@ class Declaration(Node):
     def __init__(self, line: int, column: int, name: str, lower_name: str, value: list[Node], important: bool) -> None: ...
 
 class QualifiedRule(Node):
-    type: Final = "qualified-rule"
+    type: Literal["qualified-rule"]
     prelude: list[Node]
     content: list[Node]
     repr_format: str
     def __init__(self, line: int, column: int, prelude: list[Node], content: list[Node]) -> None: ...
 
 class AtRule(Node):
-    type: Final = "at-rule"
+    type: Literal["at-rule"]
     at_keyword: str
     lower_at_keyword: str
     prelude: list[Node]
