@@ -2,6 +2,7 @@ from _typeshed import Incomplete
 from collections.abc import Iterable, Iterator, Sequence
 from re import Pattern, RegexFlag
 from typing import ClassVar, Final
+from typing_extensions import disjoint_base
 
 from pygments.token import _TokenType
 from pygments.util import Future
@@ -62,6 +63,7 @@ class _inherit: ...
 
 inherit: Incomplete
 
+@disjoint_base
 class combined(tuple[Incomplete, ...]):
     def __new__(cls, *args): ...
     def __init__(self, *args) -> None: ...

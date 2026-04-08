@@ -1,7 +1,8 @@
 from collections.abc import Mapping
 from typing import Any, Final
-from typing_extensions import Self
+from typing_extensions import Self, disjoint_base
 
+@disjoint_base
 class _TokenType(tuple[str, ...]):
     parent: _TokenType | None
     def split(self) -> list[_TokenType]: ...
