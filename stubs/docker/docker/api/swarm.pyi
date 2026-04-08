@@ -2,6 +2,7 @@ import logging
 from typing import Any, Literal, TypedDict, type_check_only
 from typing_extensions import TypeAlias
 
+from docker.types.services import DriverConfig
 from docker.types.swarm import SwarmExternalCA, SwarmSpec
 
 log: logging.Logger
@@ -30,9 +31,23 @@ class _UnlockKeyResponse(TypedDict):
 class SwarmApiMixin:
     def create_swarm_spec(
         self,
-        *args: Any,  # Any: forwarded to SwarmSpec.__init__
+        task_history_retention_limit: int | None = None,
+        snapshot_interval: int | None = None,
+        keep_old_snapshots: int | None = None,
+        log_entries_for_slow_followers: int | None = None,
+        heartbeat_tick: int | None = None,
+        election_tick: int | None = None,
+        dispatcher_heartbeat_period: int | None = None,
+        node_cert_expiry: int | None = None,
         external_ca: SwarmExternalCA | None = None,
-        **kwargs: Any,  # Any: forwarded to SwarmSpec.__init__
+        external_cas: list[SwarmExternalCA] | None = None,
+        name: str | None = None,
+        labels: dict[str, str] | None = None,
+        signing_ca_cert: str | None = None,
+        signing_ca_key: str | None = None,
+        ca_force_rotate: int | None = None,
+        autolock_managers: bool | None = None,
+        log_driver: DriverConfig | None = None,
     ) -> SwarmSpec: ...
     def get_unlock_key(self) -> _UnlockKeyResponse: ...
     def init_swarm(
