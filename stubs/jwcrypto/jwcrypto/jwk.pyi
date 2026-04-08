@@ -1,8 +1,8 @@
 from _typeshed import Unused
 from collections.abc import Callable, Sequence
 from enum import Enum
-from typing import Any, Literal, LiteralString, NamedTuple, TypeVar, overload
-from typing_extensions import Self, TypeAlias, deprecated
+from typing import Any, Literal, NamedTuple, TypeVar, overload
+from typing_extensions import LiteralString, Self, TypeAlias, deprecated
 
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.asymmetric import ec, rsa
