@@ -31,8 +31,7 @@ jobs:
     strategy:
       matrix:
         os: ["ubuntu-latest", "windows-latest", "macos-latest"]
-        # TODO: unpin the patch versions of Python 3.13/3.14 once stubtest failures are fixed
-        python-version: ["3.10", "3.11", "3.12", "3.13.12", "3.14.3"]
+        python-version: ["3.10", "3.11", "3.12", "3.13", "3.14"]
       fail-fast: false
 
     steps:
