@@ -1,4 +1,4 @@
-from email.headerregistry import Address
+from email.headerregistry import Address, BaseHeader
 from email.message import EmailMessage
 from typing_extensions import assert_type
 
@@ -8,3 +8,8 @@ msg["From"] = Address("Sender Name", "sender", "example.com")
 
 for a in msg.iter_attachments():
     assert_type(a, EmailMessage)
+
+generic_msg: EmailMessage[BaseHeader, str] = EmailMessage()
+assert_type(generic_msg.get("To"), BaseHeader | None)
+for a in generic_msg.iter_attachments():
+    assert_type(a, EmailMessage[BaseHeader, str])
