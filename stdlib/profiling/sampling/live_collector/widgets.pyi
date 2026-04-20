@@ -43,7 +43,9 @@ class Widget(ABC, metaclass=abc.ABCMeta):
 
 class ProgressBarWidget(Widget):
     def render(self, line: int, width: int, **kwargs: Any) -> None: ...
-    def render_bar(self, filled: float, total: float, max_width: int, fill_char: str = "█", empty_char: str = "░") -> tuple[str, int]: ...
+    def render_bar(
+        self, filled: float, total: float, max_width: int, fill_char: str = "█", empty_char: str = "░"
+    ) -> tuple[str, int]: ...
 
 class HeaderWidget(Widget):
     collector: LiveStatsCollector

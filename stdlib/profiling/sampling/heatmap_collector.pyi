@@ -1,6 +1,6 @@
 from _typeshed import StrOrBytesPath
 from collections import Counter
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Any
 
 from ._css_utils import get_combined_css as get_combined_css
@@ -23,10 +23,10 @@ class FileStats:
 
 @dataclass
 class TreeNode:
-    files: list[FileStats] = field(default_factory=list)
+    files: list[FileStats] = ...
     samples: int = ...
     count: int = ...
-    children: dict[str, "TreeNode"] = field(default_factory=dict)
+    children: dict[str, TreeNode] = ...
 
 def get_python_path_info() -> dict[str, Any]: ...
 def extract_module_name(filename: str, path_info: dict[str, Any]) -> str: ...
