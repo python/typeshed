@@ -1,6 +1,7 @@
 from typing import Any, Literal
+from typing_extensions import TypeAlias
 
-TrendDirection = Literal["up", "down", "stable"]
+TrendDirection: TypeAlias = Literal["up", "down", "stable"]
 
 class TrendTracker:
     CHANGE_THRESHOLD: float
