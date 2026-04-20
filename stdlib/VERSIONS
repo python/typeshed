@@ -107,7 +107,7 @@ binhex: 3.0-3.10
 bisect: 3.0-
 builtins: 3.0-
 bz2: 3.0-
-cProfile: 3.0-
+cProfile: 3.0-3.17
 calendar: 3.0-
 cgi: 3.0-3.12
 cgitb: 3.0-3.12
@@ -245,7 +245,8 @@ poplib: 3.0-
 posix: 3.0-
 posixpath: 3.0-
 pprint: 3.0-
-profile: 3.0-
+profile: 3.0-3.17
+profiling: 3.15-
 pstats: 3.0-
 pty: 3.0-
 pwd: 3.0-

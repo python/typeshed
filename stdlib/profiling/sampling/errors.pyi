@@ -1,0 +1,13 @@
+class SamplingProfilerError(Exception): ...
+
+class SamplingUnknownProcessError(SamplingProfilerError):
+    pid: int
+    def __init__(self, pid: int) -> None: ...
+
+class SamplingScriptNotFoundError(SamplingProfilerError):
+    script_path: str
+    def __init__(self, script_path: str) -> None: ...
+
+class SamplingModuleNotFoundError(SamplingProfilerError):
+    module_name: str
+    def __init__(self, module_name: str) -> None: ...
