@@ -3,7 +3,6 @@ from _typeshed import StrOrBytesPath
 from collections import Counter
 from typing import Any
 
-from ._css_utils import get_combined_css as get_combined_css
 from .collector import Collector as Collector, extract_lineno as extract_lineno
 from .opcode_utils import get_opcode_mapping as get_opcode_mapping
 from .string_table import StringTable as StringTable

@@ -2,9 +2,6 @@ import types
 from typing import Any
 from typing_extensions import Self
 
-def get_child_pids(pid: int, recursive: bool = True) -> list[int]: ...
-def is_python_process(pid: int) -> bool: ...
-
 class ChildProcessMonitor:
     parent_pid: int
     cli_args: list[str]

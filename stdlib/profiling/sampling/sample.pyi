@@ -1,7 +1,6 @@
 from _typeshed import Incomplete
 from collections import deque
 
-from ._format_utils import fmt as fmt
 from .binary_collector import BinaryCollector as BinaryCollector
 from .collector import Collector as Collector
 from .constants import (

@@ -1,3 +1,0 @@
-from typing import Never
-
-def main() -> Never: ...

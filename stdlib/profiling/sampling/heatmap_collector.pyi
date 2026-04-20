@@ -3,8 +3,6 @@ from collections import Counter
 from dataclasses import dataclass
 from typing import Any
 
-from ._css_utils import get_combined_css as get_combined_css
-from ._format_utils import fmt as fmt
 from .collector import extract_lineno as extract_lineno, normalize_location as normalize_location
 from .opcode_utils import format_opcode as format_opcode, get_opcode_info as get_opcode_info
 from .stack_collector import StackTraceCollector as StackTraceCollector
