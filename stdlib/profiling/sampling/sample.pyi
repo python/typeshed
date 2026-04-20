@@ -17,8 +17,6 @@ from .live_collector import LiveStatsCollector as LiveStatsCollector
 from .pstats_collector import PstatsCollector as PstatsCollector
 from .stack_collector import CollapsedStackCollector as CollapsedStackCollector, FlamegraphCollector as FlamegraphCollector
 
-MIN_SAMPLES_FOR_TUI: int
-
 class SampleProfiler:
     pid: int
     sample_interval_usec: int

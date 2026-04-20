@@ -5,9 +5,6 @@ from typing_extensions import Self
 
 from .collector import Collector as Collector
 
-COMPRESSION_NONE: int
-COMPRESSION_ZSTD: int
-
 class BinaryCollector(Collector):
     filename: str
     sample_interval_usec: int

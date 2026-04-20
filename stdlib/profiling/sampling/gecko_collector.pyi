@@ -3,25 +3,6 @@ from typing import Any
 from .collector import Collector as Collector, filter_internal_frames as filter_internal_frames
 from .opcode_utils import format_opcode as format_opcode, get_opcode_info as get_opcode_info
 
-GECKO_CATEGORIES: list[dict[str, Any]]
-CATEGORY_OTHER: int
-CATEGORY_PYTHON: int
-CATEGORY_NATIVE: int
-CATEGORY_GC: int
-CATEGORY_GIL: int
-CATEGORY_CPU: int
-CATEGORY_CODE_TYPE: int
-CATEGORY_OPCODES: int
-CATEGORY_EXCEPTION: int
-DEFAULT_SUBCATEGORY: int
-GECKO_FORMAT_VERSION: int
-GECKO_PREPROCESSED_VERSION: int
-RESOURCE_TYPE_LIBRARY: int
-FRAME_ADDRESS_NONE: int
-FRAME_INLINE_DEPTH_ROOT: int
-PROCESS_TYPE_MAIN: int
-STACKWALK_DISABLED: int
-
 class GeckoCollector(Collector):
     sample_interval_usec: int
     skip_idle: bool

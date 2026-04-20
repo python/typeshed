@@ -31,26 +31,6 @@ class TreeNode:
 def get_python_path_info() -> dict[str, Any]: ...
 def extract_module_name(filename: str, path_info: dict[str, Any]) -> str: ...
 
-class _TemplateLoader:
-    index_template: str | None
-    file_template: str | None
-    index_css: str | None
-    index_js: str | None
-    file_css: str | None
-    file_js: str | None
-    logo_html: str | None
-    def __init__(self) -> None: ...
-
-class _TreeBuilder:
-    @staticmethod
-    def build_file_tree(file_stats: list[FileStats]) -> dict[str, TreeNode]: ...
-
-class _HtmlRenderer:
-    file_index: dict[str, str]
-    heatmap_bar_height: int
-    def __init__(self, file_index: dict[str, str]) -> None: ...
-    def render_hierarchical_html(self, trees: dict[str, TreeNode]) -> str: ...
-
 class HeatmapCollector(StackTraceCollector):
     FILE_INDEX_FORMAT: str
     line_samples: Counter[Any]
