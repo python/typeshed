@@ -1,7 +1,7 @@
-from collections.abc import Callable, Iterator, MutableMapping, Sequence
-from contextlib import AbstractContextManager
 import random
 import time
+from collections.abc import Callable, Iterator, MutableMapping, Sequence
+from contextlib import AbstractContextManager
 from typing import Any, Final, Generic, Literal, NamedTuple, Protocol, TypeVar, overload, type_check_only
 
 __all__: Final = ("Cache", "FIFOCache", "LFUCache", "LRUCache", "RRCache", "TLRUCache", "TTLCache", "cached", "cachedmethod")
@@ -38,12 +38,19 @@ class LFUCache(Cache[_KT, _VT]): ...
 class LRUCache(Cache[_KT, _VT]): ...
 
 class RRCache(Cache[_KT, _VT]):
-    def __init__(self, maxsize: float, choice: Callable[[Sequence[_KT]], _KT] = random.choice, getsizeof: Callable[[_VT], float] | None = None) -> None: ...
+    def __init__(
+        self,
+        maxsize: float,
+        choice: Callable[[Sequence[_KT]], _KT] = random.choice,
+        getsizeof: Callable[[_VT], float] | None = None,
+    ) -> None: ...
     @property
     def choice(self) -> Callable[[Sequence[_KT]], _KT]: ...
 
-class _TimedCache[_KT, _VT, _TT](Cache[_KT, _VT]):
-    def __init__(self, maxsize: float, timer: Callable[..., _TT] = time.monotonic, getsizeof: Callable[[_VT], float] | None = None): ...
+class _TimedCache[KT, VT, TT](Cache[KT, VT]):
+    def __init__(
+        self, maxsize: float, timer: Callable[..., _TT] = time.monotonic, getsizeof: Callable[[_VT], float] | None = None
+    ): ...
 
     class _Timer:
         def __init__(self, timer: Callable[[], _TT]) -> None: ...
@@ -57,13 +64,25 @@ class _TimedCache[_KT, _VT, _TT](Cache[_KT, _VT]):
 
 # FIXME: ttl should be "addable" to _TT
 class TTLCache(_TimedCache[_KT, _VT, _TT]):
-    def __init__(self, maxsize: float, ttl: Any, timer: Callable[..., _TT] = time.monotonic, getsizeof: Callable[[_VT], float] | None = None): ...
+    def __init__(
+        self,
+        maxsize: float,
+        ttl: Any,
+        timer: Callable[..., _TT] = time.monotonic,
+        getsizeof: Callable[[_VT], float] | None = None,
+    ): ...
     @property
     def ttl(self) -> Any: ...
     def expire(self, time: _TT | None = None) -> list[tuple[_KT, _VT]]: ...
 
 class TLRUCache(_TimedCache[_KT, _VT, _TT]):
-    def __init__(self, maxsize: float, ttu: Callable[[_KT, _VT, _TT], _TT], timer: Callable[..., _TT] = time.monotonic, getsizeof: Callable[[_VT], float] | None = None): ...
+    def __init__(
+        self,
+        maxsize: float,
+        ttu: Callable[[_KT, _VT, _TT], _TT],
+        timer: Callable[..., _TT] = time.monotonic,
+        getsizeof: Callable[[_VT], float] | None = None,
+    ): ...
     @property
     def ttu(self) -> Callable[[_KT, _VT, _TT], _TT]: ...
     def expire(self, time: _TT | None = None) -> list[tuple[_KT, _VT]]: ...
