@@ -5,9 +5,6 @@ from typing import Any
 from typing_extensions import Self
 
 from .collector import Collector as Collector
-from .gecko_collector import GeckoCollector as GeckoCollector
-from .pstats_collector import PstatsCollector as PstatsCollector
-from .stack_collector import CollapsedStackCollector as CollapsedStackCollector, FlamegraphCollector as FlamegraphCollector
 
 class BinaryReader:
     filename: str
