@@ -23,8 +23,22 @@ _MyListString: TypeAlias = Literal[
     "SLOT",
 ]
 
+_XmatchLevel: TypeAlias = Literal[
+    "bestmatch-visible",
+    "match-all-cpv-only",
+    "match-all",
+    "match-visible",
+    "minimum-all",
+    "minimum-visible",
+    "minimum-all-ignore-profile",
+]
+
 class dbapi:
     def aux_get(self, mycpv: str, mylist: Sequence[_MyListString], myrepo: str | None = None) -> list[str]: ...
+    async def async_aux_get(
+        self, mycpv: str, mylist: Sequence[_MyListString], mytree: str | None = None, myrepo: str | None = None
+    ) -> list[str]: ...
     def match(self, origdep: str, use_cache: Literal[0, 1] = 1) -> list[str] | str: ...
+    async def async_xmatch(self, level: _XmatchLevel, origdep: str) -> list[str] | str: ...
 
 def __getattr__(name: str) -> Incomplete: ...  # incomplete module

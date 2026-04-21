@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 from collections.abc import Sequence
 from typing import Literal
 
-from portage.dbapi import _MyListString, dbapi
+from portage.dbapi import _MyListString, _XmatchLevel, dbapi
 from portage.repository.config import RepoConfigLoader
 
 class portdbapi(dbapi):
@@ -10,19 +10,11 @@ class portdbapi(dbapi):
     def getFetchMap(
         self, mypkg: str, useflags: Sequence[str] | None = None, mytree: str | None = None
     ) -> dict[str, tuple[str, ...]]: ...
-    def xmatch(
-        self,
-        level: Literal[
-            "bestmatch-visible",
-            "match-all-cpv-only",
-            "match-all",
-            "match-visible",
-            "minimum-all",
-            "minimum-visible",
-            "minimum-all-ignore-profile",
-        ],
-        origdep: str,
-    ) -> list[str] | str: ...
+    async def async_fetch_map(
+        self, mypkg: str, useflags: Sequence[str] | None = None, mytree: str | None = None
+    ) -> dict[str, tuple[str, ...]]: ...
+    def xmatch(self, level: _XmatchLevel, origdep: str) -> list[str] | str: ...
+    async def async_xmatch(self, level: _XmatchLevel, origdep: str) -> list[str] | str: ...  # type: ignore[override]
     def findname(self, mycpv: str, mytree: str | None = None, myrepo: str | None = None) -> str: ...
     def findname2(
         self, mycpv: str, mytree: str | None = None, myrepo: str | None = None
