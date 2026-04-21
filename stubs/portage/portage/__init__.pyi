@@ -4,6 +4,9 @@ from typing import TypedDict, type_check_only
 
 from .dbapi.porttree import portagetree
 from .package.ebuild.config import config
+from .package.ebuild.doebuild import doebuild
+
+__all__ = ["config", "db", "doebuild", "root", "settings"]
 
 @type_check_only
 class _DBRootDict(TypedDict):
