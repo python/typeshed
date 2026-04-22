@@ -1,29 +1,9 @@
 import random
 from collections.abc import Callable, Iterator, MutableMapping, Sequence
 from contextlib import AbstractContextManager
-from typing import (
-    Any,
-    Final,
-    Generic,
-    Literal,
-    NamedTuple,
-    Protocol,
-    TypeVar,
-    overload,
-    type_check_only,
-)
+from typing import Any, Final, Generic, Literal, NamedTuple, Protocol, TypeVar, overload, type_check_only
 
-__all__: Final = (
-    "Cache",
-    "FIFOCache",
-    "LFUCache",
-    "LRUCache",
-    "RRCache",
-    "TLRUCache",
-    "TTLCache",
-    "cached",
-    "cachedmethod",
-)
+__all__: Final = ("Cache", "FIFOCache", "LFUCache", "LRUCache", "RRCache", "TLRUCache", "TTLCache", "cached", "cachedmethod")
 __version__: str
 
 _KT = TypeVar("_KT")
@@ -35,9 +15,7 @@ _KT2 = TypeVar("_KT2")
 _VT2 = TypeVar("_VT2")
 
 class Cache(MutableMapping[_KT, _VT]):
-    def __init__(
-        self, maxsize: float, getsizeof: Callable[[_VT], float] | None = None
-    ) -> None: ...
+    def __init__(self, maxsize: float, getsizeof: Callable[[_VT], float] | None = None) -> None: ...
     def __getitem__(self, key: _KT) -> _VT: ...
     def __setitem__(self, key: _KT, value: _VT) -> None: ...
     def __delitem__(self, key: _KT) -> None: ...
@@ -71,12 +49,7 @@ class RRCache(Cache[_KT, _VT]):
     def choice(self) -> Callable[[Sequence[_KT]], _KT]: ...
 
 class _TimedCache(Cache[_KT, _VT], Generic[_KT, _VT, _TT]):
-    def __init__(
-        self,
-        maxsize: float,
-        timer: Callable[[], _TT],
-        getsizeof: Callable[[_VT], float] | None = None,
-    ) -> None: ...
+    def __init__(self, maxsize: float, timer: Callable[[], _TT], getsizeof: Callable[[_VT], float] | None = None) -> None: ...
 
     class _Timer(AbstractContextManager[_T]):
         def __init__(self, timer: Callable[[], _T]) -> None: ...
@@ -91,11 +64,7 @@ class _TimedCache(Cache[_KT, _VT], Generic[_KT, _VT, _TT]):
 class TTLCache(_TimedCache[_KT, _VT, _TT]):
     @overload
     def __init__(
-        self: TTLCache[_KT2, _VT2, float],
-        maxsize: float,
-        ttl: float,
-        *,
-        getsizeof: Callable[[_VT2], float] | None = None,
+        self: TTLCache[_KT2, _VT2, float], maxsize: float, ttl: float, *, getsizeof: Callable[[_VT2], float] | None = None
     ) -> None: ...
     @overload
     def __init__(
@@ -140,9 +109,7 @@ class _CacheInfo(NamedTuple):
 class _AbstractCondition(AbstractContextManager[Any], Protocol):
     # implementation and unit tests do not use plain wait() and notify()
     def wait(self, timeout: float | None = None) -> bool: ...
-    def wait_for(
-        self, predicate: Callable[[], _T], timeout: float | None = None
-    ) -> _T: ...
+    def wait_for(self, predicate: Callable[[], _T], timeout: float | None = None) -> _T: ...
     def notify(self, n: int = 1) -> None: ...
     def notify_all(self) -> None: ...
 
@@ -178,7 +145,6 @@ def cached(
     condition: _AbstractCondition | None = None,
     info: Literal[False] = ...,
 ) -> Callable[[Callable[..., _R]], _cached_wrapper[_R]]: ...
-
 @type_check_only
 class _cachedmethod_wrapper(Generic[_R]):
     __wrapped__: Callable[..., _R]
