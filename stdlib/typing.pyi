@@ -257,12 +257,32 @@ if sys.version_info >= (3, 11):
     class TypeVarTuple:
         @property
         def __name__(self) -> str: ...
+        if sys.version_info >= (3, 15):
+            @property
+            def __bound__(self) -> Any | None: ...  # AnnotationForm
+            @property
+            def __covariant__(self) -> bool: ...
+            @property
+            def __contravariant__(self) -> bool: ...
+            @property
+            def __infer_variance__(self) -> bool: ...
         if sys.version_info >= (3, 13):
             @property
             def __default__(self) -> Any: ...  # AnnotationForm
             def has_default(self) -> bool: ...
         if sys.version_info >= (3, 13):
             def __new__(cls, name: str, *, default: Any = ...) -> Self: ...  # AnnotationForm
+        elif sys.version_info >= (3, 15):
+            def __new__(
+                cls,
+                name: str,
+                *,
+                bound: Any | None = None,  # AnnotationForm
+                contravariant: bool = False,
+                covariant: bool = False,
+                infer_variance: bool = False,
+                default: Any = ...,  # AnnotationForm
+            ) -> Self: ...
         elif sys.version_info >= (3, 12):
             def __new__(cls, name: str) -> Self: ...
         else:
