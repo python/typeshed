@@ -65,6 +65,9 @@ analyze.py
 .idea/
 .venv*/
 
+# Claude Code
+.claude/
+
 # Mypy cache
 .mypy_cache/
 
