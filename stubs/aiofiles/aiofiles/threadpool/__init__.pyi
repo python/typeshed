@@ -99,7 +99,7 @@ def open(
     executor: Executor | None = None,
 ) -> AiofilesContextManager[_UnknownAsyncBinaryIO]: ...
 
-wrap: _SingleDispatchCallable[Any]
+wrap: _SingleDispatchCallable[Any, Any]
 
 stdin: AsyncTextIndirectIOWrapper
 stdout: AsyncTextIndirectIOWrapper

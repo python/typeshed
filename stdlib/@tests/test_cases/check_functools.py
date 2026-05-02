@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from functools import cache, cached_property, wraps
+from functools import cache, cached_property, singledispatch, wraps
 from typing import Callable, TypeVar
 from typing_extensions import ParamSpec, assert_type
 
@@ -108,3 +108,31 @@ class CachedChild(CachedParent):
     @cache
     def method(self) -> Child:
         return Child()
+
+
+def check_singledispatch_simple() -> None:
+    @singledispatch
+    def sd_fun(arg: object) -> str:
+        return ""
+
+    @sd_fun.register
+    def _(int_arg: int) -> str:
+        return ""
+
+    sd_fun.dispatch(42)
+    sd_fun.dispatch("")
+    sd_fun.dispatch(1, 2)  # type: ignore
+
+
+def check_singledispatch_additional_args() -> None:
+    @singledispatch
+    def sd_fun(arg: object, posonly: str, /, verbose: bool = False) -> str:
+        return ""
+
+    @sd_fun.register
+    def _(int_arg: int, posonly: str, /, verbose: bool = False) -> str:
+        return ""
+
+    sd_fun.dispatch(5.4, "")
+    sd_fun.dispatch(5.4, "", verbose=True)
+    sd_fun.dispatch(1, 2)  # type: ignore
