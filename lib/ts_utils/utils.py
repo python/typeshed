@@ -261,12 +261,12 @@ else:
 
 
 @functools.cache
-def get_gitignore_spec() -> pathspec.PathSpec:
+def get_gitignore_spec() -> pathspec.GitIgnoreSpec:
     with GITIGNORE_PATH.open(encoding="UTF-8") as f:
         return pathspec.GitIgnoreSpec.from_lines(f)
 
 
-def spec_matches_path(spec: pathspec.PathSpec, path: Path) -> bool:
+def spec_matches_path(spec: pathspec.PathSpec[Any], path: Path) -> bool:
     normalized_path = path.as_posix()
     if path.is_dir():
         normalized_path += "/"
