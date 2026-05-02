@@ -1632,6 +1632,7 @@ class _BoundModelsContext(_callable_context_manager):
 class Model(metaclass=ModelBase):
     __data__: Incomplete
     __rel__: Incomplete
+    _meta: Metadata
     def __init__(self, *args, **kwargs) -> None: ...
     @classmethod
     def validate_model(cls) -> None: ...
