@@ -510,11 +510,15 @@ if sys.version_info >= (3, 12):
     else:
         def activate_stack_trampoline(backend: str, /) -> NoReturn: ...
 
-    from . import _monitoring as monitoring  # noqa: F401  # pyright: ignore[reportUnusedImport]
+    from . import _monitoring
+
+    monitoring = _monitoring
 
 if sys.version_info >= (3, 14):
     def is_remote_debug_enabled() -> bool: ...
     def remote_exec(pid: int, script: StrOrBytesPath) -> None: ...
     def _is_immortal(op: object, /) -> bool: ...
 
-    from . import __jit as _jit  # noqa: F401  # pyright: ignore[reportUnusedImport]
+    from . import __jit
+
+    _jit = __jit
