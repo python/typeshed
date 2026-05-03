@@ -38,7 +38,7 @@ class FFI:
     def offsetof(self, cdecl: str | CData, *fields_or_indexes: str | int) -> int: ...
 
     # The acceptable types of `init` depend on the value of `cdecl` only known at runtime, and
-    # therfore unknown to the type checker.
+    # therefore unknown to the type checker.
     def new(self, cdecl: str | CType, init: Any = None) -> CData: ...
     def new_allocator(
         self,
