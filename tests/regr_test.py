@@ -41,7 +41,7 @@ VENV_DIR = ".venv"
 TYPESHED = "typeshed"
 
 SUPPORTED_PLATFORMS = ["linux", "darwin", "win32"]
-SUPPORTED_VERSIONS = ["3.14", "3.13", "3.12", "3.11", "3.10", "3.9"]
+SUPPORTED_VERSIONS = ["3.14", "3.13", "3.12", "3.11", "3.10"]
 
 
 def distribution_with_test_cases(distribution_name: str) -> DistributionTests:
@@ -125,7 +125,7 @@ def setup_testcase_dir(package: DistributionTests, tempdir: Path, verbosity: Ver
         return
 
     # HACK: we want to run these test cases in an isolated environment --
-    # we want mypy to see all stub packages listed in the "requires" field of METADATA.toml
+    # we want mypy to see all stub packages listed in the "dependencies" field of METADATA.toml
     # (and all stub packages required by those stub packages, etc. etc.),
     # but none of the other stubs in typeshed.
     #
