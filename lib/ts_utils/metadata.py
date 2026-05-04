@@ -13,7 +13,7 @@ import urllib.parse
 from collections.abc import Mapping
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Annotated, Any, Final, NamedTuple, final
+from typing import Annotated, Any, Final, NamedTuple, cast, final
 from typing_extensions import TypeGuard
 
 if sys.version_info >= (3, 11):
@@ -239,7 +239,12 @@ def read_metadata(distribution: str) -> StubMetadata:
     """
     try:
         with metadata_path(distribution).open("rb") as f:
-            data = tomlkit.load(f)
+            # This cast is necessary for pyright to understand that the
+            # variable is a dict with object values. Just using
+            # `data: dict[str, object] = tomlkit.load(f)` doesn't work because
+            # pyright still infers TOMLDocument which derives from
+            # dict[Unknown, Unknown].
+            data = cast(dict[str, object], tomlkit.load(f))
     except FileNotFoundError:
         raise NoSuchStubError(f"Typeshed has no stubs for {distribution!r}!") from None
 
@@ -247,7 +252,7 @@ def read_metadata(distribution: str) -> StubMetadata:
     assert not unknown_metadata_fields, f"Unexpected keys in METADATA.toml for {distribution!r}: {unknown_metadata_fields}"
 
     assert "version" in data, f"Missing 'version' field in METADATA.toml for {distribution!r}"
-    version: object = data.get("version")  # pyright: ignore[reportUnknownMemberType]
+    version = data.get("version")
     assert isinstance(version, str) and len(version) > 0, f"Invalid 'version' field in METADATA.toml for {distribution!r}"
     # Check that the version spec parses
     if version[0].isdigit():
@@ -255,11 +260,11 @@ def read_metadata(distribution: str) -> StubMetadata:
     version_spec = Specifier(version)
     assert version_spec.operator in {"==", "~="}, f"Invalid 'version' field in METADATA.toml for {distribution!r}"
 
-    dependencies_s: object = data.get("dependencies", [])  # pyright: ignore[reportUnknownMemberType]
+    dependencies_s = data.get("dependencies", [])
     assert isinstance(dependencies_s, list)
     dependencies = [parse_dependencies(distribution, dep) for dep in dependencies_s]
 
-    extra_description: object = data.get("extra-description")  # pyright: ignore[reportUnknownMemberType]
+    extra_description = data.get("extra-description")
     assert isinstance(extra_description, (str, type(None)))
 
     if "stub-distribution" in data:
@@ -269,7 +274,7 @@ def read_metadata(distribution: str) -> StubMetadata:
     else:
         stub_distribution = f"types-{distribution}"
 
-    upstream_repository: object = data.get("upstream-repository")  # pyright: ignore[reportUnknownMemberType]
+    upstream_repository = data.get("upstream-repository")
     assert isinstance(upstream_repository, (str, type(None)))
     if isinstance(upstream_repository, str):
         parsed_url = urllib.parse.urlsplit(upstream_repository)
@@ -293,7 +298,7 @@ def read_metadata(distribution: str) -> StubMetadata:
             )
             assert num_url_path_parts == 2, bad_github_url_msg
 
-    obsolete_since: object = data.get("obsolete-since")  # pyright: ignore[reportUnknownMemberType]
+    obsolete_since = data.get("obsolete-since")
     assert isinstance(obsolete_since, (String, type(None)))
     if obsolete_since:
         comment = obsolete_since.trivia.comment
@@ -302,13 +307,13 @@ def read_metadata(distribution: str) -> StubMetadata:
         obsolete = ObsoleteMetadata(since_version=obsolete_since, since_date=since_date)
     else:
         obsolete = None
-    no_longer_updated: object = data.get("no-longer-updated", False)  # pyright: ignore[reportUnknownMemberType]
+    no_longer_updated = data.get("no-longer-updated", False)
     assert type(no_longer_updated) is bool
-    uploaded_to_pypi: object = data.get("upload", True)  # pyright: ignore[reportUnknownMemberType]
+    uploaded_to_pypi = data.get("upload", True)
     assert type(uploaded_to_pypi) is bool
-    partial_stub: object = data.get("partial-stub", True)  # pyright: ignore[reportUnknownMemberType]
+    partial_stub = data.get("partial-stub", True)
     assert type(partial_stub) is bool
-    requires_python_str: object = data.get("requires-python")  # pyright: ignore[reportUnknownMemberType]
+    requires_python_str = data.get("requires-python")
     oldest_supported_python = get_oldest_supported_python()
     oldest_supported_python_specifier = Specifier(f">={oldest_supported_python}")
     if requires_python_str is None:
@@ -324,11 +329,11 @@ def read_metadata(distribution: str) -> StubMetadata:
         assert requires_python.operator == ">=", "'requires-python' should be a minimum version specifier, use '>=3.x'"
 
     empty_tools: dict[object, object] = {}
-    tools_settings: object = data.get("tool", empty_tools)  # pyright: ignore[reportUnknownMemberType]
+    tools_settings = data.get("tool", empty_tools)
     assert isinstance(tools_settings, dict)
     assert tools_settings.keys() <= _KNOWN_METADATA_TOOL_FIELDS.keys(), f"Unrecognised tool for {distribution!r}"
     for tool, tk in _KNOWN_METADATA_TOOL_FIELDS.items():
-        settings_for_tool: object = tools_settings.get(tool, {})  # pyright: ignore[reportUnknownMemberType]
+        settings_for_tool = cast(dict[str, object], tools_settings).get(tool, {})
         assert isinstance(settings_for_tool, dict)
         for key in settings_for_tool:
             assert key in tk, f"Unrecognised {tool} key {key!r} for {distribution!r}"
@@ -349,23 +354,28 @@ def read_metadata(distribution: str) -> StubMetadata:
     )
 
 
-def update_metadata(distribution: str, **new_values: object) -> tomlkit.TOMLDocument:
+def update_metadata(distribution: str, **new_values: object) -> dict[str, object]:
     """Update a distribution's METADATA.toml.
 
     Return the updated TOML dictionary for use without having to open the file separately.
     """
     path = metadata_path(distribution)
     try:
-        with path.open("rb") as file:
-            data = tomlkit.load(file)
+        with path.open("rb") as f:
+            # This cast is necessary for pyright to understand that the
+            # variable is a dict with object values. Just using
+            # `data: dict[str, object] = tomlkit.load(f)` doesn't work because
+            # pyright still infers TOMLDocument which derives from
+            # dict[Unknown, Unknown].
+            data = cast(dict[str, object], tomlkit.load(f))
     except FileNotFoundError:
         raise NoSuchStubError(f"Typeshed has no stubs for {distribution!r}!") from None
-    data.update(new_values)  # pyright: ignore[reportUnknownMemberType] # tomlkit.TOMLDocument.update is partially typed
+    data.update(new_values)
     for key in list(data.keys()):
-        new_key = key.replace("_", "-")  # pyright: ignore[reportUnknownMemberType] # tomlkit.TOMLDocument.keys is partially typed
-        data[new_key] = data.pop(key)  # pyright: ignore[reportUnknownMemberType] # tomlkit.TOMLDocument.pop is partially typed
-    with path.open("w", encoding="UTF-8") as file:
-        tomlkit.dump(data, file)  # pyright: ignore[reportUnknownMemberType] # tomlkit.dump has partially unknown Mapping type
+        new_key = key.replace("_", "-")
+        data[new_key] = data.pop(key)
+    with path.open("w", encoding="UTF-8") as f:
+        tomlkit.dump(data, f)  # pyright: ignore[reportUnknownMemberType] # tomlkit.dump has partially unknown Mapping type
     return data
 
 
