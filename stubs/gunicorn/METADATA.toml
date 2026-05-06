@@ -1,4 +1,4 @@
-version = "25.3.0"
+version = "26.0.0"
 upstream-repository = "https://github.com/benoitc/gunicorn"
 dependencies = ["types-gevent"]
 
