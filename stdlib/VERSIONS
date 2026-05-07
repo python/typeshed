@@ -23,7 +23,6 @@ _ast: 3.0-
 _asyncio: 3.0-
 _bisect: 3.0-
 _blake2: 3.6-
-_bootlocale: 3.4-3.9
 _bz2: 3.3-
 _codecs: 3.0-
 _collections_abc: 3.3-
@@ -143,7 +142,6 @@ difflib: 3.0-
 dis: 3.0-
 distutils: 3.0-3.11
 distutils.command.bdist_msi: 3.0-3.10
-distutils.command.bdist_wininst: 3.0-3.9
 doctest: 3.0-
 email: 3.0-
 encodings: 3.0-
@@ -160,7 +158,6 @@ fcntl: 3.0-
 filecmp: 3.0-
 fileinput: 3.0-
 fnmatch: 3.0-
-formatter: 3.0-3.9
 fractions: 3.0-
 ftplib: 3.0-
 functools: 3.0-
@@ -231,7 +228,6 @@ operator: 3.0-
 optparse: 3.0-
 os: 3.0-
 ossaudiodev: 3.0-3.12
-parser: 3.0-3.9
 pathlib: 3.4-
 pathlib.types: 3.14-
 pdb: 3.0-
@@ -292,7 +288,6 @@ stringprep: 3.0-
 struct: 3.0-
 subprocess: 3.0-
 sunau: 3.0-3.12
-symbol: 3.0-3.9
 symtable: 3.0-
 sys: 3.0-
 sys.__jit: 3.14-        # Similar to sys._monitoring
