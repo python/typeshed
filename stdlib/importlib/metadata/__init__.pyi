@@ -223,7 +223,7 @@ elif sys.version_info >= (3, 12):
     class DeprecatedNonAbstract: ...
     _distribution_parent = DeprecatedNonAbstract
 else:
-    _distribution_parent = abc.ABC
+    _distribution_parent = object
 
 class Distribution(_distribution_parent):
     @abc.abstractmethod

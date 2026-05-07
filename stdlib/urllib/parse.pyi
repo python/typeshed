@@ -107,6 +107,95 @@ class SplitResultBytes(_SplitResultBase[bytes], _NetlocResultMixinBytes):
 class ParseResultBytes(_ParseResultBase[bytes], _NetlocResultMixinBytes):
     def geturl(self) -> bytes: ...
 
+if sys.version_info >= (3, 15):
+    @type_check_only
+    class DefragResultMaybeNone(NamedTuple):
+        url: str
+        fragment: str | None
+        def encode(self, encoding: str = "ascii", errors: str = "strict") -> DefragResultBytesMaybeNone: ...
+        def geturl(self) -> str: ...
+
+    @type_check_only
+    class SplitResultMaybeNone(NamedTuple):
+        scheme: str | None
+        netloc: str | None
+        path: str
+        query: str | None
+        fragment: str | None
+        @property
+        def username(self) -> str | None: ...
+        @property
+        def password(self) -> str | None: ...
+        @property
+        def hostname(self) -> str | None: ...
+        @property
+        def port(self) -> int | None: ...
+        def encode(self, encoding: str = "ascii", errors: str = "strict") -> SplitResultBytesMaybeNone: ...
+        def geturl(self) -> str: ...
+
+    @type_check_only
+    class ParseResultMaybeNone(NamedTuple):
+        scheme: str | None
+        netloc: str | None
+        path: str
+        params: str | None
+        query: str | None
+        fragment: str | None
+        @property
+        def username(self) -> str | None: ...
+        @property
+        def password(self) -> str | None: ...
+        @property
+        def hostname(self) -> str | None: ...
+        @property
+        def port(self) -> int | None: ...
+        def encode(self, encoding: str = "ascii", errors: str = "strict") -> ParseResultBytesMaybeNone: ...
+        def geturl(self) -> str: ...
+
+    @type_check_only
+    class DefragResultBytesMaybeNone(NamedTuple):
+        url: bytes
+        fragment: bytes | None
+        def decode(self, encoding: str = "ascii", errors: str = "strict") -> DefragResultMaybeNone: ...
+        def geturl(self) -> bytes: ...
+
+    @type_check_only
+    class SplitResultBytesMaybeNone(NamedTuple):
+        scheme: bytes | None
+        netloc: bytes | None
+        path: bytes
+        query: bytes | None
+        fragment: bytes | None
+        @property
+        def username(self) -> bytes | None: ...
+        @property
+        def password(self) -> bytes | None: ...
+        @property
+        def hostname(self) -> bytes | None: ...
+        @property
+        def port(self) -> int | None: ...
+        def decode(self, encoding: str = "ascii", errors: str = "strict") -> SplitResultMaybeNone: ...
+        def geturl(self) -> bytes: ...
+
+    @type_check_only
+    class ParseResultBytesMaybeNone(NamedTuple):
+        scheme: bytes | None
+        netloc: bytes | None
+        path: bytes
+        params: bytes | None
+        query: bytes | None
+        fragment: bytes | None
+        @property
+        def username(self) -> bytes | None: ...
+        @property
+        def password(self) -> bytes | None: ...
+        @property
+        def hostname(self) -> bytes | None: ...
+        @property
+        def port(self) -> int | None: ...
+        def decode(self, encoding: str = "ascii", errors: str = "strict") -> ParseResultMaybeNone: ...
+        def geturl(self) -> bytes: ...
+
 def parse_qs(
     qs: AnyStr | None,
     keep_blank_values: bool = False,
@@ -144,9 +233,17 @@ def urldefrag(url: bytes | bytearray | None) -> DefragResultBytes: ...
 
 if sys.version_info >= (3, 15):
     @overload
-    def urldefrag(url: str, *, missing_as_none: bool = False) -> DefragResult: ...
+    def urldefrag(url: str, *, missing_as_none: Literal[True]) -> DefragResultMaybeNone: ...
     @overload
-    def urldefrag(url: bytes | bytearray | None, *, missing_as_none: bool = False) -> DefragResultBytes: ...
+    def urldefrag(url: str, *, missing_as_none: Literal[False] = False) -> DefragResult: ...
+    @overload
+    def urldefrag(url: bytes | bytearray | None, *, missing_as_none: Literal[True]) -> DefragResultBytesMaybeNone: ...
+    @overload
+    def urldefrag(url: bytes | bytearray | None, *, missing_as_none: Literal[False] = False) -> DefragResultBytes: ...
+    @overload
+    def urldefrag(url: str, *, missing_as_none: bool) -> DefragResult | DefragResultMaybeNone: ...
+    @overload
+    def urldefrag(url: bytes | bytearray | None, *, missing_as_none: bool) -> DefragResultBytes | DefragResultBytesMaybeNone: ...
 
 # The values are passed through `str()` (unless they are bytes), so anything is valid.
 _QueryType: TypeAlias = (
@@ -185,15 +282,41 @@ def urlparse(
 
 if sys.version_info >= (3, 15):
     @overload
-    def urlparse(url: str, scheme: str = "", allow_fragments: bool = True, *, missing_as_none: bool = False) -> ParseResult: ...
+    def urlparse(
+        url: str, scheme: str = "", allow_fragments: bool = True, *, missing_as_none: Literal[True]
+    ) -> ParseResultMaybeNone: ...
+    @overload
+    def urlparse(
+        url: str, scheme: str = "", allow_fragments: bool = True, *, missing_as_none: Literal[False] = False
+    ) -> ParseResult: ...
     @overload
     def urlparse(
         url: bytes | bytearray | None,
         scheme: bytes | bytearray | None | Literal[""] = "",
         allow_fragments: bool = True,
         *,
-        missing_as_none: bool = False,
+        missing_as_none: Literal[True],
+    ) -> ParseResultBytesMaybeNone: ...
+    @overload
+    def urlparse(
+        url: bytes | bytearray | None,
+        scheme: bytes | bytearray | None | Literal[""] = "",
+        allow_fragments: bool = True,
+        *,
+        missing_as_none: Literal[False] = False,
     ) -> ParseResultBytes: ...
+    @overload
+    def urlparse(
+        url: str, scheme: str = "", allow_fragments: bool = True, *, missing_as_none: bool
+    ) -> ParseResult | ParseResultMaybeNone: ...
+    @overload
+    def urlparse(
+        url: bytes | bytearray | None,
+        scheme: bytes | bytearray | None | Literal[""] = "",
+        allow_fragments: bool = True,
+        *,
+        missing_as_none: bool,
+    ) -> ParseResultBytes | ParseResultBytesMaybeNone: ...
 
 @overload
 def urlsplit(url: str, scheme: str = "", allow_fragments: bool = True) -> SplitResult: ...
@@ -212,11 +335,37 @@ else:
 
 if sys.version_info >= (3, 15):
     @overload
-    def urlsplit(url: str, scheme: str = "", allow_fragments: bool = True, *, missing_as_none: bool = False) -> SplitResult: ...
+    def urlsplit(
+        url: str, scheme: str = "", allow_fragments: bool = True, *, missing_as_none: Literal[True]
+    ) -> SplitResultMaybeNone: ...
     @overload
     def urlsplit(
-        url: bytes | None, scheme: bytes | None | Literal[""] = "", allow_fragments: bool = True, *, missing_as_none: bool = False
+        url: str, scheme: str = "", allow_fragments: bool = True, *, missing_as_none: Literal[False] = False
+    ) -> SplitResult: ...
+    @overload
+    def urlsplit(
+        url: bytes | None,
+        scheme: bytes | None | Literal[""] = "",
+        allow_fragments: bool = True,
+        *,
+        missing_as_none: Literal[True],
+    ) -> SplitResultBytesMaybeNone: ...
+    @overload
+    def urlsplit(
+        url: bytes | None,
+        scheme: bytes | None | Literal[""] = "",
+        allow_fragments: bool = True,
+        *,
+        missing_as_none: Literal[False] = False,
     ) -> SplitResultBytes: ...
+    @overload
+    def urlsplit(
+        url: str, scheme: str = "", allow_fragments: bool = True, *, missing_as_none: bool
+    ) -> SplitResult | SplitResultMaybeNone: ...
+    @overload
+    def urlsplit(
+        url: bytes | None, scheme: bytes | None | Literal[""] = "", allow_fragments: bool = True, *, missing_as_none: bool
+    ) -> SplitResultBytes | SplitResultBytesMaybeNone: ...
 
 if sys.version_info >= (3, 15):
     # Requires an iterable of length 6
