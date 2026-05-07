@@ -4,8 +4,8 @@ from collections.abc import Callable, Collection, Iterable, Iterator
 from contextlib import AbstractContextManager
 from subprocess import _CMD, _ENV, _FILE
 from types import TracebackType
-from typing import Any, Literal, Protocol, overload, type_check_only
-from typing_extensions import Self, TypeAlias, deprecated
+from typing import Any, Literal, Protocol, TypeAlias, overload, type_check_only
+from typing_extensions import Self, deprecated
 
 from psutil._common import (
     AIX as AIX,

@@ -4,10 +4,16 @@ import sys
 from _typeshed import Unused
 from collections.abc import Iterable, Sequence
 from time import struct_time
-from typing import ClassVar, Final
-from typing_extensions import TypeAlias
+from typing import ClassVar, Final, TypeAlias
 
 __all__ = [
+    "FRIDAY",
+    "MONDAY",
+    "SATURDAY",
+    "SUNDAY",
+    "THURSDAY",
+    "TUESDAY",
+    "WEDNESDAY",
     "IllegalMonthError",
     "IllegalWeekdayError",
     "setfirstweekday",
@@ -34,8 +40,6 @@ __all__ = [
     "weekheader",
 ]
 
-if sys.version_info >= (3, 10):
-    __all__ += ["FRIDAY", "MONDAY", "SATURDAY", "SUNDAY", "THURSDAY", "TUESDAY", "WEDNESDAY"]
 if sys.version_info >= (3, 12):
     __all__ += [
         "Day",
@@ -88,9 +92,9 @@ class Calendar:
     def itermonthdays4(self, year: int, month: int) -> Iterable[tuple[int, int, int, int]]: ...
 
 class TextCalendar(Calendar):
-    def prweek(self, theweek: int, width: int) -> None: ...
+    def prweek(self, theweek: Iterable[tuple[int, int]], width: int) -> None: ...
     def formatday(self, day: int, weekday: int, width: int) -> str: ...
-    def formatweek(self, theweek: int, width: int) -> str: ...
+    def formatweek(self, theweek: Iterable[tuple[int, int]], width: int) -> str: ...
     def formatweekday(self, day: int, width: int) -> str: ...
     def formatweekheader(self, width: int) -> str: ...
     def formatmonthname(self, theyear: int, themonth: int, width: int, withyear: bool = True) -> str: ...
@@ -145,7 +149,7 @@ c: TextCalendar
 
 def setfirstweekday(firstweekday: int) -> None: ...
 def format(cols: int, colwidth: int = 20, spacing: int = 6) -> str: ...
-def formatstring(cols: int, colwidth: int = 20, spacing: int = 6) -> str: ...
+def formatstring(cols: Iterable[str], colwidth: int = 20, spacing: int = 6) -> str: ...
 def timegm(tuple: tuple[int, ...] | struct_time) -> int: ...
 
 # Data attributes
