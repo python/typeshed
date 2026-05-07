@@ -1,6 +1,6 @@
 import sys
 from _typeshed import StrOrBytesPath
-from collections.abc import Iterator, MutableMapping
+from collections.abc import Callable, Iterator, MutableMapping
 from dbm import _TFlags
 from types import TracebackType
 from typing import Any, TypeVar, overload
@@ -13,7 +13,13 @@ _VT = TypeVar("_VT")
 
 class Shelf(MutableMapping[str, _VT]):
     def __init__(
-        self, dict: MutableMapping[bytes, bytes], protocol: int | None = None, writeback: bool = False, keyencoding: str = "utf-8"
+        self,
+        dict: MutableMapping[bytes, bytes],
+        protocol: int | None = None,
+        writeback: bool = False,
+        keyencoding: str = "utf-8",
+        serializer: Callable[[Any], bytes] | None = None,
+        deserializer: Callable[[bytes], Any] | None = None,
     ) -> None: ...
     def __iter__(self) -> Iterator[str]: ...
     def __len__(self) -> int: ...
@@ -34,6 +40,8 @@ class Shelf(MutableMapping[str, _VT]):
     def __del__(self) -> None: ...
     def close(self) -> None: ...
     def sync(self) -> None: ...
+    if sys.version_info >= (3, 15):
+        def reorganize(self) -> None: ...
 
 class BsdDbShelf(Shelf[_VT]):
     def set_location(self, key: str) -> tuple[str, _VT]: ...
@@ -45,14 +53,25 @@ class BsdDbShelf(Shelf[_VT]):
 class DbfilenameShelf(Shelf[_VT]):
     if sys.version_info >= (3, 11):
         def __init__(
-            self, filename: StrOrBytesPath, flag: _TFlags = "c", protocol: int | None = None, writeback: bool = False
+            self,
+            filename: StrOrBytesPath,
+            flag: _TFlags = "c",
+            protocol: int | None = None,
+            writeback: bool = False,
+            serializer: Callable[[Any], bytes] | None = None,
+            deserializer: Callable[[bytes], Any] | None = None,
         ) -> None: ...
     else:
         def __init__(self, filename: str, flag: _TFlags = "c", protocol: int | None = None, writeback: bool = False) -> None: ...
 
 if sys.version_info >= (3, 11):
     def open(
-        filename: StrOrBytesPath, flag: _TFlags = "c", protocol: int | None = None, writeback: bool = False
+        filename: StrOrBytesPath,
+        flag: _TFlags = "c",
+        protocol: int | None = None,
+        writeback: bool = False,
+        serializer: Callable[[Any], bytes] | None = None,
+        deserializer: Callable[[bytes], Any] | None = None,
     ) -> Shelf[Any]: ...
 
 else:

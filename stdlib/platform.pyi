@@ -10,7 +10,9 @@ def mac_ver(
     release: str = "", versioninfo: tuple[str, str, str] = ("", "", ""), machine: str = ""
 ) -> tuple[str, tuple[str, str, str], str]: ...
 
-if sys.version_info >= (3, 13):
+if sys.version_info >= (3, 15):
+    pass
+elif sys.version_info >= (3, 13):
     @deprecated("Deprecated since Python 3.13; will be removed in Python 3.15.")
     def java_ver(
         release: str = "",

@@ -1914,7 +1914,18 @@ else:
 
 def literal_eval(node_or_string: str | AST) -> Any: ...
 
-if sys.version_info >= (3, 13):
+if sys.version_info >= (3, 15):
+    def dump(
+        node: AST,
+        annotate_fields: bool = True,
+        include_attributes: bool = False,
+        *,
+        indent: int | str | None = None,
+        show_empty: bool = False,
+        color: bool = False,
+    ) -> str: ...
+
+elif sys.version_info >= (3, 13):
     def dump(
         node: AST,
         annotate_fields: bool = True,

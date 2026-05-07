@@ -34,7 +34,19 @@ PAGESIZE: Final[int]
 @disjoint_base
 class mmap:
     if sys.platform == "win32":
-        def __new__(cls, fileno: int, length: int, tagname: str | None = None, access: int = 0, offset: int = 0) -> Self: ...
+        if sys.version_info >= (3, 15):
+            def __new__(
+                cls,
+                fileno: int,
+                length: int,
+                tagname: str | None = None,
+                access: int = 0,
+                offset: int = 0,
+                *,
+                trackfd: bool = True,
+            ) -> Self: ...
+        else:
+            def __new__(cls, fileno: int, length: int, tagname: str | None = None, access: int = 0, offset: int = 0) -> Self: ...
     else:
         if sys.version_info >= (3, 13):
             def __new__(
@@ -76,6 +88,9 @@ class mmap:
     def rfind(self, view: ReadableBuffer, start: int = ..., end: int = ..., /) -> int: ...
     def read(self, n: int | None = None, /) -> bytes: ...
     def write(self, bytes: ReadableBuffer, /) -> int: ...
+    if sys.platform == "linux" and sys.version_info >= (3, 15):
+        def set_name(self, name: str, /) -> None: ...
+
     @overload
     def __getitem__(self, key: SupportsIndex, /) -> int: ...
     @overload

@@ -12,6 +12,7 @@ from collections.abc import (
     Iterator,
     KeysView,
     Mapping,
+    MutableMapping,
     MutableSequence,
     ValuesView,
 )
@@ -60,6 +61,9 @@ if sys.version_info >= (3, 12):
 
 if sys.version_info >= (3, 13):
     __all__ += ["CapsuleType"]
+
+if sys.version_info >= (3, 15):
+    __all__ += ["FrameLocalsProxyType", "LazyImportType"]
 
 # Note, all classes "defined" here require special handling.
 
@@ -149,7 +153,9 @@ class CodeType:
     def co_name(self) -> str: ...
     @property
     def co_firstlineno(self) -> int: ...
-    if sys.version_info >= (3, 10):
+    if sys.version_info >= (3, 15):
+        pass
+    elif sys.version_info >= (3, 10):
         @property
         @deprecated("Deprecated since Python 3.10; will be removed in Python 3.15. Use `CodeType.co_lines()` instead.")
         def co_lnotab(self) -> bytes: ...
@@ -600,8 +606,12 @@ class FrameType:
     # An `int | None` annotation here causes too many false-positive errors, so applying `int | Any`.
     @property
     def f_lineno(self) -> int | MaybeNone: ...
-    @property
-    def f_locals(self) -> dict[str, Any]: ...
+    if sys.version_info >= (3, 15):
+        @property
+        def f_locals(self) -> FrameLocalsProxyType: ...
+    else:
+        @property
+        def f_locals(self) -> dict[str, Any]: ...
     f_trace: Callable[[FrameType, str, Any], Any] | None
     f_trace_lines: bool
     f_trace_opcodes: bool
@@ -609,6 +619,29 @@ class FrameType:
     if sys.version_info >= (3, 14):
         @property
         def f_generator(self) -> GeneratorType[Any, Any, Any] | CoroutineType[Any, Any, Any] | None: ...
+
+if sys.version_info >= (3, 15):
+    @final
+    class FrameLocalsProxyType(MutableMapping[str, Any]):
+        def __new__(cls, frame: FrameType, /) -> Self: ...
+        def __getitem__(self, key: str, /) -> Any: ...
+        def __setitem__(self, key: str, value: Any, /) -> None: ...
+        def __delitem__(self, key: str, /) -> None: ...
+        def __iter__(self) -> Iterator[str]: ...
+        def __len__(self) -> int: ...
+        def __contains__(self, key: object, /) -> bool: ...
+        def __reversed__(self) -> Iterator[str]: ...
+        def copy(self) -> dict[str, Any]: ...
+        def pop(self, key: str, default: Any = ..., /) -> Any: ...
+        def setdefault(self, key: str, default: Any = ..., /) -> Any: ...
+        def update(self, object: SupportsKeysAndGetItem[str, Any] | Iterable[tuple[str, Any]], /) -> None: ...  # type: ignore[override]
+
+    @final
+    class LazyImportType:
+        def __new__(cls, builtins: Mapping[str, Any], name: str, fromlist: tuple[str, ...] | None = None, /) -> Self: ...
+        @property
+        def __name__(self) -> str: ...
+        def resolve(self) -> Any: ...
 
 @final
 class GetSetDescriptorType:

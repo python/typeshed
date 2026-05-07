@@ -29,7 +29,9 @@ if sys.version_info >= (3, 13):
     __all__ += ["UnsupportedOperation"]
 
 class PurePath(PathLike[str]):
-    if sys.version_info >= (3, 13):
+    if sys.version_info >= (3, 15):
+        pass
+    elif sys.version_info >= (3, 13):
         __slots__ = (
             "_raw_paths",
             "_drv",

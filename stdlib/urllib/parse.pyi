@@ -1,4 +1,5 @@
 import sys
+from _typeshed import Incomplete
 from collections.abc import Iterable, Mapping, Sequence
 from types import GenericAlias
 from typing import Any, AnyStr, Final, Generic, Literal, NamedTuple, Protocol, overload, type_check_only
@@ -67,6 +68,7 @@ class _NetlocResultMixinBytes(_NetlocResultMixinBase[bytes], _ResultMixinBytes):
 class _DefragResultBase(NamedTuple, Generic[AnyStr]):
     url: AnyStr
     fragment: AnyStr
+    def geturl(self) -> AnyStr: ...  # type: ignore[misc]
 
 class _SplitResultBase(NamedTuple, Generic[AnyStr]):
     scheme: AnyStr
@@ -74,6 +76,7 @@ class _SplitResultBase(NamedTuple, Generic[AnyStr]):
     path: AnyStr
     query: AnyStr
     fragment: AnyStr
+    def geturl(self) -> AnyStr: ...  # type: ignore[misc]
 
 class _ParseResultBase(NamedTuple, Generic[AnyStr]):
     scheme: AnyStr
@@ -82,6 +85,7 @@ class _ParseResultBase(NamedTuple, Generic[AnyStr]):
     params: AnyStr
     query: AnyStr
     fragment: AnyStr
+    def geturl(self) -> AnyStr: ...  # type: ignore[misc]
 
 # Structured result objects for string data
 class DefragResult(_DefragResultBase[str], _ResultMixinStr):
@@ -138,6 +142,12 @@ def urldefrag(url: str) -> DefragResult: ...
 @overload
 def urldefrag(url: bytes | bytearray | None) -> DefragResultBytes: ...
 
+if sys.version_info >= (3, 15):
+    @overload
+    def urldefrag(url: str, *, missing_as_none: bool = False) -> DefragResult: ...
+    @overload
+    def urldefrag(url: bytes | bytearray | None, *, missing_as_none: bool = False) -> DefragResultBytes: ...
+
 # The values are passed through `str()` (unless they are bytes), so anything is valid.
 _QueryType: TypeAlias = (
     Mapping[str, object]
@@ -172,6 +182,19 @@ def urlparse(url: str, scheme: str = "", allow_fragments: bool = True) -> ParseR
 def urlparse(
     url: bytes | bytearray | None, scheme: bytes | bytearray | None | Literal[""] = "", allow_fragments: bool = True
 ) -> ParseResultBytes: ...
+
+if sys.version_info >= (3, 15):
+    @overload
+    def urlparse(url: str, scheme: str = "", allow_fragments: bool = True, *, missing_as_none: bool = False) -> ParseResult: ...
+    @overload
+    def urlparse(
+        url: bytes | bytearray | None,
+        scheme: bytes | bytearray | None | Literal[""] = "",
+        allow_fragments: bool = True,
+        *,
+        missing_as_none: bool = False,
+    ) -> ParseResultBytes: ...
+
 @overload
 def urlsplit(url: str, scheme: str = "", allow_fragments: bool = True) -> SplitResult: ...
 
@@ -187,15 +210,40 @@ else:
         url: bytes | bytearray | None, scheme: bytes | bytearray | None | Literal[""] = "", allow_fragments: bool = True
     ) -> SplitResultBytes: ...
 
-# Requires an iterable of length 6
-@overload
-def urlunparse(components: Iterable[None]) -> Literal[b""]: ...  # type: ignore[overload-overlap]
-@overload
-def urlunparse(components: Iterable[AnyStr | None]) -> AnyStr: ...
+if sys.version_info >= (3, 15):
+    @overload
+    def urlsplit(url: str, scheme: str = "", allow_fragments: bool = True, *, missing_as_none: bool = False) -> SplitResult: ...
+    @overload
+    def urlsplit(
+        url: bytes | None, scheme: bytes | None | Literal[""] = "", allow_fragments: bool = True, *, missing_as_none: bool = False
+    ) -> SplitResultBytes: ...
 
-# Requires an iterable of length 5
-@overload
-def urlunsplit(components: Iterable[None]) -> Literal[b""]: ...  # type: ignore[overload-overlap]
-@overload
-def urlunsplit(components: Iterable[AnyStr | None]) -> AnyStr: ...
+if sys.version_info >= (3, 15):
+    # Requires an iterable of length 6
+    @overload
+    def urlunparse(components: Iterable[None], *, keep_empty: bool | None | Incomplete = ...) -> Literal[b""]: ...  # type: ignore[overload-overlap]
+    @overload
+    def urlunparse(components: Iterable[AnyStr | None], *, keep_empty: bool | None | Incomplete = ...) -> AnyStr: ...
+
+else:
+    # Requires an iterable of length 6
+    @overload
+    def urlunparse(components: Iterable[None]) -> Literal[b""]: ...  # type: ignore[overload-overlap]
+    @overload
+    def urlunparse(components: Iterable[AnyStr | None]) -> AnyStr: ...
+
+if sys.version_info >= (3, 15):
+    # Requires an iterable of length 5
+    @overload
+    def urlunsplit(components: Iterable[None], *, keep_empty: bool | None | Incomplete = ...) -> Literal[b""]: ...  # type: ignore[overload-overlap]
+    @overload
+    def urlunsplit(components: Iterable[AnyStr | None], *, keep_empty: bool | None | Incomplete = ...) -> AnyStr: ...
+
+else:
+    # Requires an iterable of length 5
+    @overload
+    def urlunsplit(components: Iterable[None]) -> Literal[b""]: ...  # type: ignore[overload-overlap]
+    @overload
+    def urlunsplit(components: Iterable[AnyStr | None]) -> AnyStr: ...
+
 def unwrap(url: str) -> str: ...

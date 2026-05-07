@@ -41,7 +41,6 @@ __all__ = [
     "AsyncIterator",
     "Awaitable",
     "BinaryIO",
-    "ByteString",
     "Callable",
     "ChainMap",
     "ClassVar",
@@ -105,13 +104,18 @@ __all__ = [
     "get_origin",
     "get_type_hints",
     "no_type_check",
-    "no_type_check_decorator",
     "overload",
     "runtime_checkable",
 ]
 
+if sys.version_info < (3, 15):
+    __all__ += ["ByteString", "no_type_check_decorator"]
+
 if sys.version_info >= (3, 14):
     __all__ += ["evaluate_forward_ref"]
+
+if sys.version_info >= (3, 15):
+    __all__ += ["NoExtraItems", "TypeForm", "disjoint_base"]
 
 if sys.version_info >= (3, 10):
     __all__ += ["Concatenate", "ParamSpec", "ParamSpecArgs", "ParamSpecKwargs", "TypeAlias", "TypeGuard", "is_typeddict"]
@@ -257,11 +261,31 @@ if sys.version_info >= (3, 11):
     class TypeVarTuple:
         @property
         def __name__(self) -> str: ...
+        if sys.version_info >= (3, 15):
+            @property
+            def __bound__(self) -> Any | None: ...  # AnnotationForm
+            @property
+            def __covariant__(self) -> bool: ...
+            @property
+            def __contravariant__(self) -> bool: ...
+            @property
+            def __infer_variance__(self) -> bool: ...
         if sys.version_info >= (3, 13):
             @property
             def __default__(self) -> Any: ...  # AnnotationForm
             def has_default(self) -> bool: ...
-        if sys.version_info >= (3, 13):
+        if sys.version_info >= (3, 15):
+            def __new__(
+                cls,
+                name: str,
+                *,
+                bound: Any | None = None,  # AnnotationForm
+                covariant: bool = False,
+                contravariant: bool = False,
+                default: Any = ...,  # AnnotationForm
+                infer_variance: bool = False,
+            ) -> Self: ...
+        elif sys.version_info >= (3, 13):
             def __new__(cls, name: str, *, default: Any = ...) -> Self: ...  # AnnotationForm
         elif sys.version_info >= (3, 12):
             def __new__(cls, name: str) -> Self: ...
@@ -410,12 +434,17 @@ _TC = TypeVar("_TC", bound=type[object])
 def overload(func: _F) -> _F: ...
 def no_type_check(arg: _F) -> _F: ...
 
-if sys.version_info >= (3, 13):
+if sys.version_info >= (3, 15):
+    pass
+elif sys.version_info >= (3, 13):
     @deprecated("Deprecated since Python 3.13; removed in Python 3.15.")
     def no_type_check_decorator(decorator: Callable[_P, _T]) -> Callable[_P, _T]: ...
 
 else:
     def no_type_check_decorator(decorator: Callable[_P, _T]) -> Callable[_P, _T]: ...
+
+if sys.version_info >= (3, 15):
+    def disjoint_base(cls: _TC) -> _TC: ...
 
 # This itself is only available during type checking
 def type_check_only(func_or_cls: _FT) -> _FT: ...
@@ -439,6 +468,13 @@ ChainMap = _Alias()
 OrderedDict = _Alias()
 
 Annotated: _SpecialForm
+if sys.version_info >= (3, 15):
+    @type_check_only
+    class _NoExtraItemsType: ...
+
+    NoExtraItems: _NoExtraItemsType
+
+    TypeForm: _SpecialForm
 
 # Predefined type variables.
 AnyStr = TypeVar("AnyStr", str, bytes)  # noqa: Y001

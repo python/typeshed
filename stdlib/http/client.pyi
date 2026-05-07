@@ -178,14 +178,27 @@ class HTTPConnection:
     host: str
     port: int
     sock: socket | MaybeNone  # can be `None` if `.connect()` was not called
-    def __init__(
-        self,
-        host: str,
-        port: int | None = None,
-        timeout: float | None = ...,
-        source_address: tuple[str, int] | None = None,
-        blocksize: int = 8192,
-    ) -> None: ...
+    if sys.version_info >= (3, 15):
+        def __init__(
+            self,
+            host: str,
+            port: int | None = None,
+            timeout: float | None = ...,
+            source_address: tuple[str, int] | None = None,
+            blocksize: int = 8192,
+            *,
+            max_response_headers: int | None = None,
+        ) -> None: ...
+    else:
+        def __init__(
+            self,
+            host: str,
+            port: int | None = None,
+            timeout: float | None = ...,
+            source_address: tuple[str, int] | None = None,
+            blocksize: int = 8192,
+        ) -> None: ...
+
     def request(
         self,
         method: str,
@@ -211,7 +224,19 @@ class HTTPConnection:
 class HTTPSConnection(HTTPConnection):
     # Can be `None` if `.connect()` was not called:
     sock: ssl.SSLSocket | MaybeNone
-    if sys.version_info >= (3, 12):
+    if sys.version_info >= (3, 15):
+        def __init__(
+            self,
+            host: str,
+            port: int | None = None,
+            *,
+            timeout: float | None = ...,
+            source_address: tuple[str, int] | None = None,
+            context: ssl.SSLContext | None = None,
+            blocksize: int = 8192,
+            max_response_headers: int | None = None,
+        ) -> None: ...
+    elif sys.version_info >= (3, 12):
         def __init__(
             self,
             host: str,
