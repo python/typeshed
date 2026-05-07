@@ -4,8 +4,8 @@ from _typeshed import StrOrLiteralStr, Unused
 from collections.abc import Callable, Generator, Iterable, Iterator, Sequence
 from contextlib import contextmanager
 from re import Pattern
-from typing import Any, ClassVar, Final, Literal, TypeVar, overload
-from typing_extensions import Never, ParamSpec, TypeAlias
+from typing import Any, ClassVar, Final, Literal, ParamSpec, TypeAlias, TypeVar, overload
+from typing_extensions import Never
 
 from pyflakes.messages import Message
 

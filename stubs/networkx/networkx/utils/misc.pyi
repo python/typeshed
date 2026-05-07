@@ -1,6 +1,6 @@
 import random
 from types import ModuleType
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 import numpy
 from networkx.classes.graph import Graph, _Node

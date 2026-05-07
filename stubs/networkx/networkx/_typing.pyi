@@ -1,8 +1,8 @@
 # Stub-only module, can't be imported at runtime.
 
 from collections.abc import Collection
-from typing import Any, Protocol, type_check_only
-from typing_extensions import TypeAlias, TypeVar
+from typing import Any, Protocol, TypeAlias, type_check_only
+from typing_extensions import TypeVar
 
 import numpy as np
 
