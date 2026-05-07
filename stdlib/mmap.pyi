@@ -15,8 +15,7 @@ ALLOCATIONGRANULARITY: Final[int]
 if sys.platform == "linux":
     MAP_DENYWRITE: Final[int]
     MAP_EXECUTABLE: Final[int]
-    if sys.version_info >= (3, 10):
-        MAP_POPULATE: Final[int]
+    MAP_POPULATE: Final[int]
 if sys.version_info >= (3, 11) and sys.platform != "win32" and sys.platform != "darwin":
     MAP_STACK: Final[int]
 
@@ -34,7 +33,7 @@ PAGESIZE: Final[int]
 @disjoint_base
 class mmap:
     if sys.platform == "win32":
-        def __new__(self, fileno: int, length: int, tagname: str | None = None, access: int = 0, offset: int = 0) -> Self: ...
+        def __new__(cls, fileno: int, length: int, tagname: str | None = None, access: int = 0, offset: int = 0) -> Self: ...
     else:
         if sys.version_info >= (3, 13):
             def __new__(
@@ -129,7 +128,7 @@ if sys.platform != "linux" and sys.platform != "darwin" and sys.platform != "win
     MADV_CORE: Final[int]
     MADV_PROTECT: Final[int]
 
-if sys.version_info >= (3, 10) and sys.platform == "darwin":
+if sys.platform == "darwin":
     MADV_FREE_REUSABLE: Final[int]
     MADV_FREE_REUSE: Final[int]
 

@@ -2,7 +2,8 @@ import sys
 from _typeshed import StrOrBytesPath
 from collections.abc import Iterator, MutableMapping
 from types import TracebackType
-from typing_extensions import Self, TypeAlias
+from typing import TypeAlias
+from typing_extensions import Self
 
 __all__ = ["error", "open"]
 

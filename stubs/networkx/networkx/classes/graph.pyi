@@ -1,7 +1,8 @@
 from collections.abc import Callable, Collection, Hashable, Iterable, Iterator, MutableMapping
+from decimal import Decimal
 from functools import cached_property
-from typing import Any, ClassVar, TypeVar, overload
-from typing_extensions import Self, TypeAlias
+from typing import Any, ClassVar, TypeAlias, TypeVar, overload
+from typing_extensions import Self
 
 import numpy
 from networkx.classes.coreviews import AdjacencyView, AtlasView
@@ -71,7 +72,7 @@ class Graph(Collection[_Node]):
     def add_edges_from(self, ebunch_to_add: Iterable[_EdgePlus[_Node]], **attr: Any) -> None: ...
     # attr: Edge data (or labels or objects) can be assigned using keyword arguments
     def add_weighted_edges_from(
-        self, ebunch_to_add: Iterable[tuple[_Node, _Node, float]], weight: str = "weight", **attr: Any
+        self, ebunch_to_add: Iterable[tuple[_Node, _Node, float | Decimal | None]], weight: str = "weight", **attr: Any
     ) -> None: ...
     # attr: Edge attributes to add/update for all edges.
     def remove_edge(self, u: _Node, v: _Node) -> None: ...

@@ -5,8 +5,21 @@ from collections.abc import Callable, Iterable, Mapping, Sequence
 from tkinter.constants import *
 from tkinter.font import _FontDescription
 from types import GenericAlias, TracebackType
-from typing import Any, ClassVar, Final, Generic, Literal, NamedTuple, Protocol, TypedDict, TypeVar, overload, type_check_only
-from typing_extensions import TypeAlias, TypeVarTuple, Unpack, deprecated, disjoint_base
+from typing import (
+    Any,
+    ClassVar,
+    Final,
+    Generic,
+    Literal,
+    NamedTuple,
+    Protocol,
+    TypeAlias,
+    TypedDict,
+    TypeVar,
+    overload,
+    type_check_only,
+)
+from typing_extensions import TypeVarTuple, Unpack, deprecated, disjoint_base
 
 if sys.version_info >= (3, 11):
     from enum import StrEnum
@@ -1153,7 +1166,9 @@ class Grid:
         ipady: float | str = ...,
         padx: float | str | tuple[float | str, float | str] = ...,
         pady: float | str | tuple[float | str, float | str] = ...,
-        sticky: str = ...,  # consists of letters 'n', 's', 'w', 'e', may contain repeats, may be empty
+        sticky: (
+            str | list[str] | tuple[str, ...]
+        ) = ...,  # consists of letters 'n', 's', 'w', 'e', may contain repeats, may be empty
         in_: Misc = ...,
         **kw: Any,  # allow keyword argument named 'in', see #4836
     ) -> None: ...

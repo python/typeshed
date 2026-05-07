@@ -28,14 +28,11 @@ def run_stubtest(typeshed_dir: Path) -> int:
         "mypy.stubtest",
         "--check-typeshed",
         "--show-traceback",
+        "--strict-type-check-only",
         "--custom-typeshed-dir",
         str(typeshed_dir),
         *allowlist_stubtest_arguments("stdlib"),
     ]
-    if sys.version_info < (3, 10):
-        # As discussed in https://github.com/python/typeshed/issues/3693, we only aim for
-        # positional-only arg accuracy for python 3.10 and above.
-        cmd += ["--ignore-positional-only"]
     print(" ".join(cmd), file=sys.stderr)
     try:
         subprocess.run(cmd, check=True)

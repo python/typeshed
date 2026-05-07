@@ -5,8 +5,8 @@ from collections import OrderedDict
 from collections.abc import Callable, Generator, Iterable, Sequence
 from contextlib import contextmanager
 from re import Pattern
-from typing import Any, ClassVar, Literal, NamedTuple, Protocol, TypeVar, overload, type_check_only
-from typing_extensions import Self, TypeAlias
+from typing import Any, ClassVar, Literal, NamedTuple, Protocol, TypeAlias, TypeVar, overload, type_check_only
+from typing_extensions import Self
 
 if sys.version_info >= (3, 10):
     from types import EllipsisType
@@ -59,7 +59,7 @@ class GraphicsStateDictRegistry(OrderedDict[Raw, Name]):
 
 def number_to_str(number: Number) -> str: ...
 def render_pdf_primitive(primitive: _Primitive) -> Raw: ...
-
+@type_check_only
 class _DeviceRGBBase(NamedTuple):
     r: Number
     g: Number
@@ -75,6 +75,7 @@ class DeviceRGB(_DeviceRGBBase):
     def colors255(self) -> tuple[Number, Number, Number]: ...
     def serialize(self) -> str: ...
 
+@type_check_only
 class _DeviceGrayBase(NamedTuple):
     g: Number
     a: Number | None
@@ -88,6 +89,7 @@ class DeviceGray(_DeviceGrayBase):
     def colors255(self) -> tuple[Number, Number, Number]: ...
     def serialize(self) -> str: ...
 
+@type_check_only
 class _DeviceCMYKBase(NamedTuple):
     c: Number
     m: Number

@@ -1,7 +1,8 @@
 import random
 import sys
 from types import ModuleType
-from typing_extensions import Self, TypeAlias
+from typing import TypeAlias
+from typing_extensions import Self
 
 import numpy
 from networkx.classes.graph import Graph, _Node

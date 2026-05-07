@@ -1,8 +1,7 @@
 from _typeshed import Incomplete, SupportsLenAndGetItem
 from collections.abc import Generator, Iterable
 from logging import Logger
-from typing import ClassVar, Protocol, TypeVar, overload, type_check_only
-from typing_extensions import TypeAlias
+from typing import ClassVar, Protocol, TypeAlias, TypeVar, overload, type_check_only
 
 from .enums import AccessPermission, EncryptionMethod
 from .fpdf import FPDF
@@ -22,7 +21,7 @@ class _SupportsGetItem(Protocol[_T_co]):
 class ARC4:
     MOD: ClassVar[int]
     def KSA(self, key: _Key) -> list[int]: ...
-    def PRGA(self, S: _SupportsGetItem[int]) -> Generator[int, None, None]: ...
+    def PRGA(self, S: _SupportsGetItem[int]) -> Generator[int]: ...
     def encrypt(self, key: _Key, text: Iterable[int]) -> list[int]: ...
 
 class CryptFilter:
