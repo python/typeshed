@@ -28,6 +28,7 @@ from _socket import (
     IP_MULTICAST_LOOP as IP_MULTICAST_LOOP,
     IP_MULTICAST_TTL as IP_MULTICAST_TTL,
     IP_OPTIONS as IP_OPTIONS,
+    IP_RECVTOS as IP_RECVTOS,
     IP_TOS as IP_TOS,
     IP_TTL as IP_TTL,
     IPPORT_RESERVED as IPPORT_RESERVED,
@@ -223,6 +224,7 @@ __all__ = [
     "IP_MULTICAST_LOOP",
     "IP_MULTICAST_TTL",
     "IP_OPTIONS",
+    "IP_RECVTOS",
     "IP_TOS",
     "IP_TTL",
     "MSG_CTRUNC",
@@ -356,11 +358,6 @@ if sys.platform != "darwin":
     from _socket import TCP_KEEPIDLE as TCP_KEEPIDLE
 
     __all__ += ["TCP_KEEPIDLE", "AF_IRDA", "MSG_ERRQUEUE"]
-
-if sys.version_info >= (3, 10):
-    from _socket import IP_RECVTOS as IP_RECVTOS
-
-    __all__ += ["IP_RECVTOS"]
 
 if sys.platform != "win32" and sys.platform != "darwin":
     from _socket import (
@@ -519,12 +516,13 @@ if sys.platform != "win32":
 
         __all__ += ["SO_BINDTODEVICE"]
 
-if sys.platform != "darwin" and sys.platform != "linux":
+if sys.platform != "darwin":
     from _socket import BDADDR_ANY as BDADDR_ANY, BDADDR_LOCAL as BDADDR_LOCAL, BTPROTO_RFCOMM as BTPROTO_RFCOMM
 
+if sys.platform != "darwin" and sys.platform != "linux":
     __all__ += ["BDADDR_ANY", "BDADDR_LOCAL", "BTPROTO_RFCOMM"]
 
-if sys.platform == "darwin" and sys.version_info >= (3, 10):
+if sys.platform == "darwin":
     from _socket import TCP_KEEPALIVE as TCP_KEEPALIVE
 
     __all__ += ["TCP_KEEPALIVE"]
@@ -841,7 +839,7 @@ if sys.platform == "linux":
         "UDPLITE_RECV_CSCOV",
         "UDPLITE_SEND_CSCOV",
     ]
-if sys.platform == "linux" and sys.version_info >= (3, 10):
+if sys.platform == "linux":
     from _socket import IPPROTO_MPTCP as IPPROTO_MPTCP
 
     __all__ += ["IPPROTO_MPTCP"]
@@ -969,9 +967,10 @@ if sys.platform != "linux":
 if sys.platform != "darwin" and sys.platform != "linux":
     __all__ += ["AF_BLUETOOTH"]
 
-if sys.platform != "win32" and sys.platform != "darwin" and sys.platform != "linux":
+if sys.platform != "win32" and sys.platform != "darwin":
     from _socket import BTPROTO_HCI as BTPROTO_HCI, BTPROTO_L2CAP as BTPROTO_L2CAP, BTPROTO_SCO as BTPROTO_SCO
 
+if sys.platform != "win32" and sys.platform != "darwin" and sys.platform != "linux":
     __all__ += ["BTPROTO_HCI", "BTPROTO_L2CAP", "BTPROTO_SCO"]
 
 if sys.platform != "win32" and sys.platform != "darwin" and sys.platform != "linux":
@@ -1085,10 +1084,7 @@ error = OSError
 class herror(error): ...
 class gaierror(error): ...
 
-if sys.version_info >= (3, 10):
-    timeout = TimeoutError
-else:
-    class timeout(error): ...
+timeout = TimeoutError
 
 class AddressFamily(IntEnum):
     AF_INET = 2
@@ -1131,7 +1127,7 @@ class AddressFamily(IntEnum):
         AF_QIPCRTR = 42
     if sys.platform != "linux":
         AF_LINK = 33
-    if sys.platform != "darwin" and sys.platform != "linux":
+    if sys.platform != "darwin":
         AF_BLUETOOTH = 32
     if sys.platform == "win32" and sys.version_info >= (3, 12):
         AF_HYPERV = 34
@@ -1186,7 +1182,7 @@ if sys.platform == "linux":
 
 if sys.platform != "linux":
     AF_LINK: Final = AddressFamily.AF_LINK
-if sys.platform != "darwin" and sys.platform != "linux":
+if sys.platform != "darwin":
     AF_BLUETOOTH: Final = AddressFamily.AF_BLUETOOTH
 if sys.platform == "win32" and sys.version_info >= (3, 12):
     AF_HYPERV: Final = AddressFamily.AF_HYPERV
@@ -1409,7 +1405,7 @@ if sys.platform == "win32":
 
 else:
     def socketpair(
-        family: int | AddressFamily | None = None, type: SocketType | int = ..., proto: int = 0
+        family: int | AddressFamily | None = None, type: SocketKind | int = ..., proto: int = 0
     ) -> tuple[socket, socket]: ...
 
 class SocketIO(RawIOBase):
@@ -1425,7 +1421,7 @@ def getfqdn(name: str = "") -> str: ...
 
 if sys.version_info >= (3, 11):
     def create_connection(
-        address: tuple[str | None, int],
+        address: tuple[str | None, bytes | str | int | None],
         timeout: float | None = ...,
         source_address: _Address | None = None,
         *,

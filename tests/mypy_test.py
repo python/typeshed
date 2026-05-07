@@ -16,8 +16,7 @@ from enum import Enum
 from itertools import product
 from pathlib import Path
 from threading import Lock
-from typing import Annotated, Any, NamedTuple
-from typing_extensions import TypeAlias
+from typing import Annotated, Any, NamedTuple, TypeAlias
 
 from packaging.requirements import Requirement
 
@@ -44,7 +43,7 @@ except ImportError:
     print_error("Cannot import mypy. Did you install it?")
     sys.exit(1)
 
-SUPPORTED_VERSIONS = ["3.14", "3.13", "3.12", "3.11", "3.10", "3.9"]
+SUPPORTED_VERSIONS = ["3.14", "3.13", "3.12", "3.11", "3.10"]
 SUPPORTED_PLATFORMS = ("linux", "win32", "darwin")
 DIRECTORIES_TO_TEST = [STDLIB_PATH, STUBS_PATH]
 

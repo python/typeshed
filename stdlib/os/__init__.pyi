@@ -35,13 +35,14 @@ from typing import (
     Literal,
     NoReturn,
     Protocol,
+    TypeAlias,
     TypeVar,
     final,
     overload,
     runtime_checkable,
     type_check_only,
 )
-from typing_extensions import LiteralString, Self, TypeAlias, Unpack, deprecated
+from typing_extensions import LiteralString, Self, Unpack, deprecated
 
 from . import path as _path
 
@@ -178,7 +179,7 @@ if sys.version_info >= (3, 14):
     __all__ += ["readinto", "reload_environ"]
 if sys.platform == "darwin" and sys.version_info >= (3, 12):
     __all__ += ["PRIO_DARWIN_BG", "PRIO_DARWIN_NONUI", "PRIO_DARWIN_PROCESS", "PRIO_DARWIN_THREAD"]
-if sys.platform == "darwin" and sys.version_info >= (3, 10):
+if sys.platform == "darwin":
     __all__ += ["O_EVTONLY", "O_NOFOLLOW_ANY", "O_SYMLINK"]
 if sys.platform == "linux":
     __all__ += [
@@ -259,7 +260,7 @@ if sys.platform == "linux" and sys.version_info >= (3, 12):
         "unshare",
         "PIDFD_NONBLOCK",
     ]
-if sys.platform == "linux" and sys.version_info >= (3, 10):
+if sys.platform == "linux":
     __all__ += [
         "EFD_CLOEXEC",
         "EFD_NONBLOCK",
@@ -446,7 +447,7 @@ if sys.platform != "win32" and sys.version_info >= (3, 13):
     __all__ += ["grantpt", "posix_openpt", "ptsname", "unlockpt"]
 if sys.platform != "win32" and sys.version_info >= (3, 11):
     __all__ += ["login_tty"]
-if sys.platform != "win32" and sys.version_info >= (3, 10):
+if sys.platform != "win32":
     __all__ += ["O_FSYNC"]
 if sys.platform != "darwin" and sys.platform != "win32":
     __all__ += [
@@ -614,9 +615,12 @@ if sys.platform == "darwin" and sys.version_info >= (3, 12):
 SEEK_SET: Final = 0
 SEEK_CUR: Final = 1
 SEEK_END: Final = 2
-if sys.platform != "win32":
+if sys.platform == "linux":
     SEEK_DATA: Final = 3
     SEEK_HOLE: Final = 4
+elif sys.platform == "darwin":
+    SEEK_HOLE: Final = 3
+    SEEK_DATA: Final = 4
 
 O_RDONLY: Final[int]
 O_WRONLY: Final[int]
@@ -658,12 +662,12 @@ if sys.platform != "linux" and sys.platform != "win32":
     O_SHLOCK: Final[int]
     O_EXLOCK: Final[int]
 
-if sys.platform == "darwin" and sys.version_info >= (3, 10):
+if sys.platform == "darwin":
     O_EVTONLY: Final[int]
     O_NOFOLLOW_ANY: Final[int]
     O_SYMLINK: Final[int]
 
-if sys.platform != "win32" and sys.version_info >= (3, 10):
+if sys.platform != "win32":
     O_FSYNC: Final[int]
 
 if sys.platform != "linux" and sys.platform != "win32" and sys.version_info >= (3, 13):
@@ -802,8 +806,7 @@ class stat_result(structseq[float], tuple[int, int, int, int, int, int, int, flo
     # st_uid, st_gid, st_size, st_atime, st_mtime, st_ctime.
     #
     # More items may be added at the end by some implementations.
-    if sys.version_info >= (3, 10):
-        __match_args__: Final = ("st_mode", "st_ino", "st_dev", "st_nlink", "st_uid", "st_gid", "st_size")
+    __match_args__: Final = ("st_mode", "st_ino", "st_dev", "st_nlink", "st_uid", "st_gid", "st_size")
 
     @property
     def st_mode(self) -> int: ...  # protection bits,
@@ -826,11 +829,9 @@ class stat_result(structseq[float], tuple[int, int, int, int, int, int, int, flo
     # platform dependent (time of most recent metadata change on Unix, or the time of creation on Windows)
     if sys.version_info >= (3, 12) and sys.platform == "win32":
         @property
-        @deprecated(
-            """\
+        @deprecated("""\
 Use st_birthtime instead to retrieve the file creation time. \
-In the future, this property will contain the last metadata change time."""
-        )
+In the future, this property will contain the last metadata change time.""")
         def st_ctime(self) -> float: ...
     else:
         @property
@@ -910,19 +911,18 @@ class DirEntry(Generic[AnyStr]):
 
 @final
 class statvfs_result(structseq[int], tuple[int, int, int, int, int, int, int, int, int, int, int]):
-    if sys.version_info >= (3, 10):
-        __match_args__: Final = (
-            "f_bsize",
-            "f_frsize",
-            "f_blocks",
-            "f_bfree",
-            "f_bavail",
-            "f_files",
-            "f_ffree",
-            "f_favail",
-            "f_flag",
-            "f_namemax",
-        )
+    __match_args__: Final = (
+        "f_bsize",
+        "f_frsize",
+        "f_blocks",
+        "f_bfree",
+        "f_bavail",
+        "f_files",
+        "f_ffree",
+        "f_favail",
+        "f_flag",
+        "f_namemax",
+    )
 
     @property
     def f_bsize(self) -> int: ...
@@ -964,8 +964,7 @@ def strerror(code: int, /) -> str: ...
 def umask(mask: int, /) -> int: ...
 @final
 class uname_result(structseq[str], tuple[str, str, str, str, str]):
-    if sys.version_info >= (3, 10):
-        __match_args__: Final = ("sysname", "nodename", "release", "version", "machine")
+    __match_args__: Final = ("sysname", "nodename", "release", "version", "machine")
 
     @property
     def sysname(self) -> str: ...
@@ -1037,10 +1036,10 @@ def fdopen(
     mode: OpenTextMode = "r",
     buffering: int = -1,
     encoding: str | None = None,
-    errors: str | None = ...,
-    newline: str | None = ...,
-    closefd: bool = ...,
-    opener: _Opener | None = ...,
+    errors: str | None = None,
+    newline: str | None = None,
+    closefd: bool = True,
+    opener: _Opener | None = None,
 ) -> TextIOWrapper: ...
 @overload
 def fdopen(
@@ -1050,8 +1049,8 @@ def fdopen(
     encoding: None = None,
     errors: None = None,
     newline: None = None,
-    closefd: bool = ...,
-    opener: _Opener | None = ...,
+    closefd: bool = True,
+    opener: _Opener | None = None,
 ) -> FileIO: ...
 @overload
 def fdopen(
@@ -1061,8 +1060,8 @@ def fdopen(
     encoding: None = None,
     errors: None = None,
     newline: None = None,
-    closefd: bool = ...,
-    opener: _Opener | None = ...,
+    closefd: bool = True,
+    opener: _Opener | None = None,
 ) -> BufferedRandom: ...
 @overload
 def fdopen(
@@ -1072,8 +1071,8 @@ def fdopen(
     encoding: None = None,
     errors: None = None,
     newline: None = None,
-    closefd: bool = ...,
-    opener: _Opener | None = ...,
+    closefd: bool = True,
+    opener: _Opener | None = None,
 ) -> BufferedWriter: ...
 @overload
 def fdopen(
@@ -1083,8 +1082,8 @@ def fdopen(
     encoding: None = None,
     errors: None = None,
     newline: None = None,
-    closefd: bool = ...,
-    opener: _Opener | None = ...,
+    closefd: bool = True,
+    opener: _Opener | None = None,
 ) -> BufferedReader: ...
 @overload
 def fdopen(
@@ -1094,8 +1093,8 @@ def fdopen(
     encoding: None = None,
     errors: None = None,
     newline: None = None,
-    closefd: bool = ...,
-    opener: _Opener | None = ...,
+    closefd: bool = True,
+    opener: _Opener | None = None,
 ) -> BinaryIO: ...
 @overload
 def fdopen(
@@ -1103,10 +1102,10 @@ def fdopen(
     mode: str,
     buffering: int = -1,
     encoding: str | None = None,
-    errors: str | None = ...,
-    newline: str | None = ...,
-    closefd: bool = ...,
-    opener: _Opener | None = ...,
+    errors: str | None = None,
+    newline: str | None = None,
+    closefd: bool = True,
+    opener: _Opener | None = None,
 ) -> IO[Any]: ...
 def close(fd: int) -> None: ...
 def closerange(fd_low: int, fd_high: int, /) -> None: ...
@@ -1153,8 +1152,7 @@ if sys.platform != "win32":
     def preadv(fd: int, buffers: SupportsLenAndGetItem[WriteableBuffer], offset: int, flags: int = 0, /) -> int: ...
     def pwritev(fd: int, buffers: SupportsLenAndGetItem[ReadableBuffer], offset: int, flags: int = 0, /) -> int: ...
     if sys.platform != "darwin":
-        if sys.version_info >= (3, 10):
-            RWF_APPEND: Final[int]  # docs say available on 3.7+, stubtest says otherwise
+        RWF_APPEND: Final[int]
         RWF_DSYNC: Final[int]
         RWF_SYNC: Final[int]
         RWF_HIPRI: Final[int]
@@ -1181,8 +1179,7 @@ if sys.version_info >= (3, 14):
 
 @final
 class terminal_size(structseq[int], tuple[int, int]):
-    if sys.version_info >= (3, 10):
-        __match_args__: Final = ("columns", "lines")
+    __match_args__: Final = ("columns", "lines")
 
     @property
     def columns(self) -> int: ...
@@ -1451,8 +1448,7 @@ else:
 
 @final
 class times_result(structseq[float], tuple[float, float, float, float, float]):
-    if sys.version_info >= (3, 10):
-        __match_args__: Final = ("user", "system", "children_user", "children_system", "elapsed")
+    __match_args__: Final = ("user", "system", "children_user", "children_system", "elapsed")
 
     @property
     def user(self) -> float: ...
@@ -1469,16 +1465,9 @@ def times() -> times_result: ...
 def waitpid(pid: int, options: int, /) -> tuple[int, int]: ...
 
 if sys.platform == "win32":
-    if sys.version_info >= (3, 10):
-        def startfile(
-            filepath: StrOrBytesPath,
-            operation: str = ...,
-            arguments: str = "",
-            cwd: StrOrBytesPath | None = None,
-            show_cmd: int = 1,
-        ) -> None: ...
-    else:
-        def startfile(filepath: StrOrBytesPath, operation: str = ...) -> None: ...
+    def startfile(
+        filepath: StrOrBytesPath, operation: str = ..., arguments: str = "", cwd: StrOrBytesPath | None = None, show_cmd: int = 1
+    ) -> None: ...
 
 else:
     if sys.version_info >= (3, 14):
@@ -1502,8 +1491,7 @@ else:
     if sys.platform != "darwin" or sys.version_info >= (3, 13):
         @final
         class waitid_result(structseq[int], tuple[int, int, int, int, int]):
-            if sys.version_info >= (3, 10):
-                __match_args__: Final = ("si_pid", "si_uid", "si_signo", "si_status", "si_code")
+            __match_args__: Final = ("si_pid", "si_uid", "si_signo", "si_status", "si_code")
 
             @property
             def si_pid(self) -> int: ...
@@ -1531,20 +1519,49 @@ else:
     def WSTOPSIG(status: int) -> int: ...
     def WTERMSIG(status: int) -> int: ...
 
-    if sys.version_info >= (3, 13):
+    if sys.version_info >= (3, 15):
+        def posix_spawn(
+            path: StrOrBytesPath,
+            argv: _ExecVArgs,
+            env: _ExecEnv | None,
+            /,
+            *,
+            file_actions: Sequence[tuple[Any, ...]] | None = (),
+            setpgroup: int | None = None,  # None allowed starting in 3.15
+            resetids: bool = False,
+            setsid: bool = False,
+            setsigmask: Iterable[int] = (),
+            setsigdef: Iterable[int] = (),
+            scheduler: tuple[Any, sched_param] | None = None,  # None allowed starting in 3.15
+        ) -> int: ...
+        def posix_spawnp(
+            path: StrOrBytesPath,
+            argv: _ExecVArgs,
+            env: _ExecEnv | None,
+            /,
+            *,
+            file_actions: Sequence[tuple[Any, ...]] | None = (),
+            setpgroup: int | None = None,  # None allowed starting in 3.15
+            resetids: bool = False,
+            setsid: bool = False,
+            setsigmask: Iterable[int] = (),
+            setsigdef: Iterable[int] = (),
+            scheduler: tuple[Any, sched_param] | None = None,  # None allowed starting in 3.15
+        ) -> int: ...
+    elif sys.version_info >= (3, 13):
         def posix_spawn(
             path: StrOrBytesPath,
             argv: _ExecVArgs,
             env: _ExecEnv | None,  # None allowed starting in 3.13
             /,
             *,
-            file_actions: Sequence[tuple[Any, ...]] | None = ...,
-            setpgroup: int | None = ...,
-            resetids: bool = ...,
-            setsid: bool = ...,
-            setsigmask: Iterable[int] = ...,
-            setsigdef: Iterable[int] = ...,
-            scheduler: tuple[Any, sched_param] | None = ...,
+            file_actions: Sequence[tuple[Any, ...]] | None = (),
+            setpgroup: int = ...,
+            resetids: bool = False,
+            setsid: bool = False,
+            setsigmask: Iterable[int] = (),
+            setsigdef: Iterable[int] = (),
+            scheduler: tuple[Any, sched_param] = ...,
         ) -> int: ...
         def posix_spawnp(
             path: StrOrBytesPath,
@@ -1552,13 +1569,13 @@ else:
             env: _ExecEnv | None,  # None allowed starting in 3.13
             /,
             *,
-            file_actions: Sequence[tuple[Any, ...]] | None = ...,
-            setpgroup: int | None = ...,
-            resetids: bool = ...,
-            setsid: bool = ...,
-            setsigmask: Iterable[int] = ...,
-            setsigdef: Iterable[int] = ...,
-            scheduler: tuple[Any, sched_param] | None = ...,
+            file_actions: Sequence[tuple[Any, ...]] | None = (),
+            setpgroup: int = ...,
+            resetids: bool = False,
+            setsid: bool = False,
+            setsigmask: Iterable[int] = (),
+            setsigdef: Iterable[int] = (),
+            scheduler: tuple[Any, sched_param] = ...,
         ) -> int: ...
     else:
         def posix_spawn(
@@ -1567,13 +1584,13 @@ else:
             env: _ExecEnv,
             /,
             *,
-            file_actions: Sequence[tuple[Any, ...]] | None = ...,
-            setpgroup: int | None = ...,
-            resetids: bool = ...,
-            setsid: bool = ...,
-            setsigmask: Iterable[int] = ...,
-            setsigdef: Iterable[int] = ...,
-            scheduler: tuple[Any, sched_param] | None = ...,
+            file_actions: Sequence[tuple[Any, ...]] | None = (),
+            setpgroup: int = ...,
+            resetids: bool = False,
+            setsid: bool = False,
+            setsigmask: Iterable[int] = (),
+            setsigdef: Iterable[int] = (),
+            scheduler: tuple[Any, sched_param] = ...,
         ) -> int: ...
         def posix_spawnp(
             path: StrOrBytesPath,
@@ -1581,13 +1598,13 @@ else:
             env: _ExecEnv,
             /,
             *,
-            file_actions: Sequence[tuple[Any, ...]] | None = ...,
-            setpgroup: int | None = ...,
-            resetids: bool = ...,
-            setsid: bool = ...,
-            setsigmask: Iterable[int] = ...,
-            setsigdef: Iterable[int] = ...,
-            scheduler: tuple[Any, sched_param] | None = ...,
+            file_actions: Sequence[tuple[Any, ...]] | None = (),
+            setpgroup: int = ...,
+            resetids: bool = False,
+            setsid: bool = False,
+            setsigmask: Iterable[int] = (),
+            setsigdef: Iterable[int] = (),
+            scheduler: tuple[Any, sched_param] = ...,
         ) -> int: ...
 
     POSIX_SPAWN_OPEN: Final = 0
@@ -1597,8 +1614,7 @@ else:
 if sys.platform != "win32":
     @final
     class sched_param(structseq[int], tuple[int]):
-        if sys.version_info >= (3, 10):
-            __match_args__: Final = ("sched_priority",)
+        __match_args__: Final = ("sched_priority",)
 
         def __new__(cls, sched_priority: int) -> Self: ...
         @property
@@ -1674,12 +1690,12 @@ if sys.platform == "linux":
     MFD_HUGE_2GB: Final[int]
     MFD_HUGE_16GB: Final[int]
     def memfd_create(name: str, flags: int = ...) -> int: ...
-    def copy_file_range(src: int, dst: int, count: int, offset_src: int | None = ..., offset_dst: int | None = ...) -> int: ...
+    def copy_file_range(src: int, dst: int, count: int, offset_src: int | None = None, offset_dst: int | None = None) -> int: ...
 
 def waitstatus_to_exitcode(status: int) -> int: ...
 
 if sys.platform == "linux":
-    def pidfd_open(pid: int, flags: int = ...) -> int: ...
+    def pidfd_open(pid: int, flags: int = 0) -> int: ...
 
 if sys.version_info >= (3, 12) and sys.platform == "linux":
     PIDFD_NONBLOCK: Final = 2048
@@ -1689,7 +1705,7 @@ if sys.version_info >= (3, 12) and sys.platform == "win32":
     def listmounts(volume: str) -> list[str]: ...
     def listvolumes() -> list[str]: ...
 
-if sys.version_info >= (3, 10) and sys.platform == "linux":
+if sys.platform == "linux":
     EFD_CLOEXEC: Final[int]
     EFD_NONBLOCK: Final[int]
     EFD_SEMAPHORE: Final[int]
@@ -1703,8 +1719,8 @@ if sys.version_info >= (3, 10) and sys.platform == "linux":
         src: FileDescriptor,
         dst: FileDescriptor,
         count: int,
-        offset_src: int | None = ...,
-        offset_dst: int | None = ...,
+        offset_src: int | None = None,
+        offset_dst: int | None = None,
         flags: int = 0,
     ) -> int: ...
 

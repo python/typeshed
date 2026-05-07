@@ -1,7 +1,7 @@
 from collections.abc import Hashable
 from functools import cached_property
-from typing import Any, ClassVar, overload
-from typing_extensions import Self, TypeAlias, TypeVar
+from typing import Any, ClassVar, TypeAlias, overload
+from typing_extensions import Self, TypeVar
 
 from networkx.classes.coreviews import MultiAdjacencyView
 from networkx.classes.graph import Graph, _MapFactory, _Node
@@ -52,7 +52,7 @@ class MultiGraph(Graph[_Node]):
     def get_edge_data(
         self, u: _Node, v: _Node, key: None = None, default: _DefaultT | None = None
     ) -> dict[Hashable, dict[str, Any] | _DefaultT]: ...
-    def copy(self, as_view: bool = False) -> MultiGraph[_Node]: ...
+    def copy(self, as_view: bool = False) -> Self: ...
     @cached_property
     # Including subtypes' possible return types for LSP
     def degree(self) -> MultiDegreeView[_Node] | DiMultiDegreeView[_Node]: ...

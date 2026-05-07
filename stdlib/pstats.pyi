@@ -4,8 +4,8 @@ from collections.abc import Iterable
 from cProfile import Profile as _cProfile
 from dataclasses import dataclass
 from profile import Profile
-from typing import IO, Any, Literal, overload
-from typing_extensions import Self, TypeAlias
+from typing import IO, Any, Literal, TypeAlias, overload
+from typing_extensions import Self
 
 if sys.version_info >= (3, 11):
     from enum import StrEnum
@@ -61,7 +61,7 @@ class Stats:
     sort_arg_dict_default: _SortArgDict
     def __init__(
         self,
-        arg: None | str | Profile | _cProfile = ...,
+        arg: None | str | Profile | _cProfile = None,
         /,
         *args: None | str | Profile | _cProfile | Self,
         stream: IO[Any] | None = None,

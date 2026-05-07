@@ -4,8 +4,7 @@ if sys.platform == "win32":
     import enum
     from collections.abc import Callable, Iterable, Iterator
     from signal import Signals
-    from typing import Final, Literal, TypedDict, TypeVar, overload, type_check_only
-    from typing_extensions import ParamSpec
+    from typing import Final, Literal, ParamSpec, TypedDict, TypeVar, overload, type_check_only
 
     from psutil import _psutil_windows
     from psutil._common import (
@@ -46,12 +45,12 @@ if sys.platform == "win32":
 
     # These noqas workaround https://github.com/astral-sh/ruff/issues/10874
     class Priority(enum.IntEnum):
-        ABOVE_NORMAL_PRIORITY_CLASS = _psutil_windows.ABOVE_NORMAL_PRIORITY_CLASS  # noqa: F811
-        BELOW_NORMAL_PRIORITY_CLASS = _psutil_windows.BELOW_NORMAL_PRIORITY_CLASS  # noqa: F811
-        HIGH_PRIORITY_CLASS = _psutil_windows.HIGH_PRIORITY_CLASS  # noqa: F811
-        IDLE_PRIORITY_CLASS = _psutil_windows.IDLE_PRIORITY_CLASS  # noqa: F811
-        NORMAL_PRIORITY_CLASS = _psutil_windows.NORMAL_PRIORITY_CLASS  # noqa: F811
-        REALTIME_PRIORITY_CLASS = _psutil_windows.REALTIME_PRIORITY_CLASS  # noqa: F811
+        ABOVE_NORMAL_PRIORITY_CLASS = _psutil_windows.ABOVE_NORMAL_PRIORITY_CLASS
+        BELOW_NORMAL_PRIORITY_CLASS = _psutil_windows.BELOW_NORMAL_PRIORITY_CLASS
+        HIGH_PRIORITY_CLASS = _psutil_windows.HIGH_PRIORITY_CLASS
+        IDLE_PRIORITY_CLASS = _psutil_windows.IDLE_PRIORITY_CLASS
+        NORMAL_PRIORITY_CLASS = _psutil_windows.NORMAL_PRIORITY_CLASS
+        REALTIME_PRIORITY_CLASS = _psutil_windows.REALTIME_PRIORITY_CLASS
 
     class IOPriority(enum.IntEnum):
         IOPRIO_VERYLOW = 0

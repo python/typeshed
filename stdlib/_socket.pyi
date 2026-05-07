@@ -2,8 +2,8 @@ import sys
 from _typeshed import ReadableBuffer, WriteableBuffer
 from collections.abc import Iterable
 from socket import error as error, gaierror as gaierror, herror as herror, timeout as timeout
-from typing import Any, Final, SupportsIndex, overload
-from typing_extensions import CapsuleType, TypeAlias, disjoint_base
+from typing import Any, Final, SupportsIndex, TypeAlias, overload
+from typing_extensions import CapsuleType, disjoint_base
 
 _CMSG: TypeAlias = tuple[int, int, bytes]
 _CMSGArg: TypeAlias = tuple[int, int, ReadableBuffer]
@@ -195,7 +195,7 @@ if sys.platform != "win32" and sys.platform != "darwin" and sys.platform != "lin
 if sys.platform == "linux":
     # Availability: Linux >= 2.6.20, FreeBSD >= 10.1
     IPPROTO_UDPLITE: Final[int]
-if sys.version_info >= (3, 10) and sys.platform == "linux":
+if sys.platform == "linux":
     IPPROTO_MPTCP: Final[int]
 
 IPPORT_RESERVED: Final[int]
@@ -218,8 +218,7 @@ IP_MULTICAST_TTL: Final[int]
 IP_OPTIONS: Final[int]
 if sys.platform != "linux":
     IP_RECVDSTADDR: Final[int]
-if sys.version_info >= (3, 10):
-    IP_RECVTOS: Final[int]
+IP_RECVTOS: Final[int]
 IP_TOS: Final[int]
 IP_TTL: Final[int]
 if sys.platform != "win32":
@@ -343,7 +342,7 @@ if sys.platform != "win32":
     TCP_NOTSENT_LOWAT: Final[int]
 if sys.platform != "darwin":
     TCP_KEEPIDLE: Final[int]
-if sys.version_info >= (3, 10) and sys.platform == "darwin":
+if sys.platform == "darwin":
     TCP_KEEPALIVE: Final[int]
 if sys.version_info >= (3, 11) and sys.platform == "darwin":
     TCP_CONNECTION_INFO: Final[int]
@@ -587,7 +586,7 @@ if sys.platform != "linux":
 
 has_ipv6: bool
 
-if sys.platform != "darwin" and sys.platform != "linux":
+if sys.platform != "darwin":
     BDADDR_ANY: Final = "00:00:00:00:00:00"
     BDADDR_LOCAL: Final = "00:00:00:FF:FF:FF"
 
@@ -660,16 +659,16 @@ if sys.platform == "darwin":
     PF_SYSTEM: Final[int]
     SYSPROTO_CONTROL: Final[int]
 
-if sys.platform != "darwin" and sys.platform != "linux":
+if sys.platform != "darwin":
     AF_BLUETOOTH: Final[int]
 
-if sys.platform != "win32" and sys.platform != "darwin" and sys.platform != "linux":
+if sys.platform != "win32" and sys.platform != "darwin":
     # Linux and some BSD support is explicit in the docs
     # Windows and macOS do not support in practice
     BTPROTO_HCI: Final[int]
     BTPROTO_L2CAP: Final[int]
     BTPROTO_SCO: Final[int]  # not in FreeBSD
-if sys.platform != "darwin" and sys.platform != "linux":
+if sys.platform != "darwin":
     BTPROTO_RFCOMM: Final[int]
 
 if sys.platform == "linux":
@@ -741,7 +740,7 @@ class socket:
     def proto(self) -> int: ...
     # F811: "Redefinition of unused `timeout`"
     @property
-    def timeout(self) -> float | None: ...  # noqa: F811
+    def timeout(self) -> float | None: ...
     if sys.platform == "win32":
         def __init__(
             self, family: int = ..., type: int = ..., proto: int = ..., fileno: SupportsIndex | bytes | None = None
@@ -838,7 +837,7 @@ def inet_ntop(address_family: int, packed_ip: ReadableBuffer, /) -> str: ...
 def getdefaulttimeout() -> float | None: ...
 
 # F811: "Redefinition of unused `timeout`"
-def setdefaulttimeout(timeout: float | None, /) -> None: ...  # noqa: F811
+def setdefaulttimeout(timeout: float | None, /) -> None: ...
 
 if sys.platform != "win32":
     def sethostname(name: str, /) -> None: ...

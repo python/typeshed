@@ -9,8 +9,7 @@ import tempfile
 from collections.abc import Iterable, Mapping
 from pathlib import Path
 from types import MethodType
-from typing import TYPE_CHECKING, Any, Final, NamedTuple
-from typing_extensions import TypeAlias
+from typing import TYPE_CHECKING, Any, Final, NamedTuple, TypeAlias
 
 import pathspec
 from packaging.requirements import Requirement
@@ -28,11 +27,41 @@ except ImportError:
         return text
 
 
+_REMOVE_COMMENT_RE = re.compile(
+    r"""
+    (\"(?:\\.|[^\\\"])*?\")  # matches literal strings
+    |
+    (\/\*.*?\*\/ | \/\/[^\r\n]*?(?:[\r\n]))  # matches single- and multi-line comments
+    """,
+    re.DOTALL | re.VERBOSE,
+)
+_REMOVE_TRAILING_COMMA_RE = re.compile(
+    r"""
+    (\"(?:\\.|[^\\\"])*?\")  # matches literal strings
+    |
+    ,\s*([\]}])  # matches commas before '}' or ']'
+    """,
+    re.DOTALL | re.VERBOSE,
+)
+
+
 PYTHON_VERSION: Final = f"{sys.version_info.major}.{sys.version_info.minor}"
 
 
 def strip_comments(text: str) -> str:
-    return text.split("#")[0].strip()
+    return text.split("#", maxsplit=1)[0].strip()
+
+
+def jsonc_to_json(text: str) -> str:
+    """Conversion from JSONC format input to valid JSON."""
+    # Remove comments
+    if not text.endswith("\n"):
+        text += "\n"
+    text = _REMOVE_COMMENT_RE.sub(lambda m: m.group(1) or "", text)
+
+    # Remove trailing commas before } or ]
+    text = _REMOVE_TRAILING_COMMA_RE.sub(lambda m: m.group(1) or m.group(2), text)
+    return text
 
 
 # ====================================================================
@@ -231,12 +260,12 @@ else:
 
 
 @functools.cache
-def get_gitignore_spec() -> pathspec.PathSpec:
+def get_gitignore_spec() -> pathspec.GitIgnoreSpec:
     with GITIGNORE_PATH.open(encoding="UTF-8") as f:
-        return pathspec.GitIgnoreSpec.from_lines(f)  # pyright: ignore[reportUnknownMemberType,reportUnknownVariableType]
+        return pathspec.GitIgnoreSpec.from_lines(f)
 
 
-def spec_matches_path(spec: pathspec.PathSpec, path: Path) -> bool:
+def spec_matches_path(spec: pathspec.PathSpec[Any], path: Path) -> bool:
     normalized_path = path.as_posix()
     if path.is_dir():
         normalized_path += "/"

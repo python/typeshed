@@ -1,7 +1,7 @@
 from _typeshed import SupportsItems
 from collections.abc import Callable, Iterable, Iterator, Sequence
-from typing import Any, Literal, NamedTuple, Protocol, TypeVar, overload, type_check_only
-from typing_extensions import Self, TypeAlias
+from typing import Any, Literal, NamedTuple, Protocol, TypeAlias, TypeVar, overload, type_check_only
+from typing_extensions import Self
 
 from webob._types import AsymmetricPropertyWithDelete
 
@@ -63,10 +63,14 @@ _AcceptLanguageProperty: TypeAlias = AsymmetricPropertyWithDelete[
     ),
 ]
 
-class AcceptOffer(NamedTuple):
+@type_check_only
+class _AcceptOffer(NamedTuple):
     type: str
     subtype: str
     params: tuple[tuple[str, str], ...]
+
+class AcceptOffer(_AcceptOffer):
+    __slots__ = ()
 
 class Accept:
     @classmethod
