@@ -1,4 +1,3 @@
-import sys
 from _curses import *
 from _curses import window as window
 from _typeshed import structseq
@@ -30,8 +29,7 @@ def wrapper(func: Callable[Concatenate[window, _P], _T], /, *arg: _P.args, **kwd
 @final
 @type_check_only
 class _ncurses_version(structseq[int], tuple[int, int, int]):
-    if sys.version_info >= (3, 10):
-        __match_args__: Final = ("major", "minor", "patch")
+    __match_args__: Final = ("major", "minor", "patch")
 
     @property
     def major(self) -> int: ...

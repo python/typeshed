@@ -178,7 +178,7 @@ if sys.version_info >= (3, 14):
     __all__ += ["readinto", "reload_environ"]
 if sys.platform == "darwin" and sys.version_info >= (3, 12):
     __all__ += ["PRIO_DARWIN_BG", "PRIO_DARWIN_NONUI", "PRIO_DARWIN_PROCESS", "PRIO_DARWIN_THREAD"]
-if sys.platform == "darwin" and sys.version_info >= (3, 10):
+if sys.platform == "darwin":
     __all__ += ["O_EVTONLY", "O_NOFOLLOW_ANY", "O_SYMLINK"]
 if sys.platform == "linux":
     __all__ += [
@@ -259,7 +259,7 @@ if sys.platform == "linux" and sys.version_info >= (3, 12):
         "unshare",
         "PIDFD_NONBLOCK",
     ]
-if sys.platform == "linux" and sys.version_info >= (3, 10):
+if sys.platform == "linux":
     __all__ += [
         "EFD_CLOEXEC",
         "EFD_NONBLOCK",
@@ -446,7 +446,7 @@ if sys.platform != "win32" and sys.version_info >= (3, 13):
     __all__ += ["grantpt", "posix_openpt", "ptsname", "unlockpt"]
 if sys.platform != "win32" and sys.version_info >= (3, 11):
     __all__ += ["login_tty"]
-if sys.platform != "win32" and sys.version_info >= (3, 10):
+if sys.platform != "win32":
     __all__ += ["O_FSYNC"]
 if sys.platform != "darwin" and sys.platform != "win32":
     __all__ += [
@@ -661,12 +661,12 @@ if sys.platform != "linux" and sys.platform != "win32":
     O_SHLOCK: Final[int]
     O_EXLOCK: Final[int]
 
-if sys.platform == "darwin" and sys.version_info >= (3, 10):
+if sys.platform == "darwin":
     O_EVTONLY: Final[int]
     O_NOFOLLOW_ANY: Final[int]
     O_SYMLINK: Final[int]
 
-if sys.platform != "win32" and sys.version_info >= (3, 10):
+if sys.platform != "win32":
     O_FSYNC: Final[int]
 
 if sys.platform != "linux" and sys.platform != "win32" and sys.version_info >= (3, 13):
@@ -805,8 +805,7 @@ class stat_result(structseq[float], tuple[int, int, int, int, int, int, int, flo
     # st_uid, st_gid, st_size, st_atime, st_mtime, st_ctime.
     #
     # More items may be added at the end by some implementations.
-    if sys.version_info >= (3, 10):
-        __match_args__: Final = ("st_mode", "st_ino", "st_dev", "st_nlink", "st_uid", "st_gid", "st_size")
+    __match_args__: Final = ("st_mode", "st_ino", "st_dev", "st_nlink", "st_uid", "st_gid", "st_size")
 
     @property
     def st_mode(self) -> int: ...  # protection bits,
@@ -829,9 +828,11 @@ class stat_result(structseq[float], tuple[int, int, int, int, int, int, int, flo
     # platform dependent (time of most recent metadata change on Unix, or the time of creation on Windows)
     if sys.version_info >= (3, 12) and sys.platform == "win32":
         @property
-        @deprecated("""\
+        @deprecated(
+            """\
 Use st_birthtime instead to retrieve the file creation time. \
-In the future, this property will contain the last metadata change time.""")
+In the future, this property will contain the last metadata change time."""
+        )
         def st_ctime(self) -> float: ...
     else:
         @property
@@ -911,19 +912,18 @@ class DirEntry(Generic[AnyStr]):
 
 @final
 class statvfs_result(structseq[int], tuple[int, int, int, int, int, int, int, int, int, int, int]):
-    if sys.version_info >= (3, 10):
-        __match_args__: Final = (
-            "f_bsize",
-            "f_frsize",
-            "f_blocks",
-            "f_bfree",
-            "f_bavail",
-            "f_files",
-            "f_ffree",
-            "f_favail",
-            "f_flag",
-            "f_namemax",
-        )
+    __match_args__: Final = (
+        "f_bsize",
+        "f_frsize",
+        "f_blocks",
+        "f_bfree",
+        "f_bavail",
+        "f_files",
+        "f_ffree",
+        "f_favail",
+        "f_flag",
+        "f_namemax",
+    )
 
     @property
     def f_bsize(self) -> int: ...
@@ -965,8 +965,7 @@ def strerror(code: int, /) -> str: ...
 def umask(mask: int, /) -> int: ...
 @final
 class uname_result(structseq[str], tuple[str, str, str, str, str]):
-    if sys.version_info >= (3, 10):
-        __match_args__: Final = ("sysname", "nodename", "release", "version", "machine")
+    __match_args__: Final = ("sysname", "nodename", "release", "version", "machine")
 
     @property
     def sysname(self) -> str: ...
@@ -1154,8 +1153,7 @@ if sys.platform != "win32":
     def preadv(fd: int, buffers: SupportsLenAndGetItem[WriteableBuffer], offset: int, flags: int = 0, /) -> int: ...
     def pwritev(fd: int, buffers: SupportsLenAndGetItem[ReadableBuffer], offset: int, flags: int = 0, /) -> int: ...
     if sys.platform != "darwin":
-        if sys.version_info >= (3, 10):
-            RWF_APPEND: Final[int]  # docs say available on 3.7+, stubtest says otherwise
+        RWF_APPEND: Final[int]
         RWF_DSYNC: Final[int]
         RWF_SYNC: Final[int]
         RWF_HIPRI: Final[int]
@@ -1182,8 +1180,7 @@ if sys.version_info >= (3, 14):
 
 @final
 class terminal_size(structseq[int], tuple[int, int]):
-    if sys.version_info >= (3, 10):
-        __match_args__: Final = ("columns", "lines")
+    __match_args__: Final = ("columns", "lines")
 
     @property
     def columns(self) -> int: ...
@@ -1452,8 +1449,7 @@ else:
 
 @final
 class times_result(structseq[float], tuple[float, float, float, float, float]):
-    if sys.version_info >= (3, 10):
-        __match_args__: Final = ("user", "system", "children_user", "children_system", "elapsed")
+    __match_args__: Final = ("user", "system", "children_user", "children_system", "elapsed")
 
     @property
     def user(self) -> float: ...
@@ -1470,16 +1466,9 @@ def times() -> times_result: ...
 def waitpid(pid: int, options: int, /) -> tuple[int, int]: ...
 
 if sys.platform == "win32":
-    if sys.version_info >= (3, 10):
-        def startfile(
-            filepath: StrOrBytesPath,
-            operation: str = ...,
-            arguments: str = "",
-            cwd: StrOrBytesPath | None = None,
-            show_cmd: int = 1,
-        ) -> None: ...
-    else:
-        def startfile(filepath: StrOrBytesPath, operation: str = ...) -> None: ...
+    def startfile(
+        filepath: StrOrBytesPath, operation: str = ..., arguments: str = "", cwd: StrOrBytesPath | None = None, show_cmd: int = 1
+    ) -> None: ...
 
 else:
     if sys.version_info >= (3, 14):
@@ -1503,8 +1492,7 @@ else:
     if sys.platform != "darwin" or sys.version_info >= (3, 13):
         @final
         class waitid_result(structseq[int], tuple[int, int, int, int, int]):
-            if sys.version_info >= (3, 10):
-                __match_args__: Final = ("si_pid", "si_uid", "si_signo", "si_status", "si_code")
+            __match_args__: Final = ("si_pid", "si_uid", "si_signo", "si_status", "si_code")
 
             @property
             def si_pid(self) -> int: ...
@@ -1627,8 +1615,7 @@ else:
 if sys.platform != "win32":
     @final
     class sched_param(structseq[int], tuple[int]):
-        if sys.version_info >= (3, 10):
-            __match_args__: Final = ("sched_priority",)
+        __match_args__: Final = ("sched_priority",)
 
         def __new__(cls, sched_priority: int) -> Self: ...
         @property
@@ -1719,7 +1706,7 @@ if sys.version_info >= (3, 12) and sys.platform == "win32":
     def listmounts(volume: str) -> list[str]: ...
     def listvolumes() -> list[str]: ...
 
-if sys.version_info >= (3, 10) and sys.platform == "linux":
+if sys.platform == "linux":
     EFD_CLOEXEC: Final[int]
     EFD_NONBLOCK: Final[int]
     EFD_SEMAPHORE: Final[int]

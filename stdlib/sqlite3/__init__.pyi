@@ -211,9 +211,6 @@ if sys.version_info >= (3, 11):
 if sys.version_info < (3, 12):
     from sqlite3.dbapi2 import enable_shared_cache as enable_shared_cache, version as version
 
-if sys.version_info < (3, 10):
-    from sqlite3.dbapi2 import OptimizedUnicode as OptimizedUnicode
-
 _CursorT = TypeVar("_CursorT", bound=Cursor)
 _SqliteData: TypeAlias = str | ReadableBuffer | int | float | None
 # Data that is passed through adapters can be of any type accepted by an adapter.

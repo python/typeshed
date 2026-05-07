@@ -64,22 +64,12 @@ class _DictConfigArgs(TypedDict, total=False):
 # Also accept a TypedDict type, to allow callers to use TypedDict
 # types, and for somewhat stricter type checking of dict literals.
 def dictConfig(config: _DictConfigArgs | dict[str, Any]) -> None: ...
-
-if sys.version_info >= (3, 10):
-    def fileConfig(
-        fname: StrOrBytesPath | IO[str] | RawConfigParser,
-        defaults: Mapping[str, str] | None = None,
-        disable_existing_loggers: bool = True,
-        encoding: str | None = None,
-    ) -> None: ...
-
-else:
-    def fileConfig(
-        fname: StrOrBytesPath | IO[str] | RawConfigParser,
-        defaults: Mapping[str, str] | None = None,
-        disable_existing_loggers: bool = True,
-    ) -> None: ...
-
+def fileConfig(
+    fname: StrOrBytesPath | IO[str] | RawConfigParser,
+    defaults: Mapping[str, str] | None = None,
+    disable_existing_loggers: bool = True,
+    encoding: str | None = None,
+) -> None: ...
 def valid_ident(s: str) -> Literal[True]: ...  # undocumented
 def listen(port: int = 9030, verify: Callable[[bytes], bytes | None] | None = None) -> Thread: ...
 def stopListening() -> None: ...

@@ -8,6 +8,13 @@ from typing import ClassVar, Final
 from typing_extensions import TypeAlias
 
 __all__ = [
+    "FRIDAY",
+    "MONDAY",
+    "SATURDAY",
+    "SUNDAY",
+    "THURSDAY",
+    "TUESDAY",
+    "WEDNESDAY",
     "IllegalMonthError",
     "IllegalWeekdayError",
     "setfirstweekday",
@@ -34,8 +41,6 @@ __all__ = [
     "weekheader",
 ]
 
-if sys.version_info >= (3, 10):
-    __all__ += ["FRIDAY", "MONDAY", "SATURDAY", "SUNDAY", "THURSDAY", "TUESDAY", "WEDNESDAY"]
 if sys.version_info >= (3, 12):
     __all__ += [
         "Day",

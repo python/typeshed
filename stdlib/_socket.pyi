@@ -195,7 +195,7 @@ if sys.platform != "win32" and sys.platform != "darwin" and sys.platform != "lin
 if sys.platform == "linux":
     # Availability: Linux >= 2.6.20, FreeBSD >= 10.1
     IPPROTO_UDPLITE: Final[int]
-if sys.version_info >= (3, 10) and sys.platform == "linux":
+if sys.platform == "linux":
     IPPROTO_MPTCP: Final[int]
 
 IPPORT_RESERVED: Final[int]
@@ -218,8 +218,7 @@ IP_MULTICAST_TTL: Final[int]
 IP_OPTIONS: Final[int]
 if sys.platform != "linux":
     IP_RECVDSTADDR: Final[int]
-if sys.version_info >= (3, 10):
-    IP_RECVTOS: Final[int]
+IP_RECVTOS: Final[int]
 IP_TOS: Final[int]
 IP_TTL: Final[int]
 if sys.platform != "win32":
@@ -343,7 +342,7 @@ if sys.platform != "win32":
     TCP_NOTSENT_LOWAT: Final[int]
 if sys.platform != "darwin":
     TCP_KEEPIDLE: Final[int]
-if sys.version_info >= (3, 10) and sys.platform == "darwin":
+if sys.platform == "darwin":
     TCP_KEEPALIVE: Final[int]
 if sys.version_info >= (3, 11) and sys.platform == "darwin":
     TCP_CONNECTION_INFO: Final[int]

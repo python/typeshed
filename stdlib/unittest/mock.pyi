@@ -244,35 +244,20 @@ class _patch(Generic[_T]):
     additional_patchers: Any
     # If new==DEFAULT, self is _patch[Any]. Ideally we'd be able to add an overload for it so that self is _patch[MagicMock],
     # but that's impossible with the current type system.
-    if sys.version_info >= (3, 10):
-        def __init__(
-            self: _patch[_T],  # pyright: ignore[reportInvalidTypeVarUse]  #11780
-            getter: Callable[[], Any],
-            attribute: str,
-            new: _T,
-            spec: Any | None,
-            create: bool,
-            spec_set: Any | None,
-            autospec: Any | None,
-            new_callable: Any | None,
-            kwargs: Mapping[str, Any],
-            *,
-            unsafe: bool = False,
-        ) -> None: ...
-    else:
-        def __init__(
-            self: _patch[_T],  # pyright: ignore[reportInvalidTypeVarUse]  #11780
-            getter: Callable[[], Any],
-            attribute: str,
-            new: _T,
-            spec: Any | None,
-            create: bool,
-            spec_set: Any | None,
-            autospec: Any | None,
-            new_callable: Any | None,
-            kwargs: Mapping[str, Any],
-        ) -> None: ...
-
+    def __init__(
+        self: _patch[_T],  # pyright: ignore[reportInvalidTypeVarUse]  #11780
+        getter: Callable[[], Any],
+        attribute: str,
+        new: _T,
+        spec: Any | None,
+        create: bool,
+        spec_set: Any | None,
+        autospec: Any | None,
+        new_callable: Any | None,
+        kwargs: Mapping[str, Any],
+        *,
+        unsafe: bool = False,
+    ) -> None: ...
     def copy(self) -> _patch[_T]: ...
     @overload
     def __call__(self, func: _TT) -> _TT: ...
@@ -315,13 +300,11 @@ class _patch_dict:
     clear: Any
     def __init__(self, in_dict: Any, values: Any = (), clear: Any = False, **kwargs: Any) -> None: ...
     def __call__(self, f: Any) -> Any: ...
-    if sys.version_info >= (3, 10):
-        def decorate_callable(self, f: _F) -> _F: ...
-        def decorate_async_callable(self, f: _AF) -> _AF: ...
-
-    def decorate_class(self, klass: Any) -> Any: ...
     def __enter__(self) -> Any: ...
     def __exit__(self, *args: object) -> Any: ...
+    def decorate_callable(self, f: _F) -> _F: ...
+    def decorate_async_callable(self, f: _AF) -> _AF: ...
+    def decorate_class(self, klass: Any) -> Any: ...
     start: Any
     stop: Any
 
@@ -517,27 +500,16 @@ class _ANY(Any):
 
 ANY: _ANY
 
-if sys.version_info >= (3, 10):
-    def create_autospec(
-        spec: Any,
-        spec_set: Any = False,
-        instance: Any = False,
-        _parent: Any | None = None,
-        _name: Any | None = None,
-        *,
-        unsafe: bool = False,
-        **kwargs: Any,
-    ) -> Any: ...
-
-else:
-    def create_autospec(
-        spec: Any,
-        spec_set: Any = False,
-        instance: Any = False,
-        _parent: Any | None = None,
-        _name: Any | None = None,
-        **kwargs: Any,
-    ) -> Any: ...
+def create_autospec(
+    spec: Any,
+    spec_set: Any = False,
+    instance: Any = False,
+    _parent: Any | None = None,
+    _name: Any | None = None,
+    *,
+    unsafe: bool = False,
+    **kwargs: Any,
+) -> Any: ...
 
 class _SpecState:
     spec: Any

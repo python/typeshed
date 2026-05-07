@@ -15,8 +15,7 @@ ALLOCATIONGRANULARITY: Final[int]
 if sys.platform == "linux":
     MAP_DENYWRITE: Final[int]
     MAP_EXECUTABLE: Final[int]
-    if sys.version_info >= (3, 10):
-        MAP_POPULATE: Final[int]
+    MAP_POPULATE: Final[int]
 if sys.version_info >= (3, 11) and sys.platform != "win32" and sys.platform != "darwin":
     MAP_STACK: Final[int]
 
@@ -129,7 +128,7 @@ if sys.platform != "linux" and sys.platform != "darwin" and sys.platform != "win
     MADV_CORE: Final[int]
     MADV_PROTECT: Final[int]
 
-if sys.version_info >= (3, 10) and sys.platform == "darwin":
+if sys.platform == "darwin":
     MADV_FREE_REUSABLE: Final[int]
     MADV_FREE_REUSE: Final[int]
 

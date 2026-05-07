@@ -19,6 +19,7 @@ else:
 
 __all__ = [
     "Package",
+    "ResourceReader",
     "as_file",
     "contents",
     "files",
@@ -29,9 +30,6 @@ __all__ = [
     "read_binary",
     "read_text",
 ]
-
-if sys.version_info >= (3, 10):
-    __all__ += ["ResourceReader"]
 
 if sys.version_info < (3, 13):
     __all__ += ["Resource"]
@@ -82,5 +80,5 @@ else:
 
 if sys.version_info >= (3, 11):
     from importlib.resources.abc import ResourceReader as ResourceReader
-elif sys.version_info >= (3, 10):
+else:
     from importlib.abc import ResourceReader as ResourceReader

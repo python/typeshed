@@ -47,8 +47,7 @@ if sys.platform == "linux":
 # https://github.com/python/typeshed/pull/6560#discussion_r767162532
 @final
 class struct_time(structseq[Any | int], _TimeTuple):
-    if sys.version_info >= (3, 10):
-        __match_args__: Final = ("tm_year", "tm_mon", "tm_mday", "tm_hour", "tm_min", "tm_sec", "tm_wday", "tm_yday", "tm_isdst")
+    __match_args__: Final = ("tm_year", "tm_mon", "tm_mday", "tm_hour", "tm_min", "tm_sec", "tm_wday", "tm_yday", "tm_isdst")
 
     @property
     def tm_year(self) -> int: ...

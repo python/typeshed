@@ -467,7 +467,7 @@ class AbstractEventLoop:
             ssl_handshake_timeout: float | None = None,
             ssl_shutdown_timeout: float | None = None,
         ) -> tuple[Transport, _ProtocolT]: ...
-    elif sys.version_info >= (3, 10):
+    else:
         async def connect_accepted_socket(
             self,
             protocol_factory: Callable[[], _ProtocolT],
