@@ -4,7 +4,7 @@ from _typeshed.importlib import MetaPathFinderProtocol, PathEntryFinderProtocol
 from builtins import object as _object
 from collections.abc import AsyncGenerator, Callable, Sequence
 from io import TextIOWrapper
-from types import FrameType, ModuleType, TracebackType
+from types import FrameType, ModuleType, SimpleNamespace, TracebackType
 from typing import Any, Final, Literal, NoReturn, Protocol, TextIO, TypeVar, final, overload, type_check_only
 from typing_extensions import LiteralString, TypeAlias, deprecated
 
@@ -19,7 +19,7 @@ _ExitCode: TypeAlias = str | int | None
 if sys.platform != "win32":
     abiflags: str
 if sys.version_info >= (3, 15):
-    abi_info: _abi_info
+    abi_info: SimpleNamespace
 argv: list[str]
 base_exec_prefix: str
 base_prefix: str
@@ -44,6 +44,8 @@ maxsize: int
 maxunicode: int
 meta_path: list[MetaPathFinderProtocol]
 modules: dict[str, ModuleType]
+if sys.version_info >= (3, 15):
+    lazy_modules: dict[str, set[str]]
 if sys.version_info >= (3, 10):
     orig_argv: list[str]
 path: list[str]
@@ -326,21 +328,6 @@ class _thread_info(_UninstantiableStructseq, tuple[_ThreadInfoName, _ThreadInfoL
 thread_info: _thread_info
 _ReleaseLevel: TypeAlias = Literal["alpha", "beta", "candidate", "final"]
 
-if sys.version_info >= (3, 15):
-    @final
-    @type_check_only
-    class _abi_info(_UninstantiableStructseq, tuple[int, bool, bool, Literal["little", "big"]]):
-        __match_args__: Final = ("pointer_bits", "free_threaded", "debug", "byteorder")
-
-        @property
-        def pointer_bits(self) -> int: ...
-        @property
-        def free_threaded(self) -> bool: ...
-        @property
-        def debug(self) -> bool: ...
-        @property
-        def byteorder(self) -> Literal["little", "big"]: ...
-
 # This class is not exposed at runtime. It calls itself sys.version_info.
 @final
 @type_check_only
@@ -521,8 +508,8 @@ def set_int_max_str_digits(maxdigits: int) -> None: ...
 def get_int_max_str_digits() -> int: ...
 
 if sys.version_info >= (3, 15):
-    def set_lazy_imports(mode: _LazyImportMode, /) -> None: ...
-    def set_lazy_imports_filter(filter: _LazyImportFilter | None, /) -> None: ...
+    def set_lazy_imports(mode: _LazyImportMode) -> None: ...
+    def set_lazy_imports_filter(filter: _LazyImportFilter | None) -> None: ...
 
 if sys.version_info >= (3, 12):
     if sys.version_info >= (3, 13):

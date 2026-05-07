@@ -41,8 +41,9 @@ if sys.version_info >= (3, 11):
         "new",
         "algorithms_guaranteed",
         "algorithms_available",
-        "pbkdf2_hmac",
         "file_digest",
+        "pbkdf2_hmac",
+        "scrypt",
     )
 else:
     __all__ = (

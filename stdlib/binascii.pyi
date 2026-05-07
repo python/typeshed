@@ -1,5 +1,5 @@
 import sys
-from _typeshed import ReadableBuffer
+from _typeshed import Incomplete as _Incomplete, ReadableBuffer
 from typing_extensions import TypeAlias, deprecated
 
 # Many functions in binascii accept buffer objects
@@ -10,6 +10,10 @@ def a2b_uu(data: _AsciiBuffer, /) -> bytes: ...
 def b2a_uu(data: ReadableBuffer, /, *, backtick: bool = False) -> bytes: ...
 
 if sys.version_info >= (3, 15):
+    ASCII85_ALPHABET: bytes
+    BINHEX_ALPHABET: bytes
+    CRYPT_ALPHABET: bytes
+    UU_ALPHABET: bytes
     BASE64_ALPHABET: bytes
     URLSAFE_BASE64_ALPHABET: bytes
     BASE32_ALPHABET: bytes
@@ -21,19 +25,13 @@ if sys.version_info >= (3, 15):
         /,
         *,
         strict_mode: bool = False,
-        alphabet: ReadableBuffer | None = None,
+        alphabet: ReadableBuffer = ...,
         padded: bool = True,
-        ignorechars: ReadableBuffer = b"",
+        ignorechars: ReadableBuffer | _Incomplete = ...,
         canonical: bool = False,
     ) -> bytes: ...
     def b2a_base64(
-        data: ReadableBuffer,
-        /,
-        *,
-        newline: bool = True,
-        alphabet: ReadableBuffer | None = None,
-        padded: bool = True,
-        wrapcol: int = 0,
+        data: ReadableBuffer, /, *, newline: bool = True, alphabet: ReadableBuffer = ..., padded: bool = True, wrapcol: int = 0
     ) -> bytes: ...
     def b2a_base32(
         data: ReadableBuffer, /, *, alphabet: ReadableBuffer = ..., padded: bool = True, wrapcol: int = 0
@@ -56,7 +54,7 @@ if sys.version_info >= (3, 15):
         *,
         foldspaces: bool = False,
         adobe: bool = False,
-        ignorechars: ReadableBuffer = b" \t\n\r\x0b",
+        ignorechars: ReadableBuffer = b"",
         canonical: bool = False,
     ) -> bytes: ...
     def b2a_base85(data: ReadableBuffer, /, *, alphabet: ReadableBuffer = ..., pad: bool = False, wrapcol: int = 0) -> bytes: ...

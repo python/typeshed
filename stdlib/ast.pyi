@@ -734,13 +734,19 @@ class Import(stmt):
         __match_args__ = ("names",)
     names: list[alias]
     if sys.version_info >= (3, 15):
-        is_lazy: bool
-    if sys.version_info >= (3, 13):
+        is_lazy: bool | None
+    if sys.version_info >= (3, 15):
+        def __init__(self, names: list[alias] = ..., is_lazy: bool | None = None, **kwargs: Unpack[_Attributes]) -> None: ...
+
+    elif sys.version_info >= (3, 13):
         def __init__(self, names: list[alias] = ..., **kwargs: Unpack[_Attributes]) -> None: ...
     else:
         def __init__(self, names: list[alias], **kwargs: Unpack[_Attributes]) -> None: ...
 
-    if sys.version_info >= (3, 14):
+    if sys.version_info >= (3, 15):
+        def __replace__(self, *, names: list[alias] = ..., is_lazy: bool | None = ..., **kwargs: Unpack[_Attributes]) -> Self: ...
+
+    elif sys.version_info >= (3, 14):
         def __replace__(self, *, names: list[alias] = ..., **kwargs: Unpack[_Attributes]) -> Self: ...
 
 class ImportFrom(stmt):
@@ -752,8 +758,24 @@ class ImportFrom(stmt):
     names: list[alias]
     level: int
     if sys.version_info >= (3, 15):
-        is_lazy: bool
-    if sys.version_info >= (3, 13):
+        is_lazy: bool | None
+    if sys.version_info >= (3, 15):
+        @overload
+        def __init__(
+            self, module: str | None, names: list[alias], level: int, is_lazy: bool | None = None, **kwargs: Unpack[_Attributes]
+        ) -> None: ...
+        @overload
+        def __init__(
+            self,
+            module: str | None = None,
+            names: list[alias] = ...,
+            *,
+            level: int,
+            is_lazy: bool | None = None,
+            **kwargs: Unpack[_Attributes],
+        ) -> None: ...
+
+    elif sys.version_info >= (3, 13):
         @overload
         def __init__(self, module: str | None, names: list[alias], level: int, **kwargs: Unpack[_Attributes]) -> None: ...
         @overload
@@ -768,7 +790,18 @@ class ImportFrom(stmt):
             self, module: str | None = None, *, names: list[alias], level: int, **kwargs: Unpack[_Attributes]
         ) -> None: ...
 
-    if sys.version_info >= (3, 14):
+    if sys.version_info >= (3, 15):
+        def __replace__(
+            self,
+            *,
+            module: str | None = ...,
+            names: list[alias] = ...,
+            level: int = ...,
+            is_lazy: bool | None = ...,
+            **kwargs: Unpack[_Attributes],
+        ) -> Self: ...
+
+    elif sys.version_info >= (3, 14):
         def __replace__(
             self, *, module: str | None = ..., names: list[alias] = ..., level: int = ..., **kwargs: Unpack[_Attributes]
         ) -> Self: ...

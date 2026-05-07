@@ -1,5 +1,5 @@
 import sys
-from _typeshed import ReadableBuffer
+from _typeshed import Incomplete as _Incomplete, ReadableBuffer
 from typing import IO
 
 __all__ = [
@@ -35,10 +35,10 @@ if sys.version_info >= (3, 15):
     def b64decode(
         s: str | ReadableBuffer,
         altchars: str | ReadableBuffer | None = None,
-        validate: bool = False,
+        validate: bool | _Incomplete = ...,
         *,
         padded: bool = True,
-        ignorechars: ReadableBuffer = b"",
+        ignorechars: ReadableBuffer | _Incomplete = ...,
         canonical: bool = False,
     ) -> bytes: ...
 

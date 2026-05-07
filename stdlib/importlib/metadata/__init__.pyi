@@ -32,6 +32,8 @@ __all__ = [
 
 if sys.version_info >= (3, 10):
     __all__ += ["PackageMetadata", "packages_distributions"]
+if sys.version_info >= (3, 15):
+    __all__ += ["PackagePath", "MetadataNotFound", "SimplePath"]
 
 if sys.version_info >= (3, 10):
     from importlib.metadata._meta import PackageMetadata as PackageMetadata, SimplePath
@@ -45,6 +47,9 @@ else:
 class PackageNotFoundError(ModuleNotFoundError):
     @property
     def name(self) -> str: ...  # type: ignore[override]
+
+if sys.version_info >= (3, 15):
+    class MetadataNotFound(FileNotFoundError): ...
 
 if sys.version_info >= (3, 13):
     _EntryPointBase = object
@@ -212,11 +217,13 @@ class FileHash:
     value: str
     def __init__(self, spec: str) -> None: ...
 
-if sys.version_info >= (3, 12):
+if sys.version_info >= (3, 15):
+    _distribution_parent = abc.ABC
+elif sys.version_info >= (3, 12):
     class DeprecatedNonAbstract: ...
     _distribution_parent = DeprecatedNonAbstract
 else:
-    _distribution_parent = object
+    _distribution_parent = abc.ABC
 
 class Distribution(_distribution_parent):
     @abc.abstractmethod
