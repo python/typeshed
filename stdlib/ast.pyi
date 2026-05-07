@@ -728,9 +728,13 @@ class Assert(stmt):
         def __replace__(self, *, test: expr = ..., msg: expr | None = ..., **kwargs: Unpack[_Attributes]) -> Self: ...
 
 class Import(stmt):
-    if sys.version_info >= (3, 10):
+    if sys.version_info >= (3, 15):
+        __match_args__ = ("names", "is_lazy")
+    elif sys.version_info >= (3, 10):
         __match_args__ = ("names",)
     names: list[alias]
+    if sys.version_info >= (3, 15):
+        is_lazy: bool
     if sys.version_info >= (3, 13):
         def __init__(self, names: list[alias] = ..., **kwargs: Unpack[_Attributes]) -> None: ...
     else:
@@ -740,11 +744,15 @@ class Import(stmt):
         def __replace__(self, *, names: list[alias] = ..., **kwargs: Unpack[_Attributes]) -> Self: ...
 
 class ImportFrom(stmt):
-    if sys.version_info >= (3, 10):
+    if sys.version_info >= (3, 15):
+        __match_args__ = ("module", "names", "level", "is_lazy")
+    elif sys.version_info >= (3, 10):
         __match_args__ = ("module", "names", "level")
     module: str | None
     names: list[alias]
     level: int
+    if sys.version_info >= (3, 15):
+        is_lazy: bool
     if sys.version_info >= (3, 13):
         @overload
         def __init__(self, module: str | None, names: list[alias], level: int, **kwargs: Unpack[_Attributes]) -> None: ...
@@ -942,7 +950,10 @@ class DictComp(expr):
     if sys.version_info >= (3, 10):
         __match_args__ = ("key", "value", "generators")
     key: expr
-    value: expr
+    if sys.version_info >= (3, 15):
+        value: expr | None
+    else:
+        value: expr
     generators: list[comprehension]
     if sys.version_info >= (3, 13):
         def __init__(

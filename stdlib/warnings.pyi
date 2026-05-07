@@ -56,16 +56,32 @@ class WarningMessage:
     file: TextIO | None
     line: str | None
     source: Any | None
-    def __init__(
-        self,
-        message: Warning | str,
-        category: type[Warning],
-        filename: str,
-        lineno: int,
-        file: TextIO | None = None,
-        line: str | None = None,
-        source: Any | None = None,
-    ) -> None: ...
+    if sys.version_info >= (3, 15):
+        module: str | None
+    if sys.version_info >= (3, 15):
+        def __init__(
+            self,
+            message: Warning | str,
+            category: type[Warning],
+            filename: str,
+            lineno: int,
+            file: TextIO | None = None,
+            line: str | None = None,
+            source: Any | None = None,
+            module: str | None = None,
+        ) -> None: ...
+
+    else:
+        def __init__(
+            self,
+            message: Warning | str,
+            category: type[Warning],
+            filename: str,
+            lineno: int,
+            file: TextIO | None = None,
+            line: str | None = None,
+            source: Any | None = None,
+        ) -> None: ...
 
 class catch_warnings(Generic[_W_co]):
     if sys.version_info >= (3, 11):

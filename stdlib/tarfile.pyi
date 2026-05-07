@@ -150,6 +150,7 @@ class TarFile:
             errorlevel: Literal[0, 1, 2] | None = None,  # default 1
             copybufsize: int | None = None,  # undocumented
             stream: bool = False,
+            mtime: float | None = None,
         ) -> None: ...
     else:
         def __init__(

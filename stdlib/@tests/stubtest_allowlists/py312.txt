@@ -213,3 +213,16 @@ typing\.Annotated  # Super-special typing primitive
 # These methods have no default implementation for Python < 3.13.
 _pickle.Pickler.persistent_id
 _pickle.Unpickler.persistent_load
+ntpath.join
+posixpath.join
+tkinter.simpledialog.[A-Z_]+
+tkinter.simpledialog.TclVersion
+tkinter.simpledialog.TkVersion
+typing(_extensions)?\.BinaryIO\.write
+typing(_extensions)?\.IO\.read
+typing(_extensions)?\.IO\.readline
+typing(_extensions)?\.IO\.readlines
+typing(_extensions)?\.IO\.seek
+typing(_extensions)?\.IO\.truncate
+typing(_extensions)?\.IO\.write
+typing(_extensions)?\.IO\.writelines
