@@ -175,7 +175,7 @@ def run_testcases(
     else:
         configurations = mypy_configuration_from_distribution(package.name)
 
-    with temporary_mypy_config_file(configurations) as temp:
+    with temporary_mypy_config_file(configurations) as temp_config, tempfile.TemporaryDirectory() as temp_cache_dir:
 
         # "--enable-error-code ignore-without-code" is purposefully omitted.
         # See https://github.com/python/typeshed/pull/8083
@@ -189,10 +189,14 @@ def run_testcases(
             "--strict",
             "--pretty",
             "--config-file",
-            temp.name,
+            temp_config.name,
             # Avoid race conditions when reading the cache
             # (https://github.com/python/typeshed/issues/11220)
             "--no-incremental",
+            # Avoid race conditions even harder
+            # https://github.com/python/mypy/issues/13916
+            "--cache-dir",
+            temp_cache_dir,
             # Not useful for the test cases
             "--disable-error-code=empty-body",
         ]
