@@ -7,7 +7,6 @@ from typing import (  # noqa: Y022,Y038,UP035,Y057
     AsyncIterable as AsyncIterable,
     AsyncIterator as AsyncIterator,
     Awaitable as Awaitable,
-    ByteString as ByteString,
     Callable as Callable,
     ClassVar,
     Collection as Collection,
@@ -60,8 +59,11 @@ __all__ = [
     "ValuesView",
     "Sequence",
     "MutableSequence",
-    "ByteString",
 ]
+if sys.version_info < (3, 15):
+    from typing import ByteString as ByteString  # noqa: Y022,Y038,UP035,Y057,RUF100
+
+    __all__ += ["ByteString"]
 if sys.version_info >= (3, 12):
     __all__ += ["Buffer"]
 

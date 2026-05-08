@@ -2,7 +2,6 @@
 # TODO: Allowlist entries that should be fixed
 # ============================================
 
-_collections_abc.__all__
 _frozen_importlib.BuiltinImporter.load_module
 _frozen_importlib.FrozenImporter.load_module
 _frozen_importlib_external.FileFinder.discover
@@ -143,7 +142,6 @@ codecs.strict_errors
 codecs.xmlcharrefreplace_errors
 collections.Counter.__ixor__
 collections.Counter.__xor__
-collections.abc.__all__
 concurrent.interpreters._crossinterp.UNBOUND_ERROR
 concurrent.interpreters._crossinterp.UNBOUND_REMOVE
 concurrent.interpreters._crossinterp.UnboundItem.singleton
@@ -391,25 +389,15 @@ types.UnionType.__qualname__
 types.__all__
 typing.LiteralString
 typing.NewType.__mro_entries__
-typing.NoExtraItems
 typing.ParamSpec.__mro_entries__
 typing.ParamSpecArgs.__mro_entries__
 typing.ParamSpecKwargs.__mro_entries__
 typing.SupportsAbs.__type_params__
 typing.SupportsRound.__type_params__
-typing.TypeAliasType.__qualname__
-typing.TypeForm
 typing.TypeVar.__mro_entries__
-typing.TypeVarTuple.__bound__
-typing.TypeVarTuple.__contravariant__
-typing.TypeVarTuple.__covariant__
-typing.TypeVarTuple.__infer_variance__
 typing.TypeVarTuple.__mro_entries__
 typing.Union
 typing._SpecialForm.__mro_entries__
-typing.__all__
-typing.disjoint_base
-typing.no_type_check_decorator
 typing_extensions.Protocol
 unicodedata.block
 unicodedata.extended_pictographic
