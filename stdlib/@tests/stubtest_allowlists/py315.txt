@@ -398,6 +398,7 @@ typing.TypeVar.__mro_entries__
 typing.TypeVarTuple.__mro_entries__
 typing.Union
 typing._SpecialForm.__mro_entries__
+typing_extensions.__all__
 typing_extensions.Protocol
 unicodedata.block
 unicodedata.extended_pictographic
