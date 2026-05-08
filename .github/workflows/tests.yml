@@ -71,14 +71,12 @@ jobs:
       - uses: actions/checkout@v6
       - uses: actions/setup-python@v6
         with:
-          python-version: "3.15"
-          allow-prereleases: true
-          check-latest: true
+          python-version: "3.14"
       - uses: astral-sh/setup-uv@v7
         with:
           version-file: "requirements-tests.txt"
       - run: uv pip install -r requirements-tests.txt --system
-      - run: python ./tests/regr_test.py --all --verbosity QUIET --max-workers=8
+      - run: python ./tests/regr_test.py --all --verbosity QUIET
 
   pyright:
     name: "pyright: Run test cases"

@@ -107,13 +107,6 @@ parser.add_argument(
         "Note that this cannot be specified if --all is also specified."
     ),
 )
-parser.add_argument(
-    "-j",
-    "--max-workers",
-    type=int,
-    default=os.cpu_count(),
-    help="Maximum number of packages or mypy subprocesses to run concurrently",
-)
 
 _PRINT_QUEUE: queue.SimpleQueue[str] = queue.SimpleQueue()
 
@@ -305,7 +298,6 @@ def concurrently_run_testcases(
     verbosity: Verbosity,
     platforms_to_test: list[str],
     versions_to_test: list[str],
-    max_workers: int | None,
 ) -> list[Result]:
     packageinfo_to_tempdir = {
         distribution_info: Path(stack.enter_context(tempfile.TemporaryDirectory())) for distribution_info in testcase_directories
@@ -356,7 +348,7 @@ def concurrently_run_testcases(
     printer_thread = threading.Thread(target=print_queued_messages, args=(event,))
     printer_thread.start()
 
-    with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=os.cpu_count()) as executor:
         # Each temporary directory may be used by multiple processes concurrently during the next step;
         # must make sure that they're all setup correctly before starting the next step,
         # in order to avoid race conditions
@@ -381,8 +373,6 @@ def concurrently_run_testcases(
 
 def main() -> ReturnCode:
     args = parser.parse_args()
-    if args.max_workers is not None and args.max_workers < 1:
-        parser.error("--max-workers must be a positive integer")
 
     testcase_directories = args.packages_to_test or get_all_testcase_directories()
     verbosity = Verbosity[args.verbosity]
@@ -399,9 +389,7 @@ def main() -> ReturnCode:
     results: list[Result] | None = None
 
     with ExitStack() as stack:
-        results = concurrently_run_testcases(
-            stack, testcase_directories, verbosity, platforms_to_test, versions_to_test, args.max_workers
-        )
+        results = concurrently_run_testcases(stack, testcase_directories, verbosity, platforms_to_test, versions_to_test)
 
     assert results is not None
     if not results:
