@@ -712,7 +712,7 @@ class Assert(stmt):
 class Import(stmt):
     if sys.version_info >= (3, 15):
         __match_args__ = ("names", "is_lazy")
-    elif sys.version_info >= (3, 10):
+    else:
         __match_args__ = ("names",)
     names: list[alias]
     if sys.version_info >= (3, 15):
@@ -734,7 +734,7 @@ class Import(stmt):
 class ImportFrom(stmt):
     if sys.version_info >= (3, 15):
         __match_args__ = ("module", "names", "level", "is_lazy")
-    elif sys.version_info >= (3, 10):
+    else:
         __match_args__ = ("module", "names", "level")
     module: str | None
     names: list[alias]

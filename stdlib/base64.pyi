@@ -73,20 +73,20 @@ else:
     def b16encode(s: ReadableBuffer) -> bytes: ...
     def b16decode(s: str | ReadableBuffer, casefold: bool = False) -> bytes: ...
 
-if sys.version_info >= (3, 10):
-    if sys.version_info >= (3, 15):
-        def b32hexencode(s: ReadableBuffer, *, padded: bool = True, wrapcol: int = 0) -> bytes: ...
-        def b32hexdecode(
-            s: str | ReadableBuffer,
-            casefold: bool = False,
-            *,
-            padded: bool = True,
-            ignorechars: ReadableBuffer = b"",
-            canonical: bool = False,
-        ) -> bytes: ...
-    else:
-        def b32hexencode(s: ReadableBuffer) -> bytes: ...
-        def b32hexdecode(s: str | ReadableBuffer, casefold: bool = False) -> bytes: ...
+if sys.version_info >= (3, 15):
+    def b32hexencode(s: ReadableBuffer, *, padded: bool = True, wrapcol: int = 0) -> bytes: ...
+    def b32hexdecode(
+        s: str | ReadableBuffer,
+        casefold: bool = False,
+        *,
+        padded: bool = True,
+        ignorechars: ReadableBuffer = b"",
+        canonical: bool = False,
+    ) -> bytes: ...
+
+else:
+    def b32hexencode(s: ReadableBuffer) -> bytes: ...
+    def b32hexdecode(s: str | ReadableBuffer, casefold: bool = False) -> bytes: ...
 
 def a85encode(
     b: ReadableBuffer, *, foldspaces: bool = False, wrapcol: int = 0, pad: bool = False, adobe: bool = False
