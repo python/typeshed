@@ -1,5 +1,5 @@
 import sys
-from _typeshed import Incomplete as _Incomplete, ReadableBuffer
+from _typeshed import ReadableBuffer
 from typing_extensions import TypeAlias, deprecated
 
 # Many functions in binascii accept buffer objects
@@ -27,7 +27,7 @@ if sys.version_info >= (3, 15):
         strict_mode: bool = False,
         alphabet: ReadableBuffer = ...,
         padded: bool = True,
-        ignorechars: ReadableBuffer | _Incomplete = ...,
+        ignorechars: ReadableBuffer = ...,
         canonical: bool = False,
     ) -> bytes: ...
     def b2a_base64(
