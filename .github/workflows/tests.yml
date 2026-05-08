@@ -42,7 +42,7 @@ jobs:
     strategy:
       matrix:
         platform: ["linux", "win32", "darwin"]
-        python-version: ["3.10", "3.11", "3.12", "3.13", "3.14"]
+        python-version: ["3.10", "3.11", "3.12", "3.13", "3.14", "3.15"]
       fail-fast: false
     steps:
       - uses: actions/checkout@v6
@@ -71,7 +71,9 @@ jobs:
       - uses: actions/checkout@v6
       - uses: actions/setup-python@v6
         with:
-          python-version: "3.14"
+          python-version: "3.15"
+          allow-prereleases: true
+          check-latest: true
       - uses: astral-sh/setup-uv@v7
         with:
           version-file: "requirements-tests.txt"
@@ -83,6 +85,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
+        # TODO: Add 3.15 once pyright CI can avoid installing third-party
+        # runtime dependency stacks that do not support Python 3.15 yet.
         python-platform: ["Linux", "Windows", "Darwin"]
         python-version: ["3.11", "3.12", "3.13", "3.14"]
       fail-fast: false

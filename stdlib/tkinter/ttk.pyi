@@ -1341,17 +1341,31 @@ class LabeledScale(Frame):
     value: Any
 
 class OptionMenu(Menubutton):
-    def __init__(
-        self,
-        master: tkinter.Misc | None,
-        variable: tkinter.StringVar,
-        default: str | None = None,
-        *values: str,
-        # rest of these are keyword-only because *args syntax used above
-        style: str = "",
-        direction: Literal["above", "below", "left", "right", "flush"] = "below",
-        command: Callable[[tkinter.StringVar], object] | None = None,
-    ) -> None: ...
+    if sys.version_info >= (3, 14):
+        def __init__(
+            self,
+            master: tkinter.Misc | None,
+            variable: tkinter.StringVar,
+            default: str | None = None,
+            *values: str,
+            # rest of these are keyword-only because *args syntax used above
+            style: str = "",
+            direction: Literal["above", "below", "left", "right", "flush"] = "below",
+            command: Callable[[tkinter.StringVar], object] | None = None,
+            name: str | None = None,
+        ) -> None: ...
+    else:
+        def __init__(
+            self,
+            master: tkinter.Misc | None,
+            variable: tkinter.StringVar,
+            default: str | None = None,
+            *values: str,
+            # rest of these are keyword-only because *args syntax used above
+            style: str = "",
+            direction: Literal["above", "below", "left", "right", "flush"] = "below",
+            command: Callable[[tkinter.StringVar], object] | None = None,
+        ) -> None: ...
     # configure, config, cget, destroy are inherited from Menubutton
     # destroy and __setitem__ are overridden, signature does not change
     def set_menu(self, default: str | None = None, *values: str) -> None: ...

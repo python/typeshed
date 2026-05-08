@@ -24,6 +24,7 @@ from typing import TypeAlias
 from ts_utils.metadata import get_recursive_requirements, read_metadata
 from ts_utils.mypy import mypy_configuration_from_distribution, temporary_mypy_config_file
 from ts_utils.paths import STDLIB_PATH, TEST_CASES_DIR, TS_BASE_PATH, distribution_path
+from ts_utils.py315 import PY315_INCOMPATIBLE_RUNTIME_DEPENDENCIES
 from ts_utils.utils import (
     PYTHON_VERSION,
     DistributionTests,
@@ -41,7 +42,7 @@ VENV_DIR = ".venv"
 TYPESHED = "typeshed"
 
 SUPPORTED_PLATFORMS = ["linux", "darwin", "win32"]
-SUPPORTED_VERSIONS = ["3.14", "3.13", "3.12", "3.11", "3.10"]
+SUPPORTED_VERSIONS = ["3.15", "3.14", "3.13", "3.12", "3.11", "3.10"]
 
 
 def distribution_with_test_cases(distribution_name: str) -> DistributionTests:
@@ -175,7 +176,7 @@ def run_testcases(
     else:
         configurations = mypy_configuration_from_distribution(package.name)
 
-    with temporary_mypy_config_file(configurations) as temp_config, tempfile.TemporaryDirectory() as temp_cache_dir:
+    with temporary_mypy_config_file(configurations) as temp_config:
 
         # "--enable-error-code ignore-without-code" is purposefully omitted.
         # See https://github.com/python/typeshed/pull/8083
@@ -192,8 +193,9 @@ def run_testcases(
             temp_config.name,
             # Avoid race conditions when using the cache
             # https://github.com/python/mypy/issues/13916
+            "--no-incremental",
             "--cache-dir",
-            temp_cache_dir,
+            str(tempdir / ".mypy_cache" / version / platform),
             # Not useful for the test cases
             "--disable-error-code=empty-body",
         ]
@@ -305,6 +307,10 @@ def concurrently_run_testcases(
         pkg = testcase_dir.name
         requires_python = None
         if not testcase_dir.is_stdlib:
+            if PYTHON_VERSION == "3.15" and pkg in PY315_INCOMPATIBLE_RUNTIME_DEPENDENCIES:
+                msg = f"skipping {pkg!r} test cases (runtime dependencies do not support 3.15 yet)"
+                print(colored(msg, "yellow"))
+                continue
             requires_python = read_metadata(pkg).requires_python
             if not requires_python.contains(PYTHON_VERSION):
                 msg = f"skipping {pkg!r} (requires Python {requires_python}; test is being run using Python {PYTHON_VERSION})"
