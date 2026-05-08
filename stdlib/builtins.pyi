@@ -37,11 +37,12 @@ from types import CellType, CodeType, EllipsisType, GenericAlias, NotImplemented
 
 # mypy crashes if any of {ByteString, Sequence, MutableSequence, Mapping, MutableMapping}
 # are imported from collections.abc in builtins.pyi
-from typing import (  # noqa: Y022,UP035,RUF100
+from typing import (  # noqa: Y022,UP035
     IO,
     Any,
     BinaryIO,
     ClassVar,
+    Concatenate,
     Final,
     Generic,
     Mapping,
@@ -64,16 +65,7 @@ from typing import (  # noqa: Y022,UP035,RUF100
 )
 
 # we can't import `Literal` from typing or mypy crashes: see #11247
-from typing_extensions import (  # noqa: Y023
-    Concatenate,
-    Literal,
-    LiteralString,
-    Self,
-    TypeIs,
-    TypeVarTuple,
-    deprecated,
-    disjoint_base,
-)
+from typing_extensions import Literal, LiteralString, Self, TypeIs, TypeVarTuple, deprecated, disjoint_base  # noqa: Y023, UP035
 
 if sys.version_info >= (3, 14):
     from _typeshed import AnnotateFunc
