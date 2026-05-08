@@ -425,7 +425,7 @@ if sys.version_info < (3, 15):
     if sys.version_info >= (3, 13):
         @deprecated("Deprecated since Python 3.13; removed in Python 3.15.")
         def no_type_check_decorator(decorator: Callable[_P, _T]) -> Callable[_P, _T]: ...
-    
+
     else:
         def no_type_check_decorator(decorator: Callable[_P, _T]) -> Callable[_P, _T]: ...
 
