@@ -45,6 +45,8 @@ tkinter.Tk.deletefilehandler  # Methods that come from __getattr__() at runtime
 
 # These entries looks like a `setup-python` bug:
 (dbm.gnu)?
+(hashlib.__all__)?
+(mmap.mmap.resize)?
 (_?locale.bind_textdomain_codeset)?
 (_?locale.bindtextdomain)?
 (_?locale.dcgettext)?
