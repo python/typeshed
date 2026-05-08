@@ -132,6 +132,7 @@ importlib.metadata.DeprecatedNonAbstract.__new__
 importlib.resources._common.files
 
 sys._monitoring  # Doesn't really exist. See comments in the stub.
+sys.__jit        # Similar to sys._monitoring
 sys.last_exc  # not always defined
 
 # These only exist to give a better error message if you try to subclass an instance

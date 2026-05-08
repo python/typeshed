@@ -13,6 +13,8 @@ __all__ = [
     "b32decode",
     "b16encode",
     "b16decode",
+    "b32hexencode",
+    "b32hexdecode",
     "b85encode",
     "b85decode",
     "a85encode",
@@ -23,8 +25,6 @@ __all__ = [
     "urlsafe_b64decode",
 ]
 
-if sys.version_info >= (3, 10):
-    __all__ += ["b32hexencode", "b32hexdecode"]
 if sys.version_info >= (3, 13):
     __all__ += ["z85decode", "z85encode"]
 
@@ -38,11 +38,8 @@ def b32encode(s: ReadableBuffer) -> bytes: ...
 def b32decode(s: str | ReadableBuffer, casefold: bool = False, map01: str | ReadableBuffer | None = None) -> bytes: ...
 def b16encode(s: ReadableBuffer) -> bytes: ...
 def b16decode(s: str | ReadableBuffer, casefold: bool = False) -> bytes: ...
-
-if sys.version_info >= (3, 10):
-    def b32hexencode(s: ReadableBuffer) -> bytes: ...
-    def b32hexdecode(s: str | ReadableBuffer, casefold: bool = False) -> bytes: ...
-
+def b32hexencode(s: ReadableBuffer) -> bytes: ...
+def b32hexdecode(s: str | ReadableBuffer, casefold: bool = False) -> bytes: ...
 def a85encode(
     b: ReadableBuffer, *, foldspaces: bool = False, wrapcol: int = 0, pad: bool = False, adobe: bool = False
 ) -> bytes: ...

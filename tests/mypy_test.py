@@ -16,8 +16,7 @@ from enum import Enum
 from itertools import product
 from pathlib import Path
 from threading import Lock
-from typing import Annotated, Any, NamedTuple
-from typing_extensions import TypeAlias
+from typing import Annotated, Any, NamedTuple, TypeAlias
 
 from packaging.requirements import Requirement
 
