@@ -36,7 +36,6 @@ _pyrepl.types
 _pyrepl.utils
 _pyrepl.windows_console
 _pyrepl.windows_eventqueue
-_sqlite3.SQLITE_KEYWORDS
 _ssl.HAS_PSK_TLS13
 _ssl._SSLContext.get_groups
 _ssl._SSLContext.set_ciphersuites
@@ -273,13 +272,6 @@ site.addsitedir
 site.addsitepackages
 site.addusersitepackages
 site.process_startup_files
-sqlite3.Connection.create_aggregate
-sqlite3.Connection.create_function
-sqlite3.Connection.set_authorizer
-sqlite3.Connection.set_progress_handler
-sqlite3.Connection.set_trace_callback
-sqlite3.SQLITE_KEYWORDS
-sqlite3.dbapi2.SQLITE_KEYWORDS
 sre_compile
 sre_constants
 sre_parse
