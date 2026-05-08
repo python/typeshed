@@ -109,6 +109,7 @@ def run_stubtest(dist: Path, *, verbose: bool = False, ci_platforms_only: bool =
                 "--mypy-config-file",
                 temp.name,
                 "--show-traceback",
+                "--strict-type-check-only",
                 # Use --custom-typeshed-dir in case we make linked changes to stdlib or _typeshed
                 "--custom-typeshed-dir",
                 str(dist.parent.parent),

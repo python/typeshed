@@ -22,8 +22,8 @@ from collections.abc import Callable, Iterator, Mapping, Sequence
 from dataclasses import dataclass, field
 from http import HTTPStatus
 from pathlib import Path
-from typing import Annotated, Any, ClassVar, Literal, NamedTuple, TypedDict, TypeVar
-from typing_extensions import Self, TypeAlias
+from typing import Annotated, Any, ClassVar, Literal, NamedTuple, TypeAlias, TypedDict, TypeVar
+from typing_extensions import Self
 
 if sys.version_info >= (3, 11):
     import tomllib
@@ -607,7 +607,7 @@ def parse_no_longer_updated_from_archive(source: zipfile.ZipFile | tarfile.TarFi
     with file as f:
         toml_data: dict[str, object] = tomllib.load(f)
 
-    no_longer_updated = toml_data.get("no_longer_updated", False)
+    no_longer_updated = toml_data.get("no-longer-updated", False)
     assert type(no_longer_updated) is bool
     return bool(no_longer_updated)
 
