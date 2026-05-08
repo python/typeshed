@@ -3736,8 +3736,8 @@ class OptionMenu(Menubutton):
         variable: StringVar,
         value: str,
         *values: str,
-        # kwarg only from now on
         command: Callable[[StringVar], object] | None = ...,
+        name: str | None = None,
     ) -> None: ...
     # configure, config, cget are inherited from Menubutton
     # destroy and __getitem__ are overridden, signature does not change
