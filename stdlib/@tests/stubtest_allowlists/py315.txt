@@ -118,10 +118,6 @@ binascii.b2a_base64
 binascii.b2a_base85
 binascii.unhexlify
 cProfile.label
-calendar.HTMLCalendar.formatmonthpage
-calendar.__all__
-calendar.standalone_month_abbr
-calendar.standalone_month_name
 codecs.backslashreplace_errors
 codecs.ignore_errors
 codecs.namereplace_errors
@@ -146,16 +142,9 @@ ctypes.SetPointerType
 dataclasses._MISSING_TYPE
 dataclasses.MISSING
 dataclasses.field
-datetime.date.fromisoformat
-datetime.date.strptime
-datetime.datetime.fromisoformat
-datetime.datetime.strptime
-datetime.time.fromisoformat
-datetime.time.strptime
 dbm.dumb._Database.reorganize
 dbm.sqlite3.REORGANIZE
 dbm.sqlite3._Database.reorganize
-difflib.unified_diff
 doctest.DocTestRunner.report_skip
 enum.__all__
 enum.auto.__init__

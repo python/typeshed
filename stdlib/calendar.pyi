@@ -57,6 +57,8 @@ if sys.version_info >= (3, 12):
         "NOVEMBER",
         "DECEMBER",
     ]
+if sys.version_info >= (3, 15):
+    __all__ += ["standalone_month_name", "standalone_month_abbr"]
 
 _LocaleType: TypeAlias = tuple[str | None, str | None]
 
@@ -127,6 +129,11 @@ class HTMLCalendar(Calendar):
     def formatweekheader(self) -> str: ...
     def formatmonthname(self, theyear: int, themonth: int, withyear: bool = True) -> str: ...
     def formatmonth(self, theyear: int, themonth: int, withyear: bool = True) -> str: ...
+    if sys.version_info >= (3, 15):
+        def formatmonthpage(
+            self, theyear: int, themonth: int, width: int = 3, css: str | None = "calendar.css", encoding: str | None = None
+        ) -> bytes: ...
+
     def formatyear(self, theyear: int, width: int = 3) -> str: ...
     def formatyearpage(
         self, theyear: int, width: int = 3, css: str | None = "calendar.css", encoding: str | None = None
@@ -212,3 +219,7 @@ else:
     SUNDAY: Final = 6
 
 EPOCH: Final = 1970
+
+if sys.version_info >= (3, 15):
+    standalone_month_name: Sequence[str]
+    standalone_month_abbr: Sequence[str]
