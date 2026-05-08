@@ -5,8 +5,11 @@ from _typeshed import DataclassInstance
 from builtins import type as Type  # alias to avoid name clashes with fields named "type"
 from collections.abc import Callable, Iterable, Mapping
 from types import GenericAlias
-from typing import Any, Final, Generic, Literal, Protocol, TypeVar, overload, type_check_only
+from typing import Any, Final, Generic, Literal, Protocol, TypeAlias, TypeVar, overload, type_check_only
 from typing_extensions import Never, TypeIs
+
+if sys.version_info >= (3, 15):
+    from builtins import sentinel as _sentinel
 
 _T = TypeVar("_T")
 _T_co = TypeVar("_T_co", covariant=True)
@@ -56,7 +59,12 @@ class _DataclassFactory(Protocol):
 class _MISSING_TYPE(enum.Enum):
     MISSING = enum.auto()
 
-MISSING: Final = _MISSING_TYPE.MISSING
+if sys.version_info >= (3, 15):
+    _MISSING: TypeAlias = _sentinel
+else:
+    _MISSING: TypeAlias = Literal[_MISSING_TYPE.MISSING]
+
+MISSING: Final[_MISSING]
 
 class KW_ONLY: ...
 
@@ -172,8 +180,8 @@ class Field(Generic[_T]):
         )
     name: str
     type: Type[_T] | str | Any
-    default: _T | Literal[_MISSING_TYPE.MISSING]
-    default_factory: _DefaultFactory[_T] | Literal[_MISSING_TYPE.MISSING]
+    default: _T | _MISSING
+    default_factory: _DefaultFactory[_T] | _MISSING
     repr: bool
     hash: bool | None
     init: bool
@@ -183,7 +191,7 @@ class Field(Generic[_T]):
     if sys.version_info >= (3, 14):
         doc: str | None
 
-    kw_only: bool | Literal[_MISSING_TYPE.MISSING]
+    kw_only: bool | _MISSING
 
     if sys.version_info >= (3, 14):
         def __init__(
@@ -221,39 +229,39 @@ if sys.version_info >= (3, 14):
     def field(
         *,
         default: _T,
-        default_factory: Literal[_MISSING_TYPE.MISSING] = ...,
+        default_factory: _MISSING = ...,
         init: bool = True,
         repr: bool = True,
         hash: bool | None = None,
         compare: bool = True,
         metadata: Mapping[Any, Any] | None = None,
-        kw_only: bool | Literal[_MISSING_TYPE.MISSING] = ...,
+        kw_only: bool | _MISSING = ...,
         doc: str | None = None,
     ) -> _T: ...
     @overload
     def field(
         *,
-        default: Literal[_MISSING_TYPE.MISSING] = ...,
+        default: _MISSING = ...,
         default_factory: Callable[[], _T],
         init: bool = True,
         repr: bool = True,
         hash: bool | None = None,
         compare: bool = True,
         metadata: Mapping[Any, Any] | None = None,
-        kw_only: bool | Literal[_MISSING_TYPE.MISSING] = ...,
+        kw_only: bool | _MISSING = ...,
         doc: str | None = None,
     ) -> _T: ...
     @overload
     def field(
         *,
-        default: Literal[_MISSING_TYPE.MISSING] = ...,
-        default_factory: Literal[_MISSING_TYPE.MISSING] = ...,
+        default: _MISSING = ...,
+        default_factory: _MISSING = ...,
         init: bool = True,
         repr: bool = True,
         hash: bool | None = None,
         compare: bool = True,
         metadata: Mapping[Any, Any] | None = None,
-        kw_only: bool | Literal[_MISSING_TYPE.MISSING] = ...,
+        kw_only: bool | _MISSING = ...,
         doc: str | None = None,
     ) -> Any: ...
 
@@ -262,37 +270,37 @@ else:
     def field(
         *,
         default: _T,
-        default_factory: Literal[_MISSING_TYPE.MISSING] = ...,
+        default_factory: _MISSING = ...,
         init: bool = True,
         repr: bool = True,
         hash: bool | None = None,
         compare: bool = True,
         metadata: Mapping[Any, Any] | None = None,
-        kw_only: bool | Literal[_MISSING_TYPE.MISSING] = ...,
+        kw_only: bool | _MISSING = ...,
     ) -> _T: ...
     @overload
     def field(
         *,
-        default: Literal[_MISSING_TYPE.MISSING] = ...,
+        default: _MISSING = ...,
         default_factory: Callable[[], _T],
         init: bool = True,
         repr: bool = True,
         hash: bool | None = None,
         compare: bool = True,
         metadata: Mapping[Any, Any] | None = None,
-        kw_only: bool | Literal[_MISSING_TYPE.MISSING] = ...,
+        kw_only: bool | _MISSING = ...,
     ) -> _T: ...
     @overload
     def field(
         *,
-        default: Literal[_MISSING_TYPE.MISSING] = ...,
-        default_factory: Literal[_MISSING_TYPE.MISSING] = ...,
+        default: _MISSING = ...,
+        default_factory: _MISSING = ...,
         init: bool = True,
         repr: bool = True,
         hash: bool | None = None,
         compare: bool = True,
         metadata: Mapping[Any, Any] | None = None,
-        kw_only: bool | Literal[_MISSING_TYPE.MISSING] = ...,
+        kw_only: bool | _MISSING = ...,
     ) -> Any: ...
 
 def fields(class_or_instance: DataclassInstance | type[DataclassInstance]) -> tuple[Field[Any], ...]: ...
