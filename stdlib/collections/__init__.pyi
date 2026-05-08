@@ -18,7 +18,7 @@ from typing import Any, ClassVar, Generic, NoReturn, SupportsIndex, TypeVar, fin
 from typing_extensions import Self, disjoint_base
 
 if sys.version_info >= (3, 15):
-    from builtins import frozendict as frozendict
+    from builtins import frozendict
 
 __all__ = ["ChainMap", "Counter", "OrderedDict", "UserDict", "UserList", "UserString", "defaultdict", "deque", "namedtuple"]
 

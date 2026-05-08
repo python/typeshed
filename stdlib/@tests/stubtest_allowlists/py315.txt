@@ -118,7 +118,6 @@ binascii.b2a_base32
 binascii.b2a_base64
 binascii.b2a_base85
 binascii.unhexlify
-builtins.compile
 cProfile.label
 calendar.HTMLCalendar.formatmonthpage
 calendar.__all__
@@ -147,6 +146,8 @@ concurrent.interpreters._crossinterp.classonly.__wrapped__
 copy.deepcopy
 ctypes.SetPointerType
 dataclasses._MISSING_TYPE
+dataclasses.MISSING
+dataclasses.field
 datetime.date.fromisoformat
 datetime.date.strptime
 datetime.datetime.fromisoformat
