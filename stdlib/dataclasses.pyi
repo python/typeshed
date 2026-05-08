@@ -61,10 +61,10 @@ class _MISSING_TYPE(enum.Enum):
 
 if sys.version_info >= (3, 15):
     _MISSING: TypeAlias = _sentinel
+    MISSING: Final[_MISSING]
 else:
     _MISSING: TypeAlias = Literal[_MISSING_TYPE.MISSING]
-
-MISSING: Final[_MISSING]
+    MISSING: Final = _MISSING_TYPE.MISSING
 
 class KW_ONLY: ...
 
