@@ -1,3 +1,7 @@
+# ============================================
+# TODO: Allowlist entries that should be fixed
+# ============================================
+
 _collections_abc.__all__
 _frozen_importlib.BuiltinImporter.load_module
 _frozen_importlib.FrozenImporter.load_module

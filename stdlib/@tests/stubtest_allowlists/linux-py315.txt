@@ -1,3 +1,10 @@
+# ============================================
+# TODO: Allowlist entries that should be fixed
+# ============================================
+
+# GitHub Actions' Python 3.15 Linux build currently lacks _decimal, so
+# decimal falls back to _pydecimal with different runtime signatures.
+decimal\..*
 _decimal
 _pyrepl.fancy_termios
 _pyrepl.unix_console
@@ -34,9 +41,6 @@ _socket.SOL_CAN_ISOTP
 ctypes.c_double_complex._type_
 ctypes.c_float_complex._type_
 ctypes.c_longdouble_complex._type_
-# GitHub Actions' Python 3.15 Linux build currently lacks _decimal, so
-# decimal falls back to _pydecimal with different runtime signatures.
-decimal\..*
 mmap.MS_ASYNC
 mmap.MS_INVALIDATE
 mmap.MS_SYNC

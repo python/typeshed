@@ -1,3 +1,7 @@
+# ============================================
+# TODO: Allowlist entries that should be fixed
+# ============================================
+
 _decimal.SPEC_VERSION
 _socket.IPV6_HDRINCL
 _winapi.DeregisterEventSource
