@@ -17,7 +17,7 @@ MAX_DICT_SIZE: Final = 1048576
 class TLVEncoder:
     @staticmethod
     def encode(
-        value: bool | float | str | bytes | list[Incomplete] | tuple[Incomplete, ...] | dict[object, Incomplete] | None
+        value: bool | float | str | bytes | list[Incomplete] | tuple[Incomplete, ...] | dict[object, Incomplete] | None,
     ) -> bytes: ...  # dict key passed to `str()` function
     @staticmethod
     def decode(data: bytes, offset: int = 0) -> tuple[Incomplete, int]: ...
