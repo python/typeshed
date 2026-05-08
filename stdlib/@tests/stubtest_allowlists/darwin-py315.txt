@@ -5,6 +5,7 @@
 _pyrepl.fancy_termios
 _pyrepl.unix_console
 _pyrepl.unix_eventqueue
+(_socket.SO_BINDTODEVICE)?
 ctypes.c_double_complex._type_
 ctypes.c_float_complex._type_
 ctypes.c_longdouble_complex._type_
@@ -25,3 +26,4 @@ profiling.sampling.live_collector.widgets
 readline.get_pre_input_hook
 resource.RLIM_SAVED_CUR
 resource.RLIM_SAVED_MAX
+socket.__all__

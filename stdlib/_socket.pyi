@@ -437,6 +437,13 @@ if sys.platform == "linux":
     CAN_RAW_JOIN_FILTERS: Final[int]
     # Availability: Linux >= 2.6.25
     CAN_ISOTP: Final[int]
+    if sys.version_info >= (3, 15):
+        SOL_CAN_ISOTP: Final[int]
+        CAN_ISOTP_OPTS: Final[int]
+        CAN_ISOTP_RECV_FC: Final[int]
+        CAN_ISOTP_TX_STMIN: Final[int]
+        CAN_ISOTP_RX_STMIN: Final[int]
+        CAN_ISOTP_LL_OPTS: Final[int]
     # Availability: Linux >= 5.4
     CAN_J1939: Final[int]
 

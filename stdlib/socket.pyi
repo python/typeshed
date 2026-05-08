@@ -776,6 +776,24 @@ if sys.platform == "linux":
         from _socket import CAN_RAW_ERR_FILTER as CAN_RAW_ERR_FILTER
 
         __all__ += ["CAN_RAW_ERR_FILTER"]
+    if sys.version_info >= (3, 15):
+        from _socket import (
+            CAN_ISOTP_LL_OPTS as CAN_ISOTP_LL_OPTS,
+            CAN_ISOTP_OPTS as CAN_ISOTP_OPTS,
+            CAN_ISOTP_RECV_FC as CAN_ISOTP_RECV_FC,
+            CAN_ISOTP_RX_STMIN as CAN_ISOTP_RX_STMIN,
+            CAN_ISOTP_TX_STMIN as CAN_ISOTP_TX_STMIN,
+            SOL_CAN_ISOTP as SOL_CAN_ISOTP,
+        )
+
+        __all__ += [
+            "CAN_ISOTP_LL_OPTS",
+            "CAN_ISOTP_OPTS",
+            "CAN_ISOTP_RECV_FC",
+            "CAN_ISOTP_RX_STMIN",
+            "CAN_ISOTP_TX_STMIN",
+            "SOL_CAN_ISOTP",
+        ]
 
 if sys.platform == "linux":
     from _socket import (
