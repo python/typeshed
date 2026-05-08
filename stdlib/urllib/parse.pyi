@@ -64,27 +64,52 @@ class _NetlocResultMixinStr(_NetlocResultMixinBase[str], _ResultMixinStr):
 class _NetlocResultMixinBytes(_NetlocResultMixinBase[bytes], _ResultMixinBytes):
     __slots__ = ()
 
-class _DefragResultBase(NamedTuple, Generic[AnyStr]):
-    url: AnyStr
-    fragment: AnyStr
-    def geturl(self) -> AnyStr: ...  # type: ignore[misc]
+if sys.version_info >= (3, 15):
+    class _DefragResultBase(NamedTuple, Generic[AnyStr]):
+        url: AnyStr
+        fragment: AnyStr
+        def geturl(self) -> AnyStr: ...  # type: ignore[misc]
 
-class _SplitResultBase(NamedTuple, Generic[AnyStr]):
-    scheme: AnyStr
-    netloc: AnyStr
-    path: AnyStr
-    query: AnyStr
-    fragment: AnyStr
-    def geturl(self) -> AnyStr: ...  # type: ignore[misc]
+else:
+    class _DefragResultBase(NamedTuple, Generic[AnyStr]):
+        url: AnyStr
+        fragment: AnyStr
 
-class _ParseResultBase(NamedTuple, Generic[AnyStr]):
-    scheme: AnyStr
-    netloc: AnyStr
-    path: AnyStr
-    params: AnyStr
-    query: AnyStr
-    fragment: AnyStr
-    def geturl(self) -> AnyStr: ...  # type: ignore[misc]
+if sys.version_info >= (3, 15):
+    class _SplitResultBase(NamedTuple, Generic[AnyStr]):
+        scheme: AnyStr
+        netloc: AnyStr
+        path: AnyStr
+        query: AnyStr
+        fragment: AnyStr
+        def geturl(self) -> AnyStr: ...  # type: ignore[misc]
+
+else:
+    class _SplitResultBase(NamedTuple, Generic[AnyStr]):
+        scheme: AnyStr
+        netloc: AnyStr
+        path: AnyStr
+        query: AnyStr
+        fragment: AnyStr
+
+if sys.version_info >= (3, 15):
+    class _ParseResultBase(NamedTuple, Generic[AnyStr]):
+        scheme: AnyStr
+        netloc: AnyStr
+        path: AnyStr
+        params: AnyStr
+        query: AnyStr
+        fragment: AnyStr
+        def geturl(self) -> AnyStr: ...  # type: ignore[misc]
+
+else:
+    class _ParseResultBase(NamedTuple, Generic[AnyStr]):
+        scheme: AnyStr
+        netloc: AnyStr
+        path: AnyStr
+        params: AnyStr
+        query: AnyStr
+        fragment: AnyStr
 
 # Structured result objects for string data
 class DefragResult(_DefragResultBase[str], _ResultMixinStr):

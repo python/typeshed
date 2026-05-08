@@ -15,7 +15,20 @@ class ForkServer:
     def connect_to_new_process(self, fds: Sequence[int]) -> tuple[int, int]: ...
     def ensure_running(self) -> None: ...
 
-if sys.version_info >= (3, 14):
+if sys.version_info >= (3, 15):
+    def main(
+        listener_fd: int | None,
+        alive_r: FileDescriptorLike,
+        preload: Sequence[str],
+        main_path: str | None = None,
+        sys_path: list[str] | None = None,
+        *,
+        sys_argv: list[str] | None = None,
+        authkey_r: int | None = None,
+        on_error: str = "ignore",
+    ) -> None: ...
+
+elif sys.version_info >= (3, 14):
     # `sys_argv` parameter added in Python 3.14.3
     def main(
         listener_fd: int | None,

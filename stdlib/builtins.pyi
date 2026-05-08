@@ -1438,7 +1438,13 @@ def abs(x: SupportsAbs[_T], /) -> _T: ...
 def all(iterable: Iterable[object], /) -> bool: ...
 def any(iterable: Iterable[object], /) -> bool: ...
 def ascii(obj: object, /) -> str: ...
-def bin(integer: SupportsIndex, /) -> str: ...
+
+if sys.version_info >= (3, 15):
+    def bin(integer: SupportsIndex, /) -> str: ...
+
+else:
+    def bin(number: SupportsIndex, /) -> str: ...
+
 def breakpoint(*args: Any, **kws: Any) -> None: ...
 def callable(obj: object, /) -> TypeIs[Callable[..., object]]: ...
 def chr(i: SupportsIndex, /) -> str: ...
@@ -1514,11 +1520,19 @@ def divmod(x: _T_contra, y: SupportsRDivMod[_T_contra, _T_co], /) -> _T_co: ...
 
 # The `globals` argument to `eval` has to be `dict[str, Any]` rather than `dict[str, object]` due to invariance.
 # (The `globals` argument has to be a "real dict", rather than any old mapping, unlike the `locals` argument.)
-if sys.version_info >= (3, 13):
+if sys.version_info >= (3, 15):
     def eval(
         source: str | ReadableBuffer | CodeType,
         /,
         globals: dict[str, Any] | frozendict[str, Any] | None = None,
+        locals: Mapping[str, object] | None = None,
+    ) -> Any: ...
+
+elif sys.version_info >= (3, 13):
+    def eval(
+        source: str | ReadableBuffer | CodeType,
+        /,
+        globals: dict[str, Any] | None = None,
         locals: Mapping[str, object] | None = None,
     ) -> Any: ...
 
@@ -1531,11 +1545,21 @@ else:
     ) -> Any: ...
 
 # Comment above regarding `eval` applies to `exec` as well
-if sys.version_info >= (3, 13):
+if sys.version_info >= (3, 15):
     def exec(
         source: str | ReadableBuffer | CodeType,
         /,
         globals: dict[str, Any] | frozendict[str, Any] | None = None,
+        locals: Mapping[str, object] | None = None,
+        *,
+        closure: tuple[CellType, ...] | None = None,
+    ) -> None: ...
+
+elif sys.version_info >= (3, 13):
+    def exec(
+        source: str | ReadableBuffer | CodeType,
+        /,
+        globals: dict[str, Any] | None = None,
         locals: Mapping[str, object] | None = None,
         *,
         closure: tuple[CellType, ...] | None = None,
@@ -1597,7 +1621,12 @@ def hash(obj: object, /) -> int: ...
 
 help: _sitebuiltins._Helper
 
-def hex(integer: SupportsIndex, /) -> str: ...
+if sys.version_info >= (3, 15):
+    def hex(integer: SupportsIndex, /) -> str: ...
+
+else:
+    def hex(number: SupportsIndex, /) -> str: ...
+
 def id(obj: object, /) -> int: ...
 def input(prompt: object = "", /) -> str: ...
 @type_check_only
@@ -1761,7 +1790,12 @@ def min(iterable: Iterable[_T1], /, *, key: Callable[[_T1], SupportsRichComparis
 def next(i: SupportsNext[_T], /) -> _T: ...
 @overload
 def next(i: SupportsNext[_T], default: _VT, /) -> _T | _VT: ...
-def oct(integer: SupportsIndex, /) -> str: ...
+
+if sys.version_info >= (3, 15):
+    def oct(integer: SupportsIndex, /) -> str: ...
+
+else:
+    def oct(number: SupportsIndex, /) -> str: ...
 
 _Opener: TypeAlias = Callable[[str, int], int]
 
