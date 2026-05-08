@@ -2,7 +2,6 @@ import sys
 from _typeshed import AnyOrLiteralStr, BytesPath, FileDescriptorOrPath, StrOrBytesPath, StrPath
 from collections.abc import Iterable
 from genericpath import (
-    ALL_BUT_LAST as ALL_BUT_LAST,
     ALLOW_MISSING as ALLOW_MISSING,
     _AllowMissingType,
     commonprefix as commonprefix,
@@ -17,6 +16,9 @@ from genericpath import (
     sameopenfile as sameopenfile,
     samestat as samestat,
 )
+
+if sys.version_info >= (3, 15):
+    from genericpath import ALL_BUT_LAST as ALL_BUT_LAST
 
 if sys.version_info >= (3, 13):
     from genericpath import isdevdrive as isdevdrive

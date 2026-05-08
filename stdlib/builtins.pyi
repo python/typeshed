@@ -611,19 +611,25 @@ class str(Sequence[str]):
     def zfill(self: LiteralString, width: SupportsIndex, /) -> LiteralString: ...
     @overload
     def zfill(self, width: SupportsIndex, /) -> str: ...  # type: ignore[misc]
-    @staticmethod
-    @overload
-    def maketrans(
-        x: (
-            dict[int, _T]
-            | dict[str, _T]
-            | dict[str | int, _T]
-            | frozendict[int, _T]
-            | frozendict[str, _T]
-            | frozendict[str | int, _T]
-        ),
-        /,
-    ) -> dict[int, _T]: ...
+    if sys.version_info >= (3, 15):
+        @staticmethod
+        @overload
+        def maketrans(
+            x: (
+                dict[int, _T]
+                | dict[str, _T]
+                | dict[str | int, _T]
+                | frozendict[int, _T]
+                | frozendict[str, _T]
+                | frozendict[str | int, _T]
+            ),
+            /,
+        ) -> dict[int, _T]: ...
+    else:
+        @staticmethod
+        @overload
+        def maketrans(x: dict[int, _T] | dict[str, _T] | dict[str | int, _T], /) -> dict[int, _T]: ...
+
     @staticmethod
     @overload
     def maketrans(x: str, y: str, /) -> dict[int, int]: ...

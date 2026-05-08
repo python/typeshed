@@ -1,5 +1,7 @@
 import sys
-from builtins import frozendict
+
+if sys.version_info >= (3, 15):
+    from builtins import frozendict
 from typing import Final, Literal
 
 __all__ = [
