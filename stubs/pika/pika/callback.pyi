@@ -1,13 +1,15 @@
 from _typeshed import Incomplete
 from collections.abc import Callable
 from logging import Logger
-from typing import Literal
+from typing import Literal, TypeAlias
 
-from pika import amqp_object, frame
+from .amqp_object import AMQPObject
+
+AMQPValue: TypeAlias = type[AMQPObject] | AMQPObject | int | str
 
 LOGGER: Logger
 
-def name_or_value(value: amqp_object.AMQPObject | frame.Frame | int | str) -> str: ...
+def name_or_value(value: AMQPValue) -> str: ...
 def sanitize_prefix(function): ...
 def check_for_prefix_and_key(function): ...
 
@@ -22,7 +24,7 @@ class CallbackManager:
     def add(
         self,
         prefix: str | int,
-        key: str | object,
+        key: AMQPValue,
         callback: Callable[[Incomplete], Incomplete],
         one_shot: bool = True,
         only_caller: object | None = None,
@@ -31,12 +33,8 @@ class CallbackManager:
     def clear(self) -> None: ...
     def cleanup(self, prefix: str | int) -> bool: ...
     def pending(self, prefix: str | int, key: str | object) -> int | None: ...
-    def process(self, prefix: str | int, key: str | object, caller, *args, **keywords) -> bool: ...
+    def process(self, prefix: str | int, key: AMQPValue, caller, *args, **keywords) -> bool: ...
     def remove(
-        self,
-        prefix: str | int,
-        key: str | object,
-        callback_value: Callable[[Incomplete], Incomplete] | None = None,
-        arguments=None,
+        self, prefix: str | int, key: AMQPValue, callback_value: Callable[[Incomplete], Incomplete] | None = None, arguments=None
     ) -> Literal[True]: ...
-    def remove_all(self, prefix: str | int, key: str | object) -> None: ...
+    def remove_all(self, prefix: str | int, key: AMQPValue) -> None: ...
