@@ -146,7 +146,6 @@ genericpath.samestat
 glob.glob0
 glob.glob1
 gzip.compress
-hashlib.__all__
 http.HTTPMethod.description
 http.client.HTTPConnection.__init__
 http.client.HTTPSConnection.__init__
@@ -188,10 +187,6 @@ math.fmin
 math.isnormal
 math.issubnormal
 math.signbit
-mmap.mmap.find
-mmap.mmap.flush
-mmap.mmap.rfind
-mmap.mmap.set_name
 multiprocessing.context.BaseContext.set_forkserver_preload
 multiprocessing.forkserver.ForkServer.set_forkserver_preload
 multiprocessing.forkserver.main
@@ -221,7 +216,6 @@ pathlib.PurePath.__vfspath__
 pathlib.PurePath.is_reserved
 pdb.Pdb.print_stack_entry
 pkgutil.resolve_name
-platform.java_ver
 posixpath.ALL_BUT_LAST
 posixpath.__all__
 posixpath.basename
@@ -260,6 +254,9 @@ pydoc.Doc.getdocloc
 re.Pattern.prefixmatch
 re.__all__
 re.prefixmatch
+(resource.RLIMIT_NTHR)?
+(resource.RLIMIT_THREADS)?
+(resource.RLIMIT_UMTXP)?
 shelve.BsdDbShelf.__init__
 shelve.DbfilenameShelf.__init__
 shelve.Shelf.__init__

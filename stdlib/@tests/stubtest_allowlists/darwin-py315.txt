@@ -12,8 +12,6 @@ ctypes.c_longdouble_complex._type_
 mmap.MS_ASYNC
 mmap.MS_INVALIDATE
 mmap.MS_SYNC
-mmap.mmap.madvise
-mmap.mmap.resize
 os.NODEV
 os.__all__
 posix.NODEV
@@ -24,6 +22,6 @@ profiling.sampling.live_collector.display
 profiling.sampling.live_collector.trend_tracker
 profiling.sampling.live_collector.widgets
 readline.get_pre_input_hook
-resource.RLIM_SAVED_CUR
-resource.RLIM_SAVED_MAX
-socket.__all__
+(resource.RLIM_SAVED_CUR)?
+(resource.RLIM_SAVED_MAX)?
+(socket.__all__)?
