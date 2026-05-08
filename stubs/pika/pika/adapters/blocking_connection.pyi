@@ -10,7 +10,7 @@ from ..exchange_type import ExchangeType
 from ..frame import Method
 from ..spec import Basic, BasicProperties, Connection, Exchange, Queue, Tx
 
-T = TypeVar("T", bound=Connection.Blocked | Connection.Unblocked)
+T = TypeVar("T", bound=Connection.Blocked | Connection.Unblocked)  # noqa: Y001
 
 LOGGER: Logger
 
