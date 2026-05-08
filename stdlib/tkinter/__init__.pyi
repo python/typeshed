@@ -12,6 +12,7 @@ from typing import (
     Generic,
     Literal,
     NamedTuple,
+    ParamSpec,
     Protocol,
     TypeAlias,
     TypedDict,
@@ -376,6 +377,7 @@ getdouble = float
 def getboolean(s) -> bool: ...
 
 _Ts = TypeVarTuple("_Ts")
+_P = ParamSpec("_P")
 
 @type_check_only
 class _GridIndexInfo(TypedDict, total=False):
@@ -415,11 +417,19 @@ class Misc:
     def tk_focusFollowsMouse(self) -> None: ...
     def tk_focusNext(self) -> Misc | None: ...
     def tk_focusPrev(self) -> Misc | None: ...
-    # .after() can be called without the "func" argument, but it is basically never what you want.
-    # It behaves like time.sleep() and freezes the GUI app.
-    def after(self, ms: int | Literal["idle"], func: Callable[[Unpack[_Ts]], object], *args: Unpack[_Ts]) -> str: ...
-    # after_idle is essentially partialmethod(after, "idle")
-    def after_idle(self, func: Callable[[Unpack[_Ts]], object], *args: Unpack[_Ts]) -> str: ...
+    if sys.version_info >= (3, 14):
+        # .after() can be called without the "func" argument, but it is basically never what you want.
+        # It behaves like time.sleep() and freezes the GUI app.
+        def after(self, ms: int | Literal["idle"], func: Callable[_P, object], *args: _P.args, **kwargs: _P.kwargs) -> str: ...
+        # after_idle is essentially partialmethod(after, "idle")
+        def after_idle(self, func: Callable[_P, object], *args: _P.args, **kwargs: _P.kwargs) -> str: ...
+    else:
+        # .after() can be called without the "func" argument, but it is basically never what you want.
+        # It behaves like time.sleep() and freezes the GUI app.
+        def after(self, ms: int | Literal["idle"], func: Callable[[Unpack[_Ts]], object], *args: Unpack[_Ts]) -> str: ...
+        # after_idle is essentially partialmethod(after, "idle")
+        def after_idle(self, func: Callable[[Unpack[_Ts]], object], *args: Unpack[_Ts]) -> str: ...
+
     def after_cancel(self, id: str) -> None: ...
     if sys.version_info >= (3, 13):
         def after_info(self, id: str | None = None) -> tuple[str, ...]: ...
