@@ -1,6 +1,6 @@
 from cProfile import Profile as Profile, run as run, runctx as runctx
 from types import CodeType
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 __all__ = ["run", "runctx", "Profile"]
 
