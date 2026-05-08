@@ -190,10 +190,7 @@ def run_testcases(
             "--pretty",
             "--config-file",
             temp_config.name,
-            # Avoid race conditions when reading the cache
-            # (https://github.com/python/typeshed/issues/11220)
-            "--no-incremental",
-            # Avoid race conditions even harder
+            # Avoid race conditions when using the cache
             # https://github.com/python/mypy/issues/13916
             "--cache-dir",
             temp_cache_dir,
