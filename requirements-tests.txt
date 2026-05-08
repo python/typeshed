@@ -8,7 +8,7 @@ aiohttp==3.13.5
 grpcio-tools>=1.76.0 # For grpc_tools.protoc
 mypy-protobuf==5.0.0
 packaging==26.0
-pathspec>=1.0.3
+pathspec>=1.1.1
 pre-commit
 # Required by create_baseline_stubs.py. Must match .pre-commit-config.yaml.
 ruff==0.15.8
@@ -17,7 +17,7 @@ termcolor>=2.3
 tomli==2.4.1; python_version < "3.11"
 tomlkit==0.14.0
 typing_extensions>=4.15.0rc1
-uv==0.11.3
+uv==0.11.6
 
 # Utilities for typeshed infrastructure scripts.
 ts_utils @ file:lib

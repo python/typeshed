@@ -19,7 +19,7 @@ from dataclasses import dataclass
 from enum import IntEnum
 from functools import partial
 from pathlib import Path
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 from ts_utils.metadata import get_recursive_requirements, read_metadata
 from ts_utils.mypy import mypy_configuration_from_distribution, temporary_mypy_config_file
