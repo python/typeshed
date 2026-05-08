@@ -167,6 +167,9 @@ multiprocessing.process.BaseProcess.__init__
 # Runtime path APIs include implementation hooks/deprecated behavior that the stubs intentionally hide or tighten.
 ntpath.realpath
 
+# base64.b64decode uses a private sentinel list as the default for parameters whose public types are bool/buffer.
+base64.b64decode
+
 # New profiling package is stubbed conservatively for 3.15 while the implementation settles.
 profiling.__all__
 profiling\.sampling\..+
