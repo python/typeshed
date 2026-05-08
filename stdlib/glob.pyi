@@ -11,18 +11,14 @@ if sys.version_info >= (3, 13):
 
 if sys.version_info >= (3, 15):
     pass
-elif sys.version_info >= (3, 10):
-    @deprecated(
-        "Deprecated since Python 3.10; will be removed in Python 3.15. Use `glob.glob()` with the *root_dir* argument instead."
-    )
-    def glob0(dirname: AnyStr, pattern: AnyStr) -> list[AnyStr]: ...
-    @deprecated(
-        "Deprecated since Python 3.10; will be removed in Python 3.15. Use `glob.glob()` with the *root_dir* argument instead."
-    )
-    def glob1(dirname: AnyStr, pattern: AnyStr) -> list[AnyStr]: ...
-
 else:
+    @deprecated(
+        "Deprecated since Python 3.10; will be removed in Python 3.15. Use `glob.glob()` with the *root_dir* argument instead."
+    )
     def glob0(dirname: AnyStr, pattern: AnyStr) -> list[AnyStr]: ...
+    @deprecated(
+        "Deprecated since Python 3.10; will be removed in Python 3.15. Use `glob.glob()` with the *root_dir* argument instead."
+    )
     def glob1(dirname: AnyStr, pattern: AnyStr) -> list[AnyStr]: ...
 
 if sys.version_info >= (3, 11):
@@ -43,17 +39,13 @@ if sys.version_info >= (3, 11):
         include_hidden: bool = False,
     ) -> Iterator[AnyStr]: ...
 
-elif sys.version_info >= (3, 10):
+else:
     def glob(
         pathname: AnyStr, *, root_dir: StrOrBytesPath | None = None, dir_fd: int | None = None, recursive: bool = False
     ) -> list[AnyStr]: ...
     def iglob(
         pathname: AnyStr, *, root_dir: StrOrBytesPath | None = None, dir_fd: int | None = None, recursive: bool = False
     ) -> Iterator[AnyStr]: ...
-
-else:
-    def glob(pathname: AnyStr, *, recursive: bool = False) -> list[AnyStr]: ...
-    def iglob(pathname: AnyStr, *, recursive: bool = False) -> Iterator[AnyStr]: ...
 
 def escape(pathname: AnyStr) -> AnyStr: ...
 def has_magic(s: str | bytes) -> bool: ...  # undocumented

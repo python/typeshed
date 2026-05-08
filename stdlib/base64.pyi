@@ -13,6 +13,8 @@ __all__ = [
     "b32decode",
     "b16encode",
     "b16decode",
+    "b32hexencode",
+    "b32hexdecode",
     "b85encode",
     "b85decode",
     "a85encode",
@@ -23,8 +25,6 @@ __all__ = [
     "urlsafe_b64decode",
 ]
 
-if sys.version_info >= (3, 10):
-    __all__ += ["b32hexencode", "b32hexdecode"]
 if sys.version_info >= (3, 13):
     __all__ += ["z85decode", "z85encode"]
 

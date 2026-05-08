@@ -5,8 +5,8 @@ from builtins import object as _object
 from collections.abc import AsyncGenerator, Callable, Sequence
 from io import TextIOWrapper
 from types import FrameType, ModuleType, SimpleNamespace, TracebackType
-from typing import Any, Final, Literal, NoReturn, Protocol, TextIO, TypeVar, final, overload, type_check_only
-from typing_extensions import LiteralString, TypeAlias, deprecated
+from typing import Any, Final, Literal, NoReturn, Protocol, TextIO, TypeAlias, TypeVar, final, overload, type_check_only
+from typing_extensions import LiteralString, deprecated
 
 _T = TypeVar("_T")
 _LazyImportMode: TypeAlias = Literal["normal", "all", "none"]
@@ -46,8 +46,7 @@ meta_path: list[MetaPathFinderProtocol]
 modules: dict[str, ModuleType]
 if sys.version_info >= (3, 15):
     lazy_modules: dict[str, set[str]]
-if sys.version_info >= (3, 10):
-    orig_argv: list[str]
+orig_argv: list[str]
 path: list[str]
 path_hooks: list[Callable[[str], PathEntryFinderProtocol]]
 path_importer_cache: dict[str, PathEntryFinderProtocol | None]
@@ -71,9 +70,7 @@ ps2: object
 stdin: TextIO | MaybeNone
 stdout: TextIO | MaybeNone
 stderr: TextIO | MaybeNone
-
-if sys.version_info >= (3, 10):
-    stdlib_module_names: frozenset[str]
+stdlib_module_names: frozenset[str]
 
 __stdin__: Final[TextIOWrapper | None]  # Contains the original value of stdin
 __stdout__: Final[TextIOWrapper | None]  # Contains the original value of stdout
@@ -130,7 +127,7 @@ class _flags(_UninstantiableStructseq, tuple[int, ...]):
             "safe_path",
             "int_max_str_digits",
         )
-    elif sys.version_info >= (3, 10):
+    else:
         __match_args__: Final = (
             "debug",
             "inspect",
@@ -181,9 +178,8 @@ class _flags(_UninstantiableStructseq, tuple[int, ...]):
     def dev_mode(self) -> bool: ...
     @property
     def utf8_mode(self) -> int: ...
-    if sys.version_info >= (3, 10):
-        @property
-        def warn_default_encoding(self) -> int: ...
+    @property
+    def warn_default_encoding(self) -> int: ...
     if sys.version_info >= (3, 11):
         @property
         def safe_path(self) -> bool: ...
@@ -209,20 +205,19 @@ float_info: _float_info
 @final
 @type_check_only
 class _float_info(structseq[float], tuple[float, int, int, float, int, int, int, int, float, int, int]):
-    if sys.version_info >= (3, 10):
-        __match_args__: Final = (
-            "max",
-            "max_exp",
-            "max_10_exp",
-            "min",
-            "min_exp",
-            "min_10_exp",
-            "dig",
-            "mant_dig",
-            "epsilon",
-            "radix",
-            "rounds",
-        )
+    __match_args__: Final = (
+        "max",
+        "max_exp",
+        "max_10_exp",
+        "min",
+        "min_exp",
+        "min_10_exp",
+        "dig",
+        "mant_dig",
+        "epsilon",
+        "radix",
+        "rounds",
+    )
 
     @property
     def max(self) -> float: ...  # DBL_MAX
@@ -253,8 +248,7 @@ hash_info: _hash_info
 @final
 @type_check_only
 class _hash_info(structseq[Any | int], tuple[int, int, int, int, int, str, int, int, int]):
-    if sys.version_info >= (3, 10):
-        __match_args__: Final = ("width", "modulus", "inf", "nan", "imag", "algorithm", "hash_bits", "seed_bits", "cutoff")
+    __match_args__: Final = ("width", "modulus", "inf", "nan", "imag", "algorithm", "hash_bits", "seed_bits", "cutoff")
 
     @property
     def width(self) -> int: ...
@@ -296,8 +290,7 @@ int_info: _int_info
 @final
 @type_check_only
 class _int_info(structseq[int], tuple[int, int, int, int]):
-    if sys.version_info >= (3, 10):
-        __match_args__: Final = ("bits_per_digit", "sizeof_digit", "default_max_str_digits", "str_digits_check_threshold")
+    __match_args__: Final = ("bits_per_digit", "sizeof_digit", "default_max_str_digits", "str_digits_check_threshold")
 
     @property
     def bits_per_digit(self) -> int: ...
@@ -315,8 +308,7 @@ _ThreadInfoLock: TypeAlias = Literal["semaphore", "mutex+cond"] | None
 @final
 @type_check_only
 class _thread_info(_UninstantiableStructseq, tuple[_ThreadInfoName, _ThreadInfoLock, str | None]):
-    if sys.version_info >= (3, 10):
-        __match_args__: Final = ("name", "lock", "version")
+    __match_args__: Final = ("name", "lock", "version")
 
     @property
     def name(self) -> _ThreadInfoName: ...
@@ -332,8 +324,7 @@ _ReleaseLevel: TypeAlias = Literal["alpha", "beta", "candidate", "final"]
 @final
 @type_check_only
 class _version_info(_UninstantiableStructseq, tuple[int, int, int, _ReleaseLevel, int]):
-    if sys.version_info >= (3, 10):
-        __match_args__: Final = ("major", "minor", "micro", "releaselevel", "serial")
+    __match_args__: Final = ("major", "minor", "micro", "releaselevel", "serial")
 
     @property
     def major(self) -> int: ...
@@ -478,8 +469,7 @@ _AsyncgenHook: TypeAlias = Callable[[AsyncGenerator[Any, Any]], None] | None
 @final
 @type_check_only
 class _asyncgen_hooks(structseq[_AsyncgenHook], tuple[_AsyncgenHook, _AsyncgenHook]):
-    if sys.version_info >= (3, 10):
-        __match_args__: Final = ("firstiter", "finalizer")
+    __match_args__: Final = ("firstiter", "finalizer")
 
     @property
     def firstiter(self) -> _AsyncgenHook: ...

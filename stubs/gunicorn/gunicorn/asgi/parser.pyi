@@ -1,7 +1,7 @@
 from collections.abc import Callable, Iterable
 from enum import IntEnum
-from typing import Any, Final, Literal, SupportsIndex, TypedDict, type_check_only
-from typing_extensions import Self, TypeAlias
+from typing import Any, Final, Literal, SupportsIndex, TypeAlias, TypedDict, type_check_only
+from typing_extensions import Self
 
 _H1CProtocol: TypeAlias = Any  # gunicorn_h1c H1CProtocol class
 
