@@ -285,8 +285,6 @@ profiling.tracing
 pstats.Stats.print_call_subheading
 pydoc.Doc.STDLIB_DIR
 pydoc.Doc.getdocloc
-pyexpat.XMLParserType.SetBillionLaughsAttackProtectionActivationThreshold
-pyexpat.XMLParserType.SetBillionLaughsAttackProtectionMaximumAmplification
 re.Pattern.prefixmatch
 re.__all__
 re.prefixmatch
@@ -317,18 +315,6 @@ ssl.SSLObject.server_sigalg
 ssl.SSLSocket.client_sigalg
 ssl.SSLSocket.group
 ssl.SSLSocket.server_sigalg
-stat.STATX_ATTR_APPEND
-stat.STATX_ATTR_AUTOMOUNT
-stat.STATX_ATTR_COMPRESSED
-stat.STATX_ATTR_DAX
-stat.STATX_ATTR_ENCRYPTED
-stat.STATX_ATTR_IMMUTABLE
-stat.STATX_ATTR_MOUNT_ROOT
-stat.STATX_ATTR_NODUMP
-stat.STATX_ATTR_VERITY
-stat.STATX_ATTR_WRITE_ATOMIC
-symtable.Function.get_cells
-symtable.Symbol.is_cell
 symtable.symtable
 sys.__jit
 sys._monitoring
@@ -390,13 +376,6 @@ typing.Union
 typing._SpecialForm.__mro_entries__
 typing_extensions.__all__
 typing_extensions.Protocol
-unicodedata.block
-unicodedata.extended_pictographic
-unicodedata.grapheme_cluster_break
-unicodedata.indic_conjunct_break
-unicodedata.isxidcontinue
-unicodedata.isxidstart
-unicodedata.iter_graphemes
 unittest._log._AssertLogsContext.__init__
 unittest.case.TestCase.assertLogs
 urllib.parse._DefragResultBase.geturl
@@ -423,5 +402,3 @@ xml.etree.ElementTree.__all__
 xml.is_valid_name
 xml.utils
 zipimport.zipimporter.load_module
-zlib.adler32_combine
-zlib.crc32_combine
