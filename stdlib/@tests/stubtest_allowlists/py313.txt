@@ -133,16 +133,3 @@ typing\.LiteralString  # Super-special typing primitive
 # ==================================================================
 
 argparse._MutuallyExclusiveGroup.add_mutually_exclusive_group  # deprecated, forwards arguments to super
-ntpath.join
-posixpath.join
-tkinter.simpledialog.[A-Z_]+
-tkinter.simpledialog.TclVersion
-tkinter.simpledialog.TkVersion
-typing(_extensions)?\.BinaryIO\.write
-typing(_extensions)?\.IO\.read
-typing(_extensions)?\.IO\.readline
-typing(_extensions)?\.IO\.readlines
-typing(_extensions)?\.IO\.seek
-typing(_extensions)?\.IO\.truncate
-typing(_extensions)?\.IO\.write
-typing(_extensions)?\.IO\.writelines

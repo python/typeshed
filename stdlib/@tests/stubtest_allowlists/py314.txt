@@ -158,16 +158,3 @@ importlib.resources.abc.Traversable.open  # Problematic protocol signature at ru
 inspect._ParameterKind.description  # Still exists, but stubtest can't see it
 typing\._SpecialForm.*  # Super-special typing primitive
 typing\.LiteralString  # Super-special typing primitive
-ntpath.join
-posixpath.join
-tkinter.simpledialog.[A-Z_]+
-tkinter.simpledialog.TclVersion
-tkinter.simpledialog.TkVersion
-typing(_extensions)?\.BinaryIO\.write
-typing(_extensions)?\.IO\.read
-typing(_extensions)?\.IO\.readline
-typing(_extensions)?\.IO\.readlines
-typing(_extensions)?\.IO\.seek
-typing(_extensions)?\.IO\.truncate
-typing(_extensions)?\.IO\.write
-typing(_extensions)?\.IO\.writelines
