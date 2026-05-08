@@ -2,14 +2,6 @@
 # New errors in Python 3.15
 # =========================
 
-# Platform- and build-dependent constants missing from the local 3.15 Darwin build.
-_curses.BUTTON5_CLICKED
-_curses.BUTTON5_DOUBLE_CLICKED
-_curses.BUTTON5_PRESSED
-_curses.BUTTON5_RELEASED
-_curses.BUTTON5_TRIPLE_CLICKED
-_socket.SO_BINDTODEVICE
-errno.ENOTCAPABLE
 mmap.MS_ASYNC
 mmap.MS_INVALIDATE
 mmap.MS_SYNC
