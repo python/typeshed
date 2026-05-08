@@ -209,8 +209,7 @@ _TC = _TypeVar("_TC", bound=type[object])
 _T_co = _TypeVar("_T_co", covariant=True)  # Any type covariant containers.
 _T_contra = _TypeVar("_T_contra", contravariant=True)
 
-if sys.version_info < (3, 15):
-    def no_type_check_decorator(decorator: _F) -> _F: ...
+def no_type_check_decorator(decorator: _F) -> _F: ...
 
 # Do not import (and re-export) Protocol or runtime_checkable from
 # typing module because type checkers need to be able to distinguish
