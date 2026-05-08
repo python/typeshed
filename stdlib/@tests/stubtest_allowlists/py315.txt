@@ -420,14 +420,6 @@ unicodedata.isxidstart
 unicodedata.iter_graphemes
 unittest._log._AssertLogsContext.__init__
 unittest.case.TestCase.assertLogs
-urllib.parse._DefragResultBase.geturl
-urllib.parse._ParseResultBase.geturl
-urllib.parse._SplitResultBase.geturl
-urllib.parse.urldefrag
-urllib.parse.urlparse
-urllib.parse.urlsplit
-urllib.parse.urlunparse
-urllib.parse.urlunsplit
 warnings.WarningMessage.__init__
 wave.WAVE_FORMAT_EXTENSIBLE
 wave.WAVE_FORMAT_IEEE_FLOAT
