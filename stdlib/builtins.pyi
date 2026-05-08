@@ -603,9 +603,25 @@ class str(Sequence[str]):
     def zfill(self: LiteralString, width: SupportsIndex, /) -> LiteralString: ...
     @overload
     def zfill(self, width: SupportsIndex, /) -> str: ...  # type: ignore[misc]
-    @staticmethod
-    @overload
-    def maketrans(x: dict[int, _T] | dict[str, _T] | dict[str | int, _T], /) -> dict[int, _T]: ...
+    if sys.version_info >= (3, 15):
+        @staticmethod
+        @overload
+        def maketrans(
+            x: (
+                dict[int, _T]
+                | dict[str, _T]
+                | dict[str | int, _T]
+                | frozendict[int, _T]
+                | frozendict[str, _T]
+                | frozendict[str | int, _T]
+            ),
+            /,
+        ) -> dict[int, _T]: ...
+    else:
+        @staticmethod
+        @overload
+        def maketrans(x: dict[int, _T] | dict[str, _T] | dict[str | int, _T], /) -> dict[int, _T]: ...
+
     @staticmethod
     @overload
     def maketrans(x: str, y: str, /) -> dict[int, int]: ...
@@ -691,7 +707,11 @@ class bytes(Sequence[int]):
     def lower(self) -> bytes: ...
     def lstrip(self, bytes: ReadableBuffer | None = None, /) -> bytes: ...
     def partition(self, sep: ReadableBuffer, /) -> tuple[bytes, bytes, bytes]: ...
-    def replace(self, old: ReadableBuffer, new: ReadableBuffer, count: SupportsIndex = -1, /) -> bytes: ...
+    if sys.version_info >= (3, 15):
+        def replace(self, old: ReadableBuffer, new: ReadableBuffer, /, count: SupportsIndex = -1) -> bytes: ...
+    else:
+        def replace(self, old: ReadableBuffer, new: ReadableBuffer, count: SupportsIndex = -1, /) -> bytes: ...
+
     def removeprefix(self, prefix: ReadableBuffer, /) -> bytes: ...
     def removesuffix(self, suffix: ReadableBuffer, /) -> bytes: ...
     def rfind(
@@ -803,7 +823,11 @@ class bytearray(MutableSequence[int]):
     def remove(self, value: int, /) -> None: ...
     def removeprefix(self, prefix: ReadableBuffer, /) -> bytearray: ...
     def removesuffix(self, suffix: ReadableBuffer, /) -> bytearray: ...
-    def replace(self, old: ReadableBuffer, new: ReadableBuffer, count: SupportsIndex = -1, /) -> bytearray: ...
+    if sys.version_info >= (3, 15):
+        def replace(self, old: ReadableBuffer, new: ReadableBuffer, /, count: SupportsIndex = -1) -> bytearray: ...
+    else:
+        def replace(self, old: ReadableBuffer, new: ReadableBuffer, count: SupportsIndex = -1, /) -> bytearray: ...
+
     def rfind(
         self, sub: ReadableBuffer | SupportsIndex, start: SupportsIndex | None = None, end: SupportsIndex | None = None, /
     ) -> int: ...
@@ -827,6 +851,9 @@ class bytearray(MutableSequence[int]):
     def swapcase(self) -> bytearray: ...
     def title(self) -> bytearray: ...
     def translate(self, table: ReadableBuffer | None, /, delete: bytes = b"") -> bytearray: ...
+    if sys.version_info >= (3, 15):
+        def take_bytes(self, n: int | None = None, /) -> bytes: ...
+
     def upper(self) -> bytearray: ...
     def zfill(self, width: SupportsIndex, /) -> bytearray: ...
     if sys.version_info >= (3, 14):
@@ -1022,6 +1049,8 @@ class slice(Generic[_StartT_co, _StopT_co, _StepT_co]):
         __hash__: ClassVar[None]  # type: ignore[assignment]
 
     def indices(self, len: SupportsIndex, /) -> tuple[int, int, int]: ...
+    if sys.version_info >= (3, 15):
+        def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
 
 @disjoint_base
 class tuple(Sequence[_T_co]):
@@ -1223,13 +1252,68 @@ class dict(MutableMapping[_KT, _VT]):
     def __reversed__(self) -> Iterator[_KT]: ...
     __hash__: ClassVar[None]  # type: ignore[assignment]
     def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
-    def __or__(self, value: dict[_T1, _T2], /) -> dict[_KT | _T1, _VT | _T2]: ...
-    def __ror__(self, value: dict[_T1, _T2], /) -> dict[_KT | _T1, _VT | _T2]: ...
+    if sys.version_info >= (3, 15):
+        def __or__(self, value: dict[_T1, _T2] | frozendict[_T1, _T2], /) -> dict[_KT | _T1, _VT | _T2]: ...
+        @overload
+        def __ror__(self, value: dict[_T1, _T2], /) -> dict[_KT | _T1, _VT | _T2]: ...
+        @overload
+        def __ror__(self, value: frozendict[_T1, _T2], /) -> frozendict[_KT | _T1, _VT | _T2]: ...
+    else:
+        def __or__(self, value: dict[_T1, _T2], /) -> dict[_KT | _T1, _VT | _T2]: ...
+        def __ror__(self, value: dict[_T1, _T2], /) -> dict[_KT | _T1, _VT | _T2]: ...
     # dict.__ior__ should be kept roughly in line with MutableMapping.update()
     @overload  # type: ignore[misc]
     def __ior__(self, value: SupportsKeysAndGetItem[_KT, _VT], /) -> Self: ...
     @overload
     def __ior__(self, value: Iterable[tuple[_KT, _VT]], /) -> Self: ...
+
+if sys.version_info >= (3, 15):
+    @disjoint_base
+    class frozendict(Mapping[_KT, _VT]):
+        @overload
+        def __new__(cls, /) -> frozendict[Any, Any]: ...
+        @overload
+        def __new__(cls: type[frozendict[str, _VT]], /, **kwargs: _VT) -> frozendict[str, _VT]: ...
+        @overload
+        def __new__(cls, map: SupportsKeysAndGetItem[_KT, _VT], /) -> frozendict[_KT, _VT]: ...
+        @overload
+        def __new__(
+            cls: type[frozendict[str, _VT]], map: SupportsKeysAndGetItem[str, _VT], /, **kwargs: _VT
+        ) -> frozendict[str, _VT]: ...
+        @overload
+        def __new__(cls, iterable: Iterable[tuple[_KT, _VT]], /) -> frozendict[_KT, _VT]: ...
+        @overload
+        def __new__(
+            cls: type[frozendict[str, _VT]], iterable: Iterable[tuple[str, _VT]], /, **kwargs: _VT
+        ) -> frozendict[str, _VT]: ...
+        def __init__(self) -> None: ...
+        def copy(self) -> frozendict[_KT, _VT]: ...
+        @overload
+        @classmethod
+        def fromkeys(cls, iterable: Iterable[_T], value: None = None, /) -> frozendict[_T, Any | None]: ...
+        @overload
+        @classmethod
+        def fromkeys(cls, iterable: Iterable[_T], value: _S, /) -> frozendict[_T, _S]: ...
+        @overload  # type: ignore[override]
+        def get(self, key: _KT, default: None = None, /) -> _VT | None: ...
+        @overload
+        def get(self, key: _KT, default: _VT, /) -> _VT: ...
+        @overload
+        def get(self, key: _KT, default: _T, /) -> _VT | _T: ...
+        def keys(self) -> dict_keys[_KT, _VT]: ...
+        def values(self) -> dict_values[_KT, _VT]: ...
+        def items(self) -> dict_items[_KT, _VT]: ...
+        def __len__(self) -> int: ...
+        def __getitem__(self, key: _KT, /) -> _VT: ...
+        def __reversed__(self) -> Iterator[_KT]: ...
+        def __iter__(self) -> Iterator[_KT]: ...
+        def __hash__(self) -> int: ...
+        def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
+        def __or__(self, value: dict[_T1, _T2] | frozendict[_T1, _T2], /) -> frozendict[_KT | _T1, _VT | _T2]: ...
+        @overload
+        def __ror__(self, value: dict[_T1, _T2], /) -> dict[_KT | _T1, _VT | _T2]: ...
+        @overload
+        def __ror__(self, value: frozendict[_T1, _T2], /) -> frozendict[_KT | _T1, _VT | _T2]: ...
 
 @disjoint_base
 class set(MutableSet[_T]):
@@ -1362,7 +1446,13 @@ def abs(x: SupportsAbs[_T], /) -> _T: ...
 def all(iterable: Iterable[object], /) -> bool: ...
 def any(iterable: Iterable[object], /) -> bool: ...
 def ascii(obj: object, /) -> str: ...
-def bin(number: SupportsIndex, /) -> str: ...
+
+if sys.version_info >= (3, 15):
+    def bin(integer: SupportsIndex, /) -> str: ...
+
+else:
+    def bin(number: SupportsIndex, /) -> str: ...
+
 def breakpoint(*args: Any, **kws: Any) -> None: ...
 def callable(obj: object, /) -> TypeIs[Callable[..., object]]: ...
 def chr(i: SupportsIndex, /) -> str: ...
@@ -1382,49 +1472,99 @@ async def anext(i: SupportsAnext[_T], default: _VT, /) -> _T | _VT: ...
 # compile() returns a CodeType, unless the flags argument includes PyCF_ONLY_AST (=1024),
 # in which case it returns ast.AST. We have overloads for flag 0 (the default) and for
 # explicitly passing PyCF_ONLY_AST. We fall back to Any for other values of flags.
-@overload
-def compile(
-    source: str | ReadableBuffer | _ast.Module | _ast.Expression | _ast.Interactive,
-    filename: str | bytes | PathLike[Any],
-    mode: str,
-    flags: Literal[0],
-    dont_inherit: bool = False,
-    optimize: int = -1,
-    *,
-    _feature_version: int = -1,
-) -> CodeType: ...
-@overload
-def compile(
-    source: str | ReadableBuffer | _ast.Module | _ast.Expression | _ast.Interactive,
-    filename: str | bytes | PathLike[Any],
-    mode: str,
-    *,
-    dont_inherit: bool = False,
-    optimize: int = -1,
-    _feature_version: int = -1,
-) -> CodeType: ...
-@overload
-def compile(
-    source: str | ReadableBuffer | _ast.Module | _ast.Expression | _ast.Interactive,
-    filename: str | bytes | PathLike[Any],
-    mode: str,
-    flags: Literal[1024],
-    dont_inherit: bool = False,
-    optimize: int = -1,
-    *,
-    _feature_version: int = -1,
-) -> _ast.AST: ...
-@overload
-def compile(
-    source: str | ReadableBuffer | _ast.Module | _ast.Expression | _ast.Interactive,
-    filename: str | bytes | PathLike[Any],
-    mode: str,
-    flags: int,
-    dont_inherit: bool = False,
-    optimize: int = -1,
-    *,
-    _feature_version: int = -1,
-) -> Any: ...
+if sys.version_info >= (3, 15):
+    @overload
+    def compile(
+        source: str | ReadableBuffer | _ast.Module | _ast.Expression | _ast.Interactive,
+        filename: str | bytes | PathLike[Any],
+        mode: str,
+        flags: Literal[0],
+        dont_inherit: bool = False,
+        optimize: int = -1,
+        *,
+        module: str | None = None,
+        _feature_version: int = -1,
+    ) -> CodeType: ...
+    @overload
+    def compile(
+        source: str | ReadableBuffer | _ast.Module | _ast.Expression | _ast.Interactive,
+        filename: str | bytes | PathLike[Any],
+        mode: str,
+        *,
+        dont_inherit: bool = False,
+        optimize: int = -1,
+        module: str | None = None,
+        _feature_version: int = -1,
+    ) -> CodeType: ...
+    @overload
+    def compile(
+        source: str | ReadableBuffer | _ast.Module | _ast.Expression | _ast.Interactive,
+        filename: str | bytes | PathLike[Any],
+        mode: str,
+        flags: Literal[1024],
+        dont_inherit: bool = False,
+        optimize: int = -1,
+        *,
+        module: str | None = None,
+        _feature_version: int = -1,
+    ) -> _ast.AST: ...
+    @overload
+    def compile(
+        source: str | ReadableBuffer | _ast.Module | _ast.Expression | _ast.Interactive,
+        filename: str | bytes | PathLike[Any],
+        mode: str,
+        flags: int,
+        dont_inherit: bool = False,
+        optimize: int = -1,
+        *,
+        module: str | None = None,
+        _feature_version: int = -1,
+    ) -> Any: ...
+
+else:
+    @overload
+    def compile(
+        source: str | ReadableBuffer | _ast.Module | _ast.Expression | _ast.Interactive,
+        filename: str | bytes | PathLike[Any],
+        mode: str,
+        flags: Literal[0],
+        dont_inherit: bool = False,
+        optimize: int = -1,
+        *,
+        _feature_version: int = -1,
+    ) -> CodeType: ...
+    @overload
+    def compile(
+        source: str | ReadableBuffer | _ast.Module | _ast.Expression | _ast.Interactive,
+        filename: str | bytes | PathLike[Any],
+        mode: str,
+        *,
+        dont_inherit: bool = False,
+        optimize: int = -1,
+        _feature_version: int = -1,
+    ) -> CodeType: ...
+    @overload
+    def compile(
+        source: str | ReadableBuffer | _ast.Module | _ast.Expression | _ast.Interactive,
+        filename: str | bytes | PathLike[Any],
+        mode: str,
+        flags: Literal[1024],
+        dont_inherit: bool = False,
+        optimize: int = -1,
+        *,
+        _feature_version: int = -1,
+    ) -> _ast.AST: ...
+    @overload
+    def compile(
+        source: str | ReadableBuffer | _ast.Module | _ast.Expression | _ast.Interactive,
+        filename: str | bytes | PathLike[Any],
+        mode: str,
+        flags: int,
+        dont_inherit: bool = False,
+        optimize: int = -1,
+        *,
+        _feature_version: int = -1,
+    ) -> Any: ...
 
 copyright: _sitebuiltins._Printer
 credits: _sitebuiltins._Printer
@@ -1438,7 +1578,15 @@ def divmod(x: _T_contra, y: SupportsRDivMod[_T_contra, _T_co], /) -> _T_co: ...
 
 # The `globals` argument to `eval` has to be `dict[str, Any]` rather than `dict[str, object]` due to invariance.
 # (The `globals` argument has to be a "real dict", rather than any old mapping, unlike the `locals` argument.)
-if sys.version_info >= (3, 13):
+if sys.version_info >= (3, 15):
+    def eval(
+        source: str | ReadableBuffer | CodeType,
+        /,
+        globals: dict[str, Any] | frozendict[str, Any] | None = None,
+        locals: Mapping[str, object] | None = None,
+    ) -> Any: ...
+
+elif sys.version_info >= (3, 13):
     def eval(
         source: str | ReadableBuffer | CodeType,
         /,
@@ -1455,7 +1603,17 @@ else:
     ) -> Any: ...
 
 # Comment above regarding `eval` applies to `exec` as well
-if sys.version_info >= (3, 13):
+if sys.version_info >= (3, 15):
+    def exec(
+        source: str | ReadableBuffer | CodeType,
+        /,
+        globals: dict[str, Any] | frozendict[str, Any] | None = None,
+        locals: Mapping[str, object] | None = None,
+        *,
+        closure: tuple[CellType, ...] | None = None,
+    ) -> None: ...
+
+elif sys.version_info >= (3, 13):
     def exec(
         source: str | ReadableBuffer | CodeType,
         /,
@@ -1521,7 +1679,12 @@ def hash(obj: object, /) -> int: ...
 
 help: _sitebuiltins._Helper
 
-def hex(number: SupportsIndex, /) -> str: ...
+if sys.version_info >= (3, 15):
+    def hex(integer: SupportsIndex, /) -> str: ...
+
+else:
+    def hex(number: SupportsIndex, /) -> str: ...
+
 def id(obj: object, /) -> int: ...
 def input(prompt: object = "", /) -> str: ...
 @type_check_only
@@ -1685,7 +1848,12 @@ def min(iterable: Iterable[_T1], /, *, key: Callable[[_T1], SupportsRichComparis
 def next(i: SupportsNext[_T], /) -> _T: ...
 @overload
 def next(i: SupportsNext[_T], default: _VT, /) -> _T | _VT: ...
-def oct(number: SupportsIndex, /) -> str: ...
+
+if sys.version_info >= (3, 15):
+    def oct(integer: SupportsIndex, /) -> str: ...
+
+else:
+    def oct(number: SupportsIndex, /) -> str: ...
 
 _Opener: TypeAlias = Callable[[str, int], int]
 
@@ -1885,6 +2053,18 @@ def round(number: _SupportsRound2[_T], ndigits: SupportsIndex) -> _T: ...
 # See https://github.com/python/typeshed/pull/6292#discussion_r748875189
 # for why arg 3 of `setattr` should be annotated with `Any` and not `object`
 def setattr(obj: object, name: str, value: Any, /) -> None: ...
+
+if sys.version_info >= (3, 15):
+    @final
+    class sentinel:
+        __name__: str
+        __module__: str
+        def __new__(cls, name: str, /) -> Self: ...
+        def __copy__(self, /) -> Self: ...
+        def __deepcopy__(self, memo: Any, /) -> Self: ...
+        def __or__(self, other: Any, /) -> Any: ...
+        def __ror__(self, other: Any, /) -> Any: ...
+
 @overload
 def sorted(
     iterable: Iterable[SupportsRichComparisonT], /, *, key: None = None, reverse: bool = False
@@ -1970,6 +2150,16 @@ def __import__(
     fromlist: Sequence[str] | None = (),
     level: int = 0,
 ) -> types.ModuleType: ...
+
+if sys.version_info >= (3, 15):
+    def __lazy_import__(
+        name: str,
+        globals: Mapping[str, object] | None = None,
+        locals: Mapping[str, object] | None = None,
+        fromlist: Sequence[str] | None = (),
+        level: int = 0,
+    ) -> Any: ...
+
 def __build_class__(func: Callable[[], CellType | Any], name: str, /, *bases: Any, metaclass: Any = ..., **kwds: Any) -> Any: ...
 
 # Backwards compatibility hack for folks who relied on the ellipsis type
@@ -2047,6 +2237,9 @@ class ImportError(Exception):
     msg: str  # undocumented
     if sys.version_info >= (3, 12):
         name_from: str | None  # undocumented
+
+if sys.version_info >= (3, 15):
+    class ImportCycleError(ImportError): ...
 
 class LookupError(Exception): ...
 class MemoryError(Exception): ...

@@ -113,18 +113,6 @@ binascii.b2a_base32
 binascii.b2a_base64
 binascii.b2a_base85
 binascii.unhexlify
-builtins.ImportCycleError
-builtins.__lazy_import__
-builtins.bin
-builtins.bytearray.replace
-builtins.bytearray.take_bytes
-builtins.bytes.replace
-builtins.compile
-builtins.frozendict
-builtins.hex
-builtins.oct
-builtins.sentinel
-builtins.slice.__class_getitem__
 calendar.HTMLCalendar.formatmonthpage
 calendar.__all__
 calendar.standalone_month_abbr
@@ -152,6 +140,8 @@ concurrent.interpreters._crossinterp.classonly.__wrapped__
 copy.deepcopy
 ctypes.SetPointerType
 dataclasses._MISSING_TYPE
+dataclasses.MISSING
+dataclasses.field
 datetime.date.fromisoformat
 datetime.date.strptime
 datetime.datetime.fromisoformat
