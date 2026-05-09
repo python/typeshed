@@ -1,7 +1,7 @@
 from _typeshed import StrOrBytesPath, structseq
 from collections.abc import Callable, Sequence
 from typing import Final, TypeAlias, final
-from typing_extensions import Self, disjoint_base
+from typing_extensions import Self
 
 _Location: TypeAlias = int | LocationInfo | None
 _Frame: TypeAlias = tuple[str, _Location, str, int | None] | FrameInfo
@@ -122,7 +122,6 @@ class GCStatsInfo(structseq[object], tuple[int, int, int, int, int, int, int, in
     def duration(self) -> float: ...
 
 @final
-@disjoint_base
 class RemoteUnwinder:
     def __init__(
         self,
@@ -144,13 +143,11 @@ class RemoteUnwinder:
     def resume_threads(self) -> bool: ...
 
 @final
-@disjoint_base
 class GCMonitor:
     def __init__(self, pid: int, *, debug: bool = False) -> None: ...
     def get_gc_stats(self, all_interpreters: bool = False) -> list[GCStatsInfo]: ...
 
 @final
-@disjoint_base
 class BinaryWriter:
     total_samples: int
     def __init__(
@@ -164,7 +161,6 @@ class BinaryWriter:
     def get_stats(self) -> _Stats: ...
 
 @final
-@disjoint_base
 class BinaryReader:
     sample_count: int
     sample_interval_us: int
