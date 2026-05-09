@@ -161,7 +161,28 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
     _subparsers: _ArgumentGroup | None
 
     # Note: the constructor arguments are also used in _SubParsersAction.add_parser.
-    if sys.version_info >= (3, 14):
+    if sys.version_info >= (3, 15):
+        def __init__(
+            self,
+            prog: str | None = None,
+            usage: str | None = None,
+            description: str | None = None,
+            epilog: str | None = None,
+            parents: Iterable[ArgumentParser] = [],
+            formatter_class: _FormatterClass = ...,
+            prefix_chars: str = "-",
+            fromfile_prefix_chars: str | None = None,
+            argument_default: Any = None,
+            conflict_handler: str = "error",
+            add_help: bool = True,
+            allow_abbrev: bool = True,
+            exit_on_error: bool = True,
+            *,
+            suggest_on_error: bool = True,
+            color: bool = True,
+        ) -> None: ...
+
+    elif sys.version_info >= (3, 14):
         def __init__(
             self,
             prog: str | None = None,
@@ -236,8 +257,14 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
     ) -> _SubParsersAction[_ArgumentParserT]: ...
     def print_usage(self, file: SupportsWrite[str] | None = None) -> None: ...
     def print_help(self, file: SupportsWrite[str] | None = None) -> None: ...
-    def format_usage(self) -> str: ...
-    def format_help(self) -> str: ...
+    if sys.version_info >= (3, 15):
+        def format_usage(self, formatter: HelpFormatter | None = None) -> str: ...
+        def format_help(self, formatter: HelpFormatter | None = None) -> str: ...
+
+    else:
+        def format_usage(self) -> str: ...
+        def format_help(self) -> str: ...
+
     @overload
     def parse_known_args(self, args: Iterable[str] | None = None, namespace: None = None) -> tuple[Namespace, list[str]]: ...
     @overload
@@ -284,7 +311,11 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
     def _get_values(self, action: Action, arg_strings: list[str]) -> Any: ...
     def _get_value(self, action: Action, arg_string: str) -> Any: ...
     def _check_value(self, action: Action, value: Any) -> None: ...
-    def _get_formatter(self) -> HelpFormatter: ...
+    if sys.version_info >= (3, 15):
+        def _get_formatter(self, file: SupportsWrite[str] | None = None) -> HelpFormatter: ...
+    else:
+        def _get_formatter(self) -> HelpFormatter: ...
+
     def _print_message(self, message: str, file: SupportsWrite[str] | None = None) -> None: ...
 
 class HelpFormatter:
@@ -309,7 +340,12 @@ class HelpFormatter:
         def __init__(self, formatter: HelpFormatter, parent: Self | None, heading: str | None = None) -> None: ...
         def format_help(self) -> str: ...
 
-    if sys.version_info >= (3, 14):
+    if sys.version_info >= (3, 15):
+        def __init__(
+            self, prog: str, indent_increment: int = 2, max_help_position: int = 24, width: int | None = None
+        ) -> None: ...
+
+    elif sys.version_info >= (3, 14):
         def __init__(
             self, prog: str, indent_increment: int = 2, max_help_position: int = 24, width: int | None = None, color: bool = True
         ) -> None: ...

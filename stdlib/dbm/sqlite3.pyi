@@ -1,3 +1,4 @@
+import sys
 from _typeshed import ReadableBuffer, StrOrBytesPath, Unused
 from collections.abc import Generator, MutableMapping
 from typing import Final, Literal, TypeAlias
@@ -9,6 +10,8 @@ LOOKUP_KEY: Final[LiteralString]
 STORE_KV: Final[LiteralString]
 DELETE_KEY: Final[LiteralString]
 ITER_KEYS: Final[LiteralString]
+if sys.version_info >= (3, 15):
+    REORGANIZE: Final[LiteralString]
 
 _SqliteData: TypeAlias = str | ReadableBuffer | int | float
 
@@ -25,5 +28,7 @@ class _Database(MutableMapping[bytes, bytes]):
     def keys(self) -> list[bytes]: ...  # type: ignore[override]
     def __enter__(self) -> Self: ...
     def __exit__(self, *args: Unused) -> None: ...
+    if sys.version_info >= (3, 15):
+        def reorganize(self) -> None: ...
 
 def open(filename: StrOrBytesPath, /, flag: Literal["r", "w", "c", "n"] = "r", mode: int = 0o666) -> _Database: ...

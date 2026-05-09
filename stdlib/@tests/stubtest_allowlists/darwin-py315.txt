@@ -2,14 +2,12 @@
 # TODO: Allowlist entries that should be fixed
 # ============================================
 
-_decimal.SPEC_VERSION
 _pyrepl.fancy_termios
 _pyrepl.unix_console
 _pyrepl.unix_eventqueue
 ctypes.c_double_complex._type_
 ctypes.c_float_complex._type_
 ctypes.c_longdouble_complex._type_
-decimal.SPEC_VERSION
 mmap.MS_ASYNC
 mmap.MS_INVALIDATE
 mmap.MS_SYNC
