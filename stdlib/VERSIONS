@@ -335,6 +335,7 @@ wsgiref: 3.0-
 wsgiref.types: 3.11-
 xdrlib: 3.0-3.12
 xml: 3.0-
+xml.utils: 3.15-
 xmlrpc: 3.0-
 xxlimited: 3.2-
 zipapp: 3.5-
