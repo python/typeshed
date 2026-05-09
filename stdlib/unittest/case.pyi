@@ -178,9 +178,18 @@ class TestCase:
     def assertWarnsRegex(
         self, expected_warning: type[Warning] | tuple[type[Warning], ...], expected_regex: str | Pattern[str], *, msg: Any = ...
     ) -> _AssertWarnsContext: ...
-    def assertLogs(
-        self, logger: str | logging.Logger | None = None, level: int | str | None = None
-    ) -> _AssertLogsContext[_LoggingWatcher]: ...
+    if sys.version_info >= (3, 15):
+        def assertLogs(
+            self,
+            logger: str | logging.Logger | None = None,
+            level: int | str | None = None,
+            formatter: logging.Formatter | None = None,
+        ) -> _AssertLogsContext[_LoggingWatcher]: ...
+    else:
+        def assertLogs(
+            self, logger: str | logging.Logger | None = None, level: int | str | None = None
+        ) -> _AssertLogsContext[_LoggingWatcher]: ...
+
     def assertNoLogs(
         self, logger: str | logging.Logger | None = None, level: int | str | None = None
     ) -> _AssertLogsContext[None]: ...

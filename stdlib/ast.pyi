@@ -710,22 +710,54 @@ class Assert(stmt):
         def __replace__(self, *, test: expr = ..., msg: expr | None = ..., **kwargs: Unpack[_Attributes]) -> Self: ...
 
 class Import(stmt):
-    __match_args__ = ("names",)
+    if sys.version_info >= (3, 15):
+        __match_args__ = ("names", "is_lazy")
+    else:
+        __match_args__ = ("names",)
     names: list[alias]
-    if sys.version_info >= (3, 13):
+    if sys.version_info >= (3, 15):
+        is_lazy: bool | None
+    if sys.version_info >= (3, 15):
+        def __init__(self, names: list[alias] = ..., is_lazy: bool | None = None, **kwargs: Unpack[_Attributes]) -> None: ...
+
+    elif sys.version_info >= (3, 13):
         def __init__(self, names: list[alias] = ..., **kwargs: Unpack[_Attributes]) -> None: ...
     else:
         def __init__(self, names: list[alias], **kwargs: Unpack[_Attributes]) -> None: ...
 
-    if sys.version_info >= (3, 14):
+    if sys.version_info >= (3, 15):
+        def __replace__(self, *, names: list[alias] = ..., is_lazy: bool | None = ..., **kwargs: Unpack[_Attributes]) -> Self: ...
+
+    elif sys.version_info >= (3, 14):
         def __replace__(self, *, names: list[alias] = ..., **kwargs: Unpack[_Attributes]) -> Self: ...
 
 class ImportFrom(stmt):
-    __match_args__ = ("module", "names", "level")
+    if sys.version_info >= (3, 15):
+        __match_args__ = ("module", "names", "level", "is_lazy")
+    else:
+        __match_args__ = ("module", "names", "level")
     module: str | None
     names: list[alias]
     level: int
-    if sys.version_info >= (3, 13):
+    if sys.version_info >= (3, 15):
+        is_lazy: bool | None
+    if sys.version_info >= (3, 15):
+        @overload
+        def __init__(
+            self, module: str | None, names: list[alias], level: int, is_lazy: bool | None = None, **kwargs: Unpack[_Attributes]
+        ) -> None: ...
+        @overload
+        def __init__(
+            self,
+            module: str | None = None,
+            names: list[alias] = ...,
+            *,
+            level: int,
+            is_lazy: bool | None = None,
+            **kwargs: Unpack[_Attributes],
+        ) -> None: ...
+
+    elif sys.version_info >= (3, 13):
         @overload
         def __init__(self, module: str | None, names: list[alias], level: int, **kwargs: Unpack[_Attributes]) -> None: ...
         @overload
@@ -740,7 +772,18 @@ class ImportFrom(stmt):
             self, module: str | None = None, *, names: list[alias], level: int, **kwargs: Unpack[_Attributes]
         ) -> None: ...
 
-    if sys.version_info >= (3, 14):
+    if sys.version_info >= (3, 15):
+        def __replace__(
+            self,
+            *,
+            module: str | None = ...,
+            names: list[alias] = ...,
+            level: int = ...,
+            is_lazy: bool | None = ...,
+            **kwargs: Unpack[_Attributes],
+        ) -> Self: ...
+
+    elif sys.version_info >= (3, 14):
         def __replace__(
             self, *, module: str | None = ..., names: list[alias] = ..., level: int = ..., **kwargs: Unpack[_Attributes]
         ) -> Self: ...
@@ -908,7 +951,10 @@ class SetComp(expr):
 class DictComp(expr):
     __match_args__ = ("key", "value", "generators")
     key: expr
-    value: expr
+    if sys.version_info >= (3, 15):
+        value: expr | None
+    else:
+        value: expr
     generators: list[comprehension]
     if sys.version_info >= (3, 13):
         def __init__(
@@ -1672,7 +1718,105 @@ if sys.version_info < (3, 14):
 
 _T = _TypeVar("_T", bound=AST)
 
-if sys.version_info >= (3, 13):
+if sys.version_info >= (3, 15):
+    @overload
+    def parse(
+        source: _T,
+        filename: str | bytes | os.PathLike[Any] = "<unknown>",
+        mode: Literal["exec", "eval", "func_type", "single"] = "exec",
+        *,
+        type_comments: bool = False,
+        feature_version: None | int | tuple[int, int] = None,
+        optimize: Literal[-1, 0, 1, 2] = -1,
+        module: str | None = None,
+    ) -> _T: ...
+    @overload
+    def parse(
+        source: str | ReadableBuffer,
+        filename: str | bytes | os.PathLike[Any] = "<unknown>",
+        mode: Literal["exec"] = "exec",
+        *,
+        type_comments: bool = False,
+        feature_version: None | int | tuple[int, int] = None,
+        optimize: Literal[-1, 0, 1, 2] = -1,
+        module: str | None = None,
+    ) -> Module: ...
+    @overload
+    def parse(
+        source: str | ReadableBuffer,
+        filename: str | bytes | os.PathLike[Any],
+        mode: Literal["eval"],
+        *,
+        type_comments: bool = False,
+        feature_version: None | int | tuple[int, int] = None,
+        optimize: Literal[-1, 0, 1, 2] = -1,
+        module: str | None = None,
+    ) -> Expression: ...
+    @overload
+    def parse(
+        source: str | ReadableBuffer,
+        filename: str | bytes | os.PathLike[Any],
+        mode: Literal["func_type"],
+        *,
+        type_comments: bool = False,
+        feature_version: None | int | tuple[int, int] = None,
+        optimize: Literal[-1, 0, 1, 2] = -1,
+        module: str | None = None,
+    ) -> FunctionType: ...
+    @overload
+    def parse(
+        source: str | ReadableBuffer,
+        filename: str | bytes | os.PathLike[Any],
+        mode: Literal["single"],
+        *,
+        type_comments: bool = False,
+        feature_version: None | int | tuple[int, int] = None,
+        optimize: Literal[-1, 0, 1, 2] = -1,
+        module: str | None = None,
+    ) -> Interactive: ...
+    @overload
+    def parse(
+        source: str | ReadableBuffer,
+        *,
+        mode: Literal["eval"],
+        type_comments: bool = False,
+        feature_version: None | int | tuple[int, int] = None,
+        optimize: Literal[-1, 0, 1, 2] = -1,
+        module: str | None = None,
+    ) -> Expression: ...
+    @overload
+    def parse(
+        source: str | ReadableBuffer,
+        *,
+        mode: Literal["func_type"],
+        type_comments: bool = False,
+        feature_version: None | int | tuple[int, int] = None,
+        optimize: Literal[-1, 0, 1, 2] = -1,
+        module: str | None = None,
+    ) -> FunctionType: ...
+    @overload
+    def parse(
+        source: str | ReadableBuffer,
+        *,
+        mode: Literal["single"],
+        type_comments: bool = False,
+        feature_version: None | int | tuple[int, int] = None,
+        optimize: Literal[-1, 0, 1, 2] = -1,
+        module: str | None = None,
+    ) -> Interactive: ...
+    @overload
+    def parse(
+        source: str | ReadableBuffer,
+        filename: str | bytes | os.PathLike[Any] = "<unknown>",
+        mode: str = "exec",
+        *,
+        type_comments: bool = False,
+        feature_version: None | int | tuple[int, int] = None,
+        optimize: Literal[-1, 0, 1, 2] = -1,
+        module: str | None = None,
+    ) -> mod: ...
+
+elif sys.version_info >= (3, 13):
     @overload
     def parse(
         source: _T,
@@ -1843,7 +1987,18 @@ else:
 
 def literal_eval(node_or_string: str | AST) -> Any: ...
 
-if sys.version_info >= (3, 13):
+if sys.version_info >= (3, 15):
+    def dump(
+        node: AST,
+        annotate_fields: bool = True,
+        include_attributes: bool = False,
+        *,
+        indent: int | str | None = None,
+        show_empty: bool = False,
+        color: bool = False,
+    ) -> str: ...
+
+elif sys.version_info >= (3, 13):
     def dump(
         node: AST,
         annotate_fields: bool = True,

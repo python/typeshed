@@ -132,7 +132,27 @@ class TarFile:
     errorlevel: Literal[0, 1, 2]
     offset: int  # undocumented
     extraction_filter: _FilterFunction | None
-    if sys.version_info >= (3, 13):
+    if sys.version_info >= (3, 15):
+        stream: bool
+        def __init__(
+            self,
+            name: StrOrBytesPath | None = None,
+            mode: Literal["r", "a", "w", "x"] = "r",
+            fileobj: _Fileobj | None = None,
+            format: int | None = None,
+            tarinfo: type[TarInfo] | None = None,
+            dereference: bool | None = None,
+            ignore_zeros: bool | None = None,
+            encoding: str | None = None,
+            errors: str = "surrogateescape",
+            pax_headers: Mapping[str, str] | None = None,
+            debug: Literal[0, 1, 2, 3] | None = None,  # default 0
+            errorlevel: Literal[0, 1, 2] | None = None,  # default 1
+            copybufsize: int | None = None,  # undocumented
+            stream: bool = False,
+            mtime: float | None = None,
+        ) -> None: ...
+    elif sys.version_info >= (3, 13):
         stream: bool
         def __init__(
             self,
