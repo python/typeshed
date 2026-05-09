@@ -230,6 +230,9 @@ if sys.platform != "win32":
     IP_RETOPTS: Final[int]
 if sys.version_info >= (3, 13) and sys.platform == "linux":
     CAN_RAW_ERR_FILTER: Final[int]
+if sys.version_info >= (3, 15):
+    if sys.platform == "win32" or sys.platform == "linux":
+        IPV6_HDRINCL: Final[int]
 if sys.version_info >= (3, 14):
     IP_RECVTTL: Final[int]
 
@@ -237,12 +240,6 @@ if sys.version_info >= (3, 14):
         IPV6_RECVERR: Final[int]
         IP_RECVERR: Final[int]
         SO_ORIGINAL_DST: Final[int]
-
-    if sys.version_info >= (3, 15):
-        if sys.platform == "win32":
-            IPV6_HDRINCL: Final[int]
-        if sys.platform == "linux":
-            IPV6_HDRINCL: Final[int]
 
     if sys.platform == "win32":
         SOL_RFCOMM: Final[int]

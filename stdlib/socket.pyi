@@ -1103,6 +1103,12 @@ if sys.platform != "linux":
 
     __all__ += ["IPPROTO_GGP", "IPPROTO_IPV4", "IPPROTO_MAX", "IPPROTO_ND", "IP_RECVDSTADDR", "SO_USELOOPBACK"]
 
+if sys.version_info >= (3, 15):
+    if sys.platform == "win32" or sys.platform == "linux":
+        from _socket import IPV6_HDRINCL as IPV6_HDRINCL
+
+        __all__ += ["IPV6_HDRINCL"]
+
 if sys.version_info >= (3, 14):
     from _socket import IP_RECVTTL as IP_RECVTTL
 
@@ -1112,16 +1118,6 @@ if sys.version_info >= (3, 14):
         from _socket import IP_RECVERR as IP_RECVERR, IPV6_RECVERR as IPV6_RECVERR, SO_ORIGINAL_DST as SO_ORIGINAL_DST
 
         __all__ += ["IP_RECVERR", "IPV6_RECVERR", "SO_ORIGINAL_DST"]
-
-    if sys.version_info >= (3, 15):
-        if sys.platform == "win32":
-            from _socket import IPV6_HDRINCL as IPV6_HDRINCL
-
-            __all__ += ["IPV6_HDRINCL"]
-        if sys.platform == "linux":
-            from _socket import IPV6_HDRINCL as IPV6_HDRINCL
-
-            __all__ += ["IPV6_HDRINCL"]
 
     if sys.platform == "win32":
         from _socket import (
