@@ -288,3 +288,11 @@ xml.etree.ElementTree.__all__
 xml.is_valid_name
 xml.utils
 zipimport.zipimporter.load_module
+
+# =============================================================
+# Allowlist entries that cannot or should not be fixed; >=3.15
+# =============================================================
+
+# runtime default is a list object used as a sentinel
+urllib.parse.urlunparse
+urllib.parse.urlunsplit
