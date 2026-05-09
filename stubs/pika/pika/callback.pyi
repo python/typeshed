@@ -25,7 +25,8 @@ class CallbackManager:
         self,
         prefix: str | int,
         key: AMQPValue,
-        callback: Callable[[Incomplete], Incomplete],
+        # Parameter type must match arguments passed to process()
+        callback: Callable[..., object],
         one_shot: bool = True,
         only_caller: object | None = None,
         arguments=None,
@@ -35,6 +36,6 @@ class CallbackManager:
     def pending(self, prefix: str | int, key: str | object) -> int | None: ...
     def process(self, prefix: str | int, key: AMQPValue, caller, *args, **keywords) -> bool: ...
     def remove(
-        self, prefix: str | int, key: AMQPValue, callback_value: Callable[[Incomplete], Incomplete] | None = None, arguments=None
+        self, prefix: str | int, key: AMQPValue, callback_value: Callable[..., object] | None = None, arguments=None
     ) -> Literal[True]: ...
     def remove_all(self, prefix: str | int, key: AMQPValue) -> None: ...
