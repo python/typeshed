@@ -1,4 +1,5 @@
 import logging
+import sys
 from types import TracebackType
 from typing import ClassVar, Generic, NamedTuple, TypeVar
 from unittest.case import TestCase, _BaseTestCaseContext
@@ -14,8 +15,15 @@ class _AssertLogsContext(_BaseTestCaseContext, Generic[_L]):
     logger_name: str
     level: int
     msg: None
-    no_logs: bool
-    def __init__(self, test_case: TestCase, logger_name: str, level: int, no_logs: bool) -> None: ...
+    if sys.version_info >= (3, 15):
+        def __init__(
+            self, test_case: TestCase, logger_name: str, level: int, no_logs: bool, formatter: logging.Formatter | None = None
+        ) -> None: ...
+        no_logs: bool
+    else:
+        def __init__(self, test_case: TestCase, logger_name: str, level: int, no_logs: bool) -> None: ...
+        no_logs: bool
+
     def __enter__(self) -> _L: ...
     def __exit__(
         self, exc_type: type[BaseException] | None, exc_value: BaseException | None, tb: TracebackType | None

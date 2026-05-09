@@ -6,7 +6,10 @@ from typing import Any, ClassVar, Literal, SupportsIndex, TypeAlias, TypeVar, ov
 from typing_extensions import Self, deprecated, disjoint_base
 
 _IntTypeCode: TypeAlias = Literal["b", "B", "h", "H", "i", "I", "l", "L", "q", "Q"]
-_FloatTypeCode: TypeAlias = Literal["f", "d"]
+if sys.version_info >= (3, 15):
+    _FloatTypeCode: TypeAlias = Literal["f", "d", "e", "Zf", "Zd"]
+else:
+    _FloatTypeCode: TypeAlias = Literal["f", "d"]
 if sys.version_info >= (3, 13):
     _UnicodeTypeCode: TypeAlias = Literal["u", "w"]
 else:
@@ -15,7 +18,10 @@ _TypeCode: TypeAlias = _IntTypeCode | _FloatTypeCode | _UnicodeTypeCode
 
 _T = TypeVar("_T", int, float, str)
 
-typecodes: str
+if sys.version_info >= (3, 15):
+    typecodes: tuple[str, ...]
+else:
+    typecodes: str
 
 @disjoint_base
 class array(MutableSequence[_T]):
