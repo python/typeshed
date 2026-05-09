@@ -178,7 +178,6 @@ posixpath.splitroot
 pprint.PrettyPrinter.__init__
 pprint.pformat
 pprint.pprint
-profiling\.sampling\..+
 pydoc.Doc.STDLIB_DIR
 pydoc.Doc.getdocloc
 site.addsitedir
@@ -259,3 +258,30 @@ xml.etree.ElementTree.__all__
 xml.is_valid_name
 xml.utils
 zipimport.zipimporter.load_module
+
+
+# =============================================================
+# Allowlist entries that cannot or should not be fixed; >= 3.15
+# =============================================================
+
+# Internal implementation details of the sampling profiler.
+profiling.sampling.__main__
+profiling.sampling._child_monitor
+profiling.sampling._css_utils
+profiling.sampling._format_utils
+profiling.sampling._sync_coordinator
+profiling.sampling.binary_collector
+profiling.sampling.binary_reader
+profiling.sampling.cli
+profiling.sampling.constants
+profiling.sampling.dump
+profiling.sampling.errors
+profiling.sampling.live_collector
+profiling.sampling.live_collector.collector
+profiling.sampling.live_collector.constants
+profiling.sampling.live_collector.display
+profiling.sampling.live_collector.trend_tracker
+profiling.sampling.live_collector.widgets
+profiling.sampling.module_utils
+profiling.sampling.opcode_utils
+profiling.sampling.sample
