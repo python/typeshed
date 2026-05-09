@@ -69,6 +69,8 @@ SQLITE_SAVEPOINT: Final = 32
 SQLITE_SELECT: Final = 21
 SQLITE_TRANSACTION: Final = 22
 SQLITE_UPDATE: Final = 23
+if sys.version_info >= (3, 15):
+    SQLITE_KEYWORDS: tuple[str, ...]
 adapters: dict[tuple[type[Any], type[Any]], _Adapter[Any]]
 converters: dict[str, _Converter]
 sqlite_version: str
