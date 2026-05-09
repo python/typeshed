@@ -208,6 +208,7 @@ mailbox: 3.0-
 mailcap: 3.0-3.12
 marshal: 3.0-
 math: 3.0-
+math.integer: 3.15-
 mimetypes: 3.0-
 mmap: 3.0-
 modulefinder: 3.0-
