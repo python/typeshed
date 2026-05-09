@@ -1,9 +1,30 @@
 import sys
 from collections.abc import Iterable
 from enum import Enum
-from typing import SupportsIndex
+from typing import NamedTuple, SupportsIndex, type_check_only
 
-from _remote_debugging import AwaitedInfo as _AwaitedInfo
+@type_check_only
+class _AwaitedInfo(NamedTuple):  # AwaitedInfo_Type from _remote_debugging
+    thread_id: int
+    awaited_by: list[_TaskInfo]
+
+@type_check_only
+class _TaskInfo(NamedTuple):  # TaskInfo_Type from _remote_debugging
+    task_id: int
+    task_name: str
+    coroutine_stack: list[_CoroInfo]
+    awaited_by: list[_CoroInfo]
+
+@type_check_only
+class _CoroInfo(NamedTuple):  # CoroInfo_Type from _remote_debugging
+    call_stack: list[_FrameInfo]
+    task_name: int | str
+
+@type_check_only
+class _FrameInfo(NamedTuple):  # FrameInfo_Type from _remote_debugging
+    filename: str
+    lineno: int
+    funcname: str
 
 class NodeType(Enum):
     COROUTINE = 1

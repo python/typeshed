@@ -1,6 +1,7 @@
 from _typeshed import StrOrBytesPath, structseq
 from collections.abc import Callable, Sequence
-from typing import Final, Self, TypeAlias, final
+from typing import Final, TypeAlias, final
+from typing_extensions import Self, disjoint_base
 
 _Location: TypeAlias = int | LocationInfo | None
 _Frame: TypeAlias = tuple[str, _Location, str, int | None] | FrameInfo
@@ -17,6 +18,7 @@ THREAD_STATUS_UNKNOWN: Final[int]
 
 @final
 class LocationInfo(structseq[int], tuple[int, int, int, int]):
+    __match_args__: Final = ("lineno", "end_lineno", "col_offset", "end_col_offset")
     @property
     def lineno(self) -> int: ...
     @property
@@ -28,6 +30,7 @@ class LocationInfo(structseq[int], tuple[int, int, int, int]):
 
 @final
 class FrameInfo(structseq[object], tuple[str, _Location, str, int | None]):
+    __match_args__: Final = ("filename", "location", "funcname", "opcode")
     @property
     def filename(self) -> str: ...
     @property
@@ -39,6 +42,7 @@ class FrameInfo(structseq[object], tuple[str, _Location, str, int | None]):
 
 @final
 class CoroInfo(structseq[object], tuple[list[_Frame], int | str]):
+    __match_args__: Final = ("call_stack", "task_name")
     @property
     def call_stack(self) -> list[_Frame]: ...
     @property
@@ -46,6 +50,7 @@ class CoroInfo(structseq[object], tuple[list[_Frame], int | str]):
 
 @final
 class TaskInfo(structseq[object], tuple[int, str, list[CoroInfo], list[CoroInfo]]):
+    __match_args__: Final = ("task_id", "task_name", "coroutine_stack", "awaited_by")
     @property
     def task_id(self) -> int: ...
     @property
@@ -57,6 +62,7 @@ class TaskInfo(structseq[object], tuple[int, str, list[CoroInfo], list[CoroInfo]
 
 @final
 class ThreadInfo(structseq[object], tuple[int, int, list[_Frame]]):
+    __match_args__: Final = ("thread_id", "status", "frame_info")
     @property
     def thread_id(self) -> int: ...
     @property
@@ -66,6 +72,7 @@ class ThreadInfo(structseq[object], tuple[int, int, list[_Frame]]):
 
 @final
 class InterpreterInfo(structseq[object], tuple[int, list[ThreadInfo]]):
+    __match_args__: Final = ("interpreter_id", "threads")
     @property
     def interpreter_id(self) -> int: ...
     @property
@@ -73,6 +80,7 @@ class InterpreterInfo(structseq[object], tuple[int, list[ThreadInfo]]):
 
 @final
 class AwaitedInfo(structseq[object], tuple[int, list[TaskInfo]]):
+    __match_args__: Final = ("thread_id", "awaited_by")
     @property
     def thread_id(self) -> int: ...
     @property
@@ -80,6 +88,18 @@ class AwaitedInfo(structseq[object], tuple[int, list[TaskInfo]]):
 
 @final
 class GCStatsInfo(structseq[object], tuple[int, int, int, int, int, int, int, int, int, float]):
+    __match_args__: Final = (
+        "gen",
+        "iid",
+        "ts_start",
+        "ts_stop",
+        "collections",
+        "collected",
+        "uncollectable",
+        "candidates",
+        "heap_size",
+        "duration",
+    )
     @property
     def gen(self) -> int: ...
     @property
@@ -101,6 +121,8 @@ class GCStatsInfo(structseq[object], tuple[int, int, int, int, int, int, int, in
     @property
     def duration(self) -> float: ...
 
+@final
+@disjoint_base
 class RemoteUnwinder:
     def __init__(
         self,
@@ -121,10 +143,14 @@ class RemoteUnwinder:
     def pause_threads(self) -> bool: ...
     def resume_threads(self) -> bool: ...
 
+@final
+@disjoint_base
 class GCMonitor:
     def __init__(self, pid: int, *, debug: bool = False) -> None: ...
     def get_gc_stats(self, all_interpreters: bool = False) -> list[GCStatsInfo]: ...
 
+@final
+@disjoint_base
 class BinaryWriter:
     total_samples: int
     def __init__(
@@ -137,6 +163,8 @@ class BinaryWriter:
     def __exit__(self, exc_type: object = None, exc_val: object = None, exc_tb: object = None) -> bool: ...
     def get_stats(self) -> _Stats: ...
 
+@final
+@disjoint_base
 class BinaryReader:
     sample_count: int
     sample_interval_us: int
