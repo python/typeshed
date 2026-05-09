@@ -1,7 +1,7 @@
 from collections.abc import Callable
 
-from authlib.jose import BaseClaims
+from authlib.oauth2.claims import BaseClaims
 
 class ClientMetadataClaims(BaseClaims):
+    REGISTERED_CLAIMS: list[str]
     def validate(self, now: int | Callable[[], int] | None = None, leeway: int = 0) -> None: ...
-    def validate_require_signed_request_object(self) -> None: ...
