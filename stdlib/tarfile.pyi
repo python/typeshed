@@ -132,8 +132,9 @@ class TarFile:
     errorlevel: Literal[0, 1, 2]
     offset: int  # undocumented
     extraction_filter: _FilterFunction | None
-    if sys.version_info >= (3, 15):
+    if sys.version_info >= (3, 13):
         stream: bool
+    if sys.version_info >= (3, 15):
         def __init__(
             self,
             name: StrOrBytesPath | None = None,
@@ -153,7 +154,6 @@ class TarFile:
             mtime: float | None = None,
         ) -> None: ...
     elif sys.version_info >= (3, 13):
-        stream: bool
         def __init__(
             self,
             name: StrOrBytesPath | None = None,
