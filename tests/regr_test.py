@@ -176,7 +176,7 @@ def run_testcases(
     else:
         configurations = mypy_configuration_from_distribution(package.name)
 
-    with temporary_mypy_config_file(configurations) as temp:
+    with temporary_mypy_config_file(configurations) as temp_config:
 
         # "--enable-error-code ignore-without-code" is purposefully omitted.
         # See https://github.com/python/typeshed/pull/8083
@@ -190,7 +190,7 @@ def run_testcases(
             "--strict",
             "--pretty",
             "--config-file",
-            temp.name,
+            temp_config.name,
             # Avoid race conditions when using the cache
             # https://github.com/python/mypy/issues/13916
             "--no-incremental",
@@ -358,7 +358,8 @@ def concurrently_run_testcases(
         ]
 
         with cleanup_threads(event, printer_thread, executor):
-            concurrent.futures.wait(testcase_futures)
+            for future in concurrent.futures.as_completed(testcase_futures):
+                future.result()
 
         mypy_futures = [executor.submit(task) for task in to_do]
 

@@ -68,7 +68,6 @@ from typing import (  # noqa: Y022,Y037,Y038,Y039,UP035
     cast as cast,
     is_typeddict as is_typeddict,
     no_type_check as no_type_check,
-    no_type_check_decorator as no_type_check_decorator,
     overload as overload,
     type_check_only,
 )
@@ -209,6 +208,9 @@ _F = _TypeVar("_F", bound=Callable[..., Any])
 _TC = _TypeVar("_TC", bound=type[object])
 _T_co = _TypeVar("_T_co", covariant=True)  # Any type covariant containers.
 _T_contra = _TypeVar("_T_contra", contravariant=True)
+
+if sys.version_info < (3, 15):
+    def no_type_check_decorator(decorator: _F) -> _F: ...
 
 # Do not import (and re-export) Protocol or runtime_checkable from
 # typing module because type checkers need to be able to distinguish
