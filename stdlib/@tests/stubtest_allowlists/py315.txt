@@ -291,12 +291,6 @@ profiling.sampling.gecko_collector.RESOURCE_TYPE_LIBRARY
 profiling.sampling.gecko_collector.STACKWALK_DISABLED
 profiling.sampling.heatmap_collector.FileStats
 profiling.sampling.heatmap_collector.TreeNode
-profiling.sampling.live_collector
-profiling.sampling.live_collector.collector
-profiling.sampling.live_collector.constants
-profiling.sampling.live_collector.display
-profiling.sampling.live_collector.trend_tracker
-profiling.sampling.live_collector.widgets
 profiling.sampling.module_utils
 profiling.sampling.opcode_utils
 profiling.sampling.sample
