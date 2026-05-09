@@ -12,8 +12,6 @@ _frozen_importlib_external.SourceFileLoader.source_to_code
 _frozen_importlib_external.SourceLoader.source_to_code
 _frozen_importlib_external._LoaderBasics.load_module
 _frozen_importlib_external.cache_from_source
-_interpqueues.create
-_interpqueues.put
 _pyrepl.base_eventqueue
 _pyrepl.commands
 _pyrepl.completing_reader
@@ -62,8 +60,6 @@ codecs.namereplace_errors
 codecs.replace_errors
 codecs.strict_errors
 codecs.xmlcharrefreplace_errors
-collections.Counter.__ixor__
-collections.Counter.__xor__
 concurrent.interpreters._crossinterp.UNBOUND_ERROR
 concurrent.interpreters._crossinterp.UNBOUND_REMOVE
 concurrent.interpreters._crossinterp.UnboundItem.singleton
@@ -137,7 +133,6 @@ math.issubnormal
 math.signbit
 multiprocessing.context.BaseContext.set_forkserver_preload
 multiprocessing.forkserver.ForkServer.set_forkserver_preload
-multiprocessing.forkserver.main
 multiprocessing.managers.BaseListProxy.clear
 multiprocessing.managers.BaseListProxy.copy
 multiprocessing.managers._BaseDictProxy.__iter__
@@ -209,19 +204,8 @@ sre_parse
 symtable.symtable
 sys.__jit
 sys._monitoring
-sys.abi_info
-sys.get_lazy_imports
-sys.get_lazy_imports_filter
 sys.last_exc
-sys.lazy_modules
-sys.set_lazy_imports
-sys.set_lazy_imports_filter
 threading.Condition.locked
-threading.__all__
-threading.concurrent_tee
-threading.serialize_iterator
-threading.synchronized_iterator
-timeit.Timer.autorange
 tkinter.Grid.content
 tkinter.Grid.grid_content
 tkinter.Image.__iter__
@@ -238,12 +222,6 @@ tkinter.Text.search
 tkinter.Text.search_all
 tkinter.font.Font.__iter__
 tkinter.simpledialog.__all__
-types.AsyncGeneratorType.ag_state
-types.CodeType.co_lnotab
-types.CoroutineType.cr_state
-types.FrameLocalsProxyType
-types.GeneratorType.gi_state
-types.LazyImportType
 types.MappingProxyType.get
 types.SimpleNamespace.__delattr__
 types.SimpleNamespace.__setattr__
@@ -251,7 +229,6 @@ types.UnionType.__class_getitem__
 types.UnionType.__mro_entries__
 types.UnionType.__name__
 types.UnionType.__qualname__
-types.__all__
 typing.LiteralString
 typing.NewType.__mro_entries__
 typing.ParamSpec.__mro_entries__
@@ -274,6 +251,4 @@ urllib.parse.urlsplit
 urllib.parse.urlunparse
 urllib.parse.urlunsplit
 xml.etree.ElementTree.__all__
-xml.is_valid_name
-xml.utils
 zipimport.zipimporter.load_module
