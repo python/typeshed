@@ -358,7 +358,8 @@ def concurrently_run_testcases(
         ]
 
         with cleanup_threads(event, printer_thread, executor):
-            concurrent.futures.wait(testcase_futures)
+            for future in concurrent.futures.as_completed(testcase_futures):
+                future.result()
 
         mypy_futures = [executor.submit(task) for task in to_do]
 

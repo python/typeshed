@@ -14,8 +14,6 @@ _frozen_importlib_external._LoaderBasics.load_module
 _frozen_importlib_external.cache_from_source
 _interpqueues.create
 _interpqueues.put
-_json.make_scanner.array_hook
-_json.scanstring
 _pyrepl.base_eventqueue
 _pyrepl.commands
 _pyrepl.completing_reader
@@ -38,7 +36,6 @@ _pyrepl.types
 _pyrepl.utils
 _pyrepl.windows_console
 _pyrepl.windows_eventqueue
-_sqlite3.SQLITE_KEYWORDS
 _struct.Struct.pack_into
 _struct.pack
 _struct.pack_into
@@ -174,9 +171,6 @@ io.Reader.__class_getitem__
 io.Reader.read
 io.Writer.__class_getitem__
 io.Writer.write
-json.decoder.JSONDecoder.__init__
-json.load
-json.loads
 mailbox.Mailbox.__enter__
 mailbox.Mailbox.__exit__
 mailbox._ProxyFile.__class_getitem__
@@ -268,13 +262,6 @@ site.addsitedir
 site.addsitepackages
 site.addusersitepackages
 site.process_startup_files
-sqlite3.Connection.create_aggregate
-sqlite3.Connection.create_function
-sqlite3.Connection.set_authorizer
-sqlite3.Connection.set_progress_handler
-sqlite3.Connection.set_trace_callback
-sqlite3.SQLITE_KEYWORDS
-sqlite3.dbapi2.SQLITE_KEYWORDS
 sre_compile
 sre_constants
 sre_parse
