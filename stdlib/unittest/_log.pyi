@@ -15,14 +15,13 @@ class _AssertLogsContext(_BaseTestCaseContext, Generic[_L]):
     logger_name: str
     level: int
     msg: None
+    no_logs: bool
     if sys.version_info >= (3, 15):
         def __init__(
             self, test_case: TestCase, logger_name: str, level: int, no_logs: bool, formatter: logging.Formatter | None = None
         ) -> None: ...
-        no_logs: bool
     else:
         def __init__(self, test_case: TestCase, logger_name: str, level: int, no_logs: bool) -> None: ...
-        no_logs: bool
 
     def __enter__(self) -> _L: ...
     def __exit__(
