@@ -1,5 +1,4 @@
 (_decimal.SPEC_VERSION)?
-_socket.IPV6_HDRINCL
 _winapi.DeregisterEventSource
 _winapi.EVENTLOG_AUDIT_FAILURE
 _winapi.EVENTLOG_AUDIT_SUCCESS
@@ -12,6 +11,4 @@ _winapi.RegisterEventSource
 _winapi.ReportEvent
 asyncio.windows_events.IocpProactor.finish_socket_func
 (decimal.SPEC_VERSION)?
-socket.IPV6_HDRINCL
-socket.__all__
 winreg.DeleteTree

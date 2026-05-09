@@ -2,15 +2,11 @@
 # New errors in Python 3.15
 # =========================
 
-(mmap.MS_ASYNC)?
-(mmap.MS_INVALIDATE)?
-(mmap.MS_SYNC)?
 (os.NODEV)?
 (posix.NODEV)?
 (resource.RLIMIT_NTHR)?
 (resource.RLIMIT_THREADS)?
 (resource.RLIMIT_UMTXP)?
-(socket.__all__)?
 
 # Importlib exposes deprecated or implementation-detail runtime APIs that the stubs deliberately omit or tighten.
 _frozen_importlib.BuiltinImporter.load_module
@@ -36,7 +32,6 @@ _pyrepl\..+
 _struct.Struct.pack_into
 _struct.pack
 _struct.pack_into
-builtins.compile
 ctypes.SetPointerType
 marshal.dump
 marshal.dumps
@@ -61,7 +56,6 @@ annotationlib.ForwardRef.__slots__
 annotationlib.ForwardRef.__stringifier_dict__
 
 # Static constructor behavior remains intentionally stricter for runtime AST helpers.
-ast.parse
 ast.type_param.__init__
 
 # Runtime incorrectly has `self`; same policy as py314.
@@ -85,7 +79,6 @@ dataclasses._MISSING_TYPE
 dataclasses.field
 
 # Runtime defaults/sentinels are not expressible without losing useful static signatures.
-difflib.unified_diff
 doctest.DocTestRunner.report_skip
 functools.partialmethod.__new__
 gzip.compress
