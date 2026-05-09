@@ -1,7 +1,9 @@
-from _typeshed import StrOrBytesPath
-from abc import ABC
+# pyright: reportMissingParameterType=false, reportUnknownParameterType=false
 
-__all__ = [
+from _typeshed import StrOrBytesPath
+from abc import ABC, abstractmethod
+
+__all__ = (
     "Collector",
     "PstatsCollector",
     "CollapsedStackCollector",
@@ -9,12 +11,14 @@ __all__ = [
     "GeckoCollector",
     "JsonlCollector",
     "StringTable",
-]
+)
 
 class Collector(ABC):
+    @abstractmethod
     def collect(self, stack_frames, timestamps_us=None) -> None: ...
     def collect_failed_sample(self) -> None: ...
-    def export(self, filename: StrOrBytesPath) -> None: ...
+    @abstractmethod
+    def export(self, output_path: StrOrBytesPath) -> None: ...
 
 class PstatsCollector(Collector):
     def __init__(self, sample_interval_usec: int, *, skip_idle: bool = False) -> None: ...
