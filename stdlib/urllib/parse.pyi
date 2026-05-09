@@ -75,9 +75,8 @@ if sys.version_info >= (3, 15):
     class _DefragResultBase(NamedTuple, Generic[_ResultStrT, _ResultComponentT]):
         url: _ResultStrT
         fragment: _ResultComponentT
-        if sys.version_info >= (3, 15):
-            # Ignore needed due to mypy#21453.
-            def geturl(self) -> _ResultStrT: ...  # type: ignore[misc]
+        # Ignore needed due to mypy#21453.
+        def geturl(self) -> _ResultStrT: ...  # type: ignore[misc]
 
 else:
     class _DefragResultBase(NamedTuple, Generic[_ResultStrT, _ResultComponentT]):
