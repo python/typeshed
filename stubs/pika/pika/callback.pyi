@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from collections.abc import Callable
 from logging import Logger
 from typing import Literal, TypeAlias
