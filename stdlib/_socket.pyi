@@ -78,7 +78,7 @@ if sys.platform == "win32":
     SO_EXCLUSIVEADDRUSE: Final[int]
 if sys.platform != "win32":
     SO_REUSEPORT: Final[int]
-    if sys.platform != "darwin":
+    if sys.platform != "darwin" or sys.version_info >= (3, 13):
         SO_BINDTODEVICE: Final[int]
 
 if sys.platform != "win32" and sys.platform != "darwin":
