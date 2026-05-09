@@ -248,9 +248,6 @@ pydoc.Doc.getdocloc
 re.Pattern.prefixmatch
 re.__all__
 re.prefixmatch
-(resource.RLIMIT_NTHR)?
-(resource.RLIMIT_THREADS)?
-(resource.RLIMIT_UMTXP)?
 shelve.BsdDbShelf.__init__
 shelve.DbfilenameShelf.__init__
 shelve.Shelf.__init__

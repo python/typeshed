@@ -27,6 +27,10 @@ if sys.platform != "win32":
     PROT_EXEC: Final[int]
     PROT_READ: Final[int]
     PROT_WRITE: Final[int]
+    if sys.version_info >= (3, 15):
+        MS_ASYNC: Final[int]
+        MS_INVALIDATE: Final[int]
+        MS_SYNC: Final[int]
 
 PAGESIZE: Final[int]
 

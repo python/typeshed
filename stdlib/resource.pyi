@@ -28,10 +28,11 @@ if sys.platform != "win32":
         RLIMIT_RTTIME: Final[int]
         RLIMIT_SIGPENDING: Final[int]
         RUSAGE_THREAD: Final[int]
-    if sys.version_info >= (3, 15):
+    if sys.version_info >= (3, 15) and sys.platform != "linux" and sys.platform != "darwin":
         RLIMIT_NTHR: Final[int]
-        RLIMIT_UMTXP: Final[int]
+        RLIMIT_PIPEBUF: Final[int]
         RLIMIT_THREADS: Final[int]
+        RLIMIT_UMTXP: Final[int]
 
     @final
     class struct_rusage(

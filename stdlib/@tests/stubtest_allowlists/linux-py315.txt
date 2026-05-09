@@ -9,14 +9,9 @@ _decimal
 _pyrepl.fancy_termios
 _pyrepl.unix_console
 _pyrepl.unix_eventqueue
-_socket.IPV6_HDRINCL
 ctypes.c_double_complex._type_
 ctypes.c_float_complex._type_
 ctypes.c_longdouble_complex._type_
-mmap.MS_ASYNC
-mmap.MS_INVALIDATE
-mmap.MS_SYNC
-(mmap.mmap.madvise)?
 os.AT_NO_AUTOMOUNT
 os.AT_STATX_DONT_SYNC
 os.AT_STATX_FORCE_SYNC
@@ -71,7 +66,3 @@ profiling.sampling.live_collector.display
 profiling.sampling.live_collector.trend_tracker
 profiling.sampling.live_collector.widgets
 readline.get_pre_input_hook
-(resource.RLIM_SAVED_CUR)?
-(resource.RLIM_SAVED_MAX)?
-socket.IPV6_HDRINCL
-socket.__all__

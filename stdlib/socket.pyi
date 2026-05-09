@@ -511,7 +511,7 @@ if sys.platform != "win32":
         "IPV6_RTHDRDSTOPTS",
     ]
 
-    if sys.platform != "darwin" or sys.version_info >= (3, 13):
+    if sys.platform != "darwin":
         from _socket import SO_BINDTODEVICE as SO_BINDTODEVICE
 
         __all__ += ["SO_BINDTODEVICE"]
@@ -1112,6 +1112,16 @@ if sys.version_info >= (3, 14):
         from _socket import IP_RECVERR as IP_RECVERR, IPV6_RECVERR as IPV6_RECVERR, SO_ORIGINAL_DST as SO_ORIGINAL_DST
 
         __all__ += ["IP_RECVERR", "IPV6_RECVERR", "SO_ORIGINAL_DST"]
+
+    if sys.version_info >= (3, 15):
+        if sys.platform == "win32":
+            from _socket import IPV6_HDRINCL as IPV6_HDRINCL
+
+            __all__ += ["IPV6_HDRINCL"]
+        if sys.platform == "linux":
+            from _socket import IPV6_HDRINCL as IPV6_HDRINCL
+
+            __all__ += ["IPV6_HDRINCL"]
 
     if sys.platform == "win32":
         from _socket import (

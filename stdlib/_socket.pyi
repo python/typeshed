@@ -78,7 +78,7 @@ if sys.platform == "win32":
     SO_EXCLUSIVEADDRUSE: Final[int]
 if sys.platform != "win32":
     SO_REUSEPORT: Final[int]
-    if sys.platform != "darwin" or sys.version_info >= (3, 13):
+    if sys.platform != "darwin":
         SO_BINDTODEVICE: Final[int]
 
 if sys.platform != "win32" and sys.platform != "darwin":
@@ -237,6 +237,12 @@ if sys.version_info >= (3, 14):
         IPV6_RECVERR: Final[int]
         IP_RECVERR: Final[int]
         SO_ORIGINAL_DST: Final[int]
+
+    if sys.version_info >= (3, 15):
+        if sys.platform == "win32":
+            IPV6_HDRINCL: Final[int]
+        if sys.platform == "linux":
+            IPV6_HDRINCL: Final[int]
 
     if sys.platform == "win32":
         SOL_RFCOMM: Final[int]
