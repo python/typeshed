@@ -130,11 +130,6 @@ mailbox.Mailbox.__exit__
 mailbox._ProxyFile.__class_getitem__
 marshal.dump
 marshal.dumps
-math.fmax
-math.fmin
-math.isnormal
-math.issubnormal
-math.signbit
 multiprocessing.context.BaseContext.set_forkserver_preload
 multiprocessing.forkserver.ForkServer.set_forkserver_preload
 multiprocessing.forkserver.main
@@ -197,8 +192,6 @@ profiling.sampling.sample
 profiling.sampling.stack_collector
 profiling.sampling.string_table
 profiling.tracing
-pydoc.Doc.STDLIB_DIR
-pydoc.Doc.getdocloc
 site.addsitedir
 site.addsitepackages
 site.addusersitepackages
@@ -221,7 +214,6 @@ threading.__all__
 threading.concurrent_tee
 threading.serialize_iterator
 threading.synchronized_iterator
-timeit.Timer.autorange
 tkinter.Grid.content
 tkinter.Grid.grid_content
 tkinter.Image.__iter__
