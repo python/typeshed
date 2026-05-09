@@ -178,6 +178,8 @@ posixpath.splitroot
 pprint.PrettyPrinter.__init__
 pprint.pformat
 pprint.pprint
+profiling
+profiling.sampling
 profiling.sampling.binary_collector
 profiling.sampling.binary_reader
 profiling.sampling.cli
@@ -194,6 +196,7 @@ profiling.sampling.pstats_collector
 profiling.sampling.sample
 profiling.sampling.stack_collector
 profiling.sampling.string_table
+profiling.tracing
 pydoc.Doc.STDLIB_DIR
 pydoc.Doc.getdocloc
 site.addsitedir
