@@ -178,6 +178,7 @@ posixpath.splitroot
 pprint.PrettyPrinter.__init__
 pprint.pformat
 pprint.pprint
+profiling\.sampling\..+
 pydoc.Doc.STDLIB_DIR
 pydoc.Doc.getdocloc
 site.addsitedir
