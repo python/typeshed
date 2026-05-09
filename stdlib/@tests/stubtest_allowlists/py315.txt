@@ -161,11 +161,6 @@ multiprocessing.process.BaseProcess.__init__
 # base64.b64decode uses a private sentinel list as the default for parameters whose public types are bool/buffer.
 base64.b64decode
 
-# New profiling package is stubbed conservatively for 3.15 while the implementation settles.
-profiling.__all__
-profiling\.sampling\..+
-profiling.tracing.__all__
-
 # readline hook availability is build-dependent.
 (readline.get_pre_input_hook)?
 
