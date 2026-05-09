@@ -1,5 +1,7 @@
-(_decimal.SPEC_VERSION)?
-_socket.IPV6_HDRINCL
+# ============================================
+# TODO: Allowlist entries that should be fixed
+# ============================================
+
 _winapi.DeregisterEventSource
 _winapi.EVENTLOG_AUDIT_FAILURE
 _winapi.EVENTLOG_AUDIT_SUCCESS
@@ -11,7 +13,4 @@ _winapi.GetOEMCP
 _winapi.RegisterEventSource
 _winapi.ReportEvent
 asyncio.windows_events.IocpProactor.finish_socket_func
-(decimal.SPEC_VERSION)?
-socket.IPV6_HDRINCL
-socket.__all__
 winreg.DeleteTree

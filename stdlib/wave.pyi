@@ -1,6 +1,6 @@
 import sys
 from _typeshed import ReadableBuffer, Unused
-from typing import IO, Any, BinaryIO, Final, Literal, NamedTuple, NoReturn, TypeAlias, overload, type_check_only
+from typing import IO, Any, BinaryIO, Final, Literal, NamedTuple, NoReturn, TypeAlias, overload
 from typing_extensions import Self, deprecated
 
 __all__ = ["open", "Error", "Wave_read", "Wave_write"]
@@ -23,17 +23,6 @@ class _wave_params(NamedTuple):
     nframes: int
     comptype: str
     compname: str
-
-if sys.version_info >= (3, 15):
-    @type_check_only
-    class _wave_params_315(NamedTuple):
-        nchannels: int
-        sampwidth: int
-        framerate: int
-        nframes: int
-        comptype: str
-        compname: str
-        format: int
 
 class Wave_read:
     def __init__(self, f: _File) -> None: ...
@@ -90,27 +79,19 @@ class Wave_write:
     def getcompname(self) -> str: ...
     if sys.version_info >= (3, 15):
         def setparams(
-            self,
-            params: (
-                _wave_params | _wave_params_315 | tuple[int, int, int, int, str, str] | tuple[int, int, int, int, str, str, int]
-            ),
+            self, params: _wave_params | tuple[int, int, int, int, str, str] | tuple[int, int, int, int, str, str, int]
         ) -> None: ...
-        def getparams(self) -> _wave_params: ...
     else:
         def setparams(self, params: _wave_params | tuple[int, int, int, int, str, str]) -> None: ...
-        def getparams(self) -> _wave_params: ...
-    if sys.version_info >= (3, 15):
-        pass
-    elif sys.version_info >= (3, 13):
+
+    def getparams(self) -> _wave_params: ...
+
+    if sys.version_info < (3, 15):
         @deprecated("Deprecated since Python 3.13; will be removed in Python 3.15.")
         def setmark(self, id: Any, pos: Any, name: Any) -> NoReturn: ...
         @deprecated("Deprecated since Python 3.13; will be removed in Python 3.15.")
         def getmark(self, id: Any) -> NoReturn: ...
         @deprecated("Deprecated since Python 3.13; will be removed in Python 3.15.")
-        def getmarkers(self) -> None: ...
-    else:
-        def setmark(self, id: Any, pos: Any, name: Any) -> NoReturn: ...
-        def getmark(self, id: Any) -> NoReturn: ...
         def getmarkers(self) -> None: ...
 
     def tell(self) -> int: ...

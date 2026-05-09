@@ -81,7 +81,7 @@ if sys.version_info >= (3, 15):
         n: int = 3,
         lineterm: str = "\n",
         *,
-        color: bool | None = None,
+        color: bool = False,
     ) -> Iterator[str]: ...
 
 else:

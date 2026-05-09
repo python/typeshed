@@ -15,11 +15,19 @@ _LazyImportFilter: TypeAlias = Callable[[str, str, tuple[str, ...] | None], bool
 # see https://github.com/python/typeshed/issues/8513#issue-1333671093 for the rationale behind this alias
 _ExitCode: TypeAlias = str | int | None
 
+if sys.version_info >= (3, 15):
+    @type_check_only
+    class _AbiInfo(SimpleNamespace):
+        pointer_bits: int
+        free_threaded: bool
+        debug: bool
+        byteorder: Literal["little", "big"]
+
 # ----- sys variables -----
 if sys.platform != "win32":
     abiflags: str
 if sys.version_info >= (3, 15):
-    abi_info: SimpleNamespace
+    abi_info: _AbiInfo
 argv: list[str]
 base_exec_prefix: str
 base_prefix: str

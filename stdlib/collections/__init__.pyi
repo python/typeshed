@@ -18,7 +18,7 @@ from typing import Any, ClassVar, Generic, NoReturn, SupportsIndex, TypeVar, fin
 from typing_extensions import Self, disjoint_base
 
 if sys.version_info >= (3, 15):
-    from builtins import frozendict as frozendict
+    from builtins import frozendict as _frozendict
 
 __all__ = ["ChainMap", "Counter", "OrderedDict", "UserDict", "UserList", "UserString", "defaultdict", "deque", "namedtuple"]
 
@@ -315,9 +315,6 @@ class Counter(dict[_T, int], Generic[_T]):
     def __sub__(self, other: Counter[_T]) -> Counter[_T]: ...
     def __and__(self, other: Counter[_T]) -> Counter[_T]: ...
     def __or__(self, other: Counter[_S]) -> Counter[_T | _S]: ...  # type: ignore[override]
-    if sys.version_info >= (3, 15):
-        def __xor__(self, other: Counter[_S]) -> Counter[_T | _S]: ...
-
     def __pos__(self) -> Counter[_T]: ...
     def __neg__(self) -> Counter[_T]: ...
     # several type: ignores because __iadd__ is supposedly incompatible with __add__, etc.
@@ -325,8 +322,6 @@ class Counter(dict[_T, int], Generic[_T]):
     def __isub__(self, other: SupportsItems[_T, int]) -> Self: ...
     def __iand__(self, other: SupportsItems[_T, int]) -> Self: ...
     def __ior__(self, other: SupportsItems[_T, int]) -> Self: ...  # type: ignore[override,misc]
-    if sys.version_info >= (3, 15):
-        def __ixor__(self, other: Counter[_S]) -> Self: ...
 
 # The pure-Python implementations of the "views" classes
 # These are exposed at runtime in `collections/__init__.py`
@@ -391,14 +386,14 @@ class OrderedDict(dict[_KT, _VT]):
     def __eq__(self, value: object, /) -> bool: ...
     if sys.version_info >= (3, 15):
         @overload
-        def __or__(self, value: dict[_KT, _VT] | frozendict[_KT, _VT], /) -> Self: ...
+        def __or__(self, value: dict[_KT, _VT] | _frozendict[_KT, _VT], /) -> Self: ...
         @overload
-        def __or__(self, value: dict[_T1, _T2] | frozendict[_T1, _T2], /) -> OrderedDict[_KT | _T1, _VT | _T2]: ...
+        def __or__(self, value: dict[_T1, _T2] | _frozendict[_T1, _T2], /) -> OrderedDict[_KT | _T1, _VT | _T2]: ...
         @overload  # type: ignore[override]
-        def __ror__(self, value: dict[_KT, _VT] | frozendict[_KT, _VT], /) -> Self: ...  # type: ignore[override,misc]
+        def __ror__(self, value: dict[_KT, _VT] | _frozendict[_KT, _VT], /) -> Self: ...  # type: ignore[override,misc]
         @overload
         def __ror__(  # type: ignore[misc]
-            self, value: dict[_T1, _T2] | frozendict[_T1, _T2], /
+            self, value: dict[_T1, _T2] | _frozendict[_T1, _T2], /
         ) -> OrderedDict[_KT | _T1, _VT | _T2]: ...
     else:
         @overload

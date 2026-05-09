@@ -4,6 +4,9 @@ if sys.version_info >= (3, 15):
     from builtins import frozendict
 from typing import Final, Literal
 
+if sys.version_info >= (3, 15):
+    from builtins import frozendict
+
 __all__ = [
     "cmp_op",
     "hasconst",

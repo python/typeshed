@@ -2,9 +2,9 @@ import datetime
 import enum
 import sys
 from _typeshed import Unused
-from collections.abc import Iterable, Sequence
+from collections.abc import Iterable
 from time import struct_time
-from typing import ClassVar, Final, TypeAlias
+from typing import ClassVar, Final, TypeAlias, overload
 
 __all__ = [
     "FRIDAY",
@@ -160,10 +160,28 @@ def formatstring(cols: Iterable[str], colwidth: int = 20, spacing: int = 6) -> s
 def timegm(tuple: tuple[int, ...] | struct_time) -> int: ...
 
 # Data attributes
-day_name: Sequence[str]
-day_abbr: Sequence[str]
-month_name: Sequence[str]
-month_abbr: Sequence[str]
+class _localized_month:
+    format: str
+    def __init__(self, format: str) -> None: ...
+    @overload
+    def __getitem__(self, i: int) -> str: ...
+    @overload
+    def __getitem__(self, i: slice) -> list[str]: ...
+    def __len__(self) -> int: ...
+
+class _localized_day:
+    format: str
+    def __init__(self, format: str) -> None: ...
+    @overload
+    def __getitem__(self, i: int) -> str: ...
+    @overload
+    def __getitem__(self, i: slice) -> list[str]: ...
+    def __len__(self) -> int: ...
+
+day_name: _localized_day
+day_abbr: _localized_day
+month_name: _localized_month
+month_abbr: _localized_month
 
 if sys.version_info >= (3, 12):
     class Month(enum.IntEnum):
@@ -221,5 +239,5 @@ else:
 EPOCH: Final = 1970
 
 if sys.version_info >= (3, 15):
-    standalone_month_name: Sequence[str]
-    standalone_month_abbr: Sequence[str]
+    standalone_month_name: _localized_month
+    standalone_month_abbr: _localized_month

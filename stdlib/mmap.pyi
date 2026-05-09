@@ -27,6 +27,10 @@ if sys.platform != "win32":
     PROT_EXEC: Final[int]
     PROT_READ: Final[int]
     PROT_WRITE: Final[int]
+    if sys.version_info >= (3, 15):
+        MS_ASYNC: Final[int]
+        MS_INVALIDATE: Final[int]
+        MS_SYNC: Final[int]
 
 PAGESIZE: Final[int]
 
@@ -73,7 +77,7 @@ class mmap:
     def move(self, dest: int, src: int, count: int, /) -> None: ...
     def read_byte(self) -> int: ...
     def readline(self) -> bytes: ...
-    if sys.platform != "darwin":
+    if sys.version_info < (3, 15) or sys.platform != "darwin":
         def resize(self, newsize: int, /) -> None: ...
     if sys.platform != "win32":
         def seek(self, pos: int, whence: Literal[0, 1, 2, 3, 4] = os.SEEK_SET, /) -> None: ...

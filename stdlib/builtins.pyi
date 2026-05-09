@@ -1472,49 +1472,99 @@ async def anext(i: SupportsAnext[_T], default: _VT, /) -> _T | _VT: ...
 # compile() returns a CodeType, unless the flags argument includes PyCF_ONLY_AST (=1024),
 # in which case it returns ast.AST. We have overloads for flag 0 (the default) and for
 # explicitly passing PyCF_ONLY_AST. We fall back to Any for other values of flags.
-@overload
-def compile(
-    source: str | ReadableBuffer | _ast.Module | _ast.Expression | _ast.Interactive,
-    filename: str | bytes | PathLike[Any],
-    mode: str,
-    flags: Literal[0],
-    dont_inherit: bool = False,
-    optimize: int = -1,
-    *,
-    _feature_version: int = -1,
-) -> CodeType: ...
-@overload
-def compile(
-    source: str | ReadableBuffer | _ast.Module | _ast.Expression | _ast.Interactive,
-    filename: str | bytes | PathLike[Any],
-    mode: str,
-    *,
-    dont_inherit: bool = False,
-    optimize: int = -1,
-    _feature_version: int = -1,
-) -> CodeType: ...
-@overload
-def compile(
-    source: str | ReadableBuffer | _ast.Module | _ast.Expression | _ast.Interactive,
-    filename: str | bytes | PathLike[Any],
-    mode: str,
-    flags: Literal[1024],
-    dont_inherit: bool = False,
-    optimize: int = -1,
-    *,
-    _feature_version: int = -1,
-) -> _ast.AST: ...
-@overload
-def compile(
-    source: str | ReadableBuffer | _ast.Module | _ast.Expression | _ast.Interactive,
-    filename: str | bytes | PathLike[Any],
-    mode: str,
-    flags: int,
-    dont_inherit: bool = False,
-    optimize: int = -1,
-    *,
-    _feature_version: int = -1,
-) -> Any: ...
+if sys.version_info >= (3, 15):
+    @overload
+    def compile(
+        source: str | ReadableBuffer | _ast.Module | _ast.Expression | _ast.Interactive,
+        filename: str | bytes | PathLike[Any],
+        mode: str,
+        flags: Literal[0],
+        dont_inherit: bool = False,
+        optimize: int = -1,
+        *,
+        module: str | None = None,
+        _feature_version: int = -1,
+    ) -> CodeType: ...
+    @overload
+    def compile(
+        source: str | ReadableBuffer | _ast.Module | _ast.Expression | _ast.Interactive,
+        filename: str | bytes | PathLike[Any],
+        mode: str,
+        *,
+        dont_inherit: bool = False,
+        optimize: int = -1,
+        module: str | None = None,
+        _feature_version: int = -1,
+    ) -> CodeType: ...
+    @overload
+    def compile(
+        source: str | ReadableBuffer | _ast.Module | _ast.Expression | _ast.Interactive,
+        filename: str | bytes | PathLike[Any],
+        mode: str,
+        flags: Literal[1024],
+        dont_inherit: bool = False,
+        optimize: int = -1,
+        *,
+        module: str | None = None,
+        _feature_version: int = -1,
+    ) -> _ast.AST: ...
+    @overload
+    def compile(
+        source: str | ReadableBuffer | _ast.Module | _ast.Expression | _ast.Interactive,
+        filename: str | bytes | PathLike[Any],
+        mode: str,
+        flags: int,
+        dont_inherit: bool = False,
+        optimize: int = -1,
+        *,
+        module: str | None = None,
+        _feature_version: int = -1,
+    ) -> Any: ...
+
+else:
+    @overload
+    def compile(
+        source: str | ReadableBuffer | _ast.Module | _ast.Expression | _ast.Interactive,
+        filename: str | bytes | PathLike[Any],
+        mode: str,
+        flags: Literal[0],
+        dont_inherit: bool = False,
+        optimize: int = -1,
+        *,
+        _feature_version: int = -1,
+    ) -> CodeType: ...
+    @overload
+    def compile(
+        source: str | ReadableBuffer | _ast.Module | _ast.Expression | _ast.Interactive,
+        filename: str | bytes | PathLike[Any],
+        mode: str,
+        *,
+        dont_inherit: bool = False,
+        optimize: int = -1,
+        _feature_version: int = -1,
+    ) -> CodeType: ...
+    @overload
+    def compile(
+        source: str | ReadableBuffer | _ast.Module | _ast.Expression | _ast.Interactive,
+        filename: str | bytes | PathLike[Any],
+        mode: str,
+        flags: Literal[1024],
+        dont_inherit: bool = False,
+        optimize: int = -1,
+        *,
+        _feature_version: int = -1,
+    ) -> _ast.AST: ...
+    @overload
+    def compile(
+        source: str | ReadableBuffer | _ast.Module | _ast.Expression | _ast.Interactive,
+        filename: str | bytes | PathLike[Any],
+        mode: str,
+        flags: int,
+        dont_inherit: bool = False,
+        optimize: int = -1,
+        *,
+        _feature_version: int = -1,
+    ) -> Any: ...
 
 copyright: _sitebuiltins._Printer
 credits: _sitebuiltins._Printer
@@ -2012,8 +2062,8 @@ if sys.version_info >= (3, 15):
         def __new__(cls, name: str, /) -> Self: ...
         def __copy__(self, /) -> Self: ...
         def __deepcopy__(self, memo: Any, /) -> Self: ...
-        def __or__(self, other: Any, /) -> types.UnionType: ...
-        def __ror__(self, other: Any, /) -> types.UnionType: ...
+        def __or__(self, other: Any, /) -> Any: ...
+        def __ror__(self, other: Any, /) -> Any: ...
 
 @overload
 def sorted(
