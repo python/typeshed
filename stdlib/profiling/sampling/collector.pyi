@@ -5,7 +5,7 @@ from typing import TypeAlias
 
 from _remote_debugging import AwaitedInfo, FrameInfo, InterpreterInfo, LocationInfo
 
-_Location: TypeAlias = tuple[int, int, int, int] | LocationInfo | None
+_Location: TypeAlias = int | tuple[int, int, int, int] | LocationInfo | None
 _Frame: TypeAlias = FrameInfo | tuple[str, _Location, str, int | None]
 _Timestamps: TypeAlias = Sequence[int] | None
 
