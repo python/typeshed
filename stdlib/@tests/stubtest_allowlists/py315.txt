@@ -146,6 +146,8 @@ importlib._bootstrap_external.NamespacePath
 importlib.abc.InspectLoader.source_to_code
 importlib.abc.MetaPathFinder.discover
 importlib.abc.PathEntryFinder.discover
+importlib.resources._common.files
+importlib.resources._common.package_to_anchor
 importlib.resources.abc.Traversable.open
 inspect._ParameterKind.description
 io.Reader.__class_getitem__
