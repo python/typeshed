@@ -1,12 +1,13 @@
 from collections.abc import Iterable, Iterator
-from typing import NoReturn
-from typing_extensions import Self, TypeAlias
+from typing import NoReturn, TypeAlias
+from typing_extensions import Self
 
 from netaddr.ip import IPAddress, IPNetwork, IPRange, _IPNetworkAddr
 
 _IPIterable: TypeAlias = IPNetwork | IPRange | IPSet | Iterable[_IPNetworkAddr | IPRange | int]
 
 class IPSet:
+    __slots__ = ("_cidrs", "__weakref__")
     def __init__(self, iterable: _IPIterable | None = None, flags: int = 0) -> None: ...
     def compact(self) -> None: ...
     def __hash__(self) -> NoReturn: ...

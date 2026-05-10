@@ -6,8 +6,8 @@ from builtins import list as _list  # aliases to avoid name clashes with fields 
 from collections.abc import Callable, Iterable, Iterator, Mapping
 from gzip import _ReadableFileobj as _GzipReadableFileobj, _WritableFileobj as _GzipWritableFileobj
 from types import TracebackType
-from typing import IO, ClassVar, Final, Literal, Protocol, overload, type_check_only
-from typing_extensions import Self, TypeAlias, deprecated
+from typing import IO, ClassVar, Final, Literal, Protocol, TypeAlias, overload, type_check_only
+from typing_extensions import Self, deprecated
 
 if sys.version_info >= (3, 14):
     from compression.zstd import ZstdDict
@@ -119,21 +119,22 @@ class TarFile:
     OPEN_METH: ClassVar[Mapping[str, str]]
     name: StrOrBytesPath | None
     mode: Literal["r", "a", "w", "x"]
-    fileobj: _Fileobj | None
-    format: _TarFormat | None
+    fileobj: _Fileobj
+    format: _TarFormat
     tarinfo: type[TarInfo]
-    dereference: bool | None
-    ignore_zeros: bool | None
-    encoding: str | None
+    dereference: bool
+    ignore_zeros: bool
+    encoding: str
     errors: str
     fileobject: type[ExFileObject]  # undocumented
-    pax_headers: Mapping[str, str] | None
-    debug: int | None
-    errorlevel: int | None
+    pax_headers: Mapping[str, str]
+    debug: Literal[0, 1, 2, 3]
+    errorlevel: Literal[0, 1, 2]
     offset: int  # undocumented
     extraction_filter: _FilterFunction | None
     if sys.version_info >= (3, 13):
         stream: bool
+    if sys.version_info >= (3, 15):
         def __init__(
             self,
             name: StrOrBytesPath | None = None,
@@ -146,8 +147,27 @@ class TarFile:
             encoding: str | None = None,
             errors: str = "surrogateescape",
             pax_headers: Mapping[str, str] | None = None,
-            debug: int | None = None,
-            errorlevel: int | None = None,
+            debug: Literal[0, 1, 2, 3] | None = None,  # default 0
+            errorlevel: Literal[0, 1, 2] | None = None,  # default 1
+            copybufsize: int | None = None,  # undocumented
+            stream: bool = False,
+            mtime: float | None = None,
+        ) -> None: ...
+    elif sys.version_info >= (3, 13):
+        def __init__(
+            self,
+            name: StrOrBytesPath | None = None,
+            mode: Literal["r", "a", "w", "x"] = "r",
+            fileobj: _Fileobj | None = None,
+            format: int | None = None,
+            tarinfo: type[TarInfo] | None = None,
+            dereference: bool | None = None,
+            ignore_zeros: bool | None = None,
+            encoding: str | None = None,
+            errors: str = "surrogateescape",
+            pax_headers: Mapping[str, str] | None = None,
+            debug: Literal[0, 1, 2, 3] | None = None,  # default 0
+            errorlevel: Literal[0, 1, 2] | None = None,  # default 1
             copybufsize: int | None = None,  # undocumented
             stream: bool = False,
         ) -> None: ...
@@ -164,8 +184,8 @@ class TarFile:
             encoding: str | None = None,
             errors: str = "surrogateescape",
             pax_headers: Mapping[str, str] | None = None,
-            debug: int | None = None,
-            errorlevel: int | None = None,
+            debug: Literal[0, 1, 2, 3] | None = None,  # default 0
+            errorlevel: Literal[0, 1, 2] | None = None,  # default 1
             copybufsize: int | None = None,  # undocumented
         ) -> None: ...
 
@@ -190,8 +210,8 @@ class TarFile:
         encoding: str | None = ...,
         errors: str = ...,
         pax_headers: Mapping[str, str] | None = ...,
-        debug: int | None = ...,
-        errorlevel: int | None = ...,
+        debug: Literal[0, 1, 2, 3] | None = None,  # default 0
+        errorlevel: Literal[0, 1, 2] | None = None,  # default 1
     ) -> Self: ...
     if sys.version_info >= (3, 14):
         @overload
@@ -210,11 +230,11 @@ class TarFile:
             encoding: str | None = ...,
             errors: str = ...,
             pax_headers: Mapping[str, str] | None = ...,
-            debug: int | None = ...,
-            errorlevel: int | None = ...,
+            debug: Literal[0, 1, 2, 3] | None = None,  # default 0
+            errorlevel: Literal[0, 1, 2] | None = None,  # default 1
             level: None = None,
             options: Mapping[int, int] | None = None,
-            zstd_dict: ZstdDict | None = None,
+            zstd_dict: ZstdDict | tuple[ZstdDict, int] | None = None,
         ) -> Self: ...
 
     @overload
@@ -233,8 +253,8 @@ class TarFile:
         encoding: str | None = ...,
         errors: str = ...,
         pax_headers: Mapping[str, str] | None = ...,
-        debug: int | None = ...,
-        errorlevel: int | None = ...,
+        debug: Literal[0, 1, 2, 3] | None = None,  # default 0
+        errorlevel: Literal[0, 1, 2] | None = None,  # default 1
     ) -> Self: ...
     @overload
     @classmethod
@@ -252,8 +272,8 @@ class TarFile:
         encoding: str | None = ...,
         errors: str = ...,
         pax_headers: Mapping[str, str] | None = ...,
-        debug: int | None = ...,
-        errorlevel: int | None = ...,
+        debug: Literal[0, 1, 2, 3] | None = None,  # default 0
+        errorlevel: Literal[0, 1, 2] | None = None,  # default 1
     ) -> Self: ...
     @overload
     @classmethod
@@ -271,8 +291,8 @@ class TarFile:
         encoding: str | None = ...,
         errors: str = ...,
         pax_headers: Mapping[str, str] | None = ...,
-        debug: int | None = ...,
-        errorlevel: int | None = ...,
+        debug: Literal[0, 1, 2, 3] | None = None,  # default 0
+        errorlevel: Literal[0, 1, 2] | None = None,  # default 1
         compresslevel: int = 9,
     ) -> Self: ...
     @overload
@@ -291,8 +311,8 @@ class TarFile:
         encoding: str | None = ...,
         errors: str = ...,
         pax_headers: Mapping[str, str] | None = ...,
-        debug: int | None = ...,
-        errorlevel: int | None = ...,
+        debug: Literal[0, 1, 2, 3] | None = None,  # default 0
+        errorlevel: Literal[0, 1, 2] | None = None,  # default 1
         compresslevel: int = 9,
     ) -> Self: ...
     @overload
@@ -311,8 +331,8 @@ class TarFile:
         encoding: str | None = ...,
         errors: str = ...,
         pax_headers: Mapping[str, str] | None = ...,
-        debug: int | None = ...,
-        errorlevel: int | None = ...,
+        debug: Literal[0, 1, 2, 3] | None = None,  # default 0
+        errorlevel: Literal[0, 1, 2] | None = None,  # default 1
         preset: Literal[0, 1, 2, 3, 4, 5, 6, 7, 8, 9] | None = ...,
     ) -> Self: ...
     @overload
@@ -331,8 +351,8 @@ class TarFile:
         encoding: str | None = ...,
         errors: str = ...,
         pax_headers: Mapping[str, str] | None = ...,
-        debug: int | None = ...,
-        errorlevel: int | None = ...,
+        debug: Literal[0, 1, 2, 3] | None = None,  # default 0
+        errorlevel: Literal[0, 1, 2] | None = None,  # default 1
         preset: Literal[0, 1, 2, 3, 4, 5, 6, 7, 8, 9] | None = ...,
     ) -> Self: ...
     if sys.version_info >= (3, 14):
@@ -352,10 +372,10 @@ class TarFile:
             encoding: str | None = ...,
             errors: str = ...,
             pax_headers: Mapping[str, str] | None = ...,
-            debug: int | None = ...,
-            errorlevel: int | None = ...,
+            debug: Literal[0, 1, 2, 3] | None = None,  # default 0
+            errorlevel: Literal[0, 1, 2] | None = None,  # default 1
             options: Mapping[int, int] | None = None,
-            zstd_dict: ZstdDict | None = None,
+            zstd_dict: ZstdDict | tuple[ZstdDict, int] | None = None,
         ) -> Self: ...
         @overload
         @classmethod
@@ -373,10 +393,10 @@ class TarFile:
             encoding: str | None = ...,
             errors: str = ...,
             pax_headers: Mapping[str, str] | None = ...,
-            debug: int | None = ...,
-            errorlevel: int | None = ...,
+            debug: Literal[0, 1, 2, 3] | None = None,  # default 0
+            errorlevel: Literal[0, 1, 2] | None = None,  # default 1
             options: Mapping[int, int] | None = None,
-            zstd_dict: ZstdDict | None = None,
+            zstd_dict: ZstdDict | tuple[ZstdDict, int] | None = None,
         ) -> Self: ...
 
     @overload
@@ -395,8 +415,8 @@ class TarFile:
         encoding: str | None = ...,
         errors: str = ...,
         pax_headers: Mapping[str, str] | None = ...,
-        debug: int | None = ...,
-        errorlevel: int | None = ...,
+        debug: Literal[0, 1, 2, 3] | None = None,  # default 0
+        errorlevel: Literal[0, 1, 2] | None = None,  # default 1
     ) -> Self: ...
     @overload
     @classmethod
@@ -414,8 +434,8 @@ class TarFile:
         encoding: str | None = ...,
         errors: str = ...,
         pax_headers: Mapping[str, str] | None = ...,
-        debug: int | None = ...,
-        errorlevel: int | None = ...,
+        debug: Literal[0, 1, 2, 3] | None = None,  # default 0
+        errorlevel: Literal[0, 1, 2] | None = None,  # default 1
     ) -> Self: ...
     @overload
     @classmethod
@@ -433,8 +453,8 @@ class TarFile:
         encoding: str | None = ...,
         errors: str = ...,
         pax_headers: Mapping[str, str] | None = ...,
-        debug: int | None = ...,
-        errorlevel: int | None = ...,
+        debug: Literal[0, 1, 2, 3] | None = None,  # default 0
+        errorlevel: Literal[0, 1, 2] | None = None,  # default 1
     ) -> Self: ...
     @overload
     @classmethod
@@ -452,8 +472,8 @@ class TarFile:
         encoding: str | None = ...,
         errors: str = ...,
         pax_headers: Mapping[str, str] | None = ...,
-        debug: int | None = ...,
-        errorlevel: int | None = ...,
+        debug: Literal[0, 1, 2, 3] | None = None,  # default 0
+        errorlevel: Literal[0, 1, 2] | None = None,  # default 1
     ) -> Self: ...
     @overload
     @classmethod
@@ -471,8 +491,8 @@ class TarFile:
         encoding: str | None = ...,
         errors: str = ...,
         pax_headers: Mapping[str, str] | None = ...,
-        debug: int | None = ...,
-        errorlevel: int | None = ...,
+        debug: Literal[0, 1, 2, 3] | None = None,  # default 0
+        errorlevel: Literal[0, 1, 2] | None = None,  # default 1
         compresslevel: int = 9,
     ) -> Self: ...
     @overload
@@ -491,8 +511,8 @@ class TarFile:
         encoding: str | None = ...,
         errors: str = ...,
         pax_headers: Mapping[str, str] | None = ...,
-        debug: int | None = ...,
-        errorlevel: int | None = ...,
+        debug: Literal[0, 1, 2, 3] | None = None,  # default 0
+        errorlevel: Literal[0, 1, 2] | None = None,  # default 1
         compresslevel: int = 9,
     ) -> Self: ...
     @classmethod
@@ -509,8 +529,8 @@ class TarFile:
         ignore_zeros: bool | None = ...,
         encoding: str | None = ...,
         pax_headers: Mapping[str, str] | None = ...,
-        debug: int | None = ...,
-        errorlevel: int | None = ...,
+        debug: Literal[0, 1, 2, 3] | None = None,  # default 0
+        errorlevel: Literal[0, 1, 2] | None = None,  # default 1
     ) -> Self: ...
     @overload
     @classmethod
@@ -527,8 +547,8 @@ class TarFile:
         ignore_zeros: bool | None = ...,
         encoding: str | None = ...,
         pax_headers: Mapping[str, str] | None = ...,
-        debug: int | None = ...,
-        errorlevel: int | None = ...,
+        debug: Literal[0, 1, 2, 3] | None = None,  # default 0
+        errorlevel: Literal[0, 1, 2] | None = None,  # default 1
     ) -> Self: ...
     @overload
     @classmethod
@@ -545,8 +565,8 @@ class TarFile:
         ignore_zeros: bool | None = ...,
         encoding: str | None = ...,
         pax_headers: Mapping[str, str] | None = ...,
-        debug: int | None = ...,
-        errorlevel: int | None = ...,
+        debug: Literal[0, 1, 2, 3] | None = None,  # default 0
+        errorlevel: Literal[0, 1, 2] | None = None,  # default 1
     ) -> Self: ...
     @overload
     @classmethod
@@ -563,8 +583,8 @@ class TarFile:
         ignore_zeros: bool | None = ...,
         encoding: str | None = ...,
         pax_headers: Mapping[str, str] | None = ...,
-        debug: int | None = ...,
-        errorlevel: int | None = ...,
+        debug: Literal[0, 1, 2, 3] | None = None,  # default 0
+        errorlevel: Literal[0, 1, 2] | None = None,  # default 1
     ) -> Self: ...
     @overload
     @classmethod
@@ -581,8 +601,8 @@ class TarFile:
         ignore_zeros: bool | None = ...,
         encoding: str | None = ...,
         pax_headers: Mapping[str, str] | None = ...,
-        debug: int | None = ...,
-        errorlevel: int | None = ...,
+        debug: Literal[0, 1, 2, 3] | None = None,  # default 0
+        errorlevel: Literal[0, 1, 2] | None = None,  # default 1
     ) -> Self: ...
     @classmethod
     def xzopen(
@@ -598,8 +618,8 @@ class TarFile:
         ignore_zeros: bool | None = ...,
         encoding: str | None = ...,
         pax_headers: Mapping[str, str] | None = ...,
-        debug: int | None = ...,
-        errorlevel: int | None = ...,
+        debug: Literal[0, 1, 2, 3] | None = None,  # default 0
+        errorlevel: Literal[0, 1, 2] | None = None,  # default 1
     ) -> Self: ...
     if sys.version_info >= (3, 14):
         @overload
@@ -611,7 +631,7 @@ class TarFile:
             fileobj: IO[bytes] | None = None,
             level: None = None,
             options: Mapping[int, int] | None = None,
-            zstd_dict: ZstdDict | None = None,
+            zstd_dict: ZstdDict | tuple[ZstdDict, int] | None = None,
             *,
             format: int | None = ...,
             tarinfo: type[TarInfo] | None = ...,
@@ -619,8 +639,8 @@ class TarFile:
             ignore_zeros: bool | None = ...,
             encoding: str | None = ...,
             pax_headers: Mapping[str, str] | None = ...,
-            debug: int | None = ...,
-            errorlevel: int | None = ...,
+            debug: Literal[0, 1, 2, 3] | None = None,  # default 0
+            errorlevel: Literal[0, 1, 2] | None = None,  # default 1
         ) -> Self: ...
         @overload
         @classmethod
@@ -631,7 +651,7 @@ class TarFile:
             fileobj: IO[bytes] | None = None,
             level: int | None = None,
             options: Mapping[int, int] | None = None,
-            zstd_dict: ZstdDict | None = None,
+            zstd_dict: ZstdDict | tuple[ZstdDict, int] | None = None,
             *,
             format: int | None = ...,
             tarinfo: type[TarInfo] | None = ...,
@@ -639,8 +659,8 @@ class TarFile:
             ignore_zeros: bool | None = ...,
             encoding: str | None = ...,
             pax_headers: Mapping[str, str] | None = ...,
-            debug: int | None = ...,
-            errorlevel: int | None = ...,
+            debug: Literal[0, 1, 2, 3] | None = None,  # default 0
+            errorlevel: Literal[0, 1, 2] | None = None,  # default 1
         ) -> Self: ...
 
     def getmember(self, name: str) -> TarInfo: ...
@@ -656,7 +676,7 @@ class TarFile:
         members: Iterable[TarInfo] | None = None,
         *,
         numeric_owner: bool = False,
-        filter: _TarfileFilter | None = ...,
+        filter: _TarfileFilter | None = None,
     ) -> None: ...
     # Same situation as for `extractall`.
     def extract(
@@ -666,7 +686,7 @@ class TarFile:
         set_attrs: bool = True,
         *,
         numeric_owner: bool = False,
-        filter: _TarfileFilter | None = ...,
+        filter: _TarfileFilter | None = None,
     ) -> None: ...
     def _extract_member(
         self,
@@ -744,6 +764,28 @@ def tar_filter(member: TarInfo, dest_path: str) -> TarInfo: ...
 def data_filter(member: TarInfo, dest_path: str) -> TarInfo: ...
 
 class TarInfo:
+    __slots__ = (
+        "name",
+        "mode",
+        "uid",
+        "gid",
+        "size",
+        "mtime",
+        "chksum",
+        "type",
+        "linkname",
+        "uname",
+        "gname",
+        "devmajor",
+        "devminor",
+        "offset",
+        "offset_data",
+        "pax_headers",
+        "sparse",
+        "_tarfile",
+        "_sparse_structs",
+        "_link_target",
+    )
     name: str
     path: str
     size: int
@@ -765,10 +807,10 @@ class TarInfo:
     def __init__(self, name: str = "") -> None: ...
     if sys.version_info >= (3, 13):
         @property
-        @deprecated("Deprecated in Python 3.13; removal scheduled for Python 3.16")
+        @deprecated("Deprecated since Python 3.13; will be removed in Python 3.16.")
         def tarfile(self) -> TarFile | None: ...
         @tarfile.setter
-        @deprecated("Deprecated in Python 3.13; removal scheduled for Python 3.16")
+        @deprecated("Deprecated since Python 3.13; will be removed in Python 3.16.")
         def tarfile(self, tarfile: TarFile | None) -> None: ...
     else:
         tarfile: TarFile | None

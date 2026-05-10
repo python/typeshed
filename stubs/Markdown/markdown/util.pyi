@@ -1,7 +1,7 @@
-import sys
 from collections.abc import Iterator
+from importlib import metadata
 from re import Pattern
-from typing import Final, Generic, TypedDict, TypeVar, overload
+from typing import Final, Generic, TypedDict, TypeVar, overload, type_check_only
 
 from markdown.core import Markdown
 
@@ -19,13 +19,7 @@ HTML_PLACEHOLDER_RE: Final[Pattern[str]]
 TAG_PLACEHOLDER: Final[str]
 RTL_BIDI_RANGES: Final[tuple[tuple[str, str], tuple[str, str]]]
 
-if sys.version_info >= (3, 10):
-    from importlib import metadata
-    def get_installed_extensions() -> metadata.EntryPoints: ...
-
-else:
-    def get_installed_extensions(): ...
-
+def get_installed_extensions() -> metadata.EntryPoints: ...
 def deprecated(message: str, stacklevel: int = 2): ...
 @overload
 def parseBoolValue(value: str) -> bool: ...
@@ -40,6 +34,7 @@ class Processor:
     md: Markdown
     def __init__(self, md: Markdown | None = None) -> None: ...
 
+@type_check_only
 class _TagData(TypedDict):
     tag: str
     attrs: dict[str, str]

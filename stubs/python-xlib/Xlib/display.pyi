@@ -1,8 +1,7 @@
 from collections.abc import Callable, Iterable, Sequence
 from re import Pattern
 from types import FunctionType, MethodType
-from typing import Any, Literal, TypedDict, overload
-from typing_extensions import TypeAlias
+from typing import Any, Literal, TypeAlias, TypedDict, overload, type_check_only
 
 from Xlib import error
 from Xlib._typing import ErrorHandler
@@ -22,6 +21,7 @@ _ResourceBaseClass: TypeAlias = (
 )
 
 # Is the type of the `_resource_baseclasses` variable, defined in this file at runtime
+@type_check_only
 class _ResourceBaseClassesType(TypedDict):  # noqa: Y049
     resource: type[resource.Resource]
     drawable: type[drawable.Drawable]

@@ -1,10 +1,9 @@
 from re import Pattern
-from typing import overload
-from typing_extensions import TypeAlias
+from typing import Final, TypeAlias, overload
 
 _HeaderList: TypeAlias = list[tuple[str, str]]
 
-tspecials: Pattern[str]  # undocumented
+tspecials: Final[Pattern[str]]  # undocumented
 
 class Headers:
     def __init__(self, headers: _HeaderList | None = None) -> None: ...

@@ -4,12 +4,12 @@ from collections.abc import Callable, Hashable, Iterable, Mapping, Sequence
 from configparser import RawConfigParser
 from re import Pattern
 from threading import Thread
-from typing import IO, Any, Final, Literal, SupportsIndex, TypedDict, overload, type_check_only
-from typing_extensions import Required, TypeAlias
+from typing import IO, Any, Final, Literal, SupportsIndex, TypeAlias, TypedDict, overload, type_check_only
+from typing_extensions import Required, disjoint_base
 
 from . import Filter, Filterer, Formatter, Handler, Logger, _FilterType, _FormatStyle, _Level
 
-DEFAULT_LOGGING_CONFIG_PORT: int
+DEFAULT_LOGGING_CONFIG_PORT: Final = 9030
 RESET_ERROR: Final[int]  # undocumented
 IDENTIFIER: Final[Pattern[str]]  # undocumented
 
@@ -64,22 +64,12 @@ class _DictConfigArgs(TypedDict, total=False):
 # Also accept a TypedDict type, to allow callers to use TypedDict
 # types, and for somewhat stricter type checking of dict literals.
 def dictConfig(config: _DictConfigArgs | dict[str, Any]) -> None: ...
-
-if sys.version_info >= (3, 10):
-    def fileConfig(
-        fname: StrOrBytesPath | IO[str] | RawConfigParser,
-        defaults: Mapping[str, str] | None = None,
-        disable_existing_loggers: bool = True,
-        encoding: str | None = None,
-    ) -> None: ...
-
-else:
-    def fileConfig(
-        fname: StrOrBytesPath | IO[str] | RawConfigParser,
-        defaults: Mapping[str, str] | None = None,
-        disable_existing_loggers: bool = True,
-    ) -> None: ...
-
+def fileConfig(
+    fname: StrOrBytesPath | IO[str] | RawConfigParser,
+    defaults: Mapping[str, str] | None = None,
+    disable_existing_loggers: bool = True,
+    encoding: str | None = None,
+) -> None: ...
 def valid_ident(s: str) -> Literal[True]: ...  # undocumented
 def listen(port: int = 9030, verify: Callable[[bytes], bytes | None] | None = None) -> Thread: ...
 def stopListening() -> None: ...
@@ -97,16 +87,25 @@ class ConvertingList(list[Any], ConvertingMixin):  # undocumented
     @overload
     def __getitem__(self, key: SupportsIndex) -> Any: ...
     @overload
-    def __getitem__(self, key: slice) -> Any: ...
+    def __getitem__(self, key: slice[SupportsIndex | None]) -> Any: ...
     def pop(self, idx: SupportsIndex = -1) -> Any: ...
 
-class ConvertingTuple(tuple[Any, ...], ConvertingMixin):  # undocumented
-    @overload
-    def __getitem__(self, key: SupportsIndex) -> Any: ...
-    @overload
-    def __getitem__(self, key: slice) -> Any: ...
+if sys.version_info >= (3, 12):
+    class ConvertingTuple(tuple[Any, ...], ConvertingMixin):  # undocumented
+        @overload
+        def __getitem__(self, key: SupportsIndex) -> Any: ...
+        @overload
+        def __getitem__(self, key: slice[SupportsIndex | None]) -> Any: ...
 
-class BaseConfigurator:  # undocumented
+else:
+    @disjoint_base
+    class ConvertingTuple(tuple[Any, ...], ConvertingMixin):  # undocumented
+        @overload
+        def __getitem__(self, key: SupportsIndex) -> Any: ...
+        @overload
+        def __getitem__(self, key: slice[SupportsIndex | None]) -> Any: ...
+
+class BaseConfigurator:
     CONVERT_PATTERN: Pattern[str]
     WORD_PATTERN: Pattern[str]
     DOT_PATTERN: Pattern[str]
@@ -114,6 +113,8 @@ class BaseConfigurator:  # undocumented
     DIGIT_PATTERN: Pattern[str]
     value_converters: dict[str, str]
     importer: Callable[..., Any]
+
+    config: dict[str, Any]  # undocumented
 
     def __init__(self, config: _DictConfigArgs | dict[str, Any]) -> None: ...
     def resolve(self, s: str) -> Any: ...

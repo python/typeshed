@@ -105,12 +105,18 @@ async def get_upstream_repo_url(project: str) -> str | None:
             # Remove `www.`; replace `http://` with `https://`
             url = re.sub(r"^(https?://)?(www\.)?", "https://", url_to_check)
             netloc = urllib.parse.urlparse(url).netloc
-            if netloc in {"gitlab.com", "github.com", "bitbucket.org", "foss.heptapod.net"}:
-                # truncate to https://site.com/user/repo
-                upstream_repo_url = "/".join(url.split("/")[:5])
-                async with session.get(upstream_repo_url) as response:
-                    if response.status == HTTPStatus.OK:
-                        return upstream_repo_url
+            if netloc not in {"gitlab.com", "github.com", "bitbucket.org", "foss.heptapod.net"}:
+                continue
+            # truncate to https://site.com/user/repo
+            upstream_repo_url = "/".join(url.split("/")[:5])
+            async with session.get(upstream_repo_url, allow_redirects=True) as response:
+                if response.status != HTTPStatus.OK:
+                    continue
+                # final url after redirects
+                final_url = str(response.url)
+                # normalize again (in case redirect added extra path)
+                final_repo_url = "/".join(final_url.split("/")[:5])
+                return final_repo_url
     return None
 
 
@@ -128,11 +134,11 @@ def create_metadata(project: str, stub_dir: Path, version: str) -> None:
     if upstream_repo_url is None:
         warning = (
             f"\nCould not find a URL pointing to the source code for {project!r}.\n"
-            f"Please add it as `upstream_repository` to `stubs/{project}/METADATA.toml`, if possible!\n"
+            f"Please add it as `upstream-repository` to `stubs/{project}/METADATA.toml`, if possible!\n"
         )
         print(termcolor.colored(warning, "red"))
     else:
-        metadata += f'upstream_repository = "{upstream_repo_url}"\n'
+        metadata += f'upstream-repository = "{upstream_repo_url}"\n'
     print(f"Writing {filename}")
     filename.write_text(metadata, encoding="UTF-8")
 
@@ -182,12 +188,10 @@ def add_pyright_exclusion(stub_dir: Path) -> None:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(
-        description="""Generate baseline stubs automatically for an installed pip package
+    parser = argparse.ArgumentParser(description="""Generate baseline stubs automatically for an installed pip package
                        using stubgen. Also run Black and Ruff. If the name of
                        the project is different from the runtime Python package name, you may
-                       need to use --package (example: --package yaml PyYAML)."""
-    )
+                       need to use --package (example: --package yaml PyYAML).""")
     parser.add_argument("project", help="name of PyPI project for which to generate stubs under stubs/")
     parser.add_argument("--package", help="generate stubs for this Python package (default is autodetected)")
     args = parser.parse_args()

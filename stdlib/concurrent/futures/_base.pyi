@@ -4,8 +4,8 @@ from _typeshed import Unused
 from collections.abc import Callable, Iterable, Iterator
 from logging import Logger
 from types import GenericAlias, TracebackType
-from typing import Any, Final, Generic, NamedTuple, Protocol, TypeVar, type_check_only
-from typing_extensions import ParamSpec, Self
+from typing import Any, Final, Generic, NamedTuple, ParamSpec, Protocol, TypeVar, type_check_only
+from typing_extensions import Self
 
 FIRST_COMPLETED: Final = "FIRST_COMPLETED"
 FIRST_EXCEPTION: Final = "FIRST_EXCEPTION"
@@ -15,8 +15,7 @@ RUNNING: Final = "RUNNING"
 CANCELLED: Final = "CANCELLED"
 CANCELLED_AND_NOTIFIED: Final = "CANCELLED_AND_NOTIFIED"
 FINISHED: Final = "FINISHED"
-_FUTURE_STATES: list[str]
-_STATE_TO_DESCRIPTION_MAP: dict[str, str]
+_STATE_TO_DESCRIPTION_MAP: Final[dict[str, str]]
 LOGGER: Logger
 
 class Error(Exception): ...

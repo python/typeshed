@@ -1,8 +1,7 @@
 from asyncio import ReadTransport
 from collections.abc import Awaitable, Callable, Iterable
 from re import Match, Pattern
-from typing import IO, AnyStr, Generic, Literal, Protocol, TextIO, overload
-from typing_extensions import TypeAlias
+from typing import IO, AnyStr, Generic, Literal, Protocol, TextIO, TypeAlias, overload, type_check_only
 
 from ._async import PatternWaiter
 from .exceptions import EOF, TIMEOUT
@@ -17,6 +16,7 @@ class _NullCoder:
     @staticmethod
     def decode(b: str, final: bool = False): ...
 
+@type_check_only
 class _Logfile(Protocol):
     def write(self, s, /) -> object: ...
     def flush(self) -> object: ...
@@ -56,7 +56,7 @@ class SpawnBase(Generic[AnyStr]):
     delaybeforesend: float | None
     delayafterclose: float
     delayafterterminate: float
-    delayafterread: float
+    delayafterread: float | None
     softspace: bool
     name: str
     closed: bool

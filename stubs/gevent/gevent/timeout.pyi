@@ -1,7 +1,7 @@
 from collections.abc import Callable
 from types import TracebackType
-from typing import Any, Literal, Protocol, TypeVar, overload
-from typing_extensions import ParamSpec, Self
+from typing import Any, Literal, ParamSpec, Protocol, TypeVar, overload, type_check_only
+from typing_extensions import Self
 
 from gevent._types import _TimerWatcher
 
@@ -11,6 +11,7 @@ _T2 = TypeVar("_T2")
 _TimeoutT = TypeVar("_TimeoutT", bound=Timeout)
 _P = ParamSpec("_P")
 
+@type_check_only
 class _HasSeconds(Protocol):
     @property
     def seconds(self) -> float | int: ...

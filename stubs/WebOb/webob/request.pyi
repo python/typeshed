@@ -4,8 +4,8 @@ from _typeshed import OptExcInfo, SupportsKeysAndGetItem, SupportsNoArgReadline,
 from _typeshed.wsgi import WSGIApplication, WSGIEnvironment
 from collections.abc import Iterable, Mapping
 from re import Pattern
-from typing import IO, Any, ClassVar, Literal, Protocol, TypedDict, TypeVar, overload
-from typing_extensions import Self, TypeAlias
+from typing import IO, Any, ClassVar, Literal, Protocol, TypeAlias, TypedDict, TypeVar, overload, type_check_only
+from typing_extensions import Self
 
 from webob._types import AsymmetricProperty, AsymmetricPropertyWithDelete, SymmetricProperty, SymmetricPropertyWithDelete
 from webob.acceptparse import _AcceptCharsetProperty, _AcceptEncodingProperty, _AcceptLanguageProperty, _AcceptProperty
@@ -27,8 +27,10 @@ _HTTPMethod: TypeAlias = Literal["GET", "HEAD", "POST", "PUT", "DELETE", "CONNEC
 _ListOrTuple: TypeAlias = list[_T] | tuple[_T, ...]
 _RequestCacheControl: TypeAlias = CacheControl[Literal["request"]]
 
+@type_check_only
 class _SupportsReadAndNoArgReadline(SupportsRead[str | bytes], SupportsNoArgReadline[str | bytes], Protocol): ...
 
+@type_check_only
 class _RequestCacheControlDict(TypedDict, total=False):
     max_stale: int
     min_stale: int
@@ -201,7 +203,7 @@ class LegacyRequest(BaseRequest):
     def uscript_name(self) -> str: ...
     @uscript_name.setter
     def uscript_name(self, value: str) -> None: ...
-    @property  # type:ignore[override]
+    @property  # type: ignore[override]
     def upath_info(self) -> str: ...
     @upath_info.setter
     def upath_info(self, value: str) -> None: ...

@@ -1,7 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Callable, Collection, Hashable, Iterable
-from typing import Literal, TypeVar, overload
-from typing_extensions import TypeAlias
+from typing import Literal, TypeAlias, TypeVar, overload
 
 import numpy
 from networkx.classes.graph import Graph, _Node
@@ -80,7 +79,7 @@ def from_pandas_edgelist(
     edge_key: str | None = None,
 ) -> Graph[Incomplete]: ...
 @_dispatchable
-def to_scipy_sparse_array(G, nodelist=None, dtype=None, weight="weight", format="csr"): ...
+def to_scipy_sparse_array(G: Graph[_Node], nodelist=None, dtype=None, weight="weight", format="csr"): ...
 @_dispatchable
 def from_scipy_sparse_array(A, parallel_edges=False, create_using=None, edge_attribute="weight"): ...
 @_dispatchable

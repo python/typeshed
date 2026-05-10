@@ -2,8 +2,8 @@ import sys
 from collections.abc import Callable
 from decimal import Decimal
 from numbers import Rational, Real
-from typing import Any, Literal, Protocol, SupportsIndex, overload, type_check_only
-from typing_extensions import Self, TypeAlias
+from typing import Any, Literal, Protocol, SupportsIndex, TypeAlias, overload, type_check_only
+from typing_extensions import Self
 
 _ComparableNum: TypeAlias = int | float | Decimal | Real
 
@@ -14,6 +14,7 @@ class _ConvertibleToIntegerRatio(Protocol):
     def as_integer_ratio(self) -> tuple[int | Rational, int | Rational]: ...
 
 class Fraction(Rational):
+    __slots__ = ("_numerator", "_denominator")
     @overload
     def __new__(cls, numerator: int | Rational = 0, denominator: int | Rational | None = None) -> Self: ...
     @overload

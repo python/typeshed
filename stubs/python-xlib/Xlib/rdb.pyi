@@ -1,8 +1,7 @@
 from _typeshed import SupportsDunderGT, SupportsDunderLT, SupportsRead
 from collections.abc import Iterable, Mapping, Sequence
 from re import Pattern
-from typing import Any, Final, Protocol, TypeVar, overload
-from typing_extensions import TypeAlias
+from typing import Any, Final, Protocol, TypeAlias, TypeVar, overload, type_check_only
 
 from Xlib.display import Display
 from Xlib.support.lock import _DummyLock
@@ -15,6 +14,7 @@ _DB: TypeAlias = dict[str, tuple[_DB, ...]]
 # so this is a slightly less precise version of the _DB alias for parameter annotations
 _DB_Param: TypeAlias = dict[str, Any]
 
+@type_check_only
 class _SupportsComparisons(SupportsDunderLT[_T_contra], SupportsDunderGT[_T_contra], Protocol[_T_contra]): ...
 
 comment_re: Final[Pattern[str]]

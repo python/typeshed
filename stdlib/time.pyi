@@ -1,9 +1,15 @@
 import sys
 from _typeshed import structseq
-from typing import Any, Final, Literal, Protocol, final, type_check_only
-from typing_extensions import TypeAlias
+from typing import Any, Final, Literal, Protocol, SupportsFloat, SupportsIndex, TypeAlias, final, type_check_only
 
 _TimeTuple: TypeAlias = tuple[int, int, int, int, int, int, int, int, int]
+
+if sys.version_info >= (3, 15):
+    # anticipate on https://github.com/python/cpython/pull/139224
+    _SupportsFloatOrIndex: TypeAlias = SupportsFloat | SupportsIndex
+else:
+    # before, time functions only accept (subclass of) float, *not* SupportsFloat
+    _SupportsFloatOrIndex: TypeAlias = float | SupportsIndex
 
 altzone: int
 daylight: int
@@ -11,28 +17,28 @@ timezone: int
 tzname: tuple[str, str]
 
 if sys.platform == "linux":
-    CLOCK_BOOTTIME: int
+    CLOCK_BOOTTIME: Final[int]
 if sys.platform != "linux" and sys.platform != "win32" and sys.platform != "darwin":
-    CLOCK_PROF: int  # FreeBSD, NetBSD, OpenBSD
-    CLOCK_UPTIME: int  # FreeBSD, OpenBSD
+    CLOCK_PROF: Final[int]  # FreeBSD, NetBSD, OpenBSD
+    CLOCK_UPTIME: Final[int]  # FreeBSD, OpenBSD
 
 if sys.platform != "win32":
-    CLOCK_MONOTONIC: int
-    CLOCK_MONOTONIC_RAW: int
-    CLOCK_PROCESS_CPUTIME_ID: int
-    CLOCK_REALTIME: int
-    CLOCK_THREAD_CPUTIME_ID: int
+    CLOCK_MONOTONIC: Final[int]
+    CLOCK_MONOTONIC_RAW: Final[int]
+    CLOCK_PROCESS_CPUTIME_ID: Final[int]
+    CLOCK_REALTIME: Final[int]
+    CLOCK_THREAD_CPUTIME_ID: Final[int]
     if sys.platform != "linux" and sys.platform != "darwin":
-        CLOCK_HIGHRES: int  # Solaris only
+        CLOCK_HIGHRES: Final[int]  # Solaris only
 
 if sys.platform == "darwin":
-    CLOCK_UPTIME_RAW: int
+    CLOCK_UPTIME_RAW: Final[int]
     if sys.version_info >= (3, 13):
-        CLOCK_UPTIME_RAW_APPROX: int
-        CLOCK_MONOTONIC_RAW_APPROX: int
+        CLOCK_UPTIME_RAW_APPROX: Final[int]
+        CLOCK_MONOTONIC_RAW_APPROX: Final[int]
 
 if sys.platform == "linux":
-    CLOCK_TAI: int
+    CLOCK_TAI: Final[int]
 
 # Constructor takes an iterable of any type, of length between 9 and 11 elements.
 # However, it always *behaves* like a tuple of 9 elements,
@@ -40,8 +46,7 @@ if sys.platform == "linux":
 # https://github.com/python/typeshed/pull/6560#discussion_r767162532
 @final
 class struct_time(structseq[Any | int], _TimeTuple):
-    if sys.version_info >= (3, 10):
-        __match_args__: Final = ("tm_year", "tm_mon", "tm_mday", "tm_hour", "tm_min", "tm_sec", "tm_wday", "tm_yday", "tm_isdst")
+    __match_args__: Final = ("tm_year", "tm_mon", "tm_mday", "tm_hour", "tm_min", "tm_sec", "tm_wday", "tm_yday", "tm_isdst")
 
     @property
     def tm_year(self) -> int: ...
@@ -68,11 +73,11 @@ class struct_time(structseq[Any | int], _TimeTuple):
     def tm_gmtoff(self) -> int: ...
 
 def asctime(time_tuple: _TimeTuple | struct_time = ..., /) -> str: ...
-def ctime(seconds: float | None = None, /) -> str: ...
-def gmtime(seconds: float | None = None, /) -> struct_time: ...
-def localtime(seconds: float | None = None, /) -> struct_time: ...
+def ctime(seconds: _SupportsFloatOrIndex | None = None, /) -> str: ...
+def gmtime(seconds: _SupportsFloatOrIndex | None = None, /) -> struct_time: ...
+def localtime(seconds: _SupportsFloatOrIndex | None = None, /) -> struct_time: ...
 def mktime(time_tuple: _TimeTuple | struct_time, /) -> float: ...
-def sleep(seconds: float, /) -> None: ...
+def sleep(seconds: _SupportsFloatOrIndex, /) -> None: ...
 def strftime(format: str, time_tuple: _TimeTuple | struct_time = ..., /) -> str: ...
 def strptime(data_string: str, format: str = "%a %b %d %H:%M:%S %Y", /) -> struct_time: ...
 def time() -> float: ...

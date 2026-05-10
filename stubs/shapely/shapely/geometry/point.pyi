@@ -1,6 +1,6 @@
 from collections.abc import Iterable
-from typing import overload
-from typing_extensions import Self, TypeAlias
+from typing import TypeAlias, overload
+from typing_extensions import Self
 
 from .._typing import ArrayLikeSeq
 from .base import BaseGeometry
@@ -11,6 +11,7 @@ __all__ = ["Point"]
 _PointLike: TypeAlias = Point | Iterable[float] | ArrayLikeSeq[float]
 
 class Point(BaseGeometry):
+    __slots__: list[str] = []
     @overload  # no args: empty point
     def __new__(self) -> Self: ...
     @overload  # one arg: (x, y[, z]) tuple or a Point instance

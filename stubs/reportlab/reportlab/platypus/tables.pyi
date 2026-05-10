@@ -1,8 +1,8 @@
 from _typeshed import Incomplete
 from abc import abstractmethod
 from collections.abc import Collection, Iterable, Sequence
-from typing import Any, Literal, overload
-from typing_extensions import TypeAlias, Unpack
+from typing import Any, Literal, NamedTuple, TypeAlias, overload
+from typing_extensions import Unpack
 
 from reportlab.lib.colors import Color
 from reportlab.lib.styles import PropertySet
@@ -55,6 +55,13 @@ class TableStyle:
     def add(self, *cmd: Unpack[_RoundedCornersTableCommand]) -> None: ...
     def getCommands(self) -> list[_TableCommand]: ...
 
+class ShadowStyle(NamedTuple):
+    dx: int | Incomplete = 10  # TODO: is either `int` or `float`
+    dy: int | Incomplete = -10  # TODO: is either `int` or `float`
+    color0: _Color = "grey"
+    color1: _Color = "white"
+    nshades: int = 30
+
 class Table(Flowable):
     ident: str | None
     repeatRows: int
@@ -89,6 +96,7 @@ class Table(Flowable):
         minRowHeights: Sequence[float] | None = None,
         cornerRadii: _CornerRadii | _UNSET_ | None = ...,
         renderCB: TableRenderCB | None = None,
+        shadow: ShadowStyle | None = None,
     ) -> None: ...
     def identity(self, maxLen: int | None = 30) -> str: ...
     def normalizeData(self, data: Iterable[Iterable[Any]]) -> list[list[Any]]: ...

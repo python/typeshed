@@ -1,5 +1,5 @@
-from typing import Literal, TypedDict
-from typing_extensions import NotRequired, TypeAlias
+from typing import Literal, TypeAlias, TypedDict, type_check_only
+from typing_extensions import NotRequired
 
 _NodeType: TypeAlias = Literal[
     "comparator",
@@ -26,6 +26,7 @@ _NodeType: TypeAlias = Literal[
     "value_projection",
 ]
 
+@type_check_only
 class _ASTNode(TypedDict):
     type: _NodeType
     children: list[_ASTNode]

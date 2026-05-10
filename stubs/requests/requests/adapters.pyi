@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Mapping
 from ssl import SSLContext
-from typing import Literal, TypedDict
+from typing import Literal, TypedDict, type_check_only
 from typing_extensions import NotRequired, deprecated
 
 import urllib3
@@ -38,11 +38,13 @@ from .utils import (
 )
 
 # Arguments to urllib3 connection_from_host() functions (except pool_kwargs).
+@type_check_only
 class _HostParams(TypedDict):
     host: str
     scheme: str
     port: int
 
+@type_check_only
 class _PoolKwargs(TypedDict):
     ssl_context: NotRequired[SSLContext]
     ca_certs: NotRequired[str]
@@ -94,7 +96,7 @@ class HTTPAdapter(BaseAdapter):
     ) -> ConnectionPool: ...
     @deprecated("Use get_connection_with_tls_context() instead.")
     def get_connection(self, url: _Uri, proxies: Mapping[str, str] | None = None) -> ConnectionPool: ...
-    def close(self): ...
+    def close(self) -> None: ...
     def request_url(self, request, proxies): ...
     def add_headers(self, request, **kwargs): ...
     def proxy_headers(self, proxy): ...

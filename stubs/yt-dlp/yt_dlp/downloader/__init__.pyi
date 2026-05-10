@@ -1,6 +1,5 @@
 from collections.abc import Mapping
-from typing import Any, Literal
-from typing_extensions import TypeAlias
+from typing import Any, Literal, TypeAlias
 
 from ..extractor.common import _InfoDict
 from ..utils._utils import NO_DEFAULT
@@ -23,7 +22,7 @@ _Protocol: TypeAlias = Literal[
 
 def get_suitable_downloader(
     info_dict: _InfoDict,
-    params: Mapping[str, Any] = ...,
+    params: Mapping[str, Any] = {},
     default: FileDownloader | type[NO_DEFAULT] = ...,
     protocol: _Protocol | None = None,
     to_stdout: bool = False,

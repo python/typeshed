@@ -1,9 +1,9 @@
 from _typeshed import ReadableBuffer
 from collections.abc import Iterable
 from io import BytesIO
-from typing import Any, Protocol
-from typing_extensions import TypeAlias
+from typing import Any, Protocol, TypeAlias, type_check_only
 
+@type_check_only
 class _SupportsAsBytes(Protocol):
     def asbytes(self) -> bytes: ...
 

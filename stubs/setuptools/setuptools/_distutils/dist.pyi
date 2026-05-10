@@ -1,8 +1,7 @@
 from _typeshed import Incomplete, StrOrBytesPath, StrPath, SupportsWrite
 from collections.abc import Iterable, MutableMapping
 from re import Pattern
-from typing import IO, ClassVar, Literal, TypeVar, overload
-from typing_extensions import TypeAlias
+from typing import IO, ClassVar, Literal, TypeAlias, TypeVar, overload
 
 from .cmd import Command
 
@@ -73,7 +72,6 @@ class Distribution:
     display_option_names: ClassVar[list[str]]
     negative_opt: ClassVar[dict[str, str]]
     verbose: bool
-    dry_run: bool
     help: bool
     command_packages: str | list[str] | None
     script_name: StrPath | None

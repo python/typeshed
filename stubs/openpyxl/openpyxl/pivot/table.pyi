@@ -1,6 +1,5 @@
 from _typeshed import ConvertibleToInt, Incomplete, Unused
-from typing import ClassVar, Literal, overload
-from typing_extensions import TypeAlias
+from typing import ClassVar, Literal, TypeAlias, overload
 
 from openpyxl.descriptors.base import Bool, Integer, NoneSet, Set, String, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
@@ -417,7 +416,7 @@ class ConditionalFormatList(Serialisable):
     tagname: ClassVar[str]
     conditionalFormat: Incomplete
     __attrs__: ClassVar[tuple[str, ...]]
-    def __init__(self, conditionalFormat=..., count: Incomplete | None = ...) -> None: ...
+    def __init__(self, conditionalFormat=(), count=None) -> None: ...
     def by_priority(self): ...
     @property
     def count(self) -> int: ...

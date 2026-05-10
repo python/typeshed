@@ -16,8 +16,8 @@ from collections.abc import (
     ValuesView,
 )
 from importlib.machinery import ModuleSpec
-from typing import Any, ClassVar, Literal, TypeVar, final, overload
-from typing_extensions import ParamSpec, Self, TypeAliasType, TypeVarTuple, deprecated
+from typing import Any, ClassVar, Literal, ParamSpec, TypeVar, final, overload
+from typing_extensions import Self, TypeAliasType, TypeVarTuple, deprecated, disjoint_base
 
 if sys.version_info >= (3, 14):
     from _typeshed import AnnotateFunc
@@ -50,10 +50,11 @@ __all__ = [
     "resolve_bases",
     "CellType",
     "GenericAlias",
+    "EllipsisType",
+    "NoneType",
+    "NotImplementedType",
+    "UnionType",
 ]
-
-if sys.version_info >= (3, 10):
-    __all__ += ["EllipsisType", "NoneType", "NotImplementedType", "UnionType"]
 
 if sys.version_info >= (3, 12):
     __all__ += ["get_original_bases"]
@@ -65,7 +66,7 @@ if sys.version_info >= (3, 13):
 
 _T1 = TypeVar("_T1")
 _T2 = TypeVar("_T2")
-_KT = TypeVar("_KT")
+_KT_co = TypeVar("_KT_co", covariant=True)
 _VT_co = TypeVar("_VT_co", covariant=True)
 
 # Make sure this class definition stays roughly in line with `builtins.function`
@@ -84,9 +85,8 @@ class FunctionType:
     if sys.version_info >= (3, 14):
         __annotate__: AnnotateFunc | None
     __kwdefaults__: dict[str, Any] | None
-    if sys.version_info >= (3, 10):
-        @property
-        def __builtins__(self) -> dict[str, Any]: ...
+    @property
+    def __builtins__(self) -> dict[str, Any]: ...
     if sys.version_info >= (3, 12):
         __type_params__: tuple[TypeVar | ParamSpec | TypeVarTuple, ...]
 
@@ -149,22 +149,16 @@ class CodeType:
     def co_name(self) -> str: ...
     @property
     def co_firstlineno(self) -> int: ...
-    if sys.version_info >= (3, 10):
-        @property
-        @deprecated("Will be removed in Python 3.15. Use the co_lines() method instead.")
-        def co_lnotab(self) -> bytes: ...
-    else:
-        @property
-        def co_lnotab(self) -> bytes: ...
-
+    @property
+    @deprecated("Deprecated since Python 3.10; will be removed in Python 3.15. Use `CodeType.co_lines()` instead.")
+    def co_lnotab(self) -> bytes: ...
     @property
     def co_freevars(self) -> tuple[str, ...]: ...
     @property
     def co_cellvars(self) -> tuple[str, ...]: ...
-    if sys.version_info >= (3, 10):
-        @property
-        def co_linetable(self) -> bytes: ...
-        def co_lines(self) -> Iterator[tuple[int, int, int | None]]: ...
+    @property
+    def co_linetable(self) -> bytes: ...
+    def co_lines(self) -> Iterator[tuple[int, int, int | None]]: ...
     if sys.version_info >= (3, 11):
         @property
         def co_exceptiontable(self) -> bytes: ...
@@ -197,27 +191,6 @@ class CodeType:
             cellvars: tuple[str, ...] = ...,
             /,
         ) -> Self: ...
-    elif sys.version_info >= (3, 10):
-        def __new__(
-            cls,
-            argcount: int,
-            posonlyargcount: int,
-            kwonlyargcount: int,
-            nlocals: int,
-            stacksize: int,
-            flags: int,
-            codestring: bytes,
-            constants: tuple[object, ...],
-            names: tuple[str, ...],
-            varnames: tuple[str, ...],
-            filename: str,
-            name: str,
-            firstlineno: int,
-            linetable: bytes,
-            freevars: tuple[str, ...] = ...,
-            cellvars: tuple[str, ...] = ...,
-            /,
-        ) -> Self: ...
     else:
         def __new__(
             cls,
@@ -234,7 +207,7 @@ class CodeType:
             filename: str,
             name: str,
             firstlineno: int,
-            lnotab: bytes,
+            linetable: bytes,
             freevars: tuple[str, ...] = ...,
             cellvars: tuple[str, ...] = ...,
             /,
@@ -262,7 +235,7 @@ class CodeType:
             co_linetable: bytes = ...,
             co_exceptiontable: bytes = ...,
         ) -> Self: ...
-    elif sys.version_info >= (3, 10):
+    else:
         def replace(
             self,
             *,
@@ -283,68 +256,61 @@ class CodeType:
             co_name: str = ...,
             co_linetable: bytes = ...,
         ) -> Self: ...
-    else:
-        def replace(
-            self,
-            *,
-            co_argcount: int = -1,
-            co_posonlyargcount: int = -1,
-            co_kwonlyargcount: int = -1,
-            co_nlocals: int = -1,
-            co_stacksize: int = -1,
-            co_flags: int = -1,
-            co_firstlineno: int = -1,
-            co_code: bytes = ...,
-            co_consts: tuple[object, ...] = ...,
-            co_names: tuple[str, ...] = ...,
-            co_varnames: tuple[str, ...] = ...,
-            co_freevars: tuple[str, ...] = ...,
-            co_cellvars: tuple[str, ...] = ...,
-            co_filename: str = ...,
-            co_name: str = ...,
-            co_lnotab: bytes = ...,
-        ) -> Self: ...
 
     if sys.version_info >= (3, 13):
         __replace__ = replace
 
 @final
-class MappingProxyType(Mapping[_KT, _VT_co]):
+class MappingProxyType(Mapping[_KT_co, _VT_co]):  # type: ignore[type-var]  # pyright: ignore[reportInvalidTypeArguments]
     __hash__: ClassVar[None]  # type: ignore[assignment]
-    def __new__(cls, mapping: SupportsKeysAndGetItem[_KT, _VT_co]) -> Self: ...
-    def __getitem__(self, key: _KT, /) -> _VT_co: ...
-    def __iter__(self) -> Iterator[_KT]: ...
+    def __new__(cls, mapping: SupportsKeysAndGetItem[_KT_co, _VT_co]) -> Self: ...
+    def __getitem__(self, key: _KT_co, /) -> _VT_co: ...  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
+    def __iter__(self) -> Iterator[_KT_co]: ...
     def __len__(self) -> int: ...
     def __eq__(self, value: object, /) -> bool: ...
-    def copy(self) -> dict[_KT, _VT_co]: ...
-    def keys(self) -> KeysView[_KT]: ...
+    def copy(self) -> dict[_KT_co, _VT_co]: ...
+    def keys(self) -> KeysView[_KT_co]: ...
     def values(self) -> ValuesView[_VT_co]: ...
-    def items(self) -> ItemsView[_KT, _VT_co]: ...
+    def items(self) -> ItemsView[_KT_co, _VT_co]: ...
     @overload
-    def get(self, key: _KT, /) -> _VT_co | None: ...
+    def get(self, key: _KT_co, /) -> _VT_co | None: ...  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues] # Covariant type as parameter
     @overload
-    def get(self, key: _KT, default: _VT_co, /) -> _VT_co: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues] # Covariant type as parameter
+    def get(self, key: _KT_co, default: _VT_co, /) -> _VT_co: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues] # Covariant type as parameter
     @overload
-    def get(self, key: _KT, default: _T2, /) -> _VT_co | _T2: ...
+    def get(self, key: _KT_co, default: _T2, /) -> _VT_co | _T2: ...  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues] # Covariant type as parameter
     def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
-    def __reversed__(self) -> Iterator[_KT]: ...
-    def __or__(self, value: Mapping[_T1, _T2], /) -> dict[_KT | _T1, _VT_co | _T2]: ...
-    def __ror__(self, value: Mapping[_T1, _T2], /) -> dict[_KT | _T1, _VT_co | _T2]: ...
+    def __reversed__(self) -> Iterator[_KT_co]: ...
+    def __or__(self, value: Mapping[_T1, _T2], /) -> dict[_KT_co | _T1, _VT_co | _T2]: ...
+    def __ror__(self, value: Mapping[_T1, _T2], /) -> dict[_KT_co | _T1, _VT_co | _T2]: ...
 
-class SimpleNamespace:
-    __hash__: ClassVar[None]  # type: ignore[assignment]
-    if sys.version_info >= (3, 13):
-        def __init__(self, mapping_or_iterable: Mapping[str, Any] | Iterable[tuple[str, Any]] = (), /, **kwargs: Any) -> None: ...
-    else:
+if sys.version_info >= (3, 12):
+    @disjoint_base
+    class SimpleNamespace:
+        __hash__: ClassVar[None]  # type: ignore[assignment]
+        if sys.version_info >= (3, 13):
+            def __init__(
+                self, mapping_or_iterable: Mapping[str, Any] | Iterable[tuple[str, Any]] = (), /, **kwargs: Any
+            ) -> None: ...
+        else:
+            def __init__(self, **kwargs: Any) -> None: ...
+
+        def __eq__(self, value: object, /) -> bool: ...
+        def __getattribute__(self, name: str, /) -> Any: ...
+        def __setattr__(self, name: str, value: Any, /) -> None: ...
+        def __delattr__(self, name: str, /) -> None: ...
+        if sys.version_info >= (3, 13):
+            def __replace__(self, **kwargs: Any) -> Self: ...
+
+else:
+    class SimpleNamespace:
+        __hash__: ClassVar[None]  # type: ignore[assignment]
         def __init__(self, **kwargs: Any) -> None: ...
+        def __eq__(self, value: object, /) -> bool: ...
+        def __getattribute__(self, name: str, /) -> Any: ...
+        def __setattr__(self, name: str, value: Any, /) -> None: ...
+        def __delattr__(self, name: str, /) -> None: ...
 
-    def __eq__(self, value: object, /) -> bool: ...
-    def __getattribute__(self, name: str, /) -> Any: ...
-    def __setattr__(self, name: str, value: Any, /) -> None: ...
-    def __delattr__(self, name: str, /) -> None: ...
-    if sys.version_info >= (3, 13):
-        def __replace__(self, **kwargs: Any) -> Self: ...
-
+@disjoint_base
 class ModuleType:
     __name__: str
     __file__: str | None
@@ -378,15 +344,15 @@ class CellType:
     cell_contents: Any
 
 _YieldT_co = TypeVar("_YieldT_co", covariant=True)
-_SendT_contra = TypeVar("_SendT_contra", contravariant=True)
-_ReturnT_co = TypeVar("_ReturnT_co", covariant=True)
+_SendT_contra = TypeVar("_SendT_contra", contravariant=True, default=None)
+_ReturnT_co = TypeVar("_ReturnT_co", covariant=True, default=None)
 
 @final
 class GeneratorType(Generator[_YieldT_co, _SendT_contra, _ReturnT_co]):
     @property
     def gi_code(self) -> CodeType: ...
     @property
-    def gi_frame(self) -> FrameType: ...
+    def gi_frame(self) -> FrameType | None: ...
     @property
     def gi_running(self) -> bool: ...
     @property
@@ -415,7 +381,7 @@ class AsyncGeneratorType(AsyncGenerator[_YieldT_co, _SendT_contra]):
     @property
     def ag_code(self) -> CodeType: ...
     @property
-    def ag_frame(self) -> FrameType: ...
+    def ag_frame(self) -> FrameType | None: ...
     @property
     def ag_running(self) -> bool: ...
     __name__: str
@@ -436,8 +402,12 @@ class AsyncGeneratorType(AsyncGenerator[_YieldT_co, _SendT_contra]):
     def aclose(self) -> Coroutine[Any, Any, None]: ...
     def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
 
+# Non-default variations to accommodate coroutines
+_SendT_nd_contra = TypeVar("_SendT_nd_contra", contravariant=True)
+_ReturnT_nd_co = TypeVar("_ReturnT_nd_co", covariant=True)
+
 @final
-class CoroutineType(Coroutine[_YieldT_co, _SendT_contra, _ReturnT_co]):
+class CoroutineType(Coroutine[_YieldT_co, _SendT_nd_contra, _ReturnT_nd_co]):
     __name__: str
     __qualname__: str
     @property
@@ -445,7 +415,7 @@ class CoroutineType(Coroutine[_YieldT_co, _SendT_contra, _ReturnT_co]):
     @property
     def cr_code(self) -> CodeType: ...
     @property
-    def cr_frame(self) -> FrameType: ...
+    def cr_frame(self) -> FrameType | None: ...
     @property
     def cr_running(self) -> bool: ...
     @property
@@ -455,8 +425,8 @@ class CoroutineType(Coroutine[_YieldT_co, _SendT_contra, _ReturnT_co]):
         def cr_suspended(self) -> bool: ...
 
     def close(self) -> None: ...
-    def __await__(self) -> Generator[Any, None, _ReturnT_co]: ...
-    def send(self, arg: _SendT_contra, /) -> _YieldT_co: ...
+    def __await__(self) -> Generator[Any, None, _ReturnT_nd_co]: ...
+    def send(self, arg: _SendT_nd_contra, /) -> _YieldT_co: ...
     @overload
     def throw(
         self, typ: type[BaseException], val: BaseException | object = ..., tb: TracebackType | None = ..., /
@@ -661,7 +631,7 @@ _P = ParamSpec("_P")
 def coroutine(func: Callable[_P, Generator[Any, Any, _R]]) -> Callable[_P, Awaitable[_R]]: ...
 @overload
 def coroutine(func: _Fn) -> _Fn: ...
-
+@disjoint_base
 class GenericAlias:
     @property
     def __origin__(self) -> type | TypeAliasType: ...
@@ -679,34 +649,42 @@ class GenericAlias:
         def __unpacked__(self) -> bool: ...
         @property
         def __typing_unpacked_tuple_args__(self) -> tuple[Any, ...] | None: ...
-    if sys.version_info >= (3, 10):
-        def __or__(self, value: Any, /) -> UnionType: ...
-        def __ror__(self, value: Any, /) -> UnionType: ...
+
+    def __or__(self, value: Any, /) -> UnionType: ...
+    def __ror__(self, value: Any, /) -> UnionType: ...
 
     # GenericAlias delegates attr access to `__origin__`
     def __getattr__(self, name: str) -> Any: ...
 
-if sys.version_info >= (3, 10):
-    @final
-    class NoneType:
-        def __bool__(self) -> Literal[False]: ...
+@final
+class NoneType:
+    def __bool__(self) -> Literal[False]: ...
 
-    @final
-    class EllipsisType: ...
+@final
+class EllipsisType: ...
 
-    from builtins import _NotImplementedType
+@final
+class NotImplementedType(Any): ...
 
-    NotImplementedType = _NotImplementedType
-    @final
-    class UnionType:
-        @property
-        def __args__(self) -> tuple[Any, ...]: ...
-        @property
-        def __parameters__(self) -> tuple[Any, ...]: ...
-        def __or__(self, value: Any, /) -> UnionType: ...
-        def __ror__(self, value: Any, /) -> UnionType: ...
-        def __eq__(self, value: object, /) -> bool: ...
-        def __hash__(self) -> int: ...
+@final
+class UnionType:
+    @property
+    def __args__(self) -> tuple[Any, ...]: ...
+    @property
+    def __parameters__(self) -> tuple[Any, ...]: ...
+    # `(int | str) | Literal["foo"]` returns a generic alias to an instance of `_SpecialForm` (`Union`).
+    # Normally we'd express this using the return type of `_SpecialForm.__ror__`,
+    # but because `UnionType.__or__` accepts `Any`, type checkers will use
+    # the return type of `UnionType.__or__` to infer the result of this operation
+    # rather than `_SpecialForm.__ror__`. To mitigate this, we use `| Any`
+    # in the return type of `UnionType.__(r)or__`.
+    def __or__(self, value: Any, /) -> UnionType | Any: ...
+    def __ror__(self, value: Any, /) -> UnionType | Any: ...
+    def __eq__(self, value: object, /) -> bool: ...
+    def __hash__(self) -> int: ...
+    # you can only subscript a `UnionType` instance if at least one of the elements
+    # in the union is a generic alias instance that has a non-empty `__parameters__`
+    def __getitem__(self, parameters: Any, /) -> object: ...
 
 if sys.version_info >= (3, 13):
     @final

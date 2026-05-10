@@ -1,8 +1,8 @@
 from _typeshed import Incomplete, SupportsKeysAndGetItem
 from collections.abc import Callable, Generator, Iterable, Iterator, Mapping
 from contextlib import contextmanager
-from typing import Any, ClassVar, overload
-from typing_extensions import TypeAlias, deprecated
+from typing import Any, ClassVar, TypeAlias, overload, type_check_only
+from typing_extensions import deprecated
 
 from referencing.jsonschema import Schema, SchemaRegistry
 from referencing.typing import URI
@@ -20,7 +20,8 @@ _ValidatorCallback: TypeAlias = Callable[[Any, Any, _JsonValue, _JsonObject], It
 
 # This class does not exist at runtime. Compatible classes are created at
 # runtime by create().
-class _Validator:
+@type_check_only
+class _Validator(Validator):
     VALIDATORS: ClassVar[dict[Incomplete, Incomplete]]
     META_SCHEMA: ClassVar[dict[Incomplete, Incomplete]]
     TYPE_CHECKER: ClassVar[Incomplete]
@@ -31,12 +32,11 @@ class _Validator:
     format_checker: FormatChecker | None
     def __init__(
         self,
-        schema: Schema,
-        resolver=None,
+        schema: Mapping[Incomplete, Incomplete] | bool,
+        resolver: Any = None,  # deprecated
         format_checker: FormatChecker | None = None,
         *,
         registry: SchemaRegistry = ...,
-        _resolver=None,
     ) -> None: ...
     @classmethod
     def check_schema(cls, schema: Schema, format_checker: FormatChecker | Unset = ...) -> None: ...
@@ -76,15 +76,34 @@ def create(
 def extend(validator, validators=(), version=None, type_checker=None, format_checker=None): ...
 
 # At runtime these are fields that are assigned the return values of create() calls.
-class Draft3Validator(_Validator): ...
-class Draft4Validator(_Validator): ...
-class Draft6Validator(_Validator): ...
-class Draft7Validator(_Validator): ...
-class Draft201909Validator(_Validator): ...
-class Draft202012Validator(_Validator): ...
+class Draft3Validator(_Validator):
+    __slots__ = ("_validators", "schema", "_ref_resolver", "format_checker", "_registry", "_resolver", "__weakref__")
+
+class Draft4Validator(_Validator):
+    __slots__ = ("_validators", "schema", "_ref_resolver", "format_checker", "_registry", "_resolver", "__weakref__")
+
+class Draft6Validator(_Validator):
+    __slots__ = ("_validators", "schema", "_ref_resolver", "format_checker", "_registry", "_resolver", "__weakref__")
+
+class Draft7Validator(_Validator):
+    __slots__ = ("_validators", "schema", "_ref_resolver", "format_checker", "_registry", "_resolver", "__weakref__")
+
+class Draft201909Validator(_Validator):
+    __slots__ = ("_validators", "schema", "_ref_resolver", "format_checker", "_registry", "_resolver", "__weakref__")
+
+class Draft202012Validator(_Validator):
+    __slots__ = ("_validators", "schema", "_ref_resolver", "format_checker", "_registry", "_resolver", "__weakref__")
 
 _Handler: TypeAlias = Callable[[str], Incomplete]
 
+@deprecated(
+    "jsonschema.RefResolver is deprecated as of v4.18.0, in favor of the "
+    "https://github.com/python-jsonschema/referencing library, which "
+    "provides more compliant referencing behavior as well as more "
+    "flexible APIs for customization. A future release will remove "
+    "RefResolver. Please file a feature request (on referencing) if you "
+    "are missing an API for the kind of customization you need."
+)
 class RefResolver:
     referrer: dict[str, Incomplete]
     cache_remote: Incomplete
@@ -94,7 +113,7 @@ class RefResolver:
         self,
         base_uri: str,
         referrer: dict[str, Incomplete],
-        store: SupportsKeysAndGetItem[str, str] | Iterable[tuple[str, str]] = ...,
+        store: Mapping[str, Mapping[str, Any]] | Iterable[tuple[str, Mapping[str, Any]]] = ...,
         cache_remote: bool = True,
         handlers: SupportsKeysAndGetItem[str, _Handler] | Iterable[tuple[str, _Handler]] = (),
         urljoin_cache=None,

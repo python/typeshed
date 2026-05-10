@@ -1,7 +1,6 @@
 from collections.abc import Callable
 from types import TracebackType
-from typing import Any, Generic, Protocol, TextIO, TypeVar, overload
-from typing_extensions import ParamSpec
+from typing import Any, Generic, ParamSpec, Protocol, TextIO, TypeVar, overload, type_check_only
 
 import gevent._hub_local
 import gevent._waiter
@@ -23,6 +22,7 @@ getcurrent = greenlet.getcurrent
 get_hub = gevent._hub_local.get_hub
 Waiter = gevent._waiter.Waiter
 
+@type_check_only
 class _DefaultReturnProperty(Protocol[_T]):
     @overload
     def __get__(self, obj: None, owner: type[object] | None = None) -> property: ...
@@ -104,6 +104,7 @@ class Hub(WaitOperationsGreenlet):
     threadpool: _DefaultReturnProperty[ThreadPool]
 
 class linkproxy:
+    __slots__ = ["callback", "obj"]
     callback: Callable[[object], object]
     obj: object
     def __init__(self, callback: Callable[[_T], object], obj: _T) -> None: ...

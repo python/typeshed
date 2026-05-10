@@ -6,8 +6,8 @@ from collections.abc import Callable, Generator, Iterable, Iterator, Sequence
 from contextlib import contextmanager
 from enum import Enum
 from types import TracebackType
-from typing import Any, Generic, Literal, TypeVar, overload
-from typing_extensions import ParamSpec, Self
+from typing import Any, Generic, Literal, ParamSpec, TypeVar, overload
+from typing_extensions import Self
 
 from google.protobuf.message import Message
 from tensorflow import (
@@ -18,12 +18,15 @@ from tensorflow import (
     io as io,
     keras as keras,
     math as math,
+    nn as nn,
+    random as random,
     types as types,
 )
 from tensorflow._aliases import (
     AnyArray,
     DTypeLike,
     IntArray,
+    RaggedTensorLike,
     ScalarTensorCompatible,
     ShapeLike,
     Slice,
@@ -36,7 +39,7 @@ from tensorflow.core.protobuf import struct_pb2
 from tensorflow.dtypes import *
 from tensorflow.experimental.dtensor import Layout
 from tensorflow.keras import losses as losses
-from tensorflow.linalg import eye as eye
+from tensorflow.linalg import eye as eye, matmul as matmul
 
 # Most tf.math functions are exported as tf, but sadly not all are.
 from tensorflow.math import (
@@ -99,6 +102,7 @@ class Tensor:
     @property
     def op(self) -> Operation: ...
     def numpy(self) -> AnyArray: ...
+    def __array__(self, dtype: DTypeLike | None = None) -> AnyArray: ...
     def __int__(self) -> int: ...
     def __abs__(self, name: str | None = None) -> Tensor: ...
     def __add__(self, other: TensorCompatible) -> Tensor: ...
@@ -218,6 +222,7 @@ class Operation:
     def __getattr__(self, name: str) -> Incomplete: ...
 
 class TensorShape(metaclass=ABCMeta):
+    __slots__ = ["_dims"]
     def __init__(self, dims: ShapeLike) -> None: ...
     @property
     def rank(self) -> int: ...
@@ -304,6 +309,7 @@ class UnconnectedGradients(Enum):
 _SpecProto = TypeVar("_SpecProto", bound=Message)
 
 class TypeSpec(ABC, Generic[_SpecProto]):
+    __slots__ = ["_cached_cmp_key"]
     @property
     @abstractmethod
     def value_type(self) -> Any: ...
@@ -319,6 +325,7 @@ class TypeSpec(ABC, Generic[_SpecProto]):
     def most_specific_compatible_type(self, other: Self) -> Self: ...
 
 class TensorSpec(TypeSpec[struct_pb2.TensorSpecProto]):
+    __slots__: list[str] = []
     def __init__(self, shape: ShapeLike, dtype: DTypeLike = ..., name: str | None = None) -> None: ...
     @property
     def value_type(self) -> Tensor: ...
@@ -335,6 +342,7 @@ class TensorSpec(TypeSpec[struct_pb2.TensorSpecProto]):
     def is_compatible_with(self, spec_or_tensor: Self | TensorCompatible) -> _bool: ...  # type: ignore[override]
 
 class SparseTensorSpec(TypeSpec[struct_pb2.TypeSpecProto]):
+    __slots__ = ["_shape", "_dtype"]
     def __init__(self, shape: ShapeLike | None = None, dtype: DTypeLike = ...) -> None: ...
     @property
     def value_type(self) -> SparseTensor: ...
@@ -346,6 +354,7 @@ class SparseTensorSpec(TypeSpec[struct_pb2.TypeSpecProto]):
     def from_value(cls, value: SparseTensor) -> Self: ...
 
 class RaggedTensorSpec(TypeSpec[struct_pb2.TypeSpecProto]):
+    __slots__ = ["_shape", "_dtype", "_ragged_rank", "_row_splits_dtype", "_flat_values_spec"]
     def __init__(
         self,
         shape: ShapeLike | None = None,
@@ -383,6 +392,13 @@ def squeeze(
 ) -> Tensor: ...
 @overload
 def squeeze(input: RaggedTensor, axis: int | tuple[int, ...] | list[int], name: str | None = None) -> RaggedTensor: ...
+def split(
+    value: TensorCompatible,
+    num_or_size_splits: int | TensorCompatible,
+    axis: int | Tensor = 0,
+    num: int | None = None,
+    name: str | None = "split",
+) -> list[Tensor]: ...
 def tensor_scatter_nd_update(
     tensor: TensorCompatible, indices: TensorCompatible, updates: TensorCompatible, name: str | None = None
 ) -> Tensor: ...
@@ -432,4 +448,11 @@ def gather_nd(
     name: str | None = None,
     bad_indices_policy: Literal["", "DEFAULT", "ERROR", "IGNORE"] = "",
 ) -> Tensor: ...
+def transpose(
+    a: Tensor, perm: Sequence[int] | IntArray | None = None, conjugate: _bool = False, name: str = "transpose"
+) -> Tensor: ...
+def clip_by_value(
+    t: Tensor | IndexedSlices, clip_value_min: TensorCompatible, clip_value_max: TensorCompatible, name: str | None = None
+) -> Tensor: ...
+def tile(input: RaggedTensorLike, multiples: Tensor | Sequence[int], name: str | None = None) -> Tensor: ...
 def __getattr__(name: str): ...  # incomplete module
