@@ -180,12 +180,8 @@ sys.__jit
 sys._monitoring
 sys.last_exc
 threading.Condition.locked
-tkinter.Grid.content
 tkinter.Image.__iter__
 tkinter.Misc.__iter__
-tkinter.Misc.content
-tkinter.Pack.content
-tkinter.Place.content
 tkinter.font.Font.__iter__
 tkinter.simpledialog.__all__
 types.MappingProxyType.get
