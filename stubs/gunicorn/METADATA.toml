@@ -7,7 +7,6 @@ supported-platforms = ["linux", "darwin"]
 ci-platforms = ["linux", "darwin"]
 stubtest-dependencies = [
     "gevent>=1.4.0",
-    "eventlet>=0.24.1,!=0.36.0",
     "tornado>=0.2",
     "setproctitle",
     "PasteDeploy",

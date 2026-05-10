@@ -91,40 +91,27 @@ class _ActionsContainer:
         version: str = ...,
         **kwargs: Any,
     ) -> Action: ...
-    if sys.version_info >= (3, 14):
-        @overload
-        def add_argument_group(
-            self,
-            title: str | None = None,
-            description: str | None = None,
-            *,
-            # argument_default's type must be valid for the arguments in the group
-            argument_default: Any = ...,
-            conflict_handler: str = ...,
-        ) -> _ArgumentGroup: ...
-        @overload
-        @deprecated("The `prefix_chars` parameter deprecated since Python 3.14.")
-        def add_argument_group(
-            self,
-            title: str | None = None,
-            description: str | None = None,
-            *,
-            prefix_chars: str,
-            argument_default: Any = ...,
-            conflict_handler: str = ...,
-        ) -> _ArgumentGroup: ...
-    else:
-        def add_argument_group(
-            self,
-            title: str | None = None,
-            description: str | None = None,
-            *,
-            prefix_chars: str = ...,
-            # argument_default's type must be valid for the arguments in the group
-            argument_default: Any = ...,
-            conflict_handler: str = ...,
-        ) -> _ArgumentGroup: ...
-
+    @overload
+    def add_argument_group(
+        self,
+        title: str | None = None,
+        description: str | None = None,
+        *,
+        # argument_default's type must be valid for the arguments in the group
+        argument_default: Any = ...,
+        conflict_handler: str = ...,
+    ) -> _ArgumentGroup: ...
+    @overload
+    @deprecated("The `prefix_chars` parameter deprecated since Python 3.14.")
+    def add_argument_group(
+        self,
+        title: str | None = None,
+        description: str | None = None,
+        *,
+        prefix_chars: str,
+        argument_default: Any = ...,
+        conflict_handler: str = ...,
+    ) -> _ArgumentGroup: ...
     def add_mutually_exclusive_group(self, *, required: bool = False) -> _MutuallyExclusiveGroup: ...
     def _add_action(self, action: _ActionT) -> _ActionT: ...
     def _remove_action(self, action: Action) -> None: ...
@@ -535,69 +522,42 @@ class Namespace(_AttributeHolder):
     def __eq__(self, other: object) -> bool: ...
     __hash__: ClassVar[None]  # type: ignore[assignment]
 
-if sys.version_info >= (3, 14):
-    @deprecated("Deprecated since Python 3.14. Open files after parsing arguments instead.")
-    class FileType:
-        # undocumented
-        _mode: str
-        _bufsize: int
-        _encoding: str | None
-        _errors: str | None
-        def __init__(
-            self, mode: str = "r", bufsize: int = -1, encoding: str | None = None, errors: str | None = None
-        ) -> None: ...
-        def __call__(self, string: str) -> IO[Any]: ...
-
-else:
-    class FileType:
-        # undocumented
-        _mode: str
-        _bufsize: int
-        _encoding: str | None
-        _errors: str | None
-        def __init__(
-            self, mode: str = "r", bufsize: int = -1, encoding: str | None = None, errors: str | None = None
-        ) -> None: ...
-        def __call__(self, string: str) -> IO[Any]: ...
+@deprecated("Deprecated since Python 3.14. Open files after parsing arguments instead.")
+class FileType:
+    # undocumented
+    _mode: str
+    _bufsize: int
+    _encoding: str | None
+    _errors: str | None
+    def __init__(self, mode: str = "r", bufsize: int = -1, encoding: str | None = None, errors: str | None = None) -> None: ...
+    def __call__(self, string: str) -> IO[Any]: ...
 
 # undocumented
 class _ArgumentGroup(_ActionsContainer):
     title: str | None
     _group_actions: list[Action]
-    if sys.version_info >= (3, 14):
-        @overload
-        def __init__(
-            self,
-            container: _ActionsContainer,
-            title: str | None = None,
-            description: str | None = None,
-            *,
-            argument_default: Any = ...,
-            conflict_handler: str = ...,
-        ) -> None: ...
-        @overload
-        @deprecated("Undocumented `prefix_chars` parameter is deprecated since Python 3.14.")
-        def __init__(
-            self,
-            container: _ActionsContainer,
-            title: str | None = None,
-            description: str | None = None,
-            *,
-            prefix_chars: str,
-            argument_default: Any = ...,
-            conflict_handler: str = ...,
-        ) -> None: ...
-    else:
-        def __init__(
-            self,
-            container: _ActionsContainer,
-            title: str | None = None,
-            description: str | None = None,
-            *,
-            prefix_chars: str = ...,
-            argument_default: Any = ...,
-            conflict_handler: str = ...,
-        ) -> None: ...
+    @overload
+    def __init__(
+        self,
+        container: _ActionsContainer,
+        title: str | None = None,
+        description: str | None = None,
+        *,
+        argument_default: Any = ...,
+        conflict_handler: str = ...,
+    ) -> None: ...
+    @overload
+    @deprecated("Undocumented `prefix_chars` parameter is deprecated since Python 3.14.")
+    def __init__(
+        self,
+        container: _ActionsContainer,
+        title: str | None = None,
+        description: str | None = None,
+        *,
+        prefix_chars: str,
+        argument_default: Any = ...,
+        conflict_handler: str = ...,
+    ) -> None: ...
 
 # undocumented
 class _MutuallyExclusiveGroup(_ArgumentGroup):
