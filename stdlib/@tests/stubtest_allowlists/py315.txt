@@ -36,13 +36,6 @@ _pyrepl.types
 _pyrepl.utils
 _pyrepl.windows_console
 _pyrepl.windows_eventqueue
-_ssl.HAS_PSK_TLS13
-_ssl._SSLContext.get_groups
-_ssl._SSLContext.set_ciphersuites
-_ssl._SSLContext.set_client_sigalgs
-_ssl._SSLContext.set_groups
-_ssl._SSLContext.set_server_sigalgs
-_ssl.get_sigalgs
 _struct.Struct.pack_into
 _struct.pack
 _struct.pack_into
@@ -93,7 +86,6 @@ enum.auto.__init__
 enum.auto.value
 functools.partialmethod.__new__
 gzip.compress
-hashlib.__all__
 http.HTTPMethod.description
 importlib._abc.Loader.load_module
 importlib._bootstrap_external.NamespacePath
@@ -113,15 +105,6 @@ mailbox.Mailbox.__exit__
 mailbox._ProxyFile.__class_getitem__
 marshal.dump
 marshal.dumps
-math.fmax
-math.fmin
-math.isnormal
-math.issubnormal
-math.signbit
-mmap.mmap.find
-mmap.mmap.flush
-mmap.mmap.rfind
-mmap.mmap.set_name
 multiprocessing.context.BaseContext.set_forkserver_preload
 multiprocessing.forkserver.ForkServer.set_forkserver_preload
 multiprocessing.forkserver.main
@@ -144,7 +127,6 @@ multiprocessing.managers._BaseSetProxy.pop
 multiprocessing.process.BaseProcess.__init__
 pdb.Pdb.print_stack_entry
 pkgutil.resolve_name
-platform.java_ver
 pprint.PrettyPrinter.__init__
 pprint.pformat
 pprint.pprint
@@ -174,12 +156,6 @@ site.process_startup_files
 sre_compile
 sre_constants
 sre_parse
-ssl.SSLObject.client_sigalg
-ssl.SSLObject.group
-ssl.SSLObject.server_sigalg
-ssl.SSLSocket.client_sigalg
-ssl.SSLSocket.group
-ssl.SSLSocket.server_sigalg
 symtable.symtable
 sys.__jit
 sys._monitoring
@@ -195,7 +171,6 @@ threading.__all__
 threading.concurrent_tee
 threading.serialize_iterator
 threading.synchronized_iterator
-timeit.Timer.autorange
 tkinter.Grid.content
 tkinter.Grid.grid_content
 tkinter.Image.__iter__
