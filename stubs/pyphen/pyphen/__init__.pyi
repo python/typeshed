@@ -1,10 +1,11 @@
 from collections.abc import Generator
 from pathlib import Path
-from typing import Any
-from typing_extensions import Self
+from typing import SupportsInt
+from typing_extensions import Self, TypeAlias
 
 __all__ = ("LANGUAGES", "Pyphen", "language_fallback")
 LANGUAGES: dict[str, Path]
+_Data: TypeAlias = tuple[str, int, int]
 
 def language_fallback(language: str) -> str: ...
 
@@ -14,10 +15,12 @@ class AlternativeParser:
     cut: int
 
     def __init__(self, pattern: str, alternative: str) -> None: ...
-    def __call__(self, value: str) -> int: ...
+    def __call__(self, value: str | SupportsInt) -> int: ...
 
 class DataInt(int):
-    def __new__(cls, value: int, data: Any = ..., reference: DataInt | None = ...) -> Self: ...
+    data: _Data | None
+
+    def __new__(cls, value: int, data: _Data | None = ..., reference: DataInt | None = ...) -> Self: ...
 
 class HyphDict:
     patterns: dict[str, tuple[int, tuple[int, ...]]]
