@@ -1,16 +1,58 @@
 from collections.abc import Callable, Iterable
-from typing import Any, Literal, SupportsIndex
-from typing_extensions import Self, TypeAlias
+from enum import IntEnum
+from typing import Any, Final, Literal, SupportsIndex, TypeAlias, TypedDict, type_check_only
+from typing_extensions import Self
 
 _H1CProtocol: TypeAlias = Any  # gunicorn_h1c H1CProtocol class
 
 class ParseError(Exception): ...
+class InvalidProxyLine(ParseError): ...
+class InvalidProxyHeader(ParseError): ...
+
+PP_V2_SIGNATURE: Final[bytes]
+RFC9110_6_5_1_FORBIDDEN_TRAILER: Final[frozenset[bytes]]
+
+class PPCommand(IntEnum):
+    LOCAL = 0x0
+    PROXY = 0x1
+
+class PPFamily(IntEnum):
+    UNSPEC = 0x0
+    INET = 0x1
+    INET6 = 0x2
+    UNIX = 0x3
+
+class PPProtocol(IntEnum):
+    UNSPEC = 0x0
+    STREAM = 0x1
+    DGRAM = 0x2
+
 class LimitRequestLine(ParseError): ...
+class InvalidRequestLine(ParseError): ...
 class LimitRequestHeaders(ParseError): ...
 class InvalidRequestMethod(ParseError): ...
 class InvalidHTTPVersion(ParseError): ...
 class InvalidHeaderName(ParseError): ...
 class InvalidHeader(ParseError): ...
+class UnsupportedTransferCoding(ParseError): ...
+class InvalidChunkSize(ParseError): ...
+class InvalidChunkExtension(ParseError): ...
+
+@type_check_only
+class _ProxyProtocolInfo(TypedDict):
+    proxy_protocol: Literal["TCP4", "TCP6", "UDP4", "UDP6"]
+    client_addr: str
+    client_port: int
+    proxy_addr: str
+    proxy_port: int
+
+@type_check_only
+class _ProxyProtocolInfoUnknown(TypedDict):
+    proxy_protocol: Literal["UNKNOWN", "LOCAL", "UNSPEC"]
+    client_addr: None
+    client_port: None
+    proxy_addr: None
+    proxy_port: None
 
 class PythonProtocol:
     __slots__ = (
@@ -42,6 +84,9 @@ class PythonProtocol:
         "_permit_unconventional_http_method",
         "_permit_unconventional_http_version",
         "_header_count",
+        "_proxy_protocol",
+        "_proxy_protocol_info",
+        "_proxy_protocol_done",
     )
     method: bytes | None
     path: bytes | None
@@ -65,9 +110,13 @@ class PythonProtocol:
         limit_request_field_size: int = 8190,
         permit_unconventional_http_method: bool = False,
         permit_unconventional_http_version: bool = False,
+        proxy_protocol: Literal["off", "v1", "v2", "auto"] = "off",
     ) -> None: ...
     def feed(self, data: Iterable[SupportsIndex]) -> None: ...
+    @property
+    def proxy_protocol_info(self) -> _ProxyProtocolInfo | _ProxyProtocolInfoUnknown | None: ...
     def reset(self) -> None: ...
+    def finish(self) -> None: ...
 
 class CallbackRequest:
     __slots__ = (

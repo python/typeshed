@@ -50,7 +50,7 @@ def main() -> None:
     parser.add_argument(
         "--python-version",
         default=None,
-        choices=("3.10", "3.11", "3.12", "3.13", "3.14"),
+        choices=("3.10", "3.11", "3.12", "3.13", "3.14", "3.15"),
         # We're using the oldest fully supported version because it's the most likely to produce errors
         # due to unsupported syntax, feature, or bug in a tool.
         help="Target Python version for the test (defaults to oldest supported Python version).",
@@ -186,14 +186,12 @@ def main() -> None:
         print("pre-commit", _SUCCESS)
     else:
         print("pre-commit", _FAILED)
-        print(
-            """\
+        print("""\
   Check the output of pre-commit for more details.
   This could mean that there's a lint failure on your code,
   but could also just mean that one of the pre-commit tools
   applied some autofixes. If the latter, you may want to check
-  that the autofixes did sensible things."""
-        )
+  that the autofixes did sensible things.""")
     print("Check structure:", _SUCCESS if check_structure_result.returncode == 0 else _FAILED)
     if pyright_skipped:
         print("Pyright:", _SKIPPED)

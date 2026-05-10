@@ -3,7 +3,7 @@ import sys
 from _thread import _ExceptHookArgs, get_native_id as get_native_id
 from _typeshed import ProfileFunction, TraceFunction
 from collections.abc import Callable, Iterable, Mapping
-from contextvars import ContextVar
+from contextvars import Context
 from types import TracebackType
 from typing import Any, Final, TypeVar, final
 from typing_extensions import deprecated
@@ -29,6 +29,8 @@ __all__ = [
     "Timer",
     "ThreadError",
     "ExceptHookArgs",
+    "getprofile",
+    "gettrace",
     "setprofile",
     "settrace",
     "local",
@@ -36,9 +38,6 @@ __all__ = [
     "excepthook",
     "get_native_id",
 ]
-
-if sys.version_info >= (3, 10):
-    __all__ += ["getprofile", "gettrace"]
 
 if sys.version_info >= (3, 12):
     __all__ += ["setprofile_all_threads", "settrace_all_threads"]
@@ -61,10 +60,8 @@ if sys.version_info >= (3, 12):
     def setprofile_all_threads(func: ProfileFunction | None) -> None: ...
     def settrace_all_threads(func: TraceFunction | None) -> None: ...
 
-if sys.version_info >= (3, 10):
-    def gettrace() -> TraceFunction | None: ...
-    def getprofile() -> ProfileFunction | None: ...
-
+def gettrace() -> TraceFunction | None: ...
+def getprofile() -> ProfileFunction | None: ...
 def stack_size(size: int = 0, /) -> int: ...
 
 TIMEOUT_MAX: Final[float]
@@ -87,7 +84,7 @@ class Thread:
             kwargs: Mapping[str, Any] | None = None,
             *,
             daemon: bool | None = None,
-            context: ContextVar[Any] | None = None,
+            context: Context | None = None,
         ) -> None: ...
     else:
         def __init__(
@@ -173,8 +170,7 @@ class Event:
     def wait(self, timeout: float | None = None) -> bool: ...
 
 excepthook: Callable[[_ExceptHookArgs], object]
-if sys.version_info >= (3, 10):
-    __excepthook__: Callable[[_ExceptHookArgs], object]
+__excepthook__: Callable[[_ExceptHookArgs], object]
 ExceptHookArgs = _ExceptHookArgs
 
 class Timer(Thread):

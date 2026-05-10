@@ -5,8 +5,22 @@ from collections.abc import Callable, Iterable, Mapping, Sequence
 from tkinter.constants import *
 from tkinter.font import _FontDescription
 from types import GenericAlias, TracebackType
-from typing import Any, ClassVar, Final, Generic, Literal, NamedTuple, Protocol, TypedDict, TypeVar, overload, type_check_only
-from typing_extensions import TypeAlias, TypeVarTuple, Unpack, deprecated, disjoint_base
+from typing import (
+    Any,
+    ClassVar,
+    Final,
+    Generic,
+    Literal,
+    NamedTuple,
+    ParamSpec,
+    Protocol,
+    TypeAlias,
+    TypedDict,
+    TypeVar,
+    overload,
+    type_check_only,
+)
+from typing_extensions import TypeVarTuple, Unpack, deprecated, disjoint_base
 
 if sys.version_info >= (3, 11):
     from enum import StrEnum
@@ -312,21 +326,14 @@ class Variable:
     def trace_add(self, mode: Literal["array", "read", "write", "unset"], callback: Callable[[str, str, str], object]) -> str: ...
     def trace_remove(self, mode: Literal["array", "read", "write", "unset"], cbname: str) -> None: ...
     def trace_info(self) -> list[tuple[tuple[Literal["array", "read", "write", "unset"], ...], str]]: ...
-    if sys.version_info >= (3, 14):
-        @deprecated("Deprecated since Python 3.14. Use `trace_add()` instead.")
-        def trace(self, mode, callback) -> str: ...
-        @deprecated("Deprecated since Python 3.14. Use `trace_add()` instead.")
-        def trace_variable(self, mode, callback) -> str: ...
-        @deprecated("Deprecated since Python 3.14. Use `trace_remove()` instead.")
-        def trace_vdelete(self, mode, cbname) -> None: ...
-        @deprecated("Deprecated since Python 3.14. Use `trace_info()` instead.")
-        def trace_vinfo(self) -> list[Incomplete]: ...
-    else:
-        def trace(self, mode, callback) -> str: ...
-        def trace_variable(self, mode, callback) -> str: ...
-        def trace_vdelete(self, mode, cbname) -> None: ...
-        def trace_vinfo(self) -> list[Incomplete]: ...
-
+    @deprecated("Deprecated since Python 3.14. Use `trace_add()` instead.")
+    def trace(self, mode, callback) -> str: ...
+    @deprecated("Deprecated since Python 3.14. Use `trace_add()` instead.")
+    def trace_variable(self, mode, callback) -> str: ...
+    @deprecated("Deprecated since Python 3.14. Use `trace_remove()` instead.")
+    def trace_vdelete(self, mode, cbname) -> None: ...
+    @deprecated("Deprecated since Python 3.14. Use `trace_info()` instead.")
+    def trace_vinfo(self) -> list[Incomplete]: ...
     def __eq__(self, other: object) -> bool: ...
     def __del__(self) -> None: ...
     __hash__: ClassVar[None]  # type: ignore[assignment]
@@ -363,6 +370,7 @@ getdouble = float
 def getboolean(s) -> bool: ...
 
 _Ts = TypeVarTuple("_Ts")
+_P = ParamSpec("_P")
 
 @type_check_only
 class _GridIndexInfo(TypedDict, total=False):
@@ -402,11 +410,19 @@ class Misc:
     def tk_focusFollowsMouse(self) -> None: ...
     def tk_focusNext(self) -> Misc | None: ...
     def tk_focusPrev(self) -> Misc | None: ...
-    # .after() can be called without the "func" argument, but it is basically never what you want.
-    # It behaves like time.sleep() and freezes the GUI app.
-    def after(self, ms: int | Literal["idle"], func: Callable[[Unpack[_Ts]], object], *args: Unpack[_Ts]) -> str: ...
-    # after_idle is essentially partialmethod(after, "idle")
-    def after_idle(self, func: Callable[[Unpack[_Ts]], object], *args: Unpack[_Ts]) -> str: ...
+    if sys.version_info >= (3, 14):
+        # .after() can be called without the "func" argument, but it is basically never what you want.
+        # It behaves like time.sleep() and freezes the GUI app.
+        def after(self, ms: int | Literal["idle"], func: Callable[_P, object], *args: _P.args, **kwargs: _P.kwargs) -> str: ...
+        # after_idle is essentially partialmethod(after, "idle")
+        def after_idle(self, func: Callable[_P, object], *args: _P.args, **kwargs: _P.kwargs) -> str: ...
+    else:
+        # .after() can be called without the "func" argument, but it is basically never what you want.
+        # It behaves like time.sleep() and freezes the GUI app.
+        def after(self, ms: int | Literal["idle"], func: Callable[[Unpack[_Ts]], object], *args: Unpack[_Ts]) -> str: ...
+        # after_idle is essentially partialmethod(after, "idle")
+        def after_idle(self, func: Callable[[Unpack[_Ts]], object], *args: Unpack[_Ts]) -> str: ...
+
     def after_cancel(self, id: str) -> None: ...
     if sys.version_info >= (3, 13):
         def after_info(self, id: str | None = None) -> tuple[str, ...]: ...
@@ -3729,16 +3745,27 @@ class _setit:
 # manual page: tk_optionMenu
 class OptionMenu(Menubutton):
     menuname: Incomplete
-    def __init__(
-        # differs from other widgets
-        self,
-        master: Misc | None,
-        variable: StringVar,
-        value: str,
-        *values: str,
-        # kwarg only from now on
-        command: Callable[[StringVar], object] | None = ...,
-    ) -> None: ...
+    if sys.version_info >= (3, 14):
+        def __init__(
+            # differs from other widgets
+            self,
+            master: Misc | None,
+            variable: StringVar,
+            value: str,
+            *values: str,
+            command: Callable[[StringVar], object] | None = ...,
+            name: str | None = None,
+        ) -> None: ...
+    else:
+        def __init__(
+            # differs from other widgets
+            self,
+            master: Misc | None,
+            variable: StringVar,
+            value: str,
+            *values: str,
+            command: Callable[[StringVar], object] | None = ...,
+        ) -> None: ...
     # configure, config, cget are inherited from Menubutton
     # destroy and __getitem__ are overridden, signature does not change
 
