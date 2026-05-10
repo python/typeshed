@@ -132,8 +132,9 @@ class TarFile:
     errorlevel: Literal[0, 1, 2]
     offset: int  # undocumented
     extraction_filter: _FilterFunction | None
-    if sys.version_info >= (3, 15):
+    if sys.version_info >= (3, 13):
         stream: bool
+    if sys.version_info >= (3, 15):
         def __init__(
             self,
             name: StrOrBytesPath | None = None,
@@ -153,7 +154,6 @@ class TarFile:
             mtime: float | None = None,
         ) -> None: ...
     elif sys.version_info >= (3, 13):
-        stream: bool
         def __init__(
             self,
             name: StrOrBytesPath | None = None,
@@ -805,16 +805,12 @@ class TarInfo:
     gname: str
     pax_headers: Mapping[str, str]
     def __init__(self, name: str = "") -> None: ...
-    if sys.version_info >= (3, 13):
-        @property
-        @deprecated("Deprecated since Python 3.13; will be removed in Python 3.16.")
-        def tarfile(self) -> TarFile | None: ...
-        @tarfile.setter
-        @deprecated("Deprecated since Python 3.13; will be removed in Python 3.16.")
-        def tarfile(self, tarfile: TarFile | None) -> None: ...
-    else:
-        tarfile: TarFile | None
-
+    @property
+    @deprecated("Deprecated since Python 3.13; will be removed in Python 3.16.")
+    def tarfile(self) -> TarFile | None: ...
+    @tarfile.setter
+    @deprecated("Deprecated since Python 3.13; will be removed in Python 3.16.")
+    def tarfile(self, tarfile: TarFile | None) -> None: ...
     @classmethod
     def frombuf(cls, buf: bytes | bytearray, encoding: str, errors: str) -> Self: ...
     @classmethod
