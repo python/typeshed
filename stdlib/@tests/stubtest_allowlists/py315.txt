@@ -72,7 +72,6 @@ concurrent.interpreters._crossinterp.classonly.__isabstractmethod__
 concurrent.interpreters._crossinterp.classonly.__set_name__
 concurrent.interpreters._crossinterp.classonly.__wrapped__
 copy.deepcopy
-ctypes.SetPointerType
 dataclasses._MISSING_TYPE
 dataclasses.MISSING
 dataclasses.field
@@ -90,9 +89,6 @@ genericpath.getmtime
 genericpath.getsize
 genericpath.samefile
 genericpath.samestat
-glob.glob0
-glob.glob1
-gzip.compress
 http.HTTPMethod.description
 http.client.HTTPConnection.__init__
 http.client.HTTPSConnection.__init__
@@ -124,10 +120,6 @@ io.Writer.write
 mailbox.Mailbox.__enter__
 mailbox.Mailbox.__exit__
 mailbox._ProxyFile.__class_getitem__
-marshal.dump
-marshal.dumps
-multiprocessing.context.BaseContext.set_forkserver_preload
-multiprocessing.forkserver.ForkServer.set_forkserver_preload
 multiprocessing.managers.BaseListProxy.clear
 multiprocessing.managers.BaseListProxy.copy
 multiprocessing.managers._BaseDictProxy.__iter__
@@ -152,8 +144,6 @@ os.path.ALL_BUT_LAST
 os.path.__all__
 pathlib.PurePath.__vfspath__
 pathlib.PurePath.is_reserved
-pdb.Pdb.print_stack_entry
-pkgutil.resolve_name
 posixpath.ALL_BUT_LAST
 posixpath.__all__
 posixpath.basename
@@ -165,17 +155,9 @@ posixpath.split
 posixpath.splitdrive
 posixpath.splitext
 posixpath.splitroot
-pprint.PrettyPrinter.__init__
-pprint.pformat
-pprint.pprint
-site.addsitedir
-site.addsitepackages
-site.addusersitepackages
-site.process_startup_files
 sre_compile
 sre_constants
 sre_parse
-symtable.symtable
 sys.__jit
 sys._monitoring
 sys.last_exc
