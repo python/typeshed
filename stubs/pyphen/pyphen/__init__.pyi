@@ -1,7 +1,7 @@
 from collections.abc import Generator
 from pathlib import Path
-from typing import SupportsInt
-from typing_extensions import Self, TypeAlias
+from typing import SupportsInt, TypeAlias
+from typing_extensions import Self
 
 __all__ = ("LANGUAGES", "Pyphen", "language_fallback")
 LANGUAGES: dict[str, Path]
