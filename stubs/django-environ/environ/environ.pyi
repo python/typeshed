@@ -13,8 +13,8 @@ from builtins import (
 )
 from collections.abc import Callable, Mapping, MutableMapping
 from logging import Logger
-from typing import IO, Any, ClassVar, SupportsIndex, TypedDict, TypeVar, overload, type_check_only
-from typing_extensions import Required, TypeAlias, Unpack
+from typing import IO, Any, ClassVar, SupportsIndex, TypeAlias, TypedDict, TypeVar, overload, type_check_only
+from typing_extensions import Required, Unpack
 from urllib.parse import ParseResult
 
 from .compat import DJANGO_POSTGRES as DJANGO_POSTGRES, PYMEMCACHE_DRIVER as PYMEMCACHE_DRIVER, REDIS_DRIVER as REDIS_DRIVER
