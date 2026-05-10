@@ -126,11 +126,6 @@ mailbox.Mailbox.__exit__
 mailbox._ProxyFile.__class_getitem__
 marshal.dump
 marshal.dumps
-math.fmax
-math.fmin
-math.isnormal
-math.issubnormal
-math.signbit
 multiprocessing.context.BaseContext.set_forkserver_preload
 multiprocessing.forkserver.ForkServer.set_forkserver_preload
 multiprocessing.managers.BaseListProxy.clear
@@ -192,8 +187,6 @@ profiling.sampling.sample
 profiling.sampling.stack_collector
 profiling.sampling.string_table
 profiling.tracing
-pydoc.Doc.STDLIB_DIR
-pydoc.Doc.getdocloc
 site.addsitedir
 site.addsitepackages
 site.addusersitepackages
