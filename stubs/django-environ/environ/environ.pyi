@@ -20,7 +20,7 @@ from urllib.parse import ParseResult
 from .compat import DJANGO_POSTGRES as DJANGO_POSTGRES, PYMEMCACHE_DRIVER as PYMEMCACHE_DRIVER, REDIS_DRIVER as REDIS_DRIVER
 from .fileaware_mapping import FileAwareMapping
 
-Openable: tuple[type, ...]
+OPENABLE: tuple[type, ...]
 logger: Logger
 
 class NoValue: ...
