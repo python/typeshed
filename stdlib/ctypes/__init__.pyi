@@ -167,11 +167,8 @@ c_buffer = create_string_buffer
 def create_unicode_buffer(init: int | str, size: int | None = None) -> Array[c_wchar]: ...
 
 if sys.version_info < (3, 15):
-    if sys.version_info >= (3, 13):
-        @deprecated("Deprecated since Python 3.13; will be removed in Python 3.15.")
-        def SetPointerType(pointer: type[_Pointer[Any]], cls: _CTypeBaseType) -> None: ...
-    else:
-        def SetPointerType(pointer: type[_Pointer[Any]], cls: _CTypeBaseType) -> None: ...
+    @deprecated("Deprecated since Python 3.13; will be removed in Python 3.15.")
+    def SetPointerType(pointer: type[_Pointer[Any]], cls: _CTypeBaseType) -> None: ...
 
 if sys.version_info >= (3, 13):
     @deprecated("Soft deprecated since Python 3.13. Use multiplication instead.")
