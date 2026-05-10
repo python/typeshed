@@ -1,6 +1,5 @@
 from typing import Final
 
-from .compat import DJANGO_POSTGRES as DJANGO_POSTGRES, PYMEMCACHE_DRIVER as PYMEMCACHE_DRIVER, REDIS_DRIVER as REDIS_DRIVER
 from .environ import *
 
 __copyright__: Final[str]

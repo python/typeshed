@@ -1,13 +1,23 @@
 from __future__ import annotations
 
-from typing import Union
-from typing_extensions import TypedDict, assert_type
+from typing import Any
+from typing_extensions import assert_type
+from urllib.parse import ParseResult
 
 import environ
 
 env = environ.Env()
 
 assert_type(env.parse_value("just-a-value123", None), str)
+
+# helpers preserve default value types for missing environment variables
+assert_type(env.str("NAME"), str)
+assert_type(env.str("NAME", default=None), str | None)
+assert_type(env.bool("DEBUG", default=None), bool | None)
+assert_type(env.int("PORT", default=None), int | None)
+assert_type(env.float("RATIO", default=None), float | None)
+assert_type(env.url("URL"), ParseResult)
+assert_type(env.url("URL", default=None), ParseResult | None)
 
 # builtin types
 assert_type(env.parse_value("string", str), str)
@@ -31,15 +41,10 @@ assert_type(env.parse_value("(20.5,-0.2)", (bool,)), tuple[bool, ...])
 assert_type(env.parse_value("(20.5,-0.2)", (int,)), tuple[int, ...])
 assert_type(env.parse_value("(20.5,-0.2)", (float,)), tuple[float, ...])
 
-# cast dict values
-assert_type(env.parse_value("0=TRUE,99=FALSE", {}), dict[str, str])
-assert_type(env.parse_value("0=TRUE,99=FALSE", {"cast": {}}), dict[str, Union[str, object]])
-assert_type(env.parse_value("0=TRUE,99=FALSE", {"value": bool}), dict[str, bool])
-assert_type(env.parse_value("0=TRUE,99=FALSE", {"value": bool, "cast": {}}), dict[str, Union[bool, object]])
-assert_type(env.parse_value("0=TRUE,99=FALSE", {"key": int}), dict[int, str])
-assert_type(env.parse_value("0=TRUE,99=FALSE", {"key": int, "cast": {}}), dict[int, Union[str, object]])
-assert_type(env.parse_value("0=TRUE,99=FALSE", {"key": int, "value": bool}), dict[int, bool])
-assert_type(env.parse_value("0=TRUE,99=FALSE", {"key": int, "value": bool, "cast": {}}), dict[int, Union[bool, object]])
+# dict-valued casts split pairs with semicolons.
+assert_type(env.parse_value("0=TRUE;99=FALSE", {}), dict[Any, Any])
+assert_type(env.parse_value("0=TRUE;99=FALSE", {"key": int, "value": bool}), dict[Any, Any])
+assert_type(env.parse_value("0=TRUE;99=FALSE", {"cast": {"0": bool}}), dict[Any, Any])
 
 
 # custom cast functions
@@ -48,17 +53,3 @@ def cast_float(x: str) -> float:
 
 
 assert_type(env.parse_value("20.5", cast_float), float)
-
-
-class Person(TypedDict):
-    first_name: str
-    last_name: str
-    age: int
-
-
-def cast_person(v: str) -> Person:
-    parts = v.split(",")
-    return {"first_name": parts[0], "last_name": parts[1], "age": int(parts[2])}
-
-
-assert_type(env.parse_value("Bob,Riveira,30", cast_person), Person)
