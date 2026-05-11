@@ -225,7 +225,11 @@ profiling.sampling.module_utils
 profiling.sampling.opcode_utils
 profiling.sampling.sample
 
-# These conflicting aliases are just like tkinter.*.slaves in common.txt.
+# These aliases are just like the aliases named "slaves" instead of "content".
+# See common.txt.
 tkinter.Grid.content
+tkinter.Grid.grid_content
 tkinter.Pack.content
+tkinter.Pack.pack_content
 tkinter.Place.content
+tkinter.Place.place_content
