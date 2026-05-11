@@ -448,7 +448,7 @@ if sys.platform != "win32" and sys.version_info >= (3, 13):
 if sys.platform != "win32" and sys.version_info >= (3, 11):
     __all__ += ["login_tty"]
 if sys.platform != "win32":
-    __all__ += ["O_FSYNC"]
+    __all__ += ["NODEV", "O_FSYNC"]
 if sys.platform != "darwin" and sys.platform != "win32":
     __all__ += [
         "POSIX_FADV_DONTNEED",
@@ -668,6 +668,7 @@ if sys.platform == "darwin":
     O_SYMLINK: Final[int]
 
 if sys.platform != "win32":
+    NODEV: Final[int]
     O_FSYNC: Final[int]
 
 if sys.platform != "linux" and sys.platform != "win32" and sys.version_info >= (3, 13):
