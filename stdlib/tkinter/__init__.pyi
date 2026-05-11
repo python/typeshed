@@ -1192,7 +1192,6 @@ class Grid:
     def grid_info(self) -> _GridInfo: ...
     if sys.version_info >= (3, 15):
         def grid_content(self, row: int | None = None, column: int | None = None) -> list[Widget]: ...
-        content = grid_content
     grid = grid_configure
     location = Misc.grid_location
     size = Misc.grid_size
