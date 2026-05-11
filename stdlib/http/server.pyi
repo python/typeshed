@@ -10,27 +10,11 @@ from ssl import Purpose, SSLContext
 from typing import Any, AnyStr, BinaryIO, ClassVar, Protocol, type_check_only
 from typing_extensions import Self, deprecated
 
-if sys.version_info >= (3, 15):
-    __all__ = [
-        "HTTPServer",
-        "ThreadingHTTPServer",
-        "HTTPSServer",
-        "ThreadingHTTPSServer",
-        "BaseHTTPRequestHandler",
-        "SimpleHTTPRequestHandler",
-    ]
-elif sys.version_info >= (3, 14):
-    __all__ = [
-        "HTTPServer",
-        "ThreadingHTTPServer",
-        "HTTPSServer",
-        "ThreadingHTTPSServer",
-        "BaseHTTPRequestHandler",
-        "SimpleHTTPRequestHandler",
-        "CGIHTTPRequestHandler",
-    ]
-else:
-    __all__ = ["HTTPServer", "ThreadingHTTPServer", "BaseHTTPRequestHandler", "SimpleHTTPRequestHandler", "CGIHTTPRequestHandler"]
+__all__ = ["HTTPServer", "ThreadingHTTPServer", "BaseHTTPRequestHandler", "SimpleHTTPRequestHandler"]
+if sys.version_info < (3, 15):
+    __all__ += ["CGIHTTPRequestHandler"]
+if sys.version_info >= (3, 14):
+    __all__ = ["HTTPSServer", "ThreadingHTTPSServer"]
 
 class HTTPServer(socketserver.TCPServer):
     server_name: str
