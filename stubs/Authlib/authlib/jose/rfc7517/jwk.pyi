@@ -11,8 +11,10 @@ class JsonWebKey:
     @classmethod
     def import_key(
         cls,
-        raw: str | bytes | float | Iterable[SupportsIndex] | SupportsIndex | SupportsBytes | ReadableBuffer | Mapping[str, object],
-        options: Mapping[str, object] | None = None
+        raw: (
+            str | bytes | float | Iterable[SupportsIndex] | SupportsIndex | SupportsBytes | ReadableBuffer | Mapping[str, object]
+        ),
+        options: Mapping[str, object] | None = None,
     ) -> Key: ...
     @classmethod
     def import_key_set(cls, raw: str | Collection[str] | dict[str, object]) -> KeySet: ...
