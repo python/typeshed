@@ -24,6 +24,7 @@ if sys.platform != "win32":
 
     # This is actually a function that returns an instance of a class.
     # The class is not accessible directly, and also calls itself select.poll.
+    @final
     class poll:
         # default value is select.POLLIN | select.POLLPRI | select.POLLOUT
         def register(self, fd: FileDescriptorLike, eventmask: int = 7, /) -> None: ...
