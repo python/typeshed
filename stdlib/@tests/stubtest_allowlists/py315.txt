@@ -47,9 +47,6 @@ annotationlib.ForwardRef.__extra_names__
 annotationlib.ForwardRef.__globals__
 annotationlib.ForwardRef.__init_subclass__
 annotationlib.ForwardRef.__owner__
-annotationlib.ForwardRef.__resolved_str__
-annotationlib.ForwardRef.__resolved_str_cache__
-annotationlib.ForwardRef.__slots__
 annotationlib.ForwardRef.__stringifier_dict__
 ast.type_param.__init__
 # base64.b64decode uses a private sentinel list as the default for parameters whose public types are bool/buffer.
