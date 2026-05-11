@@ -3646,7 +3646,7 @@ class Text(Widget, XView, YView):
             nolinestop: bool | None = None,
             overlap: bool | None = None,
             strictlimits: bool | None = None,
-        ) -> tuple[str, ...]: ...
+        ) -> tuple[_tkinter.Tcl_Obj, ...]: ...
     else:
         def search(
             self,
