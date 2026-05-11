@@ -18,7 +18,7 @@ from typing import Any, ClassVar, Generic, NoReturn, SupportsIndex, TypeVar, fin
 from typing_extensions import Self, disjoint_base
 
 if sys.version_info >= (3, 15):
-    from builtins import frozendict as _frozendict
+    from builtins import frozendict
 
 __all__ = ["ChainMap", "Counter", "OrderedDict", "UserDict", "UserList", "UserString", "defaultdict", "deque", "namedtuple"]
 
@@ -391,14 +391,14 @@ class OrderedDict(dict[_KT, _VT]):
     def __eq__(self, value: object, /) -> bool: ...
     if sys.version_info >= (3, 15):
         @overload
-        def __or__(self, value: dict[_KT, _VT] | _frozendict[_KT, _VT], /) -> Self: ...
+        def __or__(self, value: dict[_KT, _VT] | frozendict[_KT, _VT], /) -> Self: ...
         @overload
-        def __or__(self, value: dict[_T1, _T2] | _frozendict[_T1, _T2], /) -> OrderedDict[_KT | _T1, _VT | _T2]: ...
+        def __or__(self, value: dict[_T1, _T2] | frozendict[_T1, _T2], /) -> OrderedDict[_KT | _T1, _VT | _T2]: ...
         @overload  # type: ignore[override]
-        def __ror__(self, value: dict[_KT, _VT] | _frozendict[_KT, _VT], /) -> Self: ...  # type: ignore[override,misc]
+        def __ror__(self, value: dict[_KT, _VT] | frozendict[_KT, _VT], /) -> Self: ...  # type: ignore[override,misc]
         @overload
         def __ror__(  # type: ignore[misc]
-            self, value: dict[_T1, _T2] | _frozendict[_T1, _T2], /
+            self, value: dict[_T1, _T2] | frozendict[_T1, _T2], /
         ) -> OrderedDict[_KT | _T1, _VT | _T2]: ...
     else:
         @overload

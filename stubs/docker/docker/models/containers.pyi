@@ -3,7 +3,7 @@ from _io import _BufferedReaderStream
 from collections.abc import Iterable, Iterator, Mapping
 from socket import SocketIO
 from typing import Any, Literal, NamedTuple, TypedDict, overload, type_check_only
-from typing_extensions import NotRequired, override
+from typing_extensions import NotRequired
 
 from docker._types import ContainerWeightDevice, WaitContainerResponse
 from docker.transport.sshconn import SSHSocket
@@ -344,7 +344,6 @@ class ContainerCollection(Collection[Container]):
         volumes_from: list[str] | None = None,
         working_dir: str | None = None,
     ) -> Container: ...
-    @override
     def create(  # type: ignore[override]
         self,
         image: str | Image,
@@ -436,7 +435,6 @@ class ContainerCollection(Collection[Container]):
         volumes_from: list[str] | None = None,
         working_dir: str | None = None,
     ) -> Container: ...
-    @override
     def get(self, container_id: str) -> Container: ...
     def list(
         self,

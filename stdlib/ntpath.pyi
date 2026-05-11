@@ -114,20 +114,21 @@ def join(path: StrPath, /, *paths: StrPath) -> str: ...
 @overload
 def join(path: BytesPath, /, *paths: BytesPath) -> bytes: ...
 
-if sys.platform == "win32":
-    if sys.version_info >= (3, 15):
-        @overload
-        def realpath(path: PathLike[AnyStr], /, *, strict: bool | _AllowMissingType = False) -> AnyStr: ...
-        @overload
-        def realpath(path: AnyStr, /, *, strict: bool | _AllowMissingType = False) -> AnyStr: ...
-    else:
+if sys.version_info >= (3, 15):
+    @overload
+    def realpath(path: PathLike[AnyStr], /, *, strict: bool | _AllowMissingType = False) -> AnyStr: ...
+    @overload
+    def realpath(path: AnyStr, /, *, strict: bool | _AllowMissingType = False) -> AnyStr: ...
+
+else:
+    if sys.platform == "win32":
         @overload
         def realpath(path: PathLike[AnyStr], *, strict: bool | _AllowMissingType = False) -> AnyStr: ...
         @overload
         def realpath(path: AnyStr, *, strict: bool | _AllowMissingType = False) -> AnyStr: ...
 
-else:
-    realpath = abspath
+    else:
+        realpath = abspath
 
 if sys.version_info >= (3, 13):
     def isreserved(path: StrOrBytesPath) -> bool: ...

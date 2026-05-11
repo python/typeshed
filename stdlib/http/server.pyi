@@ -10,27 +10,11 @@ from ssl import Purpose, SSLContext
 from typing import Any, AnyStr, BinaryIO, ClassVar, Protocol, type_check_only
 from typing_extensions import Self, deprecated
 
-if sys.version_info >= (3, 15):
-    __all__ = [
-        "HTTPServer",
-        "ThreadingHTTPServer",
-        "HTTPSServer",
-        "ThreadingHTTPSServer",
-        "BaseHTTPRequestHandler",
-        "SimpleHTTPRequestHandler",
-    ]
-elif sys.version_info >= (3, 14):
-    __all__ = [
-        "HTTPServer",
-        "ThreadingHTTPServer",
-        "HTTPSServer",
-        "ThreadingHTTPSServer",
-        "BaseHTTPRequestHandler",
-        "SimpleHTTPRequestHandler",
-        "CGIHTTPRequestHandler",
-    ]
-else:
-    __all__ = ["HTTPServer", "ThreadingHTTPServer", "BaseHTTPRequestHandler", "SimpleHTTPRequestHandler", "CGIHTTPRequestHandler"]
+__all__ = ["HTTPServer", "ThreadingHTTPServer", "BaseHTTPRequestHandler", "SimpleHTTPRequestHandler"]
+if sys.version_info < (3, 15):
+    __all__ += ["CGIHTTPRequestHandler"]
+if sys.version_info >= (3, 14):
+    __all__ = ["HTTPSServer", "ThreadingHTTPSServer"]
 
 class HTTPServer(socketserver.TCPServer):
     server_name: str
@@ -143,20 +127,8 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
 
 def executable(path: StrPath) -> bool: ...  # undocumented
 
-if sys.version_info >= (3, 15):
-    pass
-elif sys.version_info >= (3, 13):
+if sys.version_info < (3, 15):
     @deprecated("Deprecated since Python 3.13; will be removed in Python 3.15.")
-    class CGIHTTPRequestHandler(SimpleHTTPRequestHandler):
-        cgi_directories: list[str]
-        have_fork: bool  # undocumented
-        def do_POST(self) -> None: ...
-        def is_cgi(self) -> bool: ...  # undocumented
-        def is_executable(self, path: StrPath) -> bool: ...  # undocumented
-        def is_python(self, path: StrPath) -> bool: ...  # undocumented
-        def run_cgi(self) -> None: ...  # undocumented
-
-else:
     class CGIHTTPRequestHandler(SimpleHTTPRequestHandler):
         cgi_directories: list[str]
         have_fork: bool  # undocumented

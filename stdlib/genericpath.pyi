@@ -25,7 +25,6 @@ if sys.version_info >= (3, 13):
     __all__ += ["isjunction", "isdevdrive", "lexists"]
 if sys.version_info >= (3, 15):
     __all__ += ["ALL_BUT_LAST"]
-    ALL_BUT_LAST: object
 
 # All overloads can return empty string. Ideally, Literal[""] would be a valid
 # Iterable[T], so that list[T] | Literal[""] could be used as a return
@@ -94,3 +93,7 @@ if sys.version_info >= (3, 13):
 # Added in Python 3.9.23, 3.10.18, 3.11.13, 3.12.11, 3.13.4
 _AllowMissingType = NewType("_AllowMissingType", object)
 ALLOW_MISSING: _AllowMissingType
+
+if sys.version_info >= (3, 15):
+    _AllButLastType = NewType("_AllButLastType", object)
+    ALL_BUT_LAST: _AllButLastType

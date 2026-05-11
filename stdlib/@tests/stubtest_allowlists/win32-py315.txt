@@ -1,3 +1,7 @@
+# ============================================
+# TODO: Allowlist entries that should be fixed
+# ============================================
+
 (_decimal.SPEC_VERSION)?
 _winapi.DeregisterEventSource
 _winapi.EVENTLOG_AUDIT_FAILURE

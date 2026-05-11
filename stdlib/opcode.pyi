@@ -1,7 +1,4 @@
 import sys
-
-if sys.version_info >= (3, 15):
-    from builtins import frozendict
 from typing import Final, Literal
 
 if sys.version_info >= (3, 15):

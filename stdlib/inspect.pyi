@@ -511,7 +511,11 @@ class FullArgSpec(NamedTuple):
     kwonlydefaults: dict[str, Any] | None
     annotations: dict[str, Any]
 
-def getfullargspec(func: object) -> FullArgSpec: ...
+if sys.version_info >= (3, 15):
+    def getfullargspec(func: object, *, annotation_format: Format = Format.VALUE) -> FullArgSpec: ...  # noqa: Y011
+
+else:
+    def getfullargspec(func: object) -> FullArgSpec: ...
 
 class ArgInfo(NamedTuple):
     args: list[str]

@@ -1,14 +1,7 @@
-# =========================
-# New errors in Python 3.15
-# =========================
+# ============================================
+# TODO: Allowlist entries that should be fixed
+# ============================================
 
-(os.NODEV)?
-(posix.NODEV)?
-(resource.RLIMIT_NTHR)?
-(resource.RLIMIT_THREADS)?
-(resource.RLIMIT_UMTXP)?
-
-# Importlib exposes deprecated or implementation-detail runtime APIs that the stubs deliberately omit or tighten.
 _frozen_importlib.BuiltinImporter.load_module
 _frozen_importlib.FrozenImporter.load_module
 _frozen_importlib_external.FileFinder.discover
@@ -19,29 +12,33 @@ _frozen_importlib_external.SourceFileLoader.source_to_code
 _frozen_importlib_external.SourceLoader.source_to_code
 _frozen_importlib_external._LoaderBasics.load_module
 _frozen_importlib_external.cache_from_source
-importlib._abc.Loader.load_module
-importlib._bootstrap_external.NamespacePath
-importlib.abc.InspectLoader.source_to_code
-importlib.abc.MetaPathFinder.discover
-importlib.abc.PathEntryFinder.discover
-
-# The internal implementation of the REPL on py313+; not for public consumption.
-_pyrepl\..+
-
-# Argument Clinic and C variadic signatures are intentionally more precise in the stubs.
+_pyrepl.base_eventqueue
+_pyrepl.commands
+_pyrepl.completing_reader
+_pyrepl.console
+_pyrepl.content
+_pyrepl.fancycompleter
+_pyrepl.historical_reader
+_pyrepl.input
+_pyrepl.keymap
+_pyrepl.layout
+_pyrepl.main
+_pyrepl.pager
+_pyrepl.reader
+_pyrepl.readline
+_pyrepl.render
+_pyrepl.simple_interact
+_pyrepl.terminfo
+_pyrepl.trace
+_pyrepl.types
+_pyrepl.utils
+_pyrepl.windows_console
+_pyrepl.windows_eventqueue
 _struct.Struct.pack_into
 _struct.pack
 _struct.pack_into
-ctypes.SetPointerType
-marshal.dump
-marshal.dumps
-symtable.symtable
-
-# Context manager __exit__ signatures are runtime implementation details; the stubs follow the protocol.
 _thread.RLock.__exit__
 _thread.lock.__exit__
-
-# Undocumented private attributes on ForwardRef; same policy as py314.
 annotationlib.ForwardRef.__arg__
 annotationlib.ForwardRef.__ast_node__
 annotationlib.ForwardRef.__cell__
@@ -50,86 +47,53 @@ annotationlib.ForwardRef.__extra_names__
 annotationlib.ForwardRef.__globals__
 annotationlib.ForwardRef.__init_subclass__
 annotationlib.ForwardRef.__owner__
-annotationlib.ForwardRef.__resolved_str__
-annotationlib.ForwardRef.__resolved_str_cache__
-annotationlib.ForwardRef.__slots__
 annotationlib.ForwardRef.__stringifier_dict__
-
-# Static constructor behavior remains intentionally stricter for runtime AST helpers.
 ast.type_param.__init__
-
-# Runtime incorrectly has `self`; same policy as py314.
+# base64.b64decode uses a private sentinel list as the default for parameters whose public types are bool/buffer.
+base64.b64decode
 codecs.backslashreplace_errors
 codecs.ignore_errors
 codecs.namereplace_errors
 codecs.replace_errors
 codecs.strict_errors
 codecs.xmlcharrefreplace_errors
-
-# Decorator/runtime sentinel implementation details; same policy as py314.
 concurrent.interpreters._crossinterp.UNBOUND_ERROR
 concurrent.interpreters._crossinterp.UNBOUND_REMOVE
 concurrent.interpreters._crossinterp.UnboundItem.singleton
-concurrent.interpreters._crossinterp.classonly.*
-
-# object() sentinels and overloaded helper defaults are modeled more usefully in the stubs.
+concurrent.interpreters._crossinterp.classonly
+concurrent.interpreters._crossinterp.classonly.__class_getitem__
+concurrent.interpreters._crossinterp.classonly.__func__
+concurrent.interpreters._crossinterp.classonly.__get__
+concurrent.interpreters._crossinterp.classonly.__init__
+concurrent.interpreters._crossinterp.classonly.__isabstractmethod__
+concurrent.interpreters._crossinterp.classonly.__set_name__
+concurrent.interpreters._crossinterp.classonly.__wrapped__
 copy.deepcopy
-dataclasses.MISSING
 dataclasses._MISSING_TYPE
+dataclasses.MISSING
 dataclasses.field
-
-# Runtime defaults/sentinels are not expressible without losing useful static signatures.
 doctest.DocTestRunner.report_skip
-functools.partialmethod.__new__
-gzip.compress
-importlib.resources._common.files
-importlib.resources._common.package_to_anchor
-inspect.getfullargspec
-multiprocessing.context.BaseContext.set_forkserver_preload
-multiprocessing.forkserver.ForkServer.set_forkserver_preload
-pdb.Pdb.print_stack_entry
-pkgutil.resolve_name
-pprint.PrettyPrinter.__init__
-pprint.pformat
-pprint.pprint
-site.addsitedir
-site.addsitepackages
-site.addusersitepackages
-site.process_startup_files
-
-# The stub for enum.auto is nothing like the implementation; same policy as py314.
 enum.__all__
 enum.auto.__init__
 enum.auto.value
-
-# Complex ctypes scalar runtime metadata is not useful for static checking.
-(ctypes.c_double_complex._type_)?
-(ctypes.c_float_complex._type_)?
-(ctypes.c_longdouble_complex._type_)?
-
-# Runtime metadata/export lists changed, but the stubs expose the supported API surface.
+functools.partialmethod.__new__
 http.HTTPMethod.description
-inspect._ParameterKind.description
-(os.__all__)?
-sys.last_exc
-threading.Condition.locked
-typing_extensions.__all__
-xml.etree.ElementTree.__all__
-
-# Problematic protocol signatures at runtime; same policy as py314.
+importlib._abc.Loader.load_module
+importlib._bootstrap_external.NamespacePath
+importlib.abc.InspectLoader.source_to_code
+importlib.abc.MetaPathFinder.discover
+importlib.abc.PathEntryFinder.discover
+importlib.resources._common.files
+importlib.resources._common.package_to_anchor
 importlib.resources.abc.Traversable.open
-(io|typing_extensions)\.Reader\.__class_getitem__
-(io|typing_extensions)\.Reader\.read
-(io|typing_extensions)\.Writer\.__class_getitem__
-(io|typing_extensions)\.Writer\.write
-
-# Runtime context-manager/proxy wrappers are loose; stubs retain the useful public protocol.
+inspect._ParameterKind.description
+io.Reader.__class_getitem__
+io.Reader.read
+io.Writer.__class_getitem__
+io.Writer.write
 mailbox.Mailbox.__enter__
 mailbox.Mailbox.__exit__
 mailbox._ProxyFile.__class_getitem__
-
-# These multiprocessing proxy methods have *args, **kwargs signatures at runtime,
-# but have more precise signatures in the stubs; same policy as py314.
 multiprocessing.managers.BaseListProxy.clear
 multiprocessing.managers.BaseListProxy.copy
 multiprocessing.managers._BaseDictProxy.__iter__
@@ -147,39 +111,17 @@ multiprocessing.managers._BaseSetProxy.clear
 multiprocessing.managers._BaseSetProxy.copy
 multiprocessing.managers._BaseSetProxy.pop
 multiprocessing.process.BaseProcess.__init__
-
-# Runtime path APIs include implementation hooks/deprecated behavior that the stubs intentionally hide or tighten.
-(ntpath.realpath)?
-
-# base64.b64decode uses a private sentinel list as the default for parameters whose public types are bool/buffer.
-base64.b64decode
-
-# New profiling package internals are not part of the typed public surface.
-profiling\.sampling\..+
-
-# readline hook availability is build-dependent.
-(readline.get_pre_input_hook)?
-
-# Doesn't really exist, or is hidden behind implementation guards; see comments in the sys stub.
 sys.__jit
 sys._monitoring
-
-# Tkinter runtime mixins expose Tcl container behavior that is not part of the typed public API.
-tkinter.Grid.content
+sys.last_exc
+threading.Condition.locked
 tkinter.Image.__iter__
 tkinter.Misc.__iter__
-tkinter.Misc.content
-tkinter.Pack.content
-tkinter.Place.content
 tkinter.font.Font.__iter__
 tkinter.simpledialog.__all__
-
-# Runtime attribute mutability differs from the useful static model; same policy as py314.
 types.MappingProxyType.get
 types.SimpleNamespace.__delattr__
 types.SimpleNamespace.__setattr__
-
-# Super-special typing primitives and runtime aliases; same policy as py314.
 types.UnionType.__class_getitem__
 types.UnionType.__mro_entries__
 types.UnionType.__name__
@@ -195,4 +137,50 @@ typing.TypeVar.__mro_entries__
 typing.TypeVarTuple.__mro_entries__
 typing.Union
 typing._SpecialForm.__mro_entries__
+typing_extensions.__all__
 typing_extensions.Protocol
+xml.etree.ElementTree.__all__
+
+# =============================================================
+# Allowlist entries that cannot or should not be fixed; >=3.15
+# =============================================================
+
+# runtime default is a list object used as a sentinel
+urllib.parse.urlunparse
+urllib.parse.urlunsplit
+
+# Internal implementation details of the sampling profiler.
+profiling.sampling.binary_collector
+profiling.sampling.binary_reader
+profiling.sampling.cli
+profiling.sampling.constants
+profiling.sampling.dump
+profiling.sampling.errors
+profiling.sampling.gecko_collector.CATEGORY_CODE_TYPE
+profiling.sampling.gecko_collector.CATEGORY_CPU
+profiling.sampling.gecko_collector.CATEGORY_EXCEPTION
+profiling.sampling.gecko_collector.CATEGORY_GC
+profiling.sampling.gecko_collector.CATEGORY_GIL
+profiling.sampling.gecko_collector.CATEGORY_NATIVE
+profiling.sampling.gecko_collector.CATEGORY_OPCODES
+profiling.sampling.gecko_collector.CATEGORY_OTHER
+profiling.sampling.gecko_collector.CATEGORY_PYTHON
+profiling.sampling.gecko_collector.DEFAULT_SUBCATEGORY
+profiling.sampling.gecko_collector.FRAME_ADDRESS_NONE
+profiling.sampling.gecko_collector.FRAME_INLINE_DEPTH_ROOT
+profiling.sampling.gecko_collector.GECKO_CATEGORIES
+profiling.sampling.gecko_collector.GECKO_FORMAT_VERSION
+profiling.sampling.gecko_collector.GECKO_PREPROCESSED_VERSION
+profiling.sampling.gecko_collector.PROCESS_TYPE_MAIN
+profiling.sampling.gecko_collector.RESOURCE_TYPE_LIBRARY
+profiling.sampling.gecko_collector.STACKWALK_DISABLED
+profiling.sampling.heatmap_collector.FileStats
+profiling.sampling.heatmap_collector.TreeNode
+profiling.sampling.module_utils
+profiling.sampling.opcode_utils
+profiling.sampling.sample
+
+# These conflicting aliases are just like tkinter.*.slaves in common.txt.
+tkinter.Grid.content
+tkinter.Pack.content
+tkinter.Place.content

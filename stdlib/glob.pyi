@@ -9,9 +9,7 @@ __all__ = ["escape", "glob", "iglob"]
 if sys.version_info >= (3, 13):
     __all__ += ["translate"]
 
-if sys.version_info >= (3, 15):
-    pass
-else:
+if sys.version_info < (3, 15):
     @deprecated(
         "Deprecated since Python 3.10; will be removed in Python 3.15. Use `glob.glob()` with the *root_dir* argument instead."
     )
