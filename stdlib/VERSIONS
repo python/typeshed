@@ -60,6 +60,7 @@ _py_abc: 3.7-
 _pydecimal: 3.5-
 _queue: 3.7-
 _random: 3.0-
+_remote_debugging: 3.15-
 _sitebuiltins: 3.4-
 _socket: 3.0-  # present in 3.0 at runtime, but not in typeshed
 _sqlite3: 3.0-
@@ -208,6 +209,7 @@ mailbox: 3.0-
 mailcap: 3.0-3.12
 marshal: 3.0-
 math: 3.0-
+math.integer: 3.15-
 mimetypes: 3.0-
 mmap: 3.0-
 modulefinder: 3.0-
@@ -242,6 +244,9 @@ posix: 3.0-
 posixpath: 3.0-
 pprint: 3.0-
 profile: 3.0-
+profiling: 3.15-
+profiling.sampling: 3.15-
+profiling.tracing: 3.15-
 pstats: 3.0-
 pty: 3.0-
 pwd: 3.0-
@@ -335,6 +340,7 @@ wsgiref: 3.0-
 wsgiref.types: 3.11-
 xdrlib: 3.0-3.12
 xml: 3.0-
+xml.utils: 3.15-
 xmlrpc: 3.0-
 xxlimited: 3.2-
 zipapp: 3.5-

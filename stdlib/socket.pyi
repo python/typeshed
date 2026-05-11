@@ -776,6 +776,68 @@ if sys.platform == "linux":
         from _socket import CAN_RAW_ERR_FILTER as CAN_RAW_ERR_FILTER
 
         __all__ += ["CAN_RAW_ERR_FILTER"]
+    if sys.version_info >= (3, 15):
+        from _socket import (
+            CAN_ISOTP_CHK_PAD_DATA as CAN_ISOTP_CHK_PAD_DATA,
+            CAN_ISOTP_CHK_PAD_LEN as CAN_ISOTP_CHK_PAD_LEN,
+            CAN_ISOTP_DEFAULT_EXT_ADDRESS as CAN_ISOTP_DEFAULT_EXT_ADDRESS,
+            CAN_ISOTP_DEFAULT_FLAGS as CAN_ISOTP_DEFAULT_FLAGS,
+            CAN_ISOTP_DEFAULT_FRAME_TXTIME as CAN_ISOTP_DEFAULT_FRAME_TXTIME,
+            CAN_ISOTP_DEFAULT_LL_MTU as CAN_ISOTP_DEFAULT_LL_MTU,
+            CAN_ISOTP_DEFAULT_LL_TX_DL as CAN_ISOTP_DEFAULT_LL_TX_DL,
+            CAN_ISOTP_DEFAULT_LL_TX_FLAGS as CAN_ISOTP_DEFAULT_LL_TX_FLAGS,
+            CAN_ISOTP_DEFAULT_PAD_CONTENT as CAN_ISOTP_DEFAULT_PAD_CONTENT,
+            CAN_ISOTP_DEFAULT_RECV_BS as CAN_ISOTP_DEFAULT_RECV_BS,
+            CAN_ISOTP_DEFAULT_RECV_STMIN as CAN_ISOTP_DEFAULT_RECV_STMIN,
+            CAN_ISOTP_DEFAULT_RECV_WFTMAX as CAN_ISOTP_DEFAULT_RECV_WFTMAX,
+            CAN_ISOTP_EXTEND_ADDR as CAN_ISOTP_EXTEND_ADDR,
+            CAN_ISOTP_FORCE_RXSTMIN as CAN_ISOTP_FORCE_RXSTMIN,
+            CAN_ISOTP_FORCE_TXSTMIN as CAN_ISOTP_FORCE_TXSTMIN,
+            CAN_ISOTP_HALF_DUPLEX as CAN_ISOTP_HALF_DUPLEX,
+            CAN_ISOTP_LISTEN_MODE as CAN_ISOTP_LISTEN_MODE,
+            CAN_ISOTP_LL_OPTS as CAN_ISOTP_LL_OPTS,
+            CAN_ISOTP_OPTS as CAN_ISOTP_OPTS,
+            CAN_ISOTP_RECV_FC as CAN_ISOTP_RECV_FC,
+            CAN_ISOTP_RX_EXT_ADDR as CAN_ISOTP_RX_EXT_ADDR,
+            CAN_ISOTP_RX_PADDING as CAN_ISOTP_RX_PADDING,
+            CAN_ISOTP_RX_STMIN as CAN_ISOTP_RX_STMIN,
+            CAN_ISOTP_SF_BROADCAST as CAN_ISOTP_SF_BROADCAST,
+            CAN_ISOTP_TX_PADDING as CAN_ISOTP_TX_PADDING,
+            CAN_ISOTP_TX_STMIN as CAN_ISOTP_TX_STMIN,
+            CAN_ISOTP_WAIT_TX_DONE as CAN_ISOTP_WAIT_TX_DONE,
+            SOL_CAN_ISOTP as SOL_CAN_ISOTP,
+        )
+
+        __all__ += [
+            "CAN_ISOTP_CHK_PAD_DATA",
+            "CAN_ISOTP_CHK_PAD_LEN",
+            "CAN_ISOTP_DEFAULT_EXT_ADDRESS",
+            "CAN_ISOTP_DEFAULT_FLAGS",
+            "CAN_ISOTP_DEFAULT_FRAME_TXTIME",
+            "CAN_ISOTP_DEFAULT_LL_MTU",
+            "CAN_ISOTP_DEFAULT_LL_TX_DL",
+            "CAN_ISOTP_DEFAULT_LL_TX_FLAGS",
+            "CAN_ISOTP_DEFAULT_PAD_CONTENT",
+            "CAN_ISOTP_DEFAULT_RECV_BS",
+            "CAN_ISOTP_DEFAULT_RECV_STMIN",
+            "CAN_ISOTP_DEFAULT_RECV_WFTMAX",
+            "CAN_ISOTP_EXTEND_ADDR",
+            "CAN_ISOTP_FORCE_RXSTMIN",
+            "CAN_ISOTP_FORCE_TXSTMIN",
+            "CAN_ISOTP_HALF_DUPLEX",
+            "CAN_ISOTP_LL_OPTS",
+            "CAN_ISOTP_LISTEN_MODE",
+            "CAN_ISOTP_OPTS",
+            "CAN_ISOTP_RECV_FC",
+            "CAN_ISOTP_RX_EXT_ADDR",
+            "CAN_ISOTP_RX_PADDING",
+            "CAN_ISOTP_RX_STMIN",
+            "CAN_ISOTP_SF_BROADCAST",
+            "CAN_ISOTP_TX_PADDING",
+            "CAN_ISOTP_TX_STMIN",
+            "CAN_ISOTP_WAIT_TX_DONE",
+            "SOL_CAN_ISOTP",
+        ]
 
 if sys.platform == "linux":
     from _socket import (
@@ -1040,6 +1102,12 @@ if sys.platform != "linux":
     )
 
     __all__ += ["IPPROTO_GGP", "IPPROTO_IPV4", "IPPROTO_MAX", "IPPROTO_ND", "IP_RECVDSTADDR", "SO_USELOOPBACK"]
+
+if sys.version_info >= (3, 15):
+    if sys.platform == "win32" or sys.platform == "linux":
+        from _socket import IPV6_HDRINCL as IPV6_HDRINCL
+
+        __all__ += ["IPV6_HDRINCL"]
 
 if sys.version_info >= (3, 14):
     from _socket import IP_RECVTTL as IP_RECVTTL

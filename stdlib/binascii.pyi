@@ -26,7 +26,7 @@ if sys.version_info >= (3, 15):
         /,
         *,
         strict_mode: bool = False,
-        alphabet: ReadableBuffer = ...,
+        alphabet: bytes = ...,
         padded: bool = True,
         ignorechars: ReadableBuffer = ...,
         canonical: bool = False,
@@ -41,7 +41,7 @@ if sys.version_info >= (3, 15):
         data: _AsciiBuffer,
         /,
         *,
-        alphabet: ReadableBuffer = ...,
+        alphabet: bytes = ...,
         padded: bool = True,
         ignorechars: ReadableBuffer = b"",
         canonical: bool = False,
@@ -60,7 +60,7 @@ if sys.version_info >= (3, 15):
     ) -> bytes: ...
     def b2a_base85(data: ReadableBuffer, /, *, alphabet: ReadableBuffer = ..., pad: bool = False, wrapcol: int = 0) -> bytes: ...
     def a2b_base85(
-        data: _AsciiBuffer, /, *, alphabet: ReadableBuffer = ..., ignorechars: ReadableBuffer = b"", canonical: bool = False
+        data: _AsciiBuffer, /, *, alphabet: bytes = ..., ignorechars: ReadableBuffer = b"", canonical: bool = False
     ) -> bytes: ...
 
 elif sys.version_info >= (3, 11):

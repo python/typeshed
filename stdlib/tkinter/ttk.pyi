@@ -316,7 +316,7 @@ class Checkbutton(Widget):
     config = configure
     def invoke(self) -> Any: ...
 
-class Entry(Widget, tkinter.Entry):
+class Entry(Widget, tkinter.Entry):  # type: ignore[misc]  # content aliases differ across geometry mixins.
     def __init__(
         self,
         master: tkinter.Misc | None = None,
@@ -718,7 +718,7 @@ class Notebook(Widget):
     def tabs(self): ...
     def enable_traversal(self) -> None: ...
 
-class Panedwindow(Widget, tkinter.PanedWindow):
+class Panedwindow(Widget, tkinter.PanedWindow):  # type: ignore[misc]  # content aliases differ across geometry mixins.
     def __init__(
         self,
         master: tkinter.Misc | None = None,
@@ -1106,7 +1106,7 @@ class _TreeviewColumnDict(TypedDict):
     anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"]
     id: str
 
-class Treeview(Widget, tkinter.XView, tkinter.YView):
+class Treeview(Widget, tkinter.XView, tkinter.YView):  # type: ignore[misc]  # content aliases differ across geometry mixins.
     def __init__(
         self,
         master: tkinter.Misc | None = None,
