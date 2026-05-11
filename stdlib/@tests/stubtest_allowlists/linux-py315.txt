@@ -59,10 +59,17 @@ posix.STATX_SIZE
 posix.STATX_TYPE
 posix.STATX_UID
 posix.statx
+readline.get_pre_input_hook
+
+
+# =============================================================
+# Allowlist entries that cannot or should not be fixed; >= 3.15
+# =============================================================
+
+# Internal implementation details of the sampling profiler.
 profiling.sampling.live_collector
 profiling.sampling.live_collector.collector
 profiling.sampling.live_collector.constants
 profiling.sampling.live_collector.display
 profiling.sampling.live_collector.trend_tracker
 profiling.sampling.live_collector.widgets
-readline.get_pre_input_hook

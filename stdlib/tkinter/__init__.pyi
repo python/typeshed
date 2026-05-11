@@ -313,6 +313,9 @@ class Event(Generic[_W_co]):
     type: EventType
     widget: _W_co
     delta: int
+    if sys.version_info >= (3, 15):
+        detail: str
+        user_data: str
     if sys.version_info >= (3, 14):
         def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
 
@@ -627,6 +630,11 @@ class Misc:
     def pack_slaves(self) -> list[Widget]: ...
     def grid_slaves(self, row: int | None = None, column: int | None = None) -> list[Widget]: ...
     def place_slaves(self) -> list[Widget]: ...
+    if sys.version_info >= (3, 15):
+        def pack_content(self) -> list[Widget]: ...
+        def grid_content(self, row: int | None = None, column: int | None = None) -> list[Widget]: ...
+        def place_content(self) -> list[Widget]: ...
+        content = pack_content
     slaves = pack_slaves
     def event_add(self, virtual: str, *sequences: str) -> None: ...
     def event_delete(self, virtual: str, *sequences: str) -> None: ...
@@ -1103,6 +1111,9 @@ class Pack:
     ) -> None: ...
     def pack_forget(self) -> None: ...
     def pack_info(self) -> _PackInfo: ...  # errors if widget hasn't been packed
+    if sys.version_info >= (3, 15):
+        def pack_content(self) -> list[Widget]: ...
+        content = pack_content
     pack = pack_configure
     forget = pack_forget
     propagate = Misc.pack_propagate
@@ -1141,6 +1152,9 @@ class Place:
     ) -> None: ...
     def place_forget(self) -> None: ...
     def place_info(self) -> _PlaceInfo: ...
+    if sys.version_info >= (3, 15):
+        def place_content(self) -> list[Widget]: ...
+        content = place_content
     place = place_configure
     info = place_info
 
@@ -1178,6 +1192,9 @@ class Grid:
     def grid_forget(self) -> None: ...
     def grid_remove(self) -> None: ...
     def grid_info(self) -> _GridInfo: ...
+    if sys.version_info >= (3, 15):
+        def grid_content(self, row: int | None = None, column: int | None = None) -> list[Widget]: ...
+        content = grid_content
     grid = grid_configure
     location = Misc.grid_location
     size = Misc.grid_size
@@ -1189,7 +1206,7 @@ class BaseWidget(Misc):
     def destroy(self) -> None: ...
 
 # This class represents any widget except Toplevel or Tk.
-class Widget(BaseWidget, Pack, Place, Grid):
+class Widget(BaseWidget, Pack, Place, Grid):  # type: ignore[misc]  # content aliases differ across geometry mixins.
     # Allow bind callbacks to take e.g. Event[Label] instead of Event[Misc].
     # Tk and Toplevel get notified for their child widgets' events, but other
     # widgets don't.
@@ -1361,7 +1378,7 @@ class Button(Widget):
     def flash(self) -> None: ...
     def invoke(self) -> Any: ...
 
-class Canvas(Widget, XView, YView):
+class Canvas(Widget, XView, YView):  # type: ignore[misc]  # content aliases differ across geometry mixins.
     def __init__(
         self,
         master: Misc | None = None,
@@ -2131,7 +2148,7 @@ class Checkbutton(Widget):
     def select(self) -> None: ...
     def toggle(self) -> None: ...
 
-class Entry(Widget, XView):
+class Entry(Widget, XView):  # type: ignore[misc]  # content aliases differ across geometry mixins.
     def __init__(
         self,
         master: Misc | None = None,
@@ -2374,7 +2391,7 @@ class Label(Widget):
     def configure(self, cnf: str) -> tuple[str, str, str, Any, Any]: ...
     config = configure
 
-class Listbox(Widget, XView, YView):
+class Listbox(Widget, XView, YView):  # type: ignore[misc]  # content aliases differ across geometry mixins.
     def __init__(
         self,
         master: Misc | None = None,
@@ -3176,7 +3193,7 @@ _WhatToCount: TypeAlias = Literal[
     "chars", "displaychars", "displayindices", "displaylines", "indices", "lines", "xpixels", "ypixels"
 ]
 
-class Text(Widget, XView, YView):
+class Text(Widget, XView, YView):  # type: ignore[misc]  # content aliases differ across geometry mixins.
     def __init__(
         self,
         master: Misc | None = None,
@@ -3598,19 +3615,55 @@ class Text(Widget, XView, YView):
     ) -> None: ...
     def scan_mark(self, x: int, y: int) -> None: ...
     def scan_dragto(self, x: int, y: int) -> None: ...
-    def search(
-        self,
-        pattern: str,
-        index: str | float | _tkinter.Tcl_Obj | Widget,
-        stopindex: str | float | _tkinter.Tcl_Obj | Widget | None = None,
-        forwards: bool | None = None,
-        backwards: bool | None = None,
-        exact: bool | None = None,
-        regexp: bool | None = None,
-        nocase: bool | None = None,
-        count: Variable | None = None,
-        elide: bool | None = None,
-    ) -> str: ...  # returns empty string for not found
+    if sys.version_info >= (3, 15):
+        def search(
+            self,
+            pattern: str,
+            index: str | float | _tkinter.Tcl_Obj | Widget,
+            stopindex: str | float | _tkinter.Tcl_Obj | Widget | None = None,
+            forwards: bool | None = None,
+            backwards: bool | None = None,
+            exact: bool | None = None,
+            regexp: bool | None = None,
+            nocase: bool | None = None,
+            count: Variable | None = None,
+            elide: bool | None = None,
+            *,
+            nolinestop: bool | None = None,
+            strictlimits: bool | None = None,
+        ) -> str: ...  # returns empty string for not found
+        def search_all(
+            self,
+            pattern: str,
+            index: str | float | _tkinter.Tcl_Obj | Widget,
+            stopindex: str | float | _tkinter.Tcl_Obj | Widget | None = None,
+            *,
+            forwards: bool | None = None,
+            backwards: bool | None = None,
+            exact: bool | None = None,
+            regexp: bool | None = None,
+            nocase: bool | None = None,
+            count: Variable | None = None,
+            elide: bool | None = None,
+            nolinestop: bool | None = None,
+            overlap: bool | None = None,
+            strictlimits: bool | None = None,
+        ) -> tuple[str, ...]: ...
+    else:
+        def search(
+            self,
+            pattern: str,
+            index: str | float | _tkinter.Tcl_Obj | Widget,
+            stopindex: str | float | _tkinter.Tcl_Obj | Widget | None = None,
+            forwards: bool | None = None,
+            backwards: bool | None = None,
+            exact: bool | None = None,
+            regexp: bool | None = None,
+            nocase: bool | None = None,
+            count: Variable | None = None,
+            elide: bool | None = None,
+        ) -> str: ...  # returns empty string for not found
+
     def see(self, index: str | float | _tkinter.Tcl_Obj | Widget) -> None: ...
     def tag_add(
         self, tagName: str, index1: str | float | _tkinter.Tcl_Obj | Widget, *args: str | float | _tkinter.Tcl_Obj | Widget
@@ -3928,7 +3981,7 @@ class BitmapImage(Image, _BitmapImageLike):
 def image_names() -> tuple[str, ...]: ...
 def image_types() -> tuple[str, ...]: ...
 
-class Spinbox(Widget, XView):
+class Spinbox(Widget, XView):  # type: ignore[misc]  # content aliases differ across geometry mixins.
     def __init__(
         self,
         master: Misc | None = None,
