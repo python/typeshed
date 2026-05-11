@@ -66,7 +66,7 @@ if sys.version_info < (3, 15):
 if sys.version_info >= (3, 12):
     __all__ += ["Buffer"]
 
-_KT_co = TypeVar("_KT_co", covariant=True)  # Key type covariant containers.
+_KT_co = TypeVar("_KT_co", bound=Hashable, covariant=True)  # Key type covariant containers.
 _VT_co = TypeVar("_VT_co", covariant=True)  # Value type covariant containers.
 
 @final
