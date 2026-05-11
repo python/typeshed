@@ -77,39 +77,16 @@ enum.__all__
 enum.auto.__init__
 enum.auto.value
 functools.partialmethod.__new__
-genericpath.ALL_BUT_LAST
-genericpath.__all__
-genericpath.commonprefix
-genericpath.getatime
-genericpath.getctime
-genericpath.getmtime
-genericpath.getsize
-genericpath.samefile
-genericpath.samestat
 http.HTTPMethod.description
-http.client.HTTPConnection.__init__
-http.client.HTTPSConnection.__init__
-http.server.CGIHTTPRequestHandler
-http.server.SimpleHTTPRequestHandler.__init__
-http.server.SimpleHTTPRequestHandler.default_content_type
-http.server.__all__
 importlib._abc.Loader.load_module
 importlib._bootstrap_external.NamespacePath
 importlib.abc.InspectLoader.source_to_code
 importlib.abc.MetaPathFinder.discover
 importlib.abc.PathEntryFinder.discover
-importlib.metadata.DeprecatedNonAbstract
-importlib.metadata.Distribution
-importlib.metadata.MetadataNotFound
-importlib.metadata.PathDistribution
-importlib.metadata.__all__
 importlib.resources._common.files
 importlib.resources._common.package_to_anchor
 importlib.resources.abc.Traversable.open
-importlib.resources.abc.Traversable.read_text
 inspect._ParameterKind.description
-inspect.getdoc
-inspect.getfullargspec
 io.Reader.__class_getitem__
 io.Reader.read
 io.Writer.__class_getitem__
@@ -134,24 +111,6 @@ multiprocessing.managers._BaseSetProxy.clear
 multiprocessing.managers._BaseSetProxy.copy
 multiprocessing.managers._BaseSetProxy.pop
 multiprocessing.process.BaseProcess.__init__
-ntpath.ALL_BUT_LAST
-ntpath.__all__
-ntpath.realpath
-os.path.ALL_BUT_LAST
-os.path.__all__
-pathlib.PurePath.__vfspath__
-pathlib.PurePath.is_reserved
-posixpath.ALL_BUT_LAST
-posixpath.__all__
-posixpath.basename
-posixpath.dirname
-posixpath.isabs
-posixpath.normcase
-posixpath.realpath
-posixpath.split
-posixpath.splitdrive
-posixpath.splitext
-posixpath.splitroot
 sre_compile
 sre_constants
 sre_parse
@@ -184,7 +143,6 @@ typing._SpecialForm.__mro_entries__
 typing_extensions.__all__
 typing_extensions.Protocol
 xml.etree.ElementTree.__all__
-zipimport.zipimporter.load_module
 
 # =============================================================
 # Allowlist entries that cannot or should not be fixed; >=3.15
@@ -224,3 +182,8 @@ profiling.sampling.heatmap_collector.TreeNode
 profiling.sampling.module_utils
 profiling.sampling.opcode_utils
 profiling.sampling.sample
+
+# These conflicting aliases are just like tkinter.*.slaves in common.txt.
+tkinter.Grid.content
+tkinter.Pack.content
+tkinter.Place.content
