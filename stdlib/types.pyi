@@ -7,6 +7,7 @@ from collections.abc import (
     Callable,
     Coroutine,
     Generator,
+    Hashable,
     ItemsView,
     Iterable,
     Iterator,
@@ -70,8 +71,9 @@ if sys.version_info >= (3, 15):
 
 _T1 = TypeVar("_T1")
 _T2 = TypeVar("_T2")
-_KT_co = TypeVar("_KT_co", covariant=True)
+_KT_co = TypeVar("_KT_co", bound=Hashable, covariant=True)
 _VT_co = TypeVar("_VT_co", covariant=True)
+_KT2 = TypeVar("_KT2", bound=Hashable)
 
 # Make sure this class definition stays roughly in line with `builtins.function`
 @final
@@ -286,8 +288,8 @@ class MappingProxyType(Mapping[_KT_co, _VT_co]):  # type: ignore[type-var]  # py
     def get(self, key: _KT_co, default: _T2, /) -> _VT_co | _T2: ...  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues] # Covariant type as parameter
     def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
     def __reversed__(self) -> Iterator[_KT_co]: ...
-    def __or__(self, value: Mapping[_T1, _T2], /) -> dict[_KT_co | _T1, _VT_co | _T2]: ...
-    def __ror__(self, value: Mapping[_T1, _T2], /) -> dict[_KT_co | _T1, _VT_co | _T2]: ...
+    def __or__(self, value: Mapping[_KT2, _T1], /) -> dict[_KT_co | _KT2, _VT_co | _T1]: ...
+    def __ror__(self, value: Mapping[_KT2, _T1], /) -> dict[_KT_co | _KT2, _VT_co | _T1]: ...
 
 if sys.version_info >= (3, 12):
     @disjoint_base
