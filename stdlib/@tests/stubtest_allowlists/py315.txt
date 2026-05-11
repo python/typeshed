@@ -224,3 +224,8 @@ profiling.sampling.heatmap_collector.TreeNode
 profiling.sampling.module_utils
 profiling.sampling.opcode_utils
 profiling.sampling.sample
+
+# These conflicting aliases are just like tkinter.*.slaves in common.txt.
+tkinter.Grid.content
+tkinter.Pack.content
+tkinter.Place.content

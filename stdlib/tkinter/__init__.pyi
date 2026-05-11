@@ -634,7 +634,6 @@ class Misc:
         def pack_content(self) -> list[Widget]: ...
         def grid_content(self, row: int | None = None, column: int | None = None) -> list[Widget]: ...
         def place_content(self) -> list[Widget]: ...
-        content = pack_content
     slaves = pack_slaves
     def event_add(self, virtual: str, *sequences: str) -> None: ...
     def event_delete(self, virtual: str, *sequences: str) -> None: ...
@@ -1113,7 +1112,6 @@ class Pack:
     def pack_info(self) -> _PackInfo: ...  # errors if widget hasn't been packed
     if sys.version_info >= (3, 15):
         def pack_content(self) -> list[Widget]: ...
-        content = pack_content
     pack = pack_configure
     forget = pack_forget
     propagate = Misc.pack_propagate
@@ -1154,7 +1152,6 @@ class Place:
     def place_info(self) -> _PlaceInfo: ...
     if sys.version_info >= (3, 15):
         def place_content(self) -> list[Widget]: ...
-        content = place_content
     place = place_configure
     info = place_info
 
@@ -1206,7 +1203,7 @@ class BaseWidget(Misc):
     def destroy(self) -> None: ...
 
 # This class represents any widget except Toplevel or Tk.
-class Widget(BaseWidget, Pack, Place, Grid):  # type: ignore[misc]  # content aliases differ across geometry mixins.
+class Widget(BaseWidget, Pack, Place, Grid):
     # Allow bind callbacks to take e.g. Event[Label] instead of Event[Misc].
     # Tk and Toplevel get notified for their child widgets' events, but other
     # widgets don't.
@@ -1378,7 +1375,7 @@ class Button(Widget):
     def flash(self) -> None: ...
     def invoke(self) -> Any: ...
 
-class Canvas(Widget, XView, YView):  # type: ignore[misc]  # content aliases differ across geometry mixins.
+class Canvas(Widget, XView, YView):
     def __init__(
         self,
         master: Misc | None = None,
@@ -2148,7 +2145,7 @@ class Checkbutton(Widget):
     def select(self) -> None: ...
     def toggle(self) -> None: ...
 
-class Entry(Widget, XView):  # type: ignore[misc]  # content aliases differ across geometry mixins.
+class Entry(Widget, XView):
     def __init__(
         self,
         master: Misc | None = None,
@@ -2391,7 +2388,7 @@ class Label(Widget):
     def configure(self, cnf: str) -> tuple[str, str, str, Any, Any]: ...
     config = configure
 
-class Listbox(Widget, XView, YView):  # type: ignore[misc]  # content aliases differ across geometry mixins.
+class Listbox(Widget, XView, YView):
     def __init__(
         self,
         master: Misc | None = None,
@@ -3193,7 +3190,7 @@ _WhatToCount: TypeAlias = Literal[
     "chars", "displaychars", "displayindices", "displaylines", "indices", "lines", "xpixels", "ypixels"
 ]
 
-class Text(Widget, XView, YView):  # type: ignore[misc]  # content aliases differ across geometry mixins.
+class Text(Widget, XView, YView):
     def __init__(
         self,
         master: Misc | None = None,
@@ -3981,7 +3978,7 @@ class BitmapImage(Image, _BitmapImageLike):
 def image_names() -> tuple[str, ...]: ...
 def image_types() -> tuple[str, ...]: ...
 
-class Spinbox(Widget, XView):  # type: ignore[misc]  # content aliases differ across geometry mixins.
+class Spinbox(Widget, XView):
     def __init__(
         self,
         master: Misc | None = None,
