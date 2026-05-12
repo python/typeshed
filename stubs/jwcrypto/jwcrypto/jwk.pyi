@@ -114,7 +114,7 @@ class JWK(dict[str, Any]):
         kid: str | None = None,
         alg: str | None = None,
         use: _JWKUseSupported | None = None,
-        key_ops: list[_JWKOperationSupported] | None = None
+        key_ops: list[_JWKOperationSupported] | None = None,
     ) -> Self: ...
     @overload
     def __init__(self, *, generate: _JWKKeyTypeSupported, **kwargs) -> None: ...
