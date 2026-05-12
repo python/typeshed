@@ -2,8 +2,8 @@ import sys
 from _typeshed import BytesPath, GenericPath, MaybeNone, StrOrBytesPath, StrPath, SupportsWrite
 from collections.abc import Callable, ItemsView, Iterable, Iterator, Mapping, MutableMapping, Sequence
 from re import Pattern
-from typing import Any, AnyStr, ClassVar, Final, Literal, TypeVar, overload, type_check_only
-from typing_extensions import TypeAlias, deprecated
+from typing import Any, AnyStr, ClassVar, Final, Literal, TypeAlias, TypeVar, overload, type_check_only
+from typing_extensions import deprecated
 
 if sys.version_info >= (3, 14):
     __all__ = (
@@ -289,19 +289,19 @@ class RawConfigParser(_Parser):
     def getint(self, section: _SectionName, option: str, *, raw: bool = False, vars: _Section | None = None) -> int: ...
     @overload
     def getint(
-        self, section: _SectionName, option: str, *, raw: bool = False, vars: _Section | None = None, fallback: _T = ...
+        self, section: _SectionName, option: str, *, raw: bool = False, vars: _Section | None = None, fallback: _T
     ) -> int | _T: ...
     @overload
     def getfloat(self, section: _SectionName, option: str, *, raw: bool = False, vars: _Section | None = None) -> float: ...
     @overload
     def getfloat(
-        self, section: _SectionName, option: str, *, raw: bool = False, vars: _Section | None = None, fallback: _T = ...
+        self, section: _SectionName, option: str, *, raw: bool = False, vars: _Section | None = None, fallback: _T
     ) -> float | _T: ...
     @overload
     def getboolean(self, section: _SectionName, option: str, *, raw: bool = False, vars: _Section | None = None) -> bool: ...
     @overload
     def getboolean(
-        self, section: _SectionName, option: str, *, raw: bool = False, vars: _Section | None = None, fallback: _T = ...
+        self, section: _SectionName, option: str, *, raw: bool = False, vars: _Section | None = None, fallback: _T
     ) -> bool | _T: ...
     def _get_conv(
         self,

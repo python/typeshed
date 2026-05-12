@@ -9,8 +9,7 @@ import tempfile
 from collections.abc import Iterable, Mapping
 from pathlib import Path
 from types import MethodType
-from typing import TYPE_CHECKING, Any, Final, NamedTuple
-from typing_extensions import TypeAlias
+from typing import TYPE_CHECKING, Any, Final, NamedTuple, TypeAlias
 
 import pathspec
 from packaging.requirements import Requirement
@@ -50,7 +49,7 @@ PYTHON_VERSION: Final = f"{sys.version_info.major}.{sys.version_info.minor}"
 
 
 def strip_comments(text: str) -> str:
-    return text.split("#")[0].strip()
+    return text.split("#", maxsplit=1)[0].strip()
 
 
 def jsonc_to_json(text: str) -> str:
@@ -261,12 +260,12 @@ else:
 
 
 @functools.cache
-def get_gitignore_spec() -> pathspec.PathSpec:
+def get_gitignore_spec() -> pathspec.GitIgnoreSpec:
     with GITIGNORE_PATH.open(encoding="UTF-8") as f:
         return pathspec.GitIgnoreSpec.from_lines(f)
 
 
-def spec_matches_path(spec: pathspec.PathSpec, path: Path) -> bool:
+def spec_matches_path(spec: pathspec.PathSpec[Any], path: Path) -> bool:
     normalized_path = path.as_posix()
     if path.is_dir():
         normalized_path += "/"
