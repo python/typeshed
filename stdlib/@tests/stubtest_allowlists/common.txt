@@ -13,16 +13,6 @@ tarfile.TarInfo.__slots__  # it's a big dictionary at runtime and the dictionary
 # TODO: Modules that exist at runtime, but are missing from stubs
 # ===============================================================
 
-turtledemo
-turtledemo\..+
-
-
-# ======================================================================
-# TODO: Module members that exist at runtime, but are missing from stubs
-# ======================================================================
-
-tkinter.Misc.config
-
 
 # ======================================================================
 # Modules that exist at runtime, but are deliberately missing from stubs
