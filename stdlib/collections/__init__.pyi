@@ -3,6 +3,7 @@ from _collections_abc import dict_items, dict_keys, dict_values
 from _typeshed import SupportsItems, SupportsKeysAndGetItem, SupportsRichComparison, SupportsRichComparisonT
 from collections.abc import (
     Callable,
+    Hashable,
     ItemsView,
     Iterable,
     Iterator,
@@ -23,8 +24,6 @@ if sys.version_info >= (3, 15):
 __all__ = ["ChainMap", "Counter", "OrderedDict", "UserDict", "UserList", "UserString", "defaultdict", "deque", "namedtuple"]
 
 _T = TypeVar("_T")
-_T1 = TypeVar("_T1")
-_T2 = TypeVar("_T2")
 _KT = TypeVar("_KT", bound=Hashable)
 _VT = TypeVar("_VT")
 _KT2 = TypeVar("_KT2")
