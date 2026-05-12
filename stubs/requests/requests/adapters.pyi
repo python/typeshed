@@ -91,15 +91,15 @@ class HTTPAdapter(BaseAdapter):
                              # ssl_context (ssl.SSLContext), socket_options (list), etc.
                              # We use Any because the exact set is dynamic and not fully specified in stubs.
     ) -> None: ...
-   def proxy_manager_for(
-        self,
-        proxy: str,
-        **proxy_kwargs: Any  # Any: Same as pool_kwargs above, passed to ProxyManager or SOCKSProxyManager.
-                             # May include: ssl_context, cert_reqs, ca_certs, ca_cert_dir, etc.
-    ) -> Any: # Any: Returns either urllib3.ProxyManager (for HTTP/HTTPS proxies) or SOCKSProxyManager (for SOCKS).
-              # The exact return type depends on the proxy scheme and is not needed by callers; using Any avoids
-              # circular imports or complex union types. In practice, the object adheres to a common interface.
-    ...
+    def proxy_manager_for(
+            self,
+            proxy: str,
+            **proxy_kwargs: Any  # Any: Same as pool_kwargs above, passed to ProxyManager or SOCKSProxyManager.
+                                # May include: ssl_context, cert_reqs, ca_certs, ca_cert_dir, etc.
+        ) -> Any: # Any: Returns either urllib3.ProxyManager (for HTTP/HTTPS proxies) or SOCKSProxyManager (for SOCKS).
+                # The exact return type depends on the proxy scheme and is not needed by callers; using Any avoids
+                # circular imports or complex union types. In practice, the object adheres to a common interface.
+        ...
     def cert_verify(self, conn, url, verify, cert): ...
     def build_response(self, req: PreparedRequest, resp: urllib3.BaseHTTPResponse) -> Response: ...
     def build_connection_pool_key_attributes(
@@ -124,7 +124,7 @@ class HTTPAdapter(BaseAdapter):
                         # verify (bool|str), cert (str|tuple), proxies (dict). Base implementation ignores them.
                         # Using Any allows subclasses to access these arguments without repeating the full signature.
     ) -> None: ...
-        def proxy_headers(self, proxy: str) -> dict[str, str]: ...
+    def proxy_headers(self, proxy: str) -> dict[str, str]: ...
     def send(
         self,
         request: PreparedRequest,
