@@ -6,7 +6,7 @@ from collections.abc import Iterable
 # technically it is using _PySimpleQueue, which has the same interface as SimpleQueue
 from queue import Empty as Empty, Full as Full
 from typing import Any, Generic, Literal, TypeVar, final, overload
-from typing_extensions import Self
+from typing_extensions import Self, TypeForm
 
 from gevent._waiter import Waiter
 from gevent.hub import Hub
@@ -30,7 +30,7 @@ class SimpleQueue(Generic[_T]):
     is_shutdown: bool
 
     @classmethod
-    def __class_getitem__(cls, item: Any, /) -> types.GenericAlias: ...
+    def __class_getitem__(cls, item: TypeForm[Any], /) -> types.GenericAlias: ...
     @overload
     def __init__(self, maxsize: int | None = None) -> None: ...
     @overload
@@ -95,7 +95,7 @@ class Channel(Generic[_T]):
     def hub(self) -> Hub: ...  # readonly in Cython
     def __init__(self, maxsize: Literal[1] = 1) -> None: ...
     @classmethod
-    def __class_getitem__(cls, item: Any, /) -> types.GenericAlias: ...
+    def __class_getitem__(cls, item: TypeForm[Any], /) -> types.GenericAlias: ...
     @property
     def balance(self) -> int: ...
     def qsize(self) -> Literal[0]: ...

@@ -6,7 +6,7 @@ from builtins import type as Type  # alias to avoid name clashes with fields nam
 from collections.abc import Callable, Iterable, Mapping
 from types import GenericAlias
 from typing import Any, Final, Generic, Literal, Protocol, TypeVar, overload, type_check_only
-from typing_extensions import Never, TypeIs
+from typing_extensions import Never, TypeForm, TypeIs
 
 _T = TypeVar("_T")
 _T_co = TypeVar("_T_co", covariant=True)
@@ -212,7 +212,7 @@ class Field(Generic[_T]):
         ) -> None: ...
 
     def __set_name__(self, owner: Type[Any], name: str) -> None: ...
-    def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
+    def __class_getitem__(cls, item: TypeForm[Any], /) -> GenericAlias: ...
 
 # NOTE: Actual return type is 'Field[_T]', but we want to help type checkers
 # to understand the magic that happens at runtime.

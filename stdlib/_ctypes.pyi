@@ -7,7 +7,7 @@ from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
 from ctypes import CDLL, ArgumentError as ArgumentError, c_void_p
 from types import GenericAlias
 from typing import Any, ClassVar, Final, Generic, Literal, SupportsIndex, TypeAlias, TypeVar, final, overload, type_check_only
-from typing_extensions import Self
+from typing_extensions import Self, TypeForm
 
 _T = TypeVar("_T")
 _CT = TypeVar("_CT", bound=_CData)
@@ -344,7 +344,7 @@ class Array(_CData, Generic[_CT], metaclass=_PyCArrayType):
     # Can't inherit from Sized because the metaclass conflict between
     # Sized and _CData prevents using _CDataMeta.
     def __len__(self) -> int: ...
-    def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
+    def __class_getitem__(cls, item: TypeForm[Any], /) -> GenericAlias: ...
 
 def addressof(obj: _CData | _CDataType, /) -> int: ...
 def alignment(obj_or_type: _CData | _CDataType | type[_CData | _CDataType], /) -> int: ...

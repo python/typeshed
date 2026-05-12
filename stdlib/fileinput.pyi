@@ -3,7 +3,7 @@ from _typeshed import AnyStr_co, StrOrBytesPath
 from collections.abc import Callable, Iterable
 from types import GenericAlias, TracebackType
 from typing import IO, Any, AnyStr, Generic, Literal, Protocol, TypeAlias, overload, type_check_only
-from typing_extensions import Self, deprecated
+from typing_extensions import Self, TypeForm, deprecated
 
 __all__ = [
     "input",
@@ -130,7 +130,7 @@ class FileInput(Generic[AnyStr]):
     def fileno(self) -> int: ...
     def isfirstline(self) -> bool: ...
     def isstdin(self) -> bool: ...
-    def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
+    def __class_getitem__(cls, item: TypeForm[Any], /) -> GenericAlias: ...
 
 def hook_compressed(
     filename: StrOrBytesPath, mode: str, *, encoding: str | None = None, errors: str | None = None

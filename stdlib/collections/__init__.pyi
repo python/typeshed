@@ -15,7 +15,7 @@ from collections.abc import (
 )
 from types import GenericAlias
 from typing import Any, ClassVar, Generic, NoReturn, SupportsIndex, TypeVar, final, overload, type_check_only
-from typing_extensions import Self, disjoint_base
+from typing_extensions import Self, TypeForm, disjoint_base
 
 if sys.version_info >= (3, 15):
     from builtins import frozendict
@@ -268,7 +268,7 @@ class deque(MutableSequence[_T]):
     def __gt__(self, value: deque[_T], /) -> bool: ...
     def __ge__(self, value: deque[_T], /) -> bool: ...
     def __eq__(self, value: object, /) -> bool: ...
-    def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
+    def __class_getitem__(cls, item: TypeForm[Any], /) -> GenericAlias: ...
 
 class Counter(dict[_T, int], Generic[_T]):
     @overload
