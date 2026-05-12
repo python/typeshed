@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Mapping
 from ssl import SSLContext
-from typing import Any , Literal, TypedDict, type_check_only
+from typing import Any, Literal, TypedDict, type_check_only
 from typing_extensions import NotRequired, deprecated
 
 import urllib3
