@@ -92,8 +92,8 @@ class HTTPAdapter(BaseAdapter):
                              # We use Any because the exact set is dynamic and not fully specified in stubs.
     ) -> None: ...
    def proxy_manager_for(
-        self, 
-        proxy: str, 
+        self,
+        proxy: str,
         **proxy_kwargs: Any  # Any: Same as pool_kwargs above, passed to ProxyManager or SOCKSProxyManager.
                              # May include: ssl_context, cert_reqs, ca_certs, ca_cert_dir, etc.
     ) -> Any: # Any: Returns either urllib3.ProxyManager (for HTTP/HTTPS proxies) or SOCKSProxyManager (for SOCKS).
@@ -117,8 +117,8 @@ class HTTPAdapter(BaseAdapter):
     def close(self) -> None: ...
     def request_url(self, request: PreparedRequest, proxies: Mapping[str, str] | None) -> str: ...
     def add_headers(
-        self, 
-        request: PreparedRequest, 
+        self,
+        request: PreparedRequest,
         **kwargs: Any   # Any: Hook method for subclasses to add custom headers.
                         # The kwargs mirror the send() parameters: stream (bool), timeout (float|tuple),
                         # verify (bool|str), cert (str|tuple), proxies (dict). Base implementation ignores them.
