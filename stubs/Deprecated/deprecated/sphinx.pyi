@@ -30,7 +30,7 @@ class SphinxAdapter(ClassicAdapter):
 
         :return: the decorated class or function.
     """
-    def get_deprecated_msg(self, wrapped: _F, instance: Any) -> str: ...
+    def get_deprecated_msg(self, wrapped:Any, instance: Any) -> str: ...
     """
         :param wrapped: Wrapped class or function.
 
