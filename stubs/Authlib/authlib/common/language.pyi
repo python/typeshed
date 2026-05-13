@@ -1,4 +1,5 @@
-from typing import Final, Pattern
+from re import Pattern
+from typing import Final
 
 _LANGUAGE_TAG_RE: Final[Pattern[str]]
 
