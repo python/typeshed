@@ -421,6 +421,34 @@ class AbstractEventLoop:
             ssl_handshake_timeout: float | None = None,
             ssl_shutdown_timeout: float | None = None,
         ) -> Transport | None: ...
+    else:
+        @abstractmethod
+        async def start_tls(
+            self,
+            transport: BaseTransport,
+            protocol: BaseProtocol,
+            sslcontext: ssl.SSLContext,
+            *,
+            server_side: bool = False,
+            server_hostname: str | None = None,
+            ssl_handshake_timeout: float | None = None,
+        ) -> Transport | None: ...
+
+    if sys.version_info >= (3, 13):
+        async def create_unix_server(
+            self,
+            protocol_factory: _ProtocolFactory,
+            path: StrPath | None = None,
+            *,
+            sock: socket | None = None,
+            backlog: int = 100,
+            ssl: _SSLContext = None,
+            ssl_handshake_timeout: float | None = None,
+            ssl_shutdown_timeout: float | None = None,
+            start_serving: bool = True,
+            cleanup_socket: bool = True,
+        ) -> Server: ...
+    elif sys.version_info >= (3, 11):
         async def create_unix_server(
             self,
             protocol_factory: _ProtocolFactory,
@@ -434,17 +462,6 @@ class AbstractEventLoop:
             start_serving: bool = True,
         ) -> Server: ...
     else:
-        @abstractmethod
-        async def start_tls(
-            self,
-            transport: BaseTransport,
-            protocol: BaseProtocol,
-            sslcontext: ssl.SSLContext,
-            *,
-            server_side: bool = False,
-            server_hostname: str | None = None,
-            ssl_handshake_timeout: float | None = None,
-        ) -> Transport | None: ...
         async def create_unix_server(
             self,
             protocol_factory: _ProtocolFactory,
