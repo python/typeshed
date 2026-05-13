@@ -1,8 +1,8 @@
 from _typeshed import Unused
 from collections.abc import Callable, Sequence
 from enum import Enum
-from typing import Any, Literal, NamedTuple, TypeVar, overload
-from typing_extensions import LiteralString, Self, TypeAlias, deprecated
+from typing import Any, Literal, NamedTuple, TypeAlias, TypeVar, overload
+from typing_extensions import LiteralString, Self, deprecated
 
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.asymmetric import ec, rsa
@@ -104,10 +104,23 @@ class InvalidJWKValue(JWException): ...
 
 class JWK(dict[str, Any]):
     unsafe_skip_rsa_key_validation: bool
+    @overload
+    def __init__(
+        self,
+        *,
+        generate: Literal["RSA"],
+        public_exponent: int | None = None,
+        size: int | None = None,
+        kid: str | None = None,
+        alg: str | None = None,
+        use: _JWKUseSupported | None = None,
+        key_ops: list[_JWKOperationSupported] | None = None,
+    ) -> None: ...
+    @overload
+    def __init__(self, *, generate: Literal["oct", "EC", "OKP"], **kwargs) -> None: ...
+    @overload
     def __init__(self, **kwargs) -> None: ...
-    # `kty` and the other keyword arguments are passed as `params` to the called generator
-    # function. The possible arguments depend on the value of `kty`.
-    # TODO: Add overloads for the individual `kty` values.
+    # TODO: __init__ may not be typed adequately because keyword arguments depend on the value of generate
     @classmethod
     @overload
     def generate(
@@ -230,6 +243,7 @@ class JWK(dict[str, Any]):
     @classmethod
     def from_password(cls, password: str) -> Self: ...
     def setdefault(self, key: str, default: _T | None = None) -> _T: ...
+    def __hash__(self) -> int: ...  # type: ignore[override]
 
 class JWKSet(dict[Literal["keys"], set[JWK]]):
     @overload
