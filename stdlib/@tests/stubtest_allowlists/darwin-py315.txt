@@ -13,11 +13,6 @@
 (_socket.SO_BINDTODEVICE)?
 (errno.ENOTCAPABLE)?
 
-# Runtime metadata for new ctypes complex types is not useful for static checking.
-ctypes.c_double_complex._type_
-ctypes.c_float_complex._type_
-ctypes.c_longdouble_complex._type_
-
 # Depends on how readline was built.
 readline.get_pre_input_hook
 
