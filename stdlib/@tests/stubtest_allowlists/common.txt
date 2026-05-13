@@ -18,13 +18,6 @@ turtledemo\..+
 
 
 # ======================================================================
-# TODO: Module members that exist at runtime, but are missing from stubs
-# ======================================================================
-
-tkinter.Misc.config
-
-
-# ======================================================================
 # Modules that exist at runtime, but are deliberately missing from stubs
 # ======================================================================
 
