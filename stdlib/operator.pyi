@@ -53,14 +53,16 @@ from _operator import (
     xor as xor,
 )
 from _typeshed import SupportsGetItem
-from typing import Any, Generic, TypeVar, final, overload
-from typing_extensions import Self, TypeVarTuple, Unpack
+from typing import Any, Generic, ParamSpec, TypeVar, final, overload
+from typing_extensions import TypeVarTuple, Unpack
 
 _T = TypeVar("_T")
 _T_co = TypeVar("_T_co", covariant=True)
 _T1 = TypeVar("_T1")
 _T2 = TypeVar("_T2")
 _Ts = TypeVarTuple("_Ts")
+_P = ParamSpec("_P", default=...)
+_R = TypeVar("_R", default=Any)
 
 __all__ = [
     "abs",
@@ -182,6 +184,8 @@ if sys.version_info >= (3, 11):
 # them here.
 @final
 class attrgetter(Generic[_T_co]):
+    # We can't determine the type of the attribute(s) being accessed statucally,
+    # so we have to use Any for the return type.
     @overload
     def __new__(cls, attr: str, /) -> attrgetter[Any]: ...
     @overload
@@ -192,6 +196,8 @@ class attrgetter(Generic[_T_co]):
     def __new__(cls, attr: str, attr2: str, attr3: str, attr4: str, /) -> attrgetter[tuple[Any, Any, Any, Any]]: ...
     @overload
     def __new__(cls, attr: str, /, *attrs: str) -> attrgetter[tuple[Any, ...]]: ...
+    # obj needs to have the named attribute(s) with the correct type.
+    # Unfortunately, we can't check that statically, so we need to use Any.
     def __call__(self, obj: Any, /) -> _T_co: ...
 
 @final
@@ -212,6 +218,8 @@ class itemgetter(Generic[_T_co]):
     def __call__(self, obj: SupportsGetItem[Any, Any]) -> Any: ...
 
 @final
-class methodcaller:
-    def __new__(cls, name: str, /, *args: Any, **kwargs: Any) -> Self: ...
-    def __call__(self, obj: Any) -> Any: ...
+class methodcaller(Generic[_P, _R]):
+    def __new__(cls, name: str, /, *args: _P.args, **kwargs: _P.kwargs) -> methodcaller[_P, Any]: ...
+    # obj needs to have the named method with the correct signature.
+    # Unfortunately, we can't check that statically, so we need to use Any.
+    def __call__(self, obj: Any) -> _R: ...
