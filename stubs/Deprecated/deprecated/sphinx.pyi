@@ -1,5 +1,5 @@
 from collections.abc import Callable
-from typing import Any, Literal, TypeVar, overload
+from typing import Any, Literal, TypeVar
 
 from .classic import ClassicAdapter, _Actions
 
