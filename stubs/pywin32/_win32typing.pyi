@@ -1,8 +1,8 @@
 # Not available at runtime. Contains type definitions that are otherwise not exposed and not part of a specific module.
 from _typeshed import Incomplete, Unused
 from collections.abc import Iterable, Sequence
-from typing import Literal, NoReturn, SupportsIndex, TypeAlias, final, overload
-from typing_extensions import Never, Self, deprecated, disjoint_base
+from typing import Literal, NoReturn, SupportsIndex, TypeAlias, TypedDict, final, overload
+from typing_extensions import Never, Required, Self, deprecated, disjoint_base
 
 from win32.lib.pywintypes import TimeType
 
@@ -116,15 +116,33 @@ class DOCINFO:
 
 class ExportCallback: ...
 
-class FORM_INFO_1:
-    @property
-    def Flags(self): ...
-    @property
-    def Name(self) -> str: ...
-    @property
-    def Size(self): ...
-    @property
-    def ImageableArea(self): ...
+class PrinterExtents(TypedDict):
+    Length: int
+    Width: int
+
+class PrinterDpi(TypedDict):
+    xdpi: int
+    ydpi: int
+
+class PrinterPaperSize(TypedDict):
+    x: int
+    y: int
+
+class SIZEL(TypedDict):
+    cx: int
+    cy: int
+
+class RECTL(TypedDict):
+    bottom: int
+    left: int
+    right: int
+    top: int
+
+class FORM_INFO_1(TypedDict):
+    Flags: int
+    Name: str
+    Size: SIZEL
+    ImageableArea: RECTL
 
 class ImportCallback: ...
 
@@ -162,13 +180,166 @@ class NCB:
     @property
     def Post(self): ...
 
-class PRINTER_DEFAULTS:
-    @property
-    def pDatatype(self) -> str: ...
-    @property
-    def pDevMode(self) -> PyDEVMODEW: ...
-    @property
-    def DesiredAccess(self): ...
+class PRINTER_DEFAULTS(TypedDict, total=False):
+    pDataType: str | None
+    pDevMode: PyDEVMODEW | None
+    DesiredAccess: Required[int]
+
+class PRINTER_INFO_1(TypedDict):
+    Flags: int
+    pDescription: str
+    pName: str
+    pComment: str
+
+PRINTER_INFO_1_TUPLE: TypeAlias = tuple[int, str, str, str]
+
+class PRINTER_INFO_2(TypedDict):
+    Attributes: int
+    AveragePPM: int
+    DefaultPriority: int
+    Priority: int
+    StartTime: int
+    Status: int
+    UntilTime: int
+    cJobs: int
+    pComment: str | None
+    pDatatype: str | None
+    pDevMode: PyDEVMODEW | None
+    pDriverName: str
+    pLocation: str | None
+    pParameters: str | None
+    pPortName: str
+    pPrintProcessor: str
+    pPrinterName: str
+    pSecurityDescriptor: PySECURITY_DESCRIPTOR | None
+    pSepFile: str | None
+    pServerName: str | None
+    pShareName: str | None
+
+PRINTER_INFO_2_TUPLE: TypeAlias = tuple[
+    str | None,  # pServerName
+    str,  # pPrinterName
+    str,  # pShareName
+    str,  # pPortName
+    str,  # pDriverName
+    str,  # pComment
+    str,  # pLocation
+    None,  # (always None)
+    str,  # pSepFile
+    str,  # pPrintProcessor
+    str,  # pDatatype
+    str,  # pParameters
+    None,  # (always None)
+    int,  # Attributes
+    int,  # Priority
+    int,  # DefaultPriority
+    int,  # StartTime
+    int,  # UntilTime
+    int,  # Status
+    int,  # cJobs
+    int,  # AveragePPM
+]
+
+class PRINTER_INFO_3(TypedDict):
+    pSecurityDescriptor: PySECURITY_DESCRIPTOR
+
+class PRINTER_INFO_4(TypedDict):
+    Attributes: int
+    pPrinterName: str
+    pServerName: str | None
+
+class PRINTER_INFO_5(TypedDict):
+    Attributes: int
+    DeviceNotSelectedTimeout: int
+    TransmissionRetryTimeout: int
+    pPortName: str
+    pPrinterName: str
+
+class PRINTER_INFO_6(TypedDict):
+    Status: int
+
+class PRINTER_INFO_7(TypedDict):
+    Action: int
+    ObjectGUID: str | None
+
+class PRINTER_INFO_8_9(TypedDict):
+    pDevMode: PyDEVMODEW | None
+
+class JOB_INFO_1(TypedDict):
+    JobId: int
+    pPrinterName: str
+    pMachineName: str
+    pUserName: str
+    pDocument: str
+    pDatatype: str
+    pStatus: str | None
+    Status: int
+    Priority: int
+    Position: int
+    TotalPages: int
+    PagesPrinted: int
+    Submitted: TimeType
+
+class JOB_INFO_2(JOB_INFO_1):
+    pNotifyName: str
+    pPrintProcessor: str
+    pParameters: str
+    pDriverName: str
+    pDevMode: PyDEVMODEW
+    pSecurityDescriptor: PySECURITY_DESCRIPTOR | None
+    StartTime: int
+    UntilTime: int
+    Size: int
+    Time: int
+
+class JOB_INFO_3(TypedDict):
+    JobId: int
+    NextJobId: int
+    Reserved: int
+
+class DRIVER_INFO_1(TypedDict):
+    Name: str
+
+MONITOR_INFO_1: TypeAlias = DRIVER_INFO_1
+PORT_INFO_1: TypeAlias = DRIVER_INFO_1
+
+class MONITOR_INFO_2(MONITOR_INFO_1):
+    DLLName: str
+    Environment: str
+
+class PORT_INFO_2(PORT_INFO_1):
+    Description: str
+    MonitorName: str
+    PortType: int
+    Reserved: int
+
+class DRIVER_INFO_2(DRIVER_INFO_1):
+    ConfigFile: str
+    DataFile: str
+    DriverPath: str
+    Environment: str
+    Version: int
+
+class DRIVER_INFO_3(DRIVER_INFO_2):
+    DefaultDataType: str | None
+    DependentFiles: list[str]
+    HelpFile: str | None
+    MonitorName: str | None
+
+class DRIVER_INFO_4(DRIVER_INFO_3):
+    PreviousNames: str | None
+
+class DRIVER_INFO_5(DRIVER_INFO_2):
+    ConfigVersion: int
+    DriverAttributes: int
+    DriverVersion: int
+
+class DRIVER_INFO_6(DRIVER_INFO_4):
+    MfgName: str
+    OEMUrl: str | None
+    Provider: str
+    DriverDate: TimeType
+    DriverVersion: int
 
 class PyACL:
     def Initialize(self) -> None: ...
@@ -1169,7 +1340,7 @@ class PyPROFILEINFO:
 class PyPerfMonManager:
     def Close(self) -> None: ...
 
-class PyPrinterHANDLE: ...
+class PyPrinterHANDLE(PyHANDLE): ...
 class PyRECT: ...
 class PyResourceId: ...
 class PySCROLLINFO: ...
