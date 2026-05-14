@@ -15,7 +15,6 @@ from grpc import (
     GenericRpcHandler,
     HandlerCallDetails,
     RpcError,
-    RpcMethodHandler,
     ServerCredentials,
     StatusCode,
     _Options,
@@ -368,6 +367,21 @@ class StreamStreamClientInterceptor(ClientInterceptor, metaclass=abc.ABCMeta):
         client_call_details: ClientCallDetails,
         request_iterator: AsyncIterable[_TRequest] | Iterable[_TRequest],
     ) -> AsyncIterator[_TResponse] | StreamStreamCall[_TRequest, _TResponse]: ...
+
+# Service-Side Handler:
+
+@type_check_only
+class RpcMethodHandler(Generic[_TRequest, _TResponse]):
+    request_streaming: bool
+    response_streaming: bool
+
+    request_deserializer: _Deserializer[_TRequest] | None
+    response_serializer: _Serializer[_TResponse] | None
+
+    unary_unary: Callable[[_TRequest, ServicerContext[_TRequest, _TResponse]], Awaitable[_TResponse]] | None
+    unary_stream: Callable[[_TRequest, ServicerContext[_TRequest, _TResponse]], AsyncIterator[_TResponse]] | None
+    stream_unary: Callable[[AsyncIterator[_TRequest], ServicerContext[_TRequest, _TResponse]], Awaitable[_TResponse]] | None
+    stream_stream: Callable[[AsyncIterator[_TRequest], ServicerContext[_TRequest, _TResponse]], AsyncIterator[_TResponse]] | None
 
 # Server-Side Interceptor:
 
