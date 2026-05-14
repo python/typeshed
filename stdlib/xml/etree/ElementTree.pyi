@@ -7,7 +7,6 @@ from typing_extensions import deprecated, disjoint_base
 from xml.parsers.expat import XMLParserType
 
 __all__ = [
-    "C14NWriterTarget",
     "Comment",
     "dump",
     "Element",
@@ -27,13 +26,16 @@ __all__ = [
     "tostring",
     "tostringlist",
     "TreeBuilder",
-    "VERSION",
     "XML",
     "XMLID",
     "XMLParser",
     "XMLPullParser",
     "register_namespace",
+    "canonicalize",
+    "C14NWriterTarget",
 ]
+if sys.version_info < (3, 15):
+    __all__ += ["VERSION"]
 
 _T = TypeVar("_T")
 _FileRead: TypeAlias = FileDescriptorOrPath | SupportsRead[bytes] | SupportsRead[str]
