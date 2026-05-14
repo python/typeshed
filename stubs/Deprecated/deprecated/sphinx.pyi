@@ -21,15 +21,7 @@ class SphinxAdapter(ClassicAdapter):
         extra_stacklevel: int = 0,
         line_length: int = 70,
     ) -> None: ...
-    @overload
-    def __call__(self, wrapped: _F) -> _F: ...
-    @overload
     def __call__(self, wrapped: _F) -> Callable[[_F], _F]: ...
-    """
-        :param wrapped: Wrapped class or function.
-
-        :return: the decorated class or function.
-    """
     def get_deprecated_msg(self, wrapped: Any, instance: Any) -> str: ...
     """
         :param wrapped: Wrapped class or function.
