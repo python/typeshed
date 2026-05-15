@@ -3,7 +3,7 @@ from _typeshed import MaybeNone, ReadableBuffer, StrOrBytesPath
 from collections.abc import Callable, Collection, Iterable, Mapping, Sequence
 from types import GenericAlias, TracebackType
 from typing import IO, Any, AnyStr, Final, Generic, Literal, TypeAlias, TypeVar, overload
-from typing_extensions import Self
+from typing_extensions import Self, TypeForm
 
 __all__ = [
     "Popen",
@@ -84,7 +84,7 @@ class CompletedProcess(Generic[_T]):
     stderr: _T
     def __init__(self, args: _CMD, returncode: int, stdout: _T | None = None, stderr: _T | None = None) -> None: ...
     def check_returncode(self) -> None: ...
-    def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
+    def __class_getitem__(cls, item: TypeForm[Any], /) -> GenericAlias: ...
 
 if sys.version_info >= (3, 11):
     # 3.11 adds "process_group" argument
@@ -1426,7 +1426,7 @@ class Popen(Generic[AnyStr]):
         self, exc_type: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
     ) -> None: ...
     def __del__(self) -> None: ...
-    def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
+    def __class_getitem__(cls, item: TypeForm[Any], /) -> GenericAlias: ...
 
 # The result really is always a str.
 if sys.version_info >= (3, 11):

@@ -21,7 +21,7 @@ from typing import (
     overload,
     type_check_only,
 )
-from typing_extensions import Never, Self
+from typing_extensions import Never, Self, TypeForm
 from unittest._log import _AssertLogsContext, _LoggingWatcher
 from warnings import WarningMessage
 
@@ -328,7 +328,7 @@ class _AssertRaisesContext(_AssertRaisesBaseContext, Generic[_E]):
     def __exit__(
         self, exc_type: type[BaseException] | None, exc_value: BaseException | None, tb: TracebackType | None
     ) -> bool: ...
-    def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
+    def __class_getitem__(cls, item: TypeForm[Any], /) -> GenericAlias: ...
 
 class _AssertWarnsContext(_AssertRaisesBaseContext):
     warning: WarningMessage

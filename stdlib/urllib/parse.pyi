@@ -2,7 +2,7 @@ import sys
 from collections.abc import Iterable, Mapping, Sequence
 from types import GenericAlias
 from typing import Any, AnyStr, Final, Generic, Literal, NamedTuple, Protocol, TypeAlias, overload, type_check_only
-from typing_extensions import TypeVar
+from typing_extensions import TypeForm, TypeVar
 
 __all__ = [
     "urlparse",
@@ -61,7 +61,7 @@ class _NetlocResultMixinBase(Generic[AnyStr]):
     def hostname(self) -> AnyStr | None: ...
     @property
     def port(self) -> int | None: ...
-    def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
+    def __class_getitem__(cls, item: TypeForm[Any], /) -> GenericAlias: ...
 
 class _NetlocResultMixinStr(_NetlocResultMixinBase[str], _ResultMixinStr):
     __slots__ = ()

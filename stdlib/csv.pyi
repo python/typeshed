@@ -24,7 +24,7 @@ from _typeshed import SupportsWrite
 from collections.abc import Collection, Iterable, Mapping, Sequence
 from types import GenericAlias
 from typing import Any, Generic, Literal, TypeVar, overload
-from typing_extensions import Self
+from typing_extensions import Self, TypeForm
 
 __all__ = [
     "QUOTE_MINIMAL",
@@ -115,7 +115,7 @@ class DictReader(Generic[_T]):
     def __iter__(self) -> Self: ...
     def __next__(self) -> dict[_T | Any, str | Any]: ...
     if sys.version_info >= (3, 12):
-        def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
+        def __class_getitem__(cls, item: TypeForm[Any], /) -> GenericAlias: ...
 
 class DictWriter(Generic[_T]):
     fieldnames: Collection[_T]
@@ -143,7 +143,7 @@ class DictWriter(Generic[_T]):
     def writerow(self, rowdict: Mapping[_T, Any]) -> Any: ...
     def writerows(self, rowdicts: Iterable[Mapping[_T, Any]]) -> None: ...
     if sys.version_info >= (3, 12):
-        def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
+        def __class_getitem__(cls, item: TypeForm[Any], /) -> GenericAlias: ...
 
 class Sniffer:
     preferred: list[str]

@@ -4,7 +4,7 @@ from _weakrefset import WeakSet as WeakSet
 from collections.abc import Callable, Iterable, Iterator, Mapping, MutableMapping
 from types import GenericAlias
 from typing import Any, ClassVar, Generic, ParamSpec, TypeVar, final, overload
-from typing_extensions import Self, disjoint_base
+from typing_extensions import Self, TypeForm, disjoint_base
 
 __all__ = [
     "ref",
@@ -59,7 +59,7 @@ class ReferenceType(Generic[_T]):  # "weakref"
     def __call__(self) -> _T | None: ...
     def __eq__(self, value: object, /) -> bool: ...
     def __hash__(self) -> int: ...
-    def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
+    def __class_getitem__(cls, item: TypeForm[Any], /) -> GenericAlias: ...
 
 ref = ReferenceType
 

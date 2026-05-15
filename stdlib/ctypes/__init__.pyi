@@ -27,7 +27,7 @@ from _typeshed import StrPath, SupportsBool, SupportsLen
 from ctypes._endian import BigEndianStructure as BigEndianStructure, LittleEndianStructure as LittleEndianStructure
 from types import GenericAlias
 from typing import Any, ClassVar, Final, Generic, Literal, TypeAlias, TypeVar, overload, type_check_only
-from typing_extensions import Self, deprecated
+from typing_extensions import Self, TypeForm, deprecated
 
 if sys.platform == "win32":
     from _ctypes import FormatError as FormatError, get_last_error as get_last_error, set_last_error as set_last_error
@@ -108,7 +108,7 @@ class LibraryLoader(Generic[_DLLT]):
     def __getattr__(self, name: str) -> _DLLT: ...
     def __getitem__(self, name: str) -> _DLLT: ...
     def LoadLibrary(self, name: str) -> _DLLT: ...
-    def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
+    def __class_getitem__(cls, item: TypeForm[Any], /) -> GenericAlias: ...
 
 cdll: LibraryLoader[CDLL]
 if sys.platform == "win32":
@@ -214,7 +214,7 @@ if sys.version_info >= (3, 14):
 class py_object(_CanCastTo, _SimpleCData[_T]):
     _type_: ClassVar[Literal["O"]]
     if sys.version_info >= (3, 14):
-        def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
+        def __class_getitem__(cls, item: TypeForm[Any], /) -> GenericAlias: ...
 
 class c_bool(_SimpleCData[bool]):
     _type_: ClassVar[Literal["?"]]

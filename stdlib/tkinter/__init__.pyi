@@ -20,7 +20,7 @@ from typing import (
     overload,
     type_check_only,
 )
-from typing_extensions import TypeVarTuple, Unpack, deprecated, disjoint_base
+from typing_extensions import TypeForm, TypeVarTuple, Unpack, deprecated, disjoint_base
 
 if sys.version_info >= (3, 11):
     from enum import StrEnum
@@ -317,7 +317,7 @@ class Event(Generic[_W_co]):
         detail: str
         user_data: str
     if sys.version_info >= (3, 14):
-        def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
+        def __class_getitem__(cls, item: TypeForm[Any], /) -> GenericAlias: ...
 
 def NoDefaultRoot() -> None: ...
 

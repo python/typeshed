@@ -4,6 +4,7 @@ from _typeshed import SupportsRichComparisonT
 from threading import Condition, Lock
 from types import GenericAlias
 from typing import Any, Generic, TypeVar
+from typing_extensions import TypeForm
 
 __all__ = ["Empty", "Full", "Queue", "PriorityQueue", "LifoQueue", "SimpleQueue"]
 if sys.version_info >= (3, 13):
@@ -46,7 +47,7 @@ class Queue(Generic[_T]):
     def qsize(self) -> int: ...
     def _qsize(self) -> int: ...
     def task_done(self) -> None: ...
-    def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
+    def __class_getitem__(cls, item: TypeForm[Any], /) -> GenericAlias: ...
 
 class PriorityQueue(Queue[SupportsRichComparisonT]):
     queue: list[SupportsRichComparisonT]

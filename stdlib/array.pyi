@@ -3,7 +3,7 @@ from _typeshed import ReadableBuffer, SupportsRead, SupportsWrite
 from collections.abc import Iterable, MutableSequence
 from types import GenericAlias
 from typing import Any, ClassVar, Literal, SupportsIndex, TypeAlias, TypeVar, overload
-from typing_extensions import Self, deprecated, disjoint_base
+from typing_extensions import Self, TypeForm, deprecated, disjoint_base
 
 _IntTypeCode: TypeAlias = Literal["b", "B", "h", "H", "i", "I", "l", "L", "q", "Q"]
 if sys.version_info >= (3, 15):
@@ -103,6 +103,6 @@ class array(MutableSequence[_T]):
     def __buffer__(self, flags: int, /) -> memoryview: ...
     def __release_buffer__(self, buffer: memoryview, /) -> None: ...
     if sys.version_info >= (3, 12):
-        def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
+        def __class_getitem__(cls, item: TypeForm[Any], /) -> GenericAlias: ...
 
 ArrayType = array

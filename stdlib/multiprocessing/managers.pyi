@@ -15,7 +15,7 @@ from collections.abc import (
 )
 from types import GenericAlias, TracebackType
 from typing import Any, AnyStr, ClassVar, Generic, SupportsIndex, TypeAlias, TypeVar, overload
-from typing_extensions import Self
+from typing_extensions import Self, TypeForm
 
 from . import pool
 from .connection import Connection, _Address
@@ -70,7 +70,7 @@ class ValueProxy(BaseProxy, Generic[_T]):
     def get(self) -> _T: ...
     def set(self, value: _T) -> None: ...
     value: _T
-    def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
+    def __class_getitem__(cls, item: TypeForm[Any], /) -> GenericAlias: ...
 
 if sys.version_info >= (3, 13):
     class _BaseDictProxy(BaseProxy, MutableMapping[_KT, _VT]):
@@ -185,7 +185,7 @@ if sys.version_info >= (3, 14):
         def __ror__(self, value: AbstractSet[_S], /) -> set[_T | _S]: ...  # type: ignore[misc]
         def __rsub__(self, value: AbstractSet[_T], /) -> set[_T]: ...
         def __rxor__(self, value: AbstractSet[_S], /) -> set[_T | _S]: ...  # type: ignore[misc]
-        def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
+        def __class_getitem__(cls, item: TypeForm[Any], /) -> GenericAlias: ...
 
     class SetProxy(_BaseSetProxy[_T]): ...
 
