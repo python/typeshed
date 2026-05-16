@@ -166,15 +166,12 @@ c_buffer = create_string_buffer
 
 def create_unicode_buffer(init: int | str, size: int | None = None) -> Array[c_wchar]: ...
 
-if sys.version_info >= (3, 13):
+if sys.version_info < (3, 15):
     @deprecated("Deprecated since Python 3.13; will be removed in Python 3.15.")
     def SetPointerType(pointer: type[_Pointer[Any]], cls: _CTypeBaseType) -> None: ...
-    @deprecated("Soft deprecated since Python 3.13. Use multiplication instead.")
-    def ARRAY(typ: _CT, len: int) -> Array[_CT]: ...
 
-else:
-    def SetPointerType(pointer: type[_Pointer[Any]], cls: _CTypeBaseType) -> None: ...
-    def ARRAY(typ: _CT, len: int) -> Array[_CT]: ...
+@deprecated("Soft deprecated since Python 3.13. Use multiplication instead.")
+def ARRAY(typ: _CT, len: int) -> Array[_CT]: ...
 
 if sys.platform == "win32":
     def DllCanUnloadNow() -> int: ...
@@ -336,17 +333,26 @@ if sys.version_info >= (3, 14) and sys.platform != "win32":
     # https://github.com/python/cpython/issues/148464
 
     class c_double_complex(_SimpleCData[complex]):
-        _type_: ClassVar[Literal["D"]]
+        if sys.version_info >= (3, 15):
+            _type_: ClassVar[Literal["Zd"]]
+        else:
+            _type_: ClassVar[Literal["D"]]
         __ctype_be__: ClassVar[type[Self]]
         __ctype_le__: ClassVar[type[Self]]
 
     class c_float_complex(_SimpleCData[complex]):
-        _type_: ClassVar[Literal["F"]]
+        if sys.version_info >= (3, 15):
+            _type_: ClassVar[Literal["Zf"]]
+        else:
+            _type_: ClassVar[Literal["F"]]
         __ctype_be__: ClassVar[type[Self]]
         __ctype_le__: ClassVar[type[Self]]
 
     class c_longdouble_complex(_SimpleCData[complex]):
-        _type_: ClassVar[Literal["G"]]
+        if sys.version_info >= (3, 15):
+            _type_: ClassVar[Literal["Zg"]]
+        else:
+            _type_: ClassVar[Literal["G"]]
 
 class c_char(_SimpleCData[bytes]):
     _type_: ClassVar[Literal["c"]]

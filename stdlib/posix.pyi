@@ -263,6 +263,9 @@ if sys.platform != "win32":
     if sys.platform != "linux" and sys.version_info >= (3, 13):
         from os import O_EXEC as O_EXEC, O_SEARCH as O_SEARCH
 
+    if sys.version_info >= (3, 15):
+        from os import NODEV as NODEV
+
     if sys.platform != "darwin":
         from os import (
             POSIX_FADV_DONTNEED as POSIX_FADV_DONTNEED,

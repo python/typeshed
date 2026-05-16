@@ -17,6 +17,9 @@ from types import GenericAlias
 from typing import Any, ClassVar, Generic, NoReturn, SupportsIndex, TypeVar, final, overload, type_check_only
 from typing_extensions import Self, disjoint_base
 
+if sys.version_info >= (3, 15):
+    from builtins import frozendict
+
 __all__ = ["ChainMap", "Counter", "OrderedDict", "UserDict", "UserList", "UserString", "defaultdict", "deque", "namedtuple"]
 
 _S = TypeVar("_S")
@@ -312,6 +315,9 @@ class Counter(dict[_T, int], Generic[_T]):
     def __sub__(self, other: Counter[_T]) -> Counter[_T]: ...
     def __and__(self, other: Counter[_T]) -> Counter[_T]: ...
     def __or__(self, other: Counter[_S]) -> Counter[_T | _S]: ...  # type: ignore[override]
+    if sys.version_info >= (3, 15):
+        def __xor__(self, other: Counter[_S]) -> Counter[_T | _S]: ...  # type: ignore[override]
+
     def __pos__(self) -> Counter[_T]: ...
     def __neg__(self) -> Counter[_T]: ...
     # several type: ignores because __iadd__ is supposedly incompatible with __add__, etc.
@@ -319,6 +325,8 @@ class Counter(dict[_T, int], Generic[_T]):
     def __isub__(self, other: SupportsItems[_T, int]) -> Self: ...
     def __iand__(self, other: SupportsItems[_T, int]) -> Self: ...
     def __ior__(self, other: SupportsItems[_T, int]) -> Self: ...  # type: ignore[override,misc]
+    if sys.version_info >= (3, 15):
+        def __ixor__(self, other: Counter[_T]) -> Self: ...  # type: ignore[misc]
 
 # The pure-Python implementations of the "views" classes
 # These are exposed at runtime in `collections/__init__.py`
@@ -381,14 +389,26 @@ class OrderedDict(dict[_KT, _VT]):
     @overload
     def pop(self, key: _KT, default: _T) -> _VT | _T: ...
     def __eq__(self, value: object, /) -> bool: ...
-    @overload
-    def __or__(self, value: dict[_KT, _VT], /) -> Self: ...
-    @overload
-    def __or__(self, value: dict[_T1, _T2], /) -> OrderedDict[_KT | _T1, _VT | _T2]: ...
-    @overload
-    def __ror__(self, value: dict[_KT, _VT], /) -> Self: ...
-    @overload
-    def __ror__(self, value: dict[_T1, _T2], /) -> OrderedDict[_KT | _T1, _VT | _T2]: ...  # type: ignore[misc]
+    if sys.version_info >= (3, 15):
+        @overload
+        def __or__(self, value: dict[_KT, _VT] | frozendict[_KT, _VT], /) -> Self: ...
+        @overload
+        def __or__(self, value: dict[_T1, _T2] | frozendict[_T1, _T2], /) -> OrderedDict[_KT | _T1, _VT | _T2]: ...
+        @overload  # type: ignore[override]
+        def __ror__(self, value: dict[_KT, _VT] | frozendict[_KT, _VT], /) -> Self: ...  # type: ignore[override,misc]
+        @overload
+        def __ror__(  # type: ignore[misc]
+            self, value: dict[_T1, _T2] | frozendict[_T1, _T2], /
+        ) -> OrderedDict[_KT | _T1, _VT | _T2]: ...
+    else:
+        @overload
+        def __or__(self, value: dict[_KT, _VT], /) -> Self: ...
+        @overload
+        def __or__(self, value: dict[_T1, _T2], /) -> OrderedDict[_KT | _T1, _VT | _T2]: ...
+        @overload
+        def __ror__(self, value: dict[_KT, _VT], /) -> Self: ...
+        @overload
+        def __ror__(self, value: dict[_T1, _T2], /) -> OrderedDict[_KT | _T1, _VT | _T2]: ...  # type: ignore[misc]
 
 @disjoint_base
 class defaultdict(dict[_KT, _VT]):
@@ -429,11 +449,13 @@ class defaultdict(dict[_KT, _VT]):
     def __missing__(self, key: _KT, /) -> _VT: ...
     def __copy__(self) -> Self: ...
     def copy(self) -> Self: ...
-    @overload
+    # defaultdict rejects frozendict in its direct __or__/__ror__ methods, even though dict accepts it.
+    # See https://github.com/python/cpython/issues/149534.
+    @overload  # type: ignore[override]
     def __or__(self, value: dict[_KT, _VT], /) -> Self: ...
     @overload
     def __or__(self, value: dict[_T1, _T2], /) -> defaultdict[_KT | _T1, _VT | _T2]: ...
-    @overload
+    @overload  # type: ignore[override]
     def __ror__(self, value: dict[_KT, _VT], /) -> Self: ...
     @overload
     def __ror__(self, value: dict[_T1, _T2], /) -> defaultdict[_KT | _T1, _VT | _T2]: ...  # type: ignore[misc]

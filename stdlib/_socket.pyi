@@ -230,6 +230,9 @@ if sys.platform != "win32":
     IP_RETOPTS: Final[int]
 if sys.version_info >= (3, 13) and sys.platform == "linux":
     CAN_RAW_ERR_FILTER: Final[int]
+if sys.version_info >= (3, 15):
+    if sys.platform == "win32" or sys.platform == "linux":
+        IPV6_HDRINCL: Final[int]
 if sys.version_info >= (3, 14):
     IP_RECVTTL: Final[int]
 
@@ -437,6 +440,35 @@ if sys.platform == "linux":
     CAN_RAW_JOIN_FILTERS: Final[int]
     # Availability: Linux >= 2.6.25
     CAN_ISOTP: Final[int]
+    if sys.version_info >= (3, 15):
+        CAN_ISOTP_CHK_PAD_DATA: Final[int]
+        CAN_ISOTP_CHK_PAD_LEN: Final[int]
+        CAN_ISOTP_DEFAULT_EXT_ADDRESS: Final[int]
+        CAN_ISOTP_DEFAULT_FLAGS: Final[int]
+        CAN_ISOTP_DEFAULT_FRAME_TXTIME: Final[int]
+        CAN_ISOTP_DEFAULT_LL_MTU: Final[int]
+        CAN_ISOTP_DEFAULT_LL_TX_DL: Final[int]
+        CAN_ISOTP_DEFAULT_LL_TX_FLAGS: Final[int]
+        CAN_ISOTP_DEFAULT_PAD_CONTENT: Final[int]
+        CAN_ISOTP_DEFAULT_RECV_BS: Final[int]
+        CAN_ISOTP_DEFAULT_RECV_STMIN: Final[int]
+        CAN_ISOTP_DEFAULT_RECV_WFTMAX: Final[int]
+        CAN_ISOTP_EXTEND_ADDR: Final[int]
+        CAN_ISOTP_FORCE_RXSTMIN: Final[int]
+        CAN_ISOTP_FORCE_TXSTMIN: Final[int]
+        CAN_ISOTP_HALF_DUPLEX: Final[int]
+        CAN_ISOTP_LL_OPTS: Final[int]
+        CAN_ISOTP_LISTEN_MODE: Final[int]
+        CAN_ISOTP_OPTS: Final[int]
+        CAN_ISOTP_RECV_FC: Final[int]
+        CAN_ISOTP_RX_EXT_ADDR: Final[int]
+        CAN_ISOTP_RX_PADDING: Final[int]
+        CAN_ISOTP_RX_STMIN: Final[int]
+        CAN_ISOTP_SF_BROADCAST: Final[int]
+        CAN_ISOTP_TX_PADDING: Final[int]
+        CAN_ISOTP_TX_STMIN: Final[int]
+        CAN_ISOTP_WAIT_TX_DONE: Final[int]
+        SOL_CAN_ISOTP: Final[int]
     # Availability: Linux >= 5.4
     CAN_J1939: Final[int]
 

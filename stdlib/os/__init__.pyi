@@ -447,7 +447,9 @@ if sys.platform != "win32" and sys.version_info >= (3, 13):
     __all__ += ["grantpt", "posix_openpt", "ptsname", "unlockpt"]
 if sys.platform != "win32" and sys.version_info >= (3, 11):
     __all__ += ["login_tty"]
-if sys.platform != "win32":
+if sys.platform != "win32" and sys.version_info >= (3, 15):
+    __all__ += ["NODEV", "O_FSYNC"]
+elif sys.platform != "win32":
     __all__ += ["O_FSYNC"]
 if sys.platform != "darwin" and sys.platform != "win32":
     __all__ += [
@@ -666,6 +668,9 @@ if sys.platform == "darwin":
     O_EVTONLY: Final[int]
     O_NOFOLLOW_ANY: Final[int]
     O_SYMLINK: Final[int]
+
+if sys.platform != "win32" and sys.version_info >= (3, 15):
+    NODEV: Final[int]
 
 if sys.platform != "win32":
     O_FSYNC: Final[int]
@@ -1404,48 +1409,27 @@ class _wrap_close:
     def write(self, s: str, /) -> int: ...
     def writelines(self, lines: Iterable[str], /) -> None: ...
 
-if sys.version_info >= (3, 14):
-    @deprecated("Soft deprecated. Use the subprocess module instead.")
-    def popen(cmd: str, mode: str = "r", buffering: int = -1) -> _wrap_close: ...
-    @deprecated("Soft deprecated. Use the subprocess module instead.")
-    def spawnl(mode: int, file: StrOrBytesPath, arg0: StrOrBytesPath, *args: StrOrBytesPath) -> int: ...
-    @deprecated("Soft deprecated. Use the subprocess module instead.")
-    def spawnle(mode: int, file: StrOrBytesPath, arg0: StrOrBytesPath, *args: Any) -> int: ...  # Imprecise sig
-
-else:
-    def popen(cmd: str, mode: str = "r", buffering: int = -1) -> _wrap_close: ...
-    def spawnl(mode: int, file: StrOrBytesPath, arg0: StrOrBytesPath, *args: StrOrBytesPath) -> int: ...
-    def spawnle(mode: int, file: StrOrBytesPath, arg0: StrOrBytesPath, *args: Any) -> int: ...  # Imprecise sig
+@deprecated("Soft deprecated. Use the subprocess module instead.")
+def popen(cmd: str, mode: str = "r", buffering: int = -1) -> _wrap_close: ...
+@deprecated("Soft deprecated. Use the subprocess module instead.")
+def spawnl(mode: int, file: StrOrBytesPath, arg0: StrOrBytesPath, *args: StrOrBytesPath) -> int: ...
+@deprecated("Soft deprecated. Use the subprocess module instead.")
+def spawnle(mode: int, file: StrOrBytesPath, arg0: StrOrBytesPath, *args: Any) -> int: ...  # Imprecise sig
 
 if sys.platform != "win32":
-    if sys.version_info >= (3, 14):
-        @deprecated("Soft deprecated. Use the subprocess module instead.")
-        def spawnv(mode: int, file: StrOrBytesPath, args: _ExecVArgs) -> int: ...
-        @deprecated("Soft deprecated. Use the subprocess module instead.")
-        def spawnve(mode: int, file: StrOrBytesPath, args: _ExecVArgs, env: _ExecEnv) -> int: ...
-
-    else:
-        def spawnv(mode: int, file: StrOrBytesPath, args: _ExecVArgs) -> int: ...
-        def spawnve(mode: int, file: StrOrBytesPath, args: _ExecVArgs, env: _ExecEnv) -> int: ...
-
-else:
-    if sys.version_info >= (3, 14):
-        @deprecated("Soft deprecated. Use the subprocess module instead.")
-        def spawnv(mode: int, path: StrOrBytesPath, argv: _ExecVArgs, /) -> int: ...
-        @deprecated("Soft deprecated. Use the subprocess module instead.")
-        def spawnve(mode: int, path: StrOrBytesPath, argv: _ExecVArgs, env: _ExecEnv, /) -> int: ...
-
-    else:
-        def spawnv(mode: int, path: StrOrBytesPath, argv: _ExecVArgs, /) -> int: ...
-        def spawnve(mode: int, path: StrOrBytesPath, argv: _ExecVArgs, env: _ExecEnv, /) -> int: ...
-
-if sys.version_info >= (3, 14):
     @deprecated("Soft deprecated. Use the subprocess module instead.")
-    def system(command: StrOrBytesPath) -> int: ...
+    def spawnv(mode: int, file: StrOrBytesPath, args: _ExecVArgs) -> int: ...
+    @deprecated("Soft deprecated. Use the subprocess module instead.")
+    def spawnve(mode: int, file: StrOrBytesPath, args: _ExecVArgs, env: _ExecEnv) -> int: ...
 
 else:
-    def system(command: StrOrBytesPath) -> int: ...
+    @deprecated("Soft deprecated. Use the subprocess module instead.")
+    def spawnv(mode: int, path: StrOrBytesPath, argv: _ExecVArgs, /) -> int: ...
+    @deprecated("Soft deprecated. Use the subprocess module instead.")
+    def spawnve(mode: int, path: StrOrBytesPath, argv: _ExecVArgs, env: _ExecEnv, /) -> int: ...
 
+@deprecated("Soft deprecated. Use the subprocess module instead.")
+def system(command: StrOrBytesPath) -> int: ...
 @final
 class times_result(structseq[float], tuple[float, float, float, float, float]):
     __match_args__: Final = ("user", "system", "children_user", "children_system", "elapsed")
@@ -1470,22 +1454,14 @@ if sys.platform == "win32":
     ) -> None: ...
 
 else:
-    if sys.version_info >= (3, 14):
-        @deprecated("Soft deprecated. Use the subprocess module instead.")
-        def spawnlp(mode: int, file: StrOrBytesPath, arg0: StrOrBytesPath, *args: StrOrBytesPath) -> int: ...
-        @deprecated("Soft deprecated. Use the subprocess module instead.")
-        def spawnlpe(mode: int, file: StrOrBytesPath, arg0: StrOrBytesPath, *args: Any) -> int: ...  # Imprecise signature
-        @deprecated("Soft deprecated. Use the subprocess module instead.")
-        def spawnvp(mode: int, file: StrOrBytesPath, args: _ExecVArgs) -> int: ...
-        @deprecated("Soft deprecated. Use the subprocess module instead.")
-        def spawnvpe(mode: int, file: StrOrBytesPath, args: _ExecVArgs, env: _ExecEnv) -> int: ...
-
-    else:
-        def spawnlp(mode: int, file: StrOrBytesPath, arg0: StrOrBytesPath, *args: StrOrBytesPath) -> int: ...
-        def spawnlpe(mode: int, file: StrOrBytesPath, arg0: StrOrBytesPath, *args: Any) -> int: ...  # Imprecise signature
-        def spawnvp(mode: int, file: StrOrBytesPath, args: _ExecVArgs) -> int: ...
-        def spawnvpe(mode: int, file: StrOrBytesPath, args: _ExecVArgs, env: _ExecEnv) -> int: ...
-
+    @deprecated("Soft deprecated. Use the subprocess module instead.")
+    def spawnlp(mode: int, file: StrOrBytesPath, arg0: StrOrBytesPath, *args: StrOrBytesPath) -> int: ...
+    @deprecated("Soft deprecated. Use the subprocess module instead.")
+    def spawnlpe(mode: int, file: StrOrBytesPath, arg0: StrOrBytesPath, *args: Any) -> int: ...  # Imprecise signature
+    @deprecated("Soft deprecated. Use the subprocess module instead.")
+    def spawnvp(mode: int, file: StrOrBytesPath, args: _ExecVArgs) -> int: ...
+    @deprecated("Soft deprecated. Use the subprocess module instead.")
+    def spawnvpe(mode: int, file: StrOrBytesPath, args: _ExecVArgs, env: _ExecEnv) -> int: ...
     def wait() -> tuple[int, int]: ...  # Unix only
     # Added to MacOS in 3.13
     if sys.platform != "darwin" or sys.version_info >= (3, 13):
