@@ -7,6 +7,7 @@ from typing_extensions import deprecated, disjoint_base
 from xml.parsers.expat import XMLParserType
 
 __all__ = [
+    "C14NWriterTarget",
     "Comment",
     "dump",
     "Element",
@@ -31,8 +32,6 @@ __all__ = [
     "XMLParser",
     "XMLPullParser",
     "register_namespace",
-    "canonicalize",
-    "C14NWriterTarget",
 ]
 if sys.version_info < (3, 15):
     __all__ += ["VERSION"]
