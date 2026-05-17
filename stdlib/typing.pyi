@@ -178,6 +178,7 @@ class TypeVar:
         def __new__(
             cls,
             name: str,
+            /,
             *constraints: Any,  # AnnotationForm
             bound: Any | None = None,  # AnnotationForm
             contravariant: bool = False,
@@ -189,6 +190,7 @@ class TypeVar:
         def __new__(
             cls,
             name: str,
+            /,
             *constraints: Any,  # AnnotationForm
             bound: Any | None = None,  # AnnotationForm
             covariant: bool = False,
@@ -199,6 +201,7 @@ class TypeVar:
         def __new__(
             cls,
             name: str,
+            /,
             *constraints: Any,  # AnnotationForm
             bound: Any | None = None,  # AnnotationForm
             covariant: bool = False,
@@ -208,6 +211,7 @@ class TypeVar:
         def __init__(
             self,
             name: str,
+            /,
             *constraints: Any,  # AnnotationForm
             bound: Any | None = None,  # AnnotationForm
             covariant: bool = False,
@@ -280,6 +284,7 @@ if sys.version_info >= (3, 11):
             def __new__(
                 cls,
                 name: str,
+                /,
                 *,
                 bound: Any | None = None,  # AnnotationForm
                 covariant: bool = False,
@@ -288,11 +293,11 @@ if sys.version_info >= (3, 11):
                 infer_variance: bool = False,
             ) -> Self: ...
         elif sys.version_info >= (3, 13):
-            def __new__(cls, name: str, *, default: Any = ...) -> Self: ...  # AnnotationForm
+            def __new__(cls, name: str, /, *, default: Any = ...) -> Self: ...  # AnnotationForm
         elif sys.version_info >= (3, 12):
-            def __new__(cls, name: str) -> Self: ...
+            def __new__(cls, name: str, /) -> Self: ...
         else:
-            def __init__(self, name: str) -> None: ...
+            def __init__(self, name: str, /) -> None: ...
 
         def __iter__(self) -> Any: ...
         def __typing_subst__(self, arg: Never, /) -> Never: ...
@@ -345,6 +350,7 @@ class ParamSpec:
         def __new__(
             cls,
             name: str,
+            /,
             *,
             bound: Any | None = None,  # AnnotationForm
             contravariant: bool = False,
@@ -356,6 +362,7 @@ class ParamSpec:
         def __new__(
             cls,
             name: str,
+            /,
             *,
             bound: Any | None = None,  # AnnotationForm
             contravariant: bool = False,
@@ -364,11 +371,11 @@ class ParamSpec:
         ) -> Self: ...
     elif sys.version_info >= (3, 11):
         def __new__(
-            cls, name: str, *, bound: Any | None = None, contravariant: bool = False, covariant: bool = False  # AnnotationForm
+            cls, name: str, /, *, bound: Any | None = None, contravariant: bool = False, covariant: bool = False  # AnnotationForm
         ) -> Self: ...
     else:
         def __init__(
-            self, name: str, *, bound: Any | None = None, contravariant: bool = False, covariant: bool = False  # AnnotationForm
+            self, name: str, /, *, bound: Any | None = None, contravariant: bool = False, covariant: bool = False  # AnnotationForm
         ) -> None: ...
 
     @property
