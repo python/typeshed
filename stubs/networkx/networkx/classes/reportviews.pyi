@@ -41,10 +41,12 @@ class NodeView(Mapping[_Node, _NodeData], AbstractSet[_Node], Generic[_Node, _No
     def __iter__(self) -> Iterator[_Node]: ...
     def __getitem__(self, n: _Node) -> _NodeData: ...
     def __contains__(self, n: object) -> bool: ...
+
     @overload
     def __call__(self, data: Literal[False] = False, default=None) -> Self: ...
     @overload
     def __call__(self, data: Literal[True] | str, default=None) -> NodeDataView[_Node, _NodeData, _EdgeData]: ...
+
     @overload
     def data(self, data: Literal[False], default=None) -> Self: ...
     @overload
@@ -62,10 +64,12 @@ class DiDegreeView(Generic[_Node, _NodeData, _EdgeData]):
     def __init__(
         self, G: Graph[_Node, _NodeData, _EdgeData], nbunch: _NBunch[_Node] = None, weight: None | bool | str = None
     ) -> None: ...
+
     @overload  # Use this overload first in case _Node=str, since `str` matches `Iterable[str]`
     def __call__(self, nbunch: _Node, weight: None | bool | str = None) -> int: ...  # type: ignore[overload-overlap]
     @overload
     def __call__(self, nbunch: Iterable[_Node] | None = None, weight: None | bool | str = None) -> Self: ...
+
     def __getitem__(self, n: _Node) -> int: ...
     def __iter__(self) -> Iterator[tuple[_Node, int]]: ...
     def __len__(self) -> int: ...
@@ -113,6 +117,7 @@ class OutEdgeView(AbstractSet[Incomplete], Mapping[Incomplete, Incomplete], Edge
     def __contains__(self, e: _Edge[_Node]) -> bool: ...  # type: ignore[override]
     def __getitem__(self, e: _Edge[_Node]) -> _EdgeData: ...
     dataview = OutEdgeDataView
+
     @overload
     def __call__(self, nbunch: None = None, data: Literal[False] = False, *, default: Unused = None) -> Self: ...  # type: ignore[overload-overlap]
     @overload
@@ -135,6 +140,7 @@ class OutEdgeView(AbstractSet[Incomplete], Mapping[Incomplete, Incomplete], Edge
     def __call__(
         self, nbunch: _NBunch[_Node] = None, *, data: str, default: _U | None = None
     ) -> OutEdgeDataView[_Node, tuple[_Node, _Node, _U]]: ...
+
     @overload
     def data(self, data: Literal[False], default: Unused = None, nbunch: None = None) -> Self: ...
     @overload
@@ -149,6 +155,7 @@ class OutEdgeView(AbstractSet[Incomplete], Mapping[Incomplete, Incomplete], Edge
 class EdgeView(OutEdgeView[_Node, _NodeData, _EdgeData]):
     __slots__ = ()
     dataview = EdgeDataView
+
     # Have to override parent's overloads with the proper return type based on dataview
     @overload
     def __call__(self, nbunch: None = None, data: Literal[False] = False, *, default: Unused = None) -> Self: ...  # type: ignore[overload-overlap]
@@ -172,6 +179,7 @@ class EdgeView(OutEdgeView[_Node, _NodeData, _EdgeData]):
     def __call__(
         self, nbunch: _NBunch[_Node] = None, *, data: str, default: _U | None = None
     ) -> EdgeDataView[_Node, tuple[_Node, _Node, _U]]: ...
+
     @overload
     def data(self, data: Literal[False], default: Unused = None, nbunch: None = None) -> Self: ...
     @overload
@@ -186,6 +194,7 @@ class EdgeView(OutEdgeView[_Node, _NodeData, _EdgeData]):
 class InEdgeView(OutEdgeView[_Node, _NodeData, _EdgeData]):
     __slots__ = ()
     dataview = InEdgeDataView
+
     # Have to override parent's overloads with the proper return type based on dataview
     @overload
     def __call__(self, nbunch: None = None, data: Literal[False] = False, *, default: Unused = None) -> Self: ...  # type: ignore[overload-overlap]
@@ -209,6 +218,7 @@ class InEdgeView(OutEdgeView[_Node, _NodeData, _EdgeData]):
     def __call__(
         self, nbunch: _NBunch[_Node] = None, *, data: str, default: _U | None = None
     ) -> InEdgeDataView[_Node, tuple[_Node, _Node, _U]]: ...
+
     @overload
     def data(self, data: Literal[False], default: Unused = None, nbunch: None = None) -> Self: ...
     @overload
@@ -225,6 +235,7 @@ class OutMultiEdgeView(OutEdgeView[_Node, _NodeData, _EdgeData]):
     def __iter__(self) -> Iterator[tuple[_Node, _Node, Incomplete]]: ...  # type: ignore[override]
     def __getitem__(self, e: tuple[_Node, _Node, Incomplete]) -> _EdgeData: ...  # type: ignore[override]
     dataview = OutMultiEdgeDataView
+
     @overload  # type: ignore[override]  # Has an additional `keys` keyword argument
     def __call__(  # type: ignore[overload-overlap]
         self, nbunch: None = None, data: Literal[False] = False, *, default: Unused = None, keys: Literal[True]
@@ -261,6 +272,7 @@ class OutMultiEdgeView(OutEdgeView[_Node, _NodeData, _EdgeData]):
     def __call__(
         self, nbunch: _NBunch[_Node] = None, *, data: str, default: _U | None = None, keys: Literal[False] = False
     ) -> OutMultiEdgeDataView[_Node, tuple[_Node, _Node, _U]]: ...
+
     @overload  # type: ignore[override]
     def data(self, data: Literal[False], default: Unused = None, nbunch: None = None, *, keys: Literal[True]) -> Self: ...
     @overload
@@ -287,6 +299,7 @@ class OutMultiEdgeView(OutEdgeView[_Node, _NodeData, _EdgeData]):
 class MultiEdgeView(OutMultiEdgeView[_Node, _NodeData, _EdgeData]):
     __slots__ = ()
     dataview = MultiEdgeDataView  # type: ignore[assignment]
+
     # Have to override parent's overloads with the proper return type based on dataview
     @overload  # type: ignore[override]  # Has an additional `keys` keyword argument
     def __call__(  # type: ignore[overload-overlap]
@@ -324,6 +337,7 @@ class MultiEdgeView(OutMultiEdgeView[_Node, _NodeData, _EdgeData]):
     def __call__(
         self, nbunch: _NBunch[_Node] = None, *, data: str, default: _U | None = None, keys: Literal[False] = False
     ) -> MultiEdgeDataView[_Node, tuple[_Node, _Node, _U]]: ...
+
     @overload  # type: ignore[override]
     def data(self, data: Literal[False], default: Unused = None, nbunch: None = None, *, keys: Literal[True]) -> Self: ...
     @overload
@@ -350,6 +364,7 @@ class MultiEdgeView(OutMultiEdgeView[_Node, _NodeData, _EdgeData]):
 class InMultiEdgeView(OutMultiEdgeView[_Node, _NodeData, _EdgeData]):
     __slots__ = ()
     dataview = InMultiEdgeDataView  # type: ignore[assignment]
+
     # Have to override parent's overloads with the proper return type based on dataview
     @overload  # type: ignore[override]
     def __call__(  # type: ignore[overload-overlap]
@@ -387,6 +402,7 @@ class InMultiEdgeView(OutMultiEdgeView[_Node, _NodeData, _EdgeData]):
     def __call__(
         self, nbunch: _NBunch[_Node] = None, *, data: str, default: _U | None = None, keys: Literal[False] = False
     ) -> InMultiEdgeDataView[_Node, tuple[_Node, _Node, _U]]: ...
+
     @overload  # type: ignore[override]
     def data(self, data: Literal[False], default: Unused = None, nbunch: None = None, *, keys: Literal[True]) -> Self: ...
     @overload
