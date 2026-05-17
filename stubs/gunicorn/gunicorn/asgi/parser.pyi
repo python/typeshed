@@ -10,6 +10,7 @@ class InvalidProxyLine(ParseError): ...
 class InvalidProxyHeader(ParseError): ...
 
 PP_V2_SIGNATURE: Final[bytes]
+RFC9110_6_5_1_FORBIDDEN_TRAILER: Final[frozenset[bytes]]
 
 class PPCommand(IntEnum):
     LOCAL = 0x0
