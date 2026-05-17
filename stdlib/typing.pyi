@@ -375,7 +375,13 @@ class ParamSpec:
         ) -> Self: ...
     else:
         def __init__(
-            self, name: str, /, *, bound: Any | None = None, contravariant: bool = False, covariant: bool = False  # AnnotationForm
+            self,
+            name: str,
+            /,
+            *,
+            bound: Any | None = None,
+            contravariant: bool = False,
+            covariant: bool = False,  # AnnotationForm
         ) -> None: ...
 
     @property
