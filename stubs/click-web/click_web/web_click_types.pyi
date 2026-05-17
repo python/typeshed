@@ -1,5 +1,5 @@
 import re
-from typing import ClassVar, TypeVar
+from typing import Any, ClassVar, TypeVar
 
 import click
 
