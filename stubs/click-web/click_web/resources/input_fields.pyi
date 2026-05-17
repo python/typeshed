@@ -31,7 +31,7 @@ class FieldId:
 class NotSupported(ValueError): ...
 
 class BaseInput:
-    param_type_cls: type[click.types.ParamType] | None
+    param_type_cls: type[click.types.ParamType[Any]] | None
     ctx: click.Context
     param: click.Parameter
     command_index: int
@@ -67,13 +67,13 @@ class EmailInput(BaseInput):
     param_type_cls: type[EmailParamType]
 
 class PasswordInput(BaseInput):
-    param_type_cls: type[PasswordParamType]
+    param_type_cls: type[PasswordParamType[Any]]
 
 class TextAreaInput(BaseInput):
-    param_type_cls: type[TextAreaParamType]
+    param_type_cls: type[TextAreaParamType[Any]]
 
 class DefaultInput(BaseInput):
-    param_type_cls: type[click.ParamType]
+    param_type_cls: type[click.ParamType[Any]]
 
 INPUT_TYPES: Final[list[type[BaseInput]]]
 _DEFAULT_INPUT: Final[list[type[DefaultInput]]]
