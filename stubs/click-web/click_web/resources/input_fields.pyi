@@ -67,10 +67,10 @@ class EmailInput(BaseInput):
     param_type_cls: type[EmailParamType]
 
 class PasswordInput(BaseInput):
-    param_type_cls: type[PasswordParamType[Any]]
+    param_type_cls: type[PasswordParamType]
 
 class TextAreaInput(BaseInput):
-    param_type_cls: type[TextAreaParamType[Any]]
+    param_type_cls: type[TextAreaParamType]
 
 class DefaultInput(BaseInput):
     param_type_cls: type[click.ParamType[Any]]
