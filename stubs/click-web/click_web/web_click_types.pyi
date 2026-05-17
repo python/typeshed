@@ -9,10 +9,10 @@ class EmailParamType(click.ParamType[str]):
     EMAIL_REGEX: ClassVar[re.Pattern[str]]
     def convert(self, value: str, param: click.Parameter | None, ctx: click.Context | None) -> str: ...
 
-class PasswordParamType(click.ParamType[_T]):
+class PasswordParamType(click.ParamType[Any]):
     def convert(self, value: _T, param: click.Parameter | None, ctx: click.Context | None) -> _T: ...
 
-class TextAreaParamType(click.ParamType[_T]):
+class TextAreaParamType(click.ParamType[Any]):
     def convert(self, value: _T, param: click.Parameter | None, ctx: click.Context | None) -> _T: ...
 
 EMAIL_TYPE: EmailParamType
