@@ -375,7 +375,7 @@ class OrderedDict(dict[_KT, _VT]):
     # The signature of OrderedDict.fromkeys should be kept in line with `dict.fromkeys`, modulo positional-only differences.
     # Like dict.fromkeys, its true signature is not expressible in the current type system.
     # See #3800 & https://github.com/python/typing/issues/548#issuecomment-683336963.
-    @classmethod
+    @classmethod  # type: ignore[override]
     @overload
     def fromkeys(cls, iterable: Iterable[_KT], value: None = None) -> OrderedDict[_KT, Any | None]: ...
     @classmethod
