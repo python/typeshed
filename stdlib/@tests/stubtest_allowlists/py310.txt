@@ -284,3 +284,9 @@ typing\.Annotated  # Super-special typing primitive
 # These methods have no default implementation for Python < 3.13.
 _pickle.Pickler.persistent_id
 _pickle.Unpickler.persistent_load
+
+# `name` is a positional string literal for these special forms (PEP 484 / 612);
+# the stub marks it positional-only, but the pure-Python 3.10 runtime objects
+# accept it as a keyword argument.
+typing.ParamSpec.__init__
+typing.TypeVar.__init__

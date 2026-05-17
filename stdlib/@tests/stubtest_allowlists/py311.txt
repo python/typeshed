@@ -261,3 +261,8 @@ typing\.Annotated  # Super-special typing primitive
 # These methods have no default implementation for Python < 3.13.
 _pickle.Pickler.persistent_id
 _pickle.Unpickler.persistent_load
+
+# `name` is a positional string literal for TypeVarTuple (PEP 646); the stub
+# marks it positional-only, but the pure-Python 3.11 runtime __init__ accepts
+# it as a keyword argument.
+typing.TypeVarTuple.__init__
