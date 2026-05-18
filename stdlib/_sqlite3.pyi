@@ -69,6 +69,8 @@ SQLITE_SAVEPOINT: Final = 32
 SQLITE_SELECT: Final = 21
 SQLITE_TRANSACTION: Final = 22
 SQLITE_UPDATE: Final = 23
+if sys.version_info >= (3, 15):
+    SQLITE_KEYWORDS: tuple[str, ...]
 adapters: dict[tuple[type[Any], type[Any]], _Adapter[Any]]
 converters: dict[str, _Converter]
 sqlite_version: str
@@ -218,6 +220,7 @@ if sys.version_info >= (3, 11):
 def adapt(obj: Any, proto: Any, /) -> Any: ...
 @overload
 def adapt(obj: Any, proto: Any, alt: _T, /) -> Any | _T: ...
+
 def complete_statement(statement: str) -> bool: ...
 
 if sys.version_info >= (3, 12):
@@ -259,7 +262,6 @@ if sys.version_info >= (3, 12):
         uri: bool = False,
         autocommit: bool = ...,
     ) -> _ConnectionT: ...
-
 else:
     @overload
     def connect(

@@ -4,18 +4,30 @@ from _typeshed.importlib import MetaPathFinderProtocol, PathEntryFinderProtocol
 from builtins import object as _object
 from collections.abc import AsyncGenerator, Callable, Sequence
 from io import TextIOWrapper
-from types import FrameType, ModuleType, TracebackType
+from types import FrameType, ModuleType, SimpleNamespace, TracebackType
 from typing import Any, Final, Literal, NoReturn, Protocol, TextIO, TypeAlias, TypeVar, final, overload, type_check_only
 from typing_extensions import LiteralString, deprecated
 
 _T = TypeVar("_T")
+_LazyImportMode: TypeAlias = Literal["normal", "all", "none"]
+_LazyImportFilter: TypeAlias = Callable[[str, str, tuple[str, ...] | None], bool]
 
 # see https://github.com/python/typeshed/issues/8513#issue-1333671093 for the rationale behind this alias
 _ExitCode: TypeAlias = str | int | None
 
+if sys.version_info >= (3, 15):
+    @type_check_only
+    class _AbiInfo(SimpleNamespace):
+        pointer_bits: int
+        free_threaded: bool
+        debug: bool
+        byteorder: Literal["little", "big"]
+
 # ----- sys variables -----
 if sys.platform != "win32":
     abiflags: str
+if sys.version_info >= (3, 15):
+    abi_info: _AbiInfo
 argv: list[str]
 base_exec_prefix: str
 base_prefix: str
@@ -40,6 +52,8 @@ maxsize: int
 maxunicode: int
 meta_path: list[MetaPathFinderProtocol]
 modules: dict[str, ModuleType]
+if sys.version_info >= (3, 15):
+    lazy_modules: dict[str, set[str]]
 orig_argv: list[str]
 path: list[str]
 path_hooks: list[Callable[[str], PathEntryFinderProtocol]]
@@ -376,6 +390,11 @@ if sys.platform != "win32":
 
 def getfilesystemencoding() -> LiteralString: ...
 def getfilesystemencodeerrors() -> LiteralString: ...
+
+if sys.version_info >= (3, 15):
+    def get_lazy_imports() -> _LazyImportMode: ...
+    def get_lazy_imports_filter() -> _LazyImportFilter | None: ...
+
 def getrefcount(object: Any, /) -> int: ...
 def getrecursionlimit() -> int: ...
 def getsizeof(obj: object, default: int = ...) -> int: ...
@@ -485,6 +504,10 @@ def set_coroutine_origin_tracking_depth(depth: int) -> None: ...
 # as part of the response to CVE-2020-10735
 def set_int_max_str_digits(maxdigits: int) -> None: ...
 def get_int_max_str_digits() -> int: ...
+
+if sys.version_info >= (3, 15):
+    def set_lazy_imports(mode: _LazyImportMode) -> None: ...
+    def set_lazy_imports_filter(filter: _LazyImportFilter | None) -> None: ...
 
 if sys.version_info >= (3, 12):
     if sys.version_info >= (3, 13):
