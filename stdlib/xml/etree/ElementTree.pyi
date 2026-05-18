@@ -27,13 +27,14 @@ __all__ = [
     "tostring",
     "tostringlist",
     "TreeBuilder",
-    "VERSION",
     "XML",
     "XMLID",
     "XMLParser",
     "XMLPullParser",
     "register_namespace",
 ]
+if sys.version_info < (3, 15):
+    __all__ += ["VERSION"]
 
 _T = TypeVar("_T")
 _FileRead: TypeAlias = FileDescriptorOrPath | SupportsRead[bytes] | SupportsRead[str]
