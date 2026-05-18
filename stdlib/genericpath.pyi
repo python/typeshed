@@ -45,7 +45,6 @@ if sys.version_info >= (3, 15):
     @overload
     @deprecated("Deprecated since Python 3.15; use os.path.commonpath() for path prefixes.")
     def commonprefix(m: Sequence[tuple[SupportsRichComparisonT, ...]], /) -> Sequence[SupportsRichComparisonT]: ...
-
 else:
     @overload
     def commonprefix(m: Sequence[LiteralString]) -> LiteralString: ...

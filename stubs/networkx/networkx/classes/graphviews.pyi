@@ -29,6 +29,7 @@ def generic_graph_view(
 def generic_graph_view(
     G: Graph[_Node, _NodeData, _EdgeData], create_using: type[Graph[_Node, _NodeData, _EdgeData]]
 ) -> Graph[_Node, _NodeData, _EdgeData]: ...
+
 @overload
 def subgraph_view(
     G: MultiDiGraph[_Node, _NodeData, _EdgeData],
@@ -57,4 +58,5 @@ def subgraph_view(
     filter_node: Callable[[_Node], bool] = ...,
     filter_edge: Callable[[_Node, _Node], bool] = ...,
 ) -> Graph[_Node, _NodeData, _EdgeData]: ...
+
 def reverse_view(G: _D) -> _D: ...
