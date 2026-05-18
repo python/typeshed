@@ -6,17 +6,10 @@
 # decimal falls back to _pydecimal with different runtime signatures.
 decimal\..*
 _decimal
-_pyrepl.fancy_termios
-_pyrepl.unix_console
-_pyrepl.unix_eventqueue
-ctypes.c_double_complex._type_
-ctypes.c_float_complex._type_
-ctypes.c_longdouble_complex._type_
 os.AT_NO_AUTOMOUNT
 os.AT_STATX_DONT_SYNC
 os.AT_STATX_FORCE_SYNC
 os.AT_STATX_SYNC_AS_STAT
-os.NODEV
 os.STATX_ATIME
 os.STATX_BASIC_STATS
 os.STATX_BLOCKS
@@ -41,7 +34,6 @@ posix.AT_NO_AUTOMOUNT
 posix.AT_STATX_DONT_SYNC
 posix.AT_STATX_FORCE_SYNC
 posix.AT_STATX_SYNC_AS_STAT
-posix.NODEV
 posix.STATX_ATIME
 posix.STATX_BASIC_STATS
 posix.STATX_BLOCKS
@@ -59,12 +51,14 @@ posix.STATX_SIZE
 posix.STATX_TYPE
 posix.STATX_UID
 posix.statx
-readline.get_pre_input_hook
 
 
 # =============================================================
 # Allowlist entries that cannot or should not be fixed; >= 3.15
 # =============================================================
+
+# Depends on how readline was built.
+readline.get_pre_input_hook
 
 # Internal implementation details of the sampling profiler.
 profiling.sampling.live_collector
