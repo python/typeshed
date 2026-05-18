@@ -1,8 +1,8 @@
 import sys
 from _typeshed import ReadableBuffer, Unused
 from types import TracebackType
-from typing import Any, Final, Literal, final, overload
-from typing_extensions import Self, TypeAlias
+from typing import Any, Final, Literal, TypeAlias, final, overload
+from typing_extensions import Self
 
 if sys.platform == "win32":
     _KeyType: TypeAlias = HKEYType | int
@@ -25,6 +25,7 @@ if sys.platform == "win32":
     def QueryValueEx(key: _KeyType, name: str, /) -> tuple[Any, int]: ...
     def SaveKey(key: _KeyType, file_name: str, /) -> None: ...
     def SetValue(key: _KeyType, sub_key: str | None, type: int, value: str, /) -> None: ...
+
     @overload  # type=REG_DWORD|REG_QWORD
     def SetValueEx(
         key: _KeyType, value_name: str | None, reserved: Unused, type: Literal[4, 5], value: int | None, /
@@ -55,6 +56,7 @@ if sys.platform == "win32":
         value: int | str | list[str] | ReadableBuffer | None,
         /,
     ) -> None: ...
+
     def DisableReflectionKey(key: _KeyType, /) -> None: ...
     def EnableReflectionKey(key: _KeyType, /) -> None: ...
     def QueryReflectionKey(key: _KeyType, /) -> bool: ...
