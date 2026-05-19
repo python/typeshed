@@ -18,11 +18,10 @@ _struct.pack_into
 _thread.RLock.__exit__
 _thread.lock.__exit__
 copy.deepcopy
-dataclasses._MISSING_TYPE
 dataclasses.MISSING
+dataclasses._MISSING_TYPE
 dataclasses.field
 doctest.DocTestRunner.report_skip
-enum.__all__
 importlib._abc.Loader.load_module
 importlib._bootstrap_external.NamespacePath
 importlib.abc.InspectLoader.source_to_code
@@ -37,9 +36,6 @@ threading.Condition.locked
 tkinter.Image.__iter__
 tkinter.Misc.__iter__
 tkinter.font.Font.__iter__
-tkinter.simpledialog.__all__
-typing_extensions.__all__
-xml.etree.ElementTree.__all__
 
 # =============================================================
 # Allowlist entries that cannot or should not be fixed; >= 3.15
@@ -49,6 +45,9 @@ xml.etree.ElementTree.__all__
 base64.b64decode
 urllib.parse.urlunparse
 urllib.parse.urlunsplit
+
+# Runtime __all__ includes no_type_check_decorator, but the attribute does not exist on Python 3.15.
+typing_extensions.__all__
 
 # Internal implementation details of the sampling profiler.
 profiling.sampling.binary_collector
