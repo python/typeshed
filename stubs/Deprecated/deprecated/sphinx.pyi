@@ -17,17 +17,12 @@ class SphinxAdapter(ClassicAdapter):
         reason: str = "",
         version: str = "",
         action: _Actions | None = None,
-        category: type[Warning] = DeprecationWarning,
+        category: type[Warning] = DeprecationWarning, # noqa: Y011
         extra_stacklevel: int = 0,
         line_length: int = 70,
     ) -> None: ...
     def __call__(self, wrapped: _F) -> Callable[[_F], _F]: ...
     def get_deprecated_msg(self, wrapped: Any, instance: Any) -> str: ...
-    """
-        :param wrapped: Wrapped class or function.
-
-        :param instance: The object to which the wrapped function was bound when it was called.
-    """
 
 def versionadded(reason: str = "", version: str = "", line_length: int = 70) -> Callable[[_F], _F]: ...
 def versionchanged(reason: str = "", version: str = "", line_length: int = 70) -> Callable[[_F], _F]: ...
