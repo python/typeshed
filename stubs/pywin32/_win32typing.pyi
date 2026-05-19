@@ -1,7 +1,7 @@
 # Not available at runtime. Contains type definitions that are otherwise not exposed and not part of a specific module.
 from _typeshed import Incomplete, Unused
 from collections.abc import Iterable, Sequence
-from typing import Literal, NoReturn, SupportsIndex, TypeAlias, TypedDict, final, overload
+from typing import Literal, NoReturn, SupportsIndex, TypeAlias, TypedDict, final, overload, type_check_only
 from typing_extensions import Never, Required, Self, deprecated, disjoint_base
 
 from win32.lib.pywintypes import TimeType
@@ -116,33 +116,39 @@ class DOCINFO:
 
 class ExportCallback: ...
 
+@type_check_only
 class PrinterExtents(TypedDict):
     Length: int
     Width: int
 
+@type_check_only
 class PrinterDpi(TypedDict):
     xdpi: int
     ydpi: int
 
+@type_check_only
 class PrinterPaperSize(TypedDict):
     x: int
     y: int
 
-class SIZEL(TypedDict):
+@type_check_only
+class SizeL(TypedDict):
     cx: int
     cy: int
 
-class RECTL(TypedDict):
+@type_check_only
+class RectL(TypedDict):
     bottom: int
     left: int
     right: int
     top: int
 
-class FORM_INFO_1(TypedDict):
+@type_check_only
+class FormInfo1(TypedDict):
     Flags: int
     Name: str
-    Size: SIZEL
-    ImageableArea: RECTL
+    Size: SizeL
+    ImageableArea: RectL
 
 class ImportCallback: ...
 
@@ -180,20 +186,23 @@ class NCB:
     @property
     def Post(self): ...
 
-class PRINTER_DEFAULTS(TypedDict, total=False):
+@type_check_only
+class PrinterDefaults(TypedDict, total=False):
     pDataType: str | None
     pDevMode: PyDEVMODEW | None
     DesiredAccess: Required[int]
 
-class PRINTER_INFO_1(TypedDict):
+@type_check_only
+class PrinterInfo1(TypedDict):
     Flags: int
     pDescription: str
     pName: str
     pComment: str
 
-PRINTER_INFO_1_TUPLE: TypeAlias = tuple[int, str, str, str]
+PrinterInfo1Tuple: TypeAlias = tuple[int, str, str, str]
 
-class PRINTER_INFO_2(TypedDict):
+@type_check_only
+class PrinterInfo2(TypedDict):
     Attributes: int
     AveragePPM: int
     DefaultPriority: int
@@ -216,7 +225,7 @@ class PRINTER_INFO_2(TypedDict):
     pServerName: str | None
     pShareName: str | None
 
-PRINTER_INFO_2_TUPLE: TypeAlias = tuple[
+PrinterInfo2Tuple: TypeAlias = tuple[
     str | None,  # pServerName
     str,  # pPrinterName
     str,  # pShareName
@@ -240,32 +249,39 @@ PRINTER_INFO_2_TUPLE: TypeAlias = tuple[
     int,  # AveragePPM
 ]
 
-class PRINTER_INFO_3(TypedDict):
+@type_check_only
+class PrinterInfo3(TypedDict):
     pSecurityDescriptor: PySECURITY_DESCRIPTOR
 
-class PRINTER_INFO_4(TypedDict):
+@type_check_only
+class PrinterInfo4(TypedDict):
     Attributes: int
     pPrinterName: str
     pServerName: str | None
 
-class PRINTER_INFO_5(TypedDict):
+@type_check_only
+class PrinterInfo5(TypedDict):
     Attributes: int
     DeviceNotSelectedTimeout: int
     TransmissionRetryTimeout: int
     pPortName: str
     pPrinterName: str
 
-class PRINTER_INFO_6(TypedDict):
+@type_check_only
+class PrinterInfo6(TypedDict):
     Status: int
 
-class PRINTER_INFO_7(TypedDict):
+@type_check_only
+class PrinterInfo7(TypedDict):
     Action: int
     ObjectGUID: str | None
 
-class PRINTER_INFO_8_9(TypedDict):
+@type_check_only
+class PrinterInfo89(TypedDict):
     pDevMode: PyDEVMODEW | None
 
-class JOB_INFO_1(TypedDict):
+@type_check_only
+class JobInfo1(TypedDict):
     JobId: int
     pPrinterName: str
     pMachineName: str
@@ -280,7 +296,8 @@ class JOB_INFO_1(TypedDict):
     PagesPrinted: int
     Submitted: TimeType
 
-class JOB_INFO_2(JOB_INFO_1):
+@type_check_only
+class JobInfo2(JobInfo1):
     pNotifyName: str
     pPrintProcessor: str
     pParameters: str
@@ -292,49 +309,58 @@ class JOB_INFO_2(JOB_INFO_1):
     Size: int
     Time: int
 
-class JOB_INFO_3(TypedDict):
+@type_check_only
+class JobInfo3(TypedDict):
     JobId: int
     NextJobId: int
     Reserved: int
 
-class DRIVER_INFO_1(TypedDict):
+@type_check_only
+class DriverInfo1(TypedDict):
     Name: str
 
-MONITOR_INFO_1: TypeAlias = DRIVER_INFO_1
-PORT_INFO_1: TypeAlias = DRIVER_INFO_1
+MonitorInfo1: TypeAlias = DriverInfo1
+PortInfo1: TypeAlias = DriverInfo1
 
-class MONITOR_INFO_2(MONITOR_INFO_1):
+@type_check_only
+class MonitorInfo2(MonitorInfo1):
     DLLName: str
     Environment: str
 
-class PORT_INFO_2(PORT_INFO_1):
+@type_check_only
+class PortInfo2(PortInfo1):
     Description: str
     MonitorName: str
     PortType: int
     Reserved: int
 
-class DRIVER_INFO_2(DRIVER_INFO_1):
+@type_check_only
+class DriverInfo2(DriverInfo1):
     ConfigFile: str
     DataFile: str
     DriverPath: str
     Environment: str
     Version: int
 
-class DRIVER_INFO_3(DRIVER_INFO_2):
+@type_check_only
+class DriverInfo3(DriverInfo2):
     DefaultDataType: str | None
     DependentFiles: list[str]
     HelpFile: str | None
     MonitorName: str | None
 
-class DRIVER_INFO_4(DRIVER_INFO_3):
+@type_check_only
+class DriverInfo4(DriverInfo3):
     PreviousNames: str | None
 
-class DRIVER_INFO_5(DRIVER_INFO_2):
+@type_check_only
+class DriverInfo5(DriverInfo2):
     ConfigVersion: int
     DriverAttributes: int
     DriverVersion: int
 
-class DRIVER_INFO_6(DRIVER_INFO_4):
+@type_check_only
+class DriverInfo6(DriverInfo4):
     MfgName: str
     OEMUrl: str | None
     Provider: str
