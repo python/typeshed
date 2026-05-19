@@ -37,6 +37,8 @@ if sys.version_info >= (3, 11):
 
 if sys.version_info >= (3, 13):
     __all__ += ["EnumDict"]
+if sys.version_info >= (3, 15):
+    __all__ += ["show_flag_values", "bin"]
 
 _EnumMemberT = TypeVar("_EnumMemberT")
 _EnumerationT = TypeVar("_EnumerationT", bound=type[Enum])

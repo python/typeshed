@@ -177,6 +177,8 @@ __all__ = [
 if sys.version_info >= (3, 14):
     # reload_environ was added to __all__ in Python 3.14.1
     __all__ += ["readinto", "reload_environ"]
+if sys.platform == "linux" and sys.version_info >= (3, 15):
+    __all__ += ["_clearenv"]
 if sys.platform == "darwin" and sys.version_info >= (3, 12):
     __all__ += ["PRIO_DARWIN_BG", "PRIO_DARWIN_NONUI", "PRIO_DARWIN_PROCESS", "PRIO_DARWIN_THREAD"]
 if sys.platform == "darwin":
@@ -227,6 +229,31 @@ if sys.platform == "linux":
     ]
 if sys.platform == "linux" and sys.version_info >= (3, 14):
     __all__ += ["SCHED_DEADLINE", "SCHED_NORMAL"]
+if sys.platform == "linux" and sys.version_info >= (3, 15):
+    __all__ += [
+        "AT_NO_AUTOMOUNT",
+        "AT_STATX_DONT_SYNC",
+        "AT_STATX_FORCE_SYNC",
+        "AT_STATX_SYNC_AS_STAT",
+        "STATX_ATIME",
+        "STATX_BASIC_STATS",
+        "STATX_BLOCKS",
+        "STATX_BTIME",
+        "STATX_CTIME",
+        "STATX_DIOALIGN",
+        "STATX_GID",
+        "STATX_INO",
+        "STATX_MNT_ID",
+        "STATX_MNT_ID_UNIQUE",
+        "STATX_MODE",
+        "STATX_MTIME",
+        "STATX_NLINK",
+        "STATX_SIZE",
+        "STATX_TYPE",
+        "STATX_UID",
+        "statx",
+        "statx_result",
+    ]
 if sys.platform == "linux" and sys.version_info >= (3, 13):
     __all__ += [
         "POSIX_SPAWN_CLOSEFROM",
@@ -672,6 +699,28 @@ if sys.platform == "darwin":
 if sys.platform != "win32" and sys.version_info >= (3, 15):
     NODEV: Final[int]
 
+if sys.platform == "linux" and sys.version_info >= (3, 15):
+    AT_NO_AUTOMOUNT: Final[int]
+    AT_STATX_DONT_SYNC: Final[int]
+    AT_STATX_FORCE_SYNC: Final[int]
+    AT_STATX_SYNC_AS_STAT: Final[int]
+    STATX_ATIME: Final[int]
+    STATX_BASIC_STATS: Final[int]
+    STATX_BLOCKS: Final[int]
+    STATX_BTIME: Final[int]
+    STATX_CTIME: Final[int]
+    STATX_DIOALIGN: Final[int]
+    STATX_GID: Final[int]
+    STATX_INO: Final[int]
+    STATX_MNT_ID: Final[int]
+    STATX_MNT_ID_UNIQUE: Final[int]
+    STATX_MODE: Final[int]
+    STATX_MTIME: Final[int]
+    STATX_NLINK: Final[int]
+    STATX_SIZE: Final[int]
+    STATX_TYPE: Final[int]
+    STATX_UID: Final[int]
+
 if sys.platform != "win32":
     O_FSYNC: Final[int]
 
@@ -758,6 +807,9 @@ if sys.platform != "win32":
 
 if sys.version_info >= (3, 14):
     def reload_environ() -> None: ...
+
+if sys.platform == "linux" and sys.version_info >= (3, 15):
+    def _clearenv() -> None: ...
 
 if sys.version_info >= (3, 11) or sys.platform != "win32":
     EX_OK: Final[int]
@@ -1293,6 +1345,70 @@ def stat(path: FileDescriptorOrPath, *, dir_fd: int | None = None, follow_symlin
 
 if sys.platform != "win32":
     def statvfs(path: FileDescriptorOrPath) -> statvfs_result: ...  # Unix only
+
+if sys.platform == "linux" and sys.version_info >= (3, 15):
+    @final
+    class statx_result:
+        @property
+        def stx_mask(self) -> int: ...
+        @property
+        def stx_blksize(self) -> int: ...
+        @property
+        def stx_attributes(self) -> int: ...
+        @property
+        def stx_attributes_mask(self) -> int: ...
+        @property
+        def stx_rdev_major(self) -> int: ...
+        @property
+        def stx_rdev_minor(self) -> int: ...
+        @property
+        def stx_rdev(self) -> int: ...
+        @property
+        def stx_dev_major(self) -> int: ...
+        @property
+        def stx_dev_minor(self) -> int: ...
+        @property
+        def stx_dev(self) -> int: ...
+        @property
+        def stx_mode(self) -> int | None: ...
+        @property
+        def stx_nlink(self) -> int | None: ...
+        @property
+        def stx_uid(self) -> int | None: ...
+        @property
+        def stx_gid(self) -> int | None: ...
+        @property
+        def stx_ino(self) -> int | None: ...
+        @property
+        def stx_size(self) -> int | None: ...
+        @property
+        def stx_blocks(self) -> int | None: ...
+        @property
+        def stx_atime(self) -> float | None: ...
+        @property
+        def stx_atime_ns(self) -> int | None: ...
+        @property
+        def stx_btime(self) -> float | None: ...
+        @property
+        def stx_btime_ns(self) -> int | None: ...
+        @property
+        def stx_ctime(self) -> float | None: ...
+        @property
+        def stx_ctime_ns(self) -> int | None: ...
+        @property
+        def stx_mtime(self) -> float | None: ...
+        @property
+        def stx_mtime_ns(self) -> int | None: ...
+        @property
+        def stx_mnt_id(self) -> int | None: ...
+        @property
+        def stx_dio_mem_align(self) -> int | None: ...
+        @property
+        def stx_dio_offset_align(self) -> int | None: ...
+
+    def statx(
+        path: FileDescriptorOrPath, mask: int, *, flags: int = 0, dir_fd: int | None = None, follow_symlinks: bool = True
+    ) -> statx_result: ...
 
 def symlink(
     src: StrOrBytesPath, dst: StrOrBytesPath, target_is_directory: bool = False, *, dir_fd: int | None = None
