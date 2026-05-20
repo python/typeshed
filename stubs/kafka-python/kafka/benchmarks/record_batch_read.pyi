@@ -1,0 +1,13 @@
+from _typeshed import Incomplete
+
+DEFAULT_BATCH_SIZE: Incomplete
+KEY_SIZE: int
+VALUE_SIZE: int
+TIMESTAMP_RANGE: Incomplete
+BATCH_SAMPLES: int
+MESSAGES_PER_BATCH: int
+
+def random_bytes(length): ...
+def prepare(magic): ...
+def finalize(results) -> None: ...
+def func(loops, magic): ...
