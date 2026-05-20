@@ -3,8 +3,10 @@ from collections.abc import Callable
 from typing import Any, Literal
 from weakref import ReferenceType
 
+__all__ = ("_reset", "register_reset")
+
 def register_reset(
-    func: Callable[[], Callable[[], object] | None], callback: Callable[[ReferenceType[Any]], Any] | None = None
+    func: Callable[[], Callable[[], object] | None], callback: Callable[[ReferenceType[Any]], object] | None = None
 ) -> None: ...
 def _reset() -> None: ...
 
