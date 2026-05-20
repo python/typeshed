@@ -1,0 +1,2 @@
+geojson
+geojson.examples.SimpleWebFeature.__geo_interface__
