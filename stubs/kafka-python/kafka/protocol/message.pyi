@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from typing_extensions import disjoint_base
 
 from kafka.protocol.struct import Struct
 from kafka.protocol.types import AbstractType
@@ -31,7 +30,6 @@ class Message(Struct):
     def decompress(self): ...
     def __hash__(self): ...
 
-@disjoint_base
 class PartialMessage(bytes): ...
 
 class MessageSet(AbstractType):
