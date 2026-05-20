@@ -223,6 +223,7 @@ class _Params(TypedDict, total=False):
     write_pages: bool | None
     external_downloader_args: Literal["default"] | Mapping[str, Collection[str]] | Collection[str] | None
     postprocessor_args: Mapping[str, Collection[str]] | Collection[str] | None
+    postprocessor_hooks: list[Callable[[dict[str, Any]], object]] | None
     geo_verification_proxy: str | None
     geo_bypass: bool | None
     geo_bypass_country: str | None
