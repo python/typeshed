@@ -2,7 +2,7 @@ import selectors
 import ssl
 from _typeshed import Incomplete
 from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
-from typing import Literal, TypeAlias, TypedDict, overload
+from typing import Literal, TypeAlias, TypedDict, overload, type_check_only
 from typing_extensions import Self, Unpack
 
 from kafka.consumer.fetcher import ConsumerRecord
@@ -20,6 +20,7 @@ _SaslMechanism: TypeAlias = Literal["PLAIN", "GSSAPI", "OAUTHBEARER", "SCRAM-SHA
 _SecurityProtocol: TypeAlias = Literal["PLAINTEXT", "SSL", "SASL_PLAINTEXT", "SASL_SSL"]
 _SocketOption: TypeAlias = tuple[int, int, int]
 
+@type_check_only
 class _KafkaConsumerConfig(TypedDict, total=False):
     bootstrap_servers: _BootstrapServers
     client_id: str

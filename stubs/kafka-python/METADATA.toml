@@ -1,2 +1,5 @@
 version = "2.3.*"
 upstream-repository = "https://github.com/dpkp/kafka-python"
+
+[tool.stubtest]
+stubtest-dependencies = ["pyperf"]

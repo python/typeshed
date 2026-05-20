@@ -1,6 +1,7 @@
 import abc
 import threading
 from _typeshed import Incomplete
+from typing import ClassVar
 
 from kafka import errors as Errors
 
@@ -13,6 +14,7 @@ class MemberState:
     STABLE: str
 
 class Generation:
+    NO_GENERATION: ClassVar[Generation]
     generation_id: Incomplete
     member_id: Incomplete
     protocol: Incomplete

@@ -2,7 +2,7 @@ import selectors
 import ssl
 from _typeshed import Incomplete
 from collections.abc import Callable, Iterable, Mapping, Sequence
-from typing import Literal, TypeAlias, TypedDict
+from typing import Literal, TypeAlias, TypedDict, type_check_only
 from typing_extensions import Unpack
 
 from kafka.admin.acl_resource import ACL, ACLFilter
@@ -20,6 +20,7 @@ _SaslMechanism: TypeAlias = Literal["PLAIN", "GSSAPI", "OAUTHBEARER", "SCRAM-SHA
 _SecurityProtocol: TypeAlias = Literal["PLAINTEXT", "SSL", "SASL_PLAINTEXT", "SASL_SSL"]
 _SocketOption: TypeAlias = tuple[int, int, int]
 
+@type_check_only
 class _KafkaAdminClientConfig(TypedDict, total=False):
     bootstrap_servers: _BootstrapServers
     client_id: str
@@ -59,6 +60,7 @@ class _KafkaAdminClientConfig(TypedDict, total=False):
     metrics_sample_window_ms: int
     kafka_client: _KafkaClientFactory
 
+@type_check_only
 class _CreateAclsResult(TypedDict):
     succeeded: list[ACL]
     failed: list[tuple[ACL, KafkaError]]

@@ -2,7 +2,7 @@ import selectors
 import ssl
 from _typeshed import Incomplete
 from collections.abc import Callable, Mapping, Sequence
-from typing import Literal, TypeAlias, TypedDict
+from typing import Literal, TypeAlias, TypedDict, type_check_only
 from typing_extensions import Unpack
 
 from kafka.producer.future import FutureRecordMetadata
@@ -18,6 +18,7 @@ _SaslMechanism: TypeAlias = Literal["PLAIN", "GSSAPI", "OAUTHBEARER", "SCRAM-SHA
 _SecurityProtocol: TypeAlias = Literal["PLAINTEXT", "SSL", "SASL_PLAINTEXT", "SASL_SSL"]
 _SocketOption: TypeAlias = tuple[int, int, int]
 
+@type_check_only
 class _KafkaProducerConfig(TypedDict, total=False):
     bootstrap_servers: _BootstrapServers
     client_id: str | None

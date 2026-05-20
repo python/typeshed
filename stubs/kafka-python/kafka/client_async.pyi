@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from collections import OrderedDict as OrderedDict
 
 log: Incomplete
 socketpair: Incomplete
@@ -32,8 +33,6 @@ class KafkaClient:
     def bootstrap_connected(self): ...
     def await_ready(self, node_id, timeout_ms: int = 30000): ...
     def send_and_receive(self, node_id, request): ...
-
-OrderedDict = dict
 
 class IdleConnectionManager:
     connections_max_idle: Incomplete

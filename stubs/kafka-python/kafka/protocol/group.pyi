@@ -8,9 +8,9 @@ DEFAULT_GENERATION_ID: int
 UNKNOWN_MEMBER_ID: str
 
 class GroupMember(NamedTuple):
-    member_id: Incomplete
-    group_instance_id: Incomplete
-    metadata_bytes: Incomplete
+    member_id: Incomplete = ...
+    group_instance_id: Incomplete = ...
+    metadata_bytes: Incomplete = ...
 
 class JoinGroupResponse_v0(Response):
     API_KEY: int

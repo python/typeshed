@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from typing import NamedTuple
+from typing import ClassVar, NamedTuple
 
 import kafka.errors as Errors
 
@@ -99,6 +99,8 @@ class FetchMetadata:
     THROTTLED_SESSION_ID: int
     INITIAL_EPOCH: int
     FINAL_EPOCH: int
+    INITIAL: ClassVar[FetchMetadata]
+    LEGACY: ClassVar[FetchMetadata]
     session_id: Incomplete
     epoch: Incomplete
     def __init__(self, session_id, epoch) -> None: ...
