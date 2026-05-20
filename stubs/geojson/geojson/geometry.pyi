@@ -1,9 +1,8 @@
 from collections.abc import Iterable
 from typing import Any
 
-from geojson.base import GeoJSON
-
 from geojson import Feature
+from geojson.base import GeoJSON
 
 DEFAULT_PRECISION: int
 

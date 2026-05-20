@@ -1,9 +1,8 @@
 from collections.abc import Generator
 from typing import Any, Literal
 
-from geojson.geometry import Geometry
-
 from geojson import Feature, GeoJSON
+from geojson.geometry import Geometry
 
 def coords(obj: Feature | Geometry | dict[str, Any]) -> Generator[tuple[Any]]: ...
 def map_coords(func, obj) -> dict[str, Any]: ...
