@@ -9,19 +9,19 @@ READ_COMMITTED: int
 ISOLATION_LEVEL_CONFIG: Incomplete
 
 class ConsumerRecord(NamedTuple):
-    topic: Incomplete
-    partition: Incomplete
-    leader_epoch: Incomplete
-    offset: Incomplete
-    timestamp: Incomplete
-    timestamp_type: Incomplete
+    topic: str
+    partition: int
+    leader_epoch: int | None
+    offset: int
+    timestamp: int
+    timestamp_type: int
     key: Incomplete
     value: Incomplete
-    headers: Incomplete
-    checksum: Incomplete
-    serialized_key_size: Incomplete
-    serialized_value_size: Incomplete
-    serialized_header_size: Incomplete
+    headers: list[tuple[str, bytes]]
+    checksum: int | None
+    serialized_key_size: int
+    serialized_value_size: int
+    serialized_header_size: int
 
 class CompletedFetch(NamedTuple):
     topic_partition: Incomplete

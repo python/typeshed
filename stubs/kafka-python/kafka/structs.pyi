@@ -2,52 +2,52 @@ from _typeshed import Incomplete
 from typing import NamedTuple
 
 class TopicPartition(NamedTuple):
-    topic: Incomplete
-    partition: Incomplete
+    topic: str
+    partition: int
 
 class BrokerMetadata(NamedTuple):
-    nodeId: Incomplete
-    host: Incomplete
-    port: Incomplete
-    rack: Incomplete
+    nodeId: int
+    host: str
+    port: int
+    rack: str | None
 
 class PartitionMetadata(NamedTuple):
-    topic: Incomplete
-    partition: Incomplete
-    leader: Incomplete
-    leader_epoch: Incomplete
-    replicas: Incomplete
-    isr: Incomplete
-    offline_replicas: Incomplete
+    topic: str
+    partition: int
+    leader: int
+    leader_epoch: int | None
+    replicas: list[int]
+    isr: list[int]
+    offline_replicas: list[int]
     error: Incomplete
 
 class OffsetAndMetadata(NamedTuple):
-    offset: Incomplete
-    metadata: Incomplete
-    leader_epoch: Incomplete
+    offset: int
+    metadata: str
+    leader_epoch: int
 
 class OffsetAndTimestamp(NamedTuple):
-    offset: Incomplete
-    timestamp: Incomplete
-    leader_epoch: Incomplete
+    offset: int
+    timestamp: int
+    leader_epoch: int
 
 class MemberInformation(NamedTuple):
-    member_id: Incomplete
-    client_id: Incomplete
-    client_host: Incomplete
+    member_id: str
+    client_id: str
+    client_host: str
     member_metadata: Incomplete
     member_assignment: Incomplete
 
 class GroupInformation(NamedTuple):
-    error_code: Incomplete
-    group: Incomplete
-    state: Incomplete
-    protocol_type: Incomplete
-    protocol: Incomplete
-    members: Incomplete
-    authorized_operations: Incomplete
+    error_code: int
+    group: str
+    state: str
+    protocol_type: str
+    protocol: str
+    members: list[MemberInformation]
+    authorized_operations: list[str]
 
 class RetryOptions(NamedTuple):
-    limit: Incomplete
-    backoff_ms: Incomplete
-    retry_on_timeouts: Incomplete
+    limit: int
+    backoff_ms: int
+    retry_on_timeouts: bool

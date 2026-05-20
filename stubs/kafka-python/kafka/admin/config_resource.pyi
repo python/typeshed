@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from collections.abc import Mapping
 from enum import IntEnum
 
 class ConfigResourceType(IntEnum):
@@ -6,7 +6,7 @@ class ConfigResourceType(IntEnum):
     TOPIC = 2
 
 class ConfigResource:
-    resource_type: Incomplete
-    name: Incomplete
-    configs: Incomplete
-    def __init__(self, resource_type, name, configs=None) -> None: ...
+    resource_type: ConfigResourceType
+    name: str
+    configs: Mapping[str, str] | None
+    def __init__(self, resource_type: ConfigResourceType, name: str, configs: Mapping[str, str] | None = None) -> None: ...

@@ -2,10 +2,11 @@ from _typeshed import Incomplete
 from typing import NamedTuple
 
 from kafka.future import Future
+from kafka.structs import TopicPartition
 
 class FutureProduceResult(Future):
-    topic_partition: Incomplete
-    def __init__(self, topic_partition) -> None: ...
+    topic_partition: TopicPartition
+    def __init__(self, topic_partition: TopicPartition) -> None: ...
     def success(self, value): ...
     def failure(self, error): ...
     def wait(self, timeout=None): ...
@@ -25,12 +26,12 @@ class FutureRecordMetadata(Future):
     def get(self, timeout=None): ...
 
 class RecordMetadata(NamedTuple):
-    topic: Incomplete
-    partition: Incomplete
-    topic_partition: Incomplete
-    offset: Incomplete
-    timestamp: Incomplete
-    checksum: Incomplete
-    serialized_key_size: Incomplete
-    serialized_value_size: Incomplete
-    serialized_header_size: Incomplete
+    topic: str
+    partition: int
+    topic_partition: TopicPartition
+    offset: int
+    timestamp: int
+    checksum: int | None
+    serialized_key_size: int
+    serialized_value_size: int
+    serialized_header_size: int

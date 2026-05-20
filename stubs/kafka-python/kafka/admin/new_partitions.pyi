@@ -1,6 +1,6 @@
-from _typeshed import Incomplete
+from collections.abc import Sequence
 
 class NewPartitions:
-    total_count: Incomplete
-    new_assignments: Incomplete
-    def __init__(self, total_count, new_assignments=None) -> None: ...
+    total_count: int
+    new_assignments: Sequence[Sequence[int]] | None
+    def __init__(self, total_count: int, new_assignments: Sequence[Sequence[int]] | None = None) -> None: ...

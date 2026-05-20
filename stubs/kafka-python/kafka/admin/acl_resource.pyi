@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from enum import IntEnum
 
 class ResourceType(IntEnum):
@@ -41,31 +40,52 @@ class ACLResourcePatternType(IntEnum):
     PREFIXED = 4
 
 class ACLFilter:
-    principal: Incomplete
-    host: Incomplete
-    operation: Incomplete
-    permission_type: Incomplete
-    resource_pattern: Incomplete
-    def __init__(self, principal, host, operation, permission_type, resource_pattern) -> None: ...
+    principal: str | None
+    host: str | None
+    operation: ACLOperation
+    permission_type: ACLPermissionType
+    resource_pattern: ResourcePatternFilter
+    def __init__(
+        self,
+        principal: str | None,
+        host: str | None,
+        operation: ACLOperation,
+        permission_type: ACLPermissionType,
+        resource_pattern: ResourcePatternFilter,
+    ) -> None: ...
     def validate(self) -> None: ...
     def __eq__(self, other): ...
     def __hash__(self): ...
 
 class ACL(ACLFilter):
-    def __init__(self, principal, host, operation, permission_type, resource_pattern) -> None: ...
+    resource_pattern: ResourcePattern
+    def __init__(
+        self,
+        principal: str,
+        host: str,
+        operation: ACLOperation,
+        permission_type: ACLPermissionType,
+        resource_pattern: ResourcePattern,
+    ) -> None: ...
     def validate(self) -> None: ...
 
 class ResourcePatternFilter:
-    resource_type: Incomplete
-    resource_name: Incomplete
-    pattern_type: Incomplete
-    def __init__(self, resource_type, resource_name, pattern_type) -> None: ...
+    resource_type: ResourceType
+    resource_name: str | None
+    pattern_type: ACLResourcePatternType
+    def __init__(self, resource_type: ResourceType, resource_name: str | None, pattern_type: ACLResourcePatternType) -> None: ...
     def validate(self) -> None: ...
     def __eq__(self, other): ...
     def __hash__(self): ...
 
 class ResourcePattern(ResourcePatternFilter):
-    def __init__(self, resource_type, resource_name, pattern_type=...) -> None: ...
+    resource_name: str
+    def __init__(
+        self,
+        resource_type: ResourceType,
+        resource_name: str,
+        pattern_type: ACLResourcePatternType = ACLResourcePatternType.LITERAL,
+    ) -> None: ...
     def validate(self) -> None: ...
 
-def valid_acl_operations(int_vals): ...
+def valid_acl_operations(int_vals) -> set[ACLOperation]: ...
