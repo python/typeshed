@@ -4,6 +4,9 @@ kafka.admin.__main__
 kafka.consumer.__main__
 kafka.producer.__main__
 
+# Benchmark modules are not included in type stubs.
+kafka.benchmarks.*
+
 # Concrete subclasses define these abstract properties as class attributes.
 kafka.protocol.api.Request.API_KEY
 kafka.protocol.api.Request.API_VERSION
