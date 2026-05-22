@@ -1,6 +1,6 @@
 import sys
-from os import PathLike
 from _typeshed import ReadableBuffer, Unused
+from os import PathLike
 from typing import IO, Any, BinaryIO, Final, Literal, NamedTuple, NoReturn, TypeAlias, overload
 from typing_extensions import Self, deprecated
 
