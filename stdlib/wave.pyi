@@ -7,7 +7,10 @@ __all__ = ["open", "Error", "Wave_read", "Wave_write"]
 if sys.version_info >= (3, 15):
     __all__ += ["WAVE_FORMAT_PCM", "WAVE_FORMAT_IEEE_FLOAT", "WAVE_FORMAT_EXTENSIBLE"]
 
-_File: TypeAlias = StrOrBytesPath | IO[bytes]
+if sys.version_info >= (3, 15):
+    _File: TypeAlias = StrOrBytesPath | IO[bytes]
+else:
+    _File: TypeAlias = str | IO[bytes]
 
 class Error(Exception): ...
 
