@@ -1,6 +1,6 @@
 from typing import Any, Literal
 
-from geojson import GeoJSON
+from geojson.base import GeoJSON
 from geojson.geometry import Geometry
 
 class SimpleWebFeature:

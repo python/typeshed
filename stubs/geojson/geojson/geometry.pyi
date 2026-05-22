@@ -1,22 +1,27 @@
-from collections.abc import Iterable
-from typing import Any
+from collections.abc import Sequence
+from decimal import Decimal
+from typing import Literal, TypeAlias
 
-from geojson import Feature
 from geojson.base import GeoJSON
 
-DEFAULT_PRECISION: int
+_InputCoord: TypeAlias = float | Decimal | Geometry | Sequence[_InputCoord]
+_CleanCoord: TypeAlias = float | Decimal | list[_CleanCoord]
+
+DEFAULT_PRECISION: Literal[6]
 
 class Geometry(GeoJSON):
     def __init__(
-        self, coordinates: None | Feature | Iterable[Any] = None, validate: bool = False, precision: None | int = None, **extra
+        self,
+        coordinates: None | Sequence[_InputCoord] | Geometry = None,
+        validate: bool = False,
+        precision: None | int = None,
+        **extra,
     ) -> None: ...
     @classmethod
-    def clean_coordinates(
-        cls, coords: Geometry | tuple[Any, ...] | list[tuple[Any, ...]], precision: None | int
-    ) -> None | tuple[Any, ...] | list[tuple[Any, ...]]: ...
+    def clean_coordinates(cls, coords: Sequence[_InputCoord] | Geometry, precision: int) -> list[_CleanCoord]: ...
 
 class GeometryCollection(GeoJSON):
-    def __init__(self, geometries=..., **extra) -> None: ...
+    def __init__(self, geometries: None | Sequence[Geometry] = None, **extra) -> None: ...
     def errors(self) -> list[str] | None: ...
     def __getitem__(self, key) -> Geometry | tuple[()] | None: ...
 
@@ -30,10 +35,10 @@ class MultiPoint(Geometry):
 
 def check_line_string(coord) -> str | None: ...
 
-class LineString(MultiPoint):
+class LineString(Geometry):
     def errors(self) -> list[str] | None: ...
 
-class MultiLineString(Geometry):
+class MultiLineString(MultiPoint):
     def errors(self) -> list[str] | None: ...
 
 def check_polygon(coord) -> str | None: ...
