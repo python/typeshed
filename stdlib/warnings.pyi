@@ -45,7 +45,7 @@ def formatwarning(
 def filterwarnings(
     action: _ActionKind,
     message: str = "",
-    category: type[Warning] | tuple[type[Warning], ...] = ...,
+    category: type[Warning] = ...,
     module: str = "",
     lineno: int = 0,
     append: bool = False,
