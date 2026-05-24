@@ -43,12 +43,7 @@ def formatwarning(
     message: Warning | str, category: type[Warning], filename: str, lineno: int, line: str | None = None
 ) -> str: ...
 def filterwarnings(
-    action: _ActionKind,
-    message: str = "",
-    category: type[Warning] = ...,
-    module: str = "",
-    lineno: int = 0,
-    append: bool = False,
+    action: _ActionKind, message: str = "", category: type[Warning] = ..., module: str = "", lineno: int = 0, append: bool = False
 ) -> None: ...
 def simplefilter(
     action: _ActionKind, category: type[Warning] | tuple[type[Warning], ...] = ..., lineno: int = 0, append: bool = False
