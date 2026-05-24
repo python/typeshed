@@ -27,7 +27,7 @@ if sys.version_info >= (3, 14):
     _ActionKind: TypeAlias = Literal["default", "error", "ignore", "always", "module", "once"]
 else:
     _ActionKind: TypeAlias = Literal["default", "error", "ignore", "always", "all", "module", "once"]
-filters: Sequence[tuple[str, re.Pattern[str] | None, type[Warning], re.Pattern[str] | None, int]]  # undocumented, do not mutate
+filters: Sequence[tuple[str, re.Pattern[str] | None, type[Warning] | tuple[type[Warning], ...], re.Pattern[str] | None, int]]  # undocumented, do not mutate
 
 def showwarning(
     message: Warning | str,
@@ -41,9 +41,9 @@ def formatwarning(
     message: Warning | str, category: type[Warning], filename: str, lineno: int, line: str | None = None
 ) -> str: ...
 def filterwarnings(
-    action: _ActionKind, message: str = "", category: type[Warning] = ..., module: str = "", lineno: int = 0, append: bool = False
+    action: _ActionKind, message: str = "", category: type[Warning] | tuple[type[Warning], ...] = ..., module: str = "", lineno: int = 0, append: bool = False
 ) -> None: ...
-def simplefilter(action: _ActionKind, category: type[Warning] = ..., lineno: int = 0, append: bool = False) -> None: ...
+def simplefilter(action: _ActionKind, category: type[Warning] | tuple[type[Warning], ...] = ..., lineno: int = 0, append: bool = False) -> None: ...
 def resetwarnings() -> None: ...
 
 class _OptionError(Exception): ...
@@ -92,7 +92,7 @@ class catch_warnings(Generic[_W_co]):
             record: Literal[False] = False,
             module: ModuleType | None = None,
             action: _ActionKind | None = None,
-            category: type[Warning] = ...,
+            category: type[Warning] | tuple[type[Warning], ...] = ...,
             lineno: int = 0,
             append: bool = False,
         ) -> None: ...
@@ -103,7 +103,7 @@ class catch_warnings(Generic[_W_co]):
             record: Literal[True],
             module: ModuleType | None = None,
             action: _ActionKind | None = None,
-            category: type[Warning] = ...,
+            category: type[Warning] | tuple[type[Warning], ...] = ...,
             lineno: int = 0,
             append: bool = False,
         ) -> None: ...
@@ -114,7 +114,7 @@ class catch_warnings(Generic[_W_co]):
             record: bool,
             module: ModuleType | None = None,
             action: _ActionKind | None = None,
-            category: type[Warning] = ...,
+            category: type[Warning] | tuple[type[Warning], ...] = ...,
             lineno: int = 0,
             append: bool = False,
         ) -> None: ...
