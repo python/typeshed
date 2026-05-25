@@ -223,7 +223,7 @@ class _Params(TypedDict, total=False):
     write_pages: bool | None
     external_downloader_args: Literal["default"] | Mapping[str, Collection[str]] | Collection[str] | None
     postprocessor_args: Mapping[str, Collection[str]] | Collection[str] | None
-    postprocessor_hooks: list[Callable[[dict[str, Any]], object]] | None
+    postprocessor_hooks: Iterable[Callable[[dict[str, Any]], object]]
     geo_verification_proxy: str | None
     geo_bypass: bool | None
     geo_bypass_country: str | None
@@ -231,6 +231,7 @@ class _Params(TypedDict, total=False):
     useid: bool | None
     compat_opts: dict[str, Any] | None
     logger: _LoggerProtocol
+    post_hooks: Iterable[Callable[[Incomplete], object]
     # Undocumented fields below.
     _deprecation_warnings: Collection[str] | None
     _warnings: Collection[str] | None
