@@ -2,8 +2,8 @@ from _typeshed import Incomplete
 from collections.abc import Callable
 from io import BytesIO
 from tarfile import _Fileobj
-from typing import Final, TypeVar, overload
-from typing_extensions import Self, TypeAlias, deprecated
+from typing import Final, TypeAlias, TypeVar, overload
+from typing_extensions import Self, deprecated
 
 from dateutil.tz import tzfile as _tzfile
 
@@ -16,7 +16,8 @@ ZONEFILENAME: Final[str]
 METADATA_FN: Final[str]
 
 class tzfile(_tzfile):
-    def __reduce__(self) -> tuple[Callable[[str], Self], tuple[str, ...]]: ...
+    # source code does this override, changing the type
+    def __reduce__(self) -> tuple[Callable[[str], Self], tuple[str]]: ...  # type: ignore[override]
 
 def getzoneinfofile_stream() -> BytesIO | None: ...
 
@@ -24,6 +25,7 @@ class ZoneInfoFile:
     zones: dict[str, _tzfile]
     metadata: _MetadataType | None
     def __init__(self, zonefile_stream: _Fileobj | None = None) -> None: ...
+
     @overload
     def get(self, name: str, default: None = None) -> _tzfile | None: ...
     @overload

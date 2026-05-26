@@ -1,12 +1,13 @@
 import builtins
 from _typeshed import Incomplete, Unused
-from collections.abc import Callable, Collection, Sequence
-from typing import Any, ClassVar, Final, Literal, NoReturn, SupportsIndex, TypeVar, overload
-from typing_extensions import Self, TypeAlias, deprecated
+from collections.abc import Callable, Collection
+from typing import Any, ClassVar, Final, Literal, NoReturn, SupportsIndex, TypeAlias, TypeVar, overload
+from typing_extensions import Self, deprecated
 
 import numpy as np
 import pandas as pd
 from numpy.typing import ArrayLike, DTypeLike, NDArray
+from pandas._typing import ScalarIndexer, SequenceIndexer, TakeIndexer
 from pandas.api.extensions import ExtensionArray, ExtensionDtype
 from pyproj import CRS, Transformer
 from shapely import Geometry
@@ -40,10 +41,12 @@ def to_shapely(geoms: GeometryArray) -> _Array1D[np.object_]: ...
 def from_wkb(
     data, crs: _ConvertibleToCRS | None = None, on_invalid: Literal["raise", "warn", "ignore", "fix"] = "raise"
 ) -> GeometryArray: ...
+
 @overload
 def to_wkb(geoms: GeometryArray, hex: Literal[False] = False, **kwargs) -> _Array1D[np.bytes_]: ...
 @overload
 def to_wkb(geoms: GeometryArray, hex: Literal[True], **kwargs) -> _Array1D[np.str_]: ...
+
 def from_wkt(
     data, crs: _ConvertibleToCRS | None = None, on_invalid: Literal["raise", "warn", "ignore", "fix"] = "raise"
 ) -> GeometryArray: ...
@@ -58,25 +61,23 @@ class GeometryArray(ExtensionArray):
     def sindex(self) -> SpatialIndex: ...
     @property
     def has_sindex(self) -> bool: ...
+
     @property
     def crs(self) -> CRS | None: ...
     @crs.setter
     def crs(self, value: _ConvertibleToCRS | None) -> None: ...
+
     def check_geographic_crs(self, stacklevel: int) -> None: ...
     @property
     def dtype(self) -> GeometryDtype: ...
     def __len__(self) -> int: ...
+
     # np.integer[Any] because precision is not important
     @overload
-    def __getitem__(self, idx: int | np.integer[Any]) -> BaseGeometry: ...  # Always 1-D, doesn't accept tuple
+    def __getitem__(self, idx: ScalarIndexer) -> BaseGeometry: ...  # Always 1-D, doesn't accept tuple
     @overload
-    def __getitem__(
-        self, idx: slice | Sequence[SupportsIndex] | NDArray[np.bool_] | NDArray[np.integer[Any]]
-    ) -> GeometryArray: ...
-    @overload
-    def __getitem__(
-        self, idx: int | np.integer[Any] | slice | Sequence[int] | NDArray[np.bool_] | NDArray[np.integer[Any]]
-    ) -> BaseGeometry | GeometryArray: ...
+    def __getitem__(self, idx: SequenceIndexer) -> GeometryArray: ...
+
     def __setitem__(
         self, key, value: _ArrayOrGeom | pd.DataFrame | pd.Series[Any]  # Cannot use pd.Series[BaseGeometry]
     ) -> None: ...
@@ -222,22 +223,22 @@ class GeometryArray(ExtensionArray):
     @property
     def ndim(self) -> Literal[1]: ...
     def copy(self, *args: Unused, **kwargs: Unused) -> GeometryArray: ...
-    def take(
-        self, indices: Sequence[SupportsIndex] | NDArray[np.integer], allow_fill: bool = False, fill_value: Geometry | None = None
-    ) -> GeometryArray: ...
-    def fillna(
+    def take(self, indices: TakeIndexer, allow_fill: bool = False, fill_value: Geometry | None = None) -> GeometryArray: ...
+    def fillna(  # type: ignore[override]
         self,
         value: Geometry | GeometryArray | None = None,
         method: Literal["backfill", "bfill", "pad", "ffill"] | None = None,
         limit: int | None = None,
         copy: bool = True,
     ) -> GeometryArray: ...
-    @overload
+
+    @overload  # type: ignore[override]
     def astype(self, dtype: GeometryDtype, copy: bool = True) -> GeometryArray: ...
     @overload
     def astype(self, dtype: ExtensionDtype | Literal["string"], copy: bool = True) -> ExtensionArray: ...  # type: ignore[overload-overlap]
     @overload
     def astype(self, dtype: DTypeLike, copy: bool = True) -> _Array1D[Incomplete]: ...
+
     def isna(self) -> _Array1D[np.bool_]: ...
     def value_counts(self, dropna: bool = True) -> pd.Series[int]: ...
     def unique(self) -> GeometryArray: ...
