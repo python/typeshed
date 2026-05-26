@@ -1,5 +1,6 @@
 import optparse
-from collections.abc import Callable, Collection, Iterator, Mapping
+from _typeshed import Incomplete
+from collections.abc import Callable, Collection, Iterable, Iterator, Mapping
 from typing import Any, Literal, NamedTuple, Protocol, TypedDict, type_check_only
 from typing_extensions import NotRequired
 
@@ -231,7 +232,7 @@ class _Params(TypedDict, total=False):
     useid: bool | None
     compat_opts: dict[str, Any] | None
     logger: _LoggerProtocol
-    post_hooks: Iterable[Callable[[Incomplete], object]
+    post_hooks: Iterable[Callable[[Incomplete], object]]
     # Undocumented fields below.
     _deprecation_warnings: Collection[str] | None
     _warnings: Collection[str] | None
