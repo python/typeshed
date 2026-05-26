@@ -1,8 +1,8 @@
 import os
 from _typeshed import Incomplete
 from collections.abc import Callable, Generator, Iterable, Mapping
-from typing import IO, Any, Literal, ParamSpec, TypeAlias, TypeVar
-from typing_extensions import Concatenate, Self, deprecated
+from typing import IO, Any, Concatenate, Literal, ParamSpec, TypeAlias, TypeVar
+from typing_extensions import Self, deprecated
 
 import numpy as np
 from matplotlib.artist import Artist
