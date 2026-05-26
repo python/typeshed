@@ -1,29 +1,32 @@
 import re
 from collections.abc import Callable, Generator, Hashable
-from typing import Any, overload
+from typing import Any, Final, final, overload
 from typing_extensions import Self
 
-FLOAT_ERROR: float = 0.0000005
+FLOAT_ERROR: Final[float] = 0.0000005
 
-RGB_TO_COLOR_NAMES: dict[tuple[int, int, int], list[str]]
+RGB_TO_COLOR_NAMES: Final[dict[tuple[int, int, int], list[str]]]
 
-COLOR_NAME_TO_RGB: dict[list[str], tuple[int, int, int]]
+COLOR_NAME_TO_RGB: Final[dict[list[str], tuple[int, int, int]]]
 
-LONG_HEX_COLOR: re.Pattern[str]
-SHORT_HEX_COLOR: re.Pattern[str]
+LONG_HEX_COLOR: Final[re.Pattern[str]]
+SHORT_HEX_COLOR: Final[re.Pattern[str]]
 
+@final
 class C_HSL:
     def __getattr__(self, value: str) -> tuple[float, float, float]: ...
 
+@final
 class C_RGB:
     def __getattr__(self, value: str) -> tuple[float, float, float]: ...
 
+@final
 class C_HEX:
     def __getattr__(self, value: str) -> str: ...
 
-HSL: C_HSL
-RGB: C_RGB
-HEX: C_HEX
+HSL: Final[C_HSL]
+RGB: Final[C_RGB]
+HEX: Final[C_HEX]
 
 def hsl2rgb(hsl: tuple[float, float, float]) -> tuple[float, float, float]: ...
 def rgb2hsl(rgb: tuple[float, float, float]) -> tuple[float, float, float]: ...
@@ -33,12 +36,12 @@ def hex2rgb(str_rgb: str) -> tuple[float, float, float]: ...
 def hex2web(hex: str) -> str: ...
 def web2hex(web: str, force_long: bool = False) -> str: ...
 
-hsl2hex: Callable[[tuple[float, float, float]], str]
-hex2hsl: Callable[[str], tuple[float, float, float]]
-rgb2web: Callable[[tuple[float, float, float]], str]
-web2rgb: Callable[[str], tuple[float, float, float]]
-web2hsl: Callable[[str], tuple[float, float, float]]
-hsl2web: Callable[[tuple[float, float, float]], str]
+hsl2hex: Final[Callable[[tuple[float, float, float]], str]]
+hex2hsl: Final[Callable[[str], tuple[float, float, float]]]
+rgb2web: Final[Callable[[tuple[float, float, float]], str]]
+web2rgb: Final[Callable[[str], tuple[float, float, float]]]
+web2hsl: Final[Callable[[str], tuple[float, float, float]]]
+hsl2web: Final[Callable[[tuple[float, float, float]], str]]
 
 def color_scale(
     begin_hsl: tuple[float, float, float], end_hsl: tuple[float, float, float], nb: int
@@ -82,14 +85,14 @@ class Color:
     def set_blue(self, value: float) -> None: ...
     def set_hex(self, value: str) -> None: ...
 
-    set_hex_l: Callable[[str], None] = ...
+    set_hex_l: Final[Callable[[str], None]] = ...
 
     def set_web(self, value: str) -> None: ...
     def range_to(self, value: str | Color | None, steps: int) -> Generator[Color]: ...
     def __eq__(self, other: object) -> bool | type[NotImplemented]: ...  # type: ignore[override, valid-type]  # pyright: ignore[reportInvalidTypeForm]
 
-RGB_equivalence: Callable[[Color, Color], bool]
-HSL_equivalence: Callable[[Color, Color], bool]
+RGB_equivalence: Final[Callable[[Color, Color], bool]]
+HSL_equivalence: Final[Callable[[Color, Color], bool]]
 
 def make_color_factory(
     **kwargs_defaults: Any,
