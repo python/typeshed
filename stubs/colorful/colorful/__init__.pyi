@@ -1,7 +1,6 @@
 from _typeshed import SupportsWrite
 from builtins import str as _str
-from collections.abc import ContextManager
-from typing import Final
+from typing import ContextManager, Final
 from typing_extensions import LiteralString
 
 from .core import Colorful, ColorfulString, _ColorModeType, _PaletteType
