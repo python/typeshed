@@ -8,8 +8,8 @@ __all__ = ["pprint", "pformat", "isreadable", "isrecursive", "saferepr", "Pretty
 if sys.version_info >= (3, 15):
     def pformat(
         object: object,
-        indent: int = 4,
-        width: int = 88,
+        indent: int = 1,
+        width: int = 80,
         depth: int | None = None,
         *,
         compact: bool = False,
@@ -92,12 +92,13 @@ class PrettyPrinter:
     if sys.version_info >= (3, 15):
         def __init__(
             self,
-            indent: int = 4,
-            width: int = 88,
+            indent: int = 1,
+            width: int = 80,
             depth: int | None = None,
             stream: IO[str] | None = None,
             *,
             compact: bool = False,
+            expand: bool = False,
             sort_dicts: bool = True,
             underscore_numbers: bool = False,
         ) -> None: ...
