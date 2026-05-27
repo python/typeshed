@@ -1,11 +1,12 @@
 import sys
-from collections.abc import Container, Iterable, Sequence
+from collections.abc import Container, Iterable
 from types import ModuleType
 from typing import Any, Final
 
 if sys.platform == "win32":
     from _msi import *
     from _msi import _Database
+    from .sequence import _SequenceType
 
     AMD64: Final[bool]
     Win64: Final[bool]
@@ -33,7 +34,7 @@ if sys.platform == "win32":
     class _Unspecified: ...
 
     def change_sequence(
-        seq: Sequence[tuple[str, str | None, int]],
+        seq: _SequenceType,
         action: str,
         seqno: int | type[_Unspecified] = ...,
         cond: str | type[_Unspecified] = ...,
@@ -54,7 +55,7 @@ if sys.platform == "win32":
         index: int
         def __init__(self, name: str) -> None: ...
         def gen_id(self, file: str) -> str: ...
-        def append(self, full: str, file: str, logical: str) -> tuple[int, str]: ...
+        def append(self, full: str, file: str, logical: str | None) -> tuple[int, str] | None: ...
         def commit(self, db: _Database) -> None: ...
 
     _directories: set[str]
@@ -62,7 +63,7 @@ if sys.platform == "win32":
     class Directory:
         db: _Database
         cab: CAB
-        basedir: str
+        basedir: Directory | None
         physical: str
         logical: str
         component: str | None
@@ -75,7 +76,7 @@ if sys.platform == "win32":
             self,
             db: _Database,
             cab: CAB,
-            basedir: str,
+            basedir: Directory | None,
             physical: str,
             _logical: str,
             default: str,
@@ -90,7 +91,7 @@ if sys.platform == "win32":
             uuid: str | None = None,
         ) -> None: ...
         def make_short(self, file: str) -> str: ...
-        def add_file(self, file: str, src: str | None = None, version: str | None = None, language: str | None = None) -> str: ...
+        def add_file(self, file: str, src: str | None = None, version: str | None = None, language: str | None = None) -> str | None: ...
         def glob(self, pattern: str, exclude: Container[str] | None = None) -> list[str]: ...
         def remove_pyc(self) -> None: ...
 
@@ -146,8 +147,8 @@ if sys.platform == "win32":
             attr: int,
             title: str,
             first: str,
-            default: str,
-            cancel: str,
+            default: str | None,
+            cancel: str | None,
         ) -> None: ...
         def control(
             self,
