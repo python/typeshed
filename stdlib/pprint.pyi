@@ -13,6 +13,7 @@ if sys.version_info >= (3, 15):
         depth: int | None = None,
         *,
         compact: bool = False,
+        expand: bool = False,
         sort_dicts: bool = True,
         underscore_numbers: bool = False,
     ) -> str: ...
@@ -33,11 +34,12 @@ if sys.version_info >= (3, 15):
     def pp(
         object: object,
         stream: IO[str] | None = None,
-        indent: int = 4,
-        width: int = 88,
+        indent: int = 1,
+        width: int = 80,
         depth: int | None = None,
         *,
         compact: bool = False,
+        expand: bool = False,
         sort_dicts: bool = False,
         underscore_numbers: bool = False,
     ) -> None: ...
@@ -59,11 +61,12 @@ if sys.version_info >= (3, 15):
     def pprint(
         object: object,
         stream: IO[str] | None = None,
-        indent: int = 4,
-        width: int = 88,
+        indent: int = 1,
+        width: int = 80,
         depth: int | None = None,
         *,
         compact: bool = False,
+        expand: bool = False,
         sort_dicts: bool = True,
         underscore_numbers: bool = False,
     ) -> None: ...
