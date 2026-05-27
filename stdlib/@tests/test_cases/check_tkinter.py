@@ -6,7 +6,6 @@ import types
 from typing import Optional, Tuple
 from typing_extensions import assert_type
 
-
 root = tkinter.Tk()
 root.report_callback_exception(TypeError, TypeError("no"), None)
 
