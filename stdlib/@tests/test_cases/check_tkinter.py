@@ -13,8 +13,14 @@ def custom_handler(exc: type[BaseException], val: BaseException, tb: types.Trace
 
 
 root = tkinter.Tk()
-root.report_callback_exception = traceback.print_exception
-root.report_callback_exception = custom_handler
+root.report_callback_exception = traceback.print_exception  # type: ignore[method-assign]
+root.report_callback_exception = custom_handler  # type: ignore[method-assign]
+root.report_callback_exception(TypeError, TypeError("no"), None)
+
+
+class App(tkinter.Tk):
+    def report_callback_exception(self, exc: type[BaseException], val: BaseException, tb: types.TracebackType | None) -> None:
+        print("oh no")
 
 
 def foo(x: int, y: str) -> None:
