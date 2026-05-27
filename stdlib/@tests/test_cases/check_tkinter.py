@@ -2,19 +2,12 @@ from __future__ import annotations
 
 import sys
 import tkinter
-import traceback
 import types
 from typing import Optional, Tuple
 from typing_extensions import assert_type
 
 
-def custom_handler(exc: type[BaseException], val: BaseException, tb: types.TracebackType | None) -> None:
-    print("oh no")
-
-
 root = tkinter.Tk()
-root.report_callback_exception = traceback.print_exception  # type: ignore[method-assign]
-root.report_callback_exception = custom_handler  # type: ignore[method-assign]
 root.report_callback_exception(TypeError, TypeError("no"), None)
 
 
