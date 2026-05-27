@@ -8,7 +8,7 @@ from typing_extensions import assert_type
 
 
 root = tkinter.Tk()
-root.report_callback_exception(TypeError, TypeError("no"), None)
+tkinter.Tk.report_callback_exception(root, TypeError, TypeError("no"), None)
 
 
 class App(tkinter.Tk):
