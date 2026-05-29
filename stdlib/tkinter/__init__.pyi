@@ -808,7 +808,6 @@ class Wm:
         def wm_attributes(self, option: Literal["-zoomed"], /) -> bool: ...
         @overload
         def wm_attributes(self, option: Literal["-type"], /) -> str: ...
-
     if sys.version_info >= (3, 13):
         # wm_attributes: Get one attribute (new variant without "-")
         @overload
