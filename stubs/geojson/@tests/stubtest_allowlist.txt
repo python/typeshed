@@ -1,2 +1,2 @@
-geojson
+geojson.factory
 geojson.examples.SimpleWebFeature.__geo_interface__
