@@ -1,9 +1,8 @@
 import sys
+from _typeshed import MaybeNone
 from collections.abc import Container, Iterable
 from types import ModuleType
 from typing import Any, Final
-
-from _typeshed import MaybeNone
 
 if sys.platform == "win32":
     from _msi import *
@@ -91,9 +90,7 @@ if sys.platform == "win32":
             uuid: str | None = None,
         ) -> None: ...
         def make_short(self, file: str) -> str: ...
-        def add_file(
-            self, file: str, src: str | None = None, version: str | None = None, language: str | None = None
-        ) -> str: ...
+        def add_file(self, file: str, src: str | None = None, version: str | None = None, language: str | None = None) -> str: ...
         def glob(self, pattern: str, exclude: Container[str] | None = None) -> list[str]: ...
         def remove_pyc(self) -> None: ...
 
