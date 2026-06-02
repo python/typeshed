@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from typing import Literal, TypeAlias, overload
+from typing import Any, Literal, TypeAlias, overload
 
 import numpy as np
 from numpy.typing import NDArray
@@ -30,7 +30,7 @@ def to_wkt(
     trim: bool = True,
     output_dimension: _OutputDimension | None = None,
     old_3d: bool = False,
-    **kwargs,
+    **kwargs: Any,
 ) -> None: ...
 @overload
 def to_wkt(
@@ -39,7 +39,7 @@ def to_wkt(
     trim: bool = True,
     output_dimension: _OutputDimension | None = None,
     old_3d: bool = False,
-    **kwargs,
+    **kwargs: Any,
 ) -> str: ...
 @overload
 def to_wkt(
@@ -48,9 +48,8 @@ def to_wkt(
     trim: bool = True,
     output_dimension: _OutputDimension | None = None,
     old_3d: bool = False,
-    **kwargs,
+    **kwargs: Any,
 ) -> NDArray[np.str_]: ...
-
 @overload
 def to_wkb(
     geometry: None,
@@ -59,7 +58,7 @@ def to_wkb(
     byte_order: int = -1,
     include_srid: bool = False,
     flavor: Literal["iso", "extended"] = "extended",
-    **kwargs,
+    **kwargs: Any,
 ) -> None: ...
 @overload
 def to_wkb(
@@ -69,7 +68,7 @@ def to_wkb(
     byte_order: int = -1,
     include_srid: bool = False,
     flavor: Literal["iso", "extended"] = "extended",
-    **kwargs,
+    **kwargs: Any,
 ) -> bytes: ...
 @overload
 def to_wkb(
@@ -79,7 +78,7 @@ def to_wkb(
     byte_order: int = -1,
     include_srid: bool = False,
     flavor: Literal["iso", "extended"] = "extended",
-    **kwargs,
+    **kwargs: Any,
 ) -> str: ...
 @overload
 def to_wkb(
@@ -89,7 +88,7 @@ def to_wkb(
     byte_order: int = -1,
     include_srid: bool = False,
     flavor: Literal["iso", "extended"] = "extended",
-    **kwargs,
+    **kwargs: Any,
 ) -> bytes | str: ...
 @overload
 def to_wkb(
@@ -99,7 +98,7 @@ def to_wkb(
     byte_order: int = -1,
     include_srid: bool = False,
     flavor: Literal["iso", "extended"] = "extended",
-    **kwargs,
+    **kwargs: Any,
 ) -> NDArray[np.bytes_]: ...
 @overload
 def to_wkb(
@@ -109,7 +108,7 @@ def to_wkb(
     byte_order: int = -1,
     include_srid: bool = False,
     flavor: Literal["iso", "extended"] = "extended",
-    **kwargs,
+    **kwargs: Any,
 ) -> NDArray[np.str_]: ...
 @overload
 def to_wkb(
@@ -119,43 +118,39 @@ def to_wkb(
     byte_order: int = -1,
     include_srid: bool = False,
     flavor: Literal["iso", "extended"] = "extended",
-    **kwargs,
+    **kwargs: Any,
 ) -> NDArray[np.bytes_] | NDArray[np.str_]: ...
-
 @overload
-def to_geojson(geometry: None, indent: int | None = None, **kwargs) -> None: ...
+def to_geojson(geometry: None, indent: int | None = None, **kwargs: Any) -> None: ...
 @overload
-def to_geojson(geometry: Geometry, indent: int | None = None, **kwargs) -> str: ...
+def to_geojson(geometry: Geometry, indent: int | None = None, **kwargs: Any) -> str: ...
 @overload
-def to_geojson(geometry: OptGeoArrayLikeSeq, indent: int | None = None, **kwargs) -> NDArray[np.str_]: ...
-
+def to_geojson(geometry: OptGeoArrayLikeSeq, indent: int | None = None, **kwargs: Any) -> NDArray[np.str_]: ...
 @overload
-def from_wkt(geometry: None, on_invalid: Literal["raise", "warn", "ignore", "fix"] = "raise", **kwargs) -> None: ...
+def from_wkt(geometry: None, on_invalid: Literal["raise", "warn", "ignore", "fix"] = "raise", **kwargs: Any) -> None: ...
 @overload
-def from_wkt(geometry: str, on_invalid: Literal["raise", "warn", "ignore", "fix"] = "raise", **kwargs) -> BaseGeometry: ...  # type: ignore[overload-overlap]
+def from_wkt(geometry: str, on_invalid: Literal["raise", "warn", "ignore", "fix"] = "raise", **kwargs: Any) -> BaseGeometry: ...  # type: ignore[overload-overlap]
 @overload
 def from_wkt(
-    geometry: ArrayLikeSeq[str | None], on_invalid: Literal["raise", "warn", "ignore", "fix"] = "raise", **kwargs
+    geometry: ArrayLikeSeq[str | None], on_invalid: Literal["raise", "warn", "ignore", "fix"] = "raise", **kwargs: Any
 ) -> GeoArray: ...
-
 @overload
-def from_wkb(geometry: None, on_invalid: Literal["raise", "warn", "ignore", "fix"] = "raise", **kwargs) -> None: ...
+def from_wkb(geometry: None, on_invalid: Literal["raise", "warn", "ignore", "fix"] = "raise", **kwargs: Any) -> None: ...
 @overload
 def from_wkb(
-    geometry: str | bytes, on_invalid: Literal["raise", "warn", "ignore", "fix"] = "raise", **kwargs
+    geometry: str | bytes, on_invalid: Literal["raise", "warn", "ignore", "fix"] = "raise", **kwargs: Any
 ) -> BaseGeometry: ...  # type: ignore[overload-overlap]
 @overload
 def from_wkb(
-    geometry: ArrayLikeSeq[str | bytes | None], on_invalid: Literal["raise", "warn", "ignore", "fix"] = "raise", **kwargs
+    geometry: ArrayLikeSeq[str | bytes | None], on_invalid: Literal["raise", "warn", "ignore", "fix"] = "raise", **kwargs: Any
 ) -> GeoArray: ...
-
 @overload
-def from_geojson(geometry: None, on_invalid: Literal["raise", "warn", "ignore", "fix"] = "raise", **kwargs) -> None: ...
+def from_geojson(geometry: None, on_invalid: Literal["raise", "warn", "ignore", "fix"] = "raise", **kwargs: Any) -> None: ...
 @overload
 def from_geojson(
-    geometry: str | bytes, on_invalid: Literal["raise", "warn", "ignore", "fix"] = "raise", **kwargs
+    geometry: str | bytes, on_invalid: Literal["raise", "warn", "ignore", "fix"] = "raise", **kwargs: Any
 ) -> BaseGeometry: ...  # type: ignore[overload-overlap]
 @overload
 def from_geojson(
-    geometry: ArrayLikeSeq[str | bytes | None], on_invalid: Literal["raise", "warn", "ignore", "fix"] = "raise", **kwargs
+    geometry: ArrayLikeSeq[str | bytes | None], on_invalid: Literal["raise", "warn", "ignore", "fix"] = "raise", **kwargs: Any
 ) -> GeoArray: ...
