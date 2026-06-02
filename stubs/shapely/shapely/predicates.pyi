@@ -67,7 +67,7 @@ def is_empty(geometry: Geometry | None, **kwargs: Unpack[UFuncKwargs]) -> np.boo
 def is_empty(geometry: OptGeoArrayLikeSeq, **kwargs: Unpack[UFuncKwargs]) -> NDArray[np.bool_]: ...
 
 @overload
-def is_geometry(geometry: Geometry, **kwargs: Unpack[UFuncKwargs]) -> np.bool_[Literal[True]]: ...
+def is_geometry(geometry: Geometry, **kwargs: Unpack[UFuncKwargs]) -> np.bool_[Literal[True]]: ...  # type: ignore[overload-overlap]
 @overload
 def is_geometry(geometry: None, **kwargs: Unpack[UFuncKwargs]) -> np.bool_[Literal[False]]: ...
 @overload
@@ -76,7 +76,7 @@ def is_geometry(geometry: ArrayLikeSeq[Any], **kwargs: Unpack[UFuncKwargs]) -> N
 def is_geometry(geometry: object, **kwargs: Unpack[UFuncKwargs]) -> TypeGuard[BaseGeometry]: ...
 
 @overload
-def is_missing(geometry: Geometry, **kwargs: Unpack[UFuncKwargs]) -> np.bool_[Literal[False]]: ...
+def is_missing(geometry: Geometry, **kwargs: Unpack[UFuncKwargs]) -> np.bool_[Literal[False]]: ...  # type: ignore[overload-overlap]
 @overload
 def is_missing(geometry: None, **kwargs: Unpack[UFuncKwargs]) -> np.bool_[Literal[True]]: ...
 @overload
@@ -90,7 +90,7 @@ def is_prepared(geometry: Geometry | None, **kwargs: Unpack[UFuncKwargs]) -> np.
 def is_prepared(geometry: OptGeoArrayLikeSeq, **kwargs: Unpack[UFuncKwargs]) -> NDArray[np.bool_]: ...
 
 @overload
-def is_valid_input(geometry: Geometry | None, **kwargs: Unpack[UFuncKwargs]) -> np.bool_[Literal[True]]: ...
+def is_valid_input(geometry: Geometry | None, **kwargs: Unpack[UFuncKwargs]) -> np.bool_[Literal[True]]: ...  # type: ignore[overload-overlap]
 @overload
 def is_valid_input(geometry: ArrayLikeSeq[Any], **kwargs: Unpack[UFuncKwargs]) -> NDArray[np.bool_]: ...  # type: ignore[overload-overlap]
 @overload
