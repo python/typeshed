@@ -56,8 +56,8 @@ class SupportsGeoInterface(Protocol):
 class SupportsRead(Protocol[_T_co]):
     def read(self) -> _T_co: ...
 
-CastingKind = Literal["no", "equiv", "safe", "same_kind", "unsafe"]
-OrderKind = Literal["K", "A", "C", "F"]
+CastingKind: TypeAlias = Literal["no", "equiv", "safe", "same_kind", "unsafe"]
+OrderKind: TypeAlias = Literal["K", "A", "C", "F"]
 
 @type_check_only
 class _UFuncKwargsBase(TypedDict, total=False):
