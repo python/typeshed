@@ -128,10 +128,10 @@ class Listener(AbstractListener):
     def __init__(
         self,
         on_press: (
-            Callable[[], None] | Callable[[Key | KeyCode | None], None] | Callable[[Key | KeyCode | None, bool], None] | None
+            Callable[[], bool | None] | Callable[[Key | KeyCode | None], bool | None] | Callable[[Key | KeyCode | None, bool], bool | None] | None
         ) = None,
         on_release: (
-            Callable[[], None] | Callable[[Key | KeyCode | None], None] | Callable[[Key | KeyCode | None, bool], None] | None
+            Callable[[], bool | None] | Callable[[Key | KeyCode | None], bool | None] | Callable[[Key | KeyCode | None, bool], bool | None] | None
         ) = None,
         suppress: bool = False,
         **kwargs: Any,
