@@ -1,12 +1,12 @@
 from collections.abc import Sequence
-from typing import Literal, SupportsIndex, TypeAlias, overload
+from typing import Literal, SupportsIndex, TypeAlias, Unpack, overload
 
 import numpy as np
 from numpy.typing import NDArray
 
 from ._enum import ParamEnum
 from ._geometry import GeometryType
-from ._typing import ArrayLike, ArrayLikeSeq, GeoArray, OptGeoArrayLike, OptGeoArrayLikeSeq
+from ._typing import ArrayLike, ArrayLikeSeq, GeoArray, OptGeoArrayLike, OptGeoArrayLikeSeq, UFuncKwargsNoOut
 from .geometry import GeometryCollection, LinearRing, LineString, MultiLineString, MultiPoint, MultiPolygon, Point, Polygon
 from .lib import Geometry
 
@@ -41,7 +41,7 @@ def points(
     *,
     handle_nan: _HandleNaN = ...,
     out: None = None,
-    **kwargs,  # acts as x
+    **kwargs: Unpack[UFuncKwargsNoOut],  # acts as x
 ) -> Point: ...
 @overload
 def points(
@@ -52,7 +52,7 @@ def points(
     *,
     handle_nan: _HandleNaN = ...,
     out: None = None,
-    **kwargs,  # acts as x, y[, z]
+    **kwargs: Unpack[UFuncKwargsNoOut],  # acts as x, y[, z]
 ) -> Point: ...
 @overload
 def points(
@@ -63,7 +63,7 @@ def points(
     *,
     handle_nan: _HandleNaN = ...,
     out: NDArray[np.object_] | None = None,
-    **kwargs,
+    **kwargs: Unpack[UFuncKwargsNoOut],
 ) -> GeoArray: ...
 @overload
 def points(
@@ -74,7 +74,7 @@ def points(
     *,
     handle_nan: _HandleNaN = ...,
     out: NDArray[np.object_] | None = None,
-    **kwargs,
+    **kwargs: Unpack[UFuncKwargsNoOut],
 ) -> GeoArray: ...
 @overload
 def points(
@@ -85,7 +85,7 @@ def points(
     *,
     handle_nan: _HandleNaN = ...,
     out: NDArray[np.object_] | None = None,
-    **kwargs,
+    **kwargs: Unpack[UFuncKwargsNoOut],
 ) -> Point | GeoArray: ...
 @overload
 def points(
@@ -96,9 +96,8 @@ def points(
     *,
     handle_nan: _HandleNaN = ...,
     out: NDArray[np.object_] | None = None,
-    **kwargs,
+    **kwargs: Unpack[UFuncKwargsNoOut],
 ) -> Point | GeoArray: ...
-
 @overload
 def linestrings(
     coords: Sequence[float],  # acts as (x1, x2, ...)
@@ -108,7 +107,7 @@ def linestrings(
     *,
     handle_nan: _HandleNaN = ...,
     out: None = None,
-    **kwargs,
+    **kwargs: Unpack[UFuncKwargsNoOut],
 ) -> LineString: ...
 @overload
 def linestrings(
@@ -119,7 +118,7 @@ def linestrings(
     *,
     handle_nan: _HandleNaN = ...,
     out: None = None,
-    **kwargs,
+    **kwargs: Unpack[UFuncKwargsNoOut],
 ) -> LineString: ...
 @overload
 def linestrings(
@@ -130,7 +129,7 @@ def linestrings(
     *,
     handle_nan: _HandleNaN = ...,
     out: NDArray[np.object_] | None = None,
-    **kwargs,
+    **kwargs: Unpack[UFuncKwargsNoOut],
 ) -> GeoArray: ...
 @overload
 def linestrings(
@@ -141,9 +140,8 @@ def linestrings(
     *,
     handle_nan: _HandleNaN = ...,
     out: NDArray[np.object_] | None = None,
-    **kwargs,
+    **kwargs: Unpack[UFuncKwargsNoOut],
 ) -> LineString | GeoArray: ...
-
 @overload
 def linearrings(
     coords: Sequence[float],  # acts as (x1, x2, ...)
@@ -153,7 +151,7 @@ def linearrings(
     *,
     handle_nan: _HandleNaN = ...,
     out: None = None,
-    **kwargs,
+    **kwargs: Unpack[UFuncKwargsNoOut],
 ) -> LinearRing: ...
 @overload
 def linearrings(
@@ -164,7 +162,7 @@ def linearrings(
     *,
     handle_nan: _HandleNaN = ...,
     out: None = None,
-    **kwargs,
+    **kwargs: Unpack[UFuncKwargsNoOut],
 ) -> LinearRing: ...
 @overload
 def linearrings(
@@ -175,7 +173,7 @@ def linearrings(
     *,
     handle_nan: _HandleNaN = ...,
     out: NDArray[np.object_] | None = None,
-    **kwargs,
+    **kwargs: Unpack[UFuncKwargsNoOut],
 ) -> GeoArray: ...
 @overload
 def linearrings(
@@ -186,9 +184,8 @@ def linearrings(
     *,
     handle_nan: _HandleNaN = ...,
     out: NDArray[np.object_] | None = None,
-    **kwargs,
+    **kwargs: Unpack[UFuncKwargsNoOut],
 ) -> LinearRing | GeoArray: ...
-
 @overload
 def polygons(
     geometries: LinearRing | Sequence[Sequence[float]] | None,
@@ -196,7 +193,7 @@ def polygons(
     indices: None = None,
     *,
     out: None = None,
-    **kwargs,
+    **kwargs: Unpack[UFuncKwargsNoOut],
 ) -> Polygon: ...
 @overload
 def polygons(
@@ -205,7 +202,7 @@ def polygons(
     indices: ArrayLikeSeq[int] | None = None,
     *,
     out: NDArray[np.object_] | None = None,
-    **kwargs,
+    **kwargs: Unpack[UFuncKwargsNoOut],
 ) -> GeoArray: ...
 @overload
 def polygons(
@@ -214,11 +211,10 @@ def polygons(
     indices: ArrayLikeSeq[int] | None = None,
     *,
     out: NDArray[np.object_] | None = None,
-    **kwargs,
+    **kwargs: Unpack[UFuncKwargsNoOut],
 ) -> Polygon | GeoArray: ...
-
 @overload
-def box(xmin: float, ymin: float, xmax: float, ymax: float, ccw: bool = True, **kwargs) -> Polygon: ...
+def box(xmin: float, ymin: float, xmax: float, ymax: float, ccw: bool = True, **kwargs: Unpack[UFuncKwargsNoOut]) -> Polygon: ...
 @overload
 def box(
     xmin: ArrayLikeSeq[float],
@@ -226,12 +222,15 @@ def box(
     xmax: ArrayLikeSeq[float],
     ymax: ArrayLikeSeq[float],
     ccw: bool = True,
-    **kwargs,
+    **kwargs: Unpack[UFuncKwargsNoOut],
 ) -> GeoArray: ...
-
 @overload
 def multipoints(
-    geometries: Sequence[Point | Sequence[float] | None], indices: None = None, *, out: None = None, **kwargs
+    geometries: Sequence[Point | Sequence[float] | None],
+    indices: None = None,
+    *,
+    out: None = None,
+    **kwargs: Unpack[UFuncKwargsNoOut],
 ) -> MultiPoint: ...
 @overload
 def multipoints(
@@ -239,16 +238,23 @@ def multipoints(
     indices: ArrayLikeSeq[int] | None = None,
     *,
     out: NDArray[np.object_] | None = None,
-    **kwargs,
+    **kwargs: Unpack[UFuncKwargsNoOut],
 ) -> GeoArray: ...
 @overload
 def multipoints(
-    geometries: OptGeoArrayLikeSeq, indices: ArrayLikeSeq[int] | None = None, *, out: NDArray[np.object_] | None = None, **kwargs
+    geometries: OptGeoArrayLikeSeq,
+    indices: ArrayLikeSeq[int] | None = None,
+    *,
+    out: NDArray[np.object_] | None = None,
+    **kwargs: Unpack[UFuncKwargsNoOut],
 ) -> MultiPoint | GeoArray: ...
-
 @overload
 def multilinestrings(
-    geometries: Sequence[LineString | Sequence[Sequence[float]] | None], indices: None = None, *, out: None = None, **kwargs
+    geometries: Sequence[LineString | Sequence[Sequence[float]] | None],
+    indices: None = None,
+    *,
+    out: None = None,
+    **kwargs: Unpack[UFuncKwargsNoOut],
 ) -> MultiLineString: ...
 @overload
 def multilinestrings(
@@ -256,16 +262,23 @@ def multilinestrings(
     indices: ArrayLikeSeq[int] | None = None,
     *,
     out: NDArray[np.object_] | None = None,
-    **kwargs,
+    **kwargs: Unpack[UFuncKwargsNoOut],
 ) -> GeoArray: ...
 @overload
 def multilinestrings(
-    geometries: OptGeoArrayLikeSeq, indices: ArrayLikeSeq[int] | None = None, *, out: NDArray[np.object_] | None = None, **kwargs
+    geometries: OptGeoArrayLikeSeq,
+    indices: ArrayLikeSeq[int] | None = None,
+    *,
+    out: NDArray[np.object_] | None = None,
+    **kwargs: Unpack[UFuncKwargsNoOut],
 ) -> MultiLineString | GeoArray: ...
-
 @overload
 def multipolygons(
-    geometries: Sequence[Polygon | Sequence[Sequence[float]] | None], indices: None = None, *, out: None = None, **kwargs
+    geometries: Sequence[Polygon | Sequence[Sequence[float]] | None],
+    indices: None = None,
+    *,
+    out: None = None,
+    **kwargs: Unpack[UFuncKwargsNoOut],
 ) -> MultiPolygon: ...
 @overload
 def multipolygons(
@@ -273,31 +286,36 @@ def multipolygons(
     indices: ArrayLikeSeq[int] | None = None,
     *,
     out: NDArray[np.object_] | None = None,
-    **kwargs,
+    **kwargs: Unpack[UFuncKwargsNoOut],
 ) -> GeoArray: ...
 @overload
 def multipolygons(
-    geometries: OptGeoArrayLikeSeq, indices: ArrayLikeSeq[int] | None = None, *, out: NDArray[np.object_] | None = None, **kwargs
+    geometries: OptGeoArrayLikeSeq,
+    indices: ArrayLikeSeq[int] | None = None,
+    *,
+    out: NDArray[np.object_] | None = None,
+    **kwargs: Unpack[UFuncKwargsNoOut],
 ) -> MultiPolygon | GeoArray: ...
-
 @overload
 def geometrycollections(
-    geometries: Sequence[Geometry | None], indices: None = None, out: None = None, **kwargs
+    geometries: Sequence[Geometry | None], indices: None = None, out: None = None, **kwargs: Unpack[UFuncKwargsNoOut]
 ) -> GeometryCollection: ...
 @overload
 def geometrycollections(
     geometries: Sequence[Sequence[Geometry | None]],
     indices: ArrayLikeSeq[int] | None = None,
     out: NDArray[np.object_] | None = None,
-    **kwargs,
+    **kwargs: Unpack[UFuncKwargsNoOut],
 ) -> GeoArray: ...
 @overload
 def geometrycollections(
-    geometries: OptGeoArrayLikeSeq, indices: ArrayLikeSeq[int] | None = None, out: NDArray[np.object_] | None = None, **kwargs
+    geometries: OptGeoArrayLikeSeq,
+    indices: ArrayLikeSeq[int] | None = None,
+    out: NDArray[np.object_] | None = None,
+    **kwargs: Unpack[UFuncKwargsNoOut],
 ) -> GeometryCollection | GeoArray: ...
-
-def prepare(geometry: OptGeoArrayLike, **kwargs) -> None: ...
-def destroy_prepared(geometry: OptGeoArrayLike, **kwargs) -> None: ...
+def prepare(geometry: OptGeoArrayLike, **kwargs: Unpack[UFuncKwargsNoOut]) -> None: ...
+def destroy_prepared(geometry: OptGeoArrayLike, **kwargs: Unpack[UFuncKwargsNoOut]) -> None: ...
 def empty(
     shape: SupportsIndex | Sequence[SupportsIndex], geom_type: GeometryType | int | None = None, order: Literal["C", "F"] = "C"
 ) -> NDArray[np.object_]: ...
