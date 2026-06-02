@@ -98,6 +98,7 @@ def points(
     out: NDArray[np.object_] | None = None,
     **kwargs: Any,
 ) -> Point | GeoArray: ...
+
 @overload
 def linestrings(
     coords: Sequence[float],  # acts as (x1, x2, ...)
@@ -142,6 +143,7 @@ def linestrings(
     out: NDArray[np.object_] | None = None,
     **kwargs: Any,
 ) -> LineString | GeoArray: ...
+
 @overload
 def linearrings(
     coords: Sequence[float],  # acts as (x1, x2, ...)
@@ -186,6 +188,7 @@ def linearrings(
     out: NDArray[np.object_] | None = None,
     **kwargs: Any,
 ) -> LinearRing | GeoArray: ...
+
 @overload
 def polygons(
     geometries: LinearRing | Sequence[Sequence[float]] | None,
@@ -213,6 +216,7 @@ def polygons(
     out: NDArray[np.object_] | None = None,
     **kwargs: Any,
 ) -> Polygon | GeoArray: ...
+
 @overload
 def box(xmin: float, ymin: float, xmax: float, ymax: float, ccw: bool = True, **kwargs: Any) -> Polygon: ...
 @overload
@@ -224,6 +228,7 @@ def box(
     ccw: bool = True,
     **kwargs: Any,
 ) -> GeoArray: ...
+
 @overload
 def multipoints(
     geometries: Sequence[Point | Sequence[float] | None], indices: None = None, *, out: None = None, **kwargs: Any
@@ -244,6 +249,7 @@ def multipoints(
     out: NDArray[np.object_] | None = None,
     **kwargs: Any,
 ) -> MultiPoint | GeoArray: ...
+
 @overload
 def multilinestrings(
     geometries: Sequence[LineString | Sequence[Sequence[float]] | None], indices: None = None, *, out: None = None, **kwargs: Any
@@ -264,6 +270,7 @@ def multilinestrings(
     out: NDArray[np.object_] | None = None,
     **kwargs: Any,
 ) -> MultiLineString | GeoArray: ...
+
 @overload
 def multipolygons(
     geometries: Sequence[Polygon | Sequence[Sequence[float]] | None], indices: None = None, *, out: None = None, **kwargs: Any
@@ -284,6 +291,7 @@ def multipolygons(
     out: NDArray[np.object_] | None = None,
     **kwargs: Any,
 ) -> MultiPolygon | GeoArray: ...
+
 @overload
 def geometrycollections(
     geometries: Sequence[Geometry | None], indices: None = None, out: None = None, **kwargs: Any
@@ -302,6 +310,7 @@ def geometrycollections(
     out: NDArray[np.object_] | None = None,
     **kwargs: Any,
 ) -> GeometryCollection | GeoArray: ...
+
 def prepare(geometry: OptGeoArrayLike, **kwargs: Any) -> None: ...
 def destroy_prepared(geometry: OptGeoArrayLike, **kwargs: Any) -> None: ...
 def empty(
