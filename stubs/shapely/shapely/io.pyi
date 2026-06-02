@@ -50,6 +50,7 @@ def to_wkt(
     old_3d: bool = False,
     **kwargs: Unpack[UFuncKwargs],
 ) -> NDArray[np.str_]: ...
+
 @overload
 def to_wkb(
     geometry: None,
@@ -120,12 +121,14 @@ def to_wkb(
     flavor: Literal["iso", "extended"] = "extended",
     **kwargs: Unpack[UFuncKwargs],
 ) -> NDArray[np.bytes_] | NDArray[np.str_]: ...
+
 @overload
 def to_geojson(geometry: None, indent: int | None = None, **kwargs: Unpack[UFuncKwargs]) -> None: ...
 @overload
 def to_geojson(geometry: Geometry, indent: int | None = None, **kwargs: Unpack[UFuncKwargs]) -> str: ...
 @overload
 def to_geojson(geometry: OptGeoArrayLikeSeq, indent: int | None = None, **kwargs: Unpack[UFuncKwargs]) -> NDArray[np.str_]: ...
+
 @overload
 def from_wkt(
     geometry: None, on_invalid: Literal["raise", "warn", "ignore", "fix"] = "raise", **kwargs: Unpack[UFuncKwargs]
@@ -140,6 +143,7 @@ def from_wkt(
     on_invalid: Literal["raise", "warn", "ignore", "fix"] = "raise",
     **kwargs: Unpack[UFuncKwargs],
 ) -> GeoArray: ...
+
 @overload
 def from_wkb(
     geometry: None, on_invalid: Literal["raise", "warn", "ignore", "fix"] = "raise", **kwargs: Unpack[UFuncKwargs]
@@ -154,6 +158,7 @@ def from_wkb(
     on_invalid: Literal["raise", "warn", "ignore", "fix"] = "raise",
     **kwargs: Unpack[UFuncKwargs],
 ) -> GeoArray: ...
+
 @overload
 def from_geojson(
     geometry: None, on_invalid: Literal["raise", "warn", "ignore", "fix"] = "raise", **kwargs: Unpack[UFuncKwargs]

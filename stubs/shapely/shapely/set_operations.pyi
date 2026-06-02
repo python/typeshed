@@ -34,6 +34,7 @@ def difference(
 def difference(
     a: OptGeoArrayLike, b: OptGeoArrayLikeSeq, grid_size: float | None = None, **kwargs: Unpack[UFuncKwargs]
 ) -> GeoArray: ...
+
 @overload
 def intersection(a: Geometry, b: Geometry, grid_size: float | None = None, **kwargs: Unpack[UFuncKwargs]) -> BaseGeometry: ...
 @overload
@@ -48,10 +49,12 @@ def intersection(
 def intersection(
     a: OptGeoArrayLike, b: OptGeoArrayLikeSeq, grid_size: float | None = None, **kwargs: Unpack[UFuncKwargs]
 ) -> GeoArray: ...
+
 @overload
 def intersection_all(geometries: OptGeoArrayLike, axis: None = None, **kwargs: Unpack[UFuncKwargs]) -> BaseGeometry: ...
 @overload
 def intersection_all(geometries: OptGeoArrayLikeSeq, axis: int, **kwargs: Unpack[UFuncKwargs]) -> BaseGeometry | GeoArray: ...
+
 @overload
 def symmetric_difference(
     a: Geometry, b: Geometry, grid_size: float | None = None, **kwargs: Unpack[UFuncKwargs]
@@ -68,6 +71,7 @@ def symmetric_difference(
 def symmetric_difference(
     a: OptGeoArrayLike, b: OptGeoArrayLikeSeq, grid_size: float | None = None, **kwargs: Unpack[UFuncKwargs]
 ) -> GeoArray: ...
+
 @overload
 @deprecated("symmetric_difference_all behaves incorrectly and will be removed in a future version.")
 def symmetric_difference_all(geometries: OptGeoArrayLike, axis: None = None, **kwargs: Unpack[UFuncKwargs]) -> BaseGeometry: ...
@@ -76,6 +80,7 @@ def symmetric_difference_all(geometries: OptGeoArrayLike, axis: None = None, **k
 def symmetric_difference_all(
     geometries: OptGeoArrayLikeSeq, axis: int, **kwargs: Unpack[UFuncKwargs]
 ) -> BaseGeometry | GeoArray: ...
+
 @overload
 def union(a: Geometry, b: Geometry, grid_size: float | None = None, **kwargs: Unpack[UFuncKwargs]) -> BaseGeometry: ...
 @overload
@@ -90,6 +95,7 @@ def union(
 def union(
     a: OptGeoArrayLike, b: OptGeoArrayLikeSeq, grid_size: float | None = None, **kwargs: Unpack[UFuncKwargs]
 ) -> GeoArray: ...
+
 @overload
 def union_all(
     geometries: OptGeoArrayLike, grid_size: float | None = None, axis: None = None, **kwargs: Unpack[UFuncKwargs]
@@ -113,11 +119,14 @@ def coverage_union(
 def coverage_union(
     a: OptGeoArrayLike, b: OptGeoArrayLike, *, axis: int, **kwargs: Unpack[UFuncKwargs]
 ) -> BaseGeometry | GeoArray: ...
+
 @overload
 def coverage_union_all(geometries: OptGeoArrayLike, axis: None = None, **kwargs: Unpack[UFuncKwargs]) -> BaseGeometry: ...
 @overload
 def coverage_union_all(geometries: OptGeoArrayLikeSeq, axis: int, **kwargs: Unpack[UFuncKwargs]) -> BaseGeometry | GeoArray: ...
+
 def disjoint_subset_union(a: OptGeoArrayLike, b: OptGeoArrayLike, **kwargs: Unpack[UFuncKwargs]) -> BaseGeometry | GeoArray: ...
+
 @overload
 def disjoint_subset_union_all(
     geometries: OptGeoArrayLike, *, axis: None = None, **kwargs: Unpack[UFuncKwargs]
