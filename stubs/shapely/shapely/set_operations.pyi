@@ -1,5 +1,5 @@
-from typing import Unpack, overload
-from typing_extensions import deprecated
+from typing import overload
+from typing_extensions import Unpack, deprecated
 
 from ._typing import GeoArray, OptGeoArrayLike, OptGeoArrayLikeSeq, UFuncKwargs
 from .geometry.base import BaseGeometry

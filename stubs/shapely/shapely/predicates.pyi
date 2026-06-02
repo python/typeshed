@@ -1,4 +1,5 @@
-from typing import Any, Literal, TypeGuard, Unpack, overload
+from typing import Any, Literal, TypeGuard, overload
+from typing_extensions import Unpack
 
 import numpy as np
 from numpy.typing import NDArray

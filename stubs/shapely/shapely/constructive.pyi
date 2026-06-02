@@ -1,5 +1,6 @@
 from collections.abc import Sequence
-from typing import Any, Literal, SupportsIndex, Unpack, overload
+from typing import Any, Literal, SupportsIndex, overload
+from typing_extensions import Unpack
 
 from ._enum import ParamEnum
 from ._typing import ArrayLike, ArrayLikeSeq, GeoArray, OptGeoArrayLike, OptGeoArrayLikeSeq, OptGeoT, UFuncKwargs
