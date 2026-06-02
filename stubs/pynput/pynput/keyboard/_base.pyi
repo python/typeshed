@@ -127,8 +127,18 @@ class Controller:
 class Listener(AbstractListener):
     def __init__(
         self,
-        on_press: Callable[[Key | KeyCode | None], None] | None = None,
-        on_release: Callable[[Key | KeyCode | None], None] | None = None,
+        on_press: (
+            Callable[[], None]
+            | Callable[[Key | KeyCode | None], None]
+            | Callable[[Key | KeyCode | None, bool], None]
+            | None
+        ) = None,
+        on_release: (
+            Callable[[], None]
+            | Callable[[Key | KeyCode | None], None]
+            | Callable[[Key | KeyCode | None, bool], None]
+            | None
+        ) = None,
         suppress: bool = False,
         **kwargs: Any,
     ) -> None: ...
