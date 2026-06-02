@@ -1,5 +1,5 @@
-from pynput.keyboard import Key, KeyCode, Listener as KeyboardListener
-from pynput.mouse import Button, Listener as MouseListener
+from pynput.keyboard import Listener as KeyboardListener
+from pynput.mouse import Listener as MouseListener
 
 # on_move: 0–3 args
 MouseListener(on_move=lambda: None)
