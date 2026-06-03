@@ -6,7 +6,7 @@ from typing_extensions import Self
 __all__ = ["WeakSet"]
 
 _S = TypeVar("_S")
-_T = TypeVar("_T", bound=Hashable)
+_T = TypeVar("_T")
 
 class WeakSet(MutableSet[_T]):
     @overload
