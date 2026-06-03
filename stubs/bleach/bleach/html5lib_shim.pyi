@@ -50,7 +50,7 @@ class InputStreamWithMemory:
 
 class BleachHTMLTokenizer(HTMLTokenizer):
     consume_entities: bool
-    stream: InputStreamWithMemory
+    stream: InputStreamWithMemory  # type: ignore[assignment]
     emitted_last_token: dict[str, Any] | None
     def __init__(self, consume_entities: bool = False, **kwargs: Any) -> None: ...
 
@@ -62,8 +62,8 @@ class BleachHTMLParser(HTMLParser):
 
 class BleachHTMLSerializer(HTMLSerializer):
     escape_rcdata: bool
-    def escape_base_amp(self, stoken: str) -> Generator[str, None, None]: ...
-    def serialize(self, treewalker: TreeWalker, encoding: str | None = None) -> Generator[str, None, None]: ...  # type: ignore[override]
+    def escape_base_amp(self, stoken: str) -> Generator[str]: ...
+    def serialize(self, treewalker: TreeWalker, encoding: str | None = None) -> Generator[str]: ...  # type: ignore[override]
 
 def convert_entity(value: str) -> str | None: ...
 def convert_entities(text: str) -> str: ...

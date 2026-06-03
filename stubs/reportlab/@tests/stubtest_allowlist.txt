@@ -41,7 +41,6 @@ reportlab.platypus.flowables._ContainerSpace.getSpaceBefore
 
 # this has an internal __boundary__ argument which confuses stubtest
 # we've decided to just get rid of the argument in the stub entirely
-reportlab.platypus.Frame.drawBoundary
 reportlab.platypus.frames.Frame.drawBoundary
 
 # this is just a case-insenstive version of dict and changes in parameter
@@ -56,13 +55,6 @@ reportlab.lib.utils.CIDict.setdefault
 # __new__ just forwards the arguments to the super class
 # it doesn't actually accept arbitrary arguments
 reportlab.platypus.doctemplate.PTCycle.__new__
-
-# type[Canvas] is a _CanvasMaker, for some reason stubtest trips up
-reportlab.platypus.BaseDocTemplate.build
-reportlab.platypus.SimpleDocTemplate.build
-reportlab.platypus.doctemplate.BaseDocTemplate.build
-reportlab.platypus.doctemplate.SimpleDocTemplate.build
-reportlab.platypus.tableofcontents.SimpleIndex.getCanvasMaker
 
 
 # Error: not present in stub
@@ -80,7 +72,6 @@ reportlab.lib.abag.ABag.__setattr__
 reportlab.lib.styles.PropertySet.__setattr__
 
 # *-imports that cause a mess we don't want to propagate
-reportlab.graphics.charts.lineplots.pi
 reportlab\.graphics\.render(base|PDF|PM|PS|SVG)\.EVEN_ODD
 reportlab\.graphics\.render(base|PDF|PM|PS|SVG)\.FILL_EVEN_ODD
 reportlab\.graphics\.render(base|PDF|PM|PS|SVG)\.FILL_NON_ZERO

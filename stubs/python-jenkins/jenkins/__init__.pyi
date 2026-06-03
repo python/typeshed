@@ -1,8 +1,8 @@
 from _typeshed import Incomplete
 from collections.abc import Mapping, MutableMapping, Sequence
 from re import Pattern
-from typing import Any, Final, Literal, overload
-from typing_extensions import TypeAlias, deprecated
+from typing import Any, Final, Literal, TypeAlias, TypedDict, overload, type_check_only
+from typing_extensions import Required, deprecated
 
 import requests
 from requests.models import Request, Response
@@ -92,6 +92,15 @@ class WrappedSession(requests.Session):
 _JSONValue: TypeAlias = Any  # too many possibilities to express
 _JSON: TypeAlias = dict[str, _JSONValue]
 
+@type_check_only
+class _Job(TypedDict, total=False):
+    _class: Required[str]
+    url: Required[str]
+    color: str
+    name: Required[str]
+    fullname: Required[str]
+    jobs: list[_Job]
+
 class Jenkins:
     server: str
     auth: _Auth | None
@@ -128,10 +137,8 @@ class Jenkins:
     def get_plugins_info(self, depth: int = 2) -> _JSON: ...
     def get_plugin_info(self, name: str, depth: int = 2) -> _JSON: ...
     def get_plugins(self, depth: int = 2) -> _JSON: ...
-    def get_jobs(
-        self, folder_depth: int = 0, folder_depth_per_request: int = 10, view_name: str | None = None
-    ) -> list[dict[str, str]]: ...
-    def get_all_jobs(self, folder_depth: int | None = None, folder_depth_per_request: int = 10) -> list[dict[str, str]]: ...
+    def get_jobs(self, folder_depth: int = 0, folder_depth_per_request: int = 10, view_name: str | None = None) -> list[_Job]: ...
+    def get_all_jobs(self, folder_depth: int | None = None, folder_depth_per_request: int = 10) -> list[_Job]: ...
     def copy_job(self, from_name: str, to_name: str) -> None: ...
     def rename_job(self, from_name: str, to_name: str) -> None: ...
     def delete_job(self, name: str) -> None: ...
@@ -147,6 +154,7 @@ class Jenkins:
     def create_job(self, name: str, config_xml: str) -> None: ...
     def get_job_config(self, name: str) -> str: ...
     def reconfig_job(self, name: str, config_xml: str) -> None: ...
+
     @overload
     def build_job_url(
         self,
@@ -162,6 +170,7 @@ class Jenkins:
     def build_job_url(
         self, name: str, parameters: dict[str, Incomplete] | list[tuple[str, Incomplete]] | None = None, *, token: str
     ) -> str: ...
+
     @overload
     def build_job(
         self,
@@ -177,6 +186,7 @@ class Jenkins:
     def build_job(
         self, name: str, parameters: dict[str, Incomplete] | list[tuple[str, Incomplete]] | None = None, *, token: str
     ) -> int: ...
+
     def run_script(self, script: str, node: str | None = None) -> str: ...
     def install_plugin(self, name: str, include_dependencies: bool = True) -> bool: ...
     def stop_build(self, name: str, number: int) -> None: ...

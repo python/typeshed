@@ -26,8 +26,8 @@ Z_RLE: Final = 3
 Z_SYNC_FLUSH: Final = 2
 Z_TREES: Final = 6
 
-if sys.version_info >= (3, 14) and sys.platform == "win32":
-    # Available when zlib was built with zlib-ng, usually only on Windows
+if sys.version_info >= (3, 14):
+    # Available when zlib was built with zlib-ng
     ZLIBNG_VERSION: Final[str]
 
 class error(Exception): ...
@@ -60,6 +60,9 @@ class _Decompress:
 
 def adler32(data: ReadableBuffer, value: int = 1, /) -> int: ...
 
+if sys.version_info >= (3, 15):
+    def adler32_combine(adler1: int, adler2: int, len2: int, /) -> int: ...
+
 if sys.version_info >= (3, 11):
     def compress(data: ReadableBuffer, /, level: int = -1, wbits: int = 15) -> bytes: ...
 
@@ -70,5 +73,9 @@ def compressobj(
     level: int = -1, method: int = 8, wbits: int = 15, memLevel: int = 8, strategy: int = 0, zdict: ReadableBuffer | None = None
 ) -> _Compress: ...
 def crc32(data: ReadableBuffer, value: int = 0, /) -> int: ...
+
+if sys.version_info >= (3, 15):
+    def crc32_combine(crc1: int, crc2: int, len2: int, /) -> int: ...
+
 def decompress(data: ReadableBuffer, /, wbits: int = 15, bufsize: int = 16384) -> bytes: ...
 def decompressobj(wbits: int = 15, zdict: ReadableBuffer = b"") -> _Decompress: ...

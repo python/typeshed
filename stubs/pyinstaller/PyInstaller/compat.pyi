@@ -22,6 +22,7 @@ is_win_11: Final[bool]
 is_win_wine: Final[bool]
 is_cygwin: Final[bool]
 is_darwin: Final[bool]
+is_android: Final[bool]
 is_linux: Final[bool]
 is_solar: Final[bool]
 is_aix: Final[bool]
@@ -35,7 +36,6 @@ is_macos_11_compat: Final[bool]
 is_macos_11_native: Final[bool]
 is_macos_11: Final[bool]
 is_nogil: Final[bool]
-PYDYLIB_NAMES: Final[set[str]]
 base_prefix: Final[str]
 is_venv: Final[bool]
 is_virtualenv: Final[bool]
@@ -54,10 +54,12 @@ machine: Final[
 ]
 
 def is_wine_dll(filename: FileDescriptorOrPath) -> bool: ...
+
 @overload
 def getenv(name: str, default: str) -> str: ...
 @overload
 def getenv(name: str, default: None = None) -> str | None: ...
+
 def setenv(name: str, value: str) -> None: ...
 def unsetenv(name: str) -> None: ...
 def exec_command(

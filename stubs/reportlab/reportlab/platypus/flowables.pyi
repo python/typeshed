@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, SupportsRead, Unused
 from collections.abc import Callable, Iterable, Sequence
-from typing import Any, Literal, NoReturn, Protocol, type_check_only
-from typing_extensions import Self, TypeAlias
+from typing import Any, Literal, NoReturn, Protocol, TypeAlias, type_check_only
+from typing_extensions import Self
 
 from reportlab.lib.colors import Color
 from reportlab.lib.styles import ListStyle, ParagraphStyle, PropertySet
@@ -411,7 +411,7 @@ class ListItem:
     # TODO: Use Unpack for kwds with the ListStyle properties + value/spaceBefore/spaceAfter
     def __init__(self, flowables: _FlowableSublist, style: PropertySet | None = None, **kwds) -> None: ...
 
-class ListFlowable(_Container, Flowable):
+class ListFlowable(_Container, Flowable, _FindSplitterMixin):
     style: ListStyle
     # NOTE: style has to be a ListStyle, but this will be annoying with sheet["ul"]
     # TODO: Use Unpack for kwds with the ListStyle properties + spaceBefore/spaceAfter
