@@ -1,4 +1,4 @@
-from collections.abc import Hashable, Iterable, Iterator, MutableSet
+from collections.abc import Iterable, Iterator, MutableSet
 from types import GenericAlias
 from typing import Any, ClassVar, TypeVar, overload
 from typing_extensions import Self
