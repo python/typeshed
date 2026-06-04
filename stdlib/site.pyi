@@ -13,13 +13,7 @@ def addpackage(sitedir: StrPath, name: StrPath, known_paths: set[str] | None) ->
 
 if sys.version_info >= (3, 15):
     class StartupState:
-        __slots__ = (
-        '_known_paths',
-        '_processed_sitedirs',
-        '_path_entries',
-        '_importexecs',
-        '_entrypoints',
-    )
+        __slots__ = ("_known_paths", "_processed_sitedirs", "_path_entries", "_importexecs", "_entrypoints")
         def __init__(self, known_paths: set[str] | None = None) -> None: ...
         def addsitedir(self, sitedir: str) -> None: ...
         def addusersitepackages(self) -> None: ...
