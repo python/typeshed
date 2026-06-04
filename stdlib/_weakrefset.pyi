@@ -1,4 +1,4 @@
-from collections.abc import Iterable, Iterator, MutableSet
+from collections.abc import Hashable, Iterable, Iterator, MutableSet
 from types import GenericAlias
 from typing import Any, ClassVar, TypeVar, overload
 from typing_extensions import Self
@@ -6,7 +6,7 @@ from typing_extensions import Self
 __all__ = ["WeakSet"]
 
 _S = TypeVar("_S")
-_T = TypeVar("_T")
+_T = TypeVar("_T", bound=Hashable)
 
 class WeakSet(MutableSet[_T]):
     @overload
