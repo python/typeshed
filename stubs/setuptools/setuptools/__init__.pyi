@@ -1,4 +1,4 @@
-from _typeshed import StrPath
+from _typeshed import Incomplete, StrPath
 from abc import abstractmethod
 from collections.abc import ItemsView, Iterable, Mapping, Sequence
 from typing import Any, Literal, Protocol, TypedDict, TypeVar, overload, type_check_only
@@ -36,9 +36,7 @@ from .warnings import SetuptoolsDeprecationWarning as SetuptoolsDeprecationWarni
 
 _CommandT = TypeVar("_CommandT", bound=_Command)
 _DistributionT = TypeVar("_DistributionT", bound=_Distribution, default=Distribution)
-_T = TypeVar("_T")
 _KT = TypeVar("_KT")
-_VT = TypeVar("_VT")
 _VT_co = TypeVar("_VT_co", covariant=True)
 
 __all__ = [
@@ -54,22 +52,23 @@ __all__ = [
 
 __version__: str
 
+# We need any Command subclass to be valid
+# Any: pyright would accept using covariance in __setitem__, but mypy won't let a dict be assignable to this protocol
+# This is unsound, but it's a quirk of setuptools' internals
 @type_check_only
-class _DictLike(Protocol[_KT, _VT_co]):  # type: ignore[misc] # Covariant type as parameter
-    @overload
-    def get(self, key: _KT, /) -> _VT_co | None: ...
-    @overload
-    def get(self, key: _KT, default: _VT_co, /) -> _VT_co: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues] # Covariant type as parameter
-    @overload
-    def get(self, key: _KT, default: _T, /) -> _VT_co | _T: ...
+class _DictLike(Protocol[_KT, _VT_co]):
+    # See note about using _VT_co instead of Any
+    def get(self, key: _KT, default: Any | None = None, /) -> _VT_co | None: ...
     def items(self) -> ItemsView[_KT, _VT_co]: ...
     def keys(self) -> Iterable[_KT]: ...
     def __getitem__(self, key: _KT, /) -> _VT_co: ...
-    def __contains__(self, x: Any, /) -> bool: ...
+    def __contains__(self, x: object, /) -> bool: ...
 
 @type_check_only
-class _MutableDictLike(_DictLike[_KT, _VT], Protocol):
-    def __setitem__(self, key: _KT, value: _VT, /) -> None: ...
+class _MutableDictLike(_DictLike[_KT, _VT_co], Protocol):
+    # See note about using _VT_co instead of Any
+    def __setitem__(self, key: _KT, value: Any, /) -> None: ...
+    def setdefault(self, key: _KT, default: Any, /) -> _VT_co: ...
 
 @type_check_only
 class _BuildInfo(TypedDict):
@@ -107,9 +106,8 @@ def setup(
     download_url: str | None = None,
     # Attributes from distutils.dist.Distribution.__init__ (except self.metadata)
     # These take priority over attributes from distutils.dist.Distribution.display_option_names
-    verbose=True,
-    dry_run=False,
-    help=False,
+    verbose: bool = True,
+    help: bool = False,
     cmdclass: _MutableDictLike[str, type[_Command]] = {},
     command_packages: str | list[str] | None = None,
     script_name: StrPath | None = ...,  # default is actually set in distutils.core.setup
@@ -123,7 +121,7 @@ def setup(
     ext_modules: Sequence[_Extension] | None = None,
     ext_package: str | None = None,
     include_dirs: list[str] | None = None,
-    extra_path=None,
+    extra_path: Never = ...,  # Deprecated
     scripts: list[str] | None = None,
     data_files: list[tuple[str, Sequence[str]]] | None = None,
     password: str = "",
@@ -149,13 +147,13 @@ def setup(
     setup_requires: list[str] = [],
     # From Distribution._DISTUTILS_UNSUPPORTED_METADATA set in Distribution._set_metadata_defaults
     long_description_content_type: str | None = None,
-    project_urls={},
-    provides_extras={},
-    license_expression=None,
-    license_file=None,
-    license_files=None,
-    install_requires=[],
-    extras_require={},
+    project_urls: _DictLike[Incomplete, Incomplete] = {},
+    provides_extras: _MutableDictLike[Incomplete, Incomplete] = {},
+    license_expression: str | None = None,
+    license_file: Never = ...,  # Deprecated
+    license_files: Iterable[str] | None = None,
+    install_requires: str | Iterable[str] = [],
+    extras_require: _DictLike[Incomplete, Incomplete] = {},
     # kwargs used directly in distutils.core.setup
     distclass: type[_DistributionT] = Distribution,  # type: ignore[assignment] # noqa: Y011
     # Custom Distributions could accept more params
@@ -165,8 +163,10 @@ def setup(
 class Command(_Command):
     command_consumes_arguments: bool
     distribution: Distribution
+    dry_run: bool
     # Any: Dynamic command subclass attributes
     def __init__(self, dist: Distribution, **kw: Any) -> None: ...
+
     # Note: Commands that setuptools doesn't re-expose are considered deprecated (they must be imported from distutils directly)
     # So we're not listing them here. This list comes directly from the setuptools/command folder. Minus the test command.
     @overload  # type: ignore[override]
@@ -215,6 +215,7 @@ class Command(_Command):
     def get_finalized_command(self, command: Literal["setopt"], create: bool | Literal[0, 1] = 1) -> setopt: ...
     @overload
     def get_finalized_command(self, command: str, create: bool | Literal[0, 1] = 1) -> Command: ...
+
     @overload  # type: ignore[override] # Extra **kw param
     def reinitialize_command(self, command: Literal["alias"], reinit_subcommands: bool = False, **kw) -> alias: ...
     @overload
@@ -267,6 +268,7 @@ class Command(_Command):
     def reinitialize_command(self, command: str, reinit_subcommands: bool = False, **kw) -> Command: ...
     @overload
     def reinitialize_command(self, command: _CommandT, reinit_subcommands: bool = False, **kw) -> _CommandT: ...
+
     @abstractmethod
     def initialize_options(self) -> None: ...
     @abstractmethod
