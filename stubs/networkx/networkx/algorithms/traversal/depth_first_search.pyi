@@ -1,7 +1,8 @@
-from _typeshed import Incomplete
-from collections.abc import Callable, Generator
+from collections.abc import Callable, Generator, Iterable, Iterator
+from typing import Literal
 
-from networkx.classes.graph import Graph, _Node
+from networkx.classes.digraph import DiGraph
+from networkx.classes.graph import Graph, _EdgeData, _Node, _NodeData
 from networkx.utils.backends import _dispatchable
 
 __all__ = [
@@ -16,29 +17,57 @@ __all__ = [
 
 @_dispatchable
 def dfs_edges(
-    G: Graph[_Node], source: _Node | None = None, depth_limit=None, *, sort_neighbors: Callable[..., Incomplete] | None = None
-) -> Generator[tuple[_Node, _Node], None, None]: ...
+    G: Graph[_Node],
+    source: _Node | None = None,
+    depth_limit: int | None = None,
+    *,
+    sort_neighbors: Callable[[Iterator[_Node]], Iterable[_Node]] | None = None,
+) -> Generator[tuple[_Node, _Node]]: ...
 @_dispatchable
 def dfs_tree(
-    G: Graph[_Node], source: _Node | None = None, depth_limit=None, *, sort_neighbors: Callable[..., Incomplete] | None = None
-): ...
+    G: Graph[_Node, _NodeData, _EdgeData],
+    source: _Node | None = None,
+    depth_limit: int | None = None,
+    *,
+    sort_neighbors: Callable[[Iterator[_Node]], Iterable[_Node]] | None = None,
+) -> DiGraph[_Node, _NodeData, _EdgeData]: ...
 @_dispatchable
 def dfs_predecessors(
-    G: Graph[_Node], source: _Node | None = None, depth_limit=None, *, sort_neighbors: Callable[..., Incomplete] | None = None
-): ...
+    G: Graph[_Node],
+    source: _Node | None = None,
+    depth_limit: int | None = None,
+    *,
+    sort_neighbors: Callable[[Iterator[_Node]], Iterable[_Node]] | None = None,
+) -> dict[_Node, _Node]: ...
 @_dispatchable
 def dfs_successors(
-    G: Graph[_Node], source: _Node | None = None, depth_limit=None, *, sort_neighbors: Callable[..., Incomplete] | None = None
-): ...
+    G: Graph[_Node],
+    source: _Node | None = None,
+    depth_limit: int | None = None,
+    *,
+    sort_neighbors: Callable[[Iterator[_Node]], Iterable[_Node]] | None = None,
+) -> dict[_Node, list[_Node]]: ...
 @_dispatchable
 def dfs_postorder_nodes(
-    G: Graph[_Node], source: _Node | None = None, depth_limit=None, *, sort_neighbors: Callable[..., Incomplete] | None = None
-): ...
+    G: Graph[_Node],
+    source: _Node | None = None,
+    depth_limit: int | None = None,
+    *,
+    sort_neighbors: Callable[[Iterator[_Node]], Iterable[_Node]] | None = None,
+) -> Generator[_Node]: ...
 @_dispatchable
 def dfs_preorder_nodes(
-    G: Graph[_Node], source: _Node | None = None, depth_limit=None, *, sort_neighbors: Callable[..., Incomplete] | None = None
-): ...
+    G: Graph[_Node],
+    source: _Node | None = None,
+    depth_limit: int | None = None,
+    *,
+    sort_neighbors: Callable[[Iterator[_Node]], Iterable[_Node]] | None = None,
+) -> Generator[_Node]: ...
 @_dispatchable
 def dfs_labeled_edges(
-    G: Graph[_Node], source: _Node | None = None, depth_limit=None, *, sort_neighbors: Callable[..., Incomplete] | None = None
-) -> None: ...
+    G: Graph[_Node],
+    source: _Node | None = None,
+    depth_limit: int | None = None,
+    *,
+    sort_neighbors: Callable[[Iterator[_Node]], Iterable[_Node]] | None = None,
+) -> Generator[tuple[_Node, _Node, Literal["forward", "nontree", "reverse", "reverse-depth_limit"]]]: ...

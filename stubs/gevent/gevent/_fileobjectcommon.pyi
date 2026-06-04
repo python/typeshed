@@ -28,7 +28,8 @@ class FlushingBufferedWriter(io.BufferedWriter): ...
 class WriteallMixin:
     def writeall(self, b: ReadableBuffer, /) -> int: ...
 
-class FileIO(io.FileIO): ...
+class FileIO(io.FileIO):
+    __slots__ = ()
 
 class WriteIsWriteallMixin(WriteallMixin):
     def write(self, b: ReadableBuffer, /) -> int: ...
@@ -222,6 +223,7 @@ class FileObjectBlock(FileObjectBase[_IOT, AnyStr]):
 class FileObjectThread(FileObjectBase[_IOT, AnyStr]):
     threadpool: ThreadPool
     lock: Semaphore | DummySemaphore
+
     # Text mode: always binds a TextIOWrapper
     @overload
     def __init__(

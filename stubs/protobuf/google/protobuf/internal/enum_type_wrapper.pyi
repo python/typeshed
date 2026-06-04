@@ -1,4 +1,4 @@
-from typing import Generic, TypeVar
+from typing import Generic, TypeVar, type_check_only
 
 from google.protobuf.descriptor import EnumDescriptor
 
@@ -9,6 +9,7 @@ _V = TypeVar("_V", bound=int)
 # NOTE: this doesn't actually inherit from type,
 # but mypy doesn't support metaclasses that don't inherit from type,
 # so we pretend it does in the stubs...
+@type_check_only
 class _EnumTypeWrapper(type, Generic[_V]):
     DESCRIPTOR: EnumDescriptor
     def __init__(self, enum_type: EnumDescriptor) -> None: ...
@@ -18,4 +19,5 @@ class _EnumTypeWrapper(type, Generic[_V]):
     def values(self) -> list[_V]: ...
     def items(self) -> list[tuple[str, _V]]: ...
 
-class EnumTypeWrapper(_EnumTypeWrapper[int]): ...
+class EnumTypeWrapper(_EnumTypeWrapper[int]):
+    ValueType = int

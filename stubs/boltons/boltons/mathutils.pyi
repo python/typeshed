@@ -2,16 +2,19 @@ from collections.abc import Iterable
 from typing import overload
 
 def clamp(x: float, lower: float = ..., upper: float = ...) -> float: ...
+
 @overload
 def ceil(x: float, options: None = None) -> int: ...
 @overload
 def ceil(x: float, options: Iterable[float]) -> float: ...
+
 @overload
 def floor(x: float, options: None = None) -> int: ...
 @overload
 def floor(x: float, options: Iterable[float]) -> float: ...
 
 class Bits:
+    __slots__ = ("val", "len")
     val: int
     len: int
     def __init__(self, val: int | list[bool] | str | bytes = 0, len_: int | None = None) -> None: ...

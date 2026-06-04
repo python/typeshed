@@ -1,14 +1,14 @@
 import io
 import json
 import os
-from _typeshed import Incomplete, SupportsRead, Unused
+from _typeshed import Incomplete, SupportsRead
 from collections.abc import Callable, Hashable
 from typing import Any, Literal, final, overload
 from typing_extensions import Self
 
 import pandas as pd
 from numpy.typing import ArrayLike
-from pandas._typing import Axes, AxisIndex, Dtype
+from pandas._typing import Axes, Dtype
 from pyproj import CRS
 from shapely.geometry.base import BaseGeometry
 
@@ -43,8 +43,8 @@ class GeoSeries(GeoPandasBase, pd.Series[BaseGeometry]):  # type: ignore[type-va
         copy: bool | None = None,
         fastpath: bool = False,
     ) -> None: ...
-    @final
-    def copy(self, deep: bool = True) -> Self: ...  # to override pandas definition
+    @final  # type: ignore[misc]
+    def copy(self, deep: bool = True) -> Self: ...
     @property
     def values(self) -> GeometryArray: ...
     @property
@@ -55,6 +55,8 @@ class GeoSeries(GeoPandasBase, pd.Series[BaseGeometry]):  # type: ignore[type-va
     def y(self) -> pd.Series[float]: ...
     @property
     def z(self) -> pd.Series[float]: ...
+    @property
+    def m(self) -> pd.Series[float]: ...
     # Keep inline with GeoDataFrame.from_file and geopandas.io.file._read_file
     @classmethod
     def from_file(
@@ -76,7 +78,7 @@ class GeoSeries(GeoPandasBase, pd.Series[BaseGeometry]):  # type: ignore[type-va
         data: ArrayLike,  # array-like of bytes handled by shapely.from_wkb(data)
         index: Axes | None = None,
         crs: _ConvertibleToCRS | None = None,
-        on_invalid: Literal["raise", "warn", "ignore"] = "raise",
+        on_invalid: Literal["raise", "warn", "ignore", "fix"] = "raise",
         *,
         dtype: Dtype | None = None,
         name: Hashable = None,
@@ -89,7 +91,7 @@ class GeoSeries(GeoPandasBase, pd.Series[BaseGeometry]):  # type: ignore[type-va
         data: ArrayLike,  # array-like of str handled by shapely.from_wkt(data)
         index: Axes | None = None,
         crs: _ConvertibleToCRS | None = None,
-        on_invalid: Literal["raise", "warn", "ignore"] = "raise",
+        on_invalid: Literal["raise", "warn", "ignore", "fix"] = "raise",
         *,
         dtype: Dtype | None = None,
         name: Hashable = None,
@@ -145,11 +147,7 @@ class GeoSeries(GeoPandasBase, pd.Series[BaseGeometry]):  # type: ignore[type-va
         overwrite: bool | None = ...,
         **kwargs,  # engine and driver dependent
     ) -> None: ...
-    # *** TODO: compare `__getitem__` with pandas-stubs ***
-    # def __getitem__(self, key): ...
-    # *** `sort_index` is annotated with `-> Self` in pandas-stubs; no need to override it ***
-    # def sort_index(self, *args, **kwargs): ...
-    def take(self, indices: ArrayLike, axis: AxisIndex = 0, **kwargs: Unused) -> GeoSeries: ...
+    # *** `__getitem__`, `sort_index` and `take` are annotated with `-> Self` in pandas-stubs; no need to override them ***
     # *** `apply` annotation in pandas-stubs is compatible except for deprecated `convert_dtype` argument ***
     # def apply(self, func, convert_dtype: bool | None = None, args=(), **kwargs): ...
     def isna(self) -> pd.Series[bool]: ...
@@ -158,12 +156,13 @@ class GeoSeries(GeoPandasBase, pd.Series[BaseGeometry]):  # type: ignore[type-va
     def notnull(self) -> pd.Series[bool]: ...
     # *** TODO: `fillna` annotation in pandas-stubs is NOT compatible; must `-> Self` ***
     # def fillna(self, value=None, method: FillnaOptions | None = None, inplace: bool = False, **kwargs): ...
-    def __contains__(self, other: object) -> bool: ...
+    def __contains__(self, other: object) -> bool: ...  # type: ignore[misc]
     @doc(plot_series)
-    def plot(self, *args, **kwargs): ...  # signature of `plot_series` copied in `@doc`
+    def plot(self, *args, **kwargs): ...  # type: ignore[override]  # signature of `plot_series` copied in `@doc`
     @doc(_explore_geoseries)  # pyright: ignore[reportUnknownArgumentType]
     def explore(self, *args, **kwargs): ...  # signature of `_explore_geoseries` copied in `@doc`
     def explode(self, ignore_index: bool = False, index_parts: bool = False) -> GeoSeries: ...
+
     @overload
     def set_crs(
         self, crs: _ConvertibleToCRS, epsg: int | None = None, inplace: bool = False, allow_override: bool = False
@@ -174,12 +173,14 @@ class GeoSeries(GeoPandasBase, pd.Series[BaseGeometry]):  # type: ignore[type-va
     ) -> Self: ...
     @overload
     def set_crs(self, crs: _ConvertibleToCRS | None, epsg: int, inplace: bool = False, allow_override: bool = False) -> Self: ...
+
     @overload
     def to_crs(self, crs: _ConvertibleToCRS, epsg: int | None = None) -> GeoSeries: ...
     @overload
     def to_crs(self, crs: _ConvertibleToCRS | None = None, *, epsg: int) -> GeoSeries: ...
     @overload
     def to_crs(self, crs: _ConvertibleToCRS | None, epsg: int) -> GeoSeries: ...
+
     def estimate_utm_crs(self, datum_name: str = "WGS 84") -> CRS: ...
     def to_json(  # type: ignore[override]
         self,
@@ -199,12 +200,14 @@ class GeoSeries(GeoPandasBase, pd.Series[BaseGeometry]):  # type: ignore[type-va
         sort_keys: bool = False,
         **kwds,
     ) -> str: ...
+
     @overload
     def to_wkb(self, hex: Literal[False] = False, **kwargs) -> pd.Series[bytes]: ...
     @overload
     def to_wkb(self, hex: Literal[True], **kwargs) -> pd.Series[str]: ...
     @overload
     def to_wkb(self, hex: bool = False, **kwargs) -> pd.Series[str] | pd.Series[bytes]: ...
+
     def to_wkt(self, **kwargs) -> pd.Series[str]: ...
     def to_arrow(
         self,

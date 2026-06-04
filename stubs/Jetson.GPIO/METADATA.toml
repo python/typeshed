@@ -1,2 +1,2 @@
-version = "2.1.*"
-upstream_repository = "https://github.com/NVIDIA/jetson-gpio"
+version = "2.1.12"
+upstream-repository = "https://github.com/NVIDIA/jetson-gpio"

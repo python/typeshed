@@ -6,7 +6,6 @@ import json
 import re
 import subprocess
 import sys
-from importlib.util import find_spec
 from pathlib import Path
 
 from ts_utils.metadata import get_oldest_supported_python, read_metadata
@@ -51,7 +50,7 @@ def main() -> None:
     parser.add_argument(
         "--python-version",
         default=None,
-        choices=("3.9", "3.10", "3.11", "3.12", "3.13", "3.14"),
+        choices=("3.10", "3.11", "3.12", "3.13", "3.14", "3.15"),
         # We're using the oldest fully supported version because it's the most likely to produce errors
         # due to unsupported syntax, feature, or bug in a tool.
         help="Target Python version for the test (defaults to oldest supported Python version).",
@@ -77,7 +76,6 @@ def main() -> None:
         python_version = get_oldest_supported_python()
 
     stubtest_result: subprocess.CompletedProcess[bytes] | None = None
-    pytype_result: subprocess.CompletedProcess[bytes] | None = None
 
     print("\nRunning pre-commit...")
     pre_commit_result = subprocess.run(["pre-commit", "run", "--files", *path.rglob("*")], check=False)
@@ -124,17 +122,6 @@ def main() -> None:
                 )
     else:
         print(colored("\nSkipping stubtest since mypy failed.", "yellow"))
-
-    if find_spec("pytype"):
-        print("\nRunning pytype...")
-        pytype_result = subprocess.run([sys.executable, "tests/pytype_test.py", path], check=False)
-    else:
-        print(
-            colored(
-                f"\nSkipping pytype on Windows. You need to install it first: `{sys.executable} -m pip install pytype` .",
-                "yellow",
-            )
-        )
 
     cases_path = test_cases_path(stub if folder == "stubs" else "stdlib")
     if not cases_path.exists():
@@ -186,7 +173,6 @@ def main() -> None:
             pyright_returncode,
             mypy_result.returncode,
             getattr(stubtest_result, "returncode", 0),
-            getattr(pytype_result, "returncode", 0),
             pyright_testcases_returncode,
             regr_test_returncode,
         ]
@@ -200,14 +186,12 @@ def main() -> None:
         print("pre-commit", _SUCCESS)
     else:
         print("pre-commit", _FAILED)
-        print(
-            """\
+        print("""\
   Check the output of pre-commit for more details.
   This could mean that there's a lint failure on your code,
   but could also just mean that one of the pre-commit tools
   applied some autofixes. If the latter, you may want to check
-  that the autofixes did sensible things."""
-        )
+  that the autofixes did sensible things.""")
     print("Check structure:", _SUCCESS if check_structure_result.returncode == 0 else _FAILED)
     if pyright_skipped:
         print("Pyright:", _SKIPPED)
@@ -218,10 +202,6 @@ def main() -> None:
         print("stubtest:", _SKIPPED)
     else:
         print("stubtest:", _SUCCESS if stubtest_result.returncode == 0 else _FAILED)
-    if not pytype_result:
-        print("pytype:", _SKIPPED)
-    else:
-        print("pytype:", _SUCCESS if pytype_result.returncode == 0 else _FAILED)
     if pyright_testcases_skipped:
         print("Pyright regression tests:", _SKIPPED)
     else:

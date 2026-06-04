@@ -5,19 +5,25 @@
 
 from __future__ import annotations
 
+import datetime
 import functools
 import re
+import sys
 import urllib.parse
 from collections.abc import Mapping
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Annotated, Any, Final, NamedTuple, final
-from typing_extensions import TypeGuard
+from typing import Annotated, Any, Final, NamedTuple, TypeGuard, cast, final
 
-import tomli
+if sys.version_info >= (3, 11):
+    import tomllib
+else:
+    import tomli as tomllib
+
 import tomlkit
 from packaging.requirements import Requirement
 from packaging.specifiers import Specifier
+from tomlkit.items import String
 
 from .paths import PYPROJECT_PATH, STUBS_PATH, distribution_path
 
@@ -26,12 +32,14 @@ __all__ = [
     "PackageDependencies",
     "StubMetadata",
     "StubtestSettings",
+    "get_oldest_supported_python",
     "get_recursive_requirements",
     "read_dependencies",
     "read_metadata",
     "read_stubtest_settings",
 ]
 
+DEFAULT_STUBTEST_PLATFORMS = ["linux"]
 
 _STUBTEST_PLATFORM_MAPPING: Final = {"linux": "apt_dependencies", "darwin": "brew_dependencies", "win32": "choco_dependencies"}
 # Some older websites have a bad pattern of using query params for navigation.
@@ -49,7 +57,7 @@ def _is_nested_dict(obj: object) -> TypeGuard[dict[str, dict[str, Any]]]:
 @functools.cache
 def get_oldest_supported_python() -> str:
     with PYPROJECT_PATH.open("rb") as config:
-        val = tomli.load(config)["tool"]["typeshed"]["oldest_supported_python"]
+        val = tomllib.load(config)["tool"]["typeshed"]["oldest-supported-python"]
     assert type(val) is str
     return val
 
@@ -73,8 +81,9 @@ class StubtestSettings:
     choco_dependencies: list[str]
     extras: list[str]
     ignore_missing_stub: bool
-    platforms: list[str]
-    stubtest_requirements: list[str]
+    supported_platforms: list[str] | None  # None means all platforms
+    ci_platforms: list[str]
+    stubtest_dependencies: list[str]
     mypy_plugins: list[str]
     mypy_plugins_config: dict[str, dict[str, Any]]
 
@@ -89,37 +98,44 @@ class StubtestSettings:
 def read_stubtest_settings(distribution: str) -> StubtestSettings:
     """Return an object describing the stubtest settings for a single stubs distribution."""
     with metadata_path(distribution).open("rb") as f:
-        data: dict[str, object] = tomli.load(f).get("tool", {}).get("stubtest", {})
+        data: dict[str, object] = tomllib.load(f).get("tool", {}).get("stubtest", {})
 
     skip: object = data.get("skip", False)
-    apt_dependencies: object = data.get("apt_dependencies", [])
-    brew_dependencies: object = data.get("brew_dependencies", [])
-    choco_dependencies: object = data.get("choco_dependencies", [])
+    apt_dependencies: object = data.get("apt-dependencies", [])
+    brew_dependencies: object = data.get("brew-dependencies", [])
+    choco_dependencies: object = data.get("choco-dependencies", [])
     extras: object = data.get("extras", [])
-    ignore_missing_stub: object = data.get("ignore_missing_stub", False)
-    specified_platforms: object = data.get("platforms", ["linux"])
-    stubtest_requirements: object = data.get("stubtest_requirements", [])
-    mypy_plugins: object = data.get("mypy_plugins", [])
-    mypy_plugins_config: object = data.get("mypy_plugins_config", {})
+    ignore_missing_stub: object = data.get("ignore-missing-stub", False)
+    supported_platforms: object = data.get("supported-platforms")
+    ci_platforms: object = data.get("ci-platforms", DEFAULT_STUBTEST_PLATFORMS)
+    stubtest_dependencies: object = data.get("stubtest-dependencies", [])
+    mypy_plugins: object = data.get("mypy-plugins", [])
+    mypy_plugins_config: object = data.get("mypy-plugins-config", {})
 
     assert type(skip) is bool
     assert type(ignore_missing_stub) is bool
 
     # It doesn't work for type-narrowing if we use a for loop here...
-    assert _is_list_of_strings(specified_platforms)
+    assert supported_platforms is None or _is_list_of_strings(supported_platforms)
+    assert _is_list_of_strings(ci_platforms)
     assert _is_list_of_strings(apt_dependencies)
     assert _is_list_of_strings(brew_dependencies)
     assert _is_list_of_strings(choco_dependencies)
     assert _is_list_of_strings(extras)
-    assert _is_list_of_strings(stubtest_requirements)
+    assert _is_list_of_strings(stubtest_dependencies)
     assert _is_list_of_strings(mypy_plugins)
     assert _is_nested_dict(mypy_plugins_config)
 
-    unrecognised_platforms = set(specified_platforms) - _STUBTEST_PLATFORM_MAPPING.keys()
-    assert not unrecognised_platforms, f"Unrecognised platforms specified for {distribution!r}: {unrecognised_platforms}"
+    unrecognised_platforms = set(ci_platforms) - _STUBTEST_PLATFORM_MAPPING.keys()
+    assert not unrecognised_platforms, f"Unrecognised ci-platforms specified for {distribution!r}: {unrecognised_platforms}"
+
+    if supported_platforms is not None:
+        assert set(ci_platforms).issubset(
+            supported_platforms
+        ), f"ci-platforms must be a subset of supported-platforms for {distribution!r}"
 
     for platform, dep_key in _STUBTEST_PLATFORM_MAPPING.items():
-        if platform not in specified_platforms:
+        if platform not in ci_platforms:
             assert dep_key not in data, (
                 f"Stubtest is not run on {platform} in CI for {distribution!r}, "
                 f"but {dep_key!r} are specified in METADATA.toml"
@@ -132,11 +148,19 @@ def read_stubtest_settings(distribution: str) -> StubtestSettings:
         choco_dependencies=choco_dependencies,
         extras=extras,
         ignore_missing_stub=ignore_missing_stub,
-        platforms=specified_platforms,
-        stubtest_requirements=stubtest_requirements,
+        supported_platforms=supported_platforms,
+        ci_platforms=ci_platforms,
+        stubtest_dependencies=stubtest_dependencies,
         mypy_plugins=mypy_plugins,
         mypy_plugins_config=mypy_plugins_config,
     )
+
+
+@final
+@dataclass(frozen=True)
+class ObsoleteMetadata:
+    since_version: Annotated[str, "A string representing a specific version"]
+    since_date: Annotated[datetime.date, "A date when the package became obsolete"]
 
 
 @final
@@ -149,11 +173,11 @@ class StubMetadata:
 
     distribution: Annotated[str, "The name of the distribution on PyPI"]
     version_spec: Annotated[Specifier, "Upstream versions that the stubs are compatible with"]
-    requires: Annotated[list[Requirement], "The parsed requirements as listed in METADATA.toml"]
+    dependencies: Annotated[list[Requirement], "The parsed dependencies as listed in METADATA.toml"]
     extra_description: str | None
     stub_distribution: Annotated[str, "The name under which the distribution is uploaded to PyPI"]
     upstream_repository: Annotated[str, "The URL of the upstream repository"] | None
-    obsolete_since: Annotated[str, "A string representing a specific version"] | None
+    obsolete: Annotated[ObsoleteMetadata, "Metadata indicating when the stubs package became obsolete"] | None
     no_longer_updated: bool
     uploaded_to_pypi: Annotated[bool, "Whether or not a distribution is uploaded to PyPI"]
     partial_stub: Annotated[bool, "Whether this is a partial type stub package as per PEP 561."]
@@ -162,37 +186,38 @@ class StubMetadata:
 
     @property
     def is_obsolete(self) -> bool:
-        return self.obsolete_since is not None
+        return self.obsolete is not None
 
 
 _KNOWN_METADATA_FIELDS: Final = frozenset(
     {
         "version",
-        "requires",
-        "extra_description",
-        "stub_distribution",
-        "upstream_repository",
-        "obsolete_since",
-        "no_longer_updated",
+        "dependencies",
+        "extra-description",
+        "stub-distribution",
+        "upstream-repository",
+        "obsolete-since",
+        "no-longer-updated",
         "upload",
         "tool",
-        "partial_stub",
-        "requires_python",
+        "partial-stub",
+        "requires-python",
         "mypy-tests",
     }
 )
 _KNOWN_METADATA_TOOL_FIELDS: Final = {
     "stubtest": {
         "skip",
-        "apt_dependencies",
-        "brew_dependencies",
-        "choco_dependencies",
+        "apt-dependencies",
+        "brew-dependencies",
+        "choco-dependencies",
         "extras",
-        "ignore_missing_stub",
-        "platforms",
-        "stubtest_requirements",
-        "mypy_plugins",
-        "mypy_plugins_config",
+        "ignore-missing-stub",
+        "supported-platforms",
+        "ci-platforms",
+        "stubtest-dependencies",
+        "mypy-plugins",
+        "mypy-plugins-config",
     }
 }
 _DIST_NAME_RE: Final = re.compile(r"^[a-z0-9]([a-z0-9._-]*[a-z0-9])?$", re.IGNORECASE)
@@ -209,11 +234,16 @@ def read_metadata(distribution: str) -> StubMetadata:
     This function does some basic validation,
     but does no parsing, transforming or normalization of the metadata.
     Use `read_dependencies` if you need to parse the dependencies
-    given in the `requires` field, for example.
+    given in the `dependencies` field, for example.
     """
     try:
         with metadata_path(distribution).open("rb") as f:
-            data: dict[str, object] = tomli.load(f)
+            # This cast is necessary for pyright to understand that the
+            # variable is a dict with object values. Just using
+            # `data: dict[str, object] = tomlkit.load(f)` doesn't work because
+            # pyright still infers TOMLDocument which derives from
+            # dict[Unknown, Unknown].
+            data = cast(dict[str, object], tomlkit.load(f))
     except FileNotFoundError:
         raise NoSuchStubError(f"Typeshed has no stubs for {distribution!r}!") from None
 
@@ -221,7 +251,7 @@ def read_metadata(distribution: str) -> StubMetadata:
     assert not unknown_metadata_fields, f"Unexpected keys in METADATA.toml for {distribution!r}: {unknown_metadata_fields}"
 
     assert "version" in data, f"Missing 'version' field in METADATA.toml for {distribution!r}"
-    version = data["version"]
+    version = data.get("version")
     assert isinstance(version, str) and len(version) > 0, f"Invalid 'version' field in METADATA.toml for {distribution!r}"
     # Check that the version spec parses
     if version[0].isdigit():
@@ -229,73 +259,80 @@ def read_metadata(distribution: str) -> StubMetadata:
     version_spec = Specifier(version)
     assert version_spec.operator in {"==", "~="}, f"Invalid 'version' field in METADATA.toml for {distribution!r}"
 
-    requires_s: object = data.get("requires", [])
-    assert isinstance(requires_s, list)
-    requires = [parse_requires(distribution, req) for req in requires_s]
+    dependencies_s = data.get("dependencies", [])
+    assert isinstance(dependencies_s, list)
+    dependencies = [parse_dependencies(distribution, dep) for dep in dependencies_s]
 
-    extra_description: object = data.get("extra_description")
+    extra_description = data.get("extra-description")
     assert isinstance(extra_description, (str, type(None)))
 
-    if "stub_distribution" in data:
-        stub_distribution = data["stub_distribution"]
+    if "stub-distribution" in data:
+        stub_distribution = data["stub-distribution"]
         assert isinstance(stub_distribution, str)
-        assert _DIST_NAME_RE.fullmatch(stub_distribution), f"Invalid 'stub_distribution' value for {distribution!r}"
+        assert _DIST_NAME_RE.fullmatch(stub_distribution), f"Invalid 'stub-distribution' value for {distribution!r}"
     else:
         stub_distribution = f"types-{distribution}"
 
-    upstream_repository: object = data.get("upstream_repository")
+    upstream_repository = data.get("upstream-repository")
     assert isinstance(upstream_repository, (str, type(None)))
     if isinstance(upstream_repository, str):
         parsed_url = urllib.parse.urlsplit(upstream_repository)
-        assert parsed_url.scheme == "https", f"{distribution}: URLs in the upstream_repository field should use https"
+        assert parsed_url.scheme == "https", f"{distribution}: URLs in the upstream-repository field should use https"
         no_www_please = (
-            f"{distribution}: `World Wide Web` subdomain (`www.`) should be removed from URLs in the upstream_repository field"
+            f"{distribution}: `World Wide Web` subdomain (`www.`) should be removed from URLs in the upstream-repository field"
         )
         assert not parsed_url.netloc.startswith("www."), no_www_please
         no_query_params_please = (
-            f"{distribution}: Query params (`?`) should be removed from URLs in the upstream_repository field"
+            f"{distribution}: Query params (`?`) should be removed from URLs in the upstream-repository field"
         )
         assert parsed_url.hostname in _QUERY_URL_ALLOWLIST or (not parsed_url.query), no_query_params_please
-        no_fragments_please = f"{distribution}: Fragments (`#`) should be removed from URLs in the upstream_repository field"
+        no_fragments_please = f"{distribution}: Fragments (`#`) should be removed from URLs in the upstream-repository field"
         assert not parsed_url.fragment, no_fragments_please
         if parsed_url.netloc == "github.com":
             cleaned_url_path = parsed_url.path.strip("/")
             num_url_path_parts = len(Path(cleaned_url_path).parts)
             bad_github_url_msg = (
-                f"Invalid upstream_repository for {distribution!r}: "
+                f"Invalid upstream-repository for {distribution!r}: "
                 "URLs for GitHub repositories always have two parts in their paths"
             )
             assert num_url_path_parts == 2, bad_github_url_msg
 
-    obsolete_since: object = data.get("obsolete_since")
-    assert isinstance(obsolete_since, (str, type(None)))
-    no_longer_updated: object = data.get("no_longer_updated", False)
+    obsolete_since = data.get("obsolete-since")
+    assert isinstance(obsolete_since, (String, type(None)))
+    if obsolete_since:
+        comment = obsolete_since.trivia.comment
+        since_date_string = comment.removeprefix("# Released on ")
+        since_date = datetime.date.fromisoformat(since_date_string)
+        obsolete = ObsoleteMetadata(since_version=obsolete_since, since_date=since_date)
+    else:
+        obsolete = None
+    no_longer_updated = data.get("no-longer-updated", False)
     assert type(no_longer_updated) is bool
-    uploaded_to_pypi: object = data.get("upload", True)
+    uploaded_to_pypi = data.get("upload", True)
     assert type(uploaded_to_pypi) is bool
-    partial_stub: object = data.get("partial_stub", True)
+    partial_stub = data.get("partial-stub", True)
     assert type(partial_stub) is bool
-    requires_python_str: object = data.get("requires_python")
+    requires_python_str = data.get("requires-python")
     oldest_supported_python = get_oldest_supported_python()
     oldest_supported_python_specifier = Specifier(f">={oldest_supported_python}")
     if requires_python_str is None:
         requires_python = oldest_supported_python_specifier
     else:
-        assert type(requires_python_str) is str
+        assert isinstance(requires_python_str, str)
         requires_python = Specifier(requires_python_str)
-        assert requires_python != oldest_supported_python_specifier, f'requires_python="{requires_python}" is redundant'
+        assert requires_python != oldest_supported_python_specifier, f'requires-python="{requires_python}" is redundant'
         # Check minimum Python version is not less than the oldest version of Python supported by typeshed
         assert oldest_supported_python_specifier.contains(
             requires_python.version
-        ), f"'requires_python' contains versions lower than typeshed's oldest supported Python ({oldest_supported_python})"
-        assert requires_python.operator == ">=", "'requires_python' should be a minimum version specifier, use '>=3.x'"
+        ), f"'requires-python' contains versions lower than typeshed's oldest supported Python ({oldest_supported_python})"
+        assert requires_python.operator == ">=", "'requires-python' should be a minimum version specifier, use '>=3.x'"
 
     empty_tools: dict[object, object] = {}
-    tools_settings: object = data.get("tool", empty_tools)
+    tools_settings = data.get("tool", empty_tools)
     assert isinstance(tools_settings, dict)
     assert tools_settings.keys() <= _KNOWN_METADATA_TOOL_FIELDS.keys(), f"Unrecognised tool for {distribution!r}"
     for tool, tk in _KNOWN_METADATA_TOOL_FIELDS.items():
-        settings_for_tool: object = tools_settings.get(tool, {})  # pyright: ignore[reportUnknownMemberType]
+        settings_for_tool = cast(dict[str, object], tools_settings).get(tool, {})
         assert isinstance(settings_for_tool, dict)
         for key in settings_for_tool:
             assert key in tk, f"Unrecognised {tool} key {key!r} for {distribution!r}"
@@ -303,11 +340,11 @@ def read_metadata(distribution: str) -> StubMetadata:
     return StubMetadata(
         distribution=distribution,
         version_spec=version_spec,
-        requires=requires,
+        dependencies=dependencies,
         extra_description=extra_description,
         stub_distribution=stub_distribution,
         upstream_repository=upstream_repository,
-        obsolete_since=obsolete_since,
+        obsolete=obsolete,
         no_longer_updated=no_longer_updated,
         uploaded_to_pypi=uploaded_to_pypi,
         partial_stub=partial_stub,
@@ -316,24 +353,32 @@ def read_metadata(distribution: str) -> StubMetadata:
     )
 
 
-def update_metadata(distribution: str, **new_values: object) -> tomlkit.TOMLDocument:
+def update_metadata(distribution: str, **new_values: object) -> dict[str, object]:
     """Update a distribution's METADATA.toml.
 
     Return the updated TOML dictionary for use without having to open the file separately.
     """
     path = metadata_path(distribution)
     try:
-        with path.open("rb") as file:
-            data = tomlkit.load(file)
+        with path.open("rb") as f:
+            # This cast is necessary for pyright to understand that the
+            # variable is a dict with object values. Just using
+            # `data: dict[str, object] = tomlkit.load(f)` doesn't work because
+            # pyright still infers TOMLDocument which derives from
+            # dict[Unknown, Unknown].
+            data = cast(dict[str, object], tomlkit.load(f))
     except FileNotFoundError:
         raise NoSuchStubError(f"Typeshed has no stubs for {distribution!r}!") from None
-    data.update(new_values)  # pyright: ignore[reportUnknownMemberType] # tomlkit.TOMLDocument.update is partially typed
-    with path.open("w", encoding="UTF-8") as file:
-        tomlkit.dump(data, file)  # pyright: ignore[reportUnknownMemberType] # tomlkit.dump has partially unknown Mapping type
+    data.update(new_values)
+    for key in list(data.keys()):
+        new_key = key.replace("_", "-")
+        data[new_key] = data.pop(key)
+    with path.open("w", encoding="UTF-8") as f:
+        tomlkit.dump(data, f)  # pyright: ignore[reportUnknownMemberType] # tomlkit.dump has partially unknown Mapping type
     return data
 
 
-def parse_requires(distribution: str, req: object) -> Requirement:
+def parse_dependencies(distribution: str, req: object) -> Requirement:
     assert isinstance(req, str), f"Invalid requirement {req!r} for {distribution!r}"
     return Requirement(req)
 
@@ -365,7 +410,7 @@ def read_dependencies(distribution: str) -> PackageDependencies:
     pypi_name_to_typeshed_name_mapping = get_pypi_name_to_typeshed_name_mapping()
     typeshed: list[Requirement] = []
     external: list[Requirement] = []
-    for dependency in read_metadata(distribution).requires:
+    for dependency in read_metadata(distribution).dependencies:
         if dependency.name in pypi_name_to_typeshed_name_mapping:
             req = Requirement(str(dependency))  # copy the requirement
             req.name = pypi_name_to_typeshed_name_mapping[dependency.name]

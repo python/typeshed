@@ -1,13 +1,12 @@
 from _typeshed import Incomplete
 from collections.abc import Callable, Hashable, Mapping
-from typing_extensions import Concatenate, ParamSpec, TypeAlias
+from typing import Concatenate, ParamSpec, TypeAlias
 
 from numpy import ufunc
 from pandas import DataFrame
 
 # pandas._typing.AggFuncTypeFrame is partially Unknown
 _AggFuncTypeBase: TypeAlias = Callable[..., Incomplete] | str | ufunc
-# Using Hashable instead of HashableT to work around pytype issue
 _AggFuncTypeDictFrame: TypeAlias = Mapping[Hashable, _AggFuncTypeBase | list[_AggFuncTypeBase]]
 _AggFuncTypeFrame: TypeAlias = _AggFuncTypeBase | list[_AggFuncTypeBase] | _AggFuncTypeDictFrame
 

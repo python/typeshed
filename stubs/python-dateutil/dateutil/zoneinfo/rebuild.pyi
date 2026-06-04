@@ -1,7 +1,12 @@
-from _typeshed import StrOrBytesPath
-from collections.abc import Sequence
-from tarfile import TarInfo
+from _typeshed import StrOrBytesPath, Unused
+from collections.abc import Iterable
+
+from ..zoneinfo import _MetadataType
 
 def rebuild(
-    filename: StrOrBytesPath, tag=None, format: str = "gz", zonegroups: Sequence[str | TarInfo] = [], metadata=None
+    filename: StrOrBytesPath,
+    tag: Unused | None = None,
+    format: str = "gz",
+    zonegroups: Iterable[str] = [],
+    metadata: _MetadataType | None = None,
 ) -> None: ...

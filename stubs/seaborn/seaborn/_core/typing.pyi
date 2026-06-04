@@ -1,8 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Iterable, Mapping
 from datetime import date, datetime, timedelta
-from typing import Any, Protocol, type_check_only
-from typing_extensions import TypeAlias
+from typing import Any, Protocol, TypeAlias, type_check_only
 
 from matplotlib.colors import Colormap, Normalize
 from numpy import ndarray
@@ -10,8 +9,6 @@ from pandas import DataFrame, Index, Series, Timedelta, Timestamp
 
 @type_check_only
 class SupportsDataFrame(Protocol):
-    # `__dataframe__` should return pandas.core.interchange.dataframe_protocol.DataFrame
-    # but this class needs to be defined as a Protocol, not as an ABC.
     def __dataframe__(self, nan_as_null: bool = ..., allow_copy: bool = ...): ...
 
 ColumnName: TypeAlias = str | bytes | date | datetime | timedelta | bool | complex | Timestamp | Timedelta

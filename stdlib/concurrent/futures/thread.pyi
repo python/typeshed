@@ -3,8 +3,8 @@ import sys
 from collections.abc import Callable, Iterable, Mapping, Set as AbstractSet
 from threading import Lock, Semaphore, Thread
 from types import GenericAlias
-from typing import Any, Generic, Protocol, TypeVar, overload, type_check_only
-from typing_extensions import Self, TypeAlias, TypeVarTuple, Unpack
+from typing import Any, Generic, Protocol, TypeAlias, TypeVar, overload, type_check_only
+from typing_extensions import Self, TypeVarTuple, Unpack
 from weakref import ref
 
 from ._base import BrokenExecutor, Executor, Future
@@ -43,10 +43,12 @@ if sys.version_info >= (3, 14):
         def prepare(
             cls, initializer: Callable[[], object], initargs: tuple[()]
         ) -> tuple[Callable[[], Self], _ResolveTaskFunc]: ...
+
         @overload
         def __init__(self, initializer: Callable[[Unpack[_Ts]], object], initargs: tuple[Unpack[_Ts]]) -> None: ...
         @overload
         def __init__(self, initializer: Callable[[], object], initargs: tuple[()]) -> None: ...
+
         def initialize(self) -> None: ...
         def finalize(self) -> None: ...
         def run(self, task: _Task) -> None: ...
@@ -91,8 +93,12 @@ class ThreadPoolExecutor(Executor):
     _shutdown: bool
     _shutdown_lock: Lock
     _thread_name_prefix: str | None
-    _initializer: Callable[..., None] | None
-    _initargs: tuple[Any, ...]
+    if sys.version_info >= (3, 14):
+        _create_worker_context: Callable[[], WorkerContext]
+        _resolve_work_item_task: _ResolveTaskFunc
+    else:
+        _initializer: Callable[..., None] | None
+        _initargs: tuple[Any, ...]
     _work_queue: queue.SimpleQueue[_WorkItem[Any]]
 
     if sys.version_info >= (3, 14):
@@ -100,12 +106,12 @@ class ThreadPoolExecutor(Executor):
         @classmethod
         def prepare_context(
             cls, initializer: Callable[[], object], initargs: tuple[()]
-        ) -> tuple[Callable[[], Self], _ResolveTaskFunc]: ...
+        ) -> tuple[Callable[[], WorkerContext], _ResolveTaskFunc]: ...
         @overload
         @classmethod
         def prepare_context(
             cls, initializer: Callable[[Unpack[_Ts]], object], initargs: tuple[Unpack[_Ts]]
-        ) -> tuple[Callable[[], Self], _ResolveTaskFunc]: ...
+        ) -> tuple[Callable[[], WorkerContext], _ResolveTaskFunc]: ...
 
     @overload
     def __init__(
@@ -132,5 +138,6 @@ class ThreadPoolExecutor(Executor):
         initializer: Callable[[Unpack[_Ts]], object],
         initargs: tuple[Unpack[_Ts]],
     ) -> None: ...
+
     def _adjust_thread_count(self) -> None: ...
     def _initializer_failed(self) -> None: ...

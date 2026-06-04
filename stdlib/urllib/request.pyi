@@ -6,8 +6,8 @@ from email.message import Message
 from http.client import HTTPConnection, HTTPMessage, HTTPResponse
 from http.cookiejar import CookieJar
 from re import Pattern
-from typing import IO, Any, ClassVar, NoReturn, Protocol, TypeVar, overload
-from typing_extensions import TypeAlias, deprecated
+from typing import IO, Any, ClassVar, Literal, NoReturn, Protocol, TypeAlias, TypeVar, overload, type_check_only
+from typing_extensions import deprecated
 from urllib.error import HTTPError as HTTPError
 from urllib.response import addclosehook, addinfourl
 
@@ -49,7 +49,14 @@ if sys.version_info < (3, 14):
     __all__ += ["URLopener", "FancyURLopener"]
 
 _T = TypeVar("_T")
+
+# The actual type is `addinfourl | HTTPResponse`, but users would need to use `typing.cast` or `isinstance` to narrow the type,
+# so we use `Any` instead.
+# See
+# - https://github.com/python/typeshed/pull/15042
+# - https://github.com/python/typing/issues/566
 _UrlopenRet: TypeAlias = Any
+
 _DataType: TypeAlias = ReadableBuffer | SupportsRead[bytes] | Iterable[bytes] | None
 
 if sys.version_info >= (3, 13):
@@ -58,18 +65,34 @@ if sys.version_info >= (3, 13):
     ) -> _UrlopenRet: ...
 
 else:
+    @overload
     def urlopen(
         url: str | Request,
         data: _DataType | None = None,
         timeout: float | None = ...,
         *,
-        cafile: str | None = None,
-        capath: str | None = None,
-        cadefault: bool = False,
+        cafile: None = None,
+        capath: None = None,
+        cadefault: Literal[False] = False,
         context: ssl.SSLContext | None = None,
     ) -> _UrlopenRet: ...
+    @overload
+    @deprecated(
+        "The `cafile`, `capath`, `cadefault` parameters are deprecated since Python 3.6; "
+        "removed in Python 3.13. Use `context` parameter instead."
+    )
+    def urlopen(
+        url: str | Request,
+        data: _DataType | None = None,
+        timeout: float | None = ...,
+        *,
+        cafile: StrOrBytesPath | None = None,
+        capath: StrOrBytesPath | None = None,
+        cadefault: bool = False,
+        context: None = None,
+    ) -> _UrlopenRet: ...
 
-def install_opener(opener: OpenerDirector) -> None: ...
+def install_opener(opener: OpenerDirector | None) -> None: ...
 def build_opener(*handlers: BaseHandler | Callable[[], BaseHandler]) -> OpenerDirector: ...
 
 if sys.version_info >= (3, 14):
@@ -101,6 +124,7 @@ class Request:
     def full_url(self, value: str) -> None: ...
     @full_url.deleter
     def full_url(self) -> None: ...
+
     type: str
     host: str
     origin_req_host: str
@@ -127,10 +151,12 @@ class Request:
     def remove_header(self, header_name: str) -> None: ...
     def get_full_url(self) -> str: ...
     def set_proxy(self, host: str, type: str) -> None: ...
+
     @overload
     def get_header(self, header_name: str) -> str | None: ...
     @overload
     def get_header(self, header_name: str, default: _T) -> str | _T: ...
+
     def header_items(self) -> list[tuple[str, str]]: ...
     def has_proxy(self) -> bool: ...
 
@@ -237,6 +263,7 @@ class ProxyDigestAuthHandler(BaseHandler, AbstractDigestAuthHandler):
     auth_header: ClassVar[str]  # undocumented
     def http_error_407(self, req: Request, fp: IO[bytes], code: int, msg: str, headers: HTTPMessage) -> _UrlopenRet | None: ...
 
+@type_check_only
 class _HTTPConnectionProtocol(Protocol):
     def __call__(
         self,
@@ -324,7 +351,7 @@ def urlretrieve(
 def urlcleanup() -> None: ...
 
 if sys.version_info < (3, 14):
-    @deprecated("Deprecated since Python 3.3; Removed in 3.14; Use newer urlopen functions and methods.")
+    @deprecated("Deprecated since Python 3.3; removed in Python 3.14. Use newer `urlopen` functions and methods.")
     class URLopener:
         version: ClassVar[str]
         def __init__(self, proxies: dict[str, str] | None = None, **x509: str) -> None: ...
@@ -355,7 +382,7 @@ if sys.version_info < (3, 14):
         def open_unknown_proxy(self, proxy: str, fullurl: str, data: ReadableBuffer | None = None) -> None: ...  # undocumented
         def __del__(self) -> None: ...
 
-    @deprecated("Deprecated since Python 3.3; Removed in 3.14; Use newer urlopen functions and methods.")
+    @deprecated("Deprecated since Python 3.3; removed in Python 3.14. Use newer `urlopen` functions and methods.")
     class FancyURLopener(URLopener):
         def prompt_user_passwd(self, host: str, realm: str) -> tuple[str, str]: ...
         def get_user_passwd(self, host: str, realm: str, clear_cache: int = 0) -> tuple[str, str]: ...  # undocumented

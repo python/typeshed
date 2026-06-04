@@ -1,3 +1,6 @@
 version = "0.2.*"
-upstream_repository = "https://bitbucket.org/dundeemt/pysftp"
-requires = ["types-paramiko"]
+upstream-repository = "https://bitbucket.org/dundeemt/pysftp"
+dependencies = ["types-paramiko"]
+
+[tool.stubtest]
+stubtest-dependencies = ["paramiko~=3.0"]

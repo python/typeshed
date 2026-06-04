@@ -1,6 +1,6 @@
 from collections.abc import Collection
-from typing import NoReturn, overload
-from typing_extensions import Self, TypeAlias
+from typing import NoReturn, TypeAlias, overload
+from typing_extensions import Self
 
 from .base import BaseGeometry
 from .linestring import LineString, _ConvertibleToLineString
@@ -13,6 +13,7 @@ _PolygonShellLike: TypeAlias = Polygon | _ConvertibleToLinearRing | None
 _PolygonHolesLike: TypeAlias = Collection[_ConvertibleToLinearRing | None] | None
 
 class LinearRing(LineString):
+    __slots__: list[str] = []
     def __new__(self, coordinates: _ConvertibleToLinearRing | None = None) -> Self: ...
     @property
     def is_ccw(self) -> bool: ...
@@ -22,12 +23,14 @@ class InteriorRingSequence:
     def __iter__(self) -> Self: ...
     def __next__(self) -> LinearRing: ...
     def __len__(self) -> int: ...
+
     @overload
     def __getitem__(self, key: int) -> LinearRing: ...
     @overload
     def __getitem__(self, key: slice) -> list[LinearRing]: ...
 
 class Polygon(BaseGeometry):
+    __slots__: list[str] = []
     def __new__(self, shell: _PolygonShellLike = None, holes: _PolygonHolesLike = None) -> Self: ...
     @property
     def exterior(self) -> LinearRing: ...

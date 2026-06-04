@@ -1,18 +1,20 @@
-from _typeshed import Incomplete
+import logging
 
 from hvac.api.vault_api_base import VaultApiBase
 
-logger: Incomplete
+logger: logging.Logger
 
 class Kv(VaultApiBase):
-    allowed_kv_versions: Incomplete
+    allowed_kv_versions: list[str]
     def __init__(self, adapter, default_kv_version: str = "2") -> None: ...
     @property
     def v1(self): ...
     @property
     def v2(self): ...
+
     @property
     def default_kv_version(self): ...
     @default_kv_version.setter
     def default_kv_version(self, default_kv_version) -> None: ...
+
     def __getattr__(self, item): ...

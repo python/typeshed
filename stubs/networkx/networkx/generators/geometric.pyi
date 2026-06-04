@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 
-from networkx.classes.graph import Graph
+from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
 
 __all__ = [
@@ -15,7 +15,7 @@ __all__ = [
 ]
 
 @_dispatchable
-def geometric_edges(G, radius, p: float = 2): ...
+def geometric_edges(G: Graph[_Node], radius, p: float = 2): ...
 @_dispatchable
 def random_geometric_graph(n, radius, dim: int = 2, pos=None, p: float = 2, seed=None): ...
 @_dispatchable
@@ -23,7 +23,9 @@ def soft_random_geometric_graph(n, radius, dim: int = 2, pos=None, p: float = 2,
 @_dispatchable
 def geographical_threshold_graph(n, theta, dim: int = 2, pos=None, weight=None, metric=None, p_dist=None, seed=None): ...
 @_dispatchable
-def waxman_graph(n, beta: float = 0.4, alpha: float = 0.1, L=None, domain=(0, 0, 1, 1), metric=None, seed=None): ...
+def waxman_graph(
+    n, beta: float = 0.4, alpha: float = 0.1, L=None, domain=(0, 0, 1, 1), metric=None, seed=None
+) -> Graph[Incomplete]: ...
 
 # docstring marks p as int, but it still works with floats. So I think it's better for consistency
 @_dispatchable

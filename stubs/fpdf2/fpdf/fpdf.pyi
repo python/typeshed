@@ -5,8 +5,8 @@ from contextlib import _GeneratorContextManager
 from io import BytesIO
 from pathlib import PurePath
 from re import Pattern
-from typing import Any, ClassVar, Final, Literal, NamedTuple, overload
-from typing_extensions import TypeAlias, deprecated
+from typing import Any, ClassVar, Final, Literal, NamedTuple, TypeAlias, overload
+from typing_extensions import deprecated
 
 from fpdf import ViewerPreferences
 from fpdf.outline import OutlineSection
@@ -109,7 +109,7 @@ _FontStyles: TypeAlias = Literal[
 ]
 
 FPDF_VERSION: Final[str]
-PAGE_FORMATS: dict[_Format, tuple[float, float]]
+PAGE_FORMATS: Final[dict[_Format, tuple[float, float]]]
 
 class ToCPlaceholder(NamedTuple):
     render_function: Callable[[FPDF, list[OutlineSection]], object]
@@ -207,10 +207,12 @@ class FPDF(GraphicsStateMixin):
     def emphasis(self) -> TextEmphasis: ...
     @property
     def is_ttf_font(self) -> bool: ...
+
     @property
     def page_mode(self) -> PageMode: ...
     @page_mode.setter
     def page_mode(self, page_mode: PageMode) -> None: ...
+
     @property
     def output_intents(self): ...
     def add_output_intent(
@@ -706,6 +708,7 @@ class FPDF(GraphicsStateMixin):
         num_heading_rows: int = 1,
         repeat_headings: TableHeadingsDisplay | int = 1,
     ) -> _GeneratorContextManager[Table]: ...
+
     @overload
     def output(  # type: ignore[overload-overlap]
         self,

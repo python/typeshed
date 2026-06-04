@@ -11,9 +11,9 @@ from abc import ABCMeta, abstractmethod
 from collections.abc import Callable, Sequence
 from concurrent.futures import Executor
 from contextvars import Context
-from socket import AddressFamily, SocketKind, _Address, _RetAddress, socket
-from typing import IO, Any, Literal, Protocol, TypeVar, overload
-from typing_extensions import Self, TypeAlias, TypeVarTuple, Unpack, deprecated
+from socket import AddressFamily, AddressInfo, SocketKind, _Address, _RetAddress, socket
+from typing import IO, Any, Literal, Protocol, TypeAlias, TypeVar, overload, type_check_only
+from typing_extensions import Self, TypeVarTuple, Unpack, deprecated
 
 from . import _AwaitableLike, _CoroutineLike
 from .base_events import Server
@@ -28,7 +28,6 @@ if sys.version_info < (3, 14):
 # Keep asyncio.__all__ updated with any changes to __all__ here
 if sys.version_info >= (3, 14):
     __all__ = (
-        "AbstractEventLoopPolicy",
         "AbstractEventLoop",
         "AbstractServer",
         "Handle",
@@ -69,10 +68,12 @@ _ExceptionHandler: TypeAlias = Callable[[AbstractEventLoop, _Context], object]
 _ProtocolFactory: TypeAlias = Callable[[], BaseProtocol]
 _SSLContext: TypeAlias = bool | None | ssl.SSLContext
 
+@type_check_only
 class _TaskFactory(Protocol):
     def __call__(self, loop: AbstractEventLoop, factory: _CoroutineLike[_T], /) -> Future[_T]: ...
 
 class Handle:
+    __slots__ = ("_callback", "_args", "_cancelled", "_loop", "_source_traceback", "_repr", "__weakref__", "_context")
     _cancelled: bool
     _args: Sequence[Any]
     def __init__(
@@ -85,6 +86,7 @@ class Handle:
         def get_context(self) -> Context: ...
 
 class TimerHandle(Handle):
+    __slots__ = ["_scheduled", "_when"]
     def __init__(
         self,
         when: float,
@@ -159,7 +161,17 @@ class AbstractEventLoop:
     @abstractmethod
     def create_future(self) -> Future[Any]: ...
     # Tasks methods
-    if sys.version_info >= (3, 11):
+    if sys.version_info >= (3, 14):
+        @abstractmethod
+        def create_task(
+            self,
+            coro: _CoroutineLike[_T],
+            *,
+            name: str | None = None,
+            context: Context | None = None,
+            eager_start: bool | None = None,
+        ) -> Task[_T]: ...
+    elif sys.version_info >= (3, 11):
         @abstractmethod
         def create_task(
             self, coro: _CoroutineLike[_T], *, name: str | None = None, context: Context | None = None
@@ -193,9 +205,10 @@ class AbstractEventLoop:
         type: int = 0,
         proto: int = 0,
         flags: int = 0,
-    ) -> list[tuple[AddressFamily, SocketKind, int, str, tuple[str, int] | tuple[str, int, int, int]]]: ...
+    ) -> list[tuple[AddressFamily, SocketKind, int, str, tuple[str, int] | tuple[str, int, int, int] | tuple[int, bytes]]]: ...
     @abstractmethod
     async def getnameinfo(self, sockaddr: tuple[str, int] | tuple[str, int, int, int], flags: int = 0) -> tuple[str, str]: ...
+
     if sys.version_info >= (3, 11):
         @overload
         @abstractmethod
@@ -287,8 +300,8 @@ class AbstractEventLoop:
             host: str | Sequence[str] | None = None,
             port: int = ...,
             *,
-            family: int = ...,
-            flags: int = ...,
+            family: int = AddressFamily.AF_UNSPEC,
+            flags: int = AddressInfo.AI_PASSIVE,
             sock: None = None,
             backlog: int = 100,
             ssl: _SSLContext = None,
@@ -307,8 +320,8 @@ class AbstractEventLoop:
             host: None = None,
             port: None = None,
             *,
-            family: int = ...,
-            flags: int = ...,
+            family: int = AddressFamily.AF_UNSPEC,
+            flags: int = AddressInfo.AI_PASSIVE,
             sock: socket = ...,
             backlog: int = 100,
             ssl: _SSLContext = None,
@@ -328,8 +341,8 @@ class AbstractEventLoop:
             host: str | Sequence[str] | None = None,
             port: int = ...,
             *,
-            family: int = ...,
-            flags: int = ...,
+            family: int = AddressFamily.AF_UNSPEC,
+            flags: int = AddressInfo.AI_PASSIVE,
             sock: None = None,
             backlog: int = 100,
             ssl: _SSLContext = None,
@@ -347,8 +360,8 @@ class AbstractEventLoop:
             host: None = None,
             port: None = None,
             *,
-            family: int = ...,
-            flags: int = ...,
+            family: int = AddressFamily.AF_UNSPEC,
+            flags: int = AddressInfo.AI_PASSIVE,
             sock: socket = ...,
             backlog: int = 100,
             ssl: _SSLContext = None,
@@ -367,8 +380,8 @@ class AbstractEventLoop:
             host: str | Sequence[str] | None = None,
             port: int = ...,
             *,
-            family: int = ...,
-            flags: int = ...,
+            family: int = AddressFamily.AF_UNSPEC,
+            flags: int = AddressInfo.AI_PASSIVE,
             sock: None = None,
             backlog: int = 100,
             ssl: _SSLContext = None,
@@ -385,8 +398,8 @@ class AbstractEventLoop:
             host: None = None,
             port: None = None,
             *,
-            family: int = ...,
-            flags: int = ...,
+            family: int = AddressFamily.AF_UNSPEC,
+            flags: int = AddressInfo.AI_PASSIVE,
             sock: socket = ...,
             backlog: int = 100,
             ssl: _SSLContext = None,
@@ -455,7 +468,7 @@ class AbstractEventLoop:
             ssl_handshake_timeout: float | None = None,
             ssl_shutdown_timeout: float | None = None,
         ) -> tuple[Transport, _ProtocolT]: ...
-    elif sys.version_info >= (3, 10):
+    else:
         async def connect_accepted_socket(
             self,
             protocol_factory: Callable[[], _ProtocolT],
@@ -534,7 +547,7 @@ class AbstractEventLoop:
         bufsize: Literal[0] = 0,
         encoding: None = None,
         errors: None = None,
-        text: Literal[False] | None = ...,
+        text: Literal[False] | None = None,
         **kwargs: Any,
     ) -> tuple[SubprocessTransport, _ProtocolT]: ...
     @abstractmethod
@@ -600,45 +613,59 @@ class AbstractEventLoop:
     @abstractmethod
     async def shutdown_default_executor(self) -> None: ...
 
-class AbstractEventLoopPolicy:
-    @abstractmethod
-    def get_event_loop(self) -> AbstractEventLoop: ...
-    @abstractmethod
-    def set_event_loop(self, loop: AbstractEventLoop | None) -> None: ...
-    @abstractmethod
-    def new_event_loop(self) -> AbstractEventLoop: ...
-    # Child processes handling (Unix only).
-    if sys.version_info < (3, 14):
-        if sys.version_info >= (3, 12):
-            @abstractmethod
-            @deprecated("Deprecated as of Python 3.12; will be removed in Python 3.14")
-            def get_child_watcher(self) -> AbstractChildWatcher: ...
-            @abstractmethod
-            @deprecated("Deprecated as of Python 3.12; will be removed in Python 3.14")
-            def set_child_watcher(self, watcher: AbstractChildWatcher) -> None: ...
-        else:
-            @abstractmethod
-            def get_child_watcher(self) -> AbstractChildWatcher: ...
-            @abstractmethod
-            def set_child_watcher(self, watcher: AbstractChildWatcher) -> None: ...
+if sys.version_info >= (3, 14):
+    class _AbstractEventLoopPolicy:
+        @abstractmethod
+        def get_event_loop(self) -> AbstractEventLoop: ...
+        @abstractmethod
+        def set_event_loop(self, loop: AbstractEventLoop | None) -> None: ...
+        @abstractmethod
+        def new_event_loop(self) -> AbstractEventLoop: ...
 
-class BaseDefaultEventLoopPolicy(AbstractEventLoopPolicy, metaclass=ABCMeta):
-    def get_event_loop(self) -> AbstractEventLoop: ...
-    def set_event_loop(self, loop: AbstractEventLoop | None) -> None: ...
-    def new_event_loop(self) -> AbstractEventLoop: ...
+else:
+    @type_check_only
+    class _AbstractEventLoopPolicy:
+        @abstractmethod
+        def get_event_loop(self) -> AbstractEventLoop: ...
+        @abstractmethod
+        def set_event_loop(self, loop: AbstractEventLoop | None) -> None: ...
+        @abstractmethod
+        def new_event_loop(self) -> AbstractEventLoop: ...
+        # Child processes handling (Unix only).
+        @abstractmethod
+        @deprecated("Deprecated since Python 3.12; removed in Python 3.14.")
+        def get_child_watcher(self) -> AbstractChildWatcher: ...
+        @abstractmethod
+        @deprecated("Deprecated since Python 3.12; removed in Python 3.14.")
+        def set_child_watcher(self, watcher: AbstractChildWatcher) -> None: ...
 
-def get_event_loop_policy() -> AbstractEventLoopPolicy: ...
-def set_event_loop_policy(policy: AbstractEventLoopPolicy | None) -> None: ...
+    AbstractEventLoopPolicy = _AbstractEventLoopPolicy
+
+if sys.version_info >= (3, 14):
+    class _BaseDefaultEventLoopPolicy(_AbstractEventLoopPolicy, metaclass=ABCMeta):
+        def get_event_loop(self) -> AbstractEventLoop: ...
+        def set_event_loop(self, loop: AbstractEventLoop | None) -> None: ...
+        def new_event_loop(self) -> AbstractEventLoop: ...
+
+else:
+    class BaseDefaultEventLoopPolicy(_AbstractEventLoopPolicy, metaclass=ABCMeta):
+        def get_event_loop(self) -> AbstractEventLoop: ...
+        def set_event_loop(self, loop: AbstractEventLoop | None) -> None: ...
+        def new_event_loop(self) -> AbstractEventLoop: ...
+
+if sys.version_info >= (3, 14):
+    def _get_event_loop_policy() -> _AbstractEventLoopPolicy: ...
+    def _set_event_loop_policy(policy: _AbstractEventLoopPolicy | None) -> None: ...
+
+@deprecated("Deprecated since Python 3.14; will be removed in Python 3.16.")
+def get_event_loop_policy() -> _AbstractEventLoopPolicy: ...
+@deprecated("Deprecated since Python 3.14; will be removed in Python 3.16.")
+def set_event_loop_policy(policy: _AbstractEventLoopPolicy | None) -> None: ...
 def set_event_loop(loop: AbstractEventLoop | None) -> None: ...
 def new_event_loop() -> AbstractEventLoop: ...
 
 if sys.version_info < (3, 14):
-    if sys.version_info >= (3, 12):
-        @deprecated("Deprecated as of Python 3.12; will be removed in Python 3.14")
-        def get_child_watcher() -> AbstractChildWatcher: ...
-        @deprecated("Deprecated as of Python 3.12; will be removed in Python 3.14")
-        def set_child_watcher(watcher: AbstractChildWatcher) -> None: ...
-
-    else:
-        def get_child_watcher() -> AbstractChildWatcher: ...
-        def set_child_watcher(watcher: AbstractChildWatcher) -> None: ...
+    @deprecated("Deprecated since Python 3.12; removed in Python 3.14.")
+    def get_child_watcher() -> AbstractChildWatcher: ...
+    @deprecated("Deprecated since Python 3.12; removed in Python 3.14.")
+    def set_child_watcher(watcher: AbstractChildWatcher) -> None: ...

@@ -58,7 +58,6 @@ class Table:
         self, cells: Iterable[str] = (), style: FontFace | None = None, v_align: VAlign | str | None = None, min_height=None
     ) -> Row: ...
     def render(self) -> None: ...
-    def get_cell_border(self, i: int, j: int, cell: Cell) -> str | Literal[0, 1]: ...
 
 class Row:
     cells: list[Cell]
@@ -73,6 +72,7 @@ class Row:
     @property
     def max_rowspan(self) -> int: ...
     def convert_spans(self, active_rowspans: SupportsItems[int, int]) -> tuple[dict[int, int], list[int]]: ...
+
     @overload
     def cell(
         self,
@@ -106,6 +106,7 @@ class Row:
 
 @dataclass
 class Cell:
+    __slots__ = ("text", "align", "v_align", "style", "img", "img_fill_width", "colspan", "rowspan", "padding", "link", "border")
     text: str
     align: str | Align | None
     v_align: str | VAlign | None

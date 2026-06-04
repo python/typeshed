@@ -28,12 +28,11 @@ from ts_utils.utils import (
     print_info,
     print_success_msg,
     print_time,
+    print_warning,
 )
 
 
-def run_stubtest(
-    dist: Path, *, verbose: bool = False, specified_platforms_only: bool = False, keep_tmp_dir: bool = False
-) -> bool:
+def run_stubtest(dist: Path, *, verbose: bool = False, ci_platforms_only: bool = False, keep_tmp_dir: bool = False) -> bool:
     """Run stubtest for a single distribution."""
 
     dist_name = dist.name
@@ -44,14 +43,16 @@ def run_stubtest(
 
     stubtest_settings = metadata.stubtest_settings
     if stubtest_settings.skip:
-        print(colored("skipping", "yellow"))
+        print(colored("skipping (skip = true)", "yellow"))
         return True
 
-    if sys.platform not in stubtest_settings.platforms:
-        if specified_platforms_only:
-            print(colored("skipping (platform not specified in METADATA.toml)", "yellow"))
-            return True
-        print(colored(f"Note: {dist_name} is not currently tested on {sys.platform} in typeshed's CI.", "yellow"))
+    if stubtest_settings.supported_platforms is not None and sys.platform not in stubtest_settings.supported_platforms:
+        print(colored("skipping (platform not supported)", "yellow"))
+        return True
+
+    if ci_platforms_only and sys.platform not in stubtest_settings.ci_platforms:
+        print(colored("skipping (platform skipped in CI)", "yellow"))
+        return True
 
     if not metadata.requires_python.contains(PYTHON_VERSION):
         print(colored(f"skipping (requires Python {metadata.requires_python})", "yellow"))
@@ -82,7 +83,7 @@ def run_stubtest(
         dists_to_install = [dist_req, get_mypy_req()]
         # Internal requirements are added to MYPYPATH
         dists_to_install.extend(str(r) for r in requirements.external_pkgs)
-        dists_to_install.extend(stubtest_settings.stubtest_requirements)
+        dists_to_install.extend(stubtest_settings.stubtest_dependencies)
 
         # Since the "gdb" Python package is available only inside GDB, it is not
         # possible to install it through pip, so stub tests cannot install it.
@@ -107,6 +108,8 @@ def run_stubtest(
                 "mypy.stubtest",
                 "--mypy-config-file",
                 temp.name,
+                "--show-traceback",
+                "--strict-type-check-only",
                 # Use --custom-typeshed-dir in case we make linked changes to stdlib or _typeshed
                 "--custom-typeshed-dir",
                 str(dist.parent.parent),
@@ -189,8 +192,13 @@ def run_stubtest(
             else:
                 print_time(time() - t)
                 print_success_msg()
+
+                if sys.platform not in stubtest_settings.ci_platforms:
+                    print_warning(f"Note: {dist_name} is not currently tested on {sys.platform} in typeshed's CI")
+
                 if keep_tmp_dir:
                     print_info(f"Virtual environment kept at: {venv_dir}")
+
     finally:
         if not keep_tmp_dir:
             rmtree(venv_dir)
@@ -215,8 +223,7 @@ def setup_gdb_stubtest_command(venv_dir: Path, stubtest_cmd: list[str]) -> bool:
 
     gdb_script = venv_dir / "gdb_stubtest.py"
     wrapper_script = venv_dir / "gdb_wrapper.py"
-    gdb_script_contents = dedent(
-        f"""
+    gdb_script_contents = dedent(f"""
         import json
         import os
         import site
@@ -245,12 +252,10 @@ def setup_gdb_stubtest_command(venv_dir: Path, stubtest_cmd: list[str]) -> bool:
             traceback.print_exc()
         finally:
             gdb.execute(f"quit {{exit_code}}")
-        """
-    )
+        """)
     gdb_script.write_text(gdb_script_contents)
 
-    wrapper_script_contents = dedent(
-        f"""
+    wrapper_script_contents = dedent(f"""
         import json
         import os
         import subprocess
@@ -270,8 +275,7 @@ def setup_gdb_stubtest_command(venv_dir: Path, stubtest_cmd: list[str]) -> bool:
         ]
         r = subprocess.run(gdb_cmd, env=stubtest_env)
         sys.exit(r.returncode)
-        """
-    )
+        """)
     wrapper_script.write_text(wrapper_script_contents)
 
     # replace "-m mypy.stubtest" in stubtest_cmd with the path to our wrapper script
@@ -321,8 +325,7 @@ def setup_uwsgi_stubtest_command(dist: Path, venv_dir: Path, stubtest_cmd: list[
     uwsgi_script = venv_dir / "uwsgi_stubtest.py"
     wrapper_script = venv_dir / "uwsgi_wrapper.py"
     exit_code_surrogate = venv_dir / "exit_code"
-    uwsgi_script_contents = dedent(
-        f"""
+    uwsgi_script_contents = dedent(f"""
         import json
         import os
         import sys
@@ -333,8 +336,7 @@ def setup_uwsgi_stubtest_command(dist: Path, venv_dir: Path, stubtest_cmd: list[
         with open("{exit_code_surrogate}", mode="w") as fp:
             fp.write(str(exit_code))
         sys.exit(exit_code)
-        """
-    )
+        """)
     uwsgi_script.write_text(uwsgi_script_contents)
 
     uwsgi_exe = venv_dir / "bin" / "uwsgi"
@@ -344,8 +346,7 @@ def setup_uwsgi_stubtest_command(dist: Path, venv_dir: Path, stubtest_cmd: list[
     # will always go to stdout and uWSGI to stderr, but on
     # MacOS they both go to stderr, for now we deal with the
     # bit of extra spam
-    wrapper_script_contents = dedent(
-        f"""
+    wrapper_script_contents = dedent(f"""
         import json
         import os
         import subprocess
@@ -364,8 +365,7 @@ def setup_uwsgi_stubtest_command(dist: Path, venv_dir: Path, stubtest_cmd: list[
         subprocess.run(uwsgi_cmd, env=stubtest_env)
         with open("{exit_code_surrogate}", mode="r") as fp:
             sys.exit(int(fp.read()))
-        """
-    )
+        """)
     wrapper_script.write_text(wrapper_script_contents)
 
     # replace "-m mypy.stubtest" in stubtest_cmd with the path to our wrapper script
@@ -398,9 +398,9 @@ def main() -> NoReturn:
     parser.add_argument("--num-shards", type=int, default=1)
     parser.add_argument("--shard-index", type=int, default=0)
     parser.add_argument(
-        "--specified-platforms-only",
+        "--ci-platforms-only",
         action="store_true",
-        help="skip the test if the current platform is not specified in METADATA.toml/tool.stubtest.platforms",
+        help="skip the test if the current platform is not specified in METADATA.toml/tool.stubtest.ci-platforms",
     )
     parser.add_argument("--keep-tmp-dir", action="store_true", help="keep the temporary virtualenv")
     parser.add_argument("dists", metavar="DISTRIBUTION", type=str, nargs=argparse.ZERO_OR_MORE)
@@ -417,7 +417,7 @@ def main() -> NoReturn:
             continue
         try:
             if not run_stubtest(
-                dist, verbose=args.verbose, specified_platforms_only=args.specified_platforms_only, keep_tmp_dir=args.keep_tmp_dir
+                dist, verbose=args.verbose, ci_platforms_only=args.ci_platforms_only, keep_tmp_dir=args.keep_tmp_dir
             ):
                 result = 1
         except NoSuchStubError as e:
