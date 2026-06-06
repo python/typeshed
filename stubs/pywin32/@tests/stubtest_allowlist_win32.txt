@@ -31,9 +31,7 @@ win32com(ext)?.axscript.client.scriptdispatch
 win32com.demos.*
 win32com.servers.test_pycomtest
 win32com.test.*
-win32com.axdebug.codecontainer
 win32com(ext)?.axdebug.dump
-win32com.axdebug.debugger
 win32com(ext)?.axscript.client.pydumper
 win32com(ext)?.directsound.test.*
 
@@ -42,10 +40,12 @@ win32com(ext)?.directsound.test.*
 (win32.)?win32gui.PyMakeBuffer
 
 # failed to import, ImportError: DLL load failed while importing axdebug: The specified module could not be found.
-win32com.axdebug.adb
-win32com.axdebug.axdebug
-win32com.axdebug.contexts
-win32com.axdebug.documents
-win32com.axdebug.expressions
-win32com.axdebug.gateways
-win32com.axdebug.stackframe
+win32com(ext)?.axdebug.adb
+win32com(ext)?.axdebug.axdebug
+win32com(ext)?.axdebug.codecontainer
+win32com(ext)?.axdebug.contexts
+win32com(ext)?.axdebug.debugger
+win32com(ext)?.axdebug.documents
+win32com(ext)?.axdebug.expressions
+win32com(ext)?.axdebug.gateways
+win32com(ext)?.axdebug.stackframe
