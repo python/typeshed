@@ -4,7 +4,7 @@ from _typeshed import Incomplete, SupportsKeysAndGetItem
 from collections.abc import Callable, Iterable, Mapping
 from logging import Logger
 from typing import ClassVar, TypeVar, overload, type_check_only
-from typing_extensions import Self, disjoint_base
+from typing_extensions import Self
 
 _RangeMapKT = TypeVar("_RangeMapKT", bound=_SupportsComparison)
 
@@ -115,8 +115,6 @@ class RangeMap(dict[_RangeMapKT, _VT]):
 
     undefined_value: RangeValueUndefined
 
-    @disjoint_base
     class Item(int): ...
-
     first_item: Item
     last_item: Item
