@@ -368,7 +368,6 @@ IDC_TABTIMMY_NONE: int
 IDC_VIEW_EOL: int
 IDC_VIEW_INDENTATIONGUIDES: int
 ID_VIEW_FOLD_TOPLEVEL: int
-UNICODE: int
 copyright: str
 dllhandle: int
 types: dict[str, type]
