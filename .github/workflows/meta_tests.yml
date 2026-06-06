@@ -61,11 +61,11 @@ jobs:
           version-file: "requirements-tests.txt"
       - run: uv pip install -r requirements-tests.txt --system
       - name: Run pyright on typeshed
-        uses: jakebailey/pyright-action@v2
+        uses: jakebailey/pyright-action@v3
         with:
           version: PATH
           python-platform: ${{ matrix.python-platform }}
-          python-version: "3.9" # Oldest version supported for running scripts and tests
+          python-version: "3.10" # Oldest version supported for running scripts and tests
           project: ./pyrightconfig.scripts_and_tests.json
   stubsabot-dry-run:
     name: Stubsabot dry run
