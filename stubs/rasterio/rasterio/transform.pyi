@@ -26,12 +26,6 @@ class TransformMethodsMixin:
         transform_method: TransformMethod = ...,
         **rpc_options: Any,
     ) -> tuple[float, float] | tuple[list[float], list[float]]: ...
-    # NOTE: `precision=` is deprecated since rasterio 1.3 and silently
-    # ignored at runtime (a DeprecationWarning is emitted). We do not
-    # express this with @deprecated overloads here because `**rpc_options`
-    # would swallow the deprecated kwarg in the modern overload, defeating
-    # the overload resolution. Type checkers can therefore not flag
-    # `precision=` callers; the runtime warning is the only signal.
     def index(
         self,
         x: float | Sequence[float],
@@ -57,10 +51,6 @@ def xy(
     offset: _OffsetOptions = "center",
     **rpc_options: Any,
 ) -> tuple[float, float] | tuple[list[float], list[float]]: ...
-
-# NOTE: `precision=` is deprecated since rasterio 1.3 and a no-op (runtime
-# emits a DeprecationWarning). Not expressed via @deprecated overload here
-# because `**rpc_options` would swallow it in the modern overload.
 def rowcol(
     transform: Affine | Sequence[GroundControlPoint] | RPC,
     xs: float | Sequence[float],
@@ -81,7 +71,6 @@ class TransformerBase:
         zs: float | Sequence[float] | None = None,
         offset: _OffsetOptions = "center",
     ) -> tuple[float, float] | tuple[list[float], list[float]]: ...
-
     @overload
     def rowcol(
         self,

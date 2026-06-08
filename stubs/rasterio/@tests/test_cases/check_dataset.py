@@ -14,12 +14,6 @@ from rasterio.profiles import Profile
 
 def check_props(reader: DatasetReader) -> None:
     assert_type(reader.crs, CRS)
-    # NOTE: `reader.transform` is typed via the stubs-only
-    # `rasterio._affine_types.Affine = Any` indirection until affine
-    # ships its own `py.typed` (v3). No `assert_type` here because the
-    # alias is `Any`; once affine v3 lands and the indirection swaps to
-    # `from affine import Affine`, an `assert_type(reader.transform,
-    # Affine)` line should be reinstated.
     assert_type(reader.bounds, BoundingBox)
     assert_type(reader.profile, Profile)
     assert_type(reader.count, int)

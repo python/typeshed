@@ -15,12 +15,10 @@ def show(
     with_bounds: bool = True,
     contour: bool = False,
     contour_label_kws: Mapping[str, Any] | None = None,
-    # New in rasterio 1.5: rgb composite band selection.
     indexes: Sequence[int] | None = None,
     ax: Any | None = None,
     title: str | None = None,
     transform: Affine | None = None,
-    # New in rasterio 1.5: histogram-stretch percentile range.
     percent_range: tuple[float, float] | None = None,
     adjust: bool = True,
     **kwargs: Any,
@@ -41,6 +39,4 @@ def show_hist(
     **kwargs: Any,
 ) -> None: ...
 def adjust_band(band: NDArray[Any], kind: Literal["linear", "log"] | None = None) -> NDArray[Any]: ...
-
-# Misspelled upstream (`strech` instead of `stretch`); preserved as-is.
 def contrast_strech(arr: NDArray[Any], percent_range: tuple[float, float] = (2.0, 98.0)) -> NDArray[Any]: ...

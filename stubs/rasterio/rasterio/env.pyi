@@ -37,8 +37,6 @@ class Env:
         session: Session | None = None,
         aws_unsigned: bool = False,
         profile_name: str | None = None,
-        # Defaults to Session.aws_or_dummy at runtime, but any
-        # Session-returning callable works.
         session_class: Callable[..., Session] = ...,
         **options: Any,
     ) -> None: ...

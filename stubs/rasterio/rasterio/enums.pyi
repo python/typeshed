@@ -28,7 +28,6 @@ class ColorInterp(IntEnum):
     Y = 14
     Cb = 15
     Cr = 16
-    # Below values require GDAL 3.10+
     pan = 17
     coastal = 18
     rededge = 19
@@ -96,7 +95,6 @@ class Interleaving(Enum):
     pixel = "PIXEL"
     line = "LINE"
     band = "BAND"
-    # tile requires GDAL 3.11+ (new in rasterio 1.5)
     tile = "TILE"
 
 class MaskFlags(IntEnum):

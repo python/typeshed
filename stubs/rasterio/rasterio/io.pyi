@@ -44,9 +44,6 @@ class MemoryFile(MemoryFileBase):
 
 class ZipMemoryFile(MemoryFile):
     def __init__(self, file_or_bytes: FileOrBytes | None = None) -> None: ...
-    # ZipMemoryFile.open takes `path` as a required positional arg, which
-    # breaks Liskov substitution with MemoryFile.open. This is intentional in
-    # rasterio.
     def open(  # type: ignore[override]
         self, path: str, driver: str | None = None, sharing: bool = False, thread_safe: bool = False, **kwargs: Any
     ) -> DatasetReader: ...

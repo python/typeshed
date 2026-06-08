@@ -10,8 +10,6 @@ class GDALError(IntEnum):
     fatal = 4
 
 class CPLE_BaseError(Exception):
-    # Runtime instance attributes set in __init__ (modeled at class level
-    # to keep the stub static-type-friendly).
     error: int
     errno: int
     errmsg: str

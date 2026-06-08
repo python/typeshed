@@ -1,6 +1,5 @@
 from typing import Any
 
-# CPLTestBool equivalent. Public utility re-exported from rasterio.session.
 def parse_bool(v: bool | str | int) -> bool: ...
 
 class Session:
@@ -84,8 +83,6 @@ class SwiftSession(Session):
 class AzureSession(Session):
     unsigned: bool
     storage_account: str | None
-    # Expanded in rasterio 1.5: added access_token, sas_token, tenant_id,
-    # client_id, federated_token_file, and authority_host parameters.
     def __init__(
         self,
         azure_storage_connection_string: str | None = None,

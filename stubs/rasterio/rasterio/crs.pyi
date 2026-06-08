@@ -4,8 +4,6 @@ from typing_extensions import deprecated, disjoint_base
 
 from rasterio.enums import WktVersion
 
-# Set of recognised PROJ parameter keys (e.g. "x_0", "lat_0", "proj").
-# Used by CRS.to_string to strip unknown keys; documented and inspectable.
 all_proj_keys: set[str]
 
 @disjoint_base
@@ -45,15 +43,10 @@ class CRS(Mapping[str, Any]):
     def linear_units(self) -> str: ...
     @property
     def units_factor(self) -> tuple[str, float]: ...
-    # New in rasterio 1.5: lazily-computed geodetic CRS.
     @property
     def geodetic_crs(self) -> CRS | None: ...
     def to_string(self) -> str: ...
-    # In rasterio 1.5 these are bound as a static method that gets `cls`
-    # passed at runtime via Cython; stubtest sees them as staticmethods.
     def equals(self, other: CRS, ignore_axis_order: bool = False) -> bool: ...
-    # CRS.get drops Mapping.get's default-value parameter at runtime; this is
-    # a deliberate divergence from the Mapping protocol.
     def get(self, item: str) -> Any: ...  # type: ignore[override]
     @staticmethod
     def from_epsg(code: int | str) -> CRS: ...

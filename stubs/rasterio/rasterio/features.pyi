@@ -10,7 +10,6 @@ from rasterio.enums import MergeAlg as MergeAlg
 from rasterio.io import DatasetReader
 from rasterio.windows import Window as Window
 
-# Stubs-only type alias for GeoJSON-like dicts. Not exported at runtime.
 Geometry: TypeAlias = Mapping[str, Any]
 
 def geometry_mask(
@@ -39,7 +38,6 @@ def rasterize(
     dst_kwds: dict[str, Any] | None = None,
 ) -> NDArray[Any]: ...
 def bounds(geometry: Geometry, north_up: bool = True, transform: Affine | None = None) -> tuple[float, float, float, float]: ...
-
 @overload
 def geometry_window(
     dataset: DatasetReader, shapes: Iterable[Geometry], pad_x: float = 0, pad_y: float = 0, *, boundless: bool = False
@@ -59,7 +57,6 @@ def geometry_window(
     pixel_precision: float | None = None,
     boundless: bool = False,
 ) -> Window: ...
-
 def is_valid_geom(geom: Geometry) -> bool: ...
 def dataset_features(
     src: DatasetReader,

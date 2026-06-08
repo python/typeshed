@@ -2,8 +2,6 @@ import os
 from typing import Any, Final, Self
 
 SCHEMES: Final[dict[str, str]]
-# In rasterio 1.5 the source assigns `ARCHIVESCHEMES = set` (the bare type),
-# not a populated set instance. We mirror that quirk.
 ARCHIVESCHEMES: Final[type[set[Any]]]
 CURLSCHEMES: Final[set[str]]
 REMOTESCHEMES: Final[set[str]]

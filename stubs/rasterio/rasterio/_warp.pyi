@@ -67,8 +67,6 @@ def _suggested_proxy_vrt_doc(
 ) -> str: ...
 
 class WarpedVRTReaderBase(DatasetReaderBase):
-    # Public attributes documented in the rasterio.vrt API reference and set
-    # in __init__.
     src_dataset: DatasetReader
     src_crs: CRS
     src_transform: Affine | None
@@ -100,9 +98,6 @@ class WarpedVRTReaderBase(DatasetReaderBase):
         dtype: DTypeLike | None = None,
         **warp_extras: Any,
     ) -> None: ...
-    # The base read() takes `boundless`; WarpedVRT.read() does not. The base
-    # read() takes a generic out_shape; the WarpedVRT version reorders kwargs.
-    # These divergences are intentional in rasterio's API.
     def read(  # type: ignore[override]
         self,
         indexes: Indexes | None = None,
