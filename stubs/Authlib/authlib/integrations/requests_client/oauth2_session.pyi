@@ -4,21 +4,21 @@ from typing import Any, ClassVar, TypeVar
 from authlib.oauth2.auth import ClientAuth, TokenAuth
 from authlib.oauth2.client import OAuth2Client
 from oauthlib.oauth2 import OAuth2Token
-from requests import Request, Response, Session
+from requests import PreparedRequest, Response, Session
 from requests.auth import AuthBase
 
 from ..base_client import OAuthError
 
 __all__ = ["OAuth2Session", "OAuth2Auth"]
 
-_R = TypeVar("_R", bound=Request)
+_PR = TypeVar("_PR", bound=PreparedRequest)
 
 class OAuth2Auth(AuthBase, TokenAuth):
     def ensure_active_token(self) -> None: ...
-    def __call__(self, req: _R) -> _R: ...
+    def __call__(self, req: _PR) -> _PR: ...
 
 class OAuth2ClientAuth(AuthBase, ClientAuth):
-    def __call__(self, req: _R) -> _R: ...
+    def __call__(self, req: _PR) -> _PR: ...
 
 class OAuth2Session(OAuth2Client, Session):
     client_auth_class: ClassVar[type[OAuth2ClientAuth]]
