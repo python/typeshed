@@ -557,5 +557,5 @@ TPM_RIGHTALIGN: int
 TPM_RIGHTBUTTON: int
 TPM_TOPALIGN: int
 TPM_VCENTERALIGN: int
-UNICODE: Literal[True]
+UNICODE: Literal[1]
 dllhandle: int

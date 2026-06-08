@@ -6312,3 +6312,14 @@ class HTTP_FILTER_VERSION:
     def Flags(self): ...
     @property
     def FilterDesc(self) -> str: ...
+
+class PySYSTEM_CPU_SET_INFORMATION:
+    Id: int
+    Group: int
+    LogicalProcessorIndex: int
+    CoreIndex: int
+    LastLevelCacheIndex: int
+    NumaNodeIndex: int
+    EfficiencyClass: int
+    SchedulingClass: int
+    AllocationTag: int
