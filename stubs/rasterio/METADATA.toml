@@ -1,0 +1,20 @@
+version = "1.5.*"
+upstream-repository = "https://github.com/rasterio/rasterio"
+# rasterio 1.5 itself requires Python 3.12+, so we mirror its floor.
+requires-python = ">=3.12"
+# `numpy` and `click` ship their own `py.typed`; listed by their PyPI runtime
+# name. `affine` is referenced only through the stubs-only
+# `rasterio._affine_types` indirection (Affine -> Any), so no stub or
+# runtime dependency on affine is needed here.
+dependencies = ["numpy>=2", "click>=8"]
+# Not every internal symbol is typed (notably much of the Cython extension
+# layer), but the entire public API surface is covered.
+partial-stub = true
+
+[tool.stubtest]
+# Mirror the package-level partial-stub flag — internal Cython attributes
+# (`__attrs_*`, `__reduce_cython__`, etc.) are not enumerated in the stubs.
+ignore-missing-stub = true
+stubtest-dependencies = ["rasterio==1.5.*"]
+apt-dependencies = ["libgdal-dev", "gdal-bin"]
+brew-dependencies = ["gdal"]

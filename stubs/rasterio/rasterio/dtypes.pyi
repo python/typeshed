@@ -1,0 +1,40 @@
+from collections.abc import Sequence
+from typing import Any, Final
+
+from numpy.typing import ArrayLike, DTypeLike
+
+bool_: Final[str]
+ubyte: Final[str]
+uint8: Final[str]
+sbyte: Final[str]
+int8: Final[str]
+uint16: Final[str]
+int16: Final[str]
+uint32: Final[str]
+int32: Final[str]
+int64: Final[str]
+uint64: Final[str]
+# New in rasterio 1.5 (requires GDAL 3.10+).
+float16: Final[str]
+float32: Final[str]
+float64: Final[str]
+complex_: Final[str]
+complex64: Final[str]
+complex128: Final[str]
+complex_int16: Final[str]
+
+dtype_fwd: Final[dict[int, str | None]]
+dtype_rev: Final[dict[str | None, int]]
+typename_fwd: Final[dict[int, str]]
+typename_rev: Final[dict[str, int]]
+dtype_ranges: Final[dict[str, tuple[float, float]]]
+# Dispatch table from rasterio dtype letter codes to numpy info classes
+# (`numpy.iinfo` / `numpy.finfo`). Used internally by `in_dtype_range`.
+dtype_info_registry: Final[dict[str, type]]
+
+def in_dtype_range(value: float, dtype: DTypeLike) -> bool: ...
+def check_dtype(dt: DTypeLike) -> bool: ...
+def get_minimum_dtype(values: ArrayLike) -> str: ...
+def is_ndarray(array: Any) -> bool: ...
+def can_cast_dtype(values: ArrayLike, dtype: DTypeLike) -> bool: ...
+def validate_dtype(values: ArrayLike, valid_dtypes: Sequence[DTypeLike]) -> bool: ...

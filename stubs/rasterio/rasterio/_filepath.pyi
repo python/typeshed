@@ -1,0 +1,6 @@
+from typing import Any
+
+class FilePathBase:
+    def __init__(self, *args: Any, **kwargs: Any) -> None: ...
+
+def clone_file_obj(fobj: Any) -> Any: ...

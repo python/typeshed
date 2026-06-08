@@ -1,0 +1,13 @@
+import os
+from typing import Any
+
+def exists(path: str | os.PathLike[str]) -> bool: ...
+def copy(
+    src: str | os.PathLike[str] | Any,
+    dst: str | os.PathLike[str],
+    driver: str | None = None,
+    strict: bool = True,
+    **creation_options: Any,
+) -> None: ...
+def copyfiles(src: str | os.PathLike[str], dst: str | os.PathLike[str]) -> None: ...
+def delete(path: str | os.PathLike[str], driver: str | None = None) -> None: ...

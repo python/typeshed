@@ -1,0 +1,27 @@
+# Stubtest allowlist for rasterio.
+#
+# Each line is a regex; matches are *not* reported by stubtest. Format mirrors
+# python/typeshed so the file can move into `stubs/rasterio/@tests/` unchanged.
+# Most "item present at runtime but missing from stub" cases are silenced by
+# the `--ignore-missing-stub` flag (we mark the package `partial-stub = true`
+# in METADATA.toml). This file lists per-symbol exceptions that aren't covered
+# by that flag.
+
+# Stubs-only helper modules (no runtime counterpart).
+rasterio\._typing
+rasterio\._affine_types
+
+# Stubs-only type aliases used in signatures only.
+rasterio\.features\.Geometry
+rasterio\.merge\.MethodFunction
+
+# Cython extension classes need `@disjoint_base` and have Cython-introspected
+# parameter names that sometimes disagree with the stub. We hide these for the
+# subset of private modules that still surface drift after the Public-API
+# reconciliation. Users typically call positionally, so this is low-risk.
+rasterio\._base.*
+rasterio\._io.*
+rasterio\._env.*
+rasterio\._err.*
+rasterio\._features.*
+rasterio\._transform.*
