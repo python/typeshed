@@ -441,7 +441,7 @@ these steps:
 
 1. Open an issue explaining why the stubs should be removed.
 2. A maintainer will add the
-   ["stubs: removal" label](https://github.com/python/typeshed/labels/%22stubs%3A%20removal%22).
+   ["stubs: removal" label](https://github.com/python/typeshed/labels/stubs%3A%20removal).
 3. Open a PR that sets the `no-longer-updated` field in the `METADATA.toml`
    file to `true`.
 4. When a new version of the package was automatically uploaded to PyPI (which
@@ -452,7 +452,7 @@ for any stub obsoletions or removals.
 
 ### Marking PRs as "deferred"
 
-We sometimes use the ["status: deferred" label](https://github.com/python/typeshed/labels/%22status%3A%20deferred%22)
+We sometimes use the ["status: deferred" label](https://github.com/python/typeshed/labels/status%3A%20deferred)
 to mark PRs and issues that we'd like to accept, but that are blocked by some
 external factor. Blockers can include:
 
