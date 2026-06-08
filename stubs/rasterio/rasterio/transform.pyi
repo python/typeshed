@@ -71,7 +71,6 @@ class TransformerBase:
         zs: float | Sequence[float] | None = None,
         offset: _OffsetOptions = "center",
     ) -> tuple[float, float] | tuple[list[float], list[float]]: ...
-
     @overload
     def rowcol(
         self,
