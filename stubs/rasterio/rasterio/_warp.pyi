@@ -16,10 +16,7 @@ DEFAULT_NODATA_FLAG: Final[object]
 
 def recursive_round(val: Any, precision: int) -> Any: ...
 def _transform_geom(
-    src_crs: CRSInput,
-    dst_crs: CRSInput,
-    geom: Mapping[str, Any] | Sequence[Mapping[str, Any]],
-    precision: int,
+    src_crs: CRSInput, dst_crs: CRSInput, geom: Mapping[str, Any] | Sequence[Mapping[str, Any]], precision: int
 ) -> dict[str, Any] | list[dict[str, Any]]: ...
 def _reproject(
     source: NDArray[Any] | Any,
@@ -58,13 +55,7 @@ def _calculate_default_transform(
     **kwargs: Any,
 ) -> tuple[Affine, int, int]: ...
 def _transform_bounds(
-    src_crs: CRS,
-    dst_crs: CRS,
-    left: float,
-    bottom: float,
-    right: float,
-    top: float,
-    densify_pts: int,
+    src_crs: CRS, dst_crs: CRS, left: float, bottom: float, right: float, top: float, densify_pts: int
 ) -> tuple[float, float, float, float]: ...
 def _suggested_proxy_vrt_doc(
     width: int,

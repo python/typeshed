@@ -21,11 +21,7 @@ class BufferedDatasetWriter(BufferedDatasetWriterBase, WindowMethodsMixin, Trans
 
 class MemoryFile(MemoryFileBase):
     def __init__(
-        self,
-        file_or_bytes: FileOrBytes | None = None,
-        dirname: str | None = None,
-        filename: str | None = None,
-        ext: str = ".tif",
+        self, file_or_bytes: FileOrBytes | None = None, dirname: str | None = None, filename: str | None = None, ext: str = ".tif"
     ) -> None: ...
     def open(
         self,
@@ -43,10 +39,7 @@ class MemoryFile(MemoryFileBase):
     ) -> DatasetReader | DatasetWriter: ...
     def __enter__(self) -> Self: ...
     def __exit__(
-        self,
-        exc_type: type[BaseException] | None,
-        exc_value: BaseException | None,
-        traceback: TracebackType | None,
+        self, exc_type: type[BaseException] | None, exc_value: BaseException | None, traceback: TracebackType | None
     ) -> bool | None: ...
 
 class ZipMemoryFile(MemoryFile):
@@ -55,39 +48,19 @@ class ZipMemoryFile(MemoryFile):
     # breaks Liskov substitution with MemoryFile.open. This is intentional in
     # rasterio.
     def open(  # type: ignore[override]
-        self,
-        path: str,
-        driver: str | None = None,
-        sharing: bool = False,
-        thread_safe: bool = False,
-        **kwargs: Any,
+        self, path: str, driver: str | None = None, sharing: bool = False, thread_safe: bool = False, **kwargs: Any
     ) -> DatasetReader: ...
 
 @deprecated("FilePath is supplanted by rasterio.open's `opener` keyword argument and will be removed in 2.0.0.")
 class FilePath(FilePathBase):
-    def __init__(
-        self,
-        filelike_obj: Any,
-        dirname: str | None = None,
-        filename: str | None = None,
-    ) -> None: ...
+    def __init__(self, filelike_obj: Any, dirname: str | None = None, filename: str | None = None) -> None: ...
     def open(
-        self,
-        driver: str | None = None,
-        sharing: bool = False,
-        thread_safe: bool = False,
-        **kwargs: Any,
+        self, driver: str | None = None, sharing: bool = False, thread_safe: bool = False, **kwargs: Any
     ) -> DatasetReader: ...
     def __enter__(self) -> Self: ...
     def __exit__(
-        self,
-        exc_type: type[BaseException] | None,
-        exc_value: BaseException | None,
-        traceback: TracebackType | None,
+        self, exc_type: type[BaseException] | None, exc_value: BaseException | None, traceback: TracebackType | None
     ) -> bool | None: ...
 
 def get_writer_for_driver(driver: str) -> type[DatasetWriter | BufferedDatasetWriter] | None: ...
-def get_writer_for_path(
-    path: str,
-    driver: str | None = None,
-) -> type[DatasetWriter | BufferedDatasetWriter] | None: ...
+def get_writer_for_path(path: str, driver: str | None = None) -> type[DatasetWriter | BufferedDatasetWriter] | None: ...

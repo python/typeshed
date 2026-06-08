@@ -126,9 +126,5 @@ class Band(NamedTuple):
 
 def band(ds: AnyDataset, bidx: int | Sequence[int]) -> Band: ...
 def pad(
-    array: NDArray[Any],
-    transform: Affine,
-    pad_width: int,
-    mode: str | Callable[..., Any] | None = None,
-    **kwargs: Any,
+    array: NDArray[Any], transform: Affine, pad_width: int, mode: str | Callable[..., Any] | None = None, **kwargs: Any
 ) -> tuple[NDArray[Any], Affine]: ...

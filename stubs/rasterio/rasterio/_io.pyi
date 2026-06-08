@@ -34,10 +34,7 @@ def _boundless_vrt_doc(
     resampling: Resampling = ...,
 ) -> str: ...
 def sample_gen(
-    dataset: DatasetBase,
-    xy: Sequence[tuple[float, float]],
-    indexes: Indexes | None = None,
-    masked: bool = False,
+    dataset: DatasetBase, xy: Sequence[tuple[float, float]], indexes: Indexes | None = None, masked: bool = False
 ) -> Iterator[NDArray[Any]]: ...
 
 class Statistics:
@@ -78,10 +75,7 @@ class DatasetReaderBase(DatasetBase):
         resampling: Resampling = ...,
     ) -> NDArray[Any]: ...
     def sample(
-        self,
-        xy: Sequence[tuple[float, float]],
-        indexes: Indexes | None = None,
-        masked: bool = False,
+        self, xy: Sequence[tuple[float, float]], indexes: Indexes | None = None, masked: bool = False
     ) -> Iterator[NDArray[Any]]: ...
     def stats(self, *, indexes: Indexes | None = None, approx: bool = False) -> list[Statistics]: ...
     @deprecated("DatasetReaderBase.statistics() will be removed in 2.0.0; please switch to stats().")
@@ -133,43 +127,17 @@ class DatasetWriterBase(DatasetReaderBase):
         **kwargs: Any,
     ) -> None: ...
     def write(
-        self,
-        arr: NDArray[Any],
-        indexes: Indexes | None = None,
-        window: WindowInput | None = None,
-        masked: bool = False,
+        self, arr: NDArray[Any], indexes: Indexes | None = None, window: WindowInput | None = None, masked: bool = False
     ) -> None: ...
-    def write_band(
-        self,
-        bidx: int,
-        src: NDArray[Any],
-        window: WindowInput | None = None,
-    ) -> None: ...
-    def update_tags(
-        self,
-        bidx: int = 0,
-        ns: str | None = None,
-        **kwargs: Any,
-    ) -> None: ...
+    def write_band(self, bidx: int, src: NDArray[Any], window: WindowInput | None = None) -> None: ...
+    def update_tags(self, bidx: int = 0, ns: str | None = None, **kwargs: Any) -> None: ...
     def set_band_description(self, bidx: int, value: str) -> None: ...
     def set_band_unit(self, bidx: int, value: str) -> None: ...
     def write_colormap(self, bidx: int, colormap: Colormap) -> None: ...
-    def write_mask(
-        self,
-        mask_array: NDArray[Any],
-        window: WindowInput | None = None,
-    ) -> None: ...
-    def build_overviews(
-        self,
-        factors: Sequence[int],
-        resampling: Resampling = ...,
-    ) -> None: ...
+    def write_mask(self, mask_array: NDArray[Any], window: WindowInput | None = None) -> None: ...
+    def build_overviews(self, factors: Sequence[int], resampling: Resampling = ...) -> None: ...
     def update_stats(
-        self,
-        *,
-        stats: Sequence[Statistics] | None = None,
-        indexes: Indexes | None = None,
-        approx: bool = False,
+        self, *, stats: Sequence[Statistics] | None = None, indexes: Indexes | None = None, approx: bool = False
     ) -> None: ...
     def clear_stats(self) -> None: ...
 

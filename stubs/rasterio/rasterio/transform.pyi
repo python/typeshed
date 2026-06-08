@@ -70,10 +70,7 @@ def rowcol(
     precision: int | None = None,
     **rpc_options: Any,
 ) -> tuple[int, int] | tuple[list[int], list[int]]: ...
-def get_transformer(
-    transform: Affine | Sequence[GroundControlPoint] | RPC,
-    **rpc_options: Any,
-) -> type[TransformerBase]: ...
+def get_transformer(transform: Affine | Sequence[GroundControlPoint] | RPC, **rpc_options: Any) -> type[TransformerBase]: ...
 
 class TransformerBase:
     def __init__(self) -> None: ...
@@ -84,6 +81,7 @@ class TransformerBase:
         zs: float | Sequence[float] | None = None,
         offset: _OffsetOptions = "center",
     ) -> tuple[float, float] | tuple[list[float], list[float]]: ...
+
     @overload
     def rowcol(
         self,

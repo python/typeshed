@@ -5,10 +5,7 @@ from numpy.typing import NDArray
 from rasterio.io import DatasetReader
 
 def sample_gen(
-    dataset: DatasetReader,
-    xy: Iterable[tuple[float, float]],
-    indexes: int | Sequence[int] | None = None,
-    masked: bool = False,
+    dataset: DatasetReader, xy: Iterable[tuple[float, float]], indexes: int | Sequence[int] | None = None, masked: bool = False
 ) -> Iterator[NDArray[Any]]: ...
 
 # New in rasterio 1.5: sorts coordinates by x then y so callers of

@@ -17,11 +17,7 @@ _Rpcs: TypeAlias = RPC | Mapping[str, Any]
 SUPPORTED_RESAMPLING: Final[list[Resampling]]
 
 def transform(
-    src_crs: CRSInput,
-    dst_crs: CRSInput,
-    xs: ArrayLike,
-    ys: ArrayLike,
-    zs: ArrayLike | None = None,
+    src_crs: CRSInput, dst_crs: CRSInput, xs: ArrayLike, ys: ArrayLike, zs: ArrayLike | None = None
 ) -> tuple[list[float], list[float]] | tuple[list[float], list[float], list[float]]: ...
 
 # In rasterio 1.5 `antimeridian_cutting` and `antimeridian_offset` are
@@ -31,11 +27,7 @@ def transform(
 # call sites that still pass them.
 @overload
 def transform_geom(
-    src_crs: CRSInput,
-    dst_crs: CRSInput,
-    geom: Mapping[str, Any] | Sequence[Mapping[str, Any]],
-    *,
-    precision: float = -1,
+    src_crs: CRSInput, dst_crs: CRSInput, geom: Mapping[str, Any] | Sequence[Mapping[str, Any]], *, precision: float = -1
 ) -> dict[str, Any] | list[dict[str, Any]]: ...
 @overload
 @deprecated(
@@ -51,14 +43,9 @@ def transform_geom(
     antimeridian_offset: float | None = None,
     precision: float = -1,
 ) -> dict[str, Any] | list[dict[str, Any]]: ...
+
 def transform_bounds(
-    src_crs: CRSInput,
-    dst_crs: CRSInput,
-    left: float,
-    bottom: float,
-    right: float,
-    top: float,
-    densify_pts: int = 21,
+    src_crs: CRSInput, dst_crs: CRSInput, left: float, bottom: float, right: float, top: float, densify_pts: int = 21
 ) -> tuple[float, float, float, float]: ...
 def reproject(
     source: ArrayLike | Incomplete,
@@ -82,12 +69,7 @@ def reproject(
     src_geoloc_array: NDArray[Any] | None = None,
     **kwargs: Any,
 ) -> tuple[NDArray[Any], Affine]: ...
-def aligned_target(
-    transform: Affine,
-    width: int,
-    height: int,
-    resolution: _Resolution,
-) -> tuple[Affine, int, int]: ...
+def aligned_target(transform: Affine, width: int, height: int, resolution: _Resolution) -> tuple[Affine, int, int]: ...
 def calculate_default_transform(
     src_crs: CRSInput,
     dst_crs: CRSInput,

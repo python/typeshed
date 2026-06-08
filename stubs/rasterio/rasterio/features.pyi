@@ -14,24 +14,13 @@ from rasterio.windows import Window as Window
 Geometry: TypeAlias = Mapping[str, Any]
 
 def geometry_mask(
-    geometries: Iterable[Geometry],
-    out_shape: tuple[int, int],
-    transform: Affine,
-    all_touched: bool = False,
-    invert: bool = False,
+    geometries: Iterable[Geometry], out_shape: tuple[int, int], transform: Affine, all_touched: bool = False, invert: bool = False
 ) -> NDArray[np.bool_]: ...
 def shapes(
-    source: NDArray[Any],
-    mask: NDArray[np.bool_] | None = None,
-    connectivity: int = 4,
-    transform: Affine = ...,
+    source: NDArray[Any], mask: NDArray[np.bool_] | None = None, connectivity: int = 4, transform: Affine = ...
 ) -> Iterator[tuple[dict[str, Any], float | int]]: ...
 def sieve(
-    source: NDArray[Any],
-    size: int,
-    out: NDArray[Any] | None = None,
-    mask: NDArray[np.bool_] | None = None,
-    connectivity: int = 4,
+    source: NDArray[Any], size: int, out: NDArray[Any] | None = None, mask: NDArray[np.bool_] | None = None, connectivity: int = 4
 ) -> NDArray[Any]: ...
 def rasterize(
     shapes: Iterable[tuple[Geometry, float] | Geometry],
@@ -49,19 +38,11 @@ def rasterize(
     dst_path: str | os.PathLike[str] | None = None,
     dst_kwds: dict[str, Any] | None = None,
 ) -> NDArray[Any]: ...
-def bounds(
-    geometry: Geometry,
-    north_up: bool = True,
-    transform: Affine | None = None,
-) -> tuple[float, float, float, float]: ...
+def bounds(geometry: Geometry, north_up: bool = True, transform: Affine | None = None) -> tuple[float, float, float, float]: ...
+
 @overload
 def geometry_window(
-    dataset: DatasetReader,
-    shapes: Iterable[Geometry],
-    pad_x: float = 0,
-    pad_y: float = 0,
-    *,
-    boundless: bool = False,
+    dataset: DatasetReader, shapes: Iterable[Geometry], pad_x: float = 0, pad_y: float = 0, *, boundless: bool = False
 ) -> Window: ...
 @overload
 @deprecated(
@@ -78,6 +59,7 @@ def geometry_window(
     pixel_precision: float | None = None,
     boundless: bool = False,
 ) -> Window: ...
+
 def is_valid_geom(geom: Geometry) -> bool: ...
 def dataset_features(
     src: DatasetReader,

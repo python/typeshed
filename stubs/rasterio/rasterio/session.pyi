@@ -49,10 +49,7 @@ class AWSSession(Session):
 
 class OSSSession(Session):
     def __init__(
-        self,
-        oss_access_key_id: str | None = None,
-        oss_secret_access_key: str | None = None,
-        oss_endpoint: str | None = None,
+        self, oss_access_key_id: str | None = None, oss_secret_access_key: str | None = None, oss_endpoint: str | None = None
     ) -> None: ...
     @classmethod
     def hascreds(cls, config: dict[str, Any]) -> bool: ...
