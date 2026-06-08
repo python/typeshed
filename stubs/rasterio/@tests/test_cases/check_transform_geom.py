@@ -12,5 +12,5 @@ geom: dict[str, object] = {"type": "Point", "coordinates": [0.0, 0.0]}
 transform_geom(src, dst, geom)
 transform_geom(src, dst, geom, precision=2)
 
-transform_geom(src, dst, geom, antimeridian_cutting=True)
-transform_geom(src, dst, geom, antimeridian_offset=10.0)
+transform_geom(src, dst, geom, antimeridian_cutting=True)  # pyright: ignore[reportDeprecated]
+transform_geom(src, dst, geom, antimeridian_offset=10.0)  # pyright: ignore[reportDeprecated]
