@@ -14,7 +14,7 @@ class CORS:
         app: flask.Flask | flask.Blueprint | None = None,
         *,
         resources: dict[str, dict[str, Any]] | list[str] | str | None = ...,
-        origins: str | Pattern[str] | Iterable[str | Pattern[str]] | None = ...,
+        origins: str | Pattern[str] | Iterable[str | Pattern[str]] = ...,
         methods: str | list[str] | None = ...,
         expose_headers: str | list[str] | None = ...,
         allow_headers: str | list[str] | None = ...,
