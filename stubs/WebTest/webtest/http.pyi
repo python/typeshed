@@ -2,8 +2,8 @@ from _typeshed import Incomplete
 from _typeshed.wsgi import StartResponse, WSGIApplication, WSGIEnvironment
 from collections.abc import Iterable
 from threading import Thread
-from typing import Literal
-from typing_extensions import Self, TypeAlias
+from typing import Literal, TypeAlias
+from typing_extensions import Self
 
 from waitress.server import TcpWSGIServer
 

@@ -1,8 +1,8 @@
 import re
 from _typeshed.wsgi import WSGIApplication
 from collections.abc import Callable, Mapping, Sequence
-from typing import Any, Literal, TypedDict, overload
-from typing_extensions import TypeAlias, Unpack
+from typing import Any, Literal, TypeAlias, TypedDict, overload
+from typing_extensions import Unpack
 from xml.etree import ElementTree
 
 from bs4 import BeautifulSoup
@@ -64,10 +64,12 @@ class TestResponse(Response):
         index: int | None = None,
         verbose: bool = False,
     ) -> TestResponse: ...
+
     @overload
     def goto(self, href: str, method: Literal["get"] = "get", **args: Unpack[_GetParams]) -> TestResponse: ...
     @overload
     def goto(self, href: str, method: Literal["post"], **args: Unpack[_PostParams]) -> TestResponse: ...
+
     @property
     def normal_body(self) -> bytes: ...
     @property
