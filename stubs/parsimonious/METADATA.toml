@@ -1,2 +1,2 @@
-version = "0.10.*"
-upstream_repository = "https://github.com/erikrose/parsimonious"
+version = "0.11.*"
+upstream-repository = "https://github.com/erikrose/parsimonious"

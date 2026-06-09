@@ -7,7 +7,7 @@ from .subsegment import Subsegment
 from .throwable import Throwable
 
 log: Logger
-ORIGIN_TRACE_HEADER_ATTR_KEY: Final[str]
+ORIGIN_TRACE_HEADER_ATTR_KEY: Final = "_origin_trace_header"
 
 class Entity:
     id: str
@@ -27,10 +27,12 @@ class Entity:
     def close(self, end_time: float | None = None) -> None: ...
     def add_subsegment(self, subsegment: Subsegment) -> None: ...
     def remove_subsegment(self, subsegment: Subsegment) -> None: ...
+
     @overload
     def put_http_meta(self, key: Literal["status", "content_length"], value: int) -> None: ...
     @overload
     def put_http_meta(self, key: Literal["url", "method", "user_agent", "client_ip", "x_forwarded_for"], value: str) -> None: ...
+
     def put_annotation(self, key: str, value: float | str | bool) -> None: ...
     def put_metadata(
         self, key: str, value: Any, namespace: str = "default"  # value is any object that can be serialized into JSON string

@@ -2,8 +2,7 @@ from _typeshed import Incomplete
 from collections.abc import Callable, Iterable, Sequence
 from re import Match, Pattern
 from types import ModuleType, SimpleNamespace as Struct
-from typing import Any, ClassVar, Final, NoReturn
-from typing_extensions import TypeAlias
+from typing import Any, ClassVar, Final, NoReturn, TypeAlias
 
 from docutils import ApplicationError, DataError, nodes
 from docutils.nodes import Node, system_message
@@ -26,6 +25,7 @@ class RSTStateMachine(StateMachineWS[list[str]]):
     document: nodes.document
     reporter: Reporter
     node: nodes.document | None
+    section_level_offset: int
     def run(  # type: ignore[override]
         self,
         input_lines: Sequence[str] | StringList,
@@ -35,13 +35,9 @@ class RSTStateMachine(StateMachineWS[list[str]]):
         inliner: Inliner | None = None,
     ) -> None: ...
 
-class NestedStateMachine(StateMachineWS[list[str]]):
-    match_titles: bool
-    memo: Incomplete
-    document: nodes.document
-    reporter: Reporter
-    language: Incomplete
-    node: Incomplete
+class NestedStateMachine(RSTStateMachine):
+    parent_state_machine: Incomplete | None
+    def __init__(self, state_classes, initial_state, debug: bool = False, parent_state_machine=None) -> None: ...
     def run(  # type: ignore[override]
         self, input_lines: Sequence[str] | StringList, input_offset: int, memo, node, match_titles: bool = True
     ) -> list[str]: ...
@@ -61,13 +57,13 @@ class RSTState(StateWS[list[str]]):
     def bof(self, context: list[str]): ...
     def nested_parse(
         self,
-        block,
+        block: StringList,
         input_offset: int,
-        node,
+        node: nodes.Element | None = None,
         match_titles: bool = False,
-        state_machine_class: type[StateMachine[list[str]]] | None = None,
-        state_machine_kwargs=None,
-    ): ...
+        state_machine_class: StateMachineWS[Incomplete] | None = None,
+        state_machine_kwargs: dict[Incomplete, Incomplete] | None = None,
+    ) -> int: ...
     def nested_list_parse(
         self,
         block,

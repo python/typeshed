@@ -1,12 +1,11 @@
-from _typeshed import Incomplete
 from collections.abc import Iterable, Mapping
-from typing import Final, Literal, TypeVar, overload
+from typing import Any, Final, Literal, TypedDict, TypeVar, overload, type_check_only
 
 from .healthcheck import Healthcheck
 
 _T = TypeVar("_T")
 
-class TaskTemplate(dict[str, Incomplete]):
+class TaskTemplate(dict[str, Any]):
     def __init__(
         self,
         container_spec: ContainerSpec,
@@ -26,22 +25,22 @@ class TaskTemplate(dict[str, Incomplete]):
     @property
     def placement(self) -> Placement: ...
 
-class ContainerSpec(dict[str, Incomplete]):
+class ContainerSpec(dict[str, Any]):
     def __init__(
         self,
         image: str,
         command: str | list[str] | None = None,
         args: list[str] | None = None,
         hostname: str | None = None,
-        env: dict[str, Incomplete] | list[str] | None = None,
+        env: dict[str, str | bytes | None] | list[str] | None = None,
         workdir: str | None = None,
         user: str | None = None,
-        labels: dict[Incomplete, Incomplete] | None = None,
+        labels: dict[str, str] | None = None,
         mounts: Iterable[str | Mount] | None = None,
         stop_grace_period: int | None = None,
         secrets: list[SecretReference] | None = None,
         tty: bool | None = None,
-        groups: list[Incomplete] | None = None,
+        groups: list[str] | None = None,
         open_stdin: bool | None = None,
         read_only: bool | None = None,
         stop_signal: str | None = None,
@@ -52,22 +51,22 @@ class ContainerSpec(dict[str, Incomplete]):
         privileges: Privileges | None = None,
         isolation: str | None = None,
         init: bool | None = None,
-        cap_add: list[Incomplete] | None = None,
-        cap_drop: list[Incomplete] | None = None,
-        sysctls: dict[str, Incomplete] | None = None,
+        cap_add: list[str] | None = None,
+        cap_drop: list[str] | None = None,
+        sysctls: dict[str, str] | None = None,
     ) -> None: ...
 
-class Mount(dict[str, Incomplete]):
+class Mount(dict[str, Any]):
     def __init__(
         self,
         target: str,
-        source: str,
+        source: str | None,
         type: Literal["bind", "volume", "tmpfs", "npipe"] = "volume",
         read_only: bool = False,
         consistency: Literal["default", "consistent", "cached", "delegated"] | None = None,
         propagation: str | None = None,
         no_copy: bool = False,
-        labels: dict[Incomplete, Incomplete] | None = None,
+        labels: dict[str, str] | None = None,
         driver_config: DriverConfig | None = None,
         tmpfs_size: int | str | None = None,
         tmpfs_mode: int | None = None,
@@ -75,17 +74,24 @@ class Mount(dict[str, Incomplete]):
     @classmethod
     def parse_mount_string(cls, string: str) -> Mount: ...
 
-class Resources(dict[str, Incomplete]):
+@type_check_only
+class _ResourceDict(TypedDict):
+    Kind: str
+    Value: int
+
+class Resources(dict[str, Any]):
     def __init__(
         self,
         cpu_limit: int | None = None,
         mem_limit: int | None = None,
         cpu_reservation: int | None = None,
         mem_reservation: int | None = None,
-        generic_resources: dict[str, Incomplete] | list[str] | None = None,
+        generic_resources: (
+            dict[str, int | str] | list[dict[Literal["DiscreteResourceSpec", "NamedResourceSpec"], _ResourceDict]] | None
+        ) = None,
     ) -> None: ...
 
-class UpdateConfig(dict[str, Incomplete]):
+class UpdateConfig(dict[str, Any]):
     def __init__(
         self,
         parallelism: int = 0,
@@ -103,16 +109,16 @@ class RestartConditionTypesEnum:
     ON_FAILURE: Final = "on-failure"
     ANY: Final = "any"
 
-class RestartPolicy(dict[str, Incomplete]):
+class RestartPolicy(dict[str, Any]):
     condition_types: type[RestartConditionTypesEnum]
     def __init__(
         self, condition: Literal["none", "on-failure", "any"] = "none", delay: int = 0, max_attempts: int = 0, window: int = 0
     ) -> None: ...
 
-class DriverConfig(dict[str, Incomplete]):
-    def __init__(self, name: str, options: dict[Incomplete, Incomplete] | None = None) -> None: ...
+class DriverConfig(dict[str, Any]):
+    def __init__(self, name: str, options: dict[str, str] | None = None) -> None: ...
 
-class EndpointSpec(dict[str, Incomplete]):
+class EndpointSpec(dict[str, Any]):
     def __init__(
         self, mode: str | None = None, ports: Mapping[str, str | tuple[str | None, ...]] | list[dict[str, str]] | None = None
     ) -> None: ...
@@ -122,7 +128,7 @@ def convert_service_ports(ports: list[_T]) -> list[_T]: ...
 @overload
 def convert_service_ports(ports: Mapping[str, str | tuple[str | None, ...]]) -> list[dict[str, str]]: ...
 
-class ServiceMode(dict[str, Incomplete]):
+class ServiceMode(dict[str, Any]):
     mode: Literal["replicated", "global", "ReplicatedJob", "GlobalJob"]
     def __init__(
         self,
@@ -133,7 +139,7 @@ class ServiceMode(dict[str, Incomplete]):
     @property
     def replicas(self) -> int | None: ...
 
-class SecretReference(dict[str, Incomplete]):
+class SecretReference(dict[str, Any]):
     def __init__(
         self,
         secret_id: str,
@@ -144,7 +150,7 @@ class SecretReference(dict[str, Incomplete]):
         mode: int = 292,
     ) -> None: ...
 
-class ConfigReference(dict[str, Incomplete]):
+class ConfigReference(dict[str, Any]):
     def __init__(
         self,
         config_id: str,
@@ -155,7 +161,7 @@ class ConfigReference(dict[str, Incomplete]):
         mode: int = 292,
     ) -> None: ...
 
-class Placement(dict[str, Incomplete]):
+class Placement(dict[str, Any]):
     def __init__(
         self,
         constraints: list[str] | None = None,
@@ -164,15 +170,15 @@ class Placement(dict[str, Incomplete]):
         maxreplicas: int | None = None,
     ) -> None: ...
 
-class PlacementPreference(dict[str, Incomplete]):
+class PlacementPreference(dict[str, Any]):
     def __init__(self, strategy: Literal["spread"], descriptor: str) -> None: ...
 
-class DNSConfig(dict[str, Incomplete]):
+class DNSConfig(dict[str, Any]):
     def __init__(
         self, nameservers: list[str] | None = None, search: list[str] | None = None, options: list[str] | None = None
     ) -> None: ...
 
-class Privileges(dict[str, Incomplete]):
+class Privileges(dict[str, Any]):
     def __init__(
         self,
         credentialspec_file: str | None = None,
@@ -184,5 +190,5 @@ class Privileges(dict[str, Incomplete]):
         selinux_level: str | None = None,
     ) -> None: ...
 
-class NetworkAttachmentConfig(dict[str, Incomplete]):
-    def __init__(self, target: str, aliases: list[str] | None = None, options: dict[str, Incomplete] | None = None) -> None: ...
+class NetworkAttachmentConfig(dict[str, Any]):
+    def __init__(self, target: str, aliases: list[str] | None = None, options: dict[str, str] | None = None) -> None: ...

@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from datetime import datetime
 from decimal import Decimal
 from typing import Final
 
@@ -26,6 +27,7 @@ from braintree.payment_facilitator import PaymentFacilitator
 from braintree.paypal_account import PayPalAccount
 from braintree.paypal_here import PayPalHere
 from braintree.resource import Resource
+from braintree.resource_collection import ResourceCollection
 from braintree.risk_data import RiskData
 from braintree.samsung_pay_card import SamsungPayCard
 from braintree.sepa_direct_debit_account import SepaDirectDebitAccount
@@ -102,19 +104,19 @@ class Transaction(Resource):
     @staticmethod
     def credit(params=None): ...
     @staticmethod
-    def find(transaction_id): ...
+    def find(transaction_id: str) -> Transaction: ...
     @staticmethod
     def refund(transaction_id, amount_or_options=None): ...
     @staticmethod
     def sale(params=None): ...
     @staticmethod
-    def search(*query): ...
+    def search(*query) -> ResourceCollection: ...
     @staticmethod
     def submit_for_settlement(transaction_id, amount=None, params=None): ...
     @staticmethod
     def update_details(transaction_id, params=None): ...
     @staticmethod
-    def void(transaction_id): ...
+    def void(transaction_id, params=None): ...
     @staticmethod
     def create(params): ...
     @staticmethod
@@ -139,6 +141,7 @@ class Transaction(Resource):
     tax_amount: Decimal | None
     discount_amount: Decimal | None
     shipping_amount: Decimal | None
+    surcharge_amount: Decimal | None
     billing_details: Address
     credit_card_details: CreditCard
     packages: list[PackageDetails]
@@ -176,6 +179,10 @@ class Transaction(Resource):
     network_transaction_id: Incomplete
     payment_facilitator: PaymentFacilitator
     transfer: Transfer
+    partially_authorized: bool
+    mastercard_transaction_link_id: str | None
+    subscription_id: str
+    created_at: datetime
     def __init__(self, gateway, attributes) -> None: ...
     @property
     def vault_billing_address(self): ...

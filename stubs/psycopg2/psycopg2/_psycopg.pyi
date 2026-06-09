@@ -2,8 +2,8 @@ import datetime as dt
 from _typeshed import ConvertibleToInt, Incomplete, SupportsRead, SupportsReadline, SupportsWrite, Unused
 from collections.abc import Callable, Iterable, Mapping, Sequence
 from types import TracebackType
-from typing import Any, Literal, NoReturn, Protocol, TextIO, TypeVar, overload, type_check_only
-from typing_extensions import Self, TypeAlias
+from typing import Any, Literal, NoReturn, Protocol, TextIO, TypeAlias, TypeVar, overload, type_check_only
+from typing_extensions import Self, disjoint_base
 
 from psycopg2.extras import ReplicationCursor as extras_ReplicationCursor
 from psycopg2.sql import Composable
@@ -89,6 +89,7 @@ _T_co = TypeVar("_T_co", covariant=True)
 @type_check_only
 class _SupportsReadAndReadline(SupportsRead[_T_co], SupportsReadline[_T_co], Protocol[_T_co]): ...
 
+@disjoint_base
 class cursor:
     arraysize: int
     binary_types: Incomplete | None
@@ -165,6 +166,7 @@ class cursor:
 
 _Cursor: TypeAlias = cursor
 
+@disjoint_base
 class AsIs:
     def __init__(self, obj: object, /, **kwargs: Unused) -> None: ...
     @property
@@ -172,6 +174,7 @@ class AsIs:
     def getquoted(self) -> bytes: ...
     def __conform__(self, proto, /) -> Self | None: ...
 
+@disjoint_base
 class Binary:
     def __init__(self, str: object, /, **kwargs: Unused) -> None: ...
     @property
@@ -182,6 +185,7 @@ class Binary:
     def prepare(self, conn: connection, /) -> None: ...
     def __conform__(self, proto, /) -> Self | None: ...
 
+@disjoint_base
 class Boolean:
     def __init__(self, obj: object, /, **kwargs: Unused) -> None: ...
     @property
@@ -189,6 +193,7 @@ class Boolean:
     def getquoted(self) -> bytes: ...
     def __conform__(self, proto, /) -> Self | None: ...
 
+@disjoint_base
 class Column:
     display_size: Any
     internal_size: Any
@@ -211,6 +216,7 @@ class Column:
     def __ne__(self, other, /): ...
     def __setstate__(self, state, /): ...
 
+@disjoint_base
 class ConnectionInfo:
     # Note: the following properties can be None if their corresponding libpq function
     # returns NULL. They're not annotated as such, because this is very unlikely in
@@ -270,6 +276,7 @@ class ConnectionInfo:
     def parameter_status(self, name: str) -> str | None: ...
     def ssl_attribute(self, name: str) -> str | None: ...
 
+@disjoint_base
 class Error(Exception):
     cursor: _Cursor | None
     diag: Diagnostics
@@ -291,6 +298,7 @@ class TransactionRollbackError(OperationalError): ...
 class InterfaceError(Error): ...
 class Warning(Exception): ...
 
+@disjoint_base
 class ISQLQuote:
     _wrapped: Any
     def __init__(self, wrapped: object, /, **kwargs) -> None: ...
@@ -298,6 +306,7 @@ class ISQLQuote:
     def getbuffer(self): ...
     def getquoted(self) -> bytes: ...
 
+@disjoint_base
 class Decimal:
     def __init__(self, value: object, /, **kwargs: Unused) -> None: ...
     @property
@@ -305,6 +314,7 @@ class Decimal:
     def getquoted(self) -> bytes: ...
     def __conform__(self, proto, /) -> Self | None: ...
 
+@disjoint_base
 class Diagnostics:
     column_name: str | None
     constraint_name: str | None
@@ -326,6 +336,7 @@ class Diagnostics:
     table_name: str | None
     def __init__(self, err: Error, /) -> None: ...
 
+@disjoint_base
 class Float:
     def __init__(self, value: float, /, **kwargs: Unused) -> None: ...
     @property
@@ -333,6 +344,7 @@ class Float:
     def getquoted(self) -> bytes: ...
     def __conform__(self, proto, /) -> Self | None: ...
 
+@disjoint_base
 class Int:
     def __init__(self, value: ConvertibleToInt, /, **kwargs: Unused) -> None: ...
     @property
@@ -340,6 +352,7 @@ class Int:
     def getquoted(self) -> bytes: ...
     def __conform__(self, proto, /) -> Self | None: ...
 
+@disjoint_base
 class List:
     def __init__(self, objs: list[object], /, **kwargs: Unused) -> None: ...
     @property
@@ -348,6 +361,7 @@ class List:
     def prepare(self, conn: connection, /) -> None: ...
     def __conform__(self, proto, /) -> Self | None: ...
 
+@disjoint_base
 class Notify:
     channel: Any
     payload: Any
@@ -363,6 +377,7 @@ class Notify:
     def __lt__(self, other, /): ...
     def __ne__(self, other, /): ...
 
+@disjoint_base
 class QuotedString:
     encoding: str
     def __init__(self, str: object, /, **kwargs: Unused) -> None: ...
@@ -374,6 +389,7 @@ class QuotedString:
     def prepare(self, conn: connection, /) -> None: ...
     def __conform__(self, proto, /) -> Self | None: ...
 
+@disjoint_base
 class ReplicationCursor(cursor):
     feedback_timestamp: Any
     io_timestamp: Any
@@ -384,6 +400,7 @@ class ReplicationCursor(cursor):
     def send_feedback(self, write_lsn=..., flush_lsn=..., apply_lsn=..., reply=..., force=...): ...
     def start_replication_expert(self, command, decode=..., status_interval=...): ...
 
+@disjoint_base
 class ReplicationMessage:
     cursor: Any
     data_size: Any
@@ -393,6 +410,7 @@ class ReplicationMessage:
     wal_end: Any
     def __init__(self, *args, **kwargs) -> None: ...
 
+@disjoint_base
 class Xid:
     bqual: Any
     database: Any
@@ -407,6 +425,7 @@ class Xid:
 
 _T_cur = TypeVar("_T_cur", bound=cursor)
 
+@disjoint_base
 class connection:
     DataError: type[DataError]
     DatabaseError: type[DatabaseError]
@@ -432,24 +451,29 @@ class connection:
     def encoding(self) -> str: ...
     @property
     def info(self) -> ConnectionInfo: ...
+
     @property
     def isolation_level(self) -> int | None: ...
     @isolation_level.setter
     def isolation_level(self, value: str | bytes | int | None, /) -> None: ...
+
     notices: list[str]
     notifies: list[Notify]
     @property
     def pgconn_ptr(self) -> int | None: ...
     @property
     def protocol_version(self) -> int: ...
+
     @property
     def deferrable(self) -> bool | None: ...
     @deferrable.setter
     def deferrable(self, value: Literal["default"] | bool | None, /) -> None: ...
+
     @property
     def readonly(self) -> bool | None: ...
     @readonly.setter
     def readonly(self, value: Literal["default"] | bool | None, /) -> None: ...
+
     @property
     def server_version(self) -> int: ...
     @property
@@ -462,6 +486,7 @@ class connection:
     def cancel(self) -> None: ...
     def close(self) -> None: ...
     def commit(self) -> None: ...
+
     @overload
     def cursor(
         self, name: str | bytes | None = None, cursor_factory: None = None, withhold: bool = False, scrollable: bool | None = None
@@ -483,6 +508,7 @@ class connection:
         withhold: bool = False,
         scrollable: bool | None = None,
     ) -> _T_cur: ...
+
     def fileno(self) -> int: ...
     def get_backend_pid(self) -> int: ...
     def get_dsn_parameters(self) -> dict[str, str]: ...
@@ -521,6 +547,7 @@ class connection:
 
 _Connection: TypeAlias = connection
 
+@disjoint_base
 class ReplicationConnection(connection):
     autocommit: Any
     isolation_level: Any
@@ -529,6 +556,7 @@ class ReplicationConnection(connection):
     set_isolation_level: Any
     set_session: Any
     def __init__(self, *args, **kwargs) -> None: ...
+
     # https://github.com/python/typeshed/issues/11282
     # The return type should be exactly extras.ReplicationCursor (not _psycopg.ReplicationCursor)
     # See the C code: replicationConnection_init(), psyco_conn_cursor()
@@ -554,6 +582,7 @@ class ReplicationConnection(connection):
         scrollable: bool | None = None,
     ) -> _T_cur: ...
 
+@disjoint_base
 class lobject:
     closed: Any
     mode: Any

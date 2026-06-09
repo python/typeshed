@@ -6,8 +6,8 @@ import _typeshed
 import threading
 from collections.abc import Callable, Iterator, Mapping, Sequence
 from contextlib import AbstractContextManager
-from typing import Any, Final, Generic, Literal, Protocol, TypedDict, TypeVar, final, overload, type_check_only
-from typing_extensions import TypeAlias, deprecated
+from typing import Any, Final, Generic, Literal, Protocol, TypeAlias, TypedDict, TypeVar, final, overload, type_check_only
+from typing_extensions import deprecated, disjoint_base
 
 import gdb.FrameDecorator
 import gdb.types
@@ -37,6 +37,7 @@ def execute(command: str, *, to_string: Literal[True]) -> str: ...
 def execute(command: str, from_tty: bool, to_string: Literal[True]) -> str: ...
 @overload
 def execute(command: str, from_tty: bool = False, to_string: bool = False) -> str | None: ...
+
 def breakpoints() -> Sequence[Breakpoint]: ...
 def rbreak(regex: str, minsyms: bool = ..., throttle: int = ..., symtabs: Iterator[Symtab] = ...) -> list[Breakpoint]: ...
 def parameter(parameter: str, /) -> bool | int | str | None: ...
@@ -74,8 +75,9 @@ class GdbError(Exception): ...
 _ValueOrNative: TypeAlias = bool | int | float | str | Value | LazyString
 _ValueOrInt: TypeAlias = Value | int
 
+@disjoint_base
 class Value:
-    address: Value
+    address: Value | None
     is_optimized_out: bool
     type: Type
     dynamic_type: Type
@@ -147,6 +149,7 @@ class Value:
 # Types
 
 def lookup_type(name: str, block: Block = ...) -> Type: ...
+
 @final
 class Type(Mapping[str, Field]):
     alignof: int
@@ -322,10 +325,12 @@ class Inferior:
     was_attached: bool
     progspace: Progspace
     main_name: str | None
+
     @property
     def arguments(self) -> str | None: ...
     @arguments.setter
     def arguments(self, args: str | Sequence[str]) -> None: ...
+
     def is_valid(self) -> bool: ...
     def threads(self) -> tuple[InferiorThread, ...]: ...
     def architecture(self) -> Architecture: ...
@@ -344,6 +349,7 @@ class Inferior:
 class Thread(threading.Thread): ...
 
 def selected_thread() -> InferiorThread: ...
+
 @final
 class InferiorThread:
     name: str | None
@@ -406,6 +412,7 @@ class RecordFunctionSegment:
 
 # CLI Commands
 
+@disjoint_base
 class Command:
     def __init__(self, name: str, command_class: int, completer_class: int = ..., prefix: bool = ...) -> None: ...
     def dont_repeat(self) -> None: ...
@@ -437,6 +444,7 @@ COMPLETE_EXPRESSION: int
 
 # GDB/MI Commands
 
+@disjoint_base
 class MICommand:
     name: str
     installed: bool
@@ -446,6 +454,7 @@ class MICommand:
 
 # Parameters
 
+@disjoint_base
 class Parameter:
     set_doc: str
     show_doc: str
@@ -478,6 +487,7 @@ class Function:
 
 def current_progspace() -> Progspace | None: ...
 def progspaces() -> Sequence[Progspace]: ...
+
 @final
 class Progspace:
     executable_filename: str | None
@@ -501,6 +511,7 @@ class Progspace:
 def current_objfile() -> Objfile | None: ...
 def objfiles() -> list[Objfile]: ...
 def lookup_objfile(name: str, by_build_id: bool = ...) -> Objfile | None: ...
+
 @final
 class Objfile:
     filename: str | None
@@ -566,6 +577,7 @@ class Frame:
 # Blocks
 
 def block_for_pc(pc: int) -> Block | None: ...
+
 @final
 class Block:
     start: int
@@ -592,6 +604,7 @@ def lookup_symbol(name: str, block: Block | None = ..., domain: int = ...) -> tu
 def lookup_global_symbol(name: str, domain: int = ...) -> Symbol | None: ...
 def lookup_static_symbol(name: str, domain: int = ...) -> Symbol | None: ...
 def lookup_static_symbols(name: str, domain: int = ...) -> list[Symbol]: ...
+
 @final
 class Symbol:
     type: Type | None
@@ -682,6 +695,7 @@ class LineTable:
 
 # Breakpoints
 
+@disjoint_base
 class Breakpoint:
     # The where="spec" form of __init__().  See py-breakpoints.c:bppy_init():keywords for the positional order.
     @overload
@@ -854,6 +868,7 @@ WP_ACCESS: int
 
 # Finish Breakpoints
 
+@disjoint_base
 class FinishBreakpoint(Breakpoint):
     return_value: Value | None
 
@@ -907,6 +922,7 @@ class RegisterGroupsIterator(Iterator[RegisterGroup]):
 
 # Connections
 
+@disjoint_base
 class TargetConnection:
     def is_valid(self) -> bool: ...
 
@@ -941,6 +957,7 @@ class _Window(Protocol):
     def click(self, x: int, y: int, button: int) -> None: ...
 
 # Events
+@disjoint_base
 class Event: ...
 
 class ThreadEvent(Event):
@@ -952,7 +969,7 @@ class ExitedEvent(Event):
     exit_code: int
     inferior: Inferior
 
-class ThreadExitedEvent(Event): ...
+class ThreadExitedEvent(ThreadEvent): ...
 
 class StopEvent(ThreadEvent):
     details: dict[str, object]

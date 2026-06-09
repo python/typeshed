@@ -1,6 +1,5 @@
 from collections.abc import Callable
-from typing import ClassVar, Final
-from typing_extensions import TypeAlias
+from typing import ClassVar, Final, TypeAlias
 
 from docutils import nodes
 from docutils.parsers.rst import Directive
@@ -12,6 +11,16 @@ _DirectiveFn: TypeAlias = Callable[[str], str | list[str]]
 class BasePseudoSection(Directive):
     option_spec: ClassVar[dict[str, _DirectiveFn]]
     node_class: ClassVar[type[nodes.Node] | None]
+    invalid_parents: ClassVar[
+        tuple[
+            type[nodes.SubStructural],
+            type[nodes.Bibliographic],
+            type[nodes.Decorative],
+            type[nodes.Body],
+            type[nodes.Part],
+            type[nodes.topic],
+        ]
+    ]
     def run(self): ...
 
 class Topic(BasePseudoSection):

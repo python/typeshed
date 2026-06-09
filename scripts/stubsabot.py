@@ -22,8 +22,8 @@ from collections.abc import Callable, Iterator, Mapping, Sequence
 from dataclasses import dataclass, field
 from http import HTTPStatus
 from pathlib import Path
-from typing import Annotated, Any, ClassVar, Literal, NamedTuple, TypedDict, TypeVar
-from typing_extensions import Self, TypeAlias
+from typing import Annotated, Any, ClassVar, Literal, NamedTuple, TypeAlias, TypedDict, TypeVar
+from typing_extensions import Self
 
 if sys.version_info >= (3, 11):
     import tomllib
@@ -161,7 +161,7 @@ class Obsolete:
 @dataclass
 class Remove:
     distribution: str
-    reason: str
+    reason: Literal["ships py.typed file", "unmaintained"]
     links: dict[str, str]
 
     def __str__(self) -> str:
@@ -171,7 +171,7 @@ class Remove:
 @dataclass
 class NoUpdate:
     distribution: str
-    reason: str
+    reason: Literal["obsolete", "no longer updated", "up to date"]
 
     def __str__(self) -> str:
         return f"{colored('skipping', 'green')} ({self.reason})"
@@ -204,7 +204,7 @@ async def with_extracted_archive(
         with zipfile.ZipFile(body) as zf:
             return handler(zf)
     elif packagetype == "sdist":
-        # sdist defaults to `.tar.gz` on Lunix and to `.zip` on Windows:
+        # sdist defaults to `.tar.gz` on Linux and to `.zip` on Windows:
         # https://docs.python.org/3.11/distutils/sourcedist.html
         if release_to_download.filename.endswith(".tar.gz"):
             with tarfile.open(fileobj=body, mode="r:gz") as zf:
@@ -607,7 +607,7 @@ def parse_no_longer_updated_from_archive(source: zipfile.ZipFile | tarfile.TarFi
     with file as f:
         toml_data: dict[str, object] = tomllib.load(f)
 
-    no_longer_updated = toml_data.get("no_longer_updated", False)
+    no_longer_updated = toml_data.get("no-longer-updated", False)
     assert type(no_longer_updated) is bool
     return bool(no_longer_updated)
 
@@ -642,7 +642,7 @@ async def determine_action_no_error_handling(
                 "Typeshed release": f"{pypi_info.pypi_root}",
                 "Typeshed stubs": f"https://github.com/{TYPESHED_OWNER}/typeshed/tree/main/stubs/{stub_info.distribution}",
             }
-            return Remove(stub_info.distribution, reason="older than 6 months", links=links)
+            return Remove(stub_info.distribution, reason="ships py.typed file", links=links)
         else:
             return NoUpdate(stub_info.distribution, "obsolete")
     if stub_info.no_longer_updated:
@@ -654,7 +654,7 @@ async def determine_action_no_error_handling(
                 "Typeshed release": f"{pypi_info.pypi_root}",
                 "Typeshed stubs": f"https://github.com/{TYPESHED_OWNER}/typeshed/tree/main/stubs/{stub_info.distribution}",
             }
-            return Remove(stub_info.distribution, reason="no longer updated", links=links)
+            return Remove(stub_info.distribution, reason="unmaintained", links=links)
         else:
             return NoUpdate(stub_info.distribution, "no longer updated")
 
@@ -844,24 +844,20 @@ def get_update_pr_body(update: Update, metadata: Mapping[str, Any]) -> str:
     stubtest_settings: dict[str, Any] = metadata.get("tool", {}).get("stubtest", {})
     stubtest_will_run = not stubtest_settings.get("skip", False)
     if stubtest_will_run:
-        body += textwrap.dedent(
-            """
+        body += textwrap.dedent("""
 
             If stubtest fails for this PR:
             - Leave this PR open (as a reminder, and to prevent stubsabot from opening another PR)
             - Fix stubtest failures in another PR, then close this PR
 
             Note that you will need to close and re-open the PR in order to trigger CI
-            """
-        )
+            """)
     else:
-        body += textwrap.dedent(
-            f"""
+        body += textwrap.dedent(f"""
 
             :warning: Review this PR manually, as stubtest is skipped in CI for {update.distribution}!
             Also check whether stubtest can be reenabled. :warning:
-            """
-        )
+            """)
     return body
 
 

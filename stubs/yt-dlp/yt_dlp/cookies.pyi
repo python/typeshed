@@ -1,16 +1,17 @@
-from collections.abc import Collection, Iterator, KeysView
+from _typeshed import SupportsItems
+from collections.abc import Iterator, KeysView
 from enum import Enum
 from http.cookiejar import Cookie, CookiePolicy, MozillaCookieJar
-from http.cookies import SimpleCookie
-from typing import TextIO, TypeVar
+from http.cookies import Morsel, SimpleCookie
+from typing import Any, Final, TextIO, TypeVar
 
 from . import _LoggerProtocol
 from .minicurses import MultilinePrinter
 from .utils._utils import YoutubeDLError
 from .YoutubeDL import YoutubeDL
 
-CHROMIUM_BASED_BROWSERS: set[str] = ...
-SUPPORTED_BROWSERS: set[str] = ...
+CHROMIUM_BASED_BROWSERS: Final[set[str]]
+SUPPORTED_BROWSERS: Final[set[str]]
 
 class _LinuxKeyring(Enum):
     BASICTEXT = 5
@@ -19,7 +20,7 @@ class _LinuxKeyring(Enum):
     KWALLET5 = 2
     KWALLET6 = 3
 
-SUPPORTED_KEYRINGS: KeysView[str]
+SUPPORTED_KEYRINGS: Final[KeysView[str]]
 
 class YDLLogger(_LoggerProtocol):
     def warning(self, message: str, only_once: bool = False) -> None: ...  # type: ignore[override]
@@ -101,4 +102,4 @@ class DataParser:
 def pbkdf2_sha1(password: bytes, salt: bytes, iterations: int, key_length: int) -> bytes: ...
 
 class LenientSimpleCookie(SimpleCookie):
-    def load(self, data: str | Collection[str]) -> None: ...
+    def load(self, data: str | SupportsItems[str, str | Morsel[Any]]) -> None: ...

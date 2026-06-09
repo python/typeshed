@@ -3,8 +3,8 @@ from _typeshed import Incomplete, ReadableBuffer
 from collections.abc import Callable, Sequence
 from datetime import date, datetime, time
 from types import TracebackType
-from typing import Any, Final, Literal, overload
-from typing_extensions import Self, TypeAlias
+from typing import Any, Final, Literal, TypeAlias, overload
+from typing_extensions import Self, disjoint_base
 
 from .resultrow import ResultRow
 
@@ -12,6 +12,7 @@ apilevel: Final[str]
 threadsafety: Final[int]
 paramstyle: Final[tuple[str, ...]]  # hdbcli defines it as a tuple which does not follow PEP 249
 
+@disjoint_base
 class Connection:
     def __init__(
         self,
@@ -42,6 +43,7 @@ class Connection:
 
 connect = Connection
 
+@disjoint_base
 class LOB:
     def __init__(self, *args: Any, **kwargs: Any) -> None: ...
     def close(self) -> bool: ...
@@ -52,6 +54,7 @@ class LOB:
 _Parameters: TypeAlias = Sequence[tuple[Any, ...]] | None
 _Holdability: TypeAlias = Literal[0, 1, 2, 3]
 
+@disjoint_base
 class Cursor:
     description: tuple[tuple[Any, ...], ...]
     rowcount: int
@@ -82,10 +85,12 @@ class Cursor:
     def has_result_set(self) -> bool: ...
     def nextset(self) -> None: ...
     def parameter_description(self) -> tuple[str, ...]: ...
+
     @overload
     def prepare(self, operation: str, newcursor: Literal[True]) -> Cursor: ...
     @overload
     def prepare(self, operation: str, newcursor: Literal[False]) -> Any: ...
+
     def print_message(self): ...
     def parsenamedquery(self, *args, **kwargs): ...
     def scroll(self, value: int, mode: Literal["absolute", "relative"] = ...) -> None: ...
