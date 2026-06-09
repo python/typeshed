@@ -1,9 +1,10 @@
 from _typeshed import StrOrBytesPath
 from _typeshed.wsgi import StartResponse, WSGIEnvironment
 from collections.abc import Iterable
-from typing import TypedDict
+from typing import TypedDict, type_check_only
 from typing_extensions import Unpack
 
+@type_check_only
 class _DebugAppParams(TypedDict, total=False):
     form: StrOrBytesPath | bytes | None
     show_form: bool

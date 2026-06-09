@@ -1,7 +1,7 @@
 import re
 from _typeshed.wsgi import WSGIApplication
 from collections.abc import Callable, Mapping, Sequence
-from typing import Any, Literal, TypeAlias, TypedDict, overload
+from typing import Any, Literal, TypeAlias, TypedDict, overload, type_check_only
 from typing_extensions import Unpack
 from xml.etree import ElementTree
 
@@ -17,6 +17,7 @@ _PyQuery: TypeAlias = Any
 _PyQueryParams: TypeAlias = Any
 _LxmlElement: TypeAlias = Any
 
+@type_check_only
 class _GetParams(TypedDict, total=False):
     params: Mapping[str, str] | str
     headers: Mapping[str, str]
@@ -25,6 +26,7 @@ class _GetParams(TypedDict, total=False):
     expect_errors: bool
     xhr: bool
 
+@type_check_only
 class _PostParams(_GetParams, total=False):
     upload_files: _Files
     content_type: str

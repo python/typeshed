@@ -17,4 +17,3 @@ webtest.utils
 # normal use of WebTest, so it seems more pragmatic to treat
 # it as always non-`None`
 webtest.response.TestResponse.request
-webtest.TestResponse.request

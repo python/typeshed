@@ -1,11 +1,12 @@
 from collections.abc import Generator, Sequence
-from typing import Any, TypeAlias, TypedDict, TypeVar, overload
+from typing import Any, TypeAlias, TypedDict, TypeVar, overload, type_check_only
 
 from bs4 import BeautifulSoup
 from webtest.response import TestResponse
 
 _T = TypeVar("_T")
 
+@type_check_only
 class _Classes(TypedDict):
     submit: type[Submit]
     button: type[Submit]
