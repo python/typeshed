@@ -1,6 +1,6 @@
 from _typeshed import SupportsKeysAndGetItem
-from collections.abc import Collection, Generator, ItemsView, Iterable, Iterator, KeysView, ValuesView
-from typing import Generic, NoReturn, TypeAlias, TypeVar, overload
+from collections.abc import Generator, ItemsView, Iterable, Iterator, KeysView, ValuesView
+from typing import Any, Generic, NoReturn, TypeAlias, TypeVar, overload
 from typing_extensions import Self
 
 _KT = TypeVar("_KT")
@@ -16,7 +16,7 @@ class OrderedMultiDict(dict[_KT, _VT]):
 
     @overload  # type: ignore[override]
     @classmethod
-    def fromkeys(cls, keys: Iterable[_KT], default: None = None) -> OrderedMultiDict[_KT, None]: ...
+    def fromkeys(cls, keys: Iterable[_KT], default: None = None) -> OrderedMultiDict[_KT, Any | None]: ...
     @overload
     @classmethod
     def fromkeys(cls, keys: Iterable[_KT], default: _T) -> OrderedMultiDict[_KT, _T]: ...
@@ -80,7 +80,7 @@ class OneToOne(dict[_KT, _VT]):
     def unique(cls, *a, **kw) -> Self: ...
     def update(self, dict_or_iterable, **kw) -> None: ...  # type: ignore[override]
 
-class ManyToMany(Collection[_KT], Generic[_KT, _VT]):
+class ManyToMany(Generic[_KT, _VT]):
     data: dict[_KT, set[_VT]]
     inv: ManyToMany[_VT, _KT]
     def __contains__(self, key: object) -> bool: ...
