@@ -9,10 +9,13 @@ class Session:
     @classmethod
     def hascreds(cls, config: dict[str, Any]) -> bool: ...
     def get_credential_options(self) -> dict[str, str]: ...
+    # `session` is a foreign session object (e.g. boto3.session.Session,
+    # google.auth.credentials.Credentials); the runtime dispatches by isinstance.
     @staticmethod
     def from_foreign_session(session: Any, cls: type[Session] | None = None) -> Session: ...
     @staticmethod
     def cls_from_path(path: str) -> type[Session]: ...
+    # Forwarded to the resolved session class' __init__; see its signature.
     @staticmethod
     def from_path(path: str, *args: Any, **kwargs: Any) -> Session: ...
     @staticmethod
@@ -22,6 +25,7 @@ class Session:
 
 class DummySession(Session):
     credentials: dict[str, str]
+    # Accepts and ignores any args (no credentials are configured).
     def __init__(self, *args: Any, **kwargs: Any) -> None: ...
     @classmethod
     def hascreds(cls, config: dict[str, Any]) -> bool: ...
@@ -33,6 +37,7 @@ class AWSSession(Session):
     endpoint_url: str | None
     def __init__(
         self,
+        # A `boto3.session.Session` instance, or None to construct one from the other kwargs.
         session: Any | None = None,
         aws_unsigned: bool | None = None,
         aws_access_key_id: str | None = None,
@@ -70,6 +75,7 @@ class GSSession(Session):
 class SwiftSession(Session):
     def __init__(
         self,
+        # A `swiftclient.Connection` instance, or None to construct one from the other kwargs.
         session: Any | None = None,
         swift_storage_url: str | None = None,
         swift_auth_token: str | None = None,

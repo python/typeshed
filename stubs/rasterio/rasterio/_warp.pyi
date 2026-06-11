@@ -4,7 +4,7 @@ from typing import Any, Final
 from numpy.typing import DTypeLike, NDArray
 from rasterio._affine_types import Affine
 from rasterio._io import DatasetReaderBase
-from rasterio._typing import CRSInput, Indexes, ShapeND, WindowInput
+from rasterio._typing import CRSInput, Indexes, ShapeND, WindowInput, _GDALOption, _NestedScalar
 from rasterio.control import GroundControlPoint
 from rasterio.crs import CRS
 from rasterio.enums import Resampling
@@ -14,7 +14,7 @@ from rasterio.rpc import RPC
 SUPPORTED_RESAMPLING: Final[list[Resampling]]
 DEFAULT_NODATA_FLAG: Final[object]
 
-def recursive_round(val: Any, precision: int) -> Any: ...
+def recursive_round(val: _NestedScalar, precision: int) -> _NestedScalar: ...
 def _transform_geom(
     src_crs: CRSInput, dst_crs: CRSInput, geom: Mapping[str, Any] | Sequence[Mapping[str, Any]], precision: int
 ) -> dict[str, Any] | list[dict[str, Any]]: ...
@@ -38,7 +38,7 @@ def _reproject(
     warp_mem_limit: int = 0,
     working_data_type: int = 0,
     src_geoloc_array: NDArray[Any] | None = None,
-    **kwargs: Any,
+    **kwargs: _GDALOption,
 ) -> tuple[NDArray[Any], Affine]: ...
 def _calculate_default_transform(
     src_crs: CRSInput,
@@ -52,7 +52,7 @@ def _calculate_default_transform(
     gcps: Sequence[GroundControlPoint] | None = None,
     rpcs: RPC | None = None,
     src_geoloc_array: NDArray[Any] | None = None,
-    **kwargs: Any,
+    **kwargs: _GDALOption,
 ) -> tuple[Affine, int, int]: ...
 def _transform_bounds(
     src_crs: CRS, dst_crs: CRS, left: float, bottom: float, right: float, top: float, densify_pts: int
@@ -75,7 +75,7 @@ class WarpedVRTReaderBase(DatasetReaderBase):
     src_nodata: float | None
     dst_nodata: float | None
     working_dtype: DTypeLike | None
-    warp_extras: dict[str, Any]
+    warp_extras: dict[str, _GDALOption]
 
     def __init__(
         self,
@@ -96,7 +96,7 @@ class WarpedVRTReaderBase(DatasetReaderBase):
         add_alpha: bool = False,
         warp_mem_limit: int = 0,
         dtype: DTypeLike | None = None,
-        **warp_extras: Any,
+        **warp_extras: _GDALOption,
     ) -> None: ...
     def read(  # type: ignore[override]
         self,
@@ -108,7 +108,8 @@ class WarpedVRTReaderBase(DatasetReaderBase):
         resampling: Resampling = ...,
         fill_value: float | None = None,
         out_dtype: DTypeLike | None = None,
-        **kwargs: Any,
+        # Swallows the deprecated `boundless` kwarg (raises ValueError if True).
+        **kwargs: bool,
     ) -> NDArray[Any]: ...
     def read_masks(  # type: ignore[override]
         self,
@@ -117,5 +118,6 @@ class WarpedVRTReaderBase(DatasetReaderBase):
         out_shape: ShapeND | None = None,
         window: WindowInput | None = None,
         resampling: Resampling = ...,
-        **kwargs: Any,
+        # Swallows the deprecated `boundless` kwarg (raises ValueError if True).
+        **kwargs: bool,
     ) -> NDArray[Any]: ...

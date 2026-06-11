@@ -5,7 +5,7 @@ from typing_extensions import deprecated
 
 from numpy.typing import ArrayLike, NDArray
 from rasterio._affine_types import Affine
-from rasterio._typing import CRSInput
+from rasterio._typing import CRSInput, _GDALOption
 from rasterio.control import GroundControlPoint
 from rasterio.enums import Resampling
 from rasterio.rpc import RPC
@@ -19,7 +19,6 @@ SUPPORTED_RESAMPLING: Final[list[Resampling]]
 def transform(
     src_crs: CRSInput, dst_crs: CRSInput, xs: ArrayLike, ys: ArrayLike, zs: ArrayLike | None = None
 ) -> tuple[list[float], list[float]] | tuple[list[float], list[float], list[float]]: ...
-
 @overload
 def transform_geom(
     src_crs: CRSInput, dst_crs: CRSInput, geom: Mapping[str, Any] | Sequence[Mapping[str, Any]], *, precision: float = -1
@@ -38,7 +37,6 @@ def transform_geom(
     antimeridian_offset: float | None = None,
     precision: float = -1,
 ) -> dict[str, Any] | list[dict[str, Any]]: ...
-
 def transform_bounds(
     src_crs: CRSInput, dst_crs: CRSInput, left: float, bottom: float, right: float, top: float, densify_pts: int = 21
 ) -> tuple[float, float, float, float]: ...
@@ -62,7 +60,7 @@ def reproject(
     init_dest_nodata: bool = True,
     warp_mem_limit: int = 0,
     src_geoloc_array: NDArray[Any] | None = None,
-    **kwargs: Any,
+    **kwargs: _GDALOption,
 ) -> tuple[NDArray[Any], Affine]: ...
 def aligned_target(transform: Affine, width: int, height: int, resolution: _Resolution) -> tuple[Affine, int, int]: ...
 def calculate_default_transform(
@@ -80,5 +78,5 @@ def calculate_default_transform(
     dst_width: int | None = None,
     dst_height: int | None = None,
     src_geoloc_array: NDArray[Any] | None = None,
-    **kwargs: Any,
+    **kwargs: _GDALOption,
 ) -> tuple[Affine, int, int]: ...

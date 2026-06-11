@@ -12,7 +12,7 @@ from rasterio._io import (
     DatasetWriterBase as DatasetWriterBase,
     MemoryFileBase as MemoryFileBase,
 )
-from rasterio._typing import CRSInput, FileOrBytes
+from rasterio._typing import CRSInput, FileOrBytes, _OpenOption
 from rasterio.transform import TransformMethodsMixin
 from rasterio.windows import WindowMethodsMixin
 
@@ -38,7 +38,7 @@ class MemoryFile(MemoryFileBase):
         nodata: float | None = None,
         sharing: bool = False,
         thread_safe: bool = False,
-        **kwargs: Any,
+        **kwargs: _OpenOption,
     ) -> DatasetReader | DatasetWriter: ...
     def __enter__(self) -> Self: ...
     def __exit__(
@@ -48,14 +48,15 @@ class MemoryFile(MemoryFileBase):
 class ZipMemoryFile(MemoryFile):
     def __init__(self, file_or_bytes: FileOrBytes | None = None) -> None: ...
     def open(  # type: ignore[override]
-        self, path: str, driver: str | None = None, sharing: bool = False, thread_safe: bool = False, **kwargs: Any
+        self, path: str, driver: str | None = None, sharing: bool = False, thread_safe: bool = False, **kwargs: _OpenOption
     ) -> DatasetReader: ...
 
 @deprecated("FilePath is supplanted by rasterio.open's `opener` keyword argument and will be removed in 2.0.0.")
 class FilePath(FilePathBase):
+    # `filelike_obj`: any Python file-like object (BytesIO, fsspec file, etc.).
     def __init__(self, filelike_obj: Any, dirname: str | None = None, filename: str | None = None) -> None: ...
     def open(
-        self, driver: str | None = None, sharing: bool = False, thread_safe: bool = False, **kwargs: Any
+        self, driver: str | None = None, sharing: bool = False, thread_safe: bool = False, **kwargs: _OpenOption
     ) -> DatasetReader: ...
     def __enter__(self) -> Self: ...
     def __exit__(

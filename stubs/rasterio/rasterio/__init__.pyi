@@ -8,7 +8,7 @@ from rasterio._base import DatasetBase as DatasetBase
 from rasterio._io import Statistics as Statistics
 from rasterio._path import _parse_path as _parse_path, _UnparsedPath as _UnparsedPath
 from rasterio._show_versions import show_versions as show_versions
-from rasterio._typing import AnyDataset, CRSInput
+from rasterio._typing import AnyDataset, CRSInput, _Opener, _OpenOption
 from rasterio._version import (
     gdal_version as gdal_version,
     get_geos_version as get_geos_version,
@@ -80,8 +80,8 @@ def open(
     nodata: float | None = None,
     sharing: bool = False,
     thread_safe: bool = False,
-    opener: Callable[..., Any] | None = None,
-    **kwargs: Any,
+    opener: _Opener | None = None,
+    **kwargs: _OpenOption,
 ) -> DatasetReader: ...
 @overload
 def open(
@@ -97,8 +97,8 @@ def open(
     nodata: float | None = None,
     sharing: bool = False,
     thread_safe: bool = False,
-    opener: Callable[..., Any] | None = None,
-    **kwargs: Any,
+    opener: _Opener | None = None,
+    **kwargs: _OpenOption,
 ) -> DatasetWriter: ...
 @overload
 def open(
@@ -114,8 +114,8 @@ def open(
     nodata: float | None = None,
     sharing: bool = False,
     thread_safe: bool = False,
-    opener: Callable[..., Any] | None = None,
-    **kwargs: Any,
+    opener: _Opener | None = None,
+    **kwargs: _OpenOption,
 ) -> DatasetReader | DatasetWriter: ...
 
 class Band(NamedTuple):
@@ -125,6 +125,8 @@ class Band(NamedTuple):
     shape: tuple[int, ...]
 
 def band(ds: AnyDataset, bidx: int | Sequence[int]) -> Band: ...
+
+# `mode` and `**kwargs` mirror `numpy.pad`'s signature; see numpy.pad documentation.
 def pad(
     array: NDArray[Any], transform: Affine, pad_width: int, mode: str | Callable[..., Any] | None = None, **kwargs: Any
 ) -> tuple[NDArray[Any], Affine]: ...

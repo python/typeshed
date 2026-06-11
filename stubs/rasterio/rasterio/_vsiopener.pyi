@@ -28,5 +28,9 @@ class MultiByteRangeResourceContainer(FileContainer):
     @abstractmethod
     def open(self, path: str, **kwds: Any) -> MultiByteRangeResource: ...  # type: ignore[override]
 
+# Duck-typed adapter: `obj` may be a `FileContainer` subclass or any
+# object exposing the fsspec filesystem protocol (`hasattr(obj, "file_size")`).
 def to_pyopener(obj: Any) -> FileContainer: ...
+
+# `obj` accepts the same types as `to_pyopener` plus raw callables.
 def _opener_registration(urlpath: str, obj: Any) -> AbstractContextManager[str]: ...

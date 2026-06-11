@@ -1,9 +1,10 @@
 from collections.abc import Callable, Sequence
-from typing import Any, Final, Literal, Self, TypeAlias, overload
+from typing import Final, Literal, Self, TypeAlias, overload
 from typing_extensions import deprecated
 
 from rasterio._affine_types import Affine as Affine
 from rasterio._transform import GCPTransformerBase, RPCTransformerBase
+from rasterio._typing import _GDALOption
 from rasterio.control import GroundControlPoint
 from rasterio.enums import TransformDirection as TransformDirection, TransformMethod as TransformMethod
 from rasterio.errors import RasterioDeprecationWarning as RasterioDeprecationWarning
@@ -24,7 +25,7 @@ class TransformMethodsMixin:
         z: float | Sequence[float] | None = None,
         offset: _OffsetOptions = "center",
         transform_method: TransformMethod = ...,
-        **rpc_options: Any,
+        **rpc_options: _GDALOption,
     ) -> tuple[float, float] | tuple[list[float], list[float]]: ...
     def index(
         self,
@@ -34,7 +35,7 @@ class TransformMethodsMixin:
         op: _RoundOperation | None = None,
         precision: int | None = None,
         transform_method: TransformMethod = ...,
-        **rpc_options: Any,
+        **rpc_options: _GDALOption,
     ) -> tuple[int, int] | tuple[list[int], list[int]]: ...
 
 def tastes_like_gdal(seq: Affine | _Sextuple) -> bool: ...
@@ -49,7 +50,7 @@ def xy(
     cols: int | Sequence[int],
     zs: float | Sequence[float] | None = None,
     offset: _OffsetOptions = "center",
-    **rpc_options: Any,
+    **rpc_options: _GDALOption,
 ) -> tuple[float, float] | tuple[list[float], list[float]]: ...
 def rowcol(
     transform: Affine | Sequence[GroundControlPoint] | RPC,
@@ -58,9 +59,11 @@ def rowcol(
     zs: float | Sequence[float] | None = None,
     op: _RoundOperation | None = None,
     precision: int | None = None,
-    **rpc_options: Any,
+    **rpc_options: _GDALOption,
 ) -> tuple[int, int] | tuple[list[int], list[int]]: ...
-def get_transformer(transform: Affine | Sequence[GroundControlPoint] | RPC, **rpc_options: Any) -> type[TransformerBase]: ...
+def get_transformer(
+    transform: Affine | Sequence[GroundControlPoint] | RPC, **rpc_options: _GDALOption
+) -> type[TransformerBase]: ...
 
 class TransformerBase:
     def __init__(self) -> None: ...
@@ -73,7 +76,6 @@ class TransformerBase:
         zs: float | Sequence[float] | None = None,
         offset: _OffsetOptions = "center",
     ) -> tuple[float, float] | tuple[list[float], list[float]]: ...
-
     @overload
     def rowcol(
         self,
@@ -106,4 +108,4 @@ class GCPTransformer(GCPTransformerBase, GDALTransformerBase):
     def __init__(self, gcps: Sequence[GroundControlPoint], tps: bool = False) -> None: ...
 
 class RPCTransformer(RPCTransformerBase, GDALTransformerBase):
-    def __init__(self, rpcs: RPC, **rpc_options: Any) -> None: ...
+    def __init__(self, rpcs: RPC, **rpc_options: _GDALOption) -> None: ...

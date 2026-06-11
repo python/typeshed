@@ -9,7 +9,12 @@ from rasterio.transform import guard_transform as guard_transform
 
 logger: Final[logging.Logger]
 
+# Returns the `matplotlib.pyplot` module (lazy import).
 def get_plt() -> Any: ...
+
+# `ax`: matplotlib.axes.Axes; returns matplotlib.image.AxesImage or
+# the input `ax` for contour plots. `**kwargs` are forwarded to
+# matplotlib's `imshow`/`contour` call.
 def show(
     source: NDArray[Any] | DatasetReader | tuple[DatasetReader, int],
     with_bounds: bool = True,
@@ -28,6 +33,8 @@ def plotting_extent(
 ) -> tuple[float, float, float, float]: ...
 def reshape_as_image(arr: NDArray[Any]) -> NDArray[Any]: ...
 def reshape_as_raster(arr: NDArray[Any]) -> NDArray[Any]: ...
+
+# `ax`: matplotlib.axes.Axes; `**kwargs` are forwarded to matplotlib's `hist` call.
 def show_hist(
     source: NDArray[Any] | DatasetReader,
     bins: int = 10,

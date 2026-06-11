@@ -1,6 +1,7 @@
 from collections.abc import Iterator
 from typing import Any, Final
 
+from rasterio._typing import _OGRGeometry
 from rasterio.enums import MergeAlg as MergeAlg
 
 GEOMETRY_TYPES: Final[dict[int, str]]
@@ -19,11 +20,14 @@ float16: Final[str]
 float32: Final[str]
 float64: Final[str]
 
+# Cython-side builders. `geom` arguments are opaque C structs / OGR
+# geometry handles passed through `__pyx_capi__`; not surfaced via the
+# public `rasterio.features` API.
 class GeomBuilder:
-    def build(self, geom: Any) -> dict[str, Any]: ...
+    def build(self, geom: object) -> dict[str, Any]: ...
 
 class OGRGeomBuilder:
-    def build(self, geom: dict[str, Any]) -> Any: ...
+    def build(self, geom: dict[str, Any]) -> _OGRGeometry: ...
 
 class ShapeIterator:
     def __iter__(self) -> Iterator[tuple[dict[str, Any], float]]: ...
