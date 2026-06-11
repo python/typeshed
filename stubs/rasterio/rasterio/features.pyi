@@ -1,6 +1,7 @@
+import logging
 import os
 from collections.abc import Iterable, Iterator, Mapping
-from typing import Any, TypeAlias, overload
+from typing import Any, Final, TypeAlias, overload
 from typing_extensions import deprecated
 
 import numpy as np
@@ -9,6 +10,8 @@ from rasterio._affine_types import Affine
 from rasterio.enums import MergeAlg as MergeAlg
 from rasterio.io import DatasetReader
 from rasterio.windows import Window as Window
+
+log: Final[logging.Logger]
 
 Geometry: TypeAlias = Mapping[str, Any]
 

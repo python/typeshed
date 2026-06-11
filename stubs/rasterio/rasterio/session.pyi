@@ -1,4 +1,7 @@
-from typing import Any
+import logging
+from typing import Any, Final
+
+log: Final[logging.Logger]
 
 def parse_bool(v: bool | str | int) -> bool: ...
 

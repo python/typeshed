@@ -1,6 +1,7 @@
 from collections.abc import Sequence
 from typing import Any, Final
 
+import numpy as np
 from numpy.typing import ArrayLike, DTypeLike
 
 bool_: Final[str]
@@ -27,7 +28,14 @@ dtype_rev: Final[dict[str | None, int]]
 typename_fwd: Final[dict[int, str]]
 typename_rev: Final[dict[str, int]]
 dtype_ranges: Final[dict[str, tuple[float, float]]]
+# Dispatch table from rasterio dtype letter codes to numpy info classes
+# (`numpy.iinfo` / `numpy.finfo`). Used internally by `in_dtype_range`.
 dtype_info_registry: Final[dict[str, type]]
+
+# `numpy.finfo` instances cached at module import; used by `in_dtype_range`.
+f16i: Final[np.finfo[np.float16]]
+f32i: Final[np.finfo[np.float32]]
+f64i: Final[np.finfo[np.float64]]
 
 def in_dtype_range(value: float, dtype: DTypeLike) -> bool: ...
 def check_dtype(dt: DTypeLike) -> bool: ...

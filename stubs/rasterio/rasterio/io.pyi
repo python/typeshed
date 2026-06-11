@@ -1,5 +1,6 @@
+import logging
 from types import TracebackType
-from typing import Any, Self
+from typing import Any, Final, Self
 from typing_extensions import deprecated
 
 from numpy.typing import DTypeLike
@@ -14,6 +15,8 @@ from rasterio._io import (
 from rasterio._typing import CRSInput, FileOrBytes
 from rasterio.transform import TransformMethodsMixin
 from rasterio.windows import WindowMethodsMixin
+
+log: Final[logging.Logger]
 
 class DatasetReader(DatasetReaderBase, WindowMethodsMixin, TransformMethodsMixin): ...
 class DatasetWriter(DatasetWriterBase, WindowMethodsMixin, TransformMethodsMixin): ...
