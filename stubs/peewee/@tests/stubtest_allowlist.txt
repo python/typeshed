@@ -27,6 +27,8 @@ peewee.SelectBase.scalars
 # field's Python value and `Model.field` resolves to the field (for queries).
 peewee.Field.__get__
 peewee.Field.__set__
+# BigBitField overrides __get__ to yield a BigBitFieldData wrapper, not bytes.
+peewee.BigBitField.__get__
 peewee.Field.__init__
 # These fields take named constructor args, carried by their __new__ overloads.
 peewee.CharField.__init__
