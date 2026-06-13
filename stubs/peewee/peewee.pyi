@@ -5,8 +5,8 @@ from collections.abc import Callable, Generator, Iterable, Iterator
 from datetime import date, datetime, time
 from decimal import Decimal
 from types import TracebackType
-from typing import Any, ClassVar, Final, Generic, Literal, NamedTuple, NoReturn, overload, type_check_only
-from typing_extensions import Self, TypedDict, TypeIs, TypeVar, Unpack
+from typing import Any, ClassVar, Final, Generic, Literal, NamedTuple, NoReturn, TypedDict, overload, type_check_only
+from typing_extensions import Self, TypeIs, TypeVar, Unpack
 from uuid import UUID
 
 def callable_(c: object) -> TypeIs[Callable[..., object]]: ...
@@ -24,6 +24,7 @@ _S = TypeVar("_S", default=Any)
 _G = TypeVar("_G", default=Any)
 
 # Common field kwargs, Unpack-ed into the field __new__ overloads.
+@type_check_only
 class _FieldKwargs(TypedDict, total=False):
     index: bool
     unique: bool
@@ -40,6 +41,7 @@ class _FieldKwargs(TypedDict, total=False):
     index_type: str | None
     db_column: str | None
 
+@type_check_only
 class _FKKwargs(_FieldKwargs, total=False):
     field: Any
     backref: str | None
