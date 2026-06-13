@@ -1,10 +1,10 @@
 from _typeshed import FileDescriptorOrPath, ReadableBuffer
-from typing import Any, Final
+from typing import Any, Final, TypeAlias
 
 from paramiko.message import Message
 from paramiko.pkey import PKey, _HasReadlines
 
-_VerifyKey = Any  # actually nacl.signing.VerifyKey
+_VerifyKey: TypeAlias = Any  # actually nacl.signing.VerifyKey
 
 class Ed25519Key(PKey):
     name: Final = "ssh-ed25519"
