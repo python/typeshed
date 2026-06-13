@@ -2,6 +2,7 @@ from _typeshed import Incomplete, Unused
 from collections.abc import Callable
 from typing import ClassVar
 
+from ..ccompiler import CCompiler
 from ..cmd import Command
 from ..extension import Extension
 
@@ -26,7 +27,7 @@ class build_ext(Command):
     link_objects: Incomplete
     debug: Incomplete
     force: Incomplete
-    compiler: Incomplete
+    compiler: CCompiler | str | None  # Is only set to `Compiler` after `run`
     swig: Incomplete
     swig_cpp: Incomplete
     swig_opts: Incomplete
