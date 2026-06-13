@@ -1234,17 +1234,13 @@ class IntegerField(Field[_V]):
 
 class BigIntegerField(IntegerField[_V]):
     @overload
-    def __new__(
-        cls, *args: Any, null: Literal[True], **kwargs: Unpack[_FieldKwargs]
-    ) -> BigIntegerField[int | None]: ...
+    def __new__(cls, *args: Any, null: Literal[True], **kwargs: Unpack[_FieldKwargs]) -> BigIntegerField[int | None]: ...
     @overload
     def __new__(cls, *args: Any, null: Literal[False] = ..., **kwargs: Unpack[_FieldKwargs]) -> BigIntegerField[int]: ...
 
 class SmallIntegerField(IntegerField[_V]):
     @overload
-    def __new__(
-        cls, *args: Any, null: Literal[True], **kwargs: Unpack[_FieldKwargs]
-    ) -> SmallIntegerField[int | None]: ...
+    def __new__(cls, *args: Any, null: Literal[True], **kwargs: Unpack[_FieldKwargs]) -> SmallIntegerField[int | None]: ...
     @overload
     def __new__(cls, *args: Any, null: Literal[False] = ..., **kwargs: Unpack[_FieldKwargs]) -> SmallIntegerField[int]: ...
 
@@ -1263,9 +1259,7 @@ class PrimaryKeyField(AutoField[_V]):
 
 class FloatField(Field[_V]):
     @overload
-    def __new__(
-        cls, *args: Any, null: Literal[True], **kwargs: Unpack[_FieldKwargs]
-    ) -> FloatField[float | None]: ...
+    def __new__(cls, *args: Any, null: Literal[True], **kwargs: Unpack[_FieldKwargs]) -> FloatField[float | None]: ...
     @overload
     def __new__(cls, *args: Any, null: Literal[False] = ..., **kwargs: Unpack[_FieldKwargs]) -> FloatField[float]: ...
 
@@ -1273,9 +1267,7 @@ class FloatField(Field[_V]):
 
 class DoubleField(FloatField[_V]):
     @overload
-    def __new__(
-        cls, *args: Any, null: Literal[True], **kwargs: Unpack[_FieldKwargs]
-    ) -> DoubleField[float | None]: ...
+    def __new__(cls, *args: Any, null: Literal[True], **kwargs: Unpack[_FieldKwargs]) -> DoubleField[float | None]: ...
     @overload
     def __new__(cls, *args: Any, null: Literal[False] = ..., **kwargs: Unpack[_FieldKwargs]) -> DoubleField[float]: ...
 
@@ -1333,9 +1325,7 @@ class CharField(_StringField[_V]):
 
 class FixedCharField(CharField[_V]):
     @overload
-    def __new__(
-        cls, *args: Any, null: Literal[True], **kwargs: Unpack[_FieldKwargs]
-    ) -> FixedCharField[str | None]: ...
+    def __new__(cls, *args: Any, null: Literal[True], **kwargs: Unpack[_FieldKwargs]) -> FixedCharField[str | None]: ...
     @overload
     def __new__(cls, *args: Any, null: Literal[False] = ..., **kwargs: Unpack[_FieldKwargs]) -> FixedCharField[str]: ...
 
@@ -1352,9 +1342,7 @@ class FieldDatabaseHook:
 
 class BlobField(FieldDatabaseHook, Field[_V]):
     @overload
-    def __new__(
-        cls, *args: Any, null: Literal[True], **kwargs: Unpack[_FieldKwargs]
-    ) -> BlobField[bytes | None]: ...
+    def __new__(cls, *args: Any, null: Literal[True], **kwargs: Unpack[_FieldKwargs]) -> BlobField[bytes | None]: ...
     @overload
     def __new__(cls, *args: Any, null: Literal[False] = ..., **kwargs: Unpack[_FieldKwargs]) -> BlobField[bytes]: ...
 
@@ -1402,10 +1390,12 @@ class BigBitFieldAccessor(FieldAccessor):
 class BigBitField(BlobField[bytes]):
     accessor_class: Incomplete
     def __new__(cls, *args: Any, **kwargs: Unpack[_FieldKwargs]) -> BigBitField: ...
+
     @overload  # type: ignore[override]
     def __get__(self, instance: None, owner: Any) -> Self: ...
     @overload
     def __get__(self, instance: object, owner: Any) -> BigBitFieldData: ...
+
     def db_value(self, value): ...
 
 class UUIDField(Field[_V]):
@@ -1419,9 +1409,7 @@ class UUIDField(Field[_V]):
 
 class BinaryUUIDField(BlobField[_V]):
     @overload
-    def __new__(
-        cls, *args: Any, null: Literal[True], **kwargs: Unpack[_FieldKwargs]
-    ) -> BinaryUUIDField[UUID | None]: ...
+    def __new__(cls, *args: Any, null: Literal[True], **kwargs: Unpack[_FieldKwargs]) -> BinaryUUIDField[UUID | None]: ...
     @overload
     def __new__(cls, *args: Any, null: Literal[False] = ..., **kwargs: Unpack[_FieldKwargs]) -> BinaryUUIDField[UUID]: ...
 
@@ -1506,13 +1494,9 @@ class TimestampField(BigIntegerField[_V]):
     utc: Incomplete
 
     @overload
-    def __new__(
-        cls, *args: Any, null: Literal[True], **kwargs: Unpack[_FieldKwargs]
-    ) -> TimestampField[datetime | None]: ...
+    def __new__(cls, *args: Any, null: Literal[True], **kwargs: Unpack[_FieldKwargs]) -> TimestampField[datetime | None]: ...
     @overload
-    def __new__(
-        cls, *args: Any, null: Literal[False] = ..., **kwargs: Unpack[_FieldKwargs]
-    ) -> TimestampField[datetime]: ...
+    def __new__(cls, *args: Any, null: Literal[False] = ..., **kwargs: Unpack[_FieldKwargs]) -> TimestampField[datetime]: ...
 
     def local_to_utc(self, dt) -> datetime: ...
     def utc_to_local(self, dt) -> datetime: ...
@@ -1544,9 +1528,7 @@ class IPField(BigIntegerField[_V]):
 
 class BooleanField(Field[_V]):
     @overload
-    def __new__(
-        cls, *args: Any, null: Literal[True], **kwargs: Unpack[_FieldKwargs]
-    ) -> BooleanField[bool | None]: ...
+    def __new__(cls, *args: Any, null: Literal[True], **kwargs: Unpack[_FieldKwargs]) -> BooleanField[bool | None]: ...
     @overload
     def __new__(cls, *args: Any, null: Literal[False] = ..., **kwargs: Unpack[_FieldKwargs]) -> BooleanField[bool]: ...
 
