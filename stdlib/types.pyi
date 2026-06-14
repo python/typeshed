@@ -17,7 +17,7 @@ from collections.abc import (
     ValuesView,
 )
 from importlib.machinery import ModuleSpec
-from typing import Any, ClassVar, Literal, ParamSpec, TypeVar, final, overload
+from typing import Any, ClassVar, Literal, ParamSpec, TypeVar, Union, final, overload  # noqa: Y037
 from typing_extensions import Self, TypeAliasType, TypeVarTuple, deprecated, disjoint_base
 
 if sys.version_info >= (3, 14):
@@ -719,25 +719,28 @@ class EllipsisType: ...
 @final
 class NotImplementedType(Any): ...
 
-@final
-class UnionType:
-    @property
-    def __args__(self) -> tuple[Any, ...]: ...
-    @property
-    def __parameters__(self) -> tuple[Any, ...]: ...
-    # `(int | str) | Literal["foo"]` returns a generic alias to an instance of `_SpecialForm` (`Union`).
-    # Normally we'd express this using the return type of `_SpecialForm.__ror__`,
-    # but because `UnionType.__or__` accepts `Any`, type checkers will use
-    # the return type of `UnionType.__or__` to infer the result of this operation
-    # rather than `_SpecialForm.__ror__`. To mitigate this, we use `| Any`
-    # in the return type of `UnionType.__(r)or__`.
-    def __or__(self, value: Any, /) -> UnionType | Any: ...
-    def __ror__(self, value: Any, /) -> UnionType | Any: ...
-    def __eq__(self, value: object, /) -> bool: ...
-    def __hash__(self) -> int: ...
-    # you can only subscript a `UnionType` instance if at least one of the elements
-    # in the union is a generic alias instance that has a non-empty `__parameters__`
-    def __getitem__(self, parameters: Any, /) -> object: ...
+if sys.version_info >= (3, 14):
+    UnionType = Union
+else:
+    @final
+    class UnionType:
+        @property
+        def __args__(self) -> tuple[Any, ...]: ...
+        @property
+        def __parameters__(self) -> tuple[Any, ...]: ...
+        # `(int | str) | Literal["foo"]` returns a generic alias to an instance of `_SpecialForm` (`Union`).
+        # Normally we'd express this using the return type of `_SpecialForm.__ror__`,
+        # but because `UnionType.__or__` accepts `Any`, type checkers will use
+        # the return type of `UnionType.__or__` to infer the result of this operation
+        # rather than `_SpecialForm.__ror__`. To mitigate this, we use `| Any`
+        # in the return type of `UnionType.__(r)or__`.
+        def __or__(self, value: Any, /) -> UnionType | Any: ...
+        def __ror__(self, value: Any, /) -> UnionType | Any: ...
+        def __eq__(self, value: object, /) -> bool: ...
+        def __hash__(self) -> int: ...
+        # you can only subscript a `UnionType` instance if at least one of the elements
+        # in the union is a generic alias instance that has a non-empty `__parameters__`
+        def __getitem__(self, parameters: Any, /) -> object: ...
 
 if sys.version_info >= (3, 13):
     @final
