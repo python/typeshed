@@ -9,14 +9,6 @@ importlib.abc.PathEntryFinder.find_spec  # Not defined on the actual class, but 
 tarfile.TarInfo.__slots__  # it's a big dictionary at runtime and the dictionary values are a bit long
 
 
-# ===============================================================
-# TODO: Modules that exist at runtime, but are missing from stubs
-# ===============================================================
-
-turtledemo
-turtledemo\..+
-
-
 # ======================================================================
 # Modules that exist at runtime, but are deliberately missing from stubs
 # ======================================================================
