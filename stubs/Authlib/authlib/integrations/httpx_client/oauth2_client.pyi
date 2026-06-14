@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
-from collections.abc import Generator
-from typing import NoReturn, TypeAlias
+from collections.abc import Awaitable, Generator
+from typing import Any, NoReturn, TypeAlias
 
 from authlib.oauth2.auth import ClientAuth, TokenAuth
 from authlib.oauth2.client import OAuth2Client as _OAuth2Client
@@ -45,6 +45,16 @@ class AsyncOAuth2Client(_OAuth2Client):
     async def request(self, method, url, withhold_token: bool = False, auth=..., **kwargs): ...
     async def stream(self, method, url, withhold_token: bool = False, auth=..., **kwargs) -> Generator[Incomplete]: ...
     async def ensure_active_token(self, token): ...  # type: ignore[override]
+    def introspect_token(
+        self,
+        url: str,
+        token: Any | None = None,
+        token_type_hint: str | None = None,
+        body: Any | None = None,
+        auth: Any = ...,
+        headers: Any | None = None,
+        **kwargs: Any,
+    ) -> Awaitable[_Response]: ...
 
 # Inherits from httpx.Client
 class OAuth2Client(_OAuth2Client):
@@ -69,3 +79,13 @@ class OAuth2Client(_OAuth2Client):
     def handle_error(error_type: str | None, error_description: str | None) -> NoReturn: ...
     def request(self, method, url, withhold_token: bool = False, auth=..., **kwargs): ...
     def stream(self, method, url, withhold_token: bool = False, auth=..., **kwargs): ...
+    def introspect_token(
+        self,
+        url: str,
+        token: Any | None = None,
+        token_type_hint: str | None = None,
+        body: Any | None = None,
+        auth: Any = ...,
+        headers: Any | None = None,
+        **kwargs: Any,
+    ) -> _Response: ...
