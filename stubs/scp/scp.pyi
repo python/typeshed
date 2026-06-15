@@ -1,7 +1,7 @@
 from collections.abc import Callable, Iterable
 from pathlib import PurePath
 from types import TracebackType
-from typing import IO, Final, Literal, TypeAlias
+from typing import Final, Literal, Protocol, TypeAlias, type_check_only
 from typing_extensions import Self
 
 from paramiko.channel import Channel
@@ -14,6 +14,12 @@ PATH_TYPES: Final[tuple[type[str], type[bytes], type[PurePath]]]
 bytes_sep: Final[bytes]
 
 PathTypes: TypeAlias = str | bytes | PurePath
+
+@type_check_only
+class _PutFOReader(Protocol):
+    def read(self, size: int, /) -> str | bytes | bytearray: ...
+    def tell(self) -> int: ...
+    def seek(self, offset: int, whence: Literal[0, 2], /) -> object: ...
 
 def asbytes(s: PathTypes) -> bytes: ...
 def asunicode(s: bytes | str) -> str: ...
@@ -49,9 +55,7 @@ class SCPClient:
         recursive: bool = False,
         preserve_times: bool = False,
     ) -> None: ...
-    def putfo(
-        self, fl: IO[str] | IO[bytes], remote_path: PathTypes, mode: str | bytes = "0644", size: int | None = None
-    ) -> None: ...
+    def putfo(self, fl: _PutFOReader, remote_path: PathTypes, mode: str | bytes = "0644", size: int | None = None) -> None: ...
     def get(
         self,
         remote_path: PathTypes | Iterable[PathTypes],
