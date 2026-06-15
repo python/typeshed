@@ -4,7 +4,6 @@ class TclTkInfo:
     TCL_ROOTNAME: Final = "_tcl_data"
     TK_ROOTNAME: Final = "_tk_data"
     def __init__(self) -> None: ...
-    def __getattr__(self, name): ...
     available: bool
     tkinter_extension_file: str | None
     tcl_version: tuple[int, int] | None
