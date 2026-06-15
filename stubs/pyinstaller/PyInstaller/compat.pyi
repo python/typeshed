@@ -11,7 +11,7 @@ is_py36: Final = True
 is_py37: Final = True
 is_py38: Final = True
 is_py39: Final = True
-is_py310: Final[bool]
+is_py310: Final = True
 is_py311: Final[bool]
 is_py312: Final[bool]
 is_py313: Final[bool]
