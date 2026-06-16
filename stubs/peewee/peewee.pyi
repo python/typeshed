@@ -29,12 +29,12 @@ class _FieldKwargs(TypedDict, total=False):
     unique: bool
     primary_key: bool
     column_name: str | None
-    default: Any
+    default: Any  # A value matching the field's type, or a callable returning one
     constraints: list[Node] | None
     sequence: str | None
     collation: str | None
     unindexed: bool
-    choices: Iterable[tuple[Any, str]] | None
+    choices: Iterable[tuple[Any, str]] | None  # (value, display) pairs (value type depends on the field)
     help_text: str | None
     verbose_name: str | None
     index_type: str | None
@@ -1285,7 +1285,7 @@ class DecimalField(Field[_V]):
         max_digits: int = ...,
         decimal_places: int = ...,
         auto_round: bool = ...,
-        rounding: Any = ...,
+        rounding: str | None = ...,
         *args: Any,
         null: Literal[True],
         **kwargs: Unpack[_FieldKwargs],
@@ -1296,7 +1296,7 @@ class DecimalField(Field[_V]):
         max_digits: int = ...,
         decimal_places: int = ...,
         auto_round: bool = ...,
-        rounding: Any = ...,
+        rounding: str | None = ...,
         *args: Any,
         null: Literal[False] = ...,
         **kwargs: Unpack[_FieldKwargs],
@@ -1425,11 +1425,11 @@ class _BaseFormattedField(Field[_V]):
 class DateTimeField(_BaseFormattedField[_V]):
     @overload
     def __new__(
-        cls, formats: Any = ..., *args: Any, null: Literal[True], **kwargs: Unpack[_FieldKwargs]
+        cls, formats: list[str] | None = ..., *args: Any, null: Literal[True], **kwargs: Unpack[_FieldKwargs]
     ) -> DateTimeField[datetime | None]: ...
     @overload
     def __new__(
-        cls, formats: Any = ..., *args: Any, null: Literal[False] = ..., **kwargs: Unpack[_FieldKwargs]
+        cls, formats: list[str] | None = ..., *args: Any, null: Literal[False] = ..., **kwargs: Unpack[_FieldKwargs]
     ) -> DateTimeField[datetime]: ...
 
     formats: Incomplete
@@ -1452,11 +1452,11 @@ class DateTimeField(_BaseFormattedField[_V]):
 class DateField(_BaseFormattedField[_V]):
     @overload
     def __new__(
-        cls, formats: Any = ..., *args: Any, null: Literal[True], **kwargs: Unpack[_FieldKwargs]
+        cls, formats: list[str] | None = ..., *args: Any, null: Literal[True], **kwargs: Unpack[_FieldKwargs]
     ) -> DateField[date | None]: ...
     @overload
     def __new__(
-        cls, formats: Any = ..., *args: Any, null: Literal[False] = ..., **kwargs: Unpack[_FieldKwargs]
+        cls, formats: list[str] | None = ..., *args: Any, null: Literal[False] = ..., **kwargs: Unpack[_FieldKwargs]
     ) -> DateField[date]: ...
 
     formats: Incomplete
@@ -1473,11 +1473,11 @@ class DateField(_BaseFormattedField[_V]):
 class TimeField(_BaseFormattedField[_V]):
     @overload
     def __new__(
-        cls, formats: Any = ..., *args: Any, null: Literal[True], **kwargs: Unpack[_FieldKwargs]
+        cls, formats: list[str] | None = ..., *args: Any, null: Literal[True], **kwargs: Unpack[_FieldKwargs]
     ) -> TimeField[time | None]: ...
     @overload
     def __new__(
-        cls, formats: Any = ..., *args: Any, null: Literal[False] = ..., **kwargs: Unpack[_FieldKwargs]
+        cls, formats: list[str] | None = ..., *args: Any, null: Literal[False] = ..., **kwargs: Unpack[_FieldKwargs]
     ) -> TimeField[time]: ...
 
     formats: Incomplete
