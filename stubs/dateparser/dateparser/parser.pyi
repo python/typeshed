@@ -17,9 +17,7 @@ EIGHT_DIGIT: Final[re.Pattern[str]]
 HOUR_MINUTE_REGEX: Final[re.Pattern[str]]
 
 def no_space_parser_eligibile(datestring: str) -> bool: ...
-def get_unresolved_attrs(
-    parser_object: object,
-) -> tuple[list[_Component], list[_Component]]: ...
+def get_unresolved_attrs(parser_object: object) -> tuple[list[_Component], list[_Component]]: ...
 
 date_order_chart: Final[dict[_Component, str]]
 
