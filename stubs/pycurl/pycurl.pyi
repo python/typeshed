@@ -100,8 +100,8 @@ class CurlMulti:
             | int
             | list[str | bytes]
             | tuple[str | bytes, ...]
-            | Callable[[int, int], int]
             | Callable[[int], Literal[-1, 0] | None]
+            | Callable[[int, int, Self, Any | None], Literal[-1, 0] | None]  # See `assign()` below for `Any | None`
             | None
         ),
     ) -> None: ...
