@@ -1,6 +1,6 @@
 import sys
 from collections.abc import Awaitable, Callable, Coroutine
-from typing import Any, ParamSpec, TypeGuard, TypeVar, overload
+from typing import Any, ParamSpec, TypeVar, overload
 from typing_extensions import TypeIs, deprecated
 
 # Keep asyncio.__all__ updated with any changes to __all__ here
