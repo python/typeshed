@@ -417,6 +417,7 @@ class AnnAssign(stmt):
     annotation: expr
     value: expr | None
     simple: int
+
     @overload
     def __init__(
         self,
@@ -756,7 +757,6 @@ class ImportFrom(stmt):
             is_lazy: bool | None = None,
             **kwargs: Unpack[_Attributes],
         ) -> None: ...
-
     elif sys.version_info >= (3, 13):
         @overload
         def __init__(self, module: str | None, names: list[alias], level: int, **kwargs: Unpack[_Attributes]) -> None: ...
@@ -956,14 +956,27 @@ class DictComp(expr):
     else:
         value: expr
     generators: list[comprehension]
-    if sys.version_info >= (3, 13):
+    if sys.version_info >= (3, 15):
+        def __init__(
+            self, key: expr, value: expr | None = None, generators: list[comprehension] = ..., **kwargs: Unpack[_Attributes]
+        ) -> None: ...
+    elif sys.version_info >= (3, 13):
         def __init__(
             self, key: expr, value: expr, generators: list[comprehension] = ..., **kwargs: Unpack[_Attributes]
         ) -> None: ...
     else:
         def __init__(self, key: expr, value: expr, generators: list[comprehension], **kwargs: Unpack[_Attributes]) -> None: ...
 
-    if sys.version_info >= (3, 14):
+    if sys.version_info >= (3, 15):
+        def __replace__(
+            self,
+            *,
+            key: expr = ...,
+            value: expr | None = ...,
+            generators: list[comprehension] = ...,
+            **kwargs: Unpack[_Attributes],
+        ) -> Self: ...
+    elif sys.version_info >= (3, 14):
         def __replace__(
             self, *, key: expr = ..., value: expr = ..., generators: list[comprehension] = ..., **kwargs: Unpack[_Attributes]
         ) -> Self: ...
@@ -1108,6 +1121,7 @@ class Constant(expr):
         @n.setter
         @deprecated("Removed in Python 3.14. Use `value` instead.")
         def n(self, value: _ConstantValue) -> None: ...
+
         @property
         @deprecated("Removed in Python 3.14. Use `value` instead.")
         def s(self) -> _ConstantValue: ...
@@ -1410,6 +1424,7 @@ class keyword(AST):
     end_col_offset: int | None
     arg: str | None
     value: expr
+
     @overload
     def __init__(self, arg: str | None, value: expr, **kwargs: Unpack[_Attributes]) -> None: ...
     @overload
@@ -1815,7 +1830,6 @@ if sys.version_info >= (3, 15):
         optimize: Literal[-1, 0, 1, 2] = -1,
         module: str | None = None,
     ) -> mod: ...
-
 elif sys.version_info >= (3, 13):
     @overload
     def parse(
@@ -1904,7 +1918,6 @@ elif sys.version_info >= (3, 13):
         feature_version: None | int | tuple[int, int] = None,
         optimize: Literal[-1, 0, 1, 2] = -1,
     ) -> mod: ...
-
 else:
     @overload
     def parse(
@@ -2146,6 +2159,10 @@ class NodeVisitor:
         def visit_ParamSpec(self, node: ParamSpec) -> Any: ...
         def visit_TypeVarTuple(self, node: TypeVarTuple) -> Any: ...
         def visit_TypeAlias(self, node: TypeAlias) -> Any: ...
+
+    if sys.version_info >= (3, 14):
+        def visit_TemplateStr(self, node: TemplateStr) -> Any: ...
+        def visit_Interpolation(self, node: Interpolation) -> Any: ...
 
     # visit methods for deprecated nodes
     def visit_ExtSlice(self, node: ExtSlice) -> Any: ...

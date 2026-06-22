@@ -29,16 +29,19 @@ class MultiGraph(Graph[_Node, _NodeData, _EdgeData]):
     @cached_property
     def adj(self) -> MultiAdjacencyView[_Node, _Node, _EdgeData]: ...  # data can be any type
     def new_edge_key(self, u: _Node, v: _Node) -> int: ...
+
     # key : hashable identifier, optional (default=lowest unused integer)
     @overload  # type: ignore[override] # More complex overload
     def add_edge(self, u_for_edge: _Node, v_for_edge: _Node, key: int | None = None, **attr: Any) -> int: ...
     @overload
     def add_edge(self, u_for_edge: _Node, v_for_edge: _Node, key: _KeyT, **attr: Any) -> _KeyT: ...
+
     def remove_edge(self, u: _Node, v: _Node, key: Hashable | None = None) -> None: ...
     def has_edge(self, u: _Node, v: _Node, key: Hashable | None = None) -> bool: ...
     @cached_property
     # Including subtypes' possible return types for LSP
     def edges(self) -> MultiEdgeView[_Node, _NodeData, _EdgeData] | OutMultiEdgeView[_Node, _NodeData, _EdgeData]: ...
+
     # key : hashable identifier, optional (default=None).
     # default : any Python object (default=None). Value to return if the specific edge (u, v, key) is not found.
     # Returns: The edge attribute dictionary.
@@ -50,6 +53,7 @@ class MultiGraph(Graph[_Node, _NodeData, _EdgeData]):
     def get_edge_data(
         self, u: _Node, v: _Node, key: None = None, default: _DefaultT | None = None
     ) -> dict[Hashable, _EdgeData | _DefaultT]: ...
+
     def copy(self, as_view: bool = False) -> Self: ...
     @cached_property
     # Including subtypes' possible return types for LSP

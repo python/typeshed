@@ -208,23 +208,32 @@ class Path(PurePath):
     def iterdir(self) -> Generator[Self]: ...
     def lchmod(self, mode: int) -> None: ...
     def lstat(self) -> stat_result: ...
-    def mkdir(self, mode: int = 0o777, parents: bool = False, exist_ok: bool = False) -> None: ...
+    if sys.version_info >= (3, 15):
+        def mkdir(
+            self, mode: int = 0o777, parents: bool = False, exist_ok: bool = False, *, parent_mode: int | None = None
+        ) -> None: ...
+    else:
+        def mkdir(self, mode: int = 0o777, parents: bool = False, exist_ok: bool = False) -> None: ...
 
     if sys.version_info >= (3, 14):
         @property
         def info(self) -> PathInfo: ...
+
         @overload
         def move_into(self, target_dir: _PathT) -> _PathT: ...  # type: ignore[overload-overlap]
         @overload
         def move_into(self, target_dir: StrPath) -> Self: ...  # type: ignore[overload-overlap]
+
         @overload
         def move(self, target: _PathT) -> _PathT: ...  # type: ignore[overload-overlap]
         @overload
         def move(self, target: StrPath) -> Self: ...  # type: ignore[overload-overlap]
+
         @overload
         def copy_into(self, target_dir: _PathT, *, follow_symlinks: bool = True, preserve_metadata: bool = False) -> _PathT: ...  # type: ignore[overload-overlap]
         @overload
         def copy_into(self, target_dir: StrPath, *, follow_symlinks: bool = True, preserve_metadata: bool = False) -> Self: ...  # type: ignore[overload-overlap]
+
         @overload
         def copy(self, target: _PathT, *, follow_symlinks: bool = True, preserve_metadata: bool = False) -> _PathT: ...  # type: ignore[overload-overlap]
         @overload
