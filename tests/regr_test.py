@@ -21,6 +21,7 @@ from enum import IntEnum
 from functools import partial
 from pathlib import Path
 from typing import TypeAlias
+from typing_extensions import override
 
 from ts_utils.metadata import get_recursive_requirements, read_metadata
 from ts_utils.mypy import mypy_configuration_from_distribution, temporary_mypy_config_file
@@ -262,7 +263,8 @@ class RunResult(Result):
     test_case_dir: Path
     tempdir: Path
 
-    def print_description(self, verbosity: Verbosity) -> None:  # noqa: ARG002
+    @override
+    def print_description(self, verbosity: Verbosity) -> None:
         if self.code:
             print(f"{self.command_run}:", end=" ")
             print_error("FAILURE\n")
@@ -279,6 +281,7 @@ class NoTestsResult(Result):
     version: str
     platform: str
 
+    @override
     def print_description(self, verbosity: Verbosity) -> None:
         if verbosity != Verbosity.QUIET:
             print_skipped(f"No test cases found for {self.package!r} on Python {self.version} for platform {self.platform!r}.")
