@@ -290,15 +290,15 @@ def test_testcase_directory(
     if verbosity > Verbosity.QUIET:
         _PRINT_QUEUE.put(f"Running {msg}...")
 
-    result = run_testcases(package=package, version=version, platform=platform, tempdir=tempdir, verbosity=verbosity)
-    if result is None:
+    proc_info = run_testcases(package=package, version=version, platform=platform, tempdir=tempdir, verbosity=verbosity)
+    if proc_info is None:
         return NoTestsResult(0, package.name, version, platform)
 
     return RunResult(
-        code=result.returncode,
+        code=proc_info.returncode,
         command_run=msg,
-        stderr=result.stderr,
-        stdout=result.stdout,
+        stderr=proc_info.stderr,
+        stdout=proc_info.stdout,
         test_case_dir=package.test_cases_path,
         tempdir=tempdir,
     )
