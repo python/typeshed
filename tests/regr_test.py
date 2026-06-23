@@ -13,6 +13,7 @@ import subprocess
 import sys
 import tempfile
 import threading
+from abc import ABCMeta, abstractmethod
 from collections.abc import Callable, Generator
 from contextlib import ExitStack, contextmanager, suppress
 from dataclasses import dataclass
@@ -245,9 +246,10 @@ def run_testcases(
 
 
 @dataclass(frozen=True)
-class Result:
+class Result(metaclass=ABCMeta):
     code: int
 
+    @abstractmethod
     def print_description(self, verbosity: Verbosity) -> None:
         raise NotImplementedError
 
