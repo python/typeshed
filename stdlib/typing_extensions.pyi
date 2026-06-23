@@ -680,11 +680,16 @@ else:
     def type_repr(value: object) -> str: ...
 
 # PEP 661
-class Sentinel:
-    def __init__(self, name: str, repr: str | None = None) -> None: ...
-    if sys.version_info >= (3, 14):
-        def __or__(self, other: Any) -> UnionType: ...  # other can be any type form legal for unions
-        def __ror__(self, other: Any) -> UnionType: ...  # other can be any type form legal for unions
-    else:
-        def __or__(self, other: Any) -> _SpecialForm: ...  # other can be any type form legal for unions
-        def __ror__(self, other: Any) -> _SpecialForm: ...  # other can be any type form legal for unions
+if sys.version_info >= (3, 15):
+    from builtins import sentinel as sentinel
+else:
+    class sentinel:
+        def __init__(self, name: str, repr: str | None = None) -> None: ...
+        if sys.version_info >= (3, 14):
+            def __or__(self, other: Any) -> UnionType: ...  # other can be any type form legal for unions
+            def __ror__(self, other: Any) -> UnionType: ...  # other can be any type form legal for unions
+        else:
+            def __or__(self, other: Any) -> _SpecialForm: ...  # other can be any type form legal for unions
+            def __ror__(self, other: Any) -> _SpecialForm: ...  # other can be any type form legal for unions
+
+Sentinel = sentinel
