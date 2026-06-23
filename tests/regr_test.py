@@ -260,7 +260,7 @@ class RunResult(Result):
     test_case_dir: Path
     tempdir: Path
 
-    def print_description(self, _: Verbosity) -> None:
+    def print_description(self, verbosity: Verbosity) -> None:  # noqa: ARG002
         if self.code:
             print(f"{self.command_run}:", end=" ")
             print_error("FAILURE\n")
