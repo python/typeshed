@@ -143,6 +143,7 @@ __all__ = [
     "override",
     "Protocol",
     "Sentinel",
+    "sentinel",
     "reveal_type",
     "runtime",
     "runtime_checkable",
@@ -680,11 +681,21 @@ else:
     def type_repr(value: object) -> str: ...
 
 # PEP 661
-class Sentinel:
-    def __init__(self, name: str, repr: str | None = None) -> None: ...
-    if sys.version_info >= (3, 14):
-        def __or__(self, other: Any) -> UnionType: ...  # other can be any type form legal for unions
-        def __ror__(self, other: Any) -> UnionType: ...  # other can be any type form legal for unions
-    else:
-        def __or__(self, other: Any) -> _SpecialForm: ...  # other can be any type form legal for unions
-        def __ror__(self, other: Any) -> _SpecialForm: ...  # other can be any type form legal for unions
+if sys.version_info >= (3, 15):
+    from builtins import sentinel as sentinel
+else:
+    class sentinel:
+        def __init__(self, name: str, /, *, repr: str | None = None) -> None: ...
+        __name__: str
+        __module__: str
+        if sys.version_info >= (3, 14):
+            # `other`` can be any type form legal for unions.
+            # `x | x` creates a `sentinel` instance if `x` is a sentinel, not a `UnionType` instance
+            def __or__(self, other: Any) -> UnionType | sentinel: ...
+            def __ror__(self, other: Any) -> UnionType | sentinel: ...
+        else:
+            # other can be any type form legal for unions
+            def __or__(self, other: Any) -> _SpecialForm: ...
+            def __ror__(self, other: Any) -> _SpecialForm: ...
+
+Sentinel = sentinel
