@@ -79,7 +79,7 @@ class GeckoCollector(Collector):
     global_string_map: dict[str, int]
 
     threads: dict[int, dict[str, Any]]
-    spill_dir: TemporaryDirectory[str]  | None
+    spill_dir: TemporaryDirectory[str] | None
     exported: bool
 
     libs: list[Incomplete]
