@@ -1,2 +1,2 @@
-version = "0.1.*"
+version = "0.1.11"
 upstream-repository = "https://github.com/click-contrib/click-spinner"
