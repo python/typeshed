@@ -1,7 +1,7 @@
 import sys
 from collections.abc import Awaitable, Callable, Coroutine
 from typing import Any, ParamSpec, TypeGuard, TypeVar, overload
-from typing_extensions import Never, TypeIs, deprecated
+from typing_extensions import TypeIs, deprecated
 
 # Keep asyncio.__all__ updated with any changes to __all__ here
 if sys.version_info >= (3, 11):
@@ -17,7 +17,7 @@ if sys.version_info < (3, 11):
     @deprecated("Deprecated since Python 3.8; removed in Python 3.11. Use `async def` instead.")
     def coroutine(func: _FunctionT) -> _FunctionT: ...
 
-def iscoroutine(obj: object) -> TypeIs[Coroutine[object, Never, object]]: ...
+def iscoroutine(obj: object) -> TypeIs[Coroutine[Any, Any, Any]]: ...
 
 if sys.version_info >= (3, 11):
     @overload
