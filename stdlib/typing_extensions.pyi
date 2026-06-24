@@ -687,11 +687,15 @@ else:
     class sentinel:
         def __init__(self, name: str, /, *, repr: str | None = None) -> None: ...
         __name__: str
+        __module__: str
         if sys.version_info >= (3, 14):
-            def __or__(self, other: Any) -> UnionType: ...  # other can be any type form legal for unions
-            def __ror__(self, other: Any) -> UnionType: ...  # other can be any type form legal for unions
+            # `other`` can be any type form legal for unions.
+            # `sentinel("X") | sentinel("X")` creates a `sentinel` instance, not a `UnionType` instance
+            def __or__(self, other: Any) -> UnionType | sentinel: ...
+            def __ror__(self, other: Any) -> UnionType | sentinel: ...
         else:
-            def __or__(self, other: Any) -> _SpecialForm: ...  # other can be any type form legal for unions
-            def __ror__(self, other: Any) -> _SpecialForm: ...  # other can be any type form legal for unions
+            # other can be any type form legal for unions
+            def __or__(self, other: Any) -> _SpecialForm: ...
+            def __ror__(self, other: Any) -> _SpecialForm: ...
 
 Sentinel = sentinel
