@@ -89,14 +89,14 @@ class GeckoCollector(Collector):
     interval: float
 
     has_gil_start: dict[Incomplete, Incomplete]
-    no_gil_start = dict[Incomplete, Incomplete]
-    on_cpu_start = dict[Incomplete, Incomplete]
-    off_cpu_start = dict[Incomplete, Incomplete]
-    python_code_start = dict[Incomplete, Incomplete]
-    native_code_start = dict[Incomplete, Incomplete]
-    gil_wait_start = dict[Incomplete, Incomplete]
-    exception_start = dict[Incomplete, Incomplete]
-    no_exception_start = dict[Incomplete, Incomplete]
+    no_gil_start: dict[Incomplete, Incomplete]
+    on_cpu_start: dict[Incomplete, Incomplete]
+    off_cpu_start: dict[Incomplete, Incomplete]
+    python_code_start: dict[Incomplete, Incomplete]
+    native_code_start: dict[Incomplete, Incomplete]
+    gil_wait_start: dict[Incomplete, Incomplete]
+    exception_start: dict[Incomplete, Incomplete]
+    no_exception_start: dict[Incomplete, Incomplete]
 
     gc_start_per_thread: dict[int, float]
 
