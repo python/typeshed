@@ -9,8 +9,7 @@ import tempfile
 from collections.abc import Iterable, Mapping
 from pathlib import Path
 from types import MethodType
-from typing import TYPE_CHECKING, Any, Final, NamedTuple
-from typing_extensions import TypeAlias
+from typing import TYPE_CHECKING, Any, Final, NamedTuple, TypeAlias
 
 import pathspec
 from packaging.requirements import Requirement
@@ -81,6 +80,10 @@ def print_info(message: str) -> None:
 
 
 def print_warning(message: str) -> None:
+    print(colored(message, "yellow"))
+
+
+def print_skipped(message: str) -> None:
     print(colored(message, "yellow"))
 
 
