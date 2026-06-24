@@ -690,7 +690,7 @@ else:
         __module__: str
         if sys.version_info >= (3, 14):
             # `other`` can be any type form legal for unions.
-            # `sentinel("X") | sentinel("X")` creates a `sentinel` instance, not a `UnionType` instance
+            # `x | x` creates a `sentinel` instance if `x` is a sentinel, not a `UnionType` instance
             def __or__(self, other: Any) -> UnionType | sentinel: ...
             def __ror__(self, other: Any) -> UnionType | sentinel: ...
         else:
