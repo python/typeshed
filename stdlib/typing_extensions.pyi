@@ -59,7 +59,6 @@ from typing import (  # noqa: Y022,Y037,Y038,Y039,UP035
     Tuple as Tuple,
     Type as Type,
     TypeAlias as TypeAlias,
-    TypedDict as TypedDict,
     TypeGuard as TypeGuard,
     TypeVar as _TypeVar,
     Union as Union,
@@ -232,6 +231,8 @@ def disjoint_base(cls: _TC) -> _TC: ...
 Literal: _SpecialForm
 
 def IntVar(name: str) -> Any: ...  # returns a new TypeVar
+
+TypedDict: _SpecialForm
 
 # Internal mypy fallback type for all typed dicts (does not exist at runtime)
 # N.B. Keep this mostly in sync with typing._TypedDict/mypy_extensions._TypedDict
