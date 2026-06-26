@@ -1,11 +1,14 @@
 from __future__ import annotations
 
 from collections.abc import Hashable
-from typing import Any
+from typing import Any, TypeVar
 from typing_extensions import assert_type
 
-from cachetools import LRUCache, cached, keys as cachekeys
+from cachetools import LRUCache, TTLCache, cached, keys as cachekeys
 from cachetools.func import fifo_cache, lfu_cache, lru_cache, rr_cache, ttl_cache
+
+_KT = TypeVar("_KT")
+_VT = TypeVar("_VT")
 
 # Tests for cachetools.cached
 
@@ -102,3 +105,14 @@ assert_type(k3, tuple[Hashable, ...])
 
 k4 = cachekeys.typedmethodkey(inst, 2)
 assert_type(k4, tuple[Hashable, ...])
+
+
+class TestTTLCache(TTLCache[_KT, _VT]):
+    def popitem(self) -> tuple[_KT, _VT]:
+        key, value = super().popitem()
+        return key, value
+
+
+TTL_inst: TestTTLCache[Any, Any] = TestTTLCache(maxsize=128, ttl=600)
+
+assert_type(TTL_inst, TestTTLCache[Any, Any])
