@@ -66,6 +66,11 @@ tkinter.simpledialog.TkVersion
 # that describes the way users are supposed to call the constructor.
 typing_extensions.sentinel.__init__
 
+# TypeVarTuple is a wrapper class that returns typing.TypeVarTuple instances.
+# Keep __new__ checked because it is the wrapper's public constructor.
+typing_extensions\.TypeVarTuple
+typing_extensions\.TypeVarTuple\.(?!__new__).*
+
 
 # =============================================================
 # Allowlist entries that cannot or should not be fixed; <3.15
