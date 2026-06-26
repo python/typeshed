@@ -569,16 +569,29 @@ else:
         def __infer_variance__(self) -> bool: ...
         @property
         def __default__(self) -> AnnotationForm: ...
-        def __init__(
-            self,
-            name: str,
-            *,
-            bound: AnnotationForm | None = None,
-            covariant: bool = False,
-            contravariant: bool = False,
-            infer_variance: bool = False,
-            default: AnnotationForm = ...,
-        ) -> None: ...
+        if sys.version_info >= (3, 11):
+            def __new__(
+                cls,
+                name: str,
+                *,
+                bound: AnnotationForm | None = None,
+                covariant: bool = False,
+                contravariant: bool = False,
+                infer_variance: bool = False,
+                default: AnnotationForm = ...,
+            ) -> Self: ...
+        else:
+            def __init__(
+                self,
+                name: str,
+                *,
+                bound: AnnotationForm | None = None,
+                covariant: bool = False,
+                contravariant: bool = False,
+                infer_variance: bool = False,
+                default: AnnotationForm = ...,
+            ) -> None: ...
+
         def __iter__(self) -> Any: ...  # Unpack[Self]
         def has_default(self) -> bool: ...
         if sys.version_info >= (3, 11):
