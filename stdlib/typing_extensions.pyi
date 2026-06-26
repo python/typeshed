@@ -235,6 +235,9 @@ Literal: _SpecialForm
 
 def IntVar(name: str) -> Any: ...  # returns a new TypeVar
 
+# Kept as a distinct symbol to `typing.TypedDict` so that type checkers can more easily
+# distinguish between the two on Python 3.14, on which `typing_extensions.TypedDict`
+# exposes `__closed__` and `__extra_items__` but `typing.TypedDict` does not
 TypedDict: _SpecialForm
 
 # Internal mypy fallback type for all typed dicts (does not exist at runtime)
