@@ -71,6 +71,9 @@ from typing import (  # noqa: Y022,Y037,Y038,Y039,UP035
     type_check_only,
 )
 
+if sys.version_info >= (3, 14):
+    from _typeshed import EvaluateFunc
+
 # Please keep order the same as at runtime.
 __all__ = [
     # Super-special typing primitives.
@@ -458,7 +461,6 @@ if sys.version_info >= (3, 13):
         ReadOnly as ReadOnly,
         TypeIs as TypeIs,
         TypeVar as TypeVar,
-        TypeVarTuple as TypeVarTuple,
         get_protocol_members as get_protocol_members,
         is_protocol as is_protocol,
     )
@@ -547,19 +549,45 @@ else:
         def has_default(self) -> bool: ...
         def __typing_prepare_subst__(self, alias: Any, args: Any) -> tuple[Any, ...]: ...
 
+    ReadOnly: _SpecialForm
+    TypeIs: _SpecialForm
+
+if sys.version_info >= (3, 15):
+    from typing import TypeVarTuple as TypeVarTuple
+else:
     @final
     class TypeVarTuple:
         @property
         def __name__(self) -> str: ...
         @property
+        def __bound__(self) -> AnnotationForm | None: ...
+        @property
+        def __covariant__(self) -> bool: ...
+        @property
+        def __contravariant__(self) -> bool: ...
+        @property
+        def __infer_variance__(self) -> bool: ...
+        @property
         def __default__(self) -> AnnotationForm: ...
-        def __init__(self, name: str, *, default: AnnotationForm = ...) -> None: ...
+        def __init__(
+            self,
+            name: str,
+            *,
+            bound: AnnotationForm | None = None,
+            covariant: bool = False,
+            contravariant: bool = False,
+            infer_variance: bool = False,
+            default: AnnotationForm = ...,
+        ) -> None: ...
         def __iter__(self) -> Any: ...  # Unpack[Self]
         def has_default(self) -> bool: ...
-        def __typing_prepare_subst__(self, alias: Any, args: Any) -> tuple[Any, ...]: ...
+        if sys.version_info >= (3, 11):
+            def __typing_subst__(self, arg: Never, /) -> Never: ...
 
-    ReadOnly: _SpecialForm
-    TypeIs: _SpecialForm
+        def __typing_prepare_subst__(self, alias: Any, args: Any, /) -> tuple[Any, ...]: ...
+        if sys.version_info >= (3, 14):
+            @property
+            def evaluate_default(self) -> EvaluateFunc | None: ...
 
 # TypeAliasType was added in Python 3.12, but had significant changes in 3.14.
 if sys.version_info >= (3, 14):
