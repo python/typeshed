@@ -1,0 +1,23 @@
+from _typeshed import Incomplete
+
+from .Qt import QtCore
+
+__all__ = ["SignalProxy"]
+
+class SignalProxy(QtCore.QObject):
+    sigDelayed: Incomplete
+    delay: Incomplete
+    rateLimit: Incomplete
+    args: Incomplete
+    timer: Incomplete
+    lastFlushTime: Incomplete
+    signal: Incomplete
+    blockSignal: bool
+    slot: Incomplete
+    def __init__(self, signal, delay: float = 0.3, rateLimit: int = 0, slot=None, *, threadSafe: bool = True) -> None: ...
+    def setDelay(self, delay) -> None: ...
+    def signalReceived(self, *args) -> None: ...
+    def flush(self): ...
+    def disconnect(self) -> None: ...
+    def connectSlot(self, slot) -> None: ...
+    def block(self): ...
