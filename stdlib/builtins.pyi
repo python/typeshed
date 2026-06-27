@@ -1830,8 +1830,8 @@ def isinstance(
 ) -> TypeIs[_T | _T1]: ...
 @overload
 def isinstance(
-    obj: object, class_or_tuple: tuple[type[_T], type[_T1], type[T2]], /
-) -> TypeIs[T | T1 | T2]: ...
+    obj: object, class_or_tuple: tuple[type[_T], type[_T1], type[_T2]], /
+) -> TypeIs[_T | _T1 | _T2]: ...
 @overload
 def isinstance(
     obj: object, class_or_tuple: tuple[type[_T], type[_T1], type[_T2], type[_T3]], /
