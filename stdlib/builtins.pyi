@@ -2292,10 +2292,6 @@ if sys.version_info >= (3, 15):
 
 def __build_class__(func: Callable[[], CellType | Any], name: str, /, *bases: Any, metaclass: Any = ..., **kwds: Any) -> Any: ...
 
-# Backwards compatibility hack for folks who relied on the ellipsis type
-# existing in typeshed in Python 3.9 and earlier.
-ellipsis = EllipsisType
-
 Ellipsis: EllipsisType
 NotImplemented: NotImplementedType
 
