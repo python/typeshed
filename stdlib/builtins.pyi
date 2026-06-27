@@ -1822,7 +1822,35 @@ def iter(object: Callable[[], _T], sentinel: object, /) -> Iterator[_T]: ...
 
 _ClassInfo: TypeAlias = type | types.UnionType | tuple[_ClassInfo, ...]
 
+@overload
+def isinstance(obj: object, class_or_tuple: type[_T] | tuple[type[_T]], /) -> TypeIs[_T]: ...
+@overload
+def isinstance(
+    obj: object, class_or_tuple: tuple[type[_T], type[_T1]], /
+) -> TypeIs[_T | _T1]: ...
+@overload
+def isinstance(
+    obj: object, class_or_tuple: tuple[type[_T], type[_T1], type[T2]], /
+) -> TypeIs[T | T1 | T2]: ...
+@overload
+def isinstance(
+    obj: object, class_or_tuple: tuple[type[_T], type[_T1], type[_T2], type[_T3]], /
+) -> TypeIs[_T | _T1 | _T2 | _T3]: ...
+@overload
+def isinstance(
+    obj: object,
+    class_or_tuple: tuple[type[_T], type[_T1], type[_T2], type[_T3], type[_T4]],
+    /,
+) -> TypeIs[_T | _T1 | _T2 | _T3 | _T4]: ...
+@overload
+def isinstance(
+    obj: object,
+    class_or_tuple: tuple[type[_T], type[_T1], type[_T2], type[_T3], type[_T4], type[_T5]],
+    /,
+) -> TypeIs[_T | _T1 | _T2 | _T3 | _T4 | _T5]: ...
+@overload
 def isinstance(obj: object, class_or_tuple: _ClassInfo, /) -> bool: ...
+
 def issubclass(cls: type, class_or_tuple: _ClassInfo, /) -> bool: ...
 def len(obj: Sized, /) -> int: ...
 
