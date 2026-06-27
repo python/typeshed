@@ -4,14 +4,21 @@ from _typeshed import Incomplete, SupportsKeysAndGetItem, Unused
 from collections.abc import Callable, Generator, Iterable, Iterator
 from datetime import datetime
 from decimal import Decimal
-from types import TracebackType
+from types import GeneratorType, TracebackType
 from typing import Any, ClassVar, Final, Literal, NamedTuple, NoReturn, TypeVar, overload, type_check_only
 from typing_extensions import Self, TypeIs
 from uuid import UUID
 
 def callable_(c: object) -> TypeIs[Callable[..., object]]: ...
 
-multi_types: tuple[type[Incomplete], ...]
+multi_types: tuple[
+    type[list[Any]],
+    type[tuple[Any, ...]],
+    type[frozenset[Any]],
+    type[set[Any]],
+    type[range],
+    type[GeneratorType[Any, None, None]],
+]
 
 def reraise(tp: Unused, value: BaseException, tb: TracebackType | None = None) -> NoReturn: ...
 
