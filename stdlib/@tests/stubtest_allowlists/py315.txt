@@ -138,6 +138,10 @@ codecs.replace_errors  # Runtime incorrectly has `self`
 codecs.strict_errors  # Runtime incorrectly has `self`
 codecs.xmlcharrefreplace_errors  # Runtime incorrectly has `self`
 
+# The concrete Unix event loop accepts this Python 3.13 parameter, but the
+# abstract runtime signature has not been updated.
+asyncio.events.AbstractEventLoop.create_unix_server  # parameter `cleanup_socket`
+
 # These multiprocessing proxy methods have *args, **kwargs signatures at runtime,
 # but have more precise (accurate) signatures in the stub.
 multiprocessing.managers._BaseDictProxy.__iter__
