@@ -11,11 +11,31 @@ from _typeshed import (
 )
 from asyncio import AbstractEventLoop
 from concurrent.futures import Executor
-from typing import AnyStr, Literal, overload
+from typing import AnyStr, Literal, overload, type_check_only
 
 from ..base import AiofilesContextManager
 from ..threadpool.binary import AsyncBufferedIOBase, AsyncBufferedReader, AsyncFileIO
 from ..threadpool.text import AsyncTextIOWrapper
+
+@type_check_only
+class _NamedAsyncTextIOWrapper(AsyncTextIOWrapper):
+    @property
+    def name(self) -> str: ...
+
+@type_check_only
+class _NamedAsyncFileIO(AsyncFileIO):
+    @property
+    def name(self) -> str: ...
+
+@type_check_only
+class _NamedAsyncBufferedReader(AsyncBufferedReader):
+    @property
+    def name(self) -> str: ...
+
+@type_check_only
+class _NamedAsyncBufferedIOBase(AsyncBufferedIOBase):
+    @property
+    def name(self) -> str: ...
 
 # Text mode: always returns AsyncTextIOWrapper
 @overload
@@ -89,7 +109,7 @@ if sys.version_info >= (3, 12):
         delete_on_close: bool = True,
         loop: AbstractEventLoop | None = None,
         executor: Executor | None = None,
-    ) -> AiofilesContextManager[AsyncTextIOWrapper]: ...
+    ) -> AiofilesContextManager[_NamedAsyncTextIOWrapper]: ...
 
     # Unbuffered binary: returns a FileIO
     @overload
@@ -105,7 +125,7 @@ if sys.version_info >= (3, 12):
         delete_on_close: bool = True,
         loop: AbstractEventLoop | None = None,
         executor: Executor | None = None,
-    ) -> AiofilesContextManager[AsyncFileIO]: ...
+    ) -> AiofilesContextManager[_NamedAsyncFileIO]: ...
 
     # Buffered binary reading/updating: AsyncBufferedReader
     @overload
@@ -121,7 +141,7 @@ if sys.version_info >= (3, 12):
         delete_on_close: bool = True,
         loop: AbstractEventLoop | None = None,
         executor: Executor | None = None,
-    ) -> AiofilesContextManager[AsyncBufferedReader]: ...
+    ) -> AiofilesContextManager[_NamedAsyncBufferedReader]: ...
 
     # Buffered binary writing: AsyncBufferedIOBase
     @overload
@@ -137,7 +157,7 @@ if sys.version_info >= (3, 12):
         delete_on_close: bool = True,
         loop: AbstractEventLoop | None = None,
         executor: Executor | None = None,
-    ) -> AiofilesContextManager[AsyncBufferedIOBase]: ...
+    ) -> AiofilesContextManager[_NamedAsyncBufferedIOBase]: ...
 else:
     # Text mode: always returns AsyncTextIOWrapper
     @overload
@@ -152,7 +172,7 @@ else:
         delete: bool = True,
         loop: AbstractEventLoop | None = None,
         executor: Executor | None = None,
-    ) -> AiofilesContextManager[AsyncTextIOWrapper]: ...
+    ) -> AiofilesContextManager[_NamedAsyncTextIOWrapper]: ...
 
     # Unbuffered binary: returns a FileIO
     @overload
@@ -167,7 +187,7 @@ else:
         delete: bool = True,
         loop: AbstractEventLoop | None = None,
         executor: Executor | None = None,
-    ) -> AiofilesContextManager[AsyncFileIO]: ...
+    ) -> AiofilesContextManager[_NamedAsyncFileIO]: ...
 
     # Buffered binary reading/updating: AsyncBufferedReader
     @overload
@@ -182,7 +202,7 @@ else:
         delete: bool = True,
         loop: AbstractEventLoop | None = None,
         executor: Executor | None = None,
-    ) -> AiofilesContextManager[AsyncBufferedReader]: ...
+    ) -> AiofilesContextManager[_NamedAsyncBufferedReader]: ...
 
     # Buffered binary writing: AsyncBufferedIOBase
     @overload
@@ -197,7 +217,7 @@ else:
         delete: bool = True,
         loop: AbstractEventLoop | None = None,
         executor: Executor | None = None,
-    ) -> AiofilesContextManager[AsyncBufferedIOBase]: ...
+    ) -> AiofilesContextManager[_NamedAsyncBufferedIOBase]: ...
 
 # Text mode: always returns AsyncTextIOWrapper
 @overload
