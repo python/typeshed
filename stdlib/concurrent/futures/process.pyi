@@ -5,7 +5,7 @@ from multiprocessing.context import BaseContext, Process
 from multiprocessing.queues import Queue, SimpleQueue
 from threading import Lock, Semaphore, Thread
 from types import TracebackType
-from typing import Any, Generic, TypeVar, overload
+from typing import Any, Final, Generic, TypeVar, overload
 from typing_extensions import TypeVarTuple, Unpack
 from weakref import ref
 
@@ -28,9 +28,9 @@ class _ThreadWakeup:
 
 def _python_exit() -> None: ...
 
-EXTRA_QUEUED_CALLS: int
+EXTRA_QUEUED_CALLS: Final = 1
 
-_MAX_WINDOWS_WORKERS: int
+_MAX_WINDOWS_WORKERS: Final = 61
 
 class _RemoteTraceback(Exception):
     tb: str
@@ -97,7 +97,7 @@ class _SafeQueue(Queue[Future[Any]]):
 
     def _on_queue_feeder_error(self, e: Exception, obj: _CallItem) -> None: ...
 
-def _get_chunks(*iterables: Any, chunksize: int) -> Generator[tuple[Any, ...], None, None]: ...
+def _get_chunks(*iterables: Any, chunksize: int) -> Generator[tuple[Any, ...]]: ...
 def _process_chunk(fn: Callable[..., _T], chunk: Iterable[tuple[Any, ...]]) -> list[_T]: ...
 
 if sys.version_info >= (3, 11):
@@ -236,3 +236,7 @@ class ProcessPoolExecutor(Executor):
 
     def _start_executor_manager_thread(self) -> None: ...
     def _adjust_process_count(self) -> None: ...
+
+    if sys.version_info >= (3, 14):
+        def kill_workers(self) -> None: ...
+        def terminate_workers(self) -> None: ...

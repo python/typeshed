@@ -1,0 +1,7 @@
+version = "25.2.*"
+upstream-repository = "https://github.com/carltongibson/django-filter/"
+dependencies = ["django-stubs"]
+
+[tool.stubtest]
+mypy-plugins = ["mypy_django_plugin.main"]
+mypy-plugins-config = {"django-stubs" = {"django_settings_module" = "@tests.django_settings"}}

@@ -1,6 +1,6 @@
 from _typeshed import FileDescriptorOrPath
 from collections.abc import Iterable, Mapping
-from typing import NoReturn, Protocol
+from typing import NoReturn, Protocol, type_check_only
 
 from paramiko.auth_strategy import AuthStrategy
 from paramiko.channel import Channel, ChannelFile, ChannelStderrFile, ChannelStdinFile
@@ -10,6 +10,7 @@ from paramiko.sftp_client import SFTPClient
 from paramiko.transport import Transport, _SocketLike
 from paramiko.util import ClosingContextManager
 
+@type_check_only
 class _TransportFactory(Protocol):
     def __call__(
         self,
@@ -42,14 +43,9 @@ class SSHClient(ClosingContextManager):
         look_for_keys: bool = True,
         compress: bool = False,
         sock: _SocketLike | None = None,
-        gss_auth: bool = False,
-        gss_kex: bool = False,
-        gss_deleg_creds: bool = True,
-        gss_host: str | None = None,
         banner_timeout: float | None = None,
         auth_timeout: float | None = None,
         channel_timeout: float | None = None,
-        gss_trust_dns: bool = True,
         passphrase: str | None = None,
         disabled_algorithms: Mapping[str, Iterable[str]] | None = None,
         transport_factory: _TransportFactory | None = None,

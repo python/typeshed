@@ -1,2 +1,6 @@
+from typing_extensions import deprecated
+
+@deprecated("The `nturl2path` module is deprecated since Python 3.14.")
 def url2pathname(url: str) -> str: ...
+@deprecated("The `nturl2path` module is deprecated since Python 3.14.")
 def pathname2url(p: str) -> str: ...

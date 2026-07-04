@@ -15,14 +15,14 @@ from dataclasses import dataclass
 from itertools import product
 from pathlib import Path
 from threading import Lock
-from typing import Annotated, NamedTuple
-from typing_extensions import TypeAlias
+from typing import Annotated, NamedTuple, TypeAlias
 
 from packaging.requirements import Requirement
 
 from ts_utils.metadata import PackageDependencies, get_recursive_requirements, read_metadata
 from ts_utils.mypy import MypyDistConf, MypyResult, mypy_configuration_from_distribution, temporary_mypy_config_file
 from ts_utils.paths import STDLIB_PATH, STUBS_PATH, TESTS_DIR, TS_BASE_PATH, distribution_path
+from ts_utils.py315 import PY315_INCOMPATIBLE_RUNTIME_DEPENDENCIES
 from ts_utils.utils import (
     PYTHON_VERSION,
     colored,
@@ -43,7 +43,7 @@ except ImportError:
     print_error("Cannot import mypy. Did you install it?")
     sys.exit(1)
 
-SUPPORTED_VERSIONS = ["3.13", "3.12", "3.11", "3.10", "3.9"]
+SUPPORTED_VERSIONS = ["3.15", "3.14", "3.13", "3.12", "3.11", "3.10"]
 SUPPORTED_PLATFORMS = ("linux", "win32", "darwin")
 DIRECTORIES_TO_TEST = [STDLIB_PATH, STUBS_PATH]
 
@@ -77,7 +77,7 @@ def remove_dev_suffix(version: str) -> str:
     """
     if version.endswith("-dev"):
         return version[: -len("-dev")]
-    return version
+    return ".".join(version.split(".")[:2])
 
 
 parser = argparse.ArgumentParser(
@@ -149,6 +149,8 @@ def match(path: Path, args: TestConfig) -> bool:
 
 def add_files(files: list[Path], module: Path, args: TestConfig) -> None:
     """Add all files in package or module represented by 'name' located in 'root'."""
+    if module.name.startswith("."):
+        return
     if module.is_file() and module.suffix == ".pyi":
         if match(module, args):
             files.append(module)
@@ -217,12 +219,8 @@ def run_mypy(
             print()
     else:
         print_success_msg()
-    if result.returncode == 0:
-        return MypyResult.SUCCESS
-    elif result.returncode == 1:
-        return MypyResult.FAILURE
-    else:
-        return MypyResult.CRASH
+
+    return MypyResult.from_process_result(result)
 
 
 def add_third_party_files(distribution: str, files: list[Path], args: TestConfig, seen_dists: set[str]) -> None:
@@ -232,10 +230,8 @@ def add_third_party_files(distribution: str, files: list[Path], args: TestConfig
     seen_dists.add(distribution)
     seen_dists.update(r.name for r in typeshed_reqs)
     root = distribution_path(distribution)
-    for name in os.listdir(root):
-        if name.startswith("."):
-            continue
-        add_files(files, (root / name), args)
+    for path in root.iterdir():
+        add_files(files, path, args)
 
 
 class TestResult(NamedTuple):
@@ -283,7 +279,7 @@ def test_third_party_distribution(
 def test_stdlib(args: TestConfig) -> TestResult:
     files: list[Path] = []
     for file in STDLIB_PATH.iterdir():
-        if file.name in ("VERSIONS", TESTS_DIR) or file.name.startswith("."):
+        if file.name in ("VERSIONS", TESTS_DIR):
             continue
         add_files(files, file, args)
 
@@ -482,7 +478,17 @@ def test_third_party_stubs(args: TestConfig, tempdir: Path) -> TestSummary:
                 summary.skip_package()
                 continue
 
-            distributions_to_check[distribution] = get_recursive_requirements(distribution)
+            requirements = get_recursive_requirements(distribution)
+            if args.version == "3.15" and distribution in PY315_INCOMPATIBLE_RUNTIME_DEPENDENCIES:
+                msg = (
+                    f"skipping {distribution!r} for target Python {args.version} "
+                    "(runtime dependencies do not support 3.15 yet)"
+                )
+                print(colored(msg, "yellow"))
+                summary.skip_package()
+                continue
+
+            distributions_to_check[distribution] = requirements
 
     # Setup the necessary virtual environments for testing the third-party stubs.
     # Note that some stubs may not be tested on all Python versions
@@ -513,15 +519,14 @@ def test_third_party_stubs(args: TestConfig, tempdir: Path) -> TestSummary:
 
 def test_typeshed(args: TestConfig, tempdir: Path) -> TestSummary:
     print(f"*** Testing Python {args.version} on {args.platform}")
-    stdlib_dir, stubs_dir = Path("stdlib"), Path("stubs")
     summary = TestSummary()
 
-    if stdlib_dir in args.filter or any(stdlib_dir in path.parents for path in args.filter):
+    if STDLIB_PATH in args.filter or any(STDLIB_PATH in path.parents for path in args.filter):
         mypy_result, files_checked = test_stdlib(args)
         summary.register_result(mypy_result, files_checked)
         print()
 
-    if stubs_dir in args.filter or any(stubs_dir in path.parents for path in args.filter):
+    if STUBS_PATH in args.filter or any(STUBS_PATH in path.parents for path in args.filter):
         tp_results = test_third_party_stubs(args, tempdir)
         summary.merge(tp_results)
         print()

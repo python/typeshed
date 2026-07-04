@@ -5,14 +5,18 @@ class OAuth1Request:
     uri: Incomplete
     body: Incomplete
     headers: Incomplete
-    client: Incomplete
-    credential: Incomplete
-    user: Incomplete
+    client: Incomplete | None
+    credential: Incomplete | None
+    user: Incomplete | None
     query: Incomplete
     query_params: Incomplete
     body_params: Incomplete
-    params: Incomplete
-    def __init__(self, method, uri, body: Incomplete | None = None, headers: Incomplete | None = None) -> None: ...
+    auth_params: Incomplete
+    realm: Incomplete
+    signature_type: str | None
+    oauth_params: Incomplete
+    params: list[Incomplete]
+    def __init__(self, method, uri, body=None, headers=None) -> None: ...
     @property
     def client_id(self): ...
     @property

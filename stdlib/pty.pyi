@@ -1,7 +1,7 @@
 import sys
 from collections.abc import Callable, Iterable
-from typing import Final
-from typing_extensions import TypeAlias, deprecated
+from typing import Final, TypeAlias
+from typing_extensions import deprecated
 
 if sys.platform != "win32":
     __all__ = ["openpty", "fork", "spawn"]
@@ -15,9 +15,9 @@ if sys.platform != "win32":
     def openpty() -> tuple[int, int]: ...
 
     if sys.version_info < (3, 14):
-        @deprecated("Deprecated in 3.12, to be removed in 3.14; use openpty() instead")
+        @deprecated("Deprecated since Python 3.12; removed in Python 3.14. Use `openpty()` instead.")
         def master_open() -> tuple[int, str]: ...
-        @deprecated("Deprecated in 3.12, to be removed in 3.14; use openpty() instead")
+        @deprecated("Deprecated since Python 3.12; removed in Python 3.14. Use `openpty()` instead.")
         def slave_open(tty_name: str) -> int: ...
 
     def fork() -> tuple[int, int]: ...

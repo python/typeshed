@@ -1,8 +1,7 @@
 import ast
 from argparse import Namespace
 from collections.abc import Iterator
-from typing import ClassVar
-from typing_extensions import TypeAlias
+from typing import ClassVar, TypeAlias
 
 from flake8.options.manager import OptionManager
 
@@ -17,6 +16,9 @@ class BuiltinsChecker:
     import_msg: ClassVar[str]
     module_name_msg: ClassVar[str]
     lambda_argument_msg: ClassVar[str]
+
+    default_line_number: ClassVar[int]
+    default_column_offset: ClassVar[int]
 
     names: ClassVar[list[str]]
     ignore_list: ClassVar[set[str]]

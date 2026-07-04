@@ -1,25 +1,24 @@
 # Type checkers that we test our stubs against. These should always
 # be pinned to a specific version to make failure reproducible.
-mypy==1.15.0
-pyright==1.1.399
-# pytype can be installed on Windows, but requires building wheels, let's not do that on the CI
-pytype==2024.10.11; platform_system != "Windows" and python_version >= "3.10" and python_version < "3.13"
+mypy==2.1.0
+pyright==1.1.411
 
 # Libraries used by our various scripts.
-aiohttp==3.11.15
-grpcio-tools>=1.66.2 # For grpc_tools.protoc
-mypy-protobuf==3.6.0
-packaging==24.2
-pathspec>=0.11.1
+aiohttp==3.14.1
+grpcio-tools>=1.76.0; python_version < "3.15" # For grpc_tools.protoc
+mypy-protobuf==5.1.0; python_version < "3.15"
+packaging==26.2
+pathspec>=1.1.1
 pre-commit
-# Required by create_baseline_stubs.py. Must match .pre-commit-config.yaml.
-ruff==0.11.4
-stubdefaulter==0.1.0
+# Required by create_baseline_stubs.py.
+# stubdefaulter depends on libcst, which does not yet install cleanly on Python 3.15.
+ruff==0.15.20
+stubdefaulter==0.1.0; python_version < "3.15"
 termcolor>=2.3
-tomli==2.2.1
-tomlkit==0.13.2
-typing_extensions>=4.13.0rc1
-uv==0.6.11
+tomli==2.4.1; python_version < "3.11"
+tomlkit==0.15.0
+typing_extensions>=4.16.0rc2
+uv==0.11.26
 
 # Utilities for typeshed infrastructure scripts.
 ts_utils @ file:lib

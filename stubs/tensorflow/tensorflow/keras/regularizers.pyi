@@ -1,7 +1,6 @@
-from _typeshed import Incomplete
 from collections.abc import Callable
-from typing import Any, overload
-from typing_extensions import Self, TypeAlias
+from typing import Any, TypeAlias, overload
+from typing_extensions import Self
 
 from tensorflow import Tensor
 
@@ -19,4 +18,5 @@ def get(identifier: None) -> None: ...
 def get(identifier: str | dict[str, Any] | Regularizer) -> Regularizer: ...
 @overload
 def get(identifier: Callable[[Tensor], Tensor]) -> Callable[[Tensor], Tensor]: ...
-def __getattr__(name: str) -> Incomplete: ...
+
+def __getattr__(name: str): ...  # incomplete module

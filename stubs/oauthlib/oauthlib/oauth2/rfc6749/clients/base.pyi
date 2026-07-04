@@ -1,7 +1,6 @@
 from _typeshed import ConvertibleToInt, Incomplete
 from collections.abc import Callable
-from typing import Final, Literal
-from typing_extensions import TypeAlias
+from typing import Final, Literal, TypeAlias
 
 from oauthlib.common import _HTTPMethod
 from oauthlib.oauth2.rfc6749.tokens import OAuth2Token
@@ -99,8 +98,8 @@ class Client:
     ) -> tuple[str, dict[str, str], str]: ...
     def prepare_token_revocation_request(
         self,
-        revocation_url,
-        token,
+        revocation_url: str,
+        token: str,
         token_type_hint: Literal["access_token", "refresh_token"] | None = "access_token",
         body: str = "",
         callback: Callable[[Incomplete], Incomplete] | None = None,

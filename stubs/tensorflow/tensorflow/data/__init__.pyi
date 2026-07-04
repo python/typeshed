@@ -147,6 +147,7 @@ class Dataset(ABC, Generic[_T1_co]):
     def random(
         seed: int | None = None, rerandomize_each_iteration: bool | None = None, name: str | None = None
     ) -> Dataset[tf.Tensor]: ...
+
     @staticmethod
     @overload
     def range(stop: ScalarTensorCompatible, /, output_type: DType = ..., name: str | None = None) -> Dataset[tf.Tensor]: ...
@@ -160,6 +161,7 @@ class Dataset(ABC, Generic[_T1_co]):
         output_type: DType = ...,
         name: str | None = None,
     ) -> Dataset[tf.Tensor]: ...
+
     def rebatch(
         self, batch_size: ScalarTensorCompatible, drop_remainder: bool = False, name: str | None = None
     ) -> Dataset[_T1_co]: ...
@@ -187,7 +189,7 @@ class Dataset(ABC, Generic[_T1_co]):
         path: str,
         compression: _CompressionTypes = None,
         shard_func: Callable[[_T1_co], int] | None = None,
-        checkpoint_args: Incomplete | None = None,
+        checkpoint_args=None,
     ) -> None: ...
     def scan(
         self, initial_state: _T2, scan_func: Callable[[_T2, _T1_co], tuple[_T2, _T3]], name: str | None = None
@@ -227,6 +229,7 @@ class Dataset(ABC, Generic[_T1_co]):
         name: str | None = None,
     ) -> Dataset[Dataset[_T1_co]]: ...
     def with_options(self, options: Options, name: str | None = None) -> Dataset[_T1_co]: ...
+
     @overload
     @staticmethod
     def zip(
@@ -240,6 +243,7 @@ class Dataset(ABC, Generic[_T1_co]):
     def zip(
         *, datasets: tuple[Dataset[_T2], Dataset[_T3]] | None = None, name: str | None = None
     ) -> Dataset[tuple[_T2, _T3]]: ...
+
     def __len__(self) -> int: ...
     def __nonzero__(self) -> bool: ...
     def __getattr__(self, name: str) -> Incomplete: ...
@@ -269,4 +273,4 @@ class TFRecordDataset(Dataset[tf.Tensor]):
     @property
     def element_spec(self) -> tf.TensorSpec: ...
 
-def __getattr__(name: str) -> Incomplete: ...
+def __getattr__(name: str): ...  # incomplete module

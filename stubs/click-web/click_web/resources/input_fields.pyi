@@ -24,14 +24,14 @@ class FieldId:
         form_type: str,
         name: str,
         key: str | None = None,
-    ): ...
+    ) -> None: ...
     @classmethod
     def from_string(cls, field_info_as_string: str) -> FieldId: ...
 
 class NotSupported(ValueError): ...
 
 class BaseInput:
-    param_type_cls: type[click.types.ParamType] | None
+    param_type_cls: type[click.types.ParamType[Any]] | None
     ctx: click.Context
     param: click.Parameter
     command_index: int
@@ -43,10 +43,10 @@ class BaseInput:
     @property
     def type_attrs(self) -> dict[str, Any]: ...
     def _to_cmd_line_name(self, name: str) -> str: ...
-    def _build_name(self, name: str): ...
+    def _build_name(self, name: str) -> str: ...
 
 class ChoiceInput(BaseInput):
-    param_type_cls: type[click.Choice]
+    param_type_cls: type[click.Choice[Any]]
 
 class FlagInput(BaseInput):
     param_type_cls: None
@@ -73,9 +73,9 @@ class TextAreaInput(BaseInput):
     param_type_cls: type[TextAreaParamType]
 
 class DefaultInput(BaseInput):
-    param_type_cls: type[click.ParamType]
+    param_type_cls: type[click.ParamType[Any]]
 
 INPUT_TYPES: Final[list[type[BaseInput]]]
 _DEFAULT_INPUT: Final[list[type[DefaultInput]]]
 
-def get_input_field(ctx: click.Context, param: click.Parameter, command_index, param_index) -> dict[str, Any]: ...
+def get_input_field(ctx: click.Context, param: click.Parameter, command_index: int, param_index: int) -> dict[str, Any]: ...

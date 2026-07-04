@@ -1,6 +1,5 @@
 from _typeshed import ConvertibleToFloat, ConvertibleToInt, Incomplete, Unused
-from typing import ClassVar, Literal, overload
-from typing_extensions import TypeAlias
+from typing import ClassVar, Literal, TypeAlias, overload
 
 from openpyxl.descriptors.base import Alias, Bool, Float, Integer, MinMax, NoneSet, Set, String, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import Coordinate, ExtensionList, Percentage
@@ -329,7 +328,7 @@ class Point2D(Serialisable):
     namespace: ClassVar[str]
     x: Incomplete
     y: Incomplete
-    def __init__(self, x: Incomplete | None = None, y: Incomplete | None = None) -> None: ...
+    def __init__(self, x=None, y=None) -> None: ...
 
 class PositiveSize2D(Serialisable):
     tagname: ClassVar[str]
@@ -497,14 +496,12 @@ class GeomRect(Serialisable):
     t: Incomplete
     r: Incomplete
     b: Incomplete
-    def __init__(
-        self, l: Incomplete | None = None, t: Incomplete | None = None, r: Incomplete | None = None, b: Incomplete | None = None
-    ) -> None: ...
+    def __init__(self, l=None, t=None, r=None, b=None) -> None: ...
 
 class AdjPoint2D(Serialisable):
     x: Incomplete
     y: Incomplete
-    def __init__(self, x: Incomplete | None = None, y: Incomplete | None = None) -> None: ...
+    def __init__(self, x=None, y=None) -> None: ...
 
 class ConnectionSite(Serialisable):
     ang: MinMax[float, Literal[False]]
@@ -533,6 +530,7 @@ class CustomGeometry2D(Serialisable):
     cxnLst: Typed[ConnectionSiteList, Literal[True]]
     pathLst: Typed[Path2DList, Literal[False]]
     rect: GeomRect | None
+
     @overload
     def __init__(
         self,

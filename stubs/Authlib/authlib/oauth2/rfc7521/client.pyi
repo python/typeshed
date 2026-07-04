@@ -23,17 +23,20 @@ class AssertionClient:
         token_endpoint,
         issuer,
         subject,
-        audience: Incomplete | None = None,
-        grant_type: Incomplete | None = None,
-        claims: Incomplete | None = None,
+        audience=None,
+        grant_type=None,
+        claims=None,
         token_placement: str = "header",
-        scope: Incomplete | None = None,
+        scope=None,
         leeway: int = 60,
         **kwargs,
     ) -> None: ...
+
     @property
     def token(self): ...
     @token.setter
     def token(self, token) -> None: ...
+
     def refresh_token(self): ...
     def parse_response_token(self, resp): ...
+    def __del__(self) -> None: ...

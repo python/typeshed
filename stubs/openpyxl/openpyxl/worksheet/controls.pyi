@@ -41,7 +41,7 @@ class ControlProperty(Serialisable):
         linkedCell: str | None = None,
         listFillRange: str | None = None,
         cf: str | None = "pict",
-        id: Incomplete | None = None,
+        id=None,
     ) -> None: ...
 
 class Control(Serialisable):
@@ -50,6 +50,7 @@ class Control(Serialisable):
     shapeId: Integer[Literal[False]]
     name: String[Literal[True]]
     __elements__: ClassVar[tuple[str, ...]]
+
     @overload
     def __init__(
         self, controlPr: ControlProperty | None = None, *, shapeId: ConvertibleToInt, name: str | None = None

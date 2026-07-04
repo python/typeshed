@@ -1,5 +1,3 @@
-from typing import Any
-
-prefix_mapping: Any
+prefix_mapping: dict[str, str]
 
 def to_sax(walker, handler) -> None: ...

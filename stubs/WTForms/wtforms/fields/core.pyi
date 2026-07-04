@@ -1,7 +1,7 @@
 from builtins import type as _type  # type is being shadowed in Field
 from collections.abc import Callable, Iterable, Sequence
-from typing import Any, Generic, Protocol, TypeVar, overload
-from typing_extensions import Self, TypeAlias
+from typing import Any, Generic, Protocol, TypeAlias, TypeVar, overload, type_check_only
+from typing_extensions import Self
 
 from markupsafe import Markup
 from wtforms.form import BaseForm
@@ -16,9 +16,11 @@ _FieldT_contra = TypeVar("_FieldT_contra", bound=Field, contravariant=True)
 # trust, that people won't use it to change the type of data in a field...
 _Filter: TypeAlias = Callable[[Any], Any]
 
+@type_check_only
 class _Validator(Protocol[_FormT_contra, _FieldT_contra]):
     def __call__(self, form: _FormT_contra, field: _FieldT_contra, /) -> object: ...
 
+@type_check_only
 class _Widget(Protocol[_FieldT_contra]):
     def __call__(self, field: _FieldT_contra, **kwargs: Any) -> Markup: ...
 

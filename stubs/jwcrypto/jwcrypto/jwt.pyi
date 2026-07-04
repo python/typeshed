@@ -1,12 +1,10 @@
-from _typeshed import Incomplete
-from collections.abc import Mapping
 from typing import Any, SupportsInt
-from typing_extensions import deprecated
+from typing_extensions import LiteralString, deprecated
 
 from jwcrypto.common import JWException, JWKeyNotFound
 from jwcrypto.jwk import JWK, JWKSet
 
-JWTClaimsRegistry: Mapping[str, str]
+JWTClaimsRegistry: dict[LiteralString, str]
 JWT_expect_type: bool
 
 class JWTExpired(JWException):
@@ -37,42 +35,49 @@ class JWT:
         self,
         header: dict[str, Any] | str | None = None,
         claims: dict[str, Any] | str | None = None,
-        jwt: Incomplete | None = None,
+        jwt=None,
         key: JWK | JWKSet | None = None,
-        algs: Incomplete | None = None,
-        default_claims: Incomplete | None = None,
-        check_claims: Incomplete | None = None,
-        expected_type: Incomplete | None = None,
+        algs=None,
+        default_claims=None,
+        check_claims=None,
+        expected_type=None,
     ) -> None: ...
+
     @property
     def header(self) -> str: ...
     @header.setter
     def header(self, h: dict[str, Any] | str) -> None: ...
+
     @property
     def claims(self) -> str: ...
     @claims.setter
     def claims(self, data: str) -> None: ...
+
     @property
     def token(self): ...
     @token.setter
     def token(self, t) -> None: ...
+
     @property
     def leeway(self) -> int: ...
     @leeway.setter
     def leeway(self, lwy: SupportsInt) -> None: ...
+
     @property
     def validity(self) -> int: ...
     @validity.setter
     def validity(self, v: SupportsInt) -> None: ...
+
     @property
     def expected_type(self): ...
     @expected_type.setter
     def expected_type(self, v) -> None: ...
+
     def norm_typ(self, val): ...
     def make_signed_token(self, key: JWK) -> None: ...
     def make_encrypted_token(self, key: JWK) -> None: ...
     def validate(self, key: JWK | JWKSet) -> None: ...
-    def deserialize(self, jwt, key: Incomplete | None = None) -> None: ...
+    def deserialize(self, jwt, key=None) -> None: ...
     def serialize(self, compact: bool = True) -> str: ...
     @classmethod
     def from_jose_token(cls, token): ...

@@ -2,8 +2,8 @@ from _typeshed import SupportsItems, SupportsKeysAndGetItem
 from _typeshed.wsgi import StartResponse, WSGIApplication, WSGIEnvironment
 from collections.abc import Iterable
 from string import Template
-from typing import Any, Literal, Protocol
-from typing_extensions import Self, TypeAlias
+from typing import Any, Literal, Protocol, TypeAlias, type_check_only
+from typing_extensions import Self
 
 from webob.response import Response
 
@@ -68,6 +68,7 @@ __all__ = [
 
 _Headers: TypeAlias = SupportsItems[str, str] | SupportsKeysAndGetItem[str, str] | Iterable[tuple[str, str]]
 
+@type_check_only
 class _JSONFormatter(Protocol):
     def __call__(self, *, body: str, status: str, title: str, environ: WSGIEnvironment) -> Any: ...
 

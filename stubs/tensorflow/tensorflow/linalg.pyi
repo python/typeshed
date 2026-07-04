@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from builtins import bool as _bool
 from collections.abc import Iterable
 from typing import Literal, overload
@@ -38,6 +37,7 @@ def matmul(
     grad_b: _bool = False,
     name: str | None = None,
 ) -> RaggedTensor: ...
+
 def set_diag(
     input: TensorCompatible,
     diagonal: TensorCompatible,
@@ -53,4 +53,4 @@ def eye(
     name: str | None = None,
 ) -> Tensor: ...
 def band_part(input: TensorCompatible, num_lower: Integer, num_upper: Integer, name: str | None = None) -> Tensor: ...
-def __getattr__(name: str) -> Incomplete: ...
+def __getattr__(name: str): ...  # incomplete module

@@ -1,35 +1,34 @@
 from _typeshed import Incomplete
-from typing import Any
 
 use_ssl_context: bool
 
 class Tls:
-    ssl_options: Any
-    validate: Any
-    ca_certs_file: Any
-    ca_certs_path: Any
-    ca_certs_data: Any
-    private_key_password: Any
-    version: Any
-    private_key_file: Any
-    certificate_file: Any
-    valid_names: Any
-    ciphers: Any
-    sni: Any
+    ssl_options: Incomplete
+    validate: Incomplete
+    ca_certs_file: Incomplete
+    ca_certs_path: Incomplete
+    ca_certs_data: Incomplete
+    private_key_password: Incomplete
+    version: Incomplete
+    private_key_file: Incomplete
+    certificate_file: Incomplete
+    valid_names: Incomplete
+    ciphers: Incomplete
+    sni: Incomplete
     def __init__(
         self,
-        local_private_key_file: Incomplete | None = None,
-        local_certificate_file: Incomplete | None = None,
+        local_private_key_file=None,
+        local_certificate_file=None,
         validate=...,
-        version: Incomplete | None = None,
-        ssl_options: Incomplete | None = None,
-        ca_certs_file: Incomplete | None = None,
-        valid_names: Incomplete | None = None,
-        ca_certs_path: Incomplete | None = None,
-        ca_certs_data: Incomplete | None = None,
-        local_private_key_password: Incomplete | None = None,
-        ciphers: Incomplete | None = None,
-        sni: Incomplete | None = None,
+        version=None,
+        ssl_options=None,
+        ca_certs_file=None,
+        valid_names=None,
+        ca_certs_path=None,
+        ca_certs_data=None,
+        local_private_key_password=None,
+        ciphers=None,
+        sni=None,
     ) -> None: ...
     def wrap_socket(self, connection, do_handshake: bool = False) -> None: ...
     def start_tls(self, connection): ...

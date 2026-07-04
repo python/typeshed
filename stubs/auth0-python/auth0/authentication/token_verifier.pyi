@@ -1,8 +1,6 @@
 from _typeshed import Incomplete
 from typing import ClassVar
 
-from auth0.exceptions import TokenValidationError as TokenValidationError
-
 class SignatureVerifier:
     DISABLE_JWT_CHECKS: ClassVar[dict[str, bool]]
     def __init__(self, algorithm: str) -> None: ...
@@ -13,11 +11,11 @@ class SymmetricSignatureVerifier(SignatureVerifier):
 
 class JwksFetcher:
     CACHE_TTL: ClassVar[int]
-    def __init__(self, jwks_url: str, cache_ttl: int = ...) -> None: ...
+    def __init__(self, jwks_url: str, cache_ttl: int = 600) -> None: ...
     def get_key(self, key_id: str): ...
 
 class AsymmetricSignatureVerifier(SignatureVerifier):
-    def __init__(self, jwks_url: str, algorithm: str = "RS256", cache_ttl: int = ...) -> None: ...
+    def __init__(self, jwks_url: str, algorithm: str = "RS256", cache_ttl: int = 600) -> None: ...
 
 class TokenVerifier:
     iss: str

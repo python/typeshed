@@ -1,6 +1,5 @@
 from _typeshed import ConvertibleToInt, Incomplete, Unused
-from typing import ClassVar, Literal, overload
-from typing_extensions import TypeAlias
+from typing import ClassVar, Literal, TypeAlias, overload
 
 from openpyxl.descriptors.base import Bool, Integer, NoneSet, Set, String, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
@@ -116,7 +115,7 @@ class ColHierarchiesUsage(Serialisable):
     colHierarchyUsage: Incomplete
     __elements__: ClassVar[tuple[str, ...]]
     __attrs__: ClassVar[tuple[str, ...]]
-    def __init__(self, count: Incomplete | None = None, colHierarchyUsage=()) -> None: ...
+    def __init__(self, count=None, colHierarchyUsage=()) -> None: ...
     @property
     def count(self) -> int: ...
 
@@ -125,7 +124,7 @@ class RowHierarchiesUsage(Serialisable):
     rowHierarchyUsage: Incomplete
     __elements__: ClassVar[tuple[str, ...]]
     __attrs__: ClassVar[tuple[str, ...]]
-    def __init__(self, count: Incomplete | None = None, rowHierarchyUsage=()) -> None: ...
+    def __init__(self, count=None, rowHierarchyUsage=()) -> None: ...
     @property
     def count(self) -> int: ...
 
@@ -145,6 +144,7 @@ class PivotFilter(Serialisable):
     autoFilter: Typed[AutoFilter, Literal[False]]
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: ClassVar[tuple[str, ...]]
+
     @overload
     def __init__(
         self,
@@ -210,7 +210,7 @@ class MemberList(Serialisable):
     level: Integer[Literal[True]]
     member: Incomplete
     __elements__: ClassVar[tuple[str, ...]]
-    def __init__(self, count: Incomplete | None = None, level: ConvertibleToInt | None = None, member=()) -> None: ...
+    def __init__(self, count=None, level: ConvertibleToInt | None = None, member=()) -> None: ...
     @property
     def count(self) -> int: ...
 
@@ -225,6 +225,7 @@ class MemberProperty(Serialisable):
     pLen: Integer[Literal[True]]
     level: Integer[Literal[True]]
     field: Integer[Literal[False]]
+
     @overload
     def __init__(
         self,
@@ -376,6 +377,7 @@ class ChartFormat(Serialisable):
     series: Bool[Literal[False]]
     pivotArea: Typed[PivotArea, Literal[False]]
     __elements__: ClassVar[tuple[str, ...]]
+
     @overload
     def __init__(
         self, chart: ConvertibleToInt, format: ConvertibleToInt, series: _ConvertibleToBool = None, *, pivotArea: PivotArea
@@ -393,6 +395,7 @@ class ConditionalFormat(Serialisable):
     pivotAreas: Incomplete
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: ClassVar[tuple[str, ...]]
+
     @overload
     def __init__(
         self,
@@ -417,7 +420,7 @@ class ConditionalFormatList(Serialisable):
     tagname: ClassVar[str]
     conditionalFormat: Incomplete
     __attrs__: ClassVar[tuple[str, ...]]
-    def __init__(self, conditionalFormat=..., count: Incomplete | None = ...) -> None: ...
+    def __init__(self, conditionalFormat=(), count=None) -> None: ...
     def by_priority(self): ...
     @property
     def count(self) -> int: ...
@@ -430,6 +433,7 @@ class Format(Serialisable):
     pivotArea: Typed[PivotArea, Literal[False]]
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: ClassVar[tuple[str, ...]]
+
     @overload
     def __init__(
         self,
@@ -459,6 +463,7 @@ class DataField(Serialisable):
     numFmtId: Integer[Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: ClassVar[tuple[str, ...]]
+
     @overload
     def __init__(
         self,
@@ -770,6 +775,7 @@ class TableDefinition(Serialisable):
     extLst: Typed[ExtensionList, Literal[True]]
     id: Incomplete
     __elements__: ClassVar[tuple[str, ...]]
+
     @overload
     def __init__(
         self,
@@ -859,7 +865,7 @@ class TableDefinition(Serialisable):
         rowHierarchiesUsage: RowHierarchiesUsage | None = None,
         colHierarchiesUsage: ColHierarchiesUsage | None = None,
         extLst: ExtensionList | None = None,
-        id: Incomplete | None = None,
+        id=None,
     ) -> None: ...
     @overload
     def __init__(
@@ -949,8 +955,9 @@ class TableDefinition(Serialisable):
         rowHierarchiesUsage: RowHierarchiesUsage | None = None,
         colHierarchiesUsage: ColHierarchiesUsage | None = None,
         extLst: ExtensionList | None = None,
-        id: Incomplete | None = None,
+        id=None,
     ) -> None: ...
+
     def to_tree(self) -> Element: ...  # type: ignore[override]
     @property
     def path(self) -> str: ...

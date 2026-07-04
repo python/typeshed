@@ -44,7 +44,17 @@ class UnauthorizedClientError(OAuth2Error):
 class UnsupportedResponseTypeError(OAuth2Error):
     error: str
     response_type: Incomplete
-    def __init__(self, response_type) -> None: ...
+    def __init__(
+        self,
+        response_type,
+        description=None,
+        uri=None,
+        status_code=None,
+        state=None,
+        redirect_uri=None,
+        redirect_fragment: bool = False,
+        error=None,
+    ) -> None: ...
     def get_error_description(self): ...
 
 class UnsupportedGrantTypeError(OAuth2Error):
@@ -65,7 +75,7 @@ class ForbiddenError(OAuth2Error):
     status_code: int
     auth_type: Incomplete
     realm: Incomplete
-    def __init__(self, auth_type: Incomplete | None = None, realm: Incomplete | None = None) -> None: ...
+    def __init__(self, auth_type=None, realm=None) -> None: ...
     def get_headers(self): ...
 
 class MissingAuthorizationError(ForbiddenError):

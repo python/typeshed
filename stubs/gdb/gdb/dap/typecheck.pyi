@@ -1,3 +1,6 @@
-from _typeshed import Incomplete
+from collections.abc import Callable
+from typing import Any, TypeVar
 
-def __getattr__(name: str) -> Incomplete: ...
+_F = TypeVar("_F", bound=Callable[..., Any])
+
+def type_check(func: _F) -> _F: ...

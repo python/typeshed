@@ -1,8 +1,7 @@
 from _typeshed import SupportsDunderGT, SupportsDunderLT, SupportsRead
 from collections.abc import Iterable, Mapping, Sequence
 from re import Pattern
-from typing import Any, Final, Protocol, TypeVar, overload
-from typing_extensions import TypeAlias
+from typing import Any, Final, Protocol, TypeAlias, TypeVar, overload, type_check_only
 
 from Xlib.display import Display
 from Xlib.support.lock import _DummyLock
@@ -15,6 +14,7 @@ _DB: TypeAlias = dict[str, tuple[_DB, ...]]
 # so this is a slightly less precise version of the _DB alias for parameter annotations
 _DB_Param: TypeAlias = dict[str, Any]
 
+@type_check_only
 class _SupportsComparisons(SupportsDunderLT[_T_contra], SupportsDunderGT[_T_contra], Protocol[_T_contra]): ...
 
 comment_re: Final[Pattern[str]]
@@ -42,10 +42,12 @@ class ResourceDB:
     def insert_resources(self, resources: Iterable[tuple[str, object]]) -> None: ...
     def insert(self, resource: str, value: object) -> None: ...
     def __getitem__(self, keys_tuple: tuple[str, str]) -> Any: ...
+
     @overload
     def get(self, res: str, cls: str, default: None = None) -> Any: ...
     @overload
     def get(self, res: str, cls: str, default: _T) -> _T: ...
+
     def update(self, db: ResourceDB) -> None: ...
     def output(self) -> str: ...
     def getopt(self, name: str, argv: Sequence[str], opts: Mapping[str, Option]) -> Sequence[str]: ...

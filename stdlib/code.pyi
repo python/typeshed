@@ -1,5 +1,5 @@
 import sys
-from codeop import CommandCompiler
+from codeop import CommandCompiler, compile_command as compile_command
 from collections.abc import Callable
 from types import CodeType
 from typing import Any
@@ -24,6 +24,7 @@ class InteractiveConsole(InteractiveInterpreter):
     buffer: list[str]  # undocumented
     filename: str  # undocumented
     if sys.version_info >= (3, 13):
+        local_exit: bool  # undocumented
         def __init__(
             self, locals: dict[str, Any] | None = None, filename: str = "<console>", *, local_exit: bool = False
         ) -> None: ...
@@ -52,5 +53,3 @@ else:
         local: dict[str, Any] | None = None,
         exitmsg: str | None = None,
     ) -> None: ...
-
-def compile_command(source: str, filename: str = "<input>", symbol: str = "single") -> CodeType | None: ...

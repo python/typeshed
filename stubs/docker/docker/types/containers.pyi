@@ -1,88 +1,118 @@
-from _typeshed import Incomplete
-from typing import Literal
+from collections.abc import Iterable, Mapping
+from typing import Any, Final, Literal
 
 from docker._types import ContainerWeightDevice
 
+from .. import errors
 from .base import DictType
+from .healthcheck import Healthcheck
+from .networks import NetworkingConfig
 from .services import Mount
 
 class LogConfigTypesEnum:
-    JSON: Incomplete
-    SYSLOG: Incomplete
-    JOURNALD: Incomplete
-    GELF: Incomplete
-    FLUENTD: Incomplete
-    NONE: Incomplete
+    JSON: Final = "json-file"
+    SYSLOG: Final = "syslog"
+    JOURNALD: Final = "journald"
+    GELF: Final = "gelf"
+    FLUENTD: Final = "fluentd"
+    NONE: Final = "none"
 
-class LogConfig(DictType):
+class LogConfig(DictType[Any]):
     types: type[LogConfigTypesEnum]
-    def __init__(self, **kwargs) -> None: ...
+    def __init__(
+        self, *, type: str = ..., Type: str = ..., config: dict[str, str] = ..., Config: dict[str, str] = ...
+    ) -> None: ...
+
     @property
-    def type(self): ...
+    def type(self) -> str: ...
     @type.setter
-    def type(self, value) -> None: ...
-    @property
-    def config(self): ...
-    def set_config_value(self, key, value) -> None: ...
-    def unset_config(self, key) -> None: ...
+    def type(self, value: str) -> None: ...
 
-class Ulimit(DictType):
-    def __init__(self, **kwargs) -> None: ...
     @property
-    def name(self): ...
+    def config(self) -> dict[str, str]: ...
+    def set_config_value(self, key: str, value: str) -> None: ...
+    def unset_config(self, key: str) -> None: ...
+
+class Ulimit(DictType[Any]):
+    def __init__(
+        self, *, name: str = ..., Name: str = ..., soft: int = ..., Soft: int = ..., hard: int = ..., Hard: int = ...
+    ) -> None: ...
+
+    @property
+    def name(self) -> str: ...
     @name.setter
-    def name(self, value) -> None: ...
+    def name(self, value: str) -> None: ...
+
     @property
-    def soft(self): ...
+    def soft(self) -> int | None: ...
     @soft.setter
-    def soft(self, value) -> None: ...
+    def soft(self, value: int | None) -> None: ...
+
     @property
-    def hard(self): ...
+    def hard(self) -> int | None: ...
     @hard.setter
-    def hard(self, value) -> None: ...
+    def hard(self, value: int | None) -> None: ...
 
-class DeviceRequest(DictType):
-    def __init__(self, **kwargs) -> None: ...
+class DeviceRequest(DictType[Any]):
+    def __init__(
+        self,
+        *,
+        driver: str = ...,
+        Driver: str = ...,
+        count: int = ...,
+        Count: int = ...,
+        device_ids: list[str] = ...,
+        DeviceIDs: list[str] = ...,
+        capabilities: list[list[str]] = ...,
+        Capabilities: list[list[str]] = ...,
+        options: dict[str, str] = ...,
+        Options: dict[str, str] = ...,
+    ) -> None: ...
+
     @property
-    def driver(self): ...
+    def driver(self) -> str: ...
     @driver.setter
-    def driver(self, value) -> None: ...
-    @property
-    def count(self): ...
-    @count.setter
-    def count(self, value) -> None: ...
-    @property
-    def device_ids(self): ...
-    @device_ids.setter
-    def device_ids(self, value) -> None: ...
-    @property
-    def capabilities(self): ...
-    @capabilities.setter
-    def capabilities(self, value) -> None: ...
-    @property
-    def options(self): ...
-    @options.setter
-    def options(self, value) -> None: ...
+    def driver(self, value: str) -> None: ...
 
-class HostConfig(dict[str, Incomplete]):
+    @property
+    def count(self) -> int: ...
+    @count.setter
+    def count(self, value: int) -> None: ...
+
+    @property
+    def device_ids(self) -> list[str]: ...
+    @device_ids.setter
+    def device_ids(self, value: list[str]) -> None: ...
+
+    @property
+    def capabilities(self) -> list[list[str]]: ...
+    @capabilities.setter
+    def capabilities(self, value: list[list[str]]) -> None: ...
+
+    @property
+    def options(self) -> dict[str, str]: ...
+    @options.setter
+    def options(self, value: dict[str, str]) -> None: ...
+
+class HostConfig(dict[str, Any]):
     def __init__(
         self,
         version: str,
-        binds: Incomplete | None = None,
-        port_bindings: Incomplete | None = None,
-        lxc_conf: dict[Incomplete, Incomplete] | None = None,
+        binds: dict[str, Mapping[str, str]] | list[str] | None = None,
+        port_bindings: Mapping[int | str, Any] | None = None,  # Any: int, str, tuple, dict, or list
+        lxc_conf: dict[str, str] | list[dict[str, str]] | None = None,
         publish_all_ports: bool = False,
-        links: dict[str, str | None] | None = None,
+        links: dict[str, str] | dict[str, None] | dict[str, str | None] | Iterable[tuple[str, str | None]] | None = None,
         privileged: bool = False,
-        dns: list[Incomplete] | None = None,
-        dns_search: list[Incomplete] | None = None,
+        dns: list[str] | None = None,
+        dns_search: list[str] | None = None,
         volumes_from: list[str] | None = None,
         network_mode: str | None = None,
-        restart_policy: dict[Incomplete, Incomplete] | None = None,
+        restart_policy: Mapping[str, str | int] | None = None,
         cap_add: list[str] | None = None,
         cap_drop: list[str] | None = None,
         devices: list[str] | None = None,
-        extra_hosts: dict[Incomplete, Incomplete] | None = None,
+        extra_hosts: dict[str, str] | list[str] | None = None,
         read_only: bool | None = None,
         pid_mode: str | None = None,
         ipc_mode: str | None = None,
@@ -95,21 +125,21 @@ class HostConfig(dict[str, Incomplete]):
         kernel_memory: str | int | None = None,
         mem_swappiness: int | None = None,
         cgroup_parent: str | None = None,
-        group_add: list[str | int] | None = None,
+        group_add: Iterable[str | int] | None = None,
         cpu_quota: int | None = None,
         cpu_period: int | None = None,
         blkio_weight: int | None = None,
         blkio_weight_device: list[ContainerWeightDevice] | None = None,
-        device_read_bps: Incomplete | None = None,
-        device_write_bps: Incomplete | None = None,
-        device_read_iops: Incomplete | None = None,
-        device_write_iops: Incomplete | None = None,
+        device_read_bps: list[Mapping[str, str | int]] | None = None,
+        device_write_bps: list[Mapping[str, str | int]] | None = None,
+        device_read_iops: list[Mapping[str, str | int]] | None = None,
+        device_write_iops: list[Mapping[str, str | int]] | None = None,
         oom_kill_disable: bool = False,
         shm_size: str | int | None = None,
-        sysctls: dict[Incomplete, Incomplete] | None = None,
+        sysctls: dict[str, str] | None = None,
         tmpfs: dict[str, str] | None = None,
         oom_score_adj: int | None = None,
-        dns_opt: list[Incomplete] | None = None,
+        dns_opt: list[str] | None = None,
         cpu_shares: int | None = None,
         cpuset_cpus: str | None = None,
         userns_mode: str | None = None,
@@ -117,7 +147,7 @@ class HostConfig(dict[str, Incomplete]):
         pids_limit: int | None = None,
         isolation: str | None = None,
         auto_remove: bool = False,
-        storage_opt: dict[Incomplete, Incomplete] | None = None,
+        storage_opt: dict[str, str] | None = None,
         init: bool | None = None,
         init_path: str | None = None,
         volume_driver: str | None = None,
@@ -129,40 +159,42 @@ class HostConfig(dict[str, Incomplete]):
         mounts: list[Mount] | None = None,
         cpu_rt_period: int | None = None,
         cpu_rt_runtime: int | None = None,
-        device_cgroup_rules: list[Incomplete] | None = None,
+        device_cgroup_rules: list[str] | None = None,
         device_requests: list[DeviceRequest] | None = None,
         cgroupns: Literal["private", "host"] | None = None,
     ) -> None: ...
 
-def host_config_type_error(param, param_value, expected): ...
-def host_config_version_error(param, version, less_than: bool = True): ...
-def host_config_value_error(param, param_value): ...
-def host_config_incompatible_error(param, param_value, incompatible_param): ...
+def host_config_type_error(param: str, param_value: object, expected: str) -> TypeError: ...
+def host_config_version_error(param: str, version: str, less_than: bool = True) -> errors.InvalidVersion: ...
+def host_config_value_error(param: str, param_value: object) -> ValueError: ...
+def host_config_incompatible_error(param: str, param_value: str, incompatible_param: str) -> errors.InvalidArgument: ...
 
-class ContainerConfig(dict[str, Incomplete]):
+class ContainerConfig(dict[str, Any]):
     def __init__(
         self,
         version: str,
-        image,
+        image: str,
         command: str | list[str],
         hostname: str | None = None,
         user: str | int | None = None,
         detach: bool = False,
         stdin_open: bool = False,
         tty: bool = False,
-        ports: dict[str, int | list[int] | tuple[str, int] | None] | None = None,
+        # list is invariant, enumerating all possible union combination would be too complex for:
+        # list[str | int | tuple[int | str, str] | tuple[int | str, ...]]
+        ports: dict[str, dict[str, str]] | list[Any] | None = None,
         environment: dict[str, str] | list[str] | None = None,
         volumes: str | list[str] | None = None,
         network_disabled: bool = False,
         entrypoint: str | list[str] | None = None,
         working_dir: str | None = None,
         domainname: str | None = None,
-        host_config: Incomplete | None = None,
+        host_config: HostConfig | None = None,
         mac_address: str | None = None,
         labels: dict[str, str] | list[str] | None = None,
         stop_signal: str | None = None,
-        networking_config: Incomplete | None = None,
-        healthcheck: Incomplete | None = None,
+        networking_config: NetworkingConfig | None = None,
+        healthcheck: Healthcheck | None = None,
         stop_timeout: int | None = None,
         runtime: str | None = None,
     ) -> None: ...

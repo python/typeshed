@@ -11,6 +11,7 @@ from openpyxl.xml.functions import Element
 # Does not reimplement the relevant methods, so runtime also has incompatible supertypes
 class NestedDateTime(DateTime[Incomplete], NestedText[Incomplete, Incomplete]):  # type: ignore[misc]
     expected_type: type[Incomplete]
+
     @overload  # type: ignore[override]
     def to_tree(self, tagname: str | None = None, value: None = None, namespace: str | None = None) -> None: ...
     @overload
@@ -46,7 +47,7 @@ class DocumentProperties(Serialisable):
         contentStatus: object = None,
         keywords: object = None,
         lastModifiedBy: object = None,
-        lastPrinted: Incomplete | None = None,
+        lastPrinted=None,
         revision: object = None,
         version: object = None,
         created=None,

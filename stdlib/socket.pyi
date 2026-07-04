@@ -28,6 +28,7 @@ from _socket import (
     IP_MULTICAST_LOOP as IP_MULTICAST_LOOP,
     IP_MULTICAST_TTL as IP_MULTICAST_TTL,
     IP_OPTIONS as IP_OPTIONS,
+    IP_RECVTOS as IP_RECVTOS,
     IP_TOS as IP_TOS,
     IP_TTL as IP_TTL,
     IPPORT_RESERVED as IPPORT_RESERVED,
@@ -136,7 +137,7 @@ from _typeshed import ReadableBuffer, Unused, WriteableBuffer
 from collections.abc import Iterable
 from enum import IntEnum, IntFlag
 from io import BufferedReader, BufferedRWPair, BufferedWriter, IOBase, RawIOBase, TextIOWrapper
-from typing import Any, Literal, Protocol, SupportsIndex, overload
+from typing import Any, Final, Literal, Protocol, SupportsIndex, overload, type_check_only
 from typing_extensions import Self
 
 __all__ = [
@@ -223,6 +224,7 @@ __all__ = [
     "IP_MULTICAST_LOOP",
     "IP_MULTICAST_TTL",
     "IP_OPTIONS",
+    "IP_RECVTOS",
     "IP_TOS",
     "IP_TTL",
     "MSG_CTRUNC",
@@ -356,11 +358,6 @@ if sys.platform != "darwin":
     from _socket import TCP_KEEPIDLE as TCP_KEEPIDLE
 
     __all__ += ["TCP_KEEPIDLE", "AF_IRDA", "MSG_ERRQUEUE"]
-
-if sys.version_info >= (3, 10):
-    from _socket import IP_RECVTOS as IP_RECVTOS
-
-    __all__ += ["IP_RECVTOS"]
 
 if sys.platform != "win32" and sys.platform != "darwin":
     from _socket import (
@@ -519,12 +516,13 @@ if sys.platform != "win32":
 
         __all__ += ["SO_BINDTODEVICE"]
 
-if sys.platform != "darwin" and sys.platform != "linux":
+if sys.platform != "darwin":
     from _socket import BDADDR_ANY as BDADDR_ANY, BDADDR_LOCAL as BDADDR_LOCAL, BTPROTO_RFCOMM as BTPROTO_RFCOMM
 
+if sys.platform != "darwin" and sys.platform != "linux":
     __all__ += ["BDADDR_ANY", "BDADDR_LOCAL", "BTPROTO_RFCOMM"]
 
-if sys.platform == "darwin" and sys.version_info >= (3, 10):
+if sys.platform == "darwin":
     from _socket import TCP_KEEPALIVE as TCP_KEEPALIVE
 
     __all__ += ["TCP_KEEPALIVE"]
@@ -774,6 +772,72 @@ if sys.platform == "linux":
         from _socket import CAN_RAW_ERR_FILTER as CAN_RAW_ERR_FILTER
 
         __all__ += ["CAN_RAW_ERR_FILTER"]
+    if sys.version_info >= (3, 13):
+        from _socket import CAN_RAW_ERR_FILTER as CAN_RAW_ERR_FILTER
+
+        __all__ += ["CAN_RAW_ERR_FILTER"]
+    if sys.version_info >= (3, 15):
+        from _socket import (
+            CAN_ISOTP_CHK_PAD_DATA as CAN_ISOTP_CHK_PAD_DATA,
+            CAN_ISOTP_CHK_PAD_LEN as CAN_ISOTP_CHK_PAD_LEN,
+            CAN_ISOTP_DEFAULT_EXT_ADDRESS as CAN_ISOTP_DEFAULT_EXT_ADDRESS,
+            CAN_ISOTP_DEFAULT_FLAGS as CAN_ISOTP_DEFAULT_FLAGS,
+            CAN_ISOTP_DEFAULT_FRAME_TXTIME as CAN_ISOTP_DEFAULT_FRAME_TXTIME,
+            CAN_ISOTP_DEFAULT_LL_MTU as CAN_ISOTP_DEFAULT_LL_MTU,
+            CAN_ISOTP_DEFAULT_LL_TX_DL as CAN_ISOTP_DEFAULT_LL_TX_DL,
+            CAN_ISOTP_DEFAULT_LL_TX_FLAGS as CAN_ISOTP_DEFAULT_LL_TX_FLAGS,
+            CAN_ISOTP_DEFAULT_PAD_CONTENT as CAN_ISOTP_DEFAULT_PAD_CONTENT,
+            CAN_ISOTP_DEFAULT_RECV_BS as CAN_ISOTP_DEFAULT_RECV_BS,
+            CAN_ISOTP_DEFAULT_RECV_STMIN as CAN_ISOTP_DEFAULT_RECV_STMIN,
+            CAN_ISOTP_DEFAULT_RECV_WFTMAX as CAN_ISOTP_DEFAULT_RECV_WFTMAX,
+            CAN_ISOTP_EXTEND_ADDR as CAN_ISOTP_EXTEND_ADDR,
+            CAN_ISOTP_FORCE_RXSTMIN as CAN_ISOTP_FORCE_RXSTMIN,
+            CAN_ISOTP_FORCE_TXSTMIN as CAN_ISOTP_FORCE_TXSTMIN,
+            CAN_ISOTP_HALF_DUPLEX as CAN_ISOTP_HALF_DUPLEX,
+            CAN_ISOTP_LISTEN_MODE as CAN_ISOTP_LISTEN_MODE,
+            CAN_ISOTP_LL_OPTS as CAN_ISOTP_LL_OPTS,
+            CAN_ISOTP_OPTS as CAN_ISOTP_OPTS,
+            CAN_ISOTP_RECV_FC as CAN_ISOTP_RECV_FC,
+            CAN_ISOTP_RX_EXT_ADDR as CAN_ISOTP_RX_EXT_ADDR,
+            CAN_ISOTP_RX_PADDING as CAN_ISOTP_RX_PADDING,
+            CAN_ISOTP_RX_STMIN as CAN_ISOTP_RX_STMIN,
+            CAN_ISOTP_SF_BROADCAST as CAN_ISOTP_SF_BROADCAST,
+            CAN_ISOTP_TX_PADDING as CAN_ISOTP_TX_PADDING,
+            CAN_ISOTP_TX_STMIN as CAN_ISOTP_TX_STMIN,
+            CAN_ISOTP_WAIT_TX_DONE as CAN_ISOTP_WAIT_TX_DONE,
+            SOL_CAN_ISOTP as SOL_CAN_ISOTP,
+        )
+
+        __all__ += [
+            "CAN_ISOTP_CHK_PAD_DATA",
+            "CAN_ISOTP_CHK_PAD_LEN",
+            "CAN_ISOTP_DEFAULT_EXT_ADDRESS",
+            "CAN_ISOTP_DEFAULT_FLAGS",
+            "CAN_ISOTP_DEFAULT_FRAME_TXTIME",
+            "CAN_ISOTP_DEFAULT_LL_MTU",
+            "CAN_ISOTP_DEFAULT_LL_TX_DL",
+            "CAN_ISOTP_DEFAULT_LL_TX_FLAGS",
+            "CAN_ISOTP_DEFAULT_PAD_CONTENT",
+            "CAN_ISOTP_DEFAULT_RECV_BS",
+            "CAN_ISOTP_DEFAULT_RECV_STMIN",
+            "CAN_ISOTP_DEFAULT_RECV_WFTMAX",
+            "CAN_ISOTP_EXTEND_ADDR",
+            "CAN_ISOTP_FORCE_RXSTMIN",
+            "CAN_ISOTP_FORCE_TXSTMIN",
+            "CAN_ISOTP_HALF_DUPLEX",
+            "CAN_ISOTP_LL_OPTS",
+            "CAN_ISOTP_LISTEN_MODE",
+            "CAN_ISOTP_OPTS",
+            "CAN_ISOTP_RECV_FC",
+            "CAN_ISOTP_RX_EXT_ADDR",
+            "CAN_ISOTP_RX_PADDING",
+            "CAN_ISOTP_RX_STMIN",
+            "CAN_ISOTP_SF_BROADCAST",
+            "CAN_ISOTP_TX_PADDING",
+            "CAN_ISOTP_TX_STMIN",
+            "CAN_ISOTP_WAIT_TX_DONE",
+            "SOL_CAN_ISOTP",
+        ]
 
 if sys.platform == "linux":
     from _socket import (
@@ -837,7 +901,7 @@ if sys.platform == "linux":
         "UDPLITE_RECV_CSCOV",
         "UDPLITE_SEND_CSCOV",
     ]
-if sys.platform == "linux" and sys.version_info >= (3, 10):
+if sys.platform == "linux":
     from _socket import IPPROTO_MPTCP as IPPROTO_MPTCP
 
     __all__ += ["IPPROTO_MPTCP"]
@@ -965,6 +1029,22 @@ if sys.platform != "linux":
 if sys.platform != "darwin" and sys.platform != "linux":
     __all__ += ["AF_BLUETOOTH"]
 
+if sys.platform != "win32" and sys.platform != "darwin":
+    from _socket import BTPROTO_HCI as BTPROTO_HCI, BTPROTO_L2CAP as BTPROTO_L2CAP, BTPROTO_SCO as BTPROTO_SCO
+
+if sys.platform != "win32" and sys.platform != "darwin" and sys.platform != "linux":
+    __all__ += ["BTPROTO_HCI", "BTPROTO_L2CAP", "BTPROTO_SCO"]
+
+if sys.platform != "win32" and sys.platform != "darwin" and sys.platform != "linux":
+    from _socket import HCI_DATA_DIR as HCI_DATA_DIR, HCI_FILTER as HCI_FILTER, HCI_TIME_STAMP as HCI_TIME_STAMP
+
+    __all__ += ["HCI_FILTER", "HCI_TIME_STAMP", "HCI_DATA_DIR"]
+
+if sys.version_info >= (3, 11) and sys.platform != "linux" and sys.platform != "win32" and sys.platform != "darwin":
+    from _socket import LOCAL_CREDS as LOCAL_CREDS, LOCAL_CREDS_PERSISTENT as LOCAL_CREDS_PERSISTENT, SCM_CREDS2 as SCM_CREDS2
+
+    __all__ += ["SCM_CREDS2", "LOCAL_CREDS", "LOCAL_CREDS_PERSISTENT"]
+
 if sys.platform == "win32" and sys.version_info >= (3, 12):
     __all__ += ["AF_HYPERV"]
 
@@ -1023,10 +1103,114 @@ if sys.platform != "linux":
 
     __all__ += ["IPPROTO_GGP", "IPPROTO_IPV4", "IPPROTO_MAX", "IPPROTO_ND", "IP_RECVDSTADDR", "SO_USELOOPBACK"]
 
+if sys.version_info >= (3, 15):
+    if sys.platform == "win32" or sys.platform == "linux":
+        from _socket import IPV6_HDRINCL as IPV6_HDRINCL
+
+        __all__ += ["IPV6_HDRINCL"]
+
+if sys.version_info >= (3, 14):
+    from _socket import IP_RECVTTL as IP_RECVTTL
+
+    __all__ += ["IP_RECVTTL"]
+
+    if sys.platform == "win32" or sys.platform == "linux":
+        from _socket import IP_RECVERR as IP_RECVERR, IPV6_RECVERR as IPV6_RECVERR, SO_ORIGINAL_DST as SO_ORIGINAL_DST
+
+        __all__ += ["IP_RECVERR", "IPV6_RECVERR", "SO_ORIGINAL_DST"]
+
+    if sys.platform == "win32":
+        from _socket import (
+            SO_BTH_ENCRYPT as SO_BTH_ENCRYPT,
+            SO_BTH_MTU as SO_BTH_MTU,
+            SO_BTH_MTU_MAX as SO_BTH_MTU_MAX,
+            SO_BTH_MTU_MIN as SO_BTH_MTU_MIN,
+            SOL_RFCOMM as SOL_RFCOMM,
+            TCP_QUICKACK as TCP_QUICKACK,
+        )
+
+        __all__ += ["SOL_RFCOMM", "SO_BTH_ENCRYPT", "SO_BTH_MTU", "SO_BTH_MTU_MAX", "SO_BTH_MTU_MIN", "TCP_QUICKACK"]
+
+    if sys.platform == "linux":
+        from _socket import (
+            BDADDR_BREDR as BDADDR_BREDR,
+            BDADDR_LE_PUBLIC as BDADDR_LE_PUBLIC,
+            BDADDR_LE_RANDOM as BDADDR_LE_RANDOM,
+            BT_CHANNEL_POLICY as BT_CHANNEL_POLICY,
+            BT_CHANNEL_POLICY_BREDR_ONLY as BT_CHANNEL_POLICY_BREDR_ONLY,
+            BT_CHANNEL_POLICY_BREDR_PREFERRED as BT_CHANNEL_POLICY_BREDR_PREFERRED,
+            BT_CODEC as BT_CODEC,
+            BT_DEFER_SETUP as BT_DEFER_SETUP,
+            BT_FLUSHABLE as BT_FLUSHABLE,
+            BT_FLUSHABLE_OFF as BT_FLUSHABLE_OFF,
+            BT_FLUSHABLE_ON as BT_FLUSHABLE_ON,
+            BT_ISO_QOS as BT_ISO_QOS,
+            BT_MODE as BT_MODE,
+            BT_MODE_BASIC as BT_MODE_BASIC,
+            BT_MODE_ERTM as BT_MODE_ERTM,
+            BT_MODE_EXT_FLOWCTL as BT_MODE_EXT_FLOWCTL,
+            BT_MODE_LE_FLOWCTL as BT_MODE_LE_FLOWCTL,
+            BT_MODE_STREAMING as BT_MODE_STREAMING,
+            BT_PHY as BT_PHY,
+            BT_PHY_BR_1M_1SLOT as BT_PHY_BR_1M_1SLOT,
+            BT_PHY_BR_1M_3SLOT as BT_PHY_BR_1M_3SLOT,
+            BT_PHY_BR_1M_5SLOT as BT_PHY_BR_1M_5SLOT,
+            BT_PHY_EDR_2M_1SLOT as BT_PHY_EDR_2M_1SLOT,
+            BT_PHY_EDR_2M_3SLOT as BT_PHY_EDR_2M_3SLOT,
+            BT_PHY_EDR_2M_5SLOT as BT_PHY_EDR_2M_5SLOT,
+            BT_PHY_EDR_3M_1SLOT as BT_PHY_EDR_3M_1SLOT,
+            BT_PHY_EDR_3M_3SLOT as BT_PHY_EDR_3M_3SLOT,
+            BT_PHY_EDR_3M_5SLOT as BT_PHY_EDR_3M_5SLOT,
+            BT_PHY_LE_1M_RX as BT_PHY_LE_1M_RX,
+            BT_PHY_LE_1M_TX as BT_PHY_LE_1M_TX,
+            BT_PHY_LE_2M_RX as BT_PHY_LE_2M_RX,
+            BT_PHY_LE_2M_TX as BT_PHY_LE_2M_TX,
+            BT_PHY_LE_CODED_RX as BT_PHY_LE_CODED_RX,
+            BT_PHY_LE_CODED_TX as BT_PHY_LE_CODED_TX,
+            BT_PKT_STATUS as BT_PKT_STATUS,
+            BT_POWER as BT_POWER,
+            BT_POWER_FORCE_ACTIVE_OFF as BT_POWER_FORCE_ACTIVE_OFF,
+            BT_POWER_FORCE_ACTIVE_ON as BT_POWER_FORCE_ACTIVE_ON,
+            BT_RCVMTU as BT_RCVMTU,
+            BT_SECURITY as BT_SECURITY,
+            BT_SECURITY_FIPS as BT_SECURITY_FIPS,
+            BT_SECURITY_HIGH as BT_SECURITY_HIGH,
+            BT_SECURITY_LOW as BT_SECURITY_LOW,
+            BT_SECURITY_MEDIUM as BT_SECURITY_MEDIUM,
+            BT_SECURITY_SDP as BT_SECURITY_SDP,
+            BT_SNDMTU as BT_SNDMTU,
+            BT_VOICE as BT_VOICE,
+            BT_VOICE_CVSD_16BIT as BT_VOICE_CVSD_16BIT,
+            BT_VOICE_TRANSPARENT as BT_VOICE_TRANSPARENT,
+            BT_VOICE_TRANSPARENT_16BIT as BT_VOICE_TRANSPARENT_16BIT,
+            HCI_CHANNEL_CONTROL as HCI_CHANNEL_CONTROL,
+            HCI_CHANNEL_LOGGING as HCI_CHANNEL_LOGGING,
+            HCI_CHANNEL_MONITOR as HCI_CHANNEL_MONITOR,
+            HCI_CHANNEL_RAW as HCI_CHANNEL_RAW,
+            HCI_CHANNEL_USER as HCI_CHANNEL_USER,
+            HCI_DEV_NONE as HCI_DEV_NONE,
+            IP_FREEBIND as IP_FREEBIND,
+            IP_RECVORIGDSTADDR as IP_RECVORIGDSTADDR,
+            L2CAP_LM as L2CAP_LM,
+            L2CAP_LM_AUTH as L2CAP_LM_AUTH,
+            L2CAP_LM_ENCRYPT as L2CAP_LM_ENCRYPT,
+            L2CAP_LM_MASTER as L2CAP_LM_MASTER,
+            L2CAP_LM_RELIABLE as L2CAP_LM_RELIABLE,
+            L2CAP_LM_SECURE as L2CAP_LM_SECURE,
+            L2CAP_LM_TRUSTED as L2CAP_LM_TRUSTED,
+            SOL_BLUETOOTH as SOL_BLUETOOTH,
+            SOL_L2CAP as SOL_L2CAP,
+            SOL_RFCOMM as SOL_RFCOMM,
+            SOL_SCO as SOL_SCO,
+            VMADDR_CID_LOCAL as VMADDR_CID_LOCAL,
+        )
+
+        __all__ += ["IP_FREEBIND", "IP_RECVORIGDSTADDR", "VMADDR_CID_LOCAL"]
+
 # Re-exported from errno
-EBADF: int
-EAGAIN: int
-EWOULDBLOCK: int
+EBADF: Final[int]
+EAGAIN: Final[int]
+EWOULDBLOCK: Final[int]
 
 # These errors are implemented in _socket at runtime
 # but they consider themselves to live in socket so we'll put them here.
@@ -1035,10 +1219,7 @@ error = OSError
 class herror(error): ...
 class gaierror(error): ...
 
-if sys.version_info >= (3, 10):
-    timeout = TimeoutError
-else:
-    class timeout(error): ...
+timeout = TimeoutError
 
 class AddressFamily(IntEnum):
     AF_INET = 2
@@ -1081,7 +1262,7 @@ class AddressFamily(IntEnum):
         AF_QIPCRTR = 42
     if sys.platform != "linux":
         AF_LINK = 33
-    if sys.platform != "darwin" and sys.platform != "linux":
+    if sys.platform != "darwin":
         AF_BLUETOOTH = 32
     if sys.platform == "win32" and sys.version_info >= (3, 12):
         AF_HYPERV = 34
@@ -1089,60 +1270,60 @@ class AddressFamily(IntEnum):
         # FreeBSD >= 14.0
         AF_DIVERT = 44
 
-AF_INET = AddressFamily.AF_INET
-AF_INET6 = AddressFamily.AF_INET6
-AF_APPLETALK = AddressFamily.AF_APPLETALK
-AF_DECnet: Literal[12]
-AF_IPX = AddressFamily.AF_IPX
-AF_SNA = AddressFamily.AF_SNA
-AF_UNSPEC = AddressFamily.AF_UNSPEC
+AF_INET: Final = AddressFamily.AF_INET
+AF_INET6: Final = AddressFamily.AF_INET6
+AF_APPLETALK: Final = AddressFamily.AF_APPLETALK
+AF_DECnet: Final = 12
+AF_IPX: Final = AddressFamily.AF_IPX
+AF_SNA: Final = AddressFamily.AF_SNA
+AF_UNSPEC: Final = AddressFamily.AF_UNSPEC
 
 if sys.platform != "darwin":
-    AF_IRDA = AddressFamily.AF_IRDA
+    AF_IRDA: Final = AddressFamily.AF_IRDA
 
 if sys.platform != "win32":
-    AF_ROUTE = AddressFamily.AF_ROUTE
-    AF_UNIX = AddressFamily.AF_UNIX
+    AF_ROUTE: Final = AddressFamily.AF_ROUTE
+    AF_UNIX: Final = AddressFamily.AF_UNIX
 
 if sys.platform == "darwin":
-    AF_SYSTEM = AddressFamily.AF_SYSTEM
+    AF_SYSTEM: Final = AddressFamily.AF_SYSTEM
 
 if sys.platform != "win32" and sys.platform != "darwin":
-    AF_ASH = AddressFamily.AF_ASH
-    AF_ATMPVC = AddressFamily.AF_ATMPVC
-    AF_ATMSVC = AddressFamily.AF_ATMSVC
-    AF_AX25 = AddressFamily.AF_AX25
-    AF_BRIDGE = AddressFamily.AF_BRIDGE
-    AF_ECONET = AddressFamily.AF_ECONET
-    AF_KEY = AddressFamily.AF_KEY
-    AF_LLC = AddressFamily.AF_LLC
-    AF_NETBEUI = AddressFamily.AF_NETBEUI
-    AF_NETROM = AddressFamily.AF_NETROM
-    AF_PPPOX = AddressFamily.AF_PPPOX
-    AF_ROSE = AddressFamily.AF_ROSE
-    AF_SECURITY = AddressFamily.AF_SECURITY
-    AF_WANPIPE = AddressFamily.AF_WANPIPE
-    AF_X25 = AddressFamily.AF_X25
+    AF_ASH: Final = AddressFamily.AF_ASH
+    AF_ATMPVC: Final = AddressFamily.AF_ATMPVC
+    AF_ATMSVC: Final = AddressFamily.AF_ATMSVC
+    AF_AX25: Final = AddressFamily.AF_AX25
+    AF_BRIDGE: Final = AddressFamily.AF_BRIDGE
+    AF_ECONET: Final = AddressFamily.AF_ECONET
+    AF_KEY: Final = AddressFamily.AF_KEY
+    AF_LLC: Final = AddressFamily.AF_LLC
+    AF_NETBEUI: Final = AddressFamily.AF_NETBEUI
+    AF_NETROM: Final = AddressFamily.AF_NETROM
+    AF_PPPOX: Final = AddressFamily.AF_PPPOX
+    AF_ROSE: Final = AddressFamily.AF_ROSE
+    AF_SECURITY: Final = AddressFamily.AF_SECURITY
+    AF_WANPIPE: Final = AddressFamily.AF_WANPIPE
+    AF_X25: Final = AddressFamily.AF_X25
 
 if sys.platform == "linux":
-    AF_CAN = AddressFamily.AF_CAN
-    AF_PACKET = AddressFamily.AF_PACKET
-    AF_RDS = AddressFamily.AF_RDS
-    AF_TIPC = AddressFamily.AF_TIPC
-    AF_ALG = AddressFamily.AF_ALG
-    AF_NETLINK = AddressFamily.AF_NETLINK
-    AF_VSOCK = AddressFamily.AF_VSOCK
-    AF_QIPCRTR = AddressFamily.AF_QIPCRTR
+    AF_CAN: Final = AddressFamily.AF_CAN
+    AF_PACKET: Final = AddressFamily.AF_PACKET
+    AF_RDS: Final = AddressFamily.AF_RDS
+    AF_TIPC: Final = AddressFamily.AF_TIPC
+    AF_ALG: Final = AddressFamily.AF_ALG
+    AF_NETLINK: Final = AddressFamily.AF_NETLINK
+    AF_VSOCK: Final = AddressFamily.AF_VSOCK
+    AF_QIPCRTR: Final = AddressFamily.AF_QIPCRTR
 
 if sys.platform != "linux":
-    AF_LINK = AddressFamily.AF_LINK
-if sys.platform != "darwin" and sys.platform != "linux":
-    AF_BLUETOOTH = AddressFamily.AF_BLUETOOTH
+    AF_LINK: Final = AddressFamily.AF_LINK
+if sys.platform != "darwin":
+    AF_BLUETOOTH: Final = AddressFamily.AF_BLUETOOTH
 if sys.platform == "win32" and sys.version_info >= (3, 12):
-    AF_HYPERV = AddressFamily.AF_HYPERV
+    AF_HYPERV: Final = AddressFamily.AF_HYPERV
 if sys.platform != "linux" and sys.platform != "win32" and sys.platform != "darwin" and sys.version_info >= (3, 12):
     # FreeBSD >= 14.0
-    AF_DIVERT = AddressFamily.AF_DIVERT
+    AF_DIVERT: Final = AddressFamily.AF_DIVERT
 
 class SocketKind(IntEnum):
     SOCK_STREAM = 1
@@ -1154,14 +1335,14 @@ class SocketKind(IntEnum):
         SOCK_CLOEXEC = 524288
         SOCK_NONBLOCK = 2048
 
-SOCK_STREAM = SocketKind.SOCK_STREAM
-SOCK_DGRAM = SocketKind.SOCK_DGRAM
-SOCK_RAW = SocketKind.SOCK_RAW
-SOCK_RDM = SocketKind.SOCK_RDM
-SOCK_SEQPACKET = SocketKind.SOCK_SEQPACKET
+SOCK_STREAM: Final = SocketKind.SOCK_STREAM
+SOCK_DGRAM: Final = SocketKind.SOCK_DGRAM
+SOCK_RAW: Final = SocketKind.SOCK_RAW
+SOCK_RDM: Final = SocketKind.SOCK_RDM
+SOCK_SEQPACKET: Final = SocketKind.SOCK_SEQPACKET
 if sys.platform == "linux":
-    SOCK_CLOEXEC = SocketKind.SOCK_CLOEXEC
-    SOCK_NONBLOCK = SocketKind.SOCK_NONBLOCK
+    SOCK_CLOEXEC: Final = SocketKind.SOCK_CLOEXEC
+    SOCK_NONBLOCK: Final = SocketKind.SOCK_NONBLOCK
 
 class MsgFlag(IntFlag):
     MSG_CTRUNC = 8
@@ -1193,36 +1374,36 @@ class MsgFlag(IntFlag):
     if sys.platform != "win32" and sys.platform != "linux":
         MSG_EOF = 256
 
-MSG_CTRUNC = MsgFlag.MSG_CTRUNC
-MSG_DONTROUTE = MsgFlag.MSG_DONTROUTE
-MSG_OOB = MsgFlag.MSG_OOB
-MSG_PEEK = MsgFlag.MSG_PEEK
-MSG_TRUNC = MsgFlag.MSG_TRUNC
-MSG_WAITALL = MsgFlag.MSG_WAITALL
+MSG_CTRUNC: Final = MsgFlag.MSG_CTRUNC
+MSG_DONTROUTE: Final = MsgFlag.MSG_DONTROUTE
+MSG_OOB: Final = MsgFlag.MSG_OOB
+MSG_PEEK: Final = MsgFlag.MSG_PEEK
+MSG_TRUNC: Final = MsgFlag.MSG_TRUNC
+MSG_WAITALL: Final = MsgFlag.MSG_WAITALL
 
 if sys.platform == "win32":
-    MSG_BCAST = MsgFlag.MSG_BCAST
-    MSG_MCAST = MsgFlag.MSG_MCAST
+    MSG_BCAST: Final = MsgFlag.MSG_BCAST
+    MSG_MCAST: Final = MsgFlag.MSG_MCAST
 
 if sys.platform != "darwin":
-    MSG_ERRQUEUE = MsgFlag.MSG_ERRQUEUE
+    MSG_ERRQUEUE: Final = MsgFlag.MSG_ERRQUEUE
 
 if sys.platform != "win32":
-    MSG_DONTWAIT = MsgFlag.MSG_DONTWAIT
-    MSG_EOR = MsgFlag.MSG_EOR
-    MSG_NOSIGNAL = MsgFlag.MSG_NOSIGNAL  # Sometimes this exists on darwin, sometimes not
+    MSG_DONTWAIT: Final = MsgFlag.MSG_DONTWAIT
+    MSG_EOR: Final = MsgFlag.MSG_EOR
+    MSG_NOSIGNAL: Final = MsgFlag.MSG_NOSIGNAL  # Sometimes this exists on darwin, sometimes not
 
 if sys.platform != "win32" and sys.platform != "darwin":
-    MSG_CMSG_CLOEXEC = MsgFlag.MSG_CMSG_CLOEXEC
-    MSG_CONFIRM = MsgFlag.MSG_CONFIRM
-    MSG_FASTOPEN = MsgFlag.MSG_FASTOPEN
-    MSG_MORE = MsgFlag.MSG_MORE
+    MSG_CMSG_CLOEXEC: Final = MsgFlag.MSG_CMSG_CLOEXEC
+    MSG_CONFIRM: Final = MsgFlag.MSG_CONFIRM
+    MSG_FASTOPEN: Final = MsgFlag.MSG_FASTOPEN
+    MSG_MORE: Final = MsgFlag.MSG_MORE
 
 if sys.platform != "win32" and sys.platform != "darwin" and sys.platform != "linux":
-    MSG_NOTIFICATION = MsgFlag.MSG_NOTIFICATION
+    MSG_NOTIFICATION: Final = MsgFlag.MSG_NOTIFICATION
 
 if sys.platform != "win32" and sys.platform != "linux":
-    MSG_EOF = MsgFlag.MSG_EOF
+    MSG_EOF: Final = MsgFlag.MSG_EOF
 
 class AddressInfo(IntFlag):
     AI_ADDRCONFIG = 32
@@ -1237,22 +1418,23 @@ class AddressInfo(IntFlag):
         AI_MASK = 5127
         AI_V4MAPPED_CFG = 512
 
-AI_ADDRCONFIG = AddressInfo.AI_ADDRCONFIG
-AI_ALL = AddressInfo.AI_ALL
-AI_CANONNAME = AddressInfo.AI_CANONNAME
-AI_NUMERICHOST = AddressInfo.AI_NUMERICHOST
-AI_NUMERICSERV = AddressInfo.AI_NUMERICSERV
-AI_PASSIVE = AddressInfo.AI_PASSIVE
-AI_V4MAPPED = AddressInfo.AI_V4MAPPED
+AI_ADDRCONFIG: Final = AddressInfo.AI_ADDRCONFIG
+AI_ALL: Final = AddressInfo.AI_ALL
+AI_CANONNAME: Final = AddressInfo.AI_CANONNAME
+AI_NUMERICHOST: Final = AddressInfo.AI_NUMERICHOST
+AI_NUMERICSERV: Final = AddressInfo.AI_NUMERICSERV
+AI_PASSIVE: Final = AddressInfo.AI_PASSIVE
+AI_V4MAPPED: Final = AddressInfo.AI_V4MAPPED
 
 if sys.platform != "win32" and sys.platform != "linux":
-    AI_DEFAULT = AddressInfo.AI_DEFAULT
-    AI_MASK = AddressInfo.AI_MASK
-    AI_V4MAPPED_CFG = AddressInfo.AI_V4MAPPED_CFG
+    AI_DEFAULT: Final = AddressInfo.AI_DEFAULT
+    AI_MASK: Final = AddressInfo.AI_MASK
+    AI_V4MAPPED_CFG: Final = AddressInfo.AI_V4MAPPED_CFG
 
 if sys.platform == "win32":
     errorTab: dict[int, str]  # undocumented
 
+@type_check_only
 class _SendableFile(Protocol):
     def read(self, size: int, /) -> bytes: ...
     def seek(self, offset: int, /) -> object: ...
@@ -1264,6 +1446,7 @@ class _SendableFile(Protocol):
     # def fileno(self) -> int: ...
 
 class socket(_socket.socket):
+    __slots__ = ["__weakref__", "_io_refs", "_closed"]
     def __init__(
         self, family: AddressFamily | int = -1, type: SocketKind | int = -1, proto: int = -1, fileno: int | None = None
     ) -> None: ...
@@ -1271,6 +1454,7 @@ class socket(_socket.socket):
     def __exit__(self, *args: Unused) -> None: ...
     def dup(self) -> Self: ...
     def accept(self) -> tuple[socket, _RetAddress]: ...
+
     # Note that the makefile's documented windows-specific behavior is not represented
     # mode strings with duplicates are intentionally excluded
     @overload
@@ -1333,6 +1517,7 @@ class socket(_socket.socket):
         errors: str | None = None,
         newline: str | None = None,
     ) -> TextIOWrapper: ...
+
     def sendfile(self, file: _SendableFile, offset: int = 0, count: int | None = None) -> int: ...
     @property
     def family(self) -> AddressFamily: ...
@@ -1357,7 +1542,7 @@ if sys.platform == "win32":
 
 else:
     def socketpair(
-        family: int | AddressFamily | None = None, type: SocketType | int = ..., proto: int = 0
+        family: int | AddressFamily | None = None, type: SocketKind | int = ..., proto: int = 0
     ) -> tuple[socket, socket]: ...
 
 class SocketIO(RawIOBase):
@@ -1373,7 +1558,7 @@ def getfqdn(name: str = "") -> str: ...
 
 if sys.version_info >= (3, 11):
     def create_connection(
-        address: tuple[str | None, int],
+        address: tuple[str | None, bytes | str | int | None],
         timeout: float | None = ...,
         source_address: _Address | None = None,
         *,

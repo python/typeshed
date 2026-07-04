@@ -1,6 +1,6 @@
 from collections.abc import Iterable
-from typing import Literal, SupportsFloat, SupportsIndex
-from typing_extensions import Self, TypeAlias
+from typing import Literal, SupportsFloat, SupportsIndex, TypeAlias
+from typing_extensions import Self
 
 from .._typing import ArrayLikeSeq
 from ..constructive import BufferJoinStyle
@@ -15,6 +15,7 @@ __all__ = ["LineString"]
 _ConvertibleToLineString: TypeAlias = LineString | ArrayLikeSeq[float] | Iterable[Point | Iterable[SupportsFloat]]
 
 class LineString(BaseGeometry):
+    __slots__: list[str] = []
     def __new__(self, coordinates: _ConvertibleToLineString | None = None) -> Self: ...
     def svg(self, scale_factor: float = 1.0, stroke_color: str | None = None, opacity: float | None = None) -> str: ...  # type: ignore[override]
     def offset_curve(
@@ -33,6 +34,8 @@ class LineString(BaseGeometry):
         mitre_limit: float = 5.0,
     ) -> LineString | MultiLineString: ...
     # more precise base overrides
+    @property
+    def geom_type(self) -> Literal["LineString", "LinearRing"]: ...  # LinearRing is a subclass of LineString
     @property
     def boundary(self) -> MultiPoint: ...
     @property

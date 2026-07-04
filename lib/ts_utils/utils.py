@@ -5,13 +5,19 @@ from __future__ import annotations
 import functools
 import re
 import sys
+import tempfile
 from collections.abc import Iterable, Mapping
 from pathlib import Path
-from typing import Any, Final, NamedTuple
-from typing_extensions import TypeAlias
+from types import MethodType
+from typing import TYPE_CHECKING, Any, Final, NamedTuple, TypeAlias
 
 import pathspec
 from packaging.requirements import Requirement
+
+from .paths import GITIGNORE_PATH, REQUIREMENTS_PATH, STDLIB_PATH, STUBS_PATH, TEST_CASES_DIR, allowlists_path, test_cases_path
+
+if TYPE_CHECKING:
+    from _typeshed import OpenTextMode
 
 try:
     from termcolor import colored as colored  # pyright: ignore[reportAssignmentType]
@@ -21,13 +27,41 @@ except ImportError:
         return text
 
 
-from .paths import REQUIREMENTS_PATH, STDLIB_PATH, STUBS_PATH, TEST_CASES_DIR, allowlists_path, test_cases_path
+_REMOVE_COMMENT_RE = re.compile(
+    r"""
+    (\"(?:\\.|[^\\\"])*?\")  # matches literal strings
+    |
+    (\/\*.*?\*\/ | \/\/[^\r\n]*?(?:[\r\n]))  # matches single- and multi-line comments
+    """,
+    re.DOTALL | re.VERBOSE,
+)
+_REMOVE_TRAILING_COMMA_RE = re.compile(
+    r"""
+    (\"(?:\\.|[^\\\"])*?\")  # matches literal strings
+    |
+    ,\s*([\]}])  # matches commas before '}' or ']'
+    """,
+    re.DOTALL | re.VERBOSE,
+)
+
 
 PYTHON_VERSION: Final = f"{sys.version_info.major}.{sys.version_info.minor}"
 
 
 def strip_comments(text: str) -> str:
-    return text.split("#")[0].strip()
+    return text.split("#", maxsplit=1)[0].strip()
+
+
+def jsonc_to_json(text: str) -> str:
+    """Conversion from JSONC format input to valid JSON."""
+    # Remove comments
+    if not text.endswith("\n"):
+        text += "\n"
+    text = _REMOVE_COMMENT_RE.sub(lambda m: m.group(1) or "", text)
+
+    # Remove trailing commas before } or ]
+    text = _REMOVE_TRAILING_COMMA_RE.sub(lambda m: m.group(1) or m.group(2), text)
+    return text
 
 
 # ====================================================================
@@ -43,6 +77,14 @@ def print_command(cmd: str | Iterable[str]) -> None:
 
 def print_info(message: str) -> None:
     print(colored(message, "blue"))
+
+
+def print_warning(message: str) -> None:
+    print(colored(message, "yellow"))
+
+
+def print_skipped(message: str) -> None:
+    print(colored(message, "yellow"))
 
 
 def print_error(error: str, end: str = "\n", fix_path: tuple[str, str] = ("", "")) -> None:
@@ -196,18 +238,38 @@ def allowlists(distribution_name: str) -> list[str]:
         return ["stubtest_allowlist.txt", platform_allowlist]
 
 
+# Re-exposing as a public name to avoid many pyright reportPrivateUsage
+TemporaryFileWrapper = tempfile._TemporaryFileWrapper  # pyright: ignore[reportPrivateUsage]
+
+# We need to work around a limitation of tempfile.NamedTemporaryFile on Windows
+# For details, see https://github.com/python/typeshed/pull/13620#discussion_r1990185997
+# Python 3.12 added a cross-platform solution with `tempfile.NamedTemporaryFile("w+", delete_on_close=False)`
+if sys.platform != "win32":
+    NamedTemporaryFile = tempfile.NamedTemporaryFile  # noqa: TID251
+else:
+
+    def NamedTemporaryFile(mode: OpenTextMode) -> TemporaryFileWrapper[str]:  # noqa: N802
+        def close(self: TemporaryFileWrapper[str]) -> None:
+            TemporaryFileWrapper.close(self)  # pyright: ignore[reportUnknownMemberType]
+            Path(self.name).unlink()
+
+        temp = tempfile.NamedTemporaryFile(mode, delete=False)  # noqa: SIM115, TID251
+        temp.close = MethodType(close, temp)  # type: ignore[method-assign]
+        return temp
+
+
 # ====================================================================
 # Parsing .gitignore
 # ====================================================================
 
 
 @functools.cache
-def get_gitignore_spec() -> pathspec.PathSpec:
-    with open(".gitignore", encoding="UTF-8") as f:
+def get_gitignore_spec() -> pathspec.GitIgnoreSpec:
+    with GITIGNORE_PATH.open(encoding="UTF-8") as f:
         return pathspec.GitIgnoreSpec.from_lines(f)
 
 
-def spec_matches_path(spec: pathspec.PathSpec, path: Path) -> bool:
+def spec_matches_path(spec: pathspec.PathSpec[Any], path: Path) -> bool:
     normalized_path = path.as_posix()
     if path.is_dir():
         normalized_path += "/"
@@ -215,7 +277,7 @@ def spec_matches_path(spec: pathspec.PathSpec, path: Path) -> bool:
 
 
 # ====================================================================
-# mypy/stubtest call
+# stubtest call
 # ====================================================================
 
 

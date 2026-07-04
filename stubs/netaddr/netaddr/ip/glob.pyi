@@ -1,4 +1,4 @@
-from typing_extensions import TypeGuard
+from typing import TypeGuard
 
 from netaddr.ip import IPAddress, IPNetwork, IPRange, _IPAddressAddr, _IPNetworkAddr
 
@@ -10,7 +10,9 @@ def glob_to_cidrs(ipglob: str) -> list[IPNetwork]: ...
 def cidr_to_glob(cidr: _IPNetworkAddr) -> str: ...
 
 class IPGlob(IPRange):
+    __slots__ = ("_glob",)
     def __init__(self, ipglob: str) -> None: ...
+
     @property
     def glob(self) -> str: ...
     @glob.setter

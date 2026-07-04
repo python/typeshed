@@ -1,16 +1,21 @@
 from __future__ import annotations
 
-import os
+import subprocess
 import sys
-import tempfile
 from collections.abc import Generator, Iterable
 from contextlib import contextmanager
 from enum import Enum
 from typing import Any, NamedTuple
 
-import tomli
-
 from ts_utils.metadata import metadata_path
+
+if sys.version_info >= (3, 11):
+    import tomllib
+else:
+    import tomli as tomllib
+
+from ts_utils.metadata import StubtestSettings
+from ts_utils.utils import NamedTemporaryFile, TemporaryFileWrapper
 
 
 class MypyDistConf(NamedTuple):
@@ -23,11 +28,20 @@ class MypyResult(Enum):
     FAILURE = 1
     CRASH = 2
 
+    @staticmethod
+    def from_process_result(result: subprocess.CompletedProcess[Any]) -> MypyResult:
+        if result.returncode == 0:
+            return MypyResult.SUCCESS
+        elif result.returncode == 1:
+            return MypyResult.FAILURE
+        else:
+            return MypyResult.CRASH
+
 
 # The configuration section in the metadata file looks like the following, with multiple module sections possible
 # [mypy-tests]
 # [mypy-tests.yaml]
-# module_name = "yaml"
+# module-name = "yaml"
 # [mypy-tests.yaml.values]
 # disallow_incomplete_defs = true
 # disallow_untyped_defs = true
@@ -35,7 +49,7 @@ class MypyResult(Enum):
 
 def mypy_configuration_from_distribution(distribution: str) -> list[MypyDistConf]:
     with metadata_path(distribution).open("rb") as f:
-        data = tomli.load(f)
+        data = tomllib.load(f)
 
     # TODO: This could be added to ts_utils.metadata
     mypy_tests_conf: dict[str, dict[str, Any]] = data.get("mypy-tests", {})
@@ -44,9 +58,9 @@ def mypy_configuration_from_distribution(distribution: str) -> list[MypyDistConf
 
     def validate_configuration(section_name: str, mypy_section: dict[str, Any]) -> MypyDistConf:
         assert isinstance(mypy_section, dict), f"{section_name} should be a section"
-        module_name = mypy_section.get("module_name")
+        module_name = mypy_section.get("module-name")
 
-        assert module_name is not None, f"{section_name} should have a module_name key"
+        assert module_name is not None, f"{section_name} should have a module-name key"
         assert isinstance(module_name, str), f"{section_name} should be a key-value pair"
 
         assert "values" in mypy_section, f"{section_name} should have a values section"
@@ -60,21 +74,27 @@ def mypy_configuration_from_distribution(distribution: str) -> list[MypyDistConf
 
 @contextmanager
 def temporary_mypy_config_file(
-    configurations: Iterable[MypyDistConf],
-) -> Generator[tempfile._TemporaryFileWrapper[str]]:  # pyright: ignore[reportPrivateUsage]
-    # We need to work around a limitation of tempfile.NamedTemporaryFile on Windows
-    # For details, see https://github.com/python/typeshed/pull/13620#discussion_r1990185997
-    # Python 3.12 added a workaround with `tempfile.NamedTemporaryFile("w+", delete_on_close=False)`
-    temp = tempfile.NamedTemporaryFile("w+", delete=sys.platform != "win32")  # noqa: SIM115
+    configurations: Iterable[MypyDistConf], stubtest_settings: StubtestSettings | None = None
+) -> Generator[TemporaryFileWrapper[str]]:
+    temp = NamedTemporaryFile("w+")
     try:
         for dist_conf in configurations:
             temp.write(f"[mypy-{dist_conf.module_name}]\n")
             for k, v in dist_conf.values.items():
                 temp.write(f"{k} = {v}\n")
         temp.write("[mypy]\n")
+
+        if stubtest_settings:
+            if stubtest_settings.mypy_plugins:
+                temp.write(f"plugins = {'.'.join(stubtest_settings.mypy_plugins)}\n")
+
+            if stubtest_settings.mypy_plugins_config:
+                for plugin_name, plugin_dict in stubtest_settings.mypy_plugins_config.items():
+                    temp.write(f"[mypy.plugins.{plugin_name}]\n")
+                    for k, v in plugin_dict.items():
+                        temp.write(f"{k} = {v}\n")
+
         temp.flush()
         yield temp
     finally:
         temp.close()
-        if sys.platform == "win32":
-            os.remove(temp.name)

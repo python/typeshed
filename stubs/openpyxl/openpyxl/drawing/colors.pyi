@@ -1,6 +1,5 @@
 from _typeshed import ConvertibleToFloat, ConvertibleToInt, Incomplete
-from typing import ClassVar, Final, Literal, overload
-from typing_extensions import TypeAlias
+from typing import ClassVar, Final, Literal, TypeAlias, overload
 
 from openpyxl.descriptors import Strict, Typed
 from openpyxl.descriptors.base import Alias, Integer, MinMax, Set, _ConvertibleToBool
@@ -299,7 +298,7 @@ class SystemColor(Serialisable):
     def __init__(
         self,
         val: _SystemColorVal = "windowText",
-        lastClr: Incomplete | None = None,
+        lastClr=None,
         tint: _HasTagAndGet[ConvertibleToInt | None] | ConvertibleToInt | None = None,
         shade: _HasTagAndGet[ConvertibleToInt | None] | ConvertibleToInt | None = None,
         comp: Transform | None = None,
@@ -379,6 +378,7 @@ class SchemeColor(Serialisable):
     invGamma: EmptyTag[Literal[True]]
     val: Set[_SchemeColors]
     __elements__: ClassVar[tuple[str, ...]]
+
     @overload
     def __init__(
         self,

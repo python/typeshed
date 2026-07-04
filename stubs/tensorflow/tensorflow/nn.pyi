@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from collections.abc import Sequence
 from typing import Any, Literal, overload
 
@@ -157,6 +156,7 @@ def ctc_loss(
     name: str | None = None,
 ) -> Tensor: ...
 def ctc_unique_labels(labels: Tensor, name: str | None = None) -> tuple[Tensor, Tensor]: ...
+
 @overload
 def embedding_lookup(
     params: TensorCompatible, ids: TensorCompatible, max_norm: float | None = None, name: str | None = None
@@ -165,6 +165,7 @@ def embedding_lookup(
 def embedding_lookup(
     params: TensorCompatible, ids: RaggedTensor, max_norm: float | None = None, name: str | None = None
 ) -> RaggedTensor: ...
+
 def leaky_relu(features: TensorCompatible, alpha: float = 0.2, name: str | None = None) -> Tensor: ...
 def log_poisson_loss(
     targets: TensorCompatible, log_input: TensorCompatible, compute_full_loss: bool = False, name: str | None = None
@@ -192,4 +193,4 @@ def safe_embedding_lookup_sparse(
     name: str | None = None,
     allow_fast_lookup: bool = False,
 ) -> Tensor: ...
-def __getattr__(name: str) -> Incomplete: ...
+def __getattr__(name: str): ...  # incomplete module

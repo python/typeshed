@@ -1,7 +1,9 @@
 from _typeshed import Incomplete
-from collections.abc import Callable
+from collections.abc import Callable, Mapping
 from logging import Logger
-from typing import Any, Final
+from typing import Final
+
+from oauthlib.common import _HTTPMethod
 
 log: Logger
 SIGNATURE_HMAC_SHA1: Final[str]
@@ -23,44 +25,44 @@ class Client:
     SIGNATURE_METHODS: dict[str, Callable[[str, Incomplete], str]]
     @classmethod
     def register_signature_method(cls, method_name, method_callback) -> None: ...
-    client_key: Any
-    client_secret: Any
-    resource_owner_key: Any
-    resource_owner_secret: Any
-    signature_method: Any
-    signature_type: Any
-    callback_uri: Any
-    rsa_key: Any
-    verifier: Any
-    realm: Any
-    encoding: Any
-    decoding: Any
-    nonce: Any
-    timestamp: Any
+    client_key: Incomplete
+    client_secret: Incomplete
+    resource_owner_key: Incomplete
+    resource_owner_secret: Incomplete
+    signature_method: Incomplete
+    signature_type: Incomplete
+    callback_uri: Incomplete
+    rsa_key: Incomplete
+    verifier: Incomplete
+    realm: Incomplete
+    encoding: Incomplete
+    decoding: Incomplete
+    nonce: Incomplete
+    timestamp: Incomplete
     def __init__(
         self,
         client_key: str,
         client_secret: str | None = None,
-        resource_owner_key: Incomplete | None = None,
-        resource_owner_secret: Incomplete | None = None,
-        callback_uri: Incomplete | None = None,
+        resource_owner_key=None,
+        resource_owner_secret=None,
+        callback_uri=None,
         signature_method="HMAC-SHA1",
         signature_type="AUTH_HEADER",
-        rsa_key: Incomplete | None = None,
-        verifier: Incomplete | None = None,
-        realm: Incomplete | None = None,
+        rsa_key=None,
+        verifier=None,
+        realm=None,
         encoding: str = "utf-8",
-        decoding: Incomplete | None = None,
-        nonce: Incomplete | None = None,
-        timestamp: Incomplete | None = None,
+        decoding=None,
+        nonce=None,
+        timestamp=None,
     ): ...
     def get_oauth_signature(self, request): ...
     def get_oauth_params(self, request): ...
     def sign(
         self,
-        uri,
-        http_method: str = "GET",
-        body: str | None = None,
-        headers: dict[str, str] | None = None,
-        realm: Incomplete | None = None,
+        uri: str,
+        http_method: _HTTPMethod = "GET",
+        body: str | dict[str, str] | list[tuple[str, str]] | None = None,
+        headers: Mapping[str, str] | None = None,
+        realm=None,
     ): ...

@@ -1,6 +1,5 @@
 from _typeshed import ConvertibleToFloat, ConvertibleToInt, Incomplete, Unused
-from typing import ClassVar, Literal
-from typing_extensions import TypeAlias
+from typing import ClassVar, Literal, TypeAlias
 
 from openpyxl.descriptors.base import Alias, Integer, MinMax, NoneSet, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
@@ -44,7 +43,7 @@ class DashStop(Serialisable):
 
 class DashStopList(Serialisable):
     ds: Incomplete
-    def __init__(self, ds: Incomplete | None = None) -> None: ...
+    def __init__(self, ds=None) -> None: ...
 
 class LineProperties(Serialisable):
     tagname: ClassVar[str]

@@ -1,6 +1,5 @@
 from collections.abc import Iterable
-from typing import Any, AnyStr, Final, Literal, NamedTuple
-from typing_extensions import TypeAlias
+from typing import Any, AnyStr, Final, Literal, NamedTuple, TypeAlias
 
 _Unit: TypeAlias = Literal["pt", "mm", "cm", "in"]
 
@@ -26,7 +25,7 @@ def convert_unit(
 
 ROMAN_NUMERAL_MAP: Final[tuple[tuple[str, int], ...]]
 
-def int2roman(n: int) -> str: ...
+def int2roman(n: int | None) -> str: ...
 def int_to_letters(n: int) -> str: ...
 def print_mem_usage(prefix: str) -> None: ...
 def get_mem_usage(prefix: str) -> str: ...

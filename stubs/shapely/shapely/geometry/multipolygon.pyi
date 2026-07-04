@@ -1,4 +1,5 @@
 from collections.abc import Collection
+from typing import Literal
 from typing_extensions import Self
 
 from .base import BaseMultipartGeometry
@@ -8,6 +9,7 @@ from .polygon import Polygon, _PolygonHolesLike, _PolygonShellLike
 __all__ = ["MultiPolygon"]
 
 class MultiPolygon(BaseMultipartGeometry[Polygon]):
+    __slots__: list[str] = []
     def __new__(
         self,
         polygons: (
@@ -18,5 +20,7 @@ class MultiPolygon(BaseMultipartGeometry[Polygon]):
     ) -> Self: ...
     def svg(self, scale_factor: float = 1.0, fill_color: str | None = None, opacity: float | None = None) -> str: ...  # type: ignore[override]
     # more precise base overrides
+    @property
+    def geom_type(self) -> Literal["MultiPolygon"]: ...
     @property
     def boundary(self) -> MultiLineString: ...

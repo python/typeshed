@@ -60,11 +60,16 @@ from sqlite3.dbapi2 import (
     sqlite_version as sqlite_version,
     sqlite_version_info as sqlite_version_info,
     threadsafety as threadsafety,
-    version_info as version_info,
 )
 from types import TracebackType
-from typing import Any, Literal, Protocol, SupportsIndex, TypeVar, final, overload, type_check_only
-from typing_extensions import Self, TypeAlias
+from typing import Any, Literal, Protocol, SupportsIndex, TypeAlias, TypeVar, final, overload, type_check_only
+from typing_extensions import Self, disjoint_base
+
+if sys.version_info < (3, 14):
+    from sqlite3.dbapi2 import version_info as version_info
+
+if sys.version_info >= (3, 15):
+    from sqlite3.dbapi2 import SQLITE_KEYWORDS as SQLITE_KEYWORDS
 
 if sys.version_info >= (3, 12):
     from sqlite3.dbapi2 import (
@@ -209,32 +214,36 @@ if sys.version_info >= (3, 11):
 if sys.version_info < (3, 12):
     from sqlite3.dbapi2 import enable_shared_cache as enable_shared_cache, version as version
 
-if sys.version_info < (3, 10):
-    from sqlite3.dbapi2 import OptimizedUnicode as OptimizedUnicode
-
 _CursorT = TypeVar("_CursorT", bound=Cursor)
 _SqliteData: TypeAlias = str | ReadableBuffer | int | float | None
 # Data that is passed through adapters can be of any type accepted by an adapter.
 _AdaptedInputData: TypeAlias = _SqliteData | Any
 # The Mapping must really be a dict, but making it invariant is too annoying.
 _Parameters: TypeAlias = SupportsLenAndGetItem[_AdaptedInputData] | Mapping[str, _AdaptedInputData]
+# Controls the legacy transaction handling mode of sqlite3.
+_IsolationLevel: TypeAlias = Literal["DEFERRED", "EXCLUSIVE", "IMMEDIATE"] | None
+_RowFactoryOptions: TypeAlias = type[Row] | Callable[[Cursor, tuple[Any, ...]], object] | None
 
+@type_check_only
 class _AnyParamWindowAggregateClass(Protocol):
     def step(self, *args: Any) -> object: ...
     def inverse(self, *args: Any) -> object: ...
     def value(self) -> _SqliteData: ...
     def finalize(self) -> _SqliteData: ...
 
+@type_check_only
 class _WindowAggregateClass(Protocol):
     step: Callable[..., object]
     inverse: Callable[..., object]
     def value(self) -> _SqliteData: ...
     def finalize(self) -> _SqliteData: ...
 
+@type_check_only
 class _AggregateProtocol(Protocol):
     def step(self, value: int, /) -> object: ...
     def finalize(self) -> int: ...
 
+@type_check_only
 class _SingleParamWindowAggregateClass(Protocol):
     def step(self, param: Any, /) -> object: ...
     def inverse(self, param: Any, /) -> object: ...
@@ -260,6 +269,7 @@ class OperationalError(DatabaseError): ...
 class ProgrammingError(DatabaseError): ...
 class Warning(Exception): ...
 
+@disjoint_base
 class Connection:
     @property
     def DataError(self) -> type[DataError]: ...
@@ -283,7 +293,7 @@ class Connection:
     def Warning(self) -> type[Warning]: ...
     @property
     def in_transaction(self) -> bool: ...
-    isolation_level: str | None  # one of '', 'DEFERRED', 'IMMEDIATE' or 'EXCLUSIVE'
+    isolation_level: _IsolationLevel
     @property
     def total_changes(self) -> int: ...
     if sys.version_info >= (3, 12):
@@ -291,32 +301,33 @@ class Connection:
         def autocommit(self) -> int: ...
         @autocommit.setter
         def autocommit(self, val: int) -> None: ...
-    row_factory: Any
+
+    row_factory: _RowFactoryOptions
     text_factory: Any
     if sys.version_info >= (3, 12):
         def __init__(
             self,
             database: StrOrBytesPath,
-            timeout: float = ...,
-            detect_types: int = ...,
-            isolation_level: str | None = ...,
-            check_same_thread: bool = ...,
+            timeout: float = 5.0,
+            detect_types: int = 0,
+            isolation_level: _IsolationLevel = "DEFERRED",
+            check_same_thread: bool = True,
             factory: type[Connection] | None = ...,
-            cached_statements: int = ...,
-            uri: bool = ...,
+            cached_statements: int = 128,
+            uri: bool = False,
             autocommit: bool = ...,
         ) -> None: ...
     else:
         def __init__(
             self,
             database: StrOrBytesPath,
-            timeout: float = ...,
-            detect_types: int = ...,
-            isolation_level: str | None = ...,
-            check_same_thread: bool = ...,
+            timeout: float = 5.0,
+            detect_types: int = 0,
+            isolation_level: _IsolationLevel = "DEFERRED",
+            check_same_thread: bool = True,
             factory: type[Connection] | None = ...,
-            cached_statements: int = ...,
-            uri: bool = ...,
+            cached_statements: int = 128,
+            uri: bool = False,
         ) -> None: ...
 
     def close(self) -> None: ...
@@ -324,7 +335,10 @@ class Connection:
         def blobopen(self, table: str, column: str, row: int, /, *, readonly: bool = False, name: str = "main") -> Blob: ...
 
     def commit(self) -> None: ...
-    def create_aggregate(self, name: str, n_arg: int, aggregate_class: Callable[[], _AggregateProtocol]) -> None: ...
+    if sys.version_info >= (3, 15):
+        def create_aggregate(self, name: str, n_arg: int, aggregate_class: Callable[[], _AggregateProtocol], /) -> None: ...
+    else:
+        def create_aggregate(self, name: str, n_arg: int, aggregate_class: Callable[[], _AggregateProtocol]) -> None: ...
     if sys.version_info >= (3, 11):
         # num_params determines how many params will be passed to the aggregate class. We provide an overload
         # for the case where num_params = 1, which is expected to be the common case.
@@ -342,29 +356,43 @@ class Connection:
             self, name: str, num_params: int, aggregate_class: Callable[[], _WindowAggregateClass] | None, /
         ) -> None: ...
 
-    def create_collation(self, name: str, callback: Callable[[str, str], int | SupportsIndex] | None, /) -> None: ...
-    def create_function(
-        self, name: str, narg: int, func: Callable[..., _SqliteData] | None, *, deterministic: bool = False
-    ) -> None: ...
+    def create_collation(self, name: str, callback: Callable[[str, str], SupportsIndex] | None, /) -> None: ...
+    if sys.version_info >= (3, 15):
+        def create_function(
+            self, name: str, narg: int, func: Callable[..., _SqliteData] | None, /, *, deterministic: bool = False
+        ) -> None: ...
+    else:
+        def create_function(
+            self, name: str, narg: int, func: Callable[..., _SqliteData] | None, *, deterministic: bool = False
+        ) -> None: ...
+
     @overload
     def cursor(self, factory: None = None) -> Cursor: ...
     @overload
     def cursor(self, factory: Callable[[Connection], _CursorT]) -> _CursorT: ...
+
     def execute(self, sql: str, parameters: _Parameters = ..., /) -> Cursor: ...
     def executemany(self, sql: str, parameters: Iterable[_Parameters], /) -> Cursor: ...
     def executescript(self, sql_script: str, /) -> Cursor: ...
     def interrupt(self) -> None: ...
     if sys.version_info >= (3, 13):
-        def iterdump(self, *, filter: str | None = None) -> Generator[str, None, None]: ...
+        def iterdump(self, *, filter: str | None = None) -> Generator[str]: ...
     else:
-        def iterdump(self) -> Generator[str, None, None]: ...
+        def iterdump(self) -> Generator[str]: ...
 
     def rollback(self) -> None: ...
-    def set_authorizer(
-        self, authorizer_callback: Callable[[int, str | None, str | None, str | None, str | None], int] | None
-    ) -> None: ...
-    def set_progress_handler(self, progress_handler: Callable[[], int | None] | None, n: int) -> None: ...
-    def set_trace_callback(self, trace_callback: Callable[[str], object] | None) -> None: ...
+    if sys.version_info >= (3, 15):
+        def set_authorizer(
+            self, authorizer_callback: Callable[[int, str | None, str | None, str | None, str | None], int] | None, /
+        ) -> None: ...
+        def set_progress_handler(self, progress_handler: Callable[[], int | None] | None, /, n: int) -> None: ...
+        def set_trace_callback(self, trace_callback: Callable[[str], object] | None, /) -> None: ...
+    else:
+        def set_authorizer(
+            self, authorizer_callback: Callable[[int, str | None, str | None, str | None, str | None], int] | None
+        ) -> None: ...
+        def set_progress_handler(self, progress_handler: Callable[[], int | None] | None, n: int) -> None: ...
+        def set_trace_callback(self, trace_callback: Callable[[str], object] | None) -> None: ...
     # enable_load_extension and load_extension is not available on python distributions compiled
     # without sqlite3 loadable extension support. see footnotes https://docs.python.org/3/library/sqlite3.html#f1
     def enable_load_extension(self, enable: bool, /) -> None: ...
@@ -397,6 +425,7 @@ class Connection:
         self, type: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None, /
     ) -> Literal[False]: ...
 
+@disjoint_base
 class Cursor:
     arraysize: int
     @property
@@ -406,7 +435,7 @@ class Cursor:
     def description(self) -> tuple[tuple[str, None, None, None, None, None, None], ...] | MaybeNone: ...
     @property
     def lastrowid(self) -> int | None: ...
-    row_factory: Callable[[Cursor, Row], object] | None
+    row_factory: _RowFactoryOptions
     @property
     def rowcount(self) -> int: ...
     def __init__(self, cursor: Connection, /) -> None: ...
@@ -428,13 +457,16 @@ class Cursor:
 class PrepareProtocol:
     def __init__(self, *args: object, **kwargs: object) -> None: ...
 
+@disjoint_base
 class Row(Sequence[Any]):
     def __new__(cls, cursor: Cursor, data: tuple[Any, ...], /) -> Self: ...
     def keys(self) -> list[str]: ...
-    @overload
+
+    @overload  # Note: really needs int instead of SupportsIndex
     def __getitem__(self, key: int | str, /) -> Any: ...
-    @overload
-    def __getitem__(self, key: slice, /) -> tuple[Any, ...]: ...
+    @overload  # Note: SupportsIndex does work within slices.
+    def __getitem__(self, key: slice[SupportsIndex | None], /) -> tuple[Any, ...]: ...
+
     def __hash__(self) -> int: ...
     def __iter__(self) -> Iterator[Any]: ...
     def __len__(self) -> int: ...

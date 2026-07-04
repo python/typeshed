@@ -1,9 +1,9 @@
 import typing_extensions
-from _typeshed import Incomplete
-from typing import TypedDict
+from typing import TypedDict, type_check_only
 
 from tensorflow.config import PhysicalDevice
 
+@type_check_only
 class _MemoryInfo(TypedDict):
     current: int
     peak: int
@@ -14,4 +14,4 @@ def reset_memory_stats(device: str) -> None: ...
 def get_memory_usage(device: PhysicalDevice) -> int: ...
 def get_memory_growth(device: PhysicalDevice) -> bool: ...
 def set_memory_growth(device: PhysicalDevice, enable: bool) -> None: ...
-def __getattr__(name: str) -> Incomplete: ...
+def __getattr__(name: str): ...  # incomplete module

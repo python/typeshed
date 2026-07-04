@@ -1,7 +1,6 @@
 from collections.abc import Collection, Sequence
 from pathlib import Path
-from typing import Generic, Literal, TypedDict, TypeVar, overload
-from typing_extensions import TypeAlias
+from typing import Generic, Literal, TypeAlias, TypedDict, TypeVar, overload, type_check_only
 
 import numpy as np
 import numpy.typing as npt
@@ -10,6 +9,7 @@ from . import _EncodedRLE
 
 PYTHON_VERSION: int
 
+@type_check_only
 class _Image(TypedDict):
     id: int
     width: int
@@ -18,10 +18,12 @@ class _Image(TypedDict):
 
 _TPolygonSegmentation: TypeAlias = list[list[float]]
 
+@type_check_only
 class _RLE(TypedDict):
     size: list[int]
     counts: list[int]
 
+@type_check_only
 class _Annotation(TypedDict):
     id: int
     image_id: int
@@ -33,6 +35,7 @@ class _Annotation(TypedDict):
 
 _TSeg = TypeVar("_TSeg", _TPolygonSegmentation, _RLE, _EncodedRLE)
 
+@type_check_only
 class _AnnotationG(TypedDict, Generic[_TSeg]):
     id: int
     image_id: int
@@ -42,11 +45,13 @@ class _AnnotationG(TypedDict, Generic[_TSeg]):
     bbox: list[float]
     iscrowd: int
 
+@type_check_only
 class _Category(TypedDict):
     id: int
     name: str
     supercategory: str
 
+@type_check_only
 class _Dataset(TypedDict):
     images: list[_Image]
     annotations: list[_Annotation]
@@ -80,10 +85,12 @@ class COCO:
     def loadRes(self, resFile: str) -> COCO: ...
     def download(self, tarDir: str | None = None, imgIds: Collection[int] = []) -> Literal[-1] | None: ...
     def loadNumpyAnnotations(self, data: npt.NDArray[np.float64]) -> list[_Annotation]: ...
+
     @overload
     def annToRLE(self, ann: _AnnotationG[_RLE]) -> _RLE: ...
     @overload
     def annToRLE(self, ann: _AnnotationG[_EncodedRLE]) -> _EncodedRLE: ...
     @overload
     def annToRLE(self, ann: _AnnotationG[_TPolygonSegmentation]) -> _EncodedRLE: ...
+
     def annToMask(self, ann: _Annotation) -> npt.NDArray[np.uint8]: ...

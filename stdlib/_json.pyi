@@ -1,3 +1,4 @@
+import sys
 from collections.abc import Callable
 from typing import Any, final
 from typing_extensions import Self
@@ -11,7 +12,7 @@ class make_encoder:
     @property
     def key_separator(self) -> str: ...
     @property
-    def indent(self) -> int | None: ...
+    def indent(self) -> str | None: ...
     @property
     def markers(self) -> dict[int, Any] | None: ...
     @property
@@ -25,7 +26,7 @@ class make_encoder:
         markers: dict[int, Any] | None,
         default: Callable[[Any], Any],
         encoder: Callable[[str], str],
-        indent: int | None,
+        indent: str | None,
         key_separator: str,
         item_separator: str,
         sort_keys: bool,
@@ -36,6 +37,8 @@ class make_encoder:
 
 @final
 class make_scanner:
+    if sys.version_info >= (3, 15):
+        array_hook: Any
     object_hook: Any
     object_pairs_hook: Any
     parse_int: Any
@@ -48,4 +51,9 @@ class make_scanner:
 
 def encode_basestring(s: str, /) -> str: ...
 def encode_basestring_ascii(s: str, /) -> str: ...
-def scanstring(string: str, end: int, strict: bool = ...) -> tuple[str, int]: ...
+
+if sys.version_info >= (3, 15):
+    def scanstring(pystr: str, end: int, strict: bool = True, /) -> tuple[str, int]: ...
+
+else:
+    def scanstring(string: str, end: int, strict: bool = True) -> tuple[str, int]: ...

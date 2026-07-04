@@ -1,6 +1,5 @@
 from _typeshed import ConvertibleToInt, Incomplete, Unused
-from typing import ClassVar, Literal
-from typing_extensions import TypeAlias
+from typing import ClassVar, Literal, TypeAlias
 from zipfile import ZipFile
 
 from openpyxl.descriptors.base import Bool, Integer, NoneSet, String, Typed, _ConvertibleToBool
@@ -24,7 +23,7 @@ class ExternalRow(Serialisable):
     r: Integer[Literal[False]]
     cell: Incomplete
     __elements__: ClassVar[tuple[str, ...]]
-    def __init__(self, r: ConvertibleToInt, cell: Incomplete | None = None) -> None: ...
+    def __init__(self, r: ConvertibleToInt, cell=None) -> None: ...
 
 class ExternalSheetData(Serialisable):
     sheetId: Integer[Literal[False]]
@@ -36,7 +35,7 @@ class ExternalSheetData(Serialisable):
 class ExternalSheetDataSet(Serialisable):
     sheetData: Incomplete
     __elements__: ClassVar[tuple[str, ...]]
-    def __init__(self, sheetData: Incomplete | None = None) -> None: ...
+    def __init__(self, sheetData=None) -> None: ...
 
 class ExternalSheetNames(Serialisable):
     sheetName: Incomplete
@@ -62,7 +61,7 @@ class ExternalBook(Serialisable):
         sheetNames: ExternalSheetNames | None = None,
         definedNames=(),
         sheetDataSet: ExternalSheetDataSet | None = None,
-        id: Incomplete | None = None,
+        id=None,
     ) -> None: ...
 
 class ExternalLink(Serialisable):

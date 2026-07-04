@@ -1,10 +1,11 @@
+import sys
 import types
 from _codecs import *
 from _typeshed import ReadableBuffer
 from abc import abstractmethod
 from collections.abc import Callable, Generator, Iterable
-from typing import Any, BinaryIO, ClassVar, Final, Literal, Protocol, TextIO, overload
-from typing_extensions import Self, TypeAlias
+from typing import Any, BinaryIO, ClassVar, Final, Literal, Protocol, TextIO, TypeAlias, overload, type_check_only
+from typing_extensions import Self, deprecated, disjoint_base
 
 __all__ = [
     "register",
@@ -73,16 +74,19 @@ _BufferedEncoding: TypeAlias = Literal[
     "utf-8-sig",
 ]
 
+@type_check_only
 class _WritableStream(Protocol):
     def write(self, data: bytes, /) -> object: ...
     def seek(self, offset: int, whence: int, /) -> object: ...
     def close(self) -> object: ...
 
+@type_check_only
 class _ReadableStream(Protocol):
     def read(self, size: int = ..., /) -> bytes: ...
     def seek(self, offset: int, whence: int, /) -> object: ...
     def close(self) -> object: ...
 
+@type_check_only
 class _Stream(_WritableStream, _ReadableStream, Protocol): ...
 
 # TODO: this only satisfies the most common interface, where
@@ -91,70 +95,111 @@ class _Stream(_WritableStream, _ReadableStream, Protocol): ...
 # There *are* bytes->bytes and str->str encodings in the standard library.
 # They were much more common in Python 2 than in Python 3.
 
+@type_check_only
 class _Encoder(Protocol):
     def __call__(self, input: str, errors: str = ..., /) -> tuple[bytes, int]: ...  # signature of Codec().encode
 
+@type_check_only
 class _Decoder(Protocol):
     def __call__(self, input: ReadableBuffer, errors: str = ..., /) -> tuple[str, int]: ...  # signature of Codec().decode
 
+@type_check_only
 class _StreamReader(Protocol):
     def __call__(self, stream: _ReadableStream, errors: str = ..., /) -> StreamReader: ...
 
+@type_check_only
 class _StreamWriter(Protocol):
     def __call__(self, stream: _WritableStream, errors: str = ..., /) -> StreamWriter: ...
 
+@type_check_only
 class _IncrementalEncoder(Protocol):
     def __call__(self, errors: str = ...) -> IncrementalEncoder: ...
 
+@type_check_only
 class _IncrementalDecoder(Protocol):
     def __call__(self, errors: str = ...) -> IncrementalDecoder: ...
 
+@type_check_only
 class _BufferedIncrementalDecoder(Protocol):
     def __call__(self, errors: str = ...) -> BufferedIncrementalDecoder: ...
 
-class CodecInfo(tuple[_Encoder, _Decoder, _StreamReader, _StreamWriter]):
-    _is_text_encoding: bool
-    @property
-    def encode(self) -> _Encoder: ...
-    @property
-    def decode(self) -> _Decoder: ...
-    @property
-    def streamreader(self) -> _StreamReader: ...
-    @property
-    def streamwriter(self) -> _StreamWriter: ...
-    @property
-    def incrementalencoder(self) -> _IncrementalEncoder: ...
-    @property
-    def incrementaldecoder(self) -> _IncrementalDecoder: ...
-    name: str
-    def __new__(
-        cls,
-        encode: _Encoder,
-        decode: _Decoder,
-        streamreader: _StreamReader | None = None,
-        streamwriter: _StreamWriter | None = None,
-        incrementalencoder: _IncrementalEncoder | None = None,
-        incrementaldecoder: _IncrementalDecoder | None = None,
-        name: str | None = None,
-        *,
-        _is_text_encoding: bool | None = None,
-    ) -> Self: ...
+if sys.version_info >= (3, 12):
+    class CodecInfo(tuple[_Encoder, _Decoder, _StreamReader, _StreamWriter]):
+        _is_text_encoding: bool
+        @property
+        def encode(self) -> _Encoder: ...
+        @property
+        def decode(self) -> _Decoder: ...
+        @property
+        def streamreader(self) -> _StreamReader: ...
+        @property
+        def streamwriter(self) -> _StreamWriter: ...
+        @property
+        def incrementalencoder(self) -> _IncrementalEncoder: ...
+        @property
+        def incrementaldecoder(self) -> _IncrementalDecoder: ...
+        name: str
+        def __new__(
+            cls,
+            encode: _Encoder,
+            decode: _Decoder,
+            streamreader: _StreamReader | None = None,
+            streamwriter: _StreamWriter | None = None,
+            incrementalencoder: _IncrementalEncoder | None = None,
+            incrementaldecoder: _IncrementalDecoder | None = None,
+            name: str | None = None,
+            *,
+            _is_text_encoding: bool | None = None,
+        ) -> Self: ...
+
+else:
+    @disjoint_base
+    class CodecInfo(tuple[_Encoder, _Decoder, _StreamReader, _StreamWriter]):
+        _is_text_encoding: bool
+        @property
+        def encode(self) -> _Encoder: ...
+        @property
+        def decode(self) -> _Decoder: ...
+        @property
+        def streamreader(self) -> _StreamReader: ...
+        @property
+        def streamwriter(self) -> _StreamWriter: ...
+        @property
+        def incrementalencoder(self) -> _IncrementalEncoder: ...
+        @property
+        def incrementaldecoder(self) -> _IncrementalDecoder: ...
+        name: str
+        def __new__(
+            cls,
+            encode: _Encoder,
+            decode: _Decoder,
+            streamreader: _StreamReader | None = None,
+            streamwriter: _StreamWriter | None = None,
+            incrementalencoder: _IncrementalEncoder | None = None,
+            incrementaldecoder: _IncrementalDecoder | None = None,
+            name: str | None = None,
+            *,
+            _is_text_encoding: bool | None = None,
+        ) -> Self: ...
 
 def getencoder(encoding: str) -> _Encoder: ...
 def getdecoder(encoding: str) -> _Decoder: ...
 def getincrementalencoder(encoding: str) -> _IncrementalEncoder: ...
+
 @overload
 def getincrementaldecoder(encoding: _BufferedEncoding) -> _BufferedIncrementalDecoder: ...
 @overload
 def getincrementaldecoder(encoding: str) -> _IncrementalDecoder: ...
+
 def getreader(encoding: str) -> _StreamReader: ...
 def getwriter(encoding: str) -> _StreamWriter: ...
+@deprecated("Deprecated since Python 3.14. Use `open()` instead.")
 def open(
     filename: str, mode: str = "r", encoding: str | None = None, errors: str = "strict", buffering: int = -1
 ) -> StreamReaderWriter: ...
 def EncodedFile(file: _Stream, data_encoding: str, file_encoding: str | None = None, errors: str = "strict") -> StreamRecoder: ...
-def iterencode(iterator: Iterable[str], encoding: str, errors: str = "strict") -> Generator[bytes, None, None]: ...
-def iterdecode(iterator: Iterable[bytes], encoding: str, errors: str = "strict") -> Generator[str, None, None]: ...
+def iterencode(iterator: Iterable[str], encoding: str, errors: str = "strict") -> Generator[bytes]: ...
+def iterdecode(iterator: Iterable[bytes], encoding: str, errors: str = "strict") -> Generator[str]: ...
 
 BOM: Final[Literal[b"\xff\xfe", b"\xfe\xff"]]  # depends on `sys.byteorder`
 BOM_BE: Final = b"\xfe\xff"
