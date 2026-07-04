@@ -1,41 +1,22 @@
 from __future__ import annotations
 
-import subprocess
 import sys
 from collections.abc import Generator, Iterable
 from contextlib import contextmanager
-from enum import Enum
 from typing import Any, NamedTuple
-
-from ts_utils.metadata import metadata_path
 
 if sys.version_info >= (3, 11):
     import tomllib
 else:
     import tomli as tomllib
 
-from ts_utils.metadata import StubtestSettings
+from ts_utils.metadata import StubtestSettings, metadata_path
 from ts_utils.utils import NamedTemporaryFile, TemporaryFileWrapper
 
 
 class MypyDistConf(NamedTuple):
     module_name: str
     values: dict[str, dict[str, Any]]
-
-
-class MypyResult(Enum):
-    SUCCESS = 0
-    FAILURE = 1
-    CRASH = 2
-
-    @staticmethod
-    def from_process_result(result: subprocess.CompletedProcess[Any]) -> MypyResult:
-        if result.returncode == 0:
-            return MypyResult.SUCCESS
-        elif result.returncode == 1:
-            return MypyResult.FAILURE
-        else:
-            return MypyResult.CRASH
 
 
 # The configuration section in the metadata file looks like the following, with multiple module sections possible
