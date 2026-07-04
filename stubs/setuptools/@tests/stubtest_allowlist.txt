@@ -13,9 +13,9 @@ setuptools.command.bdist_rpm
 setuptools.command.bdist_wheel
 setuptools.command.build_clib
 setuptools.command.build_py
-setuptools.command.develop
+# setuptools.command.develop
 setuptools.command.dist_info
-setuptools.command.easy_install
+# setuptools.command.easy_install
 setuptools.command.editable_wheel
 setuptools.command.egg_info
 setuptools.command.install
@@ -23,5 +23,5 @@ setuptools.command.install_lib
 setuptools.command.install_scripts
 setuptools.command.sdist
 setuptools.installer
-setuptools.package_index
+# setuptools.package_index
 setuptools.wheel
