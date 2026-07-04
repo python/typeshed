@@ -1,12 +1,6 @@
 version = "2.0.*"
 upstream-repository = "https://github.com/python-cffi/cffi/"
-dependencies = ["types-setuptools"]
-
-# When ran directly on our stubs, mypy won't understand that they are partial
-# This is not an issue with pyright because it understands per-module py.typed (setuptools/_distutils/py.typed)
-[mypy-tests.distutils]
-module-name = "setuptools._distutils.*"
-values = { "follow_untyped_imports" = true }
+dependencies = ["setuptools"]
 
 [tool.stubtest]
 # linux and darwin are mostly equivalent, except for a single `RTLD_DEEPBIND` variable
