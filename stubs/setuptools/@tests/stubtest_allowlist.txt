@@ -7,15 +7,15 @@ setuptools.config._validate_pyproject.*
 setuptools.compat.*
 .+?\.tests.*
 
-# DO NOT MERGE! Temporary workaround until https://github.com/pypa/distutils/pull/345 is merged upstream
 # stubtest fails on implicit submodule imports for __all__ (in setuptools/_distutils/command/__init__.py)
+# An attempt at a fix was done in https://github.com/pypa/distutils/pull/345,
+# but that caused more issues with setuptools' monkeypatching, see conversation in
+# https://github.com/pypa/setuptools/issues/4902#issuecomment-2741298642
 setuptools.command.bdist_rpm
 setuptools.command.bdist_wheel
 setuptools.command.build_clib
 setuptools.command.build_py
-# setuptools.command.develop
 setuptools.command.dist_info
-# setuptools.command.easy_install
 setuptools.command.editable_wheel
 setuptools.command.egg_info
 setuptools.command.install
@@ -23,5 +23,4 @@ setuptools.command.install_lib
 setuptools.command.install_scripts
 setuptools.command.sdist
 setuptools.installer
-# setuptools.package_index
 setuptools.wheel

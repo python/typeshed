@@ -4,8 +4,9 @@ extra-description = """\
 Given that `pkg_resources` is typed since `setuptools >= 71.1`, \
 it is no longer included with `types-setuptools`.
 """
-dependencies = ["setuptools"] # For pkg_resources and setuptools._distutils
-# setuptools/_distutils is a vendor of pypa's distutils. Which is now as typed as typeshed.
+dependencies = ["setuptools"] # For setuptools._distutils
+# setuptools/_distutils is a vendor of pypa's distutils. Which is now as typed.
+# Type-checkers should not skip it just because `types-setuptools` is installed.
 partial-stub = true
 
 # When ran directly on our stubs, mypy won't understand that they are partial
