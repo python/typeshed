@@ -12,4 +12,9 @@ partial-stub = true
 [tool.stubtest]
 # darwin is equivalent to linux for OS-specific methods
 ci-platforms = ["linux", "win32"]
-stubtest-dependencies = ["tomli"]
+stubtest-dependencies = ["more_itertools", "tomli"]
+
+# Stubtest fails on trying to run mypy on the source files rather than our stubs
+[mypy-tests.distutils]
+module-name = "setuptools._distutils.compilers.C.*"
+values = { ignore_errors = true }
