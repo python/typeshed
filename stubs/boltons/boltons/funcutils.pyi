@@ -1,6 +1,8 @@
 import functools
 from _typeshed import Incomplete
+from collections.abc import Callable
 from functools import total_ordering as total_ordering
+from typing import Any
 
 NO_DEFAULT: Incomplete
 
@@ -26,14 +28,14 @@ def copy_function(orig, copy_dict: bool = True): ...
 def partial_ordering(cls): ...
 
 class InstancePartial(functools.partial[Incomplete]):
-    def __get__(self, obj, obj_type): ...
+    def __get__(self, obj: Any, obj_type: type[Any] | None = None, /) -> Callable[..., Incomplete]: ...
 
 class CachedInstancePartial(functools.partial[Incomplete]):
     __name__: Incomplete
     def __set_name__(self, obj_type, name) -> None: ...
     __doc__: Incomplete
     __module__: Incomplete
-    def __get__(self, obj, obj_type): ...
+    def __get__(self, obj: Any, obj_type: type[Any] | None = None, /) -> Callable[..., Incomplete]: ...
 
 partial = CachedInstancePartial
 
