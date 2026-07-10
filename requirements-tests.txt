@@ -2,6 +2,7 @@
 # be pinned to a specific version to make failure reproducible.
 mypy==2.2.0
 pyright==1.1.411
+ty==0.0.59
 
 # Libraries used by our various scripts.
 aiohttp==3.14.1
