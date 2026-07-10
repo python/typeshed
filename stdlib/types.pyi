@@ -17,7 +17,7 @@ from collections.abc import (
     ValuesView,
 )
 from importlib.machinery import ModuleSpec
-from typing import Any, ClassVar, Literal, ParamSpec, TypeVar, final, overload
+from typing import Any, ClassVar, Generic, Literal, ParamSpec, TypeVar, final, overload
 from typing_extensions import Self, TypeAliasType, TypeVarTuple, deprecated, disjoint_base
 
 if sys.version_info >= (3, 14):
@@ -70,8 +70,13 @@ if sys.version_info >= (3, 15):
 
 _T1 = TypeVar("_T1")
 _T2 = TypeVar("_T2")
+_P = ParamSpec("_P")
+_P_default = ParamSpec("_P_default", default=...)
+_R = TypeVar("_R")
+_R_default = TypeVar("_R_default", default=Any)
 _KT_co = TypeVar("_KT_co", covariant=True)
 _VT_co = TypeVar("_VT_co", covariant=True)
+_Fn = TypeVar("_Fn", bound=Callable[..., object])
 
 # Make sure this class definition stays roughly in line with `builtins.function`
 @final
@@ -461,7 +466,7 @@ class CoroutineType(Coroutine[_YieldT_co, _SendT_nd_contra, _ReturnT_nd_co]):
         def __class_getitem__(cls, item: Any, /) -> Any: ...
 
 @final
-class MethodType:
+class MethodType(Generic[_P_default, _R_default]):
     @property
     def __closure__(self) -> tuple[CellType, ...] | None: ...  # inherited from the added function
     @property
@@ -476,8 +481,8 @@ class MethodType:
     def __name__(self) -> str: ...  # inherited from the added function
     @property
     def __qualname__(self) -> str: ...  # inherited from the added function
-    def __new__(cls, func: Callable[..., Any], instance: object, /) -> Self: ...
-    def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
+    def __new__(cls, func: Callable[_P_default, _R_default], instance: object, /) -> Self: ...
+    def __call__(self, *args: _P_default.args, **kwargs: _P_default.kwargs) -> _R_default: ...
 
     if sys.version_info >= (3, 13):
         def __get__(self, instance: object, owner: type | None = None, /) -> Self: ...
@@ -673,10 +678,6 @@ class DynamicClassAttribute(property):
     def getter(self, fget: Callable[[Any], Any]) -> DynamicClassAttribute: ...
     def setter(self, fset: Callable[[Any, Any], object]) -> DynamicClassAttribute: ...
     def deleter(self, fdel: Callable[[Any], object]) -> DynamicClassAttribute: ...
-
-_Fn = TypeVar("_Fn", bound=Callable[..., object])
-_R = TypeVar("_R")
-_P = ParamSpec("_P")
 
 # it's not really an Awaitable, but can be used in an await expression. Real type: Generator & Awaitable
 @overload
