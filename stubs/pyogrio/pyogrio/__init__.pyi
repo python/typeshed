@@ -17,7 +17,11 @@ from .core import (
     vsi_unlink as vsi_unlink,
 )
 from .geopandas import read_dataframe as read_dataframe, write_dataframe as write_dataframe
-from .raw import open_arrow as open_arrow, read_arrow as read_arrow, write_arrow as write_arrow
+from .raw import (
+    open_arrow as open_arrow,  # pyright: ignore[reportUnknownVariableType]
+    read_arrow as read_arrow,  # pyright: ignore[reportUnknownVariableType]
+    write_arrow as write_arrow,
+)
 
 __all__ = [
     "__gdal_geos_version__",
