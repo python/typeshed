@@ -1,15 +1,29 @@
 from collections.abc import Callable, Iterable
 from enum import IntEnum
-from typing import Any, Final, Literal, SupportsIndex, TypeAlias
+from typing import Any, Final, Literal, SupportsIndex, TypeAlias, TypedDict, type_check_only
 from typing_extensions import Self
-
-from .._types import _ProxyProtocolInfoDict
 
 _H1CProtocol: TypeAlias = Any  # gunicorn_h1c H1CProtocol class
 
 class ParseError(Exception): ...
 class InvalidProxyLine(ParseError): ...
 class InvalidProxyHeader(ParseError): ...
+
+@type_check_only
+class _ProxyProtocolInfo(TypedDict):
+    proxy_protocol: Literal["TCP4", "TCP6", "UDP4", "UDP6"]
+    client_addr: str
+    client_port: int
+    proxy_addr: str
+    proxy_port: int
+
+@type_check_only
+class _ProxyProtocolInfoUnknown(TypedDict):
+    proxy_protocol: Literal["UNKNOWN", "LOCAL", "UNSPEC"]
+    client_addr: None
+    client_port: None
+    proxy_addr: None
+    proxy_port: None
 
 PP_V2_SIGNATURE: Final[bytes]
 RFC9110_6_5_1_FORBIDDEN_TRAILER: Final[frozenset[bytes]]
@@ -100,7 +114,7 @@ class PythonProtocol:
     ) -> None: ...
     def feed(self, data: Iterable[SupportsIndex]) -> None: ...
     @property
-    def proxy_protocol_info(self) -> _ProxyProtocolInfoDict | None: ...
+    def proxy_protocol_info(self) -> _ProxyProtocolInfo | _ProxyProtocolInfoUnknown | None: ...
     def reset(self) -> None: ...
     def finish(self) -> None: ...
 
@@ -135,7 +149,7 @@ class CallbackRequest:
     content_length: int
     chunked: bool
     must_close: bool
-    proxy_protocol_info: _ProxyProtocolInfoDict | None
+    proxy_protocol_info: _ProxyProtocolInfo | _ProxyProtocolInfoUnknown | None
 
     def __init__(self) -> None: ...
     @classmethod
