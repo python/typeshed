@@ -3,6 +3,8 @@ from enum import IntEnum
 from typing import Any, Final, Literal, SupportsIndex, TypeAlias
 from typing_extensions import Self
 
+from .._types import _ProxyProtocolInfoDict
+
 _H1CProtocol: TypeAlias = Any  # gunicorn_h1c H1CProtocol class
 
 class ParseError(Exception): ...
@@ -37,8 +39,6 @@ class InvalidHeader(ParseError): ...
 class UnsupportedTransferCoding(ParseError): ...
 class InvalidChunkSize(ParseError): ...
 class InvalidChunkExtension(ParseError): ...
-
-from .._types import _ProxyProtocolInfoDict
 
 class PythonProtocol:
     __slots__ = (
