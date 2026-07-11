@@ -27,6 +27,7 @@ def copy(x: _T) -> _T: ...
 
 if sys.version_info >= (3, 13):
     __all__ += ["replace"]
+
     # The types accepted by `**changes` match those of `obj.__replace__`.
     # When `__replace__` returns `Self`, keep the argument's own type (so a bound
     # TypeVar is preserved); otherwise return whatever `__replace__` declares.
