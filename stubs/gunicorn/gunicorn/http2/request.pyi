@@ -5,7 +5,7 @@ from typing import Literal
 from gunicorn.config import Config
 from gunicorn.http2.stream import HTTP2Stream
 
-from .._types import _AddressType
+from .._types import _AddressType, _ProxyProtocolInfoDict
 
 class HTTP2Body:
     def __init__(self, data: ReadableBuffer) -> None: ...
@@ -33,7 +33,7 @@ class HTTP2Request:
     body: HTTP2Body
     must_close: bool
     req_number: int
-    proxy_protocol_info: dict[str, str | int | None] | None  # TODO: Use TypedDict
+    proxy_protocol_info: _ProxyProtocolInfoDict | None
     priority_weight: int
     priority_depends_on: int
 

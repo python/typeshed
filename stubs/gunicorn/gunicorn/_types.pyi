@@ -1,7 +1,7 @@
 ### This .pyi file is a helper for centralized storage types that are reused across different runtime modules. ###
 from _typeshed import FileDescriptor
 from collections.abc import Awaitable, Callable, Iterable, MutableMapping
-from typing import Any, TypeAlias
+from typing import Any, Literal, TypeAlias, TypedDict, type_check_only
 from typing_extensions import LiteralString
 
 _StatusType: TypeAlias = str
@@ -21,3 +21,21 @@ _ASGIAppType: TypeAlias = Callable[[_ScopeType, _ReceiveType, _SendType], Awaita
 _UnixSocketPathType: TypeAlias = str
 _TcpAddressType: TypeAlias = tuple[LiteralString, int]  # noqa: Y047
 _AddressType: TypeAlias = _UnixSocketPathType | FileDescriptor | _TcpAddressType  # noqa: Y047
+
+@type_check_only
+class _ProxyProtocolInfo(TypedDict):
+    proxy_protocol: Literal["TCP4", "TCP6", "UDP4", "UDP6"]
+    client_addr: str
+    client_port: int
+    proxy_addr: str
+    proxy_port: int
+
+@type_check_only
+class _ProxyProtocolInfoUnknown(TypedDict):
+    proxy_protocol: Literal["UNKNOWN", "LOCAL", "UNSPEC"]
+    client_addr: None
+    client_port: None
+    proxy_addr: None
+    proxy_port: None
+
+_ProxyProtocolInfoDict: TypeAlias = _ProxyProtocolInfo | _ProxyProtocolInfoUnknown
