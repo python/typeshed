@@ -38,4 +38,4 @@ class _ProxyProtocolInfoUnknown(TypedDict):
     proxy_addr: None
     proxy_port: None
 
-_ProxyProtocolInfoDict: TypeAlias = _ProxyProtocolInfo | _ProxyProtocolInfoUnknown
+_ProxyProtocolInfoDict: TypeAlias = _ProxyProtocolInfo | _ProxyProtocolInfoUnknown  # noqa: Y047
