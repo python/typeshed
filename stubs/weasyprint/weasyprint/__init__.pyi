@@ -1,53 +1,94 @@
 from _typeshed import Incomplete
+from collections.abc import Callable, Mapping
+from datetime import datetime
 from pathlib import Path
+from typing import IO, Any, Literal
 
+from .css.counters import CounterStyle
 from .document import Document as Document, Page as Page
-from .urls import default_url_fetcher as default_url_fetcher
+from .text.fonts import FontConfiguration
+from .urls import URLFetcher, default_url_fetcher as default_url_fetcher
 
 __all__ = ["CSS", "DEFAULT_OPTIONS", "HTML", "VERSION", "Attachment", "Document", "Page", "__version__", "default_url_fetcher"]
 
 VERSION: str
 __version__: str
-DEFAULT_OPTIONS: Incomplete
+DEFAULT_OPTIONS: Mapping[
+    Literal[
+        "stylesheets",
+        "attachments",
+        "attachment_relationships",
+        "pdf_identifier",
+        "pdf_variant",
+        "pdf_version",
+        "pdf_forms",
+        "pdf_tags",
+        "uncompressed_pdf",
+        "xmp_metadata",
+        "custom_metadata",
+        "presentational_hints",
+        "output_intent",
+        "optimize_images",
+        "jpeg_quality",
+        "dpi",
+        "full_fonts",
+        "hinting",
+        "cache",
+    ],
+    None | False,
+]
 
 class HTML:
-    base_url: Incomplete
-    url_fetcher: Incomplete
-    media_type: Incomplete
+    base_url: str | Path | None
+    url_fetcher: URLFetcher
+    media_type: str
     wrapper_element: Incomplete
     etree_element: Incomplete
     def __init__(
         self,
-        guess=None,
+        guess: str | Path | IO | None = None,
         filename: str | Path | None = None,
         url: str | None = None,
-        file_obj=None,
+        file_obj: IO | None = None,
         string: str | None = None,
         encoding: str | None = None,
         base_url: str | Path | None = None,
-        url_fetcher=None,
+        url_fetcher: URLFetcher | None = None,
         media_type: str = "print",
     ) -> None: ...
-    def render(self, font_config=None, counter_style=None, color_profiles=None, **options) -> Document: ...
+    def render(
+        self,
+        font_config: FontConfiguration | None = None,
+        counter_style: CounterStyle | None = None,
+        color_profiles=None,
+        **options,
+    ) -> Document: ...
     def write_pdf(
-        self, target=None, zoom: int = 1, finisher=None, font_config=None, counter_style=None, color_profiles=None, **options
+        self,
+        target: str | Path | IO | None = None,
+        zoom: float = 1,
+        finisher: Callable[[Document, PDF], Any] | None = None,
+        font_config: FontConfiguration | None = None,
+        counter_style: CounterStyle | None = None,
+        color_profiles=None,
+        **options,
     ) -> bytes | None: ...
 
 class CSS:
-    base_url: Incomplete
+    base_url: str | Path | None
     matcher: Incomplete
     page_rules: Incomplete
     layers: Incomplete
     def __init__(
         self,
-        guess=None,
-        filename=None,
-        url=None,
-        file_obj=None,
-        string=None,
-        encoding=None,
-        base_url=None,
-        url_fetcher=None,
+        guess: str | Path | IO | None = None,
+        filename: str | Path | None = None,
+        url: str | None = None,
+        file_obj: IO | None = None,
+        string: str | None = None,
+        encoding: str | None = None,
+        base_url: str | Path | None = None,
+        url_fetcher: URLFetcher | None = None,
         _check_mime_type: bool = False,
         media_type: str = "print",
         font_config=None,
@@ -60,25 +101,25 @@ class CSS:
     ) -> None: ...
 
 class Attachment:
-    source: Incomplete
-    name: Incomplete
-    description: Incomplete
-    relationship: Incomplete
-    md5: Incomplete
-    created: Incomplete
-    modified: Incomplete
+    source: tuple[IO, str, str | None, str | None]
+    name: str | None
+    description: str | None
+    relationship: str
+    md5: None
+    created: datetime
+    modified: datetime
     def __init__(
         self,
-        guess=None,
-        filename=None,
-        url=None,
-        file_obj=None,
-        string=None,
-        base_url=None,
-        url_fetcher=None,
-        name=None,
-        description=None,
-        created=None,
-        modified=None,
+        guess: str | Path | IO | None = None,
+        filename: str | Path | None = None,
+        url: str | None = None,
+        file_obj: IO | None = None,
+        string: str | None = None,
+        base_url: str | Path | None = None,
+        url_fetcher: URLFetcher | None = None,
+        name: str | None = None,
+        description: str | None = None,
+        created: datetime | None = None,
+        modified: datetime | None = None,
         relationship: str = "Unspecified",
     ) -> None: ...
