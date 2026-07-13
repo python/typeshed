@@ -1575,8 +1575,6 @@ def create_server(
     address: _Address, *, family: int = ..., backlog: int | None = None, reuse_port: bool = False, dualstack_ipv6: bool = False
 ) -> socket: ...
 
-# getaddrinfo() only ever returns AF_INET/AF_INET6, so item 0 (family) tags item 4 (sockaddr);
-# (int, bytes) is the AF_INET6 sockaddr on builds compiled with --disable-ipv6.
 _GetAddrInfoResult: TypeAlias = list[
     tuple[Literal[AddressFamily.AF_INET], SocketKind, int, str, tuple[str, int]]
     | tuple[Literal[AddressFamily.AF_INET6], SocketKind, int, str, tuple[str, int, int, int] | tuple[int, bytes]]
