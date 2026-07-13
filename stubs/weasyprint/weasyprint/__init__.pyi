@@ -97,7 +97,7 @@ class CSS:
     base_url: str | Path | None  # undocumented
     matcher: Matcher  # undocumented
     page_rules: list[PageRule]  # undocumented
-    layers: Incomplete  # undocumented
+    layers: list[str]  # undocumented
     def __init__(
         self,
         guess: str | Path | IO | None = None,
@@ -115,7 +115,7 @@ class CSS:
         color_profiles: dict[str, ColorProfile] | None = None,
         matcher: Matcher | None = None,
         page_rules: list[PageRule] = None,
-        layers: Incomplete = None,
+        layers: list[str] | None = None,
         layer: Incomplete = None,
     ) -> None: ...
 
