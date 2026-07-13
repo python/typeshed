@@ -1575,6 +1575,7 @@ def create_server(
     address: _Address, *, family: int = ..., backlog: int | None = None, reuse_port: bool = False, dualstack_ipv6: bool = False
 ) -> socket: ...
 
+# The 5th tuple item is the socket address, for IP4, IP6, or IP6 if Python is compiled with --disable-ipv6, respectively.
 _GetAddrInfoResult: TypeAlias = list[
     tuple[Literal[AddressFamily.AF_INET], SocketKind, int, str, tuple[str, int]]
     | tuple[Literal[AddressFamily.AF_INET6], SocketKind, int, str, tuple[str, int, int, int] | tuple[int, bytes]]
