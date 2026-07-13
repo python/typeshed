@@ -239,7 +239,7 @@ When a third-party stub package depends on another package, there are several
 strategies available, depending on whether the other package is typed.
 
 1. If the other package is typed and includes a `py.typed` marker, add that
-    package to the `dependencies` key in `METADATA.toml. This might fail the
+    package to the `dependencies` key in `METADATA.toml`. This might fail the
     stub uploader checks, in which case you can ask the maintainers for help.
 2. Otherwise, if a type package is available, add that package to the
     `dependencies` key. If the type package originates from typeshed, the
