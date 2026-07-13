@@ -31,7 +31,7 @@ def declaration_precedence(origin, importance): ...
 def resolve_var(computed, token, parent_style): ...
 def resolve_math(token, computed=None, property_name=None, refer_to=None): ...
 
-class InitialStyle(dict):
+class InitialStyle(dict[Incomplete, Incomplete]):
     parent_style: Incomplete
     specified: Incomplete
     cache: Incomplete
@@ -39,7 +39,7 @@ class InitialStyle(dict):
     def __init__(self, font_config) -> None: ...
     def __missing__(self, key): ...
 
-class AnonymousStyle(dict):
+class AnonymousStyle(dict[Incomplete, Incomplete]):
     parent_style: Incomplete
     is_root_element: bool
     specified: Incomplete
@@ -49,7 +49,7 @@ class AnonymousStyle(dict):
     def copy(self): ...
     def __missing__(self, key): ...
 
-class ComputedStyle(dict):
+class ComputedStyle(dict[Incomplete, Incomplete]):
     specified: Incomplete
     parent_style: Incomplete
     cascaded: Incomplete
