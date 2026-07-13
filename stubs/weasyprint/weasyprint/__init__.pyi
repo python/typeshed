@@ -116,7 +116,7 @@ class CSS:
         matcher: Matcher | None = None,
         page_rules: list[PageRule] | None = None,
         layers: list[str] | None = None,
-        layer: Incomplete = None,
+        layer: str | None = None,
     ) -> None: ...
 
 class Attachment:
