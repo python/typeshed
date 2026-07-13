@@ -1,4 +1,6 @@
-class FlexLine(list): ...
+from _typeshed import Incomplete
+
+class FlexLine(list[Incomplete]): ...
 
 def flex_layout(
     context, box, bottom_space, skip_stack, containing_block, page_is_empty, absolute_boxes, fixed_boxes, discard
