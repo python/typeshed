@@ -15,7 +15,7 @@ from .text.fonts import FontConfiguration
 from .urls import URLFetcher, default_url_fetcher as default_url_fetcher
 
 _ElementWrapper: TypeAlias = Any  # actually csselect2.ElementWrapper
-Matcher: TypeAlias = Any  # actually csselect2.Matcher
+_Matcher: TypeAlias = Any  # actually csselect2.Matcher
 
 __all__ = [
     "CSS",
@@ -64,7 +64,7 @@ class HTML:
     base_url: str | Path | None  # undocumented
     url_fetcher: URLFetcher  # undocumented
     media_type: str  # undocumented
-    wrapper_element: ElementWrapper  # undocumented
+    wrapper_element: _ElementWrapper  # undocumented
     etree_element: Element  # undocumented
     def __init__(
         self,
@@ -98,7 +98,7 @@ class HTML:
 
 class CSS:
     base_url: str | Path | None  # undocumented
-    matcher: Matcher  # undocumented
+    matcher: _Matcher  # undocumented
     page_rules: list[PageRule]  # undocumented
     layers: list[str]  # undocumented
     def __init__(
