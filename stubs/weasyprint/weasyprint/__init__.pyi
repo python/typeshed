@@ -115,7 +115,7 @@ class CSS:
         font_config: FontConfiguration | None = None,
         counter_style: CounterStyle | None = None,
         color_profiles: dict[str, ColorProfile] | None = None,
-        matcher: Matcher | None = None,
+        matcher: _Matcher | None = None,
         page_rules: list[PageRule] | None = None,
         layers: list[str] | None = None,
         layer: str | None = None,
