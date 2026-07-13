@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 from collections.abc import Callable
 from datetime import datetime
 from pathlib import Path
-from typing import IO, Any, TypeAlias, TypedDict
+from typing import TextIO, BinaryIO, Any, TypeAlias, TypedDict
 from typing_extensions import Unpack
 from xml.etree.ElementTree import Element
 
@@ -67,10 +67,10 @@ class HTML:
     etree_element: Element  # undocumented
     def __init__(
         self,
-        guess: str | Path | IO[str | bytes] | None = None,
+        guess: str | Path | TextIO | BinaryIO | None = None,
         filename: str | Path | None = None,
         url: str | None = None,
-        file_obj: IO[str | bytes] | None = None,
+        file_obj: TextIO | BinaryIO | None = None,
         string: str | None = None,
         encoding: str | None = None,
         base_url: str | Path | None = None,
@@ -86,7 +86,7 @@ class HTML:
     ) -> Document: ...
     def write_pdf(
         self,
-        target: str | Path | IO[str | bytes] | None = None,
+        target: str | Path | TextIO | BinaryIO | None = None,
         zoom: float = 1,
         finisher: Callable[[Document, _PDF], Any] | None = None,
         font_config: FontConfiguration | None = None,
@@ -102,10 +102,10 @@ class CSS:
     layers: list[str]  # undocumented
     def __init__(
         self,
-        guess: str | Path | IO[str | bytes] | None = None,
+        guess: str | Path | TextIO | BinaryIO | None = None,
         filename: str | Path | None = None,
         url: str | None = None,
-        file_obj: IO[str | bytes] | None = None,
+        file_obj: TextIO | BinaryIO | None = None,
         string: str | None = None,
         encoding: str | None = None,
         base_url: str | Path | None = None,
@@ -122,7 +122,7 @@ class CSS:
     ) -> None: ...
 
 class Attachment:
-    source: tuple[IO[str | bytes], str, str | None, str | None]  # undocumented
+    source: tuple[TextIO | BinaryIO, str, str | None, str | None]  # undocumented
     name: str | None  # undocumented
     description: str | None  # undocumented
     relationship: str  # undocumented
@@ -131,10 +131,10 @@ class Attachment:
     modified: datetime  # undocumented
     def __init__(
         self,
-        guess: str | Path | IO[str | bytes] | None = None,
+        guess: str | Path | TextIO | BinaryIO | None = None,
         filename: str | Path | None = None,
         url: str | None = None,
-        file_obj: IO[str | bytes] | None = None,
+        file_obj: TextIO | BinaryIO | None = None,
         string: str | None = None,
         base_url: str | Path | None = None,
         url_fetcher: URLFetcher | None = None,
