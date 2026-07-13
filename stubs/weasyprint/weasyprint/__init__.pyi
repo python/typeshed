@@ -4,6 +4,9 @@ from datetime import datetime
 from pathlib import Path
 from typing import IO, Any, Literal
 
+from csselect2 import ElementWrapper
+from xml.etree.ElementTree import Element
+
 from .css.counters import CounterStyle
 from .document import Document as Document, Page as Page
 from .text.fonts import FontConfiguration
@@ -39,11 +42,11 @@ DEFAULT_OPTIONS: Mapping[
 ]
 
 class HTML:
-    base_url: str | Path | None
-    url_fetcher: URLFetcher
-    media_type: str
-    wrapper_element: Incomplete
-    etree_element: Incomplete
+    base_url: str | Path | None  # undocumented
+    url_fetcher: URLFetcher  # undocumented
+    media_type: str  # undocumented
+    wrapper_element: ElementWrapper  # undocumented
+    etree_element: Element  # undocumented
     def __init__(
         self,
         guess: str | Path | IO | None = None,
