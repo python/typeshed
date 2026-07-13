@@ -2,7 +2,7 @@ import ssl
 import sys
 from _typeshed import FileDescriptorLike, ReadableBuffer, WriteableBuffer
 from asyncio import _AwaitableLike, _CoroutineLike
-from asyncio.events import AbstractEventLoop, AbstractServer, Handle, TimerHandle, _GetAddrInfoResult, _TaskFactory
+from asyncio.events import AbstractEventLoop, AbstractServer, Handle, TimerHandle, _TaskFactory
 from asyncio.futures import Future
 from asyncio.protocols import BaseProtocol
 from asyncio.tasks import Task
@@ -10,7 +10,7 @@ from asyncio.transports import BaseTransport, DatagramTransport, ReadTransport, 
 from collections.abc import Callable, Iterable, Sequence
 from concurrent.futures import Executor, ThreadPoolExecutor
 from contextvars import Context
-from socket import AddressFamily, AddressInfo, _Address, _RetAddress, socket
+from socket import AddressFamily, AddressInfo, _Address, _GetAddrInfoResult, _RetAddress, socket
 from typing import IO, Any, Literal, TypeAlias, TypeVar, overload
 from typing_extensions import TypeVarTuple, Unpack
 

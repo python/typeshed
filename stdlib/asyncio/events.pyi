@@ -11,7 +11,7 @@ from abc import ABCMeta, abstractmethod
 from collections.abc import Callable, Sequence
 from concurrent.futures import Executor
 from contextvars import Context
-from socket import AddressFamily, AddressInfo, SocketKind, _Address, _RetAddress, socket
+from socket import AddressFamily, AddressInfo, _Address, _GetAddrInfoResult, _RetAddress, socket
 from typing import IO, Any, Literal, Protocol, TypeAlias, TypeVar, overload, type_check_only
 from typing_extensions import Self, TypeVarTuple, Unpack, deprecated
 
@@ -67,10 +67,6 @@ _Context: TypeAlias = dict[str, Any]
 _ExceptionHandler: TypeAlias = Callable[[AbstractEventLoop, _Context], object]
 _ProtocolFactory: TypeAlias = Callable[[], BaseProtocol]
 _SSLContext: TypeAlias = bool | None | ssl.SSLContext
-_GetAddrInfoResult: TypeAlias = list[
-    tuple[Literal[AddressFamily.AF_INET], SocketKind, int, str, tuple[str, int]]
-    | tuple[Literal[AddressFamily.AF_INET6], SocketKind, int, str, tuple[str, int, int, int] | tuple[int, bytes]]
-]
 
 @type_check_only
 class _TaskFactory(Protocol):
