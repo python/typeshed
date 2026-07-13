@@ -7,8 +7,8 @@ from xml.etree.ElementTree import Element
 
 from csselect2 import ElementWrapper
 
-from .css.counters import CounterStyle
 from .css import ColorProfile
+from .css.counters import CounterStyle
 from .document import Document as Document, Page as Page
 from .text.fonts import FontConfiguration
 from .urls import URLFetcher, default_url_fetcher as default_url_fetcher
@@ -64,7 +64,7 @@ class HTML:
         self,
         font_config: FontConfiguration | None = None,
         counter_style: CounterStyle | None = None,
-        color_profiles: dict[str, ColorProfile] | None=None,
+        color_profiles: dict[str, ColorProfile] | None = None,
         **options,
     ) -> Document: ...
     def write_pdf(
