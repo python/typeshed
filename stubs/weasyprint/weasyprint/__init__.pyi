@@ -6,7 +6,6 @@ from typing import IO, Any, TypeAlias, TypedDict
 from typing_extensions import Unpack
 from xml.etree.ElementTree import Element
 
-from csselect2 import ElementWrapper, Matcher
 from pypdf import PDF
 
 from .css import ColorProfile
@@ -14,6 +13,9 @@ from .css.counters import CounterStyle
 from .document import Document as Document, Page as Page
 from .text.fonts import FontConfiguration
 from .urls import URLFetcher, default_url_fetcher as default_url_fetcher
+
+_ElementWrapper: TypeAlias = Any  # actually csselect2.ElementWrapper
+Matcher: TypeAlias = Any  # actually csselect2.Matcher
 
 __all__ = [
     "CSS",
