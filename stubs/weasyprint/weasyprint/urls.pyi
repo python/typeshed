@@ -1,7 +1,8 @@
 import contextlib
 from _typeshed import Incomplete
-from collections.abc import Generator
+from collections.abc import Generator, Sequence
 from gzip import GzipFile
+from ssl import SSLContext
 from urllib import request
 
 UNICODE_SCHEME_RE: Incomplete
@@ -43,9 +44,9 @@ class URLFetcher(request.OpenerDirector):
     def __init__(
         self,
         timeout: int = 10,
-        ssl_context=None,
-        http_headers=None,
-        allowed_protocols=None,
+        ssl_context: SSLContext | None = None,
+        http_headers = None,
+        allowed_protocols: Sequence[str] | None = None,
         allow_redirects: bool = True,
         fail_on_errors: bool = False,
         **kwargs,
