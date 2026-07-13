@@ -1,5 +1,3 @@
-from .min_max import handle_min_max_width
-
 def block_level_layout(
     context,
     box,
@@ -45,8 +43,7 @@ def block_box_layout(
     discard,
     max_lines,
 ): ...
-@handle_min_max_width
-def block_level_width(box, containing_block) -> None: ...
+def block_level_width(box, containing_block, with_min_max: bool = True) -> None: ...
 def relative_positioning(box, containing_block) -> None: ...
 def block_container_layout(
     context,
