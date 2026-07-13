@@ -67,10 +67,10 @@ class HTML:
     etree_element: Element  # undocumented
     def __init__(
         self,
-        guess: str | Path | IO | None = None,
+        guess: str | Path | IO[str | bytes] | None = None,
         filename: str | Path | None = None,
         url: str | None = None,
-        file_obj: IO | None = None,
+        file_obj: IO[str | bytes] | None = None,
         string: str | None = None,
         encoding: str | None = None,
         base_url: str | Path | None = None,
@@ -86,7 +86,7 @@ class HTML:
     ) -> Document: ...
     def write_pdf(
         self,
-        target: str | Path | IO | None = None,
+        target: str | Path | IO[str | bytes] | None = None,
         zoom: float = 1,
         finisher: Callable[[Document, _PDF], Any] | None = None,
         font_config: FontConfiguration | None = None,
@@ -102,10 +102,10 @@ class CSS:
     layers: list[str]  # undocumented
     def __init__(
         self,
-        guess: str | Path | IO | None = None,
+        guess: str | Path | IO[str | bytes] | None = None,
         filename: str | Path | None = None,
         url: str | None = None,
-        file_obj: IO | None = None,
+        file_obj: IO[str | bytes] | None = None,
         string: str | None = None,
         encoding: str | None = None,
         base_url: str | Path | None = None,
@@ -122,7 +122,7 @@ class CSS:
     ) -> None: ...
 
 class Attachment:
-    source: tuple[IO, str, str | None, str | None]  # undocumented
+    source: tuple[IO[str | bytes], str, str | None, str | None]  # undocumented
     name: str | None  # undocumented
     description: str | None  # undocumented
     relationship: str  # undocumented
@@ -131,10 +131,10 @@ class Attachment:
     modified: datetime  # undocumented
     def __init__(
         self,
-        guess: str | Path | IO | None = None,
+        guess: str | Path | IO[str | bytes] | None = None,
         filename: str | Path | None = None,
         url: str | None = None,
-        file_obj: IO | None = None,
+        file_obj: IO[str | bytes] | None = None,
         string: str | None = None,
         base_url: str | Path | None = None,
         url_fetcher: URLFetcher | None = None,
