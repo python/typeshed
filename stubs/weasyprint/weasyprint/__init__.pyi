@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 from collections.abc import Callable
 from datetime import datetime
 from pathlib import Path
-from typing import TextIO, BinaryIO, Any, TypeAlias, TypedDict
+from typing import Any, BinaryIO, TextIO, TypeAlias, TypedDict
 from typing_extensions import Unpack
 from xml.etree.ElementTree import Element
 
