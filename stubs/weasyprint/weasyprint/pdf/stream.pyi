@@ -1,8 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
 from contextlib import contextmanager
-from typing import Any
-from typing_extensions import TypeAlias
+from typing import Any, TypeAlias
 
 _Stream: TypeAlias = Any  # actually pydyf.Stream
 

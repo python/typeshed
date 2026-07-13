@@ -1,6 +1,5 @@
 from _typeshed import Incomplete
-from typing import Any
-from typing_extensions import TypeAlias
+from typing import Any, TypeAlias
 
 _Object: TypeAlias = Any  # actually pydyf.Object
 
