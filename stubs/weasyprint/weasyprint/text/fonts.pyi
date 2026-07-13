@@ -1,2 +1,1 @@
-class FontConfiguration:
-    pass
+class FontConfiguration: ...
