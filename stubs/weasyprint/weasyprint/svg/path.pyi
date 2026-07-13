@@ -1,3 +1,0 @@
-PATH_LETTERS: str
-
-def path(svg, node, font_size) -> None: ...
