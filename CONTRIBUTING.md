@@ -265,7 +265,7 @@ strategies available, depending on whether the other package is typed.
     from typing import Any, Protocol
 
     Frobnicator: TypeAlias = Any
-    
+
     class Flubberer(Protocol):
         def flubb_it(self, x: int, /) -> str: ...
     ```
