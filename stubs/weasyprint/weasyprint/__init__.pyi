@@ -1,11 +1,12 @@
-from _typeshed import Incomplete
-from collections.abc import Callable, Mapping
+from _typeshed import Incomplete, TypeAlias
+from collections.abc import Callable
 from datetime import datetime
 from pathlib import Path
-from typing import IO, Any, Literal
+from typing import IO, Any, TypedDict, Unpack
 from xml.etree.ElementTree import Element
 
-from csselect2 import ElementWrapper
+from csselect2 import ElementWrapper, Matcher
+from pypdf import PDF
 
 from .css import ColorProfile
 from .css.counters import CounterStyle
@@ -13,34 +14,48 @@ from .document import Document as Document, Page as Page
 from .text.fonts import FontConfiguration
 from .urls import URLFetcher, default_url_fetcher as default_url_fetcher
 
-__all__ = ["CSS", "DEFAULT_OPTIONS", "HTML", "VERSION", "Attachment", "Document", "Page", "__version__", "default_url_fetcher"]
+__all__ = [
+    "CSS",
+    "DEFAULT_OPTIONS",
+    "HTML",
+    "VERSION",
+    "Attachment",
+    "Document",
+    "Page",
+    "__version__",
+    "default_url_fetcher",
+    "Options",
+    "PageRule",
+    "Selector",
+]
 
 VERSION: str
 __version__: str
-DEFAULT_OPTIONS: Mapping[
-    Literal[
-        "stylesheets",
-        "attachments",
-        "attachment_relationships",
-        "pdf_identifier",
-        "pdf_variant",
-        "pdf_version",
-        "pdf_forms",
-        "pdf_tags",
-        "uncompressed_pdf",
-        "xmp_metadata",
-        "custom_metadata",
-        "presentational_hints",
-        "output_intent",
-        "optimize_images",
-        "jpeg_quality",
-        "dpi",
-        "full_fonts",
-        "hinting",
-        "cache",
-    ],
-    None | False,
-]
+DEFAULT_OPTIONS: Options
+
+class Options(TypedDict):
+    stylesheets: Incomplete
+    attachments: Incomplete
+    attachment_relationships: Incomplete
+    pdf_identifier: Incomplete
+    pdf_variant: Incomplete
+    pdf_version: Incomplete
+    pdf_forms: Incomplete
+    pdf_tags: Incomplete
+    uncompressed_pdf: Incomplete
+    xmp_metadata: Incomplete
+    custom_metadata: Incomplete
+    presentational_hints: Incomplete
+    output_intent: Incomplete
+    optimize_images: Incomplete
+    jpeg_quality: Incomplete
+    dpi: Incomplete
+    full_fonts: Incomplete
+    hinting: Incomplete
+    cache: Incomplete
+
+Selector: TypeAlias = tuple[Incomplete, str | None, Incomplete]
+PageRule: TypeAlias = tuple[Incomplete, list[Selector], Incomplete]
 
 class HTML:
     base_url: str | Path | None  # undocumented
@@ -65,7 +80,7 @@ class HTML:
         font_config: FontConfiguration | None = None,
         counter_style: CounterStyle | None = None,
         color_profiles: dict[str, ColorProfile] | None = None,
-        **options,
+        **options: Unpack[Options],
     ) -> Document: ...
     def write_pdf(
         self,
@@ -75,14 +90,14 @@ class HTML:
         font_config: FontConfiguration | None = None,
         counter_style: CounterStyle | None = None,
         color_profiles: dict[str, ColorProfile] | None = None,
-        **options,
+        **options: Unpack[Options],
     ) -> bytes | None: ...
 
 class CSS:
-    base_url: str | Path | None
-    matcher: Incomplete
-    page_rules: Incomplete
-    layers: Incomplete
+    base_url: str | Path | None  # undocumented
+    matcher: Matcher  # undocumented
+    page_rules: list[PageRule]  # undocumented
+    layers: Incomplete  # undocumented
     def __init__(
         self,
         guess: str | Path | IO | None = None,
@@ -98,20 +113,20 @@ class CSS:
         font_config: FontConfiguration | None = None,
         counter_style: CounterStyle | None = None,
         color_profiles: dict[str, ColorProfile] | None = None,
-        matcher=None,
-        page_rules=None,
-        layers=None,
-        layer=None,
+        matcher: Matcher | None = None,
+        page_rules: list[PageRule] = None,
+        layers: Incomplete = None,
+        layer: Incomplete = None,
     ) -> None: ...
 
 class Attachment:
-    source: tuple[IO, str, str | None, str | None]
-    name: str | None
-    description: str | None
-    relationship: str
-    md5: None
-    created: datetime
-    modified: datetime
+    source: tuple[IO, str, str | None, str | None]  # undocumented
+    name: str | None  # undocumented
+    description: str | None  # undocumented
+    relationship: str  # undocumented
+    md5: Incomplete  # undocumented
+    created: datetime  # undocumented
+    modified: datetime  # undocumented
     def __init__(
         self,
         guess: str | Path | IO | None = None,
