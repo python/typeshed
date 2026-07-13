@@ -67,6 +67,10 @@ _Context: TypeAlias = dict[str, Any]
 _ExceptionHandler: TypeAlias = Callable[[AbstractEventLoop, _Context], object]
 _ProtocolFactory: TypeAlias = Callable[[], BaseProtocol]
 _SSLContext: TypeAlias = bool | None | ssl.SSLContext
+_GetAddrInfoResult: TypeAlias = list[
+    tuple[Literal[AddressFamily.AF_INET], SocketKind, int, str, tuple[str, int]]
+    | tuple[Literal[AddressFamily.AF_INET6], SocketKind, int, str, tuple[str, int, int, int] | tuple[int, bytes]]
+]
 
 @type_check_only
 class _TaskFactory(Protocol):
@@ -205,7 +209,7 @@ class AbstractEventLoop:
         type: int = 0,
         proto: int = 0,
         flags: int = 0,
-    ) -> list[tuple[AddressFamily, SocketKind, int, str, tuple[str, int] | tuple[str, int, int, int] | tuple[int, bytes]]]: ...
+    ) -> _GetAddrInfoResult: ...
     @abstractmethod
     async def getnameinfo(self, sockaddr: tuple[str, int] | tuple[str, int, int, int], flags: int = 0) -> tuple[str, str]: ...
 
