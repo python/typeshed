@@ -1,6 +1,8 @@
 from _typeshed import Incomplete
+from typing import Any
+from typing_extensions import TypeAlias
 
-import pydyf
+_Object: TypeAlias = Any  # actually pydyf.Object
 
 class ImageLoadingError(ValueError): ...
 
@@ -22,12 +24,12 @@ class RasterImage:
     def cache_image_data(self, data, filename=None, slot: str = "source"): ...
     def get_x_object(self, interpolate, dpi_ratio): ...
 
-class LazyImage(pydyf.Object):
+class LazyImage(_Object):
     def __init__(self, cache, key, data) -> None: ...
     @property
     def data(self): ...
 
-class LazyLocalImage(pydyf.Object):
+class LazyLocalImage(_Object):
     def __init__(self, filename) -> None: ...
     @property
     def data(self): ...

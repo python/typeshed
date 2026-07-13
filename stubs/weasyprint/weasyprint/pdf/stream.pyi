@@ -1,10 +1,12 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
 from contextlib import contextmanager
+from typing import Any
+from typing_extensions import TypeAlias
 
-import pydyf
+_Stream: TypeAlias = Any  # actually pydyf.Stream
 
-class Stream(pydyf.Stream):
+class Stream(_Stream):
     page_rectangle: Incomplete
     length: Incomplete
     ink_rect: Incomplete
