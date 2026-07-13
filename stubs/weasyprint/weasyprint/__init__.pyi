@@ -2,8 +2,8 @@ from _typeshed import Incomplete
 from collections.abc import Callable
 from datetime import datetime
 from pathlib import Path
-from typing import IO, Any, TypedDict
-from typing_extensions import TypeAlias, Unpack
+from typing import IO, Any, TypeAlias, TypedDict
+from typing_extensions import Unpack
 from xml.etree.ElementTree import Element
 
 from csselect2 import ElementWrapper, Matcher
