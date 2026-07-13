@@ -6,8 +6,6 @@ from typing import IO, Any, TypeAlias, TypedDict
 from typing_extensions import Unpack
 from xml.etree.ElementTree import Element
 
-from pypdf import PDF
-
 from .css import ColorProfile
 from .css.counters import CounterStyle
 from .document import Document as Document, Page as Page
@@ -16,6 +14,7 @@ from .urls import URLFetcher, default_url_fetcher as default_url_fetcher
 
 _ElementWrapper: TypeAlias = Any  # actually csselect2.ElementWrapper
 _Matcher: TypeAlias = Any  # actually csselect2.Matcher
+_PDF: TypeAlias = Any  # actually pydyf.PDF
 
 __all__ = [
     "CSS",
@@ -89,7 +88,7 @@ class HTML:
         self,
         target: str | Path | IO | None = None,
         zoom: float = 1,
-        finisher: Callable[[Document, PDF], Any] | None = None,
+        finisher: Callable[[Document, _PDF], Any] | None = None,
         font_config: FontConfiguration | None = None,
         counter_style: CounterStyle | None = None,
         color_profiles: dict[str, ColorProfile] | None = None,
