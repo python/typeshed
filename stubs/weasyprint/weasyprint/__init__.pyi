@@ -3,9 +3,9 @@ from collections.abc import Callable, Mapping
 from datetime import datetime
 from pathlib import Path
 from typing import IO, Any, Literal
+from xml.etree.ElementTree import Element
 
 from csselect2 import ElementWrapper
-from xml.etree.ElementTree import Element
 
 from .css.counters import CounterStyle
 from .document import Document as Document, Page as Page
