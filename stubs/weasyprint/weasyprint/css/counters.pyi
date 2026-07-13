@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 def symbol(string_or_url) -> str: ...
 def parse_counter_style_name(tokens, counter_style): ...
