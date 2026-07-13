@@ -233,6 +233,42 @@ distribution.
 The format of all `METADATA.toml` files can be checked by running
 `python3 ./tests/check_typeshed_structure.py`.
 
+### Dependencies
+
+When a third-party stub package depends on another package, there are several
+strategies available, depending on whether the other package is typed.
+
+1. If the other package is typed and includes a `py.typed` marker, add that
+    package to the `dependencies` key in `METADATA.toml. This might fail the
+    stub uploader checks, in which case you can ask the maintainers for help.
+2. Otherwise, if a type package is available, add that package to the
+    `dependencies` key. If the type package originates from typeshed, the
+    stub uploader checks should succeed.
+3. In case the dependency in untyped and no stubs are available, you may stub
+    the dependency in your type stubs. For example:
+
+    ```python
+    from typing import Any
+    # from fruzzle import Frobnicator  # won't work
+
+    _Frobnicator: TypeAlias = Any  # actually fruzzle.Frobnicator
+    ```
+
+    In more complex or advanced cases you may instead opt to add a stubs
+    is a separate helper package:
+
+    ```python
+    # stubs/my-stubs/my_stubs/_fruzzle.pyi
+
+    # Utility stubs for the untyped "fruzzle" package.
+
+    from typing import Any, Protocol
+
+    Frobnicator: TypeAlias = Any
+    
+    class Flubberer(Protocol):
+        def flubb_it(self, x: int, /) -> str: ...
+    ```
 
 ## Making Changes
 
