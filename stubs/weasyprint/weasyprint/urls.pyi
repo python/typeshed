@@ -45,7 +45,7 @@ class URLFetcher(request.OpenerDirector):
         self,
         timeout: int = 10,
         ssl_context: SSLContext | None = None,
-        http_headers = None,
+        http_headers=None,
         allowed_protocols: Sequence[str] | None = None,
         allow_redirects: bool = True,
         fail_on_errors: bool = False,
