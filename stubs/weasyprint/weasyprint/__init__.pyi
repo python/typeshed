@@ -114,7 +114,7 @@ class CSS:
         counter_style: CounterStyle | None = None,
         color_profiles: dict[str, ColorProfile] | None = None,
         matcher: Matcher | None = None,
-        page_rules: list[PageRule] = None,
+        page_rules: list[PageRule] | None = None,
         layers: list[str] | None = None,
         layer: Incomplete = None,
     ) -> None: ...
