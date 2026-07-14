@@ -1,3 +1,4 @@
+import builtins
 from typing import Any
 
 from .resource import Collection, Model
@@ -10,7 +11,7 @@ class Volume(Model):
 
 class VolumeCollection(Collection[Volume]):
     model: type[Volume]
-    def create(self, name: str | None = None, **kwargs) -> Volume: ...  # type:ignore[override]
+    def create(self, name: str | None = None, **kwargs) -> Volume: ...  # type: ignore[override]
     def get(self, volume_id: str) -> Volume: ...
-    def list(self, **kwargs) -> list[Volume]: ...
+    def list(self, **kwargs) -> builtins.list[Volume]: ...
     def prune(self, filters: dict[str, Any] | None = None) -> dict[str, Any]: ...
