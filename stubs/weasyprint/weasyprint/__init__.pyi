@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 from collections.abc import Callable
 from datetime import datetime
 from pathlib import Path
-from typing import Any, BinaryIO, TextIO, TypeAlias, TypedDict
+from typing import Any, BinaryIO, TextIO, TypeAlias, TypedDict, type_check_only
 from typing_extensions import Unpack
 from xml.etree.ElementTree import Element
 
@@ -22,6 +22,7 @@ VERSION: str
 __version__: str
 DEFAULT_OPTIONS: _Options
 
+@type_check_only
 class _Options(TypedDict):
     stylesheets: Incomplete
     attachments: Incomplete
