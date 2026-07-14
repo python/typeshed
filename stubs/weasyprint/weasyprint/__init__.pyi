@@ -16,17 +16,7 @@ _ElementWrapper: TypeAlias = Any  # actually csselect2.ElementWrapper
 _Matcher: TypeAlias = Any  # actually csselect2.Matcher
 _PDF: TypeAlias = Any  # actually pydyf.PDF
 
-__all__ = [
-    "CSS",
-    "DEFAULT_OPTIONS",
-    "HTML",
-    "VERSION",
-    "Attachment",
-    "Document",
-    "Page",
-    "__version__",
-    "default_url_fetcher",
-]
+__all__ = ["CSS", "DEFAULT_OPTIONS", "HTML", "VERSION", "Attachment", "Document", "Page", "__version__", "default_url_fetcher"]
 
 VERSION: str
 __version__: str
