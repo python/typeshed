@@ -1,8 +1,8 @@
 from _typeshed import Incomplete
 from abc import abstractmethod
 from collections.abc import Callable
-from typing import IO, Any, Literal, Protocol, type_check_only
-from typing_extensions import Self, TypeAlias
+from typing import IO, Any, Literal, Protocol, TypeAlias, type_check_only
+from typing_extensions import Self
 
 from reportlab.pdfgen.canvas import Canvas
 from reportlab.platypus.flowables import Flowable
@@ -165,6 +165,8 @@ class onDrawStr(str):
     ) -> Self: ...
     def __getnewargs__(self) -> tuple[str, Callable[[Canvas, str | None, str], object], str, str | None]: ...  # type: ignore[override]
 
+_OnDrawStr: TypeAlias = onDrawStr
+
 class PageAccumulator:
     name: str
     data: list[tuple[Any, ...]]
@@ -177,7 +179,7 @@ class PageAccumulator:
     def onPage(self, canv: Canvas, doc: BaseDocTemplate) -> None: ...
     def onPageEnd(self, canv: Canvas, doc: BaseDocTemplate) -> None: ...
     def pageEndAction(self, canv: Canvas, doc: BaseDocTemplate) -> None: ...
-    def onDrawStr(self, value: object, *args) -> onDrawStr: ...
+    def onDrawStr(self, value: object, *args) -> _OnDrawStr: ...
 
 class BaseDocTemplate:
     filename: Incomplete

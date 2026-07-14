@@ -1,8 +1,8 @@
+import builtins
 from _typeshed import SupportsRead
 from collections.abc import Iterator
 from io import StringIO
-from typing import IO, Any, Literal, TypedDict, overload, type_check_only
-from typing_extensions import TypeAlias
+from typing import IO, Any, Literal, TypeAlias, TypedDict, overload, type_check_only
 
 from docker._types import JSON
 
@@ -62,11 +62,11 @@ class ImageCollection(Collection[Image]):
         shmsize: int | None = None,
         labels: dict[str, Any] | None = None,
         # need to use list, because the type must be json serializable
-        cache_from: list[str] | None = None,
+        cache_from: builtins.list[str] | None = None,
         target: str | None = None,
         network_mode: str | None = None,
         squash: bool | None = None,
-        extra_hosts: list[str] | dict[str, str] | None = None,
+        extra_hosts: builtins.list[str] | dict[str, str] | None = None,
         platform: str | None = None,
         isolation: str | None = None,
         use_config_proxy: bool = True,
@@ -75,6 +75,7 @@ class ImageCollection(Collection[Image]):
     def get_registry_data(self, name, auth_config: dict[str, Any] | None = None) -> RegistryData: ...
     def list(self, name: str | None = None, all: bool = False, filters: dict[str, Any] | None = None) -> _ImageList: ...
     def load(self, data: bytes | SupportsRead[bytes]) -> _ImageList: ...
+
     @overload
     def pull(
         self,
@@ -105,6 +106,7 @@ class ImageCollection(Collection[Image]):
         auth_config: dict[str, Any] | None = None,
         platform: str | None = None,
     ) -> _ImageList: ...
+
     def push(self, repository: str, tag: str | None = None, **kwargs): ...
     def remove(self, *args, **kwargs) -> None: ...
     def search(self, *args, **kwargs): ...
