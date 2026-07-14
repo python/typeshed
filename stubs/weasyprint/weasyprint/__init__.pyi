@@ -26,16 +26,13 @@ __all__ = [
     "Page",
     "__version__",
     "default_url_fetcher",
-    "Options",
-    "PageRule",
-    "Selector",
 ]
 
 VERSION: str
 __version__: str
-DEFAULT_OPTIONS: Options
+DEFAULT_OPTIONS: _Options
 
-class Options(TypedDict):
+class _Options(TypedDict):
     stylesheets: Incomplete
     attachments: Incomplete
     attachment_relationships: Incomplete
@@ -56,8 +53,8 @@ class Options(TypedDict):
     hinting: Incomplete
     cache: Incomplete
 
-Selector: TypeAlias = tuple[Incomplete, str | None, Incomplete]
-PageRule: TypeAlias = tuple[Incomplete, list[Selector], Incomplete]
+_Selector: TypeAlias = tuple[Incomplete, str | None, Incomplete]
+_PageRule: TypeAlias = tuple[Incomplete, list[_Selector], Incomplete]
 
 class HTML:
     base_url: str | Path | None  # undocumented
@@ -82,7 +79,7 @@ class HTML:
         font_config: FontConfiguration | None = None,
         counter_style: CounterStyle | None = None,
         color_profiles: dict[str, ColorProfile] | None = None,
-        **options: Unpack[Options],
+        **options: Unpack[_Options],
     ) -> Document: ...
     def write_pdf(
         self,
@@ -92,13 +89,13 @@ class HTML:
         font_config: FontConfiguration | None = None,
         counter_style: CounterStyle | None = None,
         color_profiles: dict[str, ColorProfile] | None = None,
-        **options: Unpack[Options],
+        **options: Unpack[_Options],
     ) -> bytes | None: ...
 
 class CSS:
     base_url: str | Path | None  # undocumented
     matcher: _Matcher  # undocumented
-    page_rules: list[PageRule]  # undocumented
+    page_rules: list[_PageRule]  # undocumented
     layers: list[str]  # undocumented
     def __init__(
         self,
@@ -116,7 +113,7 @@ class CSS:
         counter_style: CounterStyle | None = None,
         color_profiles: dict[str, ColorProfile] | None = None,
         matcher: _Matcher | None = None,
-        page_rules: list[PageRule] | None = None,
+        page_rules: list[_PageRule] | None = None,
         layers: list[str] | None = None,
         layer: str | None = None,
     ) -> None: ...
