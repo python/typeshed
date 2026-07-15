@@ -88,7 +88,7 @@ def read_arrow(
     *,
     batch_size: int = 65536,  # Extracted from kwargs
     **kwargs: Any,  # Dataset open options passed to OGR
-) -> tuple[_Meta, pa.Table]: ...
+) -> tuple[_Meta, pa.Table]: ...  # pyright: ignore[reportUnknownMemberType]  # pyarrow is an optional dependency
 
 @overload
 def open_arrow(
@@ -136,7 +136,7 @@ def open_arrow(
     use_pyarrow: Literal[True],
     datetime_as_string: bool = False,
     **kwargs: Any,  # Dataset open options passed to OGR
-) -> AbstractContextManager[tuple[_Meta, pa.RecordBatchReader]]: ...
+) -> AbstractContextManager[tuple[_Meta, pa.RecordBatchReader]]: ...  # pyright: ignore[reportUnknownMemberType]  # pyarrow is an optional dependency
 
 def write(
     path: WritePathOrBuffer,
