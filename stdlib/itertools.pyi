@@ -2,7 +2,20 @@ import sys
 from _typeshed import MaybeNone
 from collections.abc import Callable, Iterable, Iterator
 from types import GenericAlias
-from typing import Any, Generic, Literal, SupportsComplex, SupportsFloat, SupportsIndex, SupportsInt, TypeAlias, TypeVar, overload
+from typing import (
+    Any,
+    Generic,
+    Literal,
+    Protocol,
+    SupportsComplex,
+    SupportsFloat,
+    SupportsIndex,
+    SupportsInt,
+    TypeAlias,
+    TypeVar,
+    overload,
+    type_check_only,
+)
 from typing_extensions import Self, disjoint_base
 
 _T = TypeVar("_T")
@@ -10,6 +23,7 @@ _S = TypeVar("_S")
 _N = TypeVar("_N", int, float, SupportsFloat, SupportsInt, SupportsIndex, SupportsComplex)
 _T_co = TypeVar("_T_co", covariant=True)
 _S_co = TypeVar("_S_co", covariant=True)
+_IteratorT_co = TypeVar("_IteratorT_co", bound=Iterator[Any], covariant=True)
 _T1 = TypeVar("_T1")
 _T2 = TypeVar("_T2")
 _T3 = TypeVar("_T3")
@@ -94,15 +108,27 @@ class filterfalse(Generic[_T]):
     def __iter__(self) -> Self: ...
     def __next__(self) -> _T: ...
 
+@type_check_only
+class _GroupByIterable(Protocol[_T_co, _IteratorT_co]):
+    @overload
+    def __iter__(self) -> Iterator[_T_co]: ...
+    @overload
+    def __iter__(self) -> _IteratorT_co: ...  # type: ignore[overload-cannot-match]
+
 @disjoint_base
 class groupby(Generic[_T_co, _S_co]):
     @overload
-    def __new__(cls, iterable: Iterable[_T1], key: None = None) -> groupby[_T1, _T1]: ...
+    def __new__(cls, iterable: _GroupByIterable[_T1, _IteratorT_co], key: None = None) -> _ExactGroupBy[_T1, _IteratorT_co]: ...
     @overload
     def __new__(cls, iterable: Iterable[_T1], key: Callable[[_T1], _T2]) -> groupby[_T2, _T1]: ...
 
     def __iter__(self) -> Self: ...
     def __next__(self) -> tuple[_T_co, Iterator[_S_co]]: ...
+
+@type_check_only
+class _ExactGroupBy(groupby[_T_co, Any], Generic[_T_co, _IteratorT_co]):
+    def __iter__(self) -> Self: ...
+    def __next__(self) -> tuple[_T_co, _IteratorT_co]: ...
 
 @disjoint_base
 class islice(Generic[_T]):
