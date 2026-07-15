@@ -136,7 +136,9 @@ def open_arrow(
     use_pyarrow: Literal[True],
     datetime_as_string: bool = False,
     **kwargs: Any,  # Dataset open options passed to OGR
-) -> AbstractContextManager[tuple[_Meta, pa.RecordBatchReader]]: ...  # pyright: ignore[reportUnknownMemberType]  # pyarrow is an optional dependency
+) -> AbstractContextManager[
+    tuple[_Meta, pa.RecordBatchReader]
+]: ...  # pyright: ignore[reportUnknownMemberType]  # pyarrow is an optional dependency
 
 def write(
     path: WritePathOrBuffer,
