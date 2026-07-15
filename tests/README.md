@@ -87,6 +87,7 @@ the stubs in typeshed (including the standard library).
 Run using:
 ```bash
 (.venv)$ python3 tests/ty_test.py --python=.venv
+(.venv)$ python3 tests/ty_test.py stubs/PySocks --python=.venv
 ```
 
 This test checks the stdlib and third-party stubs with ty, using the configuration

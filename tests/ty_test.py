@@ -40,8 +40,21 @@ def stdlib_files(version: str) -> list[Path]:
     return files
 
 
+def _path_files(path: Path) -> list[Path]:
+    if path.is_file():
+        return [path] if path.suffix == ".pyi" and "@tests" not in path.parts else []
+    return sorted(p for p in path.rglob("*.pyi") if "@tests" not in p.parts)
+
+
+def _filter_files(files: list[Path], paths: list[Path], root: Path) -> list[Path]:
+    selected_paths = [path if path.is_absolute() else TS_BASE_PATH / path for path in paths]
+    selected_files = {file for path in selected_paths if path.is_relative_to(root) for file in _path_files(path)}
+    return [file for file in files if file in selected_files]
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Typecheck typeshed's stdlib and third-party stubs with ty.")
+    parser.add_argument("paths", nargs="*", type=Path, help="Specific stdlib or third-party stubs to check")
     parser.add_argument("--python", type=Path, help="Python interpreter or environment used to resolve third-party imports")
     parser.add_argument("--python-version", choices=SUPPORTED_VERSIONS, default=SUPPORTED_VERSIONS[0])
     parser.add_argument("--platform", choices=SUPPORTED_PLATFORMS, default="linux")
@@ -52,7 +65,14 @@ def main() -> int:
         for path in STUBS_PATH.rglob("*.pyi")
         if "@tests" not in path.parts and path.relative_to(STUBS_PATH).parts[0] not in EXCLUDED_STUBS
     )
-    files = [*stdlib_files(args.python_version), *third_party_files]
+    stdlib = stdlib_files(args.python_version)
+    if args.paths:
+        stdlib = _filter_files(stdlib, args.paths, STDLIB_PATH)
+        third_party_files = _filter_files(third_party_files, args.paths, STUBS_PATH)
+    files = [*stdlib, *third_party_files]
+    if not files:
+        print("No stubs to check with ty.", flush=True)
+        return 0
     command = [
         "ty",
         "check",
