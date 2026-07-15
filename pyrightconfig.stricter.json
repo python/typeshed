@@ -81,7 +81,6 @@
         "stubs/pyasn1",
         "stubs/Pygments",
         "stubs/PyMySQL",
-        "stubs/pyogrio",
         "stubs/python-jose",
         "stubs/pywin32",
         "stubs/PyYAML",
