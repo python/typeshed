@@ -24,11 +24,11 @@ hash(v)
 w: Tuple[()] = u
 hash(w)
 hash(tuple(sys.platform))
-hash(([],)) # type: ignore
+hash(([],))  # type: ignore
 x: Tuple[Any, Any] = ({}, ())
 hash(x)
-y = (),
+y = ((),)
 assert_type(y, Tuple[Tuple[()]])
 hash(y)
 z = ({}, ())
-hash(z) # type: ignore
+hash(z)  # type: ignore
