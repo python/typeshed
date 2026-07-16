@@ -21,7 +21,7 @@ class StubFile:
     def module_name(self) -> str:
         return ".".join(self.module_parts)
 
-    @property
+    @cached_property
     def module_parts(self) -> tuple[str, ...]:
         raise NotImplementedError
 

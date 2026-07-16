@@ -234,7 +234,7 @@ def distribution_files(distribution: str, args: TestConfig, seen_dists: set[str]
     seen_dists.add(distribution)
     seen_dists.update(r.name for r in typeshed_reqs)
 
-    stubs = []
+    stubs: list[Path] = []
     for stub in third_party_stubs(distribution):
         if match(stub, args):
             stubs.append(stub.path)
