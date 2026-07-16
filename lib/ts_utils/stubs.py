@@ -1,3 +1,5 @@
+"""Stub file discovery."""
+
 from functools import cached_property
 from pathlib import Path
 
@@ -6,7 +8,7 @@ from ts_utils.utils import parse_stdlib_versions_file
 
 
 class StubFile:
-    """A stdlib stub file."""
+    """Base class for stub files."""
 
     def __init__(self, path: Path) -> None:
         self.path = path
@@ -27,6 +29,8 @@ class StubFile:
 
 
 class StdlibStubFile(StubFile):
+    """A stdlib stub file."""
+
     @cached_property
     def module_parts(self) -> tuple[str, ...]:
         relative = self.path.relative_to(STDLIB_PATH)
@@ -37,6 +41,8 @@ class StdlibStubFile(StubFile):
 
 
 class ThirdPartyStubFile(StubFile):
+    """A third-party stub file."""
+
     @cached_property
     def upstream_distribution(self) -> str:
         return self.path.relative_to(STUBS_PATH).parts[0]
@@ -52,7 +58,8 @@ class ThirdPartyStubFile(StubFile):
 
 
 def stdlib_stubs(version: str) -> list[StdlibStubFile]:
-    """Return the stdlib stubs available in the requested Python version."""
+    """Return the stdlib stubs available for the requested Python version."""
+
     module_versions = parse_stdlib_versions_file()
     stubs: list[StdlibStubFile] = []
 
@@ -67,6 +74,12 @@ def stdlib_stubs(version: str) -> list[StdlibStubFile]:
 
 
 def third_party_stubs(distribution: str | None = None) -> list[ThirdPartyStubFile]:
+    """Return third-party stubs.
+
+    If distribution is None, return all third-party stubs. Otherwise,
+    return only stubs for the given distribution.
+    """
+
     stubs: list[ThirdPartyStubFile] = []
 
     stub_path = distribution_path(distribution) if distribution else STUBS_PATH
@@ -80,7 +93,7 @@ def third_party_stubs(distribution: str | None = None) -> list[ThirdPartyStubFil
 
 
 def path_stubs(path: Path) -> list[Path]:
-    """Return all stubs in a certain path."""
+    """Return paths to all stub files in a certain path."""
     if path.is_file():
         return [path] if path.suffix == ".pyi" and TESTS_DIR not in path.parts else []
     return sorted(p for p in path.rglob("*.pyi") if TESTS_DIR not in p.parts)
