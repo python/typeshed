@@ -16,7 +16,7 @@ assert_type(TupleSub([1, 2, 3]), TupleSub)
 # Hashability shenanigans, see #15852
 t: Tuple[int, int] = (1, 3)
 hash(t)
-u: Tuple[bytes, ...] = tuple(b"spam")
+u: Tuple[int, ...] = tuple(b"spam")
 hash(u)
 v: Tuple[str] = ("",)
 hash(v)
