@@ -227,18 +227,14 @@ def run_mypy(
     return MypyResult.from_process_result(result)
 
 
-def distribution_files(distribution: str, args: TestConfig, seen_dists: set[str]) -> list[Path]:
+def distribution_stub_files(distribution: str, args: TestConfig, seen_dists: set[str]) -> list[Path]:
     typeshed_reqs = get_recursive_requirements(distribution).typeshed_pkgs
     if distribution in seen_dists:
         return []
     seen_dists.add(distribution)
     seen_dists.update(r.name for r in typeshed_reqs)
 
-    stubs: list[Path] = []
-    for stub in third_party_stubs(distribution):
-        if match(stub, args):
-            stubs.append(stub.path)
-    return stubs
+    return [stub.path for stub in third_party_stubs(distribution) if match(stub, args)]
 
 
 class TestResult(NamedTuple):
@@ -255,7 +251,7 @@ def test_third_party_distribution(
     and the second element is the number of checked files.
     """
     seen_dists: set[str] = set()
-    files = distribution_files(distribution, args, seen_dists)
+    files = distribution_stub_files(distribution, args, seen_dists)
     configurations = mypy_configuration_from_distribution(distribution)
 
     if not files and args.filter:
@@ -283,11 +279,7 @@ def test_third_party_distribution(
 
 
 def test_stdlib(args: TestConfig) -> TestResult:
-    files: list[Path] = []
-
-    for stub in stdlib_stubs(args.version):
-        if match(stub, args):
-            files.append(stub.path)
+    files = [stub.path for stub in stdlib_stubs(args.version) if match(stub, args)]
 
     if not files:
         return TestResult(MypyResult.SUCCESS, 0)
