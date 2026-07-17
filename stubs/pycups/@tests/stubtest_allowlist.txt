@@ -1,8 +1,0 @@
-# -- ignore "stub does not have *args argument"
-# While these functions technically take any args and kwargs, they ignore
-# all of them, so it is better to type them as taking no arguments.
-cups.Attribute.__init__
-cups.Constraint.__init__
-cups.Dest.__init__
-cups.Group.__init__
-cups.Option.__init__
