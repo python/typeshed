@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import sys
-from typing import Any, Tuple, Dict
+from typing import Any, Dict, Tuple
 from typing_extensions import assert_type
 
 
@@ -16,9 +16,9 @@ assert_type(TupleSub([1, 2, 3]), TupleSub)
 # Hashability shenanigans, see #15852
 t: Tuple[int, int] = (1, 3)
 hash(t)
-u: Tuple[bytes, ...] = tuple(b'spam')
+u: Tuple[bytes, ...] = tuple(b"spam")
 hash(u)
-v: Tuple[str] = ('',)
+v: Tuple[str] = ("",)
 hash(v)
 w: Tuple[()] = ()
 hash(w)
