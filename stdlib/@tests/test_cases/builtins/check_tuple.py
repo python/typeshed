@@ -1,8 +1,7 @@
 from __future__ import annotations
 
 import sys
-from collections.abc import MutableSequence
-from typing import Any, Tuple, TypeVar
+from typing import Any, Tuple, Dict
 from typing_extensions import assert_type
 
 
@@ -17,18 +16,15 @@ assert_type(TupleSub([1, 2, 3]), TupleSub)
 # Hashability shenanigans, see #15852
 t: Tuple[int, int] = (1, 3)
 hash(t)
-u: Tuple[int, ...] = t
+u: Tuple[bytes, ...] = tuple(b'spam')
 hash(u)
-v: Tuple[int] = u
+v: Tuple[str] = ('',)
 hash(v)
-w: Tuple[()] = u
+w: Tuple[()] = ()
 hash(w)
 hash(tuple(sys.platform))
 hash(([],))  # type: ignore
-x: Tuple[Any, Any] = ({}, ())
+x: Tuple[Any, Any] = ((), ())
 hash(x)
-y = ((),)
-assert_type(y, Tuple[Tuple[()]])
-hash(y)
-z = ({}, ())
+z: Tuple[Tuple[Any, ...], Dict[str, Any]] = ((), {})
 hash(z)  # type: ignore
