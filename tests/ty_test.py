@@ -9,7 +9,7 @@ import tempfile
 from pathlib import Path
 
 from ts_utils.paths import STDLIB_PATH, STUBS_PATH, TS_BASE_PATH
-from ts_utils.utils import parse_stdlib_versions_file, supported_versions_for_module
+from ts_utils.utils import parse_stdlib_versions_file
 
 SUPPORTED_VERSIONS = ("3.10", "3.11", "3.12", "3.13", "3.14", "3.15")
 SUPPORTED_PLATFORMS = ("linux", "darwin", "win32")
@@ -19,7 +19,6 @@ EXCLUDED_STUBS = {"requests"}
 
 def stdlib_files(version: str) -> list[Path]:
     """Return the stdlib stubs available in the requested Python version."""
-    version_tuple = tuple(map(int, version.split(".")))
     module_versions = parse_stdlib_versions_file()
     files: list[Path] = []
 
@@ -33,8 +32,7 @@ def stdlib_files(version: str) -> list[Path]:
         parts = list(relative.parts[:-1])
         if relative.name != "__init__.pyi":
             parts.append(relative.stem)
-        minimum, maximum = supported_versions_for_module(module_versions, ".".join(parts))
-        if minimum <= version_tuple <= maximum:
+        if module_versions.is_supported(".".join(parts), version):
             files.append(path)
 
     return files

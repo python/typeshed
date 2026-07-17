@@ -33,7 +33,6 @@ from ts_utils.utils import (
     print_error,
     print_success_msg,
     spec_matches_path,
-    supported_versions_for_module,
     venv_python,
 )
 
@@ -311,15 +310,13 @@ def test_stdlib(args: TestConfig) -> TestResult:
 
 
 def remove_modules_not_in_python_version(paths: list[Path], py_version: VersionString) -> list[Path]:
-    py_version_tuple = tuple(map(int, py_version.split(".")))
     module_versions = parse_stdlib_versions_file()
     new_paths: list[Path] = []
     for path in paths:
         if path.parts[0] != "stdlib" or path.suffix != ".pyi":
             continue
         module_name = stdlib_module_name_from_path(path)
-        min_version, max_version = supported_versions_for_module(module_versions, module_name)
-        if min_version <= py_version_tuple <= max_version:
+        if module_versions.is_supported(module_name, py_version):
             new_paths.append(path)
     return new_paths
 
