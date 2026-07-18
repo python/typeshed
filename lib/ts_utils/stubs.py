@@ -51,7 +51,6 @@ class ThirdPartyStubFile(StubFile):
     def module_parts(self) -> tuple[str, ...]:
         relative = self.path.relative_to(STUBS_PATH)
         parts = list(relative.parts[1:-1])
-        print(parts)
         if relative.name != "__init__.pyi":
             parts.append(relative.stem)
         return tuple(parts)
