@@ -58,18 +58,9 @@ class ThirdPartyStubFile(StubFile):
 
 def stdlib_stubs(version: str) -> list[StdlibStubFile]:
     """Return the stdlib stubs available for the requested Python version."""
-
     module_versions = parse_stdlib_versions_file()
-    stubs: list[StdlibStubFile] = []
-
-    for path in sorted(STDLIB_PATH.rglob("*.pyi")):
-        if TESTS_DIR in path.parts:
-            continue
-        stub = StdlibStubFile(path)
-        if module_versions.is_supported(stub.module_name, version):
-            stubs.append(stub)
-
-    return stubs
+    stubs = (StdlibStubFile(path) for path in path_stubs(STDLIB_PATH))
+    return [stub for stub in stubs if module_versions.is_supported(stub.module_name, version)]
 
 
 def third_party_stubs(distribution: str | None = None) -> list[ThirdPartyStubFile]:
@@ -78,17 +69,8 @@ def third_party_stubs(distribution: str | None = None) -> list[ThirdPartyStubFil
     If distribution is None, return all third-party stubs. Otherwise,
     return only stubs for the given distribution.
     """
-
-    stubs: list[ThirdPartyStubFile] = []
-
     stub_path = distribution_path(distribution) if distribution else STUBS_PATH
-
-    for path in sorted(stub_path.rglob("*.pyi")):
-        if TESTS_DIR in path.parts:
-            continue
-        stubs.append(ThirdPartyStubFile(path))
-
-    return stubs
+    return [ThirdPartyStubFile(path) for path in path_stubs(stub_path)]
 
 
 def path_stubs(path: Path) -> list[Path]:
