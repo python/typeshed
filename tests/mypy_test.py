@@ -143,7 +143,7 @@ def match(stub: StubFile, args: TestConfig) -> bool:
     log_msg = (
         f'is implicitly excluded: was not in any of the directories or paths specified on the command line: "{args.filter!r}"'
     )
-    log(args, stub.path, log_msg)
+    log(args, stub, log_msg)
     return False
 
 
