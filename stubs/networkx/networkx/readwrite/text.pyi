@@ -49,15 +49,20 @@ class UtfUndirectedGlyphs(UtfBaseGlyphs):
     vertical_edge: ClassVar[str]
 
 def generate_network_text(
-    graph, with_labels: bool = True, sources=None, max_depth=None, ascii_only: bool = False, vertical_chains: bool = False
+    graph: DiGraph[Incomplete],
+    with_labels: bool = True,
+    sources: list[Incomplete] = None,
+    max_depth: int = None,
+    ascii_only: bool = False,
+    vertical_chains: bool = False,
 ) -> Generator[Incomplete, None, Incomplete]: ...
 def write_network_text(
-    graph,
-    path=None,
+    graph: DiGraph[Incomplete],
+    path: Callable[..., Incomplete] = None,
     with_labels: bool = True,
-    sources=None,
-    max_depth=None,
+    sources: list[Incomplete] = None,
+    max_depth: int = None,
     ascii_only: bool = False,
     end: str = "\n",
-    vertical_chains=False,
+    vertical_chains: bool = False,
 ) -> None: ...

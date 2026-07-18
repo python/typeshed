@@ -6,9 +6,13 @@ from numpy.random import RandomState
 __all__ = ["double_edge_swap", "connected_double_edge_swap", "directed_edge_swap"]
 
 @_dispatchable
-def directed_edge_swap(G: DiGraph[_Node], *, nswap: int = 1, max_tries: int = 100, seed: int | RandomState | None = None): ...
+def directed_edge_swap(
+    G: DiGraph[_Node], *, nswap: int = 1, max_tries: int = 100, seed: int | RandomState | None = None
+) -> DiGraph[Incomplete]: ...
 @_dispatchable
-def double_edge_swap(G: Graph[_Node], nswap: int = 1, max_tries: int = 100, seed: int | RandomState | None = None): ...
+def double_edge_swap(
+    G: Graph[_Node], nswap: int = 1, max_tries: int = 100, seed: int | RandomState | None = None
+) -> Graph[Incomplete]: ...
 @_dispatchable
 def connected_double_edge_swap(
     G: Graph[_Node], nswap: int = 1, _window_threshold: int = 3, seed: int | RandomState | None = None

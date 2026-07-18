@@ -15,25 +15,37 @@ __all__ = [
 
 def generate_edgelist(G: Graph[_Node], delimiter: str = " ", data: bool = True) -> Generator[Incomplete, None, None]: ...
 def write_edgelist(
-    G: Graph[_Node], path, comments: str = "#", delimiter: str = " ", data: bool = True, encoding: str = "utf-8"
+    G: Graph[_Node], path: str, comments: str = "#", delimiter: str = " ", data: bool = True, encoding: str = "utf-8"
 ) -> None: ...
 @_dispatchable
-def parse_edgelist(lines, comments: str = "#", delimiter=None, create_using=None, nodetype=None, data: bool = True): ...
+def parse_edgelist(
+    lines: list[Incomplete],
+    comments: str = "#",
+    delimiter: str = None,
+    create_using: Graph[Incomplete] = None,
+    nodetype: type[Incomplete] = None,
+    data: bool = True,
+) -> Graph[Incomplete]: ...
 @_dispatchable
 def read_edgelist(
-    path,
+    path: str,
     comments: str = "#",
-    delimiter=None,
-    create_using=None,
+    delimiter: str = None,
+    create_using: Graph[Incomplete] = None,
     nodetype=None,
     data: bool = True,
     edgetype=None,
     encoding: str = "utf-8",
-): ...
+) -> Graph[Incomplete]: ...
 def write_weighted_edgelist(
-    G: Graph[_Node], path, comments: str = "#", delimiter: str = " ", encoding: str = "utf-8"
+    G: Graph[_Node], path: str, comments: str = "#", delimiter: str = " ", encoding: str = "utf-8"
 ) -> None: ...
 @_dispatchable
 def read_weighted_edgelist(
-    path, comments: str = "#", delimiter=None, create_using=None, nodetype=None, encoding: str = "utf-8"
-): ...
+    path: str,
+    comments: str = "#",
+    delimiter: str = None,
+    create_using: Graph[Incomplete] = None,
+    nodetype=None,
+    encoding: str = "utf-8",
+) -> Graph[Incomplete]: ...

@@ -39,4 +39,6 @@ def strategy_saturation_largest_first(G: Graph[_Node], colors) -> Generator[Inco
 STRATEGIES: Final[dict[str, Callable[..., Incomplete]]]
 
 @_dispatchable
-def greedy_color(G: Graph[_Node], strategy="largest_first", interchange: bool = False): ...
+def greedy_color(
+    G: Graph[_Node], strategy: Callable[..., Incomplete] = "largest_first", interchange: bool = False
+) -> dict[Incomplete, Incomplete]: ...

@@ -11,9 +11,11 @@ def biadjacency_matrix(
     G: Graph[_Node],
     row_order: Iterable[_Node],
     column_order: Iterable[Incomplete] | None = None,
-    dtype=None,
+    dtype: np.dtype[Incomplete] = None,
     weight: str | None = "weight",
-    format="csr",
-): ...  # Return is a complex union of scipy classes depending on the format param
+    format: str = "csr",
+) -> sparray: ...  # Return is a complex union of scipy classes depending on the format param
 @_dispatchable
-def from_biadjacency_matrix(A, create_using: Graph[_Node] | None = None, edge_attribute: str = "weight"): ...
+def from_biadjacency_matrix(
+    A: sparray, create_using: Graph[_Node] | None = None, edge_attribute: str = "weight"
+) -> Graph[Incomplete]: ...

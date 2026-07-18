@@ -11,7 +11,7 @@ def leiden_communities(
     resolution: float = 1,
     max_level: int | None = None,
     seed: int | RandomState | None = None,
-): ...
+) -> list[Incomplete]: ...
 @_dispatchable
 def leiden_partitions(
     G: Graph[_Node], weight: str | None = "weight", resolution: float = 1, seed: int | RandomState | None = None

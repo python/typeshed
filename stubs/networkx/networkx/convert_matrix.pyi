@@ -80,9 +80,17 @@ def from_pandas_edgelist(
     edge_key: str | None = None,
 ) -> Graph[Incomplete]: ...
 @_dispatchable
-def to_scipy_sparse_array(G: Graph[_Node], nodelist=None, dtype=None, weight="weight", format="csr"): ...
+def to_scipy_sparse_array(
+    G: Graph[_Node],
+    nodelist: list[Incomplete] = None,
+    dtype: np.dtype[Incomplete] = None,
+    weight: str = "weight",
+    format: str = "csr",
+) -> sparray: ...
 @_dispatchable
-def from_scipy_sparse_array(A, parallel_edges=False, create_using=None, edge_attribute="weight"): ...
+def from_scipy_sparse_array(
+    A: sparray, parallel_edges: bool = False, create_using: Graph[Incomplete] = None, edge_attribute: str = "weight"
+): ...
 @_dispatchable
 def to_numpy_array(
     G: Graph[_Node],
