@@ -1,4 +1,3 @@
-
 import importlib.abc
 import importlib.machinery
 import sys
@@ -61,7 +60,7 @@ class BuiltinImporter(importlib.abc.MetaPathFinder, importlib.abc.InspectLoader)
     # InspectLoader
     @classmethod
     def is_package(cls, fullname: str) -> bool: ...
-    
+
     # Fixing the deprecation warning for `load_module` in Python 3.15 and later
     if sys.version_info < (3, 15):
         @classmethod
@@ -100,7 +99,7 @@ class FrozenImporter(importlib.abc.MetaPathFinder, importlib.abc.InspectLoader):
     # InspectLoader
     @classmethod
     def is_package(cls, fullname: str) -> bool: ...
-    
+
     # Fixing the deprecation warning for `load_module` in Python 3.15 and later
     if sys.version_info < (3, 15):
         @classmethod
