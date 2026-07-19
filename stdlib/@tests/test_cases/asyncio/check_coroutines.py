@@ -19,10 +19,10 @@ def test_iscoroutinefunction_asyncio(
             assert_type(x, Callable[[str, int], Coroutine[str, int, bytes]])
 
         if iscoroutinefunction(y):  # pyright: ignore
-            assert_type(y, Callable[[str, int], Coroutine[Any, Any, bytes]])
+            assert_type(y, Callable[[str, int], Awaitable[bytes]])
 
         if iscoroutinefunction(z):  # pyright: ignore
-            assert_type(z, Callable[[str, int], Coroutine[Any, Any, Any]])
+            assert_type(z, Callable[[str, int], str | Awaitable[bytes]])
 
         if iscoroutinefunction(xx):  # pyright: ignore
             assert_type(xx, Callable[..., Coroutine[Any, Any, Any]])
@@ -31,10 +31,10 @@ def test_iscoroutinefunction_asyncio(
             assert_type(x, Callable[[str, int], Coroutine[str, int, bytes]])
 
         if iscoroutinefunction(y):
-            assert_type(y, Callable[[str, int], Coroutine[Any, Any, bytes]])
+            assert_type(y, Callable[[str, int], Awaitable[bytes]])
 
         if iscoroutinefunction(z):
-            assert_type(z, Callable[[str, int], Coroutine[Any, Any, Any]])
+            assert_type(z, Callable[[str, int], str | Awaitable[bytes]])
 
         if iscoroutinefunction(xx):
             assert_type(xx, Callable[..., Coroutine[Any, Any, Any]])

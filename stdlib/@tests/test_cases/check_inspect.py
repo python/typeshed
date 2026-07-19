@@ -17,10 +17,10 @@ def test_iscoroutinefunction_inspect(
         assert_type(x, Callable[[str, int], Coroutine[str, int, bytes]])
 
     if inspect.iscoroutinefunction(y):
-        assert_type(y, Callable[[str, int], CoroutineType[Any, Any, bytes]])
+        assert_type(y, Callable[[str, int], Awaitable[bytes]])
 
     if inspect.iscoroutinefunction(z):
-        assert_type(z, Callable[[str, int], CoroutineType[Any, Any, Any]])
+        assert_type(z, Callable[[str, int], str | Awaitable[bytes]])
 
     if inspect.iscoroutinefunction(xx):
         assert_type(xx, Callable[..., CoroutineType[Any, Any, Any]])
