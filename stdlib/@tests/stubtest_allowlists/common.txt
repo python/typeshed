@@ -242,8 +242,6 @@ _?ctypes.Array.__iter__
 calendar._localized_day.__iter__
 calendar._localized_month.__iter__
 
-dataclasses.KW_ONLY  # white lies around defaults
-
 # __all__-related weirdness (see #6523)
 email.__all__
 email.base64mime
