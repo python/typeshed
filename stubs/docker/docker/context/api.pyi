@@ -25,7 +25,7 @@ class ContextAPI:
     @classmethod
     def kwargs_from_context(
         cls, name: str | None = None, environment: Mapping[str, str | None] | None = None
-    ) -> dict[str, Incomplete]: ...  # TODO: Use TypedDict
+    ) -> dict[str, Incomplete]: ...  # TODO: Use TypedDict, use SupportsGet
     @classmethod
     def set_current_context(cls, name: str = "default") -> None: ...
     @classmethod
