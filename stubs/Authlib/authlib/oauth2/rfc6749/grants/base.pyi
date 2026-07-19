@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Collection
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 from authlib.oauth2 import OAuth2Request
 from authlib.oauth2.rfc6749 import ClientMixin
@@ -36,7 +36,7 @@ class TokenEndpointMixin:
     TOKEN_ENDPOINT_HTTP_METHODS: Incomplete
     GRANT_TYPE: Incomplete
     @classmethod
-    def check_token_endpoint(cls, request: OAuth2Request): ...
+    def check_token_endpoint(cls, request: OAuth2Request) -> bool: ...
     def validate_token_request(self) -> None: ...
     def create_token_response(self) -> _ServerResponse: ...
 

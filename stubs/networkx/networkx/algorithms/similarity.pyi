@@ -1,4 +1,4 @@
-from _typeshed import Incomplete, SupportsGetItem
+from _typeshed import Incomplete, SupportsItemAccess
 from collections.abc import Callable, Generator
 
 from networkx.classes.graph import Graph, _Node
@@ -59,7 +59,7 @@ def optimize_graph_edit_distance(
     edge_del_cost: Callable[..., Incomplete] | None = None,
     edge_ins_cost: Callable[..., Incomplete] | None = None,
     upper_bound: float | None = None,
-) -> Generator[Incomplete, None, None]: ...
+) -> Generator[Incomplete]: ...
 @_dispatchable
 def optimize_edit_paths(
     G1: Graph[_Node],
@@ -117,7 +117,7 @@ def generate_random_paths(
     G: Graph[_Node],
     sample_size: int,
     path_length: int = 5,
-    index_map: SupportsGetItem[Incomplete, Incomplete] | None = None,
+    index_map: SupportsItemAccess[Incomplete, Incomplete] | None = None,
     weight: str | None = "weight",
     seed: int | RandomState | None = None,
     *,

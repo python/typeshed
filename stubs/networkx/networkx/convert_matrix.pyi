@@ -1,7 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Callable, Collection, Hashable, Iterable
-from typing import Literal, TypeVar, overload
-from typing_extensions import TypeAlias
+from typing import Literal, TypeAlias, TypeVar, overload
 
 import numpy
 import numpy as np
@@ -40,10 +39,12 @@ def to_pandas_adjacency(
     weight: str = "weight",
     nonedge: float = 0.0,
 ) -> _DataFrame: ...
+
 @overload
 def from_pandas_adjacency(df: _DataFrame, create_using: type[_G]) -> _G: ...
 @overload
 def from_pandas_adjacency(df: _DataFrame, create_using: None = None) -> Graph[Incomplete]: ...
+
 @_dispatchable
 def to_pandas_edgelist(
     G: Graph[_Node],
@@ -53,6 +54,7 @@ def to_pandas_edgelist(
     dtype: _ExtensionDtype | None = None,
     edge_key: str | int | None = None,
 ) -> _DataFrame: ...
+
 @overload
 def from_pandas_edgelist(
     df: _DataFrame,
@@ -81,6 +83,7 @@ def from_pandas_edgelist(
     create_using: None = None,
     edge_key: str | None = None,
 ) -> Graph[Incomplete]: ...
+
 @_dispatchable
 def to_scipy_sparse_array(
     G: Graph[_Node],
@@ -103,6 +106,7 @@ def to_numpy_array(
     weight: str = "weight",
     nonedge: float = 0.0,
 ) -> numpy.ndarray[Incomplete, numpy.dtype[Incomplete]]: ...
+
 @overload
 def from_numpy_array(
     A: numpy.ndarray[Incomplete, Incomplete], parallel_edges: bool = False, create_using: None = None

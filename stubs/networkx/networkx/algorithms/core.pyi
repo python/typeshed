@@ -1,4 +1,5 @@
-from _typeshed import Incomplete, SupportsGetItem
+from _typeshed import Incomplete
+from collections.abc import Mapping
 
 from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
@@ -9,19 +10,19 @@ __all__ = ["core_number", "k_core", "k_shell", "k_crust", "k_corona", "k_truss",
 def core_number(G: Graph[_Node]) -> dict[Incomplete, Incomplete]: ...
 @_dispatchable
 def k_core(
-    G: Graph[_Node], k: int | None = None, core_number: SupportsGetItem[Incomplete, Incomplete] | None = None
+    G: Graph[_Node], k: int | None = None, core_number: Mapping[Incomplete, Incomplete] | None = None
 ) -> Graph[Incomplete]: ...
 @_dispatchable
 def k_shell(
-    G: Graph[_Node], k: int | None = None, core_number: SupportsGetItem[Incomplete, Incomplete] | None = None
+    G: Graph[_Node], k: int | None = None, core_number: Mapping[Incomplete, Incomplete] | None = None
 ) -> Graph[Incomplete]: ...
 @_dispatchable
 def k_crust(
-    G: Graph[_Node], k: int | None = None, core_number: SupportsGetItem[Incomplete, Incomplete] | None = None
+    G: Graph[_Node], k: int | None = None, core_number: Mapping[Incomplete, Incomplete] | None = None
 ) -> Graph[Incomplete]: ...
 @_dispatchable
 def k_corona(
-    G: Graph[_Node], k: int, core_number: SupportsGetItem[Incomplete, Incomplete] | None = None
+    G: Graph[_Node], k: int | None, core_number: Mapping[Incomplete, Incomplete] | None = None
 ) -> Graph[Incomplete]: ...
 @_dispatchable
 def k_truss(G: Graph[_Node], k: int) -> Graph[Incomplete]: ...
