@@ -2,7 +2,6 @@ from _typeshed import Incomplete
 from collections.abc import Callable, Iterable
 
 from networkx.classes.graph import Graph, _Node
-from networkx.classes.multigraph import MultiGraph
 from networkx.utils.backends import _dispatchable
 
 __all__ = [
@@ -14,7 +13,7 @@ __all__ = [
 ]
 
 @_dispatchable
-def projected_graph(B: Graph[_Node], nodes: Iterable[Incomplete], multigraph: bool = False) -> MultiGraph[Incomplete]: ...
+def projected_graph(B: Graph[_Node], nodes: Iterable[Incomplete], multigraph: bool = False) -> Graph[Incomplete]: ...
 @_dispatchable
 def weighted_projected_graph(B: Graph[_Node], nodes: Iterable[Incomplete], ratio: bool = False) -> Graph[Incomplete]: ...
 @_dispatchable
