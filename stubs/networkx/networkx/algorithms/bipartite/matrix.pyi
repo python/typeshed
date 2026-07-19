@@ -4,7 +4,6 @@ from collections.abc import Iterable
 import numpy as np
 from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
-from scipy.sparse import sparray  # type: ignore[import-untyped]  # pyright: ignore[reportMissingImports]
 
 __all__ = ["biadjacency_matrix", "from_biadjacency_matrix"]
 
@@ -16,10 +15,10 @@ def biadjacency_matrix(
     dtype: np.dtype[Incomplete] | None = None,
     weight: str | None = "weight",
     format: str = "csr",
-) -> sparray: ...  # Return is a complex union of scipy classes depending on the format param
+): ...  # Return is a complex union of scipy classes depending on the format param
 @_dispatchable
 def from_biadjacency_matrix(
-    A: sparray,
+    A,
     create_using: Graph[_Node] | None = None,
     edge_attribute: str = "weight",
     *,
