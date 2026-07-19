@@ -160,6 +160,16 @@ class SupportsTrunc(Protocol):
 
 # Mapping-like protocols
 
+# The second and third overload could technically be combined, but splitting
+# them works better with some type checkers.
+class SupportsGet(Protocol[_KT_contra, _VT_co]):
+    @overload
+    def get(self, key: _KT_contra, /) -> _VT_co | None: ...
+    @overload
+    def get(self, key: _KT_contra, default: _VT_co, /) -> _VT_co: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues] # Covariant type as parameter
+    @overload
+    def get(self, key: _KT_contra, default: _T, /) -> _VT_co | _T: ...
+
 # stable
 class SupportsItems(Protocol[_KT_co, _VT_co]):
     def items(self) -> AbstractSet[tuple[_KT_co, _VT_co]]: ...
