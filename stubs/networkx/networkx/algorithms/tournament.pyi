@@ -4,6 +4,7 @@ from networkx.classes.digraph import DiGraph
 from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
 from numpy.random import RandomState
+from scipy.sparse import sparray  # type: ignore[import-untyped]  # pyright: ignore[reportMissingImports]
 
 __all__ = [
     "hamiltonian_path",

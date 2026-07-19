@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 from typing import Any
 
 from networkx.classes.graph import Graph, _Node

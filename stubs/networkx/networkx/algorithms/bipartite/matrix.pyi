@@ -1,8 +1,10 @@
 from _typeshed import Incomplete
 from collections.abc import Iterable
 
+import numpy as np
 from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
+from scipy.sparse import sparray  # type: ignore[import-untyped]  # pyright: ignore[reportMissingImports]
 
 __all__ = ["biadjacency_matrix", "from_biadjacency_matrix"]
 

@@ -2,6 +2,7 @@ from _typeshed import Incomplete, SupportsGetItem
 from collections import defaultdict
 from collections.abc import Collection
 
+import numpy as np
 from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
 

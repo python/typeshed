@@ -2,6 +2,7 @@ from _typeshed import Incomplete
 from collections.abc import Generator
 
 from networkx.classes.graph import Graph, _Node
+from networkx.classes.multidigraph import MultiDiGraph
 from networkx.utils.backends import _dispatchable
 
 __all__ = ["read_pajek", "parse_pajek", "generate_pajek", "write_pajek"]

@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from collections.abc import Generator
+from collections.abc import Generator, Iterable, Iterator
 
 from networkx.classes.digraph import DiGraph
 from networkx.classes.graph import _Node

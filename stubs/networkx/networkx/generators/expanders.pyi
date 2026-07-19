@@ -1,6 +1,8 @@
+from _typeshed import Incomplete
 from typing_extensions import deprecated
 
 from networkx.classes.graph import Graph, _Node
+from networkx.classes.multigraph import MultiGraph
 from networkx.utils.backends import _dispatchable
 
 __all__ = [

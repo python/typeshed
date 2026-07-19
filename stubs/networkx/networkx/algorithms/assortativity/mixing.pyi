@@ -1,6 +1,7 @@
 from _typeshed import Incomplete, SupportsGetItem
 from collections.abc import Iterable
 
+import numpy as np
 from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
 

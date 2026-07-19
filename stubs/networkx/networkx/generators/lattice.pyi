@@ -1,3 +1,7 @@
+from _typeshed import Incomplete
+from collections.abc import Iterable
+
+from networkx.classes.graph import Graph
 from networkx.utils.backends import _dispatchable
 
 __all__ = ["grid_2d_graph", "grid_graph", "hypercube_graph", "triangular_lattice_graph", "hexagonal_lattice_graph"]

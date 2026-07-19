@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from collections.abc import Generator
+from collections.abc import Callable, Generator
 from enum import Enum
 from typing import Final, Generic, NamedTuple, TypeVar
 

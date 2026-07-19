@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from collections.abc import Callable
 from types import FunctionType
 
 from networkx.utils.backends import _dispatchable

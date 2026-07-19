@@ -1,4 +1,5 @@
 import types
+from _typeshed import Incomplete
 
 __all__ = ["attach", "_lazy_import"]
 

@@ -1,6 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Sequence
 
+from networkx.algorithms.planarity import PlanarEmbedding
 from networkx.utils.backends import _dispatchable
 
 __all__ = ["combinatorial_embedding_to_pos"]

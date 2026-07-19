@@ -1,8 +1,9 @@
 import random
 import sys
-from types import ModuleType
-from typing_extensions import Self, TypeAlias, Iterable, Iterator
 from _typeshed import Incomplete
+from collections.abc import Iterable, Iterator
+from types import ModuleType
+from typing_extensions import Self, TypeAlias
 
 import numpy
 from networkx.classes.graph import Graph, _Node

@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 from collections.abc import Generator
 
 from networkx.classes.graph import Graph, _Node

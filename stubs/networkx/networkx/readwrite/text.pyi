@@ -1,6 +1,8 @@
 from _typeshed import Incomplete
-from collections.abc import Generator
+from collections.abc import Callable, Generator
 from typing import ClassVar
+
+from networkx.classes.digraph import DiGraph
 
 __all__ = ["generate_network_text", "write_network_text"]
 

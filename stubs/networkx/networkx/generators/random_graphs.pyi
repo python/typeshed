@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from collections.abc import Callable
 from typing_extensions import deprecated
 
 from networkx.utils.backends import _dispatchable

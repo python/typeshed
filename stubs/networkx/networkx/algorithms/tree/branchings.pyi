@@ -4,7 +4,7 @@ from typing import Final
 from typing_extensions import Self
 
 from networkx.classes.digraph import DiGraph
-from networkx.classes.graph import _Node
+from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
 from numpy.random import RandomState
 

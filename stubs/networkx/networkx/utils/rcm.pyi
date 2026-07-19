@@ -1,6 +1,5 @@
 from _typeshed import Incomplete
-from typing_extensions import Callable
-from collections.abc import Generator
+from collections.abc import Callable, Generator
 
 from networkx.classes.graph import Graph, _Node
 

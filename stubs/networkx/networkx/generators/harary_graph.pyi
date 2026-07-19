@@ -1,3 +1,6 @@
+from _typeshed import Incomplete
+
+from networkx.classes.graph import Graph
 from networkx.utils.backends import _dispatchable
 
 __all__ = ["hnm_harary_graph", "hkn_harary_graph"]
