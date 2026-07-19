@@ -26,13 +26,13 @@ def partial_k_edge_augmentation(
 @_dispatchable
 def one_edge_augmentation(
     G: Graph[_Node],
-    avail: dict[Incomplete, Incomplete] | set[tuple[Incomplete, ...]] = None,
+    avail: dict[Incomplete, Incomplete] | set[tuple[Incomplete, ...]] | None = None,
     weight: str | None = None,
     partial: bool = False,
 ): ...
 @_dispatchable
 def bridge_augmentation(
-    G: Graph[_Node], avail: dict[Incomplete, Incomplete] | set[tuple[Incomplete, ...]] = None, weight: str | None = None
+    G: Graph[_Node], avail: dict[Incomplete, Incomplete] | set[tuple[Incomplete, ...]] | None = None, weight: str | None = None
 ): ...
 
 class MetaEdge(NamedTuple):
@@ -61,7 +61,7 @@ def complement_edges(G: Graph[_Node]): ...
 def greedy_k_edge_augmentation(
     G: Graph[_Node],
     k: int,
-    avail: dict[Incomplete, Incomplete] | set[tuple[Incomplete, ...]] = None,
+    avail: dict[Incomplete, Incomplete] | set[tuple[Incomplete, ...]] | None = None,
     weight: str | None = None,
     seed=None,
 ): ...

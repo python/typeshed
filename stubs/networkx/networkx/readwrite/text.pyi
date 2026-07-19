@@ -53,17 +53,17 @@ class UtfUndirectedGlyphs(UtfBaseGlyphs):
 def generate_network_text(
     graph: DiGraph[Incomplete],
     with_labels: bool = True,
-    sources: list[Incomplete] = None,
-    max_depth: int = None,
+    sources: list[Incomplete] | None = None,
+    max_depth: int | None = None,
     ascii_only: bool = False,
     vertical_chains: bool = False,
 ) -> Generator[Incomplete, None, Incomplete]: ...
 def write_network_text(
     graph: DiGraph[Incomplete],
-    path: Callable[..., Incomplete] = None,
+    path: Callable[..., Incomplete] | None = None,
     with_labels: bool = True,
-    sources: list[Incomplete] = None,
-    max_depth: int = None,
+    sources: list[Incomplete] | None = None,
+    max_depth: int | None = None,
     ascii_only: bool = False,
     end: str = "\n",
     vertical_chains: bool = False,

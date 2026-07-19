@@ -15,7 +15,7 @@ def random_reference(
 def lattice_reference(
     G: Graph[_Node],
     niter: int = 5,
-    D: np.ndarray[Incomplete, Incomplete] = None,
+    D: np.ndarray[Incomplete, Incomplete] | None = None,
     connectivity: bool = True,
     seed: int | RandomState | None = None,
 ) -> Graph[Incomplete]: ...

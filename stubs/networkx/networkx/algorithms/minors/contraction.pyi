@@ -12,7 +12,7 @@ def equivalence_classes(iterable: Iterable[_Node], relation: Callable[[_Node, _N
 def quotient_graph(
     G: Graph[_Node],
     partition: dict[Incomplete, Incomplete],
-    edge_relation: Callable[..., Incomplete] = None,
+    edge_relation: Callable[..., Incomplete] | None = None,
     node_data: Callable[..., Incomplete] | None = None,
     edge_data: Callable[..., Incomplete] | None = None,
     weight: str | None = "weight",

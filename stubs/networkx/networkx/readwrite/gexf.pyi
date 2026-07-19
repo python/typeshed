@@ -15,7 +15,7 @@ def generate_gexf(
 ) -> Generator[Incomplete, Incomplete, None]: ...
 @_dispatchable
 def read_gexf(
-    path: str, node_type: type[Incomplete] = None, relabel: bool = False, version: str = "1.2draft"
+    path: str, node_type: type[Incomplete] | None = None, relabel: bool = False, version: str = "1.2draft"
 ) -> Graph[Incomplete]: ...
 
 class GEXF:

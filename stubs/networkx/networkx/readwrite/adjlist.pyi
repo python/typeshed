@@ -12,16 +12,16 @@ def write_adjlist(G: Graph[_Node], path: str, comments: str = "#", delimiter: st
 def parse_adjlist(
     lines: list[Incomplete],
     comments: str = "#",
-    delimiter: str = None,
-    create_using: Graph[Incomplete] = None,
-    nodetype: type[Incomplete] = None,
+    delimiter: str | None = None,
+    create_using: Graph[Incomplete] | None = None,
+    nodetype: type[Incomplete] | None = None,
 ) -> Graph[Incomplete]: ...
 @_dispatchable
 def read_adjlist(
     path: str,
     comments: str = "#",
-    delimiter: str = None,
-    create_using: Graph[Incomplete] = None,
-    nodetype: type[Incomplete] = None,
+    delimiter: str | None = None,
+    create_using: Graph[Incomplete] | None = None,
+    nodetype: type[Incomplete] | None = None,
     encoding: str = "utf-8",
 ) -> Graph[Incomplete]: ...

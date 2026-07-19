@@ -21,17 +21,17 @@ def write_edgelist(
 def parse_edgelist(
     lines: list[Incomplete],
     comments: str = "#",
-    delimiter: str = None,
-    create_using: Graph[Incomplete] = None,
-    nodetype: type[Incomplete] = None,
+    delimiter: str | None = None,
+    create_using: Graph[Incomplete] | None = None,
+    nodetype: type[Incomplete] | None = None,
     data: bool = True,
 ) -> Graph[Incomplete]: ...
 @_dispatchable
 def read_edgelist(
     path: str,
     comments: str = "#",
-    delimiter: str = None,
-    create_using: Graph[Incomplete] = None,
+    delimiter: str | None = None,
+    create_using: Graph[Incomplete] | None = None,
     nodetype=None,
     data: bool = True,
     edgetype=None,
@@ -44,8 +44,8 @@ def write_weighted_edgelist(
 def read_weighted_edgelist(
     path: str,
     comments: str = "#",
-    delimiter: str = None,
-    create_using: Graph[Incomplete] = None,
+    delimiter: str | None = None,
+    create_using: Graph[Incomplete] | None = None,
     nodetype=None,
     encoding: str = "utf-8",
 ) -> Graph[Incomplete]: ...

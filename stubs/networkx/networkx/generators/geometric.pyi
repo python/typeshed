@@ -19,16 +19,21 @@ __all__ = [
 def geometric_edges(G: Graph[_Node], radius: float, p: float = 2) -> list[Incomplete]: ...
 @_dispatchable
 def random_geometric_graph(
-    n: int | Iterable[Incomplete], radius: float, dim: int = 2, pos: dict[Incomplete, Incomplete] = None, p: float = 2, seed=None
+    n: int | Iterable[Incomplete],
+    radius: float,
+    dim: int = 2,
+    pos: dict[Incomplete, Incomplete] | None = None,
+    p: float = 2,
+    seed=None,
 ) -> Graph[Incomplete]: ...
 @_dispatchable
 def soft_random_geometric_graph(
     n: int | Iterable[Incomplete],
     radius: float,
     dim: int = 2,
-    pos: dict[Incomplete, Incomplete] = None,
+    pos: dict[Incomplete, Incomplete] | None = None,
     p: float = 2,
-    p_dist: Callable[..., Incomplete] = None,
+    p_dist: Callable[..., Incomplete] | None = None,
     seed=None,
 ) -> Graph[Incomplete]: ...
 @_dispatchable
@@ -36,10 +41,10 @@ def geographical_threshold_graph(
     n: int | Iterable[Incomplete],
     theta: float,
     dim: int = 2,
-    pos: dict[Incomplete, Incomplete] = None,
-    weight: dict[Incomplete, Incomplete] = None,
-    metric: Callable[..., Incomplete] = None,
-    p_dist: Callable[..., Incomplete] = None,
+    pos: dict[Incomplete, Incomplete] | None = None,
+    weight: dict[Incomplete, Incomplete] | None = None,
+    metric: Callable[..., Incomplete] | None = None,
+    p_dist: Callable[..., Incomplete] | None = None,
     seed=None,
 ) -> Graph[Incomplete]: ...
 @_dispatchable
@@ -47,9 +52,9 @@ def waxman_graph(
     n: int | Iterable[Incomplete],
     beta: float = 0.4,
     alpha: float = 0.1,
-    L: float = None,
+    L: float | None = None,
     domain: tuple[float, float, float, float] = (0, 0, 1, 1),
-    metric: Callable[..., Incomplete] = None,
+    metric: Callable[..., Incomplete] | None = None,
     seed=None,
 ) -> Graph[Incomplete]: ...
 
@@ -62,8 +67,8 @@ def thresholded_random_geometric_graph(
     radius: float,
     theta: float,
     dim: int = 2,
-    pos: dict[Incomplete, Incomplete] = None,
-    weight: dict[Incomplete, Incomplete] = None,
+    pos: dict[Incomplete, Incomplete] | None = None,
+    weight: dict[Incomplete, Incomplete] | None = None,
     p: float = 2,
     seed=None,
 ) -> Graph[Incomplete]: ...

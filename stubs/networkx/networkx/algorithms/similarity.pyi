@@ -28,7 +28,7 @@ def graph_edit_distance(
     edge_subst_cost: Callable[..., Incomplete] | None = None,
     edge_del_cost: Callable[..., Incomplete] | None = None,
     edge_ins_cost: Callable[..., Incomplete] | None = None,
-    roots: tuple[Incomplete, Incomplete] = None,
+    roots: tuple[Incomplete, Incomplete] | None = None,
     upper_bound: float | None = None,
     timeout: float | None = None,
 ): ...
@@ -74,7 +74,7 @@ def optimize_edit_paths(
     edge_ins_cost: Callable[..., Incomplete] | None = None,
     upper_bound: float | None = None,
     strictly_decreasing: bool = True,
-    roots: tuple[Incomplete, Incomplete] = None,
+    roots: tuple[Incomplete, Incomplete] | None = None,
     timeout: float | None = None,
 ) -> Generator[Incomplete, None, Incomplete]: ...
 @_dispatchable

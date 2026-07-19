@@ -23,7 +23,7 @@ def write_graphml_xml(
     prettyprint: bool = True,
     infer_numeric_types: bool = False,
     named_key_ids: bool = False,
-    edge_id_from_attribute: dict[Incomplete, Incomplete] = None,
+    edge_id_from_attribute: dict[Incomplete, Incomplete] | None = None,
 ) -> None: ...
 def write_graphml_lxml(
     G: Graph[_Node],
@@ -32,14 +32,14 @@ def write_graphml_lxml(
     prettyprint: bool = True,
     infer_numeric_types: bool = False,
     named_key_ids: bool = False,
-    edge_id_from_attribute: dict[Incomplete, Incomplete] = None,
+    edge_id_from_attribute: dict[Incomplete, Incomplete] | None = None,
 ): ...
 def generate_graphml(
     G: Graph[_Node],
     encoding: str = "utf-8",
     prettyprint: bool = True,
     named_key_ids: bool = False,
-    edge_id_from_attribute: dict[Incomplete, Incomplete] = None,
+    edge_id_from_attribute: dict[Incomplete, Incomplete] | None = None,
 ) -> Generator[Incomplete, Incomplete, None]: ...
 @_dispatchable
 def read_graphml(

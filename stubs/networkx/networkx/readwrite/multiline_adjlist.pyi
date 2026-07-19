@@ -14,18 +14,18 @@ def write_multiline_adjlist(
 def parse_multiline_adjlist(
     lines: list[Incomplete],
     comments: str = "#",
-    delimiter: str = None,
-    create_using: Graph[Incomplete] = None,
-    nodetype: type[Incomplete] = None,
-    edgetype: type[Incomplete] = None,
+    delimiter: str | None = None,
+    create_using: Graph[Incomplete] | None = None,
+    nodetype: type[Incomplete] | None = None,
+    edgetype: type[Incomplete] | None = None,
 ) -> Graph[Incomplete]: ...
 @_dispatchable
 def read_multiline_adjlist(
     path: str,
     comments: str = "#",
-    delimiter: str = None,
-    create_using: Graph[Incomplete] = None,
-    nodetype: type[Incomplete] = None,
-    edgetype: type[Incomplete] = None,
+    delimiter: str | None = None,
+    create_using: Graph[Incomplete] | None = None,
+    nodetype: type[Incomplete] | None = None,
+    edgetype: type[Incomplete] | None = None,
     encoding: str = "utf-8",
 ) -> Graph[Incomplete]: ...

@@ -39,7 +39,7 @@ def kruskal_mst_edges(
     keys: bool = True,
     data: bool = True,
     ignore_nan: bool = False,
-    partition: str = None,
+    partition: str | None = None,
 ): ...
 @_dispatchable
 def prim_mst_edges(

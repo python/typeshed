@@ -7,5 +7,5 @@ __all__ = ["spectral_bipartivity"]
 
 @_dispatchable
 def spectral_bipartivity(
-    G: Graph[_Node], nodes: list[Incomplete] = None, weight: str = "weight"
+    G: Graph[_Node], nodes: list[Incomplete] | None = None, weight: str = "weight"
 ) -> float | dict[Incomplete, Incomplete]: ...

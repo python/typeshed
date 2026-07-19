@@ -10,11 +10,13 @@ from ..classes import MultiDiGraph
 __all__ = ["gn_graph", "gnc_graph", "gnr_graph", "random_k_out_graph", "scale_free_graph"]
 
 @_dispatchable
-def gn_graph(n: int, kernel: Callable[..., Incomplete] = None, create_using: DiGraph[Incomplete] = None, seed=None): ...
+def gn_graph(
+    n: int, kernel: Callable[..., Incomplete] | None = None, create_using: DiGraph[Incomplete] | None = None, seed=None
+): ...
 @_dispatchable
-def gnr_graph(n: int, p: float, create_using: DiGraph[Incomplete] = None, seed=None): ...
+def gnr_graph(n: int, p: float, create_using: DiGraph[Incomplete] | None = None, seed=None): ...
 @_dispatchable
-def gnc_graph(n: int, create_using: DiGraph[Incomplete] = None, seed=None): ...
+def gnc_graph(n: int, create_using: DiGraph[Incomplete] | None = None, seed=None): ...
 @_dispatchable
 def scale_free_graph(
     n: int,
@@ -25,7 +27,7 @@ def scale_free_graph(
     delta_out: float = 0,
     create_using=None,
     seed=None,
-    initial_graph: MultiDiGraph[Incomplete] = None,
+    initial_graph: MultiDiGraph[Incomplete] | None = None,
 ) -> MultiDiGraph[Incomplete]: ...
 @_dispatchable
 def random_uniform_k_out_graph(

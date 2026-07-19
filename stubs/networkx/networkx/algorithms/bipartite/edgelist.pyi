@@ -18,7 +18,7 @@ def parse_edgelist(
     comments: str | None = "#",
     delimiter: str | None = None,
     create_using: Graph[_Node] | None = None,
-    nodetype: type[Incomplete] = None,
+    nodetype: type[Incomplete] | None = None,
     data: bool | list[tuple[Incomplete, type[Incomplete]]] = True,
 ) -> Graph[Incomplete]: ...
 @_dispatchable
@@ -26,7 +26,7 @@ def read_edgelist(
     path: str,
     comments: str | None = "#",
     delimiter: str | None = None,
-    create_using: Graph[Incomplete] = None,
+    create_using: Graph[Incomplete] | None = None,
     nodetype=None,
     data: bool | list[tuple[Incomplete, type[Incomplete]]] = True,
     edgetype=None,

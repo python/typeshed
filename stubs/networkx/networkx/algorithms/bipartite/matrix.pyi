@@ -13,7 +13,7 @@ def biadjacency_matrix(
     G: Graph[_Node],
     row_order: Iterable[_Node],
     column_order: Iterable[Incomplete] | None = None,
-    dtype: np.dtype[Incomplete] = None,
+    dtype: np.dtype[Incomplete] | None = None,
     weight: str | None = "weight",
     format: str = "csr",
 ) -> sparray: ...  # Return is a complex union of scipy classes depending on the format param

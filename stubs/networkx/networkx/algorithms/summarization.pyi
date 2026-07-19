@@ -8,7 +8,7 @@ __all__ = ["dedensify", "snap_aggregation"]
 
 @_dispatchable
 def dedensify(
-    G: Graph[_Node], threshold: int, prefix: str = None, copy: bool | None = True
+    G: Graph[_Node], threshold: int, prefix: str | None = None, copy: bool | None = True
 ) -> tuple[Graph[Incomplete], set[Incomplete]]: ...
 @_dispatchable
 def snap_aggregation(

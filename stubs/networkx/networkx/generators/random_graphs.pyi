@@ -51,11 +51,11 @@ def connected_watts_strogatz_graph(n: int, k: int, p: float, tries: int = 100, s
 def random_regular_graph(d: int, n: int, seed=None, *, create_using=None): ...
 @_dispatchable
 def barabasi_albert_graph(
-    n: int, m: int, seed=None, initial_graph: Graph[Incomplete] = None, *, create_using=None
+    n: int, m: int, seed=None, initial_graph: Graph[Incomplete] | None = None, *, create_using=None
 ) -> Graph[Incomplete]: ...
 @_dispatchable
 def dual_barabasi_albert_graph(
-    n: int, m1: int, m2: int, p: float, seed=None, initial_graph: Graph[Incomplete] = None, *, create_using=None
+    n: int, m1: int, m2: int, p: float, seed=None, initial_graph: Graph[Incomplete] | None = None, *, create_using=None
 ) -> Graph[Incomplete]: ...
 @_dispatchable
 def extended_barabasi_albert_graph(n: int, m: int, p: float, q: float, seed=None, *, create_using=None) -> Graph[Incomplete]: ...
@@ -76,7 +76,7 @@ def random_powerlaw_tree_sequence(n: int, gamma: float = 3, seed=None, tries: in
 def random_kernel_graph(
     n: int,
     kernel_integral: Callable[..., Incomplete],
-    kernel_root: Callable[..., Incomplete] = None,
+    kernel_root: Callable[..., Incomplete] | None = None,
     seed=None,
     *,
     create_using=None,
