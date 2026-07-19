@@ -6,7 +6,7 @@ import sys
 import types
 from _typeshed import ReadableBuffer, StrOrBytesPath, StrPath
 from _typeshed.importlib import LoaderProtocol
-from collections.abc import Callable, Iterable, Mapping, MutableSequence, Sequence, Iterator
+from collections.abc import Callable, Iterable, Iterator, Mapping, MutableSequence, Sequence
 from importlib.machinery import ModuleSpec
 from importlib.metadata import DistributionFinder, PathDistribution
 from typing import Any, Final, Literal, overload
@@ -118,6 +118,7 @@ class SourceLoader(_LoaderBasics):
         def source_to_code(
             self, data: ReadableBuffer | str | _ast.Module | _ast.Expression | _ast.Interactive, path: bytes | StrPath
         ) -> types.CodeType: ...
+
     def get_code(self, fullname: str) -> types.CodeType | None: ...
 
 class FileLoader:
@@ -191,6 +192,7 @@ if sys.version_info >= (3, 11):
         if sys.version_info < (3, 15):
             @deprecated("Deprecated since Python 3.10; removed in Python 3.15. Use `exec_module()` instead.")
             def load_module(self, fullname: str) -> types.ModuleType: ...
+
         def get_resource_reader(self, module: types.ModuleType) -> importlib.readers.NamespaceReader: ...
         if sys.version_info < (3, 12):
             @staticmethod
@@ -223,5 +225,3 @@ else:
 
 if sys.version_info >= (3, 13):
     class AppleFrameworkLoader(ExtensionFileLoader, importlib.abc.ExecutionLoader): ...
-
-
