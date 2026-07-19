@@ -4,7 +4,6 @@ from networkx.classes.digraph import DiGraph
 from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
 from numpy.random import RandomState
-from scipy.sparse import sparray  # type: ignore[import-untyped]  # pyright: ignore[reportMissingImports]
 
 __all__ = [
     "hamiltonian_path",
@@ -23,7 +22,7 @@ def hamiltonian_path(G: Graph[_Node]) -> list[Incomplete]: ...
 @_dispatchable
 def random_tournament(n: int, seed: int | RandomState | None = None) -> DiGraph[Incomplete]: ...
 @_dispatchable
-def tournament_matrix(G: Graph[_Node]) -> sparray: ...
+def tournament_matrix(G: Graph[_Node]): ...
 @_dispatchable
 def score_sequence(G: Graph[_Node]) -> list[Incomplete]: ...
 @_dispatchable

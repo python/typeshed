@@ -6,7 +6,6 @@ import numpy
 import numpy as np
 from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
-from scipy.sparse import sparray  # type: ignore[import-untyped]  # pyright: ignore[reportMissingImports]
 
 # stub_uploader won't allow pandas-stubs in the requires field https://github.com/typeshed-internal/stub_uploader/issues/90
 # from pandas import DataFrame
@@ -91,10 +90,10 @@ def to_scipy_sparse_array(
     dtype: np.dtype[Incomplete] | None = None,
     weight: str = "weight",
     format: str = "csr",
-) -> sparray: ...
+): ...
 @_dispatchable
 def from_scipy_sparse_array(
-    A: sparray, parallel_edges: bool = False, create_using: Graph[Incomplete] | None = None, edge_attribute: str = "weight"
+    A, parallel_edges: bool = False, create_using: Graph[Incomplete] | None = None, edge_attribute: str = "weight"
 ): ...
 @_dispatchable
 def to_numpy_array(
