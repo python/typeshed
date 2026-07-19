@@ -7,6 +7,4 @@ from networkx.utils.backends import _dispatchable
 __all__ = ["k_clique_communities"]
 
 @_dispatchable
-def k_clique_communities(
-    G: Graph[_Node], k: int, cliques: list[Incomplete] | None = None
-) -> Generator[Incomplete]: ...
+def k_clique_communities(G: Graph[_Node], k: int, cliques: list[Incomplete] | None = None) -> Generator[Incomplete]: ...
