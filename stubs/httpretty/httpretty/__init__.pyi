@@ -25,14 +25,14 @@ disable = httpretty.disable
 is_enabled = httpretty.is_enabled
 reset = httpretty.reset
 Response = httpretty.Response
-GET: Literal["GET"]
-PUT: Literal["PUT"]
-POST: Literal["POST"]
-DELETE: Literal["DELETE"]
-HEAD: Literal["HEAD"]
-PATCH: Literal["PATCH"]
-OPTIONS: Literal["OPTIONS"]
-CONNECT: Literal["CONNECT"]
+GET: Final = "GET"
+PUT: Final = "PUT"
+POST: Final = "POST"
+DELETE: Final = "DELETE"
+HEAD: Final = "HEAD"
+PATCH: Final = "PATCH"
+OPTIONS: Final = "OPTIONS"
+CONNECT: Final = "CONNECT"
 
 def last_request() -> HTTPrettyRequest | HTTPrettyRequestEmpty: ...
 def latest_requests() -> list[HTTPrettyRequest]: ...
