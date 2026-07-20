@@ -24,7 +24,7 @@ class HTTPrettyRequest(HttpBaseClass):
     raw_headers: str
     path: str
     querystring: dict[str, list[str]]
-    parsed_body: Any
+    parsed_body: Any  # It can be any object after parsing raw (str) body
     created_at: float
     def __init__(
         self, headers: str | bytes, body: _Body = "", sock: object | None = None, path_encoding: str = "iso-8859-1"
