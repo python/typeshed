@@ -7,14 +7,14 @@ _T = TypeVar("_T", str, bytes)
 STATUSES: dict[int, str]
 
 class HttpBaseClass:
-    GET: Literal["GET"]
-    PUT: Literal["PUT"]
-    POST: Literal["POST"]
-    DELETE: Literal["DELETE"]
-    HEAD: Literal["HEAD"]
-    PATCH: Literal["PATCH"]
-    OPTIONS: Literal["OPTIONS"]
-    CONNECT: Literal["CONNECT"]
+    GET: Final = "GET"
+    PUT: Final = "PUT"
+    POST: Final = "POST"
+    DELETE: Final = "DELETE"
+    HEAD: Final = "HEAD"
+    PATCH: Final = "PATCH"
+    OPTIONS: Final = "OPTIONS"
+    CONNECT: Final = "CONNECT"
     METHODS: tuple[_HTTPMethod, ...]
 
 def parse_requestline(s: str) -> tuple[str, str, str]: ...
