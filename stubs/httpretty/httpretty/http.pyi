@@ -15,7 +15,7 @@ class HttpBaseClass:
     PATCH: Literal["PATCH"]
     OPTIONS: Literal["OPTIONS"]
     CONNECT: Literal["CONNECT"]
-    METHODS: tuple[Literal["GET", "PUT", "POST", "DELETE", "HEAD", "PATCH", "OPTIONS", "CONNECT"], ...]
+    METHODS: tuple[_HTTPMethod, ...]
 
 def parse_requestline(s: str) -> tuple[str, str, str]: ...
 def last_requestline(sent_data: Sequence[_T]) -> _T | None: ...
