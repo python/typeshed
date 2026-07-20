@@ -1,5 +1,3 @@
-from typing import Literal
-
 from .core import (
     EmptyRequestHeaders as EmptyRequestHeaders,
     Entry as Entry,
