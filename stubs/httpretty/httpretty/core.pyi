@@ -119,14 +119,14 @@ class URIMatcher:
     def get_next_entry(self, method: _HTTPMethod, info: URIInfo, request: HTTPrettyRequest) -> Entry: ...
 
 class httpretty(HttpBaseClass):
-    GET: Literal["GET"]
-    PUT: Literal["PUT"]
-    POST: Literal["POST"]
-    DELETE: Literal["DELETE"]
-    HEAD: Literal["HEAD"]
-    PATCH: Literal["PATCH"]
-    OPTIONS: Literal["OPTIONS"]
-    CONNECT: Literal["CONNECT"]
+    GET: Final = "GET"
+    PUT: Final = "PUT"
+    POST: Final = "POST"
+    DELETE: Final = "DELETE"
+    HEAD: Final = "HEAD"
+    PATCH: Final = "PATCH"
+    OPTIONS: Final = "OPTIONS"
+    CONNECT: Final = "CONNECT"
     METHODS: tuple[_HTTPMethod, ...]
     latest_requests: list[HTTPrettyRequest]
     last_request: HTTPrettyRequest | HTTPrettyRequestEmpty
