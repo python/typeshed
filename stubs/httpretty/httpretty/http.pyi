@@ -1,5 +1,4 @@
 from collections.abc import Sequence
-from typing import Literal
 from typing_extensions import TypeVar
 
 _T = TypeVar("_T", str, bytes)
