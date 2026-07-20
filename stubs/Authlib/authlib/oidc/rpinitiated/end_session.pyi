@@ -1,6 +1,5 @@
 from _typeshed import Incomplete
 from dataclasses import dataclass
-from typing import Any
 
 from authlib.oauth2.rfc6749.endpoint import Endpoint, EndpointRequest
 from authlib.oauth2.rfc6749.requests import OAuth2Request
@@ -17,8 +16,8 @@ class EndSessionRequest(EndpointRequest):
 class EndSessionEndpoint(Endpoint):
     ENDPOINT_NAME: str
     def validate_request(self, request: OAuth2Request) -> EndSessionRequest: ...
-    def create_response(self, validated_request: EndSessionRequest) -> tuple[int, Any, list[tuple[str, str]]] | None: ...  # type: ignore[override]
-    def resolve_client_from_id_token_claims(self, id_token_claims: dict[Incomplete, Incomplete]) -> Any | None: ...
+    def create_response(self, validated_request: EndSessionRequest) -> tuple[int, Incomplete, list[tuple[str, str]]] | None: ...  # type: ignore[override]
+    def resolve_client_from_id_token_claims(self, id_token_claims: dict[Incomplete, Incomplete]) -> Incomplete | None: ...
     def is_post_logout_redirect_uri_legitimate(
         self, request: OAuth2Request, post_logout_redirect_uri: str, client, logout_hint: str | None
     ) -> bool: ...
