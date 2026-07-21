@@ -112,7 +112,7 @@ class PurePath(PathLike[str]):
         @overload
         def is_relative_to(self, other: StrPath, /) -> bool: ...
         @overload
-        @deprecated("Passing additional arguments is deprecated since Python 3.12; removed in Python 3.14.")
+        @deprecated("Passing additional arguments is deprecated; removed in Python 3.14.")
         def is_relative_to(self, other: StrPath, /, *_deprecated: StrPath) -> bool: ...
 
     if sys.version_info >= (3, 12):
