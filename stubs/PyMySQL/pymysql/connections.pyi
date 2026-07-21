@@ -138,7 +138,7 @@ class Connection(Generic[_C]):
         binary_prefix: bool = False,
         program_name: str | None = None,
         server_public_key: bytes | None = None,
-        ssl: dict[str, Incomplete] = ...,  # Passing a dict is deprecated
+        ssl: dict[str, Incomplete],  # Passing a dict is deprecated
         ssl_ca: str | None = None,
         ssl_cert: str | None = None,
         ssl_disabled: bool | None = None,
@@ -228,7 +228,7 @@ class Connection(Generic[_C]):
     def ping(self, reconnect: Literal[False] | None = False) -> None: ...
     @overload
     @deprecated("The 'reconnect' parameter is deprecated. Create a new connection if you want to reconnect.")
-    def ping(self, reconnect: Literal[True] = ...) -> None: ...
+    def ping(self, reconnect: Literal[True]) -> None: ...
 
     @deprecated("Method is deprecated. Use 'set_character_set()' instead.")
     def set_charset(self, charset: str) -> None: ...
