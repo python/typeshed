@@ -1,7 +1,7 @@
 import re
 from _typeshed import SupportsRichComparison
 from collections.abc import Callable, Iterator
-from typing import Any, Literal, NoReturn
+from typing import Any, NoReturn
 
 ESCAPE: re.Pattern[str]
 ESCAPE_ASCII: re.Pattern[str]
@@ -56,5 +56,5 @@ class JSONEncoder:
 
 class JSONEncoderForHTML(JSONEncoder): ...
 
-def encode_basestring(s: str | bytes, _PY3: Literal[True] = True, _q: str = '"') -> str: ...
+def encode_basestring(s: str | bytes, /) -> str: ...
 def encode_basestring_ascii(s: str | bytes, /) -> str: ...
