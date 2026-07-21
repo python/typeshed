@@ -46,9 +46,9 @@ class _AsyncioIOServicesAdapter(
     def call_later(self, delay: float, callback: Callable[[], object]) -> _TimerHandle: ...
     def getaddrinfo(
         self,
-        host: str,
-        port: int,
-        on_done: Callable[..., object],
+        host: str | bytes | None,
+        port: str | bytes | int | None,
+        on_done: Callable[[BaseConnection | BaseException], object],  # type: ignore[override]
         family: int = 0,
         socktype: int = 0,
         proto: int = 0,
