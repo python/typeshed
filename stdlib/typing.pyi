@@ -21,7 +21,7 @@ from types import (
     UnionType,
     WrapperDescriptorType,
 )
-from typing_extensions import Never as _Never, deprecated
+from typing_extensions import Never as _Never, deprecated, disjoint_base as _disjoint_base
 
 if sys.version_info >= (3, 14):
     from _typeshed import EvaluateFunc
@@ -678,6 +678,7 @@ class Collection(Iterable[_T_co], Container[Any], Protocol[_T_co]):
     @abstractmethod
     def __len__(self) -> int: ...
 
+@_disjoint_base
 class Sequence(Reversible[_T_co], Collection[_T_co]):
     @overload
     @abstractmethod
@@ -804,6 +805,7 @@ class ValuesView(MappingView, Collection[_VT_co]):
 # but dict and types.MappingProxyType (the vast majority of Mapping types)
 # don't allow keyword arguments.
 
+@_disjoint_base
 class Mapping(Collection[_KT], Generic[_KT, _VT_co]):
     # TODO: We wish the key type could also be covariant, but that doesn't work,
     # see discussion in https://github.com/python/typing/pull/273.
