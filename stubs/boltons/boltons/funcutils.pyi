@@ -1,6 +1,10 @@
 import functools
 from _typeshed import Incomplete
+from collections.abc import Callable
 from functools import total_ordering as total_ordering
+from typing import TypeVar
+
+_R = TypeVar("_R")
 
 NO_DEFAULT: Incomplete
 
@@ -61,3 +65,4 @@ class MissingArgument(ValueError): ...
 class ExistingArgument(ValueError): ...
 
 def noop(*args, **kwargs) -> None: ...
+def once(func: Callable[[], _R]) -> Callable[[], _R]: ...
