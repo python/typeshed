@@ -1055,6 +1055,16 @@ class memoryview(Sequence[_I]):
 class bool(int):
     def __new__(cls, o: object = False, /) -> Self: ...
 
+    @overload
+    def __int__(self: Literal[True]) -> Literal[1]: ...
+    @overload
+    def __int__(self: Literal[False]) -> Literal[0]: ...
+
+    @overload
+    def __index__(self: Literal[True]) -> Literal[1]: ...
+    @overload
+    def __index__(self: Literal[False]) -> Literal[0]: ...
+
     # The following overloads could be represented more elegantly with a TypeVar("_B", bool, int),
     # however mypy has a bug regarding TypeVar constraints (https://github.com/python/mypy/issues/11880).
     @overload
