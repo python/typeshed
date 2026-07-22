@@ -330,14 +330,13 @@ Use `@deprecated` if and only if
 
 - a feature is deprecated at runtime (either using `@deprecated` or with a
   runtime warning); or
-- a feature is documented to be deprecated (either in external documention,
-  in docstrings, or comments).
+- a feature is documented to be deprecated (e.g. in API documention,
+  docstrings, or comments).
 
-For standard library items that are not deprecated in all Python versions
-currently supported by typeshed (usually using the wording "Deprecated since" in the
-documentation) use `@deprecated` for
+For standard library features that are not deprecated in all Python versions
+currently supported by typeshed use `@deprecated` for
 
-- all versions starting with the "Deprecated since" version plus
+- all versions starting with the "Deprecated since" version, plus
 - all versions for which an alternative is available.
 
 ### Docstrings
