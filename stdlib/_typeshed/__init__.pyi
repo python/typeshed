@@ -269,9 +269,13 @@ OpenBinaryMode: TypeAlias = OpenBinaryModeUpdating | OpenBinaryModeReading | Ope
 class HasFileno(Protocol):
     def fileno(self) -> int: ...
 
+class HasFilenoAndHash(HasFileno, Protocol):
+    def __hash__(self) -> int: ...
+
 FileDescriptor: TypeAlias = int  # stable
 FileDescriptorLike: TypeAlias = int | HasFileno  # stable
 FileDescriptorOrPath: TypeAlias = int | StrOrBytesPath
+HashableFDLike: TypeAlias = int | HasFilenoAndHash
 
 # stable
 class SupportsRead(Protocol[_T_co]):

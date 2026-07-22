@@ -22,7 +22,7 @@ _Marshallable: TypeAlias = (
     | list[Any]
     | dict[Any, Any]
     | set[Any]
-    | frozenset[_Marshallable]
+    | frozenset[_Marshallable]  # type: ignore[type-var]
     | types.CodeType
     | ReadableBuffer
 )
