@@ -3,9 +3,10 @@ from collections.abc import Iterable, Iterator, MutableMapping
 from importlib import metadata
 from typing import Literal, TypeVar, overload
 
+from setuptools._distutils.cmd import Command as _Command
+from setuptools._distutils.dist import Distribution as _Distribution
+
 from . import Command, SetuptoolsDeprecationWarning
-from ._distutils.cmd import Command as _Command
-from ._distutils.dist import Distribution as _Distribution
 from .command.alias import alias
 from .command.bdist_egg import bdist_egg
 from .command.bdist_rpm import bdist_rpm

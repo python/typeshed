@@ -1,10 +1,9 @@
 from _typeshed import Incomplete, StrPath, Unused
 from typing import ClassVar
 
+from setuptools._distutils.cmd import _StrPathT
+from setuptools._distutils.command import build_py as orig
 from setuptools.dist import Distribution
-
-from .._distutils.cmd import _StrPathT
-from .._distutils.command import build_py as orig
 
 def make_writable(target) -> None: ...
 

@@ -4,9 +4,10 @@ from collections.abc import ItemsView, Iterable, Mapping, Sequence
 from typing import Any, Literal, Protocol, TypedDict, TypeVar, overload, type_check_only
 from typing_extensions import Never, NotRequired
 
-from ._distutils.cmd import Command as _Command
-from ._distutils.dist import Distribution as _Distribution
-from ._distutils.extension import Extension as _Extension
+from setuptools._distutils.cmd import Command as _Command
+from setuptools._distutils.dist import Distribution as _Distribution
+from setuptools._distutils.extension import Extension as _Extension
+
 from .command.alias import alias
 from .command.bdist_egg import bdist_egg
 from .command.bdist_rpm import bdist_rpm

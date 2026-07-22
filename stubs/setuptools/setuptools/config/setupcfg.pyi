@@ -3,7 +3,8 @@ from abc import abstractmethod
 from collections.abc import Callable, Iterable
 from typing import Any, ClassVar, Generic, TypeAlias, TypeVar
 
-from .._distutils.dist import DistributionMetadata
+from setuptools._distutils.dist import DistributionMetadata
+
 from ..dist import Distribution
 from . import expand
 
