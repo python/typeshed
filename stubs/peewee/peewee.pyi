@@ -1527,11 +1527,11 @@ class TimestampField(BigIntegerField[_V]):
 
     @overload
     def __new__(
-        cls, *args: Any, resolution: int = 1, utc: bool = False, null: Literal[True], **kwargs: Unpack[_FieldKwargs]
+        cls, *args, resolution: int = 1, utc: bool = False, null: Literal[True], **kwargs: Unpack[_FieldKwargs]
     ) -> TimestampField[datetime | None]: ...
     @overload
     def __new__(
-        cls, *args: Any, resolution: int = 1, utc: bool = False, null: Literal[False] = False, **kwargs: Unpack[_FieldKwargs]
+        cls, *args, resolution: int = 1, utc: bool = False, null: Literal[False] = False, **kwargs: Unpack[_FieldKwargs]
     ) -> TimestampField[datetime]: ...
 
     def get_timestamp(self, value) -> float: ...
