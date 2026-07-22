@@ -1,6 +1,3 @@
-# tornado is optional and self-contained in this module.
-# We don't want to force it as a dependency but that means we also can't test it with type-checkers given the current setup.
-
 from _typeshed import Incomplete
 from collections.abc import Callable, Sequence
 from logging import Logger
