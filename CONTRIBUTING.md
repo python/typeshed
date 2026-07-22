@@ -322,7 +322,7 @@ project's tracker to fix their documentation.
 
 ### Deprecations (using the `@deprecated` decorator)
 
-Generally depractions using the `@deprecated` decorator are added more
+Generally deprecactions using the `@deprecated` decorator are added more
 liberally in typeshed than runtime deprecation warnings. Here are some
 guidelines that can be deviated from in special cases.
 
