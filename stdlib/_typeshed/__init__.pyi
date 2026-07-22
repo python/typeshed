@@ -197,6 +197,8 @@ class SupportsItemAccess(Protocol[_KT_contra, _VT]):
     def __setitem__(self, key: _KT_contra, value: _VT, /) -> None: ...
     def __delitem__(self, key: _KT_contra, /) -> None: ...
 
+# Path and file handling
+
 StrPath: TypeAlias = str | PathLike[str]  # stable
 BytesPath: TypeAlias = bytes | PathLike[bytes]  # stable
 GenericPath: TypeAlias = AnyStr | PathLike[AnyStr]
