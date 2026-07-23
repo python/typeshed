@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
-from typing import NoReturn, TypeAlias
+from typing import ClassVar, NoReturn, TypeAlias
 
 from authlib.oauth2.auth import ClientAuth, TokenAuth
 from authlib.oauth2.client import OAuth2Client as _OAuth2Client
@@ -24,10 +24,10 @@ class OAuth2ClientAuth(ClientAuth):
 
 # Inherits from httpx.AsyncClient
 class AsyncOAuth2Client(_OAuth2Client):
-    SESSION_REQUEST_PARAMS: list[str]
-    client_auth_class = OAuth2ClientAuth
-    token_auth_class = OAuth2Auth
-    oauth_error_class = OAuthError  # type: ignore[assignment]
+    SESSION_REQUEST_PARAMS: ClassVar[list[str]]
+    client_auth_class: ClassVar[type[OAuth2ClientAuth]]
+    token_auth_class: ClassVar[type[OAuth2Auth]]
+    oauth_error_class: ClassVar[type[OAuthError]]
     def __init__(
         self,
         client_id=None,
@@ -48,10 +48,10 @@ class AsyncOAuth2Client(_OAuth2Client):
 
 # Inherits from httpx.Client
 class OAuth2Client(_OAuth2Client):
-    SESSION_REQUEST_PARAMS: list[str]
-    client_auth_class = OAuth2ClientAuth
-    token_auth_class = OAuth2Auth
-    oauth_error_class = OAuthError  # type: ignore[assignment]
+    SESSION_REQUEST_PARAMS: ClassVar[list[str]]
+    client_auth_class: ClassVar[type[OAuth2ClientAuth]]
+    token_auth_class: ClassVar[type[OAuth2Auth]]
+    oauth_error_class: ClassVar[type[OAuthError]]
     def __init__(
         self,
         client_id=None,
