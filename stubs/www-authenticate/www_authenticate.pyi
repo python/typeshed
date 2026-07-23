@@ -19,7 +19,7 @@ class CaseFoldedOrderedDict(OrderedDict[str, _VT]):
     def __contains__(self, key: _SupportsCasefold | _SupportsLower) -> bool: ...  # type: ignore[override]
 
     # See overloads for dict class:
-    @overload
+    @overload  # type: ignore[override]
     def get(self, key: _SupportsCasefold | _SupportsLower, default: None = None) -> _VT | None: ...
     @overload
     def get(self, key: _SupportsCasefold | _SupportsLower, default: _VT) -> _VT: ...
