@@ -1,6 +1,6 @@
 import types
 import xml.etree.ElementTree as ET
-from collections.abc import Generator
+from collections.abc import Callable, Generator
 from contextlib import _GeneratorContextManager, contextmanager
 from typing import Any
 
@@ -9,7 +9,7 @@ class LxmlSyntaxError(Exception): ...
 class _IncrementalFileWriter:
     global_nsmap: dict[str, str]
     is_html: bool
-    def __init__(self, output_file: ET._FileWrite) -> None: ...
+    def __init__(self, output_file: Callable[[str], object]) -> None: ...
     @contextmanager
     def element(
         self,
@@ -26,7 +26,7 @@ class _IncrementalFileWriter:
 
 class xmlfile:
     encoding: str
-    writer_cm: _GeneratorContextManager[tuple[ET._FileWrite, str]] | None
+    writer_cm: _GeneratorContextManager[tuple[Callable[[str], object], str]] | None
     def __init__(
         self, output_file: ET._FileWrite, buffered: bool = False, encoding: str = "utf-8", close: bool = False
     ) -> None: ...
