@@ -2,8 +2,6 @@
 # TODO: Allowlist entries that should be fixed
 # ============================================
 
-_frozen_importlib.BuiltinImporter.load_module
-_frozen_importlib.FrozenImporter.load_module
 _frozen_importlib_external.FileFinder.discover
 _frozen_importlib_external.NamespaceLoader.load_module
 _frozen_importlib_external.NamespacePath
