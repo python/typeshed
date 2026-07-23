@@ -1,7 +1,7 @@
 import os
 from collections.abc import Iterator, Sequence
-from typing import Any, BinaryIO, Final, Self
-from typing_extensions import deprecated
+from typing import Any, BinaryIO, Final
+from typing_extensions import Self, deprecated
 
 import numpy as np
 from numpy.typing import DTypeLike, NDArray

@@ -2,8 +2,8 @@ import logging
 import threading
 from collections.abc import Callable, Iterable
 from types import TracebackType
-from typing import Any, Final, Self, TypeVar
-from typing_extensions import deprecated
+from typing import Any, Final, TypeVar
+from typing_extensions import Self, deprecated
 
 from rasterio._env import (
     GDALDataFinder as GDALDataFinder,

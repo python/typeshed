@@ -1,6 +1,6 @@
 from collections.abc import Iterator, Mapping
-from typing import Any, Self
-from typing_extensions import deprecated, disjoint_base
+from typing import Any
+from typing_extensions import Self, deprecated, disjoint_base
 
 from rasterio.enums import WktVersion
 
