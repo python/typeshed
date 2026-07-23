@@ -2112,7 +2112,7 @@ _SupportsSomeKindOfPow = (  # noqa: Y026  # TODO: Use TypeAlias once mypy bugs a
 )
 
 # TODO: `pow(int, int, Literal[0])` fails at runtime,
-# but adding a `NoReturn` overload isn't a good solution for expressing that (see #8566).
+# but adding a `Never` overload isn't a good solution for expressing that (see #8566).
 @overload
 def pow(base: int, exp: int, mod: int) -> int: ...
 @overload

@@ -14,8 +14,8 @@ from collections.abc import (
     ValuesView,
 )
 from types import GenericAlias
-from typing import Any, ClassVar, Generic, NoReturn, SupportsIndex, TypeVar, final, overload, type_check_only
-from typing_extensions import Self, disjoint_base
+from typing import Any, ClassVar, Generic, SupportsIndex, TypeVar, final, overload, type_check_only
+from typing_extensions import Never, Self, disjoint_base
 
 if sys.version_info >= (3, 15):
     from builtins import frozendict
@@ -300,7 +300,7 @@ class Counter(dict[_T, int], Generic[_T]):
     def elements(self) -> Iterator[_T]: ...
     def most_common(self, n: int | None = None) -> list[tuple[_T, int]]: ...
     @classmethod
-    def fromkeys(cls, iterable: Any, v: int | None = None) -> NoReturn: ...  # type: ignore[override]
+    def fromkeys(cls, iterable: Any, v: int | None = None) -> Never: ...  # type: ignore[override]
 
     @overload
     def subtract(self, iterable: None = None, /) -> None: ...

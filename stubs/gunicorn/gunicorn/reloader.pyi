@@ -2,7 +2,8 @@ import sys
 import threading
 from collections.abc import Callable, Iterable
 from re import Pattern
-from typing import Final, NoReturn, TypeAlias, TypedDict, type_check_only
+from typing import Final, TypeAlias, TypedDict, type_check_only
+from typing_extensions import Never
 
 COMPILED_EXT_RE: Final[Pattern[str]]
 
@@ -35,7 +36,7 @@ else:
     class InotifyReloader:
         def __init__(
             self, extra_files: Iterable[str] | None = None, callback: Callable[[str], None] | None = None
-        ) -> NoReturn: ...
+        ) -> Never: ...
 
 _PreferredReloaderType: TypeAlias = type[InotifyReloader | Reloader]
 _ReloaderType: TypeAlias = InotifyReloader | Reloader  # noqa: Y047
