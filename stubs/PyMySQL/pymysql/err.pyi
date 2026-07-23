@@ -1,5 +1,5 @@
 import builtins
-from typing import NoReturn
+from typing_extensions import Never
 
 from .constants import ER as ER
 
@@ -21,4 +21,4 @@ class NotSupportedError(DatabaseError): ...
 
 error_map: dict[int, type[DatabaseError]]
 
-def raise_mysql_exception(data: bytes | bytearray) -> NoReturn: ...
+def raise_mysql_exception(data: bytes | bytearray) -> Never: ...
