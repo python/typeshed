@@ -1,7 +1,7 @@
 import logging
 from types import TracebackType
-from typing import Any, Final, Self
-from typing_extensions import deprecated
+from typing import Any, Final
+from typing_extensions import Self, deprecated
 
 from numpy.typing import DTypeLike
 from rasterio._affine_types import Affine

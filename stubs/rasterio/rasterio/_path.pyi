@@ -1,5 +1,6 @@
 import os
-from typing import Any, Final, Self
+from typing import Any, Final
+from typing_extensions import Self
 
 SCHEMES: Final[dict[str, str]]
 ARCHIVESCHEMES: Final[type[set[Any]]]

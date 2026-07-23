@@ -1,5 +1,6 @@
 from collections.abc import Sequence
-from typing import Any, Self
+from typing import Any
+from typing_extensions import Self
 
 class RPC:
     height_off: float
