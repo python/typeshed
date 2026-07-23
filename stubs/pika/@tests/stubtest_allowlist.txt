@@ -1,3 +1,6 @@
+# bytes alias for Python 3 compatibility
+pika.spec.str
+
 # Behind a TYPE_CHECKING guard at runtime.
 pika.adapters.select_connection.SELECT_ERROR_T
 pika.adapters.select_connection.POLLER_PARAMS
