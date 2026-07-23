@@ -2,8 +2,8 @@ import logging
 import os
 from collections.abc import Iterable, Sequence
 from types import TracebackType
-from typing import Any, Final, Self
-from typing_extensions import deprecated
+from typing import Any, Final
+from typing_extensions import Self, deprecated
 
 from rasterio._affine_types import Affine
 from rasterio._path import _ParsedPath, _UnparsedPath

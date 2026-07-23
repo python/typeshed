@@ -1,5 +1,5 @@
 from types import TracebackType
-from typing import Self
+from typing_extensions import Self
 
 from rasterio._warp import WarpedVRTReaderBase
 from rasterio.transform import TransformMethodsMixin

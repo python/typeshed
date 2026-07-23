@@ -1,6 +1,6 @@
 from collections.abc import Callable, Sequence
-from typing import Any, Self, TypeAlias, overload
-from typing_extensions import deprecated
+from typing import Any, TypeAlias, overload
+from typing_extensions import Self, deprecated
 
 from numpy.typing import NDArray
 from rasterio._affine_types import Affine
