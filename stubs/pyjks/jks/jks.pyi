@@ -107,9 +107,7 @@ class SecretKeyEntry(AbstractKeystoreEntry):
 
     # Not implemented by pyjks
     @classmethod
-    def new(  # type: ignore[override]
-        cls, alias: str, sealed_obj: bool, algorithm: str, key: bytes, key_size: int
-    ) -> Never: ...
+    def new(cls, alias: str, sealed_obj: bool, algorithm: str, key: bytes, key_size: int) -> Never: ...  # type: ignore[override]
     # Not implemented by pyjks
     def encrypt(self, key_password: str) -> Never: ...
 
