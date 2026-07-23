@@ -80,6 +80,7 @@
         "stubs/psycopg2",
         "stubs/punq",
         "stubs/pyasn1",
+        "stubs/pycups",
         "stubs/Pygments",
         "stubs/PyMySQL",
         "stubs/pyogrio",
