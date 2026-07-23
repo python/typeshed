@@ -2,6 +2,8 @@
 # New errors in Python 3.13
 # =========================
 
+dataclasses.KW_ONLY  # white lies around defaults
+
 # ====================================
 # Pre-existing errors from Python 3.12
 # ====================================

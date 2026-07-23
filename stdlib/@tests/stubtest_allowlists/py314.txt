@@ -2,6 +2,8 @@
 # New errors in Python 3.14
 # =========================
 
+dataclasses.KW_ONLY  # white lies around defaults
+
 # Union and UnionType are aliases in 3.14 but type checkers need some changes
 typing.Union
 types.UnionType.__class_getitem__
