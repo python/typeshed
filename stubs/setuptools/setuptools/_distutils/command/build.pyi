@@ -15,7 +15,7 @@ class build(Command):
     build_lib: Incomplete
     build_temp: Incomplete
     build_scripts: Incomplete
-    compiler: Incomplete
+    compiler: str | None
     plat_name: Incomplete
     debug: Incomplete
     force: bool
