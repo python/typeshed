@@ -15,8 +15,8 @@ __all__ = [
 
 @_dispatchable
 def group_betweenness_centrality(
-    G: Graph[_Node], C, normalized: bool | None = True, weight: str | None = None, endpoints: bool | None = False
-): ...
+    G: Graph[_Node], C: set[Incomplete], normalized: bool | None = True, weight: str | None = None, endpoints: bool | None = False
+) -> list[float] | float: ...
 @_dispatchable
 def prominent_group(
     G: Graph[_Node],

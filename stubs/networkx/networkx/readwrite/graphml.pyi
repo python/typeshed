@@ -18,29 +18,37 @@ __all__ = [
 
 def write_graphml_xml(
     G: Graph[_Node],
-    path,
+    path: str,
     encoding: str = "utf-8",
     prettyprint: bool = True,
     infer_numeric_types: bool = False,
     named_key_ids: bool = False,
-    edge_id_from_attribute=None,
+    edge_id_from_attribute: dict[Incomplete, Incomplete] | None = None,
 ) -> None: ...
 def write_graphml_lxml(
     G: Graph[_Node],
-    path,
+    path: str,
     encoding: str = "utf-8",
     prettyprint: bool = True,
     infer_numeric_types: bool = False,
     named_key_ids: bool = False,
-    edge_id_from_attribute=None,
+    edge_id_from_attribute: dict[Incomplete, Incomplete] | None = None,
 ): ...
 def generate_graphml(
-    G: Graph[_Node], encoding: str = "utf-8", prettyprint: bool = True, named_key_ids: bool = False, edge_id_from_attribute=None
+    G: Graph[_Node],
+    encoding: str = "utf-8",
+    prettyprint: bool = True,
+    named_key_ids: bool = False,
+    edge_id_from_attribute: dict[Incomplete, Incomplete] | None = None,
 ) -> Generator[Incomplete, Incomplete]: ...
 @_dispatchable
-def read_graphml(path, node_type=..., edge_key_type=..., force_multigraph: bool = False): ...
+def read_graphml(
+    path: str, node_type: type[Incomplete] = ..., edge_key_type: type[Incomplete] = ..., force_multigraph: bool = False
+) -> Graph[Incomplete]: ...
 @_dispatchable
-def parse_graphml(graphml_string, node_type=..., edge_key_type=..., force_multigraph: bool = False): ...
+def parse_graphml(
+    graphml_string: str, node_type: type[Incomplete] = ..., edge_key_type: type[Incomplete] = ..., force_multigraph: bool = False
+) -> Graph[Incomplete]: ...
 
 class GraphML:
     NS_GRAPHML: Final[str]
