@@ -138,7 +138,7 @@ class _TwistedConnectionAdapter(Connection):
         self,
         parameters: Parameters | None,
         on_open_callback: Callable[[Connection], object] | None,
-        on_open_error_callback: Callable[[Connection, Exception], object] | None,
+        on_open_error_callback: Callable[[Connection, BaseException], object] | None,
         on_close_callback: Callable[[Connection, Exception], object] | None,
         custom_reactor: ReactorBase | None = None,
     ) -> None: ...

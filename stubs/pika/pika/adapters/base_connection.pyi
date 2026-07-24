@@ -1,6 +1,6 @@
 import abc
 from _typeshed import Incomplete
-from collections.abc import Callable, Mapping, Sequence
+from collections.abc import Callable, Sequence
 from logging import Logger
 from typing import Final, Generic, Literal, TypeVar
 from typing_extensions import Self
@@ -62,8 +62,8 @@ class _StreamingProtocolShim(AbstractStreamProtocol, Generic[_IOLoop]):
     connection_state: Literal[0, 1, 2, 3, 4, 5, 6]  # one of the constants above
     params: Parameters
     callbacks: CallbackManager
-    server_capabilities: Mapping[str, bool] | None
-    server_properties: Mapping[str, Incomplete] | None
+    server_capabilities: dict[str, bool] | None
+    server_properties: dict[str, Incomplete] | None
     known_hosts: str | None
     def add_on_close_callback(self, callback: Callable[[Self, BaseException], object]) -> None: ...
     def add_on_connection_blocked_callback(self, callback: Callable[[Self, Method[SpecConnection.Blocked]], object]) -> None: ...
