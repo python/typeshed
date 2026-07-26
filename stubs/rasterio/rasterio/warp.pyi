@@ -5,7 +5,7 @@ from typing_extensions import deprecated
 
 from numpy.typing import ArrayLike, NDArray
 from rasterio._affine_types import Affine
-from rasterio._typing import CRSInput, _GDALOption
+from rasterio._typing import CRSInput, Geometry, _GDALOption
 from rasterio.control import GroundControlPoint
 from rasterio.enums import Resampling
 from rasterio.rpc import RPC
@@ -22,7 +22,7 @@ def transform(
 
 @overload
 def transform_geom(
-    src_crs: CRSInput, dst_crs: CRSInput, geom: Mapping[str, Any] | Sequence[Mapping[str, Any]], *, precision: float = -1
+    src_crs: CRSInput, dst_crs: CRSInput, geom: Geometry | Sequence[Geometry], *, precision: float = -1
 ) -> dict[str, Any] | list[dict[str, Any]]: ...
 @overload
 @deprecated(
@@ -33,7 +33,7 @@ def transform_geom(
 def transform_geom(
     src_crs: CRSInput,
     dst_crs: CRSInput,
-    geom: Mapping[str, Any] | Sequence[Mapping[str, Any]],
+    geom: Geometry | Sequence[Geometry],
     antimeridian_cutting: bool | None = None,
     antimeridian_offset: float | None = None,
     precision: float = -1,

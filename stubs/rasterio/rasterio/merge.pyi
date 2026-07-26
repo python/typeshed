@@ -7,7 +7,7 @@ from typing_extensions import deprecated
 from numpy.typing import DTypeLike, NDArray
 from rasterio._affine_types import Affine
 from rasterio.enums import Resampling
-from rasterio.io import DatasetReader
+from rasterio.io import DatasetReaderBase
 
 logger: Final[logging.Logger]
 
@@ -26,7 +26,7 @@ def copy_count(merged_data: _Arr, new_data: _Arr, merged_mask: _Arr, new_mask: _
 
 @overload
 def merge(
-    sources: Sequence[DatasetReader | str | os.PathLike[str]],
+    sources: Sequence[DatasetReaderBase | str | os.PathLike[str]],
     bounds: tuple[float, float, float, float] | None = None,
     res: float | tuple[float, float] | None = None,
     nodata: float | None = None,
@@ -46,7 +46,7 @@ def merge(
 @overload
 @deprecated("The `precision` parameter is unused since rasterio 1.3 and will be removed in 2.0.0.")
 def merge(
-    sources: Sequence[DatasetReader | str | os.PathLike[str]],
+    sources: Sequence[DatasetReaderBase | str | os.PathLike[str]],
     bounds: tuple[float, float, float, float] | None = None,
     res: float | tuple[float, float] | None = None,
     nodata: float | None = None,
