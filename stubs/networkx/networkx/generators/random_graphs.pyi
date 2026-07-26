@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from collections.abc import Callable
+from collections.abc import Callable, Iterable
 from typing_extensions import deprecated
 
 from networkx.utils.backends import _dispatchable
@@ -67,7 +67,7 @@ def random_lobster_graph(n: int, p1: float, p2: float, seed=None, *, create_usin
 @deprecated("`random_lobster` is a deprecated alias for `random_lobster_graph`. Use `random_lobster_graph` instead.")
 def random_lobster(n, p1, p2, seed=None, *, create_using=None): ...
 @_dispatchable
-def random_shell_graph(constructor: list[tuple[Incomplete, Incomplete, Incomplete]], seed=None, *, create_using=None): ...
+def random_shell_graph(constructor: Iterable[tuple[int, int, float]], seed=None, *, create_using=None): ...
 @_dispatchable
 def random_powerlaw_tree(n: int, gamma: float = 3, seed=None, tries: int = 100, *, create_using=None): ...
 @_dispatchable

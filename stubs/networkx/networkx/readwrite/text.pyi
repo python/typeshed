@@ -1,8 +1,8 @@
 from _typeshed import Incomplete
-from collections.abc import Callable, Generator
+from collections.abc import Callable, Collection, Generator
 from typing import ClassVar
 
-from networkx.classes.digraph import DiGraph
+from networkx.classes.graph import Graph
 
 __all__ = ["generate_network_text", "write_network_text"]
 
@@ -51,18 +51,18 @@ class UtfUndirectedGlyphs(UtfBaseGlyphs):
     vertical_edge: ClassVar[str]
 
 def generate_network_text(
-    graph: DiGraph[Incomplete],
+    graph: Graph[Incomplete],
     with_labels: bool = True,
-    sources: list[Incomplete] | None = None,
+    sources: Collection[Incomplete] | None = None,
     max_depth: int | None = None,
     ascii_only: bool = False,
     vertical_chains: bool = False,
 ) -> Generator[Incomplete, None, Incomplete]: ...
 def write_network_text(
-    graph: DiGraph[Incomplete],
+    graph: Graph[Incomplete],
     path: Callable[..., Incomplete] | None = None,
     with_labels: bool = True,
-    sources: list[Incomplete] | None = None,
+    sources: Collection[Incomplete] | None = None,
     max_depth: int | None = None,
     ascii_only: bool = False,
     end: str = "\n",

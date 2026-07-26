@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, StrPath, SupportsRead, SupportsWrite
 from collections.abc import Generator
 from typing import Final, Literal
 
@@ -8,14 +8,21 @@ from networkx.utils.backends import _dispatchable
 __all__ = ["write_gexf", "read_gexf", "relabel_gexf_graph", "generate_gexf"]
 
 def write_gexf(
-    G: Graph[_Node], path: str, encoding: str = "utf-8", prettyprint: bool = True, version: str = "1.2draft"
+    G: Graph[_Node],
+    path: StrPath | SupportsWrite[bytes],
+    encoding: str = "utf-8",
+    prettyprint: bool = True,
+    version: str = "1.2draft",
 ) -> None: ...
 def generate_gexf(
     G: Graph[_Node], encoding: str = "utf-8", prettyprint: bool = True, version: str = "1.2draft"
 ) -> Generator[Incomplete, Incomplete]: ...
 @_dispatchable
 def read_gexf(
-    path: str, node_type: type[Incomplete] | None = None, relabel: bool = False, version: str = "1.2draft"
+    path: StrPath | SupportsRead[bytes],
+    node_type: type[Incomplete] | None = None,
+    relabel: bool = False,
+    version: str = "1.2draft",
 ) -> Graph[Incomplete]: ...
 
 class GEXF:

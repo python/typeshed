@@ -86,14 +86,17 @@ def from_pandas_edgelist(
 @_dispatchable
 def to_scipy_sparse_array(
     G: Graph[_Node],
-    nodelist: list[Incomplete] | None = None,
+    nodelist: Collection[_Node] | None = None,
     dtype: np.dtype[Incomplete] | None = None,
-    weight: str = "weight",
+    weight: str | None = "weight",
     format: str = "csr",
 ): ...
 @_dispatchable
 def from_scipy_sparse_array(
-    A, parallel_edges: bool = False, create_using: Graph[Incomplete] | None = None, edge_attribute: str = "weight"
+    A,
+    parallel_edges: bool = False,
+    create_using: Graph[Incomplete] | type[Graph[Incomplete]] | None = None,
+    edge_attribute: str = "weight",
 ): ...
 @_dispatchable
 def to_numpy_array(

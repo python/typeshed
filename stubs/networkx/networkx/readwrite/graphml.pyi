@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, StrPath, SupportsRead, SupportsWrite
 from collections.abc import Generator
 from typing import Final, Literal
 
@@ -18,32 +18,35 @@ __all__ = [
 
 def write_graphml_xml(
     G: Graph[_Node],
-    path: str,
+    path: StrPath | SupportsWrite[bytes],
     encoding: str = "utf-8",
     prettyprint: bool = True,
     infer_numeric_types: bool = False,
     named_key_ids: bool = False,
-    edge_id_from_attribute: dict[Incomplete, Incomplete] | None = None,
+    edge_id_from_attribute: str | None = None,
 ) -> None: ...
 def write_graphml_lxml(
     G: Graph[_Node],
-    path: str,
+    path: StrPath | SupportsWrite[bytes],
     encoding: str = "utf-8",
     prettyprint: bool = True,
     infer_numeric_types: bool = False,
     named_key_ids: bool = False,
-    edge_id_from_attribute: dict[Incomplete, Incomplete] | None = None,
+    edge_id_from_attribute: str | None = None,
 ): ...
 def generate_graphml(
     G: Graph[_Node],
     encoding: str = "utf-8",
     prettyprint: bool = True,
     named_key_ids: bool = False,
-    edge_id_from_attribute: dict[Incomplete, Incomplete] | None = None,
+    edge_id_from_attribute: str | None = None,
 ) -> Generator[Incomplete, Incomplete]: ...
 @_dispatchable
 def read_graphml(
-    path: str, node_type: type[Incomplete] = ..., edge_key_type: type[Incomplete] = ..., force_multigraph: bool = False
+    path: StrPath | SupportsRead[bytes],
+    node_type: type[Incomplete] = ...,
+    edge_key_type: type[Incomplete] = ...,
+    force_multigraph: bool = False,
 ) -> Graph[Incomplete]: ...
 @_dispatchable
 def parse_graphml(

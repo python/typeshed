@@ -1,5 +1,5 @@
-from _typeshed import Incomplete
-from collections.abc import Generator
+from _typeshed import Incomplete, StrPath, SupportsRead, SupportsWrite
+from collections.abc import Generator, Iterable
 
 from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
@@ -8,23 +8,23 @@ __all__ = ["generate_multiline_adjlist", "write_multiline_adjlist", "parse_multi
 
 def generate_multiline_adjlist(G: Graph[_Node], delimiter: str = " ") -> Generator[str]: ...
 def write_multiline_adjlist(
-    G: Graph[_Node], path: str, delimiter: str = " ", comments: str = "#", encoding: str = "utf-8"
+    G: Graph[_Node], path: StrPath | SupportsWrite[bytes], delimiter: str = " ", comments: str = "#", encoding: str = "utf-8"
 ) -> None: ...
 @_dispatchable
 def parse_multiline_adjlist(
-    lines: list[Incomplete],
+    lines: Iterable[str],
     comments: str = "#",
     delimiter: str | None = None,
-    create_using: Graph[Incomplete] | None = None,
+    create_using: Graph[Incomplete] | type[Graph[Incomplete]] | None = None,
     nodetype: type[Incomplete] | None = None,
     edgetype: type[Incomplete] | None = None,
 ) -> Graph[Incomplete]: ...
 @_dispatchable
 def read_multiline_adjlist(
-    path: str,
+    path: StrPath | SupportsRead[bytes],
     comments: str = "#",
     delimiter: str | None = None,
-    create_using: Graph[Incomplete] | None = None,
+    create_using: Graph[Incomplete] | type[Graph[Incomplete]] | None = None,
     nodetype: type[Incomplete] | None = None,
     edgetype: type[Incomplete] | None = None,
     encoding: str = "utf-8",

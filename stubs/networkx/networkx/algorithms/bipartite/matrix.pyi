@@ -19,7 +19,7 @@ def biadjacency_matrix(
 @_dispatchable
 def from_biadjacency_matrix(
     A,
-    create_using: Graph[_Node] | None = None,
+    create_using: Graph[_Node] | type[Graph[_Node]] | None = None,
     edge_attribute: str = "weight",
     *,
     row_order: Iterable[Incomplete] | None = None,
