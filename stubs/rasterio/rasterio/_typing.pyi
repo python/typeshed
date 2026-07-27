@@ -1,12 +1,26 @@
-from collections.abc import Callable, Sequence
+from collections.abc import Callable, Mapping, Sequence
 from enum import Enum
-from typing import Any, BinaryIO, TypeAlias
+from typing import Any, BinaryIO, Protocol, TypeAlias, type_check_only
 
 from rasterio.crs import CRS
-from rasterio.io import BufferedDatasetWriter, DatasetReader, DatasetWriter, MemoryFile
+from rasterio.io import DatasetReaderBase, MemoryFile
 from rasterio.windows import Window
 
-AnyDataset: TypeAlias = DatasetReader | DatasetWriter | BufferedDatasetWriter | MemoryFile
+# `DatasetReaderBase` covers every readable dataset handle: DatasetReader,
+# DatasetWriter, BufferedDatasetWriter, MemoryDataset, and WarpedVRT (via
+# WarpedVRTReaderBase). `MemoryFile` is a file wrapper, not a dataset.
+AnyDataset: TypeAlias = DatasetReaderBase | MemoryFile
+
+@type_check_only
+class _SupportsGeoInterface(Protocol):
+    @property
+    def __geo_interface__(self) -> Mapping[str, Any]: ...
+
+# A GeoJSON-like mapping, or any object exposing one through the
+# `__geo_interface__` protocol (e.g. shapely / geopandas geometries).
+# The runtime unwraps `__geo_interface__` before use, so both forms are
+# accepted anywhere a geometry is expected.
+Geometry: TypeAlias = Mapping[str, Any] | _SupportsGeoInterface  # noqa: Y047
 Colormap: TypeAlias = dict[int, tuple[int, int, int] | tuple[int, int, int, int]]
 CRSInput: TypeAlias = str | dict[str, str] | CRS
 FileOrBytes: TypeAlias = BinaryIO | bytes

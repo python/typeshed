@@ -6,12 +6,12 @@ from typing import Any, Final
 from numpy.typing import DTypeLike, NDArray
 from rasterio._affine_types import Affine
 from rasterio.enums import Resampling
-from rasterio.io import DatasetReader
+from rasterio.io import DatasetReaderBase
 
 logger: Final[logging.Logger]
 
 def stack(
-    sources: Sequence[DatasetReader | str | os.PathLike[str]],
+    sources: Sequence[DatasetReaderBase | str | os.PathLike[str]],
     bounds: tuple[float, float, float, float] | None = None,
     res: float | tuple[float, float] | None = None,
     nodata: float | None = None,

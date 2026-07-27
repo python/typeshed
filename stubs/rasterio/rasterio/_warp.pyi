@@ -1,10 +1,10 @@
-from collections.abc import Mapping, Sequence
+from collections.abc import Sequence
 from typing import Any, Final
 
 from numpy.typing import DTypeLike, NDArray
 from rasterio._affine_types import Affine
 from rasterio._io import DatasetReaderBase
-from rasterio._typing import CRSInput, Indexes, ShapeND, WindowInput, _GDALOption, _NestedScalar
+from rasterio._typing import CRSInput, Geometry, Indexes, ShapeND, WindowInput, _GDALOption, _NestedScalar
 from rasterio.control import GroundControlPoint
 from rasterio.crs import CRS
 from rasterio.enums import Resampling
@@ -16,7 +16,7 @@ DEFAULT_NODATA_FLAG: Final[object]
 
 def recursive_round(val: _NestedScalar, precision: int) -> _NestedScalar: ...
 def _transform_geom(
-    src_crs: CRSInput, dst_crs: CRSInput, geom: Mapping[str, Any] | Sequence[Mapping[str, Any]], precision: int
+    src_crs: CRSInput, dst_crs: CRSInput, geom: Geometry | Sequence[Geometry], precision: int
 ) -> dict[str, Any] | list[dict[str, Any]]: ...
 def _reproject(
     source: NDArray[Any] | Any,

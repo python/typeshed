@@ -1,19 +1,18 @@
 import logging
 import os
-from collections.abc import Iterable, Iterator, Mapping
-from typing import Any, Final, TypeAlias, overload
+from collections.abc import Iterable, Iterator
+from typing import Any, Final, overload
 from typing_extensions import deprecated
 
 import numpy as np
 from numpy.typing import DTypeLike, NDArray
 from rasterio._affine_types import Affine
+from rasterio._typing import Geometry as Geometry
 from rasterio.enums import MergeAlg as MergeAlg
-from rasterio.io import DatasetReader
+from rasterio.io import DatasetReaderBase
 from rasterio.windows import Window as Window
 
 log: Final[logging.Logger]
-
-Geometry: TypeAlias = Mapping[str, Any]
 
 def geometry_mask(
     geometries: Iterable[Geometry], out_shape: tuple[int, int], transform: Affine, all_touched: bool = False, invert: bool = False
@@ -44,7 +43,7 @@ def bounds(geometry: Geometry, north_up: bool = True, transform: Affine | None =
 
 @overload
 def geometry_window(
-    dataset: DatasetReader, shapes: Iterable[Geometry], pad_x: float = 0, pad_y: float = 0, *, boundless: bool = False
+    dataset: DatasetReaderBase, shapes: Iterable[Geometry], pad_x: float = 0, pad_y: float = 0, *, boundless: bool = False
 ) -> Window: ...
 @overload
 @deprecated(
@@ -52,7 +51,7 @@ def geometry_window(
     "unused since rasterio 1.2.1 and will be removed in a future release."
 )
 def geometry_window(
-    dataset: DatasetReader,
+    dataset: DatasetReaderBase,
     shapes: Iterable[Geometry],
     pad_x: float = 0,
     pad_y: float = 0,
@@ -64,7 +63,7 @@ def geometry_window(
 
 def is_valid_geom(geom: Geometry) -> bool: ...
 def dataset_features(
-    src: DatasetReader,
+    src: DatasetReaderBase,
     bidx: int | None = None,
     sampling: int = 1,
     band: bool = True,
