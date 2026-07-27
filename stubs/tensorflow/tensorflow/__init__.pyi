@@ -467,4 +467,16 @@ def clip_by_value(
     t: Tensor | IndexedSlices, clip_value_min: TensorCompatible, clip_value_max: TensorCompatible, name: str | None = None
 ) -> Tensor: ...
 def tile(input: RaggedTensorLike, multiples: Tensor | Sequence[int], name: str | None = None) -> Tensor: ...
+@overload
+def range(
+    limit: int | Tensor, /, *, delta: int | Tensor = 1, dtype: DTypeLike | None = None, name: str | None = "range"
+) -> Tensor: ...
+@overload
+def range(
+    start: int | Tensor = 0,
+    limit: int | Tensor = 0,
+    delta: int | Tensor = 1,
+    dtype: DTypeLike | None = None,
+    name: str | None = "range",
+) -> Tensor: ...
 def __getattr__(name: str): ...  # incomplete module
