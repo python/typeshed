@@ -56,6 +56,7 @@ TensorOrArray: TypeAlias = tf.Tensor | AnyArray
 
 ShapeLike: TypeAlias = tf.TensorShape | Iterable[ScalarTensorCompatible | None] | int | tf.Tensor
 DTypeLike: TypeAlias = DType | str | np.dtype[Any] | int
+Signature: DType | tf.RaggedTensorSpec | tf.SparseTensorSpec | Sequence[Signature]
 
 ContainerTensors: TypeAlias = ContainerGeneric[tf.Tensor]
 ContainerTensorsLike: TypeAlias = ContainerGeneric[TensorLike]

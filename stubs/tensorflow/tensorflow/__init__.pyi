@@ -29,6 +29,7 @@ from tensorflow._aliases import (
     RaggedTensorLike,
     ScalarTensorCompatible,
     ShapeLike,
+    Signature,
     Slice,
     SparseTensorCompatible,
     TensorCompatible,
@@ -442,6 +443,17 @@ def ones_like(
 ) -> RaggedTensor: ...
 
 def reshape(tensor: TensorCompatible, shape: ShapeLike | Tensor, name: str | None = None) -> Tensor: ...
+def map_fn(
+    fn: Callable[TensorLike | TensorCompatible, TensorLike],
+    elems: TensorLike | TensorCompatible,
+    dtype: DTypeLike | None = None,
+    parallel_iterations: int | None = None,
+    back_prop: bool = True,
+    swap_memory: bool = False,
+    infer_shape: bool = True,
+    name: str | None = None,
+    fn_output_signature: Signature = None,
+) -> Tensor: ...
 def pad(
     tensor: TensorCompatible,
     paddings: Tensor | IntArray | Iterable[Iterable[int]],
