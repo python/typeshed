@@ -402,6 +402,7 @@ def squeeze(
 @overload
 def squeeze(input: RaggedTensor, axis: int | tuple[int, ...] | list[int], name: str | None = None) -> RaggedTensor: ...
 
+def slice(input_: TensorCompatible, begin: IntTensorCompatible, size: IntTensorCompatible, name: str | None = None) -> Tensor: ...
 def split(
     value: TensorCompatible,
     num_or_size_splits: int | TensorCompatible,
