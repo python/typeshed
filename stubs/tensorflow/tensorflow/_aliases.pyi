@@ -39,7 +39,7 @@ StrDataSequence: TypeAlias = Sequence[str] | Sequence[StrDataSequence]
 DataSequence: TypeAlias = FloatDataSequence | StrDataSequence | IntDataSequence
 ScalarTensorCompatible: TypeAlias = tf.Tensor | str | float | np.ndarray[Any, Any] | np.number[Any]
 UIntTensorCompatible: TypeAlias = tf.Tensor | int | UIntArray
-IntTensorCompatible: TypeAlias = tf.Tensor | int | IntArray
+IntTensorCompatible: TypeAlias = tf.Tensor | int | IntArray | Sequence[IntTensorCompatible]
 FloatTensorCompatible: TypeAlias = tf.Tensor | int | IntArray | float | FloatArray | np.number[Any]
 StringTensorCompatible: TypeAlias = tf.Tensor | str | npt.NDArray[np.str_] | Sequence[StringTensorCompatible]
 
