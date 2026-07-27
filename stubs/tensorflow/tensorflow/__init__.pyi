@@ -376,6 +376,8 @@ class RaggedTensorSpec(TypeSpec[struct_pb2.TypeSpecProto]):
     @classmethod
     def from_value(cls, value: RaggedTensor) -> Self: ...
 
+newaxis: None
+
 def convert_to_tensor(
     value: TensorCompatible | IndexedSlices,
     dtype: DTypeLike | None = None,
