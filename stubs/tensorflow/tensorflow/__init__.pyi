@@ -12,8 +12,10 @@ from typing_extensions import Self
 from google.protobuf.message import Message
 from tensorflow import (
     data as data,
+    debugging as debugging,
     experimental as experimental,
     feature_column as feature_column,
+    image as image,
     initializers as initializers,
     io as io,
     keras as keras,
@@ -26,6 +28,7 @@ from tensorflow._aliases import (
     AnyArray,
     DTypeLike,
     IntArray,
+    IntTensorCompatible,
     RaggedTensorLike,
     ScalarTensorCompatible,
     ShapeLike,
@@ -33,6 +36,7 @@ from tensorflow._aliases import (
     Slice,
     SparseTensorCompatible,
     TensorCompatible,
+    TensorLike,
     UIntTensorCompatible,
 )
 from tensorflow.autodiff import GradientTape as GradientTape
@@ -448,17 +452,35 @@ def ones_like(
 
 def reshape(tensor: TensorCompatible, shape: ShapeLike | Tensor, name: str | None = None) -> Tensor: ...
 def reverse(tensor: TensorCompatible, axis: IntTensorCompatible, name: str | None = None) -> Tensor: ...
+
+_ElemT = TypeVar("_ElemT", bound=TensorLike)
+_RetT = TypeVar("_RetT", bound=TensorLike)
+
+@overload
 def map_fn(
-    fn: Callable[TensorLike | TensorCompatible, TensorLike],
-    elems: TensorLike | TensorCompatible,
+    fn: Callable[[_ElemT], _RetT],
+    elems: _ElemT,
     dtype: DTypeLike | None = None,
     parallel_iterations: int | None = None,
-    back_prop: bool = True,
-    swap_memory: bool = False,
-    infer_shape: bool = True,
+    back_prop: _bool = True,
+    swap_memory: _bool = False,
+    infer_shape: _bool = True,
     name: str | None = None,
-    fn_output_signature: Signature = None,
-) -> Tensor: ...
+    fn_output_signature: Signature | None = None,
+) -> _RetT: ...
+@overload
+def map_fn(
+    fn: Callable[[Tensor], _RetT],
+    elems: TensorCompatible,
+    dtype: DTypeLike | None = None,
+    parallel_iterations: int | None = None,
+    back_prop: _bool = True,
+    swap_memory: _bool = False,
+    infer_shape: _bool = True,
+    name: str | None = None,
+    fn_output_signature: Signature | None = None,
+) -> _RetT: ...
+
 def pad(
     tensor: TensorCompatible,
     paddings: Tensor | IntArray | Iterable[Iterable[int]],

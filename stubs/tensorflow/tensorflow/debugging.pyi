@@ -6,5 +6,5 @@ def assert_greater_equal(
     message: str | None = None,
     summarize: int | None = None,
     name: str | None = None,
-): ...
+) -> None: ...
 def __getattr__(name: str): ...  # incomplete module
