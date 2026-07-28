@@ -1,0 +1,2 @@
+# The metaclass of Index is nondeterministically reported as pybind11_builtins.pybind11_type.
+(hnswlib.Index)?

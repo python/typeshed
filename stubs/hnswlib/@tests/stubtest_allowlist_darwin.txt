@@ -1,2 +1,0 @@
-# On macOS, the metaclass of Index is pybind11_builtins.pybind11_type.
-hnswlib.Index
