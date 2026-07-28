@@ -1,7 +1,7 @@
 import abc
 from _typeshed import Incomplete, Unused
 from abc import ABC, ABCMeta, abstractmethod
-from builtins import bool as _bool
+from builtins import bool as _bool, slice as _slice
 from collections.abc import Callable, Generator, Iterable, Iterator, Sequence
 from contextlib import contextmanager
 from enum import Enum
@@ -239,7 +239,7 @@ class TensorShape(metaclass=ABCMeta):
     @overload
     def __getitem__(self, key: int) -> int | None: ...
     @overload
-    def __getitem__(self, key: slice) -> TensorShape: ...
+    def __getitem__(self, key: _slice) -> TensorShape: ...
 
     def __iter__(self) -> Iterator[int | None]: ...
     def __len__(self) -> int: ...
@@ -506,6 +506,7 @@ def clip_by_value(
     t: Tensor | IndexedSlices, clip_value_min: TensorCompatible, clip_value_max: TensorCompatible, name: str | None = None
 ) -> Tensor: ...
 def tile(input: RaggedTensorLike, multiples: Tensor | Sequence[int], name: str | None = None) -> Tensor: ...
+
 @overload
 def range(
     limit: int | Tensor, /, *, delta: int | Tensor = 1, dtype: DTypeLike | None = None, name: str | None = "range"
@@ -518,4 +519,5 @@ def range(
     dtype: DTypeLike | None = None,
     name: str | None = "range",
 ) -> Tensor: ...
+
 def __getattr__(name: str): ...  # incomplete module
