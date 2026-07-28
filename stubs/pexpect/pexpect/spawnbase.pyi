@@ -1,8 +1,7 @@
 from asyncio import ReadTransport
 from collections.abc import Awaitable, Callable, Iterable
 from re import Match, Pattern
-from typing import IO, AnyStr, Generic, Literal, Protocol, TextIO, overload
-from typing_extensions import TypeAlias
+from typing import IO, AnyStr, Generic, Literal, Protocol, TextIO, TypeAlias, overload, type_check_only
 
 from ._async import PatternWaiter
 from .exceptions import EOF, TIMEOUT
@@ -17,6 +16,7 @@ class _NullCoder:
     @staticmethod
     def decode(b: str, final: bool = False): ...
 
+@type_check_only
 class _Logfile(Protocol):
     def write(self, s, /) -> object: ...
     def flush(self) -> object: ...
@@ -56,7 +56,7 @@ class SpawnBase(Generic[AnyStr]):
     delaybeforesend: float | None
     delayafterclose: float
     delayafterterminate: float
-    delayafterread: float
+    delayafterread: float | None
     softspace: bool
     name: str
     closed: bool
@@ -77,12 +77,15 @@ class SpawnBase(Generic[AnyStr]):
         encoding: str | None = None,
         codec_errors: str = "strict",
     ) -> None: ...
+
     @property
     def buffer(self) -> AnyStr: ...
     @buffer.setter
     def buffer(self, value: AnyStr) -> None: ...
+
     def read_nonblocking(self, size: int = 1, timeout: float | None = None) -> AnyStr: ...
     def compile_pattern_list(self, patterns: _InputRePattern | list[_InputRePattern]) -> list[_CompiledRePattern[AnyStr]]: ...
+
     @overload
     def expect(
         self,
@@ -100,6 +103,7 @@ class SpawnBase(Generic[AnyStr]):
         *,
         async_: Literal[True],
     ) -> Awaitable[int]: ...
+
     @overload
     def expect_list(
         self,
@@ -117,6 +121,7 @@ class SpawnBase(Generic[AnyStr]):
         *,
         async_: Literal[True],
     ) -> Awaitable[int]: ...
+
     @overload
     def expect_exact(
         self,
@@ -134,6 +139,7 @@ class SpawnBase(Generic[AnyStr]):
         *,
         async_: Literal[True],
     ) -> Awaitable[int]: ...
+
     def expect_loop(self, searcher: _Searcher[AnyStr], timeout: float | None = -1, searchwindowsize: int | None = -1) -> int: ...
     def read(self, size: int = -1) -> AnyStr: ...
     def readline(self, size: int = -1) -> AnyStr: ...

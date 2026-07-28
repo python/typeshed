@@ -29,7 +29,7 @@ from collections.abc import (
 )
 from contextlib import AbstractAsyncContextManager as AsyncContextManager, AbstractContextManager as ContextManager
 from re import Match as Match, Pattern as Pattern
-from types import GenericAlias, ModuleType
+from types import GenericAlias, ModuleType, UnionType
 from typing import (  # noqa: Y022,Y037,Y038,Y039,UP035
     IO as IO,
     TYPE_CHECKING as TYPE_CHECKING,
@@ -40,6 +40,7 @@ from typing import (  # noqa: Y022,Y037,Y038,Y039,UP035
     Callable as Callable,
     ChainMap as ChainMap,
     ClassVar as ClassVar,
+    Concatenate as Concatenate,
     Counter as Counter,
     DefaultDict as DefaultDict,
     Deque as Deque,
@@ -50,24 +51,28 @@ from typing import (  # noqa: Y022,Y037,Y038,Y039,UP035
     List as List,
     NoReturn as NoReturn,
     Optional as Optional,
+    ParamSpecArgs as ParamSpecArgs,
+    ParamSpecKwargs as ParamSpecKwargs,
     Set as Set,
     Text as Text,
     TextIO as TextIO,
     Tuple as Tuple,
     Type as Type,
-    TypedDict as TypedDict,
+    TypeAlias as TypeAlias,
+    TypeGuard as TypeGuard,
     TypeVar as _TypeVar,
     Union as Union,
     _Alias,
+    _SpecialForm,
     cast as cast,
+    is_typeddict as is_typeddict,
     no_type_check as no_type_check,
-    no_type_check_decorator as no_type_check_decorator,
     overload as overload,
     type_check_only,
 )
 
-if sys.version_info >= (3, 10):
-    from types import UnionType
+if sys.version_info >= (3, 14):
+    from _typeshed import EvaluateFunc
 
 # Please keep order the same as at runtime.
 __all__ = [
@@ -110,6 +115,8 @@ __all__ = [
     "SupportsIndex",
     "SupportsInt",
     "SupportsRound",
+    "Reader",
+    "Writer",
     # One-off things.
     "Annotated",
     "assert_never",
@@ -117,6 +124,7 @@ __all__ = [
     "clear_overloads",
     "dataclass_transform",
     "deprecated",
+    "disjoint_base",
     "Doc",
     "evaluate_forward_ref",
     "get_overloads",
@@ -136,6 +144,8 @@ __all__ = [
     "overload",
     "override",
     "Protocol",
+    "Sentinel",
+    "sentinel",
     "reveal_type",
     "runtime",
     "runtime_checkable",
@@ -146,6 +156,7 @@ __all__ = [
     "TypeGuard",
     "TypeIs",
     "TYPE_CHECKING",
+    "type_repr",
     "Never",
     "NoReturn",
     "ReadOnly",
@@ -199,15 +210,10 @@ _T = _TypeVar("_T")
 _F = _TypeVar("_F", bound=Callable[..., Any])
 _TC = _TypeVar("_TC", bound=type[object])
 _T_co = _TypeVar("_T_co", covariant=True)  # Any type covariant containers.
+_T_contra = _TypeVar("_T_contra", contravariant=True)
 
-class _Final: ...  # This should be imported from typing but that breaks pytype
-
-# unfortunately we have to duplicate this class definition from typing.pyi or we break pytype
-class _SpecialForm(_Final):
-    def __getitem__(self, parameters: Any) -> object: ...
-    if sys.version_info >= (3, 10):
-        def __or__(self, other: Any) -> _SpecialForm: ...
-        def __ror__(self, other: Any) -> _SpecialForm: ...
+if sys.version_info < (3, 15):
+    def no_type_check_decorator(decorator: _F) -> _F: ...
 
 # Do not import (and re-export) Protocol or runtime_checkable from
 # typing module because type checkers need to be able to distinguish
@@ -222,11 +228,17 @@ def runtime_checkable(cls: _TC) -> _TC: ...
 runtime = runtime_checkable
 Final: _SpecialForm
 
-def final(f: _F) -> _F: ...
+def final(f: _T) -> _T: ...
+def disjoint_base(cls: _TC) -> _TC: ...
 
 Literal: _SpecialForm
 
 def IntVar(name: str) -> Any: ...  # returns a new TypeVar
+
+# Kept as a distinct symbol to `typing.TypedDict` so that type checkers can more easily
+# distinguish between the two on Python 3.14, on which `typing_extensions.TypedDict`
+# exposes `__closed__` and `__extra_items__` but `typing.TypedDict` does not
+TypedDict: _SpecialForm
 
 # Internal mypy fallback type for all typed dicts (does not exist at runtime)
 # N.B. Keep this mostly in sync with typing._TypedDict/mypy_extensions._TypedDict
@@ -240,7 +252,7 @@ class _TypedDict(Mapping[str, object], metaclass=abc.ABCMeta):
     __readonly_keys__: ClassVar[frozenset[str]]
     __mutable_keys__: ClassVar[frozenset[str]]
     # PEP 728
-    __closed__: ClassVar[bool]
+    __closed__: ClassVar[bool | None]
     __extra_items__: ClassVar[AnnotationForm]
     def copy(self) -> Self: ...
     # Using Never so that only calls using mypy plugin hook that specialize the signature
@@ -253,14 +265,17 @@ class _TypedDict(Mapping[str, object], metaclass=abc.ABCMeta):
     def keys(self) -> dict_keys[str, object]: ...
     def values(self) -> dict_values[str, object]: ...
     def __delitem__(self, k: Never) -> None: ...
+
     @overload
     def __or__(self, value: Self, /) -> Self: ...
     @overload
     def __or__(self, value: dict[str, Any], /) -> dict[str, object]: ...
+
     @overload
     def __ror__(self, value: Self, /) -> Self: ...
     @overload
     def __ror__(self, value: dict[str, Any], /) -> dict[str, object]: ...
+
     # supposedly incompatible definitions of `__ior__` and `__or__`:
     # Since this module defines "Self" it is not recognized by Ruff as typing_extensions.Self
     def __ior__(self, value: Self, /) -> Self: ...  # type: ignore[misc]
@@ -276,10 +291,8 @@ else:
 
 def get_args(tp: AnnotationForm) -> tuple[AnnotationForm, ...]: ...
 
-if sys.version_info >= (3, 10):
-    @overload
-    def get_origin(tp: UnionType) -> type[UnionType]: ...
-
+@overload
+def get_origin(tp: UnionType) -> type[UnionType]: ...
 @overload
 def get_origin(tp: GenericAlias) -> type: ...
 @overload
@@ -289,34 +302,6 @@ def get_origin(tp: AnnotationForm) -> AnnotationForm | None: ...
 
 Annotated: _SpecialForm
 _AnnotatedAlias: Any  # undocumented
-
-# New and changed things in 3.10
-if sys.version_info >= (3, 10):
-    from typing import (
-        Concatenate as Concatenate,
-        ParamSpecArgs as ParamSpecArgs,
-        ParamSpecKwargs as ParamSpecKwargs,
-        TypeAlias as TypeAlias,
-        TypeGuard as TypeGuard,
-        is_typeddict as is_typeddict,
-    )
-else:
-    @final
-    class ParamSpecArgs:
-        @property
-        def __origin__(self) -> ParamSpec: ...
-        def __init__(self, origin: ParamSpec) -> None: ...
-
-    @final
-    class ParamSpecKwargs:
-        @property
-        def __origin__(self) -> ParamSpec: ...
-        def __init__(self, origin: ParamSpec) -> None: ...
-
-    Concatenate: _SpecialForm
-    TypeAlias: _SpecialForm
-    TypeGuard: _SpecialForm
-    def is_typeddict(tp: object) -> bool: ...
 
 # New and changed things in 3.11
 if sys.version_info >= (3, 11):
@@ -364,22 +349,24 @@ else:
         _field_defaults: ClassVar[dict[str, Any]]
         _fields: ClassVar[tuple[str, ...]]
         __orig_bases__: ClassVar[tuple[Any, ...]]
+
         @overload
         def __init__(self, typename: str, fields: Iterable[tuple[str, Any]] = ...) -> None: ...
         @overload
         def __init__(self, typename: str, fields: None = None, **kwargs: Any) -> None: ...
+
         @classmethod
-        def _make(cls, iterable: Iterable[Any]) -> Self: ...
+        def _make(cls, iterable: Iterable[Any]) -> Self: ...  # ty:ignore[invalid-type-form]
         def _asdict(self) -> dict[str, Any]: ...
-        def _replace(self, **kwargs: Any) -> Self: ...
+        def _replace(self, **kwargs: Any) -> Self: ...  # ty:ignore[invalid-type-form]
 
     class NewType:
         def __init__(self, name: str, tp: AnnotationForm) -> None: ...
         def __call__(self, obj: _T, /) -> _T: ...
+        def __or__(self, other: Any) -> _SpecialForm: ...
+        def __ror__(self, other: Any) -> _SpecialForm: ...
         __supertype__: type | NewType
-        if sys.version_info >= (3, 10):
-            def __or__(self, other: Any) -> _SpecialForm: ...
-            def __ror__(self, other: Any) -> _SpecialForm: ...
+        __name__: str
 
 if sys.version_info >= (3, 12):
     from collections.abc import Buffer as Buffer
@@ -402,49 +389,72 @@ else:
     # At runtime it inherits from ABC and is not a Protocol, but it is on the
     # allowlist for use as a Protocol.
     @runtime_checkable
-    class Buffer(Protocol, abc.ABC):  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
+    class Buffer(Protocol, abc.ABC):  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]  # ty:ignore[invalid-protocol]
         # Not actually a Protocol at runtime; see
         # https://github.com/python/typeshed/issues/10224 for why we're defining it this way
         def __buffer__(self, flags: int, /) -> memoryview: ...
 
     @runtime_checkable
     class SupportsInt(Protocol, metaclass=abc.ABCMeta):
+        __slots__ = ()
         @abc.abstractmethod
         def __int__(self) -> int: ...
 
     @runtime_checkable
     class SupportsFloat(Protocol, metaclass=abc.ABCMeta):
+        __slots__ = ()
         @abc.abstractmethod
         def __float__(self) -> float: ...
 
     @runtime_checkable
     class SupportsComplex(Protocol, metaclass=abc.ABCMeta):
+        __slots__ = ()
         @abc.abstractmethod
         def __complex__(self) -> complex: ...
 
     @runtime_checkable
     class SupportsBytes(Protocol, metaclass=abc.ABCMeta):
+        __slots__ = ()
         @abc.abstractmethod
         def __bytes__(self) -> bytes: ...
 
     @runtime_checkable
     class SupportsIndex(Protocol, metaclass=abc.ABCMeta):
+        __slots__ = ()
         @abc.abstractmethod
         def __index__(self) -> int: ...
 
     @runtime_checkable
     class SupportsAbs(Protocol[_T_co]):
+        __slots__ = ()
         @abc.abstractmethod
         def __abs__(self) -> _T_co: ...
 
     @runtime_checkable
     class SupportsRound(Protocol[_T_co]):
+        __slots__ = ()
+
         @overload
         @abc.abstractmethod
         def __round__(self) -> int: ...
         @overload
         @abc.abstractmethod
         def __round__(self, ndigits: int, /) -> _T_co: ...
+
+if sys.version_info >= (3, 14):
+    from io import Reader as Reader, Writer as Writer
+else:
+    @runtime_checkable
+    class Reader(Protocol[_T_co]):
+        __slots__ = ()
+        @abc.abstractmethod
+        def read(self, size: int = ..., /) -> _T_co: ...
+
+    @runtime_checkable
+    class Writer(Protocol[_T_contra]):
+        __slots__ = ()
+        @abc.abstractmethod
+        def write(self, data: _T_contra, /) -> int: ...
 
 if sys.version_info >= (3, 13):
     from types import CapsuleType as CapsuleType
@@ -454,7 +464,6 @@ if sys.version_info >= (3, 13):
         ReadOnly as ReadOnly,
         TypeIs as TypeIs,
         TypeVar as TypeVar,
-        TypeVarTuple as TypeVarTuple,
         get_protocol_members as get_protocol_members,
         is_protocol as is_protocol,
     )
@@ -462,7 +471,9 @@ if sys.version_info >= (3, 13):
 else:
     def is_protocol(tp: type, /) -> bool: ...
     def get_protocol_members(tp: type, /) -> frozenset[str]: ...
+
     @final
+    @type_check_only
     class _NoDefaultType: ...
 
     NoDefault: _NoDefaultType
@@ -504,9 +515,8 @@ else:
         ) -> None: ...
         def has_default(self) -> bool: ...
         def __typing_prepare_subst__(self, alias: Any, args: Any) -> tuple[Any, ...]: ...
-        if sys.version_info >= (3, 10):
-            def __or__(self, right: Any) -> _SpecialForm: ...
-            def __ror__(self, left: Any) -> _SpecialForm: ...
+        def __or__(self, right: Any) -> _SpecialForm: ...
+        def __ror__(self, left: Any) -> _SpecialForm: ...
         if sys.version_info >= (3, 11):
             def __typing_subst__(self, arg: Any) -> Any: ...
 
@@ -533,29 +543,67 @@ else:
             covariant: bool = False,
             default: AnnotationForm = ...,
         ) -> None: ...
+        def __or__(self, right: Any) -> _SpecialForm: ...
+        def __ror__(self, left: Any) -> _SpecialForm: ...
         @property
         def args(self) -> ParamSpecArgs: ...
         @property
         def kwargs(self) -> ParamSpecKwargs: ...
         def has_default(self) -> bool: ...
         def __typing_prepare_subst__(self, alias: Any, args: Any) -> tuple[Any, ...]: ...
-        if sys.version_info >= (3, 10):
-            def __or__(self, right: Any) -> _SpecialForm: ...
-            def __ror__(self, left: Any) -> _SpecialForm: ...
 
+    ReadOnly: _SpecialForm
+    TypeIs: _SpecialForm
+
+if sys.version_info >= (3, 15):
+    from typing import TypeVarTuple as TypeVarTuple
+else:
     @final
     class TypeVarTuple:
         @property
         def __name__(self) -> str: ...
         @property
+        def __bound__(self) -> AnnotationForm | None: ...
+        @property
+        def __covariant__(self) -> bool: ...
+        @property
+        def __contravariant__(self) -> bool: ...
+        @property
+        def __infer_variance__(self) -> bool: ...
+        @property
         def __default__(self) -> AnnotationForm: ...
-        def __init__(self, name: str, *, default: AnnotationForm = ...) -> None: ...
+        if sys.version_info >= (3, 11):
+            def __new__(
+                cls,
+                name: str,
+                *,
+                bound: AnnotationForm | None = None,
+                covariant: bool = False,
+                contravariant: bool = False,
+                infer_variance: bool = False,
+                default: AnnotationForm = ...,
+            ) -> Self: ...
+        else:
+            def __init__(
+                self,
+                name: str,
+                *,
+                bound: AnnotationForm | None = None,
+                covariant: bool = False,
+                contravariant: bool = False,
+                infer_variance: bool = False,
+                default: AnnotationForm = ...,
+            ) -> None: ...
+
         def __iter__(self) -> Any: ...  # Unpack[Self]
         def has_default(self) -> bool: ...
-        def __typing_prepare_subst__(self, alias: Any, args: Any) -> tuple[Any, ...]: ...
+        if sys.version_info >= (3, 11):
+            def __typing_subst__(self, arg: Never, /) -> Never: ...
 
-    ReadOnly: _SpecialForm
-    TypeIs: _SpecialForm
+        def __typing_prepare_subst__(self, alias: Any, args: Any, /) -> tuple[Any, ...]: ...
+        if sys.version_info >= (3, 14):
+            @property
+            def evaluate_default(self) -> EvaluateFunc | None: ...
 
 # TypeAliasType was added in Python 3.12, but had significant changes in 3.14.
 if sys.version_info >= (3, 14):
@@ -581,10 +629,9 @@ else:
         def __module__(self) -> str | None: ...  # type: ignore[override]
         # Returns typing._GenericAlias, which isn't stubbed.
         def __getitem__(self, parameters: Incomplete | tuple[Incomplete, ...]) -> AnnotationForm: ...
-        def __init_subclass__(cls, *args: Unused, **kwargs: Unused) -> NoReturn: ...
-        if sys.version_info >= (3, 10):
-            def __or__(self, right: Any) -> _SpecialForm: ...
-            def __ror__(self, left: Any) -> _SpecialForm: ...
+        def __init_subclass__(cls, *args: Unused, **kwargs: Unused) -> Never: ...
+        def __or__(self, right: Any, /) -> _SpecialForm: ...
+        def __ror__(self, left: Any, /) -> _SpecialForm: ...
 
 # PEP 727
 class Doc:
@@ -594,6 +641,7 @@ class Doc:
     def __eq__(self, other: object) -> bool: ...
 
 # PEP 728
+@type_check_only
 class _NoExtraItemsType: ...
 
 NoExtraItems: _NoExtraItemsType
@@ -605,7 +653,7 @@ TypeForm: _SpecialForm
 if sys.version_info >= (3, 14):
     from typing import evaluate_forward_ref as evaluate_forward_ref
 
-    from annotationlib import Format as Format, get_annotations as get_annotations
+    from annotationlib import Format as Format, get_annotations as get_annotations, type_repr as type_repr
 else:
     class Format(enum.IntEnum):
         VALUE = 1
@@ -640,6 +688,7 @@ else:
         eval_str: bool = False,
         format: Format = Format.VALUE,  # noqa: Y011
     ) -> dict[str, AnnotationForm]: ...
+
     @overload
     def evaluate_forward_ref(
         forward_ref: ForwardRef,
@@ -670,6 +719,28 @@ else:
         globals: Mapping[str, Any] | None = None,  # value types depend on the key
         locals: Mapping[str, Any] | None = None,  # value types depend on the key
         type_params: Iterable[TypeVar | ParamSpec | TypeVarTuple] | None = None,
-        format: Format = Format.VALUE,  # noqa: Y011
+        format: Format | None = None,
         _recursive_guard: Container[str] = ...,
     ) -> AnnotationForm: ...
+
+    def type_repr(value: object) -> str: ...
+
+# PEP 661
+if sys.version_info >= (3, 15):
+    from builtins import sentinel as sentinel
+else:
+    class sentinel:
+        def __init__(self, name: str, /, *, repr: str | None = None) -> None: ...
+        __name__: str
+        __module__: str
+        if sys.version_info >= (3, 14):
+            # `other`` can be any type form legal for unions.
+            # `x | x` creates a `sentinel` instance if `x` is a sentinel, not a `UnionType` instance
+            def __or__(self, other: Any) -> UnionType | sentinel: ...
+            def __ror__(self, other: Any) -> UnionType | sentinel: ...
+        else:
+            # other can be any type form legal for unions
+            def __or__(self, other: Any) -> _SpecialForm: ...
+            def __ror__(self, other: Any) -> _SpecialForm: ...
+
+Sentinel = sentinel

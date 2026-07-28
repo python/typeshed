@@ -1,10 +1,10 @@
 import datetime
-from _typeshed import ConvertibleToFloat, ConvertibleToInt, SupportsKeysAndGetItem, Unused
+from _typeshed import ConvertibleToFloat, ConvertibleToInt, Incomplete, SupportsKeysAndGetItem, Unused
 from collections.abc import Iterable, Iterator
 from enum import Enum
 from re import Pattern
-from typing import Any, ClassVar, Final, Literal, Protocol, SupportsIndex, overload
-from typing_extensions import Self, TypeAlias
+from typing import Any, ClassVar, Final, Literal, Protocol, SupportsIndex, TypeAlias, overload, type_check_only
+from typing_extensions import Self
 
 from .caselessdict import CaselessDict
 from .parser import Parameters
@@ -47,6 +47,7 @@ _PropType: TypeAlias = type[Any]  # any of the v* classes in this file
 _PeriodTuple: TypeAlias = tuple[datetime.datetime, datetime.datetime | datetime.timedelta]
 _AnyTimeType: TypeAlias = datetime.datetime | datetime.date | datetime.timedelta | datetime.time | _PeriodTuple
 
+@type_check_only
 class _vType(Protocol):
     def to_ical(self) -> bytes | str: ...
 
@@ -71,6 +72,7 @@ class vBoolean(int):
     def from_ical(cls, ical: ICAL_TYPE) -> bool: ...
 
 class vText(str):
+    __slots__ = ("encoding", "params")
     encoding: str
     params: Parameters
     def __new__(cls, value: ICAL_TYPE, encoding: str = "utf-8", params: SupportsKeysAndGetItem[str, str] = {}) -> Self: ...
@@ -82,19 +84,22 @@ class vText(str):
     RELTYPE: property
 
 class vCalAddress(str):
+    __slots__ = ("params",)
     params: Parameters
-    def __new__(cls, value: ICAL_TYPE, encoding="utf-8", params: SupportsKeysAndGetItem[str, str] = {}) -> Self: ...
+    def __new__(cls, value: ICAL_TYPE, encoding: str = "utf-8", params: SupportsKeysAndGetItem[str, str] = {}) -> Self: ...
     def to_ical(self) -> bytes: ...
     @classmethod
     def from_ical(cls, ical: ICAL_TYPE) -> Self: ...
     @property
     def email(self) -> str: ...
+
     @property
     def name(self) -> str: ...
     @name.setter
     def name(self, value: str) -> None: ...
     @name.deleter
     def name(self) -> None: ...
+
     CN: property
     CUTYPE: property
     DELEGATED_FROM: property
@@ -126,7 +131,7 @@ class vDDDLists:
     def __init__(self, dt_list: Iterable[_AnyTimeType] | _AnyTimeType) -> None: ...
     def to_ical(self) -> bytes: ...
     @staticmethod
-    def from_ical(ical: str, timezone: str | datetime.timezone | None = None): ...
+    def from_ical(ical: str, timezone: str | datetime.timezone | None = None) -> list[Incomplete]: ...
     def __eq__(self, other: object) -> bool: ...
 
 class vCategory:
@@ -143,6 +148,8 @@ class vCategory:
     TZID: property
 
 class TimeBase:
+    params: Parameters
+    ignore_for_equality: set[str]
     def __eq__(self, other: object) -> bool: ...
     def __hash__(self) -> int: ...
     RANGE: property
@@ -154,6 +161,7 @@ class vDDDTypes(TimeBase):
     dt: _AnyTimeType
     def __init__(self, dt: _AnyTimeType) -> None: ...
     def to_ical(self) -> bytes: ...
+
     @overload
     @classmethod
     def from_ical(cls, ical: Self, timezone: Unused | None = None) -> _AnyTimeType: ...
@@ -210,6 +218,7 @@ class vPeriod(TimeBase):
     FBTYPE: property
 
 class vWeekday(str):
+    __slots__ = ("params", "relative", "weekday")
     week_days: Final[CaselessDict[int]]
     weekday: Literal["SU", "MO", "TU", "WE", "TH", "FR", "SA"] | None
     relative: int | None
@@ -220,6 +229,7 @@ class vWeekday(str):
     def from_ical(cls, ical: ICAL_TYPE) -> Self: ...
 
 class vFrequency(str):
+    __slots__ = ("params",)
     frequencies: Final[CaselessDict[str]]
     params: Parameters
     def __new__(cls, value: ICAL_TYPE, encoding: str = "utf-8", params: SupportsKeysAndGetItem[str, str] = {}) -> Self: ...
@@ -233,6 +243,7 @@ class vMonth(int):
     def to_ical(self) -> bytes: ...
     @classmethod
     def from_ical(cls, ical: vMonth | str | int) -> Self: ...
+
     @property
     def leap(self) -> bool: ...
     @leap.setter
@@ -264,6 +275,7 @@ class vRecur(CaselessDict[Iterable[Any] | Any]):
 class vTime(TimeBase):
     dt: datetime.time | datetime.datetime
     params: Parameters
+
     @overload
     def __init__(self, dt: datetime.time | datetime.datetime, /) -> None: ...
     # args are passed to the datetime.time() constructor
@@ -277,11 +289,13 @@ class vTime(TimeBase):
         tzinfo: datetime.tzinfo | None = ...,
         /,
     ) -> None: ...
+
     def to_ical(self) -> str: ...
     @staticmethod
     def from_ical(ical: ICAL_TYPE) -> datetime.time: ...
 
 class vUri(str):
+    __slots__ = ("params",)
     params: Parameters
     def __new__(cls, value: ICAL_TYPE, encoding: str = "utf-8", params: SupportsKeysAndGetItem[str, str] = {}) -> Self: ...
     def to_ical(self) -> bytes: ...
@@ -310,6 +324,7 @@ class vUTCOffset:
     def __hash__(self) -> int: ...
 
 class vInline(str):
+    __slots__ = ("params",)
     params: Parameters
     def __new__(cls, value: ICAL_TYPE, encoding: str = "utf-8", params: SupportsKeysAndGetItem[str, str] = {}) -> Self: ...
     def to_ical(self) -> bytes: ...

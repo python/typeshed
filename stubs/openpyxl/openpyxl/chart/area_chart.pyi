@@ -1,6 +1,5 @@
 from _typeshed import Incomplete, Unused
-from typing import ClassVar, Literal
-from typing_extensions import TypeAlias
+from typing import ClassVar, Literal, TypeAlias
 
 from openpyxl.chart.axis import ChartLines, NumericAxis, SeriesAxis, TextAxis
 from openpyxl.chart.label import DataLabelList
@@ -57,4 +56,4 @@ class AreaChart3D(AreaChart):
     y_axis: Typed[NumericAxis, Literal[False]]
     z_axis: Typed[SeriesAxis, Literal[True]]
     __elements__: ClassVar[tuple[str, ...]]
-    def __init__(self, gapDepth: Incomplete | None = None, **kw) -> None: ...
+    def __init__(self, gapDepth=None, **kw) -> None: ...

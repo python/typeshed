@@ -1,5 +1,6 @@
 from collections.abc import Callable, Sequence
-from typing import Any, Generic, NoReturn, Protocol, TypeVar, overload
+from typing import Any, Generic, Protocol, TypeVar, overload, type_check_only
+from typing_extensions import Never
 
 from gevent._types import _Loop, _Resolver
 from gevent.fileobject import _FileObjectType
@@ -9,17 +10,19 @@ __all__ = ["config"]
 
 _T = TypeVar("_T")
 
+@type_check_only
 class _SettingDescriptor(Protocol[_T]):
     @overload
     def __get__(self, obj: None, owner: type[Config]) -> property: ...
     @overload
     def __get__(self, obj: Config, owner: type[Config]) -> _T: ...
+
     def __set__(self, obj: Config, value: str | _T) -> None: ...
 
 class SettingType(type):
     def fmt_desc(cls, desc: str) -> str: ...
 
-def validate_invalid(value: object) -> NoReturn: ...
+def validate_invalid(value: object) -> Never: ...
 def validate_bool(value: str | bool) -> bool: ...
 def validate_anything(value: _T) -> _T: ...
 

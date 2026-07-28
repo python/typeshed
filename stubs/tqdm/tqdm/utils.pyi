@@ -1,8 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Callable, Mapping
 from re import Pattern
-from typing import Protocol, TypeVar
-from typing_extensions import ParamSpec
+from typing import ParamSpec, Protocol, TypeVar, type_check_only
 
 CUR_OS: str
 IS_WIN: bool
@@ -15,6 +14,7 @@ class FormatReplace:
     def __init__(self, replace: str = "") -> None: ...
     def __format__(self, _) -> str: ...
 
+@type_check_only
 class _Has__Comparable(Protocol):
     _comparable: Incomplete
 
@@ -54,5 +54,5 @@ class CallbackIOWrapper(ObjectWrapper):
 def disp_len(data: str) -> int: ...
 def disp_trim(data: str, length: int) -> str: ...
 def envwrap(
-    prefix: str, types: Mapping[str, Callable[[Incomplete], Incomplete]] | None = None, is_method: bool = False
+    name: str, app: str = "", types: Mapping[str, Callable[[Incomplete], Incomplete]] | None = None, is_method: bool = False
 ) -> Callable[[Callable[_P, _R]], Callable[_P, _R]]: ...

@@ -1,2 +1,2 @@
-version = "0.14.*"
-upstream_repository = "https://github.com/martinblech/xmltodict"
+version = "~= 1.0.1"
+upstream-repository = "https://github.com/martinblech/xmltodict"

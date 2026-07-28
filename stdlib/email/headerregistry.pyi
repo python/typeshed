@@ -1,3 +1,4 @@
+import sys
 import types
 from collections.abc import Iterable, Mapping
 from datetime import datetime as _datetime
@@ -13,7 +14,7 @@ from email._header_value_parser import (
 )
 from email.errors import MessageDefect
 from email.policy import Policy
-from typing import Any, ClassVar, Literal, Protocol
+from typing import Any, ClassVar, Literal, Protocol, type_check_only
 from typing_extensions import Self
 
 class BaseHeader(str):
@@ -41,7 +42,7 @@ class DateHeader:
     max_count: ClassVar[Literal[1] | None]
     def init(self, name: str, *, parse_tree: TokenList, defects: Iterable[MessageDefect], datetime: _datetime) -> None: ...
     @property
-    def datetime(self) -> _datetime: ...
+    def datetime(self) -> _datetime | None: ...
     @staticmethod
     def value_parser(value: str) -> UnstructuredTokenList: ...
     @classmethod
@@ -137,6 +138,18 @@ class MessageIDHeader:
     @staticmethod
     def value_parser(value: str) -> MessageID: ...
 
+if sys.version_info >= (3, 13):
+    from email._header_value_parser import MessageIDList
+
+    # Added in Python 3.13.12, 3.14.3
+    class ReferencesHeader:
+        max_count: ClassVar[Literal[1]]
+        @classmethod
+        def parse(cls, value: str, kwds: dict[str, Any]) -> None: ...
+        @staticmethod
+        def value_parser(value: str) -> MessageIDList: ...
+
+@type_check_only
 class _HeaderParser(Protocol):
     max_count: ClassVar[Literal[1] | None]
     @staticmethod

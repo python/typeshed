@@ -9,17 +9,17 @@ class InvalidTokenError(OAuth2Error):
     description: str
     status_code: int
     realm: Incomplete
-    extra_attributes: Incomplete
+    extra_attributes: dict[str, Incomplete]
     def __init__(
         self,
-        description: Incomplete | None = None,
-        uri: Incomplete | None = None,
-        status_code: Incomplete | None = None,
-        state: Incomplete | None = None,
-        realm: Incomplete | None = None,
-        **extra_attributes,
+        description=None,
+        uri=None,
+        status_code=None,
+        state=None,
+        realm=None,
+        extra_attributes: dict[str, Incomplete] | None = None,
     ) -> None: ...
-    def get_headers(self): ...
+    def get_headers(self) -> list[tuple[str, str]]: ...
 
 class InsufficientScopeError(OAuth2Error):
     error: str

@@ -4,11 +4,11 @@ from typing import Any, Final, final, type_check_only
 from typing_extensions import Self
 
 DEFLATED: Final = 8
-DEF_MEM_LEVEL: int  # can change
+DEF_MEM_LEVEL: Final[int]
 DEF_BUF_SIZE: Final = 16384
-MAX_WBITS: int
-ZLIB_VERSION: str  # can change
-ZLIB_RUNTIME_VERSION: str  # can change
+MAX_WBITS: Final[int]
+ZLIB_VERSION: Final[str]
+ZLIB_RUNTIME_VERSION: Final[str]
 Z_NO_COMPRESSION: Final = 0
 Z_PARTIAL_FLUSH: Final = 1
 Z_BEST_COMPRESSION: Final = 9
@@ -25,6 +25,10 @@ Z_NO_FLUSH: Final = 0
 Z_RLE: Final = 3
 Z_SYNC_FLUSH: Final = 2
 Z_TREES: Final = 6
+
+if sys.version_info >= (3, 14):
+    # Available when zlib was built with zlib-ng
+    ZLIBNG_VERSION: Final[str]
 
 class error(Exception): ...
 
@@ -56,6 +60,9 @@ class _Decompress:
 
 def adler32(data: ReadableBuffer, value: int = 1, /) -> int: ...
 
+if sys.version_info >= (3, 15):
+    def adler32_combine(adler1: int, adler2: int, len2: int, /) -> int: ...
+
 if sys.version_info >= (3, 11):
     def compress(data: ReadableBuffer, /, level: int = -1, wbits: int = 15) -> bytes: ...
 
@@ -66,5 +73,9 @@ def compressobj(
     level: int = -1, method: int = 8, wbits: int = 15, memLevel: int = 8, strategy: int = 0, zdict: ReadableBuffer | None = None
 ) -> _Compress: ...
 def crc32(data: ReadableBuffer, value: int = 0, /) -> int: ...
+
+if sys.version_info >= (3, 15):
+    def crc32_combine(crc1: int, crc2: int, len2: int, /) -> int: ...
+
 def decompress(data: ReadableBuffer, /, wbits: int = 15, bufsize: int = 16384) -> bytes: ...
 def decompressobj(wbits: int = 15, zdict: ReadableBuffer = b"") -> _Decompress: ...

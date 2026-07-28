@@ -1,5 +1,4 @@
 from _hashlib import HASH
-from _typeshed import Incomplete
 from collections.abc import Callable
 from logging import Logger
 
@@ -14,7 +13,7 @@ class GrantTypeBase:
     def id_token_hash(
         self, value: str, hashfunc: Callable[..., HASH] = ...  # Arguments: ReadableBuffer (string) and bool (usedforsecurity)
     ) -> str: ...
-    def add_id_token(self, token, token_handler, request: Request, nonce: Incomplete | None = None): ...
+    def add_id_token(self, token, token_handler, request: Request, nonce=None): ...
     def openid_authorization_validator(self, request: Request): ...
 
 OpenIDConnectBase = GrantTypeBase

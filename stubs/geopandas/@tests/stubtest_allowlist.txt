@@ -14,9 +14,10 @@ geopandas\.(geodataframe\.)?GeoDataFrame\.plot
 geopandas\.io\._geoarrow
 geopandas\._exports
 
-# Not present in stub OK (do not work at runtime, to be removed from geopandas)
-geopandas\.(geoseries\.)?GeoSeries\.append # https://github.com/geopandas/geopandas/pull/3460
-geopandas\.(geoseries\.)?GeoSeries\.select # https://github.com/geopandas/geopandas/pull/3394
+# stub parameter differs from runtime parameter "self"
+geopandas.geodataframe.GeoDataFrame.explore
+geopandas.geoseries.GeoSeries.explore
+geopandas.geoseries.GeoSeries.plot
 
 # Inconsistent (TODO)
 geopandas\.(geoseries\.)?GeoSeries\.apply

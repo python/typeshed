@@ -1,6 +1,5 @@
 from _typeshed import Incomplete, Unused
-from typing import ClassVar, Literal, overload
-from typing_extensions import TypeAlias
+from typing import ClassVar, Literal, TypeAlias, overload
 
 from openpyxl.descriptors.base import Bool, NoneSet, String, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
@@ -63,7 +62,7 @@ class NonVisualGroupDrawingShapeProps(Serialisable):
     grpSpLocks: Typed[GroupLocking, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: ClassVar[tuple[str, ...]]
-    def __init__(self, grpSpLocks: Incomplete | None = None, extLst: Unused = None) -> None: ...
+    def __init__(self, grpSpLocks=None, extLst: Unused = None) -> None: ...
 
 class NonVisualDrawingShapeProps(Serialisable):
     tagname: ClassVar[str]
@@ -72,9 +71,7 @@ class NonVisualDrawingShapeProps(Serialisable):
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: ClassVar[tuple[str, ...]]
     txBox: Incomplete
-    def __init__(
-        self, spLocks: Incomplete | None = None, txBox: _ConvertibleToBool | None = None, extLst: Unused = None
-    ) -> None: ...
+    def __init__(self, spLocks=None, txBox: _ConvertibleToBool | None = None, extLst: Unused = None) -> None: ...
 
 class NonVisualDrawingProps(Serialisable):
     tagname: ClassVar[str]
@@ -88,10 +85,11 @@ class NonVisualDrawingProps(Serialisable):
     extLst: Typed[ExtensionList, Literal[True]]
     # Source incorrectly uses a list here instead of a tuple
     __elements__: ClassVar[list[str]]  # type: ignore[assignment]
+
     @overload
     def __init__(
         self,
-        id: Incomplete | None = None,
+        id=None,
         *,
         name: str,
         descr: str | None = None,

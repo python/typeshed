@@ -1,11 +1,12 @@
-from typing import Any
+import re
+from _typeshed import Incomplete
 
 from . import base
 
-SPACES_REGEX: Any
+spaceCharacters: str
+SPACES_REGEX: re.Pattern[str]
 
-class Filter(base.Filter):
-    spacePreserveElements: Any
-    def __iter__(self): ...
+class Filter(base.Filter[dict[str, Incomplete]]):
+    spacePreserveElements: frozenset[str]
 
-def collapse_spaces(text): ...
+def collapse_spaces(text: str) -> str: ...

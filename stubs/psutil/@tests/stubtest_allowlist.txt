@@ -5,6 +5,6 @@ psutil.__all__
 psutil._psaix
 psutil._psbsd
 psutil._pssunos
-
-# Test utilities
-psutil.tests.*
+psutil._psutil_aix
+psutil._psutil_bsd
+psutil._psutil_sunos

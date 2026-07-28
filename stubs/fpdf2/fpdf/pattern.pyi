@@ -78,7 +78,7 @@ class LinearGradient(Gradient):
         to_x: float,
         to_y: float,
         colors: list[Incomplete],
-        background: Incomplete | None = None,
+        background=None,
         extend_before: bool = False,
         extend_after: bool = False,
         bounds: list[int] | None = None,

@@ -1,9 +1,0 @@
-# Actual signatures enforced by C-level checks not visible to stubtest
-pygit2.Mailmap.__init__
-pygit2.OdbBackend.__init__
-pygit2.RefLogEntry.__init__
-pygit2.RefdbBackend.__init__
-pygit2._pygit2.Mailmap.__init__
-pygit2._pygit2.OdbBackend.__init__
-pygit2._pygit2.RefLogEntry.__init__
-pygit2._pygit2.RefdbBackend.__init__

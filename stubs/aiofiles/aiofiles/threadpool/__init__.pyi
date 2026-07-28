@@ -1,6 +1,5 @@
 from _typeshed import (
     FileDescriptorOrPath,
-    Incomplete,
     OpenBinaryMode,
     OpenBinaryModeReading,
     OpenBinaryModeUpdating,
@@ -9,8 +8,9 @@ from _typeshed import (
 )
 from asyncio import AbstractEventLoop
 from collections.abc import Callable
-from typing import Literal, overload
-from typing_extensions import TypeAlias
+from concurrent.futures import Executor
+from functools import _SingleDispatchCallable
+from typing import Any, Literal, TypeAlias, overload
 
 from ..base import AiofilesContextManager
 from .binary import AsyncBufferedIOBase, AsyncBufferedReader, AsyncFileIO, AsyncIndirectBufferedIOBase, _UnknownAsyncBinaryIO
@@ -31,7 +31,7 @@ def open(
     opener: _Opener | None = None,
     *,
     loop: AbstractEventLoop | None = None,
-    executor: Incomplete | None = None,
+    executor: Executor | None = None,
 ) -> AiofilesContextManager[AsyncTextIOWrapper]: ...
 
 # Unbuffered binary: returns a FileIO
@@ -47,7 +47,7 @@ def open(
     opener: _Opener | None = None,
     *,
     loop: AbstractEventLoop | None = None,
-    executor: Incomplete | None = None,
+    executor: Executor | None = None,
 ) -> AiofilesContextManager[AsyncFileIO]: ...
 
 # Buffered binary reading/updating: AsyncBufferedReader
@@ -63,7 +63,7 @@ def open(
     opener: _Opener | None = None,
     *,
     loop: AbstractEventLoop | None = None,
-    executor: Incomplete | None = None,
+    executor: Executor | None = None,
 ) -> AiofilesContextManager[AsyncBufferedReader]: ...
 
 # Buffered binary writing: AsyncBufferedIOBase
@@ -79,7 +79,7 @@ def open(
     opener: _Opener | None = None,
     *,
     loop: AbstractEventLoop | None = None,
-    executor: Incomplete | None = None,
+    executor: Executor | None = None,
 ) -> AiofilesContextManager[AsyncBufferedIOBase]: ...
 
 # Buffering cannot be determined: fall back to _UnknownAsyncBinaryIO
@@ -95,8 +95,10 @@ def open(
     opener: _Opener | None = None,
     *,
     loop: AbstractEventLoop | None = None,
-    executor: Incomplete | None = None,
+    executor: Executor | None = None,
 ) -> AiofilesContextManager[_UnknownAsyncBinaryIO]: ...
+
+wrap: _SingleDispatchCallable[Any]
 
 stdin: AsyncTextIndirectIOWrapper
 stdout: AsyncTextIndirectIOWrapper

@@ -1,6 +1,8 @@
 import sys
 from _typeshed import BytesPath, StrOrBytesPath, StrPath
 from genericpath import (
+    ALLOW_MISSING as ALLOW_MISSING,
+    _AllowMissingType,
     commonprefix as commonprefix,
     exists as exists,
     getatime as getatime,
@@ -49,6 +51,8 @@ if sys.version_info >= (3, 12):
     from posixpath import isjunction as isjunction, splitroot as splitroot
 if sys.version_info >= (3, 13):
     from genericpath import isdevdrive as isdevdrive
+if sys.version_info >= (3, 15):
+    from genericpath import ALL_BUT_LAST as ALL_BUT_LAST
 
 __all__ = [
     "normcase",
@@ -89,11 +93,14 @@ __all__ = [
     "sameopenfile",
     "samestat",
     "commonpath",
+    "ALLOW_MISSING",
 ]
 if sys.version_info >= (3, 12):
     __all__ += ["isjunction", "splitroot"]
 if sys.version_info >= (3, 13):
     __all__ += ["isdevdrive", "isreserved"]
+if sys.version_info >= (3, 15):
+    __all__ += ["ALL_BUT_LAST"]
 
 altsep: LiteralString
 
@@ -107,20 +114,21 @@ def join(path: StrPath, /, *paths: StrPath) -> str: ...
 @overload
 def join(path: BytesPath, /, *paths: BytesPath) -> bytes: ...
 
-if sys.platform == "win32":
-    if sys.version_info >= (3, 10):
-        @overload
-        def realpath(path: PathLike[AnyStr], *, strict: bool = False) -> AnyStr: ...
-        @overload
-        def realpath(path: AnyStr, *, strict: bool = False) -> AnyStr: ...
-    else:
-        @overload
-        def realpath(path: PathLike[AnyStr]) -> AnyStr: ...
-        @overload
-        def realpath(path: AnyStr) -> AnyStr: ...
+if sys.version_info >= (3, 15):
+    @overload
+    def realpath(path: PathLike[AnyStr], /, *, strict: bool | _AllowMissingType = False) -> AnyStr: ...
+    @overload
+    def realpath(path: AnyStr, /, *, strict: bool | _AllowMissingType = False) -> AnyStr: ...
 
 else:
-    realpath = abspath
+    if sys.platform == "win32":
+        @overload
+        def realpath(path: PathLike[AnyStr], *, strict: bool | _AllowMissingType = False) -> AnyStr: ...
+        @overload
+        def realpath(path: AnyStr, *, strict: bool | _AllowMissingType = False) -> AnyStr: ...
+
+    else:
+        realpath = abspath
 
 if sys.version_info >= (3, 13):
     def isreserved(path: StrOrBytesPath) -> bool: ...

@@ -91,6 +91,16 @@ def check_other_isdataclass_overloads(x: type, y: object) -> None:
         dc.replace(y)
 
 
+class _D: ...
+
+
+custom_dc = dc.dataclass(_D, init=True)
+assert_type(custom_dc, type[_D])
+
+custom_dc_2 = dc.dataclass(None, init=True)(_D)
+assert_type(custom_dc_2, type[_D])
+
+
 # Regression test for #11653
 D = dc.make_dataclass(
     "D", [("a", Union[int, None]), "y", ("z", Annotated[FrozenSet[bytes], "metadata"], dc.field(default=frozenset({b"foo"})))]

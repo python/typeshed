@@ -1,8 +1,7 @@
 import sys
 from _tracemalloc import *
 from collections.abc import Sequence
-from typing import Any, SupportsIndex, overload
-from typing_extensions import TypeAlias
+from typing import Any, SupportsIndex, TypeAlias, overload
 
 def get_object_traceback(obj: object) -> Traceback | None: ...
 def take_snapshot() -> Snapshot: ...
@@ -32,6 +31,7 @@ class Filter(BaseFilter):
     ) -> None: ...
 
 class Statistic:
+    __slots__ = ("traceback", "size", "count")
     count: int
     size: int
     traceback: Traceback
@@ -40,6 +40,7 @@ class Statistic:
     def __hash__(self) -> int: ...
 
 class StatisticDiff:
+    __slots__ = ("traceback", "size", "size_diff", "count", "count_diff")
     count: int
     count_diff: int
     size: int
@@ -52,6 +53,7 @@ class StatisticDiff:
 _FrameTuple: TypeAlias = tuple[str, int]
 
 class Frame:
+    __slots__ = ("_frame",)
     @property
     def filename(self) -> str: ...
     @property
@@ -72,6 +74,7 @@ class Frame:
 _TraceTuple: TypeAlias = tuple[int, int, Sequence[_FrameTuple], int | None] | tuple[int, int, Sequence[_FrameTuple]]
 
 class Trace:
+    __slots__ = ("_trace",)
     @property
     def domain(self) -> int: ...
     @property
@@ -83,14 +86,17 @@ class Trace:
     def __hash__(self) -> int: ...
 
 class Traceback(Sequence[Frame]):
+    __slots__ = ("_frames", "_total_nframe")
     @property
     def total_nframe(self) -> int | None: ...
     def __init__(self, frames: Sequence[_FrameTuple], total_nframe: int | None = None) -> None: ...
     def format(self, limit: int | None = None, most_recent_first: bool = False) -> list[str]: ...
+
     @overload
     def __getitem__(self, index: SupportsIndex) -> Frame: ...
     @overload
-    def __getitem__(self, index: slice) -> Sequence[Frame]: ...
+    def __getitem__(self, index: slice[SupportsIndex | None]) -> Sequence[Frame]: ...
+
     def __contains__(self, frame: Frame) -> bool: ...  # type: ignore[override]
     def __len__(self) -> int: ...
     def __eq__(self, other: object) -> bool: ...

@@ -1,10 +1,14 @@
 from __future__ import annotations
 
+import sys
 from collections.abc import Generator, Iterable
 from contextlib import contextmanager
 from typing import Any, NamedTuple
 
-import tomli
+if sys.version_info >= (3, 11):
+    import tomllib
+else:
+    import tomli as tomllib
 
 from ts_utils.metadata import StubtestSettings, metadata_path
 from ts_utils.utils import NamedTemporaryFile, TemporaryFileWrapper
@@ -18,7 +22,7 @@ class MypyDistConf(NamedTuple):
 # The configuration section in the metadata file looks like the following, with multiple module sections possible
 # [mypy-tests]
 # [mypy-tests.yaml]
-# module_name = "yaml"
+# module-name = "yaml"
 # [mypy-tests.yaml.values]
 # disallow_incomplete_defs = true
 # disallow_untyped_defs = true
@@ -26,7 +30,7 @@ class MypyDistConf(NamedTuple):
 
 def mypy_configuration_from_distribution(distribution: str) -> list[MypyDistConf]:
     with metadata_path(distribution).open("rb") as f:
-        data = tomli.load(f)
+        data = tomllib.load(f)
 
     # TODO: This could be added to ts_utils.metadata
     mypy_tests_conf: dict[str, dict[str, Any]] = data.get("mypy-tests", {})
@@ -35,9 +39,9 @@ def mypy_configuration_from_distribution(distribution: str) -> list[MypyDistConf
 
     def validate_configuration(section_name: str, mypy_section: dict[str, Any]) -> MypyDistConf:
         assert isinstance(mypy_section, dict), f"{section_name} should be a section"
-        module_name = mypy_section.get("module_name")
+        module_name = mypy_section.get("module-name")
 
-        assert module_name is not None, f"{section_name} should have a module_name key"
+        assert module_name is not None, f"{section_name} should have a module-name key"
         assert isinstance(module_name, str), f"{section_name} should be a key-value pair"
 
         assert "values" in mypy_section, f"{section_name} should have a values section"

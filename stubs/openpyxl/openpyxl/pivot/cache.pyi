@@ -1,7 +1,6 @@
 from _typeshed import ConvertibleToFloat, ConvertibleToInt, Incomplete, Unused
 from datetime import datetime
-from typing import ClassVar, Literal, overload
-from typing_extensions import TypeAlias
+from typing import ClassVar, Literal, TypeAlias, overload
 
 from openpyxl.descriptors.base import Bool, DateTime, Float, Integer, NoneSet, Set, String, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
@@ -35,6 +34,7 @@ class PivotDimension(Serialisable):
     name: String[Literal[False]]
     uniqueName: String[Literal[False]]
     caption: String[Literal[False]]
+
     @overload
     def __init__(self, measure: _ConvertibleToBool = None, *, name: str, uniqueName: str, caption: str) -> None: ...
     @overload
@@ -70,14 +70,11 @@ class CalculatedItem(Serialisable):
     pivotArea: Typed[PivotArea, Literal[False]]
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: ClassVar[tuple[str, ...]]
+
     @overload
-    def __init__(
-        self, field: ConvertibleToInt | None = None, *, formula: str, pivotArea: PivotArea, extLst: Incomplete | None = None
-    ) -> None: ...
+    def __init__(self, field: ConvertibleToInt | None = None, *, formula: str, pivotArea: PivotArea, extLst=None) -> None: ...
     @overload
-    def __init__(
-        self, field: ConvertibleToInt | None, formula: str, pivotArea: PivotArea, extLst: Incomplete | None = None
-    ) -> None: ...
+    def __init__(self, field: ConvertibleToInt | None, formula: str, pivotArea: PivotArea, extLst=None) -> None: ...
 
 class ServerFormat(Serialisable):
     tagname: ClassVar[str]
@@ -107,7 +104,7 @@ class OLAPSet(Serialisable):
         count: ConvertibleToInt,
         maxRank: ConvertibleToInt,
         setDefinition: str,
-        sortType: Incomplete | None = None,
+        sortType=None,
         queryFailed: _ConvertibleToBool = None,
         tpls: TupleList | None = None,
         sortByTuple: TupleList | None = None,
@@ -245,6 +242,7 @@ class CacheHierarchy(Serialisable):
     groupLevels: NestedSequence[list[GroupLevel]]
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: ClassVar[tuple[str, ...]]
+
     @overload
     def __init__(
         self,
@@ -315,7 +313,7 @@ class GroupItems(Serialisable):
     d: Incomplete
     __elements__: ClassVar[tuple[str, ...]]
     __attrs__: ClassVar[tuple[str, ...]]
-    def __init__(self, count: Incomplete | None = None, m=(), n=(), b=(), e=(), s=(), d=()) -> None: ...
+    def __init__(self, count=None, m=(), n=(), b=(), e=(), s=(), d=()) -> None: ...
     @property
     def count(self) -> int: ...
 
@@ -421,6 +419,7 @@ class CacheField(Serialisable):
     mappingCount: Integer[Literal[True]]
     memberPropertyField: Bool[Literal[True]]
     __elements__: ClassVar[tuple[str, ...]]
+
     @overload
     def __init__(
         self,
@@ -474,6 +473,7 @@ class RangeSet(Serialisable):
     ref: String[Literal[False]]
     name: String[Literal[True]]
     sheet: String[Literal[True]]
+
     @overload
     def __init__(
         self,
@@ -575,6 +575,7 @@ class CacheDefinition(Serialisable):
     extLst: Typed[ExtensionList, Literal[True]]
     id: Incomplete
     __elements__: ClassVar[tuple[str, ...]]
+
     @overload
     def __init__(
         self,
@@ -607,7 +608,7 @@ class CacheDefinition(Serialisable):
         measureGroups=(),
         maps=(),
         extLst: ExtensionList | None = None,
-        id: Incomplete | None = None,
+        id=None,
     ) -> None: ...
     @overload
     def __init__(
@@ -640,8 +641,9 @@ class CacheDefinition(Serialisable):
         measureGroups=(),
         maps=(),
         extLst: ExtensionList | None = None,
-        id: Incomplete | None = None,
+        id=None,
     ) -> None: ...
+
     def to_tree(self) -> Element: ...  # type: ignore[override]
     @property
     def path(self) -> str: ...

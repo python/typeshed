@@ -1,8 +1,8 @@
-from _typeshed import Incomplete
-from collections.abc import Callable, Generator
-from typing import Literal
+from collections.abc import Callable, Generator, Iterable, Iterator
+from typing import Final, Literal
 
-from networkx.classes.graph import Graph, _Node
+from networkx.classes.digraph import DiGraph
+from networkx.classes.graph import Graph, _EdgeData, _Node, _NodeData
 from networkx.utils.backends import _dispatchable
 
 __all__ = [
@@ -17,34 +17,50 @@ __all__ = [
 ]
 
 @_dispatchable
-def generic_bfs_edges(G, source, neighbors=None, depth_limit=None) -> Generator[tuple[Incomplete, Incomplete]]: ...
+def generic_bfs_edges(
+    G: Graph[_Node], source: _Node, neighbors: Callable[[_Node], Iterable[_Node]] | None = None, depth_limit: int | None = None
+) -> Generator[tuple[_Node, _Node]]: ...
 @_dispatchable
 def bfs_edges(
     G: Graph[_Node],
     source: _Node,
     reverse: bool | None = False,
-    depth_limit=None,
-    sort_neighbors: Callable[..., Incomplete] | None = None,
-) -> Generator[Incomplete, Incomplete, None]: ...
+    depth_limit: int | None = None,
+    sort_neighbors: Callable[[Iterator[_Node]], Iterable[_Node]] | None = None,
+) -> Generator[tuple[_Node, _Node]]: ...
 @_dispatchable
 def bfs_tree(
-    G: Graph[_Node],
+    G: Graph[_Node, _NodeData, _EdgeData],
     source: _Node,
     reverse: bool | None = False,
-    depth_limit=None,
-    sort_neighbors: Callable[..., Incomplete] | None = None,
-): ...
+    depth_limit: int | None = None,
+    sort_neighbors: Callable[[Iterator[_Node]], Iterable[_Node]] | None = None,
+) -> DiGraph[_Node, _NodeData, _EdgeData]: ...
 @_dispatchable
 def bfs_predecessors(
-    G: Graph[_Node], source: _Node, depth_limit=None, sort_neighbors: Callable[..., Incomplete] | None = None
-) -> Generator[Incomplete, None, None]: ...
+    G: Graph[_Node],
+    source: _Node,
+    depth_limit: int | None = None,
+    sort_neighbors: Callable[[Iterator[_Node]], Iterable[_Node]] | None = None,
+) -> Generator[tuple[_Node, _Node]]: ...
 @_dispatchable
 def bfs_successors(
-    G: Graph[_Node], source: _Node, depth_limit=None, sort_neighbors: Callable[..., Incomplete] | None = None
-) -> Generator[Incomplete, None, None]: ...
+    G: Graph[_Node],
+    source: _Node,
+    depth_limit: int | None = None,
+    sort_neighbors: Callable[[Iterator[_Node]], Iterable[_Node]] | None = None,
+) -> Generator[tuple[_Node, list[_Node]]]: ...
 @_dispatchable
-def bfs_layers(G: Graph[_Node], sources) -> Generator[Incomplete, None, None]: ...
+def bfs_layers(G: Graph[_Node], sources: _Node | Iterable[_Node]) -> Generator[list[_Node]]: ...
+
+REVERSE_EDGE: Final = "reverse"
+TREE_EDGE: Final = "tree"
+FORWARD_EDGE: Final = "forward"
+LEVEL_EDGE: Final = "level"
+
 @_dispatchable
-def bfs_labeled_edges(G, sources) -> Generator[tuple[Incomplete, Incomplete, Literal["tree", "level", "forward", "reverse"]]]: ...
+def bfs_labeled_edges(
+    G: Graph[_Node], sources: _Node | Iterable[_Node]
+) -> Generator[tuple[_Node, _Node, Literal["tree", "level", "forward", "reverse"]]]: ...
 @_dispatchable
-def descendants_at_distance(G: Graph[_Node], source, distance): ...
+def descendants_at_distance(G: Graph[_Node], source: _Node, distance: int) -> set[_Node]: ...

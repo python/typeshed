@@ -34,14 +34,7 @@ class PDFFont(PDFObject):
     c_i_d_system_info: Incomplete | None
     font_descriptor: Incomplete | None
     c_i_d_to_g_i_d_map: Incomplete | None
-    def __init__(
-        self,
-        subtype: str,
-        base_font: str,
-        encoding: str | None = None,
-        d_w: Incomplete | None = None,
-        w: Incomplete | None = None,
-    ) -> None: ...
+    def __init__(self, subtype: str, base_font: str, encoding: str | None = None, d_w=None, w=None) -> None: ...
 
 class CIDSystemInfo(PDFObject):
     registry: PDFString
@@ -88,13 +81,7 @@ class PDFCatalog(PDFObject):
     outlines: Incomplete | None
     output_intents: Incomplete | None
     struct_tree_root: Incomplete | None
-    def __init__(
-        self,
-        lang: str | None = None,
-        page_layout: Incomplete | None = None,
-        page_mode: Incomplete | None = None,
-        viewer_preferences: Incomplete | None = None,
-    ) -> None: ...
+    def __init__(self, lang: str | None = None, page_layout=None, page_mode=None, viewer_preferences=None) -> None: ...
 
 class PDFResources(PDFObject):
     proc_set: Incomplete
@@ -115,6 +102,21 @@ class PDFXmpMetadata(PDFContentStream):
     def __init__(self, contents: bytes) -> None: ...
 
 class PDFXObject(PDFContentStream):
+    __slots__ = (
+        "_id",
+        "_contents",
+        "filter",
+        "length",
+        "type",
+        "subtype",
+        "width",
+        "height",
+        "color_space",
+        "bits_per_component",
+        "decode",
+        "decode_parms",
+        "s_mask",
+    )
     type: Name
     subtype: Name
     width: Incomplete
@@ -134,16 +136,18 @@ class PDFXObject(PDFContentStream):
         color_space,
         bits_per_component,
         img_filter: str | None = None,
-        decode: Incomplete | None = None,
-        decode_parms: Incomplete | None = None,
+        decode=None,
+        decode_parms=None,
     ) -> None: ...
 
 class PDFICCProfile(PDFContentStream):
+    __slots__ = ("_id", "_contents", "filter", "length", "n", "alternate")
     n: Incomplete
     alternate: Name
     def __init__(self, contents: bytes, n, alternate: str) -> None: ...
 
 class PDFPageLabel:
+    __slots__ = ("_style", "_prefix", "st")
     st: int
     def __init__(self, label_style: PageLabelStyle, label_prefix: str, label_start: int) -> None: ...
     @property
@@ -156,6 +160,24 @@ class PDFPageLabel:
     def get_start(self) -> int: ...
 
 class PDFPage(PDFObject):
+    __slots__ = (
+        "_id",
+        "type",
+        "contents",
+        "dur",
+        "trans",
+        "annots",
+        "group",
+        "media_box",
+        "struct_parents",
+        "resources",
+        "parent",
+        "_index",
+        "_width_pt",
+        "_height_pt",
+        "_page_label",
+        "_text_substitution_fragments",
+    )
     type: Name
     contents: Incomplete
     dur: Incomplete | None
@@ -197,6 +219,7 @@ class PDFXrefAndTrailer(ContentWithoutID):
     def serialize(self, _security_handler: StandardSecurityHandler | None = None) -> str: ...
 
 class OutputIntentDictionary:
+    __slots__ = ("type", "s", "output_condition_identifier", "output_condition", "registry_name", "dest_output_profile", "info")
     type: Name
     s: Name
     output_condition_identifier: PDFString | None
@@ -214,7 +237,7 @@ class OutputIntentDictionary:
         dest_output_profile: PDFICCProfile | None = None,
         info: str | None = None,
     ) -> None: ...
-    def serialize(self, _security_handler: StandardSecurityHandler | None = None, _obj_id: Incomplete | None = None): ...
+    def serialize(self, _security_handler: StandardSecurityHandler | None = None, _obj_id=None): ...
 
 class ResourceCatalog:
     resources: defaultdict[PDFResourceType, dict[Incomplete, Incomplete]]

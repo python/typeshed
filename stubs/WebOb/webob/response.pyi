@@ -2,8 +2,8 @@ from _typeshed import SupportsItems, SupportsRead
 from _typeshed.wsgi import StartResponse, WSGIApplication, WSGIEnvironment
 from collections.abc import Iterable, Iterator, Sequence
 from datetime import timedelta
-from typing import IO, Any, Literal, Protocol, TypedDict, TypeVar, overload
-from typing_extensions import Self, TypeAlias
+from typing import IO, Any, Literal, Protocol, TypeAlias, TypedDict, TypeVar, overload, type_check_only
+from typing_extensions import Self
 
 from webob._types import AsymmetricProperty, AsymmetricPropertyWithDelete, SymmetricProperty, SymmetricPropertyWithDelete
 from webob.byterange import ContentRange
@@ -18,6 +18,7 @@ __all__ = ["Response"]
 _ResponseT = TypeVar("_ResponseT", bound=Response)
 _ResponseCacheControl: TypeAlias = CacheControl[Literal["response"]]
 
+@type_check_only
 class _ResponseCacheExpires(Protocol):
     def __call__(
         self,
@@ -37,6 +38,7 @@ class _ResponseCacheExpires(Protocol):
         stale_if_error: int = ...,
     ) -> None: ...
 
+@type_check_only
 class _ResponseCacheControlDict(TypedDict, total=False):
     public: bool
     private: Literal[True] | str
@@ -132,10 +134,12 @@ class Response:
     ) -> None: ...
     def delete_cookie(self, name: str | bytes, path: str = "/", domain: str | None = None) -> None: ...
     def unset_cookie(self, name: str | bytes, strict: bool = True) -> None: ...
+
     @overload
     def merge_cookies(self, resp: _ResponseT) -> _ResponseT: ...
     @overload
     def merge_cookies(self, resp: WSGIApplication) -> WSGIApplication: ...
+
     cache_control: AsymmetricProperty[_ResponseCacheControl, _ResponseCacheControl | _ResponseCacheControlDict | str | None]
     cache_expires: AsymmetricProperty[_ResponseCacheExpires, timedelta | int | bool | None]
     def encode_content(self, encoding: Literal["gzip", "identity"] = "gzip", lazy: bool = False) -> None: ...

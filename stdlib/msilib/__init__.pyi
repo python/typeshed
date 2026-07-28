@@ -1,26 +1,29 @@
 import sys
-from collections.abc import Container, Iterable, Sequence
+from _typeshed import MaybeNone
+from collections.abc import Container, Iterable
 from types import ModuleType
-from typing import Any, Literal
+from typing import Any, Final
 
 if sys.platform == "win32":
     from _msi import *
     from _msi import _Database
 
-    AMD64: bool
-    Win64: bool
+    from .sequence import _SequenceType
 
-    datasizemask: Literal[0x00FF]
-    type_valid: Literal[0x0100]
-    type_localizable: Literal[0x0200]
-    typemask: Literal[0x0C00]
-    type_long: Literal[0x0000]
-    type_short: Literal[0x0400]
-    type_string: Literal[0x0C00]
-    type_binary: Literal[0x0800]
-    type_nullable: Literal[0x1000]
-    type_key: Literal[0x2000]
-    knownbits: Literal[0x3FFF]
+    AMD64: Final[bool]
+    Win64: Final[bool]
+
+    datasizemask: Final = 0x00FF
+    type_valid: Final = 0x0100
+    type_localizable: Final = 0x0200
+    typemask: Final = 0x0C00
+    type_long: Final = 0x0000
+    type_short: Final = 0x0400
+    type_string: Final = 0x0C00
+    type_binary: Final = 0x0800
+    type_nullable: Final = 0x1000
+    type_key: Final = 0x2000
+    knownbits: Final = 0x3FFF
 
     class Table:
         name: str
@@ -33,10 +36,7 @@ if sys.platform == "win32":
     class _Unspecified: ...
 
     def change_sequence(
-        seq: Sequence[tuple[str, str | None, int]],
-        action: str,
-        seqno: int | type[_Unspecified] = ...,
-        cond: str | type[_Unspecified] = ...,
+        seq: _SequenceType, action: str, seqno: int | type[_Unspecified] = ..., cond: str | type[_Unspecified] = ...
     ) -> None: ...
     def add_data(db: _Database, table: str, values: Iterable[tuple[Any, ...]]) -> None: ...
     def add_stream(db: _Database, name: str, path: str) -> None: ...
@@ -54,7 +54,7 @@ if sys.platform == "win32":
         index: int
         def __init__(self, name: str) -> None: ...
         def gen_id(self, file: str) -> str: ...
-        def append(self, full: str, file: str, logical: str) -> tuple[int, str]: ...
+        def append(self, full: str, file: str, logical: str | None) -> tuple[int, str] | MaybeNone: ...
         def commit(self, db: _Database) -> None: ...
 
     _directories: set[str]
@@ -62,7 +62,7 @@ if sys.platform == "win32":
     class Directory:
         db: _Database
         cab: CAB
-        basedir: str
+        basedir: Directory | None
         physical: str
         logical: str
         component: str | None
@@ -75,7 +75,7 @@ if sys.platform == "win32":
             self,
             db: _Database,
             cab: CAB,
-            basedir: str,
+            basedir: Directory | None,
             physical: str,
             _logical: str,
             default: str,
@@ -146,8 +146,8 @@ if sys.platform == "win32":
             attr: int,
             title: str,
             first: str,
-            default: str,
-            cancel: str,
+            default: str | None,
+            cancel: str | None,
         ) -> None: ...
         def control(
             self,

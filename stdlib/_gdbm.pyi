@@ -1,8 +1,8 @@
 import sys
 from _typeshed import ReadOnlyBuffer, StrOrBytesPath
 from types import TracebackType
-from typing import TypeVar, overload
-from typing_extensions import Self, TypeAlias
+from typing import TypeAlias, TypeVar, overload, type_check_only
+from typing_extensions import Self
 
 if sys.platform != "win32":
     _T = TypeVar("_T")
@@ -13,6 +13,7 @@ if sys.platform != "win32":
 
     class error(OSError): ...
     # Actual typename gdbm, not exposed by the implementation
+    @type_check_only
     class _gdbm:
         def firstkey(self) -> bytes | None: ...
         def nextkey(self, key: _KeyType) -> bytes | None: ...
@@ -31,10 +32,12 @@ if sys.platform != "win32":
         def __exit__(
             self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
         ) -> None: ...
+
         @overload
         def get(self, k: _KeyType) -> bytes | None: ...
         @overload
         def get(self, k: _KeyType, default: _T) -> bytes | _T: ...
+
         def keys(self) -> list[bytes]: ...
         def setdefault(self, k: _KeyType, default: _ValueType = ...) -> bytes: ...
         # Don't exist at runtime

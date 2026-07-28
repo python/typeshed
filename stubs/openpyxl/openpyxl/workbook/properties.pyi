@@ -1,6 +1,5 @@
 from _typeshed import ConvertibleToFloat, ConvertibleToInt, Incomplete
-from typing import ClassVar, Literal
-from typing_extensions import TypeAlias
+from typing import ClassVar, Literal, TypeAlias
 
 from openpyxl.descriptors.base import Bool, Float, Integer, NoneSet, String, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
@@ -99,5 +98,5 @@ class FileVersion(Serialisable):
         lastEdited: str | None = None,
         lowestEdited: str | None = None,
         rupBuild: str | None = None,
-        codeName: Incomplete | None = None,
+        codeName=None,
     ) -> None: ...

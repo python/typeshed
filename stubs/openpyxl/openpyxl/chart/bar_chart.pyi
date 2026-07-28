@@ -1,6 +1,5 @@
 from _typeshed import Incomplete, Unused
-from typing import ClassVar, Literal
-from typing_extensions import TypeAlias
+from typing import ClassVar, Literal, TypeAlias
 
 from openpyxl.chart.axis import ChartLines, NumericAxis, SeriesAxis, TextAxis
 from openpyxl.chart.label import DataLabelList
@@ -52,12 +51,7 @@ class BarChart(_BarChartBase):
     __elements__: ClassVar[tuple[str, ...]]
     legend: Incomplete
     def __init__(
-        self,
-        gapWidth: int = 150,
-        overlap: Incomplete | None = None,
-        serLines: ChartLines | None = None,
-        extLst: Unused = None,
-        **kw,
+        self, gapWidth: int = 150, overlap=None, serLines: ChartLines | None = None, extLst: Unused = None, **kw
     ) -> None: ...
 
 class BarChart3D(_BarChartBase, _3DBase):

@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from typing import Any
 
 from .base import BaseStrategy
 
@@ -8,13 +7,13 @@ class LdifProducerStrategy(BaseStrategy):
     no_real_dsa: bool
     pooled: bool
     can_stream: bool
-    line_separator: Any
+    line_separator: Incomplete
     all_base64: bool
-    stream: Any
-    order: Any
+    stream: Incomplete
+    order: Incomplete
     def __init__(self, ldap_connection) -> None: ...
     def receiving(self) -> None: ...
-    def send(self, message_type, request, controls: Incomplete | None = None): ...
+    def send(self, message_type, request, controls=None): ...
     def post_send_single_response(self, message_id): ...
     def post_send_search(self, message_id) -> None: ...
     def accumulate_stream(self, fragment) -> None: ...

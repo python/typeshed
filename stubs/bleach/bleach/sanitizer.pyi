@@ -1,7 +1,6 @@
 from collections.abc import Callable, Container, Iterable, Iterator
 from re import Pattern
-from typing import Final, Protocol, type_check_only
-from typing_extensions import TypeAlias
+from typing import Final, Protocol, TypeAlias, type_check_only
 
 from html5lib.filters.base import Filter
 from html5lib.filters.sanitizer import Filter as SanitizerFilter
@@ -40,7 +39,7 @@ class Cleaner:
     protocols: Iterable[str]
     strip: bool
     strip_comments: bool
-    filters: Iterable[Filter]
+    filters: Iterable[_FilterConstructor]
     css_sanitizer: CSSSanitizer | None
     parser: BleachHTMLParser
     walker: TreeWalker
@@ -85,7 +84,7 @@ class BleachSanitizerFilter(SanitizerFilter):
     def sanitize_stream(self, token_iterator: Iterable[_Token]) -> Iterator[_Token]: ...
     def merge_characters(self, token_iterator: Iterable[_Token]) -> Iterator[_Token]: ...
     def __iter__(self) -> Iterator[_Token]: ...
-    def sanitize_token(self, token: _Token) -> _Token | list[_Token] | None: ...
+    def sanitize_token(self, token: _Token) -> _Token | list[_Token] | None: ...  # type: ignore[override]
     def sanitize_characters(self, token: _Token) -> _Token | list[_Token]: ...
     def sanitize_uri_value(self, value: str, allowed_protocols: Container[str]) -> str | None: ...
     def allow_token(self, token: _Token) -> _Token: ...

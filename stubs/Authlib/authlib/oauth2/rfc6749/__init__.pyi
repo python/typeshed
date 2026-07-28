@@ -1,5 +1,6 @@
 from .authenticate_client import ClientAuthentication as ClientAuthentication
 from .authorization_server import AuthorizationServer as AuthorizationServer
+from .endpoint import Endpoint, EndpointRequest
 from .errors import (
     AccessDeniedError as AccessDeniedError,
     InsecureTransportError as InsecureTransportError,
@@ -29,15 +30,22 @@ from .grants import (
     TokenEndpointMixin as TokenEndpointMixin,
 )
 from .models import AuthorizationCodeMixin as AuthorizationCodeMixin, ClientMixin as ClientMixin, TokenMixin as TokenMixin
-from .requests import JsonRequest as JsonRequest, OAuth2Request as OAuth2Request
+from .requests import (
+    JsonPayload as JsonPayload,
+    JsonRequest as JsonRequest,
+    OAuth2Payload as OAuth2Payload,
+    OAuth2Request as OAuth2Request,
+)
 from .resource_protector import ResourceProtector as ResourceProtector, TokenValidator as TokenValidator
 from .token_endpoint import TokenEndpoint as TokenEndpoint
 from .util import list_to_scope as list_to_scope, scope_to_list as scope_to_list
 from .wrappers import OAuth2Token as OAuth2Token
 
 __all__ = [
+    "OAuth2Payload",
     "OAuth2Token",
     "OAuth2Request",
+    "JsonPayload",
     "JsonRequest",
     "OAuth2Error",
     "AccessDeniedError",
@@ -62,6 +70,8 @@ __all__ = [
     "AuthorizationServer",
     "ResourceProtector",
     "TokenValidator",
+    "Endpoint",
+    "EndpointRequest",
     "TokenEndpoint",
     "BaseGrant",
     "AuthorizationEndpointMixin",

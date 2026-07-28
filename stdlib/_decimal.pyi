@@ -19,13 +19,14 @@ from decimal import (
     Underflow as Underflow,
     _ContextManager,
 )
-from typing import Final
-from typing_extensions import TypeAlias
+from typing import Final, TypeAlias
 
 _TrapType: TypeAlias = type[DecimalException]
 
 __version__: Final[str]
 __libmpdec_version__: Final[str]
+if sys.version_info >= (3, 15):
+    SPEC_VERSION: Final[str]
 
 ROUND_DOWN: Final = "ROUND_DOWN"
 ROUND_HALF_UP: Final = "ROUND_HALF_UP"
@@ -51,14 +52,14 @@ if sys.version_info >= (3, 11):
     def localcontext(
         ctx: Context | None = None,
         *,
-        prec: int | None = ...,
-        rounding: str | None = ...,
-        Emin: int | None = ...,
-        Emax: int | None = ...,
-        capitals: int | None = ...,
-        clamp: int | None = ...,
-        traps: dict[_TrapType, bool] | None = ...,
-        flags: dict[_TrapType, bool] | None = ...,
+        prec: int | None = None,
+        rounding: str | None = None,
+        Emin: int | None = None,
+        Emax: int | None = None,
+        capitals: int | None = None,
+        clamp: int | None = None,
+        traps: dict[_TrapType, bool] | None = None,
+        flags: dict[_TrapType, bool] | None = None,
     ) -> _ContextManager: ...
 
 else:

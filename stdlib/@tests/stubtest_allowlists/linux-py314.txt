@@ -1,17 +1,17 @@
-# ====================================================================
-# TODO: New errors in Python 3.14 that need to be fixed or moved below
-# ====================================================================
+# =============
+# 3.13 and 3.14
+# =============
 
-_curses.assume_default_colors
-_posixsubprocess.fork_exec
-asyncio.tools
-asyncio.unix_events.__all__
-asyncio.unix_events.DefaultEventLoopPolicy
-asyncio.unix_events._DefaultEventLoopPolicy
-ctypes.c_double_complex._type_
-ctypes.c_float_complex._type_
-ctypes.c_longdouble_complex._type_
-errno.EHWPOISON
-multiprocessing.popen_fork.Popen.interrupt
-multiprocessing.reduction.ACKNOWLEDGE
-select.EPOLLWAKEUP
+# Starting with Python 3.14.4, these methods accept None for the "scheduler"
+# and "setpgroup" parameters, but would raise a TypeError with Python 3.13.12
+# and earlier. For compatibility reasons, we don't allow None in the stubs.
+os.posix_spawn
+os.posix_spawnp
+
+# =========
+# 3.14 only
+# =========
+
+# Starting with Python 3.14.1, these methods accept None for some of their
+# parameters, but would raise a TypeError with Python 3.14.0.
+mmap.mmap.madvise

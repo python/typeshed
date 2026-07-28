@@ -20,6 +20,7 @@ class TupleList(Serialisable):
     c: Integer[Literal[True]]
     tpl: Typed[Tuple, Literal[False]]
     __elements__: ClassVar[tuple[str, ...]]
+
     @overload
     def __init__(self, c: ConvertibleToInt | None = None, *, tpl: Tuple) -> None: ...
     @overload
@@ -50,8 +51,8 @@ class Missing(Serialisable):
         c: str | None = None,
         cp: ConvertibleToInt | None = None,
         _in: ConvertibleToInt | None = None,
-        bc: Incomplete | None = None,
-        fc: Incomplete | None = None,
+        bc=None,
+        fc=None,
         i: _ConvertibleToBool | None = None,
         un: _ConvertibleToBool | None = None,
         st: _ConvertibleToBool | None = None,
@@ -75,6 +76,7 @@ class Number(Serialisable):
     st: Bool[Literal[True]]
     b: Bool[Literal[True]]
     __elements__: ClassVar[tuple[str, ...]]
+
     @overload
     def __init__(
         self,
@@ -87,8 +89,8 @@ class Number(Serialisable):
         c: str | None = None,
         cp: ConvertibleToInt | None = None,
         _in: ConvertibleToInt | None = None,
-        bc: Incomplete | None = None,
-        fc: Incomplete | None = None,
+        bc=None,
+        fc=None,
         i: _ConvertibleToBool | None = None,
         un: _ConvertibleToBool | None = None,
         st: _ConvertibleToBool | None = None,
@@ -105,8 +107,8 @@ class Number(Serialisable):
         c: str | None = None,
         cp: ConvertibleToInt | None = None,
         _in: ConvertibleToInt | None = None,
-        bc: Incomplete | None = None,
-        fc: Incomplete | None = None,
+        bc=None,
+        fc=None,
         i: _ConvertibleToBool | None = None,
         un: _ConvertibleToBool | None = None,
         st: _ConvertibleToBool | None = None,
@@ -130,6 +132,7 @@ class Error(Serialisable):
     st: Bool[Literal[True]]
     b: Bool[Literal[True]]
     __elements__: ClassVar[tuple[str, ...]]
+
     @overload
     def __init__(
         self,
@@ -142,8 +145,8 @@ class Error(Serialisable):
         c: str | None = None,
         cp: ConvertibleToInt | None = None,
         _in: ConvertibleToInt | None = None,
-        bc: Incomplete | None = None,
-        fc: Incomplete | None = None,
+        bc=None,
+        fc=None,
         i: _ConvertibleToBool | None = None,
         un: _ConvertibleToBool | None = None,
         st: _ConvertibleToBool | None = None,
@@ -160,8 +163,8 @@ class Error(Serialisable):
         c: str | None = None,
         cp: ConvertibleToInt | None = None,
         _in: ConvertibleToInt | None = None,
-        bc: Incomplete | None = None,
-        fc: Incomplete | None = None,
+        bc=None,
+        fc=None,
         i: _ConvertibleToBool | None = None,
         un: _ConvertibleToBool | None = None,
         st: _ConvertibleToBool | None = None,
@@ -208,14 +211,14 @@ class Text(Serialisable):
         self,
         tpls=(),
         x=(),
-        v: Incomplete | None = None,
+        v=None,
         u: _ConvertibleToBool | None = None,
         f: _ConvertibleToBool | None = None,
-        c: Incomplete | None = None,
+        c=None,
         cp: ConvertibleToInt | None = None,
         _in: ConvertibleToInt | None = None,
-        bc: Incomplete | None = None,
-        fc: Incomplete | None = None,
+        bc=None,
+        fc=None,
         i: _ConvertibleToBool | None = None,
         un: _ConvertibleToBool | None = None,
         st: _ConvertibleToBool | None = None,

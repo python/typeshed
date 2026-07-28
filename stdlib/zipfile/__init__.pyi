@@ -5,8 +5,8 @@ from collections.abc import Callable, Iterable, Iterator
 from io import TextIOWrapper
 from os import PathLike
 from types import TracebackType
-from typing import IO, Final, Literal, Protocol, overload
-from typing_extensions import Self, TypeAlias
+from typing import IO, Final, Literal, Protocol, TypeAlias, overload, type_check_only
+from typing_extensions import Self
 
 __all__ = [
     "BadZipFile",
@@ -24,6 +24,9 @@ __all__ = [
     "LargeZipFile",
 ]
 
+if sys.version_info >= (3, 14):
+    __all__ += ["ZIP_ZSTANDARD"]
+
 # TODO: use TypeAlias for these two when mypy bugs are fixed
 # https://github.com/python/mypy/issues/16581
 _DateTuple = tuple[int, int, int, int, int, int]  # noqa: Y026
@@ -38,6 +41,7 @@ error = BadZipfile
 
 class LargeZipFile(Exception): ...
 
+@type_check_only
 class _ZipStream(Protocol):
     def read(self, n: int, /) -> bytes: ...
     # The following methods are optional:
@@ -46,11 +50,13 @@ class _ZipStream(Protocol):
     # def seek(self, n: int, /) -> object: ...
 
 # Stream shape as required by _EndRecData() and _EndRecData64().
+@type_check_only
 class _SupportsReadSeekTell(Protocol):
     def read(self, n: int = ..., /) -> bytes: ...
     def seek(self, cookie: int, whence: int, /) -> object: ...
     def tell(self) -> int: ...
 
+@type_check_only
 class _ClosableZipStream(_ZipStream, Protocol):
     def close(self) -> object: ...
 
@@ -61,6 +67,7 @@ class ZipExtFile(io.BufferedIOBase):
     newlines: list[bytes] | None
     mode: _ReadWriteMode
     name: str
+
     @overload
     def __init__(
         self, fileobj: _ClosableZipStream, mode: _ReadWriteMode, zipinfo: ZipInfo, pwd: bytes | None, close_fileobj: Literal[True]
@@ -84,24 +91,30 @@ class ZipExtFile(io.BufferedIOBase):
         pwd: bytes | None = None,
         close_fileobj: Literal[False] = False,
     ) -> None: ...
+
     def read(self, n: int | None = -1) -> bytes: ...
     def readline(self, limit: int = -1) -> bytes: ...  # type: ignore[override]
     def peek(self, n: int = 1) -> bytes: ...
     def read1(self, n: int | None) -> bytes: ...  # type: ignore[override]
     def seek(self, offset: int, whence: int = 0) -> int: ...
 
+@type_check_only
 class _Writer(Protocol):
     def write(self, s: str, /) -> object: ...
 
+@type_check_only
 class _ZipReadable(Protocol):
     def seek(self, offset: int, whence: int = 0, /) -> int: ...
     def read(self, n: int = -1, /) -> bytes: ...
 
+@type_check_only
 class _ZipTellable(Protocol):
     def tell(self) -> int: ...
 
+@type_check_only
 class _ZipReadableTellable(_ZipReadable, _ZipTellable, Protocol): ...
 
+@type_check_only
 class _ZipWritable(Protocol):
     def flush(self) -> None: ...
     def close(self) -> None: ...
@@ -150,7 +163,7 @@ class ZipFile:
         def __init__(
             self,
             file: StrPath | _ZipWritable,
-            mode: Literal["w", "x"] = ...,
+            mode: Literal["w", "x"],
             compression: int = 0,
             allowZip64: bool = True,
             compresslevel: int | None = None,
@@ -162,7 +175,7 @@ class ZipFile:
         def __init__(
             self,
             file: StrPath | _ZipReadableTellable,
-            mode: Literal["a"] = ...,
+            mode: Literal["a"],
             compression: int = 0,
             allowZip64: bool = True,
             compresslevel: int | None = None,
@@ -197,7 +210,7 @@ class ZipFile:
         def __init__(
             self,
             file: StrPath | _ZipWritable,
-            mode: Literal["w", "x"] = ...,
+            mode: Literal["w", "x"],
             compression: int = 0,
             allowZip64: bool = True,
             compresslevel: int | None = None,
@@ -208,7 +221,7 @@ class ZipFile:
         def __init__(
             self,
             file: StrPath | _ZipReadableTellable,
-            mode: Literal["a"] = ...,
+            mode: Literal["a"],
             compression: int = 0,
             allowZip64: bool = True,
             compresslevel: int | None = None,
@@ -261,6 +274,29 @@ class PyZipFile(ZipFile):
     def writepy(self, pathname: str, basename: str = "", filterfunc: Callable[[str], bool] | None = None) -> None: ...
 
 class ZipInfo:
+    __slots__ = (
+        "orig_filename",
+        "filename",
+        "date_time",
+        "compress_type",
+        "compress_level",
+        "comment",
+        "extra",
+        "create_system",
+        "create_version",
+        "extract_version",
+        "reserved",
+        "flag_bits",
+        "volume",
+        "internal_attr",
+        "external_attr",
+        "header_offset",
+        "CRC",
+        "compress_size",
+        "file_size",
+        "_raw_time",
+        "_end_offset",
+    )
     filename: str
     date_time: _DateTuple
     compress_type: int
@@ -287,6 +323,8 @@ class ZipInfo:
     def from_file(cls, filename: StrPath, arcname: StrPath | None = None, *, strict_timestamps: bool = True) -> Self: ...
     def is_dir(self) -> bool: ...
     def FileHeader(self, zip64: bool | None = None) -> bytes: ...
+    if sys.version_info >= (3, 14):
+        def _for_archive(self, archive: ZipFile) -> Self: ...
 
 if sys.version_info >= (3, 12):
     from zipfile._path import CompleteDirs as CompleteDirs, Path as Path
@@ -294,6 +332,7 @@ if sys.version_info >= (3, 12):
 else:
     class CompleteDirs(ZipFile):
         def resolve_dir(self, name: str) -> str: ...
+
         @overload
         @classmethod
         def make(cls, source: ZipFile) -> CompleteDirs: ...
@@ -309,9 +348,8 @@ else:
         def name(self) -> str: ...
         @property
         def parent(self) -> PathLike[str]: ...  # undocumented
-        if sys.version_info >= (3, 10):
-            @property
-            def filename(self) -> PathLike[str]: ...  # undocumented
+        @property
+        def filename(self) -> PathLike[str]: ...  # undocumented
         if sys.version_info >= (3, 11):
             @property
             def suffix(self) -> str: ...
@@ -327,44 +365,47 @@ else:
             encoding: str | None = None,
             errors: str | None = None,
             newline: str | None = None,
-            line_buffering: bool = ...,
-            write_through: bool = ...,
+            line_buffering: bool = False,
+            write_through: bool = False,
             *,
             pwd: bytes | None = None,
         ) -> TextIOWrapper: ...
         @overload
         def open(self, mode: Literal["rb", "wb"], *, pwd: bytes | None = None) -> IO[bytes]: ...
 
-        if sys.version_info >= (3, 10):
-            def iterdir(self) -> Iterator[Self]: ...
-        else:
-            def iterdir(self) -> Iterator[Path]: ...
-
+        def iterdir(self) -> Iterator[Self]: ...
         def is_dir(self) -> bool: ...
         def is_file(self) -> bool: ...
         def exists(self) -> bool: ...
         def read_text(
             self,
-            encoding: str | None = ...,
-            errors: str | None = ...,
-            newline: str | None = ...,
-            line_buffering: bool = ...,
-            write_through: bool = ...,
+            encoding: str | None = None,
+            errors: str | None = None,
+            newline: str | None = None,
+            line_buffering: bool = False,
+            write_through: bool = False,
         ) -> str: ...
         def read_bytes(self) -> bytes: ...
-        if sys.version_info >= (3, 10):
-            def joinpath(self, *other: StrPath) -> Path: ...
-        else:
-            def joinpath(self, add: StrPath) -> Path: ...  # undocumented
-
+        def joinpath(self, *other: StrPath) -> Path: ...
         def __truediv__(self, add: StrPath) -> Path: ...
 
 def is_zipfile(filename: StrOrBytesPath | _SupportsReadSeekTell) -> bool: ...
 
-ZIP_STORED: Final[int]
-ZIP_DEFLATED: Final[int]
 ZIP64_LIMIT: Final[int]
 ZIP_FILECOUNT_LIMIT: Final[int]
 ZIP_MAX_COMMENT: Final[int]
-ZIP_BZIP2: Final[int]
-ZIP_LZMA: Final[int]
+
+ZIP_STORED: Final = 0
+ZIP_DEFLATED: Final = 8
+ZIP_BZIP2: Final = 12
+ZIP_LZMA: Final = 14
+if sys.version_info >= (3, 14):
+    ZIP_ZSTANDARD: Final = 93
+
+DEFAULT_VERSION: Final[int]
+ZIP64_VERSION: Final[int]
+BZIP2_VERSION: Final[int]
+LZMA_VERSION: Final[int]
+if sys.version_info >= (3, 14):
+    ZSTANDARD_VERSION: Final[int]
+MAX_EXTRACT_VERSION: Final[int]

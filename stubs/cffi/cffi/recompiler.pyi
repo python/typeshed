@@ -1,7 +1,6 @@
 import io
 from _typeshed import Incomplete, StrPath
-from typing import Final
-from typing_extensions import TypeAlias
+from typing import Final, TypeAlias
 
 from .cffi_opcode import *
 from .error import VerificationError as VerificationError
@@ -86,7 +85,7 @@ def recompile(
     preamble: str | None,
     tmpdir: str = ".",
     call_c_compiler: bool = True,
-    c_file: Incomplete | None = None,
+    c_file=None,
     source_extension: str = ".c",
     extradir: StrPath | None = None,
     compiler_verbose: int = 1,

@@ -1,26 +1,25 @@
 from _typeshed import Incomplete
-from typing import Any
 
-SEARCH_CONTROLS: Any
+SEARCH_CONTROLS: Incomplete
 SERVER_ENCODING: str
 
 def random_cookie(): ...
 
 class PagedSearchSet:
-    size: Any
-    response: Any
-    cookie: Any
+    size: Incomplete
+    response: Incomplete
+    cookie: Incomplete
     sent: int
     done: bool
     def __init__(self, response, size, criticality) -> None: ...
-    def next(self, size: Incomplete | None = None): ...
+    def next(self, size=None): ...
 
 class MockBaseStrategy:
-    entries: Any
+    entries: Incomplete
     no_real_dsa: bool
-    bound: Any
-    custom_validators: Any
-    operational_attributes: Any
+    bound: Incomplete
+    custom_validators: Incomplete
+    operational_attributes: Incomplete
     def __init__(self) -> None: ...
     def add_entry(self, dn, attributes, validate: bool = True): ...
     def remove_entry(self, dn): ...
@@ -35,4 +34,4 @@ class MockBaseStrategy:
     def mock_extended(self, request_message, controls): ...
     def evaluate_filter_node(self, node, candidates): ...
     def equal(self, dn, attribute_type, value_to_check): ...
-    def send(self, message_type, request, controls: Incomplete | None = None): ...
+    def send(self, message_type, request, controls=None): ...

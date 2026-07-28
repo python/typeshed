@@ -1,7 +1,7 @@
 from _typeshed import ConvertibleToInt, Incomplete, Unused
 from collections.abc import Iterator
-from typing import ClassVar, Final, Literal, overload
-from typing_extensions import Self, TypeAlias
+from typing import ClassVar, Final, Literal, TypeAlias, overload
+from typing_extensions import Self
 
 from openpyxl.descriptors import Strict, String
 from openpyxl.descriptors.base import Alias, Bool, Integer, NoneSet, Typed, _ConvertibleToBool
@@ -42,6 +42,7 @@ class XMLColumnProps(Serialisable):
     xmlDataType: String[Literal[False]]
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: ClassVar[tuple[str, ...]]
+
     @overload
     def __init__(
         self,
@@ -67,7 +68,7 @@ class TableFormula(Serialisable):
     array: Bool[Literal[True]]
     attr_text: Incomplete
     text: Alias
-    def __init__(self, array: _ConvertibleToBool | None = None, attr_text: Incomplete | None = None) -> None: ...
+    def __init__(self, array: _ConvertibleToBool | None = None, attr_text=None) -> None: ...
 
 class TableColumn(Serialisable):
     tagname: ClassVar[str]
@@ -88,6 +89,7 @@ class TableColumn(Serialisable):
     xmlColumnPr: Typed[XMLColumnProps, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: ClassVar[tuple[str, ...]]
+
     @overload
     def __init__(
         self,
@@ -129,6 +131,7 @@ class TableColumn(Serialisable):
         xmlColumnPr: XMLColumnProps | None = None,
         extLst: ExtensionList | None = None,
     ) -> None: ...
+
     def __iter__(self) -> Iterator[tuple[str, str]]: ...
     @classmethod
     def from_tree(cls, node: _ChildSerialisableTreeElement) -> Self: ...
@@ -170,8 +173,8 @@ class Table(Serialisable):
     def __init__(
         self,
         id: ConvertibleToInt = 1,
-        displayName: Incomplete | None = None,
-        ref: Incomplete | None = None,
+        displayName=None,
+        ref=None,
         name: str | None = None,
         comment: str | None = None,
         tableType: _TableTableType | Literal["none"] | None = None,
@@ -218,5 +221,5 @@ class TablePartList(Serialisable):
 
 class TableList(dict[Incomplete, Incomplete]):
     def add(self, table) -> None: ...
-    def get(self, name: Incomplete | None = None, table_range: Incomplete | None = None): ...
+    def get(self, name=None, table_range=None): ...
     def items(self): ...

@@ -1,8 +1,8 @@
 from _typeshed import Incomplete
 from abc import abstractmethod
 from collections.abc import Callable
-from typing import IO, Any, Literal, Protocol
-from typing_extensions import Self, TypeAlias
+from typing import IO, Any, Literal, Protocol, TypeAlias, TypedDict, type_check_only
+from typing_extensions import Self, Unpack
 
 from reportlab.pdfgen.canvas import Canvas
 from reportlab.platypus.flowables import Flowable
@@ -33,6 +33,7 @@ __all__ = (
 #       type vars didn't seem to work for this one
 _PageCallback: TypeAlias = Callable[[Canvas, Any], object]
 
+@type_check_only
 class _CanvasMaker(Protocol):
     # NOTE: This matches a subset of Canvas.__init__
     def __call__(
@@ -40,18 +41,18 @@ class _CanvasMaker(Protocol):
         filename: str | IO[bytes],
         /,
         *,
-        pagesize: Incomplete | None = None,
-        pageCompression: Incomplete | None = None,
-        invariant: Incomplete | None = None,
-        enforceColorSpace: Incomplete | None = None,
-        initialFontName: Incomplete | None = None,
-        initialFontSize: Incomplete | None = None,
-        initialLeading: Incomplete | None = None,
-        cropBox: Incomplete | None = None,
-        artBox: Incomplete | None = None,
-        trimBox: Incomplete | None = None,
-        bleedBox: Incomplete | None = None,
-        lang: Incomplete | None = None,
+        pagesize=None,
+        pageCompression=None,
+        invariant=None,
+        enforceColorSpace=None,
+        initialFontName=None,
+        initialFontSize=None,
+        initialLeading=None,
+        cropBox=None,
+        artBox=None,
+        trimBox=None,
+        bleedBox=None,
+        lang=None,
     ) -> Canvas: ...
 
 class LayoutError(Exception): ...
@@ -120,7 +121,7 @@ class Indenter(FrameActionFlowable):
 class NotAtTopPageBreak(FrameActionFlowable):
     locChanger: int
     nextTemplate: Incomplete
-    def __init__(self, nextTemplate: Incomplete | None = None) -> None: ...
+    def __init__(self, nextTemplate=None) -> None: ...
     def frameAction(self, frame: Frame) -> None: ...
 
 class NextPageTemplate(ActionFlowable):
@@ -145,11 +146,11 @@ class PageTemplate:
         onPage: _PageCallback = ...,
         onPageEnd: _PageCallback = ...,
         pagesize: tuple[float, float] | None = None,
-        autoNextPageTemplate: Incomplete | None = None,
-        cropBox: Incomplete | None = None,
-        artBox: Incomplete | None = None,
-        trimBox: Incomplete | None = None,
-        bleedBox: Incomplete | None = None,
+        autoNextPageTemplate=None,
+        cropBox=None,
+        artBox=None,
+        trimBox=None,
+        bleedBox=None,
     ) -> None: ...
     def beforeDrawPage(self, canv: Canvas, doc: BaseDocTemplate) -> None: ...
     def checkPageSize(self, canv: Canvas, doc: BaseDocTemplate) -> None: ...
@@ -164,6 +165,8 @@ class onDrawStr(str):
     ) -> Self: ...
     def __getnewargs__(self) -> tuple[str, Callable[[Canvas, str | None, str], object], str, str | None]: ...  # type: ignore[override]
 
+_OnDrawStr: TypeAlias = onDrawStr
+
 class PageAccumulator:
     name: str
     data: list[tuple[Any, ...]]
@@ -176,7 +179,55 @@ class PageAccumulator:
     def onPage(self, canv: Canvas, doc: BaseDocTemplate) -> None: ...
     def onPageEnd(self, canv: Canvas, doc: BaseDocTemplate) -> None: ...
     def pageEndAction(self, canv: Canvas, doc: BaseDocTemplate) -> None: ...
-    def onDrawStr(self, value: object, *args) -> onDrawStr: ...
+    def onDrawStr(self, value: object, *args) -> _OnDrawStr: ...
+
+@type_check_only
+class _DocTemplateKwargs(TypedDict, total=False):
+    pagesize: Incomplete
+    pageTemplates: list[PageTemplate]
+    showBoundary: Incomplete
+    width: float
+    height: float
+    leftMargin: float
+    rightMargin: float
+    topMargin: float
+    bottomMargin: float
+    allowSplitting: Incomplete
+    title: Incomplete | None
+    author: Incomplete | None
+    subject: Incomplete | None
+    creator: Incomplete | None
+    producer: Incomplete | None
+    keywords: list[Incomplete]
+    invariant: Incomplete | None
+    pageCompression: Incomplete | None
+    rotation: Incomplete
+    encrypt: Incomplete | None
+    cropMarks: Incomplete | None
+    enforceColorSpace: Incomplete | None
+    displayDocTitle: Incomplete | None
+    lang: Incomplete | None
+    initialFontName: Incomplete | None
+    initialFontSize: Incomplete | None
+    initialLeading: Incomplete | None
+    cropBox: Incomplete | None
+    artBox: Incomplete | None
+    trimBox: Incomplete | None
+    bleedBox: Incomplete | None
+    keepTogetherClass: type[Flowable]
+    hideToolbar: Incomplete | None
+    hideMenubar: Incomplete | None
+    hideWindowUI: Incomplete | None
+    fitWindow: Incomplete | None
+    centerWindow: Incomplete | None
+    nonFullScreenPageMode: Incomplete | None
+    direction: Incomplete | None
+    viewArea: Incomplete | None
+    viewClip: Incomplete | None
+    printArea: Incomplete | None
+    printClip: Incomplete | None
+    printScaling: Incomplete | None
+    duplex: Incomplete | None
 
 class BaseDocTemplate:
     filename: Incomplete
@@ -230,8 +281,7 @@ class BaseDocTemplate:
     page: int
     frame: Frame
     canv: Canvas
-    # TODO: Use TypedDict with Unpack for **kw
-    def __init__(self, filename: str | IO[bytes], **kw) -> None: ...
+    def __init__(self, filename: str | IO[bytes], **kw: Unpack[_DocTemplateKwargs]) -> None: ...
     def setPageCallBack(self, func: Callable[[int], object] | None) -> None: ...
     def setProgressCallBack(self, func: Callable[[str, int], object] | None) -> None: ...
     def clean_hanging(self) -> None: ...
@@ -240,7 +290,7 @@ class BaseDocTemplate:
     def handle_pageBegin(self) -> None: ...
     def handle_pageEnd(self) -> None: ...
     def handle_pageBreak(self, slow: bool | None = None) -> None: ...
-    def handle_frameBegin(self, resume: int = 0, pageTopFlowables: Incomplete | None = None) -> None: ...
+    def handle_frameBegin(self, resume: int = 0, pageTopFlowables=None) -> None: ...
     def handle_frameEnd(self, resume: int = 0) -> None: ...
     def handle_nextPageTemplate(self, pt: str | int | list[str] | tuple[str, ...]) -> None: ...
     def handle_nextFrame(self, fx: str | int, resume: int = 0) -> None: ...
@@ -248,7 +298,9 @@ class BaseDocTemplate:
     def handle_breakBefore(self, flowables: list[Flowable]) -> None: ...
     def handle_keepWithNext(self, flowables: list[Flowable]) -> None: ...
     def handle_flowable(self, flowables: list[Flowable]) -> None: ...
-    def build(self, flowables: list[Flowable], filename: str | None = None, canvasmaker: _CanvasMaker = ...) -> None: ...
+    def build(
+        self, flowables: list[Flowable], filename: str | IO[bytes] | None = None, canvasmaker: _CanvasMaker = ...
+    ) -> None: ...
     def notify(self, kind: str, stuff: Any) -> None: ...
     def pageRef(self, label: str) -> None: ...
     def multiBuild(self, story: list[Flowable], maxPasses: int = 10, **buildKwds: Any) -> int: ...
