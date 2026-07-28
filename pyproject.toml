@@ -24,6 +24,7 @@ exclude = [
     ".git",
     ".mypy_cache",
     ".pytype",
+    "python-ldap",
 ]
 
 [tool.ruff.lint]
