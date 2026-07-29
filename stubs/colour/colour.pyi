@@ -1,6 +1,5 @@
 import re
 from collections.abc import Callable, Generator, Hashable
-from types import NotImplementedType
 from typing import Any, Final, final, overload
 from typing_extensions import Self
 
@@ -101,7 +100,7 @@ class Color:
     web = property(get_web, set_web)
 
     def range_to(self, value: str | Color | None, steps: int) -> Generator[Color]: ...
-    def __eq__(self, other: object) -> bool | NotImplementedType: ...  # type: ignore[override]
+    def __eq__(self, other: object) -> bool: ...
 
 RGB_equivalence: Final[Callable[[Color, Color], bool]]
 HSL_equivalence: Final[Callable[[Color, Color], bool]]
