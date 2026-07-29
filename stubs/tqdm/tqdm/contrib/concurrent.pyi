@@ -54,6 +54,7 @@ if sys.version_info >= (3, 14):
     @type_check_only
     class _TqdmKwargs(_TqdmCommonKwargs):
         buffersize: int | None
+
 else:
     _TqdmKwargs = _TqdmCommonKwargs
 
