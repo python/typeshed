@@ -1,6 +1,6 @@
 import re
 from collections.abc import Callable, Generator, Hashable
-from typing import Any, Final, final, overload
+from typing import Any, Final, Protocol, final, overload, type_check_only
 from typing_extensions import Self
 
 FLOAT_ERROR: Final = 0.0000005
@@ -105,8 +105,17 @@ class Color:
 RGB_equivalence: Final[Callable[[Color, Color], bool]]
 HSL_equivalence: Final[Callable[[Color, Color], bool]]
 
+@type_check_only
+class _ColorFactory(Protocol):
+    def __call__(
+        self,
+        color: Self | str | None = None,
+        pick_for: object | None = None,
+        picker: Callable[[object], Color] = ...,
+        pick_key: Callable[[object], int | str] = ...,
+        **kwargs: Any  # additional arguments become attributes on the returned `Color` instance
+    ) -> Color: ...
+
 def make_color_factory(
-    **kwargs_defaults: Any,
-) -> Callable[
-    [Color | str | None, object | None, Callable[[object], Color], object | None, Callable[[object], int | str]], Color
-]: ...
+    **kwargs_defaults: Any,  # sets default kwargs for the returned `Color` factory
+) -> _ColorFactory: ...
