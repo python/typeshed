@@ -1,7 +1,8 @@
 import json
 from _typeshed import SupportsRead, SupportsWrite
 from collections.abc import Callable
-from typing import Any, NoReturn
+from typing import Any
+from typing_extensions import Never
 
 from geojson.base import GeoJSON
 
@@ -17,14 +18,14 @@ def dumps(
 def load(
     fp: SupportsRead[str],
     cls: type[json.JSONDecoder] = json.JSONDecoder,
-    parse_constant: Callable[..., NoReturn] = ...,
+    parse_constant: Callable[..., Never] = ...,
     object_hook: Callable[[dict[str, Any]], GeoJSON] = GeoJSON.to_instance,
     **kwargs,
 ) -> GeoJSON: ...
 def loads(
     s: str,
     cls: type[json.JSONDecoder] = json.JSONDecoder,
-    parse_constant: Callable[..., NoReturn] = ...,
+    parse_constant: Callable[..., Never] = ...,
     object_hook: Callable[[dict[str, Any]], GeoJSON] = GeoJSON.to_instance,
     **kwargs,
 ) -> GeoJSON: ...
