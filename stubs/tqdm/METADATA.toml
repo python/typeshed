@@ -4,4 +4,4 @@ optional-dependencies = ["types-requests", "types-tensorflow"]
 
 [tool.stubtest]
 extras = ["slack", "telegram"]
-stubtest-dependencies = ["dask", "pandas", "rich", "tensorflow"]
+stubtest-dependencies = ["dask", "pandas", "rich"]
