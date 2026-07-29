@@ -4,7 +4,7 @@ from types import NotImplementedType
 from typing import Any, Final, final, overload
 from typing_extensions import Self
 
-FLOAT_ERROR: Final[float] = 0.0000005
+FLOAT_ERROR: Final = 0.0000005
 
 RGB_TO_COLOR_NAMES: Final[dict[tuple[int, int, int], list[str]]]
 
