@@ -1,9 +1,9 @@
-from _typeshed import SupportsWrite, Incomplete
+from _typeshed import Incomplete, SupportsWrite
+from collections.abc import Callable, Generator, Iterable, Mapping
 from contextlib import contextmanager
-from collections.abc import Callable, Iterable, Mapping, Generator
+from multiprocessing.context import BaseContext
 from typing import Any, TypedDict, TypeVar, overload, type_check_only
 from typing_extensions import Unpack
-from multiprocessing.context import BaseContext
 
 from ..std import tqdm
 
@@ -51,19 +51,16 @@ class _TqdmKwargs(TypedDict, total=False):
     colour: str | None
     delay: float | None
 
-
 @type_check_only
 class _TqdmProcessKwargs(_TqdmKwargs):
     mp_context: BaseContext | None
     max_tasks_per_child: int | None
-
 
 @type_check_only
 class _TqdmThreadKwargs(_TqdmKwargs):
     thread_name_prefix: str | None
     # Not techically for threading, but just a signature difference:
     lock_name: str
-
 
 @contextmanager
 def ensure_lock(tqdm_class: type[tqdm[object]], lock_name: str = "", lock: Incomplete | None = None) -> Generator[None]: ...
@@ -115,10 +112,17 @@ def thread_map(
 ) -> list[_R]: ...
 
 @overload
-def process_map(fn: Callable[[_T1], _R], iter1: Iterable[_T1], *, lock_name: str = "mp_lock", **tqdm_kwargs: Unpack[_TqdmProcessKwargs]) -> list[_R]: ...
+def process_map(
+    fn: Callable[[_T1], _R], iter1: Iterable[_T1], *, lock_name: str = "mp_lock", **tqdm_kwargs: Unpack[_TqdmProcessKwargs]
+) -> list[_R]: ...
 @overload
 def process_map(
-    fn: Callable[[_T1, _T2], _R], iter1: Iterable[_T1], iter2: Iterable[_T2], *, lock_name: str = "mp_lock", **tqdm_kwargs: Unpack[_TqdmProcessKwargs]
+    fn: Callable[[_T1, _T2], _R],
+    iter1: Iterable[_T1],
+    iter2: Iterable[_T2],
+    *,
+    lock_name: str = "mp_lock",
+    **tqdm_kwargs: Unpack[_TqdmProcessKwargs],
 ) -> list[_R]: ...
 @overload
 def process_map(
