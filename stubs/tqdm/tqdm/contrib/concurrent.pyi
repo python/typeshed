@@ -1,4 +1,5 @@
-from _typeshed import Incomplete, SupportsWrite
+import sys
+from _typeshed import SupportsWrite
 from collections.abc import Callable, Generator, Iterable, Mapping
 from contextlib import contextmanager
 from multiprocessing.context import BaseContext
@@ -17,14 +18,11 @@ _T4 = TypeVar("_T4")
 _T5 = TypeVar("_T5")
 
 @type_check_only
-class _TqdmKwargs(TypedDict, total=False):
+class _TqdmCommonKwargs(TypedDict, total=False):
     # Concurrent-specific parameters
     tqdm_class: type[tqdm[object]]
     max_workers: int | None
     chunksize: int
-    # TODO: add when conditional fields in `TypedDict` will be supported:
-    # if sys.version_info >= (3, 14):
-    #     buffersize: int | None
     # Standard tqdm parameters
     desc: str | None
     total: float | None
@@ -51,6 +49,14 @@ class _TqdmKwargs(TypedDict, total=False):
     colour: str | None
     delay: float | None
 
+# TODO: refactor this, when `TypedDict` will support conditional fields
+if sys.version_info >= (3, 14):
+    @type_check_only
+    class _TqdmKwargs(_TqdmCommonKwargs):
+        buffersize: int | None
+else:
+    _TqdmKwargs = _TqdmCommonKwargs
+
 @type_check_only
 class _TqdmProcessKwargs(_TqdmKwargs):
     mp_context: BaseContext | None
@@ -63,7 +69,7 @@ class _TqdmThreadKwargs(_TqdmKwargs):
     lock_name: str
 
 @contextmanager
-def ensure_lock(tqdm_class: type[tqdm[object]], lock_name: str = "", lock: Incomplete | None = None) -> Generator[None]: ...
+def ensure_lock(tqdm_class: type[tqdm[object]], lock_name: str = "", lock=None) -> Generator[None]: ...
 
 @overload
 def thread_map(fn: Callable[[_T1], _R], iter1: Iterable[_T1], **tqdm_kwargs: Unpack[_TqdmThreadKwargs]) -> list[_R]: ...
