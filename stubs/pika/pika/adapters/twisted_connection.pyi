@@ -4,7 +4,8 @@
 from _typeshed import Incomplete
 from collections.abc import Callable, Iterable, Mapping
 from logging import Logger
-from typing import Generic, NamedTuple, Self, TypeVar
+from typing import Generic, NamedTuple, TypeVar
+from typing_extensions import Self
 
 from pika import amqp_object
 from pika.adapters.utils.nbio_interface import AbstractTimerReference

@@ -2,7 +2,7 @@ import asyncio
 from _typeshed import Incomplete
 from collections.abc import Callable, Sequence
 from logging import Logger
-from typing import Self
+from typing_extensions import Self
 
 from pika.adapters.base_connection import BaseConnection
 from pika.adapters.utils import io_services_utils

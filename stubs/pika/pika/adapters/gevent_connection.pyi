@@ -1,6 +1,7 @@
 from collections.abc import Callable, Sequence
 from logging import Logger
-from typing import Final, Self
+from typing import Final
+from typing_extensions import Self
 
 from gevent._types import _Loop, _TimerWatcher
 from gevent.hub import Hub

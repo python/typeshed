@@ -1,7 +1,8 @@
 from _typeshed import Incomplete
 from collections.abc import Callable, Sequence
 from logging import Logger
-from typing import Self, TypeAlias
+from typing import TypeAlias
+from typing_extensions import Self
 
 from pika.adapters.base_connection import BaseConnection
 from pika.adapters.utils.connection_workflow import AbstractAMQPConnectionWorkflow, AMQPConnectorException

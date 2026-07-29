@@ -2,7 +2,8 @@ import abc
 import select
 from collections.abc import Callable, Sequence
 from logging import Logger
-from typing import ClassVar, Final, Literal, Self, TypeAlias, TypedDict
+from typing import ClassVar, Final, Literal, TypeAlias, TypedDict
+from typing_extensions import Self
 
 import pika.compat
 from pika.adapters.base_connection import BaseConnection
