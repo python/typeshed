@@ -113,9 +113,7 @@ class _ColorFactory(Protocol):
         pick_for: object | None = None,
         picker: Callable[[object], Color] = ...,
         pick_key: Callable[[object], int | str] = ...,
-        **kwargs: Any  # additional arguments become attributes on the returned `Color` instance
+        **kwargs: Any,  # additional arguments become attributes on the returned `Color` instance
     ) -> Color: ...
 
-def make_color_factory(
-    **kwargs_defaults: Any,  # sets default kwargs for the returned `Color` factory
-) -> _ColorFactory: ...
+def make_color_factory(**kwargs_defaults: Any) -> _ColorFactory: ...  # sets default kwargs for the returned `Color` factory
