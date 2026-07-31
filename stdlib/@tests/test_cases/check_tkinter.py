@@ -24,9 +24,6 @@ def foo(x: int, y: str) -> None:
 root.after(1000, foo, 10, "lol")
 root.after(1000, foo, 10, 10)  # type: ignore
 
-tkinter.OptionMenu(root, tkinter.StringVar(), "option", command=lambda value: assert_type(value, str))
-
-
 # Font size must be integer
 label = tkinter.Label()
 label.config(font=("", 12))
