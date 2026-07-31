@@ -6,4 +6,4 @@ dependencies = ["numpy>=1.21"]
 [tool.stubtest]
 # TODO: stubtest fails without output or discernable reason during the daily
 # test. https://github.com/python/typeshed/issues/16100
-skip = true
+#skip = true
