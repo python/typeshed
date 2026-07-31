@@ -100,6 +100,6 @@ requests as "not planned" with an explanation like this:
 
 ### Asking to remove tests
 
-    Please remove the tests. In typeshed, we only add regression tests in cases where functions and classes which are known to have caused problems in the past, or where stubs are difficult to get right. 100% test coverage for typeshed is neither necessary nor desirable, as it would lead to code duplication.
+    Please remove the tests. In typeshed, we only add regression tests for functions and classes which are known to have caused complex problems in the past, or where stubs are difficult to get right. 100% test coverage for typeshed is neither necessary nor desirable, as it would lead to code duplication.
 
     See [`tests/REGRESSION.md`](https://github.com/python/typeshed/blob/main/tests/REGRESSION.md) for more information.
