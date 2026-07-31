@@ -39,3 +39,7 @@ When opening pull requests, do the following:
 - Run the tests as described above before submitting.
 - Don't include tests for .pyi files, unless the situation is complex. See
   `tests/REGRESSION.md`.
+- Use a concise PR description:
+  - Either link to an issue or describe the problem briefly, never both.
+  - Limit the summary of changes to one sentence, unless the PR is complex.
+  - Don't include a testing plan.
