@@ -4,6 +4,6 @@ upstream-repository = "https://github.com/nmslib/hnswlib"
 dependencies = ["numpy>=1.21"]
 
 [tool.stubtest]
-# TODO: stubtest fails without output or discernable reason during the daily
-# test. https://github.com/python/typeshed/issues/16100
-#skip = true
+# TODO: stubtest fails on Linux because it gets killed with a SIGILL
+# for unknown reasons. See https://github.com/python/typeshed/issues/16100
+ci-platforms = ["darwin"]
