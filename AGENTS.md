@@ -2,7 +2,12 @@
 
 typeshed contains [type stubs](https://typing.python.org/en/latest/spec/distributing.html)
 for Python's standard library as well as for some packages available on
-[PyPI](https://pypi.org/) that don't provide their own type annotations.
+[PyPI](https://pypi.org/) (usually called "third-party stubs" in typeshed)
+that don't provide their own type annotations.
+
+The standard library stubs get vendored by type checkers. Each third-party
+stub package is distributed as a separate package (usually called
+`types-<name>`) on PyPI.
 
 ## Directory Structure
 
