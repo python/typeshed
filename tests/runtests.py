@@ -29,7 +29,7 @@ def _pythonpath_env() -> dict[str, str]:
     return env
 
 
-def _ty_platform() -> str:
+def _checker_platform() -> str:
     if sys.platform.startswith("win"):
         return "win32"
     return sys.platform
@@ -123,7 +123,7 @@ def main() -> None:
             "--python-version",
             python_version,
             "--platform",
-            _ty_platform(),
+            _checker_platform(),
             "--python",
             sys.executable,
         ],
@@ -140,7 +140,7 @@ def main() -> None:
             "--python-version",
             python_version,
             "--platform",
-            _ty_platform(),
+            _checker_platform(),
             "--python",
             sys.executable,
         ],
