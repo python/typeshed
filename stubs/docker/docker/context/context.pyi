@@ -1,6 +1,6 @@
 from typing import TypedDict, type_check_only
 
-from docker.tls import TLSConfig
+from docker.tls import TLSConfig as _TLSConfig
 
 @type_check_only
 class _StorageData(TypedDict):
@@ -39,7 +39,7 @@ class Context:
     context_type: str | None
     orchestrator: str | None
     endpoints: dict[str, _Endpoint]
-    tls_cfg: dict[str, TLSConfig]
+    tls_cfg: dict[str, _TLSConfig]
     meta_path: str
     tls_path: str
     def __init__(
@@ -54,7 +54,7 @@ class Context:
         self,
         name: str = "docker",
         host: str | None = None,
-        tls_cfg: TLSConfig | None = None,
+        tls_cfg: _TLSConfig | None = None,
         skip_tls_verify: bool = False,
         def_namespace: str | None = None,
     ) -> None: ...
@@ -74,7 +74,7 @@ class Context:
     @property
     def Metadata(self) -> _Metadata: ...
     @property
-    def TLSConfig(self) -> TLSConfig: ...
+    def TLSConfig(self) -> _TLSConfig: ...
     @property
     def TLSMaterial(self) -> _TLSMaterial: ...
     @property
