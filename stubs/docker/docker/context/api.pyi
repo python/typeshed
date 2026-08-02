@@ -33,9 +33,7 @@ class ContextAPI:
     def get_current_context(cls) -> Context: ...
     @classmethod
     def kwargs_from_context(
-        cls,
-        name: str | None = None,
-        environment: Mapping[str, str | None] | None = None,  # TODO: Use SupportsGet
+        cls, name: str | None = None, environment: Mapping[str, str | None] | None = None  # TODO: Use SupportsGet
     ) -> _ContextKwargs: ...
     @classmethod
     def set_current_context(cls, name: str = "default") -> None: ...
