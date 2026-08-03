@@ -48,3 +48,4 @@ When opening pull requests, do the following:
   - Either link to an issue or describe the problem briefly, never both.
   - Limit the summary of changes to one sentence, unless the PR is complex.
   - Don't include a testing plan.
+- Add the name of the agent used to the PR description.
