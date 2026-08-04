@@ -19,15 +19,11 @@ stub package is distributed as a separate package (usually called
 
 ## Running tests
 
-To run all tests, run:
+To run all tests:
 
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -U pip
-pip install -r requirements-tests.txt
-python tests/runtests.py <path>
-```
+- Create a new virtual environment (venv), update pip
+- Install the dependencies from `requirements-tests.txt` into it
+- Run `tests/runtests.py <path>` from the activated venv
 
 `<path>` is either:
 
