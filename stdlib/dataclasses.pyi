@@ -8,6 +8,9 @@ from types import GenericAlias
 from typing import Any, Final, Generic, Literal, Protocol, TypeVar, overload, type_check_only
 from typing_extensions import Never, TypeIs
 
+if sys.version_info >= (3, 15):
+    from builtins import sentinel
+
 _T = TypeVar("_T")
 _T_co = TypeVar("_T_co", covariant=True)
 
@@ -48,17 +51,23 @@ class _DataclassFactory(Protocol):
         weakref_slot: bool = False,
     ) -> type[_T]: ...
 
-# define _MISSING_TYPE as an enum within the type stubs,
-# even though that is not really its type at runtime
-# this allows us to use Literal[_MISSING_TYPE.MISSING]
-# for background, see:
-#   https://github.com/python/typeshed/pull/5900#issuecomment-895513797
-class _MISSING_TYPE(enum.Enum):
-    MISSING = enum.auto()
+if sys.version_info >= (3, 15):
+    MISSING: Final[sentinel]
+else:
+    # define _MISSING_TYPE as an enum within the type stubs,
+    # even though that is not really its type at runtime
+    # this allows us to use Literal[_MISSING_TYPE.MISSING]
+    # for background, see:
+    #   https://github.com/python/typeshed/pull/5900#issuecomment-895513797
+    class _MISSING_TYPE(enum.Enum):
+        MISSING = enum.auto()
 
-MISSING: Final = _MISSING_TYPE.MISSING
+    MISSING: Final = _MISSING_TYPE.MISSING
 
-class KW_ONLY: ...
+if sys.version_info >= (3, 15):
+    KW_ONLY: Final[sentinel]
+else:
+    class KW_ONLY: ...
 
 @overload
 def asdict(obj: DataclassInstance) -> dict[str, Any]: ...
@@ -172,8 +181,16 @@ class Field(Generic[_T]):
         )
     name: str
     type: Type[_T] | str | Any
-    default: _T | Literal[_MISSING_TYPE.MISSING]
-    default_factory: _DefaultFactory[_T] | Literal[_MISSING_TYPE.MISSING]
+
+    if sys.version_info >= (3, 15):
+        default: _T | sentinel
+        default_factory: _DefaultFactory[_T] | sentinel
+        kw_only: bool | sentinel
+    else:
+        default: _T | Literal[_MISSING_TYPE.MISSING]
+        default_factory: _DefaultFactory[_T] | Literal[_MISSING_TYPE.MISSING]
+        kw_only: bool | Literal[_MISSING_TYPE.MISSING]
+
     repr: bool
     hash: bool | None
     init: bool
@@ -182,8 +199,6 @@ class Field(Generic[_T]):
 
     if sys.version_info >= (3, 14):
         doc: str | None
-
-    kw_only: bool | Literal[_MISSING_TYPE.MISSING]
 
     if sys.version_info >= (3, 14):
         def __init__(
@@ -216,7 +231,47 @@ class Field(Generic[_T]):
 
 # NOTE: Actual return type is 'Field[_T]', but we want to help type checkers
 # to understand the magic that happens at runtime.
-if sys.version_info >= (3, 14):
+if sys.version_info >= (3, 15):
+    @overload  # `default` and `default_factory` are optional and mutually exclusive.
+    def field(
+        *,
+        default: _T,
+        default_factory: sentinel = ...,
+        init: bool = True,
+        repr: bool = True,
+        hash: bool | None = None,
+        compare: bool = True,
+        metadata: Mapping[Any, Any] | None = None,
+        kw_only: bool | sentinel = ...,
+        doc: str | None = None,
+    ) -> _T: ...
+    @overload
+    def field(
+        *,
+        default: sentinel = ...,
+        default_factory: Callable[[], _T],
+        init: bool = True,
+        repr: bool = True,
+        hash: bool | None = None,
+        compare: bool = True,
+        metadata: Mapping[Any, Any] | None = None,
+        kw_only: bool | sentinel = ...,
+        doc: str | None = None,
+    ) -> _T: ...
+    @overload
+    def field(
+        *,
+        default: sentinel = ...,
+        default_factory: sentinel = ...,
+        init: bool = True,
+        repr: bool = True,
+        hash: bool | None = None,
+        compare: bool = True,
+        metadata: Mapping[Any, Any] | None = None,
+        kw_only: bool | sentinel = ...,
+        doc: str | None = None,
+    ) -> Any: ...
+elif sys.version_info >= (3, 14):
     @overload  # `default` and `default_factory` are optional and mutually exclusive.
     def field(
         *,

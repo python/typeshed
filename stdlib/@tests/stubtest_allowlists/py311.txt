@@ -2,6 +2,8 @@
 # New errors in Python 3.11
 # =========================
 
+dataclasses.KW_ONLY  # white lies around defaults
+
 # =======
 # >= 3.11
 # =======
