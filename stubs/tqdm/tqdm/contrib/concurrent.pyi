@@ -52,19 +52,19 @@ class _TqdmCommonKwargs(TypedDict, total=False):
 # TODO: refactor this, when `TypedDict` will support conditional fields
 if sys.version_info >= (3, 14):
     @type_check_only
-    class _TqdmKwargs(_TqdmCommonKwargs):
+    class _TqdmKwargs(_TqdmCommonKwargs, total=False):
         buffersize: int | None
 
 else:
     _TqdmKwargs = _TqdmCommonKwargs
 
 @type_check_only
-class _TqdmProcessKwargs(_TqdmKwargs):
+class _TqdmProcessKwargs(_TqdmKwargs, total=False):
     mp_context: BaseContext | None
     max_tasks_per_child: int | None
 
 @type_check_only
-class _TqdmThreadKwargs(_TqdmKwargs):
+class _TqdmThreadKwargs(_TqdmKwargs, total=False):
     thread_name_prefix: str | None
     # Not techically for threading, but just a signature difference:
     lock_name: str
