@@ -8,6 +8,7 @@ PY315_INCOMPATIBLE_RUNTIME_DEPENDENCIES = {
     "hnswlib",
     "networkx",
     "pycocotools",
+    "pyogrio",
     "resampy",
     "shapely",
     "tensorflow",
