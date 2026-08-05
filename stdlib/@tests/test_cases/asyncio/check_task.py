@@ -1,6 +1,10 @@
 from __future__ import annotations
 
 import asyncio
+import sys
+from asyncio.base_events import BaseEventLoop
+from collections.abc import Coroutine
+from typing import Any
 
 
 class Waiter:
@@ -16,6 +20,15 @@ class Waiter:
 
 async def foo() -> int:
     return 42
+
+
+if sys.version_info >= (3, 13):
+
+    def check_loop_create_task_eager_start(
+        loop: asyncio.AbstractEventLoop, base_loop: BaseEventLoop, coro: Coroutine[Any, Any, int]
+    ) -> None:
+        loop.create_task(coro, eager_start=True)
+        base_loop.create_task(coro, eager_start=True)
 
 
 async def main() -> None:
