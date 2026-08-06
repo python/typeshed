@@ -17,7 +17,6 @@ _struct.pack
 _struct.pack_into
 _thread.RLock.__exit__
 _thread.lock.__exit__
-copy.deepcopy
 dataclasses.MISSING
 dataclasses._MISSING_TYPE
 dataclasses.field
