@@ -2,6 +2,7 @@ from _typeshed import Incomplete, Unused
 from collections.abc import Callable
 from typing import ClassVar
 
+from ..ccompiler import CCompiler
 from ..cmd import Command
 
 class build_clib(Command):
@@ -17,7 +18,7 @@ class build_clib(Command):
     undef: Incomplete
     debug: Incomplete
     force: bool
-    compiler: Incomplete
+    compiler: CCompiler | str | None  # Is only set to `Compiler` after `run`
     def initialize_options(self) -> None: ...
     def finalize_options(self) -> None: ...
     def run(self) -> None: ...
