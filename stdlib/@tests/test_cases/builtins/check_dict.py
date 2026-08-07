@@ -155,6 +155,11 @@ def test12() -> str:
     return d_str.get("key", int_value)  # type: ignore[arg-type]
 
 
+def test_dict_view_isdisjoint(d: dict[str, int]) -> None:
+    assert_type(d.keys().isdisjoint([1]), bool)
+    assert_type(d.items().isdisjoint([1]), bool)
+
+
 # Tests for `dict.__(r)or__`.
 
 
