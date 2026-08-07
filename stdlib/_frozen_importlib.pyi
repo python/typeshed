@@ -60,8 +60,13 @@ class BuiltinImporter(importlib.abc.MetaPathFinder, importlib.abc.InspectLoader)
     # InspectLoader
     @classmethod
     def is_package(cls, fullname: str) -> bool: ...
-    @classmethod
-    def load_module(cls, fullname: str) -> types.ModuleType: ...
+
+    # Fixing the deprecation warning for `load_module` in Python 3.15 and later
+    if sys.version_info < (3, 15):
+        @classmethod
+        @deprecated("Deprecated since Python 3.4; removed in Python 3.15. Use `exec_module()` instead.")
+        def load_module(cls, fullname: str) -> types.ModuleType: ...
+
     @classmethod
     def get_code(cls, fullname: str) -> None: ...
     @classmethod
@@ -94,8 +99,13 @@ class FrozenImporter(importlib.abc.MetaPathFinder, importlib.abc.InspectLoader):
     # InspectLoader
     @classmethod
     def is_package(cls, fullname: str) -> bool: ...
-    @classmethod
-    def load_module(cls, fullname: str) -> types.ModuleType: ...
+
+    # Fixing the deprecation warning for `load_module` in Python 3.15 and later
+    if sys.version_info < (3, 15):
+        @classmethod
+        @deprecated("Deprecated since Python 3.4; removed in Python 3.15. Use `exec_module()` instead.")
+        def load_module(cls, fullname: str) -> types.ModuleType: ...
+
     @classmethod
     def get_code(cls, fullname: str) -> None: ...
     @classmethod
