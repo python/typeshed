@@ -8,7 +8,7 @@ from _typeshed import (
     Unused,
 )
 from re import Pattern
-from typing import IO, Any, ClassVar, Final, Generic, Literal, TextIO, TypeVar
+from typing import IO, Any, ClassVar, Final, Generic, Literal, TextIO, TypeVar, overload
 from typing_extensions import deprecated
 
 from docutils import TransformSpec, nodes
@@ -108,7 +108,10 @@ class FileOutput(Output):
         mode=None,
     ) -> None: ...
     def open(self) -> None: ...
-    def write(self, data): ...
+    @overload
+    def write(self, data: str) -> str | bytes: ...
+    @overload
+    def write(self, data: bytes) -> bytes: ...
     def close(self) -> None: ...
 
 @deprecated("The `BinaryFileOutput` is deprecated by `FileOutput` and will be removed in Docutils 0.24.")
