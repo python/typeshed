@@ -51,6 +51,7 @@ class OAuth1Session(requests.Session):
         encoding: str = "utf-8",
         nonce=None,
         timestamp=None,
+        **kwargs,
     ) -> None: ...
 
     @property
