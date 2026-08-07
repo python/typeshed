@@ -1,3 +1,4 @@
 version = "1.7.2"
 upstream-repository = "https://github.com/authlib/authlib"
 dependencies = ["cryptography"]
+optional-dependencies = ["httpx", "requests"]
