@@ -71,34 +71,35 @@ str_value = "value"
 int_value = 1
 
 assert_type(d_any["key"], Any)
-assert_type(d_any.get("key"), Union[Any, None])
-assert_type(d_any.get("key", None), Union[Any, None])
+assert_type(d_any.get("key"), Any | None)
+assert_type(d_any.get("key", None), Any | None)
 assert_type(d_any.get("key", any_value), Any)
-assert_type(d_any.get("key", str_value), Any)
-assert_type(d_any.get("key", int_value), Any)
+assert_type(d_any.get("key", str_value), Any | str)
+assert_type(d_any.get("key", int_value), Any | int)
 
 assert_type(d_str["key"], str)
-assert_type(d_str.get("key"), Union[str, None])
-assert_type(d_str.get("key", None), Union[str, None])
+assert_type(d_str.get("key"), str | None)
+assert_type(d_str.get("key", None), str | None)
 # Pyright has str instead of Any here
-assert_type(d_str.get("key", any_value), Any)  # pyright: ignore[reportAssertTypeFailure]
+assert_type(d_str.get("key", any_value), str | Any)
 assert_type(d_str.get("key", str_value), str)
-assert_type(d_str.get("key", int_value), Union[str, int])
+assert_type(d_str.get("key", int_value), str | int)
 
 # Now with context!
+# Note: One would expect 'assignment' rather than 'arg-type' error code,
+#  but this is a bug in mypy (https://github.com/python/mypy/issues/20576)
 result: str
 result = d_any["key"]
 result = d_any.get("key")  # type: ignore[assignment]
-result = d_any.get("key", None)  # type: ignore[assignment]
+result = d_any.get("key", None)  # type: ignore[arg-type]
 result = d_any.get("key", any_value)
 result = d_any.get("key", str_value)
-result = d_any.get("key", int_value)
+result = d_any.get("key", int_value)  # type: ignore[arg-type]
 
 result = d_str["key"]
 result = d_str.get("key")  # type: ignore[assignment]
-result = d_str.get("key", None)  # type: ignore[assignment]
-# Pyright has str | None here, see https://github.com/microsoft/pyright/discussions/9570
-result = d_str.get("key", any_value)  # pyright: ignore[reportAssignmentType]
+result = d_str.get("key", None)  # type: ignore[arg-type]
+result = d_str.get("key", any_value)
 result = d_str.get("key", str_value)
 result = d_str.get("key", int_value)  # type: ignore[arg-type]
 
@@ -140,11 +141,15 @@ def test8() -> str:
 
 
 def test9() -> str:
-    return d_str.get("key", None)  # type: ignore[return-value]
+    # Note: One would expect 'return-value' rather than 'arg-type' error code,
+    #  but this is a bug in mypy (https://github.com/python/mypy/issues/20576)
+    return d_str.get("key", None)  # type: ignore[arg-type]
 
 
-def test10() -> str:
-    return d_str.get("key", any_value)  # type: ignore[no-any-return]
+# Pyright doesn't have a version of no-any-return,
+# and mypy doesn't have a type: ignore that pyright will ignore.
+# def test10() -> str:
+#     return d_str.get("key", any_value)  # mypy: ignore[no-any-return]
 
 
 def test11() -> str:
