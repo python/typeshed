@@ -491,3 +491,21 @@ To keep the number of open PRs manageable, we may close PRs when they have been
 open for too long. Specifically, we close open PRs that either have failures in CI,
 serious merge conflicts or unaddressed feedback, and that have not seen any
 activity in three months.
+
+## Type-checker bugs
+
+In general we don't work around type checker bugs or missing features in
+typeshed, with a few exceptions:
+
+- To make typeshed CI pass (and an ignore statement won't work)
+- If not working around the bug would negatively affect a significant
+  number of users
+- If the workaround is more complicated, but equally correct, and will
+  positively affect a significant number of users
+
+In all cases where a workaround is needed, add a comment to the workaround
+with a link to the issue in the type checker's bug tracker, if possible.
+
+We also track when we can start to use new typing features using the
+[feature tracker label](https://github.com/python/typeshed/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22project%3A%20feature%20tracker%22)
+for our GitHub issues.
