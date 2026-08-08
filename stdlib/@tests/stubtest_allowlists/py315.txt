@@ -22,7 +22,6 @@ dataclasses._MISSING_TYPE
 dataclasses.field
 importlib._abc.Loader.load_module
 importlib._bootstrap_external.NamespacePath
-importlib.abc.InspectLoader.source_to_code
 importlib.abc.MetaPathFinder.discover
 importlib.abc.PathEntryFinder.discover
 importlib.resources._common.package_to_anchor
