@@ -43,7 +43,7 @@ class Font:
     name: str
     delete_font: bool
     if sys.version_info >= (3, 15):
-        __iter__: ClassVar[None]
+        __iter__: ClassVar[None]  # prevent using __getitem__ for iteration
     counter: ClassVar[itertools.count[int]]  # undocumented
     def __init__(
         self,
