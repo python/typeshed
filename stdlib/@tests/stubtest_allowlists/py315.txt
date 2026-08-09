@@ -28,9 +28,6 @@ importlib.resources._common.package_to_anchor
 mailbox._ProxyFile.__class_getitem__
 multiprocessing.process.BaseProcess.__init__
 threading.Condition.locked
-tkinter.Image.__iter__
-tkinter.Misc.__iter__
-tkinter.font.Font.__iter__
 
 # =============================================================
 # Allowlist entries that cannot or should not be fixed; >= 3.15
