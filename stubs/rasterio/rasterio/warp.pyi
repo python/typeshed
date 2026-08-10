@@ -19,7 +19,6 @@ SUPPORTED_RESAMPLING: Final[list[Resampling]]
 def transform(
     src_crs: CRSInput, dst_crs: CRSInput, xs: ArrayLike, ys: ArrayLike, zs: ArrayLike | None = None
 ) -> tuple[list[float], list[float]] | tuple[list[float], list[float], list[float]]: ...
-
 @overload
 def transform_geom(
     src_crs: CRSInput, dst_crs: CRSInput, geom: Geometry | Sequence[Geometry], *, precision: float = -1
@@ -38,7 +37,6 @@ def transform_geom(
     antimeridian_offset: float | None = None,
     precision: float = -1,
 ) -> dict[str, Any] | list[dict[str, Any]]: ...
-
 def transform_bounds(
     src_crs: CRSInput, dst_crs: CRSInput, left: float, bottom: float, right: float, top: float, densify_pts: int = 21
 ) -> tuple[float, float, float, float]: ...
@@ -60,6 +58,7 @@ def reproject(
     resampling: Resampling = ...,
     num_threads: int = 1,
     init_dest_nodata: bool = True,
+    tolerance: float = 0.125,
     warp_mem_limit: int = 0,
     src_geoloc_array: NDArray[Any] | None = None,
     **kwargs: _GDALOption,

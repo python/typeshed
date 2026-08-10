@@ -25,7 +25,7 @@ def show(
     title: str | None = None,
     transform: Affine | None = None,
     percent_range: tuple[float, float] | None = None,
-    adjust: bool = True,
+    adjust: bool = False,
     **kwargs: Any,
 ) -> Any: ...
 def plotting_extent(
