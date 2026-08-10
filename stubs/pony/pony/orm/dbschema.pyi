@@ -71,15 +71,7 @@ class DBIndex(Constraint):
 class ForeignKey(Constraint):
     typename: ClassVar[str]
     def __init__(
-        self,
-        name,
-        child_table,
-        child_columns,
-        parent_table,
-        parent_columns,
-        index_name,
-        on_delete,
-        interleave: bool = False,
+        self, name, child_table, child_columns, parent_table, parent_columns, index_name, on_delete, interleave: bool = False
     ) -> None: ...
     def exists(self, provider, connection, case_sensitive: bool = True): ...
     def get_sql(self) -> str: ...
