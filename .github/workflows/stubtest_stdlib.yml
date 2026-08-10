@@ -11,6 +11,7 @@ on:
       - ".github/workflows/stubtest_stdlib.yml"
       - "tests/**"
       # When requirements.txt changes, we run `daily.yml`, which includes stdlib stubtest
+  workflow_call:
 
 permissions:
   contents: read
@@ -27,6 +28,7 @@ concurrency:
 jobs:
   stubtest-stdlib:
     name: "stubtest: stdlib"
+    if: ${{ github.repository == 'python/typeshed' || github.event_name != 'schedule' }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
