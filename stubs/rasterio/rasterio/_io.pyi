@@ -3,8 +3,8 @@ from collections.abc import Iterator, Sequence
 from typing import Any, BinaryIO, Final
 from typing_extensions import Self, deprecated
 
-from affine import Affine as Affine
 import numpy as np
+from affine import Affine as Affine
 from numpy.typing import DTypeLike, NDArray
 from rasterio._base import DatasetBase
 from rasterio._path import _ParsedPath, _UnparsedPath
