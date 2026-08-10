@@ -14,6 +14,8 @@ from rasterio.rpc import RPC
 SUPPORTED_RESAMPLING: Final[list[Resampling]]
 DEFAULT_NODATA_FLAG: Final[object]
 
+dtype_ranges: dict[str, tuple[float, float]]
+
 def recursive_round(val: _NestedScalar, precision: int) -> _NestedScalar: ...
 def _transform_geom(
     src_crs: CRSInput, dst_crs: CRSInput, geom: Geometry | Sequence[Geometry], precision: int
