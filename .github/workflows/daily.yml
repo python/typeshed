@@ -29,10 +29,10 @@ env:
 
 jobs:
   stubtest-stdlib:
-    uses: "$/.github/workflows/stubtest_stdlib.yml"
+    uses: $/.github/workflows/stubtest_stdlib.yml
 
   stubtest-third-party:
-    uses: "$/.github/workflows/stubtest_third_party.yml"
+    uses: $/.github/workflows/stubtest_third_party.yml
     with:
       all-stubs: true
       sharded: true
