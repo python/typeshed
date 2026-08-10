@@ -4,8 +4,8 @@ from collections.abc import Callable, Sequence
 from typing import Any, Final, Literal, TypeAlias, overload
 from typing_extensions import deprecated
 
+from affine import Affine as Affine
 from numpy.typing import DTypeLike, NDArray
-from rasterio._affine_types import Affine
 from rasterio.enums import Resampling
 from rasterio.io import DatasetReaderBase
 
@@ -23,7 +23,6 @@ def copy_min(merged_data: _Arr, new_data: _Arr, merged_mask: _Arr, new_mask: _Ar
 def copy_max(merged_data: _Arr, new_data: _Arr, merged_mask: _Arr, new_mask: _Arr, **kwargs: Any) -> None: ...
 def copy_sum(merged_data: _Arr, new_data: _Arr, merged_mask: _Arr, new_mask: _Arr, **kwargs: Any) -> None: ...
 def copy_count(merged_data: _Arr, new_data: _Arr, merged_mask: _Arr, new_mask: _Arr, **kwargs: Any) -> None: ...
-
 @overload
 def merge(
     sources: Sequence[DatasetReaderBase | str | os.PathLike[str]],

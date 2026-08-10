@@ -2,7 +2,7 @@ from collections.abc import Sequence
 from typing import Any, Final
 
 from numpy.typing import DTypeLike, NDArray
-from rasterio._affine_types import Affine
+from affine import Affine as Affine
 from rasterio._io import DatasetReaderBase
 from rasterio._typing import CRSInput, Geometry, Indexes, ShapeND, WindowInput, _GDALOption, _NestedScalar
 from rasterio.control import GroundControlPoint
