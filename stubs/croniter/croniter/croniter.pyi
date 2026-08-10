@@ -169,7 +169,6 @@ class croniter(Generic[_R_co]):
         implement_cron_bug: bool = False,
         second_at_beginning: bool = False,
         expand_from_start_time: bool = False,
-        x: int = 1,
     ) -> None: ...
 
     @overload
