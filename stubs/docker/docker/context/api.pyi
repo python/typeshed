@@ -1,12 +1,8 @@
-from collections.abc import Sequence
-from typing import Any, Protocol, TypedDict, type_check_only
+from collections.abc import Mapping, Sequence
+from typing import TypedDict, type_check_only
 
 from docker.context.context import Context
 from docker.tls import TLSConfig
-
-@type_check_only
-class _SupportsGet(Protocol):
-    def get(self, key: str, default: Any = ...) -> Any: ...
 
 @type_check_only
 class _ContextKwargs(TypedDict, total=False):
