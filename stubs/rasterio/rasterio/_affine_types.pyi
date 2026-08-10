@@ -1,4 +1,3 @@
-# Swap to `from affine import Affine as Affine` once affine ships `py.typed` (v3).
-from typing import Any, TypeAlias
+from affine import Affine as Affine
 
-Affine: TypeAlias = Any
+Affine: Affine
