@@ -12,14 +12,13 @@ import tempfile
 from pathlib import Path
 from shutil import rmtree
 from textwrap import dedent
-from time import time
 from typing_extensions import Never
 
 from ts_utils.formatter import StatusLineFormatter
 from ts_utils.metadata import NoSuchStubError, get_recursive_requirements, read_metadata
 from ts_utils.mypy import mypy_configuration_from_distribution, temporary_mypy_config_file
 from ts_utils.paths import STUBS_PATH, allowlists_path, tests_path
-from ts_utils.utils import PYTHON_VERSION, allowlist_stubtest_arguments, format_time, get_mypy_req
+from ts_utils.utils import PYTHON_VERSION, allowlist_stubtest_arguments, get_mypy_req
 
 
 def run_stubtest(dist: Path, *, verbose: bool = False, ci_platforms_only: bool = False, keep_tmp_dir: bool = False) -> bool:
@@ -28,9 +27,7 @@ def run_stubtest(dist: Path, *, verbose: bool = False, ci_platforms_only: bool =
     dist_name = dist.name
     metadata = read_metadata(dist_name)
 
-    with StatusLineFormatter(dist_name) as formatter:
-        t = time()
-
+    with StatusLineFormatter(dist_name, timed=True) as formatter:
         stubtest_settings = metadata.stubtest_settings
         if stubtest_settings.skip:
             formatter.warning("skipping (skip = true)")
@@ -138,7 +135,7 @@ def run_stubtest(dist: Path, *, verbose: bool = False, ci_platforms_only: bool =
                 try:
                     subprocess.run(stubtest_cmd, env=stubtest_env, check=True, capture_output=True)
                 except subprocess.CalledProcessError as e:
-                    formatter.error(f"failed with exit code {e.returncode} " + format_time(time() - t))
+                    formatter.error(f"failed with exit code {e.returncode}")
 
                     formatter.append_divider()
                     formatter.append_output("Commands run:")
@@ -181,7 +178,7 @@ def run_stubtest(dist: Path, *, verbose: bool = False, ci_platforms_only: bool =
 
                     return False
                 else:
-                    formatter.success("success " + format_time(time() - t))
+                    formatter.success("success")
 
                     if sys.platform not in stubtest_settings.ci_platforms:
                         formatter.append_warning(f"Note: {dist_name} is not currently tested on {sys.platform} in typeshed's CI")

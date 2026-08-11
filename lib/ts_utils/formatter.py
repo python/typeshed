@@ -1,7 +1,8 @@
 import subprocess
+import time
 from typing_extensions import Self
 
-from ts_utils.utils import TextColor, colored
+from ts_utils.utils import TextColor, colored, format_time
 
 
 class StatusLineFormatter:
@@ -67,17 +68,22 @@ class StatusLineFormatter:
     <BLANKLINE>
     """
 
-    def __init__(self, initial_text: str) -> None:
+    def __init__(self, initial_text: str, *, timed: bool = False) -> None:
         self.initial_text = initial_text
+        self.timed = timed
         self.status_message: str | None = None
         self.status_color: TextColor = "red"
         self.additional_output: list[tuple[str, TextColor]] = []
+        self.start_time = 0.0
 
     def __enter__(self) -> Self:
         print(f"{self.initial_text}... ", end="", flush=True)
+        self.start_time = time.time()
         return self
 
     def __exit__(self, exc_type: object, exc_value: object, traceback: object) -> None:
+        t = time.time() - self.start_time
+
         if exc_value is not None:
             print(colored(f"error ({exc_value})", "red"))
             return
@@ -86,7 +92,11 @@ class StatusLineFormatter:
             print(colored("unknown result", "red"))
             raise RuntimeError("Progress formatter status not set")
 
-        print(colored(self.status_message, self.status_color))
+        print(colored(self.status_message, self.status_color), end="")
+        if self.timed:
+            print(" ", end="")
+            print(colored(format_time(t)), end="")
+        print()
 
         if self.additional_output:
             print()
