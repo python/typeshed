@@ -1,5 +1,3 @@
-from _typeshed import StrPath
-from collections.abc import Sequence
 from typing import ClassVar, Final
 
 from . import base
@@ -7,6 +5,8 @@ from . import base
 PLAT_SPEC_TO_RUNTIME: Final[dict[str, str]]
 
 class Compiler(base.Compiler):
+    compiler_type: ClassVar[str]
+    description: ClassVar[str]
     src_extensions: ClassVar[list[str]]
     res_extension: ClassVar[str]
     obj_extension: ClassVar[str]
@@ -20,4 +20,4 @@ class Compiler(base.Compiler):
     def initialize(self, plat_name: str | None = None) -> None: ...
     @property
     def out_extensions(self) -> dict[str, str]: ...
-    def spawn(self, cmd: Sequence[bytes | StrPath]): ...  # type: ignore[override] # Less params
+    def call(self, cmd, *, env=None, **kwargs): ...

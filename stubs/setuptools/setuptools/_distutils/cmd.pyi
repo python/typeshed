@@ -20,6 +20,10 @@ class Command:
         list[tuple[str, str, str]]
         | list[tuple[str, str | None, str]]
     ]
+    verbose: bool
+    force: bool | None
+    help: bool
+    finalized: bool
     def __init__(self, dist: Distribution) -> None: ...
     def ensure_finalized(self) -> None: ...
     @abstractmethod
