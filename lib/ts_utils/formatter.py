@@ -129,7 +129,7 @@ class StatusLineFormatter:
 
     def append_hint(self, message: str) -> None:
         """Print a hint for the user."""
-        self.additional_output.append((message, "blue"))
+        self.additional_output.append((message, "magenta"))
 
     def append_divider(self) -> None:
         """Append a divider to the additional output.
