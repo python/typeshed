@@ -1,5 +1,6 @@
+from _typeshed import Incomplete
 from collections.abc import Mapping
-from typing import Any, TypeAlias
+from typing import TypeAlias
 
 from yaml.emitter import Emitter
 from yaml.representer import BaseRepresenter, Representer, SafeRepresenter
@@ -15,7 +16,7 @@ _Inf: TypeAlias = float
 class BaseDumper(Emitter, Serializer, BaseRepresenter, BaseResolver):
     def __init__(
         self,
-        stream: _WriteStream[Any],
+        stream: _WriteStream[Incomplete],
         default_style: str | None = None,
         default_flow_style: bool | None = False,
         canonical: bool | None = None,
@@ -34,7 +35,7 @@ class BaseDumper(Emitter, Serializer, BaseRepresenter, BaseResolver):
 class SafeDumper(Emitter, Serializer, SafeRepresenter, Resolver):
     def __init__(
         self,
-        stream: _WriteStream[Any],
+        stream: _WriteStream[Incomplete],
         default_style: str | None = None,
         default_flow_style: bool | None = False,
         canonical: bool | None = None,
@@ -53,7 +54,7 @@ class SafeDumper(Emitter, Serializer, SafeRepresenter, Resolver):
 class Dumper(Emitter, Serializer, Representer, Resolver):
     def __init__(
         self,
-        stream: _WriteStream[Any],
+        stream: _WriteStream[Incomplete],
         default_style: str | None = None,
         default_flow_style: bool | None = False,
         canonical: bool | None = None,
