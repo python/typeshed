@@ -202,8 +202,8 @@ This has the following keys:
 * `skip` (default: `false`): Whether stubtest should be run against this
   package. Please avoid setting this to `true`, and add a comment if you have
   to.
-* `ignore-missing-stub`: When set to `true`, this will add the
-  `--ignore-missing-stub` option to the stubtest call. See
+* `ignore-missing-stub` (default: `false`): When set to `true`, this will add
+  the `--ignore-missing-stub` option to the stubtest call. See
   [tests/README.md](./tests/README.md) for more information. In most cases,
   this field should be identical to `partial-stub`.
 * `stubtest-dependencies` (default: `[]`): A list of Python packages that need
@@ -216,6 +216,10 @@ This has the following keys:
   that need to be installed for stubtest to run successfully
 * `choco-dependencies` (default: `[]`): A list of Windows Chocolatey packages
   that need to be installed for stubtest to run successfully
+* `extras` (default: `[]`): A list of optional dependency groups
+  ([extras](https://packaging.python.org/en/latest/specifications/core-metadata/#provides-extra-multiple-use))
+  that need to be installed for stubtest to run successfully.
+  For example, `extras = ["foo"]` installs the package as `<package>[foo]`.
 * `supported-platforms` (default: all platforms): A list of OSes on which
   stubtest can be run. When a package is not platform-specific, this should
   not be set. If the package is platform-specific, this should usually be set
