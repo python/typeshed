@@ -2,8 +2,8 @@ import sys
 from _typeshed import SupportsWrite, sentinel
 from collections.abc import Callable, Generator, Iterable, Sequence
 from re import Pattern
-from typing import IO, Any, ClassVar, Final, Generic, NoReturn, Protocol, TypeAlias, TypeVar, overload, type_check_only
-from typing_extensions import Self, deprecated
+from typing import IO, Any, ClassVar, Final, Generic, Protocol, TypeAlias, TypeVar, overload, type_check_only
+from typing_extensions import Never, Self, deprecated
 
 __all__ = [
     "ArgumentParser",
@@ -91,6 +91,7 @@ class _ActionsContainer:
         version: str = ...,
         **kwargs: Any,
     ) -> Action: ...
+
     @overload
     def add_argument_group(
         self,
@@ -102,7 +103,7 @@ class _ActionsContainer:
         conflict_handler: str = ...,
     ) -> _ArgumentGroup: ...
     @overload
-    @deprecated("The `prefix_chars` parameter deprecated since Python 3.14.")
+    @deprecated("The `prefix_chars` parameter is deprecated.")
     def add_argument_group(
         self,
         title: str | None = None,
@@ -112,6 +113,7 @@ class _ActionsContainer:
         argument_default: Any = ...,
         conflict_handler: str = ...,
     ) -> _ArgumentGroup: ...
+
     def add_mutually_exclusive_group(self, *, required: bool = False) -> _MutuallyExclusiveGroup: ...
     def _add_action(self, action: _ActionT) -> _ActionT: ...
     def _remove_action(self, action: Action) -> None: ...
@@ -121,7 +123,7 @@ class _ActionsContainer:
     def _pop_action_class(self, kwargs: Any, default: type[Action] | None = None) -> type[Action]: ...
     def _get_handler(self) -> Callable[[Action, Iterable[tuple[str, Action]]], Any]: ...
     def _check_conflict(self, action: Action) -> None: ...
-    def _handle_conflict_error(self, action: Action, conflicting_actions: Iterable[tuple[str, Action]]) -> NoReturn: ...
+    def _handle_conflict_error(self, action: Action, conflicting_actions: Iterable[tuple[str, Action]]) -> Never: ...
     def _handle_conflict_resolve(self, action: Action, conflicting_actions: Iterable[tuple[str, Action]]) -> None: ...
 
 @type_check_only
@@ -213,6 +215,7 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
     def parse_args(self, args: Iterable[str] | None, namespace: _N) -> _N: ...
     @overload
     def parse_args(self, *, namespace: _N) -> _N: ...
+
     @overload
     def add_subparsers(
         self: _ArgumentParserT,
@@ -242,6 +245,7 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
         help: str | None = None,
         metavar: str | None = None,
     ) -> _SubParsersAction[_ArgumentParserT]: ...
+
     def print_usage(self, file: SupportsWrite[str] | None = None) -> None: ...
     def print_help(self, file: SupportsWrite[str] | None = None) -> None: ...
     if sys.version_info >= (3, 15):
@@ -258,15 +262,18 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
     def parse_known_args(self, args: Iterable[str] | None, namespace: _N) -> tuple[_N, list[str]]: ...
     @overload
     def parse_known_args(self, *, namespace: _N) -> tuple[_N, list[str]]: ...
+
     def convert_arg_line_to_args(self, arg_line: str) -> list[str]: ...
-    def exit(self, status: int = 0, message: str | None = None) -> NoReturn: ...
-    def error(self, message: str) -> NoReturn: ...
+    def exit(self, status: int = 0, message: str | None = None) -> Never: ...
+    def error(self, message: str) -> Never: ...
+
     @overload
     def parse_intermixed_args(self, args: Iterable[str] | None = None, namespace: None = None) -> Namespace: ...
     @overload
     def parse_intermixed_args(self, args: Iterable[str] | None, namespace: _N) -> _N: ...
     @overload
     def parse_intermixed_args(self, *, namespace: _N) -> _N: ...
+
     @overload
     def parse_known_intermixed_args(
         self, args: Iterable[str] | None = None, namespace: None = None
@@ -275,6 +282,7 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
     def parse_known_intermixed_args(self, args: Iterable[str] | None, namespace: _N) -> tuple[_N, list[str]]: ...
     @overload
     def parse_known_intermixed_args(self, *, namespace: _N) -> tuple[_N, list[str]]: ...
+
     # undocumented
     def _get_optional_actions(self) -> list[Action]: ...
     def _get_positional_actions(self) -> list[Action]: ...
@@ -314,8 +322,8 @@ class HelpFormatter:
     _current_indent: int
     _level: int
     _action_max_length: int
-    _root_section: _Section
-    _current_section: _Section
+    _root_section: _Section  # pyrefly: ignore [unknown-name]
+    _current_section: _Section  # pyrefly: ignore [unknown-name]
     _whitespace_matcher: Pattern[str]
     _long_break_matcher: Pattern[str]
 
@@ -522,7 +530,7 @@ class Namespace(_AttributeHolder):
     def __eq__(self, other: object) -> bool: ...
     __hash__: ClassVar[None]  # type: ignore[assignment]
 
-@deprecated("Deprecated since Python 3.14. Open files after parsing arguments instead.")
+@deprecated("Deprecated; may leave files open. Open files after parsing arguments instead.")
 class FileType:
     # undocumented
     _mode: str
@@ -536,6 +544,7 @@ class FileType:
 class _ArgumentGroup(_ActionsContainer):
     title: str | None
     _group_actions: list[Action]
+
     @overload
     def __init__(
         self,
@@ -547,7 +556,7 @@ class _ArgumentGroup(_ActionsContainer):
         conflict_handler: str = ...,
     ) -> None: ...
     @overload
-    @deprecated("Undocumented `prefix_chars` parameter is deprecated since Python 3.14.")
+    @deprecated("Undocumented `prefix_chars` parameter is deprecated.")
     def __init__(
         self,
         container: _ActionsContainer,

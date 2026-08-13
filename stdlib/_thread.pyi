@@ -4,14 +4,15 @@ from _typeshed import structseq
 from collections.abc import Callable
 from threading import Thread
 from types import TracebackType
-from typing import Any, Final, NoReturn, final, overload
-from typing_extensions import TypeVarTuple, Unpack, deprecated, disjoint_base
+from typing import Any, Final, final, overload
+from typing_extensions import Never, TypeVarTuple, Unpack, deprecated, disjoint_base
 
 _Ts = TypeVarTuple("_Ts")
 
 error = RuntimeError
 
 def _count() -> int: ...
+
 @final
 class RLock:
     def acquire(self, blocking: bool = True, timeout: float = -1) -> bool: ...
@@ -33,6 +34,7 @@ if sys.version_info >= (3, 13):
     def start_joinable_thread(
         function: Callable[[], object], handle: _ThreadHandle | None = None, daemon: bool = True
     ) -> _ThreadHandle: ...
+
     @final
     class lock:
         def acquire(self, blocking: bool = True, timeout: float = -1) -> bool: ...
@@ -71,16 +73,18 @@ else:
 def start_new_thread(function: Callable[[Unpack[_Ts]], object], args: tuple[Unpack[_Ts]], /) -> int: ...
 @overload
 def start_new_thread(function: Callable[..., object], args: tuple[Any, ...], kwargs: dict[str, Any], /) -> int: ...
+
 @overload
 @deprecated("Obsolete synonym. Use `start_new_thread()` instead.")
 def start_new(function: Callable[[Unpack[_Ts]], object], args: tuple[Unpack[_Ts]], /) -> int: ...  # undocumented
 @overload
 @deprecated("Obsolete synonym. Use `start_new_thread()` instead.")
 def start_new(function: Callable[..., object], args: tuple[Any, ...], kwargs: dict[str, Any], /) -> int: ...  # undocumented
+
 def interrupt_main(signum: signal.Signals = signal.SIGINT, /) -> None: ...
-def exit() -> NoReturn: ...
+def exit() -> Never: ...
 @deprecated("Obsolete synonym. Use `exit()` instead.")
-def exit_thread() -> NoReturn: ...  # undocumented
+def exit_thread() -> Never: ...  # undocumented
 def allocate_lock() -> LockType: ...
 @deprecated("Obsolete synonym. Use `allocate_lock()` instead.")
 def allocate() -> LockType: ...  # undocumented
@@ -90,6 +94,7 @@ def stack_size(size: int = 0, /) -> int: ...
 TIMEOUT_MAX: Final[float]
 
 def get_native_id() -> int: ...  # only available on some platforms
+
 @final
 class _ExceptHookArgs(structseq[Any], tuple[type[BaseException], BaseException | None, TracebackType | None, Thread | None]):
     __match_args__: Final = ("exc_type", "exc_value", "exc_traceback", "thread")

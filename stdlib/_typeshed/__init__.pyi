@@ -69,6 +69,14 @@ Unused: TypeAlias = object  # stable
 # for more information.
 MaybeNone: TypeAlias = Any  # stable
 
+# typeshed-internal type aliases to facilitate transition from
+# `float` to either `float | int` or `float` (and similar for `complex`).
+# When you encounter one of these type aliases, you are encouraged to
+# replace them with the correct type. Please don't use them outside typeshed.
+# See https://github.com/python/typeshed/issues/16059 for details.
+FloatInt: TypeAlias = float | int
+ComplexInt: TypeAlias = complex | float | int
+
 # Used to mark arguments that default to a sentinel value. This prevents
 # stubtest from complaining about the default value not matching.
 #
@@ -171,6 +179,18 @@ class SupportsTrunc(Protocol):
 
 # Mapping-like protocols
 
+# The second and third overload could technically be combined, but splitting
+# them works better with some type checkers.
+class SupportsGet(Protocol[_KT_contra, _VT_co]):  # type: ignore[misc] # Covariant type as parameter
+    @overload
+    def get(self, key: _KT_contra, /) -> _VT_co | None: ...
+    @overload
+    def get(
+        self, key: _KT_contra, default: _VT_co, /  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues] # Covariant type as parameter
+    ) -> _VT_co: ...
+    @overload
+    def get(self, key: _KT_contra, default: _T, /) -> _VT_co | _T: ...
+
 # stable
 class SupportsItems(Protocol[_KT_co, _VT_co]):
     def items(self) -> AbstractSet[tuple[_KT_co, _VT_co]]: ...
@@ -230,7 +250,7 @@ class MappingLike(Protocol[_KT, _VT_co]):
     def keys(self) -> KeysView[_KT]: ...
     def values(self) -> ValuesView[_VT_co]: ...
 
-# Path- and I/O-related types
+# Path and file handling
 
 StrPath: TypeAlias = str | PathLike[str]  # stable
 BytesPath: TypeAlias = bytes | PathLike[bytes]  # stable
@@ -360,6 +380,7 @@ class IndexableBuffer(Buffer, Protocol):
 
 class SupportsGetItemBuffer(SliceableBuffer, IndexableBuffer, Protocol):
     def __contains__(self, x: Any, /) -> bool: ...
+
     @overload
     def __getitem__(self, slice: slice[SupportsIndex | None], /) -> Sequence[int]: ...
     @overload
@@ -397,10 +418,12 @@ AnyOrLiteralStr = TypeVar("AnyOrLiteralStr", str, bytes, LiteralString)  # noqa:
 StrOrLiteralStr = TypeVar("StrOrLiteralStr", LiteralString, str)  # noqa: Y001
 
 # Objects suitable to be passed to sys.setprofile, threading.setprofile, and similar
-ProfileFunction: TypeAlias = Callable[[FrameType, str, Any], object]
+ProfileFunction: TypeAlias = Callable[[FrameType, Literal["call", "return", "c_call", "c_return", "c_exception"], Any], object]
 
 # Objects suitable to be passed to sys.settrace, threading.settrace, and similar
-TraceFunction: TypeAlias = Callable[[FrameType, str, Any], TraceFunction | None]
+TraceFunction: TypeAlias = Callable[
+    [FrameType, Literal["call", "line", "return", "exception", "opcode"], Any], TraceFunction | None
+]
 
 # experimental
 # Might not work as expected for pyright, see

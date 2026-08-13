@@ -43,7 +43,7 @@ _CM_EF = TypeVar("_CM_EF", bound=AbstractContextManager[Any, Any] | _ExitFunc)
 # At runtime it inherits from ABC and is not a Protocol, but it is on the
 # allowlist for use as a Protocol.
 @runtime_checkable
-class AbstractContextManager(ABC, Protocol[_T_co, _ExitT_co]):  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
+class AbstractContextManager(ABC, Protocol[_T_co, _ExitT_co]):  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]  # ty:ignore[invalid-protocol]  # pyrefly: ignore [invalid-inheritance]
     __slots__ = ()
     def __enter__(self) -> _T_co: ...
     @abstractmethod
@@ -55,7 +55,7 @@ class AbstractContextManager(ABC, Protocol[_T_co, _ExitT_co]):  # type: ignore[m
 # At runtime it inherits from ABC and is not a Protocol, but it is on the
 # allowlist for use as a Protocol.
 @runtime_checkable
-class AbstractAsyncContextManager(ABC, Protocol[_T_co, _ExitT_co]):  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
+class AbstractAsyncContextManager(ABC, Protocol[_T_co, _ExitT_co]):  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]  # ty:ignore[invalid-protocol]  # pyrefly: ignore [invalid-inheritance]
     __slots__ = ()
     async def __aenter__(self) -> _T_co: ...
     @abstractmethod
@@ -115,6 +115,7 @@ def asynccontextmanager(func: Callable[_P, AsyncGenerator[_T_co]]) -> Callable[_
     "Use `-> AsyncGenerator[Foo]` instead."
 )
 def asynccontextmanager(func: Callable[_P, AsyncIterator[_T_co]]) -> Callable[_P, _AsyncGeneratorContextManager[_T_co]]: ...
+
 @type_check_only
 class _SupportsClose(Protocol):
     def close(self) -> object: ...
@@ -202,10 +203,12 @@ class AsyncExitStack(_BaseExitStackAbstract[_ExitT_co]):
 
 class nullcontext(AbstractContextManager[_T, None], AbstractAsyncContextManager[_T, None]):
     enter_result: _T
+
     @overload
     def __init__(self: nullcontext[None]) -> None: ...
     @overload
     def __init__(self: nullcontext[_T], enter_result: _T) -> None: ...  # pyright: ignore[reportInvalidTypeVarUse]  #11780
+
     def __enter__(self) -> _T: ...
     def __exit__(self, *exctype: Unused) -> None: ...
     async def __aenter__(self) -> _T: ...

@@ -41,10 +41,19 @@ class InspectLoader(Loader):
     @abstractmethod
     def get_source(self, fullname: str) -> str | None: ...
     def exec_module(self, module: types.ModuleType) -> None: ...
-    @staticmethod
-    def source_to_code(
-        data: ReadableBuffer | str | _ast.Module | _ast.Expression | _ast.Interactive, path: bytes | StrPath = "<string>"
-    ) -> types.CodeType: ...
+
+    if sys.version_info >= (3, 15):
+        @staticmethod
+        def source_to_code(
+            data: ReadableBuffer | str | _ast.Module | _ast.Expression | _ast.Interactive,
+            path: bytes | StrPath = "<string>",
+            fullname: str | None = None,
+        ) -> types.CodeType: ...
+    else:
+        @staticmethod
+        def source_to_code(
+            data: ReadableBuffer | str | _ast.Module | _ast.Expression | _ast.Interactive, path: bytes | StrPath = "<string>"
+        ) -> types.CodeType: ...
 
 class ExecutionLoader(InspectLoader):
     @abstractmethod
@@ -107,6 +116,7 @@ if sys.version_info < (3, 11):
         def is_file(self) -> bool: ...
         @abstractmethod
         def iterdir(self) -> Iterator[Traversable]: ...
+
         if sys.version_info >= (3, 11):
             @abstractmethod
             def joinpath(self, *descendants: str) -> Traversable: ...
@@ -123,6 +133,7 @@ if sys.version_info < (3, 11):
         @overload
         @abstractmethod
         def open(self, mode: Literal["rb"]) -> IO[bytes]: ...
+
         @property
         @abstractmethod
         def name(self) -> str: ...

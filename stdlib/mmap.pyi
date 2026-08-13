@@ -2,8 +2,8 @@ import os
 import sys
 from _typeshed import ReadableBuffer, Unused
 from collections.abc import Iterator
-from typing import Final, Literal, NoReturn, SupportsIndex, overload
-from typing_extensions import Self, disjoint_base
+from typing import Final, Literal, SupportsIndex, overload
+from typing_extensions import Never, Self, disjoint_base
 
 ACCESS_DEFAULT: Final = 0
 ACCESS_READ: Final = 1
@@ -112,11 +112,14 @@ class mmap:
     def __getitem__(self, key: SupportsIndex, /) -> int: ...
     @overload
     def __getitem__(self, key: slice[SupportsIndex | None], /) -> bytes: ...
-    def __delitem__(self, key: SupportsIndex | slice[SupportsIndex | None], /) -> NoReturn: ...
+
+    def __delitem__(self, key: SupportsIndex | slice[SupportsIndex | None], /) -> Never: ...
+
     @overload
     def __setitem__(self, key: SupportsIndex, value: int, /) -> None: ...
     @overload
     def __setitem__(self, key: slice[SupportsIndex | None], value: ReadableBuffer, /) -> None: ...
+
     # Doesn't actually exist, but the object actually supports "in" because it has __getitem__,
     # so we claim that there is also a __contains__ to help type checkers.
     def __contains__(self, o: object, /) -> bool: ...

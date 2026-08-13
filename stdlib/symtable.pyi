@@ -9,7 +9,11 @@ __all__ = ["symtable", "SymbolTable", "Class", "Function", "Symbol"]
 if sys.version_info >= (3, 13):
     __all__ += ["SymbolTableType"]
 
-def symtable(code: str, filename: str, compile_type: str) -> SymbolTable: ...
+if sys.version_info >= (3, 15):
+    def symtable(code: str, filename: str, compile_type: str, *, module: str | None = None) -> SymbolTable: ...
+
+else:
+    def symtable(code: str, filename: str, compile_type: str) -> SymbolTable: ...
 
 if sys.version_info >= (3, 13):
     from enum import StrEnum
@@ -52,7 +56,7 @@ class Function(SymbolTable):
     def get_nonlocals(self) -> tuple[str, ...]: ...
 
 class Class(SymbolTable):
-    @deprecated("Deprecated since Python 3.14; will be removed in Python 3.16.")
+    @deprecated("Deprecated; will be removed in Python 3.16.")
     def get_methods(self) -> tuple[str, ...]: ...
 
 class Symbol:
