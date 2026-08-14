@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Callable
-from typing import Final, Protocol, TypeVar, type_check_only
+from typing import Any, Final, Protocol, TypeAlias, TypeVar, type_check_only
 from typing_extensions import Never
 
 from yaml.error import YAMLError
@@ -8,6 +8,7 @@ from yaml.error import YAMLError
 from .events import Event
 
 _T_contra = TypeVar("_T_contra", str, bytes, contravariant=True)
+_YAMLObject: TypeAlias = Any
 
 @type_check_only
 class _WriteStream(Protocol[_T_contra]):
@@ -33,7 +34,7 @@ class ScalarAnalysis:
 
 class Emitter:
     DEFAULT_TAG_PREFIXES: Final[dict[str, str]]
-    stream: _WriteStream[Incomplete]
+    stream: _WriteStream[_YAMLObject]
     encoding: str | None
     states: list[Callable[[], None]]
     state: Callable[[], None] | None
@@ -63,7 +64,7 @@ class Emitter:
     style: str | None
     def __init__(
         self,
-        stream: _WriteStream[Incomplete],
+        stream: _WriteStream[_YAMLObject],
         canonical: bool | None = None,
         indent: int | None = None,
         width: int | None = None,
