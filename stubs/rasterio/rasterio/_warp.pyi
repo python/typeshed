@@ -7,14 +7,13 @@ from rasterio._io import DatasetReaderBase
 from rasterio._typing import CRSInput, Geometry, Indexes, ShapeND, WindowInput, _GDALOption, _NestedScalar
 from rasterio.control import GroundControlPoint
 from rasterio.crs import CRS
+from rasterio.dtypes import dtype_ranges as dtype_ranges
 from rasterio.enums import Resampling
 from rasterio.io import DatasetReader
 from rasterio.rpc import RPC
 
 SUPPORTED_RESAMPLING: Final[list[Resampling]]
 DEFAULT_NODATA_FLAG: Final[object]
-
-dtype_ranges: dict[str, tuple[float, float]]
 
 def recursive_round(val: _NestedScalar, precision: int) -> _NestedScalar: ...
 def _transform_geom(
