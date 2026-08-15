@@ -1,5 +1,6 @@
 import sys
 from _typeshed import (
+    ReadableBuffer,
     SupportsAdd,
     SupportsGetItem,
     SupportsMod,
@@ -150,6 +151,9 @@ def ixor(a, b, /): ...
 if sys.version_info >= (3, 11):
     def call(obj: Callable[_P, _R], /, *args: _P.args, **kwargs: _P.kwargs) -> _R: ...
 
+@overload
+def _compare_digest(a: ReadableBuffer, b: ReadableBuffer, /) -> bool: ...
+@overload
 def _compare_digest(a: AnyStr, b: AnyStr, /) -> bool: ...
 
 if sys.version_info >= (3, 14):
