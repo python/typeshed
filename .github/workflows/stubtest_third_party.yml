@@ -7,6 +7,18 @@ on:
       - ".github/workflows/stubtest_third_party.yml"
       - "tests/**"
       # When requirements.txt changes, we run `daily.yml`, which includes third-party stubtest
+  workflow_call:
+    inputs:
+      all-stubs:
+        description: "Run on all stubs, not only changed"
+        required: false
+        default: false
+        type: boolean
+      sharded:
+        description: "Split the run across 4 shards"
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: read
@@ -22,17 +34,19 @@ env:
   TERM: xterm-256color # needed for FORCE_COLOR to work on mypy on Ubuntu, see https://github.com/python/mypy/issues/13817
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  group: stubtest-third-party-${{ github.workflow }}-${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
 
 jobs:
   stubtest-third-party:
     name: "stubtest: third party"
+    if: ${{ github.repository == 'python/typeshed' || github.event_name != 'schedule' }}
 
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: ["ubuntu-latest", "windows-latest", "macos-latest"]
+        shard-index: ${{ inputs.sharded && fromJSON('[0, 1, 2, 3]') || fromJSON('[0]') }}
       fail-fast: false
 
     steps:
@@ -49,6 +63,7 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements-tests.txt
       - name: Determine changed stubs
+        if: ${{ ! inputs.all-stubs }}
         shell: bash
         run: |
           # This only runs stubtest on changed stubs, because it is much faster.
@@ -64,7 +79,7 @@ jobs:
       - name: Install required system packages
         shell: bash
         run: |
-          if [ -n "$STUBS" ]; then
+          if [ -n "$STUBS" -o "${{ inputs.all-stubs }}" = "true" ]; then
             PACKAGES=$(python tests/get_stubtest_system_requirements.py $STUBS)
             if [ "${{ runner.os }}" = "Linux" ]; then
               if [ -n "$PACKAGES" ]; then
@@ -88,14 +103,16 @@ jobs:
         run: |
           if [ -n "$STUBS" ]; then
             echo "Testing $STUBS..."
+          fi
 
+          if [ -n "$STUBS" -o "${{ inputs.all-stubs }}" = "true" ]; then
             if [ "${{ runner.os }}" = "Linux" ]; then
               PYTHON_EXECUTABLE="xvfb-run python"
             else
               PYTHON_EXECUTABLE="python"
             fi
 
-            $PYTHON_EXECUTABLE tests/stubtest_third_party.py --ci-platforms-only $STUBS
+            $PYTHON_EXECUTABLE tests/stubtest_third_party.py --ci-platforms-only --num-shards ${{ inputs.sharded && 4 || 1 }} --shard-index ${{ matrix.shard-index }} $STUBS
           else
             echo "Nothing to test"
           fi
