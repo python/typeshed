@@ -30,7 +30,7 @@ from _typeshed import (
     SupportsRichComparisonT,
     SupportsWrite,
 )
-from collections.abc import Awaitable, Callable, Hashable, Iterable, Iterator, MutableSet, Reversible, Set as AbstractSet, Sized
+from collections.abc import Awaitable, Callable, Hashable, Iterable, Iterator, MutableSet, Set as AbstractSet, Sized
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
 from os import PathLike
 from types import CellType, CodeType, EllipsisType, GenericAlias, NotImplementedType, TracebackType, UnionType
