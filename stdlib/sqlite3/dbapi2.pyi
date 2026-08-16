@@ -90,6 +90,9 @@ if sys.version_info >= (3, 12):
         SQLITE_DBCONFIG_WRITABLE_SCHEMA as SQLITE_DBCONFIG_WRITABLE_SCHEMA,
     )
 
+if sys.version_info >= (3, 15):
+    from _sqlite3 import SQLITE_KEYWORDS as SQLITE_KEYWORDS
+
 if sys.version_info >= (3, 11):
     from _sqlite3 import (
         SQLITE_ABORT as SQLITE_ABORT,

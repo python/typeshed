@@ -1,4 +1,4 @@
-name: Run mypy_primer
+name: mypy_primer
 
 on:
   # Only run on PR, since we diff against main
@@ -22,10 +22,10 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        shard-index: [0, 1, 2, 3]
+        shard-index: [0, 1, 2, 3, 4, 5]
       fail-fast: false
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           path: typeshed_to_test
           fetch-depth: 0
@@ -52,7 +52,7 @@ jobs:
             --new v${MYPY_VERSION} --old v${MYPY_VERSION} \
             --custom-typeshed-repo typeshed_to_test \
             --new-typeshed $GITHUB_SHA --old-typeshed upstream_main \
-            --num-shards 4 --shard-index ${{ matrix.shard-index }} \
+            --num-shards 6 --shard-index ${{ matrix.shard-index }} \
             --debug \
             --output concise \
             | tee diff_${{ matrix.shard-index }}.txt

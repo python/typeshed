@@ -1,5 +1,6 @@
 import _tkinter
 import itertools
+import sys
 import tkinter
 from typing import Any, ClassVar, Final, Literal, TypeAlias, TypedDict, overload, type_check_only
 from typing_extensions import Unpack
@@ -41,6 +42,8 @@ class _MetricsDict(TypedDict):
 class Font:
     name: str
     delete_font: bool
+    if sys.version_info >= (3, 15):
+        __iter__: ClassVar[None]  # prevent using __getitem__ for iteration
     counter: ClassVar[itertools.count[int]]  # undocumented
     def __init__(
         self,
@@ -60,6 +63,7 @@ class Font:
     ) -> None: ...
     __hash__: ClassVar[None]  # type: ignore[assignment]
     def __setitem__(self, key: str, value: Any) -> None: ...
+
     @overload
     def cget(self, option: Literal["family"]) -> str: ...
     @overload
@@ -72,7 +76,9 @@ class Font:
     def cget(self, option: Literal["underline", "overstrike"]) -> bool: ...
     @overload
     def cget(self, option: str) -> Any: ...
+
     __getitem__ = cget
+
     @overload
     def actual(self, option: Literal["family"], displayof: tkinter.Misc | None = None) -> str: ...
     @overload
@@ -87,6 +93,7 @@ class Font:
     def actual(self, option: None, displayof: tkinter.Misc | None = None) -> _FontDict: ...
     @overload
     def actual(self, *, displayof: tkinter.Misc | None = None) -> _FontDict: ...
+
     def config(
         self,
         *,
@@ -99,12 +106,14 @@ class Font:
     ) -> _FontDict | None: ...
     configure = config
     def copy(self) -> Font: ...
+
     @overload
     def metrics(self, option: Literal["ascent", "descent", "linespace"], /, *, displayof: tkinter.Misc | None = ...) -> int: ...
     @overload
     def metrics(self, option: Literal["fixed"], /, *, displayof: tkinter.Misc | None = ...) -> bool: ...
     @overload
     def metrics(self, *, displayof: tkinter.Misc | None = ...) -> _MetricsDict: ...
+
     def measure(self, text: str, displayof: tkinter.Misc | None = None) -> int: ...
     def __eq__(self, other: object) -> bool: ...
     def __del__(self) -> None: ...

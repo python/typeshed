@@ -293,7 +293,6 @@ if sys.version_info >= (3, 11):
         pipesize: int = -1,
         process_group: int | None = None,
     ) -> CompletedProcess[Any]: ...
-
 else:
     # 3.10 adds "pipesize" argument
     @overload  # text is True
@@ -813,7 +812,6 @@ if sys.version_info >= (3, 11):
         pipesize: int = -1,
         process_group: int | None = None,
     ) -> Any: ...  # morally: -> str | bytes
-
 else:
     # 3.10 adds "pipesize" argument
     @overload  # text is True
@@ -1032,9 +1030,9 @@ class CalledProcessError(SubprocessError):
 
 class Popen(Generic[AnyStr]):
     args: _CMD
-    stdin: IO[Any] | None
-    stdout: IO[Any] | None
-    stderr: IO[Any] | None
+    stdin: IO[AnyStr] | None
+    stdout: IO[AnyStr] | None
+    stderr: IO[AnyStr] | None
     pid: int
     returncode: int | MaybeNone
     universal_newlines: bool

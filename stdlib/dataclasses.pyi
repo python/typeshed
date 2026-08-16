@@ -64,6 +64,7 @@ class KW_ONLY: ...
 def asdict(obj: DataclassInstance) -> dict[str, Any]: ...
 @overload
 def asdict(obj: DataclassInstance, *, dict_factory: Callable[[list[tuple[str, Any]]], _T]) -> _T: ...
+
 @overload
 def astuple(obj: DataclassInstance) -> tuple[Any, ...]: ...
 @overload
@@ -102,7 +103,6 @@ if sys.version_info >= (3, 11):
         slots: bool = False,
         weakref_slot: bool = False,
     ) -> Callable[[type[_T]], type[_T]]: ...
-
 else:
     @overload
     def dataclass(
@@ -256,7 +256,6 @@ if sys.version_info >= (3, 14):
         kw_only: bool | Literal[_MISSING_TYPE.MISSING] = ...,
         doc: str | None = None,
     ) -> Any: ...
-
 else:
     @overload  # `default` and `default_factory` are optional and mutually exclusive.
     def field(
@@ -299,7 +298,7 @@ def fields(class_or_instance: DataclassInstance | type[DataclassInstance]) -> tu
 
 # HACK: `obj: Never` typing matches if object argument is using `Any` type.
 @overload
-def is_dataclass(obj: Never) -> TypeIs[DataclassInstance | type[DataclassInstance]]: ...  # type: ignore[narrowed-type-not-subtype]  # pyright: ignore[reportGeneralTypeIssues]
+def is_dataclass(obj: Never) -> TypeIs[DataclassInstance | type[DataclassInstance]]: ...  # type: ignore[narrowed-type-not-subtype]  # pyright: ignore[reportGeneralTypeIssues]  # ty:ignore[invalid-type-guard-definition]  # pyrefly: ignore [bad-function-definition]
 @overload
 def is_dataclass(obj: type) -> TypeIs[type[DataclassInstance]]: ...
 @overload
@@ -309,12 +308,17 @@ class FrozenInstanceError(AttributeError): ...
 
 class InitVar(Generic[_T]):
     __slots__ = ("type",)
-    type: Type[_T]
+    type: Type[_T]  # ty:ignore[unbound-type-variable]
     def __init__(self, type: Type[_T]) -> None: ...
+
     @overload
-    def __class_getitem__(cls, type: Type[_T]) -> InitVar[_T]: ...  # pyright: ignore[reportInvalidTypeForm]
+    def __class_getitem__(
+        cls, type: Type[_T]
+    ) -> InitVar[_T]: ...  # pyright: ignore[reportInvalidTypeForm]  # ty:ignore[invalid-type-form]
     @overload
-    def __class_getitem__(cls, type: Any) -> InitVar[Any]: ...  # pyright: ignore[reportInvalidTypeForm]
+    def __class_getitem__(
+        cls, type: Any
+    ) -> InitVar[Any]: ...  # pyright: ignore[reportInvalidTypeForm]  # ty:ignore[invalid-type-form]
 
 if sys.version_info >= (3, 14):
     def make_dataclass(

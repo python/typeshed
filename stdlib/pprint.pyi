@@ -1,57 +1,124 @@
+import sys
 from _typeshed import SupportsWrite
 from collections import deque
 from typing import IO
 
 __all__ = ["pprint", "pformat", "isreadable", "isrecursive", "saferepr", "PrettyPrinter", "pp"]
 
-def pformat(
-    object: object,
-    indent: int = 1,
-    width: int = 80,
-    depth: int | None = None,
-    *,
-    compact: bool = False,
-    sort_dicts: bool = True,
-    underscore_numbers: bool = False,
-) -> str: ...
-def pp(
-    object: object,
-    stream: IO[str] | None = None,
-    indent: int = 1,
-    width: int = 80,
-    depth: int | None = None,
-    *,
-    compact: bool = False,
-    sort_dicts: bool = False,
-    underscore_numbers: bool = False,
-) -> None: ...
-def pprint(
-    object: object,
-    stream: IO[str] | None = None,
-    indent: int = 1,
-    width: int = 80,
-    depth: int | None = None,
-    *,
-    compact: bool = False,
-    sort_dicts: bool = True,
-    underscore_numbers: bool = False,
-) -> None: ...
-def isreadable(object: object) -> bool: ...
-def isrecursive(object: object) -> bool: ...
-def saferepr(object: object) -> str: ...
-
-class PrettyPrinter:
-    def __init__(
-        self,
+if sys.version_info >= (3, 15):
+    # The `expand` parameter was added in Python 3.15.
+    def pformat(
+        object: object,
         indent: int = 1,
         width: int = 80,
         depth: int | None = None,
+        *,
+        compact: bool = False,
+        expand: bool = False,
+        sort_dicts: bool = True,
+        underscore_numbers: bool = False,
+    ) -> str: ...
+
+else:
+    def pformat(
+        object: object,
+        indent: int = 1,
+        width: int = 80,
+        depth: int | None = None,
+        *,
+        compact: bool = False,
+        sort_dicts: bool = True,
+        underscore_numbers: bool = False,
+    ) -> str: ...
+
+if sys.version_info >= (3, 15):
+    # The `expand` parameter was added in Python 3.15.
+    def pp(
+        object: object,
         stream: IO[str] | None = None,
+        indent: int = 1,
+        width: int = 80,
+        depth: int | None = None,
+        *,
+        compact: bool = False,
+        expand: bool = False,
+        sort_dicts: bool = False,
+        underscore_numbers: bool = False,
+    ) -> None: ...
+
+else:
+    def pp(
+        object: object,
+        stream: IO[str] | None = None,
+        indent: int = 1,
+        width: int = 80,
+        depth: int | None = None,
+        *,
+        compact: bool = False,
+        sort_dicts: bool = False,
+        underscore_numbers: bool = False,
+    ) -> None: ...
+
+if sys.version_info >= (3, 15):
+    # The `expand` parameter was added in Python 3.15.
+    def pprint(
+        object: object,
+        stream: IO[str] | None = None,
+        indent: int = 1,
+        width: int = 80,
+        depth: int | None = None,
+        *,
+        compact: bool = False,
+        expand: bool = False,
+        sort_dicts: bool = True,
+        underscore_numbers: bool = False,
+    ) -> None: ...
+
+else:
+    def pprint(
+        object: object,
+        stream: IO[str] | None = None,
+        indent: int = 1,
+        width: int = 80,
+        depth: int | None = None,
         *,
         compact: bool = False,
         sort_dicts: bool = True,
         underscore_numbers: bool = False,
     ) -> None: ...
+
+def isreadable(object: object) -> bool: ...
+def isrecursive(object: object) -> bool: ...
+def saferepr(object: object) -> str: ...
+
+class PrettyPrinter:
+    if sys.version_info >= (3, 15):
+        # The `expand` parameter was added in Python 3.15.
+        def __init__(
+            self,
+            indent: int = 1,
+            width: int = 80,
+            depth: int | None = None,
+            stream: IO[str] | None = None,
+            *,
+            compact: bool = False,
+            expand: bool = False,
+            sort_dicts: bool = True,
+            underscore_numbers: bool = False,
+        ) -> None: ...
+    else:
+        def __init__(
+            self,
+            indent: int = 1,
+            width: int = 80,
+            depth: int | None = None,
+            stream: IO[str] | None = None,
+            *,
+            compact: bool = False,
+            sort_dicts: bool = True,
+            underscore_numbers: bool = False,
+        ) -> None: ...
+
     def pformat(self, object: object) -> str: ...
     def pprint(self, object: object) -> None: ...
     def isreadable(self, object: object) -> bool: ...
