@@ -1,4 +1,4 @@
-name: Stdlib stubtest
+name: "Stubtest: stdlib"
 
 on:
   workflow_dispatch:
@@ -39,7 +39,7 @@ jobs:
       fail-fast: false
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Set up Python ${{ matrix.python-version }} on ${{ matrix.os }}
         uses: actions/setup-python@v6
         with:
