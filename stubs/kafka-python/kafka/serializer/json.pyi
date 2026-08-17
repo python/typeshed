@@ -1,5 +1,5 @@
-from .abstract import Deserializer, Serializer
+from .default import DefaultSerializer
 
-class JsonSerializer(Serializer, Deserializer):
+class JsonSerializer(DefaultSerializer):
     def serialize(self, topic: str, headers: list[tuple[str, bytes]], data): ...
     def deserialize(self, topic: str, headers: list[tuple[str, bytes]], data): ...
