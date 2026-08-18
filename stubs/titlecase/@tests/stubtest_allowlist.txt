@@ -1,0 +1,3 @@
+titlecase.CallbackProtocol
+titlecase.Pattern
+titlecase.tests
