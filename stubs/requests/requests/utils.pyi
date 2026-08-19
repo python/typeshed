@@ -15,7 +15,7 @@ CaseInsensitiveDict = structures.CaseInsensitiveDict
 InvalidURL = exceptions.InvalidURL
 
 NETRC_FILES: tuple[str, str]
-DEFAULT_CA_BUNDLE_PATH: Incomplete
+DEFAULT_CA_BUNDLE_PATH: str
 DEFAULT_PORTS: dict[str, int]
 DEFAULT_ACCEPT_ENCODING: str
 
