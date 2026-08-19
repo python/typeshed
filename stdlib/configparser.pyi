@@ -154,7 +154,7 @@ class RawConfigParser(_Parser):
     NONSPACECRE: ClassVar[Pattern[str]]  # undocumented
 
     BOOLEAN_STATES: ClassVar[Mapping[str, bool]]  # undocumented
-    default_section: str
+    default_section: str | None
     if sys.version_info >= (3, 13):
         @overload
         def __init__(
@@ -168,7 +168,7 @@ class RawConfigParser(_Parser):
             inline_comment_prefixes: Sequence[str] | None = None,
             strict: bool = True,
             empty_lines_in_values: bool = True,
-            default_section: str = "DEFAULT",
+            default_section: str | None = "DEFAULT",
             interpolation: Interpolation | None = ...,
             converters: _ConvertersMap = ...,
             allow_unnamed_section: bool = False,
@@ -185,7 +185,7 @@ class RawConfigParser(_Parser):
             inline_comment_prefixes: Sequence[str] | None = None,
             strict: bool = True,
             empty_lines_in_values: bool = True,
-            default_section: str = "DEFAULT",
+            default_section: str | None = "DEFAULT",
             interpolation: Interpolation | None = ...,
             converters: _ConvertersMap = ...,
             allow_unnamed_section: bool = False,
@@ -202,7 +202,7 @@ class RawConfigParser(_Parser):
             inline_comment_prefixes: Sequence[str] | None = None,
             strict: bool = True,
             empty_lines_in_values: bool = True,
-            default_section: str = "DEFAULT",
+            default_section: str | None = "DEFAULT",
             interpolation: Interpolation | None = ...,
             converters: _ConvertersMap = ...,
             allow_unnamed_section: bool = False,
@@ -220,7 +220,7 @@ class RawConfigParser(_Parser):
             inline_comment_prefixes: Sequence[str] | None = None,
             strict: bool = True,
             empty_lines_in_values: bool = True,
-            default_section: str = "DEFAULT",
+            default_section: str | None = "DEFAULT",
             interpolation: Interpolation | None = ...,
             converters: _ConvertersMap = ...,
         ) -> None: ...
@@ -236,7 +236,7 @@ class RawConfigParser(_Parser):
             inline_comment_prefixes: Sequence[str] | None = None,
             strict: bool = True,
             empty_lines_in_values: bool = True,
-            default_section: str = "DEFAULT",
+            default_section: str | None = "DEFAULT",
             interpolation: Interpolation | None = ...,
             converters: _ConvertersMap = ...,
         ) -> None: ...
@@ -252,7 +252,7 @@ class RawConfigParser(_Parser):
             inline_comment_prefixes: Sequence[str] | None = None,
             strict: bool = True,
             empty_lines_in_values: bool = True,
-            default_section: str = "DEFAULT",
+            default_section: str | None = "DEFAULT",
             interpolation: Interpolation | None = ...,
             converters: _ConvertersMap = ...,
         ) -> None: ...
