@@ -1,8 +1,8 @@
 # Not available at runtime. Contains type definitions that are otherwise not exposed and not part of a specific module.
-from _typeshed import Incomplete, Unused
-from collections.abc import Iterable, Sequence
+from _typeshed import Incomplete, ReadableBuffer, Unused
+from collections.abc import Callable, Iterable, Sequence
 from typing import Literal, SupportsIndex, TypeAlias, TypedDict, final, overload, type_check_only
-from typing_extensions import Never, Required, Self, deprecated, disjoint_base
+from typing_extensions import Never, NotRequired, Required, Self, deprecated, disjoint_base
 
 from win32.lib.pywintypes import TimeType
 
@@ -774,6 +774,112 @@ class PyCTL_CONTEXT:
     def CertSerializeCTLStoreElement(self, Flags: int = ...) -> str: ...
 
 class PyCTL_USAGE: ...
+
+@type_check_only
+class OIDInfo(TypedDict):
+    OID: str
+    Name: str | None
+    GroupId: int
+    Value: int
+    ExtraInfo: bytes
+
+@type_check_only
+class ProveParam(TypedDict):
+    Param: int
+    Flags: int
+    Data: Incomplete
+
+@type_check_only
+class ProveInfo(TypedDict):
+    ContainerName: str | None
+    ProvName: str | None
+    ProvType: int
+    Flags: int
+    KeySpec: int
+    ProvParam: tuple[ProveParam, ...]
+
+@type_check_only
+class KeyIdentifierProperty(TypedDict):
+    PropId: int
+    Data: ProveInfo | bytes
+
+@type_check_only
+class KeyIdentifier(TypedDict):
+    KeyIdentifier: bytes
+    Props: tuple[KeyIdentifierProperty]
+
+@type_check_only
+class QueryObject(TypedDict):
+    MsgAndCertEncodingType: int
+    ContentType: int
+    FormatType: int
+    CertStore: PyCERTSTORE | None
+    Msg: PyCRYPTMSG | None
+    Context: PyCERT_CONTEXT | PyCTL_CONTEXT | int | None
+
+@type_check_only
+class DecryptMessagePara(TypedDict):
+    CertStores: Iterable[PyCERTSTORE]
+    MsgAndCertEncodingType: NotRequired[int]
+    Flags: NotRequired[int]
+
+@type_check_only
+class VerifyMessagePara(TypedDict):
+    MsgAndCertEncodingType: NotRequired[int]
+    CryptProv: NotRequired[PyCRYPTPROV | None]
+    GetSignerCertificate: NotRequired[Callable[..., Incomplete] | None]
+    GetArg: NotRequired[Callable[..., Incomplete] | None]
+
+@type_check_only
+class DecodeMessage(TypedDict):
+    MsgType: int
+    InnerContentType: int
+    Decoded: bytes | None
+    XchgCert: PyCERT_CONTEXT | None
+    SignerCert: PyCERT_CONTEXT | None
+
+@type_check_only
+class AlgorithmIdentifier(TypedDict):
+    ObjId: str
+    Parameters: ReadableBuffer | None
+
+@type_check_only
+class EncryptMessagePara(TypedDict):
+    ContentEncryptionAlgorithm: AlgorithmIdentifier
+    CryptProv: NotRequired[PyCRYPTPROV | None]
+    EncryptionAuxInfo: NotRequired[None]
+    Flags: NotRequired[int]
+    InnerContentType: NotRequired[int]
+    MsgEncodingType: NotRequired[int]
+
+@type_check_only
+class SignMessagePara(TypedDict):
+    SigningCert: PyCERT_CONTEXT
+    HashAlgorithm: AlgorithmIdentifier
+    HashAuxInfo: NotRequired[None]
+    MsgCert: NotRequired[Iterable[PyCERT_CONTEXT] | None]
+    MsgCrl: NotRequired[None]
+    AuthAttr: NotRequired[Iterable[dict[str, Incomplete]] | None]
+    UnauthAttr: NotRequired[Iterable[dict[str, Incomplete]] | None]
+    Flags: NotRequired[int]
+    InnerContentType: NotRequired[int]
+    MsgEncodingType: NotRequired[int]
+
+@type_check_only
+class VerifyMessageSignature(TypedDict):
+    SignerCert: PyCERT_CONTEXT
+    Decoded: bytes | None
+
+@type_check_only
+class DecryptAndVerifyMessageSignature(TypedDict):
+    Decrypted: bytes
+    XchgCert: PyCERT_CONTEXT
+    SignerCert: PyCERT_CONTEXT
+
+@type_check_only
+class CryptBitBlob(TypedDict):
+    Data: ReadableBuffer
+    UnusedBits: int
 
 @final
 class PyConsoleScreenBuffer:
