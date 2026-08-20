@@ -4,11 +4,12 @@ from contextlib import AbstractContextManager
 from http.client import HTTPMessage
 from types import TracebackType
 from typing import Any, Protocol, TypeAlias, overload, type_check_only
-from typing_extensions import ParamSpec
+from typing_extensions import ParamSpec, TypeVar
 
 from .http import HttpBaseClass, _HTTPMethod
 
 _P = ParamSpec("_P")
+_R = TypeVar("_R")
 
 @type_check_only
 class _WritableFileobj(Protocol):
@@ -194,8 +195,8 @@ class httprettized:
     ) -> None: ...
 
 @overload
-def httprettified(test: Callable[_P, Any]) -> Callable[_P, Any]: ...
+def httprettified(test: Callable[_P, _R]) -> Callable[_P, _R]: ...
 @overload
 def httprettified(
     test: None = None, allow_net_connect: bool = True, verbose: bool = False
-) -> Callable[[Callable[_P, Any]], Callable[_P, Any]]: ...
+) -> Callable[[Callable[_P, _R]], Callable[_P, _R]]: ...
