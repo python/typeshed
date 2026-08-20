@@ -4,7 +4,6 @@
 
 _frozen_importlib.BuiltinImporter.load_module
 _frozen_importlib.FrozenImporter.load_module
-_frozen_importlib_external.FileFinder.discover
 _frozen_importlib_external.NamespaceLoader.load_module
 _frozen_importlib_external.NamespacePath
 _frozen_importlib_external.PathFinder.discover
@@ -22,8 +21,6 @@ dataclasses._MISSING_TYPE
 dataclasses.field
 importlib._abc.Loader.load_module
 importlib._bootstrap_external.NamespacePath
-importlib.abc.MetaPathFinder.discover
-importlib.abc.PathEntryFinder.discover
 importlib.resources._common.package_to_anchor
 mailbox._ProxyFile.__class_getitem__
 multiprocessing.process.BaseProcess.__init__

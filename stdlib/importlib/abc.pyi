@@ -3,7 +3,7 @@ import sys
 import types
 from _typeshed import ReadableBuffer, StrPath
 from abc import ABCMeta, abstractmethod
-from collections.abc import Iterator, Mapping, Sequence
+from collections.abc import Iterable, Iterator, Mapping, Sequence
 from importlib import _bootstrap_external
 from importlib._abc import Loader as Loader
 from importlib.machinery import ModuleSpec
@@ -77,6 +77,8 @@ class MetaPathFinder(metaclass=ABCMeta):
     def find_spec(
         self, fullname: str, path: Sequence[str] | None, target: types.ModuleType | None = ..., /
     ) -> ModuleSpec | None: ...
+    if sys.version_info >= (3, 15):
+        def discover(self, parent: ModuleSpec | None = None) -> Iterable[ModuleSpec]: ...
 
 class PathEntryFinder(metaclass=ABCMeta):
     if sys.version_info < (3, 12):
@@ -88,6 +90,8 @@ class PathEntryFinder(metaclass=ABCMeta):
     def invalidate_caches(self) -> None: ...
     # Not defined on the actual class, but expected to exist.
     def find_spec(self, fullname: str, target: types.ModuleType | None = ...) -> ModuleSpec | None: ...
+    if sys.version_info >= (3, 15):
+        def discover(self, parent: ModuleSpec | None = None) -> Iterable[ModuleSpec]: ...
 
 class FileLoader(_bootstrap_external.FileLoader, ResourceLoader, ExecutionLoader, metaclass=ABCMeta):
     name: str
