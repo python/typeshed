@@ -1,4 +1,4 @@
-from _typeshed import Incomplete, Unused
+from _typeshed import Incomplete
 from typing import overload
 
 class Search:
@@ -44,7 +44,7 @@ class Search:
         def __init__(self, name, whitelist=[]) -> None: ...
 
         @overload
-        def in_list(self, value: list[str], *values: Unused) -> Search.Node: ...
+        def in_list(self, value: list[str]) -> Search.Node: ...
         @overload
         def in_list(self, *values: str) -> Search.Node: ...
 
