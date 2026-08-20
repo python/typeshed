@@ -6,7 +6,10 @@ from typing import Any, ClassVar, Literal, SupportsIndex, TypeAlias, TypeVar, ov
 from typing_extensions import Self, deprecated, disjoint_base
 
 _IntTypeCode: TypeAlias = Literal["b", "B", "h", "H", "i", "I", "l", "L", "q", "Q"]
-_FloatTypeCode: TypeAlias = Literal["f", "d"]
+if sys.version_info >= (3, 15):
+    _FloatTypeCode: TypeAlias = Literal["f", "d", "e", "Zf", "Zd"]
+else:
+    _FloatTypeCode: TypeAlias = Literal["f", "d"]
 if sys.version_info >= (3, 13):
     _UnicodeTypeCode: TypeAlias = Literal["u", "w"]
 else:
@@ -15,7 +18,10 @@ _TypeCode: TypeAlias = _IntTypeCode | _FloatTypeCode | _UnicodeTypeCode
 
 _T = TypeVar("_T", int, float, str)
 
-typecodes: str
+if sys.version_info >= (3, 15):
+    typecodes: tuple[str, ...]
+else:
+    typecodes: str
 
 @disjoint_base
 class array(MutableSequence[_T]):
@@ -23,6 +29,7 @@ class array(MutableSequence[_T]):
     def typecode(self) -> _TypeCode: ...
     @property
     def itemsize(self) -> int: ...
+
     @overload
     def __new__(
         cls: type[array[int]], typecode: _IntTypeCode, initializer: bytes | bytearray | Iterable[int] = ..., /
@@ -52,6 +59,7 @@ class array(MutableSequence[_T]):
     def __new__(cls, typecode: str, initializer: Iterable[_T], /) -> Self: ...
     @overload
     def __new__(cls, typecode: str, initializer: bytes | bytearray = ..., /) -> Self: ...
+
     def append(self, v: _T, /) -> None: ...
     def buffer_info(self) -> tuple[int, int]: ...
     def byteswap(self) -> None: ...
@@ -73,14 +81,17 @@ class array(MutableSequence[_T]):
     __hash__: ClassVar[None]  # type: ignore[assignment]
     def __contains__(self, value: object, /) -> bool: ...
     def __len__(self) -> int: ...
+
     @overload
     def __getitem__(self, key: SupportsIndex, /) -> _T: ...
     @overload
     def __getitem__(self, key: slice[SupportsIndex | None], /) -> array[_T]: ...
+
     @overload  # type: ignore[override]
     def __setitem__(self, key: SupportsIndex, value: _T, /) -> None: ...
     @overload
     def __setitem__(self, key: slice[SupportsIndex | None], value: array[_T], /) -> None: ...
+
     def __delitem__(self, key: SupportsIndex | slice[SupportsIndex | None], /) -> None: ...
     def __add__(self, value: array[_T], /) -> array[_T]: ...
     def __eq__(self, value: object, /) -> bool: ...

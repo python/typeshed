@@ -1,5 +1,5 @@
 # This workflow is for testing typeshed's scripts and tests themselves
-name: Meta-tests
+name: Infrastructure tests
 
 on:
   workflow_dispatch:
@@ -28,35 +28,38 @@ concurrency:
 
 jobs:
   mypy:
-    name: Check scripts and tests with mypy
+    name: "mypy: type check"
     runs-on: ubuntu-latest
     strategy:
       matrix:
         platform: ["linux", "win32"]
       fail-fast: false
     steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-python@v6
-        with:
-          python-version: "3.13"
-      - uses: astral-sh/setup-uv@v7
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v8.2.0
         with:
           version-file: "requirements-tests.txt"
-      - run: uv pip install -r requirements-tests.txt --system
-      - run: python ./tests/typecheck_typeshed.py --platform=${{ matrix.platform }}
+      - run: |
+          uv run \
+          --python=3.13 \
+          --no-project \
+          --with-requirements=requirements-tests.txt \
+          ./tests/typecheck_typeshed.py \
+          --platform=${{ matrix.platform }}
+
   pyright:
-    name: Check scripts and tests with pyright
+    name: "pyright: type check"
     runs-on: ubuntu-latest
     strategy:
       matrix:
         python-platform: ["Linux", "Windows"]
       fail-fast: false
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: actions/setup-python@v6
         with:
           python-version: "3.13"
-      - uses: astral-sh/setup-uv@v7
+      - uses: astral-sh/setup-uv@v8.2.0
         with:
           version-file: "requirements-tests.txt"
       - run: uv pip install -r requirements-tests.txt --system
@@ -67,20 +70,23 @@ jobs:
           python-platform: ${{ matrix.python-platform }}
           python-version: "3.10" # Oldest version supported for running scripts and tests
           project: ./pyrightconfig.scripts_and_tests.json
+
   stubsabot-dry-run:
-    name: Stubsabot dry run
+    name: "stubsabot: dry run"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-python@v6
-        with:
-          python-version: "3.13"
-      - uses: astral-sh/setup-uv@v7
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v8.2.0
         with:
           version-file: "requirements-tests.txt"
       - name: Git config
         run: |
           git config --global user.name stubsabot
           git config --global user.email '<>'
-      - run: uv pip install -r requirements-tests.txt --system
-      - run: python scripts/stubsabot.py --action-level local
+      - run: |
+          uv run \
+          --python=3.13 \
+          --no-project \
+          --with-requirements=requirements-tests.txt \
+          scripts/stubsabot.py \
+          --action-level=local

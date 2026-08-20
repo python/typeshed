@@ -3,8 +3,8 @@ import sys
 from _typeshed import SupportsLenAndGetItem
 from collections.abc import Callable, Iterable, MutableSequence, Sequence, Set as AbstractSet
 from fractions import Fraction
-from typing import Any, ClassVar, NoReturn, TypeVar, overload
-from typing_extensions import deprecated
+from typing import Any, ClassVar, TypeVar, overload
+from typing_extensions import Never, deprecated
 
 __all__ = [
     "Random",
@@ -69,6 +69,7 @@ class Random(_random.Random):
         @overload
         @deprecated("The `random` parameter is deprecated since Python 3.9; removed in Python 3.11.")
         def shuffle(self, x: MutableSequence[Any], random: Callable[[], float] | None = None) -> None: ...
+
     if sys.version_info >= (3, 11):
         def sample(self, population: Sequence[_T], k: int, *, counts: Iterable[int] | None = None) -> list[_T]: ...
     else:
@@ -103,8 +104,8 @@ class Random(_random.Random):
 # SystemRandom is not implemented for all OS's; good on Windows & Linux
 class SystemRandom(Random):
     def getrandbits(self, k: int) -> int: ...  # k can be passed by keyword
-    def getstate(self, *args: Any, **kwds: Any) -> NoReturn: ...
-    def setstate(self, *args: Any, **kwds: Any) -> NoReturn: ...
+    def getstate(self, *args: Any, **kwds: Any) -> Never: ...
+    def setstate(self, *args: Any, **kwds: Any) -> Never: ...
 
 _inst: Random
 seed = _inst.seed

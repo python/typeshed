@@ -10,16 +10,8 @@ def mac_ver(
     release: str = "", versioninfo: tuple[str, str, str] = ("", "", ""), machine: str = ""
 ) -> tuple[str, tuple[str, str, str], str]: ...
 
-if sys.version_info >= (3, 13):
-    @deprecated("Deprecated since Python 3.13; will be removed in Python 3.15.")
-    def java_ver(
-        release: str = "",
-        vendor: str = "",
-        vminfo: tuple[str, str, str] = ("", "", ""),
-        osinfo: tuple[str, str, str] = ("", "", ""),
-    ) -> tuple[str, str, tuple[str, str, str], tuple[str, str, str]]: ...
-
-else:
+if sys.version_info < (3, 15):
+    @deprecated("Deprecated; will be removed in Python 3.15.")
     def java_ver(
         release: str = "",
         vendor: str = "",
@@ -52,7 +44,7 @@ if sys.version_info >= (3, 12):
 
         def __new__(_cls, system: str, node: str, release: str, version: str, machine: str) -> Self: ...
         @property
-        def processor(self) -> str: ...
+        def processor(self) -> str: ...  # ty:ignore[invalid-named-tuple-override]
 
 else:
     @disjoint_base
@@ -60,7 +52,7 @@ else:
         __match_args__ = ("system", "node", "release", "version", "machine")  # pyright: ignore[reportAssignmentType]
         def __new__(_cls, system: str, node: str, release: str, version: str, machine: str) -> Self: ...
         @property
-        def processor(self) -> str: ...
+        def processor(self) -> str: ...  # ty:ignore[invalid-named-tuple-override]
 
 def uname() -> uname_result: ...
 def system() -> str: ...

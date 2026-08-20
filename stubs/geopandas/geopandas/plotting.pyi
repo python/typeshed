@@ -193,7 +193,7 @@ class GeoplotAccessor(PlotAccessor):
         include_bool: bool = False,
         backend: str | None = None,
         **kwargs,
-    ) -> pd.Series[Axes]: ...  # type: ignore[type-var] # pyright: ignore[reportInvalidTypeArguments]
+    ) -> pd.Series[Axes]: ...  # type: ignore[type-var] # pyright: ignore[reportInvalidTypeArguments]  # ty:ignore[invalid-type-arguments]  # pyrefly: ignore [bad-specialization]
     @overload
     def __call__(
         self,
@@ -226,6 +226,7 @@ class GeoplotAccessor(PlotAccessor):
         label: str = "NaN",
         **style_kwds,
     ) -> Axes: ...
+
     def geo(
         self,
         column: Hashable | pd.Series | pd.Index | NDArray | None = None,
