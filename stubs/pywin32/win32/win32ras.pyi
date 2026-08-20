@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from collections.abc import Callable, Sequence
+from collections.abc import Callable, Iterable
 from typing import Final, Literal
 
 import _win32typing
@@ -9,7 +9,7 @@ def CreatePhonebookEntry(hWnd: int | _win32typing.PyHANDLE | None, fileName: str
 def Dial(
     dialExtensions: _win32typing.PyRASDIALEXTENSIONS | None,
     fileName: str | None,
-    RasDialParams: Sequence[str],
+    RasDialParams: Iterable[str],
     callback: int | Callable[..., Incomplete] | None,
     /,
 ) -> tuple[int, int]: ...
@@ -24,7 +24,7 @@ def GetEntryDialParams(fileName: str | None, entryName: str, /) -> tuple[tuple[s
 def GetErrorString(error: int, /) -> str: ...
 def HangUp(hras: int | _win32typing.PyHANDLE | None, /) -> None: ...
 def IsHandleValid(hras: int | _win32typing.PyHANDLE | None, /) -> bool: ...
-def SetEntryDialParams(fileName: str | None, RasDialParams: Sequence[str], bSavePassword: bool | Literal[0, 1], /) -> None: ...
+def SetEntryDialParams(fileName: str | None, RasDialParams: Iterable[str], bSavePassword: bool | Literal[0, 1], /) -> None: ...
 def RASDIALEXTENSIONS() -> _win32typing.PyRASDIALEXTENSIONS: ...
 
 RASCS_OpenPort: Final[int]
