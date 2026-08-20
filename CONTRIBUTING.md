@@ -370,7 +370,7 @@ Use `@deprecated` if and only if
 
 - a feature is deprecated at runtime (either using `@deprecated` or with a
   runtime warning); or
-- a feature is documented to be deprecated (e.g. in API documention,
+- a feature is documented to be deprecated (e.g. in API documentation,
   docstrings, or comments).
 
 For standard library features that are not deprecated in all Python versions
