@@ -8,6 +8,7 @@ from gunicorn.http.body import Body
 from gunicorn.http.unreader import Unreader
 
 from .._types import _AddressType
+from ..asgi.parser import _ProxyProtocolInfo, _ProxyProtocolInfoUnknown
 
 PP_V2_SIGNATURE: Final = b"\x0d\x0a\x0d\x0a\x00\x0d\x0a\x51\x55\x49\x54\x0a"
 
@@ -35,6 +36,7 @@ METHOD_BADCHAR_RE: Final[re.Pattern[str]]
 VERSION_RE: Final[re.Pattern[str]]
 RFC9110_5_5_INVALID_AND_DANGEROUS: Final[re.Pattern[str]]
 RFC9110_6_5_1_FORBIDDEN_TRAILER: Final[frozenset[str]]
+RFC9110_5_3_SINGLETON_FIELDS: Final[frozenset[str]]
 
 class Message:
     cfg: Config
@@ -66,7 +68,7 @@ class Request(Message):
     fragment: str | None
     limit_request_line: int
     req_number: int
-    proxy_protocol_info: dict[str, str | int | None] | None  # TODO: Use TypedDict
+    proxy_protocol_info: _ProxyProtocolInfo | _ProxyProtocolInfoUnknown | None
 
     def __init__(self, cfg: Config, unreader: Unreader, peer_addr: _AddressType, req_number: int = 1) -> None: ...
     def get_data(self, unreader: Unreader, buf: io.BytesIO, stop: bool = False) -> None: ...
