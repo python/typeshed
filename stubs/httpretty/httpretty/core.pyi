@@ -3,7 +3,7 @@ from collections.abc import Callable, Iterable, Mapping
 from contextlib import AbstractContextManager
 from http.client import HTTPMessage
 from types import TracebackType
-from typing import Any, Final, Protocol, TypeAlias, overload, type_check_only
+from typing import Any, Protocol, TypeAlias, overload, type_check_only
 from typing_extensions import ParamSpec
 
 from .http import HttpBaseClass, _HTTPMethod
@@ -124,14 +124,6 @@ class URIMatcher:
     def get_next_entry(self, method: _HTTPMethod, info: URIInfo, request: HTTPrettyRequest) -> Entry: ...
 
 class httpretty(HttpBaseClass):
-    GET: Final = "GET"
-    PUT: Final = "PUT"
-    POST: Final = "POST"
-    DELETE: Final = "DELETE"
-    HEAD: Final = "HEAD"
-    PATCH: Final = "PATCH"
-    OPTIONS: Final = "OPTIONS"
-    CONNECT: Final = "CONNECT"
     METHODS: tuple[_HTTPMethod, ...]
     latest_requests: list[HTTPrettyRequest]
     last_request: HTTPrettyRequest | HTTPrettyRequestEmpty
