@@ -1,4 +1,4 @@
-from collections.abc import Sequence
+from _typeshed import SupportsLenAndGetItem
 from typing import Final, Literal, TypeAlias
 from typing_extensions import TypeVar
 
@@ -19,4 +19,4 @@ class HttpBaseClass:
     METHODS: tuple[_HTTPMethod, ...]
 
 def parse_requestline(s: str) -> tuple[str, str, str]: ...
-def last_requestline(sent_data: Sequence[_T]) -> _T | None: ...
+def last_requestline(sent_data: SupportsLenAndGetItem[_T]) -> _T | None: ...
