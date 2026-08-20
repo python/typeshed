@@ -1,7 +1,9 @@
 from collections.abc import Sequence
+from typing import Final, Literal, TypeAlias
 from typing_extensions import TypeVar
 
 _T = TypeVar("_T", str, bytes)
+_HTTPMethod: TypeAlias = Literal["GET", "PUT", "POST", "DELETE", "HEAD", "PATCH", "OPTIONS", "CONNECT"]
 
 STATUSES: dict[int, str]
 

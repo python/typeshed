@@ -1,3 +1,5 @@
+from typing import Final
+
 from .core import (
     EmptyRequestHeaders as EmptyRequestHeaders,
     Entry as Entry,
@@ -13,7 +15,7 @@ from .core import (
 )
 from .errors import HTTPrettyError as HTTPrettyError, UnmockedError as UnmockedError
 
-__version__: str
+__version__: Final[str]
 HTTPretty = httpretty
 activate = httprettified
 enabled = httprettized

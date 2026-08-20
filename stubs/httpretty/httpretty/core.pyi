@@ -3,13 +3,18 @@ from collections.abc import Callable, Iterable, Mapping
 from contextlib import AbstractContextManager
 from http.client import HTTPMessage
 from types import TracebackType
-from typing import Any, Literal, TypeAlias, overload
+from typing import Any, Final, Protocol, TypeAlias, overload, type_check_only
 from typing_extensions import ParamSpec
 
-from .http import HttpBaseClass
+from .http import HttpBaseClass, _HTTPMethod
 
 _P = ParamSpec("_P")
-_HTTPMethod: TypeAlias = Literal["GET", "PUT", "POST", "DELETE", "HEAD", "PATCH", "OPTIONS", "CONNECT"]
+
+@type_check_only
+class _WritableFileobj(Protocol):
+    def write(self, b: bytes, /) -> object: ...
+    def seek(self, offset: int, /) -> object: ...
+
 _URI: TypeAlias = str | re.Pattern[str]
 _HeaderValue: TypeAlias = str | int | bool | None
 _Headers: TypeAlias = Mapping[str, _HeaderValue]
@@ -44,7 +49,7 @@ class HTTPrettyRequest(HttpBaseClass):
     @property
     def host(self) -> str: ...
     def parse_querystring(self, qs: str) -> dict[str, list[str]]: ...
-    def parse_request_body(self, body: str) -> Any: ...
+    def parse_request_body(self, body: str) -> Any: ...  # Any object can be returned if deserialization is successful
 
 class EmptyRequestHeaders(dict[str, str]): ...
 
@@ -145,6 +150,7 @@ class httpretty(HttpBaseClass):
         encoding: str = "utf-8",
         verbose: bool = False,
         allow_net_connect: bool = True,
+        # Passed to urllib3.PoolManager as kwargs, and connection pool's parameters have various types
         pool_manager_params: Mapping[str, Any] | None = None,
     ) -> AbstractContextManager[None]: ...
     @classmethod
