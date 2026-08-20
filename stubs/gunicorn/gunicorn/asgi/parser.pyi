@@ -9,7 +9,24 @@ class ParseError(Exception): ...
 class InvalidProxyLine(ParseError): ...
 class InvalidProxyHeader(ParseError): ...
 
+@type_check_only
+class _ProxyProtocolInfo(TypedDict):
+    proxy_protocol: Literal["TCP4", "TCP6", "UDP4", "UDP6"]
+    client_addr: str
+    client_port: int
+    proxy_addr: str
+    proxy_port: int
+
+@type_check_only
+class _ProxyProtocolInfoUnknown(TypedDict):
+    proxy_protocol: Literal["UNKNOWN", "LOCAL", "UNSPEC"]
+    client_addr: None
+    client_port: None
+    proxy_addr: None
+    proxy_port: None
+
 PP_V2_SIGNATURE: Final[bytes]
+RFC9110_6_5_1_FORBIDDEN_TRAILER: Final[frozenset[bytes]]
 
 class PPCommand(IntEnum):
     LOCAL = 0x0
@@ -37,21 +54,7 @@ class UnsupportedTransferCoding(ParseError): ...
 class InvalidChunkSize(ParseError): ...
 class InvalidChunkExtension(ParseError): ...
 
-@type_check_only
-class _ProxyProtocolInfo(TypedDict):
-    proxy_protocol: Literal["TCP4", "TCP6", "UDP4", "UDP6"]
-    client_addr: str
-    client_port: int
-    proxy_addr: str
-    proxy_port: int
-
-@type_check_only
-class _ProxyProtocolInfoUnknown(TypedDict):
-    proxy_protocol: Literal["UNKNOWN", "LOCAL", "UNSPEC"]
-    client_addr: None
-    client_port: None
-    proxy_addr: None
-    proxy_port: None
+RFC9110_5_3_SINGLETON_FIELDS: Final[frozenset[bytes]]
 
 class PythonProtocol:
     __slots__ = (
@@ -148,7 +151,7 @@ class CallbackRequest:
     content_length: int
     chunked: bool
     must_close: bool
-    proxy_protocol_info: dict[str, str | int | None] | None  # TODO: Use TypedDict
+    proxy_protocol_info: _ProxyProtocolInfo | _ProxyProtocolInfoUnknown | None
 
     def __init__(self) -> None: ...
     @classmethod
