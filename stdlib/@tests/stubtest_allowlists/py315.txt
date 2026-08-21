@@ -24,7 +24,6 @@ importlib._bootstrap_external.NamespacePath
 importlib.resources._common.package_to_anchor
 mailbox._ProxyFile.__class_getitem__
 multiprocessing.process.BaseProcess.__init__
-threading.Condition.locked
 
 # =============================================================
 # Allowlist entries that cannot or should not be fixed; >= 3.15
@@ -86,6 +85,9 @@ concurrent.interpreters._crossinterp.UnboundItem.singleton
 # object() sentinels at runtime represented by NewTypes in the stubs
 concurrent.interpreters._crossinterp.UNBOUND_ERROR
 concurrent.interpreters._crossinterp.UNBOUND_REMOVE
+
+# Condition functions are exported in __init__
+threading.Condition.locked
 
 # Assigning `__new__` causes `func` not to get recognized.
 functools.partialmethod.__new__
