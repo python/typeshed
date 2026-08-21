@@ -23,7 +23,6 @@ importlib._abc.Loader.load_module
 importlib._bootstrap_external.NamespacePath
 importlib.resources._common.package_to_anchor
 mailbox._ProxyFile.__class_getitem__
-multiprocessing.process.BaseProcess.__init__
 
 # =============================================================
 # Allowlist entries that cannot or should not be fixed; >= 3.15

@@ -95,7 +95,8 @@ class mmap:
         else:
             def madvise(self, option: int, start: int = 0, length: int = ..., /) -> None: ...
 
-    if sys.version_info >= (3, 15):
+    if sys.version_info >= (3, 14):
+        # default values changed in Python 3.14.1
         def find(self, view: ReadableBuffer, start: int | None = None, end: int | None = None, /) -> int: ...
         def rfind(self, view: ReadableBuffer, start: int | None = None, end: int | None = None, /) -> int: ...
 
