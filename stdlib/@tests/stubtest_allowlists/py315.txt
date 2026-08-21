@@ -11,11 +11,6 @@ _frozen_importlib_external.SourceFileLoader.source_to_code
 _frozen_importlib_external.SourceLoader.source_to_code
 _frozen_importlib_external._LoaderBasics.load_module
 _frozen_importlib_external.cache_from_source
-_struct.Struct.pack_into
-_struct.pack
-_struct.pack_into
-_thread.RLock.__exit__
-_thread.lock.__exit__
 dataclasses.MISSING
 dataclasses._MISSING_TYPE
 dataclasses.field
