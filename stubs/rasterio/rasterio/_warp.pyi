@@ -9,7 +9,7 @@ from rasterio.control import GroundControlPoint
 from rasterio.crs import CRS
 from rasterio.dtypes import dtype_ranges as dtype_ranges
 from rasterio.enums import Resampling
-from rasterio.io import DatasetReader
+from rasterio.io import DatasetReader, DatasetWriter
 from rasterio.rpc import RPC
 
 SUPPORTED_RESAMPLING: Final[list[Resampling]]
@@ -68,7 +68,7 @@ def _suggested_proxy_vrt_doc(
 ) -> str: ...
 
 class WarpedVRTReaderBase(DatasetReaderBase):
-    src_dataset: DatasetReader
+    src_dataset: DatasetReader | DatasetWriter
     src_crs: CRS
     src_transform: Affine | None
     resampling: Resampling
@@ -80,7 +80,7 @@ class WarpedVRTReaderBase(DatasetReaderBase):
 
     def __init__(
         self,
-        src_dataset: DatasetReader,
+        src_dataset: DatasetReader | DatasetWriter,
         src_crs: CRSInput | None = None,
         crs: CRSInput | None = None,
         resampling: Resampling = ...,
