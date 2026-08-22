@@ -135,9 +135,6 @@ typing_extensions.Protocol  # Super-special typing primitive
 # Allowlist entries that cannot or should not be fixed; >= 3.12
 # =============================================================
 
-# Deprecated argument is supported at runtime by renaming it through a decorator.
-importlib.resources._common.files
-
 sys._monitoring  # Doesn't really exist. See comments in the stub.
 sys.__jit  # Similar to sys._monitoring
 sys.last_exc  # Not always defined.
