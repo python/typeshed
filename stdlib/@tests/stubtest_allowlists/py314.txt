@@ -24,10 +24,6 @@ concurrent.interpreters._crossinterp.UNBOUND_REMOVE
 # Condition functions are exported in __init__
 threading.Condition.locked
 
-# Starting with Python 3.14.1, these methods accept None for some of their
-# parameters, but would raise a TypeError with Python 3.14.0.
-mmap.mmap.flush
-
 # ====================================
 # Pre-existing errors from Python 3.13
 # ====================================
