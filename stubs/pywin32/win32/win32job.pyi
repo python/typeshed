@@ -26,7 +26,7 @@ JOB_OBJECT_SET_ATTRIBUTES: Final = 0x0002
 JOB_OBJECT_QUERY: Final = 0x0004
 JOB_OBJECT_TERMINATE: Final = 0x0008
 JOB_OBJECT_SET_SECURITY_ATTRIBUTES: Final = 0x0010
-JOB_OBJECT_ALL_ACCESS: Final = 0x1F001F
+JOB_OBJECT_ALL_ACCESS: Final[int]
 JOB_OBJECT_TERMINATE_AT_END_OF_JOB: Final = 0
 JOB_OBJECT_POST_AT_END_OF_JOB: Final = 1
 JOB_OBJECT_MSG_END_OF_JOB_TIME: Final[int]
@@ -82,3 +82,4 @@ JobObjectBasicAndIoAccountingInformation: Final = 8
 JobObjectExtendedLimitInformation: Final = 9
 JobObjectJobSetInformation: Final[int]
 MaxJobObjectInfoClass: Final[int]
+UNICODE: Final = 1
