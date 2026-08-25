@@ -1,13 +1,16 @@
 import sys
-from _typeshed import ReadableBuffer, Unused
-from typing import IO, Any, BinaryIO, Final, Literal, NamedTuple, NoReturn, TypeAlias, overload
-from typing_extensions import Self, deprecated
+from _typeshed import ReadableBuffer, StrOrBytesPath, Unused
+from typing import IO, Any, BinaryIO, Final, Literal, NamedTuple, TypeAlias, overload
+from typing_extensions import Never, Self, deprecated
 
 __all__ = ["open", "Error", "Wave_read", "Wave_write"]
 if sys.version_info >= (3, 15):
     __all__ += ["WAVE_FORMAT_PCM", "WAVE_FORMAT_IEEE_FLOAT", "WAVE_FORMAT_EXTENSIBLE"]
 
-_File: TypeAlias = str | IO[bytes]
+if sys.version_info >= (3, 15):
+    _File: TypeAlias = StrOrBytesPath | IO[bytes]
+else:
+    _File: TypeAlias = str | IO[bytes]
 
 class Error(Exception): ...
 
@@ -44,10 +47,10 @@ class Wave_read:
     def getcompname(self) -> str: ...
     def getparams(self) -> _wave_params: ...
     if sys.version_info < (3, 15):
-        @deprecated("Deprecated since Python 3.13; will be removed in Python 3.15.")
+        @deprecated("Deprecated; removed in Python 3.15.")
         def getmarkers(self) -> None: ...
-        @deprecated("Deprecated since Python 3.13; will be removed in Python 3.15.")
-        def getmark(self, id: Any) -> NoReturn: ...
+        @deprecated("Deprecated; removed in Python 3.15.")
+        def getmark(self, id: Any) -> Never: ...
 
     def setpos(self, pos: int) -> None: ...
     def readframes(self, nframes: int) -> bytes: ...
@@ -82,11 +85,11 @@ class Wave_write:
     def getparams(self) -> _wave_params: ...
 
     if sys.version_info < (3, 15):
-        @deprecated("Deprecated since Python 3.13; will be removed in Python 3.15.")
-        def setmark(self, id: Any, pos: Any, name: Any) -> NoReturn: ...
-        @deprecated("Deprecated since Python 3.13; will be removed in Python 3.15.")
-        def getmark(self, id: Any) -> NoReturn: ...
-        @deprecated("Deprecated since Python 3.13; will be removed in Python 3.15.")
+        @deprecated("Deprecated; removed in Python 3.15.")
+        def setmark(self, id: Any, pos: Any, name: Any) -> Never: ...
+        @deprecated("Deprecated; removed in Python 3.15.")
+        def getmark(self, id: Any) -> Never: ...
+        @deprecated("Deprecated; removed in Python 3.15.")
         def getmarkers(self) -> None: ...
 
     def tell(self) -> int: ...
