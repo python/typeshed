@@ -127,6 +127,7 @@ class WarpedVRTReaderBase(DatasetReaderBase):
         dtype: DTypeLike | None = None,
         **warp_extras: _GDALOption,
     ) -> None: ...
+
     def read(  # type: ignore[override]
         self,
         indexes: Indexes | None = None,
