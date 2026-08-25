@@ -1,14 +1,15 @@
 from collections.abc import Sequence
-from typing import Any, Final
+from typing import Any, Final, overload
+from typing_extensions import deprecated
 
+from affine import Affine as Affine
 from numpy.typing import DTypeLike, NDArray
-from rasterio._affine_types import Affine
-from rasterio._io import DatasetReaderBase
+from rasterio._io import DatasetReaderBase, DatasetWriterBase
 from rasterio._typing import CRSInput, Geometry, Indexes, ShapeND, WindowInput, _GDALOption, _NestedScalar
 from rasterio.control import GroundControlPoint
 from rasterio.crs import CRS
+from rasterio.dtypes import dtype_ranges as dtype_ranges
 from rasterio.enums import Resampling
-from rasterio.io import DatasetReader, DatasetWriter
 from rasterio.rpc import RPC
 
 SUPPORTED_RESAMPLING: Final[list[Resampling]]
@@ -67,7 +68,7 @@ def _suggested_proxy_vrt_doc(
 ) -> str: ...
 
 class WarpedVRTReaderBase(DatasetReaderBase):
-    src_dataset: DatasetReader | DatasetWriter
+    src_dataset: DatasetReaderBase
     src_crs: CRS
     src_transform: Affine | None
     resampling: Resampling
@@ -77,9 +78,37 @@ class WarpedVRTReaderBase(DatasetReaderBase):
     working_dtype: DTypeLike | None
     warp_extras: dict[str, _GDALOption]
 
+    @overload
+    @deprecated(
+        "Source datasets opened in modes other than 'r' emit a "
+        "RasterioDeprecationWarning and will be disallowed in a future rasterio "
+        "release; reopen the dataset read-only before wrapping it."
+    )
     def __init__(
         self,
-        src_dataset: DatasetReader | DatasetWriter,
+        src_dataset: DatasetWriterBase,
+        src_crs: CRSInput | None = None,
+        crs: CRSInput | None = None,
+        resampling: Resampling = ...,
+        tolerance: float = 0.125,
+        src_nodata: float | None = ...,
+        nodata: float | None = ...,
+        width: int | None = None,
+        height: int | None = None,
+        src_transform: Affine | None = None,
+        transform: Affine | None = None,
+        init_dest_nodata: bool = True,
+        src_alpha: int = 0,
+        dst_alpha: int = 0,
+        add_alpha: bool = False,
+        warp_mem_limit: int = 0,
+        dtype: DTypeLike | None = None,
+        **warp_extras: _GDALOption,
+    ) -> None: ...
+    @overload
+    def __init__(
+        self,
+        src_dataset: DatasetReaderBase,
         src_crs: CRSInput | None = None,
         crs: CRSInput | None = None,
         resampling: Resampling = ...,
