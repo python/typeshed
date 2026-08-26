@@ -810,7 +810,12 @@ class RemoteConflictError(Exception):
 def somewhat_safe_force_push(branch: str) -> None:
     if has_non_stubsabot_commits(branch):
         raise RemoteConflictError(f"origin/{branch} has non-stubsabot changes that are not on {branch}!")
-    subprocess.check_call(["git", "push", "origin", branch, "--force"])
+    result = subprocess.run(["git", "push", "--quiet", "origin", branch, "--force"], text=True, capture_output=True, check=False)
+    if result.returncode:
+        # Capture both streams to suppress stderr on success without losing it on failure
+        sys.stdout.write(result.stdout)
+        sys.stderr.write(result.stderr)
+        result.check_returncode()
 
 
 def normalize(name: str) -> str:
@@ -872,10 +877,10 @@ async def suggest_typeshed_update(update: Update, session: aiohttp.ClientSession
     title = f"[stubsabot] Bump {update.distribution} to {update.new_version}"
     async with _repo_lock:
         branch_name = f"{BRANCH_PREFIX}/{normalize(update.distribution)}"
-        subprocess.check_call(["git", "checkout", "-B", branch_name, "origin/main"])
+        subprocess.check_call(["git", "checkout", "--quiet", "-B", branch_name, "origin/main"])
         meta = update_metadata(update.distribution, version=update.new_version)
         body = get_update_pr_body(update, meta)
-        subprocess.check_call(["git", "commit", "--all", "-m", f"{title}\n\n{body}"])
+        subprocess.check_call(["git", "commit", "--quiet", "--all", "-m", f"{title}\n\n{body}"])
         if action_level <= ActionLevel.local:
             return
         if not latest_commit_is_different_to_last_commit_on_origin(branch_name):
@@ -894,12 +899,12 @@ async def suggest_typeshed_obsolete(obsolete: Obsolete, session: aiohttp.ClientS
     title = f"[stubsabot] Mark {obsolete.distribution} as obsolete since {obsolete.obsolete_since_version}"
     async with _repo_lock:
         branch_name = f"{BRANCH_PREFIX}/{normalize(obsolete.distribution)}"
-        subprocess.check_call(["git", "checkout", "-B", branch_name, "origin/main"])
+        subprocess.check_call(["git", "checkout", "--quiet", "-B", branch_name, "origin/main"])
         obsolete_t = cast(dict[str, object], tomlkit.inline_table())
         obsolete_t.update({"version": obsolete.obsolete_since_version, "date": obsolete.obsolete_since_date.date().isoformat()})
         update_metadata(obsolete.distribution, obsolete_since=obsolete_t)
         body = "\n".join(f"{k}: {v}" for k, v in obsolete.links.items())
-        subprocess.check_call(["git", "commit", "--all", "-m", f"{title}\n\n{body}"])
+        subprocess.check_call(["git", "commit", "--quiet", "--all", "-m", f"{title}\n\n{body}"])
         if action_level <= ActionLevel.local:
             return
         if not latest_commit_is_different_to_last_commit_on_origin(branch_name):
@@ -918,10 +923,10 @@ async def suggest_typeshed_remove(remove: Remove, session: aiohttp.ClientSession
     title = f"[stubsabot] Remove {remove.distribution} as {remove.reason}"
     async with _repo_lock:
         branch_name = f"{BRANCH_PREFIX}/{normalize(remove.distribution)}"
-        subprocess.check_call(["git", "checkout", "-B", branch_name, "origin/main"])
+        subprocess.check_call(["git", "checkout", "--quiet", "-B", branch_name, "origin/main"])
         remove_stubs(remove.distribution)
         body = "\n".join(f"{k}: {v}" for k, v in remove.links.items())
-        subprocess.check_call(["git", "commit", "--all", "-m", f"{title}\n\n{body}"])
+        subprocess.check_call(["git", "commit", "--quiet", "--all", "-m", f"{title}\n\n{body}"])
         if action_level <= ActionLevel.local:
             return
         if not latest_commit_is_different_to_last_commit_on_origin(branch_name):
@@ -996,8 +1001,7 @@ async def main() -> int:
             action_count = 0
             for task in asyncio.as_completed(tasks):
                 update = await task
-                print(f"{update.distribution}... ", end="")
-                print(update)
+                print(f"{update.distribution}... {update}", flush=True)
 
                 if isinstance(update, NoUpdate):
                     continue
@@ -1029,7 +1033,7 @@ async def main() -> int:
         # if you need to cleanup, try:
         # git branch -D $(git branch --list 'stubsabot/*')
         if args.action_level >= ActionLevel.local and original_branch:
-            subprocess.check_call(["git", "checkout", original_branch])
+            subprocess.check_call(["git", "checkout", "--quiet", original_branch])
 
     return 1 if error else 0
 
