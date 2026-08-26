@@ -109,8 +109,8 @@ class _BaseNetwork(_IPAddressBase, Generic[_A]):
 class _BaseV4:
     __slots__ = ()
     if sys.version_info >= (3, 14):
-        version: Final[Literal[4]] = 4
-        max_prefixlen: Final[Literal[32]] = 32
+        version: Final = 4
+        max_prefixlen: Final = 32
     else:
         @property
         def version(self) -> Literal[4]: ...
@@ -162,8 +162,8 @@ class IPv4Interface(IPv4Address):
 class _BaseV6:
     __slots__ = ()
     if sys.version_info >= (3, 14):
-        version: Final[Literal[6]] = 6
-        max_prefixlen: Final[Literal[128]] = 128
+        version: Final = 6
+        max_prefixlen: Final = 128
     else:
         @property
         def version(self) -> Literal[6]: ...
