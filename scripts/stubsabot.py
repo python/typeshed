@@ -773,6 +773,7 @@ async def update_pull_request_label(*, pr_number: int, session: aiohttp.ClientSe
 
 
 def remote_branch_exists(branch: str) -> bool:
+    subprocess.run(["git", "show-ref"], check=False)
     return (
         subprocess.run(["git", "show-ref", "--verify", "--quiet", f"refs/remotes/origin/{branch}"], check=False).returncode == 0
     )
