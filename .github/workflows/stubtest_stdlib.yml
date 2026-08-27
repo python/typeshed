@@ -11,6 +11,7 @@ on:
       - ".github/workflows/stubtest_stdlib.yml"
       - "tests/**"
       # When requirements.txt changes, we run `daily.yml`, which includes stdlib stubtest
+  workflow_call:
 
 permissions:
   contents: read
@@ -21,12 +22,13 @@ env:
   TERM: xterm-256color # needed for FORCE_COLOR to work on mypy on Ubuntu, see https://github.com/python/mypy/issues/13817
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  group: stubtest-stdlib-${{ github.workflow }}-${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
 
 jobs:
   stubtest-stdlib:
     name: "stubtest: stdlib"
+    if: ${{ github.repository == 'python/typeshed' || github.event_name != 'schedule' }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
