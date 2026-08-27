@@ -36,7 +36,14 @@ import tomlkit
 from packaging.specifiers import Specifier
 from termcolor import colored
 
-from ts_utils.metadata import ObsoleteMetadata, StubMetadata, read_metadata, update_metadata
+from ts_utils.metadata import (
+    ObsoleteMetadata,
+    StubMetadata,
+    StubtestSettings,
+    read_metadata,
+    read_stubtest_settings,
+    update_metadata,
+)
 from ts_utils.paths import PYRIGHT_CONFIG, STUBS_PATH, distribution_path
 from ts_utils.stubs import third_party_stubs
 
@@ -824,15 +831,13 @@ _repo_lock = asyncio.Lock()
 BRANCH_PREFIX = "stubsabot"
 
 
-def get_update_pr_body(update: Update, metadata: Mapping[str, Any]) -> str:
+def get_update_pr_body(update: Update, settings: StubtestSettings) -> str:
     body = "\n".join(f"{k}: {v}" for k, v in update.links.items())
 
     if update.diff_analysis is not None:
         body += f"\n\n{update.diff_analysis}"
 
-    stubtest_settings: dict[str, Any] = metadata.get("tool", {}).get("stubtest", {})
-    stubtest_will_run = not stubtest_settings.get("skip", False)
-    if stubtest_will_run:
+    if not settings.skip:
         body += textwrap.dedent("""
 
             If stubtest fails for this PR:
@@ -866,66 +871,55 @@ def remove_stubs(distribution: str) -> None:
         f.writelines(lines)
 
 
-async def suggest_typeshed_update(update: Update, session: aiohttp.ClientSession, action_level: ActionLevel) -> None:
+def get_commit_message(action: Update | Obsolete | Remove) -> tuple[str, str]:
+    """Return git commit message title and body."""
+    match action:
+        case Update():
+            stubtest_settings = read_stubtest_settings(action.distribution)
+            return (
+                f"[stubsabot] Bump {action.distribution} to {action.new_version}",
+                get_update_pr_body(action, stubtest_settings),
+            )
+        case Obsolete():
+            return (
+                f"[stubsabot] Mark {action.distribution} as obsolete since {action.obsolete_since_version}",
+                "\n".join(f"{k}: {v}" for k, v in action.links.items()),
+            )
+        case Remove():
+            return (
+                f"[stubsabot] Remove {action.distribution} as {action.reason}",
+                "\n".join(f"{k}: {v}" for k, v in action.links.items()),
+            )
+
+
+def run_action(action: Update | Obsolete | Remove) -> None:
+    match action:
+        case Update():
+            update_metadata(action.distribution, version=action.new_version)
+        case Obsolete():
+            obsolete_t = cast(dict[str, object], tomlkit.inline_table())
+            obsolete_t.update({"version": action.obsolete_since_version, "date": action.obsolete_since_date.date().isoformat()})
+            update_metadata(action.distribution, obsolete_since=obsolete_t)
+        case Remove():
+            remove_stubs(action.distribution)
+
+
+async def process_typeshed_change(
+    action: Update | Obsolete | Remove, session: aiohttp.ClientSession, action_level: ActionLevel
+) -> None:
     if action_level <= ActionLevel.nothing:
         return
-    title = f"[stubsabot] Bump {update.distribution} to {update.new_version}"
+
     async with _repo_lock:
-        branch_name = f"{BRANCH_PREFIX}/{normalize(update.distribution)}"
+        branch_name = f"{BRANCH_PREFIX}/{normalize(action.distribution)}"
         subprocess.check_call(["git", "checkout", "-B", branch_name, "origin/main"])
-        meta = update_metadata(update.distribution, version=update.new_version)
-        body = get_update_pr_body(update, meta)
+        run_action(action)
+        title, body = get_commit_message(action)
         subprocess.check_call(["git", "commit", "--all", "-m", f"{title}\n\n{body}"])
         if action_level <= ActionLevel.local:
             return
         if not latest_commit_is_different_to_last_commit_on_origin(branch_name):
-            print(f"No pushing to origin required: origin/{branch_name} exists and requires no changes!")
-            return
-        somewhat_safe_force_push(branch_name)
-        if action_level <= ActionLevel.fork:
-            return
-
-    await create_or_update_pull_request(title=title, body=body, branch_name=branch_name, session=session)
-
-
-async def suggest_typeshed_obsolete(obsolete: Obsolete, session: aiohttp.ClientSession, action_level: ActionLevel) -> None:
-    if action_level <= ActionLevel.nothing:
-        return
-    title = f"[stubsabot] Mark {obsolete.distribution} as obsolete since {obsolete.obsolete_since_version}"
-    async with _repo_lock:
-        branch_name = f"{BRANCH_PREFIX}/{normalize(obsolete.distribution)}"
-        subprocess.check_call(["git", "checkout", "-B", branch_name, "origin/main"])
-        obsolete_t = cast(dict[str, object], tomlkit.inline_table())
-        obsolete_t.update({"version": obsolete.obsolete_since_version, "date": obsolete.obsolete_since_date.date().isoformat()})
-        update_metadata(obsolete.distribution, obsolete_since=obsolete_t)
-        body = "\n".join(f"{k}: {v}" for k, v in obsolete.links.items())
-        subprocess.check_call(["git", "commit", "--all", "-m", f"{title}\n\n{body}"])
-        if action_level <= ActionLevel.local:
-            return
-        if not latest_commit_is_different_to_last_commit_on_origin(branch_name):
-            print(f"No PR required: origin/{branch_name} exists and requires no changes!")
-            return
-        somewhat_safe_force_push(branch_name)
-        if action_level <= ActionLevel.fork:
-            return
-
-    await create_or_update_pull_request(title=title, body=body, branch_name=branch_name, session=session)
-
-
-async def suggest_typeshed_remove(remove: Remove, session: aiohttp.ClientSession, action_level: ActionLevel) -> None:
-    if action_level <= ActionLevel.nothing:
-        return
-    title = f"[stubsabot] Remove {remove.distribution} as {remove.reason}"
-    async with _repo_lock:
-        branch_name = f"{BRANCH_PREFIX}/{normalize(remove.distribution)}"
-        subprocess.check_call(["git", "checkout", "-B", branch_name, "origin/main"])
-        remove_stubs(remove.distribution)
-        body = "\n".join(f"{k}: {v}" for k, v in remove.links.items())
-        subprocess.check_call(["git", "commit", "--all", "-m", f"{title}\n\n{body}"])
-        if action_level <= ActionLevel.local:
-            return
-        if not latest_commit_is_different_to_last_commit_on_origin(branch_name):
-            print(f"No pushing to origin required: origin/{branch_name} exists and requires no changes!")
+            print(f"No pushing to origin required: 'origin/{branch_name}' exists and requires no changes!")
             return
         somewhat_safe_force_push(branch_name)
         if action_level <= ActionLevel.fork:
@@ -1011,16 +1005,8 @@ async def main() -> int:
                 action_count += 1
 
                 try:
-                    if isinstance(update, Update):
-                        await suggest_typeshed_update(update, session, action_level=args.action_level)
-                        continue
-                    if isinstance(update, Obsolete):
-                        await suggest_typeshed_obsolete(update, session, action_level=args.action_level)
-                        continue
-                    # Redundant, but keeping for extra runtime validation
-                    if isinstance(update, Remove):  # pyright: ignore[reportUnnecessaryIsInstance]
-                        await suggest_typeshed_remove(update, session, action_level=args.action_level)
-                        continue
+                    await process_typeshed_change(update, session, action_level=args.action_level)
+                    continue
                 except RemoteConflictError as e:
                     print(colored(f"... but ran into {type(e).__qualname__}: {e}", "red"))
                     continue
