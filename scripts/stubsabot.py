@@ -881,8 +881,6 @@ async def suggest_typeshed_update(update: Update, session: aiohttp.ClientSession
         meta = update_metadata(update.distribution, version=update.new_version)
         body = get_update_pr_body(update, meta)
         subprocess.check_call(["git", "commit", "--all", "-m", f"{title}\n\n{body}"])
-        print("[DEBUG]")
-        subprocess.run(["git", "show-ref"], check=False)
         if action_level <= ActionLevel.local:
             return
         if not latest_commit_is_different_to_last_commit_on_origin(branch_name):
