@@ -27,7 +27,7 @@ jobs:
       - uses: astral-sh/setup-uv@v8.2.0
         with:
           version-file: "requirements-tests.txt"
-      - name: git config
+      - name: Git config
         run: |
           git config --global user.name stubsabot
           git config --global user.email '<>'
