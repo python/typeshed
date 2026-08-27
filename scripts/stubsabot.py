@@ -989,13 +989,13 @@ async def main() -> int:
 
             action_count = 0
             for task in asyncio.as_completed(tasks):
-                update = await task
-                print(f"{update.distribution}... ", end="")
-                print(update)
+                action = await task
+                print(f"{action.distribution}... ", end="")
+                print(action)
 
-                if isinstance(update, NoUpdate):
+                if isinstance(action, NoUpdate):
                     continue
-                if isinstance(update, Error):
+                if isinstance(action, Error):
                     error = True
                     continue
 
@@ -1005,7 +1005,7 @@ async def main() -> int:
                 action_count += 1
 
                 try:
-                    await process_typeshed_change(update, session, action_level=args.action_level)
+                    await process_typeshed_change(action, session, action_level=args.action_level)
                     continue
                 except RemoteConflictError as e:
                     print(colored(f"... but ran into {type(e).__qualname__}: {e}", "red"))
