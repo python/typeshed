@@ -30,7 +30,8 @@ jobs:
       - uses: astral-sh/setup-uv@v8.2.0
         with:
           version-file: "requirements-tests.txt"
-      - run: |
+      - name: Run check_typeshed_structure.py
+        run: |
           uv run \
           --python=3.13 \
           --no-project \
@@ -73,7 +74,8 @@ jobs:
       - uses: astral-sh/setup-uv@v8.2.0
         with:
           version-file: "requirements-tests.txt"
-      - run: |
+      - name: Run regr_test.py
+        run: |
           uv run \
           --python=3.14 \
           --no-project \
