@@ -85,21 +85,28 @@ jobs:
         shell: bash
         run: |
           PACKAGES=$(python tests/get_stubtest_system_requirements.py)
+          PACKAGE_ARGS=()
+          while IFS= read -r package; do
+            PACKAGE_ARGS+=("$package")
+          done <<< "$PACKAGES"
 
           if [ "${{ runner.os }}" = "Linux" ]; then
             if [ -n "$PACKAGES" ]; then
-              printf "Installing APT packages:\n  $(echo $PACKAGES | sed 's/ /\n  /g')\n"
-              sudo apt-get update -q && sudo apt-get install -qy $PACKAGES
+              printf 'Installing APT packages:\n'
+              printf '  %s\n' "${PACKAGE_ARGS[@]}"
+              sudo apt-get update -q && sudo apt-get install -qy "${PACKAGE_ARGS[@]}"
             fi
           else
             if [ "${{ runner.os }}" = "macOS" ] && [ -n "$PACKAGES" ]; then
-              printf "Installing Homebrew packages:\n  $(echo $PACKAGES | sed 's/ /\n  /g')\n"
-              brew install -q $PACKAGES
+              printf 'Installing Homebrew packages:\n'
+              printf '  %s\n' "${PACKAGE_ARGS[@]}"
+              brew install -q "${PACKAGE_ARGS[@]}"
             fi
 
             if [ "${{ runner.os }}" = "Windows" ] && [ -n "$PACKAGES" ]; then
-              printf "Installing Chocolatey packages:\n  $(echo $PACKAGES | sed 's/ /\n  /g')\n"
-              choco install -y $PACKAGES
+              printf 'Installing Chocolatey packages:\n'
+              printf '  %s\n' "${PACKAGE_ARGS[@]}"
+              choco install -y "${PACKAGE_ARGS[@]}"
             fi
           fi
       - name: Run stubtest

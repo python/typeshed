@@ -64,8 +64,13 @@ jobs:
         run: |
           PACKAGES=$(python tests/get_stubtest_system_requirements.py)
           if [ -n "$PACKAGES" ]; then
-            printf "Installing APT packages:\n  $(echo $PACKAGES | sed 's/ /\n  /g')\n"
-            sudo apt-get update -q && sudo apt-get install -qy $PACKAGES
+            PACKAGE_ARGS=()
+            while IFS= read -r package; do
+              PACKAGE_ARGS+=("$package")
+            done <<< "$PACKAGES"
+            printf 'Installing APT packages:\n'
+            printf '  %s\n' "${PACKAGE_ARGS[@]}"
+            sudo apt-get update -q && sudo apt-get install -qy "${PACKAGE_ARGS[@]}"
           fi
       - name: Run mypy_test.py
         run: python ./tests/mypy_test.py --platform=${{ matrix.platform }} --python-version=${{ matrix.python-version }}
@@ -117,7 +122,11 @@ jobs:
         run: |
           PACKAGES=$(python tests/get_external_stub_requirements.py)
           if [ -n "$PACKAGES" ]; then
-            uv pip install --python-version ${{ matrix.python-version }} $PACKAGES
+            PACKAGE_ARGS=()
+            while IFS= read -r package; do
+              PACKAGE_ARGS+=("$package")
+            done <<< "$PACKAGES"
+            uv pip install --python-version ${{ matrix.python-version }} "${PACKAGE_ARGS[@]}"
           fi
           # Published stub packages can shadow the checked-in stubs when ty
           # resolves their relative imports.
@@ -152,7 +161,11 @@ jobs:
         run: |
           PACKAGES=$(python tests/get_external_stub_requirements.py)
           if [ -n "$PACKAGES" ]; then
-            uv pip install --python-version ${{ matrix.python-version }} $PACKAGES
+            PACKAGE_ARGS=()
+            while IFS= read -r package; do
+              PACKAGE_ARGS+=("$package")
+            done <<< "$PACKAGES"
+            uv pip install --python-version ${{ matrix.python-version }} "${PACKAGE_ARGS[@]}"
           fi
           # Published stub packages can shadow the checked-in stubs when pyrefly
           # resolves their relative imports.
@@ -187,8 +200,13 @@ jobs:
         run: |
           PACKAGES=$(python tests/get_stubtest_system_requirements.py)
           if [ -n "$PACKAGES" ]; then
-            printf "Installing APT packages:\n  $(echo $PACKAGES | sed 's/ /\n  /g')\n"
-            sudo apt-get update -q && sudo apt-get install -qy $PACKAGES
+            PACKAGE_ARGS=()
+            while IFS= read -r package; do
+              PACKAGE_ARGS+=("$package")
+            done <<< "$PACKAGES"
+            printf 'Installing APT packages:\n'
+            printf '  %s\n' "${PACKAGE_ARGS[@]}"
+            sudo apt-get update -q && sudo apt-get install -qy "${PACKAGE_ARGS[@]}"
           fi
       - name: Create an isolated venv for testing
         run: uv venv .venv
@@ -196,11 +214,16 @@ jobs:
         run: |
           PACKAGES=$(python tests/get_external_stub_requirements.py)
           if [ -n "$PACKAGES" ]; then
-              printf "Installing python packages:\n  $(echo $PACKAGES | sed 's/ /\n  /g')\n"
-              uv pip install --python-version ${{ matrix.python-version }} $PACKAGES
+            PACKAGE_ARGS=()
+            while IFS= read -r package; do
+              PACKAGE_ARGS+=("$package")
+            done <<< "$PACKAGES"
+            printf 'Installing python packages:\n'
+            printf '  %s\n' "${PACKAGE_ARGS[@]}"
+            uv pip install --python-version ${{ matrix.python-version }} "${PACKAGE_ARGS[@]}"
           fi
       - name: Activate the isolated venv for the rest of the job
-        run: echo "$PWD/.venv/bin" >> $GITHUB_PATH
+        run: echo "$PWD/.venv/bin" >> "$GITHUB_PATH"
       - name: List 3rd-party stub dependencies installed
         run: uv pip freeze
       - name: Run pyright with basic settings on all the stubs
