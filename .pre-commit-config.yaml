@@ -48,18 +48,6 @@ repos:
     rev: 451b56af716f9f0d0c2b816503a3fd0cf8b036fa # frozen: v1.29.0
     hooks:
       - id: zizmor
-  # `actionlint` hook, for verifying correct syntax in GitHub Actions workflows.
-  - repo: https://github.com/rhysd/actionlint
-    rev: 914e7df21a07ef503a81201c76d2b11c789d3fca # frozen: v1.7.12
-    hooks:
-      - id: actionlint
-        # specifying this means renovate will also update `additional_dependencies`
-        language: golang
-        additional_dependencies:
-          # actionlint has a shellcheck integration which extracts shell scripts in `run:` steps from GitHub Actions
-          # and checks these with shellcheck. This is arguably its most useful feature,
-          # but the integration only works if shellcheck is installed
-          - "github.com/wasilibs/go-shellcheck/cmd/shellcheck@v0.11.1"
 
 ci:
   autofix_commit_msg: "[pre-commit.ci] auto fixes from pre-commit.com hooks"
