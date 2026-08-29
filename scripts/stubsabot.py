@@ -179,10 +179,13 @@ class Remove:
 @dataclass
 class NoUpdate:
     distribution: str
-    reason: Literal["obsolete", "no longer updated", "up to date"]
+    reason: Literal["obsolete", "no longer updated", "up to date"] | int
 
     def __str__(self) -> str:
-        return f"{colored('skipping', 'green')} ({self.reason})"
+        if isinstance(self.reason, int):
+            return f"{colored('skipping', 'green')} (PR {self.reason})"
+        else:
+            return f"{colored('skipping', 'green')} ({self.reason})"
 
 
 @dataclass
@@ -749,10 +752,9 @@ async def create_or_update_pull_request(*, title: str, body: str, branch_name: s
     await update_pull_request_label(pr_number=pr_number, session=session)
 
 
-async def update_existing_pull_request(*, title: str, body: str, branch_name: str, session: aiohttp.ClientSession) -> int:
+async def find_existing_pr(*, branch_name: str, session: aiohttp.ClientSession) -> int:
     fork_owner = get_origin_owner()
 
-    # Find the existing PR
     async with session.get(
         f"{TYPESHED_API_URL}/pulls",
         params={"state": "open", "head": f"{fork_owner}:{branch_name}", "base": "main"},
@@ -763,6 +765,13 @@ async def update_existing_pull_request(*, title: str, body: str, branch_name: st
         assert len(resp_json) >= 1
         pr_number = resp_json[0]["number"]
         assert isinstance(pr_number, int)
+
+    return pr_number
+
+
+async def update_existing_pull_request(*, title: str, body: str, branch_name: str, session: aiohttp.ClientSession) -> int:
+    # Find the existing PR
+    pr_number = await find_existing_pr(branch_name=branch_name, session=session)
     # Update the PR's title and body
     async with session.patch(
         f"{TYPESHED_API_URL}/pulls/{pr_number}", json={"title": title, "body": body}, headers=get_github_api_headers()
@@ -914,11 +923,12 @@ def run_action(action: Update | Obsolete | Remove) -> None:
             remove_stubs(action.distribution)
 
 
-async def process_typeshed_change(
-    action: Update | Obsolete | Remove, session: aiohttp.ClientSession, action_level: ActionLevel
-) -> None:
+_A = TypeVar("_A", bound=Update | Obsolete | Remove)
+
+
+async def process_typeshed_change(action: _A, session: aiohttp.ClientSession, action_level: ActionLevel) -> _A | NoUpdate:
     if action_level <= ActionLevel.nothing:
-        return
+        return action
 
     async with _repo_lock:
         branch_name = f"{BRANCH_PREFIX}/{normalize(action.distribution)}"
@@ -927,15 +937,16 @@ async def process_typeshed_change(
         title, body = get_commit_message(action)
         subprocess.check_call(["git", "commit", "--quiet", "--all", "-m", f"{title}\n\n{body}"])
         if action_level <= ActionLevel.local:
-            return
+            return action
         if not latest_commit_is_different_to_last_commit_on_origin(branch_name):
-            print(f"No pushing to origin required: 'origin/{branch_name}' exists and requires no changes!")
-            return
+            pr_number = await find_existing_pr(branch_name=branch_name, session=session)
+            return NoUpdate(action.distribution, pr_number)
         somewhat_safe_force_push(branch_name)
         if action_level <= ActionLevel.fork:
-            return
+            return action
 
     await create_or_update_pull_request(title=title, body=body, branch_name=branch_name, session=session)
+    return action
 
 
 async def main() -> int:
@@ -1001,21 +1012,24 @@ async def main() -> int:
             for task in asyncio.as_completed(tasks):
                 action = await task
                 print(f"{action.distribution}... ", end="")
-                print(action)
 
                 if isinstance(action, NoUpdate):
+                    print(action)
                     continue
                 if isinstance(action, Error):
+                    print(action)
                     error = True
                     continue
 
                 if args.action_count_limit is not None and action_count >= args.action_count_limit:
+                    print(action)
                     print(colored("... but we've reached action count limit", "red"))
                     continue
                 action_count += 1
 
                 try:
-                    await process_typeshed_change(action, session, action_level=args.action_level)
+                    action_result = await process_typeshed_change(action, session, action_level=args.action_level)
+                    print(action_result)
                     continue
                 except RemoteConflictError as e:
                     print(colored(f"... but ran into {type(e).__qualname__}: {e}", "red"))
