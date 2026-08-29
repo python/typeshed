@@ -1001,7 +1001,8 @@ async def main() -> int:
             action_count = 0
             for task in asyncio.as_completed(tasks):
                 update = await task
-                print(f"{update.distribution}... {update}", flush=True)
+                print(f"{update.distribution}... ", end="")
+                print(update)
 
                 if isinstance(update, NoUpdate):
                     continue
