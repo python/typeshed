@@ -1,6 +1,8 @@
 name: mypy_primer (comment)
 
-on:
+# workflow_run is needed to comment on PRs from forks. This workflow only reads
+# artifacts as data; it never checks out or executes PR code.
+on: # zizmor: ignore[dangerous-triggers]
   workflow_run:
     workflows:
       - mypy_primer
