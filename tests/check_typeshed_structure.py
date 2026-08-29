@@ -188,6 +188,18 @@ def check_pyright_exclude_order() -> None:
         ), f"Entry '{exclude[i]}' should come before '{exclude[i + 1]}' in the {PYRIGHT_CONFIG.name} exclude list"
 
 
+def check_pyright_configs_consistent() -> None:
+    """Check that basic and stricter Pyright runs cover complementary paths."""
+    stricter_config = json.loads(jsonc_to_json(PYRIGHT_CONFIG.read_text(encoding="utf-8")))
+    basic_config_path = PYRIGHT_CONFIG.with_name("pyrightconfig.basic.json")
+    basic_config = json.loads(jsonc_to_json(basic_config_path.read_text(encoding="utf-8")))
+
+    assert basic_config.get("extends") == "./pyrightconfig.json"
+    assert basic_config.get("include") == stricter_config.get(
+        "exclude"
+    ), f"The include list in {basic_config_path.name} must match the exclude list in {PYRIGHT_CONFIG.name}"
+
+
 if __name__ == "__main__":
     check_versions_file()
     check_metadata()
@@ -198,3 +210,4 @@ if __name__ == "__main__":
     check_distutils()
     check_test_cases()
     check_pyright_exclude_order()
+    check_pyright_configs_consistent()
