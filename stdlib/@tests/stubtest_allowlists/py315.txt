@@ -3,8 +3,6 @@
 # ============================================
 
 _frozen_importlib_external.PathFinder.discover
-_frozen_importlib_external.SourceFileLoader.source_to_code
-_frozen_importlib_external.SourceLoader.source_to_code
 dataclasses.MISSING
 dataclasses._MISSING_TYPE
 dataclasses.field
