@@ -4,7 +4,6 @@
   "suppressNotifications": ["prEditedNotification"],
   "extends": [
     "config:recommended",
-    "schedule:monthly",
     "helpers:pinGitHubActionDigestsToSemver",
     "replacements:all",
     "abandonments:recommended"
