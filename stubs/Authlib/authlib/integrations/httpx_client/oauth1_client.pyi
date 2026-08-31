@@ -6,15 +6,16 @@ from typing_extensions import Never
 from authlib.oauth1 import ClientAuth
 from authlib.oauth1.client import OAuth1Client as _OAuth1Client
 
-_Response: TypeAlias = Incomplete  # actual type is httpx.Response
-_Request: TypeAlias = Incomplete  # actual type is httpx.Request
+Auth: TypeAlias = Incomplete  # actual type is httpx2.Auth
+Request: TypeAlias = Incomplete  # actual type is httpx2.Request
+Response: TypeAlias = Incomplete  # actual type is httpx2.Response
 
-# Inherits from httpx.Auth
+# Inherits from httpx2.Auth
 class OAuth1Auth(ClientAuth):
     requires_request_body: bool
-    def auth_flow(self, request: _Request) -> Generator[_Request, _Response]: ...
+    def auth_flow(self, request: Request) -> Generator[Request, Response]: ...
 
-# Inherits from httpx.AsyncClient
+# Inherits from httpx2.AsyncClient
 class AsyncOAuth1Client(_OAuth1Client):
     auth_class = OAuth1Auth
     def __init__(
@@ -35,7 +36,7 @@ class AsyncOAuth1Client(_OAuth1Client):
     @staticmethod
     def handle_error(error_type: str | None, error_description: str | None) -> Never: ...
 
-# Inherits from httpx.Client
+# Inherits from httpx2.Client
 class OAuth1Client(_OAuth1Client):
     auth_class = OAuth1Auth
     def __init__(
