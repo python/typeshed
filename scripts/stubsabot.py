@@ -179,11 +179,12 @@ class Remove:
 @dataclass
 class NoUpdate:
     distribution: str
-    reason: Literal["obsolete", "no longer updated", "up to date"] | int
+    reason: Literal["obsolete", "no longer updated", "up to date", "pr open"]
+    pr_number: int = 0
 
     def __str__(self) -> str:
-        if isinstance(self.reason, int):
-            return f"{colored('skipping', 'green')} (PR {self.reason})"
+        if self.reason == "pr open":
+            return f"{colored('skipping', 'green')} ({self.reason} {self.pr_number})"
         else:
             return f"{colored('skipping', 'green')} ({self.reason})"
 
@@ -940,7 +941,7 @@ async def process_typeshed_change(action: _A, session: aiohttp.ClientSession, ac
             return action
         if not latest_commit_is_different_to_last_commit_on_origin(branch_name):
             pr_number = await find_existing_pr(branch_name=branch_name, session=session)
-            return NoUpdate(action.distribution, pr_number)
+            return NoUpdate(action.distribution, "pr open", pr_number)
         somewhat_safe_force_push(branch_name)
         if action_level <= ActionLevel.fork:
             return action
