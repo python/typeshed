@@ -779,35 +779,40 @@ async def update_pull_request_label(*, pr_number: int, session: aiohttp.ClientSe
         response.raise_for_status()
 
 
+def remote_branch_exists(branch: str) -> bool:
+    return (
+        subprocess.run(["git", "show-ref", "--verify", "--quiet", f"refs/remotes/origin/{branch}"], check=False).returncode == 0
+    )
+
+
 def has_non_stubsabot_commits(branch: str) -> bool:
     assert not branch.startswith("origin/")
-    try:
-        # commits on origin/branch that are not on branch or are
-        # patch equivalent to a commit on branch
-        output = subprocess.check_output(
-            ["git", "log", "--right-only", "--pretty=%an", "--cherry-pick", f"{branch}...origin/{branch}"],
-            stderr=subprocess.DEVNULL,
-        )
-        return bool(set(output.splitlines()) - {b"stubsabot"})
-    except subprocess.CalledProcessError:
-        # origin/branch does not exist
+
+    if not remote_branch_exists(branch):
         return False
+
+    # commits on origin/branch that are not on branch or are
+    # patch equivalent to a commit on branch
+    output = subprocess.check_output(
+        ["git", "log", "--right-only", "--pretty=%an", "--cherry-pick", f"{branch}...origin/{branch}"], stderr=subprocess.DEVNULL
+    )
+    return bool(set(output.splitlines()) - {b"stubsabot"})
 
 
 def latest_commit_is_different_to_last_commit_on_origin(branch: str) -> bool:
     assert not branch.startswith("origin/")
-    try:
-        # https://www.git-scm.com/docs/git-range-diff
-        # If the number of lines is >1,
-        # it indicates that something about our commit is different to the last commit
-        # (Could be the commit "content", or the commit message).
-        commit_comparison = subprocess.run(
-            ["git", "range-diff", f"origin/{branch}~1..origin/{branch}", "HEAD~1..HEAD"], check=True, capture_output=True
-        )
-        return len(commit_comparison.stdout.splitlines()) > 1
-    except subprocess.CalledProcessError:
-        # origin/branch does not exist
+
+    if not remote_branch_exists(branch):
         return True
+
+    # https://www.git-scm.com/docs/git-range-diff
+    # If the number of lines is >1,
+    # it indicates that something about our commit is different to the last commit
+    # (Could be the commit "content", or the commit message).
+    commit_comparison = subprocess.run(
+        ["git", "range-diff", f"origin/{branch}~1..origin/{branch}", "HEAD~1..HEAD"], check=True, capture_output=True
+    )
+    return len(commit_comparison.stdout.splitlines()) > 1
 
 
 class RemoteConflictError(Exception):
@@ -817,7 +822,12 @@ class RemoteConflictError(Exception):
 def somewhat_safe_force_push(branch: str) -> None:
     if has_non_stubsabot_commits(branch):
         raise RemoteConflictError(f"origin/{branch} has non-stubsabot changes that are not on {branch}!")
-    subprocess.check_call(["git", "push", "origin", branch, "--force"])
+    result = subprocess.run(["git", "push", "--quiet", "origin", branch, "--force"], text=True, capture_output=True, check=False)
+    if result.returncode:
+        # Capture both streams to suppress stderr on success without losing it on failure
+        sys.stdout.write(result.stdout)
+        sys.stderr.write(result.stderr)
+        result.check_returncode()
 
 
 def normalize(name: str) -> str:
@@ -912,10 +922,10 @@ async def process_typeshed_change(
 
     async with _repo_lock:
         branch_name = f"{BRANCH_PREFIX}/{normalize(action.distribution)}"
-        subprocess.check_call(["git", "checkout", "-B", branch_name, "origin/main"])
+        subprocess.check_call(["git", "checkout", "--quiet", "-B", branch_name, "origin/main"])
         run_action(action)
         title, body = get_commit_message(action)
-        subprocess.check_call(["git", "commit", "--all", "-m", f"{title}\n\n{body}"])
+        subprocess.check_call(["git", "commit", "--quiet", "--all", "-m", f"{title}\n\n{body}"])
         if action_level <= ActionLevel.local:
             return
         if not latest_commit_is_different_to_last_commit_on_origin(branch_name):
@@ -1015,7 +1025,7 @@ async def main() -> int:
         # if you need to cleanup, try:
         # git branch -D $(git branch --list 'stubsabot/*')
         if args.action_level >= ActionLevel.local and original_branch:
-            subprocess.check_call(["git", "checkout", original_branch])
+            subprocess.check_call(["git", "checkout", "--quiet", original_branch])
 
     return 1 if error else 0
 
