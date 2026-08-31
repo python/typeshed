@@ -772,35 +772,40 @@ async def update_pull_request_label(*, pr_number: int, session: aiohttp.ClientSe
         response.raise_for_status()
 
 
+def remote_branch_exists(branch: str) -> bool:
+    return (
+        subprocess.run(["git", "show-ref", "--verify", "--quiet", f"refs/remotes/origin/{branch}"], check=False).returncode == 0
+    )
+
+
 def has_non_stubsabot_commits(branch: str) -> bool:
     assert not branch.startswith("origin/")
-    try:
-        # commits on origin/branch that are not on branch or are
-        # patch equivalent to a commit on branch
-        output = subprocess.check_output(
-            ["git", "log", "--right-only", "--pretty=%an", "--cherry-pick", f"{branch}...origin/{branch}"],
-            stderr=subprocess.DEVNULL,
-        )
-        return bool(set(output.splitlines()) - {b"stubsabot"})
-    except subprocess.CalledProcessError:
-        # origin/branch does not exist
+
+    if not remote_branch_exists(branch):
         return False
+
+    # commits on origin/branch that are not on branch or are
+    # patch equivalent to a commit on branch
+    output = subprocess.check_output(
+        ["git", "log", "--right-only", "--pretty=%an", "--cherry-pick", f"{branch}...origin/{branch}"], stderr=subprocess.DEVNULL
+    )
+    return bool(set(output.splitlines()) - {b"stubsabot"})
 
 
 def latest_commit_is_different_to_last_commit_on_origin(branch: str) -> bool:
     assert not branch.startswith("origin/")
-    try:
-        # https://www.git-scm.com/docs/git-range-diff
-        # If the number of lines is >1,
-        # it indicates that something about our commit is different to the last commit
-        # (Could be the commit "content", or the commit message).
-        commit_comparison = subprocess.run(
-            ["git", "range-diff", f"origin/{branch}~1..origin/{branch}", "HEAD~1..HEAD"], check=True, capture_output=True
-        )
-        return len(commit_comparison.stdout.splitlines()) > 1
-    except subprocess.CalledProcessError:
-        # origin/branch does not exist
+
+    if not remote_branch_exists(branch):
         return True
+
+    # https://www.git-scm.com/docs/git-range-diff
+    # If the number of lines is >1,
+    # it indicates that something about our commit is different to the last commit
+    # (Could be the commit "content", or the commit message).
+    commit_comparison = subprocess.run(
+        ["git", "range-diff", f"origin/{branch}~1..origin/{branch}", "HEAD~1..HEAD"], check=True, capture_output=True
+    )
+    return len(commit_comparison.stdout.splitlines()) > 1
 
 
 class RemoteConflictError(Exception):
