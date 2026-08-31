@@ -3,7 +3,7 @@ name: mypy_primer (comment)
 on:
   workflow_run:
     workflows:
-      - Run mypy_primer
+      - mypy_primer
     types:
       - completed
 

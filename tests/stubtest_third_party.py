@@ -78,8 +78,12 @@ def run_stubtest(dist: Path, *, verbose: bool = False, ci_platforms_only: bool =
                 dists_to_install[:] = dists_to_install[1:]
 
             pip_cmd = [pip_exe, "install", *dists_to_install]
+            # Some packages read environment variables at build time, e.g. to
+            # opt out of CPU-specific compiler flags. See `install-environment`
+            # in CONTRIBUTING.md.
+            pip_env = os.environ | stubtest_settings.install_environment
             try:
-                subprocess.run(pip_cmd, check=True, capture_output=True)
+                subprocess.run(pip_cmd, env=pip_env, check=True, capture_output=True)
             except subprocess.CalledProcessError as e:
                 formatter.command_error("fail (pip install)", e)
                 return False
