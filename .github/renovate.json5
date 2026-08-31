@@ -11,7 +11,7 @@
   ],
   "configMigration": true,
   "labels": ["bot: dependencies"],
-  "rebaseLabel": ["bot: rebase"],
+  "rebaseLabel": "bot: rebase",
   "semanticCommits": "disabled",
   "separateMajorMinor": false,
   "prHourlyLimit": 10,
