@@ -85,28 +85,26 @@ jobs:
         shell: bash
         run: |
           PACKAGES=$(python tests/get_stubtest_system_requirements.py)
-          PACKAGE_ARGS=()
-          while IFS= read -r package; do
-            PACKAGE_ARGS+=("$package")
-          done <<< "$PACKAGES"
 
+          # System package names contain no whitespace or glob characters, so word splitting is intentional.
+          # shellcheck disable=SC2086
           if [ "${{ runner.os }}" = "Linux" ]; then
             if [ -n "$PACKAGES" ]; then
               printf 'Installing APT packages:\n'
-              printf '  %s\n' "${PACKAGE_ARGS[@]}"
-              sudo apt-get update -q && sudo apt-get install -qy "${PACKAGE_ARGS[@]}"
+              printf '  %s\n' $PACKAGES
+              sudo apt-get update -q && sudo apt-get install -qy $PACKAGES
             fi
           else
             if [ "${{ runner.os }}" = "macOS" ] && [ -n "$PACKAGES" ]; then
               printf 'Installing Homebrew packages:\n'
-              printf '  %s\n' "${PACKAGE_ARGS[@]}"
-              brew install -q "${PACKAGE_ARGS[@]}"
+              printf '  %s\n' $PACKAGES
+              brew install -q $PACKAGES
             fi
 
             if [ "${{ runner.os }}" = "Windows" ] && [ -n "$PACKAGES" ]; then
               printf 'Installing Chocolatey packages:\n'
-              printf '  %s\n' "${PACKAGE_ARGS[@]}"
-              choco install -y "${PACKAGE_ARGS[@]}"
+              printf '  %s\n' $PACKAGES
+              choco install -y $PACKAGES
             fi
           fi
       - name: Run stubtest

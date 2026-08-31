@@ -63,14 +63,12 @@ jobs:
       - name: Install required APT packages
         run: |
           PACKAGES=$(python tests/get_stubtest_system_requirements.py)
+          # System package names contain no whitespace or glob characters, so word splitting is intentional.
+          # shellcheck disable=SC2086
           if [ -n "$PACKAGES" ]; then
-            PACKAGE_ARGS=()
-            while IFS= read -r package; do
-              PACKAGE_ARGS+=("$package")
-            done <<< "$PACKAGES"
             printf 'Installing APT packages:\n'
-            printf '  %s\n' "${PACKAGE_ARGS[@]}"
-            sudo apt-get update -q && sudo apt-get install -qy "${PACKAGE_ARGS[@]}"
+            printf '  %s\n' $PACKAGES
+            sudo apt-get update -q && sudo apt-get install -qy $PACKAGES
           fi
       - name: Run mypy_test.py
         run: python ./tests/mypy_test.py --platform=${{ matrix.platform }} --python-version=${{ matrix.python-version }}
@@ -199,14 +197,12 @@ jobs:
       - name: Install required APT packages
         run: |
           PACKAGES=$(python tests/get_stubtest_system_requirements.py)
+          # System package names contain no whitespace or glob characters, so word splitting is intentional.
+          # shellcheck disable=SC2086
           if [ -n "$PACKAGES" ]; then
-            PACKAGE_ARGS=()
-            while IFS= read -r package; do
-              PACKAGE_ARGS+=("$package")
-            done <<< "$PACKAGES"
             printf 'Installing APT packages:\n'
-            printf '  %s\n' "${PACKAGE_ARGS[@]}"
-            sudo apt-get update -q && sudo apt-get install -qy "${PACKAGE_ARGS[@]}"
+            printf '  %s\n' $PACKAGES
+            sudo apt-get update -q && sudo apt-get install -qy $PACKAGES
           fi
       - name: Create an isolated venv for testing
         run: uv venv .venv
