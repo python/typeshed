@@ -13,18 +13,18 @@ __all__ = ["BaseLoader", "SafeLoader", "Loader", "RoundTripLoader"]
 
 _Loader: TypeAlias = Loader | BaseLoader | SafeLoader | RoundTripLoader  # noqa: Y047
 
-class BaseLoader(Reader, Scanner, Parser, Composer, BaseConstructor, VersionedResolver):  # type: ignore[misc]
+class BaseLoader(Reader, Scanner, Parser, Composer, BaseConstructor, VersionedResolver):  # type: ignore[misc]  # pyrefly: ignore [inconsistent-inheritance]
     comment_handling: int | None
     def __init__(self, stream: _ReadStream, version: VersionType | None = None, preserve_quotes: Unused = None) -> None: ...
 
-class SafeLoader(Reader, Scanner, Parser, Composer, SafeConstructor, VersionedResolver):  # type: ignore[misc]
+class SafeLoader(Reader, Scanner, Parser, Composer, SafeConstructor, VersionedResolver):  # type: ignore[misc]  # pyrefly: ignore [inconsistent-inheritance]
     comment_handling: int | None
     def __init__(self, stream: _ReadStream, version: VersionType | None = None, preserve_quotes: Unused = None) -> None: ...
 
-class Loader(Reader, Scanner, Parser, Composer, Constructor, VersionedResolver):  # type: ignore[misc]
+class Loader(Reader, Scanner, Parser, Composer, Constructor, VersionedResolver):  # type: ignore[misc]  # pyrefly: ignore [inconsistent-inheritance]
     comment_handling: int | None
     def __init__(self, stream: _ReadStream, version: VersionType | None = None, preserve_quotes: Unused = None) -> None: ...
 
-class RoundTripLoader(Reader, RoundTripScanner, RoundTripParser, Composer, RoundTripConstructor, VersionedResolver):  # type: ignore[misc]
+class RoundTripLoader(Reader, RoundTripScanner, RoundTripParser, Composer, RoundTripConstructor, VersionedResolver):  # type: ignore[misc]  # pyrefly: ignore [inconsistent-inheritance]
     comment_handling: int | None
     def __init__(self, stream: _ReadStream, version: VersionType | None = None, preserve_quotes: bool | None = None) -> None: ...
