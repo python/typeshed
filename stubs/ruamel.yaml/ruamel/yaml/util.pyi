@@ -3,8 +3,8 @@ from collections.abc import Callable, Iterator
 from datetime import date, datetime
 from typing import Any, Final
 
-from configobj import (  # ty: ignore[unresolved-import, unused-ignore-comment]  # pyrefly: ignore [missing-import]
-    ConfigObj as _ConfigObj,  # type: ignore[import-not-found]  # pyright: ignore[reportMissingImports]
+from configobj import (  # type: ignore[import-not-found]  # pyright: ignore[reportMissingImports]  # ty:ignore[unresolved-import]  # pyrefly: ignore [missing-import]
+    ConfigObj as _ConfigObj,
 )
 
 from .compat import _ReadStream
