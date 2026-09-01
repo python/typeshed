@@ -3,7 +3,9 @@ from collections.abc import Callable, Iterator
 from datetime import date, datetime
 from typing import Any, Final
 
-from configobj import ConfigObj as _ConfigObj  # type: ignore[import-not-found]  # pyright: ignore[reportMissingImports]
+from configobj import (  # ty: ignore[unresolved-import, unused-ignore-comment]  # pyrefly: ignore [missing-import]
+    ConfigObj as _ConfigObj,  # type: ignore[import-not-found]  # pyright: ignore[reportMissingImports]
+)
 
 from .compat import _ReadStream
 from .main import _YAMLObject
