@@ -8,6 +8,7 @@ from .scalarint import _Underscore
 __all__ = ["ScalarFloat", "ExponentialFloat", "ExponentialCapsFloat"]
 
 class ScalarFloat(float):
+    # None values for these attributes can trigger a bug in the representer.
     _width: int
     _prec: int
     _m_sign: Literal[False, "+", "-"]
@@ -39,7 +40,7 @@ class ScalarFloat(float):
     def __isub__(self, a: float, /) -> float: ...  # noqa: Y034
     @property
     def anchor(self) -> Anchor: ...
-    def yaml_anchor(self, *, any: bool = False) -> Anchor: ...
+    def yaml_anchor(self, *, any: bool = False) -> Anchor | None: ...
     def yaml_set_anchor(self, value: str, /, *, always_dump: bool = False) -> None: ...
     def dump(self, out: SupportsWrite[str] = ...) -> None: ...
 

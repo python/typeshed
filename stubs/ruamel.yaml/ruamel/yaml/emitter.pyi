@@ -1,6 +1,5 @@
 from collections.abc import Callable
-from typing import Final, Literal
-from typing_extensions import TypeAlias
+from typing import Final, Literal, TypeAlias
 
 from .compat import _WriteStream
 from .dumper import _Dumper
@@ -116,10 +115,12 @@ class Emitter:
         brace_single_entry_mapping_in_flow_sequence: bool | None = None,
         dumper: YAML | _Dumper | None = None,
     ) -> None: ...
+
     @property
     def stream(self) -> _WriteStream: ...
     @stream.setter
     def stream(self, val: _WriteStream) -> None: ...
+
     @property
     def serializer(self) -> Serializer: ...
     @property

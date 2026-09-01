@@ -2,8 +2,8 @@ from _typeshed import SupportsRead, SupportsWrite
 from abc import ABCMeta, abstractmethod
 from collections import OrderedDict
 from collections.abc import Iterable, MutableSequence
-from typing import IO, Any, Final, TypeVar, overload
-from typing_extensions import Self, TypeAlias
+from typing import IO, Any, Final, TypeAlias, TypeVar, overload
+from typing_extensions import Self
 
 from .docinfo import Version
 
@@ -49,14 +49,17 @@ class MutableSliceableSequence(MutableSequence[_T], metaclass=ABCMeta):
     def __getitem__(self, index: int) -> _T: ...
     @overload
     def __getitem__(self, index: slice) -> Self: ...
+
     @overload
     def __setitem__(self, index: int, value: _T) -> None: ...
     @overload
     def __setitem__(self, index: slice, value: Iterable[_T]) -> None: ...
+
     @overload
     def __delitem__(self, index: int) -> None: ...
     @overload
     def __delitem__(self, index: slice) -> None: ...
+
     @abstractmethod
     def __getsingleitem__(self, index: int) -> _T: ...
     @abstractmethod

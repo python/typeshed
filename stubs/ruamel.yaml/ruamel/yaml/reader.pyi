@@ -1,6 +1,6 @@
 from _typeshed import ReadableBuffer, SupportsRead
 from re import Pattern
-from typing import Final, Literal, Protocol
+from typing import Final, Literal, Protocol, type_check_only
 
 from .compat import _ReadStream
 from .error import StreamMark, YAMLError
@@ -10,6 +10,7 @@ from .main import YAML
 __all__ = ["Reader", "ReaderError"]
 
 # One of codecs.{utf_16_le_decode, utf_16_be_decode, utf_8_decode}
+@type_check_only
 class _BufferDecoder(Protocol):
     def __call__(data: ReadableBuffer, errors: str | None = None, final: bool = False, /) -> tuple[str, int]: ...
 
@@ -36,10 +37,12 @@ class Reader:
     line: int
     column: int
     def reset_reader(self) -> None: ...
+
     @property
     def stream(self) -> SupportsRead[str | bytes] | None: ...
     @stream.setter
     def stream(self, val: _ReadStream | None, /) -> None: ...
+
     def peek(self, index: int = 0) -> str: ...
     def prefix(self, length: int = 1) -> str: ...
     def forward_1_1(self, length: int = 1) -> None: ...

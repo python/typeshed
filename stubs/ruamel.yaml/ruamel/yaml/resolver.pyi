@@ -1,7 +1,7 @@
+from _typeshed import Incomplete
 from collections.abc import Iterable
 from re import Pattern
-from typing import Any, Final, overload
-from typing_extensions import TypeAlias
+from typing import Final, TypeAlias, overload
 
 from .compat import VersionType
 from .dumper import _Dumper
@@ -27,10 +27,10 @@ class BaseResolver:
     DEFAULT_SEQUENCE_TAG: Final[Tag]
     DEFAULT_MAPPING_TAG: Final[Tag]
     yaml_implicit_resolvers: dict[_First, list[tuple[_TagStr, Pattern[str]]]]
-    yaml_path_resolvers: dict[Any, _TagStr]
+    yaml_path_resolvers: dict[Incomplete, _TagStr]
     loadumper: YAML | _Loader | _Dumper | None
-    resolver_exact_paths: list[Any]
-    resolver_prefix_paths: list[Any]
+    resolver_exact_paths: list[Incomplete]
+    resolver_prefix_paths: list[Incomplete]
     def __init__(self, loadumper: YAML | _Loader | _Dumper | None = None) -> None: ...
     @property
     def parser(self) -> Parser | None: ...
@@ -39,16 +39,18 @@ class BaseResolver:
     @classmethod
     def add_implicit_resolver(cls, tag: _TagStr, regexp: Pattern[str], first: list[_First] | None) -> None: ...
     @classmethod
-    def add_path_resolver(cls, tag: _TagStr, path: Iterable[Any], kind: type | None = None) -> None: ...
+    def add_path_resolver(cls, tag: _TagStr, path: Iterable[Incomplete], kind: type | None = None) -> None: ...
     def descend_resolver(self, current_node: CollectionNode | None, current_index: int | Node | None) -> None: ...
     def ascend_resolver(self) -> None: ...
     def check_resolver_prefix(self, depth: int, path, kind, current_node, current_index) -> bool: ...
+
     @overload
     def resolve(self, kind: type[ScalarNode], value: str, implicit: tuple[bool, bool]) -> Tag: ...
     @overload
     def resolve(self, kind: type[SequenceNode], value: list[Node] | None, implicit: bool) -> Tag: ...
     @overload
     def resolve(self, kind: type[MappingNode], value: list[tuple[Node, Node]] | None, implicit: bool) -> Tag: ...
+
     @property
     def processing_version(self) -> _VersionTuple | None: ...
 

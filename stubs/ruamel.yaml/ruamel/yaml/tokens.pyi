@@ -1,5 +1,5 @@
-from typing import ClassVar, Literal, overload
-from typing_extensions import Self, TypeAlias
+from typing import ClassVar, Literal, TypeAlias, overload
+from typing_extensions import Self, deprecated
 
 from .error import CommentMark, StreamMark, _Mark
 
@@ -17,15 +17,20 @@ class Token:
     start_mark: _Mark
     end_mark: _Mark
     def __init__(self, start_mark: _Mark, end_mark: _Mark) -> None: ...
+
     @property
     def column(self) -> int: ...
     @column.setter
     def column(self, pos: int, /) -> None: ...
+
     def add_post_comment(self, comment: _PostComment, /) -> None: ...
     def add_pre_comments(self, comments: _PreComments, /) -> None: ...
-    def add_comment_pre(self, comment: int) -> None: ...  # RTSC
-    def add_comment_eol(self, comment: int, comment_type: int) -> None: ...  # RTSC
-    def add_comment_post(self, comment: int) -> None: ...  # RTSC
+    @deprecated("RTSC functionality is experimental, unsupported, and known to fail")
+    def add_comment_pre(self, comment: int) -> None: ...
+    @deprecated("RTSC functionality is experimental, unsupported, and known to fail")
+    def add_comment_eol(self, comment: int, comment_type: int) -> None: ...
+    @deprecated("RTSC functionality is experimental, unsupported, and known to fail")
+    def add_comment_post(self, comment: int) -> None: ...
     @property
     def comment(self) -> _CommentGroup | None: ...
     def move_old_comment(self, target: Token, *, empty: bool = False) -> Self | None: ...
@@ -36,6 +41,7 @@ class DirectiveToken(Token):
     id: ClassVar[Literal["<directive>"]]
     name: str
     value: _VersionTuple | _TagDirective | None
+
     @overload
     def __init__(self, name: Literal["YAML"], value: _VersionTuple, start_mark: _Mark, end_mark: _Mark) -> None: ...
     @overload
@@ -124,10 +130,12 @@ class CommentToken(Token):
         end_mark: StreamMark | None = None,
         column: int | None = None,
     ) -> None: ...
+
     @property
     def value(self) -> str: ...
     @value.setter
     def value(self, val: str, /) -> None: ...
+
     def reset(self) -> None: ...
     def __eq__(self, other: CommentToken, /) -> bool: ...  # type: ignore[override]
     def __ne__(self, other: CommentToken, /) -> bool: ...  # type: ignore[override]

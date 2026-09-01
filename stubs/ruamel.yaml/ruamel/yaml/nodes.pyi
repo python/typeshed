@@ -1,5 +1,4 @@
-from typing import Any, ClassVar, Literal
-from typing_extensions import TypeAlias
+from typing import Any, ClassVar, Literal, TypeAlias
 
 from .anchor import Anchor
 from .error import _Mark
@@ -7,11 +6,13 @@ from .tag import Tag
 from .tokens import _CommentGroup, _ScalarStyle
 
 _ScalarNodeStyle: TypeAlias = Literal["?", "-"] | _ScalarStyle
+# The base Node type has a dynamic payload; concrete node types narrow value to their specific shapes.
+_NodeValue: TypeAlias = Any
 
 class Node:
     id: ClassVar[str]
     ctag: Tag
-    value: Any
+    value: _NodeValue
     start_mark: _Mark | None
     end_mark: _Mark | None
     comment: _CommentGroup | None
@@ -19,17 +20,19 @@ class Node:
     def __init__(
         self,
         tag: Tag | str | None,
-        value: Any,
+        value: _NodeValue,
         start_mark: _Mark | None,
         end_mark: _Mark | None,
         *,
         comment: _CommentGroup | None = None,
         anchor: Anchor | str | None = None,
     ) -> None: ...
+
     @property
     def tag(self) -> str | None: ...
     @tag.setter
     def tag(self, val: Tag | str | None, /) -> None: ...
+
     def dump(self, *, indent: int = 0) -> None: ...
 
 class ScalarNode(Node):
@@ -49,12 +52,12 @@ class ScalarNode(Node):
     ) -> None: ...
 
 class CollectionNode(Node):
-    value: list[Any]
+    value: list[_NodeValue]
     flow_style: bool | None
     def __init__(
         self,
         tag: Tag | str | None,
-        value: list[Any],
+        value: list[_NodeValue],
         start_mark: _Mark | None = None,
         end_mark: _Mark | None = None,
         *,

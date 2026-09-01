@@ -1,5 +1,5 @@
-from typing import ClassVar
-from typing_extensions import Self, TypeAlias
+from typing import ClassVar, TypeAlias
+from typing_extensions import Self
 
 from _ruamel_yaml import Mark
 

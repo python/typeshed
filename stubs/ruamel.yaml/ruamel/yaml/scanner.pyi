@@ -1,5 +1,6 @@
 from collections.abc import Iterator
 from typing import ClassVar, Final, Literal
+from typing_extensions import deprecated
 
 from .error import MarkedYAMLError, StreamMark
 from .loader import _Loader
@@ -29,7 +30,7 @@ __all__ = ["Scanner", "RoundTripScanner", "ScannerError"]
 
 class ScannerError(MarkedYAMLError): ...
 
-class SimpleKey:
+class SimpleKey:  # undocumented
     token_number: int
     required: bool
     index: int
@@ -140,12 +141,13 @@ class RoundTripScanner(Scanner):
     def peek_token(self) -> Token: ...
     def get_token(self) -> Token: ...
     def fetch_comment(self, comment: tuple[str, StreamMark, StreamMark]) -> None: ...
-    def scan_to_next_token(self) -> tuple[str, StreamMark, StreamMark]: ...
+    def scan_to_next_token(self) -> tuple[str, StreamMark, StreamMark] | None: ...
     def scan_line_break(self, empty_line: bool = False) -> str: ...
     def scan_block_scalar(self, style: _BlockScalarStyle, rt: bool | None = True) -> ScalarToken: ...
     def scan_uri_escapes(self, name: str, start_mark: StreamMark) -> str: ...
 
-class CommentBase:  # RTSC
+@deprecated("RTSC functionality is experimental, unsupported, and known to fail")
+class CommentBase:  # undocumented
     name: ClassVar[str]
     value: str
     line: int
@@ -156,16 +158,20 @@ class CommentBase:  # RTSC
     def set_assigned(self) -> None: ...
     def info(self) -> str: ...
 
-class EOLComment(CommentBase):
+@deprecated("RTSC functionality is experimental, unsupported, and known to fail")
+class EOLComment(CommentBase):  # undocumented
     name: Final = "EOLC"
 
-class FullLineComment(CommentBase):
+@deprecated("RTSC functionality is experimental, unsupported, and known to fail")
+class FullLineComment(CommentBase):  # undocumented
     name: Final = "FULL"
 
-class BlankLineComment(CommentBase):
+@deprecated("RTSC functionality is experimental, unsupported, and known to fail")
+class BlankLineComment(CommentBase):  # undocumented
     name: Final = "BLNK"
 
-class ScannedComments:  # RTSC
+@deprecated("RTSC functionality is experimental, unsupported, and known to fail")
+class ScannedComments:  # undocumented
     comments: dict[int, CommentBase]
     unused: list[int]
     def __init__(self) -> None: ...
@@ -181,7 +187,8 @@ class ScannedComments:  # RTSC
     def assign_post(self, token: BlockEndToken) -> bool: ...
     def str_unprocessed(self) -> str: ...
 
-class RoundTripScannerSC(Scanner):
+@deprecated("RTSC functionality is experimental, unsupported, and known to fail")
+class RoundTripScannerSC(Scanner):  # undocumented
     comments: ScannedComments | None
     def get_token(self) -> Token: ...
     def need_more_tokens(self) -> bool: ...
