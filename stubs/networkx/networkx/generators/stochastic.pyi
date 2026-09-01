@@ -1,4 +1,8 @@
-from networkx.utils.backends import _dispatch
+from networkx.classes.digraph import DiGraph
+from networkx.classes.graph import _Node
+from networkx.utils.backends import _dispatchable
 
-@_dispatch
-def stochastic_graph(G, copy: bool = True, weight: str = "weight"): ...
+__all__ = ["stochastic_graph"]
+
+@_dispatchable
+def stochastic_graph(G: DiGraph[_Node], copy: bool = True, weight: str = "weight"): ...

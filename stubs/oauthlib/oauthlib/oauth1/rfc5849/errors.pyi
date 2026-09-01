@@ -1,18 +1,11 @@
 from _typeshed import Incomplete
-from typing import Any
 
 class OAuth1Error(Exception):
-    error: Any
+    error: Incomplete
     description: str
-    uri: Any
-    status_code: Any
-    def __init__(
-        self,
-        description: Incomplete | None = None,
-        uri: Incomplete | None = None,
-        status_code: int = 400,
-        request: Incomplete | None = None,
-    ) -> None: ...
+    uri: Incomplete
+    status_code: Incomplete
+    def __init__(self, description=None, uri=None, status_code: int = 400, request=None) -> None: ...
     def in_uri(self, uri): ...
     @property
     def twotuples(self): ...

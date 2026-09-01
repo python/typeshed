@@ -2,8 +2,8 @@ from _typeshed import SupportsWrite
 from collections.abc import Iterable, Iterator, Mapping
 from decimal import Decimal
 from pathlib import Path
-from typing import Any, Final, Literal, overload
-from typing_extensions import TypeAlias, deprecated
+from typing import Any, Final, Literal, TypeAlias, overload
+from typing_extensions import deprecated
 
 from qrcode.image.svg import SvgPathImage
 
@@ -49,6 +49,7 @@ class Address:
         city: str,
         country: str | None = None,
     ) -> StructuredAddress: ...
+
     @staticmethod
     def parse_country(country: str | None) -> str: ...
 
@@ -94,7 +95,15 @@ class QRBill:
     creditor: CombinedAddress | StructuredAddress
     final_creditor: CombinedAddress | StructuredAddress | None
     debtor: CombinedAddress | StructuredAddress | None
+    ref_type: str
     reference_number: str | None
+    account: str
+    account_is_qriban: bool
+    amount: str | None
+    currency: Literal["CHF", "EUR"]
+    additional_information: str
+    billing_information: str
+
     @overload
     def __init__(
         self,
@@ -108,14 +117,15 @@ class QRBill:
         reference_number: str | None = None,
         extra_infos: Literal[""] = "",
         additional_information: str = "",
+        billing_information: str = "",
         alt_procs: list[str] | tuple[()] | tuple[str] | tuple[str, str] = (),
         language: Literal["en", "de", "fr", "it"] = "en",
         top_line: bool = True,
         payment_line: bool = True,
         font_factor: int = 1,
     ) -> None: ...
-    @deprecated("ref_number is deprecated and replaced by reference_number")
     @overload
+    @deprecated("ref_number is deprecated and replaced by reference_number")
     def __init__(
         self,
         account: str,
@@ -129,14 +139,15 @@ class QRBill:
         reference_number: None = None,
         extra_infos: str = "",
         additional_information: str = "",
+        billing_information: str = "",
         alt_procs: list[str] | tuple[()] | tuple[str] | tuple[str, str] = (),
         language: Literal["en", "de", "fr", "it"] = "en",
         top_line: bool = True,
         payment_line: bool = True,
         font_factor: int = 1,
     ) -> None: ...
-    @deprecated("extra_infos is deprecated and replaced by additional_information")
     @overload
+    @deprecated("extra_infos is deprecated and replaced by additional_information")
     def __init__(
         self,
         account: str,
@@ -150,12 +161,14 @@ class QRBill:
         *,
         extra_infos: str,
         additional_information: str = "",
+        billing_information: str = "",
         alt_procs: list[str] | tuple[()] | tuple[str] | tuple[str, str] = (),
         language: Literal["en", "de", "fr", "it"] = "en",
         top_line: bool = True,
         payment_line: bool = True,
         font_factor: int = 1,
     ) -> None: ...
+
     @property
     def title_font_info(self) -> dict[str, Any]: ...
     @property

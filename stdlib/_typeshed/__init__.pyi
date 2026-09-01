@@ -3,10 +3,10 @@
 # See the README.md file in this directory for more information.
 
 import sys
-from collections.abc import Awaitable, Callable, Iterable, Sequence, Set as AbstractSet, Sized
+from collections.abc import Awaitable, Callable, Iterable, Iterator, Sequence, Set as AbstractSet, Sized
 from dataclasses import Field
 from os import PathLike
-from types import FrameType, TracebackType
+from types import FrameType, NoneType as NoneType, TracebackType
 from typing import (
     Any,
     AnyStr,
@@ -18,11 +18,11 @@ from typing import (
     SupportsFloat,
     SupportsIndex,
     SupportsInt,
+    TypeAlias,
     TypeVar,
-    final,
     overload,
 )
-from typing_extensions import Buffer, LiteralString, TypeAlias
+from typing_extensions import Buffer, LiteralString, Self as _Self
 
 _KT = TypeVar("_KT")
 _KT_co = TypeVar("_KT_co", covariant=True)
@@ -54,8 +54,17 @@ Unused: TypeAlias = object  # stable
 
 # Marker for return types that include None, but where forcing the user to
 # check for None can be detrimental. Sometimes called "the Any trick". See
-# CONTRIBUTING.md for more information.
+# https://typing.python.org/en/latest/guides/writing_stubs.html#the-any-trick
+# for more information.
 MaybeNone: TypeAlias = Any  # stable
+
+# typeshed-internal type aliases to facilitate transition from
+# `float` to either `float | int` or `float` (and similar for `complex`).
+# When you encounter one of these type aliases, you are encouraged to
+# replace them with the correct type. Please don't use them outside typeshed.
+# See https://github.com/python/typeshed/issues/16059 for details.
+FloatInt: TypeAlias = float | int
+ComplexInt: TypeAlias = complex | float | int
 
 # Used to mark arguments that default to a sentinel value. This prevents
 # stubtest from complaining about the default value not matching.
@@ -65,10 +74,10 @@ MaybeNone: TypeAlias = Any  # stable
 # In cases where the sentinel object is exported and can be used by user code,
 # a construct like this is better:
 #
-# _SentinelType = NewType("_SentinelType", object)
-# sentinel: _SentinelType
+# _SentinelType = NewType("_SentinelType", object)  # does not exist at runtime
+# sentinel: Final[_SentinelType]
 # def foo(x: int | None | _SentinelType = ...) -> None: ...
-sentinel: Any
+sentinel: Any  # stable
 
 # stable
 class IdentityFunction(Protocol):
@@ -82,19 +91,21 @@ class SupportsNext(Protocol[_T_co]):
 class SupportsAnext(Protocol[_T_co]):
     def __anext__(self) -> Awaitable[_T_co]: ...
 
-# Comparison protocols
+class SupportsBool(Protocol):
+    def __bool__(self) -> bool: ...
 
+# Comparison protocols
 class SupportsDunderLT(Protocol[_T_contra]):
-    def __lt__(self, other: _T_contra, /) -> bool: ...
+    def __lt__(self, other: _T_contra, /) -> SupportsBool: ...
 
 class SupportsDunderGT(Protocol[_T_contra]):
-    def __gt__(self, other: _T_contra, /) -> bool: ...
+    def __gt__(self, other: _T_contra, /) -> SupportsBool: ...
 
 class SupportsDunderLE(Protocol[_T_contra]):
-    def __le__(self, other: _T_contra, /) -> bool: ...
+    def __le__(self, other: _T_contra, /) -> SupportsBool: ...
 
 class SupportsDunderGE(Protocol[_T_contra]):
-    def __ge__(self, other: _T_contra, /) -> bool: ...
+    def __ge__(self, other: _T_contra, /) -> SupportsBool: ...
 
 class SupportsAllComparisons(
     SupportsDunderLT[Any], SupportsDunderGT[Any], SupportsDunderLE[Any], SupportsDunderGE[Any], Protocol
@@ -117,6 +128,18 @@ class SupportsSub(Protocol[_T_contra, _T_co]):
 class SupportsRSub(Protocol[_T_contra, _T_co]):
     def __rsub__(self, x: _T_contra, /) -> _T_co: ...
 
+class SupportsMul(Protocol[_T_contra, _T_co]):
+    def __mul__(self, x: _T_contra, /) -> _T_co: ...
+
+class SupportsRMul(Protocol[_T_contra, _T_co]):
+    def __rmul__(self, x: _T_contra, /) -> _T_co: ...
+
+class SupportsMod(Protocol[_T_contra, _T_co]):
+    def __mod__(self, other: _T_contra, /) -> _T_co: ...
+
+class SupportsRMod(Protocol[_T_contra, _T_co]):
+    def __rmod__(self, other: _T_contra, /) -> _T_co: ...
+
 class SupportsDivMod(Protocol[_T_contra, _T_co]):
     def __divmod__(self, other: _T_contra, /) -> _T_co: ...
 
@@ -133,6 +156,9 @@ class SupportsIter(Protocol[_T_co]):
 class SupportsAiter(Protocol[_T_co]):
     def __aiter__(self) -> _T_co: ...
 
+class SupportsLen(Protocol):
+    def __len__(self) -> int: ...
+
 class SupportsLenAndGetItem(Protocol[_T_co]):
     def __len__(self) -> int: ...
     def __getitem__(self, k: int, /) -> _T_co: ...
@@ -141,6 +167,18 @@ class SupportsTrunc(Protocol):
     def __trunc__(self) -> int: ...
 
 # Mapping-like protocols
+
+# The second and third overload could technically be combined, but splitting
+# them works better with some type checkers.
+class SupportsGet(Protocol[_KT_contra, _VT_co]):  # type: ignore[misc] # Covariant type as parameter
+    @overload
+    def get(self, key: _KT_contra, /) -> _VT_co | None: ...
+    @overload
+    def get(  # pyrefly: ignore[invalid-variance]
+        self, key: _KT_contra, default: _VT_co, /  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues] # Covariant type as parameter
+    ) -> _VT_co: ...
+    @overload
+    def get(self, key: _KT_contra, default: _T, /) -> _VT_co | _T: ...
 
 # stable
 class SupportsItems(Protocol[_KT_co, _VT_co]):
@@ -151,11 +189,8 @@ class SupportsKeysAndGetItem(Protocol[_KT, _VT_co]):
     def keys(self) -> Iterable[_KT]: ...
     def __getitem__(self, key: _KT, /) -> _VT_co: ...
 
-# This protocol is currently under discussion. Use SupportsContainsAndGetItem
-# instead, if you require the __contains__ method.
-# See https://github.com/python/typeshed/issues/11822.
+# stable
 class SupportsGetItem(Protocol[_KT_contra, _VT_co]):
-    def __contains__(self, x: Any, /) -> bool: ...
     def __getitem__(self, key: _KT_contra, /) -> _VT_co: ...
 
 # stable
@@ -169,6 +204,8 @@ class SupportsItemAccess(Protocol[_KT_contra, _VT]):
     def __getitem__(self, key: _KT_contra, /) -> _VT: ...
     def __setitem__(self, key: _KT_contra, value: _VT, /) -> None: ...
     def __delitem__(self, key: _KT_contra, /) -> None: ...
+
+# Path and file handling
 
 StrPath: TypeAlias = str | PathLike[str]  # stable
 BytesPath: TypeAlias = bytes | PathLike[bytes]  # stable
@@ -270,6 +307,16 @@ class SupportsWrite(Protocol[_T_contra]):
 class SupportsFlush(Protocol):
     def flush(self) -> object: ...
 
+# Suitable for dictionary view objects
+class Viewable(Protocol[_T_co]):
+    def __len__(self) -> int: ...
+    def __iter__(self) -> Iterator[_T_co]: ...
+
+class SupportsGetItemViewable(Protocol[_KT, _VT_co]):
+    def __len__(self) -> int: ...
+    def __iter__(self) -> Iterator[_KT]: ...
+    def __getitem__(self, key: _KT, /) -> _VT_co: ...
+
 # Unfortunately PEP 688 does not allow us to distinguish read-only
 # from writable buffers. We use these aliases for readability for now.
 # Perhaps a future extension of the buffer protocol will allow us to
@@ -281,34 +328,23 @@ WriteableBuffer: TypeAlias = Buffer
 ReadableBuffer: TypeAlias = Buffer  # stable
 
 class SliceableBuffer(Buffer, Protocol):
-    def __getitem__(self, slice: slice, /) -> Sequence[int]: ...
+    def __getitem__(self, slice: slice[SupportsIndex | None], /) -> Sequence[int]: ...
 
 class IndexableBuffer(Buffer, Protocol):
     def __getitem__(self, i: int, /) -> int: ...
 
 class SupportsGetItemBuffer(SliceableBuffer, IndexableBuffer, Protocol):
     def __contains__(self, x: Any, /) -> bool: ...
+
     @overload
-    def __getitem__(self, slice: slice, /) -> Sequence[int]: ...
+    def __getitem__(self, slice: slice[SupportsIndex | None], /) -> Sequence[int]: ...
     @overload
     def __getitem__(self, i: int, /) -> int: ...
 
 class SizedBuffer(Sized, Buffer, Protocol): ...
 
-# for compatibility with third-party stubs that may use this
-_BufferWithLen: TypeAlias = SizedBuffer  # not stable  # noqa: Y047
-
 ExcInfo: TypeAlias = tuple[type[BaseException], BaseException, TracebackType]
 OptExcInfo: TypeAlias = ExcInfo | tuple[None, None, None]
-
-# stable
-if sys.version_info >= (3, 10):
-    from types import NoneType as NoneType
-else:
-    # Used by type checkers for checks involving None (does not exist at runtime)
-    @final
-    class NoneType:
-        def __bool__(self) -> Literal[False]: ...
 
 # This is an internal CPython type that is like, but subtly different from, a NamedTuple
 # Subclasses of this type are found in multiple modules.
@@ -325,9 +361,9 @@ class structseq(Generic[_T_co]):
     # The second parameter will accept a dict of any kind without raising an exception,
     # but only has any meaning if you supply it a dict where the keys are strings.
     # https://github.com/python/typeshed/pull/6560#discussion_r767149830
-    def __new__(cls: type[Self], sequence: Iterable[_T_co], dict: dict[str, Any] = ...) -> Self: ...
+    def __new__(cls, sequence: Iterable[_T_co], dict: dict[str, Any] = ...) -> _Self: ...
     if sys.version_info >= (3, 13):
-        def __replace__(self: Self, **kwargs: Any) -> Self: ...
+        def __replace__(self, **kwargs: Any) -> _Self: ...
 
 # Superset of typing.AnyStr that also includes LiteralString
 AnyOrLiteralStr = TypeVar("AnyOrLiteralStr", str, bytes, LiteralString)  # noqa: Y001
@@ -337,10 +373,12 @@ AnyOrLiteralStr = TypeVar("AnyOrLiteralStr", str, bytes, LiteralString)  # noqa:
 StrOrLiteralStr = TypeVar("StrOrLiteralStr", LiteralString, str)  # noqa: Y001
 
 # Objects suitable to be passed to sys.setprofile, threading.setprofile, and similar
-ProfileFunction: TypeAlias = Callable[[FrameType, str, Any], object]
+ProfileFunction: TypeAlias = Callable[[FrameType, Literal["call", "return", "c_call", "c_return", "c_exception"], Any], object]
 
 # Objects suitable to be passed to sys.settrace, threading.settrace, and similar
-TraceFunction: TypeAlias = Callable[[FrameType, str, Any], TraceFunction | None]
+TraceFunction: TypeAlias = Callable[
+    [FrameType, Literal["call", "line", "return", "exception", "opcode"], Any], TraceFunction | None
+]
 
 # experimental
 # Might not work as expected for pyright, see
@@ -350,7 +388,10 @@ class DataclassInstance(Protocol):
     __dataclass_fields__: ClassVar[dict[str, Field[Any]]]
 
 # Anything that can be passed to the int/float constructors
-ConvertibleToInt: TypeAlias = str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc
+if sys.version_info >= (3, 14):
+    ConvertibleToInt: TypeAlias = str | ReadableBuffer | SupportsInt | SupportsIndex
+else:
+    ConvertibleToInt: TypeAlias = str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc
 ConvertibleToFloat: TypeAlias = str | ReadableBuffer | SupportsFloat | SupportsIndex
 
 # A few classes updated from Foo(str, Enum) to Foo(StrEnum). This is a convenience so these
@@ -361,3 +402,14 @@ else:
     from enum import Enum
 
     class StrEnum(str, Enum): ...
+
+# Objects that appear in annotations or in type expressions.
+# Similar to PEP 747's TypeForm but a little broader.
+AnnotationForm: TypeAlias = Any
+
+if sys.version_info >= (3, 14):
+    from annotationlib import Format
+
+    # These return annotations, which can be arbitrary objects
+    AnnotateFunc: TypeAlias = Callable[[Format], dict[str, AnnotationForm]]
+    EvaluateFunc: TypeAlias = Callable[[Format], AnnotationForm]

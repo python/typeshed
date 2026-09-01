@@ -1,6 +1,5 @@
 from collections.abc import Callable
-from typing import Any, Literal, Protocol
-from typing_extensions import TypeAlias
+from typing import Any, Literal, Protocol, TypeAlias, type_check_only
 
 import numpy as np
 from numpy.typing import ArrayLike, NDArray
@@ -9,6 +8,7 @@ __all__ = ["gaussian_kde"]
 
 # define a "Gaussian KDE" protocol so that we can also pass `scipy.stats.gaussian_kde` to
 # functions that expect it without adding a dependency on scipy
+@type_check_only
 class _GaussianKDELike(Protocol):
     dataset: NDArray[np.float64]
     def __init__(self, dataset: ArrayLike, bw_method: Any | None = ..., weights: ArrayLike | None = ...) -> None: ...

@@ -1,9 +1,9 @@
 import contextlib
-from _typeshed import Incomplete, SupportsWrite
+from _typeshed import Incomplete, SupportsRead, SupportsWrite
 from collections.abc import Callable, Iterable, Iterator, Mapping, MutableMapping
 from types import TracebackType
-from typing import Any, ClassVar, Generic, Literal, NoReturn, TypeVar, overload
-from typing_extensions import Self
+from typing import Any, ClassVar, Generic, Literal, TypeVar, overload
+from typing_extensions import Never, Self
 
 from ._monitor import TMonitor
 from .utils import Comparable
@@ -23,13 +23,14 @@ class TqdmTypeError(TypeError): ...
 class TqdmKeyError(KeyError): ...
 
 class TqdmWarning(Warning):
-    def __init__(self, msg, fp_write: Incomplete | None = None, *a, **k) -> None: ...
+    def __init__(self, msg, fp_write=None) -> None: ...
 
 class TqdmExperimentalWarning(TqdmWarning, FutureWarning): ...
 class TqdmDeprecationWarning(TqdmWarning, DeprecationWarning): ...
 class TqdmMonitorWarning(TqdmWarning, RuntimeWarning): ...
 
 _T = TypeVar("_T")
+_U = TypeVar("_U")
 
 class tqdm(Comparable, Generic[_T]):
     monitor_interval: ClassVar[int]
@@ -60,6 +61,7 @@ class tqdm(Comparable, Generic[_T]):
         initial: float | None = 0,
         colour: str | None = None,
     ) -> str: ...
+
     @overload
     def __init__(
         self,
@@ -93,7 +95,7 @@ class tqdm(Comparable, Generic[_T]):
     ) -> None: ...
     @overload
     def __init__(
-        self: tqdm[NoReturn],
+        self: tqdm[Never],
         iterable: None = None,
         desc: str | None = None,
         total: float | None = None,
@@ -122,6 +124,7 @@ class tqdm(Comparable, Generic[_T]):
         gui: bool = False,
         **kwargs,
     ) -> None: ...
+
     def __new__(cls, *_, **__) -> Self: ...
     @classmethod
     def write(cls, s: str, file: SupportsWrite[str] | None = None, end: str = "\n", nolock: bool = False) -> None: ...
@@ -164,12 +167,12 @@ class tqdm(Comparable, Generic[_T]):
     ) -> None: ...
 
     iterable: Incomplete
-    disable: Incomplete
+    disable: bool | None
     pos: Incomplete
     n: Incomplete
-    total: Incomplete
+    total: float | int | None
     leave: Incomplete
-    desc: Incomplete
+    desc: str
     fp: Incomplete
     ncols: Incomplete
     nrows: Incomplete
@@ -222,10 +225,17 @@ class tqdm(Comparable, Generic[_T]):
     @property
     def format_dict(self) -> MutableMapping[str, Any]: ...
     def display(self, msg: str | None = None, pos: int | None = None) -> None: ...
+
+    @overload
     @classmethod
     def wrapattr(
-        cls, stream, method: Literal["read", "write"], total: float | None = None, bytes: bool | None = True, **tqdm_kwargs
-    ) -> contextlib._GeneratorContextManager[Incomplete]: ...
+        cls, stream: SupportsRead[_U], method: Literal["read"], total: float | None = None, bytes: bool = True, **tqdm_kwargs
+    ) -> contextlib._GeneratorContextManager[SupportsRead[_U]]: ...
+    @overload
+    @classmethod
+    def wrapattr(
+        cls, stream: SupportsWrite[_U], method: Literal["write"], total: float | None = None, bytes: bool = True, **tqdm_kwargs
+    ) -> contextlib._GeneratorContextManager[SupportsWrite[_U]]: ...
 
 @overload
 def trange(

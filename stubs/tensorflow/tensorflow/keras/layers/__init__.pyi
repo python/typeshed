@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Callable, Iterable, Sequence
-from typing import Any, Generic, Literal, TypeVar, overload, type_check_only
-from typing_extensions import Self, TypeAlias
+from typing import Any, Generic, Literal, TypeAlias, TypeVar, overload, type_check_only
+from typing_extensions import Self
 
 import tensorflow as tf
 from tensorflow import Tensor, Variable
@@ -11,8 +11,8 @@ from tensorflow.keras.constraints import Constraint
 from tensorflow.keras.initializers import _Initializer
 from tensorflow.keras.regularizers import Regularizer, _Regularizer
 
-_InputT = TypeVar("_InputT", contravariant=True)
-_OutputT = TypeVar("_OutputT", covariant=True)
+_InputT_contra = TypeVar("_InputT_contra", contravariant=True)
+_OutputT_co = TypeVar("_OutputT_co", covariant=True)
 
 class InputSpec:
     dtype: str | None
@@ -31,6 +31,7 @@ class InputSpec:
         axes: dict[int, int | None] | None = None,
         allow_last_axis_squeeze: bool = False,
         name: str | None = None,
+        optional: bool = False,
     ) -> None: ...
     def get_config(self) -> dict[str, Any]: ...
     @classmethod
@@ -38,9 +39,9 @@ class InputSpec:
 
 # Most layers have input and output type of just Tensor and when we support default type variables,
 # maybe worth trying.
-class Layer(tf.Module, Generic[_InputT, _OutputT]):
+class Layer(tf.Module, Generic[_InputT_contra, _OutputT_co]):
     # The most general type is ContainerGeneric[InputSpec] as it really
-    # depends on _InputT. For most Layers it is just InputSpec
+    # depends on _InputT_contra. For most Layers it is just InputSpec
     # though. Maybe describable with HKT?
     input_spec: InputSpec | Any
 
@@ -48,6 +49,7 @@ class Layer(tf.Module, Generic[_InputT, _OutputT]):
     def trainable(self) -> bool: ...
     @trainable.setter
     def trainable(self, value: bool) -> None: ...
+
     def __init__(
         self,
         *,
@@ -64,16 +66,20 @@ class Layer(tf.Module, Generic[_InputT, _OutputT]):
     # *args/**kwargs are allowed, but have obscure footguns and tensorflow documentation discourages their usage.
     # First argument will automatically be cast to layer's compute dtype, but any other tensor arguments will not be.
     # Also various tensorflow tools/apis can misbehave if they encounter a layer with *args/**kwargs.
-    def __call__(self, inputs: _InputT, *, training: bool = False, mask: TensorCompatible | None = None) -> _OutputT: ...
-    def call(self, inputs: _InputT, /) -> _OutputT: ...
+    def __call__(
+        self, inputs: _InputT_contra, *, training: bool = False, mask: TensorCompatible | None = None
+    ) -> _OutputT_co: ...
+    def call(self, inputs: _InputT_contra, /) -> _OutputT_co: ...
 
-    # input_shape's real type depends on _InputT, but we can't express that without HKT.
-    # For example _InputT tf.Tensor -> tf.TensorShape, _InputT dict[str, tf.Tensor] -> dict[str, tf.TensorShape].
+    # input_shape's real type depends on _InputT_contra, but we can't express that without HKT.
+    # For example _InputT_contra tf.Tensor -> tf.TensorShape, _InputT_contra dict[str, tf.Tensor] -> dict[str, tf.TensorShape].
     def build(self, input_shape: Any, /) -> None: ...
+
     @overload
     def compute_output_shape(self: Layer[tf.Tensor, tf.Tensor], input_shape: tf.TensorShape, /) -> tf.TensorShape: ...
     @overload
     def compute_output_shape(self, input_shape: Any, /) -> Any: ...
+
     def add_weight(
         self,
         shape: Iterable[int | None] | None = None,
@@ -384,6 +390,7 @@ class MultiHeadAttention(Layer[Any, tf.Tensor]):
         activity_regularizer: _Regularizer | None = None,
         kernel_constraint: _Constraint | None = None,
         bias_constraint: _Constraint | None = None,
+        seed: int | None = None,
         *,
         # **kwargs passed to Layer
         trainable: bool = True,
@@ -391,8 +398,8 @@ class MultiHeadAttention(Layer[Any, tf.Tensor]):
         autocast: bool = True,
         name: str | None = None,
     ) -> None: ...
-    # @override
-    @overload  # type: ignore
+
+    @overload  # type: ignore[override]
     def __call__(
         self,
         query: tf.Tensor,
@@ -440,4 +447,48 @@ class GaussianDropout(Layer[tf.Tensor, tf.Tensor]):
         name: str | None = None,
     ) -> None: ...
 
-def __getattr__(name: str) -> Incomplete: ...
+class Activation(Layer[tf.Tensor, tf.Tensor]):
+    def __init__(
+        self,
+        activation: _Activation = None,
+        *,
+        # **kwargs passed to Layer
+        # **kwargs passed to Layer
+        activity_regularizer: _Regularizer = None,
+        trainable: bool = True,
+        dtype: _LayerDtype | None = None,
+        autocast: bool = True,
+        name: str | None = None,
+    ) -> None: ...
+
+class GlobalAveragePooling2D(Layer[tf.Tensor, tf.Tensor]):
+    def __init__(
+        self,
+        data_format: Literal["channels_last", "channels_first"] | None = None,
+        keepdims: bool = False,
+        *,
+        # **kwargs passed to Layer
+        activity_regularizer: _Regularizer = None,
+        trainable: bool = True,
+        dtype: _LayerDtype | None = None,
+        autocast: bool = True,
+        name: str | None = None,
+    ) -> None: ...
+
+class MaxPool2D(Layer[tf.Tensor, tf.Tensor]):
+    def __init__(
+        self,
+        pool_size: int | tuple[int, int] = (2, 2),
+        strides: int | tuple[int, int] | None = None,
+        padding: Literal["valid", "same"] = "valid",
+        data_format: Literal["channels_last", "channels_first"] | None = None,
+        *,
+        # **kwargs passed to Layer
+        activity_regularizer: _Regularizer = None,
+        trainable: bool = True,
+        dtype: _LayerDtype | None = None,
+        autocast: bool = True,
+        name: str | None = None,
+    ) -> None: ...
+
+def __getattr__(name: str): ...  # incomplete module

@@ -1,6 +1,6 @@
 from _typeshed import ConvertibleToFloat, ConvertibleToInt, Incomplete, Unused
-from typing import ClassVar, Literal, overload
-from typing_extensions import Self, TypeAlias
+from typing import ClassVar, Literal, TypeAlias, overload
+from typing_extensions import Self
 
 from openpyxl.chart.layout import Layout
 from openpyxl.chart.shapes import GraphicalProperties
@@ -85,6 +85,7 @@ class _BaseAxis(Serialisable):
     crosses: NestedNoneSet[_BaseAxisCrosses]
     crossesAt: NestedFloat[Literal[True]]
     __elements__: ClassVar[tuple[str, ...]]
+
     @overload
     def __init__(
         self,
@@ -115,15 +116,15 @@ class _BaseAxis(Serialisable):
         majorGridlines: ChartLines | None = None,
         minorGridlines: ChartLines | None = None,
         title: str | Title | None = None,
-        numFmt: Incomplete | None = None,
-        majorTickMark: Incomplete | None = None,
-        minorTickMark: Incomplete | None = None,
-        tickLblPos: Incomplete | None = None,
+        numFmt=None,
+        majorTickMark=None,
+        minorTickMark=None,
+        tickLblPos=None,
         spPr: GraphicalProperties | None = None,
         txPr: RichText | None = None,
         *,
         crossAx: _HasTagAndGet[ConvertibleToInt] | ConvertibleToInt,
-        crosses: Incomplete | None = None,
+        crosses=None,
         crossesAt: _HasTagAndGet[ConvertibleToFloat | None] | ConvertibleToFloat | None = None,
     ) -> None: ...
 

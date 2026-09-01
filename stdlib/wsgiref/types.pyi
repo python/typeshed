@@ -1,13 +1,12 @@
+from _typeshed import OptExcInfo
 from collections.abc import Callable, Iterable, Iterator
-from sys import _OptExcInfo
-from typing import Any, Protocol
-from typing_extensions import TypeAlias
+from typing import Any, Protocol, TypeAlias
 
 __all__ = ["StartResponse", "WSGIEnvironment", "WSGIApplication", "InputStream", "ErrorStream", "FileWrapper"]
 
 class StartResponse(Protocol):
     def __call__(
-        self, status: str, headers: list[tuple[str, str]], exc_info: _OptExcInfo | None = ..., /
+        self, status: str, headers: list[tuple[str, str]], exc_info: OptExcInfo | None = ..., /
     ) -> Callable[[bytes], object]: ...
 
 WSGIEnvironment: TypeAlias = dict[str, Any]

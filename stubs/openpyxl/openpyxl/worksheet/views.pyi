@@ -1,6 +1,5 @@
 from _typeshed import ConvertibleToFloat, ConvertibleToInt, Incomplete, Unused
-from typing import ClassVar, Literal
-from typing_extensions import TypeAlias
+from typing import ClassVar, Literal, TypeAlias
 
 from openpyxl.descriptors.base import Bool, Float, Integer, NoneSet, Set, String, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
@@ -85,7 +84,7 @@ class SheetView(Serialisable):
         zoomScalePageLayoutView: ConvertibleToInt | None = None,
         zoomToFit: _ConvertibleToBool | None = None,
         workbookViewId: ConvertibleToInt | None = 0,
-        selection: Incomplete | None = None,
+        selection=None,
         pane: Pane | None = None,
     ) -> None: ...
 

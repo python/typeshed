@@ -1,8 +1,10 @@
 from _typeshed import Incomplete, StrPath
 from collections.abc import Iterable, Iterator, MutableMapping
+from importlib import metadata
 from typing import Literal, TypeVar, overload
 
 from . import Command, SetuptoolsDeprecationWarning
+from ._distutils.cmd import Command as _Command
 from ._distutils.dist import Distribution as _Distribution
 from .command.alias import alias
 from .command.bdist_egg import bdist_egg
@@ -21,15 +23,12 @@ from .command.install import install
 from .command.install_egg_info import install_egg_info
 from .command.install_lib import install_lib
 from .command.install_scripts import install_scripts
-from .command.register import register
 from .command.rotate import rotate
 from .command.saveopts import saveopts
 from .command.sdist import sdist
 from .command.setopt import setopt
-from .command.upload import upload
-from .command.upload_docs import upload_docs
 
-_CommandT = TypeVar("_CommandT", bound=Command)
+_CommandT = TypeVar("_CommandT", bound=_Command)
 
 __all__ = ["Distribution"]
 
@@ -40,12 +39,11 @@ class Distribution(_Distribution):
     dependency_links: list[str]
     setup_requires: list[str]
     def __init__(self, attrs: MutableMapping[str, Incomplete] | None = None) -> None: ...
-    def warn_dash_deprecation(self, opt: str, section: str) -> str: ...
-    def make_option_lowercase(self, opt: str, section: str) -> str: ...
     def parse_config_files(self, filenames: Iterable[StrPath] | None = None, ignore_option_errors: bool = False) -> None: ...
-    def fetch_build_eggs(self, requires: str | Iterable[str]): ...
+    def fetch_build_eggs(self, requires: str | Iterable[str]) -> list[metadata.Distribution]: ...
     def get_egg_cache_dir(self) -> str: ...
     def fetch_build_egg(self, req): ...
+
     # NOTE: Commands that setuptools doesn't re-expose are considered deprecated (they must be imported from distutils directly)
     # So we're not listing them here. This list comes directly from the setuptools/command folder. Minus the test command.
     @overload  # type: ignore[override]
@@ -83,8 +81,6 @@ class Distribution(_Distribution):
     @overload
     def get_command_obj(self, command: Literal["install_scripts"], create: Literal[1, True] = 1) -> install_scripts: ...  # type: ignore[overload-overlap]
     @overload
-    def get_command_obj(self, command: Literal["register"], create: Literal[1, True] = 1) -> register: ...  # type: ignore[overload-overlap]
-    @overload
     def get_command_obj(self, command: Literal["rotate"], create: Literal[1, True] = 1) -> rotate: ...
     @overload
     def get_command_obj(self, command: Literal["saveopts"], create: Literal[1, True] = 1) -> saveopts: ...
@@ -93,14 +89,11 @@ class Distribution(_Distribution):
     @overload
     def get_command_obj(self, command: Literal["setopt"], create: Literal[1, True] = 1) -> setopt: ...
     @overload
-    def get_command_obj(self, command: Literal["upload"], create: Literal[1, True] = 1) -> upload: ...  # type: ignore[overload-overlap]
-    @overload
-    def get_command_obj(self, command: Literal["upload_docs"], create: Literal[1, True] = 1) -> upload_docs: ...  # type: ignore[overload-overlap]
-    @overload
     def get_command_obj(self, command: str, create: Literal[1, True] = 1) -> Command: ...
     # Not replicating the overloads for "Command | None", user may use "isinstance"
     @overload
     def get_command_obj(self, command: str, create: Literal[0, False]) -> Command | None: ...
+
     @overload
     def get_command_class(self, command: Literal["alias"]) -> type[alias]: ...
     @overload
@@ -136,8 +129,6 @@ class Distribution(_Distribution):
     @overload
     def get_command_class(self, command: Literal["install_scripts"]) -> type[install_scripts]: ...  # type: ignore[overload-overlap]
     @overload
-    def get_command_class(self, command: Literal["register"]) -> type[register]: ...  # type: ignore[overload-overlap]
-    @overload
     def get_command_class(self, command: Literal["rotate"]) -> type[rotate]: ...
     @overload
     def get_command_class(self, command: Literal["saveopts"]) -> type[saveopts]: ...
@@ -146,11 +137,8 @@ class Distribution(_Distribution):
     @overload
     def get_command_class(self, command: Literal["setopt"]) -> type[setopt]: ...
     @overload
-    def get_command_class(self, command: Literal["upload"]) -> type[upload]: ...  # type: ignore[overload-overlap]
-    @overload
-    def get_command_class(self, command: Literal["upload_docs"]) -> type[upload_docs]: ...  # type: ignore[overload-overlap]
-    @overload
     def get_command_class(self, command: str) -> type[Command]: ...
+
     @overload  # type: ignore[override]
     def reinitialize_command(self, command: Literal["alias"], reinit_subcommands: bool = False) -> alias: ...
     @overload
@@ -188,8 +176,6 @@ class Distribution(_Distribution):
     @overload
     def reinitialize_command(self, command: Literal["install_scripts"], reinit_subcommands: bool = False) -> install_scripts: ...  # type: ignore[overload-overlap]
     @overload
-    def reinitialize_command(self, command: Literal["register"], reinit_subcommands: bool = False) -> register: ...  # type: ignore[overload-overlap]
-    @overload
     def reinitialize_command(self, command: Literal["rotate"], reinit_subcommands: bool = False) -> rotate: ...
     @overload
     def reinitialize_command(self, command: Literal["saveopts"], reinit_subcommands: bool = False) -> saveopts: ...
@@ -198,16 +184,13 @@ class Distribution(_Distribution):
     @overload
     def reinitialize_command(self, command: Literal["setopt"], reinit_subcommands: bool = False) -> setopt: ...
     @overload
-    def reinitialize_command(self, command: Literal["upload"], reinit_subcommands: bool = False) -> upload: ...  # type: ignore[overload-overlap]
-    @overload
-    def reinitialize_command(self, command: Literal["upload_docs"], reinit_subcommands: bool = False) -> upload_docs: ...  # type: ignore[overload-overlap]
-    @overload
     def reinitialize_command(self, command: str, reinit_subcommands: bool = False) -> Command: ...
     @overload
     def reinitialize_command(self, command: _CommandT, reinit_subcommands: bool = False) -> _CommandT: ...
+
     def include(self, **attrs) -> None: ...
     def exclude_package(self, package: str) -> None: ...
-    def has_contents_for(self, package: str) -> bool | None: ...
+    def has_contents_for(self, package: str) -> bool: ...
     def exclude(self, **attrs) -> None: ...
     def get_cmdline_options(self) -> dict[str, dict[str, str | None]]: ...
     def iter_distribution_names(self) -> Iterator[str]: ...

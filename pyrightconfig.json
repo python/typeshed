@@ -6,6 +6,10 @@
         "stubs",
     ],
     "exclude": [
+        // Stubs that don't work in all Python versions
+        "stubs/seaborn",
+        "stubs/shapely",
+        "stubs/geopandas",
         // test cases use a custom config file
         "**/@tests/test_cases",
     ],
@@ -24,8 +28,6 @@
     // No effect in stubs
     "reportMissingSuperCall": "none",
     "reportUninitializedInstanceVariable": "none",
-    // stdlib stubs trigger reportShadowedImports
-    "reportShadowedImports": "none",
     // Stubs are allowed to use private variables
     "reportPrivateUsage": "none",
     // Stubs don't need the actual modules to be installed

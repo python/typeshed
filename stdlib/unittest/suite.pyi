@@ -1,11 +1,11 @@
 import unittest.case
 import unittest.result
 from collections.abc import Iterable, Iterator
-from typing_extensions import TypeAlias
+from typing import ClassVar, TypeAlias
 
 _TestType: TypeAlias = unittest.case.TestCase | TestSuite
 
-class BaseTestSuite(Iterable[_TestType]):
+class BaseTestSuite:
     _tests: list[unittest.case.TestCase]
     _removed_tests: int
     def __init__(self, tests: Iterable[_TestType] = ()) -> None: ...
@@ -17,6 +17,7 @@ class BaseTestSuite(Iterable[_TestType]):
     def countTestCases(self) -> int: ...
     def __iter__(self) -> Iterator[_TestType]: ...
     def __eq__(self, other: object) -> bool: ...
+    __hash__: ClassVar[None]  # type: ignore[assignment]
 
 class TestSuite(BaseTestSuite):
     def run(self, result: unittest.result.TestResult, debug: bool = False) -> unittest.result.TestResult: ...

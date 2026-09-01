@@ -1,7 +1,6 @@
-from _typeshed import Incomplete
 from collections.abc import Callable
-from typing import Any, overload
-from typing_extensions import Self, TypeAlias
+from typing import Any, TypeAlias, overload
+from typing_extensions import Self
 
 from tensorflow import Tensor
 from tensorflow._aliases import DTypeLike, ShapeLike, TensorCompatible
@@ -48,4 +47,5 @@ def get(identifier: None) -> None: ...
 def get(identifier: str | Initializer | dict[str, Any] | type[Initializer]) -> Initializer: ...
 @overload
 def get(identifier: Callable[[ShapeLike], Tensor]) -> Callable[[ShapeLike], Tensor]: ...
-def __getattr__(name: str) -> Incomplete: ...
+
+def __getattr__(name: str): ...  # incomplete module

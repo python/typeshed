@@ -2,10 +2,8 @@
 # Everything in this module is private for stubs. There is no runtime equivalent.
 
 from collections.abc import Iterable, Mapping, Sequence
-from typing import Any, Protocol, TypeVar
-from typing_extensions import TypeAlias
+from typing import Any, Protocol, TypeAlias, TypeVar, type_check_only
 
-import numpy  # pytype needs the unaliased import to resolve DTypeLike
 import numpy as np
 import numpy.typing as npt
 import tensorflow as tf
@@ -21,9 +19,11 @@ RaggedTensorLike: TypeAlias = tf.Tensor | tf.RaggedTensor
 # _RaggedTensorLikeT = TypeVar("_RaggedTensorLikeT", tf.Tensor, tf.RaggedTensor)
 Gradients: TypeAlias = tf.Tensor | tf.IndexedSlices
 
+@type_check_only
 class KerasSerializable1(Protocol):
     def get_config(self) -> dict[str, Any]: ...
 
+@type_check_only
 class KerasSerializable2(Protocol):
     __name__: str
 
@@ -32,13 +32,14 @@ KerasSerializable: TypeAlias = KerasSerializable1 | KerasSerializable2
 TensorValue: TypeAlias = tf.Tensor  # Alias for a 0D Tensor
 Integer: TypeAlias = TensorValue | int | IntArray | np.number[Any]  # Here IntArray are assumed to be 0D.
 Float: TypeAlias = Integer | float | FloatArray
-Slice: TypeAlias = int | slice | None
+Slice: TypeAlias = tf.Tensor | tf.RaggedTensor | int | slice | None
 FloatDataSequence: TypeAlias = Sequence[float] | Sequence[FloatDataSequence]
 IntDataSequence: TypeAlias = Sequence[int] | Sequence[IntDataSequence]
 StrDataSequence: TypeAlias = Sequence[str] | Sequence[StrDataSequence]
 DataSequence: TypeAlias = FloatDataSequence | StrDataSequence | IntDataSequence
 ScalarTensorCompatible: TypeAlias = tf.Tensor | str | float | np.ndarray[Any, Any] | np.number[Any]
 UIntTensorCompatible: TypeAlias = tf.Tensor | int | UIntArray
+IntTensorCompatible: TypeAlias = tf.Tensor | int | IntArray | Sequence[IntTensorCompatible]
 FloatTensorCompatible: TypeAlias = tf.Tensor | int | IntArray | float | FloatArray | np.number[Any]
 StringTensorCompatible: TypeAlias = tf.Tensor | str | npt.NDArray[np.str_] | Sequence[StringTensorCompatible]
 
@@ -55,7 +56,8 @@ SparseTensorCompatible: TypeAlias = TensorCompatible | tf.SparseTensor
 TensorOrArray: TypeAlias = tf.Tensor | AnyArray
 
 ShapeLike: TypeAlias = tf.TensorShape | Iterable[ScalarTensorCompatible | None] | int | tf.Tensor
-DTypeLike: TypeAlias = DType | str | numpy.dtype[Any] | int
+DTypeLike: TypeAlias = DType | str | np.dtype[Any] | int
+Signature: TypeAlias = DType | tf.RaggedTensorSpec | tf.SparseTensorSpec | Sequence[Signature]
 
 ContainerTensors: TypeAlias = ContainerGeneric[tf.Tensor]
 ContainerTensorsLike: TypeAlias = ContainerGeneric[TensorLike]

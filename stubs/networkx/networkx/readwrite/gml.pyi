@@ -1,18 +1,26 @@
-from _typeshed import Incomplete
-from collections.abc import Generator
+from _typeshed import Incomplete, StrPath, SupportsRead, SupportsWrite
+from collections.abc import Callable, Generator, Iterable
 from enum import Enum
-from typing import Generic, NamedTuple, TypeVar
+from typing import Final, Generic, NamedTuple, TypeVar
 
-from networkx.utils.backends import _dispatch
+from networkx.classes.graph import Graph, _Node
+from networkx.utils.backends import _dispatchable
 
 _T = TypeVar("_T")
 
 __all__ = ["read_gml", "parse_gml", "generate_gml", "write_gml"]
 
-@_dispatch
-def read_gml(path, label: str = "label", destringizer: Incomplete | None = None): ...
-@_dispatch
-def parse_gml(lines, label: str = "label", destringizer: Incomplete | None = None): ...
+def escape(text): ...
+def unescape(text): ...
+def literal_destringizer(rep: str): ...
+@_dispatchable
+def read_gml(
+    path: StrPath | SupportsRead[bytes], label: str = "label", destringizer: Callable[..., Incomplete] | None = None
+) -> Graph[Incomplete]: ...
+@_dispatchable
+def parse_gml(
+    lines: str | Iterable[str], label: str = "label", destringizer: Callable[..., Incomplete] | None = None
+) -> Graph[Incomplete]: ...
 
 class Pattern(Enum):
     KEYS = 0
@@ -29,5 +37,11 @@ class Token(NamedTuple, Generic[_T]):
     line: int
     position: int
 
-def generate_gml(G, stringizer: Incomplete | None = None) -> Generator[Incomplete, Incomplete, None]: ...
-def write_gml(G, path, stringizer: Incomplete | None = None) -> None: ...
+LIST_START_VALUE: Final = "_networkx_list_start"
+
+def parse_gml_lines(lines, label, destringizer): ...
+def literal_stringizer(value) -> str: ...
+def generate_gml(G: Graph[_Node], stringizer: Callable[..., Incomplete] | None = None) -> Generator[Incomplete, Incomplete]: ...
+def write_gml(
+    G: Graph[_Node], path: StrPath | SupportsWrite[bytes], stringizer: Callable[..., Incomplete] | None = None
+) -> None: ...

@@ -1,5 +1,6 @@
 from _typeshed import ConvertibleToInt, Incomplete, Unused
-from typing import ClassVar, Literal, NoReturn, overload
+from typing import ClassVar, Literal, overload
+from typing_extensions import Never
 
 from openpyxl.descriptors import Strict
 from openpyxl.descriptors.base import Alias, Bool, Integer, String, Typed, _ConvertibleToBool
@@ -23,7 +24,7 @@ class NumVal(Serialisable):
     idx: Integer[Literal[False]]
     formatCode: NestedText[str, Literal[True]]
     v: Incomplete
-    def __init__(self, idx: ConvertibleToInt, formatCode: object = None, v: Incomplete | None = None) -> None: ...
+    def __init__(self, idx: ConvertibleToInt, formatCode: object = None, v=None) -> None: ...
 
 class NumData(Serialisable):
     formatCode: NestedText[str, Literal[True]]
@@ -105,10 +106,11 @@ class AxDataSource(Serialisable):
     strRef: Typed[StrRef, Literal[True]]
     strLit: Typed[StrData, Literal[True]]
     multiLvlStrRef: Typed[MultiLevelStrRef, Literal[True]]
+
     @overload
     def __init__(
         self, numRef: None = None, numLit: None = None, strRef: None = None, strLit: None = None, multiLvlStrRef: None = None
-    ) -> NoReturn: ...
+    ) -> Never: ...
     @overload
     def __init__(
         self,

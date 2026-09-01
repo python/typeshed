@@ -1,9 +1,11 @@
-from typing import Any
+from _typeshed import Incomplete
+from logging import Logger
+from typing import ClassVar
 
 class LanguageValidator:
-    logger: Any
-    VALID_KEYS: Any
+    VALID_KEYS: ClassVar[list[str]]
+    logger: Logger | None
     @classmethod
-    def get_logger(cls): ...
+    def get_logger(cls) -> Logger: ...
     @classmethod
-    def validate_info(cls, language_id, info): ...
+    def validate_info(cls, language_id, info: dict[str, Incomplete]) -> bool: ...

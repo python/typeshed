@@ -1,26 +1,28 @@
-from _typeshed import Incomplete
-from typing import Any
+from typing import ClassVar
 
 from dateparser.calendars import non_gregorian_parser
 
 class hijri:
     @classmethod
-    def to_gregorian(cls, year: Incomplete | None = ..., month: Incomplete | None = ..., day: Incomplete | None = ...): ...
+    def to_gregorian(cls, year: int | None = None, month: int | None = None, day: int | None = None) -> tuple[int, int, int]: ...
     @classmethod
-    def from_gregorian(cls, year: Incomplete | None = ..., month: Incomplete | None = ..., day: Incomplete | None = ...): ...
+    def from_gregorian(
+        cls, year: int | None = None, month: int | None = None, day: int | None = None
+    ) -> tuple[int, int, int]: ...
     @classmethod
-    def month_length(cls, year, month): ...
+    def month_length(cls, year: int | None, month: int | None) -> int: ...
 
 class HijriDate:
-    year: Any
-    month: Any
-    day: Any
-    def __init__(self, year, month, day) -> None: ...
-    def weekday(self): ...
+    year: int
+    month: int
+    day: int
+    def __init__(self, year: int, month: int, day: int) -> None: ...
+    def weekday(self) -> int | None: ...
 
 class hijri_parser(non_gregorian_parser):
-    calendar_converter: Any
-    default_year: int
-    default_month: int
-    default_day: int
-    non_gregorian_date_cls: Any
+    calendar_converter: ClassVar[type[hijri]]
+    default_year: ClassVar[int]
+    default_month: ClassVar[int]
+    default_day: ClassVar[int]
+    non_gregorian_date_cls: ClassVar[type[HijriDate]]
+    def handle_two_digit_year(self, year: int) -> int: ...

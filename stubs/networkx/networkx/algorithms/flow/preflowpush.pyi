@@ -1,14 +1,18 @@
 from _typeshed import Incomplete
 
-from networkx.utils.backends import _dispatch
+from networkx.classes.digraph import DiGraph
+from networkx.classes.graph import Graph, _Node
+from networkx.utils.backends import _dispatchable
 
-@_dispatch
+__all__ = ["preflow_push"]
+
+@_dispatchable
 def preflow_push(
-    G,
-    s,
-    t,
+    G: Graph[_Node],
+    s: _Node,
+    t: _Node,
     capacity: str = "capacity",
-    residual: Incomplete | None = None,
+    residual: Graph[_Node] | None = None,
     global_relabel_freq: float = 1,
     value_only: bool = False,
-): ...
+) -> DiGraph[Incomplete]: ...

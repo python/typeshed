@@ -1,15 +1,16 @@
 import _lsprof
+import sys
 from _typeshed import StrOrBytesPath, Unused
-from collections.abc import Callable
+from collections.abc import Callable, Mapping
 from types import CodeType
-from typing import Any, TypeVar
-from typing_extensions import ParamSpec, Self, TypeAlias
+from typing import Any, ParamSpec, TypeAlias, TypeVar
+from typing_extensions import Self
 
 __all__ = ["run", "runctx", "Profile"]
 
 def run(statement: str, filename: str | None = None, sort: str | int = -1) -> None: ...
 def runctx(
-    statement: str, globals: dict[str, Any], locals: dict[str, Any], filename: str | None = None, sort: str | int = -1
+    statement: str, globals: dict[str, Any], locals: Mapping[str, Any], filename: str | None = None, sort: str | int = -1
 ) -> None: ...
 
 _T = TypeVar("_T")
@@ -23,9 +24,10 @@ class Profile(_lsprof.Profiler):
     def create_stats(self) -> None: ...
     def snapshot_stats(self) -> None: ...
     def run(self, cmd: str) -> Self: ...
-    def runctx(self, cmd: str, globals: dict[str, Any], locals: dict[str, Any]) -> Self: ...
+    def runctx(self, cmd: str, globals: dict[str, Any], locals: Mapping[str, Any]) -> Self: ...
     def runcall(self, func: Callable[_P, _T], /, *args: _P.args, **kw: _P.kwargs) -> _T: ...
     def __enter__(self) -> Self: ...
     def __exit__(self, *exc_info: Unused) -> None: ...
 
-def label(code: str | CodeType) -> _Label: ...  # undocumented
+if sys.version_info < (3, 15):
+    def label(code: str | CodeType) -> _Label: ...  # undocumented

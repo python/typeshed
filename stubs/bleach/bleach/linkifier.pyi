@@ -1,8 +1,6 @@
-from _typeshed import Incomplete
 from collections.abc import Container, Iterable, Iterator, Sequence
 from re import Pattern
-from typing import Any, Final
-from typing_extensions import TypeAlias
+from typing import Any, Final, TypeAlias
 
 from html5lib.filters.base import Filter
 from html5lib.treewalkers.base import TreeWalker
@@ -37,7 +35,7 @@ class Linker:
 # or `html5lib` token might be reused
 _Token: TypeAlias = dict[str, Any]
 
-class LinkifyFilter(Filter):
+class LinkifyFilter(Filter[_Token]):
     callbacks: Iterable[_Callback]
     skip_tags: Container[str]
     parse_email: bool
@@ -59,4 +57,4 @@ class LinkifyFilter(Filter):
     def handle_links(self, src_iter: Iterable[_Token]) -> Iterator[_Token]: ...
     def handle_a_tag(self, token_buffer: Sequence[_Token]) -> Iterator[_Token]: ...
     def extract_entities(self, token: _Token) -> Iterator[_Token]: ...
-    def __iter__(self) -> Iterator[Incomplete]: ...
+    def __iter__(self) -> Iterator[_Token]: ...

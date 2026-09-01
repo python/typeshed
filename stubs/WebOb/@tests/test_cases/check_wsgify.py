@@ -56,10 +56,10 @@ def app(request: Request) -> str:
 
 
 application = app
-assert_type(app, "wsgify[Request, []]")
+assert_type(app, "wsgify[[], Request]")
 assert_type(app(env, start_response), "Iterable[bytes]")
 assert_type(app(request), _AnyResponse)
-assert_type(app(application), "wsgify[Request, []]")
+assert_type(app(application), "wsgify[[], Request]")
 application = app(application)
 
 
@@ -75,10 +75,10 @@ def m_app(request: Request) -> str:
 
 
 application = m_app
-assert_type(m_app, "wsgify[Request, [WSGIApplication]]")
+assert_type(m_app, "wsgify[[WSGIApplication], Request]")
 assert_type(m_app(env, start_response), "Iterable[bytes]")
 assert_type(m_app(request), _AnyResponse)
-assert_type(m_app(application), "wsgify[Request, [WSGIApplication]]")
+assert_type(m_app(application), "wsgify[[WSGIApplication], Request]")
 application = m_app(application)
 
 
@@ -93,7 +93,7 @@ def my_request_app(request: MyRequest) -> None:
 
 
 application = my_request_app
-assert_type(my_request_app, "wsgify[MyRequest, []]")
+assert_type(my_request_app, "wsgify[[], MyRequest]")
 
 
 # we are allowed to accept a less specific request class

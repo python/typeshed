@@ -1,6 +1,6 @@
 from _typeshed import ConvertibleToInt, Incomplete, SupportsIter
 from collections.abc import Iterator
-from typing import Any, ClassVar, Final, Protocol
+from typing import Any, ClassVar, Final, Protocol, type_check_only
 from typing_extensions import Self
 
 from openpyxl.descriptors import MetaSerialisable
@@ -9,7 +9,10 @@ from openpyxl.xml.functions import Element
 from ..xml._functions_overloads import _HasAttrib, _HasGet, _HasTagAndGet, _HasText, _SupportsFindChartLines
 
 # For any override directly re-using Serialisable.from_tree
+@type_check_only
 class _ChildSerialisableTreeElement(_HasAttrib, _HasText, SupportsIter[Incomplete], Protocol): ...
+
+@type_check_only
 class _SerialisableTreeElement(_HasGet[object], _SupportsFindChartLines, _ChildSerialisableTreeElement, Protocol): ...
 
 KEYWORDS: Final[frozenset[str]]
@@ -24,7 +27,7 @@ class Serialisable(metaclass=MetaSerialisable):
     idx_base: int
     # Needs overrides in many sub-classes. But a lot of subclasses are instantiated without overriding it, so can't be abstract
     # Subclasses "overrides" this property with a ClassVar, and Serialisable is too widely used,
-    # so it can't be typed as NoReturn either without introducing many false-positives.
+    # so it can't be typed as Never either without introducing many false-positives.
     @property
     def tagname(self) -> str: ...
     namespace: ClassVar[str | None]

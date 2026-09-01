@@ -1,11 +1,10 @@
-import sys
 from collections.abc import Callable, Mapping, Sequence
 from types import ModuleType
-from typing import Any, Protocol, TypeVar
-from typing_extensions import TypeAlias
+from typing import Any, Protocol, TypeAlias, TypeVar, type_check_only
 
 from gevent.hub import Hub
 from greenlet import greenlet as greenlet_t
+from psutil._ntuples import pmem
 
 _T = TypeVar("_T")
 # FIXME: While it would be nice to import Interface from zope.interface here so the
@@ -17,19 +16,9 @@ Interface: TypeAlias = Any
 
 def implementer(interface: Interface, /) -> Callable[[_T], _T]: ...
 
-# this is copied from types-psutil, it would be nice if we could just import this
-# but it doesn't seem like we can...
-if sys.platform == "linux":
-    from psutil._pslinux import pmem
-elif sys.platform == "darwin":
-    from psutil._psosx import pmem
-elif sys.platform == "win32":
-    from psutil._pswindows import pmem
-else:
-    class pmem(Any): ...
-
 subscribers: list[Callable[[Any], object]]
 
+@type_check_only
 class _PeriodicMonitorThread(Protocol):
     def add_monitoring_function(self, function: Callable[[Hub], object], period: float | None) -> object: ...
 
@@ -49,13 +38,15 @@ class IEventLoopBlocked(Interface):
     greenlet: greenlet_t
     blocking_time: float
     info: Sequence[str]
+    hub: Hub | None
 
 @implementer(IEventLoopBlocked)
 class EventLoopBlocked:
     greenlet: greenlet_t
     blocking_time: float
     info: Sequence[str]
-    def __init__(self, greenlet: greenlet_t, blocking_time: float, info: Sequence[str]) -> None: ...
+    hub: Hub | None
+    def __init__(self, greenlet: greenlet_t, blocking_time: float, info: Sequence[str], *, hub: Hub | None = None) -> None: ...
 
 class IMemoryUsageThresholdExceeded(Interface):
     mem_usage: int
@@ -134,7 +125,7 @@ class GeventDidPatchModuleEvent(GeventDidPatchEvent):
 class IGeventWillPatchAllEvent(IGeventWillPatchEvent):
     patch_all_arguments: Mapping[str, Any]
     patch_all_kwargs: Mapping[str, Any]
-    def will_patch_module(module_name: str) -> bool: ...
+    def will_patch_module(module_name: str) -> bool: ...  # pyrefly: ignore [invalid-annotation]
 
 class _PatchAllMixin:
     def __init__(self, patch_all_arguments: Mapping[str, Any], patch_all_kwargs: Mapping[str, Any]) -> None: ...
@@ -161,3 +152,35 @@ class IGeventDidPatchAllEvent(IGeventDidPatchEvent): ...
 @implementer(IGeventDidPatchAllEvent)
 class GeventDidPatchAllEvent(_PatchAllMixin, GeventDidPatchEvent):
     ENTRY_POINT_NAME: str
+
+__all__ = [
+    "subscribers",
+    # monitor thread
+    "IEventLoopBlocked",
+    "EventLoopBlocked",
+    "IMemoryUsageThresholdExceeded",
+    "MemoryUsageThresholdExceeded",
+    "IMemoryUsageUnderThreshold",
+    "MemoryUsageUnderThreshold",
+    # Hub
+    "IPeriodicMonitorThread",
+    "IPeriodicMonitorThreadStartedEvent",
+    "PeriodicMonitorThreadStartedEvent",
+    # monkey
+    "IGeventPatchEvent",
+    "GeventPatchEvent",
+    "IGeventWillPatchEvent",
+    "DoNotPatch",
+    "GeventWillPatchEvent",
+    "IGeventDidPatchEvent",
+    "IGeventWillPatchModuleEvent",
+    "GeventWillPatchModuleEvent",
+    "IGeventDidPatchModuleEvent",
+    "GeventDidPatchModuleEvent",
+    "IGeventWillPatchAllEvent",
+    "GeventWillPatchAllEvent",
+    "IGeventDidPatchBuiltinModulesEvent",
+    "GeventDidPatchBuiltinModulesEvent",
+    "IGeventDidPatchAllEvent",
+    "GeventDidPatchAllEvent",
+]

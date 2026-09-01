@@ -1,7 +1,6 @@
 from _typeshed import ConvertibleToFloat, ConvertibleToInt, Incomplete, Unused
 from datetime import datetime
-from typing import ClassVar, Final, Literal, overload
-from typing_extensions import TypeAlias
+from typing import ClassVar, Final, Literal, TypeAlias, overload
 
 from openpyxl.descriptors.base import (
     Alias,
@@ -109,7 +108,7 @@ class SortCondition(Serialisable):
     iconId: Integer[Literal[True]]
     def __init__(
         self,
-        ref: Incomplete | None = None,
+        ref=None,
         descending: _ConvertibleToBool | None = None,
         sortBy: _SortConditionSortBy | Literal["none"] | None = None,
         customList: str | None = None,
@@ -132,7 +131,7 @@ class SortState(Serialisable):
         columnSort: _ConvertibleToBool | None = None,
         caseSensitive: _ConvertibleToBool | None = None,
         sortMethod: _SortStateSortMethod | Literal["none"] | None = None,
-        ref: Incomplete | None = None,
+        ref=None,
         sortCondition=(),
         extLst: Unused = None,
     ) -> None: ...
@@ -207,6 +206,7 @@ class Top10(Serialisable):
     percent: Bool[Literal[True]]
     val: Float[Literal[False]]
     filterVal: Float[Literal[True]]
+
     @overload
     def __init__(
         self,
@@ -234,6 +234,7 @@ class DateGroupItem(Serialisable):
     minute: MinMax[float, Literal[True]]
     second: Integer[Literal[True]]
     dateTimeGrouping: Set[_DateGroupItemDateTimeGrouping]
+
     @overload
     def __init__(
         self,
@@ -299,8 +300,8 @@ class FilterColumn(Serialisable):
         colorFilter: ColorFilter | None = None,
         iconFilter: IconFilter | None = None,
         extLst: Unused = None,
-        blank: Incomplete | None = None,
-        vals: Incomplete | None = None,
+        blank=None,
+        vals=None,
     ) -> None: ...
 
 class AutoFilter(Serialisable):
@@ -310,9 +311,7 @@ class AutoFilter(Serialisable):
     sortState: Typed[SortState, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: ClassVar[tuple[str, ...]]
-    def __init__(
-        self, ref: Incomplete | None = None, filterColumn=(), sortState: SortState | None = None, extLst: Unused = None
-    ) -> None: ...
+    def __init__(self, ref=None, filterColumn=(), sortState: SortState | None = None, extLst: Unused = None) -> None: ...
     def __bool__(self) -> bool: ...
     def add_filter_column(self, col_id, vals, blank: bool = False) -> None: ...
     def add_sort_condition(self, ref, descending: bool = False) -> None: ...

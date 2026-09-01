@@ -1,7 +1,8 @@
-from typing import Any
+from logging import Logger
+from typing import Final
 
-log: Any
-SERVICE_NAME: str
-ORIGIN: str
+log: Logger
+SERVICE_NAME: Final = "ecs"
+ORIGIN: Final = "AWS::ECS::Container"
 
 def initialize() -> None: ...

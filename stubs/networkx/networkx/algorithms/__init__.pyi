@@ -30,6 +30,7 @@ from networkx.algorithms.bipartite import (
 )
 from networkx.algorithms.boundary import *
 from networkx.algorithms.bridges import *
+from networkx.algorithms.broadcasting import *
 from networkx.algorithms.centrality import *
 from networkx.algorithms.chains import *
 from networkx.algorithms.chordal import *
@@ -101,6 +102,7 @@ from networkx.algorithms.mis import *
 from networkx.algorithms.moral import *
 from networkx.algorithms.non_randomness import *
 from networkx.algorithms.operators import *
+from networkx.algorithms.perfect_graph import *
 from networkx.algorithms.planar_drawing import *
 from networkx.algorithms.planarity import *
 from networkx.algorithms.polynomials import *
@@ -116,6 +118,8 @@ from networkx.algorithms.sparsifiers import *
 from networkx.algorithms.structuralholes import *
 from networkx.algorithms.summarization import *
 from networkx.algorithms.swap import *
+from networkx.algorithms.time_dependent import *
+from networkx.algorithms.tournament import is_tournament as is_tournament
 from networkx.algorithms.traversal import *
 from networkx.algorithms.tree.branchings import (
     ArborescenceIterator as ArborescenceIterator,
@@ -132,4 +136,5 @@ from networkx.algorithms.tree.recognition import *
 from networkx.algorithms.triads import *
 from networkx.algorithms.vitality import *
 from networkx.algorithms.voronoi import *
+from networkx.algorithms.walks import *
 from networkx.algorithms.wiener import *

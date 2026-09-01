@@ -1,18 +1,32 @@
 from _typeshed import Incomplete
+from collections.abc import Iterable
 
-from networkx.utils.backends import _dispatch
+from networkx.classes.graph import Graph
+from networkx.utils.backends import _dispatchable
 
-@_dispatch
-def grid_2d_graph(m, n, periodic: bool = False, create_using: Incomplete | None = None): ...
-@_dispatch
-def grid_graph(dim, periodic: bool = False): ...
-@_dispatch
-def hypercube_graph(n): ...
-@_dispatch
+__all__ = ["grid_2d_graph", "grid_graph", "hypercube_graph", "triangular_lattice_graph", "hexagonal_lattice_graph"]
+
+@_dispatchable
+def grid_2d_graph(
+    m, n, periodic: bool = False, create_using: Graph[Incomplete] | type[Graph[Incomplete]] | None = None
+) -> Graph[Incomplete]: ...
+@_dispatchable
+def grid_graph(dim: list[float] | tuple[float, ...] | Iterable[Incomplete], periodic: bool = False) -> Graph[Incomplete]: ...
+@_dispatchable
+def hypercube_graph(n: int) -> Graph[Incomplete]: ...
+@_dispatchable
 def triangular_lattice_graph(
-    m, n, periodic: bool = False, with_positions: bool = True, create_using: Incomplete | None = None
-): ...
-@_dispatch
+    m: int,
+    n: int,
+    periodic: bool = False,
+    with_positions: bool = True,
+    create_using: Graph[Incomplete] | type[Graph[Incomplete]] | None = None,
+) -> Graph[Incomplete]: ...
+@_dispatchable
 def hexagonal_lattice_graph(
-    m, n, periodic: bool = False, with_positions: bool = True, create_using: Incomplete | None = None
-): ...
+    m: int,
+    n: int,
+    periodic: bool = False,
+    with_positions: bool = True,
+    create_using: Graph[Incomplete] | type[Graph[Incomplete]] | None = None,
+) -> Graph[Incomplete]: ...

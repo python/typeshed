@@ -10,20 +10,14 @@ class BaseLTOLabel(Standard39):
     CODENOMINALWIDTH: Incomplete
     CODEBARHEIGHT: Incomplete
     CODEBARWIDTH: Incomplete
-    CODEGAP = CODEBARWIDTH
+    CODEGAP = CODEBARWIDTH  # pyrefly: ignore [unknown-name]
     CODELQUIET: Incomplete
     CODERQUIET: Incomplete
     height: Incomplete
     border: Incomplete
     label: Incomplete
     def __init__(
-        self,
-        prefix: str = "",
-        number: Incomplete | None = None,
-        subtype: str = "1",
-        border: Incomplete | None = None,
-        checksum: bool = False,
-        availheight: Incomplete | None = None,
+        self, prefix: str = "", number=None, subtype: str = "1", border=None, checksum: bool = False, availheight=None
     ) -> None: ...
     def drawOn(self, canvas, x, y) -> None: ...
 

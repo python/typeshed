@@ -1,8 +1,9 @@
+import csv
 import sys
 from _typeshed import SupportsWrite
-from collections.abc import Iterable, Iterator
-from typing import Any, Final
-from typing_extensions import TypeAlias
+from collections.abc import Iterable
+from typing import Any, Final, Literal, TypeAlias
+from typing_extensions import Self, disjoint_base
 
 __version__: Final[str]
 
@@ -14,12 +15,16 @@ if sys.version_info >= (3, 12):
     QUOTE_STRINGS: Final = 4
     QUOTE_NOTNULL: Final = 5
 
-# Ideally this would be `QUOTE_ALL | QUOTE_MINIMAL | QUOTE_NONE | QUOTE_NONNUMERIC`
-# However, using literals in situations like these can cause false-positives (see #7258)
-_QuotingType: TypeAlias = int
+if sys.version_info >= (3, 12):
+    _QuotingType: TypeAlias = Literal[0, 1, 2, 3, 4, 5]
+else:
+    _QuotingType: TypeAlias = Literal[0, 1, 2, 3]
 
 class Error(Exception): ...
 
+_DialectLike: TypeAlias = str | Dialect | csv.Dialect | type[Dialect | csv.Dialect]
+
+@disjoint_base
 class Dialect:
     delimiter: str
     quotechar: str | None
@@ -29,24 +34,43 @@ class Dialect:
     lineterminator: str
     quoting: _QuotingType
     strict: bool
-    def __init__(self) -> None: ...
+    def __new__(
+        cls,
+        dialect: _DialectLike | None = None,
+        delimiter: str = ",",
+        doublequote: bool = True,
+        escapechar: str | None = None,
+        lineterminator: str = "\r\n",
+        quotechar: str | None = '"',
+        quoting: _QuotingType = 0,
+        skipinitialspace: bool = False,
+        strict: bool = False,
+    ) -> Self: ...
 
-_DialectLike: TypeAlias = str | Dialect | type[Dialect]
-
-class _reader(Iterator[list[str]]):
+# This class calls itself _csv.reader.
+@disjoint_base
+class Reader:
     @property
     def dialect(self) -> Dialect: ...
     line_num: int
+    def __iter__(self) -> Self: ...
     def __next__(self) -> list[str]: ...
 
-class _writer:
+# This class calls itself _csv.writer.
+@disjoint_base
+class Writer:
     @property
     def dialect(self) -> Dialect: ...
-    def writerow(self, row: Iterable[Any]) -> Any: ...
-    def writerows(self, rows: Iterable[Iterable[Any]]) -> None: ...
+    if sys.version_info >= (3, 13):
+        def writerow(self, row: Iterable[Any], /) -> Any: ...
+        def writerows(self, rows: Iterable[Iterable[Any]], /) -> None: ...
+    else:
+        def writerow(self, row: Iterable[Any]) -> Any: ...
+        def writerows(self, rows: Iterable[Iterable[Any]]) -> None: ...
 
 def writer(
-    csvfile: SupportsWrite[str],
+    fileobj: SupportsWrite[str],
+    /,
     dialect: _DialectLike = "excel",
     *,
     delimiter: str = ",",
@@ -57,9 +81,10 @@ def writer(
     lineterminator: str = "\r\n",
     quoting: _QuotingType = 0,
     strict: bool = False,
-) -> _writer: ...
+) -> Writer: ...
 def reader(
-    csvfile: Iterable[str],
+    iterable: Iterable[str],
+    /,
     dialect: _DialectLike = "excel",
     *,
     delimiter: str = ",",
@@ -70,10 +95,11 @@ def reader(
     lineterminator: str = "\r\n",
     quoting: _QuotingType = 0,
     strict: bool = False,
-) -> _reader: ...
+) -> Reader: ...
 def register_dialect(
     name: str,
-    dialect: type[Dialect] = ...,
+    /,
+    dialect: type[Dialect | csv.Dialect] | str = "excel",
     *,
     delimiter: str = ",",
     quotechar: str | None = '"',

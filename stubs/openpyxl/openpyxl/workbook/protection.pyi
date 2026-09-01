@@ -30,42 +30,47 @@ class WorkbookProtection(Serialisable):
     __attrs__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
-        workbookPassword: Incomplete | None = None,
+        workbookPassword=None,
         workbookPasswordCharacterSet: str | None = None,
-        revisionsPassword: Incomplete | None = None,
+        revisionsPassword=None,
         revisionsPasswordCharacterSet: str | None = None,
         lockStructure: _ConvertibleToBool | None = None,
         lockWindows: _ConvertibleToBool | None = None,
         lockRevision: _ConvertibleToBool | None = None,
         revisionsAlgorithmName: str | None = None,
-        revisionsHashValue: Incomplete | None = None,
-        revisionsSaltValue: Incomplete | None = None,
+        revisionsHashValue=None,
+        revisionsSaltValue=None,
         revisionsSpinCount: ConvertibleToInt | None = None,
         workbookAlgorithmName: str | None = None,
-        workbookHashValue: Incomplete | None = None,
-        workbookSaltValue: Incomplete | None = None,
+        workbookHashValue=None,
+        workbookSaltValue=None,
         workbookSpinCount: ConvertibleToInt | None = None,
     ) -> None: ...
+
     @overload
     def set_workbook_password(self, value: str = "", already_hashed: Literal[False] = False) -> None: ...
     @overload
     def set_workbook_password(self, value: str | None, already_hashed: Literal[True]) -> None: ...
     @overload
     def set_workbook_password(self, value: str | None = "", *, already_hashed: Literal[True]) -> None: ...
+
     @property
     def workbookPassword(self) -> str | None: ...
     @workbookPassword.setter
     def workbookPassword(self, value: str) -> None: ...
+
     @overload
     def set_revisions_password(self, value: str = "", already_hashed: Literal[False] = False) -> None: ...
     @overload
     def set_revisions_password(self, value: str | None, already_hashed: Literal[True]) -> None: ...
     @overload
     def set_revisions_password(self, value: str | None = "", *, already_hashed: Literal[True]) -> None: ...
+
     @property
     def revisionsPassword(self) -> str | None: ...
     @revisionsPassword.setter
     def revisionsPassword(self, value: str) -> None: ...
+
     @classmethod
     def from_tree(cls, node: _SupportsIterAndAttribAndTextAndGet) -> Self: ...
 
@@ -84,9 +89,9 @@ class FileSharing(Serialisable):
         self,
         readOnlyRecommended: _ConvertibleToBool | None = None,
         userName: str | None = None,
-        reservationPassword: Incomplete | None = None,
+        reservationPassword=None,
         algorithmName: str | None = None,
-        hashValue: Incomplete | None = None,
-        saltValue: Incomplete | None = None,
+        hashValue=None,
+        saltValue=None,
         spinCount: ConvertibleToInt | None = None,
     ) -> None: ...

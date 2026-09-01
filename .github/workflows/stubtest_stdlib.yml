@@ -1,4 +1,4 @@
-name: Stdlib stubtest
+name: "Stubtest: stdlib"
 
 on:
   workflow_dispatch:
@@ -26,19 +26,24 @@ concurrency:
 
 jobs:
   stubtest-stdlib:
-    name: Check stdlib with stubtest
+    name: "stubtest: stdlib"
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        # various modules aren't available on macos-13 and higher
-        os: ["ubuntu-latest", "windows-latest", "macos-12"]
-        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]
+        os: ["ubuntu-latest", "windows-latest", "macos-latest"]
+        python-version: ["3.10", "3.11", "3.12", "3.13", "3.14", "3.15"]
+        exclude:
+          # https://github.com/python/typeshed/issues/15694
+          - os: "windows-latest"
+            python-version: "3.10"
       fail-fast: false
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
       - name: Set up Python ${{ matrix.python-version }} on ${{ matrix.os }}
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
         with:
           python-version: ${{ matrix.python-version }}
           cache: pip

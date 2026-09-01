@@ -1,15 +1,17 @@
 from collections.abc import Callable, Iterable
 from gettext import GNUTranslations
-from typing import Protocol, TypeVar, overload
+from typing import Protocol, TypeVar, overload, type_check_only
 
 _T = TypeVar("_T")
 
+@type_check_only
 class _SupportsUgettextAndUngettext(Protocol):
     def ugettext(self, string: str, /) -> str: ...
     def ungettext(self, singular: str, plural: str, n: int, /) -> str: ...
 
 def messages_path() -> str: ...
 def get_builtin_gnu_translations(languages: Iterable[str] | None = None) -> GNUTranslations: ...
+
 @overload
 def get_translations(
     languages: Iterable[str] | None = None, getter: Callable[[Iterable[str]], GNUTranslations] = ...

@@ -1,4 +1,9 @@
-from networkx.utils.backends import _dispatch
+from _typeshed import Incomplete
 
-@_dispatch
-def sudoku_graph(n: int = 3): ...
+from networkx.classes.graph import Graph
+from networkx.utils.backends import _dispatchable
+
+__all__ = ["sudoku_graph"]
+
+@_dispatchable
+def sudoku_graph(n: int = 3) -> Graph[Incomplete]: ...

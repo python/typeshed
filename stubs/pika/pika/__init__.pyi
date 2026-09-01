@@ -1,3 +1,5 @@
+from typing import Final
+
 from pika import adapters as adapters
 from pika.adapters import (
     BaseConnection as BaseConnection,
@@ -9,3 +11,19 @@ from pika.connection import ConnectionParameters as ConnectionParameters, SSLOpt
 from pika.credentials import PlainCredentials as PlainCredentials
 from pika.delivery_mode import DeliveryMode as DeliveryMode
 from pika.spec import BasicProperties as BasicProperties
+
+__version__: Final[str]
+
+__all__ = [
+    "adapters",
+    "AMQPConnectionWorkflow",
+    "BaseConnection",
+    "BasicProperties",
+    "BlockingConnection",
+    "ConnectionParameters",
+    "DeliveryMode",
+    "PlainCredentials",
+    "SelectConnection",
+    "SSLOptions",
+    "URLParameters",
+]

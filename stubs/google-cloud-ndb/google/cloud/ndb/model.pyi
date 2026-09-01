@@ -1,8 +1,8 @@
 import datetime
 from _typeshed import Unused
 from collections.abc import Callable, Iterable, Sequence
-from typing import Any, Literal, NoReturn
-from typing_extensions import Self, TypeAlias
+from typing import Any, Literal, TypeAlias
+from typing_extensions import Never, Self
 
 from google.cloud.ndb import exceptions, key as key_module, query as query_module, tasklets as tasklets_module
 
@@ -58,10 +58,10 @@ class IndexState(_NotEqualMixin):
     def __hash__(self) -> int: ...
 
 class ModelAdapter:
-    # This actually returns NoReturn, but mypy can't handle that
+    # This actually returns Never, but mypy can't handle that
     def __new__(cls, *args, **kwargs) -> Self: ...
 
-def make_connection(*args, **kwargs) -> NoReturn: ...
+def make_connection(*args, **kwargs) -> Never: ...
 
 class ModelAttribute: ...
 
@@ -118,7 +118,7 @@ class _CompressedValue(bytes):
     z_val: bytes
     def __init__(self, z_val: bytes) -> None: ...
     def __eq__(self, other: object) -> bool: ...
-    def __hash__(self) -> NoReturn: ...
+    def __hash__(self) -> Never: ...
 
 class BlobProperty(Property):
     def __init__(
@@ -137,6 +137,7 @@ class BlobProperty(Property):
     def __get__(self, entity: Model, unused_cls: type[Model] | None = ...) -> bytes | list[bytes] | None: ...
 
 class CompressedTextProperty(BlobProperty):
+    __slots__ = ()
     def __init__(self, *args, **kwargs) -> None: ...
 
 class TextProperty(Property):
@@ -256,7 +257,7 @@ class MetaModel(type):
 class Model(_NotEqualMixin, metaclass=MetaModel):
     key: ModelKey
     def __init__(_self, **kwargs) -> None: ...
-    def __hash__(self) -> NoReturn: ...
+    def __hash__(self) -> Never: ...
     def __eq__(self, other: object) -> bool: ...
     @classmethod
     def gql(cls: type[Model], query_string: str, *args, **kwargs) -> query_module.Query: ...
@@ -416,7 +417,7 @@ class Expando(Model):
     def __delattr__(self, name: str) -> None: ...
 
 def get_multi_async(
-    keys: Sequence[type[key_module.Key]],
+    keys: Sequence[key_module.Key],
     read_consistency: Literal["EVENTUAL"] | None = ...,
     read_policy: Literal["EVENTUAL"] | None = ...,
     transaction: bytes | None = ...,
@@ -432,9 +433,9 @@ def get_multi_async(
     max_memcache_items: int | None = ...,
     force_writes: bool | None = ...,
     _options: object = None,
-) -> list[type[tasklets_module.Future]]: ...
+) -> list[tasklets_module.Future]: ...
 def get_multi(
-    keys: Sequence[type[key_module.Key]],
+    keys: Sequence[key_module.Key],
     read_consistency: Literal["EVENTUAL"] | None = ...,
     read_policy: Literal["EVENTUAL"] | None = ...,
     transaction: bytes | None = ...,
@@ -450,9 +451,9 @@ def get_multi(
     max_memcache_items: int | None = ...,
     force_writes: bool | None = ...,
     _options: object = None,
-) -> list[type[Model] | None]: ...
+) -> list[Model | None]: ...
 def put_multi_async(
-    entities: list[type[Model]],
+    entities: list[Model],
     retries: int | None = ...,
     timeout: float | None = ...,
     deadline: float | None = ...,
@@ -482,7 +483,7 @@ def put_multi(
     _options: object = None,
 ) -> list[key_module.Key]: ...
 def delete_multi_async(
-    keys: list[key_module.Key],
+    keys: Sequence[key_module.Key],
     retries: int | None = ...,
     timeout: float | None = ...,
     deadline: float | None = ...,
@@ -511,5 +512,5 @@ def delete_multi(
     force_writes: bool | None = ...,
     _options: object = None,
 ) -> list[None]: ...
-def get_indexes_async(**options: Unused) -> NoReturn: ...
-def get_indexes(**options: Unused) -> NoReturn: ...
+def get_indexes_async(**options: Unused) -> Never: ...
+def get_indexes(**options: Unused) -> Never: ...

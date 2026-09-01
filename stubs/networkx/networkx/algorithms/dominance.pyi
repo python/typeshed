@@ -1,6 +1,11 @@
-from networkx.utils.backends import _dispatch
+from _typeshed import Incomplete
 
-@_dispatch
-def immediate_dominators(G, start): ...
-@_dispatch
-def dominance_frontiers(G, start): ...
+from networkx.classes.graph import Graph, _Node
+from networkx.utils.backends import _dispatchable
+
+__all__ = ["immediate_dominators", "dominance_frontiers"]
+
+@_dispatchable
+def immediate_dominators(G: Graph[_Node], start: _Node) -> dict[Incomplete, Incomplete]: ...
+@_dispatchable
+def dominance_frontiers(G: Graph[_Node], start: _Node) -> dict[Incomplete, Incomplete]: ...

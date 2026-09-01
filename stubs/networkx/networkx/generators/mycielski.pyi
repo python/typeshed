@@ -1,6 +1,11 @@
-from networkx.utils.backends import _dispatch
+from _typeshed import Incomplete
 
-@_dispatch
-def mycielskian(G, iterations: int = 1): ...
-@_dispatch
-def mycielski_graph(n): ...
+from networkx.classes.graph import Graph, _Node
+from networkx.utils.backends import _dispatchable
+
+__all__ = ["mycielskian", "mycielski_graph"]
+
+@_dispatchable
+def mycielskian(G: Graph[_Node], iterations: int = 1) -> Graph[Incomplete]: ...
+@_dispatchable
+def mycielski_graph(n: int) -> Graph[Incomplete]: ...

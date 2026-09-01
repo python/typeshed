@@ -1,6 +1,5 @@
 from _typeshed import Incomplete, Unused
-from typing import ClassVar, Literal
-from typing_extensions import TypeAlias
+from typing import ClassVar, Literal, TypeAlias
 
 from openpyxl.chart.axis import ChartLines, NumericAxis, _BaseAxis
 from openpyxl.chart.label import DataLabelList
@@ -78,7 +77,7 @@ class LineChart3D(_LineChartBase):
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
-        gapDepth: Incomplete | None = None,
+        gapDepth=None,
         hiLowLines: ChartLines | None = None,
         upDownBars: UpDownBars | None = None,
         marker: _HasTagAndGet[_ConvertibleToBool | None] | _ConvertibleToBool | None = None,

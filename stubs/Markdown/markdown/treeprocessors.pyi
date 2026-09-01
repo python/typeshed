@@ -1,6 +1,5 @@
 from re import Pattern
-from typing import Any, ClassVar
-from typing_extensions import TypeGuard
+from typing import ClassVar, TypeGuard
 from xml.etree.ElementTree import Element
 
 from markdown import util
@@ -17,7 +16,7 @@ class InlineProcessor(Treeprocessor):
     ancestors: list[str]
     def __init__(self, md: Markdown) -> None: ...
     stashed_nodes: dict[str, Element | str]
-    parent_map: Any
+    parent_map: dict[Element[str], Element[str]]
     def run(self, tree: Element, ancestors: list[str] | None = None) -> Element: ...
 
 class PrettifyTreeprocessor(Treeprocessor): ...

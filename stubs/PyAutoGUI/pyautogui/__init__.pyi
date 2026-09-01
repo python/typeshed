@@ -2,8 +2,7 @@ import contextlib
 from _typeshed import ConvertibleToInt
 from collections.abc import Callable, Iterable, Sequence
 from datetime import datetime
-from typing import Final, NamedTuple, SupportsIndex, SupportsInt, TypeVar
-from typing_extensions import ParamSpec, TypeAlias
+from typing import Final, NamedTuple, ParamSpec, SupportsIndex, SupportsInt, TypeAlias, TypeVar
 
 from pyscreeze import (
     center as center,
@@ -60,8 +59,8 @@ def useImageNotFoundException(value: bool | None = None) -> None: ...
 def isShiftCharacter(character: str) -> bool: ...
 
 class Point(NamedTuple):
-    x: float
-    y: float
+    x: int
+    y: int
 
 class Size(NamedTuple):
     width: int

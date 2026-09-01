@@ -3,8 +3,8 @@ from collections.abc import Iterator, Mapping
 from enum import Enum
 from pathlib import Path
 from types import TracebackType
-from typing import ClassVar, Protocol
-from typing_extensions import Self, TypeAlias
+from typing import ClassVar, Protocol, TypeAlias
+from typing_extensions import Self
 
 from .. import Command, errors, namespaces
 from ..dist import Distribution
@@ -33,11 +33,11 @@ class editable_wheel(Command):
     def run(self) -> None: ...
 
 class EditableStrategy(Protocol):
-    def __call__(self, wheel: _WheelFile, files: list[str], mapping: Mapping[str, str]) -> None: ...
+    def __call__(self, wheel: _WheelFile, files: list[str], mapping: Mapping[str, str]) -> Unused: ...
     def __enter__(self) -> Self: ...
     def __exit__(
         self, _exc_type: type[BaseException] | None, _exc_value: BaseException | None, _traceback: TracebackType | None
-    ) -> None: ...
+    ) -> Unused: ...
 
 class _StaticPth:
     dist: Distribution
@@ -71,10 +71,8 @@ class _NamespaceInstaller(namespaces.Installer):
     src_root: Incomplete
     installation_dir: Incomplete
     editable_name: Incomplete
-    outputs: list[Incomplete]
-    dry_run: bool
+    outputs: list[str]
     def __init__(self, distribution, installation_dir, editable_name, src_root) -> None: ...
 
 class InformationOnly(SetuptoolsWarning): ...
 class LinksNotSupported(errors.FileError): ...
-class _DebuggingTips(SetuptoolsWarning): ...

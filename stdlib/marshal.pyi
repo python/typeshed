@@ -1,17 +1,15 @@
-import builtins
 import sys
 import types
 from _typeshed import ReadableBuffer, SupportsRead, SupportsWrite
-from typing import Any
-from typing_extensions import TypeAlias
+from typing import Any, Final, TypeAlias
 
-version: int
+version: Final[int]
 
 _Marshallable: TypeAlias = (
     # handled in w_object() in marshal.c
     None
     | type[StopIteration]
-    | builtins.ellipsis
+    | types.EllipsisType
     | bool
     # handled in w_complex_object() in marshal.c
     | int
@@ -28,14 +26,26 @@ _Marshallable: TypeAlias = (
     | ReadableBuffer
 )
 
-if sys.version_info >= (3, 13):
+if sys.version_info >= (3, 15):
+    def dump(value: _Marshallable, file: SupportsWrite[bytes], version: int = 6, /, *, allow_code: bool = True) -> None: ...
+    def dumps(value: _Marshallable, version: int = 6, /, *, allow_code: bool = True) -> bytes: ...
+
+elif sys.version_info >= (3, 14):
+    def dump(value: _Marshallable, file: SupportsWrite[bytes], version: int = 5, /, *, allow_code: bool = True) -> None: ...
+    def dumps(value: _Marshallable, version: int = 5, /, *, allow_code: bool = True) -> bytes: ...
+
+elif sys.version_info >= (3, 13):
     def dump(value: _Marshallable, file: SupportsWrite[bytes], version: int = 4, /, *, allow_code: bool = True) -> None: ...
-    def load(file: SupportsRead[bytes], /, *, allow_code: bool = True) -> Any: ...
     def dumps(value: _Marshallable, version: int = 4, /, *, allow_code: bool = True) -> bytes: ...
-    def loads(bytes: ReadableBuffer, /, *, allow_code: bool = True) -> Any: ...
 
 else:
     def dump(value: _Marshallable, file: SupportsWrite[bytes], version: int = 4, /) -> None: ...
-    def load(file: SupportsRead[bytes], /) -> Any: ...
     def dumps(value: _Marshallable, version: int = 4, /) -> bytes: ...
+
+if sys.version_info >= (3, 13):
+    def load(file: SupportsRead[bytes], /, *, allow_code: bool = True) -> Any: ...
+    def loads(bytes: ReadableBuffer, /, *, allow_code: bool = True) -> Any: ...
+
+else:
+    def load(file: SupportsRead[bytes], /) -> Any: ...
     def loads(bytes: ReadableBuffer, /) -> Any: ...

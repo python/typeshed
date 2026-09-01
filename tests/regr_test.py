@@ -13,24 +13,29 @@ import subprocess
 import sys
 import tempfile
 import threading
+from abc import ABCMeta, abstractmethod
 from collections.abc import Callable, Generator
 from contextlib import ExitStack, contextmanager, suppress
 from dataclasses import dataclass
 from enum import IntEnum
 from functools import partial
 from pathlib import Path
-from typing_extensions import TypeAlias
+from typing import TypeAlias
+from typing_extensions import override
 
-from _metadata import get_recursive_requirements, read_metadata
-from _utils import (
+from ts_utils.metadata import get_recursive_requirements, read_metadata
+from ts_utils.mypy import mypy_configuration_from_distribution, temporary_mypy_config_file
+from ts_utils.paths import STDLIB_PATH, TEST_CASES_DIR, TS_BASE_PATH, distribution_path
+from ts_utils.py315 import PY315_INCOMPATIBLE_RUNTIME_DEPENDENCIES
+from ts_utils.utils import (
     PYTHON_VERSION,
-    TEST_CASES_DIR,
     DistributionTests,
     colored,
     distribution_info,
     get_all_testcase_directories,
     get_mypy_req,
     print_error,
+    print_skipped,
     venv_python,
 )
 
@@ -40,12 +45,11 @@ VENV_DIR = ".venv"
 TYPESHED = "typeshed"
 
 SUPPORTED_PLATFORMS = ["linux", "darwin", "win32"]
-SUPPORTED_VERSIONS = ["3.13", "3.12", "3.11", "3.10", "3.9", "3.8"]
+SUPPORTED_VERSIONS = ["3.15", "3.14", "3.13", "3.12", "3.11", "3.10"]
 
 
 def distribution_with_test_cases(distribution_name: str) -> DistributionTests:
-    """Helper function for argument-parsing."""
-
+    """Parse a CLI argument that is intended to be to a valid typeshed distribution."""
     try:
         return distribution_info(distribution_name)
     except RuntimeError as exc:
@@ -125,7 +129,7 @@ def setup_testcase_dir(package: DistributionTests, tempdir: Path, verbosity: Ver
         return
 
     # HACK: we want to run these test cases in an isolated environment --
-    # we want mypy to see all stub packages listed in the "requires" field of METADATA.toml
+    # we want mypy to see all stub packages listed in the "dependencies" field of METADATA.toml
     # (and all stub packages required by those stub packages, etc. etc.),
     # but none of the other stubs in typeshed.
     #
@@ -134,18 +138,20 @@ def setup_testcase_dir(package: DistributionTests, tempdir: Path, verbosity: Ver
     # that has only the required stubs copied over.
     new_typeshed = tempdir / TYPESHED
     new_typeshed.mkdir()
-    shutil.copytree(Path("stdlib"), new_typeshed / "stdlib")
+    shutil.copytree(STDLIB_PATH, new_typeshed / "stdlib")
     requirements = get_recursive_requirements(package.name)
     # mypy refuses to consider a directory a "valid typeshed directory"
     # unless there's a stubs/mypy-extensions path inside it,
     # so add that to the list of stubs to copy over to the new directory
-    for requirement in {package.name, *requirements.typeshed_pkgs, "mypy-extensions"}:
-        shutil.copytree(Path("stubs", requirement), new_typeshed / "stubs" / requirement)
+    typeshed_requirements = [r.name for r in requirements.typeshed_pkgs]
+    for requirement in {package.name, *typeshed_requirements, "mypy-extensions"}:
+        shutil.copytree(distribution_path(requirement), new_typeshed / "stubs" / requirement)
 
     if requirements.external_pkgs:
         venv_location = str(tempdir / VENV_DIR)
         subprocess.run(["uv", "venv", venv_location], check=True, capture_output=True)
-        uv_command = ["uv", "pip", "install", get_mypy_req(), *requirements.external_pkgs]
+        ext_requirements = [str(r) for r in requirements.external_pkgs]
+        uv_command = ["uv", "pip", "install", get_mypy_req(), *ext_requirements]
         if sys.platform == "win32":
             # Reads/writes to the cache are threadsafe with uv generally...
             # but not on old Windows versions
@@ -164,78 +170,101 @@ def setup_testcase_dir(package: DistributionTests, tempdir: Path, verbosity: Ver
 
 def run_testcases(
     package: DistributionTests, version: str, platform: str, *, tempdir: Path, verbosity: Verbosity
-) -> subprocess.CompletedProcess[str]:
+) -> subprocess.CompletedProcess[str] | None:
     env_vars = dict(os.environ)
     new_test_case_dir = tempdir / TEST_CASES_DIR
 
-    # "--enable-error-code ignore-without-code" is purposefully omitted.
-    # See https://github.com/python/typeshed/pull/8083
-    flags = [
-        "--python-version",
-        version,
-        "--show-traceback",
-        "--no-error-summary",
-        "--platform",
-        platform,
-        "--strict",
-        "--pretty",
-        # Avoid race conditions when reading the cache
-        # (https://github.com/python/typeshed/issues/11220)
-        "--no-incremental",
-        # Not useful for the test cases
-        "--disable-error-code=empty-body",
-    ]
-
     if package.is_stdlib:
-        python_exe = sys.executable
-        custom_typeshed = Path(__file__).parent.parent
-        flags.append("--no-site-packages")
+        configurations = []
     else:
-        custom_typeshed = tempdir / TYPESHED
-        env_vars["MYPYPATH"] = os.pathsep.join(map(str, custom_typeshed.glob("stubs/*")))
-        has_non_types_dependencies = (tempdir / VENV_DIR).exists()
-        if has_non_types_dependencies:
-            python_exe = str(venv_python(tempdir / VENV_DIR))
-        else:
+        configurations = mypy_configuration_from_distribution(package.name)
+
+    with temporary_mypy_config_file(configurations) as temp_config:
+        # "--enable-error-code ignore-without-code" is purposefully omitted.
+        # See https://github.com/python/typeshed/pull/8083
+        flags = [
+            "--python-version",
+            version,
+            "--show-traceback",
+            "--no-error-summary",
+            "--platform",
+            platform,
+            "--strict",
+            "--pretty",
+            "--config-file",
+            temp_config.name,
+            # Avoid race conditions when using the cache
+            # https://github.com/python/mypy/issues/13916
+            "--no-incremental",
+            "--cache-dir",
+            str(tempdir / ".mypy_cache" / version / platform),
+            # Not useful for the test cases
+            "--disable-error-code=empty-body",
+        ]
+
+        if package.is_stdlib:
             python_exe = sys.executable
+            custom_typeshed = TS_BASE_PATH
             flags.append("--no-site-packages")
-
-    flags.extend(["--custom-typeshed-dir", str(custom_typeshed)])
-
-    # If the test-case filename ends with -py39,
-    # only run the test if --python-version was set to 3.9 or higher (for example)
-    for path in new_test_case_dir.rglob("*.py"):
-        if match := re.fullmatch(r".*-py3(\d{1,2})", path.stem):
-            minor_version_required = int(match[1])
-            assert f"3.{minor_version_required}" in SUPPORTED_VERSIONS
-            python_minor_version = int(version.split(".")[1])
-            if minor_version_required > python_minor_version:
-                continue
-        flags.append(str(path))
-
-    mypy_command = [python_exe, "-m", "mypy", *flags]
-    if verbosity is Verbosity.VERBOSE:
-        description = f"{package.name}/{version}/{platform}"
-        msg = f"{description}: {mypy_command=}\n"
-        if "MYPYPATH" in env_vars:
-            msg += f"{description}: {env_vars['MYPYPATH']=}"
         else:
-            msg += f"{description}: MYPYPATH not set"
-        msg += "\n"
-        verbose_log(msg)
-    return subprocess.run(mypy_command, capture_output=True, text=True, env=env_vars)
+            custom_typeshed = tempdir / TYPESHED
+            env_vars["MYPYPATH"] = os.pathsep.join(map(str, custom_typeshed.glob("stubs/*")))
+            has_non_types_dependencies = (tempdir / VENV_DIR).exists()
+            if has_non_types_dependencies:
+                python_exe = str(venv_python(tempdir / VENV_DIR))
+            else:
+                python_exe = sys.executable
+                flags.append("--no-site-packages")
+
+        flags.extend(["--custom-typeshed-dir", str(custom_typeshed)])
+
+        # If the test-case filename ends with e.g. -py314,
+        # only run the test if --python-version was set to 3.14 or higher (for example)
+        files: list[str] = []
+        for path in new_test_case_dir.rglob("*.py"):
+            if match := re.fullmatch(r".*-py3(\d\d)", path.stem):
+                minor_version_required = int(match[1])
+                assert f"3.{minor_version_required}" in SUPPORTED_VERSIONS
+                python_minor_version = int(version.split(".")[1])
+                if minor_version_required > python_minor_version:
+                    continue
+            files.append(str(path))
+
+        if len(files) == 0:
+            return None
+
+        mypy_command = [python_exe, "-m", "mypy", *flags, *files]
+        if verbosity is Verbosity.VERBOSE:
+            description = f"{package.name}/{version}/{platform}"
+            msg = f"{description}: {mypy_command=}\n"
+            if "MYPYPATH" in env_vars:
+                msg += f"{description}: {env_vars['MYPYPATH']=}"
+            else:
+                msg += f"{description}: MYPYPATH not set"
+            msg += "\n"
+            verbose_log(msg)
+        return subprocess.run(mypy_command, capture_output=True, text=True, env=env_vars, check=False)
 
 
 @dataclass(frozen=True)
-class Result:
+class Result(metaclass=ABCMeta):
     code: int
+
+    @abstractmethod
+    def print_description(self, verbosity: Verbosity) -> None:
+        raise NotImplementedError
+
+
+@dataclass(frozen=True)
+class RunResult(Result):
     command_run: str
     stderr: str
     stdout: str
     test_case_dir: Path
     tempdir: Path
 
-    def print_description(self, *, verbosity: Verbosity) -> None:
+    @override
+    def print_description(self, verbosity: Verbosity) -> None:
         if self.code:
             print(f"{self.command_run}:", end=" ")
             print_error("FAILURE\n")
@@ -244,6 +273,18 @@ class Result:
                 print_error(self.stderr, fix_path=replacements)
             if self.stdout:
                 print_error(self.stdout, fix_path=replacements)
+
+
+@dataclass(frozen=True)
+class NoTestsResult(Result):
+    package: str
+    version: str
+    platform: str
+
+    @override
+    def print_description(self, verbosity: Verbosity) -> None:
+        if verbosity != Verbosity.QUIET:
+            print_skipped(f"No test cases found for {self.package!r} on Python {self.version} for platform {self.platform!r}.")
 
 
 def test_testcase_directory(
@@ -255,7 +296,10 @@ def test_testcase_directory(
         _PRINT_QUEUE.put(f"Running {msg}...")
 
     proc_info = run_testcases(package=package, version=version, platform=platform, tempdir=tempdir, verbosity=verbosity)
-    return Result(
+    if proc_info is None:
+        return NoTestsResult(0, package.name, version, platform)
+
+    return RunResult(
         code=proc_info.returncode,
         command_run=msg,
         stderr=proc_info.stderr,
@@ -293,6 +337,10 @@ def concurrently_run_testcases(
         pkg = testcase_dir.name
         requires_python = None
         if not testcase_dir.is_stdlib:
+            if PYTHON_VERSION == "3.15" and pkg in PY315_INCOMPATIBLE_RUNTIME_DEPENDENCIES:
+                msg = f"skipping {pkg!r} test cases (runtime dependencies do not support 3.15 yet)"
+                print(colored(msg, "yellow"))
+                continue
             requires_python = read_metadata(pkg).requires_python
             if not requires_python.contains(PYTHON_VERSION):
                 msg = f"skipping {pkg!r} (requires Python {requires_python}; test is being run using Python {PYTHON_VERSION})"
@@ -340,7 +388,8 @@ def concurrently_run_testcases(
         ]
 
         with cleanup_threads(event, printer_thread, executor):
-            concurrent.futures.wait(testcase_futures)
+            for future in concurrent.futures.as_completed(testcase_futures):
+                future.result()
 
         mypy_futures = [executor.submit(task) for task in to_do]
 
@@ -380,7 +429,7 @@ def main() -> ReturnCode:
     print()
 
     for result in results:
-        result.print_description(verbosity=verbosity)
+        result.print_description(verbosity)
 
     code = max(result.code for result in results)
 

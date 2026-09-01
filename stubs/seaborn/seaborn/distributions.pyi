@@ -1,6 +1,6 @@
 from collections.abc import Iterable
-from typing import Any, Literal, Protocol, TypeVar
-from typing_extensions import TypeAlias, deprecated
+from typing import Any, Literal, Protocol, TypeAlias, TypeVar, type_check_only
+from typing_extensions import deprecated
 
 from matplotlib.axes import Axes
 from matplotlib.colors import Colormap
@@ -17,6 +17,7 @@ __all__ = ["displot", "histplot", "kdeplot", "ecdfplot", "rugplot", "distplot"]
 _T = TypeVar("_T")
 _OneOrPair: TypeAlias = _T | tuple[_T, _T]
 
+@type_check_only
 class _Fit(Protocol):
     def fit(self, a: ArrayLike) -> tuple[ArrayLike, ...]: ...
     def pdf(self, x: ArrayLike, *params: ArrayLike) -> ArrayLike: ...

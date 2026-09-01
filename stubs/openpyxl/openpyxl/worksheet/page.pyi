@@ -1,6 +1,6 @@
 from _typeshed import ConvertibleToFloat, ConvertibleToInt, Incomplete
-from typing import ClassVar, Literal
-from typing_extensions import Self, TypeAlias
+from typing import ClassVar, Literal, TypeAlias
+from typing_extensions import Self
 
 from openpyxl.descriptors.base import Bool, Float, Integer, NoneSet, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable, _ChildSerialisableTreeElement
@@ -34,7 +34,7 @@ class PrintPageSetup(Serialisable):
     id: Incomplete
     def __init__(
         self,
-        worksheet: Incomplete | None = None,
+        worksheet=None,
         orientation: _PrintPageSetupOrientation | Literal["none"] | None = None,
         paperSize: ConvertibleToInt | None = None,
         scale: ConvertibleToInt | None = None,
@@ -42,8 +42,8 @@ class PrintPageSetup(Serialisable):
         fitToWidth: ConvertibleToInt | None = None,
         firstPageNumber: ConvertibleToInt | None = None,
         useFirstPageNumber: _ConvertibleToBool | None = None,
-        paperHeight: Incomplete | None = None,
-        paperWidth: Incomplete | None = None,
+        paperHeight=None,
+        paperWidth=None,
         pageOrder: _PrintPageSetupPageOrder | Literal["none"] | None = None,
         usePrinterDefaults: _ConvertibleToBool | None = None,
         blackAndWhite: _ConvertibleToBool | None = None,
@@ -53,19 +53,22 @@ class PrintPageSetup(Serialisable):
         horizontalDpi: ConvertibleToInt | None = None,
         verticalDpi: ConvertibleToInt | None = None,
         copies: ConvertibleToInt | None = None,
-        id: Incomplete | None = None,
+        id=None,
     ) -> None: ...
     def __bool__(self) -> bool: ...
     @property
     def sheet_properties(self) -> PageSetupProperties | None: ...
+
     @property
     def fitToPage(self) -> bool | None: ...
     @fitToPage.setter
     def fitToPage(self, value: _ConvertibleToBool | None) -> None: ...
+
     @property
     def autoPageBreaks(self) -> bool | None: ...
     @autoPageBreaks.setter
     def autoPageBreaks(self, value: _ConvertibleToBool | None) -> None: ...
+
     @classmethod
     def from_tree(cls, node: _ChildSerialisableTreeElement) -> Self: ...
 

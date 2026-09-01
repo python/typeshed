@@ -1,11 +1,10 @@
 from collections.abc import Callable, Container, Iterable, Mapping, Sequence
-from typing import Any, Final, NamedTuple
-from typing_extensions import Self, TypeAlias
-
-from .version import __version__ as __version__
+from typing import Any, Final, Literal, NamedTuple, TypeAlias
+from typing_extensions import Self
 
 __all__ = ["tabulate", "tabulate_formats", "simple_separated_format"]
 
+__version__: Final[str]
 # These constants are meant to be configurable
 # https://github.com/astanin/python-tabulate#text-formatting
 PRESERVE_WHITESPACE: bool
@@ -44,7 +43,8 @@ multiline_formats: dict[str, str]
 
 def simple_separated_format(separator: str) -> TableFormat: ...
 def tabulate(
-    tabular_data: Mapping[str, Iterable[Any]] | Iterable[Iterable[Any]],
+    # The key is converted using str().
+    tabular_data: Mapping[Any, Iterable[Any]] | Iterable[Iterable[Any]],
     headers: str | dict[str, str] | Sequence[str] = (),
     tablefmt: str | TableFormat = "simple",
     floatfmt: str | Iterable[str] = "g",
@@ -54,10 +54,16 @@ def tabulate(
     missingval: str | Iterable[str] = "",
     showindex: str | bool | Iterable[Any] = "default",
     disable_numparse: bool | Iterable[int] = False,
+    colglobalalign: Literal["right", "center", "decimal", "left"] | None = None,
     colalign: Iterable[str | None] | None = None,
+    preserve_whitespace: bool = False,
     maxcolwidths: int | Iterable[int | None] | None = None,
+    headersglobalalign: Literal["right", "center", "left"] | None = None,
+    headersalign: Iterable[str | None] | None = None,
     rowalign: str | Iterable[str] | None = None,
     maxheadercolwidths: int | Iterable[int] | None = None,
+    break_long_words: bool = True,
+    break_on_hyphens: bool = True,
 ) -> str: ...
 
 class JupyterHTMLStr(str):

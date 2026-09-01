@@ -1,8 +1,13 @@
-from networkx.utils.backends import _dispatch
+from _typeshed import Incomplete
 
-@_dispatch
-def is_regular(G): ...
-@_dispatch
-def is_k_regular(G, k): ...
-@_dispatch
-def k_factor(G, k, matching_weight: str = "weight"): ...
+from networkx.classes.graph import Graph, _Node
+from networkx.utils.backends import _dispatchable
+
+__all__ = ["is_regular", "is_k_regular", "k_factor"]
+
+@_dispatchable
+def is_regular(G: Graph[_Node]) -> bool: ...
+@_dispatchable
+def is_k_regular(G: Graph[_Node], k) -> bool: ...
+@_dispatchable
+def k_factor(G: Graph[_Node], k: int, matching_weight: str | None = "weight") -> Graph[Incomplete]: ...

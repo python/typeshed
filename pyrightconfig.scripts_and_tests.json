@@ -2,15 +2,18 @@
     "$schema": "https://raw.githubusercontent.com/microsoft/pyright/main/packages/vscode-pyright/schemas/pyrightconfig.schema.json",
     "typeshedPath": ".",
     "include": [
+        "lib",
         "scripts",
         "tests",
+    ],
+    "extraPaths": [
+        "lib",
     ],
     "typeCheckingMode": "strict",
     // More of a lint. Unwanted for typeshed's own code.
     "reportImplicitStringConcatenation": "none",
     // Extra strict settings
     "reportMissingModuleSource": "error",
-    "reportShadowedImports": "error",
     "reportCallInDefaultInitializer": "error",
     "reportPropertyTypeMismatch": "error",
     "reportUninitializedInstanceVariable": "error",

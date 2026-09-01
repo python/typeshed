@@ -1,4 +1,9 @@
-from networkx.utils.backends import _dispatch
+from _typeshed import Incomplete
 
-@_dispatch
-def ramsey_R2(G): ...
+from networkx.classes.graph import Graph, _Node
+from networkx.utils.backends import _dispatchable
+
+__all__ = ["ramsey_R2"]
+
+@_dispatchable
+def ramsey_R2(G: Graph[_Node]) -> tuple[set[Incomplete], set[Incomplete]]: ...

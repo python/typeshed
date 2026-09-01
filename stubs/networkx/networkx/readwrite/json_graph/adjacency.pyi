@@ -1,6 +1,17 @@
-from networkx.utils.backends import _dispatch
+from _typeshed import Incomplete
+from typing import Any
 
-@_dispatch
-def adjacency_data(G, attrs={"id": "id", "key": "key"}): ...
-@_dispatch
-def adjacency_graph(data, directed: bool = False, multigraph: bool = True, attrs={"id": "id", "key": "key"}): ...
+from networkx.classes.graph import Graph, _Node
+from networkx.utils.backends import _dispatchable
+
+__all__ = ["adjacency_data", "adjacency_graph"]
+
+# Any: Complex type union
+def adjacency_data(G: Graph[_Node], attrs: dict[Incomplete, Incomplete] = {"id": "id", "key": "key"}) -> dict[str, Any]: ...
+@_dispatchable
+def adjacency_graph(
+    data: dict[Incomplete, Incomplete],
+    directed: bool = False,
+    multigraph: bool = True,
+    attrs: dict[Incomplete, Incomplete] = {"id": "id", "key": "key"},
+) -> Graph[Incomplete]: ...

@@ -1,11 +1,11 @@
 import _tkinter
+import itertools
 import sys
 import tkinter
-from typing import Any, Final, Literal, TypedDict, overload
-from typing_extensions import TypeAlias
+from typing import Any, ClassVar, Final, Literal, TypeAlias, TypedDict, overload, type_check_only
+from typing_extensions import Unpack
 
-if sys.version_info >= (3, 9):
-    __all__ = ["NORMAL", "ROMAN", "BOLD", "ITALIC", "nametofont", "Font", "families", "names"]
+__all__ = ["NORMAL", "ROMAN", "BOLD", "ITALIC", "nametofont", "Font", "families", "names"]
 
 NORMAL: Final = "normal"
 ROMAN: Final = "roman"
@@ -17,12 +17,13 @@ _FontDescription: TypeAlias = (
     | Font  # A font object constructed in Python
     | list[Any]  # ["Helvetica", 12, BOLD]
     | tuple[str]  # ("Liberation Sans",) needs wrapping in tuple/list to handle spaces
-    | tuple[str, int]  # ("Liberation Sans", 12)
-    | tuple[str, int, str]  # ("Liberation Sans", 12, "bold")
-    | tuple[str, int, list[str] | tuple[str, ...]]  # e.g. bold and italic
+    # ("Liberation Sans", 12) or ("Liberation Sans", 12, "bold", "italic", "underline")
+    | tuple[str, int, Unpack[tuple[str, ...]]]  # Any number of trailing options is permitted
+    | tuple[str, int, list[str] | tuple[str, ...]]  # Options can also be passed as list/tuple
     | _tkinter.Tcl_Obj  # A font object constructed in Tcl
 )
 
+@type_check_only
 class _FontDict(TypedDict):
     family: str
     size: int
@@ -31,6 +32,7 @@ class _FontDict(TypedDict):
     underline: bool
     overstrike: bool
 
+@type_check_only
 class _MetricsDict(TypedDict):
     ascent: int
     descent: int
@@ -40,6 +42,9 @@ class _MetricsDict(TypedDict):
 class Font:
     name: str
     delete_font: bool
+    if sys.version_info >= (3, 15):
+        __iter__: ClassVar[None]  # prevent using __getitem__ for iteration
+    counter: ClassVar[itertools.count[int]]  # undocumented
     def __init__(
         self,
         # In tkinter, 'root' refers to tkinter.Tk by convention, but the code
@@ -56,7 +61,9 @@ class Font:
         underline: bool = ...,
         overstrike: bool = ...,
     ) -> None: ...
+    __hash__: ClassVar[None]  # type: ignore[assignment]
     def __setitem__(self, key: str, value: Any) -> None: ...
+
     @overload
     def cget(self, option: Literal["family"]) -> str: ...
     @overload
@@ -69,7 +76,9 @@ class Font:
     def cget(self, option: Literal["underline", "overstrike"]) -> bool: ...
     @overload
     def cget(self, option: str) -> Any: ...
+
     __getitem__ = cget
+
     @overload
     def actual(self, option: Literal["family"], displayof: tkinter.Misc | None = None) -> str: ...
     @overload
@@ -84,6 +93,7 @@ class Font:
     def actual(self, option: None, displayof: tkinter.Misc | None = None) -> _FontDict: ...
     @overload
     def actual(self, *, displayof: tkinter.Misc | None = None) -> _FontDict: ...
+
     def config(
         self,
         *,
@@ -96,21 +106,18 @@ class Font:
     ) -> _FontDict | None: ...
     configure = config
     def copy(self) -> Font: ...
+
     @overload
     def metrics(self, option: Literal["ascent", "descent", "linespace"], /, *, displayof: tkinter.Misc | None = ...) -> int: ...
     @overload
     def metrics(self, option: Literal["fixed"], /, *, displayof: tkinter.Misc | None = ...) -> bool: ...
     @overload
     def metrics(self, *, displayof: tkinter.Misc | None = ...) -> _MetricsDict: ...
+
     def measure(self, text: str, displayof: tkinter.Misc | None = None) -> int: ...
     def __eq__(self, other: object) -> bool: ...
     def __del__(self) -> None: ...
 
 def families(root: tkinter.Misc | None = None, displayof: tkinter.Misc | None = None) -> tuple[str, ...]: ...
 def names(root: tkinter.Misc | None = None) -> tuple[str, ...]: ...
-
-if sys.version_info >= (3, 10):
-    def nametofont(name: str, root: tkinter.Misc | None = None) -> Font: ...
-
-else:
-    def nametofont(name: str) -> Font: ...
+def nametofont(name: str, root: tkinter.Misc | None = None) -> Font: ...

@@ -1,9 +1,8 @@
 from collections.abc import Callable, Mapping, Sequence
-from typing import Any, Literal
-from typing_extensions import TypeAlias
+from typing import Any, Literal, TypeAlias
 
 import tensorflow as tf
-from requests.api import _HeadersMapping
+from requests._types import HeadersType
 from tensorflow.keras import Model
 from tensorflow.keras.optimizers.schedules import LearningRateSchedule
 
@@ -42,7 +41,6 @@ class CallbackList(Callback):
         model: Model[Any, Any] | None = None,
         **params: Any,
     ) -> None: ...
-    def append(self, callback: Callback) -> None: ...
     def set_params(self, params: dict[str, Any]) -> None: ...
     def set_model(self, model: Model[Any, Any]) -> None: ...
     def on_batch_begin(self, batch: int, logs: _Logs = None) -> None: ...
@@ -145,7 +143,7 @@ class RemoteMonitor(Callback):
         root: str = "http://localhost:9000",
         path: str = "/publish/epoch/end/",
         field: str = "data",
-        headers: _HeadersMapping | None = None,
+        headers: HeadersType = None,
         send_as_json: bool = False,
     ) -> None: ...
 

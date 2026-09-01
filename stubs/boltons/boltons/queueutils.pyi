@@ -1,4 +1,4 @@
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 class BasePriorityQueue:
     def __init__(self, **kw) -> None: ...
@@ -12,3 +12,5 @@ class HeapPriorityQueue(BasePriorityQueue): ...
 class SortedPriorityQueue(BasePriorityQueue): ...
 
 PriorityQueue: TypeAlias = SortedPriorityQueue
+
+__all__ = ["PriorityQueue", "BasePriorityQueue", "HeapPriorityQueue", "SortedPriorityQueue"]

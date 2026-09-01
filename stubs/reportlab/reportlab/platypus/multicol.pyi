@@ -2,7 +2,7 @@ from collections.abc import Sequence
 
 from .flowables import Flowable, _Container, _FindSplitterMixin
 
-class MultiCol(_Container, _FindSplitterMixin, Flowable):
+class MultiCol(_Container, _FindSplitterMixin, Flowable):  # pyrefly: ignore [inconsistent-inheritance]
     contents: Sequence[Flowable]
     widths: Sequence[float | str]
     minHeightNeeded: float
@@ -15,3 +15,5 @@ class MultiCol(_Container, _FindSplitterMixin, Flowable):
         spaceAfter: float | None = None,
     ) -> None: ...
     def nWidths(self, aW: float) -> list[float]: ...
+
+__all__ = ["MultiCol"]

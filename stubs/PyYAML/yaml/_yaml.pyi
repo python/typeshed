@@ -1,6 +1,7 @@
 from _typeshed import Incomplete, SupportsRead
 from collections.abc import Mapping, Sequence
 from typing import IO, Any
+from typing_extensions import disjoint_base
 
 from .events import Event
 from .nodes import Node
@@ -9,16 +10,18 @@ from .tokens import Token
 def get_version_string() -> str: ...
 def get_version() -> tuple[int, int, int]: ...
 
+@disjoint_base
 class Mark:
-    name: Any
+    name: Incomplete
     index: int
     line: int
     column: int
-    buffer: Any
-    pointer: Any
+    buffer: Incomplete
+    pointer: Incomplete
     def __init__(self, name, index: int, line: int, column: int, buffer, pointer) -> None: ...
     def get_snippet(self): ...
 
+@disjoint_base
 class CParser:
     def __init__(self, stream: str | bytes | SupportsRead[str | bytes]) -> None: ...
     def dispose(self) -> None: ...
@@ -34,18 +37,19 @@ class CParser:
     def raw_parse(self) -> int: ...
     def raw_scan(self) -> int: ...
 
+@disjoint_base
 class CEmitter:
     def __init__(
         self,
         stream: IO[Any],
-        canonical: Incomplete | None = ...,
+        canonical=...,
         indent: int | None = ...,
         width: int | None = ...,
-        allow_unicode: Incomplete | None = ...,
+        allow_unicode=...,
         line_break: str | None = ...,
         encoding: str | None = ...,
-        explicit_start: Incomplete | None = ...,
-        explicit_end: Incomplete | None = ...,
+        explicit_start=...,
+        explicit_end=...,
         version: Sequence[int] | None = ...,
         tags: Mapping[str, str] | None = ...,
     ) -> None: ...

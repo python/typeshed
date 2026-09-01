@@ -1,19 +1,15 @@
-# new in py313
-posixpath.splitroot
+# =============
+# 3.13 and 3.14
+# =============
 
-# Depends on HAVE_NCURSESW and how we install CPython,
-# should be removed when 3.13 will be officially released:
-_?curses.unget_wch
-_?curses.window.get_wch
+# Starting with Python 3.13.13, these methods accept None for the "scheduler"
+# and "setpgroup" parameters, but would raise a TypeError with Python 3.13.12
+# and earlier. For compatibility reasons, we don't allow None in the stubs.
+os.posix_spawn
+os.posix_spawnp
 
-# Exists locally on MacOS but not on GitHub
-(mmap.MAP_32BIT)?
+# =======
+# >= 3.13
+# =======
 
-# These entries looks like a `setup-python` bug:
-(dbm.gnu)?
-(_?locale.bind_textdomain_codeset)?
-(_?locale.bindtextdomain)?
-(_?locale.dcgettext)?
-(_?locale.dgettext)?
-(_?locale.gettext)?
-(_?locale.textdomain)?
+(mmap.MAP_32BIT)?  # Exists locally on MacOS but not on GitHub

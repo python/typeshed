@@ -1,6 +1,10 @@
 from _typeshed import Incomplete, SupportsWrite
 from collections.abc import Iterable, Mapping
-from typing import NoReturn, TypeVar, overload
+from concurrent.futures import Future
+from typing import TypeVar, overload
+from typing_extensions import Never
+
+from requests import Session
 
 from ..auto import tqdm as tqdm_auto
 from .utils_worker import MonoWorker
@@ -8,15 +12,24 @@ from .utils_worker import MonoWorker
 __all__ = ["DiscordIO", "tqdm_discord", "tdrange", "tqdm", "trange"]
 
 class DiscordIO(MonoWorker):
-    text: Incomplete
+    API: str = "https://discord.com/api/v10"
+    UA: str = ...
+    channel_id: Incomplete
     message: Incomplete
+    session: Session
+    text: Incomplete
+    token: Incomplete
     def __init__(self, token, channel_id) -> None: ...
     def write(self, s): ...
+    def delete(self) -> Future[Incomplete]: ...
+    @property
+    def message_id(self): ...
 
 _T = TypeVar("_T")
 
 class tqdm_discord(tqdm_auto[_T]):
     dio: Incomplete
+
     @overload
     def __init__(
         self,
@@ -46,11 +59,14 @@ class tqdm_discord(tqdm_auto[_T]):
         colour: str | None = ...,
         delay: float | None = ...,
         gui: bool = ...,
+        *,
+        token: str | None = None,
+        channel_id: str | None = None,
         **kwargs,
     ) -> None: ...
     @overload
     def __init__(
-        self: tqdm_discord[NoReturn],
+        self: tqdm_discord[Never],
         iterable: None = None,
         desc: str | None = ...,
         total: float | None = ...,
@@ -77,10 +93,14 @@ class tqdm_discord(tqdm_auto[_T]):
         colour: str | None = ...,
         delay: float | None = ...,
         gui: bool = ...,
+        *,
+        token: str | None = None,
+        channel_id: str | None = None,
         **kwargs,
     ) -> None: ...
-    def display(
-        self, msg: str | None = ..., pos: int | None = ..., close: bool = ..., bar_style=..., check_delay: bool = ...
+
+    def display(  # type: ignore[override]
+        self, *, msg: str | None = ..., pos: int | None = ..., close: bool = ..., bar_style=..., check_delay: bool = ...
     ) -> None: ...
     def clear(self, *args, **kwargs) -> None: ...
 

@@ -1,7 +1,8 @@
-from _typeshed import Incomplete, SupportsWrite
-from collections.abc import Awaitable, Callable, Generator, Iterable, Iterator, Mapping
-from typing import NoReturn, TypeVar, overload
-from typing_extensions import Self
+from _typeshed import SupportsWrite
+from asyncio import Future
+from collections.abc import AsyncIterator, Awaitable, Callable, Iterable, Iterator, Mapping
+from typing import TypeVar, overload
+from typing_extensions import Never, Self
 
 from .std import tqdm as std_tqdm
 
@@ -15,7 +16,7 @@ class tqdm_asyncio(std_tqdm[_T]):
     iterable_iterator: Iterator[_T]
 
     def __aiter__(self) -> Self: ...
-    async def __anext__(self) -> Awaitable[_T]: ...
+    async def __anext__(self) -> _T: ...
     def send(self, *args, **kwargs): ...
     @classmethod
     def as_completed(
@@ -48,7 +49,7 @@ class tqdm_asyncio(std_tqdm[_T]):
         nrows: int | None = ...,
         colour: str | None = ...,
         delay: float | None = ...,
-    ) -> Generator[Incomplete, Incomplete, None]: ...
+    ) -> Iterator[Future[_T]]: ...
     @classmethod
     async def gather(
         cls,
@@ -56,6 +57,7 @@ class tqdm_asyncio(std_tqdm[_T]):
         loop: bool | None = None,
         timeout: float | None = None,
         total: int | None = None,
+        return_exceptions: bool = False,
         iterable: Iterable[_T] = ...,
         desc: str | None = ...,
         leave: bool | None = ...,
@@ -80,11 +82,12 @@ class tqdm_asyncio(std_tqdm[_T]):
         nrows: int | None = ...,
         colour: str | None = ...,
         delay: float | None = ...,
-    ): ...
+    ) -> list[_T]: ...
+
     @overload
     def __init__(
         self,
-        iterable: Iterable[_T],
+        iterable: Iterable[_T] | AsyncIterator[_T],
         desc: str | None = ...,
         total: float | None = ...,
         leave: bool | None = ...,
@@ -114,7 +117,7 @@ class tqdm_asyncio(std_tqdm[_T]):
     ) -> None: ...
     @overload
     def __init__(
-        self: tqdm_asyncio[NoReturn],
+        self: tqdm_asyncio[Never],
         iterable: None = None,
         desc: str | None = ...,
         total: float | None = ...,

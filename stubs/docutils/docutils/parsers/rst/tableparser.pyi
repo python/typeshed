@@ -1,6 +1,5 @@
 from re import Pattern
-from typing import ClassVar
-from typing_extensions import TypeAlias
+from typing import ClassVar, Final, TypeAlias
 
 from docutils import DataError
 from docutils.statemachine import StringList
@@ -9,7 +8,7 @@ _Cell: TypeAlias = tuple[int, int, int, list[str]]
 _Row: TypeAlias = list[_Cell | None]
 _Colspecs: TypeAlias = list[int]
 
-__docformat__: str
+__docformat__: Final = "reStructuredText"
 
 class TableMarkupError(DataError):
     offset: int
@@ -18,6 +17,7 @@ class TableMarkupError(DataError):
 class TableParser:
     head_body_separator_pat: ClassVar[Pattern[str] | None]
     double_width_pad_char: ClassVar[str]
+    head_body_sep: int
     def parse(self, block: StringList) -> tuple[_Colspecs, list[_Row], list[_Row]]: ...
     def find_head_body_sep(self) -> None: ...
 

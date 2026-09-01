@@ -1,13 +1,14 @@
-from _typeshed import Incomplete
 from collections.abc import Iterator, Mapping
-from typing import NoReturn
+from typing import Any
+from typing_extensions import Never
 
 from docker.models.containers import Container
+from docker.models.images import Image
 from requests import HTTPError, Response
 
 class DockerException(Exception): ...
 
-def create_api_error_from_http_exception(e: HTTPError) -> NoReturn: ...
+def create_api_error_from_http_exception(e: HTTPError) -> Never: ...
 
 class APIError(HTTPError, DockerException):
     response: Response | None
@@ -35,11 +36,13 @@ class NullResource(DockerException, ValueError): ...
 
 class ContainerError(DockerException):
     container: Container
-    exit_status: Incomplete
-    command: Incomplete
-    image: Incomplete
+    exit_status: int
+    command: str | list[str] | None
+    image: str | Image
     stderr: str | None
-    def __init__(self, container: Container, exit_status, command, image, stderr: str | None) -> None: ...
+    def __init__(
+        self, container: Container, exit_status: int, command: str | list[str] | None, image: str | Image, stderr: str | None
+    ) -> None: ...
 
 class StreamParseError(RuntimeError):
     msg: str
@@ -52,7 +55,7 @@ class BuildError(DockerException):
 
 class ImageLoadError(DockerException): ...
 
-def create_unexpected_kwargs_error(name, kwargs: Mapping[str, Incomplete]) -> NoReturn: ...
+def create_unexpected_kwargs_error(name, kwargs: Mapping[str, Any]) -> Never: ...
 
 class MissingContextParameter(DockerException):
     param: str

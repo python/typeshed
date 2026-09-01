@@ -1,6 +1,5 @@
 from _typeshed import ConvertibleToFloat, ConvertibleToInt, Incomplete, Unused
-from typing import ClassVar, Literal
-from typing_extensions import TypeAlias
+from typing import ClassVar, Literal, TypeAlias
 
 from openpyxl.descriptors.base import Alias, Bool, Integer, MinMax, NoneSet, Set, String, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import Coordinate, ExtensionList
@@ -161,7 +160,7 @@ class Hyperlink(Serialisable):
         endSnd: _ConvertibleToBool | None = None,
         snd: EmbeddedWAVAudioFile | None = None,
         extLst: ExtensionList | None = None,
-        id: Incomplete | None = None,
+        id=None,
     ) -> None: ...
 
 class Font(Serialisable):
@@ -172,11 +171,7 @@ class Font(Serialisable):
     pitchFamily: MinMax[float, Literal[True]]
     charset: Integer[Literal[True]]
     def __init__(
-        self,
-        typeface: str,
-        panose: Incomplete | None = None,
-        pitchFamily: ConvertibleToFloat | None = None,
-        charset: ConvertibleToInt | None = None,
+        self, typeface: str, panose=None, pitchFamily: ConvertibleToFloat | None = None, charset: ConvertibleToInt | None = None
     ) -> None: ...
 
 class CharacterProperties(Serialisable):
@@ -276,7 +271,7 @@ class TabStop(Serialisable):
 
 class TabStopList(Serialisable):
     tab: Typed[TabStop, Literal[True]]
-    def __init__(self, tab: Incomplete | None = None) -> None: ...
+    def __init__(self, tab=None) -> None: ...
 
 class Spacing(Serialisable):
     spcPct: NestedInteger[Literal[True]]
@@ -435,7 +430,7 @@ class Paragraph(Serialisable):
         self,
         pPr: ParagraphProperties | None = None,
         endParaRPr: CharacterProperties | None = None,
-        r: Incomplete | None = None,
+        r=None,
         br: LineBreak | None = None,
         fld: TextField | None = None,
     ) -> None: ...
@@ -447,7 +442,7 @@ class GeomGuide(Serialisable):
 
 class GeomGuideList(Serialisable):
     gd: Incomplete
-    def __init__(self, gd: Incomplete | None = None) -> None: ...
+    def __init__(self, gd=None) -> None: ...
 
 class PresetTextShape(Serialisable):
     prst: Typed[Set[_PresetTextShapePrst], Literal[False]]

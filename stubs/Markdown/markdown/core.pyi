@@ -1,29 +1,29 @@
+from codecs import _ReadableStream, _WritableStream
 from collections.abc import Callable, Mapping, Sequence
-from typing import Any, ClassVar, Literal, Protocol
+from logging import Logger
+from typing import Any, ClassVar, Literal
 from typing_extensions import Self
 from xml.etree.ElementTree import Element
 
-from . import blockparser, inlinepatterns, postprocessors, preprocessors, treeprocessors
+from . import (
+    blockparser,
+    inlinepatterns,
+    postprocessors as _postprocessors,
+    preprocessors as _preprocessors,
+    treeprocessors as _treeprocessors,
+)
 from .extensions import Extension
 from .util import HtmlStash, Registry
 
-# TODO: The following protocols can be replaced by their counterparts from
-# codecs, once they have been propagated to all type checkers.
-class _WritableStream(Protocol):
-    def write(self, data: bytes, /) -> object: ...
-    def seek(self, offset: int, whence: int, /) -> object: ...
-    def close(self) -> object: ...
+__all__ = ["Markdown", "markdown", "markdownFromFile"]
 
-class _ReadableStream(Protocol):
-    def read(self, size: int = ..., /) -> bytes: ...
-    def seek(self, offset: int, whence: int, /) -> object: ...
-    def close(self) -> object: ...
+logger: Logger
 
 class Markdown:
-    preprocessors: Registry[preprocessors.Preprocessor]
+    preprocessors: Registry[_preprocessors.Preprocessor]
     inlinePatterns: Registry[inlinepatterns.Pattern]
-    treeprocessors: Registry[treeprocessors.Treeprocessor]
-    postprocessors: Registry[postprocessors.Postprocessor]
+    treeprocessors: Registry[_treeprocessors.Treeprocessor]
+    postprocessors: Registry[_postprocessors.Postprocessor]
     parser: blockparser.BlockParser
     htmlStash: HtmlStash
     output_formats: ClassVar[dict[Literal["xhtml", "html"], Callable[[Element], str]]]

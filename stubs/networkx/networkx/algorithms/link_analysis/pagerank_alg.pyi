@@ -1,24 +1,29 @@
-from _typeshed import Incomplete
+from collections.abc import Collection, Mapping
 
-from networkx.utils.backends import _dispatch
+import numpy as np
+from networkx._typing import Array2D
+from networkx.classes.graph import Graph, _Node
+from networkx.utils.backends import _dispatchable
 
-@_dispatch
+__all__ = ["pagerank", "google_matrix"]
+
+@_dispatchable
 def pagerank(
-    G,
-    alpha: float = 0.85,
-    personalization: Incomplete | None = None,
-    max_iter: int = 100,
-    tol: float = 1e-06,
-    nstart: Incomplete | None = None,
-    weight: str = "weight",
-    dangling: Incomplete | None = None,
-): ...
-@_dispatch
+    G: Graph[_Node],
+    alpha: float | None = 0.85,
+    personalization: Mapping[_Node, float] | None = None,
+    max_iter: int | None = 100,
+    tol: float | None = 1e-06,
+    nstart: Mapping[_Node, float] | None = None,
+    weight: str | None = "weight",
+    dangling: Mapping[_Node, float] | None = None,
+) -> dict[_Node, float]: ...
+@_dispatchable
 def google_matrix(
-    G,
+    G: Graph[_Node],
     alpha: float = 0.85,
-    personalization: Incomplete | None = None,
-    nodelist: Incomplete | None = None,
-    weight: str = "weight",
-    dangling: Incomplete | None = None,
-): ...
+    personalization: Mapping[_Node, float] | None = None,
+    nodelist: Collection[_Node] | None = None,
+    weight: str | None = "weight",
+    dangling: Mapping[_Node, float] | None = None,
+) -> Array2D[np.float64]: ...

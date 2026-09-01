@@ -1,6 +1,5 @@
 from _typeshed import ConvertibleToInt, Incomplete
-from typing import ClassVar, Literal
-from typing_extensions import TypeAlias
+from typing import ClassVar, Literal, TypeAlias
 
 from openpyxl.descriptors.base import Alias, Bool, NoneSet, Typed, _ConvertibleToBool
 from openpyxl.descriptors.nested import NestedText
@@ -49,7 +48,7 @@ class _AnchorBase(Serialisable):
         graphicFrame: GraphicFrame | None = None,
         cxnSp: Shape | None = None,
         pic: PictureFrame | None = None,
-        contentPart: Incomplete | None = None,
+        contentPart=None,
     ) -> None: ...
 
 class AbsoluteAnchor(_AnchorBase):

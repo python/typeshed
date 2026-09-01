@@ -6,9 +6,10 @@ from collections.abc import Callable, Iterable, Mapping
 from datetime import datetime
 from io import BytesIO
 from types import TracebackType
-from typing import Any, Final, Literal, Protocol, overload
-from typing_extensions import Self, TypeAlias
+from typing import Any, ClassVar, Final, Literal, Protocol, TypeAlias, overload, type_check_only
+from typing_extensions import Self
 
+@type_check_only
 class _SupportsTimeTuple(Protocol):
     def timetuple(self) -> time.struct_time: ...
 
@@ -76,6 +77,7 @@ def _strftime(value: _XMLDate) -> str: ...  # undocumented
 class DateTime:
     value: str  # undocumented
     def __init__(self, value: int | str | datetime | time.struct_time | tuple[int, ...] = 0) -> None: ...
+    __hash__: ClassVar[None]  # type: ignore[assignment]
     def __lt__(self, other: _DateTimeComparable) -> bool: ...
     def __le__(self, other: _DateTimeComparable) -> bool: ...
     def __gt__(self, other: _DateTimeComparable) -> bool: ...
@@ -95,6 +97,7 @@ class Binary:
     def decode(self, data: ReadableBuffer) -> None: ...
     def encode(self, out: SupportsWrite[str]) -> None: ...
     def __eq__(self, other: object) -> bool: ...
+    __hash__: ClassVar[None]  # type: ignore[assignment]
 
 def _binary(data: ReadableBuffer) -> Binary: ...  # undocumented
 
@@ -108,8 +111,7 @@ class ExpatParser:  # undocumented
 _WriteCallback: TypeAlias = Callable[[str], object]
 
 class Marshaller:
-    # TODO: Replace 'Any' with some kind of binding
-    dispatch: dict[type[Any], Callable[[Marshaller, Any, _WriteCallback], None]]
+    dispatch: dict[type[_Marshallable] | Literal["_arbitrary_instance"], Callable[[Marshaller, Any, _WriteCallback], None]]
     memo: dict[Any, None]
     data: None
     encoding: str | None
@@ -200,7 +202,7 @@ def dumps(
     allow_none: bool = False,
 ) -> str: ...
 def loads(
-    data: str, use_datetime: bool = False, use_builtin_types: bool = False
+    data: str | ReadableBuffer, use_datetime: bool = False, use_builtin_types: bool = False
 ) -> tuple[tuple[_Marshallable, ...], str | None]: ...
 def gzip_encode(data: ReadableBuffer) -> bytes: ...  # undocumented
 def gzip_decode(data: ReadableBuffer, max_decode: int = 20971520) -> bytes: ...  # undocumented
@@ -280,12 +282,14 @@ class ServerProxy:
         context: Any | None = None,
     ) -> None: ...
     def __getattr__(self, name: str) -> _Method: ...
+
     @overload
     def __call__(self, attr: Literal["close"]) -> Callable[[], None]: ...
     @overload
     def __call__(self, attr: Literal["transport"]) -> Transport: ...
     @overload
     def __call__(self, attr: str) -> Callable[[], None] | Transport: ...
+
     def __enter__(self) -> Self: ...
     def __exit__(
         self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None

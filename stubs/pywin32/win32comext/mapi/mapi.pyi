@@ -38,7 +38,7 @@ def HrSetOneProp(prop: _win32typing.PyIMAPIProp, propValue: _win32typing.PySProp
 def HrAllocAdviseSink(callback, context, /): ...
 def HrThisThreadAdviseSink(_object, /): ...
 def HrDispatchNotifications(*args): ...  # incomplete
-def MAPIUIDFromBinary(*args): ...  # incomplete
+def MAPIUIDFromBinary(sz: str | None, /): ...
 
 AB_NO_DIALOG: int
 ATTACH_BY_REF_ONLY: int
@@ -100,6 +100,15 @@ FORCE_SAVE: int
 GENERATE_RECEIPT_ONLY: int
 KEEP_OPEN_READONLY: int
 KEEP_OPEN_READWRITE: int
+LOGOFF_ABORT: int
+LOGOFF_COMPLETE: int
+LOGOFF_INBOUND: int
+LOGOFF_NO_WAIT: int
+LOGOFF_ORDERLY: int
+LOGOFF_OUTBOUND: int
+LOGOFF_OUTBOUND_QUEUE: int
+LOGOFF_PURGE: int
+LOGOFF_QUIET: int
 MAIL_E_NAMENOTFOUND: int
 MAPI_ABCONT: int
 MAPI_ADDRBOOK: int

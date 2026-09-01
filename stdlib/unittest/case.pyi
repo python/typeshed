@@ -2,37 +2,33 @@ import logging
 import sys
 import unittest.result
 from _typeshed import SupportsDunderGE, SupportsDunderGT, SupportsDunderLE, SupportsDunderLT, SupportsRSub, SupportsSub
+from builtins import _ClassInfo
 from collections.abc import Callable, Container, Iterable, Mapping, Sequence, Set as AbstractSet
 from contextlib import AbstractContextManager
 from re import Pattern
-from types import TracebackType
+from types import GenericAlias, TracebackType
 from typing import (
     Any,
     AnyStr,
-    ClassVar,
     Final,
     Generic,
-    NamedTuple,
-    NoReturn,
+    ParamSpec,
     Protocol,
     SupportsAbs,
     SupportsRound,
     TypeVar,
     overload,
+    type_check_only,
 )
-from typing_extensions import ParamSpec, Self, TypeAlias
+from typing_extensions import Never, Self
+from unittest._log import _AssertLogsContext, _LoggingWatcher
 from warnings import WarningMessage
-
-if sys.version_info >= (3, 9):
-    from types import GenericAlias
-
-if sys.version_info >= (3, 10):
-    from types import UnionType
 
 _T = TypeVar("_T")
 _S = TypeVar("_S", bound=SupportsSub[Any, Any])
 _E = TypeVar("_E", bound=BaseException)
 _FT = TypeVar("_FT", bound=Callable[..., Any])
+_SB = TypeVar("_SB", str, bytes, bytearray)
 _P = ParamSpec("_P")
 
 DIFF_OMITTED: Final[str]
@@ -58,29 +54,6 @@ class _AssertRaisesBaseContext(_BaseTestCaseContext):
     # but it's not possible to construct an overload which expresses that
     def handle(self, name: str, args: list[Any], kwargs: dict[str, Any]) -> Any: ...
 
-if sys.version_info >= (3, 9):
-    from unittest._log import _AssertLogsContext, _LoggingWatcher
-else:
-    # Unused dummy for _AssertLogsContext. Starting with Python 3.10,
-    # this is generic over the logging watcher, but in lower versions
-    # the watcher is hard-coded.
-    _L = TypeVar("_L")
-
-    class _LoggingWatcher(NamedTuple):
-        records: list[logging.LogRecord]
-        output: list[str]
-
-    class _AssertLogsContext(_BaseTestCaseContext, Generic[_L]):
-        LOGGING_FORMAT: ClassVar[str]
-        logger_name: str
-        level: int
-        msg: None
-        def __init__(self, test_case: TestCase, logger_name: str, level: int) -> None: ...
-        def __enter__(self) -> _LoggingWatcher: ...
-        def __exit__(
-            self, exc_type: type[BaseException] | None, exc_value: BaseException | None, tb: TracebackType | None
-        ) -> bool | None: ...
-
 def addModuleCleanup(function: Callable[_P, object], /, *args: _P.args, **kwargs: _P.kwargs) -> None: ...
 def doModuleCleanups() -> None: ...
 
@@ -93,17 +66,10 @@ def skipIf(condition: object, reason: str) -> Callable[[_FT], _FT]: ...
 def skipUnless(condition: object, reason: str) -> Callable[[_FT], _FT]: ...
 
 class SkipTest(Exception):
-    def __init__(self, reason: str) -> None: ...
+    def __init__(self, reason: str, /) -> None: ...
 
+@type_check_only
 class _SupportsAbsAndDunderGE(SupportsDunderGE[Any], SupportsAbs[Any], Protocol): ...
-
-# Keep this alias in sync with builtins._ClassInfo
-# We can't import it from builtins or pytype crashes,
-# due to the fact that pytype uses a custom builtins stub rather than typeshed's builtins stub
-if sys.version_info >= (3, 10):
-    _ClassInfo: TypeAlias = type | UnionType | tuple[_ClassInfo, ...]
-else:
-    _ClassInfo: TypeAlias = type | tuple[_ClassInfo, ...]
 
 class TestCase:
     failureException: type[BaseException]
@@ -124,7 +90,7 @@ class TestCase:
     def tearDownClass(cls) -> None: ...
     def run(self, result: unittest.result.TestResult | None = None) -> unittest.result.TestResult | None: ...
     def __call__(self, result: unittest.result.TestResult | None = ...) -> unittest.result.TestResult | None: ...
-    def skipTest(self, reason: Any) -> NoReturn: ...
+    def skipTest(self, reason: Any) -> Never: ...
     def subTest(self, msg: Any = ..., **params: Any) -> AbstractContextManager[None]: ...
     def debug(self) -> None: ...
     if sys.version_info < (3, 11):
@@ -142,22 +108,27 @@ class TestCase:
     def assertNotIn(self, member: Any, container: Iterable[Any] | Container[Any], msg: Any = None) -> None: ...
     def assertIsInstance(self, obj: object, cls: _ClassInfo, msg: Any = None) -> None: ...
     def assertNotIsInstance(self, obj: object, cls: _ClassInfo, msg: Any = None) -> None: ...
+
     @overload
     def assertGreater(self, a: SupportsDunderGT[_T], b: _T, msg: Any = None) -> None: ...
     @overload
     def assertGreater(self, a: _T, b: SupportsDunderLT[_T], msg: Any = None) -> None: ...
+
     @overload
     def assertGreaterEqual(self, a: SupportsDunderGE[_T], b: _T, msg: Any = None) -> None: ...
     @overload
     def assertGreaterEqual(self, a: _T, b: SupportsDunderLE[_T], msg: Any = None) -> None: ...
+
     @overload
     def assertLess(self, a: SupportsDunderLT[_T], b: _T, msg: Any = None) -> None: ...
     @overload
     def assertLess(self, a: _T, b: SupportsDunderGT[_T], msg: Any = None) -> None: ...
+
     @overload
     def assertLessEqual(self, a: SupportsDunderLE[_T], b: _T, msg: Any = None) -> None: ...
     @overload
     def assertLessEqual(self, a: _T, b: SupportsDunderGE[_T], msg: Any = None) -> None: ...
+
     # `assertRaises`, `assertRaisesRegex`, and `assertRaisesRegexp`
     # are not using `ParamSpec` intentionally,
     # because they might be used with explicitly wrong arg types to raise some error in tests.
@@ -173,6 +144,7 @@ class TestCase:
     def assertRaises(
         self, expected_exception: type[_E] | tuple[type[_E], ...], *, msg: Any = ...
     ) -> _AssertRaisesContext[_E]: ...
+
     @overload
     def assertRaisesRegex(
         self,
@@ -186,6 +158,7 @@ class TestCase:
     def assertRaisesRegex(
         self, expected_exception: type[_E] | tuple[type[_E], ...], expected_regex: str | Pattern[str], *, msg: Any = ...
     ) -> _AssertRaisesContext[_E]: ...
+
     @overload
     def assertWarns(
         self,
@@ -198,6 +171,7 @@ class TestCase:
     def assertWarns(
         self, expected_warning: type[Warning] | tuple[type[Warning], ...], *, msg: Any = ...
     ) -> _AssertWarnsContext: ...
+
     @overload
     def assertWarnsRegex(
         self,
@@ -211,13 +185,22 @@ class TestCase:
     def assertWarnsRegex(
         self, expected_warning: type[Warning] | tuple[type[Warning], ...], expected_regex: str | Pattern[str], *, msg: Any = ...
     ) -> _AssertWarnsContext: ...
-    def assertLogs(
-        self, logger: str | logging.Logger | None = None, level: int | str | None = None
-    ) -> _AssertLogsContext[_LoggingWatcher]: ...
-    if sys.version_info >= (3, 10):
-        def assertNoLogs(
+
+    if sys.version_info >= (3, 15):
+        def assertLogs(
+            self,
+            logger: str | logging.Logger | None = None,
+            level: int | str | None = None,
+            formatter: logging.Formatter | None = None,
+        ) -> _AssertLogsContext[_LoggingWatcher]: ...
+    else:
+        def assertLogs(
             self, logger: str | logging.Logger | None = None, level: int | str | None = None
-        ) -> _AssertLogsContext[None]: ...
+        ) -> _AssertLogsContext[_LoggingWatcher]: ...
+
+    def assertNoLogs(
+        self, logger: str | logging.Logger | None = None, level: int | str | None = None
+    ) -> _AssertLogsContext[None]: ...
 
     @overload
     def assertAlmostEqual(self, first: _S, second: _S, places: None, msg: Any, delta: _SupportsAbsAndDunderGE) -> None: ...
@@ -243,6 +226,7 @@ class TestCase:
         msg: Any = None,
         delta: None = None,
     ) -> None: ...
+
     @overload
     def assertNotAlmostEqual(self, first: _S, second: _S, places: None, msg: Any, delta: _SupportsAbsAndDunderGE) -> None: ...
     @overload
@@ -267,6 +251,7 @@ class TestCase:
         msg: Any = None,
         delta: None = None,
     ) -> None: ...
+
     def assertRegex(self, text: AnyStr, expected_regex: AnyStr | Pattern[AnyStr], msg: Any = None) -> None: ...
     def assertNotRegex(self, text: AnyStr, unexpected_regex: AnyStr | Pattern[AnyStr], msg: Any = None) -> None: ...
     def assertCountEqual(self, first: Iterable[Any], second: Iterable[Any], msg: Any = None) -> None: ...
@@ -281,7 +266,7 @@ class TestCase:
     # assertDictEqual accepts only true dict instances. We can't use that here, since that would make
     # assertDictEqual incompatible with TypedDict.
     def assertDictEqual(self, d1: Mapping[Any, object], d2: Mapping[Any, object], msg: Any = None) -> None: ...
-    def fail(self, msg: Any = None) -> NoReturn: ...
+    def fail(self, msg: Any = None) -> Never: ...
     def countTestCases(self) -> int: ...
     def defaultTestResult(self) -> unittest.result.TestResult: ...
     def id(self) -> str: ...
@@ -323,6 +308,19 @@ class TestCase:
             self, subset: Mapping[Any, Any], dictionary: Mapping[Any, Any], msg: object = None
         ) -> None: ...
 
+    # Runtime has *args, **kwargs, but will error if any are supplied
+    def __init_subclass__(cls, *args: Never, **kwargs: Never) -> None: ...
+
+    if sys.version_info >= (3, 14):
+        def assertIsSubclass(self, cls: type, superclass: type | tuple[type, ...], msg: Any = None) -> None: ...
+        def assertNotIsSubclass(self, cls: type, superclass: type | tuple[type, ...], msg: Any = None) -> None: ...
+        def assertHasAttr(self, obj: object, name: str, msg: Any = None) -> None: ...
+        def assertNotHasAttr(self, obj: object, name: str, msg: Any = None) -> None: ...
+        def assertStartsWith(self, s: _SB, prefix: _SB | tuple[_SB, ...], msg: Any = None) -> None: ...
+        def assertNotStartsWith(self, s: _SB, prefix: _SB | tuple[_SB, ...], msg: Any = None) -> None: ...
+        def assertEndsWith(self, s: _SB, suffix: _SB | tuple[_SB, ...], msg: Any = None) -> None: ...
+        def assertNotEndsWith(self, s: _SB, suffix: _SB | tuple[_SB, ...], msg: Any = None) -> None: ...
+
 class FunctionTestCase(TestCase):
     def __init__(
         self,
@@ -341,8 +339,7 @@ class _AssertRaisesContext(_AssertRaisesBaseContext, Generic[_E]):
     def __exit__(
         self, exc_type: type[BaseException] | None, exc_value: BaseException | None, tb: TracebackType | None
     ) -> bool: ...
-    if sys.version_info >= (3, 9):
-        def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
+    def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
 
 class _AssertWarnsContext(_AssertRaisesBaseContext):
     warning: WarningMessage

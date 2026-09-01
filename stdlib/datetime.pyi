@@ -1,12 +1,12 @@
 import sys
 from abc import abstractmethod
 from time import struct_time
-from typing import ClassVar, Final, NamedTuple, NoReturn, SupportsIndex, final, overload
-from typing_extensions import Self, TypeAlias, deprecated
+from typing import ClassVar, Final, SupportsIndex, TypeAlias, final, overload, type_check_only
+from typing_extensions import CapsuleType, Never, Self, deprecated, disjoint_base
 
 if sys.version_info >= (3, 11):
     __all__ = ("date", "datetime", "time", "timedelta", "timezone", "tzinfo", "MINYEAR", "MAXYEAR", "UTC")
-elif sys.version_info >= (3, 9):
+else:
     __all__ = ("date", "datetime", "time", "timedelta", "timezone", "tzinfo", "MINYEAR", "MAXYEAR")
 
 MINYEAR: Final = 1
@@ -29,7 +29,7 @@ class timezone(tzinfo):
     utc: ClassVar[timezone]
     min: ClassVar[timezone]
     max: ClassVar[timezone]
-    def __init__(self, offset: timedelta, name: str = ...) -> None: ...
+    def __new__(cls, offset: timedelta, name: str = ...) -> Self: ...
     def tzname(self, dt: datetime | None, /) -> str: ...
     def utcoffset(self, dt: datetime | None, /) -> timedelta: ...
     def dst(self, dt: datetime | None, /) -> None: ...
@@ -39,12 +39,19 @@ class timezone(tzinfo):
 if sys.version_info >= (3, 11):
     UTC: timezone
 
-if sys.version_info >= (3, 9):
-    class _IsoCalendarDate(NamedTuple):
-        year: int
-        week: int
-        weekday: int
+# This class calls itself datetime.IsoCalendarDate. It's neither
+# NamedTuple nor structseq.
+@final
+@type_check_only
+class _IsoCalendarDate(tuple[int, int, int]):
+    @property
+    def year(self) -> int: ...
+    @property
+    def week(self) -> int: ...
+    @property
+    def weekday(self) -> int: ...
 
+@disjoint_base
 class date:
     min: ClassVar[date]
     max: ClassVar[date]
@@ -56,8 +63,14 @@ class date:
     def today(cls) -> Self: ...
     @classmethod
     def fromordinal(cls, n: int, /) -> Self: ...
-    @classmethod
-    def fromisoformat(cls, date_string: str, /) -> Self: ...
+
+    if sys.version_info >= (3, 15):
+        @classmethod
+        def fromisoformat(cls, string: str, /) -> Self: ...
+    else:
+        @classmethod
+        def fromisoformat(cls, date_string: str, /) -> Self: ...
+
     @classmethod
     def fromisocalendar(cls, year: int, week: int, day: int) -> Self: ...
     @property
@@ -67,6 +80,15 @@ class date:
     @property
     def day(self) -> int: ...
     def ctime(self) -> str: ...
+
+    if sys.version_info >= (3, 14):
+        if sys.version_info >= (3, 15):
+            @classmethod
+            def strptime(cls, string: str, format: str, /) -> Self: ...
+        else:
+            @classmethod
+            def strptime(cls, date_string: str, format: str, /) -> Self: ...
+
     # On <3.12, the name of the parameter in the pure-Python implementation
     # didn't match the name in the C implementation,
     # meaning it is only *safe* to pass it as a keyword argument on 3.12+
@@ -90,33 +112,33 @@ class date:
     def __eq__(self, value: object, /) -> bool: ...
     def __add__(self, value: timedelta, /) -> Self: ...
     def __radd__(self, value: timedelta, /) -> Self: ...
+
     @overload
-    def __sub__(self, value: datetime, /) -> NoReturn: ...
+    def __sub__(self, value: datetime, /) -> Never: ...
     @overload
     def __sub__(self, value: Self, /) -> timedelta: ...
     @overload
     def __sub__(self, value: timedelta, /) -> Self: ...
+
     def __hash__(self) -> int: ...
     def weekday(self) -> int: ...
     def isoweekday(self) -> int: ...
-    if sys.version_info >= (3, 9):
-        def isocalendar(self) -> _IsoCalendarDate: ...
-    else:
-        def isocalendar(self) -> tuple[int, int, int]: ...
+    def isocalendar(self) -> _IsoCalendarDate: ...
 
+@disjoint_base
 class time:
     min: ClassVar[time]
     max: ClassVar[time]
     resolution: ClassVar[timedelta]
     def __new__(
         cls,
-        hour: SupportsIndex = ...,
-        minute: SupportsIndex = ...,
-        second: SupportsIndex = ...,
-        microsecond: SupportsIndex = ...,
-        tzinfo: _TzInfo | None = ...,
+        hour: SupportsIndex = 0,
+        minute: SupportsIndex = 0,
+        second: SupportsIndex = 0,
+        microsecond: SupportsIndex = 0,
+        tzinfo: _TzInfo | None = None,
         *,
-        fold: int = ...,
+        fold: int = 0,
     ) -> Self: ...
     @property
     def hour(self) -> int: ...
@@ -136,9 +158,23 @@ class time:
     def __gt__(self, value: time, /) -> bool: ...
     def __eq__(self, value: object, /) -> bool: ...
     def __hash__(self) -> int: ...
-    def isoformat(self, timespec: str = ...) -> str: ...
-    @classmethod
-    def fromisoformat(cls, time_string: str, /) -> Self: ...
+    def isoformat(self, timespec: str = "auto") -> str: ...
+
+    if sys.version_info >= (3, 15):
+        @classmethod
+        def fromisoformat(cls, string: str, /) -> Self: ...
+    else:
+        @classmethod
+        def fromisoformat(cls, time_string: str, /) -> Self: ...
+
+    if sys.version_info >= (3, 14):
+        if sys.version_info >= (3, 15):
+            @classmethod
+            def strptime(cls, string: str, format: str, /) -> Self: ...
+        else:
+            @classmethod
+            def strptime(cls, date_string: str, format: str, /) -> Self: ...
+
     # On <3.12, the name of the parameter in the pure-Python implementation
     # didn't match the name in the C implementation,
     # meaning it is only *safe* to pass it as a keyword argument on 3.12+
@@ -178,19 +214,20 @@ class time:
 _Date: TypeAlias = date
 _Time: TypeAlias = time
 
+@disjoint_base
 class timedelta:
     min: ClassVar[timedelta]
     max: ClassVar[timedelta]
     resolution: ClassVar[timedelta]
     def __new__(
         cls,
-        days: float = ...,
-        seconds: float = ...,
-        microseconds: float = ...,
-        milliseconds: float = ...,
-        minutes: float = ...,
-        hours: float = ...,
-        weeks: float = ...,
+        days: float = 0,
+        seconds: float = 0,
+        microseconds: float = 0,
+        milliseconds: float = 0,
+        minutes: float = 0,
+        hours: float = 0,
+        weeks: float = 0,
     ) -> Self: ...
     @property
     def days(self) -> int: ...
@@ -208,14 +245,17 @@ class timedelta:
     def __abs__(self) -> timedelta: ...
     def __mul__(self, value: float, /) -> timedelta: ...
     def __rmul__(self, value: float, /) -> timedelta: ...
+
     @overload
     def __floordiv__(self, value: timedelta, /) -> int: ...
     @overload
     def __floordiv__(self, value: int, /) -> timedelta: ...
+
     @overload
     def __truediv__(self, value: timedelta, /) -> float: ...
     @overload
     def __truediv__(self, value: float, /) -> timedelta: ...
+
     def __mod__(self, value: timedelta, /) -> timedelta: ...
     def __divmod__(self, value: timedelta, /) -> tuple[int, timedelta]: ...
     def __le__(self, value: timedelta, /) -> bool: ...
@@ -226,6 +266,7 @@ class timedelta:
     def __bool__(self) -> bool: ...
     def __hash__(self) -> int: ...
 
+@disjoint_base
 class datetime(date):
     min: ClassVar[datetime]
     max: ClassVar[datetime]
@@ -234,13 +275,13 @@ class datetime(date):
         year: SupportsIndex,
         month: SupportsIndex,
         day: SupportsIndex,
-        hour: SupportsIndex = ...,
-        minute: SupportsIndex = ...,
-        second: SupportsIndex = ...,
-        microsecond: SupportsIndex = ...,
-        tzinfo: _TzInfo | None = ...,
+        hour: SupportsIndex = 0,
+        minute: SupportsIndex = 0,
+        second: SupportsIndex = 0,
+        microsecond: SupportsIndex = 0,
+        tzinfo: _TzInfo | None = None,
         *,
-        fold: int = ...,
+        fold: int = 0,
     ) -> Self: ...
     @property
     def hour(self) -> int: ...
@@ -259,10 +300,10 @@ class datetime(date):
     # meaning it is only *safe* to pass it as a keyword argument on 3.12+
     if sys.version_info >= (3, 12):
         @classmethod
-        def fromtimestamp(cls, timestamp: float, tz: _TzInfo | None = ...) -> Self: ...
+        def fromtimestamp(cls, timestamp: float, tz: _TzInfo | None = None) -> Self: ...
     else:
         @classmethod
-        def fromtimestamp(cls, timestamp: float, /, tz: _TzInfo | None = ...) -> Self: ...
+        def fromtimestamp(cls, timestamp: float, /, tz: _TzInfo | None = None) -> Self: ...
 
     @classmethod
     @deprecated("Use timezone-aware objects to represent datetimes in UTC; e.g. by calling .fromtimestamp(datetime.timezone.utc)")
@@ -274,6 +315,10 @@ class datetime(date):
     def utcnow(cls) -> Self: ...
     @classmethod
     def combine(cls, date: _Date, time: _Time, tzinfo: _TzInfo | None = ...) -> Self: ...
+    if sys.version_info >= (3, 15):
+        @classmethod
+        def fromisoformat(cls, string: str, /) -> Self: ...
+
     def timestamp(self) -> float: ...
     def utctimetuple(self) -> struct_time: ...
     def date(self) -> _Date: ...
@@ -308,10 +353,16 @@ class datetime(date):
         *,
         fold: int = ...,
     ) -> Self: ...
-    def astimezone(self, tz: _TzInfo | None = ...) -> Self: ...
-    def isoformat(self, sep: str = ..., timespec: str = ...) -> str: ...
-    @classmethod
-    def strptime(cls, date_string: str, format: str, /) -> Self: ...
+    def astimezone(self, tz: _TzInfo | None = None) -> Self: ...
+    def isoformat(self, sep: str = "T", timespec: str = "auto") -> str: ...
+
+    if sys.version_info >= (3, 15):
+        @classmethod
+        def strptime(cls, string: str, format: str, /) -> Self: ...
+    else:
+        @classmethod
+        def strptime(cls, date_string: str, format: str, /) -> Self: ...
+
     def utcoffset(self) -> timedelta | None: ...
     def tzname(self) -> str | None: ...
     def dst(self) -> timedelta | None: ...
@@ -321,7 +372,10 @@ class datetime(date):
     def __gt__(self, value: datetime, /) -> bool: ...  # type: ignore[override]
     def __eq__(self, value: object, /) -> bool: ...
     def __hash__(self) -> int: ...
+
     @overload  # type: ignore[override]
     def __sub__(self, value: Self, /) -> timedelta: ...
     @overload
     def __sub__(self, value: timedelta, /) -> Self: ...
+
+datetime_CAPI: CapsuleType
