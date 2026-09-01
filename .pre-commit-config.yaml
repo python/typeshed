@@ -16,6 +16,13 @@ repos:
       - id: check-github-workflows
       - id: check-renovate
         additional_dependencies: ["json5==0.15.0"]
+  - repo: https://github.com/abravalheri/validate-pyproject
+    rev: 4b2e70d08cb2ccd26d1fba73588de41c7a5d50b7 # frozen: v0.25
+    hooks:
+      - id: validate-pyproject
+        # Renovate needs an explicit language to update additional_dependencies.
+        language: python
+        additional_dependencies: ["validate-pyproject-schema-store[all]==2026.8.15"]
   - repo: https://github.com/astral-sh/ruff-pre-commit
     # The Ruff version must match requirements-tests.txt.
     rev: c59bba8fb259db0fec2bbb77ad8ba51ea7341b56 # frozen: v0.15.20
