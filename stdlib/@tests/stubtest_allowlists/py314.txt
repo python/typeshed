@@ -28,6 +28,8 @@ threading.Condition.locked
 # Pre-existing errors from Python 3.13
 # ====================================
 
+# No way to express keyword-only ParamSpec
+copy.replace
 
 # =======
 # >= 3.12

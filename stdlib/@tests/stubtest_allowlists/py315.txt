@@ -127,6 +127,8 @@ types.MappingProxyType.get
 
 typing_extensions.Protocol  # Super-special typing primitive
 
+copy.replace  # Cannot have keyword-only ParamSpec
+
 
 # =============================================================
 # Allowlist entries that cannot or should not be fixed; >= 3.12
