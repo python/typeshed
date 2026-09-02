@@ -86,6 +86,7 @@
         "stubs/PyMySQL",
         "stubs/pyogrio",
         "stubs/python-jose",
+        "stubs/python-socketio",
         "stubs/pywin32",
         "stubs/PyYAML",
         "stubs/reportlab",
