@@ -1,0 +1,9 @@
+from typing import Any
+from ldap import __version__ as __version__
+from ldap.functions import strf_secs as strf_secs
+
+def escape_filter_chars(s: Any, ignore: Any = ...) -> Any: ...
+def filter_format(filter_template: Any, assertion_values: Any) -> Any: ...
+def time_span_filter(
+    filterstr: str = "", from_timestamp: int = 0, until_timestamp: object = ..., delta_attr: str = "modifyTimestamp"
+) -> str: ...
