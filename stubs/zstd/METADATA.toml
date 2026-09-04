@@ -1,4 +1,4 @@
-version = "~=1.5.7.3"
+version = "~=1.5.7.2"
 upstream-repository = "https://github.com/sergey-dryabzhinsky/python-zstd"
 
 [tool.stubtest]
