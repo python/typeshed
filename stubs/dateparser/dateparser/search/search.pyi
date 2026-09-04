@@ -9,7 +9,7 @@ from dateparser.conf import Settings
 from dateparser.date import DateData, DateDataParser, _DetectLanguagesFunction
 from dateparser.languages.loader import LocaleDataLoader
 from dateparser.languages.locale import Locale
-from dateparser.search.text_detection import FullTextLanguageDetector
+from dateparser.search.ngram_search import _NgramDateSearch
 
 @type_check_only
 class _SearchDates(TypedDict):
@@ -22,7 +22,6 @@ def date_is_relative(translation: str) -> bool: ...
 
 class _ExactLanguageSearch:
     loader: LocaleDataLoader
-    language: Locale | None
     def __init__(self, loader: LocaleDataLoader) -> None: ...
     def get_current_language(self, shortname: str) -> None: ...
     def search(self, shortname: str, text: str, settings: Settings | None) -> tuple[list[str], list[str]]: ...
@@ -57,7 +56,7 @@ class DateSearchWithDetection:
     loader: LocaleDataLoader
     available_language_map: OrderedDict[str, Locale]
     search: _ExactLanguageSearch
-    language_detector: FullTextLanguageDetector
+    ngram_search: _NgramDateSearch
     def __init__(self) -> None: ...
     def detect_language(
         self,
