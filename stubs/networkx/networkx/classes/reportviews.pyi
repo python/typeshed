@@ -34,7 +34,7 @@ __all__ = [
     "OutMultiDegreeView",
 ]
 
-class NodeView(Mapping[_Node, _NodeData], AbstractSet[_Node], Generic[_Node, _NodeData, _EdgeData]):
+class NodeView(Mapping[_Node, _NodeData], AbstractSet[_Node], Generic[_Node, _NodeData, _EdgeData]):  # type: ignore[misc]  # pyerfly: ignore[inconsistent-inheritance]
     __slots__ = ("_nodes",)
     def __init__(self, graph: Graph[_Node, _NodeData, _EdgeData]) -> None: ...
     def __len__(self) -> int: ...
@@ -109,7 +109,7 @@ class MultiEdgeDataView(OutEdgeDataView[_Node, _D]):
 class InMultiEdgeDataView(OutEdgeDataView[_Node, _D]):
     __slots__ = ()
 
-class OutEdgeView(AbstractSet[Incomplete], Mapping[Incomplete, Incomplete], EdgeViewABC, Generic[_Node, _NodeData, _EdgeData]):
+class OutEdgeView(AbstractSet[Incomplete], Mapping[Incomplete, Incomplete], EdgeViewABC, Generic[_Node, _NodeData, _EdgeData]):  # type: ignore[misc]  # pyerfly: ignore[inconsistent-inheritance]
     __slots__ = ("_adjdict", "_graph", "_nodes_nbrs")
     def __init__(self, G: Graph[_Node, _NodeData, _EdgeData]) -> None: ...
     def __len__(self) -> int: ...
