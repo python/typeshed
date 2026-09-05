@@ -1207,6 +1207,7 @@ if sys.version_info >= (3, 12):
             def __qualname__(self) -> str: ...
         else:
             def __new__(cls, name: str, value: Any, *, type_params: tuple[_TypeParameter, ...] = ()) -> Self: ...
+
         @property
         def __value__(self) -> Any: ...  # AnnotationForm
         @property
