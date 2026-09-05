@@ -8,22 +8,24 @@ from authlib.oauth2.client import OAuth2Client as _OAuth2Client
 
 from ..base_client import OAuthError
 
+USE_CLIENT_DEFAULT = Incomplete  # actual httpx2.USE_CLIENT_DEFAULT
+Auth = Incomplete  # actual type is httpx2.Auth
+Request: TypeAlias = Incomplete  # actual type is httpx2.Request
+Response: TypeAlias = Incomplete  # actual type is httpx2.Response
+
 __all__ = ["OAuth2Auth", "OAuth2ClientAuth", "AsyncOAuth2Client", "OAuth2Client"]
 
-_Response: TypeAlias = Incomplete  # actual type is httpx.Response
-_Request: TypeAlias = Incomplete  # actual type is httpx.Request
-
-# Inherits from httpx.Auth
+# Inherits from httpx2.Auth
 class OAuth2Auth(TokenAuth):
     requires_request_body: bool
-    def auth_flow(self, request: _Request) -> Generator[_Request, _Response]: ...
+    def auth_flow(self, request: Request) -> Generator[Request, Response]: ...
 
-# Inherits from httpx.Auth
+# Inherits from httpx2.Auth
 class OAuth2ClientAuth(ClientAuth):
     requires_request_body: bool
-    def auth_flow(self, request: _Request) -> Generator[_Request, _Response]: ...
+    def auth_flow(self, request: Request) -> Generator[Request, Response]: ...
 
-# Inherits from httpx.AsyncClient
+# Inherits from httpx2.AsyncClient
 class AsyncOAuth2Client(_OAuth2Client):
     SESSION_REQUEST_PARAMS: list[str]
     client_auth_class = OAuth2ClientAuth
@@ -47,7 +49,7 @@ class AsyncOAuth2Client(_OAuth2Client):
     async def stream(self, method, url, withhold_token: bool = False, auth=..., **kwargs) -> Generator[Incomplete]: ...
     async def ensure_active_token(self, token): ...  # type: ignore[override]
 
-# Inherits from httpx.Client
+# Inherits from httpx2.Client
 class OAuth2Client(_OAuth2Client):
     SESSION_REQUEST_PARAMS: list[str]
     client_auth_class = OAuth2ClientAuth
