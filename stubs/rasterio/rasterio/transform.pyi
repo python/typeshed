@@ -1,6 +1,7 @@
+from _typeshed import ConvertibleToInt
 from collections.abc import Callable, Sequence
 from typing import Final, Literal, TypeAlias, overload
-from typing_extensions import Self, deprecated
+from typing_extensions import Self, TypeVar, deprecated
 
 from affine import Affine as Affine
 from rasterio._transform import GCPTransformerBase, RPCTransformerBase
@@ -12,7 +13,8 @@ from rasterio.rpc import RPC
 
 _Sextuple: TypeAlias = tuple[float, float, float, float, float, float]
 _OffsetOptions: TypeAlias = Literal["center", "ul", "ur", "ll", "lr"]
-_RoundOperation: TypeAlias = Callable[[float], int]
+_T = TypeVar("_T")
+_RoundOperation: TypeAlias = Callable[[float], _T]
 
 IDENTITY: Final[Affine]
 GDAL_IDENTITY: Final[_Sextuple]
@@ -32,7 +34,7 @@ class TransformMethodsMixin:
         x: float | Sequence[float],
         y: float | Sequence[float],
         z: float | Sequence[float] | None = None,
-        op: _RoundOperation | None = None,
+        op: _RoundOperation[ConvertibleToInt] | None = None,
         precision: int | None = None,
         transform_method: TransformMethod = ...,
         **rpc_options: _GDALOption,
@@ -52,15 +54,39 @@ def xy(
     offset: _OffsetOptions = "center",
     **rpc_options: _GDALOption,
 ) -> tuple[float, float] | tuple[list[float], list[float]]: ...
+
+@overload
 def rowcol(
     transform: Affine | Sequence[GroundControlPoint] | RPC,
     xs: float | Sequence[float],
     ys: float | Sequence[float],
     zs: float | Sequence[float] | None = None,
-    op: _RoundOperation | None = None,
+    op: None = None,
     precision: int | None = None,
     **rpc_options: _GDALOption,
 ) -> tuple[int, int] | tuple[list[int], list[int]]: ...
+@overload
+def rowcol(
+    transform: Affine | Sequence[GroundControlPoint] | RPC,
+    xs: float | Sequence[float],
+    ys: float | Sequence[float],
+    zs: float | Sequence[float] | None,
+    op: _RoundOperation[_T],
+    precision: int | None = None,
+    **rpc_options: _GDALOption,
+) -> tuple[_T, _T] | tuple[list[_T], list[_T]]: ...
+@overload
+def rowcol(
+    transform: Affine | Sequence[GroundControlPoint] | RPC,
+    xs: float | Sequence[float],
+    ys: float | Sequence[float],
+    zs: float | Sequence[float] | None = None,
+    *,
+    op: _RoundOperation[_T],
+    precision: int | None = None,
+    **rpc_options: _GDALOption,
+) -> tuple[_T, _T] | tuple[list[_T], list[_T]]: ...
+
 def get_transformer(
     transform: Affine | Sequence[GroundControlPoint] | RPC, **rpc_options: _GDALOption
 ) -> type[TransformerBase]: ...
@@ -79,12 +105,25 @@ class TransformerBase:
 
     @overload
     def rowcol(
+        self, xs: float | Sequence[float], ys: float | Sequence[float], zs: float | Sequence[float] | None = None, op: None = None
+    ) -> tuple[int, int] | tuple[list[int], list[int]]: ...
+    @overload
+    def rowcol(
+        self,
+        xs: float | Sequence[float],
+        ys: float | Sequence[float],
+        zs: float | Sequence[float] | None,
+        op: _RoundOperation[_T],
+    ) -> tuple[_T, _T] | tuple[list[_T], list[_T]]: ...
+    @overload
+    def rowcol(
         self,
         xs: float | Sequence[float],
         ys: float | Sequence[float],
         zs: float | Sequence[float] | None = None,
-        op: _RoundOperation | None = None,
-    ) -> tuple[int, int] | tuple[list[int], list[int]]: ...
+        *,
+        op: _RoundOperation[_T],
+    ) -> tuple[_T, _T] | tuple[list[_T], list[_T]]: ...
     @overload
     @deprecated("The `precision` parameter is unused since rasterio 1.3 and will be removed in 2.0.0.")
     def rowcol(
@@ -92,9 +131,30 @@ class TransformerBase:
         xs: float | Sequence[float],
         ys: float | Sequence[float],
         zs: float | Sequence[float] | None = None,
-        op: _RoundOperation | None = None,
+        op: None = None,
         precision: int | None = None,
     ) -> tuple[int, int] | tuple[list[int], list[int]]: ...
+    @overload
+    @deprecated("The `precision` parameter is unused since rasterio 1.3 and will be removed in 2.0.0.")
+    def rowcol(
+        self,
+        xs: float | Sequence[float],
+        ys: float | Sequence[float],
+        zs: float | Sequence[float] | None,
+        op: _RoundOperation[_T],
+        precision: int | None = None,
+    ) -> tuple[_T, _T] | tuple[list[_T], list[_T]]: ...
+    @overload
+    @deprecated("The `precision` parameter is unused since rasterio 1.3 and will be removed in 2.0.0.")
+    def rowcol(
+        self,
+        xs: float | Sequence[float],
+        ys: float | Sequence[float],
+        zs: float | Sequence[float] | None = None,
+        *,
+        op: _RoundOperation[_T],
+        precision: int | None = None,
+    ) -> tuple[_T, _T] | tuple[list[_T], list[_T]]: ...
 
 class GDALTransformerBase(TransformerBase):
     def __init__(self) -> None: ...
