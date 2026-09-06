@@ -13,7 +13,7 @@ from pathlib import Path
 from shutil import rmtree
 from textwrap import dedent
 from time import time
-from typing import NoReturn
+from typing_extensions import Never
 
 from ts_utils.metadata import NoSuchStubError, get_recursive_requirements, read_metadata
 from ts_utils.mypy import mypy_configuration_from_distribution, temporary_mypy_config_file
@@ -83,7 +83,7 @@ def run_stubtest(dist: Path, *, verbose: bool = False, ci_platforms_only: bool =
         dists_to_install = [dist_req, get_mypy_req()]
         # Internal requirements are added to MYPYPATH
         dists_to_install.extend(str(r) for r in requirements.external_pkgs)
-        dists_to_install.extend(stubtest_settings.stubtest_requirements)
+        dists_to_install.extend(stubtest_settings.stubtest_dependencies)
 
         # Since the "gdb" Python package is available only inside GDB, it is not
         # possible to install it through pip, so stub tests cannot install it.
@@ -91,8 +91,12 @@ def run_stubtest(dist: Path, *, verbose: bool = False, ci_platforms_only: bool =
             dists_to_install[:] = dists_to_install[1:]
 
         pip_cmd = [pip_exe, "install", *dists_to_install]
+        # Some packages read environment variables at build time, e.g. to
+        # opt out of CPU-specific compiler flags. See `install-environment`
+        # in CONTRIBUTING.md.
+        pip_env = os.environ | stubtest_settings.install_environment
         try:
-            subprocess.run(pip_cmd, check=True, capture_output=True)
+            subprocess.run(pip_cmd, env=pip_env, check=True, capture_output=True)
         except subprocess.CalledProcessError as e:
             print_command_failure("Failed to install", e)
             return False
@@ -109,6 +113,7 @@ def run_stubtest(dist: Path, *, verbose: bool = False, ci_platforms_only: bool =
                 "--mypy-config-file",
                 temp.name,
                 "--show-traceback",
+                "--strict-type-check-only",
                 # Use --custom-typeshed-dir in case we make linked changes to stdlib or _typeshed
                 "--custom-typeshed-dir",
                 str(dist.parent.parent),
@@ -148,7 +153,7 @@ def run_stubtest(dist: Path, *, verbose: bool = False, ci_platforms_only: bool =
                 subprocess.run(stubtest_cmd, env=stubtest_env, check=True, capture_output=True)
             except subprocess.CalledProcessError as e:
                 print_time(time() - t)
-                print_error("fail")
+                print_error(f"failed with exit code {e.returncode}")
 
                 print_divider()
                 print("Commands run:")
@@ -222,8 +227,7 @@ def setup_gdb_stubtest_command(venv_dir: Path, stubtest_cmd: list[str]) -> bool:
 
     gdb_script = venv_dir / "gdb_stubtest.py"
     wrapper_script = venv_dir / "gdb_wrapper.py"
-    gdb_script_contents = dedent(
-        f"""
+    gdb_script_contents = dedent(f"""
         import json
         import os
         import site
@@ -252,12 +256,10 @@ def setup_gdb_stubtest_command(venv_dir: Path, stubtest_cmd: list[str]) -> bool:
             traceback.print_exc()
         finally:
             gdb.execute(f"quit {{exit_code}}")
-        """
-    )
+        """)
     gdb_script.write_text(gdb_script_contents)
 
-    wrapper_script_contents = dedent(
-        f"""
+    wrapper_script_contents = dedent(f"""
         import json
         import os
         import subprocess
@@ -277,8 +279,7 @@ def setup_gdb_stubtest_command(venv_dir: Path, stubtest_cmd: list[str]) -> bool:
         ]
         r = subprocess.run(gdb_cmd, env=stubtest_env)
         sys.exit(r.returncode)
-        """
-    )
+        """)
     wrapper_script.write_text(wrapper_script_contents)
 
     # replace "-m mypy.stubtest" in stubtest_cmd with the path to our wrapper script
@@ -328,8 +329,7 @@ def setup_uwsgi_stubtest_command(dist: Path, venv_dir: Path, stubtest_cmd: list[
     uwsgi_script = venv_dir / "uwsgi_stubtest.py"
     wrapper_script = venv_dir / "uwsgi_wrapper.py"
     exit_code_surrogate = venv_dir / "exit_code"
-    uwsgi_script_contents = dedent(
-        f"""
+    uwsgi_script_contents = dedent(f"""
         import json
         import os
         import sys
@@ -340,8 +340,7 @@ def setup_uwsgi_stubtest_command(dist: Path, venv_dir: Path, stubtest_cmd: list[
         with open("{exit_code_surrogate}", mode="w") as fp:
             fp.write(str(exit_code))
         sys.exit(exit_code)
-        """
-    )
+        """)
     uwsgi_script.write_text(uwsgi_script_contents)
 
     uwsgi_exe = venv_dir / "bin" / "uwsgi"
@@ -351,8 +350,7 @@ def setup_uwsgi_stubtest_command(dist: Path, venv_dir: Path, stubtest_cmd: list[
     # will always go to stdout and uWSGI to stderr, but on
     # MacOS they both go to stderr, for now we deal with the
     # bit of extra spam
-    wrapper_script_contents = dedent(
-        f"""
+    wrapper_script_contents = dedent(f"""
         import json
         import os
         import subprocess
@@ -371,8 +369,7 @@ def setup_uwsgi_stubtest_command(dist: Path, venv_dir: Path, stubtest_cmd: list[
         subprocess.run(uwsgi_cmd, env=stubtest_env)
         with open("{exit_code_surrogate}", mode="r") as fp:
             sys.exit(int(fp.read()))
-        """
-    )
+        """)
     wrapper_script.write_text(wrapper_script_contents)
 
     # replace "-m mypy.stubtest" in stubtest_cmd with the path to our wrapper script
@@ -399,7 +396,7 @@ def print_command_output(e: subprocess.CalledProcessError | subprocess.Completed
     print(e.stderr.decode(), end="")
 
 
-def main() -> NoReturn:
+def main() -> Never:
     parser = argparse.ArgumentParser()
     parser.add_argument("-v", "--verbose", action="store_true", help="verbose output")
     parser.add_argument("--num-shards", type=int, default=1)

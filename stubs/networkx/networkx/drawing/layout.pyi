@@ -1,6 +1,5 @@
 from collections.abc import Collection, Mapping
-from typing import Any, Literal
-from typing_extensions import TypeAlias
+from typing import Any, Literal, TypeAlias
 
 import numpy as np
 from networkx._typing import Array1D, Array2D, ArrayLike1D, Seed
@@ -141,7 +140,6 @@ def forceatlas2_layout(
     node_mass: Mapping[_Node, float] | None = None,
     node_size: Mapping[_Node, float] | None = None,
     weight: str | None = None,
-    dissuade_hubs: bool = False,
     linlog: bool = False,
     seed: Seed | None = None,
     dim: int = 2,
