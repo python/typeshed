@@ -14,8 +14,8 @@ from collections.abc import (
     ValuesView,
 )
 from types import GenericAlias
-from typing import Any, ClassVar, Generic, NoReturn, SupportsIndex, TypeVar, final, overload, type_check_only
-from typing_extensions import Self, disjoint_base
+from typing import Any, ClassVar, Generic, SupportsIndex, TypeVar, final, overload, type_check_only
+from typing_extensions import Never, Self, disjoint_base
 
 if sys.version_info >= (3, 15):
     from builtins import frozendict
@@ -300,7 +300,7 @@ class Counter(dict[_T, int], Generic[_T]):
     def elements(self) -> Iterator[_T]: ...
     def most_common(self, n: int | None = None) -> list[tuple[_T, int]]: ...
     @classmethod
-    def fromkeys(cls, iterable: Any, v: int | None = None) -> NoReturn: ...  # type: ignore[override]
+    def fromkeys(cls, iterable: Any, v: int | None = None) -> Never: ...  # type: ignore[override]
 
     @overload
     def subtract(self, iterable: None = None, /) -> None: ...
@@ -365,17 +365,17 @@ class _OrderedDictValuesView(ValuesView[_VT_co]):
 # pyright doesn't have a specific error code for subclassing error!
 @final
 @type_check_only
-class _odict_keys(dict_keys[_KT_co, _VT_co]):  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]  # ty:ignore[subclass-of-final-class]
+class _odict_keys(dict_keys[_KT_co, _VT_co]):  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]  # ty:ignore[subclass-of-final-class]  # pyrefly: ignore [invalid-inheritance]
     def __reversed__(self) -> Iterator[_KT_co]: ...
 
 @final
 @type_check_only
-class _odict_items(dict_items[_KT_co, _VT_co]):  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]  # ty:ignore[subclass-of-final-class]
+class _odict_items(dict_items[_KT_co, _VT_co]):  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]  # ty:ignore[subclass-of-final-class]  # pyrefly: ignore [invalid-inheritance]
     def __reversed__(self) -> Iterator[tuple[_KT_co, _VT_co]]: ...
 
 @final
 @type_check_only
-class _odict_values(dict_values[_KT_co, _VT_co]):  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]  # ty:ignore[subclass-of-final-class]
+class _odict_values(dict_values[_KT_co, _VT_co]):  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]  # ty:ignore[subclass-of-final-class]  # pyrefly: ignore [invalid-inheritance]
     def __reversed__(self) -> Iterator[_VT_co]: ...
 
 @disjoint_base
