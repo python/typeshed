@@ -6,7 +6,7 @@ from asgiref.typing import ASGIApplication, ASGIReceiveCallable
 def name_that_thing(thing: object) -> str: ...
 async def await_many_dispatch(
     consumer_callables: Sequence[Callable[[], Awaitable[ASGIReceiveCallable]]],
-    dispatch: Callable[[dict[str, Any]], Awaitable[None]],
+    dispatch: Callable[[dict[str, Any]], Awaitable[object]],
 ) -> None: ...
 
 # Defines a generic ASGI middleware protocol.

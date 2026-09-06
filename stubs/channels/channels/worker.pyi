@@ -1,17 +1,17 @@
-from collections.abc import Collection
+from collections.abc import Iterable
 
 from asgiref.server import StatelessServer
 from channels.layers import BaseChannelLayer
 from channels.utils import _ChannelApplication
 
 class Worker(StatelessServer):
-    channels: Collection[str]
+    channels: Iterable[str]
     channel_layer: BaseChannelLayer
 
     def __init__(
         self,
         application: _ChannelApplication,
-        channels: Collection[str],
+        channels: Iterable[str],
         channel_layer: BaseChannelLayer,
         max_applications: int = 1000,
     ) -> None: ...
