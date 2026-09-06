@@ -11,7 +11,7 @@ from typing import Literal, TypeAlias, final, overload, type_check_only
 class _EncodingMap:
     def size(self) -> int: ...
 
-_DecodeCharMap: TypeAlias = SupportsGetItem[int, str | int | None] | _EncodingMap
+_DecodeCharMap: TypeAlias = SupportsGetItem[int, str | int | None]
 _EncodeCharMap: TypeAlias = SupportsGetItem[int, bytes | int | None] | _EncodingMap
 _Handler: TypeAlias = Callable[[UnicodeError], tuple[str | bytes, int]]
 _SearchFunction: TypeAlias = Callable[[str], codecs.CodecInfo | None]

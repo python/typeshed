@@ -24,14 +24,14 @@ user_decoding_table: Final[str]
 user_encoding_table: Final[_EncodingMap]
 
 class UserCodec(Codec):
-    decoding_table: ClassVar[str]
+    decoding_table: ClassVar[_DecodeCharMap]
     encoding_table: ClassVar[_EncodeCharMap]
 
 class UserIncrementalEncoder(IncrementalEncoder):
     encoding_table: ClassVar[_EncodeCharMap]
 
 class UserIncrementalDecoder(IncrementalDecoder):
-    decoding_table: ClassVar[str]
+    decoding_table: ClassVar[_DecodeCharMap]
 
 user_codec_info: Final[codecs.CodecInfo]
 
