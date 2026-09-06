@@ -1018,9 +1018,9 @@ class _BasePsycopgAdapter:
     def is_connection_closed(self, conn) -> bool: ...
 
 class Psycopg2Adapter(_BasePsycopgAdapter):
-    txn_idle: int
-    txn_inerror: int
-    txn_unknown: int
+    txn_idle: int | None
+    txn_inerror: int | None
+    txn_unknown: int | None
     json_type: Incomplete
     jsonb_type: Incomplete
     cast_json_case: bool
@@ -1034,9 +1034,9 @@ class Psycopg2Adapter(_BasePsycopgAdapter):
     def server_side_cursor(self, conn): ...
 
 class Psycopg3Adapter(_BasePsycopgAdapter):
-    txn_idle: int
-    txn_inerror: int
-    txn_unknown: int
+    txn_idle: int | None
+    txn_inerror: int | None
+    txn_unknown: int | None
     json_type: Incomplete
     jsonb_type: Incomplete
     cast_json_case: bool
