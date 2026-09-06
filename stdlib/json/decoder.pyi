@@ -1,3 +1,4 @@
+import sys
 from _typeshed import Incomplete
 from collections.abc import Callable
 from typing import Any
@@ -30,6 +31,8 @@ def JSONArray(
 ) -> tuple[list[Incomplete], int]: ...
 
 class JSONDecoder:
+    if sys.version_info >= (3, 15):
+        array_hook: Callable[[list[Any]], Any] | None
     object_hook: Callable[[dict[str, Any]], Any]
     parse_float: Callable[[str], Any]
     parse_int: Callable[[str], Any]
@@ -40,15 +43,30 @@ class JSONDecoder:
     parse_array: Callable[[Incomplete], Incomplete]
     parse_string: Callable[[Incomplete], Incomplete]
     memo: dict[Incomplete, Incomplete]
-    def __init__(
-        self,
-        *,
-        object_hook: Callable[[dict[str, Any]], Any] | None = None,
-        parse_float: Callable[[str], Any] | None = None,
-        parse_int: Callable[[str], Any] | None = None,
-        parse_constant: Callable[[str], Any] | None = None,
-        strict: bool = True,
-        object_pairs_hook: Callable[[list[tuple[str, Any]]], Any] | None = None,
-    ) -> None: ...
+    if sys.version_info >= (3, 15):
+        def __init__(
+            self,
+            *,
+            object_hook: Callable[[dict[str, Any]], Any] | None = None,
+            parse_float: Callable[[str], Any] | None = None,
+            parse_int: Callable[[str], Any] | None = None,
+            parse_constant: Callable[[str], Any] | None = None,
+            strict: bool = True,
+            object_pairs_hook: Callable[[list[tuple[str, Any]]], Any] | None = None,
+            array_hook: Callable[[list[Any]], Any] | None = None,
+        ) -> None: ...
+
+    else:
+        def __init__(
+            self,
+            *,
+            object_hook: Callable[[dict[str, Any]], Any] | None = None,
+            parse_float: Callable[[str], Any] | None = None,
+            parse_int: Callable[[str], Any] | None = None,
+            parse_constant: Callable[[str], Any] | None = None,
+            strict: bool = True,
+            object_pairs_hook: Callable[[list[tuple[str, Any]]], Any] | None = None,
+        ) -> None: ...
+
     def decode(self, s: str, _w: Callable[..., Any] = ...) -> Any: ...  # _w is undocumented
     def raw_decode(self, s: str, idx: int = 0) -> tuple[Any, int]: ...

@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
-from typing import NoReturn
-from typing_extensions import TypeAlias
+from typing import TypeAlias
+from typing_extensions import Never
 
 from authlib.oauth2.auth import ClientAuth, TokenAuth
 from authlib.oauth2.client import OAuth2Client as _OAuth2Client
@@ -16,12 +16,12 @@ _Request: TypeAlias = Incomplete  # actual type is httpx.Request
 # Inherits from httpx.Auth
 class OAuth2Auth(TokenAuth):
     requires_request_body: bool
-    def auth_flow(self, request: _Request) -> Generator[_Request, _Response, None]: ...
+    def auth_flow(self, request: _Request) -> Generator[_Request, _Response]: ...
 
 # Inherits from httpx.Auth
 class OAuth2ClientAuth(ClientAuth):
     requires_request_body: bool
-    def auth_flow(self, request: _Request) -> Generator[_Request, _Response, None]: ...
+    def auth_flow(self, request: _Request) -> Generator[_Request, _Response]: ...
 
 # Inherits from httpx.AsyncClient
 class AsyncOAuth2Client(_OAuth2Client):
@@ -67,6 +67,6 @@ class OAuth2Client(_OAuth2Client):
         **kwargs,
     ) -> None: ...
     @staticmethod
-    def handle_error(error_type: str | None, error_description: str | None) -> NoReturn: ...
+    def handle_error(error_type: str | None, error_description: str | None) -> Never: ...
     def request(self, method, url, withhold_token: bool = False, auth=..., **kwargs): ...
     def stream(self, method, url, withhold_token: bool = False, auth=..., **kwargs): ...

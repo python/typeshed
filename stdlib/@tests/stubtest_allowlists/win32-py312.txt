@@ -20,13 +20,17 @@ tarfile.LinkFallbackError
 tarfile.TarFile._extract_member
 tarfile.TarFile.makelink_with_filter
 
+# Incompatible changes introduced in Python 3.12.12
+# (Remove once 3.12.12 becomes available for GitHub Actions)
+pyexpat.XMLParserType.SetBillionLaughsAttackProtectionActivationThreshold
+pyexpat.XMLParserType.SetBillionLaughsAttackProtectionMaximumAmplification
+
 # Incompatible changes introduced in Python 3.12.13
 # (Remove once 3.12.13 becomes available for GitHub Actions)
+email._header_value_parser.make_parenthesis_pairs
 html.parser.HTMLParser.__init__ # parameter `scripting`
 pyexpat.XMLParserType.SetAllocTrackerActivationThreshold
 pyexpat.XMLParserType.SetAllocTrackerMaximumAmplification
-xml.parsers.expat.XMLParserType.SetAllocTrackerActivationThreshold
-xml.parsers.expat.XMLParserType.SetAllocTrackerMaximumAmplification
 
 
 # =======
@@ -35,7 +39,6 @@ xml.parsers.expat.XMLParserType.SetAllocTrackerMaximumAmplification
 
 # Undocumented internal method, not really for public consumption.
 # (Hard to add types for unless we add stubs for the undocumented _overlapped module...)
-asyncio.IocpProactor.finish_socket_func
 asyncio.windows_events.IocpProactor.finish_socket_func
 
 

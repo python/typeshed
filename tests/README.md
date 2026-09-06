@@ -3,6 +3,9 @@ This directory contains several tests:
 tests the stubs with [mypy](https://github.com/python/mypy/)
 - `tests/pyright_test.py` tests the stubs with
 [pyright](https://github.com/microsoft/pyright).
+- `tests/ty_test.py` tests the stubs with [ty](https://github.com/astral-sh/ty).
+- `tests/pyrefly_test.py` tests the stubs with
+[pyrefly](https://github.com/facebook/pyrefly).
 - `tests/regr_test.py` runs mypy against the test cases for typeshed's
 stubs, guarding against accidental regressions.
 - `tests/check_typeshed_structure.py` checks that typeshed's directory
@@ -80,6 +83,39 @@ this script uses the same pyright version and configuration as the CI.
 checks that would typically fail on incomplete stubs (such as `Unknown` checks).
 In typeshed's CI, pyright is run with these configuration settings on a subset of
 the stubs in typeshed (including the standard library).
+
+## ty\_test.py
+
+Run using:
+```bash
+(.venv)$ python3 tests/ty_test.py --python=.venv
+(.venv)$ python3 tests/ty_test.py stubs/PySocks --python=.venv
+```
+
+This test checks the stdlib and third-party stubs with ty, using the configuration
+in `ty.toml`. It selects the stdlib modules supported by the requested Python
+version using `stdlib/VERSIONS` and adds the third-party stub roots to ty's module
+search path. Unlike pyright, it checks `geopandas`, `seaborn`, and `shapely` on
+every target version; only the obsolete `requests` and legacy `distutils` stubs
+are excluded. Run
+`python tests/ty_test.py --help` for the supported options.
+
+## pyrefly\_test.py
+
+Run using:
+```bash
+(.venv)$ python3 tests/pyrefly_test.py --python=.venv/bin/python
+(.venv)$ python3 tests/pyrefly_test.py stubs/PySocks --python=.venv/bin/python
+```
+
+This test checks the stdlib and third-party stubs with pyrefly, using the
+configuration in `pyrefly.toml`. Like `ty_test.py`, it selects the stdlib modules
+supported by the requested Python version using `stdlib/VERSIONS` and adds the
+third-party stub roots to pyrefly's search path; only the obsolete `requests` and
+legacy `distutils` stubs are excluded. The `--python` argument is passed to
+pyrefly as `--python-interpreter-path`, so it should point at an interpreter
+rather than an environment directory. Run
+`python tests/pyrefly_test.py --help` for the supported options.
 
 ## regr\_test.py
 
@@ -169,13 +205,13 @@ By default, stubtest emits an error if a public object is present at runtime
 but missing from the stub. However, this behaviour can be disabled using the
 `--ignore-missing-stub` option.
 
-If a distribution has `ignore_missing_stub = true` in the `[tool.stubtest]` section of its
+If a distribution has `ignore-missing-stub = true` in the `[tool.stubtest]` section of its
 `tests/METADATA.toml` file, `stubtest_third_party.py` will test that distribution with the
 `--ignore-missing-stub` option. This indicates that the stubs for this distribution are
 considered "incomplete".
 
 You can help make typeshed's stubs more complete by removing
-`ignore_missing_stub = true` from the `tests/METADATA.toml` file for a
+`ignore-missing-stub = true` from the `tests/METADATA.toml` file for a
 third-party stubs distribution, running stubtest, and then adding things that
 stubtest reports to be missing to the stub. However, note that not *everything*
 that stubtest reports to be missing should necessarily be added to the stub.
@@ -191,8 +227,8 @@ leverage type information provided by these plugins when validating stubs.
 To use this feature, add the following configuration to the `tool.stubtest` section in your METADATA.toml:
 
 ```toml
-mypy_plugins = ["mypy_django_plugin.main"]
-mypy_plugins_config = { "django-stubs" = { "django_settings_module" = "@tests.django_settings" } }
+mypy-plugins = ["mypy_django_plugin.main"]
+mypy-plugins-config = { "django-stubs" = { "django_settings_module" = "@tests.django_settings" } }
 ```
 
 For Django stubs specifically, you'll need to create a `django_settings.py` file in your `@tests` directory
