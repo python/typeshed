@@ -19,3 +19,8 @@ combined = [Foo()] + [Bar()]
 assert_type(combined, List[Union[Foo, Bar]])
 for item in combined:
     assert_type(item.asd(), int)
+
+l1: list[int] = [1]
+l2: list[object] = l1.copy()
+# this is an error, because a list of ints can't be a list of strs
+l3: list[str] = l1.copy()  # type: ignore
