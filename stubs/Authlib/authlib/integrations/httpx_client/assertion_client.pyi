@@ -1,18 +1,17 @@
 from _typeshed import Incomplete
-from typing import TypeAlias
 
+import httpx2
 from authlib.oauth2.rfc7521 import AssertionClient as _AssertionClient
 
 from ..base_client import OAuthError
 from .oauth2_client import OAuth2Auth
 
-USE_CLIENT_DEFAULT = Incomplete  # actual httpx2.USE_CLIENT_DEFAULT
-Response: TypeAlias = Incomplete  # actual httpx2.Response
+USE_CLIENT_DEFAULT = httpx2.USE_CLIENT_DEFAULT
+Response = httpx2.Response
 
 __all__ = ["AsyncAssertionClient"]
 
-# Inherits from httpx2.AsyncClient
-class AsyncAssertionClient(_AssertionClient):
+class AsyncAssertionClient(_AssertionClient, httpx2.AsyncClient):
     token_auth_class = OAuth2Auth
     oauth_error_class = OAuthError  # type: ignore[assignment]
     JWT_BEARER_GRANT_TYPE: Incomplete
@@ -33,8 +32,7 @@ class AsyncAssertionClient(_AssertionClient):
     ) -> None: ...
     async def request(self, method, url, withhold_token=False, auth=..., **kwargs): ...
 
-# Inherits from httpx2.Client
-class AssertionClient(_AssertionClient):
+class AssertionClient(_AssertionClient, httpx2.Client):
     token_auth_class = OAuth2Auth
     oauth_error_class = OAuthError  # type: ignore[assignment]
     JWT_BEARER_GRANT_TYPE: Incomplete
