@@ -17,8 +17,7 @@ class _SupportsOpen(Protocol[_ModeT_contra, _FileT_co]):
 
 @_dispatchable
 def from_agraph(
-    A: AGraph,
-    create_using: Graph[str] | type[Graph[str]] | None = None,  # TODO: add overloads on `create_using`
+    A: AGraph, create_using: Graph[str] | type[Graph[str]] | None = None  # TODO: add overloads on `create_using`
 ) -> Graph[str]: ...
 def to_agraph(N: Graph[_Node, _NodeData, _EdgeData]) -> AGraph: ...
 def write_dot(
