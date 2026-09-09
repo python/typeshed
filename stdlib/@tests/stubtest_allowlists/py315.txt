@@ -11,6 +11,9 @@ dataclasses.field
 # Allowlist entries that cannot or should not be fixed; >= 3.15
 # =============================================================
 
+# Declared with the `type` statement, so stubtest compares the stub against the alias value
+_colorize.BackgroundStyle
+
 # runtime default is a list object used as a sentinel
 base64.b64decode
 urllib.parse.urlunparse
@@ -42,6 +45,8 @@ tkinter.Place.place_content
 # =============================================================
 # Allowlist entries that cannot or should not be fixed; >= 3.14
 # =============================================================
+
+_colorize.code  # Loop variable that leaks into the module namespace
 
 # Undocumented private attributes
 .*\.ForwardRef\.__arg__
@@ -108,6 +113,7 @@ types.UnionType.__qualname__
 # method so code typing the loop as `AbstractEventLoop` can still pass `cleanup_socket=...`. See #15742.
 asyncio.events.AbstractEventLoop.create_unix_server
 
+_colorize.attr  # Loop variable that leaks into the module namespace
 _pyrepl\..+  # The internal implementation of the REPL on py313+; not for public consumption
 codecs.backslashreplace_errors  # Runtime incorrectly has `self`
 codecs.ignore_errors  # Runtime incorrectly has `self`
