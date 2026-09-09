@@ -9,7 +9,7 @@ from _typeshed import (
     Unused,
 )
 from re import Pattern
-from typing import IO, Any, BinaryIO, ClassVar, Final, Generic, Literal, TextIO, TypeVar
+from typing import IO, Any, ClassVar, Final, Generic, Literal, TextIO, TypeVar
 from typing_extensions import deprecated
 
 from docutils import TransformSpec, nodes
@@ -65,7 +65,7 @@ class Output(TransformSpec):
     def encode(self, data: str) -> Any: ...  # returns bytes or str
 
 class ErrorOutput:
-    destination: TextIO | BinaryIO | Literal[False]
+    destination: SupportsWrite[str] | SupportsWrite[bytes] | Literal[False]
     encoding: str
     encoding_errors: str
     decoding_errors: str
