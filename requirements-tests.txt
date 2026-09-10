@@ -1,6 +1,7 @@
 # Type checkers that we test our stubs against. These should always
 # be pinned to a specific version to make failure reproducible.
 mypy==2.3.0
+pyrefly==1.3.0.dev1
 pyright==1.1.411
 ty==0.0.59
 
