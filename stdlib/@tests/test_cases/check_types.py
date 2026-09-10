@@ -20,6 +20,10 @@ bound_method = Foo().bar
 assert isinstance(bound_method, types.MethodType)
 assert_type(bound_method(42), int)
 
+bound_method2 = types.MethodType(Foo.bar, Foo())
+assert isinstance(bound_method2, types.MethodType)
+assert_type(bound_method2(42), int)
+
 # test `types.SimpleNamespace`
 
 # Valid:
