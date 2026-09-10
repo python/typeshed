@@ -22,7 +22,7 @@ def fake_method(self: MethodTypeTest, /, x: int) -> int:
 
 bound_method1 = MethodTypeTest().method
 assert isinstance(bound_method1, types.MethodType)
-# Needs special handling in the type checker
+# Needs special handling by the type checker
 assert_type(bound_method1(42), int)  # pyright: ignore[reportAssertTypeFailure]
 
 bound_method2 = types.MethodType(MethodTypeTest.method, MethodTypeTest())
