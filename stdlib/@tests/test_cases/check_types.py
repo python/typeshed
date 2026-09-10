@@ -20,9 +20,9 @@ def fake_method(self: MethodTypeTest, x: int) -> int:
     return x
 
 
-bound_method = MethodTypeTest().method
-assert isinstance(bound_method, types.MethodType)
-assert_type(bound_method(42), int)
+bound_method1 = MethodTypeTest().method
+assert isinstance(bound_method1, types.MethodType)
+assert_type(bound_method1(42), int)
 
 bound_method2 = types.MethodType(MethodTypeTest.method, MethodTypeTest())
 assert isinstance(bound_method2, types.MethodType)
