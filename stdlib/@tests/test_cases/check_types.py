@@ -16,7 +16,7 @@ class MethodTypeTest:
         return x
 
 
-def fake_method(self: MethodTypeTest, x: int) -> int:
+def fake_method(self: MethodTypeTest, /, x: int) -> int:
     return x
 
 

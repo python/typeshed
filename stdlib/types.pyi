@@ -481,7 +481,8 @@ class MethodType(Generic[_P_default, _R_default]):
     def __name__(self) -> str: ...  # inherited from the added function
     @property
     def __qualname__(self) -> str: ...  # inherited from the added function
-    def __new__(cls, func: Callable[Concatenate[object, _P_default], _R_default], instance: object, /) -> Self: ...
+    # First func argument is usually "self".
+    def __new__(cls, func: Callable[Concatenate[Any, _P_default], _R_default], instance: object, /) -> Self: ...
     def __call__(self, *args: _P_default.args, **kwargs: _P_default.kwargs) -> _R_default: ...
 
     if sys.version_info >= (3, 13):
