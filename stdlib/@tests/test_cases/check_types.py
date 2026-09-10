@@ -10,24 +10,29 @@ _T = TypeVar("_T")
 
 # test `types.MethodType`
 
-
-class Foo:
-    def bar(self, x: int) -> int:
+class MethodTypeTest:
+    def method(self, x: int) -> int:
         return x
 
+def fake_method(self: MethodTypeTest, x: int) -> int:
+    return x
 
-bound_method = Foo().bar
+bound_method = MethodTypeTest().method
 assert isinstance(bound_method, types.MethodType)
-assert_type(bound_method(42), int)  # pyright: ignore[reportAssertTypeFailure]  # pyright bug
+assert_type(bound_method(42), int)
 
-bound_method2 = types.MethodType(Foo.bar, Foo())
+bound_method2 = types.MethodType(MethodTypeTest.method, MethodTypeTest())
 assert isinstance(bound_method2, types.MethodType)
-assert_type(bound_method2(42), int)  # pyright: ignore[reportCallIssue,reportAssertTypeFailure]  # pyright bug
+assert_type(bound_method2(42), int)
 
 # The first argument must be unbound
-bound_method3 = types.MethodType(Foo().bar, Foo())
+bound_method3 = types.MethodType(MethodTypeTest().method, MethodTypeTest())
 assert isinstance(bound_method3, types.MethodType)
-bound_method3(42)  # type: ignore  # pyright: ignore[reportUnnecessaryTypeIgnoreComment]  # pyright bug
+bound_method3(42)  # type: ignore
+
+bound_method4 = types.MethodType(fake_method, MethodTypeTest())
+assert isinstance(bound_method4, types.MethodType)
+bound_method4(42)
 
 # test `types.SimpleNamespace`
 
