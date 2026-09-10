@@ -99,7 +99,9 @@ class MIMEVersionHeader:
 
 class ParameterizedMIMEHeader:
     max_count: ClassVar[Literal[1]]
-    def init(self, name: str, *, parse_tree: TokenList, defects: Iterable[MessageDefect], params: Mapping[str, Incomplete]) -> None: ...
+    def init(
+        self, name: str, *, parse_tree: TokenList, defects: Iterable[MessageDefect], params: Mapping[str, Incomplete]
+    ) -> None: ...
     @property
     def params(self) -> types.MappingProxyType[str, Incomplete]: ...
     @classmethod
