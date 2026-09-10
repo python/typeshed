@@ -10,12 +10,15 @@ _T = TypeVar("_T")
 
 # test `types.MethodType`
 
+
 class MethodTypeTest:
     def method(self, x: int) -> int:
         return x
 
+
 def fake_method(self: MethodTypeTest, x: int) -> int:
     return x
+
 
 bound_method = MethodTypeTest().method
 assert isinstance(bound_method, types.MethodType)
