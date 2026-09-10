@@ -17,7 +17,7 @@ from collections.abc import (
     ValuesView,
 )
 from importlib.machinery import ModuleSpec
-from typing import Any, ClassVar, Generic, Literal, ParamSpec, TypeVar, final, overload
+from typing import Any, ClassVar, Concatenate, Generic, Literal, ParamSpec, TypeVar, final, overload
 from typing_extensions import Self, TypeAliasType, TypeVarTuple, deprecated, disjoint_base
 
 if sys.version_info >= (3, 14):
