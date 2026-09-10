@@ -18,16 +18,16 @@ class Foo:
 
 bound_method = Foo().bar
 assert isinstance(bound_method, types.MethodType)
-assert_type(bound_method(42), int)
+assert_type(bound_method(42), int)  # pyright: ignore[reportAssertTypeFailure]  # pyright bug
 
 bound_method2 = types.MethodType(Foo.bar, Foo())
 assert isinstance(bound_method2, types.MethodType)
-assert_type(bound_method2(42), int)
+assert_type(bound_method2(42), int)  # pyright: ignore[reportCallIssue,reportAssertTypeFailure]  # pyright bug
 
 # The first argument must be unbound
 bound_method3 = types.MethodType(Foo().bar, Foo())
 assert isinstance(bound_method3, types.MethodType)
-bound_method3(42)  # type: ignore
+bound_method3(42)  # type: ignore  # pyright: ignore[reportUnnecessaryTypeIgnoreComment]  # pyright bug
 
 # test `types.SimpleNamespace`
 
