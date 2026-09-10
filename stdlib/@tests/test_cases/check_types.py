@@ -10,9 +10,11 @@ _T = TypeVar("_T")
 
 # test `types.MethodType`
 
+
 class Foo:
     def bar(self, x: int) -> int:
         return x
+
 
 bound_method = Foo().bar
 assert isinstance(bound_method, types.MethodType)
