@@ -1,0 +1,5 @@
+# Don't stub the deprecated params (root, virtual; _unused_param; mydep; _unused)
+portage.dbapi.porttree.portagetree.__init__
+portage.dbapi.porttree.portdbapi.__init__
+portage.dbapi.porttree.portdbapi.xmatch
+portage.package.ebuild.doebuild.doebuild
