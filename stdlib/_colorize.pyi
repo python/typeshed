@@ -2,68 +2,89 @@ import builtins
 import sys
 from collections.abc import Iterator, Mapping
 from dataclasses import dataclass
-from typing import IO, Literal, TypeAlias
+from typing import Any, Final, Literal, TypeAlias
 from typing_extensions import Self
+
+# A protocol with an optional `fileno(self) -> int: ...` member.
+_MaySupportFileno: TypeAlias = Any
 
 COLORIZE: bool
 
+if sys.version_info >= (3, 14):
+    _theme: Theme  # undocumented
+
+if sys.version_info >= (3, 15):
+    BackgroundStyle: TypeAlias = Literal["dark", "light"]
+
 class ANSIColors:
-    RESET: str
-    BLACK: str
-    BLUE: str
-    CYAN: str
-    GREEN: str
-    MAGENTA: str
-    RED: str
-    WHITE: str
-    YELLOW: str
-    BOLD_BLACK: str
-    BOLD_BLUE: str
-    BOLD_CYAN: str
-    BOLD_GREEN: str
-    BOLD_MAGENTA: str
-    BOLD_RED: str
-    BOLD_WHITE: str
-    BOLD_YELLOW: str
-    INTENSE_BLACK: str
-    INTENSE_BLUE: str
-    INTENSE_CYAN: str
-    INTENSE_GREEN: str
-    INTENSE_MAGENTA: str
-    INTENSE_RED: str
-    INTENSE_WHITE: str
-    INTENSE_YELLOW: str
-    BACKGROUND_BLACK: str
-    BACKGROUND_BLUE: str
-    BACKGROUND_CYAN: str
-    BACKGROUND_GREEN: str
-    BACKGROUND_MAGENTA: str
-    BACKGROUND_RED: str
-    BACKGROUND_WHITE: str
-    BACKGROUND_YELLOW: str
-    INTENSE_BACKGROUND_BLACK: str
-    INTENSE_BACKGROUND_BLUE: str
-    INTENSE_BACKGROUND_CYAN: str
-    INTENSE_BACKGROUND_GREEN: str
-    INTENSE_BACKGROUND_MAGENTA: str
-    INTENSE_BACKGROUND_RED: str
-    INTENSE_BACKGROUND_WHITE: str
-    INTENSE_BACKGROUND_YELLOW: str
+    RESET: Final = "\x1b[0m"
+    BLACK: Final = "\x1b[30m"
+    BLUE: Final = "\x1b[34m"
+    CYAN: Final = "\x1b[36m"
+    GREEN: Final = "\x1b[32m"
     if sys.version_info >= (3, 14):
-        BOLD: str
-        GREY: str
+        GREY: Final = "\x1b[90m"
+    MAGENTA: Final = "\x1b[35m"
+    RED: Final = "\x1b[31m"
+    WHITE: Final = "\x1b[37m"
+    YELLOW: Final = "\x1b[33m"
 
-NoColors: ANSIColors
+    if sys.version_info >= (3, 14):
+        BOLD: Final = "\x1b[1m"
+    BOLD_BLACK: Final = "\x1b[1;30m"
+    BOLD_BLUE: Final = "\x1b[1;34m"
+    BOLD_CYAN: Final = "\x1b[1;36m"
+    BOLD_GREEN: Final = "\x1b[1;32m"
+    BOLD_MAGENTA: Final = "\x1b[1;35m"
+    BOLD_RED: Final = "\x1b[1;31m"
+    BOLD_WHITE: Final = "\x1b[1;37m"
+    BOLD_YELLOW: Final = "\x1b[1;33m"
 
-def get_colors(colorize: bool = False, *, file: IO[str] | IO[bytes] | None = None) -> ANSIColors: ...
-def can_colorize(*, file: IO[str] | IO[bytes] | None = None) -> bool: ...
+    INTENSE_BLACK: Final = "\x1b[90m"
+    INTENSE_BLUE: Final = "\x1b[94m"
+    INTENSE_CYAN: Final = "\x1b[96m"
+    INTENSE_GREEN: Final = "\x1b[92m"
+    INTENSE_MAGENTA: Final = "\x1b[95m"
+    INTENSE_RED: Final = "\x1b[91m"
+    INTENSE_WHITE: Final = "\x1b[97m"
+    INTENSE_YELLOW: Final = "\x1b[93m"
+
+    BACKGROUND_BLACK: Final = "\x1b[40m"
+    BACKGROUND_BLUE: Final = "\x1b[44m"
+    BACKGROUND_CYAN: Final = "\x1b[46m"
+    BACKGROUND_GREEN: Final = "\x1b[42m"
+    BACKGROUND_MAGENTA: Final = "\x1b[45m"
+    BACKGROUND_RED: Final = "\x1b[41m"
+    BACKGROUND_WHITE: Final = "\x1b[47m"
+    BACKGROUND_YELLOW: Final = "\x1b[43m"
+
+    INTENSE_BACKGROUND_BLACK: Final = "\x1b[100m"
+    INTENSE_BACKGROUND_BLUE: Final = "\x1b[104m"
+    INTENSE_BACKGROUND_CYAN: Final = "\x1b[106m"
+    INTENSE_BACKGROUND_GREEN: Final = "\x1b[102m"
+    INTENSE_BACKGROUND_MAGENTA: Final = "\x1b[105m"
+    INTENSE_BACKGROUND_RED: Final = "\x1b[101m"
+    INTENSE_BACKGROUND_WHITE: Final = "\x1b[107m"
+    INTENSE_BACKGROUND_YELLOW: Final = "\x1b[103m"
 
 if sys.version_info >= (3, 14):
-    ColorCodes: set[str]
-    _theme: Theme  # undocumented
-    default_theme: Theme
-    theme_no_color: Theme
+    ColorCodes: Final[set[str]]
 
+NoColors: Final[ANSIColors]
+
+if sys.version_info >= (3, 15):
+    class CursesColors:
+        BLACK: Final = 0
+        RED: Final = 1
+        GREEN: Final = 2
+        YELLOW: Final = 3
+        BLUE: Final = 4
+        MAGENTA: Final = 5
+        CYAN: Final = 6
+        WHITE: Final = 7
+        DEFAULT: Final = -1
+
+if sys.version_info >= (3, 14):
     class ThemeSection(Mapping[str, str]):
         def __post_init__(self) -> None: ...
         def copy_with(self, **kwargs: str) -> Self: ...
@@ -73,26 +94,7 @@ if sys.version_info >= (3, 14):
         def __len__(self) -> int: ...
         def __iter__(self) -> Iterator[str]: ...
 
-    def decolor(text: str) -> str: ...
-    def get_theme(
-        *, tty_file: IO[str] | IO[bytes] | None = None, force_color: bool = False, force_no_color: bool = False
-    ) -> Theme: ...
-    def set_theme(t: Theme) -> None: ...
-
 if sys.version_info >= (3, 15):
-    BackgroundStyle: TypeAlias = Literal["dark", "light"]
-
-    class CursesColors:
-        BLACK: int
-        RED: int
-        GREEN: int
-        YELLOW: int
-        BLUE: int
-        MAGENTA: int
-        CYAN: int
-        WHITE: int
-        DEFAULT: int
-
     @dataclass(frozen=True, kw_only=True)
     class Argparse(ThemeSection):
         usage: str = ...
@@ -205,9 +207,9 @@ if sys.version_info >= (3, 15):
         medal_gold_fg: int = ...
         medal_silver_fg: int = ...
         medal_bronze_fg: int = ...
-        background_style: BackgroundStyle = ...
+        background_style: BackgroundStyle = "dark"
 
-    LiveProfilerLight: LiveProfiler
+    LiveProfilerLight: Final[LiveProfiler]
 
     @dataclass(frozen=True, kw_only=True)
     class ProfilerDump(ThemeSection):
@@ -330,8 +332,6 @@ if sys.version_info >= (3, 15):
         @classmethod
         def no_colors(cls) -> Self: ...
 
-    light_profiler_theme: Theme
-
 elif sys.version_info >= (3, 14):
     @dataclass(frozen=True, kw_only=True)
     class Argparse(ThemeSection):
@@ -398,3 +398,21 @@ elif sys.version_info >= (3, 14):
         ) -> Self: ...
         @classmethod
         def no_colors(cls) -> Self: ...
+
+def get_colors(colorize: bool = False, *, file: _MaySupportFileno | None = None) -> ANSIColors: ...
+
+if sys.version_info >= (3, 14):
+    def decolor(text: str) -> str: ...
+
+def can_colorize(*, file: _MaySupportFileno | None = None) -> bool: ...
+
+if sys.version_info >= (3, 14):
+    default_theme: Final[Theme]
+    theme_no_color: Final[Theme]
+    if sys.version_info >= (3, 15):
+        light_profiler_theme: Final[Theme]
+
+    def get_theme(
+        *, tty_file: _MaySupportFileno | None = None, force_color: bool = False, force_no_color: bool = False
+    ) -> Theme: ...
+    def set_theme(t: Theme) -> None: ...
