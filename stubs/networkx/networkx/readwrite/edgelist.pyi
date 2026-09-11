@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, StrPath, SupportsRead, SupportsWrite
 from collections.abc import Generator, Iterable
 
-from networkx.classes.graph import Graph, _Node
+from networkx.classes.graph import Graph, _EdgeData, _Node, _NodeData
 from networkx.utils.backends import _dispatchable
 
 __all__ = [
@@ -13,9 +13,11 @@ __all__ = [
     "write_weighted_edgelist",
 ]
 
-def generate_edgelist(G: Graph[_Node], delimiter: str = " ", data: bool = True) -> Generator[Incomplete]: ...
+def generate_edgelist(
+    G: Graph[_Node, _NodeData, _EdgeData], delimiter: str = " ", data: bool = True
+) -> Generator[Incomplete]: ...
 def write_edgelist(
-    G: Graph[_Node],
+    G: Graph[_Node, _NodeData, _EdgeData],
     path: StrPath | SupportsWrite[bytes],
     comments: str = "#",
     delimiter: str = " ",
@@ -43,7 +45,11 @@ def read_edgelist(
     encoding: str = "utf-8",
 ) -> Graph[Incomplete]: ...
 def write_weighted_edgelist(
-    G: Graph[_Node], path: StrPath | SupportsWrite[bytes], comments: str = "#", delimiter: str = " ", encoding: str = "utf-8"
+    G: Graph[_Node, _NodeData, _EdgeData],
+    path: StrPath | SupportsWrite[bytes],
+    comments: str = "#",
+    delimiter: str = " ",
+    encoding: str = "utf-8",
 ) -> None: ...
 @_dispatchable
 def read_weighted_edgelist(

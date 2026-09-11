@@ -4,7 +4,7 @@ from typing import Literal, TypeAlias, TypeVar, overload
 
 import numpy
 import numpy as np
-from networkx.classes.graph import Graph, _Node
+from networkx.classes.graph import Graph, _EdgeData, _Node, _NodeData
 from networkx.utils.backends import _dispatchable
 
 # stub_uploader won't allow pandas-stubs in the requires field https://github.com/typeshed-internal/stub_uploader/issues/90
@@ -30,7 +30,7 @@ __all__ = [
 
 @_dispatchable
 def to_pandas_adjacency(
-    G: Graph[_Node],
+    G: Graph[_Node, _NodeData, _EdgeData],
     nodelist: _Axes[_Node] | None = None,
     dtype: numpy.dtype[Incomplete] | None = None,
     order: numpy._OrderCF = None,
@@ -38,22 +38,19 @@ def to_pandas_adjacency(
     weight: str = "weight",
     nonedge: float = 0.0,
 ) -> _DataFrame: ...
-
 @overload
 def from_pandas_adjacency(df: _DataFrame, create_using: type[_G]) -> _G: ...
 @overload
 def from_pandas_adjacency(df: _DataFrame, create_using: None = None) -> Graph[Incomplete]: ...
-
 @_dispatchable
 def to_pandas_edgelist(
-    G: Graph[_Node],
+    G: Graph[_Node, _NodeData, _EdgeData],
     source: str | int = "source",
     target: str | int = "target",
     nodelist: Iterable[_Node] | None = None,
     dtype: _ExtensionDtype | None = None,
     edge_key: str | int | None = None,
 ) -> _DataFrame: ...
-
 @overload
 def from_pandas_edgelist(
     df: _DataFrame,
@@ -82,10 +79,9 @@ def from_pandas_edgelist(
     create_using: None = None,
     edge_key: str | None = None,
 ) -> Graph[Incomplete]: ...
-
 @_dispatchable
 def to_scipy_sparse_array(
-    G: Graph[_Node],
+    G: Graph[_Node, _NodeData, _EdgeData],
     nodelist: Collection[_Node] | None = None,
     dtype: np.dtype[Incomplete] | None = None,
     weight: str | None = "weight",
@@ -100,7 +96,7 @@ def from_scipy_sparse_array(
 ): ...
 @_dispatchable
 def to_numpy_array(
-    G: Graph[_Node],
+    G: Graph[_Node, _NodeData, _EdgeData],
     nodelist: Collection[_Node] | None = None,
     dtype: numpy.dtype[Incomplete] | None = None,
     order: numpy._OrderCF = None,
@@ -108,7 +104,6 @@ def to_numpy_array(
     weight: str = "weight",
     nonedge: float = 0.0,
 ) -> numpy.ndarray[Incomplete, numpy.dtype[Incomplete]]: ...
-
 @overload
 def from_numpy_array(
     A: numpy.ndarray[Incomplete, Incomplete], parallel_edges: bool = False, create_using: None = None

@@ -1,14 +1,14 @@
 from _typeshed import Incomplete, StrPath, SupportsRead, SupportsWrite
 from collections.abc import Generator, Iterable
 
-from networkx.classes.graph import Graph, _Node
+from networkx.classes.graph import Graph, _EdgeData, _Node, _NodeData
 from networkx.classes.multidigraph import MultiDiGraph
 from networkx.utils.backends import _dispatchable
 
 __all__ = ["read_pajek", "parse_pajek", "generate_pajek", "write_pajek"]
 
-def generate_pajek(G: Graph[_Node]) -> Generator[Incomplete]: ...
-def write_pajek(G: Graph[_Node], path: StrPath | SupportsWrite[bytes], encoding: str = "UTF-8") -> None: ...
+def generate_pajek(G: Graph[_Node, _NodeData, _EdgeData]) -> Generator[Incomplete]: ...
+def write_pajek(G: Graph[_Node, _NodeData, _EdgeData], path: StrPath | SupportsWrite[bytes], encoding: str = "UTF-8") -> None: ...
 @_dispatchable
 def read_pajek(path: StrPath | SupportsRead[bytes], encoding: str = "UTF-8") -> MultiDiGraph[Incomplete]: ...
 @_dispatchable
