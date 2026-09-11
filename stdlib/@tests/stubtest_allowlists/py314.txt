@@ -95,6 +95,8 @@ importlib.abc.FileLoader.load_module
 # Allowlist entries that cannot or should not be fixed; >= 3.14
 # =============================================================
 
+_colorize.code  # Loop variable that leaks into the module namespace
+
 # Undocumented private attributes
 .*\.ForwardRef\.__arg__
 .*\.ForwardRef\.__ast_node__
@@ -134,6 +136,7 @@ multiprocessing.managers._BaseDictProxy.__reversed__
 # method so code typing the loop as `AbstractEventLoop` can still pass `cleanup_socket=...`. See #15742.
 asyncio.events.AbstractEventLoop.create_unix_server
 
+_colorize.attr  # Loop variable that leaks into the module namespace
 _pyrepl\..+  # The internal implementation of the REPL on py313+; not for public consumption
 codecs.backslashreplace_errors  # Runtime incorrectly has `self`
 codecs.ignore_errors  # Runtime incorrectly has `self`
