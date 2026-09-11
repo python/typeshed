@@ -3,7 +3,7 @@ from collections.abc import Collection
 from typing import Any, Literal
 
 from networkx._typing import Array2D
-from networkx.classes.graph import Graph, _Node
+from networkx.classes.graph import Graph, _EdgeData, _Node, _NodeData
 from networkx.utils.backends import _dispatchable
 from numpy.typing import DTypeLike
 from scipy.sparse import lil_array  # type: ignore[import-untyped]  # pyright: ignore[reportMissingImports]
@@ -12,7 +12,7 @@ __all__ = ["attr_matrix", "attr_sparse_matrix"]
 
 @_dispatchable
 def attr_matrix(
-    G: Graph[_Node],
+    G: Graph[_Node, _NodeData, _EdgeData],
     edge_attr: str | None = None,
     node_attr: str | None = None,  # runtime also accepts `Callable[[_Node], object]`, but it is not documented
     normalized: bool = False,  # runtime also accepts `Callable[[_Node, _Node], object]`, but it is not documented
@@ -27,7 +27,7 @@ def attr_matrix(
 ) -> Array2D[Incomplete] | tuple[Array2D[Incomplete], list[_Node] | list[Any]]: ...
 @_dispatchable
 def attr_sparse_matrix(
-    G: Graph[_Node],
+    G: Graph[_Node, _NodeData, _EdgeData],
     edge_attr: str | None = None,
     node_attr: str | None = None,  # runtime also accepts `Callable[[_Node], object]`, but it is not documented
     normalized: bool = False,  # runtime also accepts `Callable[[_Node, _Node], object]`, but it is not documented
