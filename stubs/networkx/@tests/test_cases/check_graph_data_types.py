@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from collections.abc import Iterator, Mapping
 from typing import Any
-
 from typing_extensions import assert_type
 
 import networkx as nx
