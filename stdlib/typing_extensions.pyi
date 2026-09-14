@@ -730,7 +730,7 @@ if sys.version_info >= (3, 15):
     from builtins import sentinel as sentinel
 else:
     class sentinel:
-        def __init__(self, name: str, /, *, repr: str | None = None) -> None: ...
+        def __init__(self, name: LiteralString, /, *, repr: str | None = None) -> None: ...
         __name__: str
         __module__: str
         if sys.version_info >= (3, 14):
