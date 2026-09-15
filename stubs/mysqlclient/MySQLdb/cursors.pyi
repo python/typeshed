@@ -1,8 +1,8 @@
 from _typeshed import Incomplete
 from collections.abc import Iterable
 from re import Pattern
-from typing import Literal, Self, TypeAlias
-from typing_extensions import LiteralString
+from typing import Literal, TypeAlias
+from typing_extensions import LiteralString, Self
 
 from .connections import _Literal
 
