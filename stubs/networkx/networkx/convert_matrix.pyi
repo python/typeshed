@@ -4,7 +4,7 @@ from typing import Literal, TypeAlias, TypeVar, overload
 
 import numpy
 import numpy as np
-from networkx.classes.graph import Graph, _Node
+from networkx.classes.graph import Graph, _EdgeData, _Node, _NodeData
 from networkx.utils.backends import _dispatchable
 
 # stub_uploader won't allow pandas-stubs in the requires field https://github.com/typeshed-internal/stub_uploader/issues/90
@@ -30,7 +30,7 @@ __all__ = [
 
 @_dispatchable
 def to_pandas_adjacency(
-    G: Graph[_Node],
+    G: Graph[_Node, _NodeData, _EdgeData],
     nodelist: _Axes[_Node] | None = None,
     dtype: numpy.dtype[Incomplete] | None = None,
     order: numpy._OrderCF = None,
@@ -46,7 +46,7 @@ def from_pandas_adjacency(df: _DataFrame, create_using: None = None) -> Graph[In
 
 @_dispatchable
 def to_pandas_edgelist(
-    G: Graph[_Node],
+    G: Graph[_Node, _NodeData, _EdgeData],
     source: str | int = "source",
     target: str | int = "target",
     nodelist: Iterable[_Node] | None = None,
@@ -85,7 +85,7 @@ def from_pandas_edgelist(
 
 @_dispatchable
 def to_scipy_sparse_array(
-    G: Graph[_Node],
+    G: Graph[_Node, _NodeData, _EdgeData],
     nodelist: Collection[_Node] | None = None,
     dtype: np.dtype[Incomplete] | None = None,
     weight: str | None = "weight",
@@ -100,7 +100,7 @@ def from_scipy_sparse_array(
 ): ...
 @_dispatchable
 def to_numpy_array(
-    G: Graph[_Node],
+    G: Graph[_Node, _NodeData, _EdgeData],
     nodelist: Collection[_Node] | None = None,
     dtype: numpy.dtype[Incomplete] | None = None,
     order: numpy._OrderCF = None,

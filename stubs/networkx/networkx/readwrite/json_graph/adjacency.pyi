@@ -1,13 +1,15 @@
 from _typeshed import Incomplete
 from typing import Any
 
-from networkx.classes.graph import Graph, _Node
+from networkx.classes.graph import Graph, _EdgeData, _Node, _NodeData
 from networkx.utils.backends import _dispatchable
 
 __all__ = ["adjacency_data", "adjacency_graph"]
 
 # Any: Complex type union
-def adjacency_data(G: Graph[_Node], attrs: dict[Incomplete, Incomplete] = {"id": "id", "key": "key"}) -> dict[str, Any]: ...
+def adjacency_data(
+    G: Graph[_Node, _NodeData, _EdgeData], attrs: dict[Incomplete, Incomplete] = {"id": "id", "key": "key"}
+) -> dict[str, Any]: ...
 @_dispatchable
 def adjacency_graph(
     data: dict[Incomplete, Incomplete],
