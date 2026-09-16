@@ -1,6 +1,7 @@
 from _typeshed import Incomplete
-from collections.abc import Callable, Sequence
-from typing import Any, ClassVar, Final, Literal, TypeAlias
+from collections.abc import Callable, Mapping, Sequence
+from typing import Any, ClassVar, Final, Generic, Literal, TypeAlias
+from typing_extensions import TypeVar
 
 from docutils import nodes, parsers
 from docutils.parsers.rst.states import Inliner, RSTState, RSTStateMachine
@@ -9,6 +10,8 @@ from docutils.transforms import Transform
 from docutils.utils import Reporter
 
 __docformat__: Final = "reStructuredText"
+
+_OptionsT = TypeVar("_OptionsT", bound=Mapping[str, object], default=dict[str, Incomplete])
 
 class Parser(parsers.Parser):
     config_section_dependencies: ClassVar[tuple[str, ...]]
@@ -25,7 +28,7 @@ class DirectiveError(Exception):
     msg: str
     def __init__(self, level: int, message: str) -> None: ...
 
-class Directive:
+class Directive(Generic[_OptionsT]):
     required_arguments: ClassVar[int]
     optional_arguments: ClassVar[int]
     final_argument_whitespace: ClassVar[bool]
@@ -33,7 +36,7 @@ class Directive:
     has_content: ClassVar[bool]
     name: str
     arguments: list[str]
-    options: dict[str, Incomplete]
+    options: _OptionsT
     content: StringList
     lineno: int
     content_offset: int
@@ -45,7 +48,7 @@ class Directive:
         self,
         name: str,
         arguments: list[str],
-        options: dict[str, Incomplete],
+        options: _OptionsT,
         content: StringList,
         lineno: int,
         content_offset: int,
