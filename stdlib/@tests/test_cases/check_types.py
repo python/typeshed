@@ -79,7 +79,7 @@ if sys.version_info >= (3, 11):
     union_type = int | list[_T]
 
     # ideally this would be `_SpecialForm` (Union)
-    assert_type(union_type | Literal[1], types.UnionType | Any)
+    assert_type(union_type | Literal[1], types.UnionType | Literal[1])
     # Both mypy and pyright special-case this operation,
     # but in different ways, so we just check that no error is emitted:
     _ = union_type[int]
