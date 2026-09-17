@@ -30,6 +30,7 @@ class TaskGroup:
             name: str | None = None,
             context: Context | None = None,
             eager_start: bool | None = None,
+            **kwargs: Any,
         ) -> Task[_T]: ...
     else:
         def create_task(
