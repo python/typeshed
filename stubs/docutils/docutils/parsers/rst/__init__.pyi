@@ -33,7 +33,7 @@ class Directive:
     has_content: ClassVar[bool]
     name: str
     arguments: list[str]
-    options: dict[str, Incomplete]
+    options: Incomplete
     content: StringList
     lineno: int
     content_offset: int
