@@ -1,12 +1,12 @@
 import re
-from collections.abc import Iterable, Iterator, Mapping
+from collections.abc import Iterable, Iterator
 from typing import Any, ClassVar, TypeAlias, overload
 from typing_extensions import Self, deprecated
 
 from .connections import Connection
 
 RE_INSERT_VALUES: re.Pattern[str]
-_Args: TypeAlias = list[Any] | tuple[Any, ...] | Mapping[str, Any]
+_Args: TypeAlias = list[Any] | tuple[Any, ...] | dict[str, Any]
 
 class Cursor:
     max_stmt_length: ClassVar[int]
