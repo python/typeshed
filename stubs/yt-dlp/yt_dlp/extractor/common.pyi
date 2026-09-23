@@ -909,6 +909,8 @@ class InfoExtractor:
     def _cookies_passed(self) -> bool: ...
     def _mark_watched(self, *args: Any, **kwargs: Any) -> Any: ...  # Not implemented here.
     @staticmethod
+    def _generate_blockbuster_headers(*, min_headers: int = 2, max_headers: int = 8) -> dict[str, str]: ...
+    @staticmethod
     def _generic_id(url: str) -> str: ...
     def _generic_title(self, url: str = "", webpage: str = "", *, default: str | None = None) -> str | None: ...
     def _extract_chapters_helper(
@@ -943,7 +945,7 @@ class InfoExtractor:
         self,
         url: str,
         *args: Unused,
-        info_dict: _InfoDict = {},  # type: ignore[typeddict-item]  # pyright: ignore[reportArgumentType]  # ty:ignore[missing-typed-dict-key]
+        info_dict: _InfoDict = {},  # type: ignore[typeddict-item]  # pyright: ignore[reportArgumentType]  # ty:ignore[missing-typed-dict-key]  # pyrefly: ignore [bad-typed-dict-key]
         note: str = "Extracting generic embeds",
         **kwargs: Unused,
     ) -> list[dict[str, Any]]: ...

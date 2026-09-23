@@ -8,7 +8,8 @@ from functools import wraps as wraps
 from importlib.util import spec_from_loader as spec_from_loader
 from io import BytesIO as BytesIO, StringIO as StringIO
 from re import Pattern
-from typing import Any, AnyStr, Literal, NoReturn, TypeVar, overload
+from typing import Any, AnyStr, Literal, TypeVar, overload
+from typing_extensions import Never
 
 from six import moves as moves
 
@@ -76,8 +77,8 @@ def assertNotRegex(self: unittest.TestCase, text: AnyStr, expected_regex: AnyStr
 
 exec_ = exec
 
-def reraise(tp: type[BaseException] | None, value: BaseException | None, tb: types.TracebackType | None = None) -> NoReturn: ...
-def raise_from(value: BaseException | type[BaseException], from_value: BaseException | None) -> NoReturn: ...
+def reraise(tp: type[BaseException] | None, value: BaseException | None, tb: types.TracebackType | None = None) -> Never: ...
+def raise_from(value: BaseException | type[BaseException], from_value: BaseException | None) -> Never: ...
 
 print_ = print
 

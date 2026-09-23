@@ -11,7 +11,7 @@ _Timeout = TypeVar("_Timeout", bound=object, default=object)
 
 @type_check_only
 class _SupportsCancel(Protocol):
-    def cancel(self): ...
+    def cancel(self) -> bool: ...
 
 class AbstractSelectorIOLoop(Generic[_Timeout], metaclass=abc.ABCMeta):
     @property

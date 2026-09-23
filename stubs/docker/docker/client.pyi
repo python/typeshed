@@ -1,7 +1,8 @@
 from _typeshed import Incomplete
 from collections.abc import Iterable, Mapping
 from datetime import datetime
-from typing import Any, Literal, NoReturn, Protocol, overload, type_check_only
+from typing import Any, Literal, Protocol, overload, type_check_only
+from typing_extensions import Never
 
 from docker import APIClient
 from docker.models.configs import ConfigCollection
@@ -120,7 +121,7 @@ class DockerClient:
     # Please keep in sync with docker.api.daemon.DaemonApiMixin.version
     def version(self, api_version: bool = True) -> dict[str, Any]: ...
     def close(self) -> None: ...
-    def __getattr__(self, name: str) -> NoReturn: ...
+    def __getattr__(self, name: str) -> Never: ...
 
 from_env = DockerClient.from_env
 from_context = DockerClient.from_context

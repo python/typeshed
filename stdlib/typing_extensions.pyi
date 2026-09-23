@@ -215,12 +215,15 @@ _T_contra = _TypeVar("_T_contra", contravariant=True)
 if sys.version_info < (3, 15):
     def no_type_check_decorator(decorator: _F) -> _F: ...
 
+@type_check_only
+class _Protocol: ...
+
 # Do not import (and re-export) Protocol or runtime_checkable from
 # typing module because type checkers need to be able to distinguish
 # typing.Protocol and typing_extensions.Protocol so they can properly
 # warn users about potential runtime exceptions when using typing.Protocol
 # on older versions of Python.
-Protocol: _SpecialForm
+Protocol: type[_Protocol]
 
 def runtime_checkable(cls: _TC) -> _TC: ...
 
@@ -389,7 +392,7 @@ else:
     # At runtime it inherits from ABC and is not a Protocol, but it is on the
     # allowlist for use as a Protocol.
     @runtime_checkable
-    class Buffer(Protocol, abc.ABC):  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]  # ty:ignore[invalid-protocol]
+    class Buffer(Protocol, abc.ABC):  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]  # ty:ignore[invalid-protocol]  # pyrefly: ignore [invalid-inheritance]
         # Not actually a Protocol at runtime; see
         # https://github.com/python/typeshed/issues/10224 for why we're defining it this way
         def __buffer__(self, flags: int, /) -> memoryview: ...
@@ -629,7 +632,7 @@ else:
         def __module__(self) -> str | None: ...  # type: ignore[override]
         # Returns typing._GenericAlias, which isn't stubbed.
         def __getitem__(self, parameters: Incomplete | tuple[Incomplete, ...]) -> AnnotationForm: ...
-        def __init_subclass__(cls, *args: Unused, **kwargs: Unused) -> NoReturn: ...
+        def __init_subclass__(cls, *args: Unused, **kwargs: Unused) -> Never: ...
         def __or__(self, right: Any, /) -> _SpecialForm: ...
         def __ror__(self, left: Any, /) -> _SpecialForm: ...
 

@@ -5,8 +5,8 @@ from builtins import list as _list  # "list" conflicts with method name
 from collections.abc import Callable, Container, Mapping, MutableMapping
 from reprlib import Repr
 from types import MethodType, ModuleType, TracebackType
-from typing import IO, Any, AnyStr, Final, NoReturn, Protocol, TypeGuard, TypeVar, overload, type_check_only
-from typing_extensions import deprecated
+from typing import IO, Any, AnyStr, Final, Protocol, TypeGuard, TypeVar, overload, type_check_only
+from typing_extensions import Never, deprecated
 
 __all__ = ["help"]
 
@@ -60,7 +60,7 @@ class Doc:
         STDLIB_DIR: str
 
     def document(self, object: object, name: str | None = None, *args: Any) -> str: ...
-    def fail(self, object: object, name: str | None = None, *args: Any) -> NoReturn: ...
+    def fail(self, object: object, name: str | None = None, *args: Any) -> Never: ...
     @abstractmethod
     def docmodule(self, object: object, name: str | None = None, *args: Any) -> str: ...
     @abstractmethod
@@ -90,8 +90,8 @@ class HTMLRepr(Repr):
 
 class HTMLDoc(Doc):
     _repr_instance: HTMLRepr
-    repr = _repr_instance.repr
-    escape = _repr_instance.escape
+    repr = _repr_instance.repr  # pyrefly: ignore [unknown-name]
+    escape = _repr_instance.escape  # pyrefly: ignore [unknown-name]
     def page(self, title: str, contents: str) -> str: ...
     if sys.version_info >= (3, 11):
         def heading(self, title: str, extras: str = "") -> str: ...
@@ -197,7 +197,7 @@ class TextRepr(Repr):
 
 class TextDoc(Doc):
     _repr_instance: TextRepr
-    repr = _repr_instance.repr
+    repr = _repr_instance.repr  # pyrefly: ignore [unknown-name]
     def bold(self, text: str) -> str: ...
     def indent(self, text: str, prefix: str = "    ") -> str: ...
     def section(self, title: str, contents: str) -> str: ...
