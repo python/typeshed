@@ -3,9 +3,7 @@ from collections.abc import Callable, Generator, Iterable, Iterator, Sequence
 from typing import Any, Final, Literal, overload, type_check_only
 from typing_extensions import Never, Self
 
-import numpy
 from _cffi_backend import _CDataBase
-from numpy.typing import NDArray
 
 # Aka jack_position_t
 # Actual type: _cffi_backend.__CDataOwn <cdata 'struct _jack_position *'>
@@ -241,7 +239,9 @@ class OwnPort(Port):
     def disconnect(self, other: str | Port | None = None) -> None: ...
     def unregister(self) -> None: ...
     def get_buffer(self) -> _CBufferType: ...
-    def get_array(self) -> NDArray[numpy.float32]: ...
+    # Returns a numpy.typing.NDArray[numpy.float32], but JACK-Client no longer
+    # declares NumPy as a dependency, so we cannot depend on it here.
+    def get_array(self) -> Any: ...
 
 class OwnMidiPort(MidiPort, OwnPort):
     def __init__(self, port_ptr: _CDataBase, client: Client) -> None: ...
