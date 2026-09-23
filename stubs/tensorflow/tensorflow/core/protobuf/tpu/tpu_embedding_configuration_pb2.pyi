@@ -3,36 +3,33 @@
 isort:skip_file
 """
 
-import builtins
-import collections.abc
+import builtins as _builtins
 import sys
-import typing
+import typing as _typing
+from collections import abc as _abc
 
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.internal.enum_type_wrapper
-import google.protobuf.message
-import tensorflow.core.protobuf.tpu.optimization_parameters_pb2
+from google.protobuf import descriptor as _descriptor, message as _message
+from google.protobuf.internal import containers as _containers, enum_type_wrapper as _enum_type_wrapper
+from tensorflow.core.protobuf.tpu import optimization_parameters_pb2 as _optimization_parameters_pb2
 
-if sys.version_info >= (3, 10):
-    import typing as typing_extensions
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
 else:
-    import typing_extensions
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+DESCRIPTOR: _descriptor.FileDescriptor
 
-@typing.final
-class TPUEmbeddingConfiguration(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class TPUEmbeddingConfiguration(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _Mode:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _ModeEnumTypeWrapper(
-        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[TPUEmbeddingConfiguration._Mode.ValueType], builtins.type
-    ):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _ModeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[TPUEmbeddingConfiguration._Mode.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         UNSPECIFIED: TPUEmbeddingConfiguration._Mode.ValueType  # 0
         INFERENCE: TPUEmbeddingConfiguration._Mode.ValueType  # 1
         TRAINING: TPUEmbeddingConfiguration._Mode.ValueType  # 2
@@ -49,14 +46,13 @@ class TPUEmbeddingConfiguration(google.protobuf.message.Message):
     BACKWARD_PASS_ONLY: TPUEmbeddingConfiguration.Mode.ValueType  # 3
 
     class _ShardingStrategy:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
     class _ShardingStrategyEnumTypeWrapper(
-        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[TPUEmbeddingConfiguration._ShardingStrategy.ValueType],
-        builtins.type,
+        _enum_type_wrapper._EnumTypeWrapper[TPUEmbeddingConfiguration._ShardingStrategy.ValueType], _builtins.type
     ):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        DESCRIPTOR: _descriptor.EnumDescriptor
         DIV_DEFAULT: TPUEmbeddingConfiguration._ShardingStrategy.ValueType  # 0
         MOD: TPUEmbeddingConfiguration._ShardingStrategy.ValueType  # 1
 
@@ -78,27 +74,27 @@ class TPUEmbeddingConfiguration(google.protobuf.message.Message):
     DIV_DEFAULT: TPUEmbeddingConfiguration.ShardingStrategy.ValueType  # 0
     MOD: TPUEmbeddingConfiguration.ShardingStrategy.ValueType  # 1
 
-    @typing.final
-    class TableDescriptor(google.protobuf.message.Message):
+    @_typing.final
+    class TableDescriptor(_message.Message):
         """Description of the various embedding tables."""
 
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+        DESCRIPTOR: _descriptor.Descriptor
 
-        NAME_FIELD_NUMBER: builtins.int
-        VOCABULARY_SIZE_FIELD_NUMBER: builtins.int
-        DIMENSION_FIELD_NUMBER: builtins.int
-        NUM_FEATURES_FIELD_NUMBER: builtins.int
-        OPTIMIZATION_PARAMETERS_FIELD_NUMBER: builtins.int
-        name: builtins.str
+        NAME_FIELD_NUMBER: _builtins.int
+        VOCABULARY_SIZE_FIELD_NUMBER: _builtins.int
+        DIMENSION_FIELD_NUMBER: _builtins.int
+        NUM_FEATURES_FIELD_NUMBER: _builtins.int
+        OPTIMIZATION_PARAMETERS_FIELD_NUMBER: _builtins.int
+        name: _builtins.str
         """Name of the table."""
-        vocabulary_size: builtins.int
+        vocabulary_size: _builtins.int
         """Size of the vocabulary (i.e., number of rows) in the table."""
-        dimension: builtins.int
+        dimension: _builtins.int
         """The embedding dimension (i.e., the width of the embedding table)."""
-        num_features: builtins.int
+        num_features: _builtins.int
         """Number of features mapped to this table."""
-        @property
-        def optimization_parameters(self) -> tensorflow.core.protobuf.tpu.optimization_parameters_pb2.OptimizationParameters:
+        @_builtins.property
+        def optimization_parameters(self) -> _optimization_parameters_pb2.OptimizationParameters:
             """Details of the learning algorithm used to update the embedding
             parameters.
             """
@@ -106,46 +102,44 @@ class TPUEmbeddingConfiguration(google.protobuf.message.Message):
         def __init__(
             self,
             *,
-            name: builtins.str | None = ...,
-            vocabulary_size: builtins.int | None = ...,
-            dimension: builtins.int | None = ...,
-            num_features: builtins.int | None = ...,
-            optimization_parameters: tensorflow.core.protobuf.tpu.optimization_parameters_pb2.OptimizationParameters | None = ...,
+            name: _builtins.str | None = ...,
+            vocabulary_size: _builtins.int | None = ...,
+            dimension: _builtins.int | None = ...,
+            num_features: _builtins.int | None = ...,
+            optimization_parameters: _optimization_parameters_pb2.OptimizationParameters | None = ...,
         ) -> None: ...
-        def HasField(
-            self, field_name: typing.Literal["optimization_parameters", b"optimization_parameters"]
-        ) -> builtins.bool: ...
-        def ClearField(
-            self,
-            field_name: typing.Literal[
-                "dimension",
-                b"dimension",
-                "name",
-                b"name",
-                "num_features",
-                b"num_features",
-                "optimization_parameters",
-                b"optimization_parameters",
-                "vocabulary_size",
-                b"vocabulary_size",
-            ],
-        ) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["optimization_parameters", b"optimization_parameters"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal[
+            "dimension",
+            b"dimension",
+            "name",
+            b"name",
+            "num_features",
+            b"num_features",
+            "optimization_parameters",
+            b"optimization_parameters",
+            "vocabulary_size",
+            b"vocabulary_size",
+        ]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    @typing.final
-    class FeatureDescriptor(google.protobuf.message.Message):
+    @_typing.final
+    class FeatureDescriptor(_message.Message):
         """Description of different input features."""
 
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+        DESCRIPTOR: _descriptor.Descriptor
 
-        NAME_FIELD_NUMBER: builtins.int
-        TABLE_ID_FIELD_NUMBER: builtins.int
-        INPUT_SHAPE_FIELD_NUMBER: builtins.int
-        name: builtins.str
+        NAME_FIELD_NUMBER: _builtins.int
+        TABLE_ID_FIELD_NUMBER: _builtins.int
+        INPUT_SHAPE_FIELD_NUMBER: _builtins.int
+        name: _builtins.str
         """Name of the input feature."""
-        table_id: builtins.int
+        table_id: _builtins.int
         """Index of the corresponding table in the TableDescriptor list."""
-        @property
-        def input_shape(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+        @_builtins.property
+        def input_shape(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]:
             """Static shape of the inputs (excluding the reduction axis). Note that
             the shape of the actual inputs provided using the infeed op must be
             strictly smaller than input_shape. The outputs received at the TensorCore
@@ -158,56 +152,89 @@ class TPUEmbeddingConfiguration(google.protobuf.message.Message):
         def __init__(
             self,
             *,
-            name: builtins.str | None = ...,
-            table_id: builtins.int | None = ...,
-            input_shape: collections.abc.Iterable[builtins.int] | None = ...,
+            name: _builtins.str | None = ...,
+            table_id: _builtins.int | None = ...,
+            input_shape: _abc.Iterable[_builtins.int] | None = ...,
         ) -> None: ...
-        def ClearField(
-            self, field_name: typing.Literal["input_shape", b"input_shape", "name", b"name", "table_id", b"table_id"]
-        ) -> None: ...
+        _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal[
+            "input_shape", b"input_shape", "name", b"name", "table_id", b"table_id"
+        ]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    @typing.final
-    class SpmdSharding(google.protobuf.message.Message):
+    @_typing.final
+    class SpmdSharding(_message.Message):
         """SPMD (Single Program Multiple Data) sharding configuration for
         TPUEmbedding. When model parallelism is used on the TensorCore, the number
         of cores per replica must be passed to TPUEmbedding so that the right
         shapes can be computed in the TF/XLA bridge.
         """
 
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+        DESCRIPTOR: _descriptor.Descriptor
 
-        ENABLED_FIELD_NUMBER: builtins.int
-        NUM_CORES_PER_REPLICA_FIELD_NUMBER: builtins.int
-        enabled: builtins.bool
+        ENABLED_FIELD_NUMBER: _builtins.int
+        NUM_CORES_PER_REPLICA_FIELD_NUMBER: _builtins.int
+        USE_MANUAL_PARTITIONING_FIELD_NUMBER: _builtins.int
+        USE_SHARDY_PARTITIONER_FIELD_NUMBER: _builtins.int
+        enabled: _builtins.bool
         """Whether SPMD sharding is enabled."""
-        num_cores_per_replica: builtins.int
+        num_cores_per_replica: _builtins.int
         """Number of cores per replica."""
-        def __init__(self, *, enabled: builtins.bool | None = ..., num_cores_per_replica: builtins.int | None = ...) -> None: ...
-        def ClearField(
-            self, field_name: typing.Literal["enabled", b"enabled", "num_cores_per_replica", b"num_cores_per_replica"]
+        use_manual_partitioning: _builtins.bool
+        """If true, the tensors are manually partitioned. Otherwise, use the
+        automatic SPMD partitioning. This should be true when users use
+        `shard_map`.
+        """
+        use_shardy_partitioner: _builtins.bool
+        """If true, lowers to Shardy custom-call for manual partitioning.
+        Default is false.
+        """
+        def __init__(
+            self,
+            *,
+            enabled: _builtins.bool | None = ...,
+            num_cores_per_replica: _builtins.int | None = ...,
+            use_manual_partitioning: _builtins.bool | None = ...,
+            use_shardy_partitioner: _builtins.bool | None = ...,
         ) -> None: ...
+        _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal[
+            "enabled",
+            b"enabled",
+            "num_cores_per_replica",
+            b"num_cores_per_replica",
+            "use_manual_partitioning",
+            b"use_manual_partitioning",
+            "use_shardy_partitioner",
+            b"use_shardy_partitioner",
+        ]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    TABLE_DESCRIPTOR_FIELD_NUMBER: builtins.int
-    MODE_FIELD_NUMBER: builtins.int
-    BATCH_SIZE_PER_TENSOR_CORE_FIELD_NUMBER: builtins.int
-    NUM_HOSTS_FIELD_NUMBER: builtins.int
-    NUM_TENSOR_CORES_FIELD_NUMBER: builtins.int
-    SHARDING_STRATEGY_FIELD_NUMBER: builtins.int
-    PIPELINE_EXECUTION_WITH_TENSOR_CORE_FIELD_NUMBER: builtins.int
-    PROFILE_DATA_DIRECTORY_FIELD_NUMBER: builtins.int
-    FEATURE_DESCRIPTOR_FIELD_NUMBER: builtins.int
-    SPMD_SHARDING_FIELD_NUMBER: builtins.int
-    mode: global___TPUEmbeddingConfiguration.Mode.ValueType
-    batch_size_per_tensor_core: builtins.int
+    TABLE_DESCRIPTOR_FIELD_NUMBER: _builtins.int
+    MODE_FIELD_NUMBER: _builtins.int
+    BATCH_SIZE_PER_TENSOR_CORE_FIELD_NUMBER: _builtins.int
+    NUM_HOSTS_FIELD_NUMBER: _builtins.int
+    NUM_TENSOR_CORES_FIELD_NUMBER: _builtins.int
+    SHARDING_STRATEGY_FIELD_NUMBER: _builtins.int
+    PIPELINE_EXECUTION_WITH_TENSOR_CORE_FIELD_NUMBER: _builtins.int
+    PROFILE_DATA_DIRECTORY_FIELD_NUMBER: _builtins.int
+    FEATURE_DESCRIPTOR_FIELD_NUMBER: _builtins.int
+    SPMD_SHARDING_FIELD_NUMBER: _builtins.int
+    mode: Global___TPUEmbeddingConfiguration.Mode.ValueType
+    batch_size_per_tensor_core: _builtins.int
     """Number of samples in each batch of embedding layer activations sent to
     the TensorCore.
     """
-    num_hosts: builtins.int
+    num_hosts: _builtins.int
     """Number of TPU hosts used for inference/training."""
-    num_tensor_cores: builtins.int
+    num_tensor_cores: _builtins.int
     """Number of TensorCore used for inference/training."""
-    sharding_strategy: global___TPUEmbeddingConfiguration.ShardingStrategy.ValueType
-    pipeline_execution_with_tensor_core: builtins.bool
+    sharding_strategy: Global___TPUEmbeddingConfiguration.ShardingStrategy.ValueType
+    pipeline_execution_with_tensor_core: _builtins.bool
     """This parameter determines if the execution of the sparse core will be
     pipelined with that of the TensorCore. This parameter only affects results
     when mode=TRAINING. If mode=INFERENCE or BACKWARD_PASS_ONLY, this parameter
@@ -234,7 +261,7 @@ class TPUEmbeddingConfiguration(google.protobuf.message.Message):
     since the embedding updates are sparse, this is generally not considered a
     problem.
     """
-    profile_data_directory: builtins.str
+    profile_data_directory: _builtins.str
     """Directory where embedding lookup statistics are stored. These statistics
     summarize information about the inputs to the embedding lookup
     operation, in particular, the average number of embedding IDs per example
@@ -251,76 +278,77 @@ class TPUEmbeddingConfiguration(google.protobuf.message.Message):
     count). The same profile data directory can be shared amongst several
     models to reuse embedding lookup statistics.
     """
-    @property
+    @_builtins.property
     def table_descriptor(
         self,
-    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
-        global___TPUEmbeddingConfiguration.TableDescriptor
-    ]: ...
-    @property
+    ) -> _containers.RepeatedCompositeFieldContainer[Global___TPUEmbeddingConfiguration.TableDescriptor]: ...
+    @_builtins.property
     def feature_descriptor(
         self,
-    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
-        global___TPUEmbeddingConfiguration.FeatureDescriptor
-    ]:
+    ) -> _containers.RepeatedCompositeFieldContainer[Global___TPUEmbeddingConfiguration.FeatureDescriptor]:
         """If the feature_descriptor field is populated, the model should NOT populate
         TableDescriptor.num_features and batch_size_per_tensor_core. These two
         fields will be auto-populated by the TPUEmbedding rewrite passes.
         """
 
-    @property
-    def spmd_sharding(self) -> global___TPUEmbeddingConfiguration.SpmdSharding: ...
+    @_builtins.property
+    def spmd_sharding(self) -> Global___TPUEmbeddingConfiguration.SpmdSharding: ...
     def __init__(
         self,
         *,
-        table_descriptor: collections.abc.Iterable[global___TPUEmbeddingConfiguration.TableDescriptor] | None = ...,
-        mode: global___TPUEmbeddingConfiguration.Mode.ValueType | None = ...,
-        batch_size_per_tensor_core: builtins.int | None = ...,
-        num_hosts: builtins.int | None = ...,
-        num_tensor_cores: builtins.int | None = ...,
-        sharding_strategy: global___TPUEmbeddingConfiguration.ShardingStrategy.ValueType | None = ...,
-        pipeline_execution_with_tensor_core: builtins.bool | None = ...,
-        profile_data_directory: builtins.str | None = ...,
-        feature_descriptor: collections.abc.Iterable[global___TPUEmbeddingConfiguration.FeatureDescriptor] | None = ...,
-        spmd_sharding: global___TPUEmbeddingConfiguration.SpmdSharding | None = ...,
+        table_descriptor: _abc.Iterable[Global___TPUEmbeddingConfiguration.TableDescriptor] | None = ...,
+        mode: Global___TPUEmbeddingConfiguration.Mode.ValueType | None = ...,
+        batch_size_per_tensor_core: _builtins.int | None = ...,
+        num_hosts: _builtins.int | None = ...,
+        num_tensor_cores: _builtins.int | None = ...,
+        sharding_strategy: Global___TPUEmbeddingConfiguration.ShardingStrategy.ValueType | None = ...,
+        pipeline_execution_with_tensor_core: _builtins.bool | None = ...,
+        profile_data_directory: _builtins.str | None = ...,
+        feature_descriptor: _abc.Iterable[Global___TPUEmbeddingConfiguration.FeatureDescriptor] | None = ...,
+        spmd_sharding: Global___TPUEmbeddingConfiguration.SpmdSharding | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["spmd_sharding", b"spmd_sharding"]) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "batch_size_per_tensor_core",
-            b"batch_size_per_tensor_core",
-            "feature_descriptor",
-            b"feature_descriptor",
-            "mode",
-            b"mode",
-            "num_hosts",
-            b"num_hosts",
-            "num_tensor_cores",
-            b"num_tensor_cores",
-            "pipeline_execution_with_tensor_core",
-            b"pipeline_execution_with_tensor_core",
-            "profile_data_directory",
-            b"profile_data_directory",
-            "sharding_strategy",
-            b"sharding_strategy",
-            "spmd_sharding",
-            b"spmd_sharding",
-            "table_descriptor",
-            b"table_descriptor",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["spmd_sharding", b"spmd_sharding"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "batch_size_per_tensor_core",
+        b"batch_size_per_tensor_core",
+        "feature_descriptor",
+        b"feature_descriptor",
+        "mode",
+        b"mode",
+        "num_hosts",
+        b"num_hosts",
+        "num_tensor_cores",
+        b"num_tensor_cores",
+        "pipeline_execution_with_tensor_core",
+        b"pipeline_execution_with_tensor_core",
+        "profile_data_directory",
+        b"profile_data_directory",
+        "sharding_strategy",
+        b"sharding_strategy",
+        "spmd_sharding",
+        b"spmd_sharding",
+        "table_descriptor",
+        b"table_descriptor",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___TPUEmbeddingConfiguration = TPUEmbeddingConfiguration
+Global___TPUEmbeddingConfiguration: _TypeAlias = TPUEmbeddingConfiguration  # noqa: Y015
 
-@typing.final
-class TPUEmbeddingError(google.protobuf.message.Message):
+@_typing.final
+class TPUEmbeddingError(_message.Message):
     """A placeholder message that is used to define a unique Status payload
     URL for TPU embedding errors.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
     def __init__(self) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___TPUEmbeddingError = TPUEmbeddingError
+Global___TPUEmbeddingError: _TypeAlias = TPUEmbeddingError  # noqa: Y015

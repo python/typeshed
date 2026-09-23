@@ -25,6 +25,15 @@ ARCHIVE_URL = f"https://github.com/tensorflow/tensorflow/archive/refs/tags/{ARCH
 EXTRACTED_PACKAGE_DIR = f"tensorflow-{PACKAGE_VERSION}"
 
 PROTOS_TO_REMOVE = (
+    "compiler/xla/shape_util_pb2.pyi",
+    "compiler/xla/xla_pb2.pyi",
+    "compiler/xla/service/gpu_topology_pb2.pyi",
+    "compiler/xla/service/hlo_profile_printer_data_pb2.pyi",
+    "compiler/xla/service/xla_compile_result_pb2.pyi",
+    "compiler/xla/service/test_compilation_environment_pb2.pyi",
+    "compiler/xla/service/shaped_slice_pb2.pyi",
+    "compiler/xla/tsl/protobuf/coordination_service_pb2.pyi",
+    "compiler/xla/tsl/protobuf/dnn_pb2.pyi",
     "compiler/xla/autotune_results_pb2.pyi",
     "compiler/xla/autotuning_pb2.pyi",
     "compiler/xla/service/buffer_assignment_pb2.pyi",
@@ -66,12 +75,13 @@ def move_tree(source: Path, destination: Path) -> None:
 def post_creation() -> None:
     """Move third-party and fix imports."""
     print()
-    move_tree(STUBS_FOLDER / "tsl", STUBS_FOLDER / "tensorflow" / "tsl")
     move_tree(STUBS_FOLDER / "xla", STUBS_FOLDER / "tensorflow" / "compiler" / "xla")
 
     for path in STUBS_FOLDER.rglob("*_pb2.pyi"):
         print(f"Fixing imports in '{path}'")
-        filedata = path.read_text(encoding="utf-8")
+        filedata = path.read_text(encoding="utf-8").replace("\N{RIGHT SINGLE QUOTATION MARK}", "'")
+
+        filedata = filedata.replace("from xla import", "from tensorflow.compiler.xla import")
 
         # Replace the target string
         filedata = re.sub(TSL_IMPORT_PATTERN, "\\1tensorflow.tsl.", filedata)
@@ -83,8 +93,14 @@ def post_creation() -> None:
     print()
     for to_remove in PROTOS_TO_REMOVE:
         file_path = STUBS_FOLDER / "tensorflow" / to_remove
-        file_path.unlink()
+        file_path.unlink(missing_ok=True)
         print(f"Removed '{file_path}'")
+
+    for path in STUBS_FOLDER.rglob("*_pb2.pyi"):
+        for parent in path.parents:
+            if parent == STUBS_FOLDER:
+                break
+            (parent / "__init__.pyi").touch(exist_ok=True)
 
 
 def main() -> None:
@@ -98,24 +114,27 @@ def main() -> None:
     for old_stub in STUBS_FOLDER.rglob("*_pb2.pyi"):
         old_stub.unlink()
 
+    obsolete_dir = STUBS_FOLDER / "tensorflow" / "tsl" / "protobuf"
+    if obsolete_dir.exists():
+        obsolete_dir.rmdir()
+
     protoc_version = run_protoc(
-        proto_paths=(
-            f"{EXTRACTED_PACKAGE_DIR}/third_party/xla/third_party/tsl",
-            f"{EXTRACTED_PACKAGE_DIR}/third_party/xla",
-            f"{EXTRACTED_PACKAGE_DIR}",
-        ),
+        proto_paths=(f"{EXTRACTED_PACKAGE_DIR}/third_party/xla", f"{EXTRACTED_PACKAGE_DIR}"),
         mypy_out=STUBS_FOLDER,
-        proto_globs=(
-            f"{EXTRACTED_PACKAGE_DIR}/third_party/xla/xla/*.proto",
-            f"{EXTRACTED_PACKAGE_DIR}/third_party/xla/xla/service/*.proto",
-            f"{EXTRACTED_PACKAGE_DIR}/third_party/xla/xla/tsl/protobuf/*.proto",
-            f"{EXTRACTED_PACKAGE_DIR}/tensorflow/core/example/*.proto",
-            f"{EXTRACTED_PACKAGE_DIR}/tensorflow/core/framework/*.proto",
-            f"{EXTRACTED_PACKAGE_DIR}/tensorflow/core/protobuf/*.proto",
-            f"{EXTRACTED_PACKAGE_DIR}/tensorflow/core/protobuf/tpu/*.proto",
-            f"{EXTRACTED_PACKAGE_DIR}/tensorflow/core/util/*.proto",
-            f"{EXTRACTED_PACKAGE_DIR}/tensorflow/python/keras/protobuf/*.proto",
-            f"{EXTRACTED_PACKAGE_DIR}/third_party/xla/third_party/tsl/tsl/protobuf/*.proto",
+        proto_globs=sorted(
+            str(path.relative_to(temp_dir))
+            for pattern in (
+                f"{EXTRACTED_PACKAGE_DIR}/third_party/xla/xla/*.proto",
+                f"{EXTRACTED_PACKAGE_DIR}/third_party/xla/xla/service/*.proto",
+                f"{EXTRACTED_PACKAGE_DIR}/third_party/xla/xla/tsl/protobuf/*.proto",
+                f"{EXTRACTED_PACKAGE_DIR}/tensorflow/core/example/*.proto",
+                f"{EXTRACTED_PACKAGE_DIR}/tensorflow/core/framework/*.proto",
+                f"{EXTRACTED_PACKAGE_DIR}/tensorflow/core/protobuf/*.proto",
+                f"{EXTRACTED_PACKAGE_DIR}/tensorflow/core/protobuf/tpu/*.proto",
+                f"{EXTRACTED_PACKAGE_DIR}/tensorflow/core/util/*.proto",
+                f"{EXTRACTED_PACKAGE_DIR}/tensorflow/python/keras/protobuf/*.proto",
+            )
+            for path in temp_dir.glob(pattern)
         ),
         cwd=temp_dir,
     )

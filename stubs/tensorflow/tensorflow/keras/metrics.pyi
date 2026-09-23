@@ -1,8 +1,7 @@
 from _typeshed import Incomplete
 from abc import ABCMeta, abstractmethod
 from collections.abc import Callable, Iterable, Sequence
-from enum import Enum
-from typing import Any, Literal, TypeAlias, type_check_only
+from typing import Any, Literal, TypeAlias
 from typing_extensions import Self
 
 import tensorflow as tf
@@ -22,16 +21,14 @@ class Metric(tf.keras.layers.Layer[tf.Tensor, tf.Tensor], metaclass=ABCMeta):
     ) -> Operation | None: ...
     @abstractmethod
     def result(self) -> _Output: ...
-    # Metric inherits from keras.Layer, but its add_weight method is incompatible with the one from "Layer".
+    # Metric's compatibility wrapper differs from Layer.add_weight.
     def add_weight(  # type: ignore[override]
         self,
-        name: str,
-        shape: Iterable[int | None] | None = (),
-        aggregation: tf.VariableAggregation = ...,
-        synchronization: tf.VariableSynchronization = ...,
+        shape: Iterable[int | None] = (),
         initializer: _Initializer | None = None,
         dtype: DTypeLike | None = None,
-    ) -> None: ...
+        name: str | None = None,
+    ) -> tf.Variable: ...
 
 class AUC(Metric):
     _from_logits: bool
@@ -106,30 +103,22 @@ class TopKCategoricalAccuracy(MeanMetricWrapper):
 
 class SparseTopKCategoricalAccuracy(MeanMetricWrapper):
     def __init__(
-        self, k: int = 5, name: str | None = "sparse_top_k_categorical_accuracy", dtype: DTypeLike | None = None
+        self,
+        k: int = 5,
+        name: str | None = "sparse_top_k_categorical_accuracy",
+        dtype: DTypeLike | None = None,
+        from_sorted_ids: bool = False,
     ) -> None: ...
 
 class MeanSquaredError(MeanMetricWrapper):
     def __init__(self, name: str | None = "mean_squared_error", dtype: DTypeLike | None = None) -> None: ...
 
-# TODO: Actually tensorflow.python.keras.utils.metrics_utils.Reduction, but that module
-# is currently missing from the stub.
-@type_check_only
-class _Reduction(Enum):
-    SUM = "sum"
-    SUM_OVER_BATCH_SIZE = "sum_over_batch_size"
-    WEIGHTED_MEAN = "weighted_mean"
-
-class Reduce(Metric):
-    reduction: _Reduction
+class Mean(Metric):
     total: Incomplete
-    count: Incomplete  # only defined for some reductions
-    def __init__(self, reduction: _Reduction, name: str | None, dtype: DTypeLike | None = None) -> None: ...
-    def update_state(self, values, sample_weight=None): ...  # type: ignore[override]
-    def result(self) -> Tensor: ...
-
-class Mean(Reduce):
+    count: Incomplete
     def __init__(self, name: str | None = "mean", dtype: DTypeLike | None = None) -> None: ...
+    def update_state(self, values: TensorCompatible, sample_weight: TensorCompatible | None = None) -> None: ...  # type: ignore[override]
+    def result(self) -> Tensor: ...
 
 def serialize(metric: KerasSerializable) -> dict[str, Any]: ...
 def binary_crossentropy(

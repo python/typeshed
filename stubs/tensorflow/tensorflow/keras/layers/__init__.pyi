@@ -82,6 +82,7 @@ class Layer(tf.Module, Generic[_InputT_contra, _OutputT_co]):
 
     def add_weight(
         self,
+        *args,
         shape: Iterable[int | None] | None = None,
         initializer: _Initializer | None = None,
         dtype: DTypeLike | None = None,
@@ -89,7 +90,8 @@ class Layer(tf.Module, Generic[_InputT_contra, _OutputT_co]):
         autocast: bool = True,
         regularizer: _Regularizer = None,
         constraint: _Constraint = None,
-        aggregation: Literal["mean", "sum", "only_first_replica"] = "mean",
+        aggregation: Literal["none", "mean", "sum", "only_first_replica"] = "none",
+        overwrite_with_gradient: bool = False,
         name: str | None = None,
     ) -> tf.Variable: ...
     def add_loss(self, loss: tf.Tensor | Sequence[tf.Tensor] | Callable[[], tf.Tensor]) -> None: ...
@@ -170,6 +172,7 @@ class StringLookup(_IndexLookup):
         sparse: bool = False,
         encoding: str = "utf-8",
         name: str | None = None,
+        salt: int | tuple[int, int] | list[int] | None = None,
         *,
         # **kwargs passed to IndexLookup
         vocabulary_size: int | None = None,
@@ -195,6 +198,8 @@ class IntegerLookup(_IndexLookup):
         output_mode: Literal["int", "count", "multi_hot", "one_hot", "tf_idf"] = "int",
         sparse: bool = False,
         pad_to_max_tokens: bool = False,
+        oov_method: Literal["floormod", "farmhash"] = "floormod",
+        salt: int | tuple[int, int] | list[int] | None = None,
         name: str | None = None,
         *,
         # **kwargs passed to IndexLookup
@@ -224,6 +229,8 @@ class Dense(Layer[tf.Tensor, tf.Tensor]):
         kernel_constraint: _Constraint = None,
         bias_constraint: _Constraint = None,
         lora_rank: int | None = None,
+        lora_alpha: int | None = None,
+        quantization_config=None,
         *,
         # **kwargs passed to Layer
         trainable: bool = True,
@@ -248,6 +255,9 @@ class BatchNormalization(Layer[tf.Tensor, tf.Tensor]):
         gamma_regularizer: _Regularizer = None,
         beta_constraint: _Constraint = None,
         gamma_constraint: _Constraint = None,
+        renorm: bool = False,
+        renorm_clipping: dict[str, float] | None = None,
+        renorm_momentum: float = 0.99,
         synchronized: bool = False,
         *,
         # **kwargs passed to Layer
@@ -299,6 +309,8 @@ class Embedding(Layer[tf.Tensor, tf.Tensor]):
         mask_zero: bool = False,
         weights=None,
         lora_rank: int | None = None,
+        lora_alpha: int | None = None,
+        quantization_config=None,
         *,
         input_length: int | None = None,
         # **kwargs passed to Layer
@@ -357,7 +369,6 @@ class LayerNormalization(Layer[tf.Tensor, tf.Tensor]):
         epsilon: float = 0.001,
         center: bool = True,
         scale: bool = True,
-        rms_scaling: bool = False,
         beta_initializer: _Initializer = "zeros",
         gamma_initializer: _Initializer = "ones",
         beta_regularizer: _Regularizer = None,
@@ -383,6 +394,8 @@ class MultiHeadAttention(Layer[Any, tf.Tensor]):
         use_bias: bool = True,
         output_shape: tuple[int, ...] | None = None,
         attention_axes: tuple[int, ...] | None = None,
+        sliding_window: int | None = None,
+        flash_attention: bool | None = None,
         kernel_initializer: _Initializer = "glorot_uniform",
         bias_initializer: _Initializer = "zeros",
         kernel_regularizer: Regularizer | None = None,
@@ -390,6 +403,7 @@ class MultiHeadAttention(Layer[Any, tf.Tensor]):
         activity_regularizer: _Regularizer | None = None,
         kernel_constraint: _Constraint | None = None,
         bias_constraint: _Constraint | None = None,
+        use_gate: bool = False,
         seed: int | None = None,
         *,
         # **kwargs passed to Layer
@@ -450,7 +464,7 @@ class GaussianDropout(Layer[tf.Tensor, tf.Tensor]):
 class Activation(Layer[tf.Tensor, tf.Tensor]):
     def __init__(
         self,
-        activation: _Activation = None,
+        activation: _Activation,
         *,
         # **kwargs passed to Layer
         # **kwargs passed to Layer
@@ -482,13 +496,13 @@ class MaxPool2D(Layer[tf.Tensor, tf.Tensor]):
         strides: int | tuple[int, int] | None = None,
         padding: Literal["valid", "same"] = "valid",
         data_format: Literal["channels_last", "channels_first"] | None = None,
+        name: str | None = None,
         *,
         # **kwargs passed to Layer
         activity_regularizer: _Regularizer = None,
         trainable: bool = True,
         dtype: _LayerDtype | None = None,
         autocast: bool = True,
-        name: str | None = None,
     ) -> None: ...
 
 def __getattr__(name: str): ...  # incomplete module

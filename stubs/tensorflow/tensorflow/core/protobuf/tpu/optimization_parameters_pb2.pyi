@@ -3,50 +3,52 @@
 isort:skip_file
 """
 
-import builtins
+import builtins as _builtins
 import sys
-import typing
+import typing as _typing
 
-import google.protobuf.descriptor
-import google.protobuf.internal.enum_type_wrapper
-import google.protobuf.message
-import google.protobuf.wrappers_pb2
-import tensorflow.compiler.xla.service.hlo_pb2
+from google.protobuf import descriptor as _descriptor, message as _message, wrappers_pb2 as _wrappers_pb2
+from google.protobuf.internal import enum_type_wrapper as _enum_type_wrapper
+from tensorflow.compiler.xla.service import hlo_pb2 as _hlo_pb2
 
-if sys.version_info >= (3, 10):
-    import typing as typing_extensions
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
 else:
-    import typing_extensions
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+if sys.version_info >= (3, 13):
+    from warnings import deprecated as _deprecated
+else:
+    from typing_extensions import deprecated as _deprecated
 
-@typing.final
-class ClippingLimits(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+DESCRIPTOR: _descriptor.FileDescriptor
 
-    LOWER_FIELD_NUMBER: builtins.int
-    UPPER_FIELD_NUMBER: builtins.int
-    @property
-    def lower(self) -> google.protobuf.wrappers_pb2.FloatValue:
+@_typing.final
+class ClippingLimits(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    LOWER_FIELD_NUMBER: _builtins.int
+    UPPER_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def lower(self) -> _wrappers_pb2.FloatValue:
         """-inf if not set"""
 
-    @property
-    def upper(self) -> google.protobuf.wrappers_pb2.FloatValue:
+    @_builtins.property
+    def upper(self) -> _wrappers_pb2.FloatValue:
         """+inf if not set"""
 
-    def __init__(
-        self,
-        *,
-        lower: google.protobuf.wrappers_pb2.FloatValue | None = ...,
-        upper: google.protobuf.wrappers_pb2.FloatValue | None = ...,
-    ) -> None: ...
-    def HasField(self, field_name: typing.Literal["lower", b"lower", "upper", b"upper"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["lower", b"lower", "upper", b"upper"]) -> None: ...
+    def __init__(self, *, lower: _wrappers_pb2.FloatValue | None = ..., upper: _wrappers_pb2.FloatValue | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["lower", b"lower", "upper", b"upper"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["lower", b"lower", "upper", b"upper"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___ClippingLimits = ClippingLimits
+Global___ClippingLimits: _TypeAlias = ClippingLimits  # noqa: Y015
 
-@typing.final
-class SimulatedQuantization(google.protobuf.message.Message):
+@_typing.final
+class SimulatedQuantization(_message.Message):
     """Configuration for simulated quantization; simulated quantization is used to
     reduce training/serving skew when the serving variables are quantized. The
     same quantization operations are executed during training to minimize
@@ -62,104 +64,109 @@ class SimulatedQuantization(google.protobuf.message.Message):
     return quantized_val * quantum + clipping_limits.lower().
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    ENABLED_FIELD_NUMBER: builtins.int
-    CLIPPING_LIMITS_FIELD_NUMBER: builtins.int
-    NUM_BUCKETS_FIELD_NUMBER: builtins.int
-    enabled: builtins.bool
+    ENABLED_FIELD_NUMBER: _builtins.int
+    CLIPPING_LIMITS_FIELD_NUMBER: _builtins.int
+    NUM_BUCKETS_FIELD_NUMBER: _builtins.int
+    enabled: _builtins.bool
     """Whether simulated quantization is enabled."""
-    num_buckets: builtins.int
+    num_buckets: _builtins.int
     """Number of possible quantized values."""
-    @property
-    def clipping_limits(self) -> global___ClippingLimits:
+    @_builtins.property
+    def clipping_limits(self) -> Global___ClippingLimits:
         """Minimum and maximum values of the range used for quantization."""
 
     def __init__(
         self,
         *,
-        enabled: builtins.bool | None = ...,
-        clipping_limits: global___ClippingLimits | None = ...,
-        num_buckets: builtins.int | None = ...,
+        enabled: _builtins.bool | None = ...,
+        clipping_limits: Global___ClippingLimits | None = ...,
+        num_buckets: _builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["clipping_limits", b"clipping_limits"]) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal["clipping_limits", b"clipping_limits", "enabled", b"enabled", "num_buckets", b"num_buckets"],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["clipping_limits", b"clipping_limits"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "clipping_limits", b"clipping_limits", "enabled", b"enabled", "num_buckets", b"num_buckets"
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___SimulatedQuantization = SimulatedQuantization
+Global___SimulatedQuantization: _TypeAlias = SimulatedQuantization  # noqa: Y015
 
-@typing.final
-class DynamicLearningRate(google.protobuf.message.Message):
-    """Dynamic learning rate specification in the TPUEmbeddingConfiguration. The
-    actual learning rates are provided as a scalar input list to the
+@_typing.final
+class OptimizerDynamicInput(_message.Message):
+    """Dynamic input specification for optimizers in the TPUEmbeddingConfiguration.
+    The actual dynamic inputs are provided as a scalar input list to the
     SendTPUEmbeddingGradients Op indexed by their tag specified through the
     following proto.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    TAG_FIELD_NUMBER: builtins.int
-    tag: builtins.int
-    """For tables where learning rates are dynamically computed and communicated
-    to the TPU embedding program, a tag must be specified for the learning
-    rate.
+    TAG_FIELD_NUMBER: _builtins.int
+    tag: _builtins.int
+    """For tables where dynamic inputs are needed (e.g., learning rates or other
+    dynamic hyperparameters used in optimizers), a tag must be specified for
+    the input.
 
-    The tag must be a non-negative  integer. The total number of unique tags
-    must be less than or equal to the number of tables in the TPU embedding
-    configuration (a table does not specify any tag if it uses a constant
-    learning rate, and specifies exactly one tag if it uses dynamic learning
-    rates).
-
-    All tags in the range [0, number_of_unique_tags) must be present in the TPU
-    embedding configuration, i.e. a tag cannot be skipped if a different tag
-    numerically greater than it is used in the configuration.
+    The tag must be a non-negative  integer. All tags in the range
+    [0, number_of_unique_tags) must be present in the TPU embedding
+    configuration, i.e. a tag cannot be skipped if a different tag numerically
+    greater than it is used in the configuration.
 
     If multiple tables specify the same tag, they *MUST* have
-    the same dynamic learning rate, for example, their dynamic learning rate
-    could be computed by the same TensorFlow sub-graph. The partitioning of the
+    the same dynamic input, for example, their dynamic learning rate could be
+    computed by the same TensorFlow sub-graph. The partitioning of the
     embedding layer would be more optimal if the number_of_unique_tags is as
     *LOW* as possible, i.e., if many tables share the same tag.
 
-    The learning_rate input of the SendTPUEmbeddingGradients op is used to
-    communicate dynamic learning rates to the TPU embedding program.
-    The learning_rate input is a list of scalars where the size of the list is
-    equal to the number of unique tags. The learning rate associated with a
-    particular tag is specified by populating its corresponding index in the
-    list of learning_rate scalars.
+    The hyper_parameters input of the SendTPUEmbeddingGradients op is used to
+    communicate dynamic hyper-parameters to the TPU embedding program.
+    The hyper_parameters input is a list of scalars where the size of the list
+    is equal to the number of unique tags. The hyper-parameter associated with
+    a particular tag is specified by populating its corresponding index in the
+    list of scalars.
     """
-    def __init__(self, *, tag: builtins.int | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["tag", b"tag"]) -> None: ...
+    def __init__(self, *, tag: _builtins.int | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["tag", b"tag"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___DynamicLearningRate = DynamicLearningRate
+Global___OptimizerDynamicInput: _TypeAlias = OptimizerDynamicInput  # noqa: Y015
 
-@typing.final
-class LearningRate(google.protobuf.message.Message):
+@_typing.final
+class LearningRate(_message.Message):
     """Source of learning rate to use."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    CONSTANT_FIELD_NUMBER: builtins.int
-    DYNAMIC_FIELD_NUMBER: builtins.int
-    constant: builtins.float
-    @property
-    def dynamic(self) -> global___DynamicLearningRate: ...
-    def __init__(self, *, constant: builtins.float | None = ..., dynamic: global___DynamicLearningRate | None = ...) -> None: ...
-    def HasField(
-        self, field_name: typing.Literal["constant", b"constant", "dynamic", b"dynamic", "learning_rate", b"learning_rate"]
-    ) -> builtins.bool: ...
-    def ClearField(
-        self, field_name: typing.Literal["constant", b"constant", "dynamic", b"dynamic", "learning_rate", b"learning_rate"]
+    CONSTANT_FIELD_NUMBER: _builtins.int
+    DYNAMIC_FIELD_NUMBER: _builtins.int
+    constant: _builtins.float
+    @_builtins.property
+    def dynamic(self) -> Global___OptimizerDynamicInput: ...
+    def __init__(
+        self, *, constant: _builtins.float | None = ..., dynamic: Global___OptimizerDynamicInput | None = ...
     ) -> None: ...
-    def WhichOneof(
-        self, oneof_group: typing.Literal["learning_rate", b"learning_rate"]
-    ) -> typing.Literal["constant", "dynamic"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal[
+        "constant", b"constant", "dynamic", b"dynamic", "learning_rate", b"learning_rate"
+    ]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "constant", b"constant", "dynamic", b"dynamic", "learning_rate", b"learning_rate"
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType_learning_rate: _TypeAlias = _typing.Literal["constant", "dynamic"]  # noqa: Y015
+    _WhichOneofArgType_learning_rate: _TypeAlias = _typing.Literal["learning_rate", b"learning_rate"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType_learning_rate) -> _WhichOneofReturnType_learning_rate | None: ...
 
-global___LearningRate = LearningRate
+Global___LearningRate: _TypeAlias = LearningRate  # noqa: Y015
 
-@typing.final
-class AdagradParameters(google.protobuf.message.Message):
+@_typing.final
+class AdagradParameters(_message.Message):
     """Each optimizer's parameter proto has a link to its documentation and CPU
     implementation (if available) for user reference.
 
@@ -167,14 +174,19 @@ class AdagradParameters(google.protobuf.message.Message):
     https://github.com/tensorflow/tensorflow/blob/6b6471f3ffb7f1fefe42d814aa5fb9ab7a535b58/tensorflow/core/kernels/training_ops.cc#L1634
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
     def __init__(self) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___AdagradParameters = AdagradParameters
+Global___AdagradParameters: _TypeAlias = AdagradParameters  # noqa: Y015
 
-@typing.final
-class AdagradMomentumParameters(google.protobuf.message.Message):
+@_typing.final
+class AdagradMomentumParameters(_message.Message):
     """This optimizer combines the Adagrad and Momentum update rules.
     accum(new) = beta2 == 1.0 ?
                  accum(old) + grad^2 :
@@ -188,107 +200,204 @@ class AdagradMomentumParameters(google.protobuf.message.Message):
     Algorithm described in https://arxiv.org/abs/2002.11803.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    MOMENTUM_FIELD_NUMBER: builtins.int
-    USE_NESTEROV_FIELD_NUMBER: builtins.int
-    EXPONENT_FIELD_NUMBER: builtins.int
-    BETA2_FIELD_NUMBER: builtins.int
-    EPSILON_FIELD_NUMBER: builtins.int
-    momentum: builtins.float
+    MOMENTUM_FIELD_NUMBER: _builtins.int
+    USE_NESTEROV_FIELD_NUMBER: _builtins.int
+    EXPONENT_FIELD_NUMBER: _builtins.int
+    BETA2_FIELD_NUMBER: _builtins.int
+    EPSILON_FIELD_NUMBER: _builtins.int
+    momentum: _builtins.float
     """Moving average parameter for the momentum accumulator."""
-    use_nesterov: builtins.bool
+    use_nesterov: _builtins.bool
     """Whether to use the Nesterov variant of momentum."""
-    exponent: builtins.float
+    exponent: _builtins.float
     """Exponent for the gradient^2 accumulator."""
-    beta2: builtins.float
+    beta2: _builtins.float
     """Moving average parameter for the gradient^2 accumulator."""
-    epsilon: builtins.float
+    epsilon: _builtins.float
     """Offset added to the Adagrad accumulator."""
     def __init__(
         self,
         *,
-        momentum: builtins.float | None = ...,
-        use_nesterov: builtins.bool | None = ...,
-        exponent: builtins.float | None = ...,
-        beta2: builtins.float | None = ...,
-        epsilon: builtins.float | None = ...,
+        momentum: _builtins.float | None = ...,
+        use_nesterov: _builtins.bool | None = ...,
+        exponent: _builtins.float | None = ...,
+        beta2: _builtins.float | None = ...,
+        epsilon: _builtins.float | None = ...,
     ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "beta2",
-            b"beta2",
-            "epsilon",
-            b"epsilon",
-            "exponent",
-            b"exponent",
-            "momentum",
-            b"momentum",
-            "use_nesterov",
-            b"use_nesterov",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "beta2",
+        b"beta2",
+        "epsilon",
+        b"epsilon",
+        "exponent",
+        b"exponent",
+        "momentum",
+        b"momentum",
+        "use_nesterov",
+        b"use_nesterov",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___AdagradMomentumParameters = AdagradMomentumParameters
+Global___AdagradMomentumParameters: _TypeAlias = AdagradMomentumParameters  # noqa: Y015
 
-@typing.final
-class BoundedAdagradParameters(google.protobuf.message.Message):
+@_typing.final
+class BoundedAdagradParameters(_message.Message):
     """Algorithm in http://www.jmlr.org/papers/volume12/duchi11a/duchi11a.pdf."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    UPDATE_ACCUMULATOR_FIRST_FIELD_NUMBER: builtins.int
-    MAX_VAR_UPDATE_FIELD_NUMBER: builtins.int
-    MAX_ACCUMULATOR_FIELD_NUMBER: builtins.int
-    update_accumulator_first: builtins.bool
+    UPDATE_ACCUMULATOR_FIRST_FIELD_NUMBER: _builtins.int
+    MAX_VAR_UPDATE_FIELD_NUMBER: _builtins.int
+    MAX_ACCUMULATOR_FIELD_NUMBER: _builtins.int
+    update_accumulator_first: _builtins.bool
     """Whether to use the updated or the old value of the accumulator when
     computing the effective learning rate. When update_accumulator_first is set
     to True, the updated value of the accumulator is used.
     """
-    max_var_update: builtins.float
+    max_var_update: _builtins.float
     """The max_var_update value to use. Set value to 0 (default) to disable using
     max_var_update to clip the gradient.
     """
-    max_accumulator: builtins.float
+    max_accumulator: _builtins.float
     """The maximum value of the accumulator. Set max_accumulator to 0 (default)
     to disable using max_accumulator to clip the accumulator.
     """
     def __init__(
         self,
         *,
-        update_accumulator_first: builtins.bool | None = ...,
-        max_var_update: builtins.float | None = ...,
-        max_accumulator: builtins.float | None = ...,
+        update_accumulator_first: _builtins.bool | None = ...,
+        max_var_update: _builtins.float | None = ...,
+        max_accumulator: _builtins.float | None = ...,
     ) -> None: ...
-    def ClearField(
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "max_accumulator",
+        b"max_accumulator",
+        "max_var_update",
+        b"max_var_update",
+        "update_accumulator_first",
+        b"update_accumulator_first",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___BoundedAdagradParameters: _TypeAlias = BoundedAdagradParameters  # noqa: Y015
+
+@_typing.final
+class FrequencyAwareAdagradParameters(_message.Message):
+    """Frequency Aware Adagrad optimizer. This optimizer implements the AdaGrad
+    algorithm and further allows to:
+    * Scale the learning rate based on frequency of the update. Sparsely updated
+      rows are updated with a higher effective learning rate, and frequently
+      updated rows are updated with a lower effective learning rate.
+    * Decay the growth of the accumulator values.
+    * Use L1 / L2 regularization for the weight updates.
+
+    The optimization algorithm is shown below.
+    counter(new) = counter(old) + 1
+    accum(new) = max(accumulator_decay * accum(old) + grad^2,
+                     initial_accumulator_value)
+    lr_scale = min((step_counter / accum(new)) ^ probability_exponent,
+    max_lr_multiplier) update = grad * lr_scale / sqrt(accum(new)) if
+    (l1_regularization_strength > 0.0):
+      update = update + l1_regularization_strength * sign(var(old))
+    if (l2_regularization_strength > 0.0):
+      update = update + l2_regularization_strength * var(old)
+    var(new) = var(old) - lr_scale * grad * update
+    """
+
+    DESCRIPTOR: _descriptor.Descriptor
+
+    L1_REGULARIZATION_STRENGTH_FIELD_NUMBER: _builtins.int
+    L2_REGULARIZATION_STRENGTH_FIELD_NUMBER: _builtins.int
+    PROBABILITY_EXPONENT_FIELD_NUMBER: _builtins.int
+    MAX_LR_MULTIPLIER_FIELD_NUMBER: _builtins.int
+    ACCUMULATOR_DECAY_FIELD_NUMBER: _builtins.int
+    INITIAL_ACCUMULATOR_VALUE_FIELD_NUMBER: _builtins.int
+    STEP_COUNTER_FIELD_NUMBER: _builtins.int
+    l1_regularization_strength: _builtins.float
+    """The L1 regularization parameter for adjusting the update based on the sign
+    of the variable.
+    """
+    l2_regularization_strength: _builtins.float
+    """The L2 regularization parameter for adjusting the update based on the
+    variable.
+    """
+    probability_exponent: _builtins.float
+    """The exponent used for scaling the learning rate based on the sparsity of
+    updates.
+    """
+    max_lr_multiplier: _builtins.float
+    """The maximum value of the learning rate scale."""
+    accumulator_decay: _builtins.float
+    """The decay for the Adagrad accumulator."""
+    initial_accumulator_value: _builtins.float
+    """The initial and minimum value for the Adagrad accumulator."""
+    @_builtins.property
+    def step_counter(self) -> Global___OptimizerDynamicInput:
+        """The tag for identifying the step counter used for the frequency aware
+        Adagrad optimizer.
+        """
+
+    def __init__(
         self,
-        field_name: typing.Literal[
-            "max_accumulator",
-            b"max_accumulator",
-            "max_var_update",
-            b"max_var_update",
-            "update_accumulator_first",
-            b"update_accumulator_first",
-        ],
+        *,
+        l1_regularization_strength: _builtins.float | None = ...,
+        l2_regularization_strength: _builtins.float | None = ...,
+        probability_exponent: _builtins.float | None = ...,
+        max_lr_multiplier: _builtins.float | None = ...,
+        accumulator_decay: _builtins.float | None = ...,
+        initial_accumulator_value: _builtins.float | None = ...,
+        step_counter: Global___OptimizerDynamicInput | None = ...,
     ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["step_counter", b"step_counter"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "accumulator_decay",
+        b"accumulator_decay",
+        "initial_accumulator_value",
+        b"initial_accumulator_value",
+        "l1_regularization_strength",
+        b"l1_regularization_strength",
+        "l2_regularization_strength",
+        b"l2_regularization_strength",
+        "max_lr_multiplier",
+        b"max_lr_multiplier",
+        "probability_exponent",
+        b"probability_exponent",
+        "step_counter",
+        b"step_counter",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___BoundedAdagradParameters = BoundedAdagradParameters
+Global___FrequencyAwareAdagradParameters: _TypeAlias = FrequencyAwareAdagradParameters  # noqa: Y015
 
-@typing.final
-class StochasticGradientDescentParameters(google.protobuf.message.Message):
+@_typing.final
+class StochasticGradientDescentParameters(_message.Message):
     """https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/SGD
     https://github.com/tensorflow/tensorflow/blob/6b6471f3ffb7f1fefe42d814aa5fb9ab7a535b58/tensorflow/core/kernels/training_ops.cc#L629
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
     def __init__(self) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___StochasticGradientDescentParameters = StochasticGradientDescentParameters
+Global___StochasticGradientDescentParameters: _TypeAlias = StochasticGradientDescentParameters  # noqa: Y015
 
-@typing.final
-class FtrlParameters(google.protobuf.message.Message):
+@_typing.final
+class FtrlParameters(_message.Message):
     """https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/Ftrl
     https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/41159.pdf
     https://github.com/tensorflow/tensorflow/blob/6b6471f3ffb7f1fefe42d814aa5fb9ab7a535b58/tensorflow/core/kernels/training_ops.cc#L2646
@@ -308,57 +417,70 @@ class FtrlParameters(google.protobuf.message.Message):
     without producing NaNs, improving flexibility for learning rate ramp-up.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    L1_FIELD_NUMBER: builtins.int
-    L2_FIELD_NUMBER: builtins.int
-    LR_POWER_FIELD_NUMBER: builtins.int
-    BETA_FIELD_NUMBER: builtins.int
-    MULTIPLY_LINEAR_BY_LR_FIELD_NUMBER: builtins.int
-    ALLOW_ZERO_ACCUMULATOR_FIELD_NUMBER: builtins.int
-    l1: builtins.float
-    l2: builtins.float
-    lr_power: builtins.float
-    beta: builtins.float
-    multiply_linear_by_lr: builtins.bool
-    allow_zero_accumulator: builtins.bool
-    """Previously, allow_zero_accumulator parameter changed some internal formulas
-    to allow zero and near-zero accumulator values at the cost of some
-    performance. The current implementation ignores this parameter; zero or
-    near-zero accumulator values are now always supported.
-    """
+    L1_FIELD_NUMBER: _builtins.int
+    L2_FIELD_NUMBER: _builtins.int
+    LR_POWER_FIELD_NUMBER: _builtins.int
+    BETA_FIELD_NUMBER: _builtins.int
+    MULTIPLY_LINEAR_BY_LR_FIELD_NUMBER: _builtins.int
+    ALLOW_ZERO_ACCUMULATOR_FIELD_NUMBER: _builtins.int
+    l1: _builtins.float
+    l2: _builtins.float
+    lr_power: _builtins.float
+    beta: _builtins.float
+    multiply_linear_by_lr: _builtins.bool
+
+    @_builtins.property
+    @_deprecated("""This field has been marked as deprecated using proto field options.""")
+    def allow_zero_accumulator(self) -> _builtins.bool:
+        """Previously, allow_zero_accumulator parameter changed some internal formulas
+        to allow zero and near-zero accumulator values at the cost of some
+        performance. The current implementation ignores this parameter; zero or
+        near-zero accumulator values are now always supported.
+        """
+    @allow_zero_accumulator.setter
+    @_deprecated("""This field has been marked as deprecated using proto field options.""")
+    def allow_zero_accumulator(self, value: _builtins.bool) -> None:
+        """Previously, allow_zero_accumulator parameter changed some internal formulas
+        to allow zero and near-zero accumulator values at the cost of some
+        performance. The current implementation ignores this parameter; zero or
+        near-zero accumulator values are now always supported.
+        """
+
     def __init__(
         self,
         *,
-        l1: builtins.float | None = ...,
-        l2: builtins.float | None = ...,
-        lr_power: builtins.float | None = ...,
-        beta: builtins.float | None = ...,
-        multiply_linear_by_lr: builtins.bool | None = ...,
-        allow_zero_accumulator: builtins.bool | None = ...,
+        l1: _builtins.float | None = ...,
+        l2: _builtins.float | None = ...,
+        lr_power: _builtins.float | None = ...,
+        beta: _builtins.float | None = ...,
+        multiply_linear_by_lr: _builtins.bool | None = ...,
+        allow_zero_accumulator: _builtins.bool | None = ...,
     ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "allow_zero_accumulator",
-            b"allow_zero_accumulator",
-            "beta",
-            b"beta",
-            "l1",
-            b"l1",
-            "l2",
-            b"l2",
-            "lr_power",
-            b"lr_power",
-            "multiply_linear_by_lr",
-            b"multiply_linear_by_lr",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "allow_zero_accumulator",
+        b"allow_zero_accumulator",
+        "beta",
+        b"beta",
+        "l1",
+        b"l1",
+        "l2",
+        b"l2",
+        "lr_power",
+        b"lr_power",
+        "multiply_linear_by_lr",
+        b"multiply_linear_by_lr",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___FtrlParameters = FtrlParameters
+Global___FtrlParameters: _TypeAlias = FtrlParameters  # noqa: Y015
 
-@typing.final
-class AdamParameters(google.protobuf.message.Message):
+@_typing.final
+class AdamParameters(_message.Message):
     """The Adam optimizer does not implement hyper-parameter update due to hardware
     limitations; use the dynamic learning rate feature instead, setting the
     learning rate to: user learning_rate * sqrt(1 - beta2^t) / (1 - beta1^t)
@@ -381,64 +503,69 @@ class AdamParameters(google.protobuf.message.Message):
     training and is not expected to harm model quality.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    BETA1_FIELD_NUMBER: builtins.int
-    BETA2_FIELD_NUMBER: builtins.int
-    EPSILON_FIELD_NUMBER: builtins.int
-    USE_NON_LAZY_ADAM_FIELD_NUMBER: builtins.int
-    USE_SUM_INSIDE_SQRT_FIELD_NUMBER: builtins.int
-    beta1: builtins.float
-    beta2: builtins.float
-    epsilon: builtins.float
-    use_non_lazy_adam: builtins.bool
-    use_sum_inside_sqrt: builtins.bool
+    BETA1_FIELD_NUMBER: _builtins.int
+    BETA2_FIELD_NUMBER: _builtins.int
+    EPSILON_FIELD_NUMBER: _builtins.int
+    USE_NON_LAZY_ADAM_FIELD_NUMBER: _builtins.int
+    USE_SUM_INSIDE_SQRT_FIELD_NUMBER: _builtins.int
+    beta1: _builtins.float
+    beta2: _builtins.float
+    epsilon: _builtins.float
+    use_non_lazy_adam: _builtins.bool
+    use_sum_inside_sqrt: _builtins.bool
     def __init__(
         self,
         *,
-        beta1: builtins.float | None = ...,
-        beta2: builtins.float | None = ...,
-        epsilon: builtins.float | None = ...,
-        use_non_lazy_adam: builtins.bool | None = ...,
-        use_sum_inside_sqrt: builtins.bool | None = ...,
+        beta1: _builtins.float | None = ...,
+        beta2: _builtins.float | None = ...,
+        epsilon: _builtins.float | None = ...,
+        use_non_lazy_adam: _builtins.bool | None = ...,
+        use_sum_inside_sqrt: _builtins.bool | None = ...,
     ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "beta1",
-            b"beta1",
-            "beta2",
-            b"beta2",
-            "epsilon",
-            b"epsilon",
-            "use_non_lazy_adam",
-            b"use_non_lazy_adam",
-            "use_sum_inside_sqrt",
-            b"use_sum_inside_sqrt",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "beta1",
+        b"beta1",
+        "beta2",
+        b"beta2",
+        "epsilon",
+        b"epsilon",
+        "use_non_lazy_adam",
+        b"use_non_lazy_adam",
+        "use_sum_inside_sqrt",
+        b"use_sum_inside_sqrt",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___AdamParameters = AdamParameters
+Global___AdamParameters: _TypeAlias = AdamParameters  # noqa: Y015
 
-@typing.final
-class MomentumParameters(google.protobuf.message.Message):
+@_typing.final
+class MomentumParameters(_message.Message):
     """https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/SGD
     https://github.com/tensorflow/tensorflow/blob/6b6471f3ffb7f1fefe42d814aa5fb9ab7a535b58/tensorflow/core/kernels/training_ops.cc#L3068
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    MOMENTUM_FIELD_NUMBER: builtins.int
-    USE_NESTEROV_FIELD_NUMBER: builtins.int
-    momentum: builtins.float
-    use_nesterov: builtins.bool
-    def __init__(self, *, momentum: builtins.float | None = ..., use_nesterov: builtins.bool | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["momentum", b"momentum", "use_nesterov", b"use_nesterov"]) -> None: ...
+    MOMENTUM_FIELD_NUMBER: _builtins.int
+    USE_NESTEROV_FIELD_NUMBER: _builtins.int
+    momentum: _builtins.float
+    use_nesterov: _builtins.bool
+    def __init__(self, *, momentum: _builtins.float | None = ..., use_nesterov: _builtins.bool | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["momentum", b"momentum", "use_nesterov", b"use_nesterov"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___MomentumParameters = MomentumParameters
+Global___MomentumParameters: _TypeAlias = MomentumParameters  # noqa: Y015
 
-@typing.final
-class LionParameters(google.protobuf.message.Message):
+@_typing.final
+class LionParameters(_message.Message):
     """https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/Lion
     momenta(new) = beta2 * momenta(old) + (1 - beta2) * grad
     momenta_t = beta1 * momenta(old) + (1 - beta1) * grad
@@ -446,183 +573,204 @@ class LionParameters(google.protobuf.message.Message):
     Algorithm described in https://arxiv.org/abs/2302.06675.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    BETA1_FIELD_NUMBER: builtins.int
-    BETA2_FIELD_NUMBER: builtins.int
-    USE_NON_LAZY_LION_FIELD_NUMBER: builtins.int
-    beta1: builtins.float
-    beta2: builtins.float
-    use_non_lazy_lion: builtins.bool
+    BETA1_FIELD_NUMBER: _builtins.int
+    BETA2_FIELD_NUMBER: _builtins.int
+    USE_NON_LAZY_LION_FIELD_NUMBER: _builtins.int
+    beta1: _builtins.float
+    beta2: _builtins.float
+    use_non_lazy_lion: _builtins.bool
     def __init__(
         self,
         *,
-        beta1: builtins.float | None = ...,
-        beta2: builtins.float | None = ...,
-        use_non_lazy_lion: builtins.bool | None = ...,
+        beta1: _builtins.float | None = ...,
+        beta2: _builtins.float | None = ...,
+        use_non_lazy_lion: _builtins.bool | None = ...,
     ) -> None: ...
-    def ClearField(
-        self, field_name: typing.Literal["beta1", b"beta1", "beta2", b"beta2", "use_non_lazy_lion", b"use_non_lazy_lion"]
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "beta1", b"beta1", "beta2", b"beta2", "use_non_lazy_lion", b"use_non_lazy_lion"
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___LionParameters = LionParameters
+Global___LionParameters: _TypeAlias = LionParameters  # noqa: Y015
 
-@typing.final
-class RmsPropParameters(google.protobuf.message.Message):
+@_typing.final
+class RmsPropParameters(_message.Message):
     """https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/RMSprop
     https://github.com/tensorflow/tensorflow/blob/6b6471f3ffb7f1fefe42d814aa5fb9ab7a535b58/tensorflow/core/kernels/training_ops.cc#L4229
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    RHO_FIELD_NUMBER: builtins.int
-    MOMENTUM_FIELD_NUMBER: builtins.int
-    EPSILON_FIELD_NUMBER: builtins.int
-    rho: builtins.float
-    momentum: builtins.float
-    epsilon: builtins.float
+    RHO_FIELD_NUMBER: _builtins.int
+    MOMENTUM_FIELD_NUMBER: _builtins.int
+    EPSILON_FIELD_NUMBER: _builtins.int
+    rho: _builtins.float
+    momentum: _builtins.float
+    epsilon: _builtins.float
     def __init__(
-        self, *, rho: builtins.float | None = ..., momentum: builtins.float | None = ..., epsilon: builtins.float | None = ...
+        self, *, rho: _builtins.float | None = ..., momentum: _builtins.float | None = ..., epsilon: _builtins.float | None = ...
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["epsilon", b"epsilon", "momentum", b"momentum", "rho", b"rho"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["epsilon", b"epsilon", "momentum", b"momentum", "rho", b"rho"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___RmsPropParameters = RmsPropParameters
+Global___RmsPropParameters: _TypeAlias = RmsPropParameters  # noqa: Y015
 
-@typing.final
-class CenteredRmsPropParameters(google.protobuf.message.Message):
+@_typing.final
+class CenteredRmsPropParameters(_message.Message):
     """https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/RMSprop
     https://github.com/tensorflow/tensorflow/blob/6b6471f3ffb7f1fefe42d814aa5fb9ab7a535b58/tensorflow/core/kernels/training_ops.cc#L4358
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    RHO_FIELD_NUMBER: builtins.int
-    MOMENTUM_FIELD_NUMBER: builtins.int
-    EPSILON_FIELD_NUMBER: builtins.int
-    rho: builtins.float
-    momentum: builtins.float
-    epsilon: builtins.float
+    RHO_FIELD_NUMBER: _builtins.int
+    MOMENTUM_FIELD_NUMBER: _builtins.int
+    EPSILON_FIELD_NUMBER: _builtins.int
+    rho: _builtins.float
+    momentum: _builtins.float
+    epsilon: _builtins.float
     def __init__(
-        self, *, rho: builtins.float | None = ..., momentum: builtins.float | None = ..., epsilon: builtins.float | None = ...
+        self, *, rho: _builtins.float | None = ..., momentum: _builtins.float | None = ..., epsilon: _builtins.float | None = ...
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["epsilon", b"epsilon", "momentum", b"momentum", "rho", b"rho"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["epsilon", b"epsilon", "momentum", b"momentum", "rho", b"rho"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___CenteredRmsPropParameters = CenteredRmsPropParameters
+Global___CenteredRmsPropParameters: _TypeAlias = CenteredRmsPropParameters  # noqa: Y015
 
-@typing.final
-class MdlAdagradLightParameters(google.protobuf.message.Message):
+@_typing.final
+class MdlAdagradLightParameters(_message.Message):
     """Variant of algorithm in http://proceedings.mlr.press/v44/shamir15.pdf"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    L2_FIELD_NUMBER: builtins.int
-    LR_POWER_FIELD_NUMBER: builtins.int
-    MIN_SERVABLE_MDL_BENEFIT_FIELD_NUMBER: builtins.int
-    MDL_MIX_IN_MARGIN_FIELD_NUMBER: builtins.int
-    MDL_BENEFIT_RAMPUP_COEFF_FIELD_NUMBER: builtins.int
-    MDL_MIN_WEIGHT_FIELD_NUMBER: builtins.int
-    BENEFIT_REVISIT_SCALE_FIELD_NUMBER: builtins.int
-    MAX_EVENT_BENEFIT_FIELD_NUMBER: builtins.int
-    MAX_TOTAL_BENEFIT_FIELD_NUMBER: builtins.int
-    MDL_HARD_LIMIT_FIELD_NUMBER: builtins.int
-    HARD_LIMIT_MIN_BENEFIT_FIELD_NUMBER: builtins.int
-    MDL_REGULARIZE_FIELD_NUMBER: builtins.int
-    l2: builtins.float
-    lr_power: builtins.float
-    min_servable_mdl_benefit: builtins.float
-    mdl_mix_in_margin: builtins.float
-    mdl_benefit_rampup_coeff: builtins.float
-    mdl_min_weight: builtins.float
-    benefit_revisit_scale: builtins.float
-    max_event_benefit: builtins.float
-    max_total_benefit: builtins.float
-    mdl_hard_limit: builtins.float
-    hard_limit_min_benefit: builtins.bool
-    mdl_regularize: builtins.bool
+    L2_FIELD_NUMBER: _builtins.int
+    LR_POWER_FIELD_NUMBER: _builtins.int
+    MIN_SERVABLE_MDL_BENEFIT_FIELD_NUMBER: _builtins.int
+    MDL_MIX_IN_MARGIN_FIELD_NUMBER: _builtins.int
+    MDL_BENEFIT_RAMPUP_COEFF_FIELD_NUMBER: _builtins.int
+    MDL_MIN_WEIGHT_FIELD_NUMBER: _builtins.int
+    BENEFIT_REVISIT_SCALE_FIELD_NUMBER: _builtins.int
+    MAX_EVENT_BENEFIT_FIELD_NUMBER: _builtins.int
+    MAX_TOTAL_BENEFIT_FIELD_NUMBER: _builtins.int
+    MDL_HARD_LIMIT_FIELD_NUMBER: _builtins.int
+    HARD_LIMIT_MIN_BENEFIT_FIELD_NUMBER: _builtins.int
+    MDL_REGULARIZE_FIELD_NUMBER: _builtins.int
+    l2: _builtins.float
+    lr_power: _builtins.float
+    min_servable_mdl_benefit: _builtins.float
+    mdl_mix_in_margin: _builtins.float
+    mdl_benefit_rampup_coeff: _builtins.float
+    mdl_min_weight: _builtins.float
+    benefit_revisit_scale: _builtins.float
+    max_event_benefit: _builtins.float
+    max_total_benefit: _builtins.float
+    mdl_hard_limit: _builtins.float
+    hard_limit_min_benefit: _builtins.bool
+    mdl_regularize: _builtins.bool
     def __init__(
         self,
         *,
-        l2: builtins.float | None = ...,
-        lr_power: builtins.float | None = ...,
-        min_servable_mdl_benefit: builtins.float | None = ...,
-        mdl_mix_in_margin: builtins.float | None = ...,
-        mdl_benefit_rampup_coeff: builtins.float | None = ...,
-        mdl_min_weight: builtins.float | None = ...,
-        benefit_revisit_scale: builtins.float | None = ...,
-        max_event_benefit: builtins.float | None = ...,
-        max_total_benefit: builtins.float | None = ...,
-        mdl_hard_limit: builtins.float | None = ...,
-        hard_limit_min_benefit: builtins.bool | None = ...,
-        mdl_regularize: builtins.bool | None = ...,
+        l2: _builtins.float | None = ...,
+        lr_power: _builtins.float | None = ...,
+        min_servable_mdl_benefit: _builtins.float | None = ...,
+        mdl_mix_in_margin: _builtins.float | None = ...,
+        mdl_benefit_rampup_coeff: _builtins.float | None = ...,
+        mdl_min_weight: _builtins.float | None = ...,
+        benefit_revisit_scale: _builtins.float | None = ...,
+        max_event_benefit: _builtins.float | None = ...,
+        max_total_benefit: _builtins.float | None = ...,
+        mdl_hard_limit: _builtins.float | None = ...,
+        hard_limit_min_benefit: _builtins.bool | None = ...,
+        mdl_regularize: _builtins.bool | None = ...,
     ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "benefit_revisit_scale",
-            b"benefit_revisit_scale",
-            "hard_limit_min_benefit",
-            b"hard_limit_min_benefit",
-            "l2",
-            b"l2",
-            "lr_power",
-            b"lr_power",
-            "max_event_benefit",
-            b"max_event_benefit",
-            "max_total_benefit",
-            b"max_total_benefit",
-            "mdl_benefit_rampup_coeff",
-            b"mdl_benefit_rampup_coeff",
-            "mdl_hard_limit",
-            b"mdl_hard_limit",
-            "mdl_min_weight",
-            b"mdl_min_weight",
-            "mdl_mix_in_margin",
-            b"mdl_mix_in_margin",
-            "mdl_regularize",
-            b"mdl_regularize",
-            "min_servable_mdl_benefit",
-            b"min_servable_mdl_benefit",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "benefit_revisit_scale",
+        b"benefit_revisit_scale",
+        "hard_limit_min_benefit",
+        b"hard_limit_min_benefit",
+        "l2",
+        b"l2",
+        "lr_power",
+        b"lr_power",
+        "max_event_benefit",
+        b"max_event_benefit",
+        "max_total_benefit",
+        b"max_total_benefit",
+        "mdl_benefit_rampup_coeff",
+        b"mdl_benefit_rampup_coeff",
+        "mdl_hard_limit",
+        b"mdl_hard_limit",
+        "mdl_min_weight",
+        b"mdl_min_weight",
+        "mdl_mix_in_margin",
+        b"mdl_mix_in_margin",
+        "mdl_regularize",
+        b"mdl_regularize",
+        "min_servable_mdl_benefit",
+        b"min_servable_mdl_benefit",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___MdlAdagradLightParameters = MdlAdagradLightParameters
+Global___MdlAdagradLightParameters: _TypeAlias = MdlAdagradLightParameters  # noqa: Y015
 
-@typing.final
-class AdadeltaParameters(google.protobuf.message.Message):
+@_typing.final
+class AdadeltaParameters(_message.Message):
     """https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/Adadelta
     https://github.com/tensorflow/tensorflow/blob/6b6471f3ffb7f1fefe42d814aa5fb9ab7a535b58/tensorflow/core/kernels/training_ops.cc#L933
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    RHO_FIELD_NUMBER: builtins.int
-    EPSILON_FIELD_NUMBER: builtins.int
-    rho: builtins.float
-    epsilon: builtins.float
-    def __init__(self, *, rho: builtins.float | None = ..., epsilon: builtins.float | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["epsilon", b"epsilon", "rho", b"rho"]) -> None: ...
+    RHO_FIELD_NUMBER: _builtins.int
+    EPSILON_FIELD_NUMBER: _builtins.int
+    rho: _builtins.float
+    epsilon: _builtins.float
+    def __init__(self, *, rho: _builtins.float | None = ..., epsilon: _builtins.float | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["epsilon", b"epsilon", "rho", b"rho"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___AdadeltaParameters = AdadeltaParameters
+Global___AdadeltaParameters: _TypeAlias = AdadeltaParameters  # noqa: Y015
 
-@typing.final
-class ProximalAdagradParameters(google.protobuf.message.Message):
+@_typing.final
+class ProximalAdagradParameters(_message.Message):
     """https://www.tensorflow.org/api_docs/python/tf/compat/v1/train/ProximalAdagradOptimizer
     https://github.com/tensorflow/tensorflow/blob/6b6471f3ffb7f1fefe42d814aa5fb9ab7a535b58/tensorflow/core/kernels/training_ops.cc#L1961
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    L1_FIELD_NUMBER: builtins.int
-    L2_FIELD_NUMBER: builtins.int
-    l1: builtins.float
-    l2: builtins.float
-    def __init__(self, *, l1: builtins.float | None = ..., l2: builtins.float | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["l1", b"l1", "l2", b"l2"]) -> None: ...
+    L1_FIELD_NUMBER: _builtins.int
+    L2_FIELD_NUMBER: _builtins.int
+    l1: _builtins.float
+    l2: _builtins.float
+    def __init__(self, *, l1: _builtins.float | None = ..., l2: _builtins.float | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["l1", b"l1", "l2", b"l2"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___ProximalAdagradParameters = ProximalAdagradParameters
+Global___ProximalAdagradParameters: _TypeAlias = ProximalAdagradParameters  # noqa: Y015
 
-@typing.final
-class OnlineYogiParameters(google.protobuf.message.Message):
+@_typing.final
+class OnlineYogiParameters(_message.Message):
     """The online Yogi optimizer does not implement hyper-parameter update; use the
     dynamic learning rate feature instead, setting the learning rate to:
     user learning_rate * sqrt(1 - beta2^t) / (1 - beta1^t)
@@ -634,26 +782,30 @@ class OnlineYogiParameters(google.protobuf.message.Message):
     Note that the code by default implements the lazy version of online Yogi.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    L1_FIELD_NUMBER: builtins.int
-    L2_FIELD_NUMBER: builtins.int
-    BETA2_FIELD_NUMBER: builtins.int
-    l1: builtins.float
+    L1_FIELD_NUMBER: _builtins.int
+    L2_FIELD_NUMBER: _builtins.int
+    BETA2_FIELD_NUMBER: _builtins.int
+    l1: _builtins.float
     """The L1 regularization parameter (used analogously to the one in FTRL)."""
-    l2: builtins.float
+    l2: _builtins.float
     """The L2 regularization parameter (used analogously to the one in FTRL)."""
-    beta2: builtins.float
+    beta2: _builtins.float
     """\\beta_2 from Algorithm 2 in the paper."""
     def __init__(
-        self, *, l1: builtins.float | None = ..., l2: builtins.float | None = ..., beta2: builtins.float | None = ...
+        self, *, l1: _builtins.float | None = ..., l2: _builtins.float | None = ..., beta2: _builtins.float | None = ...
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["beta2", b"beta2", "l1", b"l1", "l2", b"l2"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["beta2", b"beta2", "l1", b"l1", "l2", b"l2"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___OnlineYogiParameters = OnlineYogiParameters
+Global___OnlineYogiParameters: _TypeAlias = OnlineYogiParameters  # noqa: Y015
 
-@typing.final
-class ProximalYogiParameters(google.protobuf.message.Message):
+@_typing.final
+class ProximalYogiParameters(_message.Message):
     """The online Yogi optimizer does not implement hyper-parameter update; use the
     dynamic learning rate feature instead, setting the learning rate to:
     user learning_rate * sqrt(1 - beta2^t) / (1 - beta1^t)
@@ -665,40 +817,44 @@ class ProximalYogiParameters(google.protobuf.message.Message):
     Note that the code by default implements the lazy version of proximal Yogi.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    L1_FIELD_NUMBER: builtins.int
-    L2_FIELD_NUMBER: builtins.int
-    BETA1_FIELD_NUMBER: builtins.int
-    BETA2_FIELD_NUMBER: builtins.int
-    EPSILON_FIELD_NUMBER: builtins.int
-    l1: builtins.float
+    L1_FIELD_NUMBER: _builtins.int
+    L2_FIELD_NUMBER: _builtins.int
+    BETA1_FIELD_NUMBER: _builtins.int
+    BETA2_FIELD_NUMBER: _builtins.int
+    EPSILON_FIELD_NUMBER: _builtins.int
+    l1: _builtins.float
     """The L1 regularization parameter."""
-    l2: builtins.float
+    l2: _builtins.float
     """The L2 regularization parameter."""
-    beta1: builtins.float
+    beta1: _builtins.float
     """The exponential decay rate for the 1st moment estimates."""
-    beta2: builtins.float
+    beta2: _builtins.float
     """The exponential decay rate for the 2nd moment estimates."""
-    epsilon: builtins.float
+    epsilon: _builtins.float
     """A constant trading off adaptivity and noise."""
     def __init__(
         self,
         *,
-        l1: builtins.float | None = ...,
-        l2: builtins.float | None = ...,
-        beta1: builtins.float | None = ...,
-        beta2: builtins.float | None = ...,
-        epsilon: builtins.float | None = ...,
+        l1: _builtins.float | None = ...,
+        l2: _builtins.float | None = ...,
+        beta1: _builtins.float | None = ...,
+        beta2: _builtins.float | None = ...,
+        epsilon: _builtins.float | None = ...,
     ) -> None: ...
-    def ClearField(
-        self, field_name: typing.Literal["beta1", b"beta1", "beta2", b"beta2", "epsilon", b"epsilon", "l1", b"l1", "l2", b"l2"]
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "beta1", b"beta1", "beta2", b"beta2", "epsilon", b"epsilon", "l1", b"l1", "l2", b"l2"
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___ProximalYogiParameters = ProximalYogiParameters
+Global___ProximalYogiParameters: _TypeAlias = ProximalYogiParameters  # noqa: Y015
 
-@typing.final
-class FrequencyEstimatorParameters(google.protobuf.message.Message):
+@_typing.final
+class FrequencyEstimatorParameters(_message.Message):
     """Estimator for the frequency of updates to a lookup table. It maintains an
     array (tf.Variable) D, where each element records the average number of
     global steps between two consecutive batches that hit the corresponding
@@ -725,50 +881,44 @@ class FrequencyEstimatorParameters(google.protobuf.message.Message):
       last_hit_step[i] <- global_step
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    TAU_FIELD_NUMBER: builtins.int
-    MAX_DELTA_FIELD_NUMBER: builtins.int
-    OUTLIER_THRESHOLD_FIELD_NUMBER: builtins.int
-    WEIGHT_EXPONENT_FIELD_NUMBER: builtins.int
-    tau: builtins.float
+    TAU_FIELD_NUMBER: _builtins.int
+    MAX_DELTA_FIELD_NUMBER: _builtins.int
+    OUTLIER_THRESHOLD_FIELD_NUMBER: _builtins.int
+    WEIGHT_EXPONENT_FIELD_NUMBER: _builtins.int
+    tau: _builtins.float
     """Learning rate between (0, 1) that is used to update the array D."""
-    max_delta: builtins.float
+    max_delta: _builtins.float
     """Maximum value of delta: difference between the current global step and the
     last global step at which the row was sampled.
     """
-    outlier_threshold: builtins.float
+    outlier_threshold: _builtins.float
     """Threshold used to determine whether the current update is an outlier."""
-    weight_exponent: builtins.float
+    weight_exponent: _builtins.float
     """The weight exponent used to transform the estimated delta into weights.
     The transformation function is: (delta / max_delta) ^ (weight_exponent)
     """
     def __init__(
         self,
         *,
-        tau: builtins.float | None = ...,
-        max_delta: builtins.float | None = ...,
-        outlier_threshold: builtins.float | None = ...,
-        weight_exponent: builtins.float | None = ...,
+        tau: _builtins.float | None = ...,
+        max_delta: _builtins.float | None = ...,
+        outlier_threshold: _builtins.float | None = ...,
+        weight_exponent: _builtins.float | None = ...,
     ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "max_delta",
-            b"max_delta",
-            "outlier_threshold",
-            b"outlier_threshold",
-            "tau",
-            b"tau",
-            "weight_exponent",
-            b"weight_exponent",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "max_delta", b"max_delta", "outlier_threshold", b"outlier_threshold", "tau", b"tau", "weight_exponent", b"weight_exponent"
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___FrequencyEstimatorParameters = FrequencyEstimatorParameters
+Global___FrequencyEstimatorParameters: _TypeAlias = FrequencyEstimatorParameters  # noqa: Y015
 
-@typing.final
-class UserDefinedProgramParameters(google.protobuf.message.Message):
+@_typing.final
+class UserDefinedProgramParameters(_message.Message):
     """A user-defined optimizer.
     The contained HLO program must take the following arguments in the following
     order:
@@ -790,49 +940,57 @@ class UserDefinedProgramParameters(google.protobuf.message.Message):
     called on each row that needs an update and will applied elementwise.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    PROGRAM_FIELD_NUMBER: builtins.int
-    @property
-    def program(self) -> tensorflow.compiler.xla.service.hlo_pb2.HloModuleProto: ...
-    def __init__(self, *, program: tensorflow.compiler.xla.service.hlo_pb2.HloModuleProto | None = ...) -> None: ...
-    def HasField(self, field_name: typing.Literal["program", b"program"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["program", b"program"]) -> None: ...
+    PROGRAM_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def program(self) -> _hlo_pb2.HloModuleProto: ...
+    def __init__(self, *, program: _hlo_pb2.HloModuleProto | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["program", b"program"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["program", b"program"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___UserDefinedProgramParameters = UserDefinedProgramParameters
+Global___UserDefinedProgramParameters: _TypeAlias = UserDefinedProgramParameters  # noqa: Y015
 
-@typing.final
-class AssignParameters(google.protobuf.message.Message):
+@_typing.final
+class AssignParameters(_message.Message):
     """Optimizer that just sets the variable to the value of the gradient. To be
     correct, this requires either gradient accumulation (to sum the values of a
     computed expression across the samples) or to deduplicate IDs within a single
     host (to assign the value from an arbitrary sample).
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
     def __init__(self) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___AssignParameters = AssignParameters
+Global___AssignParameters: _TypeAlias = AssignParameters  # noqa: Y015
 
-@typing.final
-class GradientAccumulationStatus(google.protobuf.message.Message):
+@_typing.final
+class GradientAccumulationStatus(_message.Message):
     """Status of using gradient accumulation (doing two passes over the input
     gradients: one to accumulate them into a temporary array and another to apply
     them using the actual optimization algorithm). The extra message is to wrap
     the enum for scoping.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _Status:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
     class _StatusEnumTypeWrapper(
-        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[GradientAccumulationStatus._Status.ValueType], builtins.type
+        _enum_type_wrapper._EnumTypeWrapper[GradientAccumulationStatus._Status.ValueType], _builtins.type
     ):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        DESCRIPTOR: _descriptor.EnumDescriptor
         UNSPECIFIED: GradientAccumulationStatus._Status.ValueType  # 0
         ENABLED: GradientAccumulationStatus._Status.ValueType  # 1
         DISABLED: GradientAccumulationStatus._Status.ValueType  # 2
@@ -845,11 +1003,16 @@ class GradientAccumulationStatus(google.protobuf.message.Message):
     DISABLED: GradientAccumulationStatus.Status.ValueType  # 2
 
     def __init__(self) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___GradientAccumulationStatus = GradientAccumulationStatus
+Global___GradientAccumulationStatus: _TypeAlias = GradientAccumulationStatus  # noqa: Y015
 
-@typing.final
-class LowDimensionalPackingStatus(google.protobuf.message.Message):
+@_typing.final
+class LowDimensionalPackingStatus(_message.Message):
     """Whether to optimize the packing of low-dimensional embedding tables in HBM
     (high bandwidth memory). TPUs access HBM at 32-byte (8-float) granularity.
     For functional correctness, the TPU software internally pads the embedding
@@ -890,16 +1053,16 @@ class LowDimensionalPackingStatus(google.protobuf.message.Message):
     off the packing optimization in such scenarios.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _Status:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
     class _StatusEnumTypeWrapper(
-        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[LowDimensionalPackingStatus._Status.ValueType], builtins.type
+        _enum_type_wrapper._EnumTypeWrapper[LowDimensionalPackingStatus._Status.ValueType], _builtins.type
     ):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        DESCRIPTOR: _descriptor.EnumDescriptor
         UNSPECIFIED: LowDimensionalPackingStatus._Status.ValueType  # 0
         ENABLED: LowDimensionalPackingStatus._Status.ValueType  # 1
         DISABLED: LowDimensionalPackingStatus._Status.ValueType  # 2
@@ -922,26 +1085,30 @@ class LowDimensionalPackingStatus(google.protobuf.message.Message):
     DISABLED: LowDimensionalPackingStatus.Status.ValueType  # 2
 
     def __init__(self) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___LowDimensionalPackingStatus = LowDimensionalPackingStatus
+Global___LowDimensionalPackingStatus: _TypeAlias = LowDimensionalPackingStatus  # noqa: Y015
 
-@typing.final
-class HotIdReplicationConfiguration(google.protobuf.message.Message):
+@_typing.final
+class HotIdReplicationConfiguration(_message.Message):
     """Configuration proto for hot ID optimization. This is an experimental feature
     that is currently disabled (by default).
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _Status:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
     class _StatusEnumTypeWrapper(
-        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[HotIdReplicationConfiguration._Status.ValueType],
-        builtins.type,
+        _enum_type_wrapper._EnumTypeWrapper[HotIdReplicationConfiguration._Status.ValueType], _builtins.type
     ):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        DESCRIPTOR: _descriptor.EnumDescriptor
         UNSPECIFIED: HotIdReplicationConfiguration._Status.ValueType  # 0
         ENABLED: HotIdReplicationConfiguration._Status.ValueType  # 1
         DISABLED: HotIdReplicationConfiguration._Status.ValueType  # 2
@@ -959,368 +1126,379 @@ class HotIdReplicationConfiguration(google.protobuf.message.Message):
     DISABLED: HotIdReplicationConfiguration.Status.ValueType  # 2
     MIGRATION_ONLY: HotIdReplicationConfiguration.Status.ValueType  # 3
 
-    STATUS_FIELD_NUMBER: builtins.int
-    status: global___HotIdReplicationConfiguration.Status.ValueType
-    def __init__(self, *, status: global___HotIdReplicationConfiguration.Status.ValueType | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["status", b"status"]) -> None: ...
+    STATUS_FIELD_NUMBER: _builtins.int
+    status: Global___HotIdReplicationConfiguration.Status.ValueType
+    def __init__(self, *, status: Global___HotIdReplicationConfiguration.Status.ValueType | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["status", b"status"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___HotIdReplicationConfiguration = HotIdReplicationConfiguration
+Global___HotIdReplicationConfiguration: _TypeAlias = HotIdReplicationConfiguration  # noqa: Y015
 
-@typing.final
-class OptimizationParameters(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class OptimizationParameters(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    LEARNING_RATE_FIELD_NUMBER: builtins.int
-    CLIPPING_LIMITS_FIELD_NUMBER: builtins.int
-    GRADIENT_CLIPPING_LIMITS_FIELD_NUMBER: builtins.int
-    WEIGHT_DECAY_FACTOR_FIELD_NUMBER: builtins.int
-    MULTIPLY_WEIGHT_DECAY_FACTOR_BY_LEARNING_RATE_FIELD_NUMBER: builtins.int
-    SIMULATED_QUANTIZATION_FIELD_NUMBER: builtins.int
-    GRADIENT_ACCUMULATION_STATUS_FIELD_NUMBER: builtins.int
-    LOW_DIMENSIONAL_PACKING_STATUS_FIELD_NUMBER: builtins.int
-    HOT_ID_REPLICATION_CONFIGURATION_FIELD_NUMBER: builtins.int
-    ADAGRAD_FIELD_NUMBER: builtins.int
-    ADAGRAD_MOMENTUM_FIELD_NUMBER: builtins.int
-    BOUNDED_ADAGRAD_FIELD_NUMBER: builtins.int
-    STOCHASTIC_GRADIENT_DESCENT_FIELD_NUMBER: builtins.int
-    FTRL_FIELD_NUMBER: builtins.int
-    ADAM_FIELD_NUMBER: builtins.int
-    MOMENTUM_FIELD_NUMBER: builtins.int
-    LION_FIELD_NUMBER: builtins.int
-    RMS_PROP_FIELD_NUMBER: builtins.int
-    CENTERED_RMS_PROP_FIELD_NUMBER: builtins.int
-    MDL_ADAGRAD_LIGHT_FIELD_NUMBER: builtins.int
-    ADADELTA_FIELD_NUMBER: builtins.int
-    PROXIMAL_ADAGRAD_FIELD_NUMBER: builtins.int
-    ONLINE_YOGI_FIELD_NUMBER: builtins.int
-    PROXIMAL_YOGI_FIELD_NUMBER: builtins.int
-    FREQUENCY_ESTIMATOR_FIELD_NUMBER: builtins.int
-    USER_DEFINED_PROGRAM_FIELD_NUMBER: builtins.int
-    ASSIGN_FIELD_NUMBER: builtins.int
-    weight_decay_factor: builtins.float
+    LEARNING_RATE_FIELD_NUMBER: _builtins.int
+    CLIPPING_LIMITS_FIELD_NUMBER: _builtins.int
+    GRADIENT_CLIPPING_LIMITS_FIELD_NUMBER: _builtins.int
+    WEIGHT_DECAY_FACTOR_FIELD_NUMBER: _builtins.int
+    MULTIPLY_WEIGHT_DECAY_FACTOR_BY_LEARNING_RATE_FIELD_NUMBER: _builtins.int
+    SIMULATED_QUANTIZATION_FIELD_NUMBER: _builtins.int
+    GRADIENT_ACCUMULATION_STATUS_FIELD_NUMBER: _builtins.int
+    LOW_DIMENSIONAL_PACKING_STATUS_FIELD_NUMBER: _builtins.int
+    HOT_ID_REPLICATION_CONFIGURATION_FIELD_NUMBER: _builtins.int
+    ADAGRAD_FIELD_NUMBER: _builtins.int
+    ADAGRAD_MOMENTUM_FIELD_NUMBER: _builtins.int
+    BOUNDED_ADAGRAD_FIELD_NUMBER: _builtins.int
+    FREQUENCY_AWARE_ADAGRAD_FIELD_NUMBER: _builtins.int
+    STOCHASTIC_GRADIENT_DESCENT_FIELD_NUMBER: _builtins.int
+    FTRL_FIELD_NUMBER: _builtins.int
+    ADAM_FIELD_NUMBER: _builtins.int
+    MOMENTUM_FIELD_NUMBER: _builtins.int
+    LION_FIELD_NUMBER: _builtins.int
+    RMS_PROP_FIELD_NUMBER: _builtins.int
+    CENTERED_RMS_PROP_FIELD_NUMBER: _builtins.int
+    MDL_ADAGRAD_LIGHT_FIELD_NUMBER: _builtins.int
+    ADADELTA_FIELD_NUMBER: _builtins.int
+    PROXIMAL_ADAGRAD_FIELD_NUMBER: _builtins.int
+    ONLINE_YOGI_FIELD_NUMBER: _builtins.int
+    PROXIMAL_YOGI_FIELD_NUMBER: _builtins.int
+    FREQUENCY_ESTIMATOR_FIELD_NUMBER: _builtins.int
+    USER_DEFINED_PROGRAM_FIELD_NUMBER: _builtins.int
+    ASSIGN_FIELD_NUMBER: _builtins.int
+    weight_decay_factor: _builtins.float
     """Amount of weight decay to apply; see weight_decay_optimizers.py for
     details. All optimizers except MDL Adagrad Light are supported with this
     option. Although there is no check, users who want weight decay will also
     want to ensure that gradient accumulation is enabled so that the decay will
     happen once per global batch.
     """
-    multiply_weight_decay_factor_by_learning_rate: builtins.bool
+    multiply_weight_decay_factor_by_learning_rate: _builtins.bool
     """If true, the weight decay factor is multiplied by the current learning rate
     before use; this is to match the note in DecoupledWeightDecayExtension in
     weight_decay_optimizers.py.
     """
-    gradient_accumulation_status: global___GradientAccumulationStatus.Status.ValueType
+    gradient_accumulation_status: Global___GradientAccumulationStatus.Status.ValueType
     """Status of using gradient accumulation (doing two passes over the input
     gradients: one to accumulate them into a temporary array and another to
     apply them using the actual optimization algorithm).
     """
-    low_dimensional_packing_status: global___LowDimensionalPackingStatus.Status.ValueType
+    low_dimensional_packing_status: Global___LowDimensionalPackingStatus.Status.ValueType
     """Status of the low-dimensional embedding packing optimization. This controls
     whether to optimize the packing of 1-dimensional, 2-dimensional, and
     4-dimensional embedding tables in memory.
     """
-    @property
-    def learning_rate(self) -> global___LearningRate:
+    @_builtins.property
+    def learning_rate(self) -> Global___LearningRate:
         """Learning rate used for updating the embedding layer parameters."""
 
-    @property
-    def clipping_limits(self) -> global___ClippingLimits:
+    @_builtins.property
+    def clipping_limits(self) -> Global___ClippingLimits:
         """Limits to which to clip the weight values after the backward pass; not
         present means no limits are applied.
         """
 
-    @property
-    def gradient_clipping_limits(self) -> global___ClippingLimits:
+    @_builtins.property
+    def gradient_clipping_limits(self) -> Global___ClippingLimits:
         """Limits to which to clip the backward pass gradient before using it for
         updates; not present means no limits are applied.
         """
 
-    @property
-    def simulated_quantization(self) -> global___SimulatedQuantization:
+    @_builtins.property
+    def simulated_quantization(self) -> Global___SimulatedQuantization:
         """Configuration for simulated quantization which is used to reduce
         training/serving skew when the serving variables are quantized. The same
         quantization operations are executed during training to minimize
         differences with serving.
         """
 
-    @property
-    def hot_id_replication_configuration(self) -> global___HotIdReplicationConfiguration:
+    @_builtins.property
+    def hot_id_replication_configuration(self) -> Global___HotIdReplicationConfiguration:
         """Configuration proto for hot ID replication. This is an experimental
         feature that is currently disabled (by default).
         """
 
-    @property
-    def adagrad(self) -> global___AdagradParameters: ...
-    @property
-    def adagrad_momentum(self) -> global___AdagradMomentumParameters: ...
-    @property
-    def bounded_adagrad(self) -> global___BoundedAdagradParameters: ...
-    @property
-    def stochastic_gradient_descent(self) -> global___StochasticGradientDescentParameters: ...
-    @property
-    def ftrl(self) -> global___FtrlParameters: ...
-    @property
-    def adam(self) -> global___AdamParameters: ...
-    @property
-    def momentum(self) -> global___MomentumParameters: ...
-    @property
-    def lion(self) -> global___LionParameters: ...
-    @property
-    def rms_prop(self) -> global___RmsPropParameters: ...
-    @property
-    def centered_rms_prop(self) -> global___CenteredRmsPropParameters: ...
-    @property
-    def mdl_adagrad_light(self) -> global___MdlAdagradLightParameters: ...
-    @property
-    def adadelta(self) -> global___AdadeltaParameters: ...
-    @property
-    def proximal_adagrad(self) -> global___ProximalAdagradParameters: ...
-    @property
-    def online_yogi(self) -> global___OnlineYogiParameters: ...
-    @property
-    def proximal_yogi(self) -> global___ProximalYogiParameters: ...
-    @property
-    def frequency_estimator(self) -> global___FrequencyEstimatorParameters: ...
-    @property
-    def user_defined_program(self) -> global___UserDefinedProgramParameters: ...
-    @property
-    def assign(self) -> global___AssignParameters: ...
+    @_builtins.property
+    def adagrad(self) -> Global___AdagradParameters: ...
+    @_builtins.property
+    def adagrad_momentum(self) -> Global___AdagradMomentumParameters: ...
+    @_builtins.property
+    def bounded_adagrad(self) -> Global___BoundedAdagradParameters: ...
+    @_builtins.property
+    def frequency_aware_adagrad(self) -> Global___FrequencyAwareAdagradParameters: ...
+    @_builtins.property
+    def stochastic_gradient_descent(self) -> Global___StochasticGradientDescentParameters: ...
+    @_builtins.property
+    def ftrl(self) -> Global___FtrlParameters: ...
+    @_builtins.property
+    def adam(self) -> Global___AdamParameters: ...
+    @_builtins.property
+    def momentum(self) -> Global___MomentumParameters: ...
+    @_builtins.property
+    def lion(self) -> Global___LionParameters: ...
+    @_builtins.property
+    def rms_prop(self) -> Global___RmsPropParameters: ...
+    @_builtins.property
+    def centered_rms_prop(self) -> Global___CenteredRmsPropParameters: ...
+    @_builtins.property
+    def mdl_adagrad_light(self) -> Global___MdlAdagradLightParameters: ...
+    @_builtins.property
+    def adadelta(self) -> Global___AdadeltaParameters: ...
+    @_builtins.property
+    def proximal_adagrad(self) -> Global___ProximalAdagradParameters: ...
+    @_builtins.property
+    def online_yogi(self) -> Global___OnlineYogiParameters: ...
+    @_builtins.property
+    def proximal_yogi(self) -> Global___ProximalYogiParameters: ...
+    @_builtins.property
+    def frequency_estimator(self) -> Global___FrequencyEstimatorParameters: ...
+    @_builtins.property
+    def user_defined_program(self) -> Global___UserDefinedProgramParameters: ...
+    @_builtins.property
+    def assign(self) -> Global___AssignParameters: ...
     def __init__(
         self,
         *,
-        learning_rate: global___LearningRate | None = ...,
-        clipping_limits: global___ClippingLimits | None = ...,
-        gradient_clipping_limits: global___ClippingLimits | None = ...,
-        weight_decay_factor: builtins.float | None = ...,
-        multiply_weight_decay_factor_by_learning_rate: builtins.bool | None = ...,
-        simulated_quantization: global___SimulatedQuantization | None = ...,
-        gradient_accumulation_status: global___GradientAccumulationStatus.Status.ValueType | None = ...,
-        low_dimensional_packing_status: global___LowDimensionalPackingStatus.Status.ValueType | None = ...,
-        hot_id_replication_configuration: global___HotIdReplicationConfiguration | None = ...,
-        adagrad: global___AdagradParameters | None = ...,
-        adagrad_momentum: global___AdagradMomentumParameters | None = ...,
-        bounded_adagrad: global___BoundedAdagradParameters | None = ...,
-        stochastic_gradient_descent: global___StochasticGradientDescentParameters | None = ...,
-        ftrl: global___FtrlParameters | None = ...,
-        adam: global___AdamParameters | None = ...,
-        momentum: global___MomentumParameters | None = ...,
-        lion: global___LionParameters | None = ...,
-        rms_prop: global___RmsPropParameters | None = ...,
-        centered_rms_prop: global___CenteredRmsPropParameters | None = ...,
-        mdl_adagrad_light: global___MdlAdagradLightParameters | None = ...,
-        adadelta: global___AdadeltaParameters | None = ...,
-        proximal_adagrad: global___ProximalAdagradParameters | None = ...,
-        online_yogi: global___OnlineYogiParameters | None = ...,
-        proximal_yogi: global___ProximalYogiParameters | None = ...,
-        frequency_estimator: global___FrequencyEstimatorParameters | None = ...,
-        user_defined_program: global___UserDefinedProgramParameters | None = ...,
-        assign: global___AssignParameters | None = ...,
+        learning_rate: Global___LearningRate | None = ...,
+        clipping_limits: Global___ClippingLimits | None = ...,
+        gradient_clipping_limits: Global___ClippingLimits | None = ...,
+        weight_decay_factor: _builtins.float | None = ...,
+        multiply_weight_decay_factor_by_learning_rate: _builtins.bool | None = ...,
+        simulated_quantization: Global___SimulatedQuantization | None = ...,
+        gradient_accumulation_status: Global___GradientAccumulationStatus.Status.ValueType | None = ...,
+        low_dimensional_packing_status: Global___LowDimensionalPackingStatus.Status.ValueType | None = ...,
+        hot_id_replication_configuration: Global___HotIdReplicationConfiguration | None = ...,
+        adagrad: Global___AdagradParameters | None = ...,
+        adagrad_momentum: Global___AdagradMomentumParameters | None = ...,
+        bounded_adagrad: Global___BoundedAdagradParameters | None = ...,
+        frequency_aware_adagrad: Global___FrequencyAwareAdagradParameters | None = ...,
+        stochastic_gradient_descent: Global___StochasticGradientDescentParameters | None = ...,
+        ftrl: Global___FtrlParameters | None = ...,
+        adam: Global___AdamParameters | None = ...,
+        momentum: Global___MomentumParameters | None = ...,
+        lion: Global___LionParameters | None = ...,
+        rms_prop: Global___RmsPropParameters | None = ...,
+        centered_rms_prop: Global___CenteredRmsPropParameters | None = ...,
+        mdl_adagrad_light: Global___MdlAdagradLightParameters | None = ...,
+        adadelta: Global___AdadeltaParameters | None = ...,
+        proximal_adagrad: Global___ProximalAdagradParameters | None = ...,
+        online_yogi: Global___OnlineYogiParameters | None = ...,
+        proximal_yogi: Global___ProximalYogiParameters | None = ...,
+        frequency_estimator: Global___FrequencyEstimatorParameters | None = ...,
+        user_defined_program: Global___UserDefinedProgramParameters | None = ...,
+        assign: Global___AssignParameters | None = ...,
     ) -> None: ...
-    def HasField(
-        self,
-        field_name: typing.Literal[
-            "adadelta",
-            b"adadelta",
-            "adagrad",
-            b"adagrad",
-            "adagrad_momentum",
-            b"adagrad_momentum",
-            "adam",
-            b"adam",
-            "assign",
-            b"assign",
-            "bounded_adagrad",
-            b"bounded_adagrad",
-            "centered_rms_prop",
-            b"centered_rms_prop",
-            "clipping_limits",
-            b"clipping_limits",
-            "frequency_estimator",
-            b"frequency_estimator",
-            "ftrl",
-            b"ftrl",
-            "gradient_clipping_limits",
-            b"gradient_clipping_limits",
-            "hot_id_replication_configuration",
-            b"hot_id_replication_configuration",
-            "learning_rate",
-            b"learning_rate",
-            "lion",
-            b"lion",
-            "mdl_adagrad_light",
-            b"mdl_adagrad_light",
-            "momentum",
-            b"momentum",
-            "online_yogi",
-            b"online_yogi",
-            "parameters",
-            b"parameters",
-            "proximal_adagrad",
-            b"proximal_adagrad",
-            "proximal_yogi",
-            b"proximal_yogi",
-            "rms_prop",
-            b"rms_prop",
-            "simulated_quantization",
-            b"simulated_quantization",
-            "stochastic_gradient_descent",
-            b"stochastic_gradient_descent",
-            "user_defined_program",
-            b"user_defined_program",
-        ],
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "adadelta",
-            b"adadelta",
-            "adagrad",
-            b"adagrad",
-            "adagrad_momentum",
-            b"adagrad_momentum",
-            "adam",
-            b"adam",
-            "assign",
-            b"assign",
-            "bounded_adagrad",
-            b"bounded_adagrad",
-            "centered_rms_prop",
-            b"centered_rms_prop",
-            "clipping_limits",
-            b"clipping_limits",
-            "frequency_estimator",
-            b"frequency_estimator",
-            "ftrl",
-            b"ftrl",
-            "gradient_accumulation_status",
-            b"gradient_accumulation_status",
-            "gradient_clipping_limits",
-            b"gradient_clipping_limits",
-            "hot_id_replication_configuration",
-            b"hot_id_replication_configuration",
-            "learning_rate",
-            b"learning_rate",
-            "lion",
-            b"lion",
-            "low_dimensional_packing_status",
-            b"low_dimensional_packing_status",
-            "mdl_adagrad_light",
-            b"mdl_adagrad_light",
-            "momentum",
-            b"momentum",
-            "multiply_weight_decay_factor_by_learning_rate",
-            b"multiply_weight_decay_factor_by_learning_rate",
-            "online_yogi",
-            b"online_yogi",
-            "parameters",
-            b"parameters",
-            "proximal_adagrad",
-            b"proximal_adagrad",
-            "proximal_yogi",
-            b"proximal_yogi",
-            "rms_prop",
-            b"rms_prop",
-            "simulated_quantization",
-            b"simulated_quantization",
-            "stochastic_gradient_descent",
-            b"stochastic_gradient_descent",
-            "user_defined_program",
-            b"user_defined_program",
-            "weight_decay_factor",
-            b"weight_decay_factor",
-        ],
-    ) -> None: ...
-    def WhichOneof(
-        self, oneof_group: typing.Literal["parameters", b"parameters"]
-    ) -> (
-        typing.Literal[
-            "adagrad",
-            "adagrad_momentum",
-            "bounded_adagrad",
-            "stochastic_gradient_descent",
-            "ftrl",
-            "adam",
-            "momentum",
-            "lion",
-            "rms_prop",
-            "centered_rms_prop",
-            "mdl_adagrad_light",
-            "adadelta",
-            "proximal_adagrad",
-            "online_yogi",
-            "proximal_yogi",
-            "frequency_estimator",
-            "user_defined_program",
-            "assign",
-        ]
-        | None
-    ): ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal[
+        "adadelta",
+        b"adadelta",
+        "adagrad",
+        b"adagrad",
+        "adagrad_momentum",
+        b"adagrad_momentum",
+        "adam",
+        b"adam",
+        "assign",
+        b"assign",
+        "bounded_adagrad",
+        b"bounded_adagrad",
+        "centered_rms_prop",
+        b"centered_rms_prop",
+        "clipping_limits",
+        b"clipping_limits",
+        "frequency_aware_adagrad",
+        b"frequency_aware_adagrad",
+        "frequency_estimator",
+        b"frequency_estimator",
+        "ftrl",
+        b"ftrl",
+        "gradient_clipping_limits",
+        b"gradient_clipping_limits",
+        "hot_id_replication_configuration",
+        b"hot_id_replication_configuration",
+        "learning_rate",
+        b"learning_rate",
+        "lion",
+        b"lion",
+        "mdl_adagrad_light",
+        b"mdl_adagrad_light",
+        "momentum",
+        b"momentum",
+        "online_yogi",
+        b"online_yogi",
+        "parameters",
+        b"parameters",
+        "proximal_adagrad",
+        b"proximal_adagrad",
+        "proximal_yogi",
+        b"proximal_yogi",
+        "rms_prop",
+        b"rms_prop",
+        "simulated_quantization",
+        b"simulated_quantization",
+        "stochastic_gradient_descent",
+        b"stochastic_gradient_descent",
+        "user_defined_program",
+        b"user_defined_program",
+    ]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "adadelta",
+        b"adadelta",
+        "adagrad",
+        b"adagrad",
+        "adagrad_momentum",
+        b"adagrad_momentum",
+        "adam",
+        b"adam",
+        "assign",
+        b"assign",
+        "bounded_adagrad",
+        b"bounded_adagrad",
+        "centered_rms_prop",
+        b"centered_rms_prop",
+        "clipping_limits",
+        b"clipping_limits",
+        "frequency_aware_adagrad",
+        b"frequency_aware_adagrad",
+        "frequency_estimator",
+        b"frequency_estimator",
+        "ftrl",
+        b"ftrl",
+        "gradient_accumulation_status",
+        b"gradient_accumulation_status",
+        "gradient_clipping_limits",
+        b"gradient_clipping_limits",
+        "hot_id_replication_configuration",
+        b"hot_id_replication_configuration",
+        "learning_rate",
+        b"learning_rate",
+        "lion",
+        b"lion",
+        "low_dimensional_packing_status",
+        b"low_dimensional_packing_status",
+        "mdl_adagrad_light",
+        b"mdl_adagrad_light",
+        "momentum",
+        b"momentum",
+        "multiply_weight_decay_factor_by_learning_rate",
+        b"multiply_weight_decay_factor_by_learning_rate",
+        "online_yogi",
+        b"online_yogi",
+        "parameters",
+        b"parameters",
+        "proximal_adagrad",
+        b"proximal_adagrad",
+        "proximal_yogi",
+        b"proximal_yogi",
+        "rms_prop",
+        b"rms_prop",
+        "simulated_quantization",
+        b"simulated_quantization",
+        "stochastic_gradient_descent",
+        b"stochastic_gradient_descent",
+        "user_defined_program",
+        b"user_defined_program",
+        "weight_decay_factor",
+        b"weight_decay_factor",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType_parameters: _TypeAlias = _typing.Literal[
+        "adagrad",
+        "adagrad_momentum",
+        "bounded_adagrad",
+        "frequency_aware_adagrad",
+        "stochastic_gradient_descent",
+        "ftrl",
+        "adam",
+        "momentum",
+        "lion",
+        "rms_prop",
+        "centered_rms_prop",
+        "mdl_adagrad_light",
+        "adadelta",
+        "proximal_adagrad",
+        "online_yogi",
+        "proximal_yogi",
+        "frequency_estimator",
+        "user_defined_program",
+        "assign",
+    ]  # noqa: Y015
+    _WhichOneofArgType_parameters: _TypeAlias = _typing.Literal["parameters", b"parameters"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType_parameters) -> _WhichOneofReturnType_parameters | None: ...
 
-global___OptimizationParameters = OptimizationParameters
+Global___OptimizationParameters: _TypeAlias = OptimizationParameters  # noqa: Y015
 
-@typing.final
-class StateVariableSpecification(google.protobuf.message.Message):
+@_typing.final
+class StateVariableSpecification(_message.Message):
     """Specification of an optimization algorithm's state variables (both the main
     value vector and any extra accumulators, etc.). This proto is only used
     internally by the TPU software and is not exposed directly to the TF model.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class UserDefined(google.protobuf.message.Message):
+    @_typing.final
+    class UserDefined(_message.Message):
         """A normal state variable that should be saved and restored in checkpoints
         and used as an input or output to non-debug TensorFlow ops.
         """
 
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+        DESCRIPTOR: _descriptor.Descriptor
 
         def __init__(self) -> None: ...
+        _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _Never  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    @typing.final
-    class FillWithConstant(google.protobuf.message.Message):
+    @_typing.final
+    class FillWithConstant(_message.Message):
         """A state variable that should be filled with a constant and normally hidden
         from users (used for intermediate gradients being accumulated, for
         example).
         """
 
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+        DESCRIPTOR: _descriptor.Descriptor
 
-        INITIAL_VALUE_FIELD_NUMBER: builtins.int
-        initial_value: builtins.float
-        def __init__(self, *, initial_value: builtins.float | None = ...) -> None: ...
-        def ClearField(self, field_name: typing.Literal["initial_value", b"initial_value"]) -> None: ...
+        INITIAL_VALUE_FIELD_NUMBER: _builtins.int
+        initial_value: _builtins.float
+        def __init__(self, *, initial_value: _builtins.float | None = ...) -> None: ...
+        _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["initial_value", b"initial_value"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    NAME_FIELD_NUMBER: builtins.int
-    USER_DEFINED_FIELD_NUMBER: builtins.int
-    FILL_WITH_CONSTANT_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    USER_DEFINED_FIELD_NUMBER: _builtins.int
+    FILL_WITH_CONSTANT_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """Parameter name for the state variable."""
-    @property
-    def user_defined(self) -> global___StateVariableSpecification.UserDefined: ...
-    @property
-    def fill_with_constant(self) -> global___StateVariableSpecification.FillWithConstant: ...
+    @_builtins.property
+    def user_defined(self) -> Global___StateVariableSpecification.UserDefined: ...
+    @_builtins.property
+    def fill_with_constant(self) -> Global___StateVariableSpecification.FillWithConstant: ...
     def __init__(
         self,
         *,
-        name: builtins.str | None = ...,
-        user_defined: global___StateVariableSpecification.UserDefined | None = ...,
-        fill_with_constant: global___StateVariableSpecification.FillWithConstant | None = ...,
+        name: _builtins.str | None = ...,
+        user_defined: Global___StateVariableSpecification.UserDefined | None = ...,
+        fill_with_constant: Global___StateVariableSpecification.FillWithConstant | None = ...,
     ) -> None: ...
-    def HasField(
-        self,
-        field_name: typing.Literal[
-            "fill_with_constant", b"fill_with_constant", "usage", b"usage", "user_defined", b"user_defined"
-        ],
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "fill_with_constant", b"fill_with_constant", "name", b"name", "usage", b"usage", "user_defined", b"user_defined"
-        ],
-    ) -> None: ...
-    def WhichOneof(
-        self, oneof_group: typing.Literal["usage", b"usage"]
-    ) -> typing.Literal["user_defined", "fill_with_constant"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal[
+        "fill_with_constant", b"fill_with_constant", "usage", b"usage", "user_defined", b"user_defined"
+    ]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "fill_with_constant", b"fill_with_constant", "name", b"name", "usage", b"usage", "user_defined", b"user_defined"
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType_usage: _TypeAlias = _typing.Literal["user_defined", "fill_with_constant"]  # noqa: Y015
+    _WhichOneofArgType_usage: _TypeAlias = _typing.Literal["usage", b"usage"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType_usage) -> _WhichOneofReturnType_usage | None: ...
 
-global___StateVariableSpecification = StateVariableSpecification
+Global___StateVariableSpecification: _TypeAlias = StateVariableSpecification  # noqa: Y015

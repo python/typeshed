@@ -3,27 +3,27 @@
 isort:skip_file
 """
 
-import builtins
+import builtins as _builtins
 import sys
-import typing
+import typing as _typing
 
-import google.protobuf.descriptor
-import google.protobuf.internal.enum_type_wrapper
-import google.protobuf.message
+from google.protobuf import descriptor as _descriptor, message as _message
+from google.protobuf.internal import enum_type_wrapper as _enum_type_wrapper
 
-if sys.version_info >= (3, 10):
-    import typing as typing_extensions
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
 else:
-    import typing_extensions
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+DESCRIPTOR: _descriptor.FileDescriptor
 
 class _DataType:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _DataTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_DataType.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _DataTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_DataType.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     DT_INVALID: _DataType.ValueType  # 0
     """Not a legal value for DataType.  Used to indicate a DataType field
     has not been set.
@@ -67,14 +67,25 @@ class _DataTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumT
     """5 exponent bits, 2 mantissa bits."""
     DT_FLOAT8_E4M3FN: _DataType.ValueType  # 25
     """4 exponent bits, 3 mantissa bits, finite-only, with"""
-    DT_INT4: _DataType.ValueType  # 29
+    DT_FLOAT8_E4M3FNUZ: _DataType.ValueType  # 26
     """2 NaNs (0bS1111111).
-    TODO - b/299182407: Leaving room for remaining float8 types.
-    DT_FLOAT8_E4M3FNUZ = 26;
-    DT_FLOAT8_E4M3B11FNUZ = 27;
-    DT_FLOAT8_E5M2FNUZ = 28;
+    4 exponent bits, 3 mantissa bits, finite-only,
     """
+    DT_FLOAT8_E4M3B11FNUZ: _DataType.ValueType  # 27
+    """with NaN.
+    4 exponent bits, 3 mantissa bits, 11 bits
+    """
+    DT_FLOAT8_E5M2FNUZ: _DataType.ValueType  # 28
+    """bias, finite-only, with NaNs.
+    5 exponent bits, 2 mantissa bits, finite-only,
+    """
+    DT_INT4: _DataType.ValueType  # 29
+    """with NaN."""
     DT_UINT4: _DataType.ValueType  # 30
+    DT_INT2: _DataType.ValueType  # 31
+    DT_UINT2: _DataType.ValueType  # 32
+    DT_FLOAT4_E2M1FN: _DataType.ValueType  # 33
+    """2 exponent bits, 1 mantissa bit, finite-only"""
     DT_FLOAT_REF: _DataType.ValueType  # 101
     """Do not use!  These are only for TF1's obsolete reference Variables.
     Every enum above should have a corresponding value below (verified by
@@ -104,13 +115,14 @@ class _DataTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumT
     DT_UINT64_REF: _DataType.ValueType  # 123
     DT_FLOAT8_E5M2_REF: _DataType.ValueType  # 124
     DT_FLOAT8_E4M3FN_REF: _DataType.ValueType  # 125
+    DT_FLOAT8_E4M3FNUZ_REF: _DataType.ValueType  # 126
+    DT_FLOAT8_E4M3B11FNUZ_REF: _DataType.ValueType  # 127
+    DT_FLOAT8_E5M2FNUZ_REF: _DataType.ValueType  # 128
     DT_INT4_REF: _DataType.ValueType  # 129
-    """TODO - b/299182407: Leaving room for remaining float8 types.
-    DT_FLOAT8_E4M3FNUZ_REF = 126;
-    DT_FLOAT8_E4M3B11FNUZ_REF = 127;
-    DT_FLOAT8_E5M2FNUZ_REF = 128;
-    """
     DT_UINT4_REF: _DataType.ValueType  # 130
+    DT_INT2_REF: _DataType.ValueType  # 131
+    DT_UINT2_REF: _DataType.ValueType  # 132
+    DT_FLOAT4_E2M1FN_REF: _DataType.ValueType  # 133
 
 class DataType(_DataType, metaclass=_DataTypeEnumTypeWrapper):
     """(== suppress_warning documentation-presence ==)
@@ -160,14 +172,25 @@ DT_FLOAT8_E5M2: DataType.ValueType  # 24
 """5 exponent bits, 2 mantissa bits."""
 DT_FLOAT8_E4M3FN: DataType.ValueType  # 25
 """4 exponent bits, 3 mantissa bits, finite-only, with"""
-DT_INT4: DataType.ValueType  # 29
+DT_FLOAT8_E4M3FNUZ: DataType.ValueType  # 26
 """2 NaNs (0bS1111111).
-TODO - b/299182407: Leaving room for remaining float8 types.
-DT_FLOAT8_E4M3FNUZ = 26;
-DT_FLOAT8_E4M3B11FNUZ = 27;
-DT_FLOAT8_E5M2FNUZ = 28;
+4 exponent bits, 3 mantissa bits, finite-only,
 """
+DT_FLOAT8_E4M3B11FNUZ: DataType.ValueType  # 27
+"""with NaN.
+4 exponent bits, 3 mantissa bits, 11 bits
+"""
+DT_FLOAT8_E5M2FNUZ: DataType.ValueType  # 28
+"""bias, finite-only, with NaNs.
+5 exponent bits, 2 mantissa bits, finite-only,
+"""
+DT_INT4: DataType.ValueType  # 29
+"""with NaN."""
 DT_UINT4: DataType.ValueType  # 30
+DT_INT2: DataType.ValueType  # 31
+DT_UINT2: DataType.ValueType  # 32
+DT_FLOAT4_E2M1FN: DataType.ValueType  # 33
+"""2 exponent bits, 1 mantissa bit, finite-only"""
 DT_FLOAT_REF: DataType.ValueType  # 101
 """Do not use!  These are only for TF1's obsolete reference Variables.
 Every enum above should have a corresponding value below (verified by
@@ -197,24 +220,29 @@ DT_UINT32_REF: DataType.ValueType  # 122
 DT_UINT64_REF: DataType.ValueType  # 123
 DT_FLOAT8_E5M2_REF: DataType.ValueType  # 124
 DT_FLOAT8_E4M3FN_REF: DataType.ValueType  # 125
+DT_FLOAT8_E4M3FNUZ_REF: DataType.ValueType  # 126
+DT_FLOAT8_E4M3B11FNUZ_REF: DataType.ValueType  # 127
+DT_FLOAT8_E5M2FNUZ_REF: DataType.ValueType  # 128
 DT_INT4_REF: DataType.ValueType  # 129
-"""TODO - b/299182407: Leaving room for remaining float8 types.
-DT_FLOAT8_E4M3FNUZ_REF = 126;
-DT_FLOAT8_E4M3B11FNUZ_REF = 127;
-DT_FLOAT8_E5M2FNUZ_REF = 128;
-"""
 DT_UINT4_REF: DataType.ValueType  # 130
-global___DataType = DataType
+DT_INT2_REF: DataType.ValueType  # 131
+DT_UINT2_REF: DataType.ValueType  # 132
+DT_FLOAT4_E2M1FN_REF: DataType.ValueType  # 133
+Global___DataType: _TypeAlias = DataType  # noqa: Y015
 
-@typing.final
-class SerializedDType(google.protobuf.message.Message):
+@_typing.final
+class SerializedDType(_message.Message):
     """Represents a serialized tf.dtypes.Dtype"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    DATATYPE_FIELD_NUMBER: builtins.int
-    datatype: global___DataType.ValueType
-    def __init__(self, *, datatype: global___DataType.ValueType | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["datatype", b"datatype"]) -> None: ...
+    DATATYPE_FIELD_NUMBER: _builtins.int
+    datatype: Global___DataType.ValueType
+    def __init__(self, *, datatype: Global___DataType.ValueType | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["datatype", b"datatype"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___SerializedDType = SerializedDType
+Global___SerializedDType: _TypeAlias = SerializedDType  # noqa: Y015

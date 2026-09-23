@@ -4,13 +4,9 @@
 version = "~=2.21.0"
 upstream-repository = "https://github.com/tensorflow/tensorflow"
 dependencies = ["numpy>=1.20", "types-protobuf", "requests>=2.34.0"]
-extra-description = "Partially generated using [mypy-protobuf==3.6.0](https://github.com/nipunn1313/mypy-protobuf/tree/v3.6.0) and libprotoc 27.2 on `tensorflow==2.18.0`."
+extra-description = "Partially generated using [mypy-protobuf==5.1.0](https://github.com/nipunn1313/mypy-protobuf/tree/v5.1.0) and libprotoc 35.1 on `tensorflow==2.21.0`."
 partial-stub = true
 
 [tool.stubtest]
 ignore-missing-stub = true
-# TODO: Support/update to keras 3.7
-stubtest-dependencies = ["keras==3.6.*"]
-# tensorflow 2.19 doesn't support Python 3.13:
-# https://github.com/tensorflow/tensorflow/issues/78774
-skip = true
+stubtest-dependencies = ["keras==3.15.*"]

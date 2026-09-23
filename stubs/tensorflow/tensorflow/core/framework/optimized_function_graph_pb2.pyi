@@ -3,44 +3,41 @@
 isort:skip_file
 """
 
-import builtins
-import collections.abc
+import builtins as _builtins
 import sys
-import typing
+import typing as _typing
+from collections import abc as _abc
 
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.internal.enum_type_wrapper
-import google.protobuf.message
-import tensorflow.core.framework.graph_pb2
-import tensorflow.core.framework.types_pb2
+from google.protobuf import descriptor as _descriptor, message as _message
+from google.protobuf.internal import containers as _containers, enum_type_wrapper as _enum_type_wrapper
+from tensorflow.core.framework import graph_pb2 as _graph_pb2, types_pb2 as _types_pb2
 
-if sys.version_info >= (3, 10):
-    import typing as typing_extensions
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
 else:
-    import typing_extensions
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+DESCRIPTOR: _descriptor.FileDescriptor
 
-@typing.final
-class OptimizedFunctionGraph(google.protobuf.message.Message):
+@_typing.final
+class OptimizedFunctionGraph(_message.Message):
     """Optimized function graph after instantiation-related graph optimization
     passes (up till before graph partitioning). The first half of the proto is
     representing a GraphDef and the rest of the fields are extra information from
     graph optimizations.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _OptimizationSource:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
     class _OptimizationSourceEnumTypeWrapper(
-        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[OptimizedFunctionGraph._OptimizationSource.ValueType],
-        builtins.type,
+        _enum_type_wrapper._EnumTypeWrapper[OptimizedFunctionGraph._OptimizationSource.ValueType], _builtins.type
     ):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        DESCRIPTOR: _descriptor.EnumDescriptor
         SOURCE_UNSPECIFIED: OptimizedFunctionGraph._OptimizationSource.ValueType  # 0
         AOT: OptimizedFunctionGraph._OptimizationSource.ValueType  # 1
         JIT: OptimizedFunctionGraph._OptimizationSource.ValueType  # 2
@@ -59,50 +56,52 @@ class OptimizedFunctionGraph(google.protobuf.message.Message):
     AOT: OptimizedFunctionGraph.OptimizationSource.ValueType  # 1
     JIT: OptimizedFunctionGraph.OptimizationSource.ValueType  # 2
 
-    @typing.final
-    class NodeNameToControlRetEntry(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class NodeNameToControlRetEntry(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        KEY_FIELD_NUMBER: builtins.int
-        VALUE_FIELD_NUMBER: builtins.int
-        key: builtins.str
-        value: builtins.str
-        def __init__(self, *, key: builtins.str | None = ..., value: builtins.str | None = ...) -> None: ...
-        def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
+        KEY_FIELD_NUMBER: _builtins.int
+        VALUE_FIELD_NUMBER: _builtins.int
+        key: _builtins.str
+        value: _builtins.str
+        def __init__(self, *, key: _builtins.str | None = ..., value: _builtins.str | None = ...) -> None: ...
+        _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["key", b"key", "value", b"value"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    NAME_FIELD_NUMBER: builtins.int
-    FUNCTION_GRAPH_FIELD_NUMBER: builtins.int
-    NODE_NAME_TO_CONTROL_RET_FIELD_NUMBER: builtins.int
-    RET_TYPES_FIELD_NUMBER: builtins.int
-    NUM_RETURN_NODES_FIELD_NUMBER: builtins.int
-    SOURCE_FIELD_NUMBER: builtins.int
-    OPTIMIZATION_TIME_USECS_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    FUNCTION_GRAPH_FIELD_NUMBER: _builtins.int
+    NODE_NAME_TO_CONTROL_RET_FIELD_NUMBER: _builtins.int
+    RET_TYPES_FIELD_NUMBER: _builtins.int
+    NUM_RETURN_NODES_FIELD_NUMBER: _builtins.int
+    SOURCE_FIELD_NUMBER: _builtins.int
+    OPTIMIZATION_TIME_USECS_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """Function name. It can be a human-readable SignatureDef's method name, or a
     FunctionDef name.
     """
-    num_return_nodes: builtins.int
+    num_return_nodes: _builtins.int
     """Number of return nodes. This is an output of graph preprocessing."""
-    source: global___OptimizedFunctionGraph.OptimizationSource.ValueType
+    source: Global___OptimizedFunctionGraph.OptimizationSource.ValueType
     """Indicates the source environment where this proto is generated."""
-    optimization_time_usecs: builtins.int
+    optimization_time_usecs: _builtins.int
     """Time (in microseconds) spent on running the graph optimization passes for
     this function.
     """
-    @property
-    def function_graph(self) -> tensorflow.core.framework.graph_pb2.GraphDef:
+    @_builtins.property
+    def function_graph(self) -> _graph_pb2.GraphDef:
         """Optimized function graph."""
 
-    @property
-    def node_name_to_control_ret(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, builtins.str]:
+    @_builtins.property
+    def node_name_to_control_ret(self) -> _containers.ScalarMap[_builtins.str, _builtins.str]:
         """Maps from node name to control ret. This is an output from running TF/XLA
         bridge.
         """
 
-    @property
-    def ret_types(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[tensorflow.core.framework.types_pb2.DataType.ValueType]:
+    @_builtins.property
+    def ret_types(self) -> _containers.RepeatedScalarFieldContainer[_types_pb2.DataType.ValueType]:
         """Return node types of the function. This is an output of graph
         preprocessing.
         """
@@ -110,58 +109,60 @@ class OptimizedFunctionGraph(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        name: builtins.str | None = ...,
-        function_graph: tensorflow.core.framework.graph_pb2.GraphDef | None = ...,
-        node_name_to_control_ret: collections.abc.Mapping[builtins.str, builtins.str] | None = ...,
-        ret_types: collections.abc.Iterable[tensorflow.core.framework.types_pb2.DataType.ValueType] | None = ...,
-        num_return_nodes: builtins.int | None = ...,
-        source: global___OptimizedFunctionGraph.OptimizationSource.ValueType | None = ...,
-        optimization_time_usecs: builtins.int | None = ...,
+        name: _builtins.str | None = ...,
+        function_graph: _graph_pb2.GraphDef | None = ...,
+        node_name_to_control_ret: _abc.Mapping[_builtins.str, _builtins.str] | None = ...,
+        ret_types: _abc.Iterable[_types_pb2.DataType.ValueType] | None = ...,
+        num_return_nodes: _builtins.int | None = ...,
+        source: Global___OptimizedFunctionGraph.OptimizationSource.ValueType | None = ...,
+        optimization_time_usecs: _builtins.int | None = ...,
     ) -> None: ...
-    def HasField(
-        self,
-        field_name: typing.Literal[
-            "_optimization_time_usecs",
-            b"_optimization_time_usecs",
-            "_source",
-            b"_source",
-            "function_graph",
-            b"function_graph",
-            "optimization_time_usecs",
-            b"optimization_time_usecs",
-            "source",
-            b"source",
-        ],
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "_optimization_time_usecs",
-            b"_optimization_time_usecs",
-            "_source",
-            b"_source",
-            "function_graph",
-            b"function_graph",
-            "name",
-            b"name",
-            "node_name_to_control_ret",
-            b"node_name_to_control_ret",
-            "num_return_nodes",
-            b"num_return_nodes",
-            "optimization_time_usecs",
-            b"optimization_time_usecs",
-            "ret_types",
-            b"ret_types",
-            "source",
-            b"source",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal[
+        "_optimization_time_usecs",
+        b"_optimization_time_usecs",
+        "_source",
+        b"_source",
+        "function_graph",
+        b"function_graph",
+        "optimization_time_usecs",
+        b"optimization_time_usecs",
+        "source",
+        b"source",
+    ]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "_optimization_time_usecs",
+        b"_optimization_time_usecs",
+        "_source",
+        b"_source",
+        "function_graph",
+        b"function_graph",
+        "name",
+        b"name",
+        "node_name_to_control_ret",
+        b"node_name_to_control_ret",
+        "num_return_nodes",
+        b"num_return_nodes",
+        "optimization_time_usecs",
+        b"optimization_time_usecs",
+        "ret_types",
+        b"ret_types",
+        "source",
+        b"source",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType__optimization_time_usecs: _TypeAlias = _typing.Literal["optimization_time_usecs"]  # noqa: Y015
+    _WhichOneofArgType__optimization_time_usecs: _TypeAlias = _typing.Literal[
+        "_optimization_time_usecs", b"_optimization_time_usecs"
+    ]  # noqa: Y015
+    _WhichOneofReturnType__source: _TypeAlias = _typing.Literal["source"]  # noqa: Y015
+    _WhichOneofArgType__source: _TypeAlias = _typing.Literal["_source", b"_source"]  # noqa: Y015
 
-    @typing.overload
+    @_typing.overload
     def WhichOneof(
-        self, oneof_group: typing.Literal["_optimization_time_usecs", b"_optimization_time_usecs"]
-    ) -> typing.Literal["optimization_time_usecs"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_source", b"_source"]) -> typing.Literal["source"] | None: ...
+        self, oneof_group: _WhichOneofArgType__optimization_time_usecs
+    ) -> _WhichOneofReturnType__optimization_time_usecs | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__source) -> _WhichOneofReturnType__source | None: ...
 
-global___OptimizedFunctionGraph = OptimizedFunctionGraph
+Global___OptimizedFunctionGraph: _TypeAlias = OptimizedFunctionGraph  # noqa: Y015

@@ -3,38 +3,38 @@
 isort:skip_file
 """
 
-import builtins
+import builtins as _builtins
 import sys
-import typing
+import typing as _typing
 
-import google.protobuf.descriptor
-import google.protobuf.internal.enum_type_wrapper
-import google.protobuf.message
+from google.protobuf import descriptor as _descriptor, message as _message
+from google.protobuf.internal import enum_type_wrapper as _enum_type_wrapper
 
-if sys.version_info >= (3, 10):
-    import typing as typing_extensions
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
 else:
-    import typing_extensions
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+DESCRIPTOR: _descriptor.FileDescriptor
 
-@typing.final
-class ErrorSourceProto(google.protobuf.message.Message):
+@_typing.final
+class ErrorSourceProto(_message.Message):
     """If included as a payload, this message contains the error source information
     where the error was raised.
     URI: "type.googleapis.com/tensorflow.core.platform.ErrorSourceProto"
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _ErrorSource:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
     class _ErrorSourceEnumTypeWrapper(
-        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ErrorSourceProto._ErrorSource.ValueType], builtins.type
+        _enum_type_wrapper._EnumTypeWrapper[ErrorSourceProto._ErrorSource.ValueType], _builtins.type
     ):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        DESCRIPTOR: _descriptor.EnumDescriptor
         UNKNOWN: ErrorSourceProto._ErrorSource.ValueType  # 0
         TPU_COMPILE_OP: ErrorSourceProto._ErrorSource.ValueType  # 1
         TF_XLA_BRIDGE: ErrorSourceProto._ErrorSource.ValueType  # 2
@@ -58,9 +58,13 @@ class ErrorSourceProto(google.protobuf.message.Message):
     EAGER_REMOTE_MGR: ErrorSourceProto.ErrorSource.ValueType  # 5
     """eager::RemoteMgr."""
 
-    ERROR_SOURCE_FIELD_NUMBER: builtins.int
-    error_source: global___ErrorSourceProto.ErrorSource.ValueType
-    def __init__(self, *, error_source: global___ErrorSourceProto.ErrorSource.ValueType | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["error_source", b"error_source"]) -> None: ...
+    ERROR_SOURCE_FIELD_NUMBER: _builtins.int
+    error_source: Global___ErrorSourceProto.ErrorSource.ValueType
+    def __init__(self, *, error_source: Global___ErrorSourceProto.ErrorSource.ValueType | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["error_source", b"error_source"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___ErrorSourceProto = ErrorSourceProto
+Global___ErrorSourceProto: _TypeAlias = ErrorSourceProto  # noqa: Y015

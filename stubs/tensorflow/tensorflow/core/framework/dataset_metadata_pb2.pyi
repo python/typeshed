@@ -3,23 +3,37 @@
 isort:skip_file
 """
 
-import builtins
-import typing
+import builtins as _builtins
+import sys
+import typing as _typing
 
-import google.protobuf.descriptor
-import google.protobuf.message
+from google.protobuf import descriptor as _descriptor, message as _message
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
+else:
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-@typing.final
-class Metadata(google.protobuf.message.Message):
-    """next: 2"""
+DESCRIPTOR: _descriptor.FileDescriptor
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class Metadata(_message.Message):
+    """next: 3"""
 
-    NAME_FIELD_NUMBER: builtins.int
-    name: builtins.bytes
-    def __init__(self, *, name: builtins.bytes | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["name", b"name"]) -> None: ...
+    DESCRIPTOR: _descriptor.Descriptor
 
-global___Metadata = Metadata
+    NAME_FIELD_NUMBER: _builtins.int
+    DATA_SERVICE_ADDRESS_FIELD_NUMBER: _builtins.int
+    name: _builtins.bytes
+    data_service_address: _builtins.str
+    def __init__(self, *, name: _builtins.bytes | None = ..., data_service_address: _builtins.str | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "data_service_address", b"data_service_address", "name", b"name"
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___Metadata: _TypeAlias = Metadata  # noqa: Y015

@@ -17,49 +17,59 @@ limitations under the License.
 ==============================================================================
 """
 
-import builtins
-import collections.abc
-import typing
+import builtins as _builtins
+import sys
+import typing as _typing
+from collections import abc as _abc
 
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.message
+from google.protobuf import descriptor as _descriptor, message as _message
+from google.protobuf.internal import containers as _containers
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
+else:
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-@typing.final
-class MemmappedFileSystemDirectoryElement(google.protobuf.message.Message):
+DESCRIPTOR: _descriptor.FileDescriptor
+
+@_typing.final
+class MemmappedFileSystemDirectoryElement(_message.Message):
     """A message that describes one region of memmapped file."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    OFFSET_FIELD_NUMBER: builtins.int
-    NAME_FIELD_NUMBER: builtins.int
-    LENGTH_FIELD_NUMBER: builtins.int
-    offset: builtins.int
-    name: builtins.str
-    length: builtins.int
+    OFFSET_FIELD_NUMBER: _builtins.int
+    NAME_FIELD_NUMBER: _builtins.int
+    LENGTH_FIELD_NUMBER: _builtins.int
+    offset: _builtins.int
+    name: _builtins.str
+    length: _builtins.int
     def __init__(
-        self, *, offset: builtins.int | None = ..., name: builtins.str | None = ..., length: builtins.int | None = ...
+        self, *, offset: _builtins.int | None = ..., name: _builtins.str | None = ..., length: _builtins.int | None = ...
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["length", b"length", "name", b"name", "offset", b"offset"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["length", b"length", "name", b"name", "offset", b"offset"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___MemmappedFileSystemDirectoryElement = MemmappedFileSystemDirectoryElement
+Global___MemmappedFileSystemDirectoryElement: _TypeAlias = MemmappedFileSystemDirectoryElement  # noqa: Y015
 
-@typing.final
-class MemmappedFileSystemDirectory(google.protobuf.message.Message):
+@_typing.final
+class MemmappedFileSystemDirectory(_message.Message):
     """A directory of regions in a memmapped file."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    ELEMENT_FIELD_NUMBER: builtins.int
-    @property
-    def element(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___MemmappedFileSystemDirectoryElement]: ...
-    def __init__(
-        self, *, element: collections.abc.Iterable[global___MemmappedFileSystemDirectoryElement] | None = ...
-    ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["element", b"element"]) -> None: ...
+    ELEMENT_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def element(self) -> _containers.RepeatedCompositeFieldContainer[Global___MemmappedFileSystemDirectoryElement]: ...
+    def __init__(self, *, element: _abc.Iterable[Global___MemmappedFileSystemDirectoryElement] | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["element", b"element"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___MemmappedFileSystemDirectory = MemmappedFileSystemDirectory
+Global___MemmappedFileSystemDirectory: _TypeAlias = MemmappedFileSystemDirectory  # noqa: Y015

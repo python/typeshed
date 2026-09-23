@@ -3,50 +3,57 @@
 isort:skip_file
 """
 
-import builtins
-import typing
+import builtins as _builtins
+import sys
+import typing as _typing
 
-import google.protobuf.descriptor
-import google.protobuf.message
+from google.protobuf import descriptor as _descriptor, message as _message
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
+else:
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-@typing.final
-class ReaderBaseState(google.protobuf.message.Message):
+DESCRIPTOR: _descriptor.FileDescriptor
+
+@_typing.final
+class ReaderBaseState(_message.Message):
     """For serializing and restoring the state of ReaderBase, see
     reader_base.h for details.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    WORK_STARTED_FIELD_NUMBER: builtins.int
-    WORK_FINISHED_FIELD_NUMBER: builtins.int
-    NUM_RECORDS_PRODUCED_FIELD_NUMBER: builtins.int
-    CURRENT_WORK_FIELD_NUMBER: builtins.int
-    work_started: builtins.int
-    work_finished: builtins.int
-    num_records_produced: builtins.int
-    current_work: builtins.bytes
+    WORK_STARTED_FIELD_NUMBER: _builtins.int
+    WORK_FINISHED_FIELD_NUMBER: _builtins.int
+    NUM_RECORDS_PRODUCED_FIELD_NUMBER: _builtins.int
+    CURRENT_WORK_FIELD_NUMBER: _builtins.int
+    work_started: _builtins.int
+    work_finished: _builtins.int
+    num_records_produced: _builtins.int
+    current_work: _builtins.bytes
     def __init__(
         self,
         *,
-        work_started: builtins.int | None = ...,
-        work_finished: builtins.int | None = ...,
-        num_records_produced: builtins.int | None = ...,
-        current_work: builtins.bytes | None = ...,
+        work_started: _builtins.int | None = ...,
+        work_finished: _builtins.int | None = ...,
+        num_records_produced: _builtins.int | None = ...,
+        current_work: _builtins.bytes | None = ...,
     ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "current_work",
-            b"current_work",
-            "num_records_produced",
-            b"num_records_produced",
-            "work_finished",
-            b"work_finished",
-            "work_started",
-            b"work_started",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "current_work",
+        b"current_work",
+        "num_records_produced",
+        b"num_records_produced",
+        "work_finished",
+        b"work_finished",
+        "work_started",
+        b"work_started",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___ReaderBaseState = ReaderBaseState
+Global___ReaderBaseState: _TypeAlias = ReaderBaseState  # noqa: Y015

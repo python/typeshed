@@ -3,43 +3,52 @@
 isort:skip_file
 """
 
-import builtins
-import typing
+import builtins as _builtins
+import sys
+import typing as _typing
 
-import google.protobuf.descriptor
-import google.protobuf.message
-import tensorflow.core.framework.versions_pb2
+from google.protobuf import descriptor as _descriptor, message as _message
+from tensorflow.core.framework import versions_pb2 as _versions_pb2
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
+else:
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-@typing.final
-class FingerprintDef(google.protobuf.message.Message):
+DESCRIPTOR: _descriptor.FileDescriptor
+
+@_typing.final
+class FingerprintDef(_message.Message):
     """Protocol buffer representing a SavedModel Fingerprint.
 
     If there are multiple MetaGraphDefs in the SavedModel, the FingerprintDef
     corresponds to the first one.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    SAVED_MODEL_CHECKSUM_FIELD_NUMBER: builtins.int
-    GRAPH_DEF_PROGRAM_HASH_FIELD_NUMBER: builtins.int
-    SIGNATURE_DEF_HASH_FIELD_NUMBER: builtins.int
-    SAVED_OBJECT_GRAPH_HASH_FIELD_NUMBER: builtins.int
-    CHECKPOINT_HASH_FIELD_NUMBER: builtins.int
-    VERSION_FIELD_NUMBER: builtins.int
-    saved_model_checksum: builtins.int
+    SAVED_MODEL_CHECKSUM_FIELD_NUMBER: _builtins.int
+    GRAPH_DEF_PROGRAM_HASH_FIELD_NUMBER: _builtins.int
+    SIGNATURE_DEF_HASH_FIELD_NUMBER: _builtins.int
+    SAVED_OBJECT_GRAPH_HASH_FIELD_NUMBER: _builtins.int
+    CHECKPOINT_HASH_FIELD_NUMBER: _builtins.int
+    UUID_FIELD_NUMBER: _builtins.int
+    VERSION_FIELD_NUMBER: _builtins.int
+    saved_model_checksum: _builtins.int
     """Hash of the saved_model.pb, referred to as a "checksum"."""
-    graph_def_program_hash: builtins.int
+    graph_def_program_hash: _builtins.int
     """Hash of regularized graph_def."""
-    signature_def_hash: builtins.int
+    signature_def_hash: _builtins.int
     """Hash of the regularized (sorted) SignatureDefs."""
-    saved_object_graph_hash: builtins.int
+    saved_object_graph_hash: _builtins.int
     """Hash of the regularized SavedObjectGraph."""
-    checkpoint_hash: builtins.int
+    checkpoint_hash: _builtins.int
     """Hash of the checkpoint."""
-    @property
-    def version(self) -> tensorflow.core.framework.versions_pb2.VersionDef:
+    uuid: _builtins.str
+    """An UUID for the model, chosen at random, not related to the hashes."""
+    @_builtins.property
+    def version(self) -> _versions_pb2.VersionDef:
         """Version specification of the fingerprint.
         TODO(b/290068219): add USM version when GA
         """
@@ -47,30 +56,33 @@ class FingerprintDef(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        saved_model_checksum: builtins.int | None = ...,
-        graph_def_program_hash: builtins.int | None = ...,
-        signature_def_hash: builtins.int | None = ...,
-        saved_object_graph_hash: builtins.int | None = ...,
-        checkpoint_hash: builtins.int | None = ...,
-        version: tensorflow.core.framework.versions_pb2.VersionDef | None = ...,
+        saved_model_checksum: _builtins.int | None = ...,
+        graph_def_program_hash: _builtins.int | None = ...,
+        signature_def_hash: _builtins.int | None = ...,
+        saved_object_graph_hash: _builtins.int | None = ...,
+        checkpoint_hash: _builtins.int | None = ...,
+        uuid: _builtins.str | None = ...,
+        version: _versions_pb2.VersionDef | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["version", b"version"]) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "checkpoint_hash",
-            b"checkpoint_hash",
-            "graph_def_program_hash",
-            b"graph_def_program_hash",
-            "saved_model_checksum",
-            b"saved_model_checksum",
-            "saved_object_graph_hash",
-            b"saved_object_graph_hash",
-            "signature_def_hash",
-            b"signature_def_hash",
-            "version",
-            b"version",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["version", b"version"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "checkpoint_hash",
+        b"checkpoint_hash",
+        "graph_def_program_hash",
+        b"graph_def_program_hash",
+        "saved_model_checksum",
+        b"saved_model_checksum",
+        "saved_object_graph_hash",
+        b"saved_object_graph_hash",
+        "signature_def_hash",
+        b"signature_def_hash",
+        "uuid",
+        b"uuid",
+        "version",
+        b"version",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___FingerprintDef = FingerprintDef
+Global___FingerprintDef: _TypeAlias = FingerprintDef  # noqa: Y015

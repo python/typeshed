@@ -3,7 +3,7 @@
 isort:skip_file
 """
 
-import google.protobuf.descriptor
-from tensorflow.tsl.protobuf.rpc_options_pb2 import RPCOptions as RPCOptions
+from google.protobuf import descriptor as _descriptor
+from tensorflow.compiler.xla.tsl.protobuf.rpc_options_pb2 import RPCOptions as RPCOptions
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+DESCRIPTOR: _descriptor.FileDescriptor

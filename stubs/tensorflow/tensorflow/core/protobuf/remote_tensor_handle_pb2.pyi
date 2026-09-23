@@ -3,94 +3,98 @@
 isort:skip_file
 """
 
-import builtins
-import collections.abc
-import typing
+import builtins as _builtins
+import sys
+import typing as _typing
+from collections import abc as _abc
 
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.message
-import tensorflow.core.framework.tensor_shape_pb2
-import tensorflow.core.framework.types_pb2
+from google.protobuf import descriptor as _descriptor, message as _message
+from google.protobuf.internal import containers as _containers
+from tensorflow.core.framework import tensor_shape_pb2 as _tensor_shape_pb2, types_pb2 as _types_pb2
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
+else:
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-@typing.final
-class ResourceDtypeAndShape(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+DESCRIPTOR: _descriptor.FileDescriptor
 
-    DTYPE_FIELD_NUMBER: builtins.int
-    SHAPE_FIELD_NUMBER: builtins.int
-    dtype: tensorflow.core.framework.types_pb2.DataType.ValueType
-    @property
-    def shape(self) -> tensorflow.core.framework.tensor_shape_pb2.TensorShapeProto: ...
+@_typing.final
+class ResourceDtypeAndShape(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    DTYPE_FIELD_NUMBER: _builtins.int
+    SHAPE_FIELD_NUMBER: _builtins.int
+    dtype: _types_pb2.DataType.ValueType
+    @_builtins.property
+    def shape(self) -> _tensor_shape_pb2.TensorShapeProto: ...
     def __init__(
-        self,
-        *,
-        dtype: tensorflow.core.framework.types_pb2.DataType.ValueType | None = ...,
-        shape: tensorflow.core.framework.tensor_shape_pb2.TensorShapeProto | None = ...,
+        self, *, dtype: _types_pb2.DataType.ValueType | None = ..., shape: _tensor_shape_pb2.TensorShapeProto | None = ...
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["shape", b"shape"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["dtype", b"dtype", "shape", b"shape"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["shape", b"shape"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["dtype", b"dtype", "shape", b"shape"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___ResourceDtypeAndShape = ResourceDtypeAndShape
+Global___ResourceDtypeAndShape: _TypeAlias = ResourceDtypeAndShape  # noqa: Y015
 
-@typing.final
-class RemoteTensorHandle(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class RemoteTensorHandle(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    OP_ID_FIELD_NUMBER: builtins.int
-    OUTPUT_NUM_FIELD_NUMBER: builtins.int
-    DEVICE_FIELD_NUMBER: builtins.int
-    OP_DEVICE_FIELD_NUMBER: builtins.int
-    DTYPE_FIELD_NUMBER: builtins.int
-    RESOURCE_DTYPES_AND_SHAPES_FIELD_NUMBER: builtins.int
-    op_id: builtins.int
+    OP_ID_FIELD_NUMBER: _builtins.int
+    OUTPUT_NUM_FIELD_NUMBER: _builtins.int
+    DEVICE_FIELD_NUMBER: _builtins.int
+    OP_DEVICE_FIELD_NUMBER: _builtins.int
+    DTYPE_FIELD_NUMBER: _builtins.int
+    RESOURCE_DTYPES_AND_SHAPES_FIELD_NUMBER: _builtins.int
+    op_id: _builtins.int
     """The ID of the operation that produced this tensor."""
-    output_num: builtins.int
+    output_num: _builtins.int
     """The index into the outputs of the operation that produced this tensor."""
-    device: builtins.str
+    device: _builtins.str
     """Device where the tensor is located. Cannot be empty.
     For multi-device functions, it's the default device passed to placer.
     """
-    op_device: builtins.str
+    op_device: _builtins.str
     """Device of the operation producing this tensor. Can be empty if the
     operation producing this tensor is a multi-device function.
     """
-    dtype: tensorflow.core.framework.types_pb2.DataType.ValueType
+    dtype: _types_pb2.DataType.ValueType
     """Tensor type."""
-    @property
-    def resource_dtypes_and_shapes(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ResourceDtypeAndShape]:
+    @_builtins.property
+    def resource_dtypes_and_shapes(self) -> _containers.RepeatedCompositeFieldContainer[Global___ResourceDtypeAndShape]:
         """Optional data types and shapes of a remote resource variable."""
 
     def __init__(
         self,
         *,
-        op_id: builtins.int | None = ...,
-        output_num: builtins.int | None = ...,
-        device: builtins.str | None = ...,
-        op_device: builtins.str | None = ...,
-        dtype: tensorflow.core.framework.types_pb2.DataType.ValueType | None = ...,
-        resource_dtypes_and_shapes: collections.abc.Iterable[global___ResourceDtypeAndShape] | None = ...,
+        op_id: _builtins.int | None = ...,
+        output_num: _builtins.int | None = ...,
+        device: _builtins.str | None = ...,
+        op_device: _builtins.str | None = ...,
+        dtype: _types_pb2.DataType.ValueType | None = ...,
+        resource_dtypes_and_shapes: _abc.Iterable[Global___ResourceDtypeAndShape] | None = ...,
     ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "device",
-            b"device",
-            "dtype",
-            b"dtype",
-            "op_device",
-            b"op_device",
-            "op_id",
-            b"op_id",
-            "output_num",
-            b"output_num",
-            "resource_dtypes_and_shapes",
-            b"resource_dtypes_and_shapes",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "device",
+        b"device",
+        "dtype",
+        b"dtype",
+        "op_device",
+        b"op_device",
+        "op_id",
+        b"op_id",
+        "output_num",
+        b"output_num",
+        "resource_dtypes_and_shapes",
+        b"resource_dtypes_and_shapes",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___RemoteTensorHandle = RemoteTensorHandle
+Global___RemoteTensorHandle: _TypeAlias = RemoteTensorHandle  # noqa: Y015

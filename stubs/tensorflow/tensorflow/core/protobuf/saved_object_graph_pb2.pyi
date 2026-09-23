@@ -3,65 +3,72 @@
 isort:skip_file
 """
 
-import builtins
-import collections.abc
+import builtins as _builtins
 import sys
-import typing
+import typing as _typing
+from collections import abc as _abc
 
-import google.protobuf.any_pb2
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.internal.enum_type_wrapper
-import google.protobuf.message
-import tensorflow.core.framework.tensor_shape_pb2
-import tensorflow.core.framework.types_pb2
-import tensorflow.core.framework.variable_pb2
-import tensorflow.core.framework.versions_pb2
-import tensorflow.core.protobuf.struct_pb2
-import tensorflow.core.protobuf.trackable_object_graph_pb2
+from google.protobuf import any_pb2 as _any_pb2, descriptor as _descriptor, message as _message
+from google.protobuf.internal import containers as _containers, enum_type_wrapper as _enum_type_wrapper
+from tensorflow.core.framework import (
+    tensor_shape_pb2 as _tensor_shape_pb2,
+    types_pb2 as _types_pb2,
+    variable_pb2 as _variable_pb2,
+    versions_pb2 as _versions_pb2,
+)
+from tensorflow.core.protobuf import struct_pb2 as _struct_pb2, trackable_object_graph_pb2 as _trackable_object_graph_pb2
 
-if sys.version_info >= (3, 10):
-    import typing as typing_extensions
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
 else:
-    import typing_extensions
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+if sys.version_info >= (3, 13):
+    from warnings import deprecated as _deprecated
+else:
+    from typing_extensions import deprecated as _deprecated
 
-@typing.final
-class SavedObjectGraph(google.protobuf.message.Message):
+DESCRIPTOR: _descriptor.FileDescriptor
+
+@_typing.final
+class SavedObjectGraph(_message.Message):
     """SavedObjectGraph shares some structure with TrackableObjectGraph, but
     SavedObjectGraph belongs to the MetaGraph and contains pointers to functions
     and type information, while TrackableObjectGraph lives in the checkpoint
     and contains pointers only to variable values.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class ConcreteFunctionsEntry(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class ConcreteFunctionsEntry(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        KEY_FIELD_NUMBER: builtins.int
-        VALUE_FIELD_NUMBER: builtins.int
-        key: builtins.str
-        @property
-        def value(self) -> global___SavedConcreteFunction: ...
-        def __init__(self, *, key: builtins.str | None = ..., value: global___SavedConcreteFunction | None = ...) -> None: ...
-        def HasField(self, field_name: typing.Literal["value", b"value"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
+        KEY_FIELD_NUMBER: _builtins.int
+        VALUE_FIELD_NUMBER: _builtins.int
+        key: _builtins.str
+        @_builtins.property
+        def value(self) -> Global___SavedConcreteFunction: ...
+        def __init__(self, *, key: _builtins.str | None = ..., value: Global___SavedConcreteFunction | None = ...) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["value", b"value"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["key", b"key", "value", b"value"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    NODES_FIELD_NUMBER: builtins.int
-    CONCRETE_FUNCTIONS_FIELD_NUMBER: builtins.int
-    @property
-    def nodes(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SavedObject]:
+    NODES_FIELD_NUMBER: _builtins.int
+    CONCRETE_FUNCTIONS_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def nodes(self) -> _containers.RepeatedCompositeFieldContainer[Global___SavedObject]:
         """Flattened list of objects in the object graph.
 
         The position of the object in this list indicates its id.
         Nodes[0] is considered the root node.
         """
 
-    @property
-    def concrete_functions(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, global___SavedConcreteFunction]:
+    @_builtins.property
+    def concrete_functions(self) -> _containers.MessageMap[_builtins.str, Global___SavedConcreteFunction]:
         """Information about captures and output structures in concrete functions.
         Referenced from SavedBareConcreteFunction and SavedFunction.
         """
@@ -69,46 +76,53 @@ class SavedObjectGraph(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        nodes: collections.abc.Iterable[global___SavedObject] | None = ...,
-        concrete_functions: collections.abc.Mapping[builtins.str, global___SavedConcreteFunction] | None = ...,
+        nodes: _abc.Iterable[Global___SavedObject] | None = ...,
+        concrete_functions: _abc.Mapping[_builtins.str, Global___SavedConcreteFunction] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["concrete_functions", b"concrete_functions", "nodes", b"nodes"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["concrete_functions", b"concrete_functions", "nodes", b"nodes"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___SavedObjectGraph = SavedObjectGraph
+Global___SavedObjectGraph: _TypeAlias = SavedObjectGraph  # noqa: Y015
 
-@typing.final
-class SavedObject(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class SavedObject(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class SaveableObjectsEntry(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class SaveableObjectsEntry(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        KEY_FIELD_NUMBER: builtins.int
-        VALUE_FIELD_NUMBER: builtins.int
-        key: builtins.str
-        @property
-        def value(self) -> global___SaveableObject: ...
-        def __init__(self, *, key: builtins.str | None = ..., value: global___SaveableObject | None = ...) -> None: ...
-        def HasField(self, field_name: typing.Literal["value", b"value"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
+        KEY_FIELD_NUMBER: _builtins.int
+        VALUE_FIELD_NUMBER: _builtins.int
+        key: _builtins.str
+        @_builtins.property
+        def value(self) -> Global___SaveableObject: ...
+        def __init__(self, *, key: _builtins.str | None = ..., value: Global___SaveableObject | None = ...) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["value", b"value"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["key", b"key", "value", b"value"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    CHILDREN_FIELD_NUMBER: builtins.int
-    DEPENDENCIES_FIELD_NUMBER: builtins.int
-    SLOT_VARIABLES_FIELD_NUMBER: builtins.int
-    USER_OBJECT_FIELD_NUMBER: builtins.int
-    ASSET_FIELD_NUMBER: builtins.int
-    FUNCTION_FIELD_NUMBER: builtins.int
-    VARIABLE_FIELD_NUMBER: builtins.int
-    BARE_CONCRETE_FUNCTION_FIELD_NUMBER: builtins.int
-    CONSTANT_FIELD_NUMBER: builtins.int
-    RESOURCE_FIELD_NUMBER: builtins.int
-    CAPTURED_TENSOR_FIELD_NUMBER: builtins.int
-    SAVEABLE_OBJECTS_FIELD_NUMBER: builtins.int
-    REGISTERED_NAME_FIELD_NUMBER: builtins.int
-    SERIALIZED_USER_PROTO_FIELD_NUMBER: builtins.int
-    REGISTERED_SAVER_FIELD_NUMBER: builtins.int
-    registered_name: builtins.str
+    CHILDREN_FIELD_NUMBER: _builtins.int
+    DEPENDENCIES_FIELD_NUMBER: _builtins.int
+    SLOT_VARIABLES_FIELD_NUMBER: _builtins.int
+    USER_OBJECT_FIELD_NUMBER: _builtins.int
+    ASSET_FIELD_NUMBER: _builtins.int
+    FUNCTION_FIELD_NUMBER: _builtins.int
+    VARIABLE_FIELD_NUMBER: _builtins.int
+    BARE_CONCRETE_FUNCTION_FIELD_NUMBER: _builtins.int
+    CONSTANT_FIELD_NUMBER: _builtins.int
+    RESOURCE_FIELD_NUMBER: _builtins.int
+    CAPTURED_TENSOR_FIELD_NUMBER: _builtins.int
+    SAVEABLE_OBJECTS_FIELD_NUMBER: _builtins.int
+    REGISTERED_NAME_FIELD_NUMBER: _builtins.int
+    SERIALIZED_USER_PROTO_FIELD_NUMBER: _builtins.int
+    REGISTERED_SAVER_FIELD_NUMBER: _builtins.int
+    registered_name: _builtins.str
     """The fields below are filled when the user serializes a registered Trackable
     class or an object with a registered saver function.
 
@@ -126,15 +140,15 @@ class SavedObject(google.protobuf.message.Message):
     The name of the registered class of the form "{package}.{class_name}".
     This field is used to search for the registered class at loading time.
     """
-    registered_saver: builtins.str
+    registered_saver: _builtins.str
     """String name of the registered saver. At most one of `saveable_objects` or
     `registered_saver` is defined for each SavedObject.
     """
-    @property
+    @_builtins.property
     def children(
         self,
-    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
-        tensorflow.core.protobuf.trackable_object_graph_pb2.TrackableObjectGraph.TrackableObject.ObjectReference
+    ) -> _containers.RepeatedCompositeFieldContainer[
+        _trackable_object_graph_pb2.TrackableObjectGraph.TrackableObject.ObjectReference
     ]:
         """Objects which this object depends on: named edges in the dependency
         graph.
@@ -143,22 +157,22 @@ class SavedObject(google.protobuf.message.Message):
         "constant" and "captured_tensor".
         """
 
-    @property
+    @_builtins.property
     def dependencies(
         self,
-    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
-        tensorflow.core.protobuf.trackable_object_graph_pb2.TrackableObjectGraph.TrackableObject.ObjectReference
+    ) -> _containers.RepeatedCompositeFieldContainer[
+        _trackable_object_graph_pb2.TrackableObjectGraph.TrackableObject.ObjectReference
     ]:
         """Ordered list of dependencies that must be loaded before this object.
         SavedModel loads with the bottom-up approach, by first creating all objects
         (in the order defined by the dependencies), then connecting the edges.
         """
 
-    @property
+    @_builtins.property
     def slot_variables(
         self,
-    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
-        tensorflow.core.protobuf.trackable_object_graph_pb2.TrackableObjectGraph.TrackableObject.SlotVariableReference
+    ) -> _containers.RepeatedCompositeFieldContainer[
+        _trackable_object_graph_pb2.TrackableObjectGraph.TrackableObject.SlotVariableReference
     ]:
         """Slot variables owned by this object. This describes the three-way
         (optimizer, variable, slot variable) relationship; none of the three
@@ -167,32 +181,32 @@ class SavedObject(google.protobuf.message.Message):
         Note: currently only valid if kind == "user_object".
         """
 
-    @property
-    def user_object(self) -> global___SavedUserObject: ...
-    @property
-    def asset(self) -> global___SavedAsset: ...
-    @property
-    def function(self) -> global___SavedFunction: ...
-    @property
-    def variable(self) -> global___SavedVariable: ...
-    @property
-    def bare_concrete_function(self) -> global___SavedBareConcreteFunction: ...
-    @property
-    def constant(self) -> global___SavedConstant: ...
-    @property
-    def resource(self) -> global___SavedResource: ...
-    @property
-    def captured_tensor(self) -> global___CapturedTensor: ...
-    @property
-    def saveable_objects(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, global___SaveableObject]:
+    @_builtins.property
+    def user_object(self) -> Global___SavedUserObject: ...
+    @_builtins.property
+    def asset(self) -> Global___SavedAsset: ...
+    @_builtins.property
+    def function(self) -> Global___SavedFunction: ...
+    @_builtins.property
+    def variable(self) -> Global___SavedVariable: ...
+    @_builtins.property
+    def bare_concrete_function(self) -> Global___SavedBareConcreteFunction: ...
+    @_builtins.property
+    def constant(self) -> Global___SavedConstant: ...
+    @_builtins.property
+    def resource(self) -> Global___SavedResource: ...
+    @_builtins.property
+    def captured_tensor(self) -> Global___CapturedTensor: ...
+    @_builtins.property
+    def saveable_objects(self) -> _containers.MessageMap[_builtins.str, Global___SaveableObject]:
         """Stores the functions used to save and restore this object. At most one of
         `saveable_objects` or `registered_saver` is defined for each SavedObject.
         See the comment below for the difference between SaveableObject and
         registered savers.
         """
 
-    @property
-    def serialized_user_proto(self) -> google.protobuf.any_pb2.Any:
+    @_builtins.property
+    def serialized_user_proto(self) -> _any_pb2.Any:
         """The user-generated proto storing metadata for this object, to be passed to
         the registered classes's _deserialize_from_proto method when this object is
         loaded from the SavedModel.
@@ -201,112 +215,94 @@ class SavedObject(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        children: (
-            collections.abc.Iterable[
-                tensorflow.core.protobuf.trackable_object_graph_pb2.TrackableObjectGraph.TrackableObject.ObjectReference
-            ]
-            | None
-        ) = ...,
+        children: _abc.Iterable[_trackable_object_graph_pb2.TrackableObjectGraph.TrackableObject.ObjectReference] | None = ...,
         dependencies: (
-            collections.abc.Iterable[
-                tensorflow.core.protobuf.trackable_object_graph_pb2.TrackableObjectGraph.TrackableObject.ObjectReference
-            ]
-            | None
+            _abc.Iterable[_trackable_object_graph_pb2.TrackableObjectGraph.TrackableObject.ObjectReference] | None
         ) = ...,
         slot_variables: (
-            collections.abc.Iterable[
-                tensorflow.core.protobuf.trackable_object_graph_pb2.TrackableObjectGraph.TrackableObject.SlotVariableReference
-            ]
-            | None
+            _abc.Iterable[_trackable_object_graph_pb2.TrackableObjectGraph.TrackableObject.SlotVariableReference] | None
         ) = ...,
-        user_object: global___SavedUserObject | None = ...,
-        asset: global___SavedAsset | None = ...,
-        function: global___SavedFunction | None = ...,
-        variable: global___SavedVariable | None = ...,
-        bare_concrete_function: global___SavedBareConcreteFunction | None = ...,
-        constant: global___SavedConstant | None = ...,
-        resource: global___SavedResource | None = ...,
-        captured_tensor: global___CapturedTensor | None = ...,
-        saveable_objects: collections.abc.Mapping[builtins.str, global___SaveableObject] | None = ...,
-        registered_name: builtins.str | None = ...,
-        serialized_user_proto: google.protobuf.any_pb2.Any | None = ...,
-        registered_saver: builtins.str | None = ...,
+        user_object: Global___SavedUserObject | None = ...,
+        asset: Global___SavedAsset | None = ...,
+        function: Global___SavedFunction | None = ...,
+        variable: Global___SavedVariable | None = ...,
+        bare_concrete_function: Global___SavedBareConcreteFunction | None = ...,
+        constant: Global___SavedConstant | None = ...,
+        resource: Global___SavedResource | None = ...,
+        captured_tensor: Global___CapturedTensor | None = ...,
+        saveable_objects: _abc.Mapping[_builtins.str, Global___SaveableObject] | None = ...,
+        registered_name: _builtins.str | None = ...,
+        serialized_user_proto: _any_pb2.Any | None = ...,
+        registered_saver: _builtins.str | None = ...,
     ) -> None: ...
-    def HasField(
-        self,
-        field_name: typing.Literal[
-            "asset",
-            b"asset",
-            "bare_concrete_function",
-            b"bare_concrete_function",
-            "captured_tensor",
-            b"captured_tensor",
-            "constant",
-            b"constant",
-            "function",
-            b"function",
-            "kind",
-            b"kind",
-            "resource",
-            b"resource",
-            "serialized_user_proto",
-            b"serialized_user_proto",
-            "user_object",
-            b"user_object",
-            "variable",
-            b"variable",
-        ],
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "asset",
-            b"asset",
-            "bare_concrete_function",
-            b"bare_concrete_function",
-            "captured_tensor",
-            b"captured_tensor",
-            "children",
-            b"children",
-            "constant",
-            b"constant",
-            "dependencies",
-            b"dependencies",
-            "function",
-            b"function",
-            "kind",
-            b"kind",
-            "registered_name",
-            b"registered_name",
-            "registered_saver",
-            b"registered_saver",
-            "resource",
-            b"resource",
-            "saveable_objects",
-            b"saveable_objects",
-            "serialized_user_proto",
-            b"serialized_user_proto",
-            "slot_variables",
-            b"slot_variables",
-            "user_object",
-            b"user_object",
-            "variable",
-            b"variable",
-        ],
-    ) -> None: ...
-    def WhichOneof(
-        self, oneof_group: typing.Literal["kind", b"kind"]
-    ) -> (
-        typing.Literal[
-            "user_object", "asset", "function", "variable", "bare_concrete_function", "constant", "resource", "captured_tensor"
-        ]
-        | None
-    ): ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal[
+        "asset",
+        b"asset",
+        "bare_concrete_function",
+        b"bare_concrete_function",
+        "captured_tensor",
+        b"captured_tensor",
+        "constant",
+        b"constant",
+        "function",
+        b"function",
+        "kind",
+        b"kind",
+        "resource",
+        b"resource",
+        "serialized_user_proto",
+        b"serialized_user_proto",
+        "user_object",
+        b"user_object",
+        "variable",
+        b"variable",
+    ]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "asset",
+        b"asset",
+        "bare_concrete_function",
+        b"bare_concrete_function",
+        "captured_tensor",
+        b"captured_tensor",
+        "children",
+        b"children",
+        "constant",
+        b"constant",
+        "dependencies",
+        b"dependencies",
+        "function",
+        b"function",
+        "kind",
+        b"kind",
+        "registered_name",
+        b"registered_name",
+        "registered_saver",
+        b"registered_saver",
+        "resource",
+        b"resource",
+        "saveable_objects",
+        b"saveable_objects",
+        "serialized_user_proto",
+        b"serialized_user_proto",
+        "slot_variables",
+        b"slot_variables",
+        "user_object",
+        b"user_object",
+        "variable",
+        b"variable",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType_kind: _TypeAlias = _typing.Literal[
+        "user_object", "asset", "function", "variable", "bare_concrete_function", "constant", "resource", "captured_tensor"
+    ]  # noqa: Y015
+    _WhichOneofArgType_kind: _TypeAlias = _typing.Literal["kind", b"kind"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType_kind) -> _WhichOneofReturnType_kind | None: ...
 
-global___SavedObject = SavedObject
+Global___SavedObject: _TypeAlias = SavedObject  # noqa: Y015
 
-@typing.final
-class SavedUserObject(google.protobuf.message.Message):
+@_typing.final
+class SavedUserObject(_message.Message):
     """A SavedUserObject is an object (in the object-oriented language of the
     TensorFlow program) of some user- or framework-defined class other than
     those handled specifically by the other kinds of SavedObjects.
@@ -315,40 +311,56 @@ class SavedUserObject(google.protobuf.message.Message):
     to an input of a function.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    IDENTIFIER_FIELD_NUMBER: builtins.int
-    VERSION_FIELD_NUMBER: builtins.int
-    METADATA_FIELD_NUMBER: builtins.int
-    identifier: builtins.str
+    IDENTIFIER_FIELD_NUMBER: _builtins.int
+    VERSION_FIELD_NUMBER: _builtins.int
+    METADATA_FIELD_NUMBER: _builtins.int
+    identifier: _builtins.str
     """Corresponds to a registration of the type to use in the loading program."""
-    metadata: builtins.str
-    """Metadata for deserializing this object.
 
-    Deprecated! At the time of deprecation, Keras was the only user of this
-    field, and its saving and loading code will be updated shortly.
-    Please save your application-specific metadata to a separate file.
-    """
-    @property
-    def version(self) -> tensorflow.core.framework.versions_pb2.VersionDef:
+    @_builtins.property
+    @_deprecated("""This field has been marked as deprecated using proto field options.""")
+    def metadata(self) -> _builtins.str:
+        """Metadata for deserializing this object.
+
+        Deprecated! At the time of deprecation, Keras was the only user of this
+        field, and its saving and loading code will be updated shortly.
+        Please save your application-specific metadata to a separate file.
+        """
+    @metadata.setter
+    @_deprecated("""This field has been marked as deprecated using proto field options.""")
+    def metadata(self, value: _builtins.str) -> None:
+        """Metadata for deserializing this object.
+
+        Deprecated! At the time of deprecation, Keras was the only user of this
+        field, and its saving and loading code will be updated shortly.
+        Please save your application-specific metadata to a separate file.
+        """
+
+    @_builtins.property
+    def version(self) -> _versions_pb2.VersionDef:
         """Version information from the producer of this SavedUserObject."""
 
     def __init__(
         self,
         *,
-        identifier: builtins.str | None = ...,
-        version: tensorflow.core.framework.versions_pb2.VersionDef | None = ...,
-        metadata: builtins.str | None = ...,
+        identifier: _builtins.str | None = ...,
+        version: _versions_pb2.VersionDef | None = ...,
+        metadata: _builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["version", b"version"]) -> builtins.bool: ...
-    def ClearField(
-        self, field_name: typing.Literal["identifier", b"identifier", "metadata", b"metadata", "version", b"version"]
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["version", b"version"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "identifier", b"identifier", "metadata", b"metadata", "version", b"version"
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___SavedUserObject = SavedUserObject
+Global___SavedUserObject: _TypeAlias = SavedUserObject  # noqa: Y015
 
-@typing.final
-class SavedAsset(google.protobuf.message.Message):
+@_typing.final
+class SavedAsset(_message.Message):
     """A SavedAsset points to an asset in the MetaGraph.
 
     When bound to a function this object evaluates to a tensor with the absolute
@@ -356,81 +368,89 @@ class SavedAsset(google.protobuf.message.Message):
     remain stable (e.g. basename could be changed).
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    ASSET_FILE_DEF_INDEX_FIELD_NUMBER: builtins.int
-    asset_file_def_index: builtins.int
+    ASSET_FILE_DEF_INDEX_FIELD_NUMBER: _builtins.int
+    asset_file_def_index: _builtins.int
     """Index into `MetaGraphDef.asset_file_def[]` that describes the Asset.
 
     Only the field `AssetFileDef.filename` is used. Other fields, such as
     `AssetFileDef.tensor_info`, MUST be ignored.
     """
-    def __init__(self, *, asset_file_def_index: builtins.int | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["asset_file_def_index", b"asset_file_def_index"]) -> None: ...
+    def __init__(self, *, asset_file_def_index: _builtins.int | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["asset_file_def_index", b"asset_file_def_index"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___SavedAsset = SavedAsset
+Global___SavedAsset: _TypeAlias = SavedAsset  # noqa: Y015
 
-@typing.final
-class SavedFunction(google.protobuf.message.Message):
+@_typing.final
+class SavedFunction(_message.Message):
     """A function with multiple signatures, possibly with non-Tensor arguments."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    CONCRETE_FUNCTIONS_FIELD_NUMBER: builtins.int
-    FUNCTION_SPEC_FIELD_NUMBER: builtins.int
-    @property
-    def concrete_functions(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
-    @property
-    def function_spec(self) -> global___FunctionSpec: ...
+    CONCRETE_FUNCTIONS_FIELD_NUMBER: _builtins.int
+    FUNCTION_SPEC_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def concrete_functions(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]: ...
+    @_builtins.property
+    def function_spec(self) -> Global___FunctionSpec: ...
     def __init__(
-        self,
-        *,
-        concrete_functions: collections.abc.Iterable[builtins.str] | None = ...,
-        function_spec: global___FunctionSpec | None = ...,
+        self, *, concrete_functions: _abc.Iterable[_builtins.str] | None = ..., function_spec: Global___FunctionSpec | None = ...
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["function_spec", b"function_spec"]) -> builtins.bool: ...
-    def ClearField(
-        self, field_name: typing.Literal["concrete_functions", b"concrete_functions", "function_spec", b"function_spec"]
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["function_spec", b"function_spec"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "concrete_functions", b"concrete_functions", "function_spec", b"function_spec"
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___SavedFunction = SavedFunction
+Global___SavedFunction: _TypeAlias = SavedFunction  # noqa: Y015
 
-@typing.final
-class CapturedTensor(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class CapturedTensor(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    CONCRETE_FUNCTION_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    CONCRETE_FUNCTION_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """Name of captured tensor"""
-    concrete_function: builtins.str
+    concrete_function: _builtins.str
     """Name of concrete function which contains the computed graph tensor."""
-    def __init__(self, *, name: builtins.str | None = ..., concrete_function: builtins.str | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["concrete_function", b"concrete_function", "name", b"name"]) -> None: ...
+    def __init__(self, *, name: _builtins.str | None = ..., concrete_function: _builtins.str | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["concrete_function", b"concrete_function", "name", b"name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___CapturedTensor = CapturedTensor
+Global___CapturedTensor: _TypeAlias = CapturedTensor  # noqa: Y015
 
-@typing.final
-class SavedConcreteFunction(google.protobuf.message.Message):
+@_typing.final
+class SavedConcreteFunction(_message.Message):
     """Stores low-level information about a concrete function. Referenced in either
     a SavedFunction or a SavedBareConcreteFunction.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    BOUND_INPUTS_FIELD_NUMBER: builtins.int
-    CANONICALIZED_INPUT_SIGNATURE_FIELD_NUMBER: builtins.int
-    OUTPUT_SIGNATURE_FIELD_NUMBER: builtins.int
-    @property
-    def bound_inputs(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
-    @property
-    def canonicalized_input_signature(self) -> tensorflow.core.protobuf.struct_pb2.StructuredValue:
+    BOUND_INPUTS_FIELD_NUMBER: _builtins.int
+    CANONICALIZED_INPUT_SIGNATURE_FIELD_NUMBER: _builtins.int
+    OUTPUT_SIGNATURE_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def bound_inputs(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]: ...
+    @_builtins.property
+    def canonicalized_input_signature(self) -> _struct_pb2.StructuredValue:
         """Input in canonicalized form that was received to create this concrete
         function.
         """
 
-    @property
-    def output_signature(self) -> tensorflow.core.protobuf.struct_pb2.StructuredValue:
+    @_builtins.property
+    def output_signature(self) -> _struct_pb2.StructuredValue:
         """Output that was the return value of this function after replacing all
         Tensors with TensorSpecs. This can be an arbitrary nested function and will
         be used to reconstruct the full structure from pure tensors.
@@ -439,48 +459,45 @@ class SavedConcreteFunction(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        bound_inputs: collections.abc.Iterable[builtins.int] | None = ...,
-        canonicalized_input_signature: tensorflow.core.protobuf.struct_pb2.StructuredValue | None = ...,
-        output_signature: tensorflow.core.protobuf.struct_pb2.StructuredValue | None = ...,
+        bound_inputs: _abc.Iterable[_builtins.int] | None = ...,
+        canonicalized_input_signature: _struct_pb2.StructuredValue | None = ...,
+        output_signature: _struct_pb2.StructuredValue | None = ...,
     ) -> None: ...
-    def HasField(
-        self,
-        field_name: typing.Literal[
-            "canonicalized_input_signature", b"canonicalized_input_signature", "output_signature", b"output_signature"
-        ],
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "bound_inputs",
-            b"bound_inputs",
-            "canonicalized_input_signature",
-            b"canonicalized_input_signature",
-            "output_signature",
-            b"output_signature",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal[
+        "canonicalized_input_signature", b"canonicalized_input_signature", "output_signature", b"output_signature"
+    ]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "bound_inputs",
+        b"bound_inputs",
+        "canonicalized_input_signature",
+        b"canonicalized_input_signature",
+        "output_signature",
+        b"output_signature",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___SavedConcreteFunction = SavedConcreteFunction
+Global___SavedConcreteFunction: _TypeAlias = SavedConcreteFunction  # noqa: Y015
 
-@typing.final
-class SavedBareConcreteFunction(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class SavedBareConcreteFunction(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    CONCRETE_FUNCTION_NAME_FIELD_NUMBER: builtins.int
-    ARGUMENT_KEYWORDS_FIELD_NUMBER: builtins.int
-    ALLOWED_POSITIONAL_ARGUMENTS_FIELD_NUMBER: builtins.int
-    FUNCTION_SPEC_FIELD_NUMBER: builtins.int
-    concrete_function_name: builtins.str
+    CONCRETE_FUNCTION_NAME_FIELD_NUMBER: _builtins.int
+    ARGUMENT_KEYWORDS_FIELD_NUMBER: _builtins.int
+    ALLOWED_POSITIONAL_ARGUMENTS_FIELD_NUMBER: _builtins.int
+    FUNCTION_SPEC_FIELD_NUMBER: _builtins.int
+    concrete_function_name: _builtins.str
     """Identifies a SavedConcreteFunction."""
-    allowed_positional_arguments: builtins.int
+    allowed_positional_arguments: _builtins.int
     """The prefix of `argument_keywords` which may be identified by position."""
-    @property
-    def argument_keywords(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def argument_keywords(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """A sequence of unique strings, one per Tensor argument."""
 
-    @property
-    def function_spec(self) -> global___FunctionSpec:
+    @_builtins.property
+    def function_spec(self) -> Global___FunctionSpec:
         """The spec of the function that this ConcreteFunction is traced from. This
         allows the ConcreteFunction to be called with nest structure inputs. This
         field may not be populated. If this field is absent, the concrete function
@@ -492,68 +509,70 @@ class SavedBareConcreteFunction(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        concrete_function_name: builtins.str | None = ...,
-        argument_keywords: collections.abc.Iterable[builtins.str] | None = ...,
-        allowed_positional_arguments: builtins.int | None = ...,
-        function_spec: global___FunctionSpec | None = ...,
+        concrete_function_name: _builtins.str | None = ...,
+        argument_keywords: _abc.Iterable[_builtins.str] | None = ...,
+        allowed_positional_arguments: _builtins.int | None = ...,
+        function_spec: Global___FunctionSpec | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["function_spec", b"function_spec"]) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "allowed_positional_arguments",
-            b"allowed_positional_arguments",
-            "argument_keywords",
-            b"argument_keywords",
-            "concrete_function_name",
-            b"concrete_function_name",
-            "function_spec",
-            b"function_spec",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["function_spec", b"function_spec"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "allowed_positional_arguments",
+        b"allowed_positional_arguments",
+        "argument_keywords",
+        b"argument_keywords",
+        "concrete_function_name",
+        b"concrete_function_name",
+        "function_spec",
+        b"function_spec",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___SavedBareConcreteFunction = SavedBareConcreteFunction
+Global___SavedBareConcreteFunction: _TypeAlias = SavedBareConcreteFunction  # noqa: Y015
 
-@typing.final
-class SavedConstant(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class SavedConstant(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    OPERATION_FIELD_NUMBER: builtins.int
-    operation: builtins.str
+    OPERATION_FIELD_NUMBER: _builtins.int
+    operation: _builtins.str
     """An Operation name for a ConstantOp in this SavedObjectGraph's MetaGraph."""
-    def __init__(self, *, operation: builtins.str | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["operation", b"operation"]) -> None: ...
+    def __init__(self, *, operation: _builtins.str | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["operation", b"operation"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___SavedConstant = SavedConstant
+Global___SavedConstant: _TypeAlias = SavedConstant  # noqa: Y015
 
-@typing.final
-class SavedVariable(google.protobuf.message.Message):
+@_typing.final
+class SavedVariable(_message.Message):
     """Represents a Variable that is initialized by loading the contents from the
     checkpoint.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    DTYPE_FIELD_NUMBER: builtins.int
-    SHAPE_FIELD_NUMBER: builtins.int
-    TRAINABLE_FIELD_NUMBER: builtins.int
-    SYNCHRONIZATION_FIELD_NUMBER: builtins.int
-    AGGREGATION_FIELD_NUMBER: builtins.int
-    NAME_FIELD_NUMBER: builtins.int
-    DEVICE_FIELD_NUMBER: builtins.int
-    EXPERIMENTAL_DISTRIBUTED_VARIABLE_COMPONENTS_FIELD_NUMBER: builtins.int
-    dtype: tensorflow.core.framework.types_pb2.DataType.ValueType
-    trainable: builtins.bool
-    synchronization: tensorflow.core.framework.variable_pb2.VariableSynchronization.ValueType
-    aggregation: tensorflow.core.framework.variable_pb2.VariableAggregation.ValueType
-    name: builtins.str
-    device: builtins.str
-    @property
-    def shape(self) -> tensorflow.core.framework.tensor_shape_pb2.TensorShapeProto: ...
-    @property
-    def experimental_distributed_variable_components(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SavedVariable]:
+    DTYPE_FIELD_NUMBER: _builtins.int
+    SHAPE_FIELD_NUMBER: _builtins.int
+    TRAINABLE_FIELD_NUMBER: _builtins.int
+    SYNCHRONIZATION_FIELD_NUMBER: _builtins.int
+    AGGREGATION_FIELD_NUMBER: _builtins.int
+    NAME_FIELD_NUMBER: _builtins.int
+    DEVICE_FIELD_NUMBER: _builtins.int
+    EXPERIMENTAL_DISTRIBUTED_VARIABLE_COMPONENTS_FIELD_NUMBER: _builtins.int
+    dtype: _types_pb2.DataType.ValueType
+    trainable: _builtins.bool
+    synchronization: _variable_pb2.VariableSynchronization.ValueType
+    aggregation: _variable_pb2.VariableAggregation.ValueType
+    name: _builtins.str
+    device: _builtins.str
+    @_builtins.property
+    def shape(self) -> _tensor_shape_pb2.TensorShapeProto: ...
+    @_builtins.property
+    def experimental_distributed_variable_components(self) -> _containers.RepeatedCompositeFieldContainer[Global___SavedVariable]:
         """List of component variables for a distributed variable.
 
         When this field is non-empty, the SavedVariable will be assumed
@@ -565,56 +584,54 @@ class SavedVariable(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        dtype: tensorflow.core.framework.types_pb2.DataType.ValueType | None = ...,
-        shape: tensorflow.core.framework.tensor_shape_pb2.TensorShapeProto | None = ...,
-        trainable: builtins.bool | None = ...,
-        synchronization: tensorflow.core.framework.variable_pb2.VariableSynchronization.ValueType | None = ...,
-        aggregation: tensorflow.core.framework.variable_pb2.VariableAggregation.ValueType | None = ...,
-        name: builtins.str | None = ...,
-        device: builtins.str | None = ...,
-        experimental_distributed_variable_components: collections.abc.Iterable[global___SavedVariable] | None = ...,
+        dtype: _types_pb2.DataType.ValueType | None = ...,
+        shape: _tensor_shape_pb2.TensorShapeProto | None = ...,
+        trainable: _builtins.bool | None = ...,
+        synchronization: _variable_pb2.VariableSynchronization.ValueType | None = ...,
+        aggregation: _variable_pb2.VariableAggregation.ValueType | None = ...,
+        name: _builtins.str | None = ...,
+        device: _builtins.str | None = ...,
+        experimental_distributed_variable_components: _abc.Iterable[Global___SavedVariable] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["shape", b"shape"]) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "aggregation",
-            b"aggregation",
-            "device",
-            b"device",
-            "dtype",
-            b"dtype",
-            "experimental_distributed_variable_components",
-            b"experimental_distributed_variable_components",
-            "name",
-            b"name",
-            "shape",
-            b"shape",
-            "synchronization",
-            b"synchronization",
-            "trainable",
-            b"trainable",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["shape", b"shape"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "aggregation",
+        b"aggregation",
+        "device",
+        b"device",
+        "dtype",
+        b"dtype",
+        "experimental_distributed_variable_components",
+        b"experimental_distributed_variable_components",
+        "name",
+        b"name",
+        "shape",
+        b"shape",
+        "synchronization",
+        b"synchronization",
+        "trainable",
+        b"trainable",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___SavedVariable = SavedVariable
+Global___SavedVariable: _TypeAlias = SavedVariable  # noqa: Y015
 
-@typing.final
-class FunctionSpec(google.protobuf.message.Message):
+@_typing.final
+class FunctionSpec(_message.Message):
     """Represents `FunctionSpec` used in `Function`. This represents a
     function that has been wrapped as a TensorFlow `Function`.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _JitCompile:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _JitCompileEnumTypeWrapper(
-        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[FunctionSpec._JitCompile.ValueType], builtins.type
-    ):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _JitCompileEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[FunctionSpec._JitCompile.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         DEFAULT: FunctionSpec._JitCompile.ValueType  # 0
         ON: FunctionSpec._JitCompile.ValueType  # 1
         OFF: FunctionSpec._JitCompile.ValueType  # 2
@@ -634,82 +651,90 @@ class FunctionSpec(google.protobuf.message.Message):
     ON: FunctionSpec.JitCompile.ValueType  # 1
     OFF: FunctionSpec.JitCompile.ValueType  # 2
 
-    FULLARGSPEC_FIELD_NUMBER: builtins.int
-    IS_METHOD_FIELD_NUMBER: builtins.int
-    INPUT_SIGNATURE_FIELD_NUMBER: builtins.int
-    JIT_COMPILE_FIELD_NUMBER: builtins.int
-    is_method: builtins.bool
+    FULLARGSPEC_FIELD_NUMBER: _builtins.int
+    IS_METHOD_FIELD_NUMBER: _builtins.int
+    INPUT_SIGNATURE_FIELD_NUMBER: _builtins.int
+    JIT_COMPILE_FIELD_NUMBER: _builtins.int
+    is_method: _builtins.bool
     """Whether this represents a class method."""
-    jit_compile: global___FunctionSpec.JitCompile.ValueType
-    @property
-    def fullargspec(self) -> tensorflow.core.protobuf.struct_pb2.StructuredValue:
+    jit_compile: Global___FunctionSpec.JitCompile.ValueType
+    @_builtins.property
+    def fullargspec(self) -> _struct_pb2.StructuredValue:
         """Full arg spec from inspect.getfullargspec()."""
 
-    @property
-    def input_signature(self) -> tensorflow.core.protobuf.struct_pb2.StructuredValue:
+    @_builtins.property
+    def input_signature(self) -> _struct_pb2.StructuredValue:
         """The input signature, if specified."""
 
     def __init__(
         self,
         *,
-        fullargspec: tensorflow.core.protobuf.struct_pb2.StructuredValue | None = ...,
-        is_method: builtins.bool | None = ...,
-        input_signature: tensorflow.core.protobuf.struct_pb2.StructuredValue | None = ...,
-        jit_compile: global___FunctionSpec.JitCompile.ValueType | None = ...,
+        fullargspec: _struct_pb2.StructuredValue | None = ...,
+        is_method: _builtins.bool | None = ...,
+        input_signature: _struct_pb2.StructuredValue | None = ...,
+        jit_compile: Global___FunctionSpec.JitCompile.ValueType | None = ...,
     ) -> None: ...
-    def HasField(
-        self, field_name: typing.Literal["fullargspec", b"fullargspec", "input_signature", b"input_signature"]
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "fullargspec",
-            b"fullargspec",
-            "input_signature",
-            b"input_signature",
-            "is_method",
-            b"is_method",
-            "jit_compile",
-            b"jit_compile",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal[
+        "fullargspec", b"fullargspec", "input_signature", b"input_signature"
+    ]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "fullargspec",
+        b"fullargspec",
+        "input_signature",
+        b"input_signature",
+        "is_method",
+        b"is_method",
+        "jit_compile",
+        b"jit_compile",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___FunctionSpec = FunctionSpec
+Global___FunctionSpec: _TypeAlias = FunctionSpec  # noqa: Y015
 
-@typing.final
-class SavedResource(google.protobuf.message.Message):
+@_typing.final
+class SavedResource(_message.Message):
     """A SavedResource represents a TF object that holds state during its lifetime.
     An object of this type can have a reference to a:
     create_resource() and an initialize() function.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    DEVICE_FIELD_NUMBER: builtins.int
-    device: builtins.str
+    DEVICE_FIELD_NUMBER: _builtins.int
+    device: _builtins.str
     """A device specification indicating a required placement for the resource
     creation function, e.g. "CPU". An empty string allows the user to select a
     device.
     """
-    def __init__(self, *, device: builtins.str | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["device", b"device"]) -> None: ...
+    def __init__(self, *, device: _builtins.str | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["device", b"device"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___SavedResource = SavedResource
+Global___SavedResource: _TypeAlias = SavedResource  # noqa: Y015
 
-@typing.final
-class SaveableObject(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class SaveableObject(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    SAVE_FUNCTION_FIELD_NUMBER: builtins.int
-    RESTORE_FUNCTION_FIELD_NUMBER: builtins.int
-    save_function: builtins.int
+    SAVE_FUNCTION_FIELD_NUMBER: _builtins.int
+    RESTORE_FUNCTION_FIELD_NUMBER: _builtins.int
+    save_function: _builtins.int
     """Node ids of concrete functions for saving and loading from a checkpoint.
     These functions save and restore directly from tensors.
     """
-    restore_function: builtins.int
-    def __init__(self, *, save_function: builtins.int | None = ..., restore_function: builtins.int | None = ...) -> None: ...
-    def ClearField(
-        self, field_name: typing.Literal["restore_function", b"restore_function", "save_function", b"save_function"]
-    ) -> None: ...
+    restore_function: _builtins.int
+    def __init__(self, *, save_function: _builtins.int | None = ..., restore_function: _builtins.int | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "restore_function", b"restore_function", "save_function", b"save_function"
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___SaveableObject = SaveableObject
+Global___SaveableObject: _TypeAlias = SaveableObject  # noqa: Y015
