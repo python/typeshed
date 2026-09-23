@@ -111,9 +111,31 @@ def to_numpy_array(
 
 @overload
 def from_numpy_array(
-    A: numpy.ndarray[Incomplete, Incomplete], parallel_edges: bool = False, create_using: None = None
+    A: numpy.ndarray[Incomplete, Incomplete],
+    parallel_edges: bool = False,
+    create_using: None = None,
+    edge_attr: str | None = "weight",
+    *,
+    nodelist: Iterable[Incomplete] | None = None,
+    nonedge: object = 0,
 ) -> Graph[Incomplete]: ...
 @overload
-def from_numpy_array(A: numpy.ndarray[Incomplete, Incomplete], parallel_edges: bool = False, *, create_using: type[_G]) -> _G: ...
+def from_numpy_array(
+    A: numpy.ndarray[Incomplete, Incomplete],
+    parallel_edges: bool = False,
+    *,
+    create_using: type[_G],
+    edge_attr: str | None = "weight",
+    nodelist: Iterable[Incomplete] | None = None,
+    nonedge: object = 0,
+) -> _G: ...
 @overload
-def from_numpy_array(A: numpy.ndarray[Incomplete, Incomplete], parallel_edges: bool, create_using: type[_G]) -> _G: ...
+def from_numpy_array(
+    A: numpy.ndarray[Incomplete, Incomplete],
+    parallel_edges: bool,
+    create_using: type[_G],
+    edge_attr: str | None = "weight",
+    *,
+    nodelist: Iterable[Incomplete] | None = None,
+    nonedge: object = 0,
+) -> _G: ...

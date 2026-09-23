@@ -7,6 +7,7 @@ from networkx.utils.backends import _dispatchable
 _WeightFunction: TypeAlias = Callable[..., int]
 
 __all__ = [
+    "centroid",
     "eccentricity",
     "diameter",
     "harmonic_diameter",
@@ -61,3 +62,10 @@ def resistance_distance(
 def effective_graph_resistance(G: Graph[_Node], weight: str | None = None, invert_weight: bool = True) -> float: ...
 @_dispatchable
 def kemeny_constant(G: Graph[_Node], *, weight: str | None = None) -> float: ...
+@_dispatchable
+def centroid(
+    G: Graph[_Node],
+    weight: str | _WeightFunction | None = None,
+    attr: str | None = None,
+    sp: Mapping[_Node, Mapping[_Node, int]] | None = None,
+) -> list[_Node]: ...
