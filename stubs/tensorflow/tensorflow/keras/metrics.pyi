@@ -28,7 +28,7 @@ class Metric(tf.keras.layers.Layer[tf.Tensor, tf.Tensor], metaclass=ABCMeta):
         initializer: _Initializer | None = None,
         dtype: DTypeLike | None = None,
         name: str | None = None,
-    ) -> tf.Variable: ...
+    ): ...  # Keras 3 returns a backend Variable, which is not yet modeled here.
 
 class AUC(Metric):
     _from_logits: bool
