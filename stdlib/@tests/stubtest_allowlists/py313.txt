@@ -1,7 +1,8 @@
 # =========================
 # New errors in Python 3.13
 # =========================
-
+# No way to express keyword-only ParamSpec
+copy.replace
 # ====================================
 # Pre-existing errors from Python 3.12
 # ====================================
@@ -61,6 +62,16 @@ tkinter.simpledialog.[A-Z_]+
 tkinter.simpledialog.TclVersion
 tkinter.simpledialog.TkVersion
 
+# The runtime does some hacks to deprecate passing various parameters
+# positionally or by keyword. We just present a signature in the stub
+# that describes the way users are supposed to call the constructor.
+typing_extensions.sentinel.__init__
+
+# TypeVarTuple is a wrapper class that returns typing.TypeVarTuple instances.
+# Keep __new__ checked because it is the wrapper's public constructor.
+typing_extensions\.TypeVarTuple
+typing_extensions\.TypeVarTuple\.(?!__new__).*
+
 
 # =============================================================
 # Allowlist entries that cannot or should not be fixed; <3.15
@@ -81,10 +92,19 @@ typing(_extensions)?\.IO\.writelines
 posixpath.join
 ntpath.join
 
+# runtime is *args, **kwargs due to a wrapper; we have more accurate signatures in the stubs
+_frozen_importlib_external.FileLoader.load_module
+importlib.abc.FileLoader.load_module
+
 
 # =============================================================
 # Allowlist entries that cannot or should not be fixed; >= 3.13
 # =============================================================
+
+# `cleanup_socket` was added in 3.13 to the concrete `_UnixSelectorEventLoop.create_unix_server`,
+# not to the abstract `AbstractEventLoop.create_unix_server`. The stub adds it on the abstract
+# method so code typing the loop as `AbstractEventLoop` can still pass `cleanup_socket=...`. See #15742.
+asyncio.events.AbstractEventLoop.create_unix_server
 
 _pyrepl\..+  # The internal implementation of the REPL on py313+; not for public consumption
 codecs.backslashreplace_errors  # Runtime incorrectly has `self`
@@ -107,9 +127,6 @@ multiprocessing.managers._BaseDictProxy.values
 
 # To match `dict`, we lie about the runtime, but use overloads to match the correct behavior
 types.MappingProxyType.get
-
-typing_extensions.Protocol  # Super-special typing primitive
-
 
 # =============================================================
 # Allowlist entries that cannot or should not be fixed; >= 3.12
