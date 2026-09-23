@@ -1,6 +1,6 @@
 from collections.abc import Collection, Hashable
 
-from networkx.classes.graph import Graph, _Node
+from networkx.classes.graph import Graph, _EdgeData, _Node, _NodeData
 from networkx.utils.backends import _dispatchable
 from numpy.typing import DTypeLike
 from scipy.sparse import csc_array, csr_array  # type: ignore[import-untyped]  # pyright: ignore[reportMissingImports]
@@ -9,7 +9,7 @@ __all__ = ["incidence_matrix", "adjacency_matrix"]
 
 @_dispatchable
 def incidence_matrix(
-    G: Graph[_Node],
+    G: Graph[_Node, _NodeData, _EdgeData],
     nodelist: Collection[_Node] | None = None,
     edgelist: (
         Collection[
@@ -27,5 +27,8 @@ def incidence_matrix(
 ) -> csc_array: ...
 @_dispatchable
 def adjacency_matrix(
-    G: Graph[_Node], nodelist: Collection[_Node] | None = None, dtype: DTypeLike | None = None, weight: str | None = "weight"
+    G: Graph[_Node, _NodeData, _EdgeData],
+    nodelist: Collection[_Node] | None = None,
+    dtype: DTypeLike | None = None,
+    weight: str | None = "weight",
 ) -> csr_array: ...
