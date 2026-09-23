@@ -52,7 +52,7 @@ def barycenter(
     G: Graph[_Node],
     weight: str | _WeightFunction | None = None,
     attr: str | None = None,
-    sp: Mapping[_Node, Mapping[_Node, int]] | None = None,
+    sp: Mapping[_Node, Mapping[_Node, float]] | None = None,
 ) -> list[_Node]: ...
 @_dispatchable
 def resistance_distance(
@@ -67,5 +67,5 @@ def centroid(
     G: Graph[_Node],
     weight: str | _WeightFunction | None = None,
     attr: str | None = None,
-    sp: Mapping[_Node, Mapping[_Node, int]] | None = None,
+    sp: Mapping[_Node, Mapping[_Node, float]] | None = None,
 ) -> list[_Node]: ...

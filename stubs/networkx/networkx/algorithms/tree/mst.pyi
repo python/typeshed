@@ -29,7 +29,7 @@ class EdgePartition(Enum):
 
 @_dispatchable
 def boruvka_mst_edges(
-    G: Graph[_Node], minimum: bool = True, weight: str = "weight", keys: bool = False, data: bool = True, ignore_nan: bool = False
+    G: Graph[_Node], minimum: bool = True, weight: str = "weight", keys: bool = True, data: bool = True, ignore_nan: bool = False
 ): ...
 @_dispatchable
 def kruskal_mst_edges(
