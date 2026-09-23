@@ -17,62 +17,70 @@ limitations under the License.
 ==============================================================================
 """
 
-import builtins
-import typing
+import builtins as _builtins
+import sys
+import typing as _typing
 
-import google.protobuf.descriptor
-import google.protobuf.message
-import tensorflow.core.protobuf.cluster_pb2
-import tensorflow.core.protobuf.config_pb2
-import tensorflow.core.protobuf.device_filters_pb2
+from google.protobuf import descriptor as _descriptor, message as _message
+from tensorflow.core.protobuf import (
+    cluster_pb2 as _cluster_pb2,
+    config_pb2 as _config_pb2,
+    device_filters_pb2 as _device_filters_pb2,
+)
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
+else:
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-@typing.final
-class ServerDef(google.protobuf.message.Message):
+DESCRIPTOR: _descriptor.FileDescriptor
+
+@_typing.final
+class ServerDef(_message.Message):
     """Defines the configuration of a single TensorFlow server."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    CLUSTER_FIELD_NUMBER: builtins.int
-    JOB_NAME_FIELD_NUMBER: builtins.int
-    REPLICA_FIELD_NUMBER: builtins.int
-    TASK_INDEX_FIELD_NUMBER: builtins.int
-    DEFAULT_SESSION_CONFIG_FIELD_NUMBER: builtins.int
-    PROTOCOL_FIELD_NUMBER: builtins.int
-    PORT_FIELD_NUMBER: builtins.int
-    CLUSTER_DEVICE_FILTERS_FIELD_NUMBER: builtins.int
-    job_name: builtins.str
+    CLUSTER_FIELD_NUMBER: _builtins.int
+    JOB_NAME_FIELD_NUMBER: _builtins.int
+    REPLICA_FIELD_NUMBER: _builtins.int
+    TASK_INDEX_FIELD_NUMBER: _builtins.int
+    DEFAULT_SESSION_CONFIG_FIELD_NUMBER: _builtins.int
+    PROTOCOL_FIELD_NUMBER: _builtins.int
+    PORT_FIELD_NUMBER: _builtins.int
+    CLUSTER_DEVICE_FILTERS_FIELD_NUMBER: _builtins.int
+    job_name: _builtins.str
     """The name of the job of which this server is a member.
 
     NOTE(mrry): The `cluster` field must contain a `JobDef` with a `name` field
     that matches this name.
     """
-    replica: builtins.int
+    replica: _builtins.int
     """Replica this server manages."""
-    task_index: builtins.int
+    task_index: _builtins.int
     """The task index of this server in its job.
 
     NOTE: The `cluster` field must contain a `JobDef` with a matching `name`
     and a mapping in its `tasks` field for this index.
     """
-    protocol: builtins.str
+    protocol: _builtins.str
     """The protocol to be used by this server.
 
     Acceptable values include: "grpc", "grpc+verbs".
     """
-    port: builtins.int
+    port: _builtins.int
     """The server port. If not set, then we identify the port from the job_name."""
-    @property
-    def cluster(self) -> tensorflow.core.protobuf.cluster_pb2.ClusterDef:
+    @_builtins.property
+    def cluster(self) -> _cluster_pb2.ClusterDef:
         """The cluster of which this server is a member."""
 
-    @property
-    def default_session_config(self) -> tensorflow.core.protobuf.config_pb2.ConfigProto:
+    @_builtins.property
+    def default_session_config(self) -> _config_pb2.ConfigProto:
         """The default configuration for sessions that run on this server."""
 
-    @property
-    def cluster_device_filters(self) -> tensorflow.core.protobuf.device_filters_pb2.ClusterDeviceFilters:
+    @_builtins.property
+    def cluster_device_filters(self) -> _device_filters_pb2.ClusterDeviceFilters:
         """Device filters for remote tasks in the cluster.
         NOTE: This is an experimental feature and only effective in TensorFlow 2.x.
         """
@@ -80,46 +88,43 @@ class ServerDef(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        cluster: tensorflow.core.protobuf.cluster_pb2.ClusterDef | None = ...,
-        job_name: builtins.str | None = ...,
-        replica: builtins.int | None = ...,
-        task_index: builtins.int | None = ...,
-        default_session_config: tensorflow.core.protobuf.config_pb2.ConfigProto | None = ...,
-        protocol: builtins.str | None = ...,
-        port: builtins.int | None = ...,
-        cluster_device_filters: tensorflow.core.protobuf.device_filters_pb2.ClusterDeviceFilters | None = ...,
+        cluster: _cluster_pb2.ClusterDef | None = ...,
+        job_name: _builtins.str | None = ...,
+        replica: _builtins.int | None = ...,
+        task_index: _builtins.int | None = ...,
+        default_session_config: _config_pb2.ConfigProto | None = ...,
+        protocol: _builtins.str | None = ...,
+        port: _builtins.int | None = ...,
+        cluster_device_filters: _device_filters_pb2.ClusterDeviceFilters | None = ...,
     ) -> None: ...
-    def HasField(
-        self,
-        field_name: typing.Literal[
-            "cluster",
-            b"cluster",
-            "cluster_device_filters",
-            b"cluster_device_filters",
-            "default_session_config",
-            b"default_session_config",
-        ],
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "cluster",
-            b"cluster",
-            "cluster_device_filters",
-            b"cluster_device_filters",
-            "default_session_config",
-            b"default_session_config",
-            "job_name",
-            b"job_name",
-            "port",
-            b"port",
-            "protocol",
-            b"protocol",
-            "replica",
-            b"replica",
-            "task_index",
-            b"task_index",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal[
+        "cluster",
+        b"cluster",
+        "cluster_device_filters",
+        b"cluster_device_filters",
+        "default_session_config",
+        b"default_session_config",
+    ]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "cluster",
+        b"cluster",
+        "cluster_device_filters",
+        b"cluster_device_filters",
+        "default_session_config",
+        b"default_session_config",
+        "job_name",
+        b"job_name",
+        "port",
+        b"port",
+        "protocol",
+        b"protocol",
+        "replica",
+        b"replica",
+        "task_index",
+        b"task_index",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___ServerDef = ServerDef
+Global___ServerDef: _TypeAlias = ServerDef  # noqa: Y015

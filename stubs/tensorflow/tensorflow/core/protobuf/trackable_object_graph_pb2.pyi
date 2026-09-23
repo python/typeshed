@@ -3,149 +3,157 @@
 isort:skip_file
 """
 
-import builtins
-import collections.abc
-import typing
+import builtins as _builtins
+import sys
+import typing as _typing
+from collections import abc as _abc
 
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.message
-import google.protobuf.wrappers_pb2
+from google.protobuf import descriptor as _descriptor, message as _message, wrappers_pb2 as _wrappers_pb2
+from google.protobuf.internal import containers as _containers
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
+else:
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-@typing.final
-class TrackableObjectGraph(google.protobuf.message.Message):
+DESCRIPTOR: _descriptor.FileDescriptor
+
+@_typing.final
+class TrackableObjectGraph(_message.Message):
     """A TensorBundle addition which saves extra information about the objects which
     own variables, allowing for more robust checkpoint loading into modified
     programs.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class TrackableObject(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class TrackableObject(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        @typing.final
-        class ObjectReference(google.protobuf.message.Message):
-            DESCRIPTOR: google.protobuf.descriptor.Descriptor
+        @_typing.final
+        class ObjectReference(_message.Message):
+            DESCRIPTOR: _descriptor.Descriptor
 
-            NODE_ID_FIELD_NUMBER: builtins.int
-            LOCAL_NAME_FIELD_NUMBER: builtins.int
-            node_id: builtins.int
+            NODE_ID_FIELD_NUMBER: _builtins.int
+            LOCAL_NAME_FIELD_NUMBER: _builtins.int
+            node_id: _builtins.int
             """An index into `TrackableObjectGraph.nodes`, indicating the object
             being referenced.
             """
-            local_name: builtins.str
+            local_name: _builtins.str
             """A user-provided name for the edge."""
-            def __init__(self, *, node_id: builtins.int | None = ..., local_name: builtins.str | None = ...) -> None: ...
-            def ClearField(self, field_name: typing.Literal["local_name", b"local_name", "node_id", b"node_id"]) -> None: ...
+            def __init__(self, *, node_id: _builtins.int | None = ..., local_name: _builtins.str | None = ...) -> None: ...
+            _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+            def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+            _ClearFieldArgType: _TypeAlias = _typing.Literal["local_name", b"local_name", "node_id", b"node_id"]  # noqa: Y015
+            def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+            def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-        @typing.final
-        class SerializedTensor(google.protobuf.message.Message):
-            DESCRIPTOR: google.protobuf.descriptor.Descriptor
+        @_typing.final
+        class SerializedTensor(_message.Message):
+            DESCRIPTOR: _descriptor.Descriptor
 
-            NAME_FIELD_NUMBER: builtins.int
-            FULL_NAME_FIELD_NUMBER: builtins.int
-            CHECKPOINT_KEY_FIELD_NUMBER: builtins.int
-            name: builtins.str
+            NAME_FIELD_NUMBER: _builtins.int
+            FULL_NAME_FIELD_NUMBER: _builtins.int
+            CHECKPOINT_KEY_FIELD_NUMBER: _builtins.int
+            name: _builtins.str
             """A name for the Tensor. Simple variables have only one
             `SerializedTensor` named "VARIABLE_VALUE" by convention. This value may
             be restored on object creation as an optimization.
             """
-            full_name: builtins.str
+            full_name: _builtins.str
             """The full name of the variable/tensor, if applicable. Used to allow
             name-based loading of checkpoints which were saved using an
             object-based API. Should match the checkpoint key which would have been
             assigned by tf.train.Saver.
             """
-            checkpoint_key: builtins.str
+            checkpoint_key: _builtins.str
             """The generated name of the Tensor in the checkpoint."""
             def __init__(
                 self,
                 *,
-                name: builtins.str | None = ...,
-                full_name: builtins.str | None = ...,
-                checkpoint_key: builtins.str | None = ...,
+                name: _builtins.str | None = ...,
+                full_name: _builtins.str | None = ...,
+                checkpoint_key: _builtins.str | None = ...,
             ) -> None: ...
-            def ClearField(
-                self, field_name: typing.Literal["checkpoint_key", b"checkpoint_key", "full_name", b"full_name", "name", b"name"]
-            ) -> None: ...
+            _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+            def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+            _ClearFieldArgType: _TypeAlias = _typing.Literal[
+                "checkpoint_key", b"checkpoint_key", "full_name", b"full_name", "name", b"name"
+            ]  # noqa: Y015
+            def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+            def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-        @typing.final
-        class SlotVariableReference(google.protobuf.message.Message):
-            DESCRIPTOR: google.protobuf.descriptor.Descriptor
+        @_typing.final
+        class SlotVariableReference(_message.Message):
+            DESCRIPTOR: _descriptor.Descriptor
 
-            ORIGINAL_VARIABLE_NODE_ID_FIELD_NUMBER: builtins.int
-            SLOT_NAME_FIELD_NUMBER: builtins.int
-            SLOT_VARIABLE_NODE_ID_FIELD_NUMBER: builtins.int
-            original_variable_node_id: builtins.int
+            ORIGINAL_VARIABLE_NODE_ID_FIELD_NUMBER: _builtins.int
+            SLOT_NAME_FIELD_NUMBER: _builtins.int
+            SLOT_VARIABLE_NODE_ID_FIELD_NUMBER: _builtins.int
+            original_variable_node_id: _builtins.int
             """An index into `TrackableObjectGraph.nodes`, indicating the
             variable object this slot was created for.
             """
-            slot_name: builtins.str
+            slot_name: _builtins.str
             """The name of the slot (e.g. "m"/"v")."""
-            slot_variable_node_id: builtins.int
+            slot_variable_node_id: _builtins.int
             """An index into `TrackableObjectGraph.nodes`, indicating the
             `Object` with the value of the slot variable.
             """
             def __init__(
                 self,
                 *,
-                original_variable_node_id: builtins.int | None = ...,
-                slot_name: builtins.str | None = ...,
-                slot_variable_node_id: builtins.int | None = ...,
+                original_variable_node_id: _builtins.int | None = ...,
+                slot_name: _builtins.str | None = ...,
+                slot_variable_node_id: _builtins.int | None = ...,
             ) -> None: ...
-            def ClearField(
-                self,
-                field_name: typing.Literal[
-                    "original_variable_node_id",
-                    b"original_variable_node_id",
-                    "slot_name",
-                    b"slot_name",
-                    "slot_variable_node_id",
-                    b"slot_variable_node_id",
-                ],
-            ) -> None: ...
+            _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+            def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+            _ClearFieldArgType: _TypeAlias = _typing.Literal[
+                "original_variable_node_id",
+                b"original_variable_node_id",
+                "slot_name",
+                b"slot_name",
+                "slot_variable_node_id",
+                b"slot_variable_node_id",
+            ]  # noqa: Y015
+            def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+            def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-        CHILDREN_FIELD_NUMBER: builtins.int
-        ATTRIBUTES_FIELD_NUMBER: builtins.int
-        SLOT_VARIABLES_FIELD_NUMBER: builtins.int
-        REGISTERED_SAVER_FIELD_NUMBER: builtins.int
-        HAS_CHECKPOINT_VALUES_FIELD_NUMBER: builtins.int
-        @property
+        CHILDREN_FIELD_NUMBER: _builtins.int
+        ATTRIBUTES_FIELD_NUMBER: _builtins.int
+        SLOT_VARIABLES_FIELD_NUMBER: _builtins.int
+        REGISTERED_SAVER_FIELD_NUMBER: _builtins.int
+        HAS_CHECKPOINT_VALUES_FIELD_NUMBER: _builtins.int
+        @_builtins.property
         def children(
             self,
-        ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
-            global___TrackableObjectGraph.TrackableObject.ObjectReference
-        ]:
+        ) -> _containers.RepeatedCompositeFieldContainer[Global___TrackableObjectGraph.TrackableObject.ObjectReference]:
             """Objects which this object depends on."""
 
-        @property
+        @_builtins.property
         def attributes(
             self,
-        ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
-            global___TrackableObjectGraph.TrackableObject.SerializedTensor
-        ]:
+        ) -> _containers.RepeatedCompositeFieldContainer[Global___TrackableObjectGraph.TrackableObject.SerializedTensor]:
             """Serialized data specific to this object."""
 
-        @property
+        @_builtins.property
         def slot_variables(
             self,
-        ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
-            global___TrackableObjectGraph.TrackableObject.SlotVariableReference
-        ]:
+        ) -> _containers.RepeatedCompositeFieldContainer[Global___TrackableObjectGraph.TrackableObject.SlotVariableReference]:
             """Slot variables owned by this object."""
 
-        @property
-        def registered_saver(self) -> global___RegisteredSaver:
+        @_builtins.property
+        def registered_saver(self) -> Global___RegisteredSaver:
             """The registered saver used to save this object. If this saver is not
             present when loading the checkpoint, then loading will fail.
             """
 
-        @property
-        def has_checkpoint_values(self) -> google.protobuf.wrappers_pb2.BoolValue:
+        @_builtins.property
+        def has_checkpoint_values(self) -> _wrappers_pb2.BoolValue:
             """Whether this object has checkpoint values or descendants with checkpoint
             values. This is computed at save time to avoid traversing the entire
             object graph proto when restoring (which also has to traverse the live
@@ -155,59 +163,58 @@ class TrackableObjectGraph(google.protobuf.message.Message):
         def __init__(
             self,
             *,
-            children: collections.abc.Iterable[global___TrackableObjectGraph.TrackableObject.ObjectReference] | None = ...,
-            attributes: collections.abc.Iterable[global___TrackableObjectGraph.TrackableObject.SerializedTensor] | None = ...,
-            slot_variables: (
-                collections.abc.Iterable[global___TrackableObjectGraph.TrackableObject.SlotVariableReference] | None
-            ) = ...,
-            registered_saver: global___RegisteredSaver | None = ...,
-            has_checkpoint_values: google.protobuf.wrappers_pb2.BoolValue | None = ...,
+            children: _abc.Iterable[Global___TrackableObjectGraph.TrackableObject.ObjectReference] | None = ...,
+            attributes: _abc.Iterable[Global___TrackableObjectGraph.TrackableObject.SerializedTensor] | None = ...,
+            slot_variables: _abc.Iterable[Global___TrackableObjectGraph.TrackableObject.SlotVariableReference] | None = ...,
+            registered_saver: Global___RegisteredSaver | None = ...,
+            has_checkpoint_values: _wrappers_pb2.BoolValue | None = ...,
         ) -> None: ...
-        def HasField(
-            self,
-            field_name: typing.Literal[
-                "has_checkpoint_values", b"has_checkpoint_values", "registered_saver", b"registered_saver"
-            ],
-        ) -> builtins.bool: ...
-        def ClearField(
-            self,
-            field_name: typing.Literal[
-                "attributes",
-                b"attributes",
-                "children",
-                b"children",
-                "has_checkpoint_values",
-                b"has_checkpoint_values",
-                "registered_saver",
-                b"registered_saver",
-                "slot_variables",
-                b"slot_variables",
-            ],
-        ) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal[
+            "has_checkpoint_values", b"has_checkpoint_values", "registered_saver", b"registered_saver"
+        ]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal[
+            "attributes",
+            b"attributes",
+            "children",
+            b"children",
+            "has_checkpoint_values",
+            b"has_checkpoint_values",
+            "registered_saver",
+            b"registered_saver",
+            "slot_variables",
+            b"slot_variables",
+        ]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    NODES_FIELD_NUMBER: builtins.int
-    @property
-    def nodes(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___TrackableObjectGraph.TrackableObject]: ...
-    def __init__(
-        self, *, nodes: collections.abc.Iterable[global___TrackableObjectGraph.TrackableObject] | None = ...
-    ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["nodes", b"nodes"]) -> None: ...
+    NODES_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def nodes(self) -> _containers.RepeatedCompositeFieldContainer[Global___TrackableObjectGraph.TrackableObject]: ...
+    def __init__(self, *, nodes: _abc.Iterable[Global___TrackableObjectGraph.TrackableObject] | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["nodes", b"nodes"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___TrackableObjectGraph = TrackableObjectGraph
+Global___TrackableObjectGraph: _TypeAlias = TrackableObjectGraph  # noqa: Y015
 
-@typing.final
-class RegisteredSaver(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class RegisteredSaver(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    OBJECT_NAME_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    OBJECT_NAME_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """The name of the registered saver/restore function."""
-    object_name: builtins.str
+    object_name: _builtins.str
     """Unique auto-generated name of the object."""
-    def __init__(self, *, name: builtins.str | None = ..., object_name: builtins.str | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["name", b"name", "object_name", b"object_name"]) -> None: ...
+    def __init__(self, *, name: _builtins.str | None = ..., object_name: _builtins.str | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["name", b"name", "object_name", b"object_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___RegisteredSaver = RegisteredSaver
+Global___RegisteredSaver: _TypeAlias = RegisteredSaver  # noqa: Y015

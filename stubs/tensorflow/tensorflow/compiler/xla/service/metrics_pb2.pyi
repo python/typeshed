@@ -3,201 +3,298 @@
 isort:skip_file
 """
 
-import builtins
-import collections.abc
+import builtins as _builtins
 import sys
-import typing
+import typing as _typing
+from collections import abc as _abc
 
-import google.protobuf.any_pb2
-import google.protobuf.descriptor
-import google.protobuf.duration_pb2
-import google.protobuf.internal.containers
-import google.protobuf.internal.enum_type_wrapper
-import google.protobuf.message
-import google.protobuf.timestamp_pb2
+from google.protobuf import (
+    any_pb2 as _any_pb2,
+    descriptor as _descriptor,
+    duration_pb2 as _duration_pb2,
+    message as _message,
+    timestamp_pb2 as _timestamp_pb2,
+)
+from google.protobuf.internal import containers as _containers, enum_type_wrapper as _enum_type_wrapper
 
-if sys.version_info >= (3, 10):
-    import typing as typing_extensions
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
 else:
-    import typing_extensions
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+DESCRIPTOR: _descriptor.FileDescriptor
 
-@typing.final
-class PassMetrics(google.protobuf.message.Message):
+@_typing.final
+class KeyValueMetric(_message.Message):
+    """internal imports
+
+    Defines generic pass stats.
+    """
+
+    DESCRIPTOR: _descriptor.Descriptor
+
+    KEY_FIELD_NUMBER: _builtins.int
+    VALUE_FIELD_NUMBER: _builtins.int
+    key: _builtins.str
+    value: _builtins.int
+    def __init__(self, *, key: _builtins.str | None = ..., value: _builtins.int | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["key", b"key", "value", b"value"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___KeyValueMetric: _TypeAlias = KeyValueMetric  # noqa: Y015
+
+@_typing.final
+class PassMetrics(_message.Message):
     """Defines pass specific metrics."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    MODULE_ID_FIELD_NUMBER: builtins.int
-    PASS_NAME_FIELD_NUMBER: builtins.int
-    PASS_DURATION_FIELD_NUMBER: builtins.int
-    CUSTOM_METRICS_FIELD_NUMBER: builtins.int
-    module_id: builtins.int
+    MODULE_ID_FIELD_NUMBER: _builtins.int
+    PASS_NAME_FIELD_NUMBER: _builtins.int
+    PASS_DURATION_FIELD_NUMBER: _builtins.int
+    CUSTOM_METRICS_FIELD_NUMBER: _builtins.int
+    KV_METRICS_FIELD_NUMBER: _builtins.int
+    module_id: _builtins.int
     """Unique ID of the module on which the pass was run."""
-    pass_name: builtins.str
+    pass_name: _builtins.str
     """The name of the pass."""
-    @property
-    def pass_duration(self) -> google.protobuf.duration_pb2.Duration:
+    @_builtins.property
+    def pass_duration(self) -> _duration_pb2.Duration:
         """Duration of the pass."""
 
-    @property
-    def custom_metrics(self) -> google.protobuf.any_pb2.Any:
-        """Custom pass metrics. This is kept opaque, via `google.protobuf.Any`, in
-        order to decouple pass agnostic compilation logs from possibly proprietary
-        compiler passes.
+    @_builtins.property
+    def custom_metrics(self) -> _any_pb2.Any:
+        """Custom pass metrics. Used for cases where a more complex structure
+        is needed than a simple key - value pair (via generic metric).
+        This is kept opaque, via `google.protobuf.Any`, in order to
+        decouple pass agnostic compilation logs from possibly proprietary compiler
+        passes.
+        """
+
+    @_builtins.property
+    def kv_metrics(self) -> _containers.RepeatedCompositeFieldContainer[Global___KeyValueMetric]:
+        """Used to log any number of generic metrics per pass.
+        Encapsulates simple metrics regarding a pass via a key - value pair.
+        For more complex metrics for a pass, see custom_metric above.
         """
 
     def __init__(
         self,
         *,
-        module_id: builtins.int | None = ...,
-        pass_name: builtins.str | None = ...,
-        pass_duration: google.protobuf.duration_pb2.Duration | None = ...,
-        custom_metrics: google.protobuf.any_pb2.Any | None = ...,
+        module_id: _builtins.int | None = ...,
+        pass_name: _builtins.str | None = ...,
+        pass_duration: _duration_pb2.Duration | None = ...,
+        custom_metrics: _any_pb2.Any | None = ...,
+        kv_metrics: _abc.Iterable[Global___KeyValueMetric] | None = ...,
     ) -> None: ...
-    def HasField(
-        self, field_name: typing.Literal["custom_metrics", b"custom_metrics", "pass_duration", b"pass_duration"]
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "custom_metrics",
-            b"custom_metrics",
-            "module_id",
-            b"module_id",
-            "pass_duration",
-            b"pass_duration",
-            "pass_name",
-            b"pass_name",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal[
+        "custom_metrics", b"custom_metrics", "pass_duration", b"pass_duration"
+    ]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "custom_metrics",
+        b"custom_metrics",
+        "kv_metrics",
+        b"kv_metrics",
+        "module_id",
+        b"module_id",
+        "pass_duration",
+        b"pass_duration",
+        "pass_name",
+        b"pass_name",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___PassMetrics = PassMetrics
+Global___PassMetrics: _TypeAlias = PassMetrics  # noqa: Y015
 
-@typing.final
-class JobInfo(google.protobuf.message.Message):
+@_typing.final
+class JobInfo(_message.Message):
     """Defines compilation job information."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    CELL_FIELD_NUMBER: builtins.int
-    USER_FIELD_NUMBER: builtins.int
-    UID_FIELD_NUMBER: builtins.int
-    TASK_ID_FIELD_NUMBER: builtins.int
-    TASK_UID_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    CELL_FIELD_NUMBER: _builtins.int
+    USER_FIELD_NUMBER: _builtins.int
+    UID_FIELD_NUMBER: _builtins.int
+    TASK_ID_FIELD_NUMBER: _builtins.int
+    TASK_UID_FIELD_NUMBER: _builtins.int
+    PROCESS_ID_FIELD_NUMBER: _builtins.int
+    THREAD_ID_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """Name of the job running compilation."""
-    cell: builtins.str
+    cell: _builtins.str
     """Cell in which the job is running."""
-    user: builtins.str
+    user: _builtins.str
     """User running the job."""
-    uid: builtins.int
+    uid: _builtins.int
     """Unique id when combined with user and cell field."""
-    task_id: builtins.int
+    task_id: _builtins.int
     """Task index, which will not change across job restarts."""
-    task_uid: builtins.int
+    task_uid: _builtins.int
     """Task unique id, which may change across job restarts."""
+    process_id: _builtins.int
+    """Process id -- track subprocesses."""
+    thread_id: _builtins.int
+    """Thread unique id for simultaneous events -- indicate dependencies
+    and code flow for compilations within a task.
+    """
     def __init__(
         self,
         *,
-        name: builtins.str | None = ...,
-        cell: builtins.str | None = ...,
-        user: builtins.str | None = ...,
-        uid: builtins.int | None = ...,
-        task_id: builtins.int | None = ...,
-        task_uid: builtins.int | None = ...,
+        name: _builtins.str | None = ...,
+        cell: _builtins.str | None = ...,
+        user: _builtins.str | None = ...,
+        uid: _builtins.int | None = ...,
+        task_id: _builtins.int | None = ...,
+        task_uid: _builtins.int | None = ...,
+        process_id: _builtins.int | None = ...,
+        thread_id: _builtins.int | None = ...,
     ) -> None: ...
-    def HasField(
-        self,
-        field_name: typing.Literal[
-            "_cell",
-            b"_cell",
-            "_name",
-            b"_name",
-            "_task_id",
-            b"_task_id",
-            "_task_uid",
-            b"_task_uid",
-            "_uid",
-            b"_uid",
-            "_user",
-            b"_user",
-            "cell",
-            b"cell",
-            "name",
-            b"name",
-            "task_id",
-            b"task_id",
-            "task_uid",
-            b"task_uid",
-            "uid",
-            b"uid",
-            "user",
-            b"user",
-        ],
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "_cell",
-            b"_cell",
-            "_name",
-            b"_name",
-            "_task_id",
-            b"_task_id",
-            "_task_uid",
-            b"_task_uid",
-            "_uid",
-            b"_uid",
-            "_user",
-            b"_user",
-            "cell",
-            b"cell",
-            "name",
-            b"name",
-            "task_id",
-            b"task_id",
-            "task_uid",
-            b"task_uid",
-            "uid",
-            b"uid",
-            "user",
-            b"user",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal[
+        "_cell",
+        b"_cell",
+        "_name",
+        b"_name",
+        "_process_id",
+        b"_process_id",
+        "_task_id",
+        b"_task_id",
+        "_task_uid",
+        b"_task_uid",
+        "_thread_id",
+        b"_thread_id",
+        "_uid",
+        b"_uid",
+        "_user",
+        b"_user",
+        "cell",
+        b"cell",
+        "name",
+        b"name",
+        "process_id",
+        b"process_id",
+        "task_id",
+        b"task_id",
+        "task_uid",
+        b"task_uid",
+        "thread_id",
+        b"thread_id",
+        "uid",
+        b"uid",
+        "user",
+        b"user",
+    ]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "_cell",
+        b"_cell",
+        "_name",
+        b"_name",
+        "_process_id",
+        b"_process_id",
+        "_task_id",
+        b"_task_id",
+        "_task_uid",
+        b"_task_uid",
+        "_thread_id",
+        b"_thread_id",
+        "_uid",
+        b"_uid",
+        "_user",
+        b"_user",
+        "cell",
+        b"cell",
+        "name",
+        b"name",
+        "process_id",
+        b"process_id",
+        "task_id",
+        b"task_id",
+        "task_uid",
+        b"task_uid",
+        "thread_id",
+        b"thread_id",
+        "uid",
+        b"uid",
+        "user",
+        b"user",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType__cell: _TypeAlias = _typing.Literal["cell"]  # noqa: Y015
+    _WhichOneofArgType__cell: _TypeAlias = _typing.Literal["_cell", b"_cell"]  # noqa: Y015
+    _WhichOneofReturnType__name: _TypeAlias = _typing.Literal["name"]  # noqa: Y015
+    _WhichOneofArgType__name: _TypeAlias = _typing.Literal["_name", b"_name"]  # noqa: Y015
+    _WhichOneofReturnType__process_id: _TypeAlias = _typing.Literal["process_id"]  # noqa: Y015
+    _WhichOneofArgType__process_id: _TypeAlias = _typing.Literal["_process_id", b"_process_id"]  # noqa: Y015
+    _WhichOneofReturnType__task_id: _TypeAlias = _typing.Literal["task_id"]  # noqa: Y015
+    _WhichOneofArgType__task_id: _TypeAlias = _typing.Literal["_task_id", b"_task_id"]  # noqa: Y015
+    _WhichOneofReturnType__task_uid: _TypeAlias = _typing.Literal["task_uid"]  # noqa: Y015
+    _WhichOneofArgType__task_uid: _TypeAlias = _typing.Literal["_task_uid", b"_task_uid"]  # noqa: Y015
+    _WhichOneofReturnType__thread_id: _TypeAlias = _typing.Literal["thread_id"]  # noqa: Y015
+    _WhichOneofArgType__thread_id: _TypeAlias = _typing.Literal["_thread_id", b"_thread_id"]  # noqa: Y015
+    _WhichOneofReturnType__uid: _TypeAlias = _typing.Literal["uid"]  # noqa: Y015
+    _WhichOneofArgType__uid: _TypeAlias = _typing.Literal["_uid", b"_uid"]  # noqa: Y015
+    _WhichOneofReturnType__user: _TypeAlias = _typing.Literal["user"]  # noqa: Y015
+    _WhichOneofArgType__user: _TypeAlias = _typing.Literal["_user", b"_user"]  # noqa: Y015
 
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_cell", b"_cell"]) -> typing.Literal["cell"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_name", b"_name"]) -> typing.Literal["name"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_task_id", b"_task_id"]) -> typing.Literal["task_id"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_task_uid", b"_task_uid"]) -> typing.Literal["task_uid"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_uid", b"_uid"]) -> typing.Literal["uid"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["_user", b"_user"]) -> typing.Literal["user"] | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__cell) -> _WhichOneofReturnType__cell | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__name) -> _WhichOneofReturnType__name | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__process_id) -> _WhichOneofReturnType__process_id | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__task_id) -> _WhichOneofReturnType__task_id | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__task_uid) -> _WhichOneofReturnType__task_uid | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__thread_id) -> _WhichOneofReturnType__thread_id | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__uid) -> _WhichOneofReturnType__uid | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__user) -> _WhichOneofReturnType__user | None: ...
 
-global___JobInfo = JobInfo
+Global___JobInfo: _TypeAlias = JobInfo  # noqa: Y015
 
-@typing.final
-class CompilationLogEntry(google.protobuf.message.Message):
+@_typing.final
+class TagMetric(_message.Message):
+    """Key-Value pair for metrics metadata tags."""
+
+    DESCRIPTOR: _descriptor.Descriptor
+
+    KEY_FIELD_NUMBER: _builtins.int
+    VALUE_FIELD_NUMBER: _builtins.int
+    key: _builtins.str
+    value: _builtins.str
+    def __init__(self, *, key: _builtins.str | None = ..., value: _builtins.str | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["key", b"key", "value", b"value"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___TagMetric: _TypeAlias = TagMetric  # noqa: Y015
+
+@_typing.final
+class CompilationLogEntry(_message.Message):
     """Defines XLA compilation metrics."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _CompilationStage:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
     class _CompilationStageEnumTypeWrapper(
-        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[CompilationLogEntry._CompilationStage.ValueType],
-        builtins.type,
+        _enum_type_wrapper._EnumTypeWrapper[CompilationLogEntry._CompilationStage.ValueType], _builtins.type
     ):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        DESCRIPTOR: _descriptor.EnumDescriptor
         UNSPECIFIED: CompilationLogEntry._CompilationStage.ValueType  # 0
         END_TO_END: CompilationLogEntry._CompilationStage.ValueType  # 1
         HLO_PASSES: CompilationLogEntry._CompilationStage.ValueType  # 2
@@ -213,72 +310,86 @@ class CompilationLogEntry(google.protobuf.message.Message):
     CODE_GENERATION: CompilationLogEntry.CompilationStage.ValueType  # 3
     BACKEND_PASSES: CompilationLogEntry.CompilationStage.ValueType  # 4
 
-    TIMESTAMP_FIELD_NUMBER: builtins.int
-    STAGE_FIELD_NUMBER: builtins.int
-    DURATION_FIELD_NUMBER: builtins.int
-    TASK_INDEX_FIELD_NUMBER: builtins.int
-    PASS_METRICS_FIELD_NUMBER: builtins.int
-    MODULE_IDS_FIELD_NUMBER: builtins.int
-    JOB_INFO_FIELD_NUMBER: builtins.int
-    stage: global___CompilationLogEntry.CompilationStage.ValueType
+    TIMESTAMP_FIELD_NUMBER: _builtins.int
+    STAGE_FIELD_NUMBER: _builtins.int
+    DURATION_FIELD_NUMBER: _builtins.int
+    TASK_INDEX_FIELD_NUMBER: _builtins.int
+    PASS_METRICS_FIELD_NUMBER: _builtins.int
+    MODULE_IDS_FIELD_NUMBER: _builtins.int
+    JOB_INFO_FIELD_NUMBER: _builtins.int
+    HLO_MODULE_NAME_FIELD_NUMBER: _builtins.int
+    TAG_FIELD_NUMBER: _builtins.int
+    stage: Global___CompilationLogEntry.CompilationStage.ValueType
     """Compilation stage recorded by this log entry."""
-    task_index: builtins.int
+    task_index: _builtins.int
     """Task index from which this log entry was recorded or
     -1 if the task index could not be fetched. In the case task_index is not
     equal to -1, it is guaranteed to match the task_id in job_info.
     """
-    @property
-    def timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp:
+    hlo_module_name: _builtins.str
+    """HLO module name."""
+    @_builtins.property
+    def timestamp(self) -> _timestamp_pb2.Timestamp:
         """Time when the event captured by this log entry occurred."""
 
-    @property
-    def duration(self) -> google.protobuf.duration_pb2.Duration:
+    @_builtins.property
+    def duration(self) -> _duration_pb2.Duration:
         """Duration of the given compilation stage."""
 
-    @property
-    def pass_metrics(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___PassMetrics]:
+    @_builtins.property
+    def pass_metrics(self) -> _containers.RepeatedCompositeFieldContainer[Global___PassMetrics]:
         """Pass specific metrics."""
 
-    @property
-    def module_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+    @_builtins.property
+    def module_ids(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]:
         """IDs of modules on which the compilation stage was run."""
 
-    @property
-    def job_info(self) -> global___JobInfo:
+    @_builtins.property
+    def job_info(self) -> Global___JobInfo:
         """Job information."""
+
+    @_builtins.property
+    def tag(self) -> _containers.RepeatedCompositeFieldContainer[Global___TagMetric]:
+        """Metadata tags for identifying/filtering jobs"""
 
     def __init__(
         self,
         *,
-        timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        stage: global___CompilationLogEntry.CompilationStage.ValueType | None = ...,
-        duration: google.protobuf.duration_pb2.Duration | None = ...,
-        task_index: builtins.int | None = ...,
-        pass_metrics: collections.abc.Iterable[global___PassMetrics] | None = ...,
-        module_ids: collections.abc.Iterable[builtins.int] | None = ...,
-        job_info: global___JobInfo | None = ...,
+        timestamp: _timestamp_pb2.Timestamp | None = ...,
+        stage: Global___CompilationLogEntry.CompilationStage.ValueType | None = ...,
+        duration: _duration_pb2.Duration | None = ...,
+        task_index: _builtins.int | None = ...,
+        pass_metrics: _abc.Iterable[Global___PassMetrics] | None = ...,
+        module_ids: _abc.Iterable[_builtins.int] | None = ...,
+        job_info: Global___JobInfo | None = ...,
+        hlo_module_name: _builtins.str | None = ...,
+        tag: _abc.Iterable[Global___TagMetric] | None = ...,
     ) -> None: ...
-    def HasField(
-        self, field_name: typing.Literal["duration", b"duration", "job_info", b"job_info", "timestamp", b"timestamp"]
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "duration",
-            b"duration",
-            "job_info",
-            b"job_info",
-            "module_ids",
-            b"module_ids",
-            "pass_metrics",
-            b"pass_metrics",
-            "stage",
-            b"stage",
-            "task_index",
-            b"task_index",
-            "timestamp",
-            b"timestamp",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal[
+        "duration", b"duration", "job_info", b"job_info", "timestamp", b"timestamp"
+    ]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "duration",
+        b"duration",
+        "hlo_module_name",
+        b"hlo_module_name",
+        "job_info",
+        b"job_info",
+        "module_ids",
+        b"module_ids",
+        "pass_metrics",
+        b"pass_metrics",
+        "stage",
+        b"stage",
+        "tag",
+        b"tag",
+        "task_index",
+        b"task_index",
+        "timestamp",
+        b"timestamp",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___CompilationLogEntry = CompilationLogEntry
+Global___CompilationLogEntry: _TypeAlias = CompilationLogEntry  # noqa: Y015

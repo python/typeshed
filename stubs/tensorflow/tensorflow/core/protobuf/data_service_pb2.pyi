@@ -3,29 +3,27 @@
 isort:skip_file
 """
 
-import builtins
+import builtins as _builtins
 import sys
-import typing
+import typing as _typing
 
-import google.protobuf.descriptor
-import google.protobuf.internal.enum_type_wrapper
-import google.protobuf.message
+from google.protobuf import descriptor as _descriptor, message as _message
+from google.protobuf.internal import enum_type_wrapper as _enum_type_wrapper
 
-if sys.version_info >= (3, 10):
-    import typing as typing_extensions
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
 else:
-    import typing_extensions
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+DESCRIPTOR: _descriptor.FileDescriptor
 
 class _DeploymentMode:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _DeploymentModeEnumTypeWrapper(
-    google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_DeploymentMode.ValueType], builtins.type
-):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _DeploymentModeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_DeploymentMode.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     DEPLOYMENT_MODE_UNSPECIFIED: _DeploymentMode.ValueType  # 0
     DEPLOYMENT_MODE_COLOCATED: _DeploymentMode.ValueType  # 1
     """tf.data service workers colocate with TF workers."""
@@ -48,22 +46,22 @@ DEPLOYMENT_MODE_HYBRID: DeploymentMode.ValueType  # 3
 """tf.data service workers run in colocated TF hosts and dedicated tf.data
 hosts.
 """
-global___DeploymentMode = DeploymentMode
+Global___DeploymentMode: _TypeAlias = DeploymentMode  # noqa: Y015
 
-@typing.final
-class ProcessingModeDef(google.protobuf.message.Message):
+@_typing.final
+class ProcessingModeDef(_message.Message):
     """Next tag: 2"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _ShardingPolicy:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
     class _ShardingPolicyEnumTypeWrapper(
-        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ProcessingModeDef._ShardingPolicy.ValueType], builtins.type
+        _enum_type_wrapper._EnumTypeWrapper[ProcessingModeDef._ShardingPolicy.ValueType], _builtins.type
     ):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        DESCRIPTOR: _descriptor.EnumDescriptor
         OFF: ProcessingModeDef._ShardingPolicy.ValueType  # 0
         """No sharding will be performed. Each worker produces the entire dataset
         without any sharding. With this mode, the best practice is to shuffle the
@@ -143,101 +141,124 @@ class ProcessingModeDef(google.protobuf.message.Message):
     placeholder to replace with `shard(num_workers, worker_index)`.
     """
 
-    SHARDING_POLICY_FIELD_NUMBER: builtins.int
-    sharding_policy: global___ProcessingModeDef.ShardingPolicy.ValueType
-    def __init__(self, *, sharding_policy: global___ProcessingModeDef.ShardingPolicy.ValueType | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["sharding_policy", b"sharding_policy"]) -> None: ...
+    SHARDING_POLICY_FIELD_NUMBER: _builtins.int
+    sharding_policy: Global___ProcessingModeDef.ShardingPolicy.ValueType
+    def __init__(self, *, sharding_policy: Global___ProcessingModeDef.ShardingPolicy.ValueType | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["sharding_policy", b"sharding_policy"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___ProcessingModeDef = ProcessingModeDef
+Global___ProcessingModeDef: _TypeAlias = ProcessingModeDef  # noqa: Y015
 
-@typing.final
-class DataServiceMetadata(google.protobuf.message.Message):
+@_typing.final
+class DataServiceMetadata(_message.Message):
     """Metadata related to tf.data service datasets.
     Next tag: 4
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _Compression:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
     class _CompressionEnumTypeWrapper(
-        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[DataServiceMetadata._Compression.ValueType], builtins.type
+        _enum_type_wrapper._EnumTypeWrapper[DataServiceMetadata._Compression.ValueType], _builtins.type
     ):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        DESCRIPTOR: _descriptor.EnumDescriptor
         COMPRESSION_UNSPECIFIED: DataServiceMetadata._Compression.ValueType  # 0
         COMPRESSION_OFF: DataServiceMetadata._Compression.ValueType  # 1
         """No compression."""
         COMPRESSION_SNAPPY: DataServiceMetadata._Compression.ValueType  # 2
-        """Snappy compression as defined in tensorflow/core/platform/snappy.h."""
+        """AUTO compression, either none or snappy compression as defined in
+        tensorflow/core/platform/snappy.h.
+        """
+        COMPRESSION_FORCED_SNAPPY: DataServiceMetadata._Compression.ValueType  # 3
+        """Forced a snappy compression as in tensorflow/core/platform/snappy.h."""
 
     class Compression(_Compression, metaclass=_CompressionEnumTypeWrapper): ...
     COMPRESSION_UNSPECIFIED: DataServiceMetadata.Compression.ValueType  # 0
     COMPRESSION_OFF: DataServiceMetadata.Compression.ValueType  # 1
     """No compression."""
     COMPRESSION_SNAPPY: DataServiceMetadata.Compression.ValueType  # 2
-    """Snappy compression as defined in tensorflow/core/platform/snappy.h."""
+    """AUTO compression, either none or snappy compression as defined in
+    tensorflow/core/platform/snappy.h.
+    """
+    COMPRESSION_FORCED_SNAPPY: DataServiceMetadata.Compression.ValueType  # 3
+    """Forced a snappy compression as in tensorflow/core/platform/snappy.h."""
 
-    ELEMENT_SPEC_FIELD_NUMBER: builtins.int
-    COMPRESSION_FIELD_NUMBER: builtins.int
-    CARDINALITY_FIELD_NUMBER: builtins.int
-    element_spec: builtins.bytes
+    ELEMENT_SPEC_FIELD_NUMBER: _builtins.int
+    COMPRESSION_FIELD_NUMBER: _builtins.int
+    CARDINALITY_FIELD_NUMBER: _builtins.int
+    element_spec: _builtins.bytes
     """Serialized element spec."""
-    compression: global___DataServiceMetadata.Compression.ValueType
-    cardinality: builtins.int
+    compression: Global___DataServiceMetadata.Compression.ValueType
+    cardinality: _builtins.int
     """Cardinality of the dataset."""
     def __init__(
         self,
         *,
-        element_spec: builtins.bytes | None = ...,
-        compression: global___DataServiceMetadata.Compression.ValueType | None = ...,
-        cardinality: builtins.int | None = ...,
+        element_spec: _builtins.bytes | None = ...,
+        compression: Global___DataServiceMetadata.Compression.ValueType | None = ...,
+        cardinality: _builtins.int | None = ...,
     ) -> None: ...
-    def HasField(
-        self, field_name: typing.Literal["element_spec", b"element_spec", "optional_element_spec", b"optional_element_spec"]
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "cardinality",
-            b"cardinality",
-            "compression",
-            b"compression",
-            "element_spec",
-            b"element_spec",
-            "optional_element_spec",
-            b"optional_element_spec",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal[
+        "element_spec", b"element_spec", "optional_element_spec", b"optional_element_spec"
+    ]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "cardinality",
+        b"cardinality",
+        "compression",
+        b"compression",
+        "element_spec",
+        b"element_spec",
+        "optional_element_spec",
+        b"optional_element_spec",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType_optional_element_spec: _TypeAlias = _typing.Literal["element_spec"]  # noqa: Y015
+    _WhichOneofArgType_optional_element_spec: _TypeAlias = _typing.Literal[
+        "optional_element_spec", b"optional_element_spec"
+    ]  # noqa: Y015
     def WhichOneof(
-        self, oneof_group: typing.Literal["optional_element_spec", b"optional_element_spec"]
-    ) -> typing.Literal["element_spec"] | None: ...
+        self, oneof_group: _WhichOneofArgType_optional_element_spec
+    ) -> _WhichOneofReturnType_optional_element_spec | None: ...
 
-global___DataServiceMetadata = DataServiceMetadata
+Global___DataServiceMetadata: _TypeAlias = DataServiceMetadata  # noqa: Y015
 
-@typing.final
-class CrossTrainerCacheOptions(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class CrossTrainerCacheOptions(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    TRAINER_ID_FIELD_NUMBER: builtins.int
-    trainer_id: builtins.str
-    def __init__(self, *, trainer_id: builtins.str | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["trainer_id", b"trainer_id"]) -> None: ...
+    TRAINER_ID_FIELD_NUMBER: _builtins.int
+    trainer_id: _builtins.str
+    def __init__(self, *, trainer_id: _builtins.str | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["trainer_id", b"trainer_id"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___CrossTrainerCacheOptions = CrossTrainerCacheOptions
+Global___CrossTrainerCacheOptions: _TypeAlias = CrossTrainerCacheOptions  # noqa: Y015
 
-@typing.final
-class DataServiceConfig(google.protobuf.message.Message):
+@_typing.final
+class DataServiceConfig(_message.Message):
     """Data service config available to the client through GetDataServiceConfig RPC.
     Next tag: 2
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    DEPLOYMENT_MODE_FIELD_NUMBER: builtins.int
-    deployment_mode: global___DeploymentMode.ValueType
-    def __init__(self, *, deployment_mode: global___DeploymentMode.ValueType | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["deployment_mode", b"deployment_mode"]) -> None: ...
+    DEPLOYMENT_MODE_FIELD_NUMBER: _builtins.int
+    deployment_mode: Global___DeploymentMode.ValueType
+    def __init__(self, *, deployment_mode: Global___DeploymentMode.ValueType | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["deployment_mode", b"deployment_mode"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___DataServiceConfig = DataServiceConfig
+Global___DataServiceConfig: _TypeAlias = DataServiceConfig  # noqa: Y015

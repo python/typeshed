@@ -3,162 +3,171 @@
 isort:skip_file
 """
 
-import builtins
-import collections.abc
-import typing
+import builtins as _builtins
+import sys
+import typing as _typing
+from collections import abc as _abc
 
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.message
-import tensorflow.core.framework.tensor_pb2
-import tensorflow.core.framework.tensor_shape_pb2
-import tensorflow.core.framework.types_pb2
+from google.protobuf import descriptor as _descriptor, message as _message
+from google.protobuf.internal import containers as _containers
+from tensorflow.core.framework import tensor_pb2 as _tensor_pb2, tensor_shape_pb2 as _tensor_shape_pb2, types_pb2 as _types_pb2
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
+else:
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-@typing.final
-class SnapshotRecord(google.protobuf.message.Message):
+DESCRIPTOR: _descriptor.FileDescriptor
+
+@_typing.final
+class SnapshotRecord(_message.Message):
     """Each SnapshotRecord represents one batch of pre-processed input data. A batch
     consists of a list of tensors that we encode as TensorProtos. This message
     doesn't store the structure of the batch.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    TENSOR_FIELD_NUMBER: builtins.int
-    @property
-    def tensor(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
-        tensorflow.core.framework.tensor_pb2.TensorProto
-    ]: ...
-    def __init__(
-        self, *, tensor: collections.abc.Iterable[tensorflow.core.framework.tensor_pb2.TensorProto] | None = ...
-    ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["tensor", b"tensor"]) -> None: ...
+    TENSOR_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def tensor(self) -> _containers.RepeatedCompositeFieldContainer[_tensor_pb2.TensorProto]: ...
+    def __init__(self, *, tensor: _abc.Iterable[_tensor_pb2.TensorProto] | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["tensor", b"tensor"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___SnapshotRecord = SnapshotRecord
+Global___SnapshotRecord: _TypeAlias = SnapshotRecord  # noqa: Y015
 
-@typing.final
-class SnapshotMetadataRecord(google.protobuf.message.Message):
+@_typing.final
+class SnapshotMetadataRecord(_message.Message):
     """This stores the metadata information present in each snapshot record."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    GRAPH_HASH_FIELD_NUMBER: builtins.int
-    RUN_ID_FIELD_NUMBER: builtins.int
-    CREATION_TIMESTAMP_FIELD_NUMBER: builtins.int
-    VERSION_FIELD_NUMBER: builtins.int
-    DTYPE_FIELD_NUMBER: builtins.int
-    NUM_ELEMENTS_FIELD_NUMBER: builtins.int
-    FINALIZED_FIELD_NUMBER: builtins.int
-    graph_hash: builtins.str
+    GRAPH_HASH_FIELD_NUMBER: _builtins.int
+    RUN_ID_FIELD_NUMBER: _builtins.int
+    CREATION_TIMESTAMP_FIELD_NUMBER: _builtins.int
+    VERSION_FIELD_NUMBER: _builtins.int
+    DTYPE_FIELD_NUMBER: _builtins.int
+    NUM_ELEMENTS_FIELD_NUMBER: _builtins.int
+    FINALIZED_FIELD_NUMBER: _builtins.int
+    graph_hash: _builtins.str
     """Stores the fingerprint of the graph that describes the dataset that is
     snapshotted.
     """
-    run_id: builtins.str
+    run_id: _builtins.str
     """Run ID that this snapshot corresponds to."""
-    creation_timestamp: builtins.int
+    creation_timestamp: _builtins.int
     """Time when we started creating this snapshot."""
-    version: builtins.int
+    version: _builtins.int
     """Version of the snapshot data file format."""
-    num_elements: builtins.int
+    num_elements: _builtins.int
     """The number of elements in the snapshot."""
-    finalized: builtins.bool
-    @property
-    def dtype(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[tensorflow.core.framework.types_pb2.DataType.ValueType]:
+    finalized: _builtins.bool
+    @_builtins.property
+    def dtype(self) -> _containers.RepeatedScalarFieldContainer[_types_pb2.DataType.ValueType]:
         """A list of tensor dtype corresponding to each element of the snapshot."""
 
     def __init__(
         self,
         *,
-        graph_hash: builtins.str | None = ...,
-        run_id: builtins.str | None = ...,
-        creation_timestamp: builtins.int | None = ...,
-        version: builtins.int | None = ...,
-        dtype: collections.abc.Iterable[tensorflow.core.framework.types_pb2.DataType.ValueType] | None = ...,
-        num_elements: builtins.int | None = ...,
-        finalized: builtins.bool | None = ...,
+        graph_hash: _builtins.str | None = ...,
+        run_id: _builtins.str | None = ...,
+        creation_timestamp: _builtins.int | None = ...,
+        version: _builtins.int | None = ...,
+        dtype: _abc.Iterable[_types_pb2.DataType.ValueType] | None = ...,
+        num_elements: _builtins.int | None = ...,
+        finalized: _builtins.bool | None = ...,
     ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "creation_timestamp",
-            b"creation_timestamp",
-            "dtype",
-            b"dtype",
-            "finalized",
-            b"finalized",
-            "graph_hash",
-            b"graph_hash",
-            "num_elements",
-            b"num_elements",
-            "run_id",
-            b"run_id",
-            "version",
-            b"version",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "creation_timestamp",
+        b"creation_timestamp",
+        "dtype",
+        b"dtype",
+        "finalized",
+        b"finalized",
+        "graph_hash",
+        b"graph_hash",
+        "num_elements",
+        b"num_elements",
+        "run_id",
+        b"run_id",
+        "version",
+        b"version",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___SnapshotMetadataRecord = SnapshotMetadataRecord
+Global___SnapshotMetadataRecord: _TypeAlias = SnapshotMetadataRecord  # noqa: Y015
 
-@typing.final
-class TensorMetadata(google.protobuf.message.Message):
+@_typing.final
+class TensorMetadata(_message.Message):
     """Metadata for a single tensor in the Snapshot Record."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    TENSOR_SHAPE_FIELD_NUMBER: builtins.int
-    TENSOR_SIZE_BYTES_FIELD_NUMBER: builtins.int
-    tensor_size_bytes: builtins.int
+    TENSOR_SHAPE_FIELD_NUMBER: _builtins.int
+    TENSOR_SIZE_BYTES_FIELD_NUMBER: _builtins.int
+    tensor_size_bytes: _builtins.int
     """Number of uncompressed bytes used to store the tensor representation."""
-    @property
-    def tensor_shape(self) -> tensorflow.core.framework.tensor_shape_pb2.TensorShapeProto: ...
+    @_builtins.property
+    def tensor_shape(self) -> _tensor_shape_pb2.TensorShapeProto: ...
     def __init__(
-        self,
-        *,
-        tensor_shape: tensorflow.core.framework.tensor_shape_pb2.TensorShapeProto | None = ...,
-        tensor_size_bytes: builtins.int | None = ...,
+        self, *, tensor_shape: _tensor_shape_pb2.TensorShapeProto | None = ..., tensor_size_bytes: _builtins.int | None = ...
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["tensor_shape", b"tensor_shape"]) -> builtins.bool: ...
-    def ClearField(
-        self, field_name: typing.Literal["tensor_shape", b"tensor_shape", "tensor_size_bytes", b"tensor_size_bytes"]
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["tensor_shape", b"tensor_shape"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "tensor_shape", b"tensor_shape", "tensor_size_bytes", b"tensor_size_bytes"
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___TensorMetadata = TensorMetadata
+Global___TensorMetadata: _TypeAlias = TensorMetadata  # noqa: Y015
 
-@typing.final
-class SnapshotTensorMetadata(google.protobuf.message.Message):
+@_typing.final
+class SnapshotTensorMetadata(_message.Message):
     """Metadata for all the tensors in a Snapshot Record."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    TENSOR_METADATA_FIELD_NUMBER: builtins.int
-    @property
-    def tensor_metadata(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___TensorMetadata]: ...
-    def __init__(self, *, tensor_metadata: collections.abc.Iterable[global___TensorMetadata] | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["tensor_metadata", b"tensor_metadata"]) -> None: ...
+    TENSOR_METADATA_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def tensor_metadata(self) -> _containers.RepeatedCompositeFieldContainer[Global___TensorMetadata]: ...
+    def __init__(self, *, tensor_metadata: _abc.Iterable[Global___TensorMetadata] | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["tensor_metadata", b"tensor_metadata"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___SnapshotTensorMetadata = SnapshotTensorMetadata
+Global___SnapshotTensorMetadata: _TypeAlias = SnapshotTensorMetadata  # noqa: Y015
 
-@typing.final
-class DistributedSnapshotMetadata(google.protobuf.message.Message):
+@_typing.final
+class DistributedSnapshotMetadata(_message.Message):
     """Metadata for a `tf.data.Dataset` distributed snapshot."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    ELEMENT_SPEC_FIELD_NUMBER: builtins.int
-    COMPRESSION_FIELD_NUMBER: builtins.int
-    element_spec: builtins.bytes
+    ELEMENT_SPEC_FIELD_NUMBER: _builtins.int
+    COMPRESSION_FIELD_NUMBER: _builtins.int
+    element_spec: _builtins.bytes
     """The element spec of the snapshotted dataset."""
-    compression: builtins.str
+    compression: _builtins.str
     """Whether and how to compress the snapshot.  Supported values are defined in
     `tsl::io::compression`.  In particular, an empty string specifies not to
     compress.
     """
-    def __init__(self, *, element_spec: builtins.bytes | None = ..., compression: builtins.str | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["compression", b"compression", "element_spec", b"element_spec"]) -> None: ...
+    def __init__(self, *, element_spec: _builtins.bytes | None = ..., compression: _builtins.str | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["compression", b"compression", "element_spec", b"element_spec"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___DistributedSnapshotMetadata = DistributedSnapshotMetadata
+Global___DistributedSnapshotMetadata: _TypeAlias = DistributedSnapshotMetadata  # noqa: Y015

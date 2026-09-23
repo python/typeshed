@@ -56,125 +56,146 @@ Example Features for a movie recommendation application:
   }
 """
 
-import builtins
-import collections.abc
-import typing
+import builtins as _builtins
+import sys
+import typing as _typing
+from collections import abc as _abc
 
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.message
+from google.protobuf import descriptor as _descriptor, message as _message
+from google.protobuf.internal import containers as _containers
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
+else:
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-@typing.final
-class BytesList(google.protobuf.message.Message):
+DESCRIPTOR: _descriptor.FileDescriptor
+
+@_typing.final
+class BytesList(_message.Message):
     """LINT.IfChange
     Containers to hold repeated fundamental values.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VALUE_FIELD_NUMBER: builtins.int
-    @property
-    def value(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.bytes]: ...
-    def __init__(self, *, value: collections.abc.Iterable[builtins.bytes] | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["value", b"value"]) -> None: ...
+    VALUE_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def value(self) -> _containers.RepeatedScalarFieldContainer[_builtins.bytes]: ...
+    def __init__(self, *, value: _abc.Iterable[_builtins.bytes] | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["value", b"value"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___BytesList = BytesList
+Global___BytesList: _TypeAlias = BytesList  # noqa: Y015
 
-@typing.final
-class FloatList(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class FloatList(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VALUE_FIELD_NUMBER: builtins.int
-    @property
-    def value(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.float]: ...
-    def __init__(self, *, value: collections.abc.Iterable[builtins.float] | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["value", b"value"]) -> None: ...
+    VALUE_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def value(self) -> _containers.RepeatedScalarFieldContainer[_builtins.float]: ...
+    def __init__(self, *, value: _abc.Iterable[_builtins.float] | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["value", b"value"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___FloatList = FloatList
+Global___FloatList: _TypeAlias = FloatList  # noqa: Y015
 
-@typing.final
-class Int64List(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class Int64List(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VALUE_FIELD_NUMBER: builtins.int
-    @property
-    def value(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
-    def __init__(self, *, value: collections.abc.Iterable[builtins.int] | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["value", b"value"]) -> None: ...
+    VALUE_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def value(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]: ...
+    def __init__(self, *, value: _abc.Iterable[_builtins.int] | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["value", b"value"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___Int64List = Int64List
+Global___Int64List: _TypeAlias = Int64List  # noqa: Y015
 
-@typing.final
-class Feature(google.protobuf.message.Message):
+@_typing.final
+class Feature(_message.Message):
     """Containers for non-sequential data."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    BYTES_LIST_FIELD_NUMBER: builtins.int
-    FLOAT_LIST_FIELD_NUMBER: builtins.int
-    INT64_LIST_FIELD_NUMBER: builtins.int
-    @property
-    def bytes_list(self) -> global___BytesList: ...
-    @property
-    def float_list(self) -> global___FloatList: ...
-    @property
-    def int64_list(self) -> global___Int64List: ...
+    BYTES_LIST_FIELD_NUMBER: _builtins.int
+    FLOAT_LIST_FIELD_NUMBER: _builtins.int
+    INT64_LIST_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def bytes_list(self) -> Global___BytesList: ...
+    @_builtins.property
+    def float_list(self) -> Global___FloatList: ...
+    @_builtins.property
+    def int64_list(self) -> Global___Int64List: ...
     def __init__(
         self,
         *,
-        bytes_list: global___BytesList | None = ...,
-        float_list: global___FloatList | None = ...,
-        int64_list: global___Int64List | None = ...,
+        bytes_list: Global___BytesList | None = ...,
+        float_list: Global___FloatList | None = ...,
+        int64_list: Global___Int64List | None = ...,
     ) -> None: ...
-    def HasField(
-        self,
-        field_name: typing.Literal[
-            "bytes_list", b"bytes_list", "float_list", b"float_list", "int64_list", b"int64_list", "kind", b"kind"
-        ],
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "bytes_list", b"bytes_list", "float_list", b"float_list", "int64_list", b"int64_list", "kind", b"kind"
-        ],
-    ) -> None: ...
-    def WhichOneof(
-        self, oneof_group: typing.Literal["kind", b"kind"]
-    ) -> typing.Literal["bytes_list", "float_list", "int64_list"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal[
+        "bytes_list", b"bytes_list", "float_list", b"float_list", "int64_list", b"int64_list", "kind", b"kind"
+    ]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "bytes_list", b"bytes_list", "float_list", b"float_list", "int64_list", b"int64_list", "kind", b"kind"
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType_kind: _TypeAlias = _typing.Literal["bytes_list", "float_list", "int64_list"]  # noqa: Y015
+    _WhichOneofArgType_kind: _TypeAlias = _typing.Literal["kind", b"kind"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType_kind) -> _WhichOneofReturnType_kind | None: ...
 
-global___Feature = Feature
+Global___Feature: _TypeAlias = Feature  # noqa: Y015
 
-@typing.final
-class Features(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class Features(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class FeatureEntry(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class FeatureEntry(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        KEY_FIELD_NUMBER: builtins.int
-        VALUE_FIELD_NUMBER: builtins.int
-        key: builtins.str
-        @property
-        def value(self) -> global___Feature: ...
-        def __init__(self, *, key: builtins.str | None = ..., value: global___Feature | None = ...) -> None: ...
-        def HasField(self, field_name: typing.Literal["value", b"value"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
+        KEY_FIELD_NUMBER: _builtins.int
+        VALUE_FIELD_NUMBER: _builtins.int
+        key: _builtins.str
+        @_builtins.property
+        def value(self) -> Global___Feature: ...
+        def __init__(self, *, key: _builtins.str | None = ..., value: Global___Feature | None = ...) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["value", b"value"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["key", b"key", "value", b"value"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    FEATURE_FIELD_NUMBER: builtins.int
-    @property
-    def feature(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, global___Feature]:
+    FEATURE_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def feature(self) -> _containers.MessageMap[_builtins.str, Global___Feature]:
         """Map from feature name to feature."""
 
-    def __init__(self, *, feature: collections.abc.Mapping[builtins.str, global___Feature] | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["feature", b"feature"]) -> None: ...
+    def __init__(self, *, feature: _abc.Mapping[_builtins.str, Global___Feature] | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["feature", b"feature"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___Features = Features
+Global___Features: _TypeAlias = Features  # noqa: Y015
 
-@typing.final
-class FeatureList(google.protobuf.message.Message):
+@_typing.final
+class FeatureList(_message.Message):
     """Containers for sequential data.
 
     A FeatureList contains lists of Features.  These may hold zero or more
@@ -184,39 +205,50 @@ class FeatureList(google.protobuf.message.Message):
     contains the mapping from name to FeatureList.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    FEATURE_FIELD_NUMBER: builtins.int
-    @property
-    def feature(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Feature]: ...
-    def __init__(self, *, feature: collections.abc.Iterable[global___Feature] | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["feature", b"feature"]) -> None: ...
+    FEATURE_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def feature(self) -> _containers.RepeatedCompositeFieldContainer[Global___Feature]: ...
+    def __init__(self, *, feature: _abc.Iterable[Global___Feature] | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["feature", b"feature"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___FeatureList = FeatureList
+Global___FeatureList: _TypeAlias = FeatureList  # noqa: Y015
 
-@typing.final
-class FeatureLists(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class FeatureLists(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class FeatureListEntry(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class FeatureListEntry(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        KEY_FIELD_NUMBER: builtins.int
-        VALUE_FIELD_NUMBER: builtins.int
-        key: builtins.str
-        @property
-        def value(self) -> global___FeatureList: ...
-        def __init__(self, *, key: builtins.str | None = ..., value: global___FeatureList | None = ...) -> None: ...
-        def HasField(self, field_name: typing.Literal["value", b"value"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
+        KEY_FIELD_NUMBER: _builtins.int
+        VALUE_FIELD_NUMBER: _builtins.int
+        key: _builtins.str
+        @_builtins.property
+        def value(self) -> Global___FeatureList: ...
+        def __init__(self, *, key: _builtins.str | None = ..., value: Global___FeatureList | None = ...) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["value", b"value"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["key", b"key", "value", b"value"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    FEATURE_LIST_FIELD_NUMBER: builtins.int
-    @property
-    def feature_list(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, global___FeatureList]:
+    FEATURE_LIST_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def feature_list(self) -> _containers.MessageMap[_builtins.str, Global___FeatureList]:
         """Map from feature name to feature list."""
 
-    def __init__(self, *, feature_list: collections.abc.Mapping[builtins.str, global___FeatureList] | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["feature_list", b"feature_list"]) -> None: ...
+    def __init__(self, *, feature_list: _abc.Mapping[_builtins.str, Global___FeatureList] | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["feature_list", b"feature_list"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___FeatureLists = FeatureLists
+Global___FeatureLists: _TypeAlias = FeatureLists  # noqa: Y015

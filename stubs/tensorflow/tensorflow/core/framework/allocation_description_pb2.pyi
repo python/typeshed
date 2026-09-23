@@ -3,62 +3,69 @@
 isort:skip_file
 """
 
-import builtins
-import typing
+import builtins as _builtins
+import sys
+import typing as _typing
 
-import google.protobuf.descriptor
-import google.protobuf.message
+from google.protobuf import descriptor as _descriptor, message as _message
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
+else:
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-@typing.final
-class AllocationDescription(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+DESCRIPTOR: _descriptor.FileDescriptor
 
-    REQUESTED_BYTES_FIELD_NUMBER: builtins.int
-    ALLOCATED_BYTES_FIELD_NUMBER: builtins.int
-    ALLOCATOR_NAME_FIELD_NUMBER: builtins.int
-    ALLOCATION_ID_FIELD_NUMBER: builtins.int
-    HAS_SINGLE_REFERENCE_FIELD_NUMBER: builtins.int
-    PTR_FIELD_NUMBER: builtins.int
-    requested_bytes: builtins.int
+@_typing.final
+class AllocationDescription(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    REQUESTED_BYTES_FIELD_NUMBER: _builtins.int
+    ALLOCATED_BYTES_FIELD_NUMBER: _builtins.int
+    ALLOCATOR_NAME_FIELD_NUMBER: _builtins.int
+    ALLOCATION_ID_FIELD_NUMBER: _builtins.int
+    HAS_SINGLE_REFERENCE_FIELD_NUMBER: _builtins.int
+    PTR_FIELD_NUMBER: _builtins.int
+    requested_bytes: _builtins.int
     """Total number of bytes requested"""
-    allocated_bytes: builtins.int
+    allocated_bytes: _builtins.int
     """Total number of bytes allocated if known"""
-    allocator_name: builtins.str
+    allocator_name: _builtins.str
     """Name of the allocator used"""
-    allocation_id: builtins.int
+    allocation_id: _builtins.int
     """Identifier of the allocated buffer if known"""
-    has_single_reference: builtins.bool
+    has_single_reference: _builtins.bool
     """Set if this tensor only has one remaining reference"""
-    ptr: builtins.int
+    ptr: _builtins.int
     """Address of the allocation."""
     def __init__(
         self,
         *,
-        requested_bytes: builtins.int | None = ...,
-        allocated_bytes: builtins.int | None = ...,
-        allocator_name: builtins.str | None = ...,
-        allocation_id: builtins.int | None = ...,
-        has_single_reference: builtins.bool | None = ...,
-        ptr: builtins.int | None = ...,
+        requested_bytes: _builtins.int | None = ...,
+        allocated_bytes: _builtins.int | None = ...,
+        allocator_name: _builtins.str | None = ...,
+        allocation_id: _builtins.int | None = ...,
+        has_single_reference: _builtins.bool | None = ...,
+        ptr: _builtins.int | None = ...,
     ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "allocated_bytes",
-            b"allocated_bytes",
-            "allocation_id",
-            b"allocation_id",
-            "allocator_name",
-            b"allocator_name",
-            "has_single_reference",
-            b"has_single_reference",
-            "ptr",
-            b"ptr",
-            "requested_bytes",
-            b"requested_bytes",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "allocated_bytes",
+        b"allocated_bytes",
+        "allocation_id",
+        b"allocation_id",
+        "allocator_name",
+        b"allocator_name",
+        "has_single_reference",
+        b"has_single_reference",
+        "ptr",
+        b"ptr",
+        "requested_bytes",
+        b"requested_bytes",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___AllocationDescription = AllocationDescription
+Global___AllocationDescription: _TypeAlias = AllocationDescription  # noqa: Y015

@@ -3,330 +3,367 @@
 isort:skip_file
 """
 
-import builtins
-import collections.abc
-import typing
+import builtins as _builtins
+import sys
+import typing as _typing
+from collections import abc as _abc
 
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.message
-import tensorflow.core.framework.allocation_description_pb2
-import tensorflow.core.framework.tensor_description_pb2
+from google.protobuf import descriptor as _descriptor, message as _message
+from google.protobuf.internal import containers as _containers
+from tensorflow.core.framework import (
+    allocation_description_pb2 as _allocation_description_pb2,
+    tensor_description_pb2 as _tensor_description_pb2,
+)
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
+else:
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-@typing.final
-class AllocationRecord(google.protobuf.message.Message):
+if sys.version_info >= (3, 13):
+    from warnings import deprecated as _deprecated
+else:
+    from typing_extensions import deprecated as _deprecated
+
+DESCRIPTOR: _descriptor.FileDescriptor
+
+@_typing.final
+class AllocationRecord(_message.Message):
     """An allocation/de-allocation operation performed by the allocator."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    ALLOC_MICROS_FIELD_NUMBER: builtins.int
-    ALLOC_BYTES_FIELD_NUMBER: builtins.int
-    alloc_micros: builtins.int
+    ALLOC_MICROS_FIELD_NUMBER: _builtins.int
+    ALLOC_BYTES_FIELD_NUMBER: _builtins.int
+    alloc_micros: _builtins.int
     """The timestamp of the operation."""
-    alloc_bytes: builtins.int
+    alloc_bytes: _builtins.int
     """Number of bytes allocated, or de-allocated if negative."""
-    def __init__(self, *, alloc_micros: builtins.int | None = ..., alloc_bytes: builtins.int | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["alloc_bytes", b"alloc_bytes", "alloc_micros", b"alloc_micros"]) -> None: ...
+    def __init__(self, *, alloc_micros: _builtins.int | None = ..., alloc_bytes: _builtins.int | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["alloc_bytes", b"alloc_bytes", "alloc_micros", b"alloc_micros"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___AllocationRecord = AllocationRecord
+Global___AllocationRecord: _TypeAlias = AllocationRecord  # noqa: Y015
 
-@typing.final
-class AllocatorMemoryUsed(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class AllocatorMemoryUsed(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    ALLOCATOR_NAME_FIELD_NUMBER: builtins.int
-    TOTAL_BYTES_FIELD_NUMBER: builtins.int
-    PEAK_BYTES_FIELD_NUMBER: builtins.int
-    LIVE_BYTES_FIELD_NUMBER: builtins.int
-    ALLOCATION_RECORDS_FIELD_NUMBER: builtins.int
-    ALLOCATOR_BYTES_IN_USE_FIELD_NUMBER: builtins.int
-    allocator_name: builtins.str
-    total_bytes: builtins.int
+    ALLOCATOR_NAME_FIELD_NUMBER: _builtins.int
+    TOTAL_BYTES_FIELD_NUMBER: _builtins.int
+    PEAK_BYTES_FIELD_NUMBER: _builtins.int
+    LIVE_BYTES_FIELD_NUMBER: _builtins.int
+    ALLOCATION_RECORDS_FIELD_NUMBER: _builtins.int
+    ALLOCATOR_BYTES_IN_USE_FIELD_NUMBER: _builtins.int
+    allocator_name: _builtins.str
+    total_bytes: _builtins.int
     """These are per-node allocator memory stats."""
-    peak_bytes: builtins.int
-    live_bytes: builtins.int
+    peak_bytes: _builtins.int
+    live_bytes: _builtins.int
     """The bytes that are not deallocated."""
-    allocator_bytes_in_use: builtins.int
+    allocator_bytes_in_use: _builtins.int
     """These are snapshots of the overall allocator memory stats.
     The number of live bytes currently allocated by the allocator.
     """
-    @property
-    def allocation_records(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___AllocationRecord]:
+    @_builtins.property
+    def allocation_records(self) -> _containers.RepeatedCompositeFieldContainer[Global___AllocationRecord]:
         """The allocation and deallocation timeline."""
 
     def __init__(
         self,
         *,
-        allocator_name: builtins.str | None = ...,
-        total_bytes: builtins.int | None = ...,
-        peak_bytes: builtins.int | None = ...,
-        live_bytes: builtins.int | None = ...,
-        allocation_records: collections.abc.Iterable[global___AllocationRecord] | None = ...,
-        allocator_bytes_in_use: builtins.int | None = ...,
+        allocator_name: _builtins.str | None = ...,
+        total_bytes: _builtins.int | None = ...,
+        peak_bytes: _builtins.int | None = ...,
+        live_bytes: _builtins.int | None = ...,
+        allocation_records: _abc.Iterable[Global___AllocationRecord] | None = ...,
+        allocator_bytes_in_use: _builtins.int | None = ...,
     ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "allocation_records",
-            b"allocation_records",
-            "allocator_bytes_in_use",
-            b"allocator_bytes_in_use",
-            "allocator_name",
-            b"allocator_name",
-            "live_bytes",
-            b"live_bytes",
-            "peak_bytes",
-            b"peak_bytes",
-            "total_bytes",
-            b"total_bytes",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "allocation_records",
+        b"allocation_records",
+        "allocator_bytes_in_use",
+        b"allocator_bytes_in_use",
+        "allocator_name",
+        b"allocator_name",
+        "live_bytes",
+        b"live_bytes",
+        "peak_bytes",
+        b"peak_bytes",
+        "total_bytes",
+        b"total_bytes",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___AllocatorMemoryUsed = AllocatorMemoryUsed
+Global___AllocatorMemoryUsed: _TypeAlias = AllocatorMemoryUsed  # noqa: Y015
 
-@typing.final
-class NodeOutput(google.protobuf.message.Message):
+@_typing.final
+class NodeOutput(_message.Message):
     """Output sizes recorded for a single execution of a graph node."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    SLOT_FIELD_NUMBER: builtins.int
-    TENSOR_DESCRIPTION_FIELD_NUMBER: builtins.int
-    slot: builtins.int
-    @property
-    def tensor_description(self) -> tensorflow.core.framework.tensor_description_pb2.TensorDescription: ...
+    SLOT_FIELD_NUMBER: _builtins.int
+    TENSOR_DESCRIPTION_FIELD_NUMBER: _builtins.int
+    slot: _builtins.int
+    @_builtins.property
+    def tensor_description(self) -> _tensor_description_pb2.TensorDescription: ...
     def __init__(
-        self,
-        *,
-        slot: builtins.int | None = ...,
-        tensor_description: tensorflow.core.framework.tensor_description_pb2.TensorDescription | None = ...,
+        self, *, slot: _builtins.int | None = ..., tensor_description: _tensor_description_pb2.TensorDescription | None = ...
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["tensor_description", b"tensor_description"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["slot", b"slot", "tensor_description", b"tensor_description"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["tensor_description", b"tensor_description"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["slot", b"slot", "tensor_description", b"tensor_description"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___NodeOutput = NodeOutput
+Global___NodeOutput: _TypeAlias = NodeOutput  # noqa: Y015
 
-@typing.final
-class MemoryStats(google.protobuf.message.Message):
+@_typing.final
+class MemoryStats(_message.Message):
     """For memory tracking."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    TEMP_MEMORY_SIZE_FIELD_NUMBER: builtins.int
-    PERSISTENT_MEMORY_SIZE_FIELD_NUMBER: builtins.int
-    PERSISTENT_TENSOR_ALLOC_IDS_FIELD_NUMBER: builtins.int
-    DEVICE_TEMP_MEMORY_SIZE_FIELD_NUMBER: builtins.int
-    DEVICE_PERSISTENT_MEMORY_SIZE_FIELD_NUMBER: builtins.int
-    DEVICE_PERSISTENT_TENSOR_ALLOC_IDS_FIELD_NUMBER: builtins.int
-    temp_memory_size: builtins.int
-    persistent_memory_size: builtins.int
-    device_temp_memory_size: builtins.int
-    device_persistent_memory_size: builtins.int
-    @property
-    def persistent_tensor_alloc_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
-    @property
-    def device_persistent_tensor_alloc_ids(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
+    TEMP_MEMORY_SIZE_FIELD_NUMBER: _builtins.int
+    PERSISTENT_MEMORY_SIZE_FIELD_NUMBER: _builtins.int
+    PERSISTENT_TENSOR_ALLOC_IDS_FIELD_NUMBER: _builtins.int
+    DEVICE_TEMP_MEMORY_SIZE_FIELD_NUMBER: _builtins.int
+    DEVICE_PERSISTENT_MEMORY_SIZE_FIELD_NUMBER: _builtins.int
+    DEVICE_PERSISTENT_TENSOR_ALLOC_IDS_FIELD_NUMBER: _builtins.int
+    temp_memory_size: _builtins.int
+    persistent_memory_size: _builtins.int
+
+    @_builtins.property
+    @_deprecated("""This field has been marked as deprecated using proto field options.""")
+    def device_temp_memory_size(self) -> _builtins.int: ...
+    @device_temp_memory_size.setter
+    @_deprecated("""This field has been marked as deprecated using proto field options.""")
+    def device_temp_memory_size(self, value: _builtins.int) -> None: ...
+
+    @_builtins.property
+    @_deprecated("""This field has been marked as deprecated using proto field options.""")
+    def device_persistent_memory_size(self) -> _builtins.int: ...
+    @device_persistent_memory_size.setter
+    @_deprecated("""This field has been marked as deprecated using proto field options.""")
+    def device_persistent_memory_size(self, value: _builtins.int) -> None: ...
+
+    @_builtins.property
+    def persistent_tensor_alloc_ids(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]: ...
+    @_builtins.property
+    @_deprecated("""This field has been marked as deprecated using proto field options.""")
+    def device_persistent_tensor_alloc_ids(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]: ...
     def __init__(
         self,
         *,
-        temp_memory_size: builtins.int | None = ...,
-        persistent_memory_size: builtins.int | None = ...,
-        persistent_tensor_alloc_ids: collections.abc.Iterable[builtins.int] | None = ...,
-        device_temp_memory_size: builtins.int | None = ...,
-        device_persistent_memory_size: builtins.int | None = ...,
-        device_persistent_tensor_alloc_ids: collections.abc.Iterable[builtins.int] | None = ...,
+        temp_memory_size: _builtins.int | None = ...,
+        persistent_memory_size: _builtins.int | None = ...,
+        persistent_tensor_alloc_ids: _abc.Iterable[_builtins.int] | None = ...,
+        device_temp_memory_size: _builtins.int | None = ...,
+        device_persistent_memory_size: _builtins.int | None = ...,
+        device_persistent_tensor_alloc_ids: _abc.Iterable[_builtins.int] | None = ...,
     ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "device_persistent_memory_size",
-            b"device_persistent_memory_size",
-            "device_persistent_tensor_alloc_ids",
-            b"device_persistent_tensor_alloc_ids",
-            "device_temp_memory_size",
-            b"device_temp_memory_size",
-            "persistent_memory_size",
-            b"persistent_memory_size",
-            "persistent_tensor_alloc_ids",
-            b"persistent_tensor_alloc_ids",
-            "temp_memory_size",
-            b"temp_memory_size",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "device_persistent_memory_size",
+        b"device_persistent_memory_size",
+        "device_persistent_tensor_alloc_ids",
+        b"device_persistent_tensor_alloc_ids",
+        "device_temp_memory_size",
+        b"device_temp_memory_size",
+        "persistent_memory_size",
+        b"persistent_memory_size",
+        "persistent_tensor_alloc_ids",
+        b"persistent_tensor_alloc_ids",
+        "temp_memory_size",
+        b"temp_memory_size",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___MemoryStats = MemoryStats
+Global___MemoryStats: _TypeAlias = MemoryStats  # noqa: Y015
 
-@typing.final
-class NodeExecStats(google.protobuf.message.Message):
+@_typing.final
+class NodeExecStats(_message.Message):
     """Time/size stats recorded for a single execution of a graph node."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NODE_NAME_FIELD_NUMBER: builtins.int
-    ALL_START_MICROS_FIELD_NUMBER: builtins.int
-    OP_START_REL_MICROS_FIELD_NUMBER: builtins.int
-    OP_END_REL_MICROS_FIELD_NUMBER: builtins.int
-    ALL_END_REL_MICROS_FIELD_NUMBER: builtins.int
-    MEMORY_FIELD_NUMBER: builtins.int
-    OUTPUT_FIELD_NUMBER: builtins.int
-    TIMELINE_LABEL_FIELD_NUMBER: builtins.int
-    SCHEDULED_MICROS_FIELD_NUMBER: builtins.int
-    THREAD_ID_FIELD_NUMBER: builtins.int
-    REFERENCED_TENSOR_FIELD_NUMBER: builtins.int
-    MEMORY_STATS_FIELD_NUMBER: builtins.int
-    ALL_START_NANOS_FIELD_NUMBER: builtins.int
-    OP_START_REL_NANOS_FIELD_NUMBER: builtins.int
-    OP_END_REL_NANOS_FIELD_NUMBER: builtins.int
-    ALL_END_REL_NANOS_FIELD_NUMBER: builtins.int
-    SCHEDULED_NANOS_FIELD_NUMBER: builtins.int
-    node_name: builtins.str
+    NODE_NAME_FIELD_NUMBER: _builtins.int
+    ALL_START_MICROS_FIELD_NUMBER: _builtins.int
+    OP_START_REL_MICROS_FIELD_NUMBER: _builtins.int
+    OP_END_REL_MICROS_FIELD_NUMBER: _builtins.int
+    ALL_END_REL_MICROS_FIELD_NUMBER: _builtins.int
+    MEMORY_FIELD_NUMBER: _builtins.int
+    OUTPUT_FIELD_NUMBER: _builtins.int
+    TIMELINE_LABEL_FIELD_NUMBER: _builtins.int
+    SCHEDULED_MICROS_FIELD_NUMBER: _builtins.int
+    THREAD_ID_FIELD_NUMBER: _builtins.int
+    REFERENCED_TENSOR_FIELD_NUMBER: _builtins.int
+    MEMORY_STATS_FIELD_NUMBER: _builtins.int
+    ALL_START_NANOS_FIELD_NUMBER: _builtins.int
+    OP_START_REL_NANOS_FIELD_NUMBER: _builtins.int
+    OP_END_REL_NANOS_FIELD_NUMBER: _builtins.int
+    ALL_END_REL_NANOS_FIELD_NUMBER: _builtins.int
+    SCHEDULED_NANOS_FIELD_NUMBER: _builtins.int
+    node_name: _builtins.str
     """TODO(tucker): Use some more compact form of node identity than
     the full string name.  Either all processes should agree on a
     global id (cost_id?) for each node, or we should use a hash of
     the name.
     """
-    all_start_micros: builtins.int
-    op_start_rel_micros: builtins.int
-    op_end_rel_micros: builtins.int
-    all_end_rel_micros: builtins.int
-    timeline_label: builtins.str
-    scheduled_micros: builtins.int
-    thread_id: builtins.int
-    all_start_nanos: builtins.int
-    op_start_rel_nanos: builtins.int
-    op_end_rel_nanos: builtins.int
-    all_end_rel_nanos: builtins.int
-    scheduled_nanos: builtins.int
-    @property
-    def memory(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___AllocatorMemoryUsed]: ...
-    @property
-    def output(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___NodeOutput]: ...
-    @property
+    all_start_micros: _builtins.int
+    op_start_rel_micros: _builtins.int
+    op_end_rel_micros: _builtins.int
+    all_end_rel_micros: _builtins.int
+    timeline_label: _builtins.str
+    scheduled_micros: _builtins.int
+    thread_id: _builtins.int
+    all_start_nanos: _builtins.int
+    op_start_rel_nanos: _builtins.int
+    op_end_rel_nanos: _builtins.int
+    all_end_rel_nanos: _builtins.int
+    scheduled_nanos: _builtins.int
+    @_builtins.property
+    def memory(self) -> _containers.RepeatedCompositeFieldContainer[Global___AllocatorMemoryUsed]: ...
+    @_builtins.property
+    def output(self) -> _containers.RepeatedCompositeFieldContainer[Global___NodeOutput]: ...
+    @_builtins.property
     def referenced_tensor(
         self,
-    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
-        tensorflow.core.framework.allocation_description_pb2.AllocationDescription
-    ]: ...
-    @property
-    def memory_stats(self) -> global___MemoryStats: ...
+    ) -> _containers.RepeatedCompositeFieldContainer[_allocation_description_pb2.AllocationDescription]: ...
+    @_builtins.property
+    def memory_stats(self) -> Global___MemoryStats: ...
     def __init__(
         self,
         *,
-        node_name: builtins.str | None = ...,
-        all_start_micros: builtins.int | None = ...,
-        op_start_rel_micros: builtins.int | None = ...,
-        op_end_rel_micros: builtins.int | None = ...,
-        all_end_rel_micros: builtins.int | None = ...,
-        memory: collections.abc.Iterable[global___AllocatorMemoryUsed] | None = ...,
-        output: collections.abc.Iterable[global___NodeOutput] | None = ...,
-        timeline_label: builtins.str | None = ...,
-        scheduled_micros: builtins.int | None = ...,
-        thread_id: builtins.int | None = ...,
-        referenced_tensor: (
-            collections.abc.Iterable[tensorflow.core.framework.allocation_description_pb2.AllocationDescription] | None
-        ) = ...,
-        memory_stats: global___MemoryStats | None = ...,
-        all_start_nanos: builtins.int | None = ...,
-        op_start_rel_nanos: builtins.int | None = ...,
-        op_end_rel_nanos: builtins.int | None = ...,
-        all_end_rel_nanos: builtins.int | None = ...,
-        scheduled_nanos: builtins.int | None = ...,
+        node_name: _builtins.str | None = ...,
+        all_start_micros: _builtins.int | None = ...,
+        op_start_rel_micros: _builtins.int | None = ...,
+        op_end_rel_micros: _builtins.int | None = ...,
+        all_end_rel_micros: _builtins.int | None = ...,
+        memory: _abc.Iterable[Global___AllocatorMemoryUsed] | None = ...,
+        output: _abc.Iterable[Global___NodeOutput] | None = ...,
+        timeline_label: _builtins.str | None = ...,
+        scheduled_micros: _builtins.int | None = ...,
+        thread_id: _builtins.int | None = ...,
+        referenced_tensor: _abc.Iterable[_allocation_description_pb2.AllocationDescription] | None = ...,
+        memory_stats: Global___MemoryStats | None = ...,
+        all_start_nanos: _builtins.int | None = ...,
+        op_start_rel_nanos: _builtins.int | None = ...,
+        op_end_rel_nanos: _builtins.int | None = ...,
+        all_end_rel_nanos: _builtins.int | None = ...,
+        scheduled_nanos: _builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["memory_stats", b"memory_stats"]) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "all_end_rel_micros",
-            b"all_end_rel_micros",
-            "all_end_rel_nanos",
-            b"all_end_rel_nanos",
-            "all_start_micros",
-            b"all_start_micros",
-            "all_start_nanos",
-            b"all_start_nanos",
-            "memory",
-            b"memory",
-            "memory_stats",
-            b"memory_stats",
-            "node_name",
-            b"node_name",
-            "op_end_rel_micros",
-            b"op_end_rel_micros",
-            "op_end_rel_nanos",
-            b"op_end_rel_nanos",
-            "op_start_rel_micros",
-            b"op_start_rel_micros",
-            "op_start_rel_nanos",
-            b"op_start_rel_nanos",
-            "output",
-            b"output",
-            "referenced_tensor",
-            b"referenced_tensor",
-            "scheduled_micros",
-            b"scheduled_micros",
-            "scheduled_nanos",
-            b"scheduled_nanos",
-            "thread_id",
-            b"thread_id",
-            "timeline_label",
-            b"timeline_label",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["memory_stats", b"memory_stats"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "all_end_rel_micros",
+        b"all_end_rel_micros",
+        "all_end_rel_nanos",
+        b"all_end_rel_nanos",
+        "all_start_micros",
+        b"all_start_micros",
+        "all_start_nanos",
+        b"all_start_nanos",
+        "memory",
+        b"memory",
+        "memory_stats",
+        b"memory_stats",
+        "node_name",
+        b"node_name",
+        "op_end_rel_micros",
+        b"op_end_rel_micros",
+        "op_end_rel_nanos",
+        b"op_end_rel_nanos",
+        "op_start_rel_micros",
+        b"op_start_rel_micros",
+        "op_start_rel_nanos",
+        b"op_start_rel_nanos",
+        "output",
+        b"output",
+        "referenced_tensor",
+        b"referenced_tensor",
+        "scheduled_micros",
+        b"scheduled_micros",
+        "scheduled_nanos",
+        b"scheduled_nanos",
+        "thread_id",
+        b"thread_id",
+        "timeline_label",
+        b"timeline_label",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___NodeExecStats = NodeExecStats
+Global___NodeExecStats: _TypeAlias = NodeExecStats  # noqa: Y015
 
-@typing.final
-class DeviceStepStats(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class DeviceStepStats(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class ThreadNamesEntry(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class ThreadNamesEntry(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        KEY_FIELD_NUMBER: builtins.int
-        VALUE_FIELD_NUMBER: builtins.int
-        key: builtins.int
-        value: builtins.str
-        def __init__(self, *, key: builtins.int | None = ..., value: builtins.str | None = ...) -> None: ...
-        def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
+        KEY_FIELD_NUMBER: _builtins.int
+        VALUE_FIELD_NUMBER: _builtins.int
+        key: _builtins.int
+        value: _builtins.str
+        def __init__(self, *, key: _builtins.int | None = ..., value: _builtins.str | None = ...) -> None: ...
+        _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["key", b"key", "value", b"value"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    DEVICE_FIELD_NUMBER: builtins.int
-    NODE_STATS_FIELD_NUMBER: builtins.int
-    THREAD_NAMES_FIELD_NUMBER: builtins.int
-    device: builtins.str
-    @property
-    def node_stats(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___NodeExecStats]: ...
-    @property
-    def thread_names(self) -> google.protobuf.internal.containers.ScalarMap[builtins.int, builtins.str]:
+    DEVICE_FIELD_NUMBER: _builtins.int
+    NODE_STATS_FIELD_NUMBER: _builtins.int
+    THREAD_NAMES_FIELD_NUMBER: _builtins.int
+    device: _builtins.str
+    @_builtins.property
+    def node_stats(self) -> _containers.RepeatedCompositeFieldContainer[Global___NodeExecStats]: ...
+    @_builtins.property
+    def thread_names(self) -> _containers.ScalarMap[_builtins.int, _builtins.str]:
         """Its key is thread id."""
 
     def __init__(
         self,
         *,
-        device: builtins.str | None = ...,
-        node_stats: collections.abc.Iterable[global___NodeExecStats] | None = ...,
-        thread_names: collections.abc.Mapping[builtins.int, builtins.str] | None = ...,
+        device: _builtins.str | None = ...,
+        node_stats: _abc.Iterable[Global___NodeExecStats] | None = ...,
+        thread_names: _abc.Mapping[_builtins.int, _builtins.str] | None = ...,
     ) -> None: ...
-    def ClearField(
-        self, field_name: typing.Literal["device", b"device", "node_stats", b"node_stats", "thread_names", b"thread_names"]
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "device", b"device", "node_stats", b"node_stats", "thread_names", b"thread_names"
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___DeviceStepStats = DeviceStepStats
+Global___DeviceStepStats: _TypeAlias = DeviceStepStats  # noqa: Y015
 
-@typing.final
-class StepStats(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class StepStats(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    DEV_STATS_FIELD_NUMBER: builtins.int
-    @property
-    def dev_stats(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___DeviceStepStats]: ...
-    def __init__(self, *, dev_stats: collections.abc.Iterable[global___DeviceStepStats] | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["dev_stats", b"dev_stats"]) -> None: ...
+    DEV_STATS_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def dev_stats(self) -> _containers.RepeatedCompositeFieldContainer[Global___DeviceStepStats]: ...
+    def __init__(self, *, dev_stats: _abc.Iterable[Global___DeviceStepStats] | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["dev_stats", b"dev_stats"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___StepStats = StepStats
+Global___StepStats: _TypeAlias = StepStats  # noqa: Y015
