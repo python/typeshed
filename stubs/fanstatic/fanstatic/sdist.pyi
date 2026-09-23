@@ -1,0 +1,3 @@
+from setuptools.command.sdist import sdist
+
+class sdist_compile(sdist): ...
