@@ -362,6 +362,7 @@ class InterceptedUnaryUnaryCall(_InterceptedCall[_TRequest, _TResponse], metacla
         request_serializer: _Serializer[_TRequest],
         response_deserializer: _Deserializer[_TResponse],
         loop: asyncio.AbstractEventLoop,
+        registered_call_handle: int = 0,
     ) -> None: ...
 
     # pylint: disable=too-many-arguments
