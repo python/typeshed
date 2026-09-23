@@ -32,17 +32,23 @@ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 
-import builtins
-import typing
+import builtins as _builtins
+import sys
+import typing as _typing
 
-import google.protobuf.descriptor
-import google.protobuf.internal.well_known_types
-import google.protobuf.message
+from google.protobuf import descriptor as _descriptor, message as _message
+from google.protobuf.internal import well_known_types as _well_known_types
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
+else:
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-@typing.final
-class Timestamp(google.protobuf.message.Message, google.protobuf.internal.well_known_types.Timestamp):
+DESCRIPTOR: _descriptor.FileDescriptor
+
+@_typing.final
+class Timestamp(_message.Message, _well_known_types.Timestamp):
     """A Timestamp represents a point in time independent of any time zone or local
     calendar, encoded as a count of seconds and fractions of seconds at
     nanosecond resolution. The count is relative to an epoch at UTC midnight on
@@ -134,23 +140,27 @@ class Timestamp(google.protobuf.message.Message, google.protobuf.internal.well_k
     ) to obtain a formatter capable of generating timestamps in this format.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    SECONDS_FIELD_NUMBER: builtins.int
-    NANOS_FIELD_NUMBER: builtins.int
-    seconds: builtins.int
+    SECONDS_FIELD_NUMBER: _builtins.int
+    NANOS_FIELD_NUMBER: _builtins.int
+    seconds: _builtins.int
     """Represents seconds of UTC time since Unix epoch 1970-01-01T00:00:00Z. Must
     be between -62135596800 and 253402300799 inclusive (which corresponds to
     0001-01-01T00:00:00Z to 9999-12-31T23:59:59Z).
     """
-    nanos: builtins.int
+    nanos: _builtins.int
     """Non-negative fractions of a second at nanosecond resolution. This field is
     the nanosecond portion of the duration, not an alternative to seconds.
     Negative second values with fractions must still have non-negative nanos
     values that count forward in time. Must be between 0 and 999,999,999
     inclusive.
     """
-    def __init__(self, *, seconds: builtins.int | None = ..., nanos: builtins.int | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["nanos", b"nanos", "seconds", b"seconds"]) -> None: ...
+    def __init__(self, *, seconds: _builtins.int | None = ..., nanos: _builtins.int | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["nanos", b"nanos", "seconds", b"seconds"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___Timestamp = Timestamp
+Global___Timestamp: _TypeAlias = Timestamp  # noqa: Y015
