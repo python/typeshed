@@ -28,7 +28,6 @@ ARCHIVE_URL = f"https://github.com/protocolbuffers/protobuf/releases/download/v{
 EXTRACTED_PACKAGE_DIR = f"protobuf-{PACKAGE_VERSION}"
 
 VERSION_PATTERN = re.compile(r'def game_version\(\):\n    return "(.+?)"')
-PROTO_FILE_PATTERN = re.compile(r'"//:(.*)_proto"')
 
 
 def extract_python_version(file_path: Path) -> str:
@@ -42,36 +41,39 @@ def extract_python_version(file_path: Path) -> str:
 
 
 def extract_proto_file_paths(temp_dir: Path) -> list[str]:
-    """
-    Roughly reproduce the subset of .proto files on the public interface
-    as described in py_proto_library calls in
-    https://github.com/protocolbuffers/protobuf/blob/main/python/dist/BUILD.bazel .
-    """
-    with (temp_dir / EXTRACTED_PACKAGE_DIR / "python" / "dist" / "BUILD.bazel").open() as file:
-        matched_lines = filter(None, (re.search(PROTO_FILE_PATTERN, line) for line in file))
-        proto_files = [
-            EXTRACTED_PACKAGE_DIR + "/src/google/protobuf/" + match.group(1).replace("compiler_", "compiler/") + ".proto"
-            for match in matched_lines
-        ]
-    return proto_files
+    """Read the language-neutral protos shipped in the Python distribution."""
+    source_dir = temp_dir / EXTRACTED_PACKAGE_DIR / "src" / "google" / "protobuf"
+    build = (source_dir / "BUILD.bazel").read_text()
+    filegroups = dict(re.findall(r'filegroup\(\s*name = "([^"]+)",\s*srcs = (?:glob\()?\[(.*?)\]', build, re.DOTALL))
+
+    def sources(name: str) -> set[str]:
+        result: set[str] = set()
+        for source in re.findall(r'"([^"]+)"', filegroups[name]):
+            if source.startswith(":"):
+                result.update(sources(source[1:]))
+            else:
+                result.update(str(path.relative_to(source_dir)) for path in source_dir.glob(source))
+        return result
+
+    proto_files = sources("language_neutral_proto_srcs") | {"descriptor.proto", "compiler/plugin.proto"}
+    return [str((source_dir / proto).relative_to(temp_dir)) for proto in sorted(proto_files)]
 
 
 def main() -> None:
     temp_dir = Path(tempfile.mkdtemp())
-    # Fetch s2clientprotocol (which contains all the .proto files)
+    # Fetch protobuf (which contains all the .proto files)
     archive_path = temp_dir / ARCHIVE_FILENAME
     download_file(ARCHIVE_URL, archive_path)
     extract_archive(archive_path, temp_dir)
+
+    proto_files = extract_proto_file_paths(temp_dir)
 
     # Remove existing pyi
     for old_stub in STUBS_FOLDER.rglob("*_pb2.pyi"):
         old_stub.unlink()
 
     protoc_version = run_protoc(
-        proto_paths=(f"{EXTRACTED_PACKAGE_DIR}/src",),
-        mypy_out=STUBS_FOLDER,
-        proto_globs=extract_proto_file_paths(temp_dir),
-        cwd=temp_dir,
+        proto_paths=(f"{EXTRACTED_PACKAGE_DIR}/src",), mypy_out=STUBS_FOLDER, proto_globs=proto_files, cwd=temp_dir
     )
 
     python_protobuf_version = extract_python_version(temp_dir / EXTRACTED_PACKAGE_DIR / "version.json")
