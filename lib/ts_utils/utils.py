@@ -9,8 +9,7 @@ import tempfile
 from collections.abc import Iterable, Mapping
 from pathlib import Path
 from types import MethodType
-from typing import TYPE_CHECKING, Any, Final, NamedTuple
-from typing_extensions import TypeAlias
+from typing import TYPE_CHECKING, Any, Final, Literal, NamedTuple, TypeAlias
 
 import pathspec
 from packaging.requirements import Requirement
@@ -28,11 +27,61 @@ except ImportError:
         return text
 
 
+TextColor: TypeAlias = Literal[
+    "black",
+    "red",
+    "green",
+    "yellow",
+    "blue",
+    "magenta",
+    "cyan",
+    "white",
+    "light_grey",
+    "dark_grey",
+    "light_red",
+    "light_green",
+    "light_yellow",
+    "light_blue",
+    "light_magenta",
+    "light_cyan",
+]
+
+
+_REMOVE_COMMENT_RE = re.compile(
+    r"""
+    (\"(?:\\.|[^\\\"])*?\")  # matches literal strings
+    |
+    (\/\*.*?\*\/ | \/\/[^\r\n]*?(?:[\r\n]))  # matches single- and multi-line comments
+    """,
+    re.DOTALL | re.VERBOSE,
+)
+_REMOVE_TRAILING_COMMA_RE = re.compile(
+    r"""
+    (\"(?:\\.|[^\\\"])*?\")  # matches literal strings
+    |
+    ,\s*([\]}])  # matches commas before '}' or ']'
+    """,
+    re.DOTALL | re.VERBOSE,
+)
+
+
 PYTHON_VERSION: Final = f"{sys.version_info.major}.{sys.version_info.minor}"
 
 
 def strip_comments(text: str) -> str:
-    return text.split("#")[0].strip()
+    return text.split("#", maxsplit=1)[0].strip()
+
+
+def jsonc_to_json(text: str) -> str:
+    """Conversion from JSONC format input to valid JSON."""
+    # Remove comments
+    if not text.endswith("\n"):
+        text += "\n"
+    text = _REMOVE_COMMENT_RE.sub(lambda m: m.group(1) or "", text)
+
+    # Remove trailing commas before } or ]
+    text = _REMOVE_TRAILING_COMMA_RE.sub(lambda m: m.group(1) or m.group(2), text)
+    return text
 
 
 # ====================================================================
@@ -46,11 +95,7 @@ def print_command(cmd: str | Iterable[str]) -> None:
     print(colored(f"Running: {cmd}", "blue"))
 
 
-def print_info(message: str) -> None:
-    print(colored(message, "blue"))
-
-
-def print_warning(message: str) -> None:
+def print_skipped(message: str) -> None:
     print(colored(message, "yellow"))
 
 
@@ -66,18 +111,8 @@ def print_success_msg() -> None:
     print(colored("success", "green"))
 
 
-def print_divider() -> None:
-    """Print a row of * symbols across the screen.
-
-    This can be useful to divide terminal output into separate sections.
-    """
-    print()
-    print("*" * 70)
-    print()
-
-
-def print_time(t: float) -> None:
-    print(f"({t:.2f} s) ", end="")
+def format_time(t: float) -> str:
+    return f"({t:.2f} s)"
 
 
 # ====================================================================
@@ -116,14 +151,30 @@ def get_mypy_req() -> str:
 # ====================================================================
 
 VersionTuple: TypeAlias = tuple[int, int]
-SupportedVersionsDict: TypeAlias = dict[str, tuple[VersionTuple, VersionTuple]]
 
 VERSIONS_PATH = STDLIB_PATH / "VERSIONS"
 VERSION_LINE_RE = re.compile(r"^([a-zA-Z_][a-zA-Z0-9_.]*): ([23]\.\d{1,2})-([23]\.\d{1,2})?$")
 VERSION_RE = re.compile(r"^([23])\.(\d+)$")
 
 
-def parse_stdlib_versions_file() -> SupportedVersionsDict:
+class SupportedVersions:
+    def __init__(self, module_versions: dict[str, tuple[VersionTuple, VersionTuple]]) -> None:
+        self.module_versions = module_versions
+
+    def supported_versions_for_module(self, module_name: str) -> tuple[VersionTuple, VersionTuple]:
+        while "." in module_name:
+            if module_name in self.module_versions:
+                return self.module_versions[module_name]
+            module_name = ".".join(module_name.split(".")[:-1])
+        return self.module_versions[module_name]
+
+    def is_supported(self, module_name: str, version: str) -> bool:
+        version_tuple = tuple(map(int, version.split(".")))
+        minimum, maximum = self.supported_versions_for_module(module_name)
+        return minimum <= version_tuple <= maximum
+
+
+def parse_stdlib_versions_file() -> SupportedVersions:
     result: dict[str, tuple[VersionTuple, VersionTuple]] = {}
     with VERSIONS_PATH.open(encoding="UTF-8") as f:
         for line in f:
@@ -137,15 +188,7 @@ def parse_stdlib_versions_file() -> SupportedVersionsDict:
             min_version = _parse_version(m.group(2))
             max_version = _parse_version(m.group(3)) if m.group(3) else (99, 99)
             result[mod] = min_version, max_version
-    return result
-
-
-def supported_versions_for_module(module_versions: SupportedVersionsDict, module_name: str) -> tuple[VersionTuple, VersionTuple]:
-    while "." in module_name:
-        if module_name in module_versions:
-            return module_versions[module_name]
-        module_name = ".".join(module_name.split(".")[:-1])
-    return module_versions[module_name]
+    return SupportedVersions(result)
 
 
 def _parse_version(v_str: str) -> tuple[int, int]:
@@ -231,12 +274,12 @@ else:
 
 
 @functools.cache
-def get_gitignore_spec() -> pathspec.PathSpec:
+def get_gitignore_spec() -> pathspec.GitIgnoreSpec:
     with GITIGNORE_PATH.open(encoding="UTF-8") as f:
         return pathspec.GitIgnoreSpec.from_lines(f)
 
 
-def spec_matches_path(spec: pathspec.PathSpec, path: Path) -> bool:
+def spec_matches_path(spec: pathspec.PathSpec[Any], path: Path) -> bool:
     normalized_path = path.as_posix()
     if path.is_dir():
         normalized_path += "/"

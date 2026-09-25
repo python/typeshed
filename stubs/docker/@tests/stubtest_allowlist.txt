@@ -1,16 +1,13 @@
-# additional requirements are needed, e.g. win32 apis
-docker.transport.NpipeHTTPAdapter
-docker.transport.NpipeSocket
-docker.transport.SSHHTTPAdapter
-docker.transport.npipeconn
-docker.transport.npipesocket
+# requires paramiko, which is only installed with the ssh extra
 docker.transport.sshconn
 
 # model is always set by child classes
 docker.models.resource.Collection.model
 
-# keyword arguments are now unsupported
+# implementation has *args and **kwargs params that can't be used
 docker.api.container.ContainerApiMixin.start
+docker.client.DockerClient.info
+docker.client.DockerClient.ping
 
 # Internal-use module for types shared by multiple modules.
 docker._types

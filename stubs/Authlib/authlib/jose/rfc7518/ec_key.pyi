@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from typing import ClassVar
 
 from authlib.jose.rfc7517 import AsymmetricKey
@@ -6,10 +5,10 @@ from cryptography.hazmat.primitives.asymmetric.ec import EllipticCurvePrivateKey
 
 class ECKey(AsymmetricKey):
     kty: str
-    DSS_CURVES: Incomplete
-    CURVES_DSS: Incomplete
+    DSS_CURVES: dict[str, type]
+    CURVES_DSS: dict[property, str]
     REQUIRED_JSON_FIELDS: ClassVar[list[str]]
-    PUBLIC_KEY_FIELDS = REQUIRED_JSON_FIELDS
+    PUBLIC_KEY_FIELDS = REQUIRED_JSON_FIELDS  # pyrefly: ignore [unknown-name]
     PRIVATE_KEY_FIELDS: ClassVar[list[str]]
     PUBLIC_KEY_CLS: ClassVar[type]
     PRIVATE_KEY_CLS: ClassVar[type]
