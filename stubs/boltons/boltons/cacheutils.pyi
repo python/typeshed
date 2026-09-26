@@ -47,7 +47,7 @@ class LRI(dict[_KT, _VT]):
     @overload
     def setdefault(self, key: _KT, default: _VT) -> _VT: ...
 
-    def update(self, E: SupportsKeysAndGetItem[_KT, _VT] | Iterable[tuple[_KT, _VT]], **F: _VT) -> None: ...  # type: ignore[override]
+    def update(self, E: SupportsKeysAndGetItem[_KT, _VT] | Iterable[tuple[_KT, _VT]] = (), **F: _VT) -> None: ...  # type: ignore[override]
 
 class LRU(LRI[_KT, _VT]):
     def __getitem__(self, key: _KT) -> _VT: ...
