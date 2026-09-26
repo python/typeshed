@@ -40,9 +40,9 @@ def to_pandas_adjacency(
 ) -> _DataFrame: ...
 
 @overload
-def from_pandas_adjacency(df: _DataFrame, create_using: type[_G]) -> _G: ...
+def from_pandas_adjacency(df: _DataFrame, create_using: type[_G], *, nonedge: object = 0) -> _G: ...
 @overload
-def from_pandas_adjacency(df: _DataFrame, create_using: None = None) -> Graph[Incomplete]: ...
+def from_pandas_adjacency(df: _DataFrame, create_using: None = None, *, nonedge: object = 0) -> Graph[Incomplete]: ...
 
 @_dispatchable
 def to_pandas_edgelist(
@@ -111,9 +111,31 @@ def to_numpy_array(
 
 @overload
 def from_numpy_array(
-    A: numpy.ndarray[Incomplete, Incomplete], parallel_edges: bool = False, create_using: None = None
+    A: numpy.ndarray[Incomplete, Incomplete],
+    parallel_edges: bool = False,
+    create_using: None = None,
+    edge_attr: str | None = "weight",
+    *,
+    nodelist: Iterable[Incomplete] | None = None,
+    nonedge: object = 0,
 ) -> Graph[Incomplete]: ...
 @overload
-def from_numpy_array(A: numpy.ndarray[Incomplete, Incomplete], parallel_edges: bool = False, *, create_using: type[_G]) -> _G: ...
+def from_numpy_array(
+    A: numpy.ndarray[Incomplete, Incomplete],
+    parallel_edges: bool = False,
+    *,
+    create_using: type[_G],
+    edge_attr: str | None = "weight",
+    nodelist: Iterable[Incomplete] | None = None,
+    nonedge: object = 0,
+) -> _G: ...
 @overload
-def from_numpy_array(A: numpy.ndarray[Incomplete, Incomplete], parallel_edges: bool, create_using: type[_G]) -> _G: ...
+def from_numpy_array(
+    A: numpy.ndarray[Incomplete, Incomplete],
+    parallel_edges: bool,
+    create_using: type[_G],
+    edge_attr: str | None = "weight",
+    *,
+    nodelist: Iterable[Incomplete] | None = None,
+    nonedge: object = 0,
+) -> _G: ...
