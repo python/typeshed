@@ -101,7 +101,7 @@ class _Encoder(Protocol):
 
 @type_check_only
 class _Decoder(Protocol):
-    def __call__(self, input: ReadableBuffer, errors: str = ..., /) -> tuple[str, int]: ...  # signature of Codec().decode
+    def __call__(self, input: ReadableBuffer, /, errors: str = ...) -> tuple[str, int]: ...  # signature of Codec().decode
 
 @type_check_only
 class _StreamReader(Protocol):
