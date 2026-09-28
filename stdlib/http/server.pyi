@@ -8,13 +8,15 @@ from _typeshed import ReadableBuffer, StrOrBytesPath, StrPath, SupportsRead, Sup
 from collections.abc import Callable, Iterable, Mapping, Sequence
 from ssl import Purpose, SSLContext
 from typing import Any, AnyStr, BinaryIO, ClassVar, Protocol, type_check_only
-from typing_extensions import Self, deprecated
+from typing_extensions import Self, TypeVar, deprecated
 
 __all__ = ["HTTPServer", "ThreadingHTTPServer", "BaseHTTPRequestHandler", "SimpleHTTPRequestHandler"]
 if sys.version_info < (3, 15):
     __all__ += ["CGIHTTPRequestHandler"]
 if sys.version_info >= (3, 14):
     __all__ = ["HTTPSServer", "ThreadingHTTPSServer"]
+
+_ServerT = TypeVar("_ServerT", bound=socketserver.BaseServer, default=socketserver.BaseServer)
 
 class HTTPServer(socketserver.TCPServer):
     server_name: str
@@ -43,7 +45,9 @@ if sys.version_info >= (3, 14):
         def __init__(
             self,
             server_address: socketserver._AfInetAddress,
-            RequestHandlerClass: Callable[[Any, _socket._RetAddress, Self], socketserver.BaseRequestHandler],
+            RequestHandlerClass: Callable[
+                [Any, _socket._RetAddress, Self], socketserver.BaseRequestHandler[Self] | socketserver.BaseRequestHandler
+            ],
             bind_and_activate: bool = True,
             *,
             certfile: StrOrBytesPath,
@@ -55,7 +59,7 @@ if sys.version_info >= (3, 14):
 
     class ThreadingHTTPSServer(socketserver.ThreadingMixIn, HTTPSServer): ...
 
-class BaseHTTPRequestHandler(socketserver.StreamRequestHandler):
+class BaseHTTPRequestHandler(socketserver.StreamRequestHandler[_ServerT]):
     client_address: tuple[str, int]
     close_connection: bool
     requestline: str
@@ -92,7 +96,7 @@ class BaseHTTPRequestHandler(socketserver.StreamRequestHandler):
     def address_string(self) -> str: ...
     def parse_request(self) -> bool: ...  # undocumented
 
-class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
+class SimpleHTTPRequestHandler(BaseHTTPRequestHandler[_ServerT]):
     extensions_map: dict[str, str]
     if sys.version_info >= (3, 12):
         index_pages: ClassVar[tuple[str, ...]]
@@ -102,7 +106,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
             self,
             request: socketserver._RequestType,
             client_address: _socket._RetAddress,
-            server: socketserver.BaseServer,
+            server: _ServerT,
             *,
             directory: StrPath | None = None,
             extra_response_headers: Mapping[str, str] | None = None,
@@ -112,7 +116,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
             self,
             request: socketserver._RequestType,
             client_address: _socket._RetAddress,
-            server: socketserver.BaseServer,
+            server: _ServerT,
             *,
             directory: StrPath | None = None,
         ) -> None: ...
@@ -129,7 +133,7 @@ def executable(path: StrPath) -> bool: ...  # undocumented
 
 if sys.version_info < (3, 15):
     @deprecated("Deprecated and unsafe; removed in Python 3.15.")
-    class CGIHTTPRequestHandler(SimpleHTTPRequestHandler):
+    class CGIHTTPRequestHandler(SimpleHTTPRequestHandler[_ServerT]):
         cgi_directories: list[str]
         have_fork: bool  # undocumented
         def do_POST(self) -> None: ...
