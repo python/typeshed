@@ -1,6 +1,6 @@
 from collections import OrderedDict
 from collections.abc import Callable, Iterable
-from typing import Any
+from typing import Any, TypeAlias
 
 from django import forms
 from django.db.models import QuerySet
@@ -152,9 +152,11 @@ class TimeFilter(Filter):
 class DurationFilter(Filter):
     field_class: type[forms.DurationField]
 
+_QuerySetOrRequest: TypeAlias = QuerySet[Any] | Callable[[Any], QuerySet[Any]] | None
+
 class QuerySetRequestMixin:
-    queryset: QuerySet[Any] | None
-    def __init__(self, *, queryset: QuerySet[Any] | None) -> None: ...
+    queryset: _QuerySetOrRequest
+    def __init__(self, *, queryset: _QuerySetOrRequest) -> None: ...
     def get_request(self) -> Any: ...  # Request can be HttpRequest or other request types
     def get_queryset(self, request: Any) -> QuerySet[Any]: ...  # Request parameter accepts various request types
     @property
@@ -168,7 +170,7 @@ class ModelChoiceFilter(QuerySetRequestMixin, ChoiceFilter):
         lookup_expr: str | None = None,
         *,
         # Inherited from QuerySetRequestMixin
-        queryset: QuerySet[Any] | None = None,
+        queryset: _QuerySetOrRequest = None,
         # Inherited from ChoiceFilter
         null_value: Any = ...,  # Null value can be any type (None, empty string, etc.)
         # Inherited from Filter
@@ -187,7 +189,7 @@ class ModelMultipleChoiceFilter(QuerySetRequestMixin, MultipleChoiceFilter):
         lookup_expr: str | None = None,
         *,
         # Inherited from QuerySetRequestMixin
-        queryset: QuerySet[Any] | None = None,
+        queryset: _QuerySetOrRequest = None,
         # Inherited from MultipleChoiceFilter
         distinct: bool = True,  # Overrides distinct default
         conjoined: bool = False,
