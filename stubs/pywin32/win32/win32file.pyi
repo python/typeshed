@@ -1,4 +1,4 @@
-from _typeshed import Incomplete, WriteableBuffer
+from _typeshed import Incomplete, ReadableBuffer, WriteableBuffer
 from socket import socket
 from typing import TypeVar, overload
 from typing_extensions import deprecated
@@ -32,7 +32,30 @@ def SetMailslotInfo(Mailslot: int, ReadTimeout, /) -> None: ...
 def DefineDosDevice(flags, deviceName: str, targetPath: str, /) -> None: ...
 def DefineDosDeviceW(flags, deviceName: str, targetPath: str, /) -> None: ...
 def DeleteFile(fileName: str, /) -> None: ...
-def DeviceIoControl(Device: int, IoControlCode, InBuffer, OutBuffer, Overlapped: _win32typing.PyOVERLAPPED | None = ...): ...
+@overload
+def DeviceIoControl(
+    Device: int,
+    IoControlCode: int,
+    InBuffer: ReadableBuffer | None,
+    OutBuffer: int,
+    Overlapped: None = None,
+) -> bytes: ...
+@overload
+def DeviceIoControl(
+    Device: int,
+    IoControlCode: int,
+    InBuffer: ReadableBuffer | None,
+    OutBuffer: int,
+    Overlapped: _win32typing.PyOVERLAPPED,
+) -> memoryview: ...
+@overload
+def DeviceIoControl(
+    Device: int,
+    IoControlCode: int,
+    InBuffer: ReadableBuffer | None,
+    OutBuffer: WriteableBuffer,
+    Overlapped: _win32typing.PyOVERLAPPED | None = None,
+) -> WriteableBuffer: ...
 def FindClose(hFindFile, /) -> None: ...
 def FindCloseChangeNotification(hChangeHandle, /) -> None: ...
 def FindFirstChangeNotification(pathName: str, bWatchSubtree, notifyFilter, /): ...
