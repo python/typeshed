@@ -35,19 +35,11 @@ def DeleteFile(fileName: str, /) -> None: ...
 
 @overload
 def DeviceIoControl(
-    Device: int,
-    IoControlCode: int,
-    InBuffer: ReadableBuffer | None,
-    OutBuffer: int,
-    Overlapped: None = None,
+    Device: int, IoControlCode: int, InBuffer: ReadableBuffer | None, OutBuffer: int, Overlapped: None = None
 ) -> bytes: ...
 @overload
 def DeviceIoControl(
-    Device: int,
-    IoControlCode: int,
-    InBuffer: ReadableBuffer | None,
-    OutBuffer: int,
-    Overlapped: _win32typing.PyOVERLAPPED,
+    Device: int, IoControlCode: int, InBuffer: ReadableBuffer | None, OutBuffer: int, Overlapped: _win32typing.PyOVERLAPPED
 ) -> memoryview: ...
 @overload
 def DeviceIoControl(
