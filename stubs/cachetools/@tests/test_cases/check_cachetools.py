@@ -1,11 +1,14 @@
 from __future__ import annotations
 
 from collections.abc import Hashable
-from typing import Any
+from typing import Any, TypeVar
 from typing_extensions import assert_type
 
-from cachetools import LRUCache, cached, keys as cachekeys
+from cachetools import LRUCache, TLRUCache, TTLCache, cached, keys as cachekeys
 from cachetools.func import fifo_cache, lfu_cache, lru_cache, rr_cache, ttl_cache
+
+_KT = TypeVar("_KT")
+_VT = TypeVar("_VT")
 
 # Tests for cachetools.cached
 
@@ -102,3 +105,28 @@ assert_type(k3, tuple[Hashable, ...])
 
 k4 = cachekeys.typedmethodkey(inst, 2)
 assert_type(k4, tuple[Hashable, ...])
+
+
+# Tests for TTLCache / TLRUCache constructors
+# See https://github.com/python/typeshed/issues/15798
+
+ttl_inst: TTLCache[str, int] = TTLCache(maxsize=128, ttl=600)
+assert_type(ttl_inst, TTLCache[str, int, float])
+assert_type(TTLCache[str, int](maxsize=128, ttl=600), TTLCache[str, int, float])
+ttl_sized: TTLCache[str, bytes] = TTLCache(maxsize=128, ttl=600, getsizeof=len)
+ttl_timer: TTLCache[str, int, int] = TTLCache(maxsize=128, ttl=600, timer=lambda: 1)
+assert_type(ttl_timer, TTLCache[str, int, int])
+
+tlru_inst: TLRUCache[str, int] = TLRUCache(10, lambda k, v, now: now + 10)
+assert_type(tlru_inst, TLRUCache[str, int, float])
+assert_type(TLRUCache[str, int](10, lambda k, v, now: now + 10), TLRUCache[str, int, float])
+
+
+class _TrackedTTLCache(TTLCache[_KT, _VT]):
+    def popitem(self) -> tuple[_KT, _VT]:
+        key, value = super().popitem()
+        return key, value
+
+
+tracked: _TrackedTTLCache[str, int] = _TrackedTTLCache(maxsize=128, ttl=600)
+assert_type(tracked, _TrackedTTLCache[str, int])
