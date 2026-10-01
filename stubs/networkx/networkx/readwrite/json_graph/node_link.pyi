@@ -1,12 +1,12 @@
 from _typeshed import Incomplete
 
-from networkx.classes.graph import Graph, _Node
+from networkx.classes.graph import Graph, _EdgeData, _Node, _NodeData
 from networkx.utils.backends import _dispatchable
 
 __all__ = ["node_link_data", "node_link_graph"]
 
 def node_link_data(
-    G: Graph[_Node],
+    G: Graph[_Node, _NodeData, _EdgeData],
     *,
     source: str = "source",
     target: str = "target",

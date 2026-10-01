@@ -4,7 +4,7 @@ from typing import Literal
 import numpy as np
 from networkx._typing import Array2D
 from networkx.classes.digraph import DiGraph
-from networkx.classes.graph import Graph, _Node
+from networkx.classes.graph import Graph, _EdgeData, _Node, _NodeData
 from networkx.utils.backends import _dispatchable
 from scipy.sparse import csr_array  # type: ignore[import-untyped]  # pyright: ignore[reportMissingImports]
 
@@ -16,14 +16,16 @@ __all__ = [
 ]
 
 @_dispatchable
-def laplacian_matrix(G: Graph[_Node], nodelist: Collection[_Node] | None = None, weight: str | None = "weight") -> csr_array: ...
+def laplacian_matrix(
+    G: Graph[_Node, _NodeData, _EdgeData], nodelist: Collection[_Node] | None = None, weight: str | None = "weight"
+) -> csr_array: ...
 @_dispatchable
 def normalized_laplacian_matrix(
-    G: Graph[_Node], nodelist: Collection[_Node] | None = None, weight: str | None = "weight"
+    G: Graph[_Node, _NodeData, _EdgeData], nodelist: Collection[_Node] | None = None, weight: str | None = "weight"
 ) -> csr_array: ...
 @_dispatchable
 def directed_laplacian_matrix(
-    G: DiGraph[_Node],
+    G: DiGraph[_Node, _NodeData, _EdgeData],
     nodelist: Collection[_Node] | None = None,
     weight: str | None = "weight",
     walk_type: Literal["random", "lazy", "pagerank"] | None = None,
@@ -31,7 +33,7 @@ def directed_laplacian_matrix(
 ) -> Array2D[np.float64]: ...
 @_dispatchable
 def directed_combinatorial_laplacian_matrix(
-    G: DiGraph[_Node],
+    G: DiGraph[_Node, _NodeData, _EdgeData],
     nodelist: Collection[_Node] | None = None,
     weight: str | None = "weight",
     walk_type: Literal["random", "lazy", "pagerank"] | None = None,
