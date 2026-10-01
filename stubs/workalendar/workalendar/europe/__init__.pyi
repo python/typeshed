@@ -249,7 +249,6 @@ __all__ = (
     "Cantabria",
     "ValencianCommunity",
     # Switzerland
-    "Switzerland",
     "Aargau",
     "AppenzellInnerrhoden",
     "AppenzellAusserrhoden",
