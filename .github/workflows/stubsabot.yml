@@ -19,13 +19,13 @@ jobs:
       contents: read
       pull-requests: write # Create, update, and label PRs.
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           # use an ssh key so that checks automatically run on stubsabot PRs
           ssh-key: ${{ secrets.STUBSABOT_SSH_PRIVATE_KEY }}
           fetch-depth: 0
           persist-credentials: true # stubsabot needs the SSH key to push branches.
-      - uses: astral-sh/setup-uv@fac544c07dec837d0ccb6301d7b5580bf5edae39 # v8.2.0
+      - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
         with:
           version-file: "requirements-tests.txt"
           # A compromised dependency in a test job on main could poison the shared
