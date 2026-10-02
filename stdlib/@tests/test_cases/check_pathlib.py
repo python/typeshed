@@ -22,7 +22,7 @@ if Path("asdf") == "asdf":  # type: ignore
 # interesting: it can never hold true on Posix, but could hold true on Windows. We should experiment
 # with more accurate __new__, such that we only get an error for such comparisons on platforms
 # where they can never hold true.
-if PureWindowsPath("asdf") == Path("asdf"):  # type: ignore
+if PureWindowsPath("asdf") == Path("asdf"):
     ...
 
 
