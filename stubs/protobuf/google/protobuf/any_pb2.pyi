@@ -32,17 +32,23 @@ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 
-import builtins
-import typing
+import builtins as _builtins
+import sys
+import typing as _typing
 
-import google.protobuf.descriptor
-import google.protobuf.internal.well_known_types
-import google.protobuf.message
+from google.protobuf import descriptor as _descriptor, message as _message
+from google.protobuf.internal import well_known_types as _well_known_types
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
+else:
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-@typing.final
-class Any(google.protobuf.message.Message, google.protobuf.internal.well_known_types.Any):
+DESCRIPTOR: _descriptor.FileDescriptor
+
+@_typing.final
+class Any(_message.Message, _well_known_types.Any):
     """`Any` contains an arbitrary serialized protocol buffer message along with a
     URL that describes the type of the serialized message.
 
@@ -75,11 +81,11 @@ class Any(google.protobuf.message.Message, google.protobuf.internal.well_known_t
     `foo.Bar` message may be written `[type.googleapis.com/foo.Bar] { a: 2 }`.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    TYPE_URL_FIELD_NUMBER: builtins.int
-    VALUE_FIELD_NUMBER: builtins.int
-    type_url: builtins.str
+    TYPE_URL_FIELD_NUMBER: _builtins.int
+    VALUE_FIELD_NUMBER: _builtins.int
+    type_url: _builtins.str
     """Identifies the type of the serialized Protobuf message with a URI reference
     consisting of a prefix ending in a slash and the fully-qualified type name.
 
@@ -110,9 +116,13 @@ class Any(google.protobuf.message.Message, google.protobuf.internal.well_known_t
     implemented one and considers contacting these URLs to be problematic and
     a potential security issue. Do not attempt to contact type URLs.
     """
-    value: builtins.bytes
+    value: _builtins.bytes
     """Holds a Protobuf serialization of the type described by type_url."""
-    def __init__(self, *, type_url: builtins.str | None = ..., value: builtins.bytes | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["type_url", b"type_url", "value", b"value"]) -> None: ...
+    def __init__(self, *, type_url: _builtins.str | None = ..., value: _builtins.bytes | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["type_url", b"type_url", "value", b"value"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___Any = Any
+Global___Any: _TypeAlias = Any  # noqa: Y015

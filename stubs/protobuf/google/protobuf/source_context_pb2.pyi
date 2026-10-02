@@ -32,28 +32,38 @@ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 
-import builtins
-import typing
+import builtins as _builtins
+import sys
+import typing as _typing
 
-import google.protobuf.descriptor
-import google.protobuf.message
+from google.protobuf import descriptor as _descriptor, message as _message
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
+else:
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-@typing.final
-class SourceContext(google.protobuf.message.Message):
+DESCRIPTOR: _descriptor.FileDescriptor
+
+@_typing.final
+class SourceContext(_message.Message):
     """`SourceContext` represents information about the source of a
     protobuf element, like the file in which it is defined.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    FILE_NAME_FIELD_NUMBER: builtins.int
-    file_name: builtins.str
+    FILE_NAME_FIELD_NUMBER: _builtins.int
+    file_name: _builtins.str
     """The path-qualified name of the .proto file that contained the associated
     protobuf element.  For example: `"google/protobuf/source_context.proto"`.
     """
-    def __init__(self, *, file_name: builtins.str | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["file_name", b"file_name"]) -> None: ...
+    def __init__(self, *, file_name: _builtins.str | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["file_name", b"file_name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___SourceContext = SourceContext
+Global___SourceContext: _TypeAlias = SourceContext  # noqa: Y015
