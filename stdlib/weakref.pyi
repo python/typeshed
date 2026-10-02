@@ -1,7 +1,7 @@
 from _typeshed import SupportsKeysAndGetItem
 from _weakref import getweakrefcount as getweakrefcount, getweakrefs as getweakrefs, proxy as proxy
 from _weakrefset import WeakSet as WeakSet
-from collections.abc import Callable, Iterable, Iterator, Mapping, MutableMapping
+from collections.abc import Callable, Hashable, Iterable, Iterator, Mapping, MutableMapping
 from types import GenericAlias
 from typing import Any, ClassVar, Generic, ParamSpec, TypeVar, final, overload
 from typing_extensions import Self, disjoint_base
@@ -25,7 +25,7 @@ __all__ = [
 _T = TypeVar("_T")
 _T1 = TypeVar("_T1")
 _T2 = TypeVar("_T2")
-_KT = TypeVar("_KT")
+_KT = TypeVar("_KT", bound=Hashable)
 _VT = TypeVar("_VT")
 _CallableT = TypeVar("_CallableT", bound=Callable[..., Any])
 _P = ParamSpec("_P")
@@ -58,7 +58,7 @@ class ReferenceType(Generic[_T]):  # "weakref"
     def __new__(cls, o: _T, callback: Callable[[Self], Any] | None = ..., /) -> Self: ...
     def __call__(self) -> _T | None: ...
     def __eq__(self, value: object, /) -> bool: ...
-    def __hash__(self) -> int: ...
+    def __hash__(self: ReferenceType[Hashable]) -> int: ...
     def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
 
 ref = ReferenceType
