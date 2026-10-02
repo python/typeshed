@@ -3,17 +3,23 @@
 isort:skip_file
 """
 
-import builtins
-import typing
+import builtins as _builtins
+import sys
+import typing as _typing
 
-import google.protobuf.descriptor
-import google.protobuf.message
-import tensorflow.core.protobuf.struct_pb2
+from google.protobuf import descriptor as _descriptor, message as _message
+from tensorflow.core.protobuf import struct_pb2 as _struct_pb2
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
+else:
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-@typing.final
-class CompositeTensorVariantMetadata(google.protobuf.message.Message):
+DESCRIPTOR: _descriptor.FileDescriptor
+
+@_typing.final
+class CompositeTensorVariantMetadata(_message.Message):
     """Metadata for CompositeTensorVariant, used when serializing as Variant.
 
     We define a new message here (rather than directly using TypeSpecProto for
@@ -21,13 +27,16 @@ class CompositeTensorVariantMetadata(google.protobuf.message.Message):
     to support additional features.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    TYPE_SPEC_PROTO_FIELD_NUMBER: builtins.int
-    @property
-    def type_spec_proto(self) -> tensorflow.core.protobuf.struct_pb2.TypeSpecProto: ...
-    def __init__(self, *, type_spec_proto: tensorflow.core.protobuf.struct_pb2.TypeSpecProto | None = ...) -> None: ...
-    def HasField(self, field_name: typing.Literal["type_spec_proto", b"type_spec_proto"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["type_spec_proto", b"type_spec_proto"]) -> None: ...
+    TYPE_SPEC_PROTO_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def type_spec_proto(self) -> _struct_pb2.TypeSpecProto: ...
+    def __init__(self, *, type_spec_proto: _struct_pb2.TypeSpecProto | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["type_spec_proto", b"type_spec_proto"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["type_spec_proto", b"type_spec_proto"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___CompositeTensorVariantMetadata = CompositeTensorVariantMetadata
+Global___CompositeTensorVariantMetadata: _TypeAlias = CompositeTensorVariantMetadata  # noqa: Y015

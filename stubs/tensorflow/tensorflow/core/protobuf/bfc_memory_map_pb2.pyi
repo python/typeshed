@@ -3,7 +3,7 @@
 isort:skip_file
 """
 
-import google.protobuf.descriptor
+from google.protobuf import descriptor as _descriptor
 from tensorflow.compiler.xla.tsl.protobuf.bfc_memory_map_pb2 import (
     BinSummary as BinSummary,
     MemAllocatorStats as MemAllocatorStats,
@@ -12,4 +12,4 @@ from tensorflow.compiler.xla.tsl.protobuf.bfc_memory_map_pb2 import (
     SnapShot as SnapShot,
 )
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+DESCRIPTOR: _descriptor.FileDescriptor

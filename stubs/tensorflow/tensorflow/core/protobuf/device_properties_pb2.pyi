@@ -17,72 +17,82 @@ limitations under the License.
 ==============================================================================
 """
 
-import builtins
-import collections.abc
-import typing
+import builtins as _builtins
+import sys
+import typing as _typing
+from collections import abc as _abc
 
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.message
+from google.protobuf import descriptor as _descriptor, message as _message
+from google.protobuf.internal import containers as _containers
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
+else:
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-@typing.final
-class DeviceProperties(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+DESCRIPTOR: _descriptor.FileDescriptor
 
-    @typing.final
-    class EnvironmentEntry(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class DeviceProperties(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-        KEY_FIELD_NUMBER: builtins.int
-        VALUE_FIELD_NUMBER: builtins.int
-        key: builtins.str
-        value: builtins.str
-        def __init__(self, *, key: builtins.str | None = ..., value: builtins.str | None = ...) -> None: ...
-        def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
+    @_typing.final
+    class EnvironmentEntry(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-    TYPE_FIELD_NUMBER: builtins.int
-    VENDOR_FIELD_NUMBER: builtins.int
-    MODEL_FIELD_NUMBER: builtins.int
-    FREQUENCY_FIELD_NUMBER: builtins.int
-    NUM_CORES_FIELD_NUMBER: builtins.int
-    ENVIRONMENT_FIELD_NUMBER: builtins.int
-    NUM_REGISTERS_FIELD_NUMBER: builtins.int
-    L1_CACHE_SIZE_FIELD_NUMBER: builtins.int
-    L2_CACHE_SIZE_FIELD_NUMBER: builtins.int
-    L3_CACHE_SIZE_FIELD_NUMBER: builtins.int
-    SHARED_MEMORY_SIZE_PER_MULTIPROCESSOR_FIELD_NUMBER: builtins.int
-    MEMORY_SIZE_FIELD_NUMBER: builtins.int
-    BANDWIDTH_FIELD_NUMBER: builtins.int
-    type: builtins.str
+        KEY_FIELD_NUMBER: _builtins.int
+        VALUE_FIELD_NUMBER: _builtins.int
+        key: _builtins.str
+        value: _builtins.str
+        def __init__(self, *, key: _builtins.str | None = ..., value: _builtins.str | None = ...) -> None: ...
+        _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["key", b"key", "value", b"value"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+    TYPE_FIELD_NUMBER: _builtins.int
+    VENDOR_FIELD_NUMBER: _builtins.int
+    MODEL_FIELD_NUMBER: _builtins.int
+    FREQUENCY_FIELD_NUMBER: _builtins.int
+    NUM_CORES_FIELD_NUMBER: _builtins.int
+    ENVIRONMENT_FIELD_NUMBER: _builtins.int
+    NUM_REGISTERS_FIELD_NUMBER: _builtins.int
+    L1_CACHE_SIZE_FIELD_NUMBER: _builtins.int
+    L2_CACHE_SIZE_FIELD_NUMBER: _builtins.int
+    L3_CACHE_SIZE_FIELD_NUMBER: _builtins.int
+    SHARED_MEMORY_SIZE_PER_MULTIPROCESSOR_FIELD_NUMBER: _builtins.int
+    MEMORY_SIZE_FIELD_NUMBER: _builtins.int
+    BANDWIDTH_FIELD_NUMBER: _builtins.int
+    type: _builtins.str
     """Device type (CPU, GPU, ...)"""
-    vendor: builtins.str
+    vendor: _builtins.str
     """Vendor (Intel, nvidia, ...)"""
-    model: builtins.str
+    model: _builtins.str
     """Model (Haswell, K40, ...)"""
-    frequency: builtins.int
+    frequency: _builtins.int
     """Core Frequency in Mhz"""
-    num_cores: builtins.int
+    num_cores: _builtins.int
     """Number of cores"""
-    num_registers: builtins.int
+    num_registers: _builtins.int
     """Number of registers per core."""
-    l1_cache_size: builtins.int
+    l1_cache_size: _builtins.int
     """L1 cache size in bytes"""
-    l2_cache_size: builtins.int
+    l2_cache_size: _builtins.int
     """L2 cache size in bytes"""
-    l3_cache_size: builtins.int
+    l3_cache_size: _builtins.int
     """L3 cache size in bytes"""
-    shared_memory_size_per_multiprocessor: builtins.int
+    shared_memory_size_per_multiprocessor: _builtins.int
     """Shared memory size per multiprocessor in bytes. This field is
     applicable to GPUs only.
     """
-    memory_size: builtins.int
+    memory_size: _builtins.int
     """Memory size in bytes"""
-    bandwidth: builtins.int
+    bandwidth: _builtins.int
     """Memory bandwidth in KB/s"""
-    @property
-    def environment(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, builtins.str]:
+    @_builtins.property
+    def environment(self) -> _containers.ScalarMap[_builtins.str, _builtins.str]:
         """Version of the tools and libraries used with this device (e.g. gcc 4.9,
         cudnn 5.1)
         """
@@ -90,65 +100,69 @@ class DeviceProperties(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        type: builtins.str | None = ...,
-        vendor: builtins.str | None = ...,
-        model: builtins.str | None = ...,
-        frequency: builtins.int | None = ...,
-        num_cores: builtins.int | None = ...,
-        environment: collections.abc.Mapping[builtins.str, builtins.str] | None = ...,
-        num_registers: builtins.int | None = ...,
-        l1_cache_size: builtins.int | None = ...,
-        l2_cache_size: builtins.int | None = ...,
-        l3_cache_size: builtins.int | None = ...,
-        shared_memory_size_per_multiprocessor: builtins.int | None = ...,
-        memory_size: builtins.int | None = ...,
-        bandwidth: builtins.int | None = ...,
+        type: _builtins.str | None = ...,
+        vendor: _builtins.str | None = ...,
+        model: _builtins.str | None = ...,
+        frequency: _builtins.int | None = ...,
+        num_cores: _builtins.int | None = ...,
+        environment: _abc.Mapping[_builtins.str, _builtins.str] | None = ...,
+        num_registers: _builtins.int | None = ...,
+        l1_cache_size: _builtins.int | None = ...,
+        l2_cache_size: _builtins.int | None = ...,
+        l3_cache_size: _builtins.int | None = ...,
+        shared_memory_size_per_multiprocessor: _builtins.int | None = ...,
+        memory_size: _builtins.int | None = ...,
+        bandwidth: _builtins.int | None = ...,
     ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "bandwidth",
-            b"bandwidth",
-            "environment",
-            b"environment",
-            "frequency",
-            b"frequency",
-            "l1_cache_size",
-            b"l1_cache_size",
-            "l2_cache_size",
-            b"l2_cache_size",
-            "l3_cache_size",
-            b"l3_cache_size",
-            "memory_size",
-            b"memory_size",
-            "model",
-            b"model",
-            "num_cores",
-            b"num_cores",
-            "num_registers",
-            b"num_registers",
-            "shared_memory_size_per_multiprocessor",
-            b"shared_memory_size_per_multiprocessor",
-            "type",
-            b"type",
-            "vendor",
-            b"vendor",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "bandwidth",
+        b"bandwidth",
+        "environment",
+        b"environment",
+        "frequency",
+        b"frequency",
+        "l1_cache_size",
+        b"l1_cache_size",
+        "l2_cache_size",
+        b"l2_cache_size",
+        "l3_cache_size",
+        b"l3_cache_size",
+        "memory_size",
+        b"memory_size",
+        "model",
+        b"model",
+        "num_cores",
+        b"num_cores",
+        "num_registers",
+        b"num_registers",
+        "shared_memory_size_per_multiprocessor",
+        b"shared_memory_size_per_multiprocessor",
+        "type",
+        b"type",
+        "vendor",
+        b"vendor",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___DeviceProperties = DeviceProperties
+Global___DeviceProperties: _TypeAlias = DeviceProperties  # noqa: Y015
 
-@typing.final
-class NamedDevice(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class NamedDevice(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    PROPERTIES_FIELD_NUMBER: builtins.int
-    name: builtins.str
-    @property
-    def properties(self) -> global___DeviceProperties: ...
-    def __init__(self, *, name: builtins.str | None = ..., properties: global___DeviceProperties | None = ...) -> None: ...
-    def HasField(self, field_name: typing.Literal["properties", b"properties"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["name", b"name", "properties", b"properties"]) -> None: ...
+    NAME_FIELD_NUMBER: _builtins.int
+    PROPERTIES_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
+    @_builtins.property
+    def properties(self) -> Global___DeviceProperties: ...
+    def __init__(self, *, name: _builtins.str | None = ..., properties: Global___DeviceProperties | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["properties", b"properties"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["name", b"name", "properties", b"properties"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___NamedDevice = NamedDevice
+Global___NamedDevice: _TypeAlias = NamedDevice  # noqa: Y015

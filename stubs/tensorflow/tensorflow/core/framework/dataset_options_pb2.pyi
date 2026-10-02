@@ -3,32 +3,29 @@
 isort:skip_file
 """
 
-import builtins
-import collections.abc
+import builtins as _builtins
 import sys
-import typing
+import typing as _typing
+from collections import abc as _abc
 
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.internal.enum_type_wrapper
-import google.protobuf.message
-import tensorflow.core.framework.model_pb2
+from google.protobuf import descriptor as _descriptor, message as _message
+from google.protobuf.internal import containers as _containers, enum_type_wrapper as _enum_type_wrapper
+from tensorflow.core.framework import model_pb2 as _model_pb2
 
-if sys.version_info >= (3, 10):
-    import typing as typing_extensions
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
 else:
-    import typing_extensions
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+DESCRIPTOR: _descriptor.FileDescriptor
 
 class _AutoShardPolicy:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _AutoShardPolicyEnumTypeWrapper(
-    google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_AutoShardPolicy.ValueType], builtins.type
-):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _AutoShardPolicyEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_AutoShardPolicy.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     AUTO: _AutoShardPolicy.ValueType  # 0
     """AUTO: Attempts FILE-based sharding, falling back to DATA-based sharding."""
     FILE: _AutoShardPolicy.ValueType  # 1
@@ -73,16 +70,14 @@ as a placeholder to replace with `shard(num_workers, worker_index)`.
 """
 OFF: AutoShardPolicy.ValueType  # -1
 """OFF: No sharding will be performed."""
-global___AutoShardPolicy = AutoShardPolicy
+Global___AutoShardPolicy: _TypeAlias = AutoShardPolicy  # noqa: Y015
 
 class _ExternalStatePolicy:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _ExternalStatePolicyEnumTypeWrapper(
-    google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_ExternalStatePolicy.ValueType], builtins.type
-):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _ExternalStatePolicyEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_ExternalStatePolicy.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     POLICY_WARN: _ExternalStatePolicy.ValueType  # 0
     POLICY_IGNORE: _ExternalStatePolicy.ValueType  # 1
     POLICY_FAIL: _ExternalStatePolicy.ValueType  # 2
@@ -93,121 +88,152 @@ class ExternalStatePolicy(_ExternalStatePolicy, metaclass=_ExternalStatePolicyEn
 POLICY_WARN: ExternalStatePolicy.ValueType  # 0
 POLICY_IGNORE: ExternalStatePolicy.ValueType  # 1
 POLICY_FAIL: ExternalStatePolicy.ValueType  # 2
-global___ExternalStatePolicy = ExternalStatePolicy
+Global___ExternalStatePolicy: _TypeAlias = ExternalStatePolicy  # noqa: Y015
 
-@typing.final
-class AutotuneOptions(google.protobuf.message.Message):
-    """next: 6"""
+@_typing.final
+class AutotuneOptions(_message.Message):
+    """next: 7"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    ENABLED_FIELD_NUMBER: builtins.int
-    CPU_BUDGET_FIELD_NUMBER: builtins.int
-    RAM_BUDGET_FIELD_NUMBER: builtins.int
-    AUTOTUNE_ALGORITHM_FIELD_NUMBER: builtins.int
-    INITIAL_PARALLELISM_FIELD_NUMBER: builtins.int
-    enabled: builtins.bool
-    cpu_budget: builtins.int
-    ram_budget: builtins.int
-    autotune_algorithm: tensorflow.core.framework.model_pb2.AutotuneAlgorithm.ValueType
-    initial_parallelism: builtins.int
+    ENABLED_FIELD_NUMBER: _builtins.int
+    CPU_BUDGET_FIELD_NUMBER: _builtins.int
+    RAM_BUDGET_FIELD_NUMBER: _builtins.int
+    AUTOTUNE_ALGORITHM_FIELD_NUMBER: _builtins.int
+    INITIAL_PARALLELISM_FIELD_NUMBER: _builtins.int
+    MIN_PARALLELISM_FIELD_NUMBER: _builtins.int
+    enabled: _builtins.bool
+    cpu_budget: _builtins.int
+    ram_budget: _builtins.int
+    autotune_algorithm: _model_pb2.AutotuneAlgorithm.ValueType
+    initial_parallelism: _builtins.int
+    min_parallelism: _builtins.int
     def __init__(
         self,
         *,
-        enabled: builtins.bool | None = ...,
-        cpu_budget: builtins.int | None = ...,
-        ram_budget: builtins.int | None = ...,
-        autotune_algorithm: tensorflow.core.framework.model_pb2.AutotuneAlgorithm.ValueType | None = ...,
-        initial_parallelism: builtins.int | None = ...,
+        enabled: _builtins.bool | None = ...,
+        cpu_budget: _builtins.int | None = ...,
+        ram_budget: _builtins.int | None = ...,
+        autotune_algorithm: _model_pb2.AutotuneAlgorithm.ValueType | None = ...,
+        initial_parallelism: _builtins.int | None = ...,
+        min_parallelism: _builtins.int | None = ...,
     ) -> None: ...
-    def HasField(
-        self,
-        field_name: typing.Literal[
-            "autotune_algorithm",
-            b"autotune_algorithm",
-            "cpu_budget",
-            b"cpu_budget",
-            "enabled",
-            b"enabled",
-            "initial_parallelism",
-            b"initial_parallelism",
-            "optional_autotune_algorithm",
-            b"optional_autotune_algorithm",
-            "optional_cpu_budget",
-            b"optional_cpu_budget",
-            "optional_enabled",
-            b"optional_enabled",
-            "optional_initial_parallelism",
-            b"optional_initial_parallelism",
-            "optional_ram_budget",
-            b"optional_ram_budget",
-            "ram_budget",
-            b"ram_budget",
-        ],
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "autotune_algorithm",
-            b"autotune_algorithm",
-            "cpu_budget",
-            b"cpu_budget",
-            "enabled",
-            b"enabled",
-            "initial_parallelism",
-            b"initial_parallelism",
-            "optional_autotune_algorithm",
-            b"optional_autotune_algorithm",
-            "optional_cpu_budget",
-            b"optional_cpu_budget",
-            "optional_enabled",
-            b"optional_enabled",
-            "optional_initial_parallelism",
-            b"optional_initial_parallelism",
-            "optional_ram_budget",
-            b"optional_ram_budget",
-            "ram_budget",
-            b"ram_budget",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal[
+        "autotune_algorithm",
+        b"autotune_algorithm",
+        "cpu_budget",
+        b"cpu_budget",
+        "enabled",
+        b"enabled",
+        "initial_parallelism",
+        b"initial_parallelism",
+        "min_parallelism",
+        b"min_parallelism",
+        "optional_autotune_algorithm",
+        b"optional_autotune_algorithm",
+        "optional_cpu_budget",
+        b"optional_cpu_budget",
+        "optional_enabled",
+        b"optional_enabled",
+        "optional_initial_parallelism",
+        b"optional_initial_parallelism",
+        "optional_min_parallelism",
+        b"optional_min_parallelism",
+        "optional_ram_budget",
+        b"optional_ram_budget",
+        "ram_budget",
+        b"ram_budget",
+    ]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "autotune_algorithm",
+        b"autotune_algorithm",
+        "cpu_budget",
+        b"cpu_budget",
+        "enabled",
+        b"enabled",
+        "initial_parallelism",
+        b"initial_parallelism",
+        "min_parallelism",
+        b"min_parallelism",
+        "optional_autotune_algorithm",
+        b"optional_autotune_algorithm",
+        "optional_cpu_budget",
+        b"optional_cpu_budget",
+        "optional_enabled",
+        b"optional_enabled",
+        "optional_initial_parallelism",
+        b"optional_initial_parallelism",
+        "optional_min_parallelism",
+        b"optional_min_parallelism",
+        "optional_ram_budget",
+        b"optional_ram_budget",
+        "ram_budget",
+        b"ram_budget",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType_optional_autotune_algorithm: _TypeAlias = _typing.Literal["autotune_algorithm"]  # noqa: Y015
+    _WhichOneofArgType_optional_autotune_algorithm: _TypeAlias = _typing.Literal[
+        "optional_autotune_algorithm", b"optional_autotune_algorithm"
+    ]  # noqa: Y015
+    _WhichOneofReturnType_optional_cpu_budget: _TypeAlias = _typing.Literal["cpu_budget"]  # noqa: Y015
+    _WhichOneofArgType_optional_cpu_budget: _TypeAlias = _typing.Literal[
+        "optional_cpu_budget", b"optional_cpu_budget"
+    ]  # noqa: Y015
+    _WhichOneofReturnType_optional_enabled: _TypeAlias = _typing.Literal["enabled"]  # noqa: Y015
+    _WhichOneofArgType_optional_enabled: _TypeAlias = _typing.Literal["optional_enabled", b"optional_enabled"]  # noqa: Y015
+    _WhichOneofReturnType_optional_initial_parallelism: _TypeAlias = _typing.Literal["initial_parallelism"]  # noqa: Y015
+    _WhichOneofArgType_optional_initial_parallelism: _TypeAlias = _typing.Literal[
+        "optional_initial_parallelism", b"optional_initial_parallelism"
+    ]  # noqa: Y015
+    _WhichOneofReturnType_optional_min_parallelism: _TypeAlias = _typing.Literal["min_parallelism"]  # noqa: Y015
+    _WhichOneofArgType_optional_min_parallelism: _TypeAlias = _typing.Literal[
+        "optional_min_parallelism", b"optional_min_parallelism"
+    ]  # noqa: Y015
+    _WhichOneofReturnType_optional_ram_budget: _TypeAlias = _typing.Literal["ram_budget"]  # noqa: Y015
+    _WhichOneofArgType_optional_ram_budget: _TypeAlias = _typing.Literal[
+        "optional_ram_budget", b"optional_ram_budget"
+    ]  # noqa: Y015
 
-    @typing.overload
+    @_typing.overload
     def WhichOneof(
-        self, oneof_group: typing.Literal["optional_autotune_algorithm", b"optional_autotune_algorithm"]
-    ) -> typing.Literal["autotune_algorithm"] | None: ...
-    @typing.overload
+        self, oneof_group: _WhichOneofArgType_optional_autotune_algorithm
+    ) -> _WhichOneofReturnType_optional_autotune_algorithm | None: ...
+    @_typing.overload
     def WhichOneof(
-        self, oneof_group: typing.Literal["optional_cpu_budget", b"optional_cpu_budget"]
-    ) -> typing.Literal["cpu_budget"] | None: ...
-    @typing.overload
+        self, oneof_group: _WhichOneofArgType_optional_cpu_budget
+    ) -> _WhichOneofReturnType_optional_cpu_budget | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType_optional_enabled) -> _WhichOneofReturnType_optional_enabled | None: ...
+    @_typing.overload
     def WhichOneof(
-        self, oneof_group: typing.Literal["optional_enabled", b"optional_enabled"]
-    ) -> typing.Literal["enabled"] | None: ...
-    @typing.overload
+        self, oneof_group: _WhichOneofArgType_optional_initial_parallelism
+    ) -> _WhichOneofReturnType_optional_initial_parallelism | None: ...
+    @_typing.overload
     def WhichOneof(
-        self, oneof_group: typing.Literal["optional_initial_parallelism", b"optional_initial_parallelism"]
-    ) -> typing.Literal["initial_parallelism"] | None: ...
-    @typing.overload
+        self, oneof_group: _WhichOneofArgType_optional_min_parallelism
+    ) -> _WhichOneofReturnType_optional_min_parallelism | None: ...
+    @_typing.overload
     def WhichOneof(
-        self, oneof_group: typing.Literal["optional_ram_budget", b"optional_ram_budget"]
-    ) -> typing.Literal["ram_budget"] | None: ...
+        self, oneof_group: _WhichOneofArgType_optional_ram_budget
+    ) -> _WhichOneofReturnType_optional_ram_budget | None: ...
 
-global___AutotuneOptions = AutotuneOptions
+Global___AutotuneOptions: _TypeAlias = AutotuneOptions  # noqa: Y015
 
-@typing.final
-class CardinalityOptions(google.protobuf.message.Message):
+@_typing.final
+class CardinalityOptions(_message.Message):
     """next: 2"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _ComputeLevel:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
     class _ComputeLevelEnumTypeWrapper(
-        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[CardinalityOptions._ComputeLevel.ValueType], builtins.type
+        _enum_type_wrapper._EnumTypeWrapper[CardinalityOptions._ComputeLevel.ValueType], _builtins.type
     ):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        DESCRIPTOR: _descriptor.EnumDescriptor
         CARDINALITY_COMPUTE_UNSPECIFIED: CardinalityOptions._ComputeLevel.ValueType  # 0
         CARDINALITY_COMPUTE_LOW: CardinalityOptions._ComputeLevel.ValueType  # 1
         """Cardinality will only be computed if it can be determined in a cheap
@@ -235,490 +261,564 @@ class CardinalityOptions(google.protobuf.message.Message):
     defined functions), Cardinality() will return UNKNOWN_CARDINALITY.
     """
 
-    COMPUTE_LEVEL_FIELD_NUMBER: builtins.int
-    compute_level: global___CardinalityOptions.ComputeLevel.ValueType
-    def __init__(self, *, compute_level: global___CardinalityOptions.ComputeLevel.ValueType | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["compute_level", b"compute_level"]) -> None: ...
+    COMPUTE_LEVEL_FIELD_NUMBER: _builtins.int
+    compute_level: Global___CardinalityOptions.ComputeLevel.ValueType
+    def __init__(self, *, compute_level: Global___CardinalityOptions.ComputeLevel.ValueType | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["compute_level", b"compute_level"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___CardinalityOptions = CardinalityOptions
+Global___CardinalityOptions: _TypeAlias = CardinalityOptions  # noqa: Y015
 
-@typing.final
-class DistributeOptions(google.protobuf.message.Message):
+@_typing.final
+class DistributeOptions(_message.Message):
     """next: 3"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    AUTO_SHARD_POLICY_FIELD_NUMBER: builtins.int
-    NUM_DEVICES_FIELD_NUMBER: builtins.int
-    auto_shard_policy: global___AutoShardPolicy.ValueType
-    num_devices: builtins.int
+    AUTO_SHARD_POLICY_FIELD_NUMBER: _builtins.int
+    NUM_DEVICES_FIELD_NUMBER: _builtins.int
+    auto_shard_policy: Global___AutoShardPolicy.ValueType
+    num_devices: _builtins.int
     def __init__(
-        self, *, auto_shard_policy: global___AutoShardPolicy.ValueType | None = ..., num_devices: builtins.int | None = ...
+        self, *, auto_shard_policy: Global___AutoShardPolicy.ValueType | None = ..., num_devices: _builtins.int | None = ...
     ) -> None: ...
-    def HasField(
-        self, field_name: typing.Literal["num_devices", b"num_devices", "optional_num_devices", b"optional_num_devices"]
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "auto_shard_policy",
-            b"auto_shard_policy",
-            "num_devices",
-            b"num_devices",
-            "optional_num_devices",
-            b"optional_num_devices",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal[
+        "num_devices", b"num_devices", "optional_num_devices", b"optional_num_devices"
+    ]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "auto_shard_policy", b"auto_shard_policy", "num_devices", b"num_devices", "optional_num_devices", b"optional_num_devices"
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType_optional_num_devices: _TypeAlias = _typing.Literal["num_devices"]  # noqa: Y015
+    _WhichOneofArgType_optional_num_devices: _TypeAlias = _typing.Literal[
+        "optional_num_devices", b"optional_num_devices"
+    ]  # noqa: Y015
     def WhichOneof(
-        self, oneof_group: typing.Literal["optional_num_devices", b"optional_num_devices"]
-    ) -> typing.Literal["num_devices"] | None: ...
+        self, oneof_group: _WhichOneofArgType_optional_num_devices
+    ) -> _WhichOneofReturnType_optional_num_devices | None: ...
 
-global___DistributeOptions = DistributeOptions
+Global___DistributeOptions: _TypeAlias = DistributeOptions  # noqa: Y015
 
-@typing.final
-class OptimizationOptions(google.protobuf.message.Message):
+@_typing.final
+class OptimizationOptions(_message.Message):
     """next: 22"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    APPLY_DEFAULT_OPTIMIZATIONS_FIELD_NUMBER: builtins.int
-    FILTER_FUSION_FIELD_NUMBER: builtins.int
-    MAP_AND_BATCH_FUSION_FIELD_NUMBER: builtins.int
-    MAP_AND_FILTER_FUSION_FIELD_NUMBER: builtins.int
-    MAP_FUSION_FIELD_NUMBER: builtins.int
-    MAP_PARALLELIZATION_FIELD_NUMBER: builtins.int
-    NOOP_ELIMINATION_FIELD_NUMBER: builtins.int
-    PARALLEL_BATCH_FIELD_NUMBER: builtins.int
-    SHUFFLE_AND_REPEAT_FUSION_FIELD_NUMBER: builtins.int
-    FILTER_PARALLELIZATION_FIELD_NUMBER: builtins.int
-    INJECT_PREFETCH_FIELD_NUMBER: builtins.int
-    SEQ_INTERLEAVE_PREFETCH_FIELD_NUMBER: builtins.int
-    apply_default_optimizations: builtins.bool
-    filter_fusion: builtins.bool
-    map_and_batch_fusion: builtins.bool
-    map_and_filter_fusion: builtins.bool
-    map_fusion: builtins.bool
-    map_parallelization: builtins.bool
-    noop_elimination: builtins.bool
-    parallel_batch: builtins.bool
-    shuffle_and_repeat_fusion: builtins.bool
-    filter_parallelization: builtins.bool
-    inject_prefetch: builtins.bool
-    seq_interleave_prefetch: builtins.bool
+    APPLY_DEFAULT_OPTIMIZATIONS_FIELD_NUMBER: _builtins.int
+    FILTER_FUSION_FIELD_NUMBER: _builtins.int
+    MAP_AND_BATCH_FUSION_FIELD_NUMBER: _builtins.int
+    MAP_AND_FILTER_FUSION_FIELD_NUMBER: _builtins.int
+    MAP_FUSION_FIELD_NUMBER: _builtins.int
+    MAP_PARALLELIZATION_FIELD_NUMBER: _builtins.int
+    NOOP_ELIMINATION_FIELD_NUMBER: _builtins.int
+    PARALLEL_BATCH_FIELD_NUMBER: _builtins.int
+    SHUFFLE_AND_REPEAT_FUSION_FIELD_NUMBER: _builtins.int
+    FILTER_PARALLELIZATION_FIELD_NUMBER: _builtins.int
+    INJECT_PREFETCH_FIELD_NUMBER: _builtins.int
+    SEQ_INTERLEAVE_PREFETCH_FIELD_NUMBER: _builtins.int
+    apply_default_optimizations: _builtins.bool
+    filter_fusion: _builtins.bool
+    map_and_batch_fusion: _builtins.bool
+    map_and_filter_fusion: _builtins.bool
+    map_fusion: _builtins.bool
+    map_parallelization: _builtins.bool
+    noop_elimination: _builtins.bool
+    parallel_batch: _builtins.bool
+    shuffle_and_repeat_fusion: _builtins.bool
+    filter_parallelization: _builtins.bool
+    inject_prefetch: _builtins.bool
+    seq_interleave_prefetch: _builtins.bool
     def __init__(
         self,
         *,
-        apply_default_optimizations: builtins.bool | None = ...,
-        filter_fusion: builtins.bool | None = ...,
-        map_and_batch_fusion: builtins.bool | None = ...,
-        map_and_filter_fusion: builtins.bool | None = ...,
-        map_fusion: builtins.bool | None = ...,
-        map_parallelization: builtins.bool | None = ...,
-        noop_elimination: builtins.bool | None = ...,
-        parallel_batch: builtins.bool | None = ...,
-        shuffle_and_repeat_fusion: builtins.bool | None = ...,
-        filter_parallelization: builtins.bool | None = ...,
-        inject_prefetch: builtins.bool | None = ...,
-        seq_interleave_prefetch: builtins.bool | None = ...,
+        apply_default_optimizations: _builtins.bool | None = ...,
+        filter_fusion: _builtins.bool | None = ...,
+        map_and_batch_fusion: _builtins.bool | None = ...,
+        map_and_filter_fusion: _builtins.bool | None = ...,
+        map_fusion: _builtins.bool | None = ...,
+        map_parallelization: _builtins.bool | None = ...,
+        noop_elimination: _builtins.bool | None = ...,
+        parallel_batch: _builtins.bool | None = ...,
+        shuffle_and_repeat_fusion: _builtins.bool | None = ...,
+        filter_parallelization: _builtins.bool | None = ...,
+        inject_prefetch: _builtins.bool | None = ...,
+        seq_interleave_prefetch: _builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(
-        self,
-        field_name: typing.Literal[
-            "apply_default_optimizations",
-            b"apply_default_optimizations",
-            "filter_fusion",
-            b"filter_fusion",
-            "filter_parallelization",
-            b"filter_parallelization",
-            "inject_prefetch",
-            b"inject_prefetch",
-            "map_and_batch_fusion",
-            b"map_and_batch_fusion",
-            "map_and_filter_fusion",
-            b"map_and_filter_fusion",
-            "map_fusion",
-            b"map_fusion",
-            "map_parallelization",
-            b"map_parallelization",
-            "noop_elimination",
-            b"noop_elimination",
-            "optional_apply_default_optimizations",
-            b"optional_apply_default_optimizations",
-            "optional_filter_fusion",
-            b"optional_filter_fusion",
-            "optional_filter_parallelization",
-            b"optional_filter_parallelization",
-            "optional_inject_prefetch",
-            b"optional_inject_prefetch",
-            "optional_map_and_batch_fusion",
-            b"optional_map_and_batch_fusion",
-            "optional_map_and_filter_fusion",
-            b"optional_map_and_filter_fusion",
-            "optional_map_fusion",
-            b"optional_map_fusion",
-            "optional_map_parallelization",
-            b"optional_map_parallelization",
-            "optional_noop_elimination",
-            b"optional_noop_elimination",
-            "optional_parallel_batch",
-            b"optional_parallel_batch",
-            "optional_seq_interleave_prefetch",
-            b"optional_seq_interleave_prefetch",
-            "optional_shuffle_and_repeat_fusion",
-            b"optional_shuffle_and_repeat_fusion",
-            "parallel_batch",
-            b"parallel_batch",
-            "seq_interleave_prefetch",
-            b"seq_interleave_prefetch",
-            "shuffle_and_repeat_fusion",
-            b"shuffle_and_repeat_fusion",
-        ],
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "apply_default_optimizations",
-            b"apply_default_optimizations",
-            "filter_fusion",
-            b"filter_fusion",
-            "filter_parallelization",
-            b"filter_parallelization",
-            "inject_prefetch",
-            b"inject_prefetch",
-            "map_and_batch_fusion",
-            b"map_and_batch_fusion",
-            "map_and_filter_fusion",
-            b"map_and_filter_fusion",
-            "map_fusion",
-            b"map_fusion",
-            "map_parallelization",
-            b"map_parallelization",
-            "noop_elimination",
-            b"noop_elimination",
-            "optional_apply_default_optimizations",
-            b"optional_apply_default_optimizations",
-            "optional_filter_fusion",
-            b"optional_filter_fusion",
-            "optional_filter_parallelization",
-            b"optional_filter_parallelization",
-            "optional_inject_prefetch",
-            b"optional_inject_prefetch",
-            "optional_map_and_batch_fusion",
-            b"optional_map_and_batch_fusion",
-            "optional_map_and_filter_fusion",
-            b"optional_map_and_filter_fusion",
-            "optional_map_fusion",
-            b"optional_map_fusion",
-            "optional_map_parallelization",
-            b"optional_map_parallelization",
-            "optional_noop_elimination",
-            b"optional_noop_elimination",
-            "optional_parallel_batch",
-            b"optional_parallel_batch",
-            "optional_seq_interleave_prefetch",
-            b"optional_seq_interleave_prefetch",
-            "optional_shuffle_and_repeat_fusion",
-            b"optional_shuffle_and_repeat_fusion",
-            "parallel_batch",
-            b"parallel_batch",
-            "seq_interleave_prefetch",
-            b"seq_interleave_prefetch",
-            "shuffle_and_repeat_fusion",
-            b"shuffle_and_repeat_fusion",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal[
+        "apply_default_optimizations",
+        b"apply_default_optimizations",
+        "filter_fusion",
+        b"filter_fusion",
+        "filter_parallelization",
+        b"filter_parallelization",
+        "inject_prefetch",
+        b"inject_prefetch",
+        "map_and_batch_fusion",
+        b"map_and_batch_fusion",
+        "map_and_filter_fusion",
+        b"map_and_filter_fusion",
+        "map_fusion",
+        b"map_fusion",
+        "map_parallelization",
+        b"map_parallelization",
+        "noop_elimination",
+        b"noop_elimination",
+        "optional_apply_default_optimizations",
+        b"optional_apply_default_optimizations",
+        "optional_filter_fusion",
+        b"optional_filter_fusion",
+        "optional_filter_parallelization",
+        b"optional_filter_parallelization",
+        "optional_inject_prefetch",
+        b"optional_inject_prefetch",
+        "optional_map_and_batch_fusion",
+        b"optional_map_and_batch_fusion",
+        "optional_map_and_filter_fusion",
+        b"optional_map_and_filter_fusion",
+        "optional_map_fusion",
+        b"optional_map_fusion",
+        "optional_map_parallelization",
+        b"optional_map_parallelization",
+        "optional_noop_elimination",
+        b"optional_noop_elimination",
+        "optional_parallel_batch",
+        b"optional_parallel_batch",
+        "optional_seq_interleave_prefetch",
+        b"optional_seq_interleave_prefetch",
+        "optional_shuffle_and_repeat_fusion",
+        b"optional_shuffle_and_repeat_fusion",
+        "parallel_batch",
+        b"parallel_batch",
+        "seq_interleave_prefetch",
+        b"seq_interleave_prefetch",
+        "shuffle_and_repeat_fusion",
+        b"shuffle_and_repeat_fusion",
+    ]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "apply_default_optimizations",
+        b"apply_default_optimizations",
+        "filter_fusion",
+        b"filter_fusion",
+        "filter_parallelization",
+        b"filter_parallelization",
+        "inject_prefetch",
+        b"inject_prefetch",
+        "map_and_batch_fusion",
+        b"map_and_batch_fusion",
+        "map_and_filter_fusion",
+        b"map_and_filter_fusion",
+        "map_fusion",
+        b"map_fusion",
+        "map_parallelization",
+        b"map_parallelization",
+        "noop_elimination",
+        b"noop_elimination",
+        "optional_apply_default_optimizations",
+        b"optional_apply_default_optimizations",
+        "optional_filter_fusion",
+        b"optional_filter_fusion",
+        "optional_filter_parallelization",
+        b"optional_filter_parallelization",
+        "optional_inject_prefetch",
+        b"optional_inject_prefetch",
+        "optional_map_and_batch_fusion",
+        b"optional_map_and_batch_fusion",
+        "optional_map_and_filter_fusion",
+        b"optional_map_and_filter_fusion",
+        "optional_map_fusion",
+        b"optional_map_fusion",
+        "optional_map_parallelization",
+        b"optional_map_parallelization",
+        "optional_noop_elimination",
+        b"optional_noop_elimination",
+        "optional_parallel_batch",
+        b"optional_parallel_batch",
+        "optional_seq_interleave_prefetch",
+        b"optional_seq_interleave_prefetch",
+        "optional_shuffle_and_repeat_fusion",
+        b"optional_shuffle_and_repeat_fusion",
+        "parallel_batch",
+        b"parallel_batch",
+        "seq_interleave_prefetch",
+        b"seq_interleave_prefetch",
+        "shuffle_and_repeat_fusion",
+        b"shuffle_and_repeat_fusion",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType_optional_apply_default_optimizations: _TypeAlias = _typing.Literal[
+        "apply_default_optimizations"
+    ]  # noqa: Y015
+    _WhichOneofArgType_optional_apply_default_optimizations: _TypeAlias = _typing.Literal[
+        "optional_apply_default_optimizations", b"optional_apply_default_optimizations"
+    ]  # noqa: Y015
+    _WhichOneofReturnType_optional_filter_fusion: _TypeAlias = _typing.Literal["filter_fusion"]  # noqa: Y015
+    _WhichOneofArgType_optional_filter_fusion: _TypeAlias = _typing.Literal[
+        "optional_filter_fusion", b"optional_filter_fusion"
+    ]  # noqa: Y015
+    _WhichOneofReturnType_optional_filter_parallelization: _TypeAlias = _typing.Literal["filter_parallelization"]  # noqa: Y015
+    _WhichOneofArgType_optional_filter_parallelization: _TypeAlias = _typing.Literal[
+        "optional_filter_parallelization", b"optional_filter_parallelization"
+    ]  # noqa: Y015
+    _WhichOneofReturnType_optional_inject_prefetch: _TypeAlias = _typing.Literal["inject_prefetch"]  # noqa: Y015
+    _WhichOneofArgType_optional_inject_prefetch: _TypeAlias = _typing.Literal[
+        "optional_inject_prefetch", b"optional_inject_prefetch"
+    ]  # noqa: Y015
+    _WhichOneofReturnType_optional_map_and_batch_fusion: _TypeAlias = _typing.Literal["map_and_batch_fusion"]  # noqa: Y015
+    _WhichOneofArgType_optional_map_and_batch_fusion: _TypeAlias = _typing.Literal[
+        "optional_map_and_batch_fusion", b"optional_map_and_batch_fusion"
+    ]  # noqa: Y015
+    _WhichOneofReturnType_optional_map_and_filter_fusion: _TypeAlias = _typing.Literal["map_and_filter_fusion"]  # noqa: Y015
+    _WhichOneofArgType_optional_map_and_filter_fusion: _TypeAlias = _typing.Literal[
+        "optional_map_and_filter_fusion", b"optional_map_and_filter_fusion"
+    ]  # noqa: Y015
+    _WhichOneofReturnType_optional_map_fusion: _TypeAlias = _typing.Literal["map_fusion"]  # noqa: Y015
+    _WhichOneofArgType_optional_map_fusion: _TypeAlias = _typing.Literal[
+        "optional_map_fusion", b"optional_map_fusion"
+    ]  # noqa: Y015
+    _WhichOneofReturnType_optional_map_parallelization: _TypeAlias = _typing.Literal["map_parallelization"]  # noqa: Y015
+    _WhichOneofArgType_optional_map_parallelization: _TypeAlias = _typing.Literal[
+        "optional_map_parallelization", b"optional_map_parallelization"
+    ]  # noqa: Y015
+    _WhichOneofReturnType_optional_noop_elimination: _TypeAlias = _typing.Literal["noop_elimination"]  # noqa: Y015
+    _WhichOneofArgType_optional_noop_elimination: _TypeAlias = _typing.Literal[
+        "optional_noop_elimination", b"optional_noop_elimination"
+    ]  # noqa: Y015
+    _WhichOneofReturnType_optional_parallel_batch: _TypeAlias = _typing.Literal["parallel_batch"]  # noqa: Y015
+    _WhichOneofArgType_optional_parallel_batch: _TypeAlias = _typing.Literal[
+        "optional_parallel_batch", b"optional_parallel_batch"
+    ]  # noqa: Y015
+    _WhichOneofReturnType_optional_seq_interleave_prefetch: _TypeAlias = _typing.Literal["seq_interleave_prefetch"]  # noqa: Y015
+    _WhichOneofArgType_optional_seq_interleave_prefetch: _TypeAlias = _typing.Literal[
+        "optional_seq_interleave_prefetch", b"optional_seq_interleave_prefetch"
+    ]  # noqa: Y015
+    _WhichOneofReturnType_optional_shuffle_and_repeat_fusion: _TypeAlias = _typing.Literal[
+        "shuffle_and_repeat_fusion"
+    ]  # noqa: Y015
+    _WhichOneofArgType_optional_shuffle_and_repeat_fusion: _TypeAlias = _typing.Literal[
+        "optional_shuffle_and_repeat_fusion", b"optional_shuffle_and_repeat_fusion"
+    ]  # noqa: Y015
 
-    @typing.overload
+    @_typing.overload
     def WhichOneof(
-        self, oneof_group: typing.Literal["optional_apply_default_optimizations", b"optional_apply_default_optimizations"]
-    ) -> typing.Literal["apply_default_optimizations"] | None: ...
-    @typing.overload
+        self, oneof_group: _WhichOneofArgType_optional_apply_default_optimizations
+    ) -> _WhichOneofReturnType_optional_apply_default_optimizations | None: ...
+    @_typing.overload
     def WhichOneof(
-        self, oneof_group: typing.Literal["optional_filter_fusion", b"optional_filter_fusion"]
-    ) -> typing.Literal["filter_fusion"] | None: ...
-    @typing.overload
+        self, oneof_group: _WhichOneofArgType_optional_filter_fusion
+    ) -> _WhichOneofReturnType_optional_filter_fusion | None: ...
+    @_typing.overload
     def WhichOneof(
-        self, oneof_group: typing.Literal["optional_filter_parallelization", b"optional_filter_parallelization"]
-    ) -> typing.Literal["filter_parallelization"] | None: ...
-    @typing.overload
+        self, oneof_group: _WhichOneofArgType_optional_filter_parallelization
+    ) -> _WhichOneofReturnType_optional_filter_parallelization | None: ...
+    @_typing.overload
     def WhichOneof(
-        self, oneof_group: typing.Literal["optional_inject_prefetch", b"optional_inject_prefetch"]
-    ) -> typing.Literal["inject_prefetch"] | None: ...
-    @typing.overload
+        self, oneof_group: _WhichOneofArgType_optional_inject_prefetch
+    ) -> _WhichOneofReturnType_optional_inject_prefetch | None: ...
+    @_typing.overload
     def WhichOneof(
-        self, oneof_group: typing.Literal["optional_map_and_batch_fusion", b"optional_map_and_batch_fusion"]
-    ) -> typing.Literal["map_and_batch_fusion"] | None: ...
-    @typing.overload
+        self, oneof_group: _WhichOneofArgType_optional_map_and_batch_fusion
+    ) -> _WhichOneofReturnType_optional_map_and_batch_fusion | None: ...
+    @_typing.overload
     def WhichOneof(
-        self, oneof_group: typing.Literal["optional_map_and_filter_fusion", b"optional_map_and_filter_fusion"]
-    ) -> typing.Literal["map_and_filter_fusion"] | None: ...
-    @typing.overload
+        self, oneof_group: _WhichOneofArgType_optional_map_and_filter_fusion
+    ) -> _WhichOneofReturnType_optional_map_and_filter_fusion | None: ...
+    @_typing.overload
     def WhichOneof(
-        self, oneof_group: typing.Literal["optional_map_fusion", b"optional_map_fusion"]
-    ) -> typing.Literal["map_fusion"] | None: ...
-    @typing.overload
+        self, oneof_group: _WhichOneofArgType_optional_map_fusion
+    ) -> _WhichOneofReturnType_optional_map_fusion | None: ...
+    @_typing.overload
     def WhichOneof(
-        self, oneof_group: typing.Literal["optional_map_parallelization", b"optional_map_parallelization"]
-    ) -> typing.Literal["map_parallelization"] | None: ...
-    @typing.overload
+        self, oneof_group: _WhichOneofArgType_optional_map_parallelization
+    ) -> _WhichOneofReturnType_optional_map_parallelization | None: ...
+    @_typing.overload
     def WhichOneof(
-        self, oneof_group: typing.Literal["optional_noop_elimination", b"optional_noop_elimination"]
-    ) -> typing.Literal["noop_elimination"] | None: ...
-    @typing.overload
+        self, oneof_group: _WhichOneofArgType_optional_noop_elimination
+    ) -> _WhichOneofReturnType_optional_noop_elimination | None: ...
+    @_typing.overload
     def WhichOneof(
-        self, oneof_group: typing.Literal["optional_parallel_batch", b"optional_parallel_batch"]
-    ) -> typing.Literal["parallel_batch"] | None: ...
-    @typing.overload
+        self, oneof_group: _WhichOneofArgType_optional_parallel_batch
+    ) -> _WhichOneofReturnType_optional_parallel_batch | None: ...
+    @_typing.overload
     def WhichOneof(
-        self, oneof_group: typing.Literal["optional_seq_interleave_prefetch", b"optional_seq_interleave_prefetch"]
-    ) -> typing.Literal["seq_interleave_prefetch"] | None: ...
-    @typing.overload
+        self, oneof_group: _WhichOneofArgType_optional_seq_interleave_prefetch
+    ) -> _WhichOneofReturnType_optional_seq_interleave_prefetch | None: ...
+    @_typing.overload
     def WhichOneof(
-        self, oneof_group: typing.Literal["optional_shuffle_and_repeat_fusion", b"optional_shuffle_and_repeat_fusion"]
-    ) -> typing.Literal["shuffle_and_repeat_fusion"] | None: ...
+        self, oneof_group: _WhichOneofArgType_optional_shuffle_and_repeat_fusion
+    ) -> _WhichOneofReturnType_optional_shuffle_and_repeat_fusion | None: ...
 
-global___OptimizationOptions = OptimizationOptions
+Global___OptimizationOptions: _TypeAlias = OptimizationOptions  # noqa: Y015
 
-@typing.final
-class ServiceOptions(google.protobuf.message.Message):
+@_typing.final
+class ServiceOptions(_message.Message):
     """next: 2"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    PINNED_FIELD_NUMBER: builtins.int
-    pinned: builtins.bool
-    def __init__(self, *, pinned: builtins.bool | None = ...) -> None: ...
-    def HasField(
-        self, field_name: typing.Literal["optional_pinned", b"optional_pinned", "pinned", b"pinned"]
-    ) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["optional_pinned", b"optional_pinned", "pinned", b"pinned"]) -> None: ...
-    def WhichOneof(
-        self, oneof_group: typing.Literal["optional_pinned", b"optional_pinned"]
-    ) -> typing.Literal["pinned"] | None: ...
+    PINNED_FIELD_NUMBER: _builtins.int
+    pinned: _builtins.bool
+    def __init__(self, *, pinned: _builtins.bool | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["optional_pinned", b"optional_pinned", "pinned", b"pinned"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["optional_pinned", b"optional_pinned", "pinned", b"pinned"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType_optional_pinned: _TypeAlias = _typing.Literal["pinned"]  # noqa: Y015
+    _WhichOneofArgType_optional_pinned: _TypeAlias = _typing.Literal["optional_pinned", b"optional_pinned"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType_optional_pinned) -> _WhichOneofReturnType_optional_pinned | None: ...
 
-global___ServiceOptions = ServiceOptions
+Global___ServiceOptions: _TypeAlias = ServiceOptions  # noqa: Y015
 
-@typing.final
-class ThreadingOptions(google.protobuf.message.Message):
+@_typing.final
+class ThreadingOptions(_message.Message):
     """next: 3"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    MAX_INTRA_OP_PARALLELISM_FIELD_NUMBER: builtins.int
-    PRIVATE_THREADPOOL_SIZE_FIELD_NUMBER: builtins.int
-    max_intra_op_parallelism: builtins.int
-    private_threadpool_size: builtins.int
+    MAX_INTRA_OP_PARALLELISM_FIELD_NUMBER: _builtins.int
+    PRIVATE_THREADPOOL_SIZE_FIELD_NUMBER: _builtins.int
+    max_intra_op_parallelism: _builtins.int
+    private_threadpool_size: _builtins.int
     def __init__(
-        self, *, max_intra_op_parallelism: builtins.int | None = ..., private_threadpool_size: builtins.int | None = ...
+        self, *, max_intra_op_parallelism: _builtins.int | None = ..., private_threadpool_size: _builtins.int | None = ...
     ) -> None: ...
-    def HasField(
-        self,
-        field_name: typing.Literal[
-            "max_intra_op_parallelism",
-            b"max_intra_op_parallelism",
-            "optional_max_intra_op_parallelism",
-            b"optional_max_intra_op_parallelism",
-            "optional_private_threadpool_size",
-            b"optional_private_threadpool_size",
-            "private_threadpool_size",
-            b"private_threadpool_size",
-        ],
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "max_intra_op_parallelism",
-            b"max_intra_op_parallelism",
-            "optional_max_intra_op_parallelism",
-            b"optional_max_intra_op_parallelism",
-            "optional_private_threadpool_size",
-            b"optional_private_threadpool_size",
-            "private_threadpool_size",
-            b"private_threadpool_size",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal[
+        "max_intra_op_parallelism",
+        b"max_intra_op_parallelism",
+        "optional_max_intra_op_parallelism",
+        b"optional_max_intra_op_parallelism",
+        "optional_private_threadpool_size",
+        b"optional_private_threadpool_size",
+        "private_threadpool_size",
+        b"private_threadpool_size",
+    ]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "max_intra_op_parallelism",
+        b"max_intra_op_parallelism",
+        "optional_max_intra_op_parallelism",
+        b"optional_max_intra_op_parallelism",
+        "optional_private_threadpool_size",
+        b"optional_private_threadpool_size",
+        "private_threadpool_size",
+        b"private_threadpool_size",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType_optional_max_intra_op_parallelism: _TypeAlias = _typing.Literal[
+        "max_intra_op_parallelism"
+    ]  # noqa: Y015
+    _WhichOneofArgType_optional_max_intra_op_parallelism: _TypeAlias = _typing.Literal[
+        "optional_max_intra_op_parallelism", b"optional_max_intra_op_parallelism"
+    ]  # noqa: Y015
+    _WhichOneofReturnType_optional_private_threadpool_size: _TypeAlias = _typing.Literal["private_threadpool_size"]  # noqa: Y015
+    _WhichOneofArgType_optional_private_threadpool_size: _TypeAlias = _typing.Literal[
+        "optional_private_threadpool_size", b"optional_private_threadpool_size"
+    ]  # noqa: Y015
 
-    @typing.overload
+    @_typing.overload
     def WhichOneof(
-        self, oneof_group: typing.Literal["optional_max_intra_op_parallelism", b"optional_max_intra_op_parallelism"]
-    ) -> typing.Literal["max_intra_op_parallelism"] | None: ...
-    @typing.overload
+        self, oneof_group: _WhichOneofArgType_optional_max_intra_op_parallelism
+    ) -> _WhichOneofReturnType_optional_max_intra_op_parallelism | None: ...
+    @_typing.overload
     def WhichOneof(
-        self, oneof_group: typing.Literal["optional_private_threadpool_size", b"optional_private_threadpool_size"]
-    ) -> typing.Literal["private_threadpool_size"] | None: ...
+        self, oneof_group: _WhichOneofArgType_optional_private_threadpool_size
+    ) -> _WhichOneofReturnType_optional_private_threadpool_size | None: ...
 
-global___ThreadingOptions = ThreadingOptions
+Global___ThreadingOptions: _TypeAlias = ThreadingOptions  # noqa: Y015
 
-@typing.final
-class Options(google.protobuf.message.Message):
+@_typing.final
+class Options(_message.Message):
     """Message stored with Dataset objects to control how datasets are processed and
     optimized.
 
     next: 13
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    DATASET_NAME_FIELD_NUMBER: builtins.int
-    FRAMEWORK_TYPE_FIELD_NUMBER: builtins.int
-    DETERMINISTIC_FIELD_NUMBER: builtins.int
-    AUTOTUNE_OPTIONS_FIELD_NUMBER: builtins.int
-    DISTRIBUTE_OPTIONS_FIELD_NUMBER: builtins.int
-    OPTIMIZATION_OPTIONS_FIELD_NUMBER: builtins.int
-    SERVICE_OPTIONS_FIELD_NUMBER: builtins.int
-    SLACK_FIELD_NUMBER: builtins.int
-    THREADING_OPTIONS_FIELD_NUMBER: builtins.int
-    EXTERNAL_STATE_POLICY_FIELD_NUMBER: builtins.int
-    SYMBOLIC_CHECKPOINT_FIELD_NUMBER: builtins.int
-    WARM_START_FIELD_NUMBER: builtins.int
-    dataset_name: builtins.str
-    deterministic: builtins.bool
-    slack: builtins.bool
-    external_state_policy: global___ExternalStatePolicy.ValueType
-    symbolic_checkpoint: builtins.bool
-    warm_start: builtins.bool
-    @property
-    def framework_type(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    DATASET_NAME_FIELD_NUMBER: _builtins.int
+    FRAMEWORK_TYPE_FIELD_NUMBER: _builtins.int
+    DETERMINISTIC_FIELD_NUMBER: _builtins.int
+    AUTOTUNE_OPTIONS_FIELD_NUMBER: _builtins.int
+    DISTRIBUTE_OPTIONS_FIELD_NUMBER: _builtins.int
+    OPTIMIZATION_OPTIONS_FIELD_NUMBER: _builtins.int
+    SERVICE_OPTIONS_FIELD_NUMBER: _builtins.int
+    SLACK_FIELD_NUMBER: _builtins.int
+    THREADING_OPTIONS_FIELD_NUMBER: _builtins.int
+    EXTERNAL_STATE_POLICY_FIELD_NUMBER: _builtins.int
+    SYMBOLIC_CHECKPOINT_FIELD_NUMBER: _builtins.int
+    WARM_START_FIELD_NUMBER: _builtins.int
+    dataset_name: _builtins.str
+    deterministic: _builtins.bool
+    slack: _builtins.bool
+    external_state_policy: Global___ExternalStatePolicy.ValueType
+    symbolic_checkpoint: _builtins.bool
+    warm_start: _builtins.bool
+    @_builtins.property
+    def framework_type(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """List of frameworks used to generate this dataset."""
 
-    @property
-    def autotune_options(self) -> global___AutotuneOptions:
+    @_builtins.property
+    def autotune_options(self) -> Global___AutotuneOptions:
         """The autotune options associated with the dataset."""
 
-    @property
-    def distribute_options(self) -> global___DistributeOptions:
+    @_builtins.property
+    def distribute_options(self) -> Global___DistributeOptions:
         """The distribution strategy options associated with the dataset."""
 
-    @property
-    def optimization_options(self) -> global___OptimizationOptions:
+    @_builtins.property
+    def optimization_options(self) -> Global___OptimizationOptions:
         """The optimization options associated with the dataset."""
 
-    @property
-    def service_options(self) -> global___ServiceOptions:
+    @_builtins.property
+    def service_options(self) -> Global___ServiceOptions:
         """The tf.data service options associated with the dataset."""
 
-    @property
-    def threading_options(self) -> global___ThreadingOptions:
+    @_builtins.property
+    def threading_options(self) -> Global___ThreadingOptions:
         """The threading options associated with the dataset."""
 
     def __init__(
         self,
         *,
-        dataset_name: builtins.str | None = ...,
-        framework_type: collections.abc.Iterable[builtins.str] | None = ...,
-        deterministic: builtins.bool | None = ...,
-        autotune_options: global___AutotuneOptions | None = ...,
-        distribute_options: global___DistributeOptions | None = ...,
-        optimization_options: global___OptimizationOptions | None = ...,
-        service_options: global___ServiceOptions | None = ...,
-        slack: builtins.bool | None = ...,
-        threading_options: global___ThreadingOptions | None = ...,
-        external_state_policy: global___ExternalStatePolicy.ValueType | None = ...,
-        symbolic_checkpoint: builtins.bool | None = ...,
-        warm_start: builtins.bool | None = ...,
+        dataset_name: _builtins.str | None = ...,
+        framework_type: _abc.Iterable[_builtins.str] | None = ...,
+        deterministic: _builtins.bool | None = ...,
+        autotune_options: Global___AutotuneOptions | None = ...,
+        distribute_options: Global___DistributeOptions | None = ...,
+        optimization_options: Global___OptimizationOptions | None = ...,
+        service_options: Global___ServiceOptions | None = ...,
+        slack: _builtins.bool | None = ...,
+        threading_options: Global___ThreadingOptions | None = ...,
+        external_state_policy: Global___ExternalStatePolicy.ValueType | None = ...,
+        symbolic_checkpoint: _builtins.bool | None = ...,
+        warm_start: _builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(
-        self,
-        field_name: typing.Literal[
-            "autotune_options",
-            b"autotune_options",
-            "dataset_name",
-            b"dataset_name",
-            "deterministic",
-            b"deterministic",
-            "distribute_options",
-            b"distribute_options",
-            "external_state_policy",
-            b"external_state_policy",
-            "optimization_options",
-            b"optimization_options",
-            "optional_dataset_name",
-            b"optional_dataset_name",
-            "optional_deterministic",
-            b"optional_deterministic",
-            "optional_external_state_policy",
-            b"optional_external_state_policy",
-            "optional_slack",
-            b"optional_slack",
-            "optional_symbolic_checkpoint",
-            b"optional_symbolic_checkpoint",
-            "optional_warm_start",
-            b"optional_warm_start",
-            "service_options",
-            b"service_options",
-            "slack",
-            b"slack",
-            "symbolic_checkpoint",
-            b"symbolic_checkpoint",
-            "threading_options",
-            b"threading_options",
-            "warm_start",
-            b"warm_start",
-        ],
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "autotune_options",
-            b"autotune_options",
-            "dataset_name",
-            b"dataset_name",
-            "deterministic",
-            b"deterministic",
-            "distribute_options",
-            b"distribute_options",
-            "external_state_policy",
-            b"external_state_policy",
-            "framework_type",
-            b"framework_type",
-            "optimization_options",
-            b"optimization_options",
-            "optional_dataset_name",
-            b"optional_dataset_name",
-            "optional_deterministic",
-            b"optional_deterministic",
-            "optional_external_state_policy",
-            b"optional_external_state_policy",
-            "optional_slack",
-            b"optional_slack",
-            "optional_symbolic_checkpoint",
-            b"optional_symbolic_checkpoint",
-            "optional_warm_start",
-            b"optional_warm_start",
-            "service_options",
-            b"service_options",
-            "slack",
-            b"slack",
-            "symbolic_checkpoint",
-            b"symbolic_checkpoint",
-            "threading_options",
-            b"threading_options",
-            "warm_start",
-            b"warm_start",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal[
+        "autotune_options",
+        b"autotune_options",
+        "dataset_name",
+        b"dataset_name",
+        "deterministic",
+        b"deterministic",
+        "distribute_options",
+        b"distribute_options",
+        "external_state_policy",
+        b"external_state_policy",
+        "optimization_options",
+        b"optimization_options",
+        "optional_dataset_name",
+        b"optional_dataset_name",
+        "optional_deterministic",
+        b"optional_deterministic",
+        "optional_external_state_policy",
+        b"optional_external_state_policy",
+        "optional_slack",
+        b"optional_slack",
+        "optional_symbolic_checkpoint",
+        b"optional_symbolic_checkpoint",
+        "optional_warm_start",
+        b"optional_warm_start",
+        "service_options",
+        b"service_options",
+        "slack",
+        b"slack",
+        "symbolic_checkpoint",
+        b"symbolic_checkpoint",
+        "threading_options",
+        b"threading_options",
+        "warm_start",
+        b"warm_start",
+    ]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "autotune_options",
+        b"autotune_options",
+        "dataset_name",
+        b"dataset_name",
+        "deterministic",
+        b"deterministic",
+        "distribute_options",
+        b"distribute_options",
+        "external_state_policy",
+        b"external_state_policy",
+        "framework_type",
+        b"framework_type",
+        "optimization_options",
+        b"optimization_options",
+        "optional_dataset_name",
+        b"optional_dataset_name",
+        "optional_deterministic",
+        b"optional_deterministic",
+        "optional_external_state_policy",
+        b"optional_external_state_policy",
+        "optional_slack",
+        b"optional_slack",
+        "optional_symbolic_checkpoint",
+        b"optional_symbolic_checkpoint",
+        "optional_warm_start",
+        b"optional_warm_start",
+        "service_options",
+        b"service_options",
+        "slack",
+        b"slack",
+        "symbolic_checkpoint",
+        b"symbolic_checkpoint",
+        "threading_options",
+        b"threading_options",
+        "warm_start",
+        b"warm_start",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType_optional_dataset_name: _TypeAlias = _typing.Literal["dataset_name"]  # noqa: Y015
+    _WhichOneofArgType_optional_dataset_name: _TypeAlias = _typing.Literal[
+        "optional_dataset_name", b"optional_dataset_name"
+    ]  # noqa: Y015
+    _WhichOneofReturnType_optional_deterministic: _TypeAlias = _typing.Literal["deterministic"]  # noqa: Y015
+    _WhichOneofArgType_optional_deterministic: _TypeAlias = _typing.Literal[
+        "optional_deterministic", b"optional_deterministic"
+    ]  # noqa: Y015
+    _WhichOneofReturnType_optional_external_state_policy: _TypeAlias = _typing.Literal["external_state_policy"]  # noqa: Y015
+    _WhichOneofArgType_optional_external_state_policy: _TypeAlias = _typing.Literal[
+        "optional_external_state_policy", b"optional_external_state_policy"
+    ]  # noqa: Y015
+    _WhichOneofReturnType_optional_slack: _TypeAlias = _typing.Literal["slack"]  # noqa: Y015
+    _WhichOneofArgType_optional_slack: _TypeAlias = _typing.Literal["optional_slack", b"optional_slack"]  # noqa: Y015
+    _WhichOneofReturnType_optional_symbolic_checkpoint: _TypeAlias = _typing.Literal["symbolic_checkpoint"]  # noqa: Y015
+    _WhichOneofArgType_optional_symbolic_checkpoint: _TypeAlias = _typing.Literal[
+        "optional_symbolic_checkpoint", b"optional_symbolic_checkpoint"
+    ]  # noqa: Y015
+    _WhichOneofReturnType_optional_warm_start: _TypeAlias = _typing.Literal["warm_start"]  # noqa: Y015
+    _WhichOneofArgType_optional_warm_start: _TypeAlias = _typing.Literal[
+        "optional_warm_start", b"optional_warm_start"
+    ]  # noqa: Y015
 
-    @typing.overload
+    @_typing.overload
     def WhichOneof(
-        self, oneof_group: typing.Literal["optional_dataset_name", b"optional_dataset_name"]
-    ) -> typing.Literal["dataset_name"] | None: ...
-    @typing.overload
+        self, oneof_group: _WhichOneofArgType_optional_dataset_name
+    ) -> _WhichOneofReturnType_optional_dataset_name | None: ...
+    @_typing.overload
     def WhichOneof(
-        self, oneof_group: typing.Literal["optional_deterministic", b"optional_deterministic"]
-    ) -> typing.Literal["deterministic"] | None: ...
-    @typing.overload
+        self, oneof_group: _WhichOneofArgType_optional_deterministic
+    ) -> _WhichOneofReturnType_optional_deterministic | None: ...
+    @_typing.overload
     def WhichOneof(
-        self, oneof_group: typing.Literal["optional_external_state_policy", b"optional_external_state_policy"]
-    ) -> typing.Literal["external_state_policy"] | None: ...
-    @typing.overload
-    def WhichOneof(self, oneof_group: typing.Literal["optional_slack", b"optional_slack"]) -> typing.Literal["slack"] | None: ...
-    @typing.overload
+        self, oneof_group: _WhichOneofArgType_optional_external_state_policy
+    ) -> _WhichOneofReturnType_optional_external_state_policy | None: ...
+    @_typing.overload
+    def WhichOneof(self, oneof_group: _WhichOneofArgType_optional_slack) -> _WhichOneofReturnType_optional_slack | None: ...
+    @_typing.overload
     def WhichOneof(
-        self, oneof_group: typing.Literal["optional_symbolic_checkpoint", b"optional_symbolic_checkpoint"]
-    ) -> typing.Literal["symbolic_checkpoint"] | None: ...
-    @typing.overload
+        self, oneof_group: _WhichOneofArgType_optional_symbolic_checkpoint
+    ) -> _WhichOneofReturnType_optional_symbolic_checkpoint | None: ...
+    @_typing.overload
     def WhichOneof(
-        self, oneof_group: typing.Literal["optional_warm_start", b"optional_warm_start"]
-    ) -> typing.Literal["warm_start"] | None: ...
+        self, oneof_group: _WhichOneofArgType_optional_warm_start
+    ) -> _WhichOneofReturnType_optional_warm_start | None: ...
 
-global___Options = Options
+Global___Options: _TypeAlias = Options  # noqa: Y015

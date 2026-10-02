@@ -3,29 +3,28 @@
 isort:skip_file
 """
 
-import builtins
-import collections.abc
+import builtins as _builtins
 import sys
-import typing
+import typing as _typing
+from collections import abc as _abc
 
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.internal.enum_type_wrapper
-import google.protobuf.message
+from google.protobuf import descriptor as _descriptor, message as _message
+from google.protobuf.internal import containers as _containers, enum_type_wrapper as _enum_type_wrapper
 
-if sys.version_info >= (3, 10):
-    import typing as typing_extensions
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
 else:
-    import typing_extensions
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+DESCRIPTOR: _descriptor.FileDescriptor
 
 class _NodeClass:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _NodeClassEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_NodeClass.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _NodeClassEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_NodeClass.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     UNKNOWN: _NodeClass.ValueType  # 0
     INTERLEAVE_MANY: _NodeClass.ValueType  # 1
     ASYNC_INTERLEAVE_MANY: _NodeClass.ValueType  # 2
@@ -44,16 +43,14 @@ KNOWN_RATIO: NodeClass.ValueType  # 3
 ASYNC_KNOWN_RATIO: NodeClass.ValueType  # 4
 UNKNOWN_RATIO: NodeClass.ValueType  # 5
 ASYNC_UNKNOWN_RATIO: NodeClass.ValueType  # 6
-global___NodeClass = NodeClass
+Global___NodeClass: _TypeAlias = NodeClass  # noqa: Y015
 
 class _AutotuneAlgorithm:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _AutotuneAlgorithmEnumTypeWrapper(
-    google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_AutotuneAlgorithm.ValueType], builtins.type
-):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _AutotuneAlgorithmEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_AutotuneAlgorithm.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     DEFAULT: _AutotuneAlgorithm.ValueType  # 0
     HILL_CLIMB: _AutotuneAlgorithm.ValueType  # 1
     GRADIENT_DESCENT: _AutotuneAlgorithm.ValueType  # 2
@@ -68,301 +65,305 @@ HILL_CLIMB: AutotuneAlgorithm.ValueType  # 1
 GRADIENT_DESCENT: AutotuneAlgorithm.ValueType  # 2
 MAX_PARALLELISM: AutotuneAlgorithm.ValueType  # 3
 STAGE_BASED: AutotuneAlgorithm.ValueType  # 4
-global___AutotuneAlgorithm = AutotuneAlgorithm
+Global___AutotuneAlgorithm: _TypeAlias = AutotuneAlgorithm  # noqa: Y015
 
-@typing.final
-class ModelProto(google.protobuf.message.Message):
+@_typing.final
+class ModelProto(_message.Message):
     """Protocol buffer representing the data used by the autotuning modeling
     framework.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class Node(google.protobuf.message.Message):
+    @_typing.final
+    class Node(_message.Message):
         """General representation of a node in the model."""
 
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+        DESCRIPTOR: _descriptor.Descriptor
 
-        @typing.final
-        class Parameter(google.protobuf.message.Message):
+        @_typing.final
+        class Parameter(_message.Message):
             """Represents a node parameter."""
 
-            DESCRIPTOR: google.protobuf.descriptor.Descriptor
+            DESCRIPTOR: _descriptor.Descriptor
 
-            NAME_FIELD_NUMBER: builtins.int
-            VALUE_FIELD_NUMBER: builtins.int
-            STATE_VALUE_FIELD_NUMBER: builtins.int
-            MIN_FIELD_NUMBER: builtins.int
-            MAX_FIELD_NUMBER: builtins.int
-            TUNABLE_FIELD_NUMBER: builtins.int
-            name: builtins.str
+            NAME_FIELD_NUMBER: _builtins.int
+            VALUE_FIELD_NUMBER: _builtins.int
+            STATE_VALUE_FIELD_NUMBER: _builtins.int
+            MIN_FIELD_NUMBER: _builtins.int
+            MAX_FIELD_NUMBER: _builtins.int
+            TUNABLE_FIELD_NUMBER: _builtins.int
+            name: _builtins.str
             """Human-readable name of the parameter."""
-            value: builtins.float
+            value: _builtins.float
             """Identifies the model value of the parameter. This can be different from
             the actual value (e.g. during optimization search).
             """
-            state_value: builtins.float
+            state_value: _builtins.float
             """The actual value of the parameter."""
-            min: builtins.float
+            min: _builtins.float
             """Minimum value of the parameter."""
-            max: builtins.float
+            max: _builtins.float
             """Maximum value of the parameter."""
-            tunable: builtins.bool
+            tunable: _builtins.bool
             """Identifies whether the parameter should participate in autotuning."""
             def __init__(
                 self,
                 *,
-                name: builtins.str | None = ...,
-                value: builtins.float | None = ...,
-                state_value: builtins.float | None = ...,
-                min: builtins.float | None = ...,
-                max: builtins.float | None = ...,
-                tunable: builtins.bool | None = ...,
+                name: _builtins.str | None = ...,
+                value: _builtins.float | None = ...,
+                state_value: _builtins.float | None = ...,
+                min: _builtins.float | None = ...,
+                max: _builtins.float | None = ...,
+                tunable: _builtins.bool | None = ...,
             ) -> None: ...
-            def ClearField(
-                self,
-                field_name: typing.Literal[
-                    "max",
-                    b"max",
-                    "min",
-                    b"min",
-                    "name",
-                    b"name",
-                    "state_value",
-                    b"state_value",
-                    "tunable",
-                    b"tunable",
-                    "value",
-                    b"value",
-                ],
-            ) -> None: ...
+            _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+            def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+            _ClearFieldArgType: _TypeAlias = _typing.Literal[
+                "max",
+                b"max",
+                "min",
+                b"min",
+                "name",
+                b"name",
+                "state_value",
+                b"state_value",
+                "tunable",
+                b"tunable",
+                "value",
+                b"value",
+            ]  # noqa: Y015
+            def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+            def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-        ID_FIELD_NUMBER: builtins.int
-        NAME_FIELD_NUMBER: builtins.int
-        AUTOTUNE_FIELD_NUMBER: builtins.int
-        BUFFERED_BYTES_FIELD_NUMBER: builtins.int
-        BUFFERED_ELEMENTS_FIELD_NUMBER: builtins.int
-        BYTES_CONSUMED_FIELD_NUMBER: builtins.int
-        BYTES_PRODUCED_FIELD_NUMBER: builtins.int
-        NUM_ELEMENTS_FIELD_NUMBER: builtins.int
-        PROCESSING_TIME_FIELD_NUMBER: builtins.int
-        RECORD_METRICS_FIELD_NUMBER: builtins.int
-        PARAMETERS_FIELD_NUMBER: builtins.int
-        INPUT_PROCESSING_TIME_SUM_FIELD_NUMBER: builtins.int
-        INPUT_PROCESSING_TIME_COUNT_FIELD_NUMBER: builtins.int
-        INPUTS_FIELD_NUMBER: builtins.int
-        NODE_CLASS_FIELD_NUMBER: builtins.int
-        RATIO_FIELD_NUMBER: builtins.int
-        MEMORY_RATIO_FIELD_NUMBER: builtins.int
-        id: builtins.int
+        ID_FIELD_NUMBER: _builtins.int
+        NAME_FIELD_NUMBER: _builtins.int
+        AUTOTUNE_FIELD_NUMBER: _builtins.int
+        BUFFERED_BYTES_FIELD_NUMBER: _builtins.int
+        BUFFERED_ELEMENTS_FIELD_NUMBER: _builtins.int
+        BYTES_CONSUMED_FIELD_NUMBER: _builtins.int
+        BYTES_PRODUCED_FIELD_NUMBER: _builtins.int
+        NUM_ELEMENTS_FIELD_NUMBER: _builtins.int
+        PROCESSING_TIME_FIELD_NUMBER: _builtins.int
+        RECORD_METRICS_FIELD_NUMBER: _builtins.int
+        PARAMETERS_FIELD_NUMBER: _builtins.int
+        INPUT_PROCESSING_TIME_SUM_FIELD_NUMBER: _builtins.int
+        INPUT_PROCESSING_TIME_COUNT_FIELD_NUMBER: _builtins.int
+        INPUTS_FIELD_NUMBER: _builtins.int
+        NODE_CLASS_FIELD_NUMBER: _builtins.int
+        RATIO_FIELD_NUMBER: _builtins.int
+        MEMORY_RATIO_FIELD_NUMBER: _builtins.int
+        id: _builtins.int
         """Unique node ID."""
-        name: builtins.str
+        name: _builtins.str
         """Human-readable name of the node."""
-        autotune: builtins.bool
+        autotune: _builtins.bool
         """An indication whether autotuning is enabled for this node."""
-        buffered_bytes: builtins.int
+        buffered_bytes: _builtins.int
         """The number of bytes stored in this node's buffer."""
-        buffered_elements: builtins.int
+        buffered_elements: _builtins.int
         """The number of elements stored in this node's buffer."""
-        bytes_consumed: builtins.int
+        bytes_consumed: _builtins.int
         """The number of bytes consumed by the node."""
-        bytes_produced: builtins.int
+        bytes_produced: _builtins.int
         """The number of bytes produced by the node."""
-        num_elements: builtins.int
+        num_elements: _builtins.int
         """The number of elements produced by the node."""
-        processing_time: builtins.int
+        processing_time: _builtins.int
         """The aggregate processing time spent in this node in nanoseconds."""
-        record_metrics: builtins.bool
+        record_metrics: _builtins.bool
         """An indication whether this node records metrics about produced and
         consumed elements.
         """
-        input_processing_time_sum: builtins.float
+        input_processing_time_sum: _builtins.float
         """Statistic of inputs processing time history."""
-        input_processing_time_count: builtins.int
-        node_class: global___NodeClass.ValueType
+        input_processing_time_count: _builtins.int
+        node_class: Global___NodeClass.ValueType
         """Class of this node."""
-        ratio: builtins.float
+        ratio: _builtins.float
         """Ratio of input to output elements. This is only used by KNOWN_RATIO and
         ASYNC_KNOWN_RATIO nodes.
         """
-        memory_ratio: builtins.float
+        memory_ratio: _builtins.float
         """Ratio identifies how many parallelism calls are introduced by one
         buffered element. This is only used by ASYNC_KNOWN_RATIO nodes.
         """
-        @property
-        def parameters(
-            self,
-        ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ModelProto.Node.Parameter]:
+        @_builtins.property
+        def parameters(self) -> _containers.RepeatedCompositeFieldContainer[Global___ModelProto.Node.Parameter]:
             """Parameters of this node."""
 
-        @property
-        def inputs(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+        @_builtins.property
+        def inputs(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]:
             """IDs of inputs of this node."""
 
         def __init__(
             self,
             *,
-            id: builtins.int | None = ...,
-            name: builtins.str | None = ...,
-            autotune: builtins.bool | None = ...,
-            buffered_bytes: builtins.int | None = ...,
-            buffered_elements: builtins.int | None = ...,
-            bytes_consumed: builtins.int | None = ...,
-            bytes_produced: builtins.int | None = ...,
-            num_elements: builtins.int | None = ...,
-            processing_time: builtins.int | None = ...,
-            record_metrics: builtins.bool | None = ...,
-            parameters: collections.abc.Iterable[global___ModelProto.Node.Parameter] | None = ...,
-            input_processing_time_sum: builtins.float | None = ...,
-            input_processing_time_count: builtins.int | None = ...,
-            inputs: collections.abc.Iterable[builtins.int] | None = ...,
-            node_class: global___NodeClass.ValueType | None = ...,
-            ratio: builtins.float | None = ...,
-            memory_ratio: builtins.float | None = ...,
+            id: _builtins.int | None = ...,
+            name: _builtins.str | None = ...,
+            autotune: _builtins.bool | None = ...,
+            buffered_bytes: _builtins.int | None = ...,
+            buffered_elements: _builtins.int | None = ...,
+            bytes_consumed: _builtins.int | None = ...,
+            bytes_produced: _builtins.int | None = ...,
+            num_elements: _builtins.int | None = ...,
+            processing_time: _builtins.int | None = ...,
+            record_metrics: _builtins.bool | None = ...,
+            parameters: _abc.Iterable[Global___ModelProto.Node.Parameter] | None = ...,
+            input_processing_time_sum: _builtins.float | None = ...,
+            input_processing_time_count: _builtins.int | None = ...,
+            inputs: _abc.Iterable[_builtins.int] | None = ...,
+            node_class: Global___NodeClass.ValueType | None = ...,
+            ratio: _builtins.float | None = ...,
+            memory_ratio: _builtins.float | None = ...,
         ) -> None: ...
-        def ClearField(
-            self,
-            field_name: typing.Literal[
-                "autotune",
-                b"autotune",
-                "buffered_bytes",
-                b"buffered_bytes",
-                "buffered_elements",
-                b"buffered_elements",
-                "bytes_consumed",
-                b"bytes_consumed",
-                "bytes_produced",
-                b"bytes_produced",
-                "id",
-                b"id",
-                "input_processing_time_count",
-                b"input_processing_time_count",
-                "input_processing_time_sum",
-                b"input_processing_time_sum",
-                "inputs",
-                b"inputs",
-                "memory_ratio",
-                b"memory_ratio",
-                "name",
-                b"name",
-                "node_class",
-                b"node_class",
-                "num_elements",
-                b"num_elements",
-                "parameters",
-                b"parameters",
-                "processing_time",
-                b"processing_time",
-                "ratio",
-                b"ratio",
-                "record_metrics",
-                b"record_metrics",
-            ],
-        ) -> None: ...
+        _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal[
+            "autotune",
+            b"autotune",
+            "buffered_bytes",
+            b"buffered_bytes",
+            "buffered_elements",
+            b"buffered_elements",
+            "bytes_consumed",
+            b"bytes_consumed",
+            "bytes_produced",
+            b"bytes_produced",
+            "id",
+            b"id",
+            "input_processing_time_count",
+            b"input_processing_time_count",
+            "input_processing_time_sum",
+            b"input_processing_time_sum",
+            "inputs",
+            b"inputs",
+            "memory_ratio",
+            b"memory_ratio",
+            "name",
+            b"name",
+            "node_class",
+            b"node_class",
+            "num_elements",
+            b"num_elements",
+            "parameters",
+            b"parameters",
+            "processing_time",
+            b"processing_time",
+            "ratio",
+            b"ratio",
+            "record_metrics",
+            b"record_metrics",
+        ]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    @typing.final
-    class NodesEntry(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class NodesEntry(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        KEY_FIELD_NUMBER: builtins.int
-        VALUE_FIELD_NUMBER: builtins.int
-        key: builtins.int
-        @property
-        def value(self) -> global___ModelProto.Node: ...
-        def __init__(self, *, key: builtins.int | None = ..., value: global___ModelProto.Node | None = ...) -> None: ...
-        def HasField(self, field_name: typing.Literal["value", b"value"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
+        KEY_FIELD_NUMBER: _builtins.int
+        VALUE_FIELD_NUMBER: _builtins.int
+        key: _builtins.int
+        @_builtins.property
+        def value(self) -> Global___ModelProto.Node: ...
+        def __init__(self, *, key: _builtins.int | None = ..., value: Global___ModelProto.Node | None = ...) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["value", b"value"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["key", b"key", "value", b"value"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    @typing.final
-    class OptimizationParams(google.protobuf.message.Message):
+    @_typing.final
+    class OptimizationParams(_message.Message):
         """Contains parameters of the model autotuning optimization."""
 
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+        DESCRIPTOR: _descriptor.Descriptor
 
-        ALGORITHM_FIELD_NUMBER: builtins.int
-        CPU_BUDGET_FIELD_NUMBER: builtins.int
-        RAM_BUDGET_FIELD_NUMBER: builtins.int
-        MODEL_INPUT_TIME_FIELD_NUMBER: builtins.int
-        algorithm: global___AutotuneAlgorithm.ValueType
+        ALGORITHM_FIELD_NUMBER: _builtins.int
+        CPU_BUDGET_FIELD_NUMBER: _builtins.int
+        RAM_BUDGET_FIELD_NUMBER: _builtins.int
+        MODEL_INPUT_TIME_FIELD_NUMBER: _builtins.int
+        algorithm: Global___AutotuneAlgorithm.ValueType
         """Algorithm used for autotuning optimization."""
-        cpu_budget: builtins.int
+        cpu_budget: _builtins.int
         """Number of available logical threads."""
-        ram_budget: builtins.int
+        ram_budget: _builtins.int
         """Amount of available memory in bytes."""
-        model_input_time: builtins.float
+        model_input_time: _builtins.float
         """Time between two consecutive `GetNext` calls to the iterator represented
         by the output node.
         """
         def __init__(
             self,
             *,
-            algorithm: global___AutotuneAlgorithm.ValueType | None = ...,
-            cpu_budget: builtins.int | None = ...,
-            ram_budget: builtins.int | None = ...,
-            model_input_time: builtins.float | None = ...,
+            algorithm: Global___AutotuneAlgorithm.ValueType | None = ...,
+            cpu_budget: _builtins.int | None = ...,
+            ram_budget: _builtins.int | None = ...,
+            model_input_time: _builtins.float | None = ...,
         ) -> None: ...
-        def ClearField(
-            self,
-            field_name: typing.Literal[
-                "algorithm",
-                b"algorithm",
-                "cpu_budget",
-                b"cpu_budget",
-                "model_input_time",
-                b"model_input_time",
-                "ram_budget",
-                b"ram_budget",
-            ],
-        ) -> None: ...
+        _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal[
+            "algorithm",
+            b"algorithm",
+            "cpu_budget",
+            b"cpu_budget",
+            "model_input_time",
+            b"model_input_time",
+            "ram_budget",
+            b"ram_budget",
+        ]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    DATASET_NAME_FIELD_NUMBER: builtins.int
-    NODES_FIELD_NUMBER: builtins.int
-    OUTPUT_FIELD_NUMBER: builtins.int
-    ID_COUNTER_FIELD_NUMBER: builtins.int
-    OPTIMIZATION_PARAMS_FIELD_NUMBER: builtins.int
-    GAP_TIMES_FIELD_NUMBER: builtins.int
-    dataset_name: builtins.str
+    DATASET_NAME_FIELD_NUMBER: _builtins.int
+    NODES_FIELD_NUMBER: _builtins.int
+    OUTPUT_FIELD_NUMBER: _builtins.int
+    ID_COUNTER_FIELD_NUMBER: _builtins.int
+    OPTIMIZATION_PARAMS_FIELD_NUMBER: _builtins.int
+    GAP_TIMES_FIELD_NUMBER: _builtins.int
+    dataset_name: _builtins.str
     """User-defined name for the dataset. Empty if no name was set."""
-    output: builtins.int
+    output: _builtins.int
     """ID of the output node of this model."""
-    id_counter: builtins.int
+    id_counter: _builtins.int
     """Counter for node IDs of this model."""
-    @property
-    def nodes(self) -> google.protobuf.internal.containers.MessageMap[builtins.int, global___ModelProto.Node]:
+    @_builtins.property
+    def nodes(self) -> _containers.MessageMap[_builtins.int, Global___ModelProto.Node]:
         """Map of node IDs to nodes of this model."""
 
-    @property
-    def optimization_params(self) -> global___ModelProto.OptimizationParams: ...
-    @property
-    def gap_times(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
+    @_builtins.property
+    def optimization_params(self) -> Global___ModelProto.OptimizationParams: ...
+    @_builtins.property
+    def gap_times(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]: ...
     def __init__(
         self,
         *,
-        dataset_name: builtins.str | None = ...,
-        nodes: collections.abc.Mapping[builtins.int, global___ModelProto.Node] | None = ...,
-        output: builtins.int | None = ...,
-        id_counter: builtins.int | None = ...,
-        optimization_params: global___ModelProto.OptimizationParams | None = ...,
-        gap_times: collections.abc.Iterable[builtins.int] | None = ...,
+        dataset_name: _builtins.str | None = ...,
+        nodes: _abc.Mapping[_builtins.int, Global___ModelProto.Node] | None = ...,
+        output: _builtins.int | None = ...,
+        id_counter: _builtins.int | None = ...,
+        optimization_params: Global___ModelProto.OptimizationParams | None = ...,
+        gap_times: _abc.Iterable[_builtins.int] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["optimization_params", b"optimization_params"]) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "dataset_name",
-            b"dataset_name",
-            "gap_times",
-            b"gap_times",
-            "id_counter",
-            b"id_counter",
-            "nodes",
-            b"nodes",
-            "optimization_params",
-            b"optimization_params",
-            "output",
-            b"output",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["optimization_params", b"optimization_params"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "dataset_name",
+        b"dataset_name",
+        "gap_times",
+        b"gap_times",
+        "id_counter",
+        b"id_counter",
+        "nodes",
+        b"nodes",
+        "optimization_params",
+        b"optimization_params",
+        "output",
+        b"output",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___ModelProto = ModelProto
+Global___ModelProto: _TypeAlias = ModelProto  # noqa: Y015

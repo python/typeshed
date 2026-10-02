@@ -5,26 +5,25 @@ Defines the text format for including per-op API definition and
 overrides for client language op code generators.
 """
 
-import builtins
-import collections.abc
+import builtins as _builtins
 import sys
-import typing
+import typing as _typing
+from collections import abc as _abc
 
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.internal.enum_type_wrapper
-import google.protobuf.message
-import tensorflow.core.framework.attr_value_pb2
+from google.protobuf import descriptor as _descriptor, message as _message
+from google.protobuf.internal import containers as _containers, enum_type_wrapper as _enum_type_wrapper
+from tensorflow.core.framework import attr_value_pb2 as _attr_value_pb2
 
-if sys.version_info >= (3, 10):
-    import typing as typing_extensions
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
 else:
-    import typing_extensions
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+DESCRIPTOR: _descriptor.FileDescriptor
 
-@typing.final
-class ApiDef(google.protobuf.message.Message):
+@_typing.final
+class ApiDef(_message.Message):
     """Used to specify and override the default API & behavior in the
     generated code for client languages, from what you would get from
     the OpDef alone. There will be a set of ApiDefs that are common
@@ -43,16 +42,14 @@ class ApiDef(google.protobuf.message.Message):
     our compatibility promises.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _Visibility:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _VisibilityEnumTypeWrapper(
-        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ApiDef._Visibility.ValueType], builtins.type
-    ):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _VisibilityEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[ApiDef._Visibility.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         DEFAULT_VISIBILITY: ApiDef._Visibility.ValueType  # 0
         """Normally this is "VISIBLE" unless you are inheriting a
         different value from another ApiDef.
@@ -84,30 +81,30 @@ class ApiDef(google.protobuf.message.Message):
     is appropriate in the target language).
     """
 
-    @typing.final
-    class Endpoint(google.protobuf.message.Message):
+    @_typing.final
+    class Endpoint(_message.Message):
         """If you specify any endpoint, this will replace all of the
         inherited endpoints.  The first endpoint should be the
         "canonical" endpoint, and should not be deprecated (unless all
         endpoints are deprecated).
         """
 
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+        DESCRIPTOR: _descriptor.Descriptor
 
-        NAME_FIELD_NUMBER: builtins.int
-        DEPRECATED_FIELD_NUMBER: builtins.int
-        DEPRECATION_VERSION_FIELD_NUMBER: builtins.int
-        name: builtins.str
+        NAME_FIELD_NUMBER: _builtins.int
+        DEPRECATED_FIELD_NUMBER: _builtins.int
+        DEPRECATION_VERSION_FIELD_NUMBER: _builtins.int
+        name: _builtins.str
         """Name should be either like "CamelCaseName" or
         "Package.CamelCaseName". Client-language-specific ApiDefs may
         use a snake_case convention instead of CamelCase.
         """
-        deprecated: builtins.bool
+        deprecated: _builtins.bool
         """Set if this endpoint is deprecated. If set to true, a message suggesting
         to use a non-deprecated endpoint instead will be printed. If all
         endpoints are deprecated, set deprecation_message in ApiDef instead.
         """
-        deprecation_version: builtins.int
+        deprecation_version: _builtins.int
         """Major version when an endpoint will be deleted. For e.g. set this
         value to 2 if endpoint should be removed in TensorFlow 2.0 and
         deprecated in versions before that.
@@ -115,67 +112,76 @@ class ApiDef(google.protobuf.message.Message):
         def __init__(
             self,
             *,
-            name: builtins.str | None = ...,
-            deprecated: builtins.bool | None = ...,
-            deprecation_version: builtins.int | None = ...,
+            name: _builtins.str | None = ...,
+            deprecated: _builtins.bool | None = ...,
+            deprecation_version: _builtins.int | None = ...,
         ) -> None: ...
-        def ClearField(
-            self,
-            field_name: typing.Literal[
-                "deprecated", b"deprecated", "deprecation_version", b"deprecation_version", "name", b"name"
-            ],
-        ) -> None: ...
+        _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal[
+            "deprecated", b"deprecated", "deprecation_version", b"deprecation_version", "name", b"name"
+        ]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    @typing.final
-    class Arg(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class Arg(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        NAME_FIELD_NUMBER: builtins.int
-        RENAME_TO_FIELD_NUMBER: builtins.int
-        DESCRIPTION_FIELD_NUMBER: builtins.int
-        name: builtins.str
-        rename_to: builtins.str
+        NAME_FIELD_NUMBER: _builtins.int
+        RENAME_TO_FIELD_NUMBER: _builtins.int
+        DESCRIPTION_FIELD_NUMBER: _builtins.int
+        name: _builtins.str
+        rename_to: _builtins.str
         """Change the name used to access this arg in the API from what
         is used in the GraphDef.  Note that these names in `backticks`
         will also be replaced in the summary & description fields.
         """
-        description: builtins.str
+        description: _builtins.str
         """Note: this will replace any inherited arg doc. There is no
         current way of modifying arg descriptions (other than replacing
         them entirely) as can be done with op descriptions.
         """
         def __init__(
-            self, *, name: builtins.str | None = ..., rename_to: builtins.str | None = ..., description: builtins.str | None = ...
+            self,
+            *,
+            name: _builtins.str | None = ...,
+            rename_to: _builtins.str | None = ...,
+            description: _builtins.str | None = ...,
         ) -> None: ...
-        def ClearField(
-            self, field_name: typing.Literal["description", b"description", "name", b"name", "rename_to", b"rename_to"]
-        ) -> None: ...
+        _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal[
+            "description", b"description", "name", b"name", "rename_to", b"rename_to"
+        ]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    @typing.final
-    class Attr(google.protobuf.message.Message):
+    @_typing.final
+    class Attr(_message.Message):
         """Description of the graph-construction-time configuration of this
         Op.  That is to say, this describes the attr fields that will
         be specified in the NodeDef.
         """
 
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+        DESCRIPTOR: _descriptor.Descriptor
 
-        NAME_FIELD_NUMBER: builtins.int
-        RENAME_TO_FIELD_NUMBER: builtins.int
-        DEFAULT_VALUE_FIELD_NUMBER: builtins.int
-        DESCRIPTION_FIELD_NUMBER: builtins.int
-        name: builtins.str
-        rename_to: builtins.str
+        NAME_FIELD_NUMBER: _builtins.int
+        RENAME_TO_FIELD_NUMBER: _builtins.int
+        DEFAULT_VALUE_FIELD_NUMBER: _builtins.int
+        DESCRIPTION_FIELD_NUMBER: _builtins.int
+        name: _builtins.str
+        rename_to: _builtins.str
         """Change the name used to access this attr in the API from what
         is used in the GraphDef.  Note that these names in `backticks`
         will also be replaced in the summary & description fields.
         """
-        description: builtins.str
+        description: _builtins.str
         """Note: this will replace any inherited attr doc, there is no current
         way of modifying attr descriptions as can be done with op descriptions.
         """
-        @property
-        def default_value(self) -> tensorflow.core.framework.attr_value_pb2.AttrValue:
+        @_builtins.property
+        def default_value(self) -> _attr_value_pb2.AttrValue:
             """Specify a new default value to use for this attr.  This default
             will be used when creating new graphs, as opposed to the
             default in the OpDef, which will be used when interpreting old
@@ -185,128 +191,133 @@ class ApiDef(google.protobuf.message.Message):
         def __init__(
             self,
             *,
-            name: builtins.str | None = ...,
-            rename_to: builtins.str | None = ...,
-            default_value: tensorflow.core.framework.attr_value_pb2.AttrValue | None = ...,
-            description: builtins.str | None = ...,
+            name: _builtins.str | None = ...,
+            rename_to: _builtins.str | None = ...,
+            default_value: _attr_value_pb2.AttrValue | None = ...,
+            description: _builtins.str | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["default_value", b"default_value"]) -> builtins.bool: ...
-        def ClearField(
-            self,
-            field_name: typing.Literal[
-                "default_value", b"default_value", "description", b"description", "name", b"name", "rename_to", b"rename_to"
-            ],
-        ) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["default_value", b"default_value"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal[
+            "default_value", b"default_value", "description", b"description", "name", b"name", "rename_to", b"rename_to"
+        ]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    GRAPH_OP_NAME_FIELD_NUMBER: builtins.int
-    DEPRECATION_MESSAGE_FIELD_NUMBER: builtins.int
-    DEPRECATION_VERSION_FIELD_NUMBER: builtins.int
-    VISIBILITY_FIELD_NUMBER: builtins.int
-    ENDPOINT_FIELD_NUMBER: builtins.int
-    IN_ARG_FIELD_NUMBER: builtins.int
-    OUT_ARG_FIELD_NUMBER: builtins.int
-    ARG_ORDER_FIELD_NUMBER: builtins.int
-    ATTR_FIELD_NUMBER: builtins.int
-    SUMMARY_FIELD_NUMBER: builtins.int
-    DESCRIPTION_FIELD_NUMBER: builtins.int
-    DESCRIPTION_PREFIX_FIELD_NUMBER: builtins.int
-    DESCRIPTION_SUFFIX_FIELD_NUMBER: builtins.int
-    graph_op_name: builtins.str
+    GRAPH_OP_NAME_FIELD_NUMBER: _builtins.int
+    DEPRECATION_MESSAGE_FIELD_NUMBER: _builtins.int
+    DEPRECATION_VERSION_FIELD_NUMBER: _builtins.int
+    VISIBILITY_FIELD_NUMBER: _builtins.int
+    ENDPOINT_FIELD_NUMBER: _builtins.int
+    IN_ARG_FIELD_NUMBER: _builtins.int
+    OUT_ARG_FIELD_NUMBER: _builtins.int
+    ARG_ORDER_FIELD_NUMBER: _builtins.int
+    ATTR_FIELD_NUMBER: _builtins.int
+    SUMMARY_FIELD_NUMBER: _builtins.int
+    DESCRIPTION_FIELD_NUMBER: _builtins.int
+    DESCRIPTION_PREFIX_FIELD_NUMBER: _builtins.int
+    DESCRIPTION_SUFFIX_FIELD_NUMBER: _builtins.int
+    graph_op_name: _builtins.str
     """Name of the op (in the OpDef) to specify the API for."""
-    deprecation_message: builtins.str
+    deprecation_message: _builtins.str
     """If this op is deprecated, set deprecation message to the message
     that should be logged when this op is used.
     The message should indicate alternative op to use, if any.
     """
-    deprecation_version: builtins.int
+    deprecation_version: _builtins.int
     """Major version when the op will be deleted. For e.g. set this
     value to 2 if op API should be removed in TensorFlow 2.0 and
     deprecated in versions before that.
     """
-    visibility: global___ApiDef.Visibility.ValueType
-    summary: builtins.str
+    visibility: Global___ApiDef.Visibility.ValueType
+    summary: _builtins.str
     """One-line human-readable description of what the Op does."""
-    description: builtins.str
+    description: _builtins.str
     """Additional, longer human-readable description of what the Op does."""
-    description_prefix: builtins.str
+    description_prefix: _builtins.str
     """Modify an existing/inherited description by adding text to the beginning
     or end.
     """
-    description_suffix: builtins.str
-    @property
-    def endpoint(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ApiDef.Endpoint]: ...
-    @property
-    def in_arg(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ApiDef.Arg]: ...
-    @property
-    def out_arg(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ApiDef.Arg]: ...
-    @property
-    def arg_order(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    description_suffix: _builtins.str
+    @_builtins.property
+    def endpoint(self) -> _containers.RepeatedCompositeFieldContainer[Global___ApiDef.Endpoint]: ...
+    @_builtins.property
+    def in_arg(self) -> _containers.RepeatedCompositeFieldContainer[Global___ApiDef.Arg]: ...
+    @_builtins.property
+    def out_arg(self) -> _containers.RepeatedCompositeFieldContainer[Global___ApiDef.Arg]: ...
+    @_builtins.property
+    def arg_order(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """List of original in_arg names to specify new argument order.
         Length of arg_order should be either empty to keep current order
         or match size of in_arg.
         """
 
-    @property
-    def attr(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ApiDef.Attr]: ...
+    @_builtins.property
+    def attr(self) -> _containers.RepeatedCompositeFieldContainer[Global___ApiDef.Attr]: ...
     def __init__(
         self,
         *,
-        graph_op_name: builtins.str | None = ...,
-        deprecation_message: builtins.str | None = ...,
-        deprecation_version: builtins.int | None = ...,
-        visibility: global___ApiDef.Visibility.ValueType | None = ...,
-        endpoint: collections.abc.Iterable[global___ApiDef.Endpoint] | None = ...,
-        in_arg: collections.abc.Iterable[global___ApiDef.Arg] | None = ...,
-        out_arg: collections.abc.Iterable[global___ApiDef.Arg] | None = ...,
-        arg_order: collections.abc.Iterable[builtins.str] | None = ...,
-        attr: collections.abc.Iterable[global___ApiDef.Attr] | None = ...,
-        summary: builtins.str | None = ...,
-        description: builtins.str | None = ...,
-        description_prefix: builtins.str | None = ...,
-        description_suffix: builtins.str | None = ...,
+        graph_op_name: _builtins.str | None = ...,
+        deprecation_message: _builtins.str | None = ...,
+        deprecation_version: _builtins.int | None = ...,
+        visibility: Global___ApiDef.Visibility.ValueType | None = ...,
+        endpoint: _abc.Iterable[Global___ApiDef.Endpoint] | None = ...,
+        in_arg: _abc.Iterable[Global___ApiDef.Arg] | None = ...,
+        out_arg: _abc.Iterable[Global___ApiDef.Arg] | None = ...,
+        arg_order: _abc.Iterable[_builtins.str] | None = ...,
+        attr: _abc.Iterable[Global___ApiDef.Attr] | None = ...,
+        summary: _builtins.str | None = ...,
+        description: _builtins.str | None = ...,
+        description_prefix: _builtins.str | None = ...,
+        description_suffix: _builtins.str | None = ...,
     ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "arg_order",
-            b"arg_order",
-            "attr",
-            b"attr",
-            "deprecation_message",
-            b"deprecation_message",
-            "deprecation_version",
-            b"deprecation_version",
-            "description",
-            b"description",
-            "description_prefix",
-            b"description_prefix",
-            "description_suffix",
-            b"description_suffix",
-            "endpoint",
-            b"endpoint",
-            "graph_op_name",
-            b"graph_op_name",
-            "in_arg",
-            b"in_arg",
-            "out_arg",
-            b"out_arg",
-            "summary",
-            b"summary",
-            "visibility",
-            b"visibility",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "arg_order",
+        b"arg_order",
+        "attr",
+        b"attr",
+        "deprecation_message",
+        b"deprecation_message",
+        "deprecation_version",
+        b"deprecation_version",
+        "description",
+        b"description",
+        "description_prefix",
+        b"description_prefix",
+        "description_suffix",
+        b"description_suffix",
+        "endpoint",
+        b"endpoint",
+        "graph_op_name",
+        b"graph_op_name",
+        "in_arg",
+        b"in_arg",
+        "out_arg",
+        b"out_arg",
+        "summary",
+        b"summary",
+        "visibility",
+        b"visibility",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___ApiDef = ApiDef
+Global___ApiDef: _TypeAlias = ApiDef  # noqa: Y015
 
-@typing.final
-class ApiDefs(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class ApiDefs(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    OP_FIELD_NUMBER: builtins.int
-    @property
-    def op(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ApiDef]: ...
-    def __init__(self, *, op: collections.abc.Iterable[global___ApiDef] | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["op", b"op"]) -> None: ...
+    OP_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def op(self) -> _containers.RepeatedCompositeFieldContainer[Global___ApiDef]: ...
+    def __init__(self, *, op: _abc.Iterable[Global___ApiDef] | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["op", b"op"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___ApiDefs = ApiDefs
+Global___ApiDefs: _TypeAlias = ApiDefs  # noqa: Y015

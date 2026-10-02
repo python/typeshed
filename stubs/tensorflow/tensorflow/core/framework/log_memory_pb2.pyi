@@ -3,216 +3,237 @@
 isort:skip_file
 """
 
-import builtins
-import typing
+import builtins as _builtins
+import sys
+import typing as _typing
 
-import google.protobuf.descriptor
-import google.protobuf.message
-import tensorflow.core.framework.tensor_description_pb2
+from google.protobuf import descriptor as _descriptor, message as _message
+from tensorflow.core.framework import tensor_description_pb2 as _tensor_description_pb2
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
+else:
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-@typing.final
-class MemoryLogStep(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+DESCRIPTOR: _descriptor.FileDescriptor
 
-    STEP_ID_FIELD_NUMBER: builtins.int
-    HANDLE_FIELD_NUMBER: builtins.int
-    step_id: builtins.int
+@_typing.final
+class MemoryLogStep(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    STEP_ID_FIELD_NUMBER: _builtins.int
+    HANDLE_FIELD_NUMBER: _builtins.int
+    step_id: _builtins.int
     """Process-unique step id."""
-    handle: builtins.str
+    handle: _builtins.str
     """Handle describing the feeds and fetches of the step."""
-    def __init__(self, *, step_id: builtins.int | None = ..., handle: builtins.str | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["handle", b"handle", "step_id", b"step_id"]) -> None: ...
+    def __init__(self, *, step_id: _builtins.int | None = ..., handle: _builtins.str | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["handle", b"handle", "step_id", b"step_id"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___MemoryLogStep = MemoryLogStep
+Global___MemoryLogStep: _TypeAlias = MemoryLogStep  # noqa: Y015
 
-@typing.final
-class MemoryLogTensorAllocation(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class MemoryLogTensorAllocation(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    STEP_ID_FIELD_NUMBER: builtins.int
-    KERNEL_NAME_FIELD_NUMBER: builtins.int
-    TENSOR_FIELD_NUMBER: builtins.int
-    step_id: builtins.int
+    STEP_ID_FIELD_NUMBER: _builtins.int
+    KERNEL_NAME_FIELD_NUMBER: _builtins.int
+    TENSOR_FIELD_NUMBER: _builtins.int
+    step_id: _builtins.int
     """Process-unique step id."""
-    kernel_name: builtins.str
+    kernel_name: _builtins.str
     """Name of the kernel making the allocation as set in GraphDef,
     e.g., "affine2/weights/Assign".
     """
-    @property
-    def tensor(self) -> tensorflow.core.framework.tensor_description_pb2.TensorDescription:
+    @_builtins.property
+    def tensor(self) -> _tensor_description_pb2.TensorDescription:
         """Allocated tensor details."""
 
     def __init__(
         self,
         *,
-        step_id: builtins.int | None = ...,
-        kernel_name: builtins.str | None = ...,
-        tensor: tensorflow.core.framework.tensor_description_pb2.TensorDescription | None = ...,
+        step_id: _builtins.int | None = ...,
+        kernel_name: _builtins.str | None = ...,
+        tensor: _tensor_description_pb2.TensorDescription | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["tensor", b"tensor"]) -> builtins.bool: ...
-    def ClearField(
-        self, field_name: typing.Literal["kernel_name", b"kernel_name", "step_id", b"step_id", "tensor", b"tensor"]
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["tensor", b"tensor"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "kernel_name", b"kernel_name", "step_id", b"step_id", "tensor", b"tensor"
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___MemoryLogTensorAllocation = MemoryLogTensorAllocation
+Global___MemoryLogTensorAllocation: _TypeAlias = MemoryLogTensorAllocation  # noqa: Y015
 
-@typing.final
-class MemoryLogTensorDeallocation(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class MemoryLogTensorDeallocation(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    ALLOCATION_ID_FIELD_NUMBER: builtins.int
-    ALLOCATOR_NAME_FIELD_NUMBER: builtins.int
-    allocation_id: builtins.int
+    ALLOCATION_ID_FIELD_NUMBER: _builtins.int
+    ALLOCATOR_NAME_FIELD_NUMBER: _builtins.int
+    allocation_id: _builtins.int
     """Id of the tensor buffer being deallocated, used to match to a
     corresponding allocation.
     """
-    allocator_name: builtins.str
+    allocator_name: _builtins.str
     """Name of the allocator used."""
-    def __init__(self, *, allocation_id: builtins.int | None = ..., allocator_name: builtins.str | None = ...) -> None: ...
-    def ClearField(
-        self, field_name: typing.Literal["allocation_id", b"allocation_id", "allocator_name", b"allocator_name"]
-    ) -> None: ...
+    def __init__(self, *, allocation_id: _builtins.int | None = ..., allocator_name: _builtins.str | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "allocation_id", b"allocation_id", "allocator_name", b"allocator_name"
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___MemoryLogTensorDeallocation = MemoryLogTensorDeallocation
+Global___MemoryLogTensorDeallocation: _TypeAlias = MemoryLogTensorDeallocation  # noqa: Y015
 
-@typing.final
-class MemoryLogTensorOutput(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class MemoryLogTensorOutput(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    STEP_ID_FIELD_NUMBER: builtins.int
-    KERNEL_NAME_FIELD_NUMBER: builtins.int
-    INDEX_FIELD_NUMBER: builtins.int
-    TENSOR_FIELD_NUMBER: builtins.int
-    step_id: builtins.int
+    STEP_ID_FIELD_NUMBER: _builtins.int
+    KERNEL_NAME_FIELD_NUMBER: _builtins.int
+    INDEX_FIELD_NUMBER: _builtins.int
+    TENSOR_FIELD_NUMBER: _builtins.int
+    step_id: _builtins.int
     """Process-unique step id."""
-    kernel_name: builtins.str
+    kernel_name: _builtins.str
     """Name of the kernel producing an output as set in GraphDef, e.g.,
     "affine2/weights/Assign".
     """
-    index: builtins.int
+    index: _builtins.int
     """Index of the output being set."""
-    @property
-    def tensor(self) -> tensorflow.core.framework.tensor_description_pb2.TensorDescription:
+    @_builtins.property
+    def tensor(self) -> _tensor_description_pb2.TensorDescription:
         """Output tensor details."""
 
     def __init__(
         self,
         *,
-        step_id: builtins.int | None = ...,
-        kernel_name: builtins.str | None = ...,
-        index: builtins.int | None = ...,
-        tensor: tensorflow.core.framework.tensor_description_pb2.TensorDescription | None = ...,
+        step_id: _builtins.int | None = ...,
+        kernel_name: _builtins.str | None = ...,
+        index: _builtins.int | None = ...,
+        tensor: _tensor_description_pb2.TensorDescription | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["tensor", b"tensor"]) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal["index", b"index", "kernel_name", b"kernel_name", "step_id", b"step_id", "tensor", b"tensor"],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["tensor", b"tensor"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "index", b"index", "kernel_name", b"kernel_name", "step_id", b"step_id", "tensor", b"tensor"
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___MemoryLogTensorOutput = MemoryLogTensorOutput
+Global___MemoryLogTensorOutput: _TypeAlias = MemoryLogTensorOutput  # noqa: Y015
 
-@typing.final
-class MemoryLogRawAllocation(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class MemoryLogRawAllocation(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    STEP_ID_FIELD_NUMBER: builtins.int
-    OPERATION_FIELD_NUMBER: builtins.int
-    NUM_BYTES_FIELD_NUMBER: builtins.int
-    PTR_FIELD_NUMBER: builtins.int
-    ALLOCATION_ID_FIELD_NUMBER: builtins.int
-    ALLOCATOR_NAME_FIELD_NUMBER: builtins.int
-    step_id: builtins.int
+    STEP_ID_FIELD_NUMBER: _builtins.int
+    OPERATION_FIELD_NUMBER: _builtins.int
+    NUM_BYTES_FIELD_NUMBER: _builtins.int
+    PTR_FIELD_NUMBER: _builtins.int
+    ALLOCATION_ID_FIELD_NUMBER: _builtins.int
+    ALLOCATOR_NAME_FIELD_NUMBER: _builtins.int
+    step_id: _builtins.int
     """Process-unique step id."""
-    operation: builtins.str
+    operation: _builtins.str
     """Name of the operation making the allocation."""
-    num_bytes: builtins.int
+    num_bytes: _builtins.int
     """Number of bytes in the allocation."""
-    ptr: builtins.int
+    ptr: _builtins.int
     """Address of the allocation."""
-    allocation_id: builtins.int
+    allocation_id: _builtins.int
     """Id of the tensor buffer being allocated, used to match to a
     corresponding deallocation.
     """
-    allocator_name: builtins.str
+    allocator_name: _builtins.str
     """Name of the allocator used."""
     def __init__(
         self,
         *,
-        step_id: builtins.int | None = ...,
-        operation: builtins.str | None = ...,
-        num_bytes: builtins.int | None = ...,
-        ptr: builtins.int | None = ...,
-        allocation_id: builtins.int | None = ...,
-        allocator_name: builtins.str | None = ...,
+        step_id: _builtins.int | None = ...,
+        operation: _builtins.str | None = ...,
+        num_bytes: _builtins.int | None = ...,
+        ptr: _builtins.int | None = ...,
+        allocation_id: _builtins.int | None = ...,
+        allocator_name: _builtins.str | None = ...,
     ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "allocation_id",
-            b"allocation_id",
-            "allocator_name",
-            b"allocator_name",
-            "num_bytes",
-            b"num_bytes",
-            "operation",
-            b"operation",
-            "ptr",
-            b"ptr",
-            "step_id",
-            b"step_id",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "allocation_id",
+        b"allocation_id",
+        "allocator_name",
+        b"allocator_name",
+        "num_bytes",
+        b"num_bytes",
+        "operation",
+        b"operation",
+        "ptr",
+        b"ptr",
+        "step_id",
+        b"step_id",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___MemoryLogRawAllocation = MemoryLogRawAllocation
+Global___MemoryLogRawAllocation: _TypeAlias = MemoryLogRawAllocation  # noqa: Y015
 
-@typing.final
-class MemoryLogRawDeallocation(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class MemoryLogRawDeallocation(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    STEP_ID_FIELD_NUMBER: builtins.int
-    OPERATION_FIELD_NUMBER: builtins.int
-    ALLOCATION_ID_FIELD_NUMBER: builtins.int
-    ALLOCATOR_NAME_FIELD_NUMBER: builtins.int
-    DEFERRED_FIELD_NUMBER: builtins.int
-    step_id: builtins.int
+    STEP_ID_FIELD_NUMBER: _builtins.int
+    OPERATION_FIELD_NUMBER: _builtins.int
+    ALLOCATION_ID_FIELD_NUMBER: _builtins.int
+    ALLOCATOR_NAME_FIELD_NUMBER: _builtins.int
+    DEFERRED_FIELD_NUMBER: _builtins.int
+    step_id: _builtins.int
     """Process-unique step id."""
-    operation: builtins.str
+    operation: _builtins.str
     """Name of the operation making the deallocation."""
-    allocation_id: builtins.int
+    allocation_id: _builtins.int
     """Id of the tensor buffer being deallocated, used to match to a
     corresponding allocation.
     """
-    allocator_name: builtins.str
+    allocator_name: _builtins.str
     """Name of the allocator used."""
-    deferred: builtins.bool
+    deferred: _builtins.bool
     """True if the deallocation is queued and will be performed later,
     e.g. for GPU lazy freeing of buffers.
     """
     def __init__(
         self,
         *,
-        step_id: builtins.int | None = ...,
-        operation: builtins.str | None = ...,
-        allocation_id: builtins.int | None = ...,
-        allocator_name: builtins.str | None = ...,
-        deferred: builtins.bool | None = ...,
+        step_id: _builtins.int | None = ...,
+        operation: _builtins.str | None = ...,
+        allocation_id: _builtins.int | None = ...,
+        allocator_name: _builtins.str | None = ...,
+        deferred: _builtins.bool | None = ...,
     ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "allocation_id",
-            b"allocation_id",
-            "allocator_name",
-            b"allocator_name",
-            "deferred",
-            b"deferred",
-            "operation",
-            b"operation",
-            "step_id",
-            b"step_id",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "allocation_id",
+        b"allocation_id",
+        "allocator_name",
+        b"allocator_name",
+        "deferred",
+        b"deferred",
+        "operation",
+        b"operation",
+        "step_id",
+        b"step_id",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___MemoryLogRawDeallocation = MemoryLogRawDeallocation
+Global___MemoryLogRawDeallocation: _TypeAlias = MemoryLogRawDeallocation  # noqa: Y015

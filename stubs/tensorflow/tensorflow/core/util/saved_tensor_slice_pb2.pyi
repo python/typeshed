@@ -16,118 +16,125 @@ information. The name is also stored in the SaveSlice message for ease of
 debugging and manual examination.
 """
 
-import builtins
-import collections.abc
-import typing
+import builtins as _builtins
+import sys
+import typing as _typing
+from collections import abc as _abc
 
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.message
-import tensorflow.core.framework.tensor_pb2
-import tensorflow.core.framework.tensor_shape_pb2
-import tensorflow.core.framework.tensor_slice_pb2
-import tensorflow.core.framework.types_pb2
-import tensorflow.core.framework.versions_pb2
+from google.protobuf import descriptor as _descriptor, message as _message
+from google.protobuf.internal import containers as _containers
+from tensorflow.core.framework import (
+    tensor_pb2 as _tensor_pb2,
+    tensor_shape_pb2 as _tensor_shape_pb2,
+    tensor_slice_pb2 as _tensor_slice_pb2,
+    types_pb2 as _types_pb2,
+    versions_pb2 as _versions_pb2,
+)
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
+else:
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-@typing.final
-class SavedSliceMeta(google.protobuf.message.Message):
+DESCRIPTOR: _descriptor.FileDescriptor
+
+@_typing.final
+class SavedSliceMeta(_message.Message):
     """Metadata describing the set of slices of the same tensor saved in a
     checkpoint file.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    SHAPE_FIELD_NUMBER: builtins.int
-    TYPE_FIELD_NUMBER: builtins.int
-    SLICE_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    SHAPE_FIELD_NUMBER: _builtins.int
+    TYPE_FIELD_NUMBER: _builtins.int
+    SLICE_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """Name of the tensor."""
-    type: tensorflow.core.framework.types_pb2.DataType.ValueType
+    type: _types_pb2.DataType.ValueType
     """Type of the tensor"""
-    @property
-    def shape(self) -> tensorflow.core.framework.tensor_shape_pb2.TensorShapeProto:
+    @_builtins.property
+    def shape(self) -> _tensor_shape_pb2.TensorShapeProto:
         """Shape of the tensor"""
 
-    @property
-    def slice(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
-        tensorflow.core.framework.tensor_slice_pb2.TensorSliceProto
-    ]:
+    @_builtins.property
+    def slice(self) -> _containers.RepeatedCompositeFieldContainer[_tensor_slice_pb2.TensorSliceProto]:
         """Explicit list of slices saved in the checkpoint file."""
 
     def __init__(
         self,
         *,
-        name: builtins.str | None = ...,
-        shape: tensorflow.core.framework.tensor_shape_pb2.TensorShapeProto | None = ...,
-        type: tensorflow.core.framework.types_pb2.DataType.ValueType | None = ...,
-        slice: collections.abc.Iterable[tensorflow.core.framework.tensor_slice_pb2.TensorSliceProto] | None = ...,
+        name: _builtins.str | None = ...,
+        shape: _tensor_shape_pb2.TensorShapeProto | None = ...,
+        type: _types_pb2.DataType.ValueType | None = ...,
+        slice: _abc.Iterable[_tensor_slice_pb2.TensorSliceProto] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["shape", b"shape"]) -> builtins.bool: ...
-    def ClearField(
-        self, field_name: typing.Literal["name", b"name", "shape", b"shape", "slice", b"slice", "type", b"type"]
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["shape", b"shape"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "name", b"name", "shape", b"shape", "slice", b"slice", "type", b"type"
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___SavedSliceMeta = SavedSliceMeta
+Global___SavedSliceMeta: _TypeAlias = SavedSliceMeta  # noqa: Y015
 
-@typing.final
-class SavedTensorSliceMeta(google.protobuf.message.Message):
+@_typing.final
+class SavedTensorSliceMeta(_message.Message):
     """Metadata describing the set of tensor slices saved in a checkpoint file.
     It is always stored at the beginning of each checkpoint file.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    TENSOR_FIELD_NUMBER: builtins.int
-    VERSIONS_FIELD_NUMBER: builtins.int
-    @property
-    def tensor(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SavedSliceMeta]:
+    TENSOR_FIELD_NUMBER: _builtins.int
+    VERSIONS_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def tensor(self) -> _containers.RepeatedCompositeFieldContainer[Global___SavedSliceMeta]:
         """Each SavedSliceMeta describes the slices for one tensor."""
 
-    @property
-    def versions(self) -> tensorflow.core.framework.versions_pb2.VersionDef:
+    @_builtins.property
+    def versions(self) -> _versions_pb2.VersionDef:
         """Compatibility version of this checkpoint.  See core/public/version.h
         for version history.
         """
 
     def __init__(
-        self,
-        *,
-        tensor: collections.abc.Iterable[global___SavedSliceMeta] | None = ...,
-        versions: tensorflow.core.framework.versions_pb2.VersionDef | None = ...,
+        self, *, tensor: _abc.Iterable[Global___SavedSliceMeta] | None = ..., versions: _versions_pb2.VersionDef | None = ...
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["versions", b"versions"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["tensor", b"tensor", "versions", b"versions"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["versions", b"versions"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["tensor", b"tensor", "versions", b"versions"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___SavedTensorSliceMeta = SavedTensorSliceMeta
+Global___SavedTensorSliceMeta: _TypeAlias = SavedTensorSliceMeta  # noqa: Y015
 
-@typing.final
-class SavedSlice(google.protobuf.message.Message):
+@_typing.final
+class SavedSlice(_message.Message):
     """Saved tensor slice: it stores the name of the tensors, the slice, and the
     raw data.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    SLICE_FIELD_NUMBER: builtins.int
-    DATA_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    SLICE_FIELD_NUMBER: _builtins.int
+    DATA_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """Name of the tensor that this slice belongs to. This must be identical to
     the name used to encode the key for this record.
     """
-    @property
-    def slice(self) -> tensorflow.core.framework.tensor_slice_pb2.TensorSliceProto:
+    @_builtins.property
+    def slice(self) -> _tensor_slice_pb2.TensorSliceProto:
         """Extent of the slice.  Must have one entry for each of the dimension of the
         tensor that this slice belongs to.
         """
 
-    @property
-    def data(self) -> tensorflow.core.framework.tensor_pb2.TensorProto:
+    @_builtins.property
+    def data(self) -> _tensor_pb2.TensorProto:
         """The raw data of the slice is stored as a TensorProto. Only raw data are
         stored (we don't fill in fields such as dtype or tensor_shape).
         """
@@ -135,37 +142,43 @@ class SavedSlice(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        name: builtins.str | None = ...,
-        slice: tensorflow.core.framework.tensor_slice_pb2.TensorSliceProto | None = ...,
-        data: tensorflow.core.framework.tensor_pb2.TensorProto | None = ...,
+        name: _builtins.str | None = ...,
+        slice: _tensor_slice_pb2.TensorSliceProto | None = ...,
+        data: _tensor_pb2.TensorProto | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["data", b"data", "slice", b"slice"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["data", b"data", "name", b"name", "slice", b"slice"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["data", b"data", "slice", b"slice"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["data", b"data", "name", b"name", "slice", b"slice"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___SavedSlice = SavedSlice
+Global___SavedSlice: _TypeAlias = SavedSlice  # noqa: Y015
 
-@typing.final
-class SavedTensorSlices(google.protobuf.message.Message):
+@_typing.final
+class SavedTensorSlices(_message.Message):
     """Each record in a v3 checkpoint file is a serialized SavedTensorSlices
     message.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    META_FIELD_NUMBER: builtins.int
-    DATA_FIELD_NUMBER: builtins.int
-    @property
-    def meta(self) -> global___SavedTensorSliceMeta:
+    META_FIELD_NUMBER: _builtins.int
+    DATA_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def meta(self) -> Global___SavedTensorSliceMeta:
         """This is only present at the first item of each checkpoint file and serves
         as a table of contents, listing all the tensor slices saved in this file.
         """
 
-    @property
-    def data(self) -> global___SavedSlice:
+    @_builtins.property
+    def data(self) -> Global___SavedSlice:
         """This exists in all but the first item of each checkpoint file."""
 
-    def __init__(self, *, meta: global___SavedTensorSliceMeta | None = ..., data: global___SavedSlice | None = ...) -> None: ...
-    def HasField(self, field_name: typing.Literal["data", b"data", "meta", b"meta"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["data", b"data", "meta", b"meta"]) -> None: ...
+    def __init__(self, *, meta: Global___SavedTensorSliceMeta | None = ..., data: Global___SavedSlice | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["data", b"data", "meta", b"meta"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["data", b"data", "meta", b"meta"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___SavedTensorSlices = SavedTensorSlices
+Global___SavedTensorSlices: _TypeAlias = SavedTensorSlices  # noqa: Y015

@@ -3,29 +3,30 @@
 isort:skip_file
 """
 
-import builtins
-import collections.abc
+import builtins as _builtins
 import sys
-import typing
+import typing as _typing
+from collections import abc as _abc
 
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.internal.enum_type_wrapper
-import google.protobuf.message
-import tensorflow.core.framework.tensor_shape_pb2
-import tensorflow.core.framework.tensor_slice_pb2
-import tensorflow.core.framework.types_pb2
-import tensorflow.core.framework.versions_pb2
+from google.protobuf import descriptor as _descriptor, message as _message
+from google.protobuf.internal import containers as _containers, enum_type_wrapper as _enum_type_wrapper
+from tensorflow.core.framework import (
+    tensor_shape_pb2 as _tensor_shape_pb2,
+    tensor_slice_pb2 as _tensor_slice_pb2,
+    types_pb2 as _types_pb2,
+    versions_pb2 as _versions_pb2,
+)
 
-if sys.version_info >= (3, 10):
-    import typing as typing_extensions
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
 else:
-    import typing_extensions
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+DESCRIPTOR: _descriptor.FileDescriptor
 
-@typing.final
-class BundleHeaderProto(google.protobuf.message.Message):
+@_typing.final
+class BundleHeaderProto(_message.Message):
     """Protos used in the tensor bundle module (tf/core/util/tensor_bundle/).
 
     Special header that is associated with a bundle.
@@ -37,16 +38,16 @@ class BundleHeaderProto(google.protobuf.message.Message):
     (binary version) must match within certain range, etc.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _Endianness:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
     class _EndiannessEnumTypeWrapper(
-        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[BundleHeaderProto._Endianness.ValueType], builtins.type
+        _enum_type_wrapper._EnumTypeWrapper[BundleHeaderProto._Endianness.ValueType], _builtins.type
     ):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        DESCRIPTOR: _descriptor.EnumDescriptor
         LITTLE: BundleHeaderProto._Endianness.ValueType  # 0
         BIG: BundleHeaderProto._Endianness.ValueType  # 1
 
@@ -61,61 +62,60 @@ class BundleHeaderProto(google.protobuf.message.Message):
     LITTLE: BundleHeaderProto.Endianness.ValueType  # 0
     BIG: BundleHeaderProto.Endianness.ValueType  # 1
 
-    NUM_SHARDS_FIELD_NUMBER: builtins.int
-    ENDIANNESS_FIELD_NUMBER: builtins.int
-    VERSION_FIELD_NUMBER: builtins.int
-    num_shards: builtins.int
+    NUM_SHARDS_FIELD_NUMBER: _builtins.int
+    ENDIANNESS_FIELD_NUMBER: _builtins.int
+    VERSION_FIELD_NUMBER: _builtins.int
+    num_shards: _builtins.int
     """Number of data files in the bundle."""
-    endianness: global___BundleHeaderProto.Endianness.ValueType
-    @property
-    def version(self) -> tensorflow.core.framework.versions_pb2.VersionDef:
+    endianness: Global___BundleHeaderProto.Endianness.ValueType
+    @_builtins.property
+    def version(self) -> _versions_pb2.VersionDef:
         """Versioning of the tensor bundle format."""
 
     def __init__(
         self,
         *,
-        num_shards: builtins.int | None = ...,
-        endianness: global___BundleHeaderProto.Endianness.ValueType | None = ...,
-        version: tensorflow.core.framework.versions_pb2.VersionDef | None = ...,
+        num_shards: _builtins.int | None = ...,
+        endianness: Global___BundleHeaderProto.Endianness.ValueType | None = ...,
+        version: _versions_pb2.VersionDef | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["version", b"version"]) -> builtins.bool: ...
-    def ClearField(
-        self, field_name: typing.Literal["endianness", b"endianness", "num_shards", b"num_shards", "version", b"version"]
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["version", b"version"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "endianness", b"endianness", "num_shards", b"num_shards", "version", b"version"
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___BundleHeaderProto = BundleHeaderProto
+Global___BundleHeaderProto: _TypeAlias = BundleHeaderProto  # noqa: Y015
 
-@typing.final
-class BundleEntryProto(google.protobuf.message.Message):
+@_typing.final
+class BundleEntryProto(_message.Message):
     """Describes the metadata related to a checkpointed tensor."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    DTYPE_FIELD_NUMBER: builtins.int
-    SHAPE_FIELD_NUMBER: builtins.int
-    SHARD_ID_FIELD_NUMBER: builtins.int
-    OFFSET_FIELD_NUMBER: builtins.int
-    SIZE_FIELD_NUMBER: builtins.int
-    CRC32C_FIELD_NUMBER: builtins.int
-    SLICES_FIELD_NUMBER: builtins.int
-    dtype: tensorflow.core.framework.types_pb2.DataType.ValueType
+    DTYPE_FIELD_NUMBER: _builtins.int
+    SHAPE_FIELD_NUMBER: _builtins.int
+    SHARD_ID_FIELD_NUMBER: _builtins.int
+    OFFSET_FIELD_NUMBER: _builtins.int
+    SIZE_FIELD_NUMBER: _builtins.int
+    CRC32C_FIELD_NUMBER: _builtins.int
+    SLICES_FIELD_NUMBER: _builtins.int
+    dtype: _types_pb2.DataType.ValueType
     """The tensor dtype and shape."""
-    shard_id: builtins.int
+    shard_id: _builtins.int
     """The binary content of the tensor lies in:
       File "shard_id": bytes [offset, offset + size).
     """
-    offset: builtins.int
-    size: builtins.int
-    crc32c: builtins.int
+    offset: _builtins.int
+    size: _builtins.int
+    crc32c: _builtins.int
     """The CRC32C checksum of the tensor bytes."""
-    @property
-    def shape(self) -> tensorflow.core.framework.tensor_shape_pb2.TensorShapeProto: ...
-    @property
-    def slices(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
-        tensorflow.core.framework.tensor_slice_pb2.TensorSliceProto
-    ]:
+    @_builtins.property
+    def shape(self) -> _tensor_shape_pb2.TensorShapeProto: ...
+    @_builtins.property
+    def slices(self) -> _containers.RepeatedCompositeFieldContainer[_tensor_slice_pb2.TensorSliceProto]:
         """Iff present, this entry represents a partitioned tensor.  The previous
         fields are interpreted as follows:
 
@@ -128,33 +128,33 @@ class BundleEntryProto(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        dtype: tensorflow.core.framework.types_pb2.DataType.ValueType | None = ...,
-        shape: tensorflow.core.framework.tensor_shape_pb2.TensorShapeProto | None = ...,
-        shard_id: builtins.int | None = ...,
-        offset: builtins.int | None = ...,
-        size: builtins.int | None = ...,
-        crc32c: builtins.int | None = ...,
-        slices: collections.abc.Iterable[tensorflow.core.framework.tensor_slice_pb2.TensorSliceProto] | None = ...,
+        dtype: _types_pb2.DataType.ValueType | None = ...,
+        shape: _tensor_shape_pb2.TensorShapeProto | None = ...,
+        shard_id: _builtins.int | None = ...,
+        offset: _builtins.int | None = ...,
+        size: _builtins.int | None = ...,
+        crc32c: _builtins.int | None = ...,
+        slices: _abc.Iterable[_tensor_slice_pb2.TensorSliceProto] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["shape", b"shape"]) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "crc32c",
-            b"crc32c",
-            "dtype",
-            b"dtype",
-            "offset",
-            b"offset",
-            "shape",
-            b"shape",
-            "shard_id",
-            b"shard_id",
-            "size",
-            b"size",
-            "slices",
-            b"slices",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["shape", b"shape"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "crc32c",
+        b"crc32c",
+        "dtype",
+        b"dtype",
+        "offset",
+        b"offset",
+        "shape",
+        b"shape",
+        "shard_id",
+        b"shard_id",
+        "size",
+        b"size",
+        "slices",
+        b"slices",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___BundleEntryProto = BundleEntryProto
+Global___BundleEntryProto: _TypeAlias = BundleEntryProto  # noqa: Y015

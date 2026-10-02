@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Mapping, Sequence
 from pathlib import Path
-from typing import Any, Generic, Literal, ParamSpec, TypeAlias, TypeVar
+from typing import Any, Generic, Literal, ParamSpec, TypeAlias, TypeVar, type_check_only
 
 import tensorflow as tf
 from tensorflow.python.training.tracking.autotrackable import AutoTrackable
@@ -83,9 +83,11 @@ class SaveOptions:
 
 def contains_saved_model(export_dir: str | Path) -> bool: ...
 
+@type_check_only
 class _LoadedAttributes(Generic[_P, _R_co]):
     signatures: Mapping[str, ConcreteFunction[_P, _R_co]]
 
+@type_check_only
 class _LoadedModel(AutoTrackable, _LoadedAttributes[_P, _R_co]):
     variables: list[tf.Variable]
     trainable_variables: list[tf.Variable]

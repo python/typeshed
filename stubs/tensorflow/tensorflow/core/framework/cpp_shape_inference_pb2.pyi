@@ -3,108 +3,123 @@
 isort:skip_file
 """
 
-import builtins
-import collections.abc
-import typing
+import builtins as _builtins
+import sys
+import typing as _typing
+from collections import abc as _abc
 
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.message
-import tensorflow.core.framework.full_type_pb2
-import tensorflow.core.framework.tensor_shape_pb2
-import tensorflow.core.framework.types_pb2
+from google.protobuf import descriptor as _descriptor, message as _message
+from google.protobuf.internal import containers as _containers
+from tensorflow.core.framework import (
+    full_type_pb2 as _full_type_pb2,
+    tensor_shape_pb2 as _tensor_shape_pb2,
+    types_pb2 as _types_pb2,
+)
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
+else:
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-@typing.final
-class CppShapeInferenceResult(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+DESCRIPTOR: _descriptor.FileDescriptor
 
-    @typing.final
-    class HandleShapeAndType(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class CppShapeInferenceResult(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-        SHAPE_FIELD_NUMBER: builtins.int
-        DTYPE_FIELD_NUMBER: builtins.int
-        TYPE_FIELD_NUMBER: builtins.int
-        dtype: tensorflow.core.framework.types_pb2.DataType.ValueType
-        @property
-        def shape(self) -> tensorflow.core.framework.tensor_shape_pb2.TensorShapeProto: ...
-        @property
-        def type(self) -> tensorflow.core.framework.full_type_pb2.FullTypeDef: ...
+    @_typing.final
+    class HandleShapeAndType(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
+
+        SHAPE_FIELD_NUMBER: _builtins.int
+        DTYPE_FIELD_NUMBER: _builtins.int
+        TYPE_FIELD_NUMBER: _builtins.int
+        dtype: _types_pb2.DataType.ValueType
+        @_builtins.property
+        def shape(self) -> _tensor_shape_pb2.TensorShapeProto: ...
+        @_builtins.property
+        def type(self) -> _full_type_pb2.FullTypeDef: ...
         def __init__(
             self,
             *,
-            shape: tensorflow.core.framework.tensor_shape_pb2.TensorShapeProto | None = ...,
-            dtype: tensorflow.core.framework.types_pb2.DataType.ValueType | None = ...,
-            type: tensorflow.core.framework.full_type_pb2.FullTypeDef | None = ...,
+            shape: _tensor_shape_pb2.TensorShapeProto | None = ...,
+            dtype: _types_pb2.DataType.ValueType | None = ...,
+            type: _full_type_pb2.FullTypeDef | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["shape", b"shape", "type", b"type"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["dtype", b"dtype", "shape", b"shape", "type", b"type"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["shape", b"shape", "type", b"type"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["dtype", b"dtype", "shape", b"shape", "type", b"type"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    @typing.final
-    class HandleData(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class HandleData(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        IS_SET_FIELD_NUMBER: builtins.int
-        SHAPE_AND_TYPE_FIELD_NUMBER: builtins.int
-        is_set: builtins.bool
-        @property
+        IS_SET_FIELD_NUMBER: _builtins.int
+        SHAPE_AND_TYPE_FIELD_NUMBER: _builtins.int
+        is_set: _builtins.bool
+        @_builtins.property
         def shape_and_type(
             self,
-        ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
-            global___CppShapeInferenceResult.HandleShapeAndType
-        ]:
+        ) -> _containers.RepeatedCompositeFieldContainer[Global___CppShapeInferenceResult.HandleShapeAndType]:
             """Only valid if <is_set>."""
 
         def __init__(
             self,
             *,
-            is_set: builtins.bool | None = ...,
-            shape_and_type: collections.abc.Iterable[global___CppShapeInferenceResult.HandleShapeAndType] | None = ...,
+            is_set: _builtins.bool | None = ...,
+            shape_and_type: _abc.Iterable[Global___CppShapeInferenceResult.HandleShapeAndType] | None = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing.Literal["is_set", b"is_set", "shape_and_type", b"shape_and_type"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["is_set", b"is_set", "shape_and_type", b"shape_and_type"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    SHAPE_FIELD_NUMBER: builtins.int
-    HANDLE_DATA_FIELD_NUMBER: builtins.int
-    @property
-    def shape(self) -> tensorflow.core.framework.tensor_shape_pb2.TensorShapeProto: ...
-    @property
-    def handle_data(self) -> global___CppShapeInferenceResult.HandleData: ...
+    SHAPE_FIELD_NUMBER: _builtins.int
+    HANDLE_DATA_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def shape(self) -> _tensor_shape_pb2.TensorShapeProto: ...
+    @_builtins.property
+    def handle_data(self) -> Global___CppShapeInferenceResult.HandleData: ...
     def __init__(
         self,
         *,
-        shape: tensorflow.core.framework.tensor_shape_pb2.TensorShapeProto | None = ...,
-        handle_data: global___CppShapeInferenceResult.HandleData | None = ...,
+        shape: _tensor_shape_pb2.TensorShapeProto | None = ...,
+        handle_data: Global___CppShapeInferenceResult.HandleData | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["handle_data", b"handle_data", "shape", b"shape"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["handle_data", b"handle_data", "shape", b"shape"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["handle_data", b"handle_data", "shape", b"shape"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["handle_data", b"handle_data", "shape", b"shape"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___CppShapeInferenceResult = CppShapeInferenceResult
+Global___CppShapeInferenceResult: _TypeAlias = CppShapeInferenceResult  # noqa: Y015
 
-@typing.final
-class CppShapeInferenceInputsNeeded(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class CppShapeInferenceInputsNeeded(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    INPUT_TENSORS_NEEDED_FIELD_NUMBER: builtins.int
-    INPUT_TENSORS_AS_SHAPES_NEEDED_FIELD_NUMBER: builtins.int
-    @property
-    def input_tensors_needed(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
-    @property
-    def input_tensors_as_shapes_needed(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
+    INPUT_TENSORS_NEEDED_FIELD_NUMBER: _builtins.int
+    INPUT_TENSORS_AS_SHAPES_NEEDED_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def input_tensors_needed(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]: ...
+    @_builtins.property
+    def input_tensors_as_shapes_needed(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]: ...
     def __init__(
         self,
         *,
-        input_tensors_needed: collections.abc.Iterable[builtins.int] | None = ...,
-        input_tensors_as_shapes_needed: collections.abc.Iterable[builtins.int] | None = ...,
+        input_tensors_needed: _abc.Iterable[_builtins.int] | None = ...,
+        input_tensors_as_shapes_needed: _abc.Iterable[_builtins.int] | None = ...,
     ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "input_tensors_as_shapes_needed", b"input_tensors_as_shapes_needed", "input_tensors_needed", b"input_tensors_needed"
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "input_tensors_as_shapes_needed", b"input_tensors_as_shapes_needed", "input_tensors_needed", b"input_tensors_needed"
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___CppShapeInferenceInputsNeeded = CppShapeInferenceInputsNeeded
+Global___CppShapeInferenceInputsNeeded: _TypeAlias = CppShapeInferenceInputsNeeded  # noqa: Y015

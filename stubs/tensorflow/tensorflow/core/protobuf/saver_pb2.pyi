@@ -3,35 +3,35 @@
 isort:skip_file
 """
 
-import builtins
+import builtins as _builtins
 import sys
-import typing
+import typing as _typing
 
-import google.protobuf.descriptor
-import google.protobuf.internal.enum_type_wrapper
-import google.protobuf.message
+from google.protobuf import descriptor as _descriptor, message as _message
+from google.protobuf.internal import enum_type_wrapper as _enum_type_wrapper
 
-if sys.version_info >= (3, 10):
-    import typing as typing_extensions
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
 else:
-    import typing_extensions
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+DESCRIPTOR: _descriptor.FileDescriptor
 
-@typing.final
-class SaverDef(google.protobuf.message.Message):
+@_typing.final
+class SaverDef(_message.Message):
     """Protocol buffer representing the configuration of a Saver."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _CheckpointFormatVersion:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
     class _CheckpointFormatVersionEnumTypeWrapper(
-        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[SaverDef._CheckpointFormatVersion.ValueType], builtins.type
+        _enum_type_wrapper._EnumTypeWrapper[SaverDef._CheckpointFormatVersion.ValueType], _builtins.type
     ):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        DESCRIPTOR: _descriptor.EnumDescriptor
         LEGACY: SaverDef._CheckpointFormatVersion.ValueType  # 0
         """Internal legacy format."""
         V1: SaverDef._CheckpointFormatVersion.ValueType  # 1
@@ -53,61 +53,62 @@ class SaverDef(google.protobuf.message.Message):
     V2: SaverDef.CheckpointFormatVersion.ValueType  # 2
     """Current format: more efficient."""
 
-    FILENAME_TENSOR_NAME_FIELD_NUMBER: builtins.int
-    SAVE_TENSOR_NAME_FIELD_NUMBER: builtins.int
-    RESTORE_OP_NAME_FIELD_NUMBER: builtins.int
-    MAX_TO_KEEP_FIELD_NUMBER: builtins.int
-    SHARDED_FIELD_NUMBER: builtins.int
-    KEEP_CHECKPOINT_EVERY_N_HOURS_FIELD_NUMBER: builtins.int
-    VERSION_FIELD_NUMBER: builtins.int
-    filename_tensor_name: builtins.str
+    FILENAME_TENSOR_NAME_FIELD_NUMBER: _builtins.int
+    SAVE_TENSOR_NAME_FIELD_NUMBER: _builtins.int
+    RESTORE_OP_NAME_FIELD_NUMBER: _builtins.int
+    MAX_TO_KEEP_FIELD_NUMBER: _builtins.int
+    SHARDED_FIELD_NUMBER: _builtins.int
+    KEEP_CHECKPOINT_EVERY_N_HOURS_FIELD_NUMBER: _builtins.int
+    VERSION_FIELD_NUMBER: _builtins.int
+    filename_tensor_name: _builtins.str
     """The name of the tensor in which to specify the filename when saving or
     restoring a model checkpoint.
     """
-    save_tensor_name: builtins.str
+    save_tensor_name: _builtins.str
     """The operation to run when saving a model checkpoint."""
-    restore_op_name: builtins.str
+    restore_op_name: _builtins.str
     """The operation to run when restoring a model checkpoint."""
-    max_to_keep: builtins.int
+    max_to_keep: _builtins.int
     """Maximum number of checkpoints to keep.  If 0, no checkpoints are deleted."""
-    sharded: builtins.bool
+    sharded: _builtins.bool
     """Shard the save files, one per device that has Variable nodes."""
-    keep_checkpoint_every_n_hours: builtins.float
+    keep_checkpoint_every_n_hours: _builtins.float
     """How often to keep an additional checkpoint. If not specified, only the last
     "max_to_keep" checkpoints are kept; if specified, in addition to keeping
     the last "max_to_keep" checkpoints, an additional checkpoint will be kept
     for every n hours of training.
     """
-    version: global___SaverDef.CheckpointFormatVersion.ValueType
+    version: Global___SaverDef.CheckpointFormatVersion.ValueType
     def __init__(
         self,
         *,
-        filename_tensor_name: builtins.str | None = ...,
-        save_tensor_name: builtins.str | None = ...,
-        restore_op_name: builtins.str | None = ...,
-        max_to_keep: builtins.int | None = ...,
-        sharded: builtins.bool | None = ...,
-        keep_checkpoint_every_n_hours: builtins.float | None = ...,
-        version: global___SaverDef.CheckpointFormatVersion.ValueType | None = ...,
+        filename_tensor_name: _builtins.str | None = ...,
+        save_tensor_name: _builtins.str | None = ...,
+        restore_op_name: _builtins.str | None = ...,
+        max_to_keep: _builtins.int | None = ...,
+        sharded: _builtins.bool | None = ...,
+        keep_checkpoint_every_n_hours: _builtins.float | None = ...,
+        version: Global___SaverDef.CheckpointFormatVersion.ValueType | None = ...,
     ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "filename_tensor_name",
-            b"filename_tensor_name",
-            "keep_checkpoint_every_n_hours",
-            b"keep_checkpoint_every_n_hours",
-            "max_to_keep",
-            b"max_to_keep",
-            "restore_op_name",
-            b"restore_op_name",
-            "save_tensor_name",
-            b"save_tensor_name",
-            "sharded",
-            b"sharded",
-            "version",
-            b"version",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "filename_tensor_name",
+        b"filename_tensor_name",
+        "keep_checkpoint_every_n_hours",
+        b"keep_checkpoint_every_n_hours",
+        "max_to_keep",
+        b"max_to_keep",
+        "restore_op_name",
+        b"restore_op_name",
+        "save_tensor_name",
+        b"save_tensor_name",
+        "sharded",
+        b"sharded",
+        "version",
+        b"version",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___SaverDef = SaverDef
+Global___SaverDef: _TypeAlias = SaverDef  # noqa: Y015

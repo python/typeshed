@@ -17,44 +17,48 @@ limitations under the License.
 ==============================================================================
 """
 
-import builtins
-import collections.abc
+import builtins as _builtins
 import sys
-import typing
+import typing as _typing
+from collections import abc as _abc
 
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.internal.enum_type_wrapper
-import google.protobuf.message
+from google.protobuf import descriptor as _descriptor, message as _message
+from google.protobuf.internal import containers as _containers, enum_type_wrapper as _enum_type_wrapper
 
-if sys.version_info >= (3, 10):
-    import typing as typing_extensions
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
 else:
-    import typing_extensions
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+if sys.version_info >= (3, 13):
+    from warnings import deprecated as _deprecated
+else:
+    from typing_extensions import deprecated as _deprecated
+
+DESCRIPTOR: _descriptor.FileDescriptor
 
 class _PrimitiveType:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _PrimitiveTypeEnumTypeWrapper(
-    google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_PrimitiveType.ValueType], builtins.type
-):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _PrimitiveTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_PrimitiveType.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     PRIMITIVE_TYPE_INVALID: _PrimitiveType.ValueType  # 0
     """Invalid primitive type to serve as default."""
     PRED: _PrimitiveType.ValueType  # 1
     """Predicates are two-state booleans."""
-    S2: _PrimitiveType.ValueType  # 26
+    S1: _PrimitiveType.ValueType  # 30
     """Signed integral values of fixed width."""
+    S2: _PrimitiveType.ValueType  # 26
     S4: _PrimitiveType.ValueType  # 21
     S8: _PrimitiveType.ValueType  # 2
     S16: _PrimitiveType.ValueType  # 3
     S32: _PrimitiveType.ValueType  # 4
     S64: _PrimitiveType.ValueType  # 5
-    U2: _PrimitiveType.ValueType  # 27
+    U1: _PrimitiveType.ValueType  # 31
     """Unsigned integral values of fixed width."""
+    U2: _PrimitiveType.ValueType  # 27
     U4: _PrimitiveType.ValueType  # 22
     U8: _PrimitiveType.ValueType  # 6
     U16: _PrimitiveType.ValueType  # 7
@@ -79,6 +83,9 @@ class _PrimitiveTypeEnumTypeWrapper(
     F8E5M2 has 5 exponent bits and 2 mantissa bits, and is similar to the
     existing IEEE types.
 
+    F8E4M3 has 4 exponent bits and 3 mantissa bits, and is similar to the
+    existing IEEE types.
+
     F8E4M3FN has 4 exponent bits and 3 mantissa bits. The "FN" means only
     Finite and NaN values are supported. Unlike IEEE types, infinities are not
     supported.  NaN is represented when the exponent and mantissa bits are all
@@ -90,12 +97,17 @@ class _PrimitiveTypeEnumTypeWrapper(
     the exponent and mantissa bits are all 0s with a sign bit of 1. All other
     values are finite.
 
+    F8E3M4 has 3 exponent bits and 4 mantissa bits, and is similar to the
+    existing IEEE types.
+
     Support for these dtypes is under development. They do not yet work
     properly in most cases.
     TODO(b/259609697): Fully support FP8.
     """
+    F8E4M3: _PrimitiveType.ValueType  # 28
     F8E4M3FN: _PrimitiveType.ValueType  # 20
     F8E4M3B11FNUZ: _PrimitiveType.ValueType  # 23
+    F8E3M4: _PrimitiveType.ValueType  # 29
     F8E5M2FNUZ: _PrimitiveType.ValueType  # 24
     """FP8 dtypes, as described in this paper: https://arxiv.org/abs/2206.02915
 
@@ -113,6 +125,17 @@ class _PrimitiveTypeEnumTypeWrapper(
     (8 for Float8E4M3FNUZ and 16 for Float8E5M2FNUZ).
     """
     F8E4M3FNUZ: _PrimitiveType.ValueType  # 25
+    F4E2M1FN: _PrimitiveType.ValueType  # 32
+    """MX float dtypes, as described in:
+    https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf
+
+    F4E2M1FN has 2 exponent bits and 1 mantissa bit.
+    F8E8M0FNU has 8 exponent bits, no mantissa and no sign.
+
+    Only finite values are supported (hence "FN" suffix). Unlike IEEE types,
+    infinities and NaNs are not supported.
+    """
+    F8E8M0FNU: _PrimitiveType.ValueType  # 33
     C64: _PrimitiveType.ValueType  # 15
     """Complex values of fixed width.
     Paired F32 (real, imag), as in std::complex<float>.
@@ -140,6 +163,10 @@ class _PrimitiveTypeEnumTypeWrapper(
     """A token type threaded between side-effecting operations. Shapes of this
     primitive type will have empty dimensions and tuple_shapes fields.
     """
+    BUFFER: _PrimitiveType.ValueType  # 34
+    """A buffer type. A shape of this primitive type has empty dimensions and
+    its underlying primitive type is in the tuple_shapes field.
+    """
 
 class PrimitiveType(_PrimitiveType, metaclass=_PrimitiveTypeEnumTypeWrapper):
     """Primitive types are the individual values that can be held in rectangular
@@ -153,15 +180,17 @@ PRIMITIVE_TYPE_INVALID: PrimitiveType.ValueType  # 0
 """Invalid primitive type to serve as default."""
 PRED: PrimitiveType.ValueType  # 1
 """Predicates are two-state booleans."""
-S2: PrimitiveType.ValueType  # 26
+S1: PrimitiveType.ValueType  # 30
 """Signed integral values of fixed width."""
+S2: PrimitiveType.ValueType  # 26
 S4: PrimitiveType.ValueType  # 21
 S8: PrimitiveType.ValueType  # 2
 S16: PrimitiveType.ValueType  # 3
 S32: PrimitiveType.ValueType  # 4
 S64: PrimitiveType.ValueType  # 5
-U2: PrimitiveType.ValueType  # 27
+U1: PrimitiveType.ValueType  # 31
 """Unsigned integral values of fixed width."""
+U2: PrimitiveType.ValueType  # 27
 U4: PrimitiveType.ValueType  # 22
 U8: PrimitiveType.ValueType  # 6
 U16: PrimitiveType.ValueType  # 7
@@ -186,6 +215,9 @@ F8E5M2: PrimitiveType.ValueType  # 19
 F8E5M2 has 5 exponent bits and 2 mantissa bits, and is similar to the
 existing IEEE types.
 
+F8E4M3 has 4 exponent bits and 3 mantissa bits, and is similar to the
+existing IEEE types.
+
 F8E4M3FN has 4 exponent bits and 3 mantissa bits. The "FN" means only
 Finite and NaN values are supported. Unlike IEEE types, infinities are not
 supported.  NaN is represented when the exponent and mantissa bits are all
@@ -197,12 +229,17 @@ Unlike IEEE types, infinities are not supported.  NaN is represented when
 the exponent and mantissa bits are all 0s with a sign bit of 1. All other
 values are finite.
 
+F8E3M4 has 3 exponent bits and 4 mantissa bits, and is similar to the
+existing IEEE types.
+
 Support for these dtypes is under development. They do not yet work
 properly in most cases.
 TODO(b/259609697): Fully support FP8.
 """
+F8E4M3: PrimitiveType.ValueType  # 28
 F8E4M3FN: PrimitiveType.ValueType  # 20
 F8E4M3B11FNUZ: PrimitiveType.ValueType  # 23
+F8E3M4: PrimitiveType.ValueType  # 29
 F8E5M2FNUZ: PrimitiveType.ValueType  # 24
 """FP8 dtypes, as described in this paper: https://arxiv.org/abs/2206.02915
 
@@ -220,6 +257,17 @@ biased one more than would be expected given the number of exponent bits
 (8 for Float8E4M3FNUZ and 16 for Float8E5M2FNUZ).
 """
 F8E4M3FNUZ: PrimitiveType.ValueType  # 25
+F4E2M1FN: PrimitiveType.ValueType  # 32
+"""MX float dtypes, as described in:
+https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf
+
+F4E2M1FN has 2 exponent bits and 1 mantissa bit.
+F8E8M0FNU has 8 exponent bits, no mantissa and no sign.
+
+Only finite values are supported (hence "FN" suffix). Unlike IEEE types,
+infinities and NaNs are not supported.
+"""
+F8E8M0FNU: PrimitiveType.ValueType  # 33
 C64: PrimitiveType.ValueType  # 15
 """Complex values of fixed width.
 Paired F32 (real, imag), as in std::complex<float>.
@@ -247,16 +295,107 @@ TOKEN: PrimitiveType.ValueType  # 17
 """A token type threaded between side-effecting operations. Shapes of this
 primitive type will have empty dimensions and tuple_shapes fields.
 """
-global___PrimitiveType = PrimitiveType
+BUFFER: PrimitiveType.ValueType  # 34
+"""A buffer type. A shape of this primitive type has empty dimensions and
+its underlying primitive type is in the tuple_shapes field.
+"""
+Global___PrimitiveType: _TypeAlias = PrimitiveType  # noqa: Y015
+
+class _AsyncStreamKind:
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
+
+class _AsyncStreamKindEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_AsyncStreamKind.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
+    ASYNC_STREAM_KIND_COLLECTIVE: _AsyncStreamKind.ValueType  # 0
+    """Stream for asynchronous collective ops."""
+    ASYNC_STREAM_KIND_P2P0: _AsyncStreamKind.ValueType  # 1
+    """One Stream for P2P Send and Recv ops."""
+    ASYNC_STREAM_KIND_P2P1: _AsyncStreamKind.ValueType  # 2
+    """Another Stream for P2P Send and Recv ops."""
+    ASYNC_STREAM_KIND_MEMCPYP2P: _AsyncStreamKind.ValueType  # 3
+    """Stream for MemCpyP2P"""
+
+class AsyncStreamKind(_AsyncStreamKind, metaclass=_AsyncStreamKindEnumTypeWrapper):
+    """In XLA:GPU we use different streams for different kinds of collective
+    operations, and include the async stream kind into the GPU clique key.
+
+    We carefully isolate different kinds of collectives using separate
+    communicators and guarantee that all collective operations have a total order
+    that will not create a deadlock.
+    """
+
+ASYNC_STREAM_KIND_COLLECTIVE: AsyncStreamKind.ValueType  # 0
+"""Stream for asynchronous collective ops."""
+ASYNC_STREAM_KIND_P2P0: AsyncStreamKind.ValueType  # 1
+"""One Stream for P2P Send and Recv ops."""
+ASYNC_STREAM_KIND_P2P1: AsyncStreamKind.ValueType  # 2
+"""Another Stream for P2P Send and Recv ops."""
+ASYNC_STREAM_KIND_MEMCPYP2P: AsyncStreamKind.ValueType  # 3
+"""Stream for MemCpyP2P"""
+Global___AsyncStreamKind: _TypeAlias = AsyncStreamKind  # noqa: Y015
+
+class _CollectiveOpGroupMode:
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
+
+class _CollectiveOpGroupModeEnumTypeWrapper(
+    _enum_type_wrapper._EnumTypeWrapper[_CollectiveOpGroupMode.ValueType], _builtins.type
+):
+    DESCRIPTOR: _descriptor.EnumDescriptor
+    COLLECTIVE_OP_GROUP_MODE_CROSS_REPLICA: _CollectiveOpGroupMode.ValueType  # 0
+    COLLECTIVE_OP_GROUP_MODE_CROSS_PARTITION: _CollectiveOpGroupMode.ValueType  # 1
+    COLLECTIVE_OP_GROUP_MODE_CROSS_REPLICA_AND_PARTITION: _CollectiveOpGroupMode.ValueType  # 2
+    COLLECTIVE_OP_GROUP_MODE_FLATTENED_ID: _CollectiveOpGroupMode.ValueType  # 3
+
+class CollectiveOpGroupMode(_CollectiveOpGroupMode, metaclass=_CollectiveOpGroupModeEnumTypeWrapper):
+    """There are broadly 4 modes that collective communication ops use to describe
+    which sets of devices are participating with a given device in the operation.
+    These modes are determined by the values of channel_id (optional) and
+    use_global_device_ids (optional). The modes are as follows:
+
+    kCrossReplica:
+       implied by: no channel id, use_global_device_ids = false, or
+                   no channel_id, no use_global_device_ids:
+       replica_groups contain replica_id, group contains all replicas for the
+       current partition
+
+    kCrossPartition:
+       implied by: channel_id is set, no use_global_device_ids:
+       replica_groups contain partition_id, group contains all partitions for the
+       current replica.
+
+    kCrossReplicaAndPartition:
+       implied by: channel_id is set, use_global_device_ids = false:
+       replica_groups contain replica_id, group contains all replicas for all
+       partitions (as opposed to just current partition).
+
+    kFlattenedID:
+       implied by: channel_id is set, use_global_device_ids = true:
+       replica_groups contain flattened-ids, group contains devices that are
+       listed in the flattened-id list.
+
+    Rest of the combinations are invalid.
+
+    Since the actual value of channel_id does not matter, we use a bool argument
+    `has_channel_id`, and optional<bool> for use_global_device_ids.
+    Note that use_global_device_ids true requires channel_id to be set as well.
+    Additionally, if use_global_device_ids = true, replica groups cannot be
+    empty (verified in the HLO verifier).
+    """
+
+COLLECTIVE_OP_GROUP_MODE_CROSS_REPLICA: CollectiveOpGroupMode.ValueType  # 0
+COLLECTIVE_OP_GROUP_MODE_CROSS_PARTITION: CollectiveOpGroupMode.ValueType  # 1
+COLLECTIVE_OP_GROUP_MODE_CROSS_REPLICA_AND_PARTITION: CollectiveOpGroupMode.ValueType  # 2
+COLLECTIVE_OP_GROUP_MODE_FLATTENED_ID: CollectiveOpGroupMode.ValueType  # 3
+Global___CollectiveOpGroupMode: _TypeAlias = CollectiveOpGroupMode  # noqa: Y015
 
 class _DimLevelType:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _DimLevelTypeEnumTypeWrapper(
-    google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_DimLevelType.ValueType], builtins.type
-):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _DimLevelTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_DimLevelType.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     DIM_DENSE: _DimLevelType.ValueType  # 0
     """The corresponding dimension is Dense, every entry is stored."""
     DIM_COMPRESSED: _DimLevelType.ValueType  # 1
@@ -292,16 +431,14 @@ DIM_LOOSE_COMPRESSED: DimLevelType.ValueType  # 3
 zeros, thus an extra upper bound (high) is used to exclude those zeros.
 E.g., indices = [1, 2, 0, 0, 3, 4, 0, 0], position = [(0, 2), (4, 6)].
 """
-global___DimLevelType = DimLevelType
+Global___DimLevelType: _TypeAlias = DimLevelType  # noqa: Y015
 
 class _ProfileType:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _ProfileTypeEnumTypeWrapper(
-    google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_ProfileType.ValueType], builtins.type
-):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _ProfileTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_ProfileType.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     INVALID: _ProfileType.ValueType  # 0
     WINDOW: _ProfileType.ValueType  # 1
     FLAG: _ProfileType.ValueType  # 2
@@ -314,16 +451,14 @@ INVALID: ProfileType.ValueType  # 0
 WINDOW: ProfileType.ValueType  # 1
 FLAG: ProfileType.ValueType  # 2
 INTEGER: ProfileType.ValueType  # 3
-global___ProfileType = ProfileType
+Global___ProfileType: _TypeAlias = ProfileType  # noqa: Y015
 
 class _ProfileSource:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _ProfileSourceEnumTypeWrapper(
-    google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_ProfileSource.ValueType], builtins.type
-):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _ProfileSourceEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_ProfileSource.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     PROFILE_SOURCE_UNKNOWN_SOURCE: _ProfileSource.ValueType  # 0
     PROFILE_SOURCE_EMBEDDED: _ProfileSource.ValueType  # 1
     PROFILE_SOURCE_REMOTE: _ProfileSource.ValueType  # 2
@@ -334,16 +469,14 @@ class ProfileSource(_ProfileSource, metaclass=_ProfileSourceEnumTypeWrapper):
 PROFILE_SOURCE_UNKNOWN_SOURCE: ProfileSource.ValueType  # 0
 PROFILE_SOURCE_EMBEDDED: ProfileSource.ValueType  # 1
 PROFILE_SOURCE_REMOTE: ProfileSource.ValueType  # 2
-global___ProfileSource = ProfileSource
+Global___ProfileSource: _TypeAlias = ProfileSource  # noqa: Y015
 
 class _CompilationEvent:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _CompilationEventEnumTypeWrapper(
-    google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_CompilationEvent.ValueType], builtins.type
-):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _CompilationEventEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_CompilationEvent.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     COMPILATION_EVENT_UNKNOWN_EVENT: _CompilationEvent.ValueType  # 0
     COMPILATION_EVENT_FIRST_COMPILATION: _CompilationEvent.ValueType  # 1
     COMPILATION_EVENT_RECOMPILATION: _CompilationEvent.ValueType  # 2
@@ -354,16 +487,56 @@ class CompilationEvent(_CompilationEvent, metaclass=_CompilationEventEnumTypeWra
 COMPILATION_EVENT_UNKNOWN_EVENT: CompilationEvent.ValueType  # 0
 COMPILATION_EVENT_FIRST_COMPILATION: CompilationEvent.ValueType  # 1
 COMPILATION_EVENT_RECOMPILATION: CompilationEvent.ValueType  # 2
-global___CompilationEvent = CompilationEvent
+Global___CompilationEvent: _TypeAlias = CompilationEvent  # noqa: Y015
+
+class _ProfileGenerationStrategy:
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
+
+class _ProfileGenerationStrategyEnumTypeWrapper(
+    _enum_type_wrapper._EnumTypeWrapper[_ProfileGenerationStrategy.ValueType], _builtins.type
+):
+    DESCRIPTOR: _descriptor.EnumDescriptor
+    PROFILE_GENERATION_STRATEGY_UNKNOWN: _ProfileGenerationStrategy.ValueType  # 0
+    PROFILE_GENERATION_STRATEGY_GA: _ProfileGenerationStrategy.ValueType  # 1
+    PROFILE_GENERATION_STRATEGY_FANTA: _ProfileGenerationStrategy.ValueType  # 2
+    PROFILE_GENERATION_STRATEGY_CFO: _ProfileGenerationStrategy.ValueType  # 3
+    PROFILE_GENERATION_STRATEGY_EXHAUSTIVE: _ProfileGenerationStrategy.ValueType  # 4
+    """The profile was generated using exhaustive search."""
+    PROFILE_GENERATION_STRATEGY_LCM_GNN: _ProfileGenerationStrategy.ValueType  # 5
+    """The profile was generated using a learned cost model with a GNN
+    architecture.
+    """
+    PROFILE_GENERATION_STRATEGY_LCM_MOE: _ProfileGenerationStrategy.ValueType  # 6
+    """The profile was generated using a learned cost model with a MOE
+    architecture.
+    """
+
+class ProfileGenerationStrategy(_ProfileGenerationStrategy, metaclass=_ProfileGenerationStrategyEnumTypeWrapper):
+    """The type of profile generation strategy used to generate the profile."""
+
+PROFILE_GENERATION_STRATEGY_UNKNOWN: ProfileGenerationStrategy.ValueType  # 0
+PROFILE_GENERATION_STRATEGY_GA: ProfileGenerationStrategy.ValueType  # 1
+PROFILE_GENERATION_STRATEGY_FANTA: ProfileGenerationStrategy.ValueType  # 2
+PROFILE_GENERATION_STRATEGY_CFO: ProfileGenerationStrategy.ValueType  # 3
+PROFILE_GENERATION_STRATEGY_EXHAUSTIVE: ProfileGenerationStrategy.ValueType  # 4
+"""The profile was generated using exhaustive search."""
+PROFILE_GENERATION_STRATEGY_LCM_GNN: ProfileGenerationStrategy.ValueType  # 5
+"""The profile was generated using a learned cost model with a GNN
+architecture.
+"""
+PROFILE_GENERATION_STRATEGY_LCM_MOE: ProfileGenerationStrategy.ValueType  # 6
+"""The profile was generated using a learned cost model with a MOE
+architecture.
+"""
+Global___ProfileGenerationStrategy: _TypeAlias = ProfileGenerationStrategy  # noqa: Y015
 
 class _PaddingType:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _PaddingTypeEnumTypeWrapper(
-    google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_PaddingType.ValueType], builtins.type
-):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _PaddingTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_PaddingType.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     PADDING_INVALID: _PaddingType.ValueType  # 0
     PADDING_VALID: _PaddingType.ValueType  # 1
     """Only valid portion of the base are covered."""
@@ -377,14 +550,14 @@ PADDING_VALID: PaddingType.ValueType  # 1
 """Only valid portion of the base are covered."""
 PADDING_SAME: PaddingType.ValueType  # 2
 """Extra is added to produce same output size as the input."""
-global___PaddingType = PaddingType
+Global___PaddingType: _TypeAlias = PaddingType  # noqa: Y015
 
 class _FftType:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _FftTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_FftType.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _FftTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_FftType.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     FFT: _FftType.ValueType  # 0
     """Forward FFT; complex in, complex out."""
     IFFT: _FftType.ValueType  # 1
@@ -404,35 +577,14 @@ RFFT: FftType.ValueType  # 2
 """Forward real FFT; real in, fft_length / 2 + 1 complex out"""
 IRFFT: FftType.ValueType  # 3
 """Inverse real FFT; fft_length / 2 + 1 complex in,"""
-global___FftType = FftType
-
-class _SparsityType:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
-
-class _SparsityTypeEnumTypeWrapper(
-    google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_SparsityType.ValueType], builtins.type
-):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
-    SPARSITY_INVALID: _SparsityType.ValueType  # 0
-    SPARSITY_STRUCTURED_N_M: _SparsityType.ValueType  # 1
-    """Structured N:M sparsity."""
-
-class SparsityType(_SparsityType, metaclass=_SparsityTypeEnumTypeWrapper): ...
-
-SPARSITY_INVALID: SparsityType.ValueType  # 0
-SPARSITY_STRUCTURED_N_M: SparsityType.ValueType  # 1
-"""Structured N:M sparsity."""
-global___SparsityType = SparsityType
+Global___FftType: _TypeAlias = FftType  # noqa: Y015
 
 class _RandomDistribution:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _RandomDistributionEnumTypeWrapper(
-    google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_RandomDistribution.ValueType], builtins.type
-):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _RandomDistributionEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_RandomDistribution.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     RNG_INVALID: _RandomDistribution.ValueType  # 0
     RNG_UNIFORM: _RandomDistribution.ValueType  # 1
     """Creates a uniform-distribution-generated random number on the semi-open
@@ -454,16 +606,14 @@ RNG_NORMAL: RandomDistribution.ValueType  # 2
 """Creates a normal-distribution-generated random number with mean
 parameter[0] and standard deviation parameter[1].
 """
-global___RandomDistribution = RandomDistribution
+Global___RandomDistribution: _TypeAlias = RandomDistribution  # noqa: Y015
 
 class _RandomAlgorithm:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _RandomAlgorithmEnumTypeWrapper(
-    google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_RandomAlgorithm.ValueType], builtins.type
-):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _RandomAlgorithmEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_RandomAlgorithm.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     RNG_DEFAULT: _RandomAlgorithm.ValueType  # 0
     """Backend dependent default algorithm."""
     RNG_THREE_FRY: _RandomAlgorithm.ValueType  # 1
@@ -477,115 +627,124 @@ RNG_DEFAULT: RandomAlgorithm.ValueType  # 0
 RNG_THREE_FRY: RandomAlgorithm.ValueType  # 1
 RNG_PHILOX: RandomAlgorithm.ValueType  # 2
 """Next: 2"""
-global___RandomAlgorithm = RandomAlgorithm
+Global___RandomAlgorithm: _TypeAlias = RandomAlgorithm  # noqa: Y015
 
-@typing.final
-class PaddingConfig(google.protobuf.message.Message):
+@_typing.final
+class PaddingConfig(_message.Message):
     """Describes the padding configuration for Pad operation. The padding amount on
     both edges as well as between the elements are specified for each dimension.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class PaddingConfigDimension(google.protobuf.message.Message):
+    @_typing.final
+    class PaddingConfigDimension(_message.Message):
         """Describes the padding configuration for a dimension."""
 
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+        DESCRIPTOR: _descriptor.Descriptor
 
-        EDGE_PADDING_LOW_FIELD_NUMBER: builtins.int
-        EDGE_PADDING_HIGH_FIELD_NUMBER: builtins.int
-        INTERIOR_PADDING_FIELD_NUMBER: builtins.int
-        edge_padding_low: builtins.int
+        EDGE_PADDING_LOW_FIELD_NUMBER: _builtins.int
+        EDGE_PADDING_HIGH_FIELD_NUMBER: _builtins.int
+        INTERIOR_PADDING_FIELD_NUMBER: _builtins.int
+        edge_padding_low: _builtins.int
         """Padding amount on the low-end (next to the index 0). May be negative."""
-        edge_padding_high: builtins.int
+        edge_padding_high: _builtins.int
         """Padding amount on the high-end (next to the highest index). May be
         negative.
         """
-        interior_padding: builtins.int
+        interior_padding: _builtins.int
         """Padding amount between the elements. May not be negative."""
         def __init__(
             self,
             *,
-            edge_padding_low: builtins.int | None = ...,
-            edge_padding_high: builtins.int | None = ...,
-            interior_padding: builtins.int | None = ...,
+            edge_padding_low: _builtins.int | None = ...,
+            edge_padding_high: _builtins.int | None = ...,
+            interior_padding: _builtins.int | None = ...,
         ) -> None: ...
-        def ClearField(
-            self,
-            field_name: typing.Literal[
-                "edge_padding_high",
-                b"edge_padding_high",
-                "edge_padding_low",
-                b"edge_padding_low",
-                "interior_padding",
-                b"interior_padding",
-            ],
-        ) -> None: ...
+        _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal[
+            "edge_padding_high",
+            b"edge_padding_high",
+            "edge_padding_low",
+            b"edge_padding_low",
+            "interior_padding",
+            b"interior_padding",
+        ]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    DIMENSIONS_FIELD_NUMBER: builtins.int
-    @property
-    def dimensions(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___PaddingConfig.PaddingConfigDimension]:
+    DIMENSIONS_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def dimensions(self) -> _containers.RepeatedCompositeFieldContainer[Global___PaddingConfig.PaddingConfigDimension]:
         """The padding configuration for all dimensions."""
 
-    def __init__(
-        self, *, dimensions: collections.abc.Iterable[global___PaddingConfig.PaddingConfigDimension] | None = ...
-    ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["dimensions", b"dimensions"]) -> None: ...
+    def __init__(self, *, dimensions: _abc.Iterable[Global___PaddingConfig.PaddingConfigDimension] | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["dimensions", b"dimensions"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___PaddingConfig = PaddingConfig
+Global___PaddingConfig: _TypeAlias = PaddingConfig  # noqa: Y015
 
-@typing.final
-class TileProto(google.protobuf.message.Message):
+@_typing.final
+class TileProto(_message.Message):
     """Describes a tile used in tiling-based layout. Refer to
     g3doc/third_party/xla/docs/tiled_layout.md for details about tiling-based
     layout.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    DIMENSIONS_FIELD_NUMBER: builtins.int
-    @property
-    def dimensions(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+    DIMENSIONS_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def dimensions(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]:
         """Number of elements in each dimension of the tile. It's ordered from the
         most major dimension of the tile to the most minor dimension of the tile.
         The dimensions correspond to a suffix of the dimensions of the shape being
         tiled.
         """
 
-    def __init__(self, *, dimensions: collections.abc.Iterable[builtins.int] | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["dimensions", b"dimensions"]) -> None: ...
+    def __init__(self, *, dimensions: _abc.Iterable[_builtins.int] | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["dimensions", b"dimensions"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___TileProto = TileProto
+Global___TileProto: _TypeAlias = TileProto  # noqa: Y015
 
-@typing.final
-class SplitConfigProto(google.protobuf.message.Message):
+@_typing.final
+class SplitConfigProto(_message.Message):
     """Describes how data should be split between different memories."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    DIMENSION_FIELD_NUMBER: builtins.int
-    SPLIT_INDICES_FIELD_NUMBER: builtins.int
-    dimension: builtins.int
+    DIMENSION_FIELD_NUMBER: _builtins.int
+    SPLIT_INDICES_FIELD_NUMBER: _builtins.int
+    dimension: _builtins.int
     """The dimension that is split."""
-    @property
-    def split_indices(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+    @_builtins.property
+    def split_indices(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]:
         """The indices where each split point occurs. For example, if the dimension
         size is 1024, a split_indices value of {512} indicates a two-way split of
         data through the middle.
         """
 
     def __init__(
-        self, *, dimension: builtins.int | None = ..., split_indices: collections.abc.Iterable[builtins.int] | None = ...
+        self, *, dimension: _builtins.int | None = ..., split_indices: _abc.Iterable[_builtins.int] | None = ...
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["dimension", b"dimension", "split_indices", b"split_indices"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["dimension", b"dimension", "split_indices", b"split_indices"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___SplitConfigProto = SplitConfigProto
+Global___SplitConfigProto: _TypeAlias = SplitConfigProto  # noqa: Y015
 
-@typing.final
-class LayoutProto(google.protobuf.message.Message):
+@_typing.final
+class LayoutProto(_message.Message):
     """A layout describes how the array is placed in (1D) memory space.  This
     includes the minor-to-major ordering of dimensions within a shape.
 
@@ -593,44 +752,47 @@ class LayoutProto(google.protobuf.message.Message):
     computation. Layouts specified in interior operations which take Shapes (for
     example, Convert) are ignored.
 
-    See the XLA documentation for more information on shapes and layouts.
+    See https://openxla.org/xla/shapes for more information on shapes and
+    layouts.
 
     LINT.IfChange
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    DIM_LEVEL_TYPES_FIELD_NUMBER: builtins.int
-    DIM_UNIQUE_FIELD_NUMBER: builtins.int
-    DIM_ORDERED_FIELD_NUMBER: builtins.int
-    MINOR_TO_MAJOR_FIELD_NUMBER: builtins.int
-    TILES_FIELD_NUMBER: builtins.int
-    TAIL_PADDING_ALIGNMENT_IN_ELEMENTS_FIELD_NUMBER: builtins.int
-    ELEMENT_SIZE_IN_BITS_FIELD_NUMBER: builtins.int
-    MEMORY_SPACE_FIELD_NUMBER: builtins.int
-    INDEX_PRIMITIVE_TYPE_FIELD_NUMBER: builtins.int
-    POINTER_PRIMITIVE_TYPE_FIELD_NUMBER: builtins.int
-    PHYSICAL_SHAPE_FIELD_NUMBER: builtins.int
-    DYNAMIC_SHAPE_METADATA_PREFIX_BYTES_FIELD_NUMBER: builtins.int
-    SPLIT_CONFIGS_FIELD_NUMBER: builtins.int
-    tail_padding_alignment_in_elements: builtins.int
-    """The shape is padded at the end to multiple of, in terms of number of
-    elements. This is useful when tiling does not bring the shape to certain
-    desired granules. Tiling effectively pads/reshapes/transposes the shape
-    to another shape. This field pads the total number of elements of that
-    new shape to a multiple of certain number of elements. This is useful such
-    as we want a layout which does not tile the data but still requires it to
-    be padded to certain number of elements.
+    MINOR_TO_MAJOR_FIELD_NUMBER: _builtins.int
+    DIM_LEVEL_TYPES_FIELD_NUMBER: _builtins.int
+    DIM_UNIQUE_FIELD_NUMBER: _builtins.int
+    DIM_ORDERED_FIELD_NUMBER: _builtins.int
+    TILES_FIELD_NUMBER: _builtins.int
+    TAIL_PADDING_ALIGNMENT_IN_ELEMENTS_FIELD_NUMBER: _builtins.int
+    ELEMENT_SIZE_IN_BITS_FIELD_NUMBER: _builtins.int
+    MEMORY_SPACE_FIELD_NUMBER: _builtins.int
+    INDEX_PRIMITIVE_TYPE_FIELD_NUMBER: _builtins.int
+    POINTER_PRIMITIVE_TYPE_FIELD_NUMBER: _builtins.int
+    PHYSICAL_SHAPE_FIELD_NUMBER: _builtins.int
+    DYNAMIC_SHAPE_METADATA_PREFIX_BYTES_FIELD_NUMBER: _builtins.int
+    SPLIT_CONFIGS_FIELD_NUMBER: _builtins.int
+    tail_padding_alignment_in_elements: _builtins.int
+    """The shape is padded at the end to the smallest multiple of, in terms of
+    number of elements, this value. This is useful when tiling does not bring
+    the shape to certain desired granules. Tiling effectively
+    pads/reshapes/transposes the shape to another shape. This field pads the
+    total number of elements of that new shape to a multiple of certain number
+    of elements. This is useful such as we want a layout which does not tile
+    the data but still requires it to be padded to certain number of elements.
+
+    If omitted or set to 0, it's treated as 1.
     """
-    element_size_in_bits: builtins.int
+    element_size_in_bits: _builtins.int
     """(Optional) Bit size of each element. When unspecified or being 0, default
     to ShapeUtil::ByteSizeOfPrimitiveType.
     """
-    memory_space: builtins.int
+    memory_space: _builtins.int
     """Memory space where this array resides. The integer field is interpreted in
     a backend-specific manner.
     """
-    index_primitive_type: global___PrimitiveType.ValueType
+    index_primitive_type: Global___PrimitiveType.ValueType
     """The integer types to be used for indices and pointers.  These fields must
     not be used unless the layout represents a sparse array.  The PrimitiveType
     must correspond to an unsigned integer (U8, U16, U32, or U64).
@@ -638,40 +800,39 @@ class LayoutProto(google.protobuf.message.Message):
     that is naturally supported by the target device (U32 or U64 in currently
     supported devices).
     """
-    pointer_primitive_type: global___PrimitiveType.ValueType
-    dynamic_shape_metadata_prefix_bytes: builtins.int
+    pointer_primitive_type: Global___PrimitiveType.ValueType
+    dynamic_shape_metadata_prefix_bytes: _builtins.int
     """The dynamic shape metadata size in bytes in front of the shape data. The
     field may be non-zero for a static shape whose associated buffer is for a
     dynamic shape, e.g. a result of SliceToDynamic.
     """
-    @property
-    def dim_level_types(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___DimLevelType.ValueType]:
+    @_builtins.property
+    def minor_to_major(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]:
+        """Sequence of dimension indices, from minor (fastest varying index) to major
+        (slowest varying index). The size of this field must equal the table's
+        rank.
+        """
+
+    @_builtins.property
+    def dim_level_types(self) -> _containers.RepeatedScalarFieldContainer[Global___DimLevelType.ValueType]:
         """The dimension level type list for this array, specifying the way in which
         each array dimension is represented in memory. If this list is empty, the
         array is assumed to be dense.
         """
 
-    @property
-    def dim_unique(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.bool]:
+    @_builtins.property
+    def dim_unique(self) -> _containers.RepeatedScalarFieldContainer[_builtins.bool]:
         """Whether each dimension is unique or ordered.  Each of the following lists
-        must be empty, or have one entry for each entry of dim_level_types.  If
-        either list is empty, all dimensions are assumed to be unique and ordered,
-        respectively.  Entries in this list may not be false for some DimLevelType
-        values (such as DIM_DENSE in particular).
+        must either be empty or have one entry for each entry of dim_level_types.
+        If either list is empty, all dimensions are assumed to be unique or
+        ordered, respectively.  Entries in this list may not be false for some
+        DimLevelType values (such as DIM_DENSE in particular).
         """
 
-    @property
-    def dim_ordered(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.bool]: ...
-    @property
-    def minor_to_major(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
-        """Sequence of dimension numbers, from minor (fastest varying index) to major
-        (slowest varying index). This field is required.
-        """
-
-    @property
-    def tiles(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___TileProto]:
+    @_builtins.property
+    def dim_ordered(self) -> _containers.RepeatedScalarFieldContainer[_builtins.bool]: ...
+    @_builtins.property
+    def tiles(self) -> _containers.RepeatedCompositeFieldContainer[Global___TileProto]:
         """A sequence of tiles, starting from the tile that's applied first to the
         Shape.
 
@@ -679,16 +840,16 @@ class LayoutProto(google.protobuf.message.Message):
         error.
         """
 
-    @property
-    def physical_shape(self) -> global___ShapeProto:
+    @_builtins.property
+    def physical_shape(self) -> Global___ShapeProto:
         """The physical, on-device shape used to represent the shape this layout
         belongs to. Only used for sparse arrays.
         The layout(s) contained within the physical shape should not also contain
         a physical shape.
         """
 
-    @property
-    def split_configs(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SplitConfigProto]:
+    @_builtins.property
+    def split_configs(self) -> _containers.RepeatedCompositeFieldContainer[Global___SplitConfigProto]:
         """The split configurations which describe if/how the data is split between
         different memories.
         """
@@ -696,252 +857,279 @@ class LayoutProto(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        dim_level_types: collections.abc.Iterable[global___DimLevelType.ValueType] | None = ...,
-        dim_unique: collections.abc.Iterable[builtins.bool] | None = ...,
-        dim_ordered: collections.abc.Iterable[builtins.bool] | None = ...,
-        minor_to_major: collections.abc.Iterable[builtins.int] | None = ...,
-        tiles: collections.abc.Iterable[global___TileProto] | None = ...,
-        tail_padding_alignment_in_elements: builtins.int | None = ...,
-        element_size_in_bits: builtins.int | None = ...,
-        memory_space: builtins.int | None = ...,
-        index_primitive_type: global___PrimitiveType.ValueType | None = ...,
-        pointer_primitive_type: global___PrimitiveType.ValueType | None = ...,
-        physical_shape: global___ShapeProto | None = ...,
-        dynamic_shape_metadata_prefix_bytes: builtins.int | None = ...,
-        split_configs: collections.abc.Iterable[global___SplitConfigProto] | None = ...,
+        minor_to_major: _abc.Iterable[_builtins.int] | None = ...,
+        dim_level_types: _abc.Iterable[Global___DimLevelType.ValueType] | None = ...,
+        dim_unique: _abc.Iterable[_builtins.bool] | None = ...,
+        dim_ordered: _abc.Iterable[_builtins.bool] | None = ...,
+        tiles: _abc.Iterable[Global___TileProto] | None = ...,
+        tail_padding_alignment_in_elements: _builtins.int | None = ...,
+        element_size_in_bits: _builtins.int | None = ...,
+        memory_space: _builtins.int | None = ...,
+        index_primitive_type: Global___PrimitiveType.ValueType | None = ...,
+        pointer_primitive_type: Global___PrimitiveType.ValueType | None = ...,
+        physical_shape: Global___ShapeProto | None = ...,
+        dynamic_shape_metadata_prefix_bytes: _builtins.int | None = ...,
+        split_configs: _abc.Iterable[Global___SplitConfigProto] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["physical_shape", b"physical_shape"]) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "dim_level_types",
-            b"dim_level_types",
-            "dim_ordered",
-            b"dim_ordered",
-            "dim_unique",
-            b"dim_unique",
-            "dynamic_shape_metadata_prefix_bytes",
-            b"dynamic_shape_metadata_prefix_bytes",
-            "element_size_in_bits",
-            b"element_size_in_bits",
-            "index_primitive_type",
-            b"index_primitive_type",
-            "memory_space",
-            b"memory_space",
-            "minor_to_major",
-            b"minor_to_major",
-            "physical_shape",
-            b"physical_shape",
-            "pointer_primitive_type",
-            b"pointer_primitive_type",
-            "split_configs",
-            b"split_configs",
-            "tail_padding_alignment_in_elements",
-            b"tail_padding_alignment_in_elements",
-            "tiles",
-            b"tiles",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["physical_shape", b"physical_shape"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "dim_level_types",
+        b"dim_level_types",
+        "dim_ordered",
+        b"dim_ordered",
+        "dim_unique",
+        b"dim_unique",
+        "dynamic_shape_metadata_prefix_bytes",
+        b"dynamic_shape_metadata_prefix_bytes",
+        "element_size_in_bits",
+        b"element_size_in_bits",
+        "index_primitive_type",
+        b"index_primitive_type",
+        "memory_space",
+        b"memory_space",
+        "minor_to_major",
+        b"minor_to_major",
+        "physical_shape",
+        b"physical_shape",
+        "pointer_primitive_type",
+        b"pointer_primitive_type",
+        "split_configs",
+        b"split_configs",
+        "tail_padding_alignment_in_elements",
+        b"tail_padding_alignment_in_elements",
+        "tiles",
+        b"tiles",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___LayoutProto = LayoutProto
+Global___LayoutProto: _TypeAlias = LayoutProto  # noqa: Y015
 
-@typing.final
-class ShapeProto(google.protobuf.message.Message):
+@_typing.final
+class ShapeProto(_message.Message):
     """A shape describes the number of dimensions in the array, the size of each
     dimension, and the primitive component type.
 
     Tuples are a special case in that they have rank zero and have tuple_shapes
     defined.
 
-    See the XLA documentation for more information on shapes and layouts.
+    See https://openxla.org/xla/shapes for more information on shapes and
+    layouts.
 
     LINT.IfChange
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    ELEMENT_TYPE_FIELD_NUMBER: builtins.int
-    DIMENSIONS_FIELD_NUMBER: builtins.int
-    TUPLE_SHAPES_FIELD_NUMBER: builtins.int
-    LAYOUT_FIELD_NUMBER: builtins.int
-    IS_DYNAMIC_DIMENSION_FIELD_NUMBER: builtins.int
-    element_type: global___PrimitiveType.ValueType
-    """The element type for this shape."""
-    @property
-    def dimensions(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
-        """The size (number of elements) for each dimension, or an upper bound on the
+    ELEMENT_TYPE_FIELD_NUMBER: _builtins.int
+    DIMENSIONS_FIELD_NUMBER: _builtins.int
+    IS_DYNAMIC_DIMENSION_FIELD_NUMBER: _builtins.int
+    TUPLE_SHAPES_FIELD_NUMBER: _builtins.int
+    LAYOUT_FIELD_NUMBER: _builtins.int
+    element_type: Global___PrimitiveType.ValueType
+    """If this is TUPLE/TOKEN/OPAQUE_TYPE, the shape is a tuple/token/opaque shape
+    respectively. Otherwise, the shape is an array shape and this is its
+    element type.
+    """
+    @_builtins.property
+    def dimensions(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]:
+        """Used only for an array shape.
+
+        The size (number of elements) for each dimension, or an upper bound on the
         size if the dimension is dynamic.  In XLA, dimensions are numbered from 0
         to N-1 for an N-dimensional array. The first element of 'dimensions' is the
         size of dimension 0, the second element is the size of dimension 1, and so
         forth.  Empty list indicates a scalar.
 
-        If the respective element in 'is_dimension_dynamic' is true then the value
-        in this field represents an upper bound on the size of the dimension.
+        Each element in this list must be >= 0. In particular, 0 is a valid value
+        for a dimension size.
+
+        If a dimension is dynamic (see `is_dynamic_dimension` below), its value
+        in this list is an upper bound on the size of the dimension.
         """
 
-    @property
-    def tuple_shapes(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ShapeProto]:
-        """For tuples only, the shapes of constituent shapes in the tuple sequence."""
+    @_builtins.property
+    def is_dynamic_dimension(self) -> _containers.RepeatedScalarFieldContainer[_builtins.bool]:
+        """Used only for an array shape.
 
-    @property
-    def layout(self) -> global___LayoutProto:
+        Indicates whether or not each dimension is dynamically-sized. If this list
+        is empty, all dimensions are statically-sized. Otherwise, this must have
+        the same size as 'dimensions' and the value at index i indicates whether
+        or not the dimension at index i is dynamically-sized.
+        """
+
+    @_builtins.property
+    def tuple_shapes(self) -> _containers.RepeatedCompositeFieldContainer[Global___ShapeProto]:
+        """For tuples only. The constituent shapes in the tuple."""
+
+    @_builtins.property
+    def layout(self) -> Global___LayoutProto:
         """The layout used to back this shape."""
-
-    @property
-    def is_dynamic_dimension(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.bool]:
-        """For arrays, this indicates whether or not each dimension is
-        dynamically-sized. The number of elements in this repeated field should be
-        zero (indicating that no dimensions are dynamic) or equal to the number of
-        elements in the 'dimensions' field.
-        """
 
     def __init__(
         self,
         *,
-        element_type: global___PrimitiveType.ValueType | None = ...,
-        dimensions: collections.abc.Iterable[builtins.int] | None = ...,
-        tuple_shapes: collections.abc.Iterable[global___ShapeProto] | None = ...,
-        layout: global___LayoutProto | None = ...,
-        is_dynamic_dimension: collections.abc.Iterable[builtins.bool] | None = ...,
+        element_type: Global___PrimitiveType.ValueType | None = ...,
+        dimensions: _abc.Iterable[_builtins.int] | None = ...,
+        is_dynamic_dimension: _abc.Iterable[_builtins.bool] | None = ...,
+        tuple_shapes: _abc.Iterable[Global___ShapeProto] | None = ...,
+        layout: Global___LayoutProto | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["layout", b"layout"]) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "dimensions",
-            b"dimensions",
-            "element_type",
-            b"element_type",
-            "is_dynamic_dimension",
-            b"is_dynamic_dimension",
-            "layout",
-            b"layout",
-            "tuple_shapes",
-            b"tuple_shapes",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["layout", b"layout"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "dimensions",
+        b"dimensions",
+        "element_type",
+        b"element_type",
+        "is_dynamic_dimension",
+        b"is_dynamic_dimension",
+        "layout",
+        b"layout",
+        "tuple_shapes",
+        b"tuple_shapes",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___ShapeProto = ShapeProto
+Global___ShapeProto: _TypeAlias = ShapeProto  # noqa: Y015
 
-@typing.final
-class ProgramShapeProto(google.protobuf.message.Message):
+@_typing.final
+class ProgramShapeProto(_message.Message):
     """Shape of the parameters and output of a computation (like a traditional
     function signature).
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    PARAMETERS_FIELD_NUMBER: builtins.int
-    RESULT_FIELD_NUMBER: builtins.int
-    PARAMETER_NAMES_FIELD_NUMBER: builtins.int
-    @property
-    def parameters(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ShapeProto]: ...
-    @property
-    def result(self) -> global___ShapeProto: ...
-    @property
-    def parameter_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
+    PARAMETERS_FIELD_NUMBER: _builtins.int
+    RESULT_FIELD_NUMBER: _builtins.int
+    PARAMETER_NAMES_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def parameters(self) -> _containers.RepeatedCompositeFieldContainer[Global___ShapeProto]: ...
+    @_builtins.property
+    def result(self) -> Global___ShapeProto: ...
+    @_builtins.property
+    def parameter_names(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]: ...
     def __init__(
         self,
         *,
-        parameters: collections.abc.Iterable[global___ShapeProto] | None = ...,
-        result: global___ShapeProto | None = ...,
-        parameter_names: collections.abc.Iterable[builtins.str] | None = ...,
+        parameters: _abc.Iterable[Global___ShapeProto] | None = ...,
+        result: Global___ShapeProto | None = ...,
+        parameter_names: _abc.Iterable[_builtins.str] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["result", b"result"]) -> builtins.bool: ...
-    def ClearField(
-        self, field_name: typing.Literal["parameter_names", b"parameter_names", "parameters", b"parameters", "result", b"result"]
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["result", b"result"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "parameter_names", b"parameter_names", "parameters", b"parameters", "result", b"result"
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___ProgramShapeProto = ProgramShapeProto
+Global___ProgramShapeProto: _TypeAlias = ProgramShapeProto  # noqa: Y015
 
-@typing.final
-class ComputationStats(google.protobuf.message.Message):
+@_typing.final
+class ComputationStats(_message.Message):
     """Statistics of a computation."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    FLOP_COUNT_FIELD_NUMBER: builtins.int
-    TRANSCENDENTAL_COUNT_FIELD_NUMBER: builtins.int
-    flop_count: builtins.float
+    FLOP_COUNT_FIELD_NUMBER: _builtins.int
+    TRANSCENDENTAL_COUNT_FIELD_NUMBER: _builtins.int
+    flop_count: _builtins.float
     """The number of floating point operations in the computation."""
-    transcendental_count: builtins.float
+    transcendental_count: _builtins.float
     """The number of transcendental operations (e.g., exp) in the computation."""
-    def __init__(self, *, flop_count: builtins.float | None = ..., transcendental_count: builtins.float | None = ...) -> None: ...
-    def ClearField(
-        self, field_name: typing.Literal["flop_count", b"flop_count", "transcendental_count", b"transcendental_count"]
+    def __init__(
+        self, *, flop_count: _builtins.float | None = ..., transcendental_count: _builtins.float | None = ...
     ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "flop_count", b"flop_count", "transcendental_count", b"transcendental_count"
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___ComputationStats = ComputationStats
+Global___ComputationStats: _TypeAlias = ComputationStats  # noqa: Y015
 
-@typing.final
-class OpMetadata(google.protobuf.message.Message):
+@_typing.final
+class OpMetadata(_message.Message):
     """Symbolization metadata for HLO Instructions.
 
     This metadata is used for debugging XLA code generation, as well as
     performance profiling of XLA-generated executables.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class ProfileInfo(google.protobuf.message.Message):
+    @_typing.final
+    class ProfileInfo(_message.Message):
         """Information about the optimization profile that this operation contains."""
 
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+        DESCRIPTOR: _descriptor.Descriptor
 
-        PROFILE_TYPE_FIELD_NUMBER: builtins.int
-        RELATIVE_SPEEDUP_FIELD_NUMBER: builtins.int
-        PROFILE_SOURCE_FIELD_NUMBER: builtins.int
-        COMPILATION_EVENT_FIELD_NUMBER: builtins.int
-        relative_speedup: builtins.float
+        PROFILE_TYPE_FIELD_NUMBER: _builtins.int
+        RELATIVE_SPEEDUP_FIELD_NUMBER: _builtins.int
+        PROFILE_SOURCE_FIELD_NUMBER: _builtins.int
+        COMPILATION_EVENT_FIELD_NUMBER: _builtins.int
+        PROFILE_GENERATION_STRATEGY_FIELD_NUMBER: _builtins.int
+        relative_speedup: _builtins.float
         """Speedup of tuned config compared to default config.
         TODO(b/203817882) Set the relative_speedup.
         """
-        profile_source: global___ProfileSource.ValueType
+        profile_source: Global___ProfileSource.ValueType
         """The source of the optimization profiles that this operation contains."""
-        compilation_event: global___CompilationEvent.ValueType
+        compilation_event: Global___CompilationEvent.ValueType
         """The compilation event that triggered the use of the profiles."""
-        @property
-        def profile_type(
-            self,
-        ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___ProfileType.ValueType]:
+        profile_generation_strategy: Global___ProfileGenerationStrategy.ValueType
+        """The type of profile generation strategy used to generate the profile."""
+        @_builtins.property
+        def profile_type(self) -> _containers.RepeatedScalarFieldContainer[Global___ProfileType.ValueType]:
             """The type of optimization profiles that this operation contains."""
 
         def __init__(
             self,
             *,
-            profile_type: collections.abc.Iterable[global___ProfileType.ValueType] | None = ...,
-            relative_speedup: builtins.float | None = ...,
-            profile_source: global___ProfileSource.ValueType | None = ...,
-            compilation_event: global___CompilationEvent.ValueType | None = ...,
+            profile_type: _abc.Iterable[Global___ProfileType.ValueType] | None = ...,
+            relative_speedup: _builtins.float | None = ...,
+            profile_source: Global___ProfileSource.ValueType | None = ...,
+            compilation_event: Global___CompilationEvent.ValueType | None = ...,
+            profile_generation_strategy: Global___ProfileGenerationStrategy.ValueType | None = ...,
         ) -> None: ...
-        def ClearField(
-            self,
-            field_name: typing.Literal[
-                "compilation_event",
-                b"compilation_event",
-                "profile_source",
-                b"profile_source",
-                "profile_type",
-                b"profile_type",
-                "relative_speedup",
-                b"relative_speedup",
-            ],
-        ) -> None: ...
+        _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal[
+            "compilation_event",
+            b"compilation_event",
+            "profile_generation_strategy",
+            b"profile_generation_strategy",
+            "profile_source",
+            b"profile_source",
+            "profile_type",
+            b"profile_type",
+            "relative_speedup",
+            b"relative_speedup",
+        ]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    OP_TYPE_FIELD_NUMBER: builtins.int
-    OP_NAME_FIELD_NUMBER: builtins.int
-    SOURCE_FILE_FIELD_NUMBER: builtins.int
-    SOURCE_LINE_FIELD_NUMBER: builtins.int
-    PROFILE_TYPE_FIELD_NUMBER: builtins.int
-    SIZE_OF_GENERATED_CODE_IN_BYTES_FIELD_NUMBER: builtins.int
-    SIZE_OF_MEMORY_WORKING_SET_IN_BYTES_FIELD_NUMBER: builtins.int
-    PROFILE_INFO_FIELD_NUMBER: builtins.int
-    DEDUPLICATED_NAME_FIELD_NUMBER: builtins.int
-    PRESERVE_LAYOUT_FIELD_NUMBER: builtins.int
-    STACK_FRAME_ID_FIELD_NUMBER: builtins.int
-    SCHEDULING_NAME_FIELD_NUMBER: builtins.int
-    op_type: builtins.str
+    OP_TYPE_FIELD_NUMBER: _builtins.int
+    OP_NAME_FIELD_NUMBER: _builtins.int
+    SOURCE_FILE_FIELD_NUMBER: _builtins.int
+    SOURCE_LINE_FIELD_NUMBER: _builtins.int
+    SOURCE_END_LINE_FIELD_NUMBER: _builtins.int
+    SOURCE_COLUMN_FIELD_NUMBER: _builtins.int
+    SOURCE_END_COLUMN_FIELD_NUMBER: _builtins.int
+    PROFILE_TYPE_FIELD_NUMBER: _builtins.int
+    SIZE_OF_GENERATED_CODE_IN_BYTES_FIELD_NUMBER: _builtins.int
+    SIZE_OF_MEMORY_WORKING_SET_IN_BYTES_FIELD_NUMBER: _builtins.int
+    PROFILE_INFO_FIELD_NUMBER: _builtins.int
+    DEDUPLICATED_NAME_FIELD_NUMBER: _builtins.int
+    STACK_FRAME_ID_FIELD_NUMBER: _builtins.int
+    SCHEDULING_NAME_FIELD_NUMBER: _builtins.int
+    op_type: _builtins.str
     """The framework op name that generated this XLA op.
 
     Frameworks that build on top of XLA should mirror the names of their ops
@@ -950,25 +1138,28 @@ class OpMetadata(google.protobuf.message.Message):
     grouped appropriately. (e.g. if a SoftMax layer is emitted into XLA as
     multiple ops, then each op should have the op_type be "SoftMax".)
     """
-    op_name: builtins.str
+    op_name: _builtins.str
     """The user-specified name of the op.
 
     This name is often unique within a computation. Note: some frameworks
     add auto-generated names if the user does not provide one.
     """
-    source_file: builtins.str
+    source_file: _builtins.str
     """Indicate a file and line that this op is associated to in a user's program.
 
     e.g. it could be the file and line of user code that generated the op.
     """
-    source_line: builtins.int
-    size_of_generated_code_in_bytes: builtins.int
+    source_line: _builtins.int
+    source_end_line: _builtins.int
+    source_column: _builtins.int
+    source_end_column: _builtins.int
+    size_of_generated_code_in_bytes: _builtins.int
     """The footprint of the generated code for the instruction."""
-    size_of_memory_working_set_in_bytes: builtins.int
+    size_of_memory_working_set_in_bytes: _builtins.int
     """The size of the working set, i.e., the amount of memory, used by the
     instruction in a compiler-managed fast device memory.
     """
-    deduplicated_name: builtins.str
+    deduplicated_name: _builtins.str
     """Deduplicated HLO name for this op. In some cases, we can have multiple
     instructions (e.g. fusions) that are considered duplicates. We want to
     group them together under the same name so that we can group them together
@@ -976,220 +1167,236 @@ class OpMetadata(google.protobuf.message.Message):
     E.g. If we have fusion.1, fusion.2, and fusion.3 marked as duplicates,
     fusion.2 and fusion.3 will have deduplicated_name = fusion.1
     """
-    preserve_layout: builtins.bool
-    """Whether to preserve the layout of the HLO op."""
-    stack_frame_id: builtins.int
+    stack_frame_id: _builtins.int
     """1-based position of the frame in frames flat array.
     Ids are 1-based to keep 0 value as representation of non-set property.
     """
-    scheduling_name: builtins.str
+    scheduling_name: _builtins.str
     """Instruction name available upon scheduling."""
-    @property
-    def profile_type(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___ProfileType.ValueType]:
+    @_builtins.property
+    @_deprecated("""This field has been marked as deprecated using proto field options.""")
+    def profile_type(self) -> _containers.RepeatedScalarFieldContainer[Global___ProfileType.ValueType]:
         """Deprecated, use [ProfileInfo][profile_type] instead."""
 
-    @property
-    def profile_info(self) -> global___OpMetadata.ProfileInfo:
+    @_builtins.property
+    def profile_info(self) -> Global___OpMetadata.ProfileInfo:
         """Profile information for the Op."""
 
     def __init__(
         self,
         *,
-        op_type: builtins.str | None = ...,
-        op_name: builtins.str | None = ...,
-        source_file: builtins.str | None = ...,
-        source_line: builtins.int | None = ...,
-        profile_type: collections.abc.Iterable[global___ProfileType.ValueType] | None = ...,
-        size_of_generated_code_in_bytes: builtins.int | None = ...,
-        size_of_memory_working_set_in_bytes: builtins.int | None = ...,
-        profile_info: global___OpMetadata.ProfileInfo | None = ...,
-        deduplicated_name: builtins.str | None = ...,
-        preserve_layout: builtins.bool | None = ...,
-        stack_frame_id: builtins.int | None = ...,
-        scheduling_name: builtins.str | None = ...,
+        op_type: _builtins.str | None = ...,
+        op_name: _builtins.str | None = ...,
+        source_file: _builtins.str | None = ...,
+        source_line: _builtins.int | None = ...,
+        source_end_line: _builtins.int | None = ...,
+        source_column: _builtins.int | None = ...,
+        source_end_column: _builtins.int | None = ...,
+        profile_type: _abc.Iterable[Global___ProfileType.ValueType] | None = ...,
+        size_of_generated_code_in_bytes: _builtins.int | None = ...,
+        size_of_memory_working_set_in_bytes: _builtins.int | None = ...,
+        profile_info: Global___OpMetadata.ProfileInfo | None = ...,
+        deduplicated_name: _builtins.str | None = ...,
+        stack_frame_id: _builtins.int | None = ...,
+        scheduling_name: _builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["profile_info", b"profile_info"]) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "deduplicated_name",
-            b"deduplicated_name",
-            "op_name",
-            b"op_name",
-            "op_type",
-            b"op_type",
-            "preserve_layout",
-            b"preserve_layout",
-            "profile_info",
-            b"profile_info",
-            "profile_type",
-            b"profile_type",
-            "scheduling_name",
-            b"scheduling_name",
-            "size_of_generated_code_in_bytes",
-            b"size_of_generated_code_in_bytes",
-            "size_of_memory_working_set_in_bytes",
-            b"size_of_memory_working_set_in_bytes",
-            "source_file",
-            b"source_file",
-            "source_line",
-            b"source_line",
-            "stack_frame_id",
-            b"stack_frame_id",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["profile_info", b"profile_info"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "deduplicated_name",
+        b"deduplicated_name",
+        "op_name",
+        b"op_name",
+        "op_type",
+        b"op_type",
+        "profile_info",
+        b"profile_info",
+        "profile_type",
+        b"profile_type",
+        "scheduling_name",
+        b"scheduling_name",
+        "size_of_generated_code_in_bytes",
+        b"size_of_generated_code_in_bytes",
+        "size_of_memory_working_set_in_bytes",
+        b"size_of_memory_working_set_in_bytes",
+        "source_column",
+        b"source_column",
+        "source_end_column",
+        b"source_end_column",
+        "source_end_line",
+        b"source_end_line",
+        "source_file",
+        b"source_file",
+        "source_line",
+        b"source_line",
+        "stack_frame_id",
+        b"stack_frame_id",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___OpMetadata = OpMetadata
+Global___OpMetadata: _TypeAlias = OpMetadata  # noqa: Y015
 
-@typing.final
-class ExecutionProfile(google.protobuf.message.Message):
+@_typing.final
+class ExecutionProfile(_message.Message):
     """Profile data from the execution of a computation."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    COMPILATION_CACHE_HIT_FIELD_NUMBER: builtins.int
-    COMPILE_TIME_MS_FIELD_NUMBER: builtins.int
-    COMPUTE_CYCLE_COUNT_FIELD_NUMBER: builtins.int
-    COMPUTE_TIME_NS_FIELD_NUMBER: builtins.int
-    COMPUTE_AND_TRANSFER_TIME_NS_FIELD_NUMBER: builtins.int
-    EXECUTABLE_SIZE_IN_BYTES_FIELD_NUMBER: builtins.int
-    PROFILE_CACHE_HIT_FIELD_NUMBER: builtins.int
-    WARMUP_RUN_EXECUTED_FIELD_NUMBER: builtins.int
-    compilation_cache_hit: builtins.bool
+    COMPILATION_CACHE_HIT_FIELD_NUMBER: _builtins.int
+    COMPILE_TIME_MS_FIELD_NUMBER: _builtins.int
+    COMPUTE_CYCLE_COUNT_FIELD_NUMBER: _builtins.int
+    COMPUTE_TIME_NS_FIELD_NUMBER: _builtins.int
+    COMPUTE_AND_TRANSFER_TIME_NS_FIELD_NUMBER: _builtins.int
+    EXECUTABLE_SIZE_IN_BYTES_FIELD_NUMBER: _builtins.int
+    PROFILE_CACHE_HIT_FIELD_NUMBER: _builtins.int
+    WARMUP_RUN_EXECUTED_FIELD_NUMBER: _builtins.int
+    compilation_cache_hit: _builtins.bool
     """Whether the executable was read from the compilation cache."""
-    compile_time_ms: builtins.int
+    compile_time_ms: _builtins.int
     """The time in milliseconds spent to compile the computation. This only set if
     the executable was not read from the compilation cache
     (compilation_cache_hit == false).
     """
-    compute_cycle_count: builtins.int
+    compute_cycle_count: _builtins.int
     """The number of cycles spent for the computation. This does not include the
     time taken for the data transfers between the host and the device. This is
     a target-dependent field and only used for debugging purposes.
     """
-    compute_time_ns: builtins.int
+    compute_time_ns: _builtins.int
     """The time in nanoseconds spent for the computation, without data transfer."""
-    compute_and_transfer_time_ns: builtins.int
+    compute_and_transfer_time_ns: _builtins.int
     """The time in nanoseconds spent for the entire computation, including the
     result data transfer time. Current implementation does not spend any cycles
     for the input data transfer since the memory is initialized with the proper
     values before the execution.
     """
-    executable_size_in_bytes: builtins.int
+    executable_size_in_bytes: _builtins.int
     """The size of the binary code in the executable."""
-    profile_cache_hit: builtins.bool
+    profile_cache_hit: _builtins.bool
     """Whether this profile was drawn from a cache of profiles instead of from
     execution on the hardware.
     """
-    warmup_run_executed: builtins.bool
+    warmup_run_executed: _builtins.bool
     """Whether a warm-up run of the computation was executed before the
     measured execution.
     """
     def __init__(
         self,
         *,
-        compilation_cache_hit: builtins.bool | None = ...,
-        compile_time_ms: builtins.int | None = ...,
-        compute_cycle_count: builtins.int | None = ...,
-        compute_time_ns: builtins.int | None = ...,
-        compute_and_transfer_time_ns: builtins.int | None = ...,
-        executable_size_in_bytes: builtins.int | None = ...,
-        profile_cache_hit: builtins.bool | None = ...,
-        warmup_run_executed: builtins.bool | None = ...,
+        compilation_cache_hit: _builtins.bool | None = ...,
+        compile_time_ms: _builtins.int | None = ...,
+        compute_cycle_count: _builtins.int | None = ...,
+        compute_time_ns: _builtins.int | None = ...,
+        compute_and_transfer_time_ns: _builtins.int | None = ...,
+        executable_size_in_bytes: _builtins.int | None = ...,
+        profile_cache_hit: _builtins.bool | None = ...,
+        warmup_run_executed: _builtins.bool | None = ...,
     ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "compilation_cache_hit",
-            b"compilation_cache_hit",
-            "compile_time_ms",
-            b"compile_time_ms",
-            "compute_and_transfer_time_ns",
-            b"compute_and_transfer_time_ns",
-            "compute_cycle_count",
-            b"compute_cycle_count",
-            "compute_time_ns",
-            b"compute_time_ns",
-            "executable_size_in_bytes",
-            b"executable_size_in_bytes",
-            "profile_cache_hit",
-            b"profile_cache_hit",
-            "warmup_run_executed",
-            b"warmup_run_executed",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "compilation_cache_hit",
+        b"compilation_cache_hit",
+        "compile_time_ms",
+        b"compile_time_ms",
+        "compute_and_transfer_time_ns",
+        b"compute_and_transfer_time_ns",
+        "compute_cycle_count",
+        b"compute_cycle_count",
+        "compute_time_ns",
+        b"compute_time_ns",
+        "executable_size_in_bytes",
+        b"executable_size_in_bytes",
+        "profile_cache_hit",
+        b"profile_cache_hit",
+        "warmup_run_executed",
+        b"warmup_run_executed",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___ExecutionProfile = ExecutionProfile
+Global___ExecutionProfile: _TypeAlias = ExecutionProfile  # noqa: Y015
 
-@typing.final
-class ExecutionHandle(google.protobuf.message.Message):
+@_typing.final
+class ExecutionHandle(_message.Message):
     """Handle given to a user that represents an execution that the user launched
     asynchronously on the device.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    HANDLE_FIELD_NUMBER: builtins.int
-    handle: builtins.int
-    def __init__(self, *, handle: builtins.int | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["handle", b"handle"]) -> None: ...
+    HANDLE_FIELD_NUMBER: _builtins.int
+    handle: _builtins.int
+    def __init__(self, *, handle: _builtins.int | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["handle", b"handle"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___ExecutionHandle = ExecutionHandle
+Global___ExecutionHandle: _TypeAlias = ExecutionHandle  # noqa: Y015
 
-@typing.final
-class GlobalDataHandle(google.protobuf.message.Message):
+@_typing.final
+class GlobalDataHandle(_message.Message):
     """Handle given to a user that represents a globally accessible allocation.
     Contrast this against a ComputationDataHandle, which is not globally
     accessible, since it only exists within a specific computation.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    HANDLE_FIELD_NUMBER: builtins.int
-    handle: builtins.int
-    def __init__(self, *, handle: builtins.int | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["handle", b"handle"]) -> None: ...
+    HANDLE_FIELD_NUMBER: _builtins.int
+    handle: _builtins.int
+    def __init__(self, *, handle: _builtins.int | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["handle", b"handle"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___GlobalDataHandle = GlobalDataHandle
+Global___GlobalDataHandle: _TypeAlias = GlobalDataHandle  # noqa: Y015
 
-@typing.final
-class DeviceHandle(google.protobuf.message.Message):
+@_typing.final
+class DeviceHandle(_message.Message):
     """Handle given to a user that represents a replicated virtual device. Each
     replicated device represents N physical devices for execution where N is the
     number of replicas.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    HANDLE_FIELD_NUMBER: builtins.int
-    DEVICE_COUNT_FIELD_NUMBER: builtins.int
-    handle: builtins.int
-    device_count: builtins.int
+    HANDLE_FIELD_NUMBER: _builtins.int
+    DEVICE_COUNT_FIELD_NUMBER: _builtins.int
+    handle: _builtins.int
+    device_count: _builtins.int
     """The number of model-parallel virtual devices that communicate via XLA
     Send/Recv instructions.
     """
-    def __init__(self, *, handle: builtins.int | None = ..., device_count: builtins.int | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["device_count", b"device_count", "handle", b"handle"]) -> None: ...
+    def __init__(self, *, handle: _builtins.int | None = ..., device_count: _builtins.int | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["device_count", b"device_count", "handle", b"handle"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___DeviceHandle = DeviceHandle
+Global___DeviceHandle: _TypeAlias = DeviceHandle  # noqa: Y015
 
-@typing.final
-class ChannelHandle(google.protobuf.message.Message):
+@_typing.final
+class ChannelHandle(_message.Message):
     """Handle given to a user to represent a channel between two computations
     via a Send and Recv instruction pair. Channels are unbuffered, so Send
     Send instructions will be blocked until the data is transferred.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _ChannelType:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _ChannelTypeEnumTypeWrapper(
-        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ChannelHandle._ChannelType.ValueType], builtins.type
-    ):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _ChannelTypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[ChannelHandle._ChannelType.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         CHANNEL_TYPE_INVALID: ChannelHandle._ChannelType.ValueType  # 0
         """Invalid primitive type to serve as default."""
         DEVICE_TO_DEVICE: ChannelHandle._ChannelType.ValueType  # 1
@@ -1217,74 +1424,81 @@ class ChannelHandle(google.protobuf.message.Message):
     with a Recv operation.
     """
 
-    HANDLE_FIELD_NUMBER: builtins.int
-    TYPE_FIELD_NUMBER: builtins.int
-    handle: builtins.int
-    type: global___ChannelHandle.ChannelType.ValueType
+    HANDLE_FIELD_NUMBER: _builtins.int
+    TYPE_FIELD_NUMBER: _builtins.int
+    handle: _builtins.int
+    type: Global___ChannelHandle.ChannelType.ValueType
     def __init__(
-        self, *, handle: builtins.int | None = ..., type: global___ChannelHandle.ChannelType.ValueType | None = ...
+        self, *, handle: _builtins.int | None = ..., type: Global___ChannelHandle.ChannelType.ValueType | None = ...
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["handle", b"handle", "type", b"type"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["handle", b"handle", "type", b"type"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___ChannelHandle = ChannelHandle
+Global___ChannelHandle: _TypeAlias = ChannelHandle  # noqa: Y015
 
-@typing.final
-class DeviceAssignmentProto(google.protobuf.message.Message):
+@_typing.final
+class DeviceAssignmentProto(_message.Message):
     """DeviceAssignmentProto is a serialized form of DeviceAssignment class, which
     represents the device ids assigned to a set of replicated computations.
     See xla::DeviceAssignment class comment for more details.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class ComputationDevice(google.protobuf.message.Message):
+    @_typing.final
+    class ComputationDevice(_message.Message):
         """Each logical computation runs on replica_count physical devices.
         ComputationDevice represents the device ids assinged to the replicas.
         """
 
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+        DESCRIPTOR: _descriptor.Descriptor
 
-        REPLICA_DEVICE_IDS_FIELD_NUMBER: builtins.int
-        @property
-        def replica_device_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
-        def __init__(self, *, replica_device_ids: collections.abc.Iterable[builtins.int] | None = ...) -> None: ...
-        def ClearField(self, field_name: typing.Literal["replica_device_ids", b"replica_device_ids"]) -> None: ...
+        REPLICA_DEVICE_IDS_FIELD_NUMBER: _builtins.int
+        @_builtins.property
+        def replica_device_ids(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]: ...
+        def __init__(self, *, replica_device_ids: _abc.Iterable[_builtins.int] | None = ...) -> None: ...
+        _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["replica_device_ids", b"replica_device_ids"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    REPLICA_COUNT_FIELD_NUMBER: builtins.int
-    COMPUTATION_COUNT_FIELD_NUMBER: builtins.int
-    COMPUTATION_DEVICES_FIELD_NUMBER: builtins.int
-    replica_count: builtins.int
-    computation_count: builtins.int
-    @property
+    REPLICA_COUNT_FIELD_NUMBER: _builtins.int
+    COMPUTATION_COUNT_FIELD_NUMBER: _builtins.int
+    COMPUTATION_DEVICES_FIELD_NUMBER: _builtins.int
+    replica_count: _builtins.int
+    computation_count: _builtins.int
+    @_builtins.property
     def computation_devices(
         self,
-    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
-        global___DeviceAssignmentProto.ComputationDevice
-    ]: ...
+    ) -> _containers.RepeatedCompositeFieldContainer[Global___DeviceAssignmentProto.ComputationDevice]: ...
     def __init__(
         self,
         *,
-        replica_count: builtins.int | None = ...,
-        computation_count: builtins.int | None = ...,
-        computation_devices: collections.abc.Iterable[global___DeviceAssignmentProto.ComputationDevice] | None = ...,
+        replica_count: _builtins.int | None = ...,
+        computation_count: _builtins.int | None = ...,
+        computation_devices: _abc.Iterable[Global___DeviceAssignmentProto.ComputationDevice] | None = ...,
     ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "computation_count",
-            b"computation_count",
-            "computation_devices",
-            b"computation_devices",
-            "replica_count",
-            b"replica_count",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "computation_count",
+        b"computation_count",
+        "computation_devices",
+        b"computation_devices",
+        "replica_count",
+        b"replica_count",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___DeviceAssignmentProto = DeviceAssignmentProto
+Global___DeviceAssignmentProto: _TypeAlias = DeviceAssignmentProto  # noqa: Y015
 
-@typing.final
-class LiteralProto(google.protobuf.message.Message):
+@_typing.final
+class LiteralProto(_message.Message):
     """Literals are used when the server and client need to exchange materialized
     data / results. Literals are also used to describe constants used in
     computations.
@@ -1293,196 +1507,226 @@ class LiteralProto(google.protobuf.message.Message):
     of the repeated fields is implied by the shape.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    SHAPE_FIELD_NUMBER: builtins.int
-    PREDS_FIELD_NUMBER: builtins.int
-    S2S_FIELD_NUMBER: builtins.int
-    S4S_FIELD_NUMBER: builtins.int
-    S8S_FIELD_NUMBER: builtins.int
-    U2S_FIELD_NUMBER: builtins.int
-    U4S_FIELD_NUMBER: builtins.int
-    U8S_FIELD_NUMBER: builtins.int
-    S32S_FIELD_NUMBER: builtins.int
-    S64S_FIELD_NUMBER: builtins.int
-    U32S_FIELD_NUMBER: builtins.int
-    U64S_FIELD_NUMBER: builtins.int
-    F32S_FIELD_NUMBER: builtins.int
-    F64S_FIELD_NUMBER: builtins.int
-    C64S_FIELD_NUMBER: builtins.int
-    C128S_FIELD_NUMBER: builtins.int
-    TUPLE_LITERALS_FIELD_NUMBER: builtins.int
-    F16S_FIELD_NUMBER: builtins.int
-    BF16S_FIELD_NUMBER: builtins.int
-    U16S_FIELD_NUMBER: builtins.int
-    S16S_FIELD_NUMBER: builtins.int
-    F8E5M2S_FIELD_NUMBER: builtins.int
-    F8E4M3FNS_FIELD_NUMBER: builtins.int
-    F8E4M3B11FNUZS_FIELD_NUMBER: builtins.int
-    F8E5M2FNUZS_FIELD_NUMBER: builtins.int
-    F8E4M3FNUZS_FIELD_NUMBER: builtins.int
-    SPARSE_INDICES_FIELD_NUMBER: builtins.int
-    s2s: builtins.bytes
-    s4s: builtins.bytes
-    s8s: builtins.bytes
-    u2s: builtins.bytes
-    u4s: builtins.bytes
-    u8s: builtins.bytes
-    f16s: builtins.bytes
+    SHAPE_FIELD_NUMBER: _builtins.int
+    PREDS_FIELD_NUMBER: _builtins.int
+    S1S_FIELD_NUMBER: _builtins.int
+    S2S_FIELD_NUMBER: _builtins.int
+    S4S_FIELD_NUMBER: _builtins.int
+    S8S_FIELD_NUMBER: _builtins.int
+    U1S_FIELD_NUMBER: _builtins.int
+    U2S_FIELD_NUMBER: _builtins.int
+    U4S_FIELD_NUMBER: _builtins.int
+    U8S_FIELD_NUMBER: _builtins.int
+    S32S_FIELD_NUMBER: _builtins.int
+    S64S_FIELD_NUMBER: _builtins.int
+    U32S_FIELD_NUMBER: _builtins.int
+    U64S_FIELD_NUMBER: _builtins.int
+    F32S_FIELD_NUMBER: _builtins.int
+    F64S_FIELD_NUMBER: _builtins.int
+    C64S_FIELD_NUMBER: _builtins.int
+    C128S_FIELD_NUMBER: _builtins.int
+    TUPLE_LITERALS_FIELD_NUMBER: _builtins.int
+    F16S_FIELD_NUMBER: _builtins.int
+    BF16S_FIELD_NUMBER: _builtins.int
+    U16S_FIELD_NUMBER: _builtins.int
+    S16S_FIELD_NUMBER: _builtins.int
+    F4E2M1FNS_FIELD_NUMBER: _builtins.int
+    F8E3M4S_FIELD_NUMBER: _builtins.int
+    F8E4M3B11FNUZS_FIELD_NUMBER: _builtins.int
+    F8E4M3FNS_FIELD_NUMBER: _builtins.int
+    F8E4M3FNUZS_FIELD_NUMBER: _builtins.int
+    F8E4M3S_FIELD_NUMBER: _builtins.int
+    F8E5M2FNUZS_FIELD_NUMBER: _builtins.int
+    F8E5M2S_FIELD_NUMBER: _builtins.int
+    F8E8M0FNUS_FIELD_NUMBER: _builtins.int
+    SPARSE_INDICES_FIELD_NUMBER: _builtins.int
+    s1s: _builtins.bytes
+    s2s: _builtins.bytes
+    s4s: _builtins.bytes
+    s8s: _builtins.bytes
+    u1s: _builtins.bytes
+    u2s: _builtins.bytes
+    u4s: _builtins.bytes
+    u8s: _builtins.bytes
+    f16s: _builtins.bytes
     """The F16s, BF16s, U16s and S16s are encoded in little endian byte order"""
-    bf16s: builtins.bytes
-    u16s: builtins.bytes
-    s16s: builtins.bytes
-    f8e5m2s: builtins.bytes
-    f8e4m3fns: builtins.bytes
-    f8e4m3b11fnuzs: builtins.bytes
-    f8e5m2fnuzs: builtins.bytes
-    f8e4m3fnuzs: builtins.bytes
-    @property
-    def shape(self) -> global___ShapeProto: ...
-    @property
-    def preds(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.bool]: ...
-    @property
-    def s32s(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
-    @property
-    def s64s(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
-    @property
-    def u32s(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
-    @property
-    def u64s(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
-    @property
-    def f32s(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.float]: ...
-    @property
-    def f64s(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.float]: ...
-    @property
-    def c64s(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.float]:
+    bf16s: _builtins.bytes
+    u16s: _builtins.bytes
+    s16s: _builtins.bytes
+    f4e2m1fns: _builtins.bytes
+    f8e3m4s: _builtins.bytes
+    f8e4m3b11fnuzs: _builtins.bytes
+    f8e4m3fns: _builtins.bytes
+    f8e4m3fnuzs: _builtins.bytes
+    f8e4m3s: _builtins.bytes
+    f8e5m2fnuzs: _builtins.bytes
+    f8e5m2s: _builtins.bytes
+    f8e8m0fnus: _builtins.bytes
+    @_builtins.property
+    def shape(self) -> Global___ShapeProto: ...
+    @_builtins.property
+    def preds(self) -> _containers.RepeatedScalarFieldContainer[_builtins.bool]: ...
+    @_builtins.property
+    def s32s(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]: ...
+    @_builtins.property
+    def s64s(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]: ...
+    @_builtins.property
+    def u32s(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]: ...
+    @_builtins.property
+    def u64s(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]: ...
+    @_builtins.property
+    def f32s(self) -> _containers.RepeatedScalarFieldContainer[_builtins.float]: ...
+    @_builtins.property
+    def f64s(self) -> _containers.RepeatedScalarFieldContainer[_builtins.float]: ...
+    @_builtins.property
+    def c64s(self) -> _containers.RepeatedScalarFieldContainer[_builtins.float]:
         """Stored as interleaved real, imag floats."""
 
-    @property
-    def c128s(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.float]:
+    @_builtins.property
+    def c128s(self) -> _containers.RepeatedScalarFieldContainer[_builtins.float]:
         """Stored as interleaved real, imag doubles."""
 
-    @property
-    def tuple_literals(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___LiteralProto]: ...
-    @property
-    def sparse_indices(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
-        """Next = 28"""
+    @_builtins.property
+    def tuple_literals(self) -> _containers.RepeatedCompositeFieldContainer[Global___LiteralProto]: ...
+    @_builtins.property
+    def sparse_indices(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]:
+        """Next = 34"""
 
     def __init__(
         self,
         *,
-        shape: global___ShapeProto | None = ...,
-        preds: collections.abc.Iterable[builtins.bool] | None = ...,
-        s2s: builtins.bytes | None = ...,
-        s4s: builtins.bytes | None = ...,
-        s8s: builtins.bytes | None = ...,
-        u2s: builtins.bytes | None = ...,
-        u4s: builtins.bytes | None = ...,
-        u8s: builtins.bytes | None = ...,
-        s32s: collections.abc.Iterable[builtins.int] | None = ...,
-        s64s: collections.abc.Iterable[builtins.int] | None = ...,
-        u32s: collections.abc.Iterable[builtins.int] | None = ...,
-        u64s: collections.abc.Iterable[builtins.int] | None = ...,
-        f32s: collections.abc.Iterable[builtins.float] | None = ...,
-        f64s: collections.abc.Iterable[builtins.float] | None = ...,
-        c64s: collections.abc.Iterable[builtins.float] | None = ...,
-        c128s: collections.abc.Iterable[builtins.float] | None = ...,
-        tuple_literals: collections.abc.Iterable[global___LiteralProto] | None = ...,
-        f16s: builtins.bytes | None = ...,
-        bf16s: builtins.bytes | None = ...,
-        u16s: builtins.bytes | None = ...,
-        s16s: builtins.bytes | None = ...,
-        f8e5m2s: builtins.bytes | None = ...,
-        f8e4m3fns: builtins.bytes | None = ...,
-        f8e4m3b11fnuzs: builtins.bytes | None = ...,
-        f8e5m2fnuzs: builtins.bytes | None = ...,
-        f8e4m3fnuzs: builtins.bytes | None = ...,
-        sparse_indices: collections.abc.Iterable[builtins.int] | None = ...,
+        shape: Global___ShapeProto | None = ...,
+        preds: _abc.Iterable[_builtins.bool] | None = ...,
+        s1s: _builtins.bytes | None = ...,
+        s2s: _builtins.bytes | None = ...,
+        s4s: _builtins.bytes | None = ...,
+        s8s: _builtins.bytes | None = ...,
+        u1s: _builtins.bytes | None = ...,
+        u2s: _builtins.bytes | None = ...,
+        u4s: _builtins.bytes | None = ...,
+        u8s: _builtins.bytes | None = ...,
+        s32s: _abc.Iterable[_builtins.int] | None = ...,
+        s64s: _abc.Iterable[_builtins.int] | None = ...,
+        u32s: _abc.Iterable[_builtins.int] | None = ...,
+        u64s: _abc.Iterable[_builtins.int] | None = ...,
+        f32s: _abc.Iterable[_builtins.float] | None = ...,
+        f64s: _abc.Iterable[_builtins.float] | None = ...,
+        c64s: _abc.Iterable[_builtins.float] | None = ...,
+        c128s: _abc.Iterable[_builtins.float] | None = ...,
+        tuple_literals: _abc.Iterable[Global___LiteralProto] | None = ...,
+        f16s: _builtins.bytes | None = ...,
+        bf16s: _builtins.bytes | None = ...,
+        u16s: _builtins.bytes | None = ...,
+        s16s: _builtins.bytes | None = ...,
+        f4e2m1fns: _builtins.bytes | None = ...,
+        f8e3m4s: _builtins.bytes | None = ...,
+        f8e4m3b11fnuzs: _builtins.bytes | None = ...,
+        f8e4m3fns: _builtins.bytes | None = ...,
+        f8e4m3fnuzs: _builtins.bytes | None = ...,
+        f8e4m3s: _builtins.bytes | None = ...,
+        f8e5m2fnuzs: _builtins.bytes | None = ...,
+        f8e5m2s: _builtins.bytes | None = ...,
+        f8e8m0fnus: _builtins.bytes | None = ...,
+        sparse_indices: _abc.Iterable[_builtins.int] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["shape", b"shape"]) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "bf16s",
-            b"bf16s",
-            "c128s",
-            b"c128s",
-            "c64s",
-            b"c64s",
-            "f16s",
-            b"f16s",
-            "f32s",
-            b"f32s",
-            "f64s",
-            b"f64s",
-            "f8e4m3b11fnuzs",
-            b"f8e4m3b11fnuzs",
-            "f8e4m3fns",
-            b"f8e4m3fns",
-            "f8e4m3fnuzs",
-            b"f8e4m3fnuzs",
-            "f8e5m2fnuzs",
-            b"f8e5m2fnuzs",
-            "f8e5m2s",
-            b"f8e5m2s",
-            "preds",
-            b"preds",
-            "s16s",
-            b"s16s",
-            "s2s",
-            b"s2s",
-            "s32s",
-            b"s32s",
-            "s4s",
-            b"s4s",
-            "s64s",
-            b"s64s",
-            "s8s",
-            b"s8s",
-            "shape",
-            b"shape",
-            "sparse_indices",
-            b"sparse_indices",
-            "tuple_literals",
-            b"tuple_literals",
-            "u16s",
-            b"u16s",
-            "u2s",
-            b"u2s",
-            "u32s",
-            b"u32s",
-            "u4s",
-            b"u4s",
-            "u64s",
-            b"u64s",
-            "u8s",
-            b"u8s",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["shape", b"shape"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "bf16s",
+        b"bf16s",
+        "c128s",
+        b"c128s",
+        "c64s",
+        b"c64s",
+        "f16s",
+        b"f16s",
+        "f32s",
+        b"f32s",
+        "f4e2m1fns",
+        b"f4e2m1fns",
+        "f64s",
+        b"f64s",
+        "f8e3m4s",
+        b"f8e3m4s",
+        "f8e4m3b11fnuzs",
+        b"f8e4m3b11fnuzs",
+        "f8e4m3fns",
+        b"f8e4m3fns",
+        "f8e4m3fnuzs",
+        b"f8e4m3fnuzs",
+        "f8e4m3s",
+        b"f8e4m3s",
+        "f8e5m2fnuzs",
+        b"f8e5m2fnuzs",
+        "f8e5m2s",
+        b"f8e5m2s",
+        "f8e8m0fnus",
+        b"f8e8m0fnus",
+        "preds",
+        b"preds",
+        "s16s",
+        b"s16s",
+        "s1s",
+        b"s1s",
+        "s2s",
+        b"s2s",
+        "s32s",
+        b"s32s",
+        "s4s",
+        b"s4s",
+        "s64s",
+        b"s64s",
+        "s8s",
+        b"s8s",
+        "shape",
+        b"shape",
+        "sparse_indices",
+        b"sparse_indices",
+        "tuple_literals",
+        b"tuple_literals",
+        "u16s",
+        b"u16s",
+        "u1s",
+        b"u1s",
+        "u2s",
+        b"u2s",
+        "u32s",
+        b"u32s",
+        "u4s",
+        b"u4s",
+        "u64s",
+        b"u64s",
+        "u8s",
+        b"u8s",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___LiteralProto = LiteralProto
+Global___LiteralProto: _TypeAlias = LiteralProto  # noqa: Y015
 
-@typing.final
-class WindowDimension(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class WindowDimension(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    SIZE_FIELD_NUMBER: builtins.int
-    STRIDE_FIELD_NUMBER: builtins.int
-    PADDING_LOW_FIELD_NUMBER: builtins.int
-    PADDING_HIGH_FIELD_NUMBER: builtins.int
-    WINDOW_DILATION_FIELD_NUMBER: builtins.int
-    BASE_DILATION_FIELD_NUMBER: builtins.int
-    WINDOW_REVERSAL_FIELD_NUMBER: builtins.int
-    size: builtins.int
+    SIZE_FIELD_NUMBER: _builtins.int
+    STRIDE_FIELD_NUMBER: _builtins.int
+    PADDING_LOW_FIELD_NUMBER: _builtins.int
+    PADDING_HIGH_FIELD_NUMBER: _builtins.int
+    WINDOW_DILATION_FIELD_NUMBER: _builtins.int
+    BASE_DILATION_FIELD_NUMBER: _builtins.int
+    WINDOW_REVERSAL_FIELD_NUMBER: _builtins.int
+    size: _builtins.int
     """The size of the window in this dimension. For a rectangle, this would be
     the width or height.
     """
-    stride: builtins.int
+    stride: _builtins.int
     """The stride at which the window moves across the base area in this
     dimension. In other words, this is the spacing between different
     positions of the window in this dimension.
     """
-    padding_low: builtins.int
+    padding_low: _builtins.int
     """If positive, means the amount of padding to add to the base area at the low
     end of this dimension; if negative, its negative means the number of
     elements removed from the low end of this dimension. For example, in the
@@ -1492,62 +1736,63 @@ class WindowDimension(google.protobuf.message.Message):
     zeros. ReduceWindow and SelectAndScatter pads with the reduce function's
     init value.
     """
-    padding_high: builtins.int
+    padding_high: _builtins.int
     """As padding_low, but on the high end of this dimension. For example, in the
     horizontal dimension of a rectangle, this would be the number of values to
     pad on the right, given that indices increase when going right.
     """
-    window_dilation: builtins.int
+    window_dilation: _builtins.int
     """Dilation factor of the sliding window in this dimension. A dilation factor
     of 1 means no dilation. window_dilation - 1 no-op entries ("holes") are
     implicitly placed between each kernel element. This value may not be less
     than 1. See documentation for convolution.
     """
-    base_dilation: builtins.int
+    base_dilation: _builtins.int
     """Dilation factor of the base area in this dimension. A dilation factor of 1
     means no dilation. base_dilation - 1 no-op entries ("holes") are implicitly
     placed between each base area element. This value may not be less than 1.
     See documentation for convolution.
     """
-    window_reversal: builtins.bool
+    window_reversal: _builtins.bool
     """Window reversal means that this dimension was logically reversed before the
     operation.
     """
     def __init__(
         self,
         *,
-        size: builtins.int | None = ...,
-        stride: builtins.int | None = ...,
-        padding_low: builtins.int | None = ...,
-        padding_high: builtins.int | None = ...,
-        window_dilation: builtins.int | None = ...,
-        base_dilation: builtins.int | None = ...,
-        window_reversal: builtins.bool | None = ...,
+        size: _builtins.int | None = ...,
+        stride: _builtins.int | None = ...,
+        padding_low: _builtins.int | None = ...,
+        padding_high: _builtins.int | None = ...,
+        window_dilation: _builtins.int | None = ...,
+        base_dilation: _builtins.int | None = ...,
+        window_reversal: _builtins.bool | None = ...,
     ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "base_dilation",
-            b"base_dilation",
-            "padding_high",
-            b"padding_high",
-            "padding_low",
-            b"padding_low",
-            "size",
-            b"size",
-            "stride",
-            b"stride",
-            "window_dilation",
-            b"window_dilation",
-            "window_reversal",
-            b"window_reversal",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "base_dilation",
+        b"base_dilation",
+        "padding_high",
+        b"padding_high",
+        "padding_low",
+        b"padding_low",
+        "size",
+        b"size",
+        "stride",
+        b"stride",
+        "window_dilation",
+        b"window_dilation",
+        "window_reversal",
+        b"window_reversal",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___WindowDimension = WindowDimension
+Global___WindowDimension: _TypeAlias = WindowDimension  # noqa: Y015
 
-@typing.final
-class Window(google.protobuf.message.Message):
+@_typing.final
+class Window(_message.Message):
     """Describes the windowing in an operation such as convolution.
 
     The window is moved across a base area and for each position of the
@@ -1555,38 +1800,42 @@ class Window(google.protobuf.message.Message):
     window and the movement of the window across a base area.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    DIMENSIONS_FIELD_NUMBER: builtins.int
-    @property
-    def dimensions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___WindowDimension]: ...
-    def __init__(self, *, dimensions: collections.abc.Iterable[global___WindowDimension] | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["dimensions", b"dimensions"]) -> None: ...
+    DIMENSIONS_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def dimensions(self) -> _containers.RepeatedCompositeFieldContainer[Global___WindowDimension]: ...
+    def __init__(self, *, dimensions: _abc.Iterable[Global___WindowDimension] | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["dimensions", b"dimensions"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___Window = Window
+Global___Window: _TypeAlias = Window  # noqa: Y015
 
-@typing.final
-class GatherDimensionNumbers(google.protobuf.message.Message):
+@_typing.final
+class GatherDimensionNumbers(_message.Message):
     """Describes the dimension numbers for a gather operation.
 
     See https://www.tensorflow.org/performance/xla/operation_semantics#gather for
     more details.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    OFFSET_DIMS_FIELD_NUMBER: builtins.int
-    COLLAPSED_SLICE_DIMS_FIELD_NUMBER: builtins.int
-    START_INDEX_MAP_FIELD_NUMBER: builtins.int
-    INDEX_VECTOR_DIM_FIELD_NUMBER: builtins.int
-    OPERAND_BATCHING_DIMS_FIELD_NUMBER: builtins.int
-    START_INDICES_BATCHING_DIMS_FIELD_NUMBER: builtins.int
-    index_vector_dim: builtins.int
+    OFFSET_DIMS_FIELD_NUMBER: _builtins.int
+    COLLAPSED_SLICE_DIMS_FIELD_NUMBER: _builtins.int
+    START_INDEX_MAP_FIELD_NUMBER: _builtins.int
+    INDEX_VECTOR_DIM_FIELD_NUMBER: _builtins.int
+    OPERAND_BATCHING_DIMS_FIELD_NUMBER: _builtins.int
+    START_INDICES_BATCHING_DIMS_FIELD_NUMBER: _builtins.int
+    index_vector_dim: _builtins.int
     """The dimension in the start_indices input that contains the starting
     indices.
     """
-    @property
-    def offset_dims(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+    @_builtins.property
+    def offset_dims(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]:
         """ "Window indices" is a term for a set of indices that index into the
         interior of a dynamic-slice from the input tensor, the starting indices for
         which were computed from output_gather_dims (see the operation semantic for
@@ -1602,21 +1851,21 @@ class GatherDimensionNumbers(google.protobuf.message.Message):
              else Out[offset_dims[i++]]
         """
 
-    @property
-    def collapsed_slice_dims(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
-    @property
-    def start_index_map(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+    @_builtins.property
+    def collapsed_slice_dims(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]: ...
+    @_builtins.property
+    def start_index_map(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]:
         """This is interpreted as a map from i to start_index_map[i]. It
         transforms the gather index looked up from the start_indices tensor into
         the starting index in the input space.
         """
 
-    @property
-    def operand_batching_dims(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+    @_builtins.property
+    def operand_batching_dims(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]:
         """This is the batch dimensions in the operand."""
 
-    @property
-    def start_indices_batching_dims(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+    @_builtins.property
+    def start_indices_batching_dims(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]:
         """This is the batch dimensions in the index, and it should be the same size
         as operand_batching_dims.
         """
@@ -1624,142 +1873,144 @@ class GatherDimensionNumbers(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        offset_dims: collections.abc.Iterable[builtins.int] | None = ...,
-        collapsed_slice_dims: collections.abc.Iterable[builtins.int] | None = ...,
-        start_index_map: collections.abc.Iterable[builtins.int] | None = ...,
-        index_vector_dim: builtins.int | None = ...,
-        operand_batching_dims: collections.abc.Iterable[builtins.int] | None = ...,
-        start_indices_batching_dims: collections.abc.Iterable[builtins.int] | None = ...,
+        offset_dims: _abc.Iterable[_builtins.int] | None = ...,
+        collapsed_slice_dims: _abc.Iterable[_builtins.int] | None = ...,
+        start_index_map: _abc.Iterable[_builtins.int] | None = ...,
+        index_vector_dim: _builtins.int | None = ...,
+        operand_batching_dims: _abc.Iterable[_builtins.int] | None = ...,
+        start_indices_batching_dims: _abc.Iterable[_builtins.int] | None = ...,
     ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "collapsed_slice_dims",
-            b"collapsed_slice_dims",
-            "index_vector_dim",
-            b"index_vector_dim",
-            "offset_dims",
-            b"offset_dims",
-            "operand_batching_dims",
-            b"operand_batching_dims",
-            "start_index_map",
-            b"start_index_map",
-            "start_indices_batching_dims",
-            b"start_indices_batching_dims",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "collapsed_slice_dims",
+        b"collapsed_slice_dims",
+        "index_vector_dim",
+        b"index_vector_dim",
+        "offset_dims",
+        b"offset_dims",
+        "operand_batching_dims",
+        b"operand_batching_dims",
+        "start_index_map",
+        b"start_index_map",
+        "start_indices_batching_dims",
+        b"start_indices_batching_dims",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___GatherDimensionNumbers = GatherDimensionNumbers
+Global___GatherDimensionNumbers: _TypeAlias = GatherDimensionNumbers  # noqa: Y015
 
-@typing.final
-class ScatterDimensionNumbers(google.protobuf.message.Message):
+@_typing.final
+class ScatterDimensionNumbers(_message.Message):
     """Describes the dimension numbers for a scatter operation.
 
     All the fields are similar to the corresponding fields in
     GatherDimensionNumbers. Differences are noted below.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    UPDATE_WINDOW_DIMS_FIELD_NUMBER: builtins.int
-    INSERTED_WINDOW_DIMS_FIELD_NUMBER: builtins.int
-    SCATTER_DIMS_TO_OPERAND_DIMS_FIELD_NUMBER: builtins.int
-    INDEX_VECTOR_DIM_FIELD_NUMBER: builtins.int
-    INPUT_BATCHING_DIMS_FIELD_NUMBER: builtins.int
-    SCATTER_INDICES_BATCHING_DIMS_FIELD_NUMBER: builtins.int
-    index_vector_dim: builtins.int
-    @property
-    def update_window_dims(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+    UPDATE_WINDOW_DIMS_FIELD_NUMBER: _builtins.int
+    INSERTED_WINDOW_DIMS_FIELD_NUMBER: _builtins.int
+    SCATTER_DIMS_TO_OPERAND_DIMS_FIELD_NUMBER: _builtins.int
+    INDEX_VECTOR_DIM_FIELD_NUMBER: _builtins.int
+    INPUT_BATCHING_DIMS_FIELD_NUMBER: _builtins.int
+    SCATTER_INDICES_BATCHING_DIMS_FIELD_NUMBER: _builtins.int
+    index_vector_dim: _builtins.int
+    @_builtins.property
+    def update_window_dims(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]:
         """The set of dimensions in the updates shape that are window dimensions."""
 
-    @property
-    def inserted_window_dims(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+    @_builtins.property
+    def inserted_window_dims(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]:
         """The set of window dimensions that must be inserted into the updates shape."""
 
-    @property
-    def scatter_dims_to_operand_dims(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
-    @property
-    def input_batching_dims(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+    @_builtins.property
+    def scatter_dims_to_operand_dims(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]: ...
+    @_builtins.property
+    def input_batching_dims(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]:
         """This is the batch dimension in the input."""
 
-    @property
-    def scatter_indices_batching_dims(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+    @_builtins.property
+    def scatter_indices_batching_dims(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]:
         """This is the batch dimension in the index."""
 
     def __init__(
         self,
         *,
-        update_window_dims: collections.abc.Iterable[builtins.int] | None = ...,
-        inserted_window_dims: collections.abc.Iterable[builtins.int] | None = ...,
-        scatter_dims_to_operand_dims: collections.abc.Iterable[builtins.int] | None = ...,
-        index_vector_dim: builtins.int | None = ...,
-        input_batching_dims: collections.abc.Iterable[builtins.int] | None = ...,
-        scatter_indices_batching_dims: collections.abc.Iterable[builtins.int] | None = ...,
+        update_window_dims: _abc.Iterable[_builtins.int] | None = ...,
+        inserted_window_dims: _abc.Iterable[_builtins.int] | None = ...,
+        scatter_dims_to_operand_dims: _abc.Iterable[_builtins.int] | None = ...,
+        index_vector_dim: _builtins.int | None = ...,
+        input_batching_dims: _abc.Iterable[_builtins.int] | None = ...,
+        scatter_indices_batching_dims: _abc.Iterable[_builtins.int] | None = ...,
     ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "index_vector_dim",
-            b"index_vector_dim",
-            "input_batching_dims",
-            b"input_batching_dims",
-            "inserted_window_dims",
-            b"inserted_window_dims",
-            "scatter_dims_to_operand_dims",
-            b"scatter_dims_to_operand_dims",
-            "scatter_indices_batching_dims",
-            b"scatter_indices_batching_dims",
-            "update_window_dims",
-            b"update_window_dims",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "index_vector_dim",
+        b"index_vector_dim",
+        "input_batching_dims",
+        b"input_batching_dims",
+        "inserted_window_dims",
+        b"inserted_window_dims",
+        "scatter_dims_to_operand_dims",
+        b"scatter_dims_to_operand_dims",
+        "scatter_indices_batching_dims",
+        b"scatter_indices_batching_dims",
+        "update_window_dims",
+        b"update_window_dims",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___ScatterDimensionNumbers = ScatterDimensionNumbers
+Global___ScatterDimensionNumbers: _TypeAlias = ScatterDimensionNumbers  # noqa: Y015
 
-@typing.final
-class ConvolutionDimensionNumbers(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class ConvolutionDimensionNumbers(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    INPUT_BATCH_DIMENSION_FIELD_NUMBER: builtins.int
-    INPUT_FEATURE_DIMENSION_FIELD_NUMBER: builtins.int
-    INPUT_SPATIAL_DIMENSIONS_FIELD_NUMBER: builtins.int
-    KERNEL_INPUT_FEATURE_DIMENSION_FIELD_NUMBER: builtins.int
-    KERNEL_OUTPUT_FEATURE_DIMENSION_FIELD_NUMBER: builtins.int
-    KERNEL_SPATIAL_DIMENSIONS_FIELD_NUMBER: builtins.int
-    OUTPUT_BATCH_DIMENSION_FIELD_NUMBER: builtins.int
-    OUTPUT_FEATURE_DIMENSION_FIELD_NUMBER: builtins.int
-    OUTPUT_SPATIAL_DIMENSIONS_FIELD_NUMBER: builtins.int
-    input_batch_dimension: builtins.int
+    INPUT_BATCH_DIMENSION_FIELD_NUMBER: _builtins.int
+    INPUT_FEATURE_DIMENSION_FIELD_NUMBER: _builtins.int
+    INPUT_SPATIAL_DIMENSIONS_FIELD_NUMBER: _builtins.int
+    KERNEL_INPUT_FEATURE_DIMENSION_FIELD_NUMBER: _builtins.int
+    KERNEL_OUTPUT_FEATURE_DIMENSION_FIELD_NUMBER: _builtins.int
+    KERNEL_SPATIAL_DIMENSIONS_FIELD_NUMBER: _builtins.int
+    OUTPUT_BATCH_DIMENSION_FIELD_NUMBER: _builtins.int
+    OUTPUT_FEATURE_DIMENSION_FIELD_NUMBER: _builtins.int
+    OUTPUT_SPATIAL_DIMENSIONS_FIELD_NUMBER: _builtins.int
+    input_batch_dimension: _builtins.int
     """The number of the dimension that represents batch in the input."""
-    input_feature_dimension: builtins.int
+    input_feature_dimension: _builtins.int
     """The number of the dimension that represents features in the input."""
-    kernel_input_feature_dimension: builtins.int
+    kernel_input_feature_dimension: _builtins.int
     """The number of the dimension that represents input features in the
     convolutional kernel (rhs).
     """
-    kernel_output_feature_dimension: builtins.int
+    kernel_output_feature_dimension: _builtins.int
     """The number of the dimension that represents output features in
     the convolutional kernel (rhs).
     """
-    output_batch_dimension: builtins.int
+    output_batch_dimension: _builtins.int
     """The number of the dimension that represents batch in the output."""
-    output_feature_dimension: builtins.int
+    output_feature_dimension: _builtins.int
     """The number of the dimension that represents features in the output."""
-    @property
-    def input_spatial_dimensions(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+    @_builtins.property
+    def input_spatial_dimensions(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]:
         """The dimension numbers for the spatial dimensions that the window
         moves through in the input.
         """
 
-    @property
-    def kernel_spatial_dimensions(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+    @_builtins.property
+    def kernel_spatial_dimensions(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]:
         """The dimension numbers for the spatial dimensions that the window
         moves through in the kernel (rhs). window.strides(0) is the
         stride in the kernel_spatial_dimensions(0) dimension.
         """
 
-    @property
-    def output_spatial_dimensions(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+    @_builtins.property
+    def output_spatial_dimensions(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]:
         """The dimension numbers for the spatial dimensions that the window
         moves through in the output.
         """
@@ -1767,142 +2018,145 @@ class ConvolutionDimensionNumbers(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        input_batch_dimension: builtins.int | None = ...,
-        input_feature_dimension: builtins.int | None = ...,
-        input_spatial_dimensions: collections.abc.Iterable[builtins.int] | None = ...,
-        kernel_input_feature_dimension: builtins.int | None = ...,
-        kernel_output_feature_dimension: builtins.int | None = ...,
-        kernel_spatial_dimensions: collections.abc.Iterable[builtins.int] | None = ...,
-        output_batch_dimension: builtins.int | None = ...,
-        output_feature_dimension: builtins.int | None = ...,
-        output_spatial_dimensions: collections.abc.Iterable[builtins.int] | None = ...,
+        input_batch_dimension: _builtins.int | None = ...,
+        input_feature_dimension: _builtins.int | None = ...,
+        input_spatial_dimensions: _abc.Iterable[_builtins.int] | None = ...,
+        kernel_input_feature_dimension: _builtins.int | None = ...,
+        kernel_output_feature_dimension: _builtins.int | None = ...,
+        kernel_spatial_dimensions: _abc.Iterable[_builtins.int] | None = ...,
+        output_batch_dimension: _builtins.int | None = ...,
+        output_feature_dimension: _builtins.int | None = ...,
+        output_spatial_dimensions: _abc.Iterable[_builtins.int] | None = ...,
     ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "input_batch_dimension",
-            b"input_batch_dimension",
-            "input_feature_dimension",
-            b"input_feature_dimension",
-            "input_spatial_dimensions",
-            b"input_spatial_dimensions",
-            "kernel_input_feature_dimension",
-            b"kernel_input_feature_dimension",
-            "kernel_output_feature_dimension",
-            b"kernel_output_feature_dimension",
-            "kernel_spatial_dimensions",
-            b"kernel_spatial_dimensions",
-            "output_batch_dimension",
-            b"output_batch_dimension",
-            "output_feature_dimension",
-            b"output_feature_dimension",
-            "output_spatial_dimensions",
-            b"output_spatial_dimensions",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "input_batch_dimension",
+        b"input_batch_dimension",
+        "input_feature_dimension",
+        b"input_feature_dimension",
+        "input_spatial_dimensions",
+        b"input_spatial_dimensions",
+        "kernel_input_feature_dimension",
+        b"kernel_input_feature_dimension",
+        "kernel_output_feature_dimension",
+        b"kernel_output_feature_dimension",
+        "kernel_spatial_dimensions",
+        b"kernel_spatial_dimensions",
+        "output_batch_dimension",
+        b"output_batch_dimension",
+        "output_feature_dimension",
+        b"output_feature_dimension",
+        "output_spatial_dimensions",
+        b"output_spatial_dimensions",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___ConvolutionDimensionNumbers = ConvolutionDimensionNumbers
+Global___ConvolutionDimensionNumbers: _TypeAlias = ConvolutionDimensionNumbers  # noqa: Y015
 
-@typing.final
-class DotDimensionNumbers(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class DotDimensionNumbers(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    LHS_CONTRACTING_DIMENSIONS_FIELD_NUMBER: builtins.int
-    RHS_CONTRACTING_DIMENSIONS_FIELD_NUMBER: builtins.int
-    LHS_BATCH_DIMENSIONS_FIELD_NUMBER: builtins.int
-    RHS_BATCH_DIMENSIONS_FIELD_NUMBER: builtins.int
-    @property
-    def lhs_contracting_dimensions(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+    LHS_CONTRACTING_DIMENSIONS_FIELD_NUMBER: _builtins.int
+    RHS_CONTRACTING_DIMENSIONS_FIELD_NUMBER: _builtins.int
+    LHS_BATCH_DIMENSIONS_FIELD_NUMBER: _builtins.int
+    RHS_BATCH_DIMENSIONS_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def lhs_contracting_dimensions(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]:
         """The dimension numbers that represent the 'lhs' contracting dimensions."""
 
-    @property
-    def rhs_contracting_dimensions(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+    @_builtins.property
+    def rhs_contracting_dimensions(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]:
         """The dimension numbers that represent the 'rhs' contracting dimensions."""
 
-    @property
-    def lhs_batch_dimensions(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+    @_builtins.property
+    def lhs_batch_dimensions(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]:
         """The dimension numbers that represent the 'lhs' batch dimensions."""
 
-    @property
-    def rhs_batch_dimensions(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+    @_builtins.property
+    def rhs_batch_dimensions(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]:
         """The dimension numbers that represent the 'rhs' batch dimensions."""
 
     def __init__(
         self,
         *,
-        lhs_contracting_dimensions: collections.abc.Iterable[builtins.int] | None = ...,
-        rhs_contracting_dimensions: collections.abc.Iterable[builtins.int] | None = ...,
-        lhs_batch_dimensions: collections.abc.Iterable[builtins.int] | None = ...,
-        rhs_batch_dimensions: collections.abc.Iterable[builtins.int] | None = ...,
+        lhs_contracting_dimensions: _abc.Iterable[_builtins.int] | None = ...,
+        rhs_contracting_dimensions: _abc.Iterable[_builtins.int] | None = ...,
+        lhs_batch_dimensions: _abc.Iterable[_builtins.int] | None = ...,
+        rhs_batch_dimensions: _abc.Iterable[_builtins.int] | None = ...,
     ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "lhs_batch_dimensions",
-            b"lhs_batch_dimensions",
-            "lhs_contracting_dimensions",
-            b"lhs_contracting_dimensions",
-            "rhs_batch_dimensions",
-            b"rhs_batch_dimensions",
-            "rhs_contracting_dimensions",
-            b"rhs_contracting_dimensions",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "lhs_batch_dimensions",
+        b"lhs_batch_dimensions",
+        "lhs_contracting_dimensions",
+        b"lhs_contracting_dimensions",
+        "rhs_batch_dimensions",
+        b"rhs_batch_dimensions",
+        "rhs_contracting_dimensions",
+        b"rhs_contracting_dimensions",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___DotDimensionNumbers = DotDimensionNumbers
+Global___DotDimensionNumbers: _TypeAlias = DotDimensionNumbers  # noqa: Y015
 
-@typing.final
-class SparsityDescriptor(google.protobuf.message.Message):
-    """Contains sparsity metadata for a sparse dot operation.
-    The only supported type atm is structured 2:4 sparsity, which is natively
-    supported on NVidia GPUs.
-    Restrictions:
-    - only one operand of the dot operation may be sparse;
-    - only the contracting dimension may be sparse.
-    """
+@_typing.final
+class RaggedDotDimensionNumbers(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DOT_DIMENSION_NUMBERS_FIELD_NUMBER: _builtins.int
+    LHS_RAGGED_DIMENSIONS_FIELD_NUMBER: _builtins.int
+    RHS_GROUP_DIMENSIONS_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def dot_dimension_numbers(self) -> Global___DotDimensionNumbers:
+        """The contracting and batch dimensions of the 'lhs' and 'rhs'."""
 
-    TYPE_FIELD_NUMBER: builtins.int
-    INDEX_FIELD_NUMBER: builtins.int
-    DIMENSION_FIELD_NUMBER: builtins.int
-    N_FIELD_NUMBER: builtins.int
-    M_FIELD_NUMBER: builtins.int
-    type: global___SparsityType.ValueType
-    index: builtins.int
-    """Sparse operand index (0 or 1)."""
-    dimension: builtins.int
-    """Sparse dimension number."""
-    n: builtins.int
-    """Structured N:M sparsity (N < M)."""
-    m: builtins.int
+    @_builtins.property
+    def lhs_ragged_dimensions(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]:
+        """The dimension numbers that represent the 'lhs' ragged dimensions."""
+
+    @_builtins.property
+    def rhs_group_dimensions(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]:
+        """The dimension numbers that represent the 'rhs' group dimensions."""
+
     def __init__(
         self,
         *,
-        type: global___SparsityType.ValueType | None = ...,
-        index: builtins.int | None = ...,
-        dimension: builtins.int | None = ...,
-        n: builtins.int | None = ...,
-        m: builtins.int | None = ...,
+        dot_dimension_numbers: Global___DotDimensionNumbers | None = ...,
+        lhs_ragged_dimensions: _abc.Iterable[_builtins.int] | None = ...,
+        rhs_group_dimensions: _abc.Iterable[_builtins.int] | None = ...,
     ) -> None: ...
-    def ClearField(
-        self, field_name: typing.Literal["dimension", b"dimension", "index", b"index", "m", b"m", "n", b"n", "type", b"type"]
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["dot_dimension_numbers", b"dot_dimension_numbers"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "dot_dimension_numbers",
+        b"dot_dimension_numbers",
+        "lhs_ragged_dimensions",
+        b"lhs_ragged_dimensions",
+        "rhs_group_dimensions",
+        b"rhs_group_dimensions",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___SparsityDescriptor = SparsityDescriptor
+Global___RaggedDotDimensionNumbers: _TypeAlias = RaggedDotDimensionNumbers  # noqa: Y015
 
-@typing.final
-class TriangularSolveOptions(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class TriangularSolveOptions(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _Transpose:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
     class _TransposeEnumTypeWrapper(
-        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[TriangularSolveOptions._Transpose.ValueType], builtins.type
+        _enum_type_wrapper._EnumTypeWrapper[TriangularSolveOptions._Transpose.ValueType], _builtins.type
     ):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        DESCRIPTOR: _descriptor.EnumDescriptor
         TRANSPOSE_INVALID: TriangularSolveOptions._Transpose.ValueType  # 0
         NO_TRANSPOSE: TriangularSolveOptions._Transpose.ValueType  # 1
         """Don't transpose 'a'."""
@@ -1922,147 +2176,402 @@ class TriangularSolveOptions(google.protobuf.message.Message):
     ADJOINT: TriangularSolveOptions.Transpose.ValueType  # 3
     """Complex conjugate and transpose 'a'."""
 
-    LEFT_SIDE_FIELD_NUMBER: builtins.int
-    LOWER_FIELD_NUMBER: builtins.int
-    UNIT_DIAGONAL_FIELD_NUMBER: builtins.int
-    TRANSPOSE_A_FIELD_NUMBER: builtins.int
-    left_side: builtins.bool
+    LEFT_SIDE_FIELD_NUMBER: _builtins.int
+    LOWER_FIELD_NUMBER: _builtins.int
+    UNIT_DIAGONAL_FIELD_NUMBER: _builtins.int
+    TRANSPOSE_A_FIELD_NUMBER: _builtins.int
+    left_side: _builtins.bool
     """If true, solves ax = b. If false, solves xa = b."""
-    lower: builtins.bool
+    lower: _builtins.bool
     """If true, 'a' is lower triangular. If false, 'a' is upper triangular."""
-    unit_diagonal: builtins.bool
+    unit_diagonal: _builtins.bool
     """If true, the diagonal elements of 'a' are assumed to be 1 and not accessed."""
-    transpose_a: global___TriangularSolveOptions.Transpose.ValueType
+    transpose_a: Global___TriangularSolveOptions.Transpose.ValueType
     def __init__(
         self,
         *,
-        left_side: builtins.bool | None = ...,
-        lower: builtins.bool | None = ...,
-        unit_diagonal: builtins.bool | None = ...,
-        transpose_a: global___TriangularSolveOptions.Transpose.ValueType | None = ...,
+        left_side: _builtins.bool | None = ...,
+        lower: _builtins.bool | None = ...,
+        unit_diagonal: _builtins.bool | None = ...,
+        transpose_a: Global___TriangularSolveOptions.Transpose.ValueType | None = ...,
     ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "left_side", b"left_side", "lower", b"lower", "transpose_a", b"transpose_a", "unit_diagonal", b"unit_diagonal"
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "left_side", b"left_side", "lower", b"lower", "transpose_a", b"transpose_a", "unit_diagonal", b"unit_diagonal"
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___TriangularSolveOptions = TriangularSolveOptions
+Global___TriangularSolveOptions: _TypeAlias = TriangularSolveOptions  # noqa: Y015
 
-@typing.final
-class CholeskyOptions(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class CholeskyOptions(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    LOWER_FIELD_NUMBER: builtins.int
-    lower: builtins.bool
+    LOWER_FIELD_NUMBER: _builtins.int
+    lower: _builtins.bool
     """If true, uses the lower triangle of `a`. If false, uses the upper triangle
     of `a`.
     """
-    def __init__(self, *, lower: builtins.bool | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["lower", b"lower"]) -> None: ...
+    def __init__(self, *, lower: _builtins.bool | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["lower", b"lower"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___CholeskyOptions = CholeskyOptions
+Global___CholeskyOptions: _TypeAlias = CholeskyOptions  # noqa: Y015
 
-@typing.final
-class SortOptions(google.protobuf.message.Message):
+@_typing.final
+class SortOptions(_message.Message):
     """Attributes of the sort custom call (cub::DeviceRadixSort)."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    DESCENDING_FIELD_NUMBER: builtins.int
-    descending: builtins.bool
-    def __init__(self, *, descending: builtins.bool | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["descending", b"descending"]) -> None: ...
+    DESCENDING_FIELD_NUMBER: _builtins.int
+    descending: _builtins.bool
+    def __init__(self, *, descending: _builtins.bool | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["descending", b"descending"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___SortOptions = SortOptions
+Global___SortOptions: _TypeAlias = SortOptions  # noqa: Y015
 
-@typing.final
-class FrontendAttributes(google.protobuf.message.Message):
+@_typing.final
+class FrontendAttributes(_message.Message):
     """Generic map of attributes used to pass hints / configuration options from
     the Python frontend to the XLA backend.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class MapEntry(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class MapEntry(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        KEY_FIELD_NUMBER: builtins.int
-        VALUE_FIELD_NUMBER: builtins.int
-        key: builtins.str
-        value: builtins.str
-        def __init__(self, *, key: builtins.str | None = ..., value: builtins.str | None = ...) -> None: ...
-        def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
+        KEY_FIELD_NUMBER: _builtins.int
+        VALUE_FIELD_NUMBER: _builtins.int
+        key: _builtins.str
+        value: _builtins.str
+        def __init__(self, *, key: _builtins.str | None = ..., value: _builtins.str | None = ...) -> None: ...
+        _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["key", b"key", "value", b"value"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    MAP_FIELD_NUMBER: builtins.int
-    @property
-    def map(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, builtins.str]: ...
-    def __init__(self, *, map: collections.abc.Mapping[builtins.str, builtins.str] | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["map", b"map"]) -> None: ...
+    MAP_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def map(self) -> _containers.ScalarMap[_builtins.str, _builtins.str]: ...
+    def __init__(self, *, map: _abc.Mapping[_builtins.str, _builtins.str] | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["map", b"map"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___FrontendAttributes = FrontendAttributes
+Global___FrontendAttributes: _TypeAlias = FrontendAttributes  # noqa: Y015
 
-@typing.final
-class Statistic(google.protobuf.message.Message):
+@_typing.final
+class Statistic(_message.Message):
     """Represents a single statistic to track."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    STAT_NAME_FIELD_NUMBER: builtins.int
-    STAT_VAL_FIELD_NUMBER: builtins.int
-    stat_name: builtins.str
+    STAT_NAME_FIELD_NUMBER: _builtins.int
+    STAT_VAL_FIELD_NUMBER: _builtins.int
+    stat_name: _builtins.str
     """Must be a single word consisting of any alphanumeric characters"""
-    stat_val: builtins.float
+    stat_val: _builtins.float
     """Must be within a range of [0, 100], in order for the graph dumper to
     properly render the statistic onto the graph.
     """
-    def __init__(self, *, stat_name: builtins.str | None = ..., stat_val: builtins.float | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["stat_name", b"stat_name", "stat_val", b"stat_val"]) -> None: ...
+    def __init__(self, *, stat_name: _builtins.str | None = ..., stat_val: _builtins.float | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["stat_name", b"stat_name", "stat_val", b"stat_val"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___Statistic = Statistic
+Global___Statistic: _TypeAlias = Statistic  # noqa: Y015
 
-@typing.final
-class StatisticsViz(google.protobuf.message.Message):
+@_typing.final
+class StatisticsViz(_message.Message):
     """Represents the information needed to visualize propagation statistics when
     rendering an HLO graph. This includes an array of statistics as well as the
     index of the statistic to render.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    STAT_INDEX_TO_VISUALIZE_FIELD_NUMBER: builtins.int
-    STATISTICS_FIELD_NUMBER: builtins.int
-    stat_index_to_visualize: builtins.int
-    @property
-    def statistics(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Statistic]: ...
+    STAT_INDEX_TO_VISUALIZE_FIELD_NUMBER: _builtins.int
+    STATISTICS_FIELD_NUMBER: _builtins.int
+    stat_index_to_visualize: _builtins.int
+    @_builtins.property
+    def statistics(self) -> _containers.RepeatedCompositeFieldContainer[Global___Statistic]: ...
+    def __init__(
+        self, *, stat_index_to_visualize: _builtins.int | None = ..., statistics: _abc.Iterable[Global___Statistic] | None = ...
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "stat_index_to_visualize", b"stat_index_to_visualize", "statistics", b"statistics"
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___StatisticsViz: _TypeAlias = StatisticsViz  # noqa: Y015
+
+@_typing.final
+class MeshProto(_message.Message):
+    """- An empty mesh represents a placeholder mesh that can be replaced during
+      propagation: <[]>
+    - A mesh without axes list and a single non-negative device ID, which is a
+      maximal-sharding mesh: <[], device_ids=[3]>
+    - A mesh with two axes and implicit device IDs iota(6): <["a"=2, "b"=3]>
+    - A mesh with two axes and explicit device IDs specifying the device
+      ordering: <["a"=3, "b"=2], device_ids=[0, 2, 4, 1, 3, 5]>
+
+    **Constraints:**
+    - Elements in `device_ids` should be non-negative.
+    - If `axes` is empty, the size of `device_ids` can be 0 (empty mesh) or 1
+      (maximal-sharding mesh).
+    - If `axes` is not empty,
+        - Elements in `axes` must not have duplicate names.
+        - If `device_ids` is specified, the original `device_ids` is not
+          `iota(product(axis_sizes))` and the sorted `device_ids` is
+          `iota(product(axis_sizes))`.
+    """
+
+    DESCRIPTOR: _descriptor.Descriptor
+
+    @_typing.final
+    class MeshAxis(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
+
+        NAME_FIELD_NUMBER: _builtins.int
+        SIZE_FIELD_NUMBER: _builtins.int
+        name: _builtins.str
+        size: _builtins.int
+        def __init__(self, *, name: _builtins.str | None = ..., size: _builtins.int | None = ...) -> None: ...
+        _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["name", b"name", "size", b"size"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+    AXES_FIELD_NUMBER: _builtins.int
+    DEVICE_IDS_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def axes(self) -> _containers.RepeatedCompositeFieldContainer[Global___MeshProto.MeshAxis]: ...
+    @_builtins.property
+    def device_ids(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]: ...
     def __init__(
         self,
         *,
-        stat_index_to_visualize: builtins.int | None = ...,
-        statistics: collections.abc.Iterable[global___Statistic] | None = ...,
+        axes: _abc.Iterable[Global___MeshProto.MeshAxis] | None = ...,
+        device_ids: _abc.Iterable[_builtins.int] | None = ...,
     ) -> None: ...
-    def ClearField(
-        self, field_name: typing.Literal["stat_index_to_visualize", b"stat_index_to_visualize", "statistics", b"statistics"]
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["axes", b"axes", "device_ids", b"device_ids"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___MeshProto: _TypeAlias = MeshProto  # noqa: Y015
+
+@_typing.final
+class AxisRefProto(_message.Message):
+    """Reference to either a full axis via index into Mesh axes or a split
+    sub-axis. Axis index is used to reference the axis in the mesh instead of
+    axis name to reduce proto size.
+
+    Constraints:
+    - `mesh_axis_index` is a valid index into `mesh.axes`.
+    """
+
+    DESCRIPTOR: _descriptor.Descriptor
+
+    @_typing.final
+    class SubAxis(_message.Message):
+        """When splitting a full axis into n sub-axes, the axis is reshaped into
+        [k_1,...,k_n], and the ith sub-axis can be expressed by the product of
+        all axis sizes to its left `m=prod(k_1,...,k_(i-1))` (aka pre-size) and
+        size k_i. Therefore, the sub-axis-info attribute holds those two numbers
+        and is denoted as follows: `(m)k` for pre-size m and size k.
+
+        Constraints:
+        - `pre-size` is at least 1.
+        - `size` is greater than 1.
+        - `pre-size` must divide the size of the full axis, i.e., both `pre-size`
+           and `size` divide the size of the full axis, and the sub-axis doesn't
+           go beyond the full axis.
+        - The size of the sub-axis isn't equal to the size of the corresponding
+          full axis, in which case the full axis should be used instead.
+        """
+
+        DESCRIPTOR: _descriptor.Descriptor
+
+        PRE_SIZE_FIELD_NUMBER: _builtins.int
+        SIZE_FIELD_NUMBER: _builtins.int
+        pre_size: _builtins.int
+        size: _builtins.int
+        def __init__(self, *, pre_size: _builtins.int | None = ..., size: _builtins.int | None = ...) -> None: ...
+        _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["pre_size", b"pre_size", "size", b"size"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+    MESH_AXIS_INDEX_FIELD_NUMBER: _builtins.int
+    SUB_AXIS_INFO_FIELD_NUMBER: _builtins.int
+    mesh_axis_index: _builtins.int
+    @_builtins.property
+    def sub_axis_info(self) -> Global___AxisRefProto.SubAxis: ...
+    def __init__(
+        self, *, mesh_axis_index: _builtins.int | None = ..., sub_axis_info: Global___AxisRefProto.SubAxis | None = ...
     ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal[
+        "_sub_axis_info", b"_sub_axis_info", "sub_axis_info", b"sub_axis_info"
+    ]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "_sub_axis_info", b"_sub_axis_info", "mesh_axis_index", b"mesh_axis_index", "sub_axis_info", b"sub_axis_info"
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType__sub_axis_info: _TypeAlias = _typing.Literal["sub_axis_info"]  # noqa: Y015
+    _WhichOneofArgType__sub_axis_info: _TypeAlias = _typing.Literal["_sub_axis_info", b"_sub_axis_info"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__sub_axis_info) -> _WhichOneofReturnType__sub_axis_info | None: ...
 
-global___StatisticsViz = StatisticsViz
+Global___AxisRefProto: _TypeAlias = AxisRefProto  # noqa: Y015
 
-@typing.final
-class OpSharding(google.protobuf.message.Message):
+@_typing.final
+class NamedShardingProto(_message.Message):
+    """A NamedSharding is bound to a specific mesh, and can only reference axis
+    names from that mesh. The dimension shardings tell us for each dimension of
+    the tensor, along which axes it is sharded from major to minor. All other
+    axes that don't shard a dimension are either implicitly or explicitly (if
+    they appear in the list of replicated axes) replicated. A sharding can have
+    unreduced axes (specified by `unreduced_axes`), meaning the tensor is
+    unreduced along these axes. Note that no sharding attribute on a tensor is
+    equivalent to a fully open sharding.
+    This is corresponding to mlir sharding representation `Sdy_TensorSharding`
+    (https://github.com/openxla/shardy/blob/main/shardy/dialect/sdy/ir/attrs.td)
+    used in Shardy.
+    """
+
+    DESCRIPTOR: _descriptor.Descriptor
+
+    @_typing.final
+    class DimensionSharding(_message.Message):
+        """Describes how a tensor dimension is sharded using indices into
+        mesh.axes, from major to minor, and a boolean indicating whether
+        the dimension can be further sharded.
+        """
+
+        DESCRIPTOR: _descriptor.Descriptor
+
+        AXES_FIELD_NUMBER: _builtins.int
+        IS_CLOSED_FIELD_NUMBER: _builtins.int
+        is_closed: _builtins.bool
+        """If true, this dimension is "closed" and can't be further sharded."""
+        @_builtins.property
+        def axes(self) -> _containers.RepeatedCompositeFieldContainer[Global___AxisRefProto]:
+            """List of axes to shard a tensor dimension on from major to minor. The
+            dimension should have at least one axis if it is closed.
+            """
+
+        def __init__(
+            self, *, axes: _abc.Iterable[Global___AxisRefProto] | None = ..., is_closed: _builtins.bool | None = ...
+        ) -> None: ...
+        _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["axes", b"axes", "is_closed", b"is_closed"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+    MESH_FIELD_NUMBER: _builtins.int
+    DIM_SHARDINGS_FIELD_NUMBER: _builtins.int
+    REPLICATED_AXES_FIELD_NUMBER: _builtins.int
+    UNREDUCED_AXES_FIELD_NUMBER: _builtins.int
+    MANUAL_AXES_FIELD_NUMBER: _builtins.int
+    METADATA_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def mesh(self) -> Global___MeshProto: ...
+    @_builtins.property
+    def dim_shardings(self) -> _containers.RepeatedCompositeFieldContainer[Global___NamedShardingProto.DimensionSharding]:
+        """The dimension shardings tell us for each dimension of the tensor, along
+        which axes it is sharded from major to minor.
+        """
+
+    @_builtins.property
+    def replicated_axes(self) -> _containers.RepeatedCompositeFieldContainer[Global___AxisRefProto]:
+        """All axes in this list are explicitly replicated."""
+
+    @_builtins.property
+    def unreduced_axes(self) -> _containers.RepeatedCompositeFieldContainer[Global___AxisRefProto]:
+        """A sharding can have unreduced axes, meaning the tensor is unreduced
+        along these axes.
+        """
+
+    @_builtins.property
+    def manual_axes(self) -> _containers.RepeatedCompositeFieldContainer[Global___AxisRefProto]:
+        """A list of axes that is controlled by the users."""
+
+    @_builtins.property
+    def metadata(self) -> _containers.RepeatedCompositeFieldContainer[Global___OpMetadata]:
+        """This field is used to track the source of this sharding, usually derived
+        from instructions. Multple metadata may be populated if sharding is
+        combined with other shardings. Metadata should be set on individual tuple
+        elements and not tuple_sharding.
+        """
+
+    def __init__(
+        self,
+        *,
+        mesh: Global___MeshProto | None = ...,
+        dim_shardings: _abc.Iterable[Global___NamedShardingProto.DimensionSharding] | None = ...,
+        replicated_axes: _abc.Iterable[Global___AxisRefProto] | None = ...,
+        unreduced_axes: _abc.Iterable[Global___AxisRefProto] | None = ...,
+        manual_axes: _abc.Iterable[Global___AxisRefProto] | None = ...,
+        metadata: _abc.Iterable[Global___OpMetadata] | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["mesh", b"mesh"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "dim_shardings",
+        b"dim_shardings",
+        "manual_axes",
+        b"manual_axes",
+        "mesh",
+        b"mesh",
+        "metadata",
+        b"metadata",
+        "replicated_axes",
+        b"replicated_axes",
+        "unreduced_axes",
+        b"unreduced_axes",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___NamedShardingProto: _TypeAlias = NamedShardingProto  # noqa: Y015
+
+@_typing.final
+class OpSharding(_message.Message):
     """LINT.IfChange"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _Type:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _TypeEnumTypeWrapper(
-        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[OpSharding._Type.ValueType], builtins.type
-    ):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _TypeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[OpSharding._Type.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         REPLICATED: OpSharding._Type.ValueType  # 0
         """This sharding is replicated across all devices (implies maximal,
         all other fields are unused).
@@ -2081,6 +2590,8 @@ class OpSharding(google.protobuf.message.Message):
         """This sharding is a placeholder sharding with lowest precedence, it can be
         overwriten by any other shardings.
         """
+        UNREDUCED: OpSharding._Type.ValueType  # 6
+        """This op is unreduced: its outputs will not be combined via an all-reduce."""
 
     class Type(_Type, metaclass=_TypeEnumTypeWrapper): ...
     REPLICATED: OpSharding.Type.ValueType  # 0
@@ -2101,15 +2612,17 @@ class OpSharding(google.protobuf.message.Message):
     """This sharding is a placeholder sharding with lowest precedence, it can be
     overwriten by any other shardings.
     """
+    UNREDUCED: OpSharding.Type.ValueType  # 6
+    """This op is unreduced: its outputs will not be combined via an all-reduce."""
 
     class _ShardGroupType:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
     class _ShardGroupTypeEnumTypeWrapper(
-        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[OpSharding._ShardGroupType.ValueType], builtins.type
+        _enum_type_wrapper._EnumTypeWrapper[OpSharding._ShardGroupType.ValueType], _builtins.type
     ):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        DESCRIPTOR: _descriptor.EnumDescriptor
         AS: OpSharding._ShardGroupType.ValueType  # 0
         """This op will be sharded exactly the same as the other op. (hard
         restriction)
@@ -2137,50 +2650,51 @@ class OpSharding(google.protobuf.message.Message):
     restriction)
     """
 
-    TYPE_FIELD_NUMBER: builtins.int
-    TILE_SHAPE_FIELD_NUMBER: builtins.int
-    TILE_ASSIGNMENT_DIMENSIONS_FIELD_NUMBER: builtins.int
-    TILE_ASSIGNMENT_DEVICES_FIELD_NUMBER: builtins.int
-    TUPLE_SHARDINGS_FIELD_NUMBER: builtins.int
-    REPLICATE_ON_LAST_TILE_DIM_FIELD_NUMBER: builtins.int
-    METADATA_FIELD_NUMBER: builtins.int
-    LAST_TILE_DIMS_FIELD_NUMBER: builtins.int
-    IOTA_RESHAPE_DIMS_FIELD_NUMBER: builtins.int
-    IOTA_TRANSPOSE_PERM_FIELD_NUMBER: builtins.int
-    IS_SHARD_GROUP_FIELD_NUMBER: builtins.int
-    SHARD_GROUP_ID_FIELD_NUMBER: builtins.int
-    SHARD_GROUP_TYPE_FIELD_NUMBER: builtins.int
-    type: global___OpSharding.Type.ValueType
-    replicate_on_last_tile_dim: builtins.bool
+    TYPE_FIELD_NUMBER: _builtins.int
+    TILE_SHAPE_FIELD_NUMBER: _builtins.int
+    TILE_ASSIGNMENT_DIMENSIONS_FIELD_NUMBER: _builtins.int
+    TILE_ASSIGNMENT_DEVICES_FIELD_NUMBER: _builtins.int
+    TUPLE_SHARDINGS_FIELD_NUMBER: _builtins.int
+    REPLICATE_ON_LAST_TILE_DIM_FIELD_NUMBER: _builtins.int
+    METADATA_FIELD_NUMBER: _builtins.int
+    LAST_TILE_DIMS_FIELD_NUMBER: _builtins.int
+    IOTA_RESHAPE_DIMS_FIELD_NUMBER: _builtins.int
+    IOTA_TRANSPOSE_PERM_FIELD_NUMBER: _builtins.int
+    IS_SHARD_GROUP_FIELD_NUMBER: _builtins.int
+    SHARD_GROUP_ID_FIELD_NUMBER: _builtins.int
+    SHARD_GROUP_TYPE_FIELD_NUMBER: _builtins.int
+    NAMED_SHARDING_FIELD_NUMBER: _builtins.int
+    type: Global___OpSharding.Type.ValueType
+    replicate_on_last_tile_dim: _builtins.bool
     """Only used for OTHER type. If true, data is sharded according to other
     dimensions of tile_assignment(), but replicated across devices along the
     last dimension. (Experimental)
     """
-    is_shard_group: builtins.bool
+    is_shard_group: _builtins.bool
     """This field decides whether this op is in a shard group."""
-    shard_group_id: builtins.int
+    shard_group_id: _builtins.int
     """This field is used to store the unique id of the shard group."""
-    shard_group_type: global___OpSharding.ShardGroupType.ValueType
-    @property
-    def tile_shape(self) -> global___ShapeProto:
+    shard_group_type: Global___OpSharding.ShardGroupType.ValueType
+    @_builtins.property
+    def tile_shape(self) -> Global___ShapeProto:
         """The shape of the sharded tile."""
 
-    @property
-    def tile_assignment_dimensions(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+    @_builtins.property
+    def tile_assignment_dimensions(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]:
         """The shape of the tile assignment tensor - this must be the same rank as
         tile_shape and the product of its dimensions must equal
         tile_assignment_devices.size().
         """
 
-    @property
-    def tile_assignment_devices(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+    @_builtins.property
+    def tile_assignment_devices(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]:
         """Flattened list of device IDs. The order of flattening is the same as used
         by IndexUtil::MultiToLinearIndex(tile_assignment_shape).
         Only one of tile_assignment_devices and iota_dimensions shall be non-empty.
         """
 
-    @property
-    def tuple_shardings(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___OpSharding]:
+    @_builtins.property
+    def tuple_shardings(self) -> _containers.RepeatedCompositeFieldContainer[Global___OpSharding]:
         """If type == TUPLE, the sub-shardings, one per leaf node in the tuple shape,
         in pre-order. The tuple shape could be nested; here we store just a
         flattened list of all leaves in the tuple shape. Note that the tuple shape
@@ -2189,8 +2703,8 @@ class OpSharding(google.protobuf.message.Message):
         to.
         """
 
-    @property
-    def metadata(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___OpMetadata]:
+    @_builtins.property
+    def metadata(self) -> _containers.RepeatedCompositeFieldContainer[Global___OpMetadata]:
         """This field is used to track the source of this sharding, usually derived
         from instructions. Multple metadata may be populated if sharding is
         combined with other shardings.  Metadata are to not be populated when
@@ -2198,10 +2712,8 @@ class OpSharding(google.protobuf.message.Message):
         elements.
         """
 
-    @property
-    def last_tile_dims(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___OpSharding.Type.ValueType]:
+    @_builtins.property
+    def last_tile_dims(self) -> _containers.RepeatedScalarFieldContainer[Global___OpSharding.Type.ValueType]:
         """This field is used to represented the sharding type of each subgroup.
         For example, sharding={devices=[2,2,2,2]0,1,2,...,15 last_tile_dims={
         replicate, manual, unreduced}} means that each of the last 3 dimensions
@@ -2209,115 +2721,181 @@ class OpSharding(google.protobuf.message.Message):
         unreduced sharding type respectively.
         """
 
-    @property
-    def iota_reshape_dims(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+    @_builtins.property
+    def iota_reshape_dims(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]:
         """Dimensions used to reshape the 1D iota array of device IDs.
         Only one of tile_assignment_devices and iota_reshape_dims shall be
         non-empty.
         """
 
-    @property
-    def iota_transpose_perm(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+    @_builtins.property
+    def iota_transpose_perm(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]:
         """Dimension permutations to transposed the iota array reshaped to
         iota_reshape_dims. This must have the same size as iota_reshape_dims.
+        """
+
+    @_builtins.property
+    def named_sharding(self) -> Global___NamedShardingProto:
+        """Optional field to migrate OpSharding to new NamedSharding representation.
+        If this field is populated, all other fields in OpSharding should be empty
+        or else are ignored. This is to facilitate migration from the old sharding
+        format.
+
+        Note that for tuple NamedShardings, we reuse HloSharding's tuple_elements_
+        field. If named sharding format is enabled each element in tuple_elements_
+        will be an HloSharding, which itself can be a tuple or should only have
+        named_sharding_ populated. This approach is taken to maintain backward
+        compatibility with the existing `tuple_elements()` method, which provides a
+        modifiable reference to a `std::vector<HloSharding>`.
+
+        Note that instead of reusing OpSharding's fields like metadata, we have
+        separate fields in NamedSharding to treat it as a standalone message which
+        is more clear and will help in future cleanup.
         """
 
     def __init__(
         self,
         *,
-        type: global___OpSharding.Type.ValueType | None = ...,
-        tile_shape: global___ShapeProto | None = ...,
-        tile_assignment_dimensions: collections.abc.Iterable[builtins.int] | None = ...,
-        tile_assignment_devices: collections.abc.Iterable[builtins.int] | None = ...,
-        tuple_shardings: collections.abc.Iterable[global___OpSharding] | None = ...,
-        replicate_on_last_tile_dim: builtins.bool | None = ...,
-        metadata: collections.abc.Iterable[global___OpMetadata] | None = ...,
-        last_tile_dims: collections.abc.Iterable[global___OpSharding.Type.ValueType] | None = ...,
-        iota_reshape_dims: collections.abc.Iterable[builtins.int] | None = ...,
-        iota_transpose_perm: collections.abc.Iterable[builtins.int] | None = ...,
-        is_shard_group: builtins.bool | None = ...,
-        shard_group_id: builtins.int | None = ...,
-        shard_group_type: global___OpSharding.ShardGroupType.ValueType | None = ...,
+        type: Global___OpSharding.Type.ValueType | None = ...,
+        tile_shape: Global___ShapeProto | None = ...,
+        tile_assignment_dimensions: _abc.Iterable[_builtins.int] | None = ...,
+        tile_assignment_devices: _abc.Iterable[_builtins.int] | None = ...,
+        tuple_shardings: _abc.Iterable[Global___OpSharding] | None = ...,
+        replicate_on_last_tile_dim: _builtins.bool | None = ...,
+        metadata: _abc.Iterable[Global___OpMetadata] | None = ...,
+        last_tile_dims: _abc.Iterable[Global___OpSharding.Type.ValueType] | None = ...,
+        iota_reshape_dims: _abc.Iterable[_builtins.int] | None = ...,
+        iota_transpose_perm: _abc.Iterable[_builtins.int] | None = ...,
+        is_shard_group: _builtins.bool | None = ...,
+        shard_group_id: _builtins.int | None = ...,
+        shard_group_type: Global___OpSharding.ShardGroupType.ValueType | None = ...,
+        named_sharding: Global___NamedShardingProto | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["tile_shape", b"tile_shape"]) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "iota_reshape_dims",
-            b"iota_reshape_dims",
-            "iota_transpose_perm",
-            b"iota_transpose_perm",
-            "is_shard_group",
-            b"is_shard_group",
-            "last_tile_dims",
-            b"last_tile_dims",
-            "metadata",
-            b"metadata",
-            "replicate_on_last_tile_dim",
-            b"replicate_on_last_tile_dim",
-            "shard_group_id",
-            b"shard_group_id",
-            "shard_group_type",
-            b"shard_group_type",
-            "tile_assignment_devices",
-            b"tile_assignment_devices",
-            "tile_assignment_dimensions",
-            b"tile_assignment_dimensions",
-            "tile_shape",
-            b"tile_shape",
-            "tuple_shardings",
-            b"tuple_shardings",
-            "type",
-            b"type",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal[
+        "_named_sharding", b"_named_sharding", "named_sharding", b"named_sharding", "tile_shape", b"tile_shape"
+    ]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "_named_sharding",
+        b"_named_sharding",
+        "iota_reshape_dims",
+        b"iota_reshape_dims",
+        "iota_transpose_perm",
+        b"iota_transpose_perm",
+        "is_shard_group",
+        b"is_shard_group",
+        "last_tile_dims",
+        b"last_tile_dims",
+        "metadata",
+        b"metadata",
+        "named_sharding",
+        b"named_sharding",
+        "replicate_on_last_tile_dim",
+        b"replicate_on_last_tile_dim",
+        "shard_group_id",
+        b"shard_group_id",
+        "shard_group_type",
+        b"shard_group_type",
+        "tile_assignment_devices",
+        b"tile_assignment_devices",
+        "tile_assignment_dimensions",
+        b"tile_assignment_dimensions",
+        "tile_shape",
+        b"tile_shape",
+        "tuple_shardings",
+        b"tuple_shardings",
+        "type",
+        b"type",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType__named_sharding: _TypeAlias = _typing.Literal["named_sharding"]  # noqa: Y015
+    _WhichOneofArgType__named_sharding: _TypeAlias = _typing.Literal["_named_sharding", b"_named_sharding"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType__named_sharding) -> _WhichOneofReturnType__named_sharding | None: ...
 
-global___OpSharding = OpSharding
+Global___OpSharding: _TypeAlias = OpSharding  # noqa: Y015
 
-@typing.final
-class ReplicaGroup(google.protobuf.message.Message):
+@_typing.final
+class ReplicaGroup(_message.Message):
     """Describes the replica groups in a cross replica op (e.g., all-reduce and
     all-to-all).
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    REPLICA_IDS_FIELD_NUMBER: builtins.int
-    @property
-    def replica_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+    REPLICA_IDS_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def replica_ids(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]:
         """The ids of the replicas that belongs to the same group. The ordering of the
         ids matters in some ops (e.g., all-to-all).
         """
 
-    def __init__(self, *, replica_ids: collections.abc.Iterable[builtins.int] | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["replica_ids", b"replica_ids"]) -> None: ...
+    def __init__(self, *, replica_ids: _abc.Iterable[_builtins.int] | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["replica_ids", b"replica_ids"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___ReplicaGroup = ReplicaGroup
+Global___ReplicaGroup: _TypeAlias = ReplicaGroup  # noqa: Y015
 
-@typing.final
-class IotaReplicaGroupListProto(google.protobuf.message.Message):
+@_typing.final
+class MeshAxesReplicaGroupListProto(_message.Message):
+    """Represents a list of replica groups (a list of list of devices) via a mesh
+    and list of axes. The replica groups correspond to the partitions of the
+    device ids which would arise if a collective operation was performed over the
+    specified axes.
+    """
+
+    DESCRIPTOR: _descriptor.Descriptor
+
+    MESH_FIELD_NUMBER: _builtins.int
+    AXES_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def mesh(self) -> Global___MeshProto:
+        """The mesh used to define the full set of axes and devices ids."""
+
+    @_builtins.property
+    def axes(self) -> _containers.RepeatedCompositeFieldContainer[Global___AxisRefProto]:
+        """The axes defining the replica groups. These groups are implicitly defined
+        by the device ids which would communicate together if a collective
+        operation is performed over these axes.
+        """
+
+    def __init__(
+        self, *, mesh: Global___MeshProto | None = ..., axes: _abc.Iterable[Global___AxisRefProto] | None = ...
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["mesh", b"mesh"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["axes", b"axes", "mesh", b"mesh"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___MeshAxesReplicaGroupListProto: _TypeAlias = MeshAxesReplicaGroupListProto  # noqa: Y015
+
+@_typing.final
+class IotaReplicaGroupListProto(_message.Message):
     """Represents a list of replica groups (a list of list of devices) with
     reshaping and transposing an iota array (iota tile assignment). Can be used
     to represent certain common patterns of device lists in a compact, scalable
     format.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NUM_REPLICA_GROUPS_FIELD_NUMBER: builtins.int
-    NUM_DEVICES_PER_GROUP_FIELD_NUMBER: builtins.int
-    IOTA_RESHAPE_DIMS_FIELD_NUMBER: builtins.int
-    IOTA_TRANSPOSE_PERM_FIELD_NUMBER: builtins.int
-    num_replica_groups: builtins.int
+    NUM_REPLICA_GROUPS_FIELD_NUMBER: _builtins.int
+    NUM_DEVICES_PER_GROUP_FIELD_NUMBER: _builtins.int
+    IOTA_RESHAPE_DIMS_FIELD_NUMBER: _builtins.int
+    IOTA_TRANSPOSE_PERM_FIELD_NUMBER: _builtins.int
+    num_replica_groups: _builtins.int
     """Number of replica groups."""
-    num_devices_per_group: builtins.int
+    num_devices_per_group: _builtins.int
     """Number of devices per group."""
-    @property
-    def iota_reshape_dims(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+    @_builtins.property
+    def iota_reshape_dims(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]:
         """The dimensions used to reshape the 1D iota array of device IDs."""
 
-    @property
-    def iota_transpose_perm(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+    @_builtins.property
+    def iota_transpose_perm(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]:
         """The dimension permutations to transposed the iota array reshaped to
         iota_reshape_dims. This must have the same size as iota_reshape_dims.
         """
@@ -2325,46 +2903,47 @@ class IotaReplicaGroupListProto(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        num_replica_groups: builtins.int | None = ...,
-        num_devices_per_group: builtins.int | None = ...,
-        iota_reshape_dims: collections.abc.Iterable[builtins.int] | None = ...,
-        iota_transpose_perm: collections.abc.Iterable[builtins.int] | None = ...,
+        num_replica_groups: _builtins.int | None = ...,
+        num_devices_per_group: _builtins.int | None = ...,
+        iota_reshape_dims: _abc.Iterable[_builtins.int] | None = ...,
+        iota_transpose_perm: _abc.Iterable[_builtins.int] | None = ...,
     ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "iota_reshape_dims",
-            b"iota_reshape_dims",
-            "iota_transpose_perm",
-            b"iota_transpose_perm",
-            "num_devices_per_group",
-            b"num_devices_per_group",
-            "num_replica_groups",
-            b"num_replica_groups",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "iota_reshape_dims",
+        b"iota_reshape_dims",
+        "iota_transpose_perm",
+        b"iota_transpose_perm",
+        "num_devices_per_group",
+        b"num_devices_per_group",
+        "num_replica_groups",
+        b"num_replica_groups",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___IotaReplicaGroupListProto = IotaReplicaGroupListProto
+Global___IotaReplicaGroupListProto: _TypeAlias = IotaReplicaGroupListProto  # noqa: Y015
 
-@typing.final
-class CollectiveDeviceListProto(google.protobuf.message.Message):
+@_typing.final
+class CollectiveDeviceListProto(_message.Message):
     """Represents a series of devices participating in a collective operation (e.g.,
     all-reduce and all-to-all). While this directly translates to a list of
     replica groups, it may be used to represent these lists in a compact form.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    REPLICA_GROUPS_FIELD_NUMBER: builtins.int
-    IOTA_REPLICA_GROUP_LIST_FIELD_NUMBER: builtins.int
-    @property
-    def replica_groups(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ReplicaGroup]:
+    REPLICA_GROUPS_FIELD_NUMBER: _builtins.int
+    IOTA_REPLICA_GROUP_LIST_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def replica_groups(self) -> _containers.RepeatedCompositeFieldContainer[Global___ReplicaGroup]:
         """ReplicaGroupV1: List of replica groups. Legacy way of representing device
         lists.
         """
 
-    @property
-    def iota_replica_group_list(self) -> global___IotaReplicaGroupListProto:
+    @_builtins.property
+    def iota_replica_group_list(self) -> Global___IotaReplicaGroupListProto:
         """ReplicaGroupV2: Represents a list of replica groups with reshaping and
         transposing an iota array.
         """
@@ -2372,69 +2951,134 @@ class CollectiveDeviceListProto(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        replica_groups: collections.abc.Iterable[global___ReplicaGroup] | None = ...,
-        iota_replica_group_list: global___IotaReplicaGroupListProto | None = ...,
+        replica_groups: _abc.Iterable[Global___ReplicaGroup] | None = ...,
+        iota_replica_group_list: Global___IotaReplicaGroupListProto | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["iota_replica_group_list", b"iota_replica_group_list"]) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal["iota_replica_group_list", b"iota_replica_group_list", "replica_groups", b"replica_groups"],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["iota_replica_group_list", b"iota_replica_group_list"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "iota_replica_group_list", b"iota_replica_group_list", "replica_groups", b"replica_groups"
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___CollectiveDeviceListProto = CollectiveDeviceListProto
+Global___CollectiveDeviceListProto: _TypeAlias = CollectiveDeviceListProto  # noqa: Y015
 
-@typing.final
-class SourceTarget(google.protobuf.message.Message):
+@_typing.final
+class SourceTarget(_message.Message):
     """Describes the source target pair in the collective permute op."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    SOURCE_FIELD_NUMBER: builtins.int
-    TARGET_FIELD_NUMBER: builtins.int
-    source: builtins.int
-    target: builtins.int
-    def __init__(self, *, source: builtins.int | None = ..., target: builtins.int | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["source", b"source", "target", b"target"]) -> None: ...
+    SOURCE_FIELD_NUMBER: _builtins.int
+    TARGET_FIELD_NUMBER: _builtins.int
+    source: _builtins.int
+    target: _builtins.int
+    def __init__(self, *, source: _builtins.int | None = ..., target: _builtins.int | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["source", b"source", "target", b"target"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___SourceTarget = SourceTarget
+Global___SourceTarget: _TypeAlias = SourceTarget  # noqa: Y015
 
-@typing.final
-class PrecisionConfig(google.protobuf.message.Message):
+@_typing.final
+class ResultAccuracy(_message.Message):
+    """Describes the types of accuracy the user can request for unary ops with
+    multiple implementations.
+    """
+
+    DESCRIPTOR: _descriptor.Descriptor
+
+    class _Mode:
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
+
+    class _ModeEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[ResultAccuracy._Mode.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
+        DEFAULT: ResultAccuracy._Mode.ValueType  # 0
+        HIGHEST: ResultAccuracy._Mode.ValueType  # 1
+
+    class Mode(_Mode, metaclass=_ModeEnumTypeWrapper): ...
+    DEFAULT: ResultAccuracy.Mode.ValueType  # 0
+    HIGHEST: ResultAccuracy.Mode.ValueType  # 1
+
+    @_typing.final
+    class Tolerance(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
+
+        ATOL_FIELD_NUMBER: _builtins.int
+        RTOL_FIELD_NUMBER: _builtins.int
+        ULPS_FIELD_NUMBER: _builtins.int
+        atol: _builtins.float
+        """Absolute error tolerance for unary instructions."""
+        rtol: _builtins.float
+        """Relative error tolerance for unary instructions."""
+        ulps: _builtins.int
+        """The error in ulps (units in the last place) is relative to machine
+        precision.
+        """
+        def __init__(
+            self, *, atol: _builtins.float | None = ..., rtol: _builtins.float | None = ..., ulps: _builtins.int | None = ...
+        ) -> None: ...
+        _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["atol", b"atol", "rtol", b"rtol", "ulps", b"ulps"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+    MODE_FIELD_NUMBER: _builtins.int
+    TOLERANCE_FIELD_NUMBER: _builtins.int
+    mode: Global___ResultAccuracy.Mode.ValueType
+    """Choose either DEFAULT or HIGHEST precision implementation."""
+    @_builtins.property
+    def tolerance(self) -> Global___ResultAccuracy.Tolerance: ...
+    def __init__(
+        self,
+        *,
+        mode: Global___ResultAccuracy.Mode.ValueType | None = ...,
+        tolerance: Global___ResultAccuracy.Tolerance | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["mode", b"mode", "specs", b"specs", "tolerance", b"tolerance"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["mode", b"mode", "specs", b"specs", "tolerance", b"tolerance"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType_specs: _TypeAlias = _typing.Literal["mode", "tolerance"]  # noqa: Y015
+    _WhichOneofArgType_specs: _TypeAlias = _typing.Literal["specs", b"specs"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType_specs) -> _WhichOneofReturnType_specs | None: ...
+
+Global___ResultAccuracy: _TypeAlias = ResultAccuracy  # noqa: Y015
+
+@_typing.final
+class PrecisionConfig(_message.Message):
     """Used to indicate the precision configuration. It has backend specific
     meaning.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _Precision:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _PrecisionEnumTypeWrapper(
-        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[PrecisionConfig._Precision.ValueType], builtins.type
-    ):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _PrecisionEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[PrecisionConfig._Precision.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         DEFAULT: PrecisionConfig._Precision.ValueType  # 0
         HIGH: PrecisionConfig._Precision.ValueType  # 1
         HIGHEST: PrecisionConfig._Precision.ValueType  # 2
-        PACKED_NIBBLE: PrecisionConfig._Precision.ValueType  # 3
-        """Each U8/S8 value in a tensor actually represents 2 nibble values."""
 
     class Precision(_Precision, metaclass=_PrecisionEnumTypeWrapper): ...
     DEFAULT: PrecisionConfig.Precision.ValueType  # 0
     HIGH: PrecisionConfig.Precision.ValueType  # 1
     HIGHEST: PrecisionConfig.Precision.ValueType  # 2
-    PACKED_NIBBLE: PrecisionConfig.Precision.ValueType  # 3
-    """Each U8/S8 value in a tensor actually represents 2 nibble values."""
 
     class _Algorithm:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _AlgorithmEnumTypeWrapper(
-        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[PrecisionConfig._Algorithm.ValueType], builtins.type
-    ):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _AlgorithmEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[PrecisionConfig._Algorithm.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         ALG_UNSET: PrecisionConfig._Algorithm.ValueType  # 0
         """If the algorithm is `ALG_UNSET`, we will decide the algorithm based on
         the operand_precision values (for now).
@@ -2466,6 +3110,7 @@ class PrecisionConfig(google.protobuf.message.Message):
         """
         ALG_DOT_F32_F32_F32: PrecisionConfig._Algorithm.ValueType  # 11
         ALG_DOT_F64_F64_F64: PrecisionConfig._Algorithm.ValueType  # 12
+        ALG_DOT_BF16_BF16_F32_X9: PrecisionConfig._Algorithm.ValueType  # 13
 
     class Algorithm(_Algorithm, metaclass=_AlgorithmEnumTypeWrapper):
         """The algorithm used to evaluate the instruction.
@@ -2515,10 +3160,11 @@ class PrecisionConfig(google.protobuf.message.Message):
     """
     ALG_DOT_F32_F32_F32: PrecisionConfig.Algorithm.ValueType  # 11
     ALG_DOT_F64_F64_F64: PrecisionConfig.Algorithm.ValueType  # 12
+    ALG_DOT_BF16_BF16_F32_X9: PrecisionConfig.Algorithm.ValueType  # 13
 
-    OPERAND_PRECISION_FIELD_NUMBER: builtins.int
-    ALGORITHM_FIELD_NUMBER: builtins.int
-    algorithm: global___PrecisionConfig.Algorithm.ValueType
+    OPERAND_PRECISION_FIELD_NUMBER: _builtins.int
+    ALGORITHM_FIELD_NUMBER: _builtins.int
+    algorithm: Global___PrecisionConfig.Algorithm.ValueType
     """Currently doesn't do anything, but we plan to support it for dot and
     possibly more instructions.
 
@@ -2527,33 +3173,35 @@ class PrecisionConfig(google.protobuf.message.Message):
     If this is set, then `operand_precision` should be set to DEFAULT and it
     will be ignored.
     """
-    @property
-    def operand_precision(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___PrecisionConfig.Precision.ValueType]: ...
+    @_builtins.property
+    def operand_precision(self) -> _containers.RepeatedScalarFieldContainer[Global___PrecisionConfig.Precision.ValueType]: ...
     def __init__(
         self,
         *,
-        operand_precision: collections.abc.Iterable[global___PrecisionConfig.Precision.ValueType] | None = ...,
-        algorithm: global___PrecisionConfig.Algorithm.ValueType | None = ...,
+        operand_precision: _abc.Iterable[Global___PrecisionConfig.Precision.ValueType] | None = ...,
+        algorithm: Global___PrecisionConfig.Algorithm.ValueType | None = ...,
     ) -> None: ...
-    def ClearField(
-        self, field_name: typing.Literal["algorithm", b"algorithm", "operand_precision", b"operand_precision"]
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "algorithm", b"algorithm", "operand_precision", b"operand_precision"
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___PrecisionConfig = PrecisionConfig
+Global___PrecisionConfig: _TypeAlias = PrecisionConfig  # noqa: Y015
 
-@typing.final
-class ParameterReplication(google.protobuf.message.Message):
+@_typing.final
+class ParameterReplication(_message.Message):
     """Describes whether all data-parallelism replicas will receive the same
     parameter data at each buffer.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    REPLICATED_AT_LEAF_BUFFERS_FIELD_NUMBER: builtins.int
-    @property
-    def replicated_at_leaf_buffers(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.bool]:
+    REPLICATED_AT_LEAF_BUFFERS_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def replicated_at_leaf_buffers(self) -> _containers.RepeatedScalarFieldContainer[_builtins.bool]:
         """A list of boolean values for the flattened leaf buffers. Each value
         indicates whether the corresponding leaf buffer is replicated.
 
@@ -2562,13 +3210,17 @@ class ParameterReplication(google.protobuf.message.Message):
         the HLO instruction's shape.
         """
 
-    def __init__(self, *, replicated_at_leaf_buffers: collections.abc.Iterable[builtins.bool] | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["replicated_at_leaf_buffers", b"replicated_at_leaf_buffers"]) -> None: ...
+    def __init__(self, *, replicated_at_leaf_buffers: _abc.Iterable[_builtins.bool] | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["replicated_at_leaf_buffers", b"replicated_at_leaf_buffers"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___ParameterReplication = ParameterReplication
+Global___ParameterReplication: _TypeAlias = ParameterReplication  # noqa: Y015
 
-@typing.final
-class WhileLoopBackendConfig(google.protobuf.message.Message):
+@_typing.final
+class WhileLoopBackendConfig(_message.Message):
     """A backend-config for kWhile loops that stores the loop's trip count, if it is
     known.
 
@@ -2579,103 +3231,317 @@ class WhileLoopBackendConfig(google.protobuf.message.Message):
     iteration.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class KnownTripCount(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class KnownInitStep(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        N_FIELD_NUMBER: builtins.int
-        n: builtins.int
-        def __init__(self, *, n: builtins.int | None = ...) -> None: ...
-        def ClearField(self, field_name: typing.Literal["n", b"n"]) -> None: ...
+        INIT_FIELD_NUMBER: _builtins.int
+        STEP_FIELD_NUMBER: _builtins.int
+        init: _builtins.int
+        step: _builtins.int
+        def __init__(self, *, init: _builtins.int | None = ..., step: _builtins.int | None = ...) -> None: ...
+        _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["init", b"init", "step", b"step"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    KNOWN_TRIP_COUNT_FIELD_NUMBER: builtins.int
-    @property
-    def known_trip_count(self) -> global___WhileLoopBackendConfig.KnownTripCount:
+    @_typing.final
+    class KnownTripCount(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
+
+        N_FIELD_NUMBER: _builtins.int
+        n: _builtins.int
+        def __init__(self, *, n: _builtins.int | None = ...) -> None: ...
+        _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["n", b"n"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+    @_typing.final
+    class KnownInductionVariable(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
+
+        TUPLE_INDEX_FIELD_NUMBER: _builtins.int
+        tuple_index: _builtins.int
+        def __init__(self, *, tuple_index: _builtins.int | None = ...) -> None: ...
+        _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["tuple_index", b"tuple_index"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+    KNOWN_TRIP_COUNT_FIELD_NUMBER: _builtins.int
+    KNOWN_INIT_STEP_FIELD_NUMBER: _builtins.int
+    KNOWN_INDUCTION_VARIABLE_FIELD_NUMBER: _builtins.int
+    DYNAMIC_VARIABLE_TUPLE_INDICES_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def known_trip_count(self) -> Global___WhileLoopBackendConfig.KnownTripCount:
         """This indirection lets us distinguish between known-trip-count == 0 and
         unknown-trip-count.
         """
 
-    def __init__(self, *, known_trip_count: global___WhileLoopBackendConfig.KnownTripCount | None = ...) -> None: ...
-    def HasField(self, field_name: typing.Literal["known_trip_count", b"known_trip_count"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["known_trip_count", b"known_trip_count"]) -> None: ...
+    @_builtins.property
+    def known_init_step(self) -> Global___WhileLoopBackendConfig.KnownInitStep:
+        """Independently from the known trip count, we may also know the start and
+        step of the induction variable.
+        """
 
-global___WhileLoopBackendConfig = WhileLoopBackendConfig
+    @_builtins.property
+    def known_induction_variable(self) -> Global___WhileLoopBackendConfig.KnownInductionVariable:
+        """This lets us distinguish between an unknown induction variable (or none)
+        and tuple index 0.
+        """
 
-@typing.final
-class OutputOperandAliasing(google.protobuf.message.Message):
+    @_builtins.property
+    def dynamic_variable_tuple_indices(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]:
+        """Variables that should be treated as induction variables for dynamic memcpy
+        analysis, even though they are not the primary induction variable.
+        """
+
+    def __init__(
+        self,
+        *,
+        known_trip_count: Global___WhileLoopBackendConfig.KnownTripCount | None = ...,
+        known_init_step: Global___WhileLoopBackendConfig.KnownInitStep | None = ...,
+        known_induction_variable: Global___WhileLoopBackendConfig.KnownInductionVariable | None = ...,
+        dynamic_variable_tuple_indices: _abc.Iterable[_builtins.int] | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal[
+        "known_induction_variable",
+        b"known_induction_variable",
+        "known_init_step",
+        b"known_init_step",
+        "known_trip_count",
+        b"known_trip_count",
+    ]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "dynamic_variable_tuple_indices",
+        b"dynamic_variable_tuple_indices",
+        "known_induction_variable",
+        b"known_induction_variable",
+        "known_init_step",
+        b"known_init_step",
+        "known_trip_count",
+        b"known_trip_count",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___WhileLoopBackendConfig: _TypeAlias = WhileLoopBackendConfig  # noqa: Y015
+
+@_typing.final
+class OutputOperandAliasing(_message.Message):
     """Specifies a pair of output/operand buffers that alias each other for
     kCustomCall and kFusion
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    OUTPUT_SHAPE_INDEX_FIELD_NUMBER: builtins.int
-    OPERAND_INDEX_FIELD_NUMBER: builtins.int
-    OPERAND_SHAPE_INDEX_FIELD_NUMBER: builtins.int
-    operand_index: builtins.int
-    @property
-    def output_shape_index(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
-    @property
-    def operand_shape_index(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
+    OUTPUT_SHAPE_INDEX_FIELD_NUMBER: _builtins.int
+    OPERAND_INDEX_FIELD_NUMBER: _builtins.int
+    OPERAND_SHAPE_INDEX_FIELD_NUMBER: _builtins.int
+    operand_index: _builtins.int
+    @_builtins.property
+    def output_shape_index(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]: ...
+    @_builtins.property
+    def operand_shape_index(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]: ...
     def __init__(
         self,
         *,
-        output_shape_index: collections.abc.Iterable[builtins.int] | None = ...,
-        operand_index: builtins.int | None = ...,
-        operand_shape_index: collections.abc.Iterable[builtins.int] | None = ...,
+        output_shape_index: _abc.Iterable[_builtins.int] | None = ...,
+        operand_index: _builtins.int | None = ...,
+        operand_shape_index: _abc.Iterable[_builtins.int] | None = ...,
     ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "operand_index",
-            b"operand_index",
-            "operand_shape_index",
-            b"operand_shape_index",
-            "output_shape_index",
-            b"output_shape_index",
-        ],
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "operand_index",
+        b"operand_index",
+        "operand_shape_index",
+        b"operand_shape_index",
+        "output_shape_index",
+        b"output_shape_index",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___OutputOperandAliasing: _TypeAlias = OutputOperandAliasing  # noqa: Y015
+
+@_typing.final
+class OriginalArrayProto(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    INSTRUCTION_NAME_FIELD_NUMBER: _builtins.int
+    SHAPE_INDEX_FIELD_NUMBER: _builtins.int
+    instruction_name: _builtins.str
+    @_builtins.property
+    def shape_index(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]: ...
+    def __init__(
+        self, *, instruction_name: _builtins.str | None = ..., shape_index: _abc.Iterable[_builtins.int] | None = ...
     ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "instruction_name", b"instruction_name", "shape_index", b"shape_index"
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___OutputOperandAliasing = OutputOperandAliasing
+Global___OriginalArrayProto: _TypeAlias = OriginalArrayProto  # noqa: Y015
 
-@typing.final
-class OriginalArrayProto(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class OriginalValueElementProto(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    LEAF_SHAPE_INDEX_FIELD_NUMBER: builtins.int
-    INSTRUCTION_NAME_FIELD_NUMBER: builtins.int
-    SHAPE_INDEX_FIELD_NUMBER: builtins.int
-    instruction_name: builtins.str
-    @property
-    def leaf_shape_index(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
-    @property
-    def shape_index(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
+    SHAPE_INDEX_FIELD_NUMBER: _builtins.int
+    ORIGINAL_ARRAY_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def shape_index(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]: ...
+    @_builtins.property
+    def original_array(self) -> Global___OriginalArrayProto: ...
+    def __init__(
+        self, *, shape_index: _abc.Iterable[_builtins.int] | None = ..., original_array: Global___OriginalArrayProto | None = ...
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["original_array", b"original_array"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "original_array", b"original_array", "shape_index", b"shape_index"
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___OriginalValueElementProto: _TypeAlias = OriginalValueElementProto  # noqa: Y015
+
+@_typing.final
+class OriginalValueProto(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    ELEMENTS_FIELD_NUMBER: _builtins.int
+    IS_SYNTHETIC_CALL_FIELD_NUMBER: _builtins.int
+    is_synthetic_call: _builtins.bool
+    """If true, the annotated instruction is a synthetic call and elements should
+    be ignored.
+    """
+    @_builtins.property
+    def elements(self) -> _containers.RepeatedCompositeFieldContainer[Global___OriginalValueElementProto]: ...
     def __init__(
         self,
         *,
-        leaf_shape_index: collections.abc.Iterable[builtins.int] | None = ...,
-        instruction_name: builtins.str | None = ...,
-        shape_index: collections.abc.Iterable[builtins.int] | None = ...,
+        elements: _abc.Iterable[Global___OriginalValueElementProto] | None = ...,
+        is_synthetic_call: _builtins.bool | None = ...,
     ) -> None: ...
-    def ClearField(
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "elements", b"elements", "is_synthetic_call", b"is_synthetic_call"
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___OriginalValueProto: _TypeAlias = OriginalValueProto  # noqa: Y015
+
+@_typing.final
+class GemmPerfTableEntry(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    @_typing.final
+    class FlopsEntry(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
+
+        KEY_FIELD_NUMBER: _builtins.int
+        VALUE_FIELD_NUMBER: _builtins.int
+        key: _builtins.str
+        value: _builtins.int
+        def __init__(self, *, key: _builtins.str | None = ..., value: _builtins.int | None = ...) -> None: ...
+        _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["key", b"key", "value", b"value"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+    B_FIELD_NUMBER: _builtins.int
+    M_FIELD_NUMBER: _builtins.int
+    N_FIELD_NUMBER: _builtins.int
+    K_FIELD_NUMBER: _builtins.int
+    FLOPS_FIELD_NUMBER: _builtins.int
+    b: _builtins.int
+    m: _builtins.int
+    n: _builtins.int
+    k: _builtins.int
+    @_builtins.property
+    def flops(self) -> _containers.ScalarMap[_builtins.str, _builtins.int]:
+        """We chose compact string representation to save on textproto size.
+        {lhs}x{rhs}x{acc}=>{peak_flops} (eg: key='bf16xbf16->bf16', val='12345')
+        """
+
+    def __init__(
         self,
-        field_name: typing.Literal[
-            "instruction_name", b"instruction_name", "leaf_shape_index", b"leaf_shape_index", "shape_index", b"shape_index"
-        ],
+        *,
+        b: _builtins.int | None = ...,
+        m: _builtins.int | None = ...,
+        n: _builtins.int | None = ...,
+        k: _builtins.int | None = ...,
+        flops: _abc.Mapping[_builtins.str, _builtins.int] | None = ...,
     ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["b", b"b", "flops", b"flops", "k", b"k", "m", b"m", "n", b"n"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___OriginalArrayProto = OriginalArrayProto
+Global___GemmPerfTableEntry: _TypeAlias = GemmPerfTableEntry  # noqa: Y015
 
-@typing.final
-class OriginalValueProto(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class GemmPerfTableEntryValues(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    LEAVES_FIELD_NUMBER: builtins.int
-    @property
-    def leaves(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___OriginalArrayProto]: ...
-    def __init__(self, *, leaves: collections.abc.Iterable[global___OriginalArrayProto] | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["leaves", b"leaves"]) -> None: ...
+    ENTRIES_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def entries(self) -> _containers.RepeatedCompositeFieldContainer[Global___GemmPerfTableEntry]: ...
+    def __init__(self, *, entries: _abc.Iterable[Global___GemmPerfTableEntry] | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["entries", b"entries"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___OriginalValueProto = OriginalValueProto
+Global___GemmPerfTableEntryValues: _TypeAlias = GemmPerfTableEntryValues  # noqa: Y015
+
+@_typing.final
+class GemmPerfTable(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    @_typing.final
+    class EntriesEntry(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
+
+        KEY_FIELD_NUMBER: _builtins.int
+        VALUE_FIELD_NUMBER: _builtins.int
+        key: _builtins.str
+        @_builtins.property
+        def value(self) -> Global___GemmPerfTableEntryValues: ...
+        def __init__(self, *, key: _builtins.str | None = ..., value: Global___GemmPerfTableEntryValues | None = ...) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["value", b"value"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["key", b"key", "value", b"value"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+    ENTRIES_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def entries(self) -> _containers.MessageMap[_builtins.str, Global___GemmPerfTableEntryValues]:
+        """sm86 -> entry content."""
+
+    def __init__(self, *, entries: _abc.Mapping[_builtins.str, Global___GemmPerfTableEntryValues] | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["entries", b"entries"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___GemmPerfTable: _TypeAlias = GemmPerfTable  # noqa: Y015

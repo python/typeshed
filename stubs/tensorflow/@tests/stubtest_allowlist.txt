@@ -7,17 +7,14 @@ tensorflow.Tensor.numpy
 tensorflow.Tensor.__index__
 # Incomplete
 tensorflow.sparse.SparseTensor.__getattr__
-tensorflow.SparseTensor.__getattr__
 tensorflow.TensorShape.__getattr__
 tensorflow.dtypes.DType.__getattr__
 tensorflow.RaggedTensor.__getattr__
-tensorflow.DType.__getattr__
 tensorflow.Graph.__getattr__
 tensorflow.Operation.__getattr__
 tensorflow.Variable.__getattr__
 tensorflow.keras.layers.Layer.__getattr__
 tensorflow.python.feature_column.feature_column_v2.SharedEmbeddingColumnCreator.__getattr__
-tensorflow.GradientTape.__getattr__
 tensorflow.data.Dataset.__getattr__
 tensorflow.experimental.Optional.__getattr__
 tensorflow.autodiff.GradientTape.__getattr__
@@ -93,23 +90,11 @@ tensorflow.io.SparseFeature.__new__
 tensorflow.io.TFRecordWriter
 tensorflow.experimental.dtensor.Mesh
 
-# stubtest does not pass for protobuf generated stubs.
-tensorflow.train.Example.*
-tensorflow.train.BytesList.*
-tensorflow.train.Feature.*
-tensorflow.train.FloatList.*
-tensorflow.train.Int64List.*
-tensorflow.train.ClusterDef.*
-tensorflow.train.ServerDef.*
-
 # The python module cannot be accessed directly, so to stubtest it appears that it is not present at runtime.
 # However it can be accessed by doing:
 # from tensorflow import python
 # python.X
 tensorflow.python.*
-
-# The modules below are re-exported from tensorflow.python, and they therefore appear missing to stubtest.
-tensorflow.distribute.Strategy
 
 # sigmoid_cross_entropy_with_logits has default values (None), however those values are not valid.
 tensorflow.nn.sigmoid_cross_entropy_with_logits

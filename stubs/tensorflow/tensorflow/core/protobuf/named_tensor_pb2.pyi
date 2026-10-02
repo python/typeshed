@@ -3,27 +3,33 @@
 isort:skip_file
 """
 
-import builtins
-import typing
+import builtins as _builtins
+import sys
+import typing as _typing
 
-import google.protobuf.descriptor
-import google.protobuf.message
-import tensorflow.core.framework.tensor_pb2
+from google.protobuf import descriptor as _descriptor, message as _message
+from tensorflow.core.framework import tensor_pb2 as _tensor_pb2
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
+else:
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-@typing.final
-class NamedTensorProto(google.protobuf.message.Message):
+DESCRIPTOR: _descriptor.FileDescriptor
+
+@_typing.final
+class NamedTensorProto(_message.Message):
     """A pair of tensor name and tensor values."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    TENSOR_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    TENSOR_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """Name of the tensor."""
-    @property
-    def tensor(self) -> tensorflow.core.framework.tensor_pb2.TensorProto:
+    @_builtins.property
+    def tensor(self) -> _tensor_pb2.TensorProto:
         """The client can populate a TensorProto using a tensorflow::Tensor`, or
         directly using the protobuf field accessors.
 
@@ -32,10 +38,11 @@ class NamedTensorProto(google.protobuf.message.Message):
         compact form in tensor.tensor_content.
         """
 
-    def __init__(
-        self, *, name: builtins.str | None = ..., tensor: tensorflow.core.framework.tensor_pb2.TensorProto | None = ...
-    ) -> None: ...
-    def HasField(self, field_name: typing.Literal["tensor", b"tensor"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["name", b"name", "tensor", b"tensor"]) -> None: ...
+    def __init__(self, *, name: _builtins.str | None = ..., tensor: _tensor_pb2.TensorProto | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["tensor", b"tensor"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["name", b"name", "tensor", b"tensor"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___NamedTensorProto = NamedTensorProto
+Global___NamedTensorProto: _TypeAlias = NamedTensorProto  # noqa: Y015

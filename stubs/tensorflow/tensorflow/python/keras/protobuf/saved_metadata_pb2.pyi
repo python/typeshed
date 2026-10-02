@@ -3,87 +3,97 @@
 isort:skip_file
 Protobuf containing the metadata for each Keras object saved in a SavedModel."""
 
-import builtins
-import collections.abc
-import typing
+import builtins as _builtins
+import sys
+import typing as _typing
+from collections import abc as _abc
 
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.message
-import tensorflow.python.keras.protobuf.versions_pb2
+from google.protobuf import descriptor as _descriptor, message as _message
+from google.protobuf.internal import containers as _containers
+from tensorflow.python.keras.protobuf import versions_pb2 as _versions_pb2
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
+else:
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-@typing.final
-class SavedMetadata(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+DESCRIPTOR: _descriptor.FileDescriptor
 
-    NODES_FIELD_NUMBER: builtins.int
-    @property
-    def nodes(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SavedObject]:
+@_typing.final
+class SavedMetadata(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    NODES_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def nodes(self) -> _containers.RepeatedCompositeFieldContainer[Global___SavedObject]:
         """Nodes represent trackable objects in the SavedModel. The data for every
         Keras object is stored.
         """
 
-    def __init__(self, *, nodes: collections.abc.Iterable[global___SavedObject] | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["nodes", b"nodes"]) -> None: ...
+    def __init__(self, *, nodes: _abc.Iterable[Global___SavedObject] | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["nodes", b"nodes"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___SavedMetadata = SavedMetadata
+Global___SavedMetadata: _TypeAlias = SavedMetadata  # noqa: Y015
 
-@typing.final
-class SavedObject(google.protobuf.message.Message):
+@_typing.final
+class SavedObject(_message.Message):
     """Metadata of an individual Keras object."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NODE_ID_FIELD_NUMBER: builtins.int
-    NODE_PATH_FIELD_NUMBER: builtins.int
-    IDENTIFIER_FIELD_NUMBER: builtins.int
-    METADATA_FIELD_NUMBER: builtins.int
-    VERSION_FIELD_NUMBER: builtins.int
-    node_id: builtins.int
+    NODE_ID_FIELD_NUMBER: _builtins.int
+    NODE_PATH_FIELD_NUMBER: _builtins.int
+    IDENTIFIER_FIELD_NUMBER: _builtins.int
+    METADATA_FIELD_NUMBER: _builtins.int
+    VERSION_FIELD_NUMBER: _builtins.int
+    node_id: _builtins.int
     """Index of the node in the SavedModel SavedObjectGraph."""
-    node_path: builtins.str
+    node_path: _builtins.str
     """String path from root (e.g. "root.child_layer")"""
-    identifier: builtins.str
+    identifier: _builtins.str
     """Identifier to determine loading function.
     Must be one of:
       _tf_keras_input_layer, _tf_keras_layer, _tf_keras_metric,
       _tf_keras_model, _tf_keras_network, _tf_keras_rnn_layer,
       _tf_keras_sequential
     """
-    metadata: builtins.str
+    metadata: _builtins.str
     """Metadata containing a JSON-serialized object with the non-TensorFlow
     attributes for this Keras object.
     """
-    @property
-    def version(self) -> tensorflow.python.keras.protobuf.versions_pb2.VersionDef:
+    @_builtins.property
+    def version(self) -> _versions_pb2.VersionDef:
         """Version defined by the code serializing this Keras object."""
 
     def __init__(
         self,
         *,
-        node_id: builtins.int | None = ...,
-        node_path: builtins.str | None = ...,
-        identifier: builtins.str | None = ...,
-        metadata: builtins.str | None = ...,
-        version: tensorflow.python.keras.protobuf.versions_pb2.VersionDef | None = ...,
+        node_id: _builtins.int | None = ...,
+        node_path: _builtins.str | None = ...,
+        identifier: _builtins.str | None = ...,
+        metadata: _builtins.str | None = ...,
+        version: _versions_pb2.VersionDef | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["version", b"version"]) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "identifier",
-            b"identifier",
-            "metadata",
-            b"metadata",
-            "node_id",
-            b"node_id",
-            "node_path",
-            b"node_path",
-            "version",
-            b"version",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["version", b"version"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "identifier",
+        b"identifier",
+        "metadata",
+        b"metadata",
+        "node_id",
+        b"node_id",
+        "node_path",
+        b"node_path",
+        "version",
+        b"version",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___SavedObject = SavedObject
+Global___SavedObject: _TypeAlias = SavedObject  # noqa: Y015

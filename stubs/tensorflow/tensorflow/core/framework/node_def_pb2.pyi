@@ -3,45 +3,51 @@
 isort:skip_file
 """
 
-import builtins
-import collections.abc
-import typing
+import builtins as _builtins
+import sys
+import typing as _typing
+from collections import abc as _abc
 
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.message
-import tensorflow.core.framework.attr_value_pb2
-import tensorflow.core.framework.full_type_pb2
+from google.protobuf import descriptor as _descriptor, message as _message
+from google.protobuf.internal import containers as _containers
+from tensorflow.core.framework import attr_value_pb2 as _attr_value_pb2, full_type_pb2 as _full_type_pb2
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
+else:
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-@typing.final
-class NodeDef(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+DESCRIPTOR: _descriptor.FileDescriptor
 
-    @typing.final
-    class AttrEntry(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class NodeDef(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-        KEY_FIELD_NUMBER: builtins.int
-        VALUE_FIELD_NUMBER: builtins.int
-        key: builtins.str
-        @property
-        def value(self) -> tensorflow.core.framework.attr_value_pb2.AttrValue: ...
-        def __init__(
-            self, *, key: builtins.str | None = ..., value: tensorflow.core.framework.attr_value_pb2.AttrValue | None = ...
-        ) -> None: ...
-        def HasField(self, field_name: typing.Literal["value", b"value"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
+    @_typing.final
+    class AttrEntry(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class ExperimentalDebugInfo(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+        KEY_FIELD_NUMBER: _builtins.int
+        VALUE_FIELD_NUMBER: _builtins.int
+        key: _builtins.str
+        @_builtins.property
+        def value(self) -> _attr_value_pb2.AttrValue: ...
+        def __init__(self, *, key: _builtins.str | None = ..., value: _attr_value_pb2.AttrValue | None = ...) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["value", b"value"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["key", b"key", "value", b"value"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-        ORIGINAL_NODE_NAMES_FIELD_NUMBER: builtins.int
-        ORIGINAL_FUNC_NAMES_FIELD_NUMBER: builtins.int
-        @property
-        def original_node_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_typing.final
+    class ExperimentalDebugInfo(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
+
+        ORIGINAL_NODE_NAMES_FIELD_NUMBER: _builtins.int
+        ORIGINAL_FUNC_NAMES_FIELD_NUMBER: _builtins.int
+        @_builtins.property
+        def original_node_names(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
             """Opaque string inserted into error messages created by the runtime.
 
             This is intended to store the list of names of the nodes from the
@@ -51,8 +57,8 @@ class NodeDef(google.protobuf.message.Message):
             current node to some top level source code.
             """
 
-        @property
-        def original_func_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+        @_builtins.property
+        def original_func_names(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
             """This is intended to store the list of names of the functions from the
             original graph that this node was derived. For example if this node, say
             C, was result of a fusion of node A in function FA and node B in function
@@ -65,33 +71,34 @@ class NodeDef(google.protobuf.message.Message):
         def __init__(
             self,
             *,
-            original_node_names: collections.abc.Iterable[builtins.str] | None = ...,
-            original_func_names: collections.abc.Iterable[builtins.str] | None = ...,
+            original_node_names: _abc.Iterable[_builtins.str] | None = ...,
+            original_func_names: _abc.Iterable[_builtins.str] | None = ...,
         ) -> None: ...
-        def ClearField(
-            self,
-            field_name: typing.Literal[
-                "original_func_names", b"original_func_names", "original_node_names", b"original_node_names"
-            ],
-        ) -> None: ...
+        _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal[
+            "original_func_names", b"original_func_names", "original_node_names", b"original_node_names"
+        ]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    NAME_FIELD_NUMBER: builtins.int
-    OP_FIELD_NUMBER: builtins.int
-    INPUT_FIELD_NUMBER: builtins.int
-    DEVICE_FIELD_NUMBER: builtins.int
-    ATTR_FIELD_NUMBER: builtins.int
-    EXPERIMENTAL_DEBUG_INFO_FIELD_NUMBER: builtins.int
-    EXPERIMENTAL_TYPE_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    OP_FIELD_NUMBER: _builtins.int
+    INPUT_FIELD_NUMBER: _builtins.int
+    DEVICE_FIELD_NUMBER: _builtins.int
+    ATTR_FIELD_NUMBER: _builtins.int
+    EXPERIMENTAL_DEBUG_INFO_FIELD_NUMBER: _builtins.int
+    EXPERIMENTAL_TYPE_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """The name given to this operator. Used for naming inputs,
     logging, visualization, etc.  Unique within a single GraphDef.
     Must match the regexp "[A-Za-z0-9.][A-Za-z0-9_>./]*".
     """
-    op: builtins.str
+    op: _builtins.str
     """The operation name.  There may be custom parameters in attrs.
     Op names starting with an underscore are reserved for internal use.
     """
-    device: builtins.str
+    device: _builtins.str
     """A (possibly partial) specification for the device on which this
     node should be placed.
     The expected syntax for this string is as follows:
@@ -113,8 +120,8 @@ class NodeDef(google.protobuf.message.Message):
     field is empty or not present), the runtime will attempt to
     choose a device automatically.
     """
-    @property
-    def input(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def input(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """Each input is "node:src_output" with "node" being a string name and
         "src_output" indicating which output tensor to use from "node". If
         "src_output" is 0 the ":0" suffix can be omitted.  Regular inputs
@@ -122,10 +129,8 @@ class NodeDef(google.protobuf.message.Message):
         "^node".
         """
 
-    @property
-    def attr(
-        self,
-    ) -> google.protobuf.internal.containers.MessageMap[builtins.str, tensorflow.core.framework.attr_value_pb2.AttrValue]:
+    @_builtins.property
+    def attr(self) -> _containers.MessageMap[_builtins.str, _attr_value_pb2.AttrValue]:
         """Operation-specific graph-construction-time configuration.
         Note that this should include all attrs defined in the
         corresponding OpDef, including those with a value matching
@@ -140,12 +145,12 @@ class NodeDef(google.protobuf.message.Message):
         TODO(josh11b): Add some examples here showing best practices.
         """
 
-    @property
-    def experimental_debug_info(self) -> global___NodeDef.ExperimentalDebugInfo:
+    @_builtins.property
+    def experimental_debug_info(self) -> Global___NodeDef.ExperimentalDebugInfo:
         """This stores debug information associated with the node."""
 
-    @property
-    def experimental_type(self) -> tensorflow.core.framework.full_type_pb2.FullTypeDef:
+    @_builtins.property
+    def experimental_type(self) -> _full_type_pb2.FullTypeDef:
         """The complete type of this node. Experimental and subject to change.
         Currently, the field only contains the return types of the node. That will
         extend in the future to contain the entire signature of the node, as a
@@ -155,38 +160,35 @@ class NodeDef(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        name: builtins.str | None = ...,
-        op: builtins.str | None = ...,
-        input: collections.abc.Iterable[builtins.str] | None = ...,
-        device: builtins.str | None = ...,
-        attr: collections.abc.Mapping[builtins.str, tensorflow.core.framework.attr_value_pb2.AttrValue] | None = ...,
-        experimental_debug_info: global___NodeDef.ExperimentalDebugInfo | None = ...,
-        experimental_type: tensorflow.core.framework.full_type_pb2.FullTypeDef | None = ...,
+        name: _builtins.str | None = ...,
+        op: _builtins.str | None = ...,
+        input: _abc.Iterable[_builtins.str] | None = ...,
+        device: _builtins.str | None = ...,
+        attr: _abc.Mapping[_builtins.str, _attr_value_pb2.AttrValue] | None = ...,
+        experimental_debug_info: Global___NodeDef.ExperimentalDebugInfo | None = ...,
+        experimental_type: _full_type_pb2.FullTypeDef | None = ...,
     ) -> None: ...
-    def HasField(
-        self,
-        field_name: typing.Literal[
-            "experimental_debug_info", b"experimental_debug_info", "experimental_type", b"experimental_type"
-        ],
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "attr",
-            b"attr",
-            "device",
-            b"device",
-            "experimental_debug_info",
-            b"experimental_debug_info",
-            "experimental_type",
-            b"experimental_type",
-            "input",
-            b"input",
-            "name",
-            b"name",
-            "op",
-            b"op",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal[
+        "experimental_debug_info", b"experimental_debug_info", "experimental_type", b"experimental_type"
+    ]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "attr",
+        b"attr",
+        "device",
+        b"device",
+        "experimental_debug_info",
+        b"experimental_debug_info",
+        "experimental_type",
+        b"experimental_type",
+        "input",
+        b"input",
+        "name",
+        b"name",
+        "op",
+        b"op",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___NodeDef = NodeDef
+Global___NodeDef: _TypeAlias = NodeDef  # noqa: Y015

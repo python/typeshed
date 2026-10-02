@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Callable
-from typing import Any, TypeVar
+from typing import Any, TypeVar, type_check_only
 from typing_extensions import Self
 
 import numpy as np
@@ -51,6 +51,7 @@ class ClusterSpec:
     def as_dict(self) -> dict[str, list[str] | tuple[str] | dict[int, str]]: ...
     def num_tasks(self, job_name: str) -> int: ...
 
+@type_check_only
 class _CheckpointLoadStatus:
     def assert_consumed(self) -> Self: ...
     def assert_existing_objects_matched(self) -> Self: ...
@@ -76,6 +77,7 @@ class CheckpointManager:
         step_counter: tf.Variable | None = None,
         checkpoint_interval: int | None = None,
         init_fn: Callable[[], object] | None = None,
+        last_checkpoint_step: int | None = None,
     ) -> None: ...
     def _sweep(self) -> None: ...
 

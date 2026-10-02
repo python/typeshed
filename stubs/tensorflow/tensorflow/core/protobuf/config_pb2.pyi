@@ -3,52 +3,57 @@
 isort:skip_file
 """
 
-import builtins
-import collections.abc
+import builtins as _builtins
 import sys
-import typing
+import typing as _typing
+from collections import abc as _abc
 
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.internal.enum_type_wrapper
-import google.protobuf.message
-import tensorflow.core.framework.cost_graph_pb2
-import tensorflow.core.framework.graph_pb2
-import tensorflow.core.framework.step_stats_pb2
-import tensorflow.core.protobuf.cluster_pb2
-import tensorflow.core.protobuf.debug_pb2
-import tensorflow.core.protobuf.rewriter_config_pb2
-import tensorflow.tsl.protobuf.coordination_config_pb2
-import tensorflow.tsl.protobuf.rpc_options_pb2
+from google.protobuf import descriptor as _descriptor, message as _message
+from google.protobuf.internal import containers as _containers, enum_type_wrapper as _enum_type_wrapper
+from tensorflow.compiler.xla.tsl.protobuf import (
+    coordination_config_pb2 as _coordination_config_pb2,
+    rpc_options_pb2 as _rpc_options_pb2,
+)
+from tensorflow.core.framework import (
+    cost_graph_pb2 as _cost_graph_pb2,
+    graph_pb2 as _graph_pb2,
+    step_stats_pb2 as _step_stats_pb2,
+)
+from tensorflow.core.protobuf import (
+    cluster_pb2 as _cluster_pb2,
+    debug_pb2 as _debug_pb2,
+    rewriter_config_pb2 as _rewriter_config_pb2,
+)
 
-if sys.version_info >= (3, 10):
-    import typing as typing_extensions
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
 else:
-    import typing_extensions
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+DESCRIPTOR: _descriptor.FileDescriptor
 
-@typing.final
-class GPUOptions(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class GPUOptions(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class Experimental(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class Experimental(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        @typing.final
-        class VirtualDevices(google.protobuf.message.Message):
+        @_typing.final
+        class VirtualDevices(_message.Message):
             """Configuration for breaking down a visible GPU into multiple "virtual"
             devices.
             """
 
-            DESCRIPTOR: google.protobuf.descriptor.Descriptor
+            DESCRIPTOR: _descriptor.Descriptor
 
-            MEMORY_LIMIT_MB_FIELD_NUMBER: builtins.int
-            PRIORITY_FIELD_NUMBER: builtins.int
-            DEVICE_ORDINAL_FIELD_NUMBER: builtins.int
-            @property
-            def memory_limit_mb(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.float]:
+            MEMORY_LIMIT_MB_FIELD_NUMBER: _builtins.int
+            PRIORITY_FIELD_NUMBER: _builtins.int
+            DEVICE_ORDINAL_FIELD_NUMBER: _builtins.int
+            @_builtins.property
+            def memory_limit_mb(self) -> _containers.RepeatedScalarFieldContainer[_builtins.float]:
                 """Per "virtual" device memory limit, in MB. The number of elements in
                 the list is the number of virtual devices to create on the
                 corresponding visible GPU (see "virtual_devices" below).
@@ -59,8 +64,8 @@ class GPUOptions(google.protobuf.message.Message):
                 "visible_device_list" above for more information.
                 """
 
-            @property
-            def priority(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+            @_builtins.property
+            def priority(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]:
                 """Priority values to use with the virtual devices. Use the cuda function
                 cudaDeviceGetStreamPriorityRange to query for valid range of values for
                 priority.
@@ -73,8 +78,8 @@ class GPUOptions(google.protobuf.message.Message):
                 of this must match with the above memory_limit_mb.
                 """
 
-            @property
-            def device_ordinal(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+            @_builtins.property
+            def device_ordinal(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]:
                 """Virtual Device ordinal number determines the device ID of the device.
                 A Virtual device with a lower ordinal number always receives the a
                 smaller device id. The phyiscal device id and location in the
@@ -84,19 +89,20 @@ class GPUOptions(google.protobuf.message.Message):
             def __init__(
                 self,
                 *,
-                memory_limit_mb: collections.abc.Iterable[builtins.float] | None = ...,
-                priority: collections.abc.Iterable[builtins.int] | None = ...,
-                device_ordinal: collections.abc.Iterable[builtins.int] | None = ...,
+                memory_limit_mb: _abc.Iterable[_builtins.float] | None = ...,
+                priority: _abc.Iterable[_builtins.int] | None = ...,
+                device_ordinal: _abc.Iterable[_builtins.int] | None = ...,
             ) -> None: ...
-            def ClearField(
-                self,
-                field_name: typing.Literal[
-                    "device_ordinal", b"device_ordinal", "memory_limit_mb", b"memory_limit_mb", "priority", b"priority"
-                ],
-            ) -> None: ...
+            _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+            def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+            _ClearFieldArgType: _TypeAlias = _typing.Literal[
+                "device_ordinal", b"device_ordinal", "memory_limit_mb", b"memory_limit_mb", "priority", b"priority"
+            ]  # noqa: Y015
+            def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+            def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-        @typing.final
-        class StreamMergeOptions(google.protobuf.message.Message):
+        @_typing.final
+        class StreamMergeOptions(_message.Message):
             """Whether to merge data transfer streams into the compute stream in the
             same stream group. Stream merging helps reduce the overhead caused by
             stream synchronization, especially when data transfers are frequent. For
@@ -105,24 +111,24 @@ class GPUOptions(google.protobuf.message.Message):
             copy.
             """
 
-            DESCRIPTOR: google.protobuf.descriptor.Descriptor
+            DESCRIPTOR: _descriptor.Descriptor
 
-            MERGE_HOST_TO_DEVICE_STREAM_FIELD_NUMBER: builtins.int
-            MERGE_DEVICE_TO_HOST_STREAM_FIELD_NUMBER: builtins.int
-            MERGE_DEVICE_TO_DEVICE_STREAM_FIELD_NUMBER: builtins.int
-            merge_host_to_device_stream: builtins.bool
+            MERGE_HOST_TO_DEVICE_STREAM_FIELD_NUMBER: _builtins.int
+            MERGE_DEVICE_TO_HOST_STREAM_FIELD_NUMBER: _builtins.int
+            MERGE_DEVICE_TO_DEVICE_STREAM_FIELD_NUMBER: _builtins.int
+            merge_host_to_device_stream: _builtins.bool
             """If true, the compute stream will be used for host_to_device copy as
             well. It's no longer necessary to record an event before the copy to
             let the copy stream wait for the compute stream to finish. There is
             also no need to wait for the copy to complete before executing the
             callback function.
             """
-            merge_device_to_host_stream: builtins.bool
+            merge_device_to_host_stream: _builtins.bool
             """If true, the compute stream will be used for device_to_host copy as
             well. It's no longer necessary to record an event before the copy to
             let the copy stream wait for the compute stream to finish.
             """
-            merge_device_to_device_stream: builtins.bool
+            merge_device_to_device_stream: _builtins.bool
             """If true, the compute stream will be used for device_to_device copy as
             well. It's no longer necessary to record an event before the copy to
             let the copy stream wait for the compute stream of the sending device
@@ -132,47 +138,48 @@ class GPUOptions(google.protobuf.message.Message):
             def __init__(
                 self,
                 *,
-                merge_host_to_device_stream: builtins.bool | None = ...,
-                merge_device_to_host_stream: builtins.bool | None = ...,
-                merge_device_to_device_stream: builtins.bool | None = ...,
+                merge_host_to_device_stream: _builtins.bool | None = ...,
+                merge_device_to_host_stream: _builtins.bool | None = ...,
+                merge_device_to_device_stream: _builtins.bool | None = ...,
             ) -> None: ...
-            def ClearField(
-                self,
-                field_name: typing.Literal[
-                    "merge_device_to_device_stream",
-                    b"merge_device_to_device_stream",
-                    "merge_device_to_host_stream",
-                    b"merge_device_to_host_stream",
-                    "merge_host_to_device_stream",
-                    b"merge_host_to_device_stream",
-                ],
-            ) -> None: ...
+            _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+            def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+            _ClearFieldArgType: _TypeAlias = _typing.Literal[
+                "merge_device_to_device_stream",
+                b"merge_device_to_device_stream",
+                "merge_device_to_host_stream",
+                b"merge_device_to_host_stream",
+                "merge_host_to_device_stream",
+                b"merge_host_to_device_stream",
+            ]  # noqa: Y015
+            def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+            def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-        VIRTUAL_DEVICES_FIELD_NUMBER: builtins.int
-        NUM_VIRTUAL_DEVICES_PER_GPU_FIELD_NUMBER: builtins.int
-        USE_UNIFIED_MEMORY_FIELD_NUMBER: builtins.int
-        NUM_DEV_TO_DEV_COPY_STREAMS_FIELD_NUMBER: builtins.int
-        COLLECTIVE_RING_ORDER_FIELD_NUMBER: builtins.int
-        TIMESTAMPED_ALLOCATOR_FIELD_NUMBER: builtins.int
-        KERNEL_TRACKER_MAX_INTERVAL_FIELD_NUMBER: builtins.int
-        KERNEL_TRACKER_MAX_BYTES_FIELD_NUMBER: builtins.int
-        KERNEL_TRACKER_MAX_PENDING_FIELD_NUMBER: builtins.int
-        INTERNAL_FRAGMENTATION_FRACTION_FIELD_NUMBER: builtins.int
-        USE_CUDA_MALLOC_ASYNC_FIELD_NUMBER: builtins.int
-        DISALLOW_RETRY_ON_ALLOCATION_FAILURE_FIELD_NUMBER: builtins.int
-        GPU_HOST_MEM_LIMIT_IN_MB_FIELD_NUMBER: builtins.int
-        GPU_HOST_MEM_DISALLOW_GROWTH_FIELD_NUMBER: builtins.int
-        GPU_SYSTEM_MEMORY_SIZE_IN_MB_FIELD_NUMBER: builtins.int
-        POPULATE_PJRT_GPU_CLIENT_CREATION_INFO_FIELD_NUMBER: builtins.int
-        NODE_ID_FIELD_NUMBER: builtins.int
-        STREAM_MERGE_OPTIONS_FIELD_NUMBER: builtins.int
-        num_virtual_devices_per_gpu: builtins.int
+        VIRTUAL_DEVICES_FIELD_NUMBER: _builtins.int
+        NUM_VIRTUAL_DEVICES_PER_GPU_FIELD_NUMBER: _builtins.int
+        USE_UNIFIED_MEMORY_FIELD_NUMBER: _builtins.int
+        NUM_DEV_TO_DEV_COPY_STREAMS_FIELD_NUMBER: _builtins.int
+        COLLECTIVE_RING_ORDER_FIELD_NUMBER: _builtins.int
+        TIMESTAMPED_ALLOCATOR_FIELD_NUMBER: _builtins.int
+        KERNEL_TRACKER_MAX_INTERVAL_FIELD_NUMBER: _builtins.int
+        KERNEL_TRACKER_MAX_BYTES_FIELD_NUMBER: _builtins.int
+        KERNEL_TRACKER_MAX_PENDING_FIELD_NUMBER: _builtins.int
+        INTERNAL_FRAGMENTATION_FRACTION_FIELD_NUMBER: _builtins.int
+        USE_CUDA_MALLOC_ASYNC_FIELD_NUMBER: _builtins.int
+        DISALLOW_RETRY_ON_ALLOCATION_FAILURE_FIELD_NUMBER: _builtins.int
+        GPU_HOST_MEM_LIMIT_IN_MB_FIELD_NUMBER: _builtins.int
+        GPU_HOST_MEM_DISALLOW_GROWTH_FIELD_NUMBER: _builtins.int
+        GPU_SYSTEM_MEMORY_SIZE_IN_MB_FIELD_NUMBER: _builtins.int
+        POPULATE_PJRT_GPU_CLIENT_CREATION_INFO_FIELD_NUMBER: _builtins.int
+        NODE_ID_FIELD_NUMBER: _builtins.int
+        STREAM_MERGE_OPTIONS_FIELD_NUMBER: _builtins.int
+        num_virtual_devices_per_gpu: _builtins.int
         """The number of virtual devices to create on each visible GPU. The
         available memory will be split equally among all virtual devices. If the
         field `memory_limit_mb` in `VirtualDevices` is not empty, this field will
         be ignored.
         """
-        use_unified_memory: builtins.bool
+        use_unified_memory: _builtins.bool
         """If true, uses CUDA unified memory for memory allocations. If
         per_process_gpu_memory_fraction option is greater than 1.0, then unified
         memory is used regardless of the value for this field. See comments for
@@ -181,12 +188,12 @@ class GPUOptions(google.protobuf.message.Message):
         multiple processes are sharing a single GPU while individually using less
         than 1.0 per process memory fraction.
         """
-        num_dev_to_dev_copy_streams: builtins.int
+        num_dev_to_dev_copy_streams: _builtins.int
         """If > 1, the number of device-to-device copy streams to create
         for each GPUDevice.  Default value is 0, which is automatically
         converted to 1.
         """
-        collective_ring_order: builtins.str
+        collective_ring_order: _builtins.str
         """If non-empty, defines a good GPU ring order on a single worker based on
         device interconnect.  This assumes that all workers have the same GPU
         topology.  Specify as a comma-separated string, e.g. "3,2,1,0,7,6,5,4".
@@ -194,13 +201,13 @@ class GPUOptions(google.protobuf.message.Message):
         CollectiveReduce, and serves as an override to automatic ring order
         generation in OrderTaskDeviceMap() during CollectiveParam resolution.
         """
-        timestamped_allocator: builtins.bool
+        timestamped_allocator: _builtins.bool
         """If true then extra work is done by GPUDevice and GPUBFCAllocator to
         keep track of when GPU memory is freed and when kernels actually
         complete so that we can know when a nominally free memory chunk
         is really not subject to pending use.
         """
-        kernel_tracker_max_interval: builtins.int
+        kernel_tracker_max_interval: _builtins.int
         """reserved id: 6
 
         Parameters for GPUKernelTracker.  By default no kernel tracking is done.
@@ -210,20 +217,20 @@ class GPUOptions(google.protobuf.message.Message):
         If kernel_tracker_max_interval = n > 0, then a tracking event
         is inserted after every n kernels without an event.
         """
-        kernel_tracker_max_bytes: builtins.int
+        kernel_tracker_max_bytes: _builtins.int
         """If kernel_tracker_max_bytes = n > 0, then a tracking event is
         inserted after every series of kernels allocating a sum of
         memory >= n.  If one kernel allocates b * n bytes, then one
         event will be inserted after it, but it will count as b against
         the pending limit.
         """
-        kernel_tracker_max_pending: builtins.int
+        kernel_tracker_max_pending: _builtins.int
         """If kernel_tracker_max_pending > 0 then no more than this many
         tracking events can be outstanding at a time.  An attempt to
         launch an additional kernel will stall until an event
         completes.
         """
-        internal_fragmentation_fraction: builtins.float
+        internal_fragmentation_fraction: _builtins.float
         """BFC Allocator can return an allocated chunk of memory upto 2x the
         requested size. For virtual devices with tight memory constraints, and
         proportionately large allocation requests, this can lead to a significant
@@ -234,18 +241,18 @@ class GPUOptions(google.protobuf.message.Message):
         size exceeds the requested memory by 5% of the total virtual device/gpu
         memory size.
         """
-        use_cuda_malloc_async: builtins.bool
+        use_cuda_malloc_async: _builtins.bool
         """When true, use CUDA cudaMallocAsync API instead of TF gpu allocator."""
-        disallow_retry_on_allocation_failure: builtins.bool
+        disallow_retry_on_allocation_failure: _builtins.bool
         """By default, BFCAllocator may sleep when it runs out of memory, in the
         hopes that another thread will free up memory in the meantime.  Setting
         this to true disables the sleep; instead we'll OOM immediately.
         """
-        gpu_host_mem_limit_in_mb: builtins.float
+        gpu_host_mem_limit_in_mb: _builtins.float
         """Memory limit for "GPU host allocator", aka pinned memory allocator.  This
         can also be set via the envvar TF_GPU_HOST_MEM_LIMIT_IN_MB.
         """
-        gpu_host_mem_disallow_growth: builtins.bool
+        gpu_host_mem_disallow_growth: _builtins.bool
         """If true, then the host allocator allocates its max memory all upfront and
         never grows.  This can be useful for latency-sensitive systems, because
         growing the GPU host memory pool can be expensive.
@@ -254,25 +261,23 @@ class GPUOptions(google.protobuf.message.Message):
         gpu_host_mem_limit_in_mb, because the default GPU host memory limit is
         quite high.
         """
-        gpu_system_memory_size_in_mb: builtins.int
+        gpu_system_memory_size_in_mb: _builtins.int
         """Memory limit for gpu system. This can also be set by
         TF_DEVICE_MIN_SYS_MEMORY_IN_MB, which takes precedence over
         gpu_system_memory_size_in_mb. With this, user can configure the gpu
         system memory size for better resource estimation of multi-tenancy(one
         gpu with multiple model) use case.
         """
-        populate_pjrt_gpu_client_creation_info: builtins.bool
+        populate_pjrt_gpu_client_creation_info: _builtins.bool
         """If true, save information needed for created a PjRt GPU client for
         creating a client with remote devices.
         """
-        node_id: builtins.int
+        node_id: _builtins.int
         """node_id for use when creating a PjRt GPU client with remote devices,
         which enumerates jobs*tasks from a ServerDef.
         """
-        @property
-        def virtual_devices(
-            self,
-        ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___GPUOptions.Experimental.VirtualDevices]:
+        @_builtins.property
+        def virtual_devices(self) -> _containers.RepeatedCompositeFieldContainer[Global___GPUOptions.Experimental.VirtualDevices]:
             """The multi virtual device settings. If empty (not set), it will create
             single virtual device on each visible GPU, according to the settings
             in "visible_device_list" above. Otherwise, the number of elements in the
@@ -313,83 +318,83 @@ class GPUOptions(google.protobuf.message.Message):
                result in undefined behavior.
             """
 
-        @property
-        def stream_merge_options(self) -> global___GPUOptions.Experimental.StreamMergeOptions: ...
+        @_builtins.property
+        def stream_merge_options(self) -> Global___GPUOptions.Experimental.StreamMergeOptions: ...
         def __init__(
             self,
             *,
-            virtual_devices: collections.abc.Iterable[global___GPUOptions.Experimental.VirtualDevices] | None = ...,
-            num_virtual_devices_per_gpu: builtins.int | None = ...,
-            use_unified_memory: builtins.bool | None = ...,
-            num_dev_to_dev_copy_streams: builtins.int | None = ...,
-            collective_ring_order: builtins.str | None = ...,
-            timestamped_allocator: builtins.bool | None = ...,
-            kernel_tracker_max_interval: builtins.int | None = ...,
-            kernel_tracker_max_bytes: builtins.int | None = ...,
-            kernel_tracker_max_pending: builtins.int | None = ...,
-            internal_fragmentation_fraction: builtins.float | None = ...,
-            use_cuda_malloc_async: builtins.bool | None = ...,
-            disallow_retry_on_allocation_failure: builtins.bool | None = ...,
-            gpu_host_mem_limit_in_mb: builtins.float | None = ...,
-            gpu_host_mem_disallow_growth: builtins.bool | None = ...,
-            gpu_system_memory_size_in_mb: builtins.int | None = ...,
-            populate_pjrt_gpu_client_creation_info: builtins.bool | None = ...,
-            node_id: builtins.int | None = ...,
-            stream_merge_options: global___GPUOptions.Experimental.StreamMergeOptions | None = ...,
+            virtual_devices: _abc.Iterable[Global___GPUOptions.Experimental.VirtualDevices] | None = ...,
+            num_virtual_devices_per_gpu: _builtins.int | None = ...,
+            use_unified_memory: _builtins.bool | None = ...,
+            num_dev_to_dev_copy_streams: _builtins.int | None = ...,
+            collective_ring_order: _builtins.str | None = ...,
+            timestamped_allocator: _builtins.bool | None = ...,
+            kernel_tracker_max_interval: _builtins.int | None = ...,
+            kernel_tracker_max_bytes: _builtins.int | None = ...,
+            kernel_tracker_max_pending: _builtins.int | None = ...,
+            internal_fragmentation_fraction: _builtins.float | None = ...,
+            use_cuda_malloc_async: _builtins.bool | None = ...,
+            disallow_retry_on_allocation_failure: _builtins.bool | None = ...,
+            gpu_host_mem_limit_in_mb: _builtins.float | None = ...,
+            gpu_host_mem_disallow_growth: _builtins.bool | None = ...,
+            gpu_system_memory_size_in_mb: _builtins.int | None = ...,
+            populate_pjrt_gpu_client_creation_info: _builtins.bool | None = ...,
+            node_id: _builtins.int | None = ...,
+            stream_merge_options: Global___GPUOptions.Experimental.StreamMergeOptions | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["stream_merge_options", b"stream_merge_options"]) -> builtins.bool: ...
-        def ClearField(
-            self,
-            field_name: typing.Literal[
-                "collective_ring_order",
-                b"collective_ring_order",
-                "disallow_retry_on_allocation_failure",
-                b"disallow_retry_on_allocation_failure",
-                "gpu_host_mem_disallow_growth",
-                b"gpu_host_mem_disallow_growth",
-                "gpu_host_mem_limit_in_mb",
-                b"gpu_host_mem_limit_in_mb",
-                "gpu_system_memory_size_in_mb",
-                b"gpu_system_memory_size_in_mb",
-                "internal_fragmentation_fraction",
-                b"internal_fragmentation_fraction",
-                "kernel_tracker_max_bytes",
-                b"kernel_tracker_max_bytes",
-                "kernel_tracker_max_interval",
-                b"kernel_tracker_max_interval",
-                "kernel_tracker_max_pending",
-                b"kernel_tracker_max_pending",
-                "node_id",
-                b"node_id",
-                "num_dev_to_dev_copy_streams",
-                b"num_dev_to_dev_copy_streams",
-                "num_virtual_devices_per_gpu",
-                b"num_virtual_devices_per_gpu",
-                "populate_pjrt_gpu_client_creation_info",
-                b"populate_pjrt_gpu_client_creation_info",
-                "stream_merge_options",
-                b"stream_merge_options",
-                "timestamped_allocator",
-                b"timestamped_allocator",
-                "use_cuda_malloc_async",
-                b"use_cuda_malloc_async",
-                "use_unified_memory",
-                b"use_unified_memory",
-                "virtual_devices",
-                b"virtual_devices",
-            ],
-        ) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["stream_merge_options", b"stream_merge_options"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal[
+            "collective_ring_order",
+            b"collective_ring_order",
+            "disallow_retry_on_allocation_failure",
+            b"disallow_retry_on_allocation_failure",
+            "gpu_host_mem_disallow_growth",
+            b"gpu_host_mem_disallow_growth",
+            "gpu_host_mem_limit_in_mb",
+            b"gpu_host_mem_limit_in_mb",
+            "gpu_system_memory_size_in_mb",
+            b"gpu_system_memory_size_in_mb",
+            "internal_fragmentation_fraction",
+            b"internal_fragmentation_fraction",
+            "kernel_tracker_max_bytes",
+            b"kernel_tracker_max_bytes",
+            "kernel_tracker_max_interval",
+            b"kernel_tracker_max_interval",
+            "kernel_tracker_max_pending",
+            b"kernel_tracker_max_pending",
+            "node_id",
+            b"node_id",
+            "num_dev_to_dev_copy_streams",
+            b"num_dev_to_dev_copy_streams",
+            "num_virtual_devices_per_gpu",
+            b"num_virtual_devices_per_gpu",
+            "populate_pjrt_gpu_client_creation_info",
+            b"populate_pjrt_gpu_client_creation_info",
+            "stream_merge_options",
+            b"stream_merge_options",
+            "timestamped_allocator",
+            b"timestamped_allocator",
+            "use_cuda_malloc_async",
+            b"use_cuda_malloc_async",
+            "use_unified_memory",
+            b"use_unified_memory",
+            "virtual_devices",
+            b"virtual_devices",
+        ]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    PER_PROCESS_GPU_MEMORY_FRACTION_FIELD_NUMBER: builtins.int
-    ALLOW_GROWTH_FIELD_NUMBER: builtins.int
-    ALLOCATOR_TYPE_FIELD_NUMBER: builtins.int
-    DEFERRED_DELETION_BYTES_FIELD_NUMBER: builtins.int
-    VISIBLE_DEVICE_LIST_FIELD_NUMBER: builtins.int
-    POLLING_ACTIVE_DELAY_USECS_FIELD_NUMBER: builtins.int
-    POLLING_INACTIVE_DELAY_MSECS_FIELD_NUMBER: builtins.int
-    FORCE_GPU_COMPATIBLE_FIELD_NUMBER: builtins.int
-    EXPERIMENTAL_FIELD_NUMBER: builtins.int
-    per_process_gpu_memory_fraction: builtins.float
+    PER_PROCESS_GPU_MEMORY_FRACTION_FIELD_NUMBER: _builtins.int
+    ALLOW_GROWTH_FIELD_NUMBER: _builtins.int
+    ALLOCATOR_TYPE_FIELD_NUMBER: _builtins.int
+    DEFERRED_DELETION_BYTES_FIELD_NUMBER: _builtins.int
+    VISIBLE_DEVICE_LIST_FIELD_NUMBER: _builtins.int
+    POLLING_ACTIVE_DELAY_USECS_FIELD_NUMBER: _builtins.int
+    POLLING_INACTIVE_DELAY_MSECS_FIELD_NUMBER: _builtins.int
+    FORCE_GPU_COMPATIBLE_FIELD_NUMBER: _builtins.int
+    EXPERIMENTAL_FIELD_NUMBER: _builtins.int
+    per_process_gpu_memory_fraction: _builtins.float
     """Fraction of the total GPU memory to allocate for each process.
     1 means to allocate all of the GPU memory, 0.5 means the process
     allocates up to ~50% of the total GPU memory.
@@ -408,11 +413,11 @@ class GPUOptions(google.protobuf.message.Message):
     https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#um-requirements
     for the detailed requirements.
     """
-    allow_growth: builtins.bool
+    allow_growth: _builtins.bool
     """If true, the allocator does not pre-allocate the entire specified
     GPU memory region, instead starting small and growing as needed.
     """
-    allocator_type: builtins.str
+    allocator_type: _builtins.str
     """The type of GPU allocation strategy to use.
 
     Allowed values:
@@ -422,12 +427,12 @@ class GPUOptions(google.protobuf.message.Message):
     "BFC": A "Best-fit with coalescing" algorithm, simplified from a
            version of dlmalloc.
     """
-    deferred_deletion_bytes: builtins.int
+    deferred_deletion_bytes: _builtins.int
     """Delay deletion of up to this many bytes to reduce the number of
     interactions with gpu driver code.  If 0, the system chooses
     a reasonable default (several MBs).
     """
-    visible_device_list: builtins.str
+    visible_device_list: _builtins.str
     """A comma-separated list of GPU ids that determines the 'visible'
     to 'virtual' mapping of GPU devices.  For example, if TensorFlow
     can see 8 GPU devices in the process, and one wanted to map
@@ -449,15 +454,20 @@ class GPUOptions(google.protobuf.message.Message):
        name "/device:GPU:<id>") are also called "TF GPU id"s. Please
        refer to third_party/tensorflow/core/common_runtime/gpu/gpu_id.h
        for more information.
+    3. The visible_device_list is also used for PluggableDevice. And
+       different types of PluggableDevices share this field. In that case,
+       the pluggable_device_type is used to distinguish them, making the
+       visible_device_list a list of <pluggable_device_type>:<device_index>,
+       e.g. "PluggableDeviceA:0,PluggableDeviceA:1,PluggableDeviceB:0".
     """
-    polling_active_delay_usecs: builtins.int
+    polling_active_delay_usecs: _builtins.int
     """In the event polling loop sleep this many microseconds between
     PollEvents calls, when the queue is not empty.  If value is not
     set or set to 0, gets set to a non-zero default.
     """
-    polling_inactive_delay_msecs: builtins.int
+    polling_inactive_delay_msecs: _builtins.int
     """This field is deprecated and ignored."""
-    force_gpu_compatible: builtins.bool
+    force_gpu_compatible: _builtins.bool
     """Force all tensors to be gpu_compatible. On a GPU-enabled TensorFlow,
     enabling this option forces all CPU tensors to be allocated with Cuda
     pinned memory. Normally, TensorFlow will infer which tensors should be
@@ -469,67 +479,65 @@ class GPUOptions(google.protobuf.message.Message):
     memory is unpageable, having too much pinned memory might negatively impact
     the overall host system performance.
     """
-    @property
-    def experimental(self) -> global___GPUOptions.Experimental:
+    @_builtins.property
+    def experimental(self) -> Global___GPUOptions.Experimental:
         """Everything inside experimental is subject to change and is not subject
         to API stability guarantees in
-        https://www.tensorflow.org/guide/version_compat.
+        https://www.tensorflow.org/guide/versions.
         """
 
     def __init__(
         self,
         *,
-        per_process_gpu_memory_fraction: builtins.float | None = ...,
-        allow_growth: builtins.bool | None = ...,
-        allocator_type: builtins.str | None = ...,
-        deferred_deletion_bytes: builtins.int | None = ...,
-        visible_device_list: builtins.str | None = ...,
-        polling_active_delay_usecs: builtins.int | None = ...,
-        polling_inactive_delay_msecs: builtins.int | None = ...,
-        force_gpu_compatible: builtins.bool | None = ...,
-        experimental: global___GPUOptions.Experimental | None = ...,
+        per_process_gpu_memory_fraction: _builtins.float | None = ...,
+        allow_growth: _builtins.bool | None = ...,
+        allocator_type: _builtins.str | None = ...,
+        deferred_deletion_bytes: _builtins.int | None = ...,
+        visible_device_list: _builtins.str | None = ...,
+        polling_active_delay_usecs: _builtins.int | None = ...,
+        polling_inactive_delay_msecs: _builtins.int | None = ...,
+        force_gpu_compatible: _builtins.bool | None = ...,
+        experimental: Global___GPUOptions.Experimental | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["experimental", b"experimental"]) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "allocator_type",
-            b"allocator_type",
-            "allow_growth",
-            b"allow_growth",
-            "deferred_deletion_bytes",
-            b"deferred_deletion_bytes",
-            "experimental",
-            b"experimental",
-            "force_gpu_compatible",
-            b"force_gpu_compatible",
-            "per_process_gpu_memory_fraction",
-            b"per_process_gpu_memory_fraction",
-            "polling_active_delay_usecs",
-            b"polling_active_delay_usecs",
-            "polling_inactive_delay_msecs",
-            b"polling_inactive_delay_msecs",
-            "visible_device_list",
-            b"visible_device_list",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["experimental", b"experimental"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "allocator_type",
+        b"allocator_type",
+        "allow_growth",
+        b"allow_growth",
+        "deferred_deletion_bytes",
+        b"deferred_deletion_bytes",
+        "experimental",
+        b"experimental",
+        "force_gpu_compatible",
+        b"force_gpu_compatible",
+        "per_process_gpu_memory_fraction",
+        b"per_process_gpu_memory_fraction",
+        "polling_active_delay_usecs",
+        b"polling_active_delay_usecs",
+        "polling_inactive_delay_msecs",
+        b"polling_inactive_delay_msecs",
+        "visible_device_list",
+        b"visible_device_list",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___GPUOptions = GPUOptions
+Global___GPUOptions: _TypeAlias = GPUOptions  # noqa: Y015
 
-@typing.final
-class OptimizerOptions(google.protobuf.message.Message):
+@_typing.final
+class OptimizerOptions(_message.Message):
     """Options passed to the graph optimizer"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _Level:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _LevelEnumTypeWrapper(
-        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[OptimizerOptions._Level.ValueType], builtins.type
-    ):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _LevelEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[OptimizerOptions._Level.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         L1: OptimizerOptions._Level.ValueType  # 0
         """L1 is the default level.
         Optimization performed at L1 :
@@ -552,13 +560,13 @@ class OptimizerOptions(google.protobuf.message.Message):
     """No optimizations"""
 
     class _GlobalJitLevel:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
     class _GlobalJitLevelEnumTypeWrapper(
-        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[OptimizerOptions._GlobalJitLevel.ValueType], builtins.type
+        _enum_type_wrapper._EnumTypeWrapper[OptimizerOptions._GlobalJitLevel.ValueType], _builtins.type
     ):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        DESCRIPTOR: _descriptor.EnumDescriptor
         DEFAULT: OptimizerOptions._GlobalJitLevel.ValueType  # 0
         """Default setting ("off" now, but later expected to be "on")"""
         OFF: OptimizerOptions._GlobalJitLevel.ValueType  # -1
@@ -584,39 +592,39 @@ class OptimizerOptions(google.protobuf.message.Message):
     """
     ON_2: OptimizerOptions.GlobalJitLevel.ValueType  # 2
 
-    DO_COMMON_SUBEXPRESSION_ELIMINATION_FIELD_NUMBER: builtins.int
-    DO_CONSTANT_FOLDING_FIELD_NUMBER: builtins.int
-    MAX_FOLDED_CONSTANT_IN_BYTES_FIELD_NUMBER: builtins.int
-    DO_FUNCTION_INLINING_FIELD_NUMBER: builtins.int
-    OPT_LEVEL_FIELD_NUMBER: builtins.int
-    GLOBAL_JIT_LEVEL_FIELD_NUMBER: builtins.int
-    CPU_GLOBAL_JIT_FIELD_NUMBER: builtins.int
-    do_common_subexpression_elimination: builtins.bool
+    DO_COMMON_SUBEXPRESSION_ELIMINATION_FIELD_NUMBER: _builtins.int
+    DO_CONSTANT_FOLDING_FIELD_NUMBER: _builtins.int
+    MAX_FOLDED_CONSTANT_IN_BYTES_FIELD_NUMBER: _builtins.int
+    DO_FUNCTION_INLINING_FIELD_NUMBER: _builtins.int
+    OPT_LEVEL_FIELD_NUMBER: _builtins.int
+    GLOBAL_JIT_LEVEL_FIELD_NUMBER: _builtins.int
+    CPU_GLOBAL_JIT_FIELD_NUMBER: _builtins.int
+    do_common_subexpression_elimination: _builtins.bool
     """If true, optimize the graph using common subexpression elimination.
     Note: the optimization Level L1 will override this setting to true. So in
     order to disable common subexpression elimination the opt_level has to be
     set to L0.
     """
-    do_constant_folding: builtins.bool
+    do_constant_folding: _builtins.bool
     """If true, perform constant folding optimization on the graph.
     Note: the optimization Level L1 will override this setting to true. So in
     order to disable constant folding the opt_level has to be set to L0.
     """
-    max_folded_constant_in_bytes: builtins.int
+    max_folded_constant_in_bytes: _builtins.int
     """Constant folding optimization replaces tensors whose values can be
     predetermined, with constant nodes. To avoid inserting too large constants,
     the size of each constant created can be limited. If this value is zero, a
     default limit of 10 MiB will be applied. If constant folding optimization
     is disabled, this value is ignored.
     """
-    do_function_inlining: builtins.bool
+    do_function_inlining: _builtins.bool
     """If true, perform function inlining on the graph."""
-    opt_level: global___OptimizerOptions.Level.ValueType
+    opt_level: Global___OptimizerOptions.Level.ValueType
     """Overall optimization level. The actual optimizations applied will be the
     logical OR of the flags that this level implies and any flags already set.
     """
-    global_jit_level: global___OptimizerOptions.GlobalJitLevel.ValueType
-    cpu_global_jit: builtins.bool
+    global_jit_level: Global___OptimizerOptions.GlobalJitLevel.ValueType
+    cpu_global_jit: _builtins.bool
     """CPU code will be autoclustered only if global_jit_level >= ON_1 and either:
      - this flag is true, or
      - TF_XLA_FLAGS contains --tf_xla_cpu_global_jit=true.
@@ -624,67 +632,68 @@ class OptimizerOptions(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        do_common_subexpression_elimination: builtins.bool | None = ...,
-        do_constant_folding: builtins.bool | None = ...,
-        max_folded_constant_in_bytes: builtins.int | None = ...,
-        do_function_inlining: builtins.bool | None = ...,
-        opt_level: global___OptimizerOptions.Level.ValueType | None = ...,
-        global_jit_level: global___OptimizerOptions.GlobalJitLevel.ValueType | None = ...,
-        cpu_global_jit: builtins.bool | None = ...,
+        do_common_subexpression_elimination: _builtins.bool | None = ...,
+        do_constant_folding: _builtins.bool | None = ...,
+        max_folded_constant_in_bytes: _builtins.int | None = ...,
+        do_function_inlining: _builtins.bool | None = ...,
+        opt_level: Global___OptimizerOptions.Level.ValueType | None = ...,
+        global_jit_level: Global___OptimizerOptions.GlobalJitLevel.ValueType | None = ...,
+        cpu_global_jit: _builtins.bool | None = ...,
     ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "cpu_global_jit",
-            b"cpu_global_jit",
-            "do_common_subexpression_elimination",
-            b"do_common_subexpression_elimination",
-            "do_constant_folding",
-            b"do_constant_folding",
-            "do_function_inlining",
-            b"do_function_inlining",
-            "global_jit_level",
-            b"global_jit_level",
-            "max_folded_constant_in_bytes",
-            b"max_folded_constant_in_bytes",
-            "opt_level",
-            b"opt_level",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "cpu_global_jit",
+        b"cpu_global_jit",
+        "do_common_subexpression_elimination",
+        b"do_common_subexpression_elimination",
+        "do_constant_folding",
+        b"do_constant_folding",
+        "do_function_inlining",
+        b"do_function_inlining",
+        "global_jit_level",
+        b"global_jit_level",
+        "max_folded_constant_in_bytes",
+        b"max_folded_constant_in_bytes",
+        "opt_level",
+        b"opt_level",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___OptimizerOptions = OptimizerOptions
+Global___OptimizerOptions: _TypeAlias = OptimizerOptions  # noqa: Y015
 
-@typing.final
-class GraphOptions(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class GraphOptions(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    ENABLE_RECV_SCHEDULING_FIELD_NUMBER: builtins.int
-    OPTIMIZER_OPTIONS_FIELD_NUMBER: builtins.int
-    BUILD_COST_MODEL_FIELD_NUMBER: builtins.int
-    BUILD_COST_MODEL_AFTER_FIELD_NUMBER: builtins.int
-    INFER_SHAPES_FIELD_NUMBER: builtins.int
-    PLACE_PRUNED_GRAPH_FIELD_NUMBER: builtins.int
-    ENABLE_BFLOAT16_SENDRECV_FIELD_NUMBER: builtins.int
-    TIMELINE_STEP_FIELD_NUMBER: builtins.int
-    REWRITE_OPTIONS_FIELD_NUMBER: builtins.int
-    enable_recv_scheduling: builtins.bool
+    ENABLE_RECV_SCHEDULING_FIELD_NUMBER: _builtins.int
+    OPTIMIZER_OPTIONS_FIELD_NUMBER: _builtins.int
+    BUILD_COST_MODEL_FIELD_NUMBER: _builtins.int
+    BUILD_COST_MODEL_AFTER_FIELD_NUMBER: _builtins.int
+    INFER_SHAPES_FIELD_NUMBER: _builtins.int
+    PLACE_PRUNED_GRAPH_FIELD_NUMBER: _builtins.int
+    ENABLE_BFLOAT16_SENDRECV_FIELD_NUMBER: _builtins.int
+    TIMELINE_STEP_FIELD_NUMBER: _builtins.int
+    REWRITE_OPTIONS_FIELD_NUMBER: _builtins.int
+    enable_recv_scheduling: _builtins.bool
     """If true, use control flow to schedule the activation of Recv nodes.
     (Currently ignored.)
     """
-    build_cost_model: builtins.int
+    build_cost_model: _builtins.int
     """The number of steps to run before returning a cost model detailing
     the memory usage and performance of each node of the graph. 0 means
     no cost model.
     """
-    build_cost_model_after: builtins.int
+    build_cost_model_after: _builtins.int
     """The number of steps to skip before collecting statistics for the
     cost model.
     """
-    infer_shapes: builtins.bool
+    infer_shapes: _builtins.bool
     """Annotate each Node with Op output shape data, to the extent it can
     be statically inferred.
     """
-    place_pruned_graph: builtins.bool
+    place_pruned_graph: _builtins.bool
     """Only place the subgraphs that are run, rather than the entire graph.
 
     This is useful for interactive graph building, where one might
@@ -693,18 +702,18 @@ class GraphOptions(google.protobuf.message.Message):
     a session after adding a node to a graph whose placement
     constraints are unsatisfiable.
     """
-    enable_bfloat16_sendrecv: builtins.bool
+    enable_bfloat16_sendrecv: _builtins.bool
     """If true, transfer float values between processes as bfloat16."""
-    timeline_step: builtins.int
+    timeline_step: _builtins.int
     """If > 0, record a timeline every this many steps.
     EXPERIMENTAL: This currently has no effect in MasterSession.
     """
-    @property
-    def optimizer_options(self) -> global___OptimizerOptions:
+    @_builtins.property
+    def optimizer_options(self) -> Global___OptimizerOptions:
         """Options controlling how graph is optimized."""
 
-    @property
-    def rewrite_options(self) -> tensorflow.core.protobuf.rewriter_config_pb2.RewriterConfig:
+    @_builtins.property
+    def rewrite_options(self) -> _rewriter_config_pb2.RewriterConfig:
         """Options that control the type and amount of graph rewriting.
         Not currently configurable via the public Python API (i.e. there is no API
         stability guarantee if you import RewriterConfig explicitly).
@@ -713,58 +722,58 @@ class GraphOptions(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        enable_recv_scheduling: builtins.bool | None = ...,
-        optimizer_options: global___OptimizerOptions | None = ...,
-        build_cost_model: builtins.int | None = ...,
-        build_cost_model_after: builtins.int | None = ...,
-        infer_shapes: builtins.bool | None = ...,
-        place_pruned_graph: builtins.bool | None = ...,
-        enable_bfloat16_sendrecv: builtins.bool | None = ...,
-        timeline_step: builtins.int | None = ...,
-        rewrite_options: tensorflow.core.protobuf.rewriter_config_pb2.RewriterConfig | None = ...,
+        enable_recv_scheduling: _builtins.bool | None = ...,
+        optimizer_options: Global___OptimizerOptions | None = ...,
+        build_cost_model: _builtins.int | None = ...,
+        build_cost_model_after: _builtins.int | None = ...,
+        infer_shapes: _builtins.bool | None = ...,
+        place_pruned_graph: _builtins.bool | None = ...,
+        enable_bfloat16_sendrecv: _builtins.bool | None = ...,
+        timeline_step: _builtins.int | None = ...,
+        rewrite_options: _rewriter_config_pb2.RewriterConfig | None = ...,
     ) -> None: ...
-    def HasField(
-        self, field_name: typing.Literal["optimizer_options", b"optimizer_options", "rewrite_options", b"rewrite_options"]
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "build_cost_model",
-            b"build_cost_model",
-            "build_cost_model_after",
-            b"build_cost_model_after",
-            "enable_bfloat16_sendrecv",
-            b"enable_bfloat16_sendrecv",
-            "enable_recv_scheduling",
-            b"enable_recv_scheduling",
-            "infer_shapes",
-            b"infer_shapes",
-            "optimizer_options",
-            b"optimizer_options",
-            "place_pruned_graph",
-            b"place_pruned_graph",
-            "rewrite_options",
-            b"rewrite_options",
-            "timeline_step",
-            b"timeline_step",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal[
+        "optimizer_options", b"optimizer_options", "rewrite_options", b"rewrite_options"
+    ]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "build_cost_model",
+        b"build_cost_model",
+        "build_cost_model_after",
+        b"build_cost_model_after",
+        "enable_bfloat16_sendrecv",
+        b"enable_bfloat16_sendrecv",
+        "enable_recv_scheduling",
+        b"enable_recv_scheduling",
+        "infer_shapes",
+        b"infer_shapes",
+        "optimizer_options",
+        b"optimizer_options",
+        "place_pruned_graph",
+        b"place_pruned_graph",
+        "rewrite_options",
+        b"rewrite_options",
+        "timeline_step",
+        b"timeline_step",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___GraphOptions = GraphOptions
+Global___GraphOptions: _TypeAlias = GraphOptions  # noqa: Y015
 
-@typing.final
-class ThreadPoolOptionProto(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class ThreadPoolOptionProto(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NUM_THREADS_FIELD_NUMBER: builtins.int
-    GLOBAL_NAME_FIELD_NUMBER: builtins.int
-    num_threads: builtins.int
+    NUM_THREADS_FIELD_NUMBER: _builtins.int
+    GLOBAL_NAME_FIELD_NUMBER: _builtins.int
+    num_threads: _builtins.int
     """The number of threads in the pool.
 
     0 means the system picks a value based on where this option proto is used
     (see the declaration of the specific field for more info).
     """
-    global_name: builtins.str
+    global_name: _builtins.str
     """The global name of the threadpool.
 
     If empty, then the threadpool is made and used according to the scope it's
@@ -781,13 +790,17 @@ class ThreadPoolOptionProto(google.protobuf.message.Message):
       value as is specified on this call.
     - threadpools created this way are never garbage collected.
     """
-    def __init__(self, *, num_threads: builtins.int | None = ..., global_name: builtins.str | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["global_name", b"global_name", "num_threads", b"num_threads"]) -> None: ...
+    def __init__(self, *, num_threads: _builtins.int | None = ..., global_name: _builtins.str | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["global_name", b"global_name", "num_threads", b"num_threads"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___ThreadPoolOptionProto = ThreadPoolOptionProto
+Global___ThreadPoolOptionProto: _TypeAlias = ThreadPoolOptionProto  # noqa: Y015
 
-@typing.final
-class SessionMetadata(google.protobuf.message.Message):
+@_typing.final
+class SessionMetadata(_message.Message):
     """Metadata about the session.
 
     This can be used by the runtime and the Ops for debugging, monitoring, etc.
@@ -798,55 +811,62 @@ class SessionMetadata(google.protobuf.message.Message):
     NOTE: This is currently used and propagated only by the direct session.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    VERSION_FIELD_NUMBER: builtins.int
-    name: builtins.str
-    version: builtins.int
+    NAME_FIELD_NUMBER: _builtins.int
+    VERSION_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
+    version: _builtins.int
     """The version is optional. If set, needs to be >= 0."""
-    def __init__(self, *, name: builtins.str | None = ..., version: builtins.int | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["name", b"name", "version", b"version"]) -> None: ...
+    def __init__(self, *, name: _builtins.str | None = ..., version: _builtins.int | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["name", b"name", "version", b"version"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___SessionMetadata = SessionMetadata
+Global___SessionMetadata: _TypeAlias = SessionMetadata  # noqa: Y015
 
-@typing.final
-class ConfigProto(google.protobuf.message.Message):
+@_typing.final
+class ConfigProto(_message.Message):
     """Session configuration parameters.
     The system picks appropriate values for fields that are not set.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class DeviceCountEntry(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class DeviceCountEntry(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        KEY_FIELD_NUMBER: builtins.int
-        VALUE_FIELD_NUMBER: builtins.int
-        key: builtins.str
-        value: builtins.int
-        def __init__(self, *, key: builtins.str | None = ..., value: builtins.int | None = ...) -> None: ...
-        def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
+        KEY_FIELD_NUMBER: _builtins.int
+        VALUE_FIELD_NUMBER: _builtins.int
+        key: _builtins.str
+        value: _builtins.int
+        def __init__(self, *, key: _builtins.str | None = ..., value: _builtins.int | None = ...) -> None: ...
+        _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["key", b"key", "value", b"value"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    @typing.final
-    class Experimental(google.protobuf.message.Message):
+    @_typing.final
+    class Experimental(_message.Message):
         """Everything inside Experimental is subject to change and is not subject
         to API stability guarantees in
-        https://www.tensorflow.org/guide/version_compat.
+        https://www.tensorflow.org/guide/versions.
         """
 
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+        DESCRIPTOR: _descriptor.Descriptor
 
         class _MlirBridgeRollout:
-            ValueType = typing.NewType("ValueType", builtins.int)
-            V: typing_extensions.TypeAlias = ValueType
+            ValueType = _typing.NewType("ValueType", _builtins.int)
+            V: _TypeAlias = ValueType  # noqa: Y015
 
         class _MlirBridgeRolloutEnumTypeWrapper(
-            google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ConfigProto.Experimental._MlirBridgeRollout.ValueType],
-            builtins.type,
+            _enum_type_wrapper._EnumTypeWrapper[ConfigProto.Experimental._MlirBridgeRollout.ValueType], _builtins.type
         ):
-            DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+            DESCRIPTOR: _descriptor.EnumDescriptor
             MLIR_BRIDGE_ROLLOUT_UNSPECIFIED: ConfigProto.Experimental._MlirBridgeRollout.ValueType  # 0
             """If this field is left unspecified, the MLIR bridge may be selectively
             enabled on a per graph basis.
@@ -868,59 +888,63 @@ class ConfigProto(google.protobuf.message.Message):
         MLIR_BRIDGE_ROLLOUT_DISABLED: ConfigProto.Experimental.MlirBridgeRollout.ValueType  # 2
         """Disabling the MLIR bridge disables it for all graphs in this session."""
 
-        COLLECTIVE_GROUP_LEADER_FIELD_NUMBER: builtins.int
-        EXECUTOR_TYPE_FIELD_NUMBER: builtins.int
-        RECV_BUF_MAX_CHUNK_FIELD_NUMBER: builtins.int
-        USE_NUMA_AFFINITY_FIELD_NUMBER: builtins.int
-        COLLECTIVE_DETERMINISTIC_SEQUENTIAL_EXECUTION_FIELD_NUMBER: builtins.int
-        COLLECTIVE_NCCL_FIELD_NUMBER: builtins.int
-        SHARE_SESSION_STATE_IN_CLUSTERSPEC_PROPAGATION_FIELD_NUMBER: builtins.int
-        DISABLE_THREAD_SPINNING_FIELD_NUMBER: builtins.int
-        SHARE_CLUSTER_DEVICES_IN_SESSION_FIELD_NUMBER: builtins.int
-        SESSION_METADATA_FIELD_NUMBER: builtins.int
-        OPTIMIZE_FOR_STATIC_GRAPH_FIELD_NUMBER: builtins.int
-        ENABLE_MLIR_BRIDGE_FIELD_NUMBER: builtins.int
-        MLIR_BRIDGE_ROLLOUT_FIELD_NUMBER: builtins.int
-        ENABLE_MLIR_GRAPH_OPTIMIZATION_FIELD_NUMBER: builtins.int
-        DISABLE_OUTPUT_PARTITION_GRAPHS_FIELD_NUMBER: builtins.int
-        XLA_FUSION_AUTOTUNER_THRESH_FIELD_NUMBER: builtins.int
-        USE_TFRT_FIELD_NUMBER: builtins.int
-        ENABLE_MULTI_HOST_FIELD_NUMBER: builtins.int
-        TFRT_USE_IFRT_FIELD_NUMBER: builtins.int
-        BACKEND_SERVER_PORT_FIELD_NUMBER: builtins.int
-        TARGET_TPU_FIELD_NUMBER: builtins.int
-        TARGET_GPU_FIELD_NUMBER: builtins.int
-        STREAM_MERGE_THRESHOLD_FIELD_NUMBER: builtins.int
-        DISABLE_FUNCTIONAL_OPS_LOWERING_FIELD_NUMBER: builtins.int
-        XLA_PREFER_SINGLE_GRAPH_CLUSTER_FIELD_NUMBER: builtins.int
-        COORDINATION_CONFIG_FIELD_NUMBER: builtins.int
-        DISABLE_OPTIMIZE_FOR_STATIC_GRAPH_FIELD_NUMBER: builtins.int
-        DISABLE_EAGER_EXECUTOR_STREAMING_ENQUEUE_FIELD_NUMBER: builtins.int
-        collective_group_leader: builtins.str
+        COLLECTIVE_GROUP_LEADER_FIELD_NUMBER: _builtins.int
+        EXECUTOR_TYPE_FIELD_NUMBER: _builtins.int
+        RECV_BUF_MAX_CHUNK_FIELD_NUMBER: _builtins.int
+        USE_NUMA_AFFINITY_FIELD_NUMBER: _builtins.int
+        COLLECTIVE_DETERMINISTIC_SEQUENTIAL_EXECUTION_FIELD_NUMBER: _builtins.int
+        COLLECTIVE_NCCL_FIELD_NUMBER: _builtins.int
+        SHARE_SESSION_STATE_IN_CLUSTERSPEC_PROPAGATION_FIELD_NUMBER: _builtins.int
+        DISABLE_THREAD_SPINNING_FIELD_NUMBER: _builtins.int
+        SHARE_CLUSTER_DEVICES_IN_SESSION_FIELD_NUMBER: _builtins.int
+        SESSION_METADATA_FIELD_NUMBER: _builtins.int
+        OPTIMIZE_FOR_STATIC_GRAPH_FIELD_NUMBER: _builtins.int
+        ENABLE_MLIR_BRIDGE_FIELD_NUMBER: _builtins.int
+        MLIR_BRIDGE_ROLLOUT_FIELD_NUMBER: _builtins.int
+        ENABLE_MLIR_GRAPH_OPTIMIZATION_FIELD_NUMBER: _builtins.int
+        DISABLE_OUTPUT_PARTITION_GRAPHS_FIELD_NUMBER: _builtins.int
+        XLA_FUSION_AUTOTUNER_THRESH_FIELD_NUMBER: _builtins.int
+        USE_TFRT_FIELD_NUMBER: _builtins.int
+        ENABLE_MULTI_HOST_FIELD_NUMBER: _builtins.int
+        TFRT_USE_IFRT_FIELD_NUMBER: _builtins.int
+        BACKEND_SERVER_PORT_FIELD_NUMBER: _builtins.int
+        TARGET_TPU_FIELD_NUMBER: _builtins.int
+        TARGET_GPU_FIELD_NUMBER: _builtins.int
+        STREAM_MERGE_THRESHOLD_FIELD_NUMBER: _builtins.int
+        DISABLE_FUNCTIONAL_OPS_LOWERING_FIELD_NUMBER: _builtins.int
+        XLA_PREFER_SINGLE_GRAPH_CLUSTER_FIELD_NUMBER: _builtins.int
+        COORDINATION_CONFIG_FIELD_NUMBER: _builtins.int
+        DISABLE_OPTIMIZE_FOR_STATIC_GRAPH_FIELD_NUMBER: _builtins.int
+        DISABLE_EAGER_EXECUTOR_STREAMING_ENQUEUE_FIELD_NUMBER: _builtins.int
+        FINALIZE_FUNCTION_LIBRARY_RUNTIME_FIELD_NUMBER: _builtins.int
+        FINALIZE_RESOURCE_MANAGER_FIELD_NUMBER: _builtins.int
+        TF2XLA_DUMP_DIR_FIELD_NUMBER: _builtins.int
+        ONLINE_COST_ANALYSIS_FIELD_NUMBER: _builtins.int
+        collective_group_leader: _builtins.str
         """Task name for group resolution."""
-        executor_type: builtins.str
+        executor_type: _builtins.str
         """Which executor to use, the default executor will be used
         if it is an empty string or "DEFAULT"
         """
-        recv_buf_max_chunk: builtins.int
+        recv_buf_max_chunk: _builtins.int
         """Guidance to formatting of large RecvBuf fields for transfer.
         Any positive value sets the max chunk size.  0 defaults to 4096.
         Any negative value indicates no max, i.e. one chunk only.
         """
-        use_numa_affinity: builtins.bool
+        use_numa_affinity: _builtins.bool
         """If true, and supported by the platform, the runtime will attempt to
         use NUMA affinity where applicable.  One consequence will be the
         existence of as many CPU devices as there are available NUMA nodes.
         """
-        collective_deterministic_sequential_execution: builtins.bool
+        collective_deterministic_sequential_execution: _builtins.bool
         """If true, make collective op execution order sequential and deterministic
         for potentially concurrent collective instances.
         """
-        collective_nccl: builtins.bool
+        collective_nccl: _builtins.bool
         """If true, use NCCL for CollectiveOps.  This feature is highly
         experimental.
         """
-        share_session_state_in_clusterspec_propagation: builtins.bool
+        share_session_state_in_clusterspec_propagation: _builtins.bool
         """In the following, session state means the value of a variable, elements
         in a hash table, or any other resource, accessible by worker sessions
         held by a TF server.
@@ -942,17 +966,17 @@ class ConfigProto(google.protobuf.message.Message):
         TODO(b/129330037): Add a single API that consistently treats
         isolate_session_state and ClusterSpec propagation.
         """
-        disable_thread_spinning: builtins.bool
+        disable_thread_spinning: _builtins.bool
         """If using a direct session, disable spinning while waiting for work in
         the thread pool. This may result in higher latency for completing ops,
         but in the case where there is a lot of spinning may result in lower
         CPU usage.
         """
-        share_cluster_devices_in_session: builtins.bool
+        share_cluster_devices_in_session: _builtins.bool
         """This was promoted to a non-experimental API. Please use
         ConfigProto.share_cluster_devices_in_session instead.
         """
-        optimize_for_static_graph: builtins.bool
+        optimize_for_static_graph: _builtins.bool
         """If true, the session may treat the graph as being static for optimization
         purposes.
 
@@ -960,7 +984,7 @@ class ConfigProto(google.protobuf.message.Message):
         GraphDef must be passed in a single call to Session::Create(), and
         Session::Extend() may not be supported.
         """
-        enable_mlir_bridge: builtins.bool
+        enable_mlir_bridge: _builtins.bool
         """Whether to enable the MLIR-based TF->XLA bridge. This is only used if set
         to true. Default value or false is ignored. Use mlir_bridge_rollout for
         finer control.
@@ -973,62 +997,62 @@ class ConfigProto(google.protobuf.message.Message):
         to an "execute" operation. The kernel for these operations is responsible
         to lower the encapsulated graph to a particular device.
         """
-        mlir_bridge_rollout: global___ConfigProto.Experimental.MlirBridgeRollout.ValueType
+        mlir_bridge_rollout: Global___ConfigProto.Experimental.MlirBridgeRollout.ValueType
         """Whether to enable the MLIR-based TF->XLA bridge."""
-        enable_mlir_graph_optimization: builtins.bool
+        enable_mlir_graph_optimization: _builtins.bool
         """Whether to enable the MLIR-based Graph optimizations.
 
         This will become a part of standard Tensorflow graph optimization
         pipeline, currently this is only used for gradual migration and testing
         new passes that are replacing existing optimizations in Grappler.
         """
-        disable_output_partition_graphs: builtins.bool
+        disable_output_partition_graphs: _builtins.bool
         """If true, the session will not store an additional copy of the graph for
         each subgraph.
 
         If this option is set to true when a session is created, the
         `RunOptions.output_partition_graphs` options must not be set.
         """
-        xla_fusion_autotuner_thresh: builtins.int
+        xla_fusion_autotuner_thresh: _builtins.int
         """Minimum number of batches run through the XLA graph before XLA fusion
         autotuner is enabled. Default value of zero disables the autotuner.
 
         The XLA fusion autotuner can improve performance by executing a heuristic
         search on the compiler parameters.
         """
-        use_tfrt: builtins.bool
+        use_tfrt: _builtins.bool
         """Whether runtime execution uses TFRT."""
-        enable_multi_host: builtins.bool
+        enable_multi_host: _builtins.bool
         """If true, use Pathways with TFRT API for multi host support."""
-        tfrt_use_ifrt: builtins.bool
+        tfrt_use_ifrt: _builtins.bool
         """If true, use ifrt as the backend for TFRT. This is only used when
         `use_tfrt` is true.
         """
-        backend_server_port: builtins.int
+        backend_server_port: _builtins.int
         """Port for the Pathways server. Ignored if enable_multi_host=false."""
-        target_tpu: builtins.bool
+        target_tpu: _builtins.bool
         """If true, TFRT will use TPU specific compiler passes and perform TPU
         specific initialization.
         """
-        target_gpu: builtins.bool
+        target_gpu: _builtins.bool
         """If true, TFRT will use GPU specific compiler passes and perform GPU
         specific initialization.
         """
-        stream_merge_threshold: builtins.int
+        stream_merge_threshold: _builtins.int
         """The threshold to merge small streams in TFRT. The stream with cost
         smaller than the threshold will be merged. Setting it to value 1
         disables all merges.
         """
-        disable_functional_ops_lowering: builtins.bool
+        disable_functional_ops_lowering: _builtins.bool
         """Whether functional control flow op lowering should be disabled. This is
         useful when executing within a portable runtime where control flow op
         kernels may not be loaded due to selective registration.
         """
-        xla_prefer_single_graph_cluster: builtins.bool
+        xla_prefer_single_graph_cluster: _builtins.bool
         """Provides a hint to XLA auto clustering to prefer forming a single large
-        cluster that encompases most of the graph.
+        cluster that encompasses most of the graph.
         """
-        disable_optimize_for_static_graph: builtins.bool
+        disable_optimize_for_static_graph: _builtins.bool
         """If true, the session will treat the graph as being non-static for
         optimization purposes.
 
@@ -1039,13 +1063,32 @@ class ConfigProto(google.protobuf.message.Message):
         This option is meant to replace `optimize_for_static_graph` and it
         aims to negate its value.
         """
-        disable_eager_executor_streaming_enqueue: builtins.bool
+        disable_eager_executor_streaming_enqueue: _builtins.bool
         """Whether eager remote execution will stream all the function calls or
         allow them to happen in parallel. When true, streaming execution is
         disabled, and parallel execution is allowed.
         """
-        @property
-        def session_metadata(self) -> global___SessionMetadata:
+        finalize_function_library_runtime: _builtins.bool
+        """If true, the function library runtime will be finalized when the session
+        is finalized.
+        """
+        finalize_resource_manager: _builtins.bool
+        """If true, the resource manager will be finalized when the session
+        is finalized.
+        """
+        tf2xla_dump_dir: _builtins.str
+        """If set, TF2XLA will dump compilation call arguments to the specified
+        directory.
+        """
+        online_cost_analysis: _builtins.bool
+        """When set to true, the online op cost analysis will be enabled. This
+        will run the cost analysis once for the first model execution and
+        use the obtained cost to optimize subsequent executions.
+        Typically `stream_merge_threshold` should be tuned to set to a non-zero
+        value when this option is enabled.
+        """
+        @_builtins.property
+        def session_metadata(self) -> Global___SessionMetadata:
             """Metadata about the session.
 
             If set, this can be used by the runtime and the Ops for debugging,
@@ -1055,127 +1098,138 @@ class ConfigProto(google.protobuf.message.Message):
             and EagerContext.
             """
 
-        @property
-        def coordination_config(self) -> tensorflow.tsl.protobuf.coordination_config_pb2.CoordinationServiceConfig:
+        @_builtins.property
+        def coordination_config(self) -> _coordination_config_pb2.CoordinationServiceConfig:
             """Distributed coordination service configurations."""
 
         def __init__(
             self,
             *,
-            collective_group_leader: builtins.str | None = ...,
-            executor_type: builtins.str | None = ...,
-            recv_buf_max_chunk: builtins.int | None = ...,
-            use_numa_affinity: builtins.bool | None = ...,
-            collective_deterministic_sequential_execution: builtins.bool | None = ...,
-            collective_nccl: builtins.bool | None = ...,
-            share_session_state_in_clusterspec_propagation: builtins.bool | None = ...,
-            disable_thread_spinning: builtins.bool | None = ...,
-            share_cluster_devices_in_session: builtins.bool | None = ...,
-            session_metadata: global___SessionMetadata | None = ...,
-            optimize_for_static_graph: builtins.bool | None = ...,
-            enable_mlir_bridge: builtins.bool | None = ...,
-            mlir_bridge_rollout: global___ConfigProto.Experimental.MlirBridgeRollout.ValueType | None = ...,
-            enable_mlir_graph_optimization: builtins.bool | None = ...,
-            disable_output_partition_graphs: builtins.bool | None = ...,
-            xla_fusion_autotuner_thresh: builtins.int | None = ...,
-            use_tfrt: builtins.bool | None = ...,
-            enable_multi_host: builtins.bool | None = ...,
-            tfrt_use_ifrt: builtins.bool | None = ...,
-            backend_server_port: builtins.int | None = ...,
-            target_tpu: builtins.bool | None = ...,
-            target_gpu: builtins.bool | None = ...,
-            stream_merge_threshold: builtins.int | None = ...,
-            disable_functional_ops_lowering: builtins.bool | None = ...,
-            xla_prefer_single_graph_cluster: builtins.bool | None = ...,
-            coordination_config: tensorflow.tsl.protobuf.coordination_config_pb2.CoordinationServiceConfig | None = ...,
-            disable_optimize_for_static_graph: builtins.bool | None = ...,
-            disable_eager_executor_streaming_enqueue: builtins.bool | None = ...,
+            collective_group_leader: _builtins.str | None = ...,
+            executor_type: _builtins.str | None = ...,
+            recv_buf_max_chunk: _builtins.int | None = ...,
+            use_numa_affinity: _builtins.bool | None = ...,
+            collective_deterministic_sequential_execution: _builtins.bool | None = ...,
+            collective_nccl: _builtins.bool | None = ...,
+            share_session_state_in_clusterspec_propagation: _builtins.bool | None = ...,
+            disable_thread_spinning: _builtins.bool | None = ...,
+            share_cluster_devices_in_session: _builtins.bool | None = ...,
+            session_metadata: Global___SessionMetadata | None = ...,
+            optimize_for_static_graph: _builtins.bool | None = ...,
+            enable_mlir_bridge: _builtins.bool | None = ...,
+            mlir_bridge_rollout: Global___ConfigProto.Experimental.MlirBridgeRollout.ValueType | None = ...,
+            enable_mlir_graph_optimization: _builtins.bool | None = ...,
+            disable_output_partition_graphs: _builtins.bool | None = ...,
+            xla_fusion_autotuner_thresh: _builtins.int | None = ...,
+            use_tfrt: _builtins.bool | None = ...,
+            enable_multi_host: _builtins.bool | None = ...,
+            tfrt_use_ifrt: _builtins.bool | None = ...,
+            backend_server_port: _builtins.int | None = ...,
+            target_tpu: _builtins.bool | None = ...,
+            target_gpu: _builtins.bool | None = ...,
+            stream_merge_threshold: _builtins.int | None = ...,
+            disable_functional_ops_lowering: _builtins.bool | None = ...,
+            xla_prefer_single_graph_cluster: _builtins.bool | None = ...,
+            coordination_config: _coordination_config_pb2.CoordinationServiceConfig | None = ...,
+            disable_optimize_for_static_graph: _builtins.bool | None = ...,
+            disable_eager_executor_streaming_enqueue: _builtins.bool | None = ...,
+            finalize_function_library_runtime: _builtins.bool | None = ...,
+            finalize_resource_manager: _builtins.bool | None = ...,
+            tf2xla_dump_dir: _builtins.str | None = ...,
+            online_cost_analysis: _builtins.bool | None = ...,
         ) -> None: ...
-        def HasField(
-            self,
-            field_name: typing.Literal["coordination_config", b"coordination_config", "session_metadata", b"session_metadata"],
-        ) -> builtins.bool: ...
-        def ClearField(
-            self,
-            field_name: typing.Literal[
-                "backend_server_port",
-                b"backend_server_port",
-                "collective_deterministic_sequential_execution",
-                b"collective_deterministic_sequential_execution",
-                "collective_group_leader",
-                b"collective_group_leader",
-                "collective_nccl",
-                b"collective_nccl",
-                "coordination_config",
-                b"coordination_config",
-                "disable_eager_executor_streaming_enqueue",
-                b"disable_eager_executor_streaming_enqueue",
-                "disable_functional_ops_lowering",
-                b"disable_functional_ops_lowering",
-                "disable_optimize_for_static_graph",
-                b"disable_optimize_for_static_graph",
-                "disable_output_partition_graphs",
-                b"disable_output_partition_graphs",
-                "disable_thread_spinning",
-                b"disable_thread_spinning",
-                "enable_mlir_bridge",
-                b"enable_mlir_bridge",
-                "enable_mlir_graph_optimization",
-                b"enable_mlir_graph_optimization",
-                "enable_multi_host",
-                b"enable_multi_host",
-                "executor_type",
-                b"executor_type",
-                "mlir_bridge_rollout",
-                b"mlir_bridge_rollout",
-                "optimize_for_static_graph",
-                b"optimize_for_static_graph",
-                "recv_buf_max_chunk",
-                b"recv_buf_max_chunk",
-                "session_metadata",
-                b"session_metadata",
-                "share_cluster_devices_in_session",
-                b"share_cluster_devices_in_session",
-                "share_session_state_in_clusterspec_propagation",
-                b"share_session_state_in_clusterspec_propagation",
-                "stream_merge_threshold",
-                b"stream_merge_threshold",
-                "target_gpu",
-                b"target_gpu",
-                "target_tpu",
-                b"target_tpu",
-                "tfrt_use_ifrt",
-                b"tfrt_use_ifrt",
-                "use_numa_affinity",
-                b"use_numa_affinity",
-                "use_tfrt",
-                b"use_tfrt",
-                "xla_fusion_autotuner_thresh",
-                b"xla_fusion_autotuner_thresh",
-                "xla_prefer_single_graph_cluster",
-                b"xla_prefer_single_graph_cluster",
-            ],
-        ) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal[
+            "coordination_config", b"coordination_config", "session_metadata", b"session_metadata"
+        ]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal[
+            "backend_server_port",
+            b"backend_server_port",
+            "collective_deterministic_sequential_execution",
+            b"collective_deterministic_sequential_execution",
+            "collective_group_leader",
+            b"collective_group_leader",
+            "collective_nccl",
+            b"collective_nccl",
+            "coordination_config",
+            b"coordination_config",
+            "disable_eager_executor_streaming_enqueue",
+            b"disable_eager_executor_streaming_enqueue",
+            "disable_functional_ops_lowering",
+            b"disable_functional_ops_lowering",
+            "disable_optimize_for_static_graph",
+            b"disable_optimize_for_static_graph",
+            "disable_output_partition_graphs",
+            b"disable_output_partition_graphs",
+            "disable_thread_spinning",
+            b"disable_thread_spinning",
+            "enable_mlir_bridge",
+            b"enable_mlir_bridge",
+            "enable_mlir_graph_optimization",
+            b"enable_mlir_graph_optimization",
+            "enable_multi_host",
+            b"enable_multi_host",
+            "executor_type",
+            b"executor_type",
+            "finalize_function_library_runtime",
+            b"finalize_function_library_runtime",
+            "finalize_resource_manager",
+            b"finalize_resource_manager",
+            "mlir_bridge_rollout",
+            b"mlir_bridge_rollout",
+            "online_cost_analysis",
+            b"online_cost_analysis",
+            "optimize_for_static_graph",
+            b"optimize_for_static_graph",
+            "recv_buf_max_chunk",
+            b"recv_buf_max_chunk",
+            "session_metadata",
+            b"session_metadata",
+            "share_cluster_devices_in_session",
+            b"share_cluster_devices_in_session",
+            "share_session_state_in_clusterspec_propagation",
+            b"share_session_state_in_clusterspec_propagation",
+            "stream_merge_threshold",
+            b"stream_merge_threshold",
+            "target_gpu",
+            b"target_gpu",
+            "target_tpu",
+            b"target_tpu",
+            "tf2xla_dump_dir",
+            b"tf2xla_dump_dir",
+            "tfrt_use_ifrt",
+            b"tfrt_use_ifrt",
+            "use_numa_affinity",
+            b"use_numa_affinity",
+            "use_tfrt",
+            b"use_tfrt",
+            "xla_fusion_autotuner_thresh",
+            b"xla_fusion_autotuner_thresh",
+            "xla_prefer_single_graph_cluster",
+            b"xla_prefer_single_graph_cluster",
+        ]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    DEVICE_COUNT_FIELD_NUMBER: builtins.int
-    INTRA_OP_PARALLELISM_THREADS_FIELD_NUMBER: builtins.int
-    INTER_OP_PARALLELISM_THREADS_FIELD_NUMBER: builtins.int
-    USE_PER_SESSION_THREADS_FIELD_NUMBER: builtins.int
-    SESSION_INTER_OP_THREAD_POOL_FIELD_NUMBER: builtins.int
-    PLACEMENT_PERIOD_FIELD_NUMBER: builtins.int
-    DEVICE_FILTERS_FIELD_NUMBER: builtins.int
-    GPU_OPTIONS_FIELD_NUMBER: builtins.int
-    PLUGGABLE_DEVICE_OPTIONS_FIELD_NUMBER: builtins.int
-    ALLOW_SOFT_PLACEMENT_FIELD_NUMBER: builtins.int
-    LOG_DEVICE_PLACEMENT_FIELD_NUMBER: builtins.int
-    GRAPH_OPTIONS_FIELD_NUMBER: builtins.int
-    OPERATION_TIMEOUT_IN_MS_FIELD_NUMBER: builtins.int
-    RPC_OPTIONS_FIELD_NUMBER: builtins.int
-    CLUSTER_DEF_FIELD_NUMBER: builtins.int
-    ISOLATE_SESSION_STATE_FIELD_NUMBER: builtins.int
-    SHARE_CLUSTER_DEVICES_IN_SESSION_FIELD_NUMBER: builtins.int
-    EXPERIMENTAL_FIELD_NUMBER: builtins.int
-    intra_op_parallelism_threads: builtins.int
+    DEVICE_COUNT_FIELD_NUMBER: _builtins.int
+    INTRA_OP_PARALLELISM_THREADS_FIELD_NUMBER: _builtins.int
+    INTER_OP_PARALLELISM_THREADS_FIELD_NUMBER: _builtins.int
+    USE_PER_SESSION_THREADS_FIELD_NUMBER: _builtins.int
+    SESSION_INTER_OP_THREAD_POOL_FIELD_NUMBER: _builtins.int
+    PLACEMENT_PERIOD_FIELD_NUMBER: _builtins.int
+    DEVICE_FILTERS_FIELD_NUMBER: _builtins.int
+    GPU_OPTIONS_FIELD_NUMBER: _builtins.int
+    PLUGGABLE_DEVICE_OPTIONS_FIELD_NUMBER: _builtins.int
+    ALLOW_SOFT_PLACEMENT_FIELD_NUMBER: _builtins.int
+    LOG_DEVICE_PLACEMENT_FIELD_NUMBER: _builtins.int
+    GRAPH_OPTIONS_FIELD_NUMBER: _builtins.int
+    OPERATION_TIMEOUT_IN_MS_FIELD_NUMBER: _builtins.int
+    RPC_OPTIONS_FIELD_NUMBER: _builtins.int
+    CLUSTER_DEF_FIELD_NUMBER: _builtins.int
+    ISOLATE_SESSION_STATE_FIELD_NUMBER: _builtins.int
+    SHARE_CLUSTER_DEVICES_IN_SESSION_FIELD_NUMBER: _builtins.int
+    EXPERIMENTAL_FIELD_NUMBER: _builtins.int
+    intra_op_parallelism_threads: _builtins.int
     """The execution of an individual op (for some op types) can be
     parallelized on a pool of intra_op_parallelism_threads.
     0 means the system picks an appropriate number.
@@ -1191,7 +1245,7 @@ class ConfigProto(google.protobuf.message.Message):
     2. When connecting to a server, such as a remote `tf.train.Server`
        instance, then this option will be ignored altogether.
     """
-    inter_op_parallelism_threads: builtins.int
+    inter_op_parallelism_threads: _builtins.int
     """Nodes that perform blocking operations are enqueued on a pool of
     inter_op_parallelism_threads available in each process.
 
@@ -1202,7 +1256,7 @@ class ConfigProto(google.protobuf.message.Message):
     number of threads for all future sessions unless use_per_session_threads is
     true or session_inter_op_thread_pool is configured.
     """
-    use_per_session_threads: builtins.bool
+    use_per_session_threads: _builtins.bool
     """If true, use a new set of threads for this session rather than the global
     pool of threads. Only supported by direct sessions.
 
@@ -1213,12 +1267,12 @@ class ConfigProto(google.protobuf.message.Message):
     session_inter_op_thread_pool to have one element, whose num_threads equals
     inter_op_parallelism_threads.
     """
-    placement_period: builtins.int
+    placement_period: _builtins.int
     """Assignment of Nodes to Devices is recomputed every placement_period
     steps until the system warms up (at which point the recomputation
     typically slows down automatically).
     """
-    allow_soft_placement: builtins.bool
+    allow_soft_placement: _builtins.bool
     """Whether soft placement is allowed. If allow_soft_placement is true,
     an op will be placed on CPU if
       1. there's no GPU implementation for the OP
@@ -1227,36 +1281,34 @@ class ConfigProto(google.protobuf.message.Message):
     or
       3. need to co-locate with reftype input(s) which are from CPU.
     """
-    log_device_placement: builtins.bool
+    log_device_placement: _builtins.bool
     """Whether device placements should be logged."""
-    operation_timeout_in_ms: builtins.int
+    operation_timeout_in_ms: _builtins.int
     """Global timeout for all blocking operations in this session.  If non-zero,
     and not overridden on a per-operation basis, this value will be used as the
     deadline for all blocking operations.
     """
-    isolate_session_state: builtins.bool
+    isolate_session_state: _builtins.bool
     """If true, any resources such as Variables used in the session will not be
     shared with other sessions. However, when clusterspec propagation is
     enabled, this field is ignored and sessions are always isolated.
     """
-    share_cluster_devices_in_session: builtins.bool
+    share_cluster_devices_in_session: _builtins.bool
     """When true, WorkerSessions are created with device attributes from the
     full cluster.
     This is helpful when a worker wants to partition a graph
     (for example during a PartitionedCallOp).
     """
-    @property
-    def device_count(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, builtins.int]:
+    @_builtins.property
+    def device_count(self) -> _containers.ScalarMap[_builtins.str, _builtins.int]:
         """Map from device type name (e.g., "CPU" or "GPU" ) to maximum
         number of devices of that type to use.  If a particular device
         type is not found in the map, the system picks an appropriate
         number.
         """
 
-    @property
-    def session_inter_op_thread_pool(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ThreadPoolOptionProto]:
+    @_builtins.property
+    def session_inter_op_thread_pool(self) -> _containers.RepeatedCompositeFieldContainer[Global___ThreadPoolOptionProto]:
         """This option is experimental - it may be replaced with a different mechanism
         in the future.
 
@@ -1278,132 +1330,127 @@ class ConfigProto(google.protobuf.message.Message):
         pool.
         """
 
-    @property
-    def device_filters(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def device_filters(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """When any filters are present sessions will ignore all devices which do not
         match the filters. Each filter can be partially specified, e.g. "/job:ps"
         "/job:worker/replica:3", etc.
         """
 
-    @property
-    def gpu_options(self) -> global___GPUOptions:
+    @_builtins.property
+    def gpu_options(self) -> Global___GPUOptions:
         """Options that apply to all GPUs."""
 
-    @property
-    def pluggable_device_options(self) -> global___GPUOptions:
+    @_builtins.property
+    def pluggable_device_options(self) -> Global___GPUOptions:
         """Options that apply to pluggable devices."""
 
-    @property
-    def graph_options(self) -> global___GraphOptions:
+    @_builtins.property
+    def graph_options(self) -> Global___GraphOptions:
         """Options that apply to all graphs."""
 
-    @property
-    def rpc_options(self) -> tensorflow.tsl.protobuf.rpc_options_pb2.RPCOptions:
+    @_builtins.property
+    def rpc_options(self) -> _rpc_options_pb2.RPCOptions:
         """Options that apply when this session uses the distributed runtime."""
 
-    @property
-    def cluster_def(self) -> tensorflow.core.protobuf.cluster_pb2.ClusterDef:
+    @_builtins.property
+    def cluster_def(self) -> _cluster_pb2.ClusterDef:
         """Optional list of all workers to use in this session."""
 
-    @property
-    def experimental(self) -> global___ConfigProto.Experimental: ...
+    @_builtins.property
+    def experimental(self) -> Global___ConfigProto.Experimental: ...
     def __init__(
         self,
         *,
-        device_count: collections.abc.Mapping[builtins.str, builtins.int] | None = ...,
-        intra_op_parallelism_threads: builtins.int | None = ...,
-        inter_op_parallelism_threads: builtins.int | None = ...,
-        use_per_session_threads: builtins.bool | None = ...,
-        session_inter_op_thread_pool: collections.abc.Iterable[global___ThreadPoolOptionProto] | None = ...,
-        placement_period: builtins.int | None = ...,
-        device_filters: collections.abc.Iterable[builtins.str] | None = ...,
-        gpu_options: global___GPUOptions | None = ...,
-        pluggable_device_options: global___GPUOptions | None = ...,
-        allow_soft_placement: builtins.bool | None = ...,
-        log_device_placement: builtins.bool | None = ...,
-        graph_options: global___GraphOptions | None = ...,
-        operation_timeout_in_ms: builtins.int | None = ...,
-        rpc_options: tensorflow.tsl.protobuf.rpc_options_pb2.RPCOptions | None = ...,
-        cluster_def: tensorflow.core.protobuf.cluster_pb2.ClusterDef | None = ...,
-        isolate_session_state: builtins.bool | None = ...,
-        share_cluster_devices_in_session: builtins.bool | None = ...,
-        experimental: global___ConfigProto.Experimental | None = ...,
+        device_count: _abc.Mapping[_builtins.str, _builtins.int] | None = ...,
+        intra_op_parallelism_threads: _builtins.int | None = ...,
+        inter_op_parallelism_threads: _builtins.int | None = ...,
+        use_per_session_threads: _builtins.bool | None = ...,
+        session_inter_op_thread_pool: _abc.Iterable[Global___ThreadPoolOptionProto] | None = ...,
+        placement_period: _builtins.int | None = ...,
+        device_filters: _abc.Iterable[_builtins.str] | None = ...,
+        gpu_options: Global___GPUOptions | None = ...,
+        pluggable_device_options: Global___GPUOptions | None = ...,
+        allow_soft_placement: _builtins.bool | None = ...,
+        log_device_placement: _builtins.bool | None = ...,
+        graph_options: Global___GraphOptions | None = ...,
+        operation_timeout_in_ms: _builtins.int | None = ...,
+        rpc_options: _rpc_options_pb2.RPCOptions | None = ...,
+        cluster_def: _cluster_pb2.ClusterDef | None = ...,
+        isolate_session_state: _builtins.bool | None = ...,
+        share_cluster_devices_in_session: _builtins.bool | None = ...,
+        experimental: Global___ConfigProto.Experimental | None = ...,
     ) -> None: ...
-    def HasField(
-        self,
-        field_name: typing.Literal[
-            "cluster_def",
-            b"cluster_def",
-            "experimental",
-            b"experimental",
-            "gpu_options",
-            b"gpu_options",
-            "graph_options",
-            b"graph_options",
-            "pluggable_device_options",
-            b"pluggable_device_options",
-            "rpc_options",
-            b"rpc_options",
-        ],
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "allow_soft_placement",
-            b"allow_soft_placement",
-            "cluster_def",
-            b"cluster_def",
-            "device_count",
-            b"device_count",
-            "device_filters",
-            b"device_filters",
-            "experimental",
-            b"experimental",
-            "gpu_options",
-            b"gpu_options",
-            "graph_options",
-            b"graph_options",
-            "inter_op_parallelism_threads",
-            b"inter_op_parallelism_threads",
-            "intra_op_parallelism_threads",
-            b"intra_op_parallelism_threads",
-            "isolate_session_state",
-            b"isolate_session_state",
-            "log_device_placement",
-            b"log_device_placement",
-            "operation_timeout_in_ms",
-            b"operation_timeout_in_ms",
-            "placement_period",
-            b"placement_period",
-            "pluggable_device_options",
-            b"pluggable_device_options",
-            "rpc_options",
-            b"rpc_options",
-            "session_inter_op_thread_pool",
-            b"session_inter_op_thread_pool",
-            "share_cluster_devices_in_session",
-            b"share_cluster_devices_in_session",
-            "use_per_session_threads",
-            b"use_per_session_threads",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal[
+        "cluster_def",
+        b"cluster_def",
+        "experimental",
+        b"experimental",
+        "gpu_options",
+        b"gpu_options",
+        "graph_options",
+        b"graph_options",
+        "pluggable_device_options",
+        b"pluggable_device_options",
+        "rpc_options",
+        b"rpc_options",
+    ]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "allow_soft_placement",
+        b"allow_soft_placement",
+        "cluster_def",
+        b"cluster_def",
+        "device_count",
+        b"device_count",
+        "device_filters",
+        b"device_filters",
+        "experimental",
+        b"experimental",
+        "gpu_options",
+        b"gpu_options",
+        "graph_options",
+        b"graph_options",
+        "inter_op_parallelism_threads",
+        b"inter_op_parallelism_threads",
+        "intra_op_parallelism_threads",
+        b"intra_op_parallelism_threads",
+        "isolate_session_state",
+        b"isolate_session_state",
+        "log_device_placement",
+        b"log_device_placement",
+        "operation_timeout_in_ms",
+        b"operation_timeout_in_ms",
+        "placement_period",
+        b"placement_period",
+        "pluggable_device_options",
+        b"pluggable_device_options",
+        "rpc_options",
+        b"rpc_options",
+        "session_inter_op_thread_pool",
+        b"session_inter_op_thread_pool",
+        "share_cluster_devices_in_session",
+        b"share_cluster_devices_in_session",
+        "use_per_session_threads",
+        b"use_per_session_threads",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___ConfigProto = ConfigProto
+Global___ConfigProto: _TypeAlias = ConfigProto  # noqa: Y015
 
-@typing.final
-class RunOptions(google.protobuf.message.Message):
+@_typing.final
+class RunOptions(_message.Message):
     """Options for a single Run() call."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _TraceLevel:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _TraceLevelEnumTypeWrapper(
-        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[RunOptions._TraceLevel.ValueType], builtins.type
-    ):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _TraceLevelEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[RunOptions._TraceLevel.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         NO_TRACE: RunOptions._TraceLevel.ValueType  # 0
         SOFTWARE_TRACE: RunOptions._TraceLevel.ValueType  # 1
         HARDWARE_TRACE: RunOptions._TraceLevel.ValueType  # 2
@@ -1419,79 +1466,81 @@ class RunOptions(google.protobuf.message.Message):
     HARDWARE_TRACE: RunOptions.TraceLevel.ValueType  # 2
     FULL_TRACE: RunOptions.TraceLevel.ValueType  # 3
 
-    @typing.final
-    class Experimental(google.protobuf.message.Message):
+    @_typing.final
+    class Experimental(_message.Message):
         """Everything inside Experimental is subject to change and is not subject
         to API stability guarantees in
         https://www.tensorflow.org/guide/version_compat.
         """
 
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+        DESCRIPTOR: _descriptor.Descriptor
 
-        @typing.final
-        class RunHandlerPoolOptions(google.protobuf.message.Message):
+        @_typing.final
+        class RunHandlerPoolOptions(_message.Message):
             """Options for run handler thread pool."""
 
-            DESCRIPTOR: google.protobuf.descriptor.Descriptor
+            DESCRIPTOR: _descriptor.Descriptor
 
-            PRIORITY_FIELD_NUMBER: builtins.int
-            priority: builtins.int
+            PRIORITY_FIELD_NUMBER: _builtins.int
+            priority: _builtins.int
             """Priority of the request. The run handler thread pool will schedule ops
             based on the priority number. The larger number means higher priority.
             """
-            def __init__(self, *, priority: builtins.int | None = ...) -> None: ...
-            def ClearField(self, field_name: typing.Literal["priority", b"priority"]) -> None: ...
+            def __init__(self, *, priority: _builtins.int | None = ...) -> None: ...
+            _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+            def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+            _ClearFieldArgType: _TypeAlias = _typing.Literal["priority", b"priority"]  # noqa: Y015
+            def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+            def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-        COLLECTIVE_GRAPH_KEY_FIELD_NUMBER: builtins.int
-        USE_RUN_HANDLER_POOL_FIELD_NUMBER: builtins.int
-        RUN_HANDLER_POOL_OPTIONS_FIELD_NUMBER: builtins.int
-        collective_graph_key: builtins.int
+        COLLECTIVE_GRAPH_KEY_FIELD_NUMBER: _builtins.int
+        USE_RUN_HANDLER_POOL_FIELD_NUMBER: _builtins.int
+        RUN_HANDLER_POOL_OPTIONS_FIELD_NUMBER: _builtins.int
+        collective_graph_key: _builtins.int
         """If non-zero, declares that this graph is going to use collective
         ops and must synchronize step_ids with any other graph with this
         same group_key value (in a distributed computation where tasks
         run disjoint graphs).
         """
-        use_run_handler_pool: builtins.bool
+        use_run_handler_pool: _builtins.bool
         """If true, then operations (using the inter-op pool) across all
         session::run() calls will be centrally scheduled, optimizing for (median
         and tail) latency.
         Consider using this option for CPU-bound workloads like inference.
         """
-        @property
-        def run_handler_pool_options(self) -> global___RunOptions.Experimental.RunHandlerPoolOptions: ...
+        @_builtins.property
+        def run_handler_pool_options(self) -> Global___RunOptions.Experimental.RunHandlerPoolOptions: ...
         def __init__(
             self,
             *,
-            collective_graph_key: builtins.int | None = ...,
-            use_run_handler_pool: builtins.bool | None = ...,
-            run_handler_pool_options: global___RunOptions.Experimental.RunHandlerPoolOptions | None = ...,
+            collective_graph_key: _builtins.int | None = ...,
+            use_run_handler_pool: _builtins.bool | None = ...,
+            run_handler_pool_options: Global___RunOptions.Experimental.RunHandlerPoolOptions | None = ...,
         ) -> None: ...
-        def HasField(
-            self, field_name: typing.Literal["run_handler_pool_options", b"run_handler_pool_options"]
-        ) -> builtins.bool: ...
-        def ClearField(
-            self,
-            field_name: typing.Literal[
-                "collective_graph_key",
-                b"collective_graph_key",
-                "run_handler_pool_options",
-                b"run_handler_pool_options",
-                "use_run_handler_pool",
-                b"use_run_handler_pool",
-            ],
-        ) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["run_handler_pool_options", b"run_handler_pool_options"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal[
+            "collective_graph_key",
+            b"collective_graph_key",
+            "run_handler_pool_options",
+            b"run_handler_pool_options",
+            "use_run_handler_pool",
+            b"use_run_handler_pool",
+        ]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    TRACE_LEVEL_FIELD_NUMBER: builtins.int
-    TIMEOUT_IN_MS_FIELD_NUMBER: builtins.int
-    INTER_OP_THREAD_POOL_FIELD_NUMBER: builtins.int
-    OUTPUT_PARTITION_GRAPHS_FIELD_NUMBER: builtins.int
-    DEBUG_OPTIONS_FIELD_NUMBER: builtins.int
-    REPORT_TENSOR_ALLOCATIONS_UPON_OOM_FIELD_NUMBER: builtins.int
-    EXPERIMENTAL_FIELD_NUMBER: builtins.int
-    trace_level: global___RunOptions.TraceLevel.ValueType
-    timeout_in_ms: builtins.int
+    TRACE_LEVEL_FIELD_NUMBER: _builtins.int
+    TIMEOUT_IN_MS_FIELD_NUMBER: _builtins.int
+    INTER_OP_THREAD_POOL_FIELD_NUMBER: _builtins.int
+    OUTPUT_PARTITION_GRAPHS_FIELD_NUMBER: _builtins.int
+    DEBUG_OPTIONS_FIELD_NUMBER: _builtins.int
+    REPORT_TENSOR_ALLOCATIONS_UPON_OOM_FIELD_NUMBER: _builtins.int
+    EXPERIMENTAL_FIELD_NUMBER: _builtins.int
+    trace_level: Global___RunOptions.TraceLevel.ValueType
+    timeout_in_ms: _builtins.int
     """Time to wait for operation to complete in milliseconds."""
-    inter_op_thread_pool: builtins.int
+    inter_op_thread_pool: _builtins.int
     """The thread pool to use, if session_inter_op_thread_pool is configured.
     To use the caller thread set this to -1 - this uses the caller thread
     to execute Session::Run() and thus avoids a context switch. Using the
@@ -1499,133 +1548,124 @@ class RunOptions(google.protobuf.message.Message):
     graphs, where the overhead of an additional context switch is
     comparable with the overhead of Session::Run().
     """
-    output_partition_graphs: builtins.bool
+    output_partition_graphs: _builtins.bool
     """Whether the partition graph(s) executed by the executor(s) should be
     outputted via RunMetadata.
     """
-    report_tensor_allocations_upon_oom: builtins.bool
+    report_tensor_allocations_upon_oom: _builtins.bool
     """When enabled, causes tensor allocation information to be included in
     the error message when the Run() call fails because the allocator ran
     out of memory (OOM).
 
     Enabling this option can slow down the Run() call.
     """
-    @property
-    def debug_options(self) -> tensorflow.core.protobuf.debug_pb2.DebugOptions:
+    @_builtins.property
+    def debug_options(self) -> _debug_pb2.DebugOptions:
         """EXPERIMENTAL.  Options used to initialize DebuggerState, if enabled."""
 
-    @property
-    def experimental(self) -> global___RunOptions.Experimental: ...
+    @_builtins.property
+    def experimental(self) -> Global___RunOptions.Experimental: ...
     def __init__(
         self,
         *,
-        trace_level: global___RunOptions.TraceLevel.ValueType | None = ...,
-        timeout_in_ms: builtins.int | None = ...,
-        inter_op_thread_pool: builtins.int | None = ...,
-        output_partition_graphs: builtins.bool | None = ...,
-        debug_options: tensorflow.core.protobuf.debug_pb2.DebugOptions | None = ...,
-        report_tensor_allocations_upon_oom: builtins.bool | None = ...,
-        experimental: global___RunOptions.Experimental | None = ...,
+        trace_level: Global___RunOptions.TraceLevel.ValueType | None = ...,
+        timeout_in_ms: _builtins.int | None = ...,
+        inter_op_thread_pool: _builtins.int | None = ...,
+        output_partition_graphs: _builtins.bool | None = ...,
+        debug_options: _debug_pb2.DebugOptions | None = ...,
+        report_tensor_allocations_upon_oom: _builtins.bool | None = ...,
+        experimental: Global___RunOptions.Experimental | None = ...,
     ) -> None: ...
-    def HasField(
-        self, field_name: typing.Literal["debug_options", b"debug_options", "experimental", b"experimental"]
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "debug_options",
-            b"debug_options",
-            "experimental",
-            b"experimental",
-            "inter_op_thread_pool",
-            b"inter_op_thread_pool",
-            "output_partition_graphs",
-            b"output_partition_graphs",
-            "report_tensor_allocations_upon_oom",
-            b"report_tensor_allocations_upon_oom",
-            "timeout_in_ms",
-            b"timeout_in_ms",
-            "trace_level",
-            b"trace_level",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal[
+        "debug_options", b"debug_options", "experimental", b"experimental"
+    ]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "debug_options",
+        b"debug_options",
+        "experimental",
+        b"experimental",
+        "inter_op_thread_pool",
+        b"inter_op_thread_pool",
+        "output_partition_graphs",
+        b"output_partition_graphs",
+        "report_tensor_allocations_upon_oom",
+        b"report_tensor_allocations_upon_oom",
+        "timeout_in_ms",
+        b"timeout_in_ms",
+        "trace_level",
+        b"trace_level",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___RunOptions = RunOptions
+Global___RunOptions: _TypeAlias = RunOptions  # noqa: Y015
 
-@typing.final
-class RunMetadata(google.protobuf.message.Message):
+@_typing.final
+class RunMetadata(_message.Message):
     """Metadata output (i.e., non-Tensor) for a single Run() call."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class FunctionGraphs(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class FunctionGraphs(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        PARTITION_GRAPHS_FIELD_NUMBER: builtins.int
-        PRE_OPTIMIZATION_GRAPH_FIELD_NUMBER: builtins.int
-        POST_OPTIMIZATION_GRAPH_FIELD_NUMBER: builtins.int
-        @property
-        def partition_graphs(
-            self,
-        ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[tensorflow.core.framework.graph_pb2.GraphDef]:
+        PARTITION_GRAPHS_FIELD_NUMBER: _builtins.int
+        PRE_OPTIMIZATION_GRAPH_FIELD_NUMBER: _builtins.int
+        POST_OPTIMIZATION_GRAPH_FIELD_NUMBER: _builtins.int
+        @_builtins.property
+        def partition_graphs(self) -> _containers.RepeatedCompositeFieldContainer[_graph_pb2.GraphDef]:
             """TODO(nareshmodi): Include some sort of function/cache-key identifier?"""
 
-        @property
-        def pre_optimization_graph(self) -> tensorflow.core.framework.graph_pb2.GraphDef: ...
-        @property
-        def post_optimization_graph(self) -> tensorflow.core.framework.graph_pb2.GraphDef: ...
+        @_builtins.property
+        def pre_optimization_graph(self) -> _graph_pb2.GraphDef: ...
+        @_builtins.property
+        def post_optimization_graph(self) -> _graph_pb2.GraphDef: ...
         def __init__(
             self,
             *,
-            partition_graphs: collections.abc.Iterable[tensorflow.core.framework.graph_pb2.GraphDef] | None = ...,
-            pre_optimization_graph: tensorflow.core.framework.graph_pb2.GraphDef | None = ...,
-            post_optimization_graph: tensorflow.core.framework.graph_pb2.GraphDef | None = ...,
+            partition_graphs: _abc.Iterable[_graph_pb2.GraphDef] | None = ...,
+            pre_optimization_graph: _graph_pb2.GraphDef | None = ...,
+            post_optimization_graph: _graph_pb2.GraphDef | None = ...,
         ) -> None: ...
-        def HasField(
-            self,
-            field_name: typing.Literal[
-                "post_optimization_graph", b"post_optimization_graph", "pre_optimization_graph", b"pre_optimization_graph"
-            ],
-        ) -> builtins.bool: ...
-        def ClearField(
-            self,
-            field_name: typing.Literal[
-                "partition_graphs",
-                b"partition_graphs",
-                "post_optimization_graph",
-                b"post_optimization_graph",
-                "pre_optimization_graph",
-                b"pre_optimization_graph",
-            ],
-        ) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal[
+            "post_optimization_graph", b"post_optimization_graph", "pre_optimization_graph", b"pre_optimization_graph"
+        ]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal[
+            "partition_graphs",
+            b"partition_graphs",
+            "post_optimization_graph",
+            b"post_optimization_graph",
+            "pre_optimization_graph",
+            b"pre_optimization_graph",
+        ]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    STEP_STATS_FIELD_NUMBER: builtins.int
-    COST_GRAPH_FIELD_NUMBER: builtins.int
-    PARTITION_GRAPHS_FIELD_NUMBER: builtins.int
-    FUNCTION_GRAPHS_FIELD_NUMBER: builtins.int
-    SESSION_METADATA_FIELD_NUMBER: builtins.int
-    @property
-    def step_stats(self) -> tensorflow.core.framework.step_stats_pb2.StepStats:
+    STEP_STATS_FIELD_NUMBER: _builtins.int
+    COST_GRAPH_FIELD_NUMBER: _builtins.int
+    PARTITION_GRAPHS_FIELD_NUMBER: _builtins.int
+    FUNCTION_GRAPHS_FIELD_NUMBER: _builtins.int
+    SESSION_METADATA_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def step_stats(self) -> _step_stats_pb2.StepStats:
         """Statistics traced for this step. Populated if tracing is turned on via the
         "RunOptions" proto.
         EXPERIMENTAL: The format and set of events may change in future versions.
         """
 
-    @property
-    def cost_graph(self) -> tensorflow.core.framework.cost_graph_pb2.CostGraphDef:
+    @_builtins.property
+    def cost_graph(self) -> _cost_graph_pb2.CostGraphDef:
         """The cost graph for the computation defined by the run call."""
 
-    @property
-    def partition_graphs(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[tensorflow.core.framework.graph_pb2.GraphDef]:
+    @_builtins.property
+    def partition_graphs(self) -> _containers.RepeatedCompositeFieldContainer[_graph_pb2.GraphDef]:
         """Graphs of the partitions executed by executors."""
 
-    @property
-    def function_graphs(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___RunMetadata.FunctionGraphs]:
+    @_builtins.property
+    def function_graphs(self) -> _containers.RepeatedCompositeFieldContainer[Global___RunMetadata.FunctionGraphs]:
         """This is only populated for graphs that are run as functions in TensorFlow
         V2. There will be an entry below for each function that is traced.
         The main use cases of the post_optimization_graph and the partition_graphs
@@ -1638,105 +1678,114 @@ class RunMetadata(google.protobuf.message.Message):
         optimization passes might change the structure of the graph significantly).
         """
 
-    @property
-    def session_metadata(self) -> global___SessionMetadata:
+    @_builtins.property
+    def session_metadata(self) -> Global___SessionMetadata:
         """Metadata about the session."""
 
     def __init__(
         self,
         *,
-        step_stats: tensorflow.core.framework.step_stats_pb2.StepStats | None = ...,
-        cost_graph: tensorflow.core.framework.cost_graph_pb2.CostGraphDef | None = ...,
-        partition_graphs: collections.abc.Iterable[tensorflow.core.framework.graph_pb2.GraphDef] | None = ...,
-        function_graphs: collections.abc.Iterable[global___RunMetadata.FunctionGraphs] | None = ...,
-        session_metadata: global___SessionMetadata | None = ...,
+        step_stats: _step_stats_pb2.StepStats | None = ...,
+        cost_graph: _cost_graph_pb2.CostGraphDef | None = ...,
+        partition_graphs: _abc.Iterable[_graph_pb2.GraphDef] | None = ...,
+        function_graphs: _abc.Iterable[Global___RunMetadata.FunctionGraphs] | None = ...,
+        session_metadata: Global___SessionMetadata | None = ...,
     ) -> None: ...
-    def HasField(
-        self,
-        field_name: typing.Literal[
-            "cost_graph", b"cost_graph", "session_metadata", b"session_metadata", "step_stats", b"step_stats"
-        ],
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "cost_graph",
-            b"cost_graph",
-            "function_graphs",
-            b"function_graphs",
-            "partition_graphs",
-            b"partition_graphs",
-            "session_metadata",
-            b"session_metadata",
-            "step_stats",
-            b"step_stats",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal[
+        "cost_graph", b"cost_graph", "session_metadata", b"session_metadata", "step_stats", b"step_stats"
+    ]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "cost_graph",
+        b"cost_graph",
+        "function_graphs",
+        b"function_graphs",
+        "partition_graphs",
+        b"partition_graphs",
+        "session_metadata",
+        b"session_metadata",
+        "step_stats",
+        b"step_stats",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___RunMetadata = RunMetadata
+Global___RunMetadata: _TypeAlias = RunMetadata  # noqa: Y015
 
-@typing.final
-class TensorConnection(google.protobuf.message.Message):
+@_typing.final
+class TensorConnection(_message.Message):
     """Defines a connection between two tensors in a `GraphDef`."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    FROM_TENSOR_FIELD_NUMBER: builtins.int
-    TO_TENSOR_FIELD_NUMBER: builtins.int
-    from_tensor: builtins.str
+    FROM_TENSOR_FIELD_NUMBER: _builtins.int
+    TO_TENSOR_FIELD_NUMBER: _builtins.int
+    from_tensor: _builtins.str
     """A tensor name. The value of this tensor will be substituted for
     the tensor named in `to_tensor`.
     """
-    to_tensor: builtins.str
+    to_tensor: _builtins.str
     """A tensor name. The value of this tensor will be bound to the
     value of the tensor named in `from_tensor`.
     """
-    def __init__(self, *, from_tensor: builtins.str | None = ..., to_tensor: builtins.str | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["from_tensor", b"from_tensor", "to_tensor", b"to_tensor"]) -> None: ...
+    def __init__(self, *, from_tensor: _builtins.str | None = ..., to_tensor: _builtins.str | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["from_tensor", b"from_tensor", "to_tensor", b"to_tensor"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___TensorConnection = TensorConnection
+Global___TensorConnection: _TypeAlias = TensorConnection  # noqa: Y015
 
-@typing.final
-class CallableOptions(google.protobuf.message.Message):
+@_typing.final
+class CallableOptions(_message.Message):
     """Defines a subgraph in another `GraphDef` as a set of feed points and nodes
     to be fetched or executed.
 
     Compare with the arguments to `Session::Run()`.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class FeedDevicesEntry(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class FeedDevicesEntry(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        KEY_FIELD_NUMBER: builtins.int
-        VALUE_FIELD_NUMBER: builtins.int
-        key: builtins.str
-        value: builtins.str
-        def __init__(self, *, key: builtins.str | None = ..., value: builtins.str | None = ...) -> None: ...
-        def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
+        KEY_FIELD_NUMBER: _builtins.int
+        VALUE_FIELD_NUMBER: _builtins.int
+        key: _builtins.str
+        value: _builtins.str
+        def __init__(self, *, key: _builtins.str | None = ..., value: _builtins.str | None = ...) -> None: ...
+        _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["key", b"key", "value", b"value"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    @typing.final
-    class FetchDevicesEntry(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class FetchDevicesEntry(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        KEY_FIELD_NUMBER: builtins.int
-        VALUE_FIELD_NUMBER: builtins.int
-        key: builtins.str
-        value: builtins.str
-        def __init__(self, *, key: builtins.str | None = ..., value: builtins.str | None = ...) -> None: ...
-        def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
+        KEY_FIELD_NUMBER: _builtins.int
+        VALUE_FIELD_NUMBER: _builtins.int
+        key: _builtins.str
+        value: _builtins.str
+        def __init__(self, *, key: _builtins.str | None = ..., value: _builtins.str | None = ...) -> None: ...
+        _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["key", b"key", "value", b"value"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    FEED_FIELD_NUMBER: builtins.int
-    FETCH_FIELD_NUMBER: builtins.int
-    TARGET_FIELD_NUMBER: builtins.int
-    RUN_OPTIONS_FIELD_NUMBER: builtins.int
-    TENSOR_CONNECTION_FIELD_NUMBER: builtins.int
-    FEED_DEVICES_FIELD_NUMBER: builtins.int
-    FETCH_DEVICES_FIELD_NUMBER: builtins.int
-    FETCH_SKIP_SYNC_FIELD_NUMBER: builtins.int
-    fetch_skip_sync: builtins.bool
+    FEED_FIELD_NUMBER: _builtins.int
+    FETCH_FIELD_NUMBER: _builtins.int
+    TARGET_FIELD_NUMBER: _builtins.int
+    RUN_OPTIONS_FIELD_NUMBER: _builtins.int
+    TENSOR_CONNECTION_FIELD_NUMBER: _builtins.int
+    FEED_DEVICES_FIELD_NUMBER: _builtins.int
+    FETCH_DEVICES_FIELD_NUMBER: _builtins.int
+    FETCH_SKIP_SYNC_FIELD_NUMBER: _builtins.int
+    fetch_skip_sync: _builtins.bool
     """By default, RunCallable() will synchronize the GPU stream before returning
     fetched tensors on a GPU device, to ensure that the values in those tensors
     have been produced. This simplifies interacting with the tensors, but
@@ -1748,36 +1797,36 @@ class CallableOptions(google.protobuf.message.Message):
     device(s), or by feeding the tensors back to the same Session using
     `feed_devices` with the same corresponding device name.
     """
-    @property
-    def feed(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def feed(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """Tensors to be fed in the callable. Each feed is the name of a tensor."""
 
-    @property
-    def fetch(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def fetch(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """Fetches. A list of tensor names. The caller of the callable expects a
         tensor to be returned for each fetch[i] (see RunStepResponse.tensor). The
         order of specified fetches does not change the execution order.
         """
 
-    @property
-    def target(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def target(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """Target Nodes. A list of node names. The named nodes will be run by the
         callable but their outputs will not be returned.
         """
 
-    @property
-    def run_options(self) -> global___RunOptions:
+    @_builtins.property
+    def run_options(self) -> Global___RunOptions:
         """Options that will be applied to each run."""
 
-    @property
-    def tensor_connection(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___TensorConnection]:
+    @_builtins.property
+    def tensor_connection(self) -> _containers.RepeatedCompositeFieldContainer[Global___TensorConnection]:
         """Tensors to be connected in the callable. Each TensorConnection denotes
         a pair of tensors in the graph, between which an edge will be created
         in the callable.
         """
 
-    @property
-    def feed_devices(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, builtins.str]:
+    @_builtins.property
+    def feed_devices(self) -> _containers.ScalarMap[_builtins.str, _builtins.str]:
         """The Tensor objects fed in the callable and fetched from the callable
         are expected to be backed by host (CPU) memory by default.
 
@@ -1827,41 +1876,103 @@ class CallableOptions(google.protobuf.message.Message):
         cuStreamSynchronize()).
         """
 
-    @property
-    def fetch_devices(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, builtins.str]: ...
+    @_builtins.property
+    def fetch_devices(self) -> _containers.ScalarMap[_builtins.str, _builtins.str]: ...
     def __init__(
         self,
         *,
-        feed: collections.abc.Iterable[builtins.str] | None = ...,
-        fetch: collections.abc.Iterable[builtins.str] | None = ...,
-        target: collections.abc.Iterable[builtins.str] | None = ...,
-        run_options: global___RunOptions | None = ...,
-        tensor_connection: collections.abc.Iterable[global___TensorConnection] | None = ...,
-        feed_devices: collections.abc.Mapping[builtins.str, builtins.str] | None = ...,
-        fetch_devices: collections.abc.Mapping[builtins.str, builtins.str] | None = ...,
-        fetch_skip_sync: builtins.bool | None = ...,
+        feed: _abc.Iterable[_builtins.str] | None = ...,
+        fetch: _abc.Iterable[_builtins.str] | None = ...,
+        target: _abc.Iterable[_builtins.str] | None = ...,
+        run_options: Global___RunOptions | None = ...,
+        tensor_connection: _abc.Iterable[Global___TensorConnection] | None = ...,
+        feed_devices: _abc.Mapping[_builtins.str, _builtins.str] | None = ...,
+        fetch_devices: _abc.Mapping[_builtins.str, _builtins.str] | None = ...,
+        fetch_skip_sync: _builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["run_options", b"run_options"]) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "feed",
-            b"feed",
-            "feed_devices",
-            b"feed_devices",
-            "fetch",
-            b"fetch",
-            "fetch_devices",
-            b"fetch_devices",
-            "fetch_skip_sync",
-            b"fetch_skip_sync",
-            "run_options",
-            b"run_options",
-            "target",
-            b"target",
-            "tensor_connection",
-            b"tensor_connection",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["run_options", b"run_options"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "feed",
+        b"feed",
+        "feed_devices",
+        b"feed_devices",
+        "fetch",
+        b"fetch",
+        "fetch_devices",
+        b"fetch_devices",
+        "fetch_skip_sync",
+        b"fetch_skip_sync",
+        "run_options",
+        b"run_options",
+        "target",
+        b"target",
+        "tensor_connection",
+        b"tensor_connection",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___CallableOptions = CallableOptions
+Global___CallableOptions: _TypeAlias = CallableOptions  # noqa: Y015
+
+@_typing.final
+class BatchingOptions(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    NUM_BATCH_THREADS_FIELD_NUMBER: _builtins.int
+    MAX_BATCH_SIZE_FIELD_NUMBER: _builtins.int
+    BATCH_TIMEOUT_MICROS_FIELD_NUMBER: _builtins.int
+    ALLOWED_BATCH_SIZES_FIELD_NUMBER: _builtins.int
+    MAX_ENQUEUED_BATCHES_FIELD_NUMBER: _builtins.int
+    num_batch_threads: _builtins.int
+    """Number of scheduling threads for processing batches of work. Determines
+    the number of batches processed in parallel. This should be roughly in line
+    with the number of TPU cores available.
+    """
+    max_batch_size: _builtins.int
+    """The maximum allowed batch size. Can be larger than allowed_batch_sizes to
+    utilize large batch splitting.
+    """
+    batch_timeout_micros: _builtins.int
+    """Maximum number of microseconds to wait before outputting an incomplete
+    batch.
+    """
+    max_enqueued_batches: _builtins.int
+    """Maximum number of batches enqueued for processing before requests are
+    failed fast.
+    """
+    @_builtins.property
+    def allowed_batch_sizes(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]:
+        """Optional list of allowed batch sizes. If left empty, does nothing.
+        Otherwise, supplies a list of batch sizes, causing the op to pad batches up
+        to one of those sizes. The entries must increase monotonically, and the
+        final entry must be equal or less than the max_batch_size.
+        """
+
+    def __init__(
+        self,
+        *,
+        num_batch_threads: _builtins.int | None = ...,
+        max_batch_size: _builtins.int | None = ...,
+        batch_timeout_micros: _builtins.int | None = ...,
+        allowed_batch_sizes: _abc.Iterable[_builtins.int] | None = ...,
+        max_enqueued_batches: _builtins.int | None = ...,
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "allowed_batch_sizes",
+        b"allowed_batch_sizes",
+        "batch_timeout_micros",
+        b"batch_timeout_micros",
+        "max_batch_size",
+        b"max_batch_size",
+        "max_enqueued_batches",
+        b"max_enqueued_batches",
+        "num_batch_threads",
+        b"num_batch_threads",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___BatchingOptions: _TypeAlias = BatchingOptions  # noqa: Y015

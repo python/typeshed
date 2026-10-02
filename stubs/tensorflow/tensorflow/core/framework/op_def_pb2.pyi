@@ -3,49 +3,57 @@
 isort:skip_file
 """
 
-import builtins
-import collections.abc
-import typing
+import builtins as _builtins
+import sys
+import typing as _typing
+from collections import abc as _abc
 
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.message
-import tensorflow.core.framework.attr_value_pb2
-import tensorflow.core.framework.full_type_pb2
-import tensorflow.core.framework.resource_handle_pb2
-import tensorflow.core.framework.types_pb2
+from google.protobuf import descriptor as _descriptor, message as _message
+from google.protobuf.internal import containers as _containers
+from tensorflow.core.framework import (
+    attr_value_pb2 as _attr_value_pb2,
+    full_type_pb2 as _full_type_pb2,
+    resource_handle_pb2 as _resource_handle_pb2,
+    types_pb2 as _types_pb2,
+)
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
+else:
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-@typing.final
-class OpDef(google.protobuf.message.Message):
+DESCRIPTOR: _descriptor.FileDescriptor
+
+@_typing.final
+class OpDef(_message.Message):
     """Defines an operation. A NodeDef in a GraphDef specifies an Op by
     using the "op" field which should match the name of a OpDef.
     LINT.IfChange
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class ArgDef(google.protobuf.message.Message):
+    @_typing.final
+    class ArgDef(_message.Message):
         """For describing inputs and outputs."""
 
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+        DESCRIPTOR: _descriptor.Descriptor
 
-        NAME_FIELD_NUMBER: builtins.int
-        DESCRIPTION_FIELD_NUMBER: builtins.int
-        TYPE_FIELD_NUMBER: builtins.int
-        TYPE_ATTR_FIELD_NUMBER: builtins.int
-        NUMBER_ATTR_FIELD_NUMBER: builtins.int
-        TYPE_LIST_ATTR_FIELD_NUMBER: builtins.int
-        HANDLE_DATA_FIELD_NUMBER: builtins.int
-        IS_REF_FIELD_NUMBER: builtins.int
-        EXPERIMENTAL_FULL_TYPE_FIELD_NUMBER: builtins.int
-        name: builtins.str
+        NAME_FIELD_NUMBER: _builtins.int
+        DESCRIPTION_FIELD_NUMBER: _builtins.int
+        TYPE_FIELD_NUMBER: _builtins.int
+        TYPE_ATTR_FIELD_NUMBER: _builtins.int
+        NUMBER_ATTR_FIELD_NUMBER: _builtins.int
+        TYPE_LIST_ATTR_FIELD_NUMBER: _builtins.int
+        HANDLE_DATA_FIELD_NUMBER: _builtins.int
+        IS_REF_FIELD_NUMBER: _builtins.int
+        EXPERIMENTAL_FULL_TYPE_FIELD_NUMBER: _builtins.int
+        name: _builtins.str
         """Name for the input/output.  Should match the regexp "[a-z][a-z0-9_]*"."""
-        description: builtins.str
+        description: _builtins.str
         """Human readable description."""
-        type: tensorflow.core.framework.types_pb2.DataType.ValueType
+        type: _types_pb2.DataType.ValueType
         """Describes the type of one or more tensors that are accepted/produced
         by this input/output arg.  The only legal combinations are:
         * For a single tensor: either the "type" field is set or the
@@ -57,29 +65,27 @@ class OpDef(google.protobuf.message.Message):
         * For a sequence of tensors, the "type_list_attr" field will be set
           to the name of an attr with type "list(type)".
         """
-        type_attr: builtins.str
+        type_attr: _builtins.str
         """if specified, attr must have type "type" """
-        number_attr: builtins.str
+        number_attr: _builtins.str
         """if specified, attr must have type "int" """
-        type_list_attr: builtins.str
+        type_list_attr: _builtins.str
         """If specified, attr must have type "list(type)", and none of
         type, type_attr, and number_attr may be specified.
         """
-        is_ref: builtins.bool
+        is_ref: _builtins.bool
         """For inputs: if true, the inputs are required to be refs.
           By default, inputs can be either refs or non-refs.
         For outputs: if true, outputs are refs, otherwise they are not.
         """
-        @property
+        @_builtins.property
         def handle_data(
             self,
-        ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
-            tensorflow.core.framework.resource_handle_pb2.ResourceHandleProto.DtypeAndShape
-        ]:
+        ) -> _containers.RepeatedCompositeFieldContainer[_resource_handle_pb2.ResourceHandleProto.DtypeAndShape]:
             """The handle data for resource inputs."""
 
-        @property
-        def experimental_full_type(self) -> tensorflow.core.framework.full_type_pb2.FullTypeDef:
+        @_builtins.property
+        def experimental_full_type(self) -> _full_type_pb2.FullTypeDef:
             """Experimental. Full type declaration for this argument.
             The full type specification combines type, type_attr, type_list_attr,
             etc. into a unified representation.
@@ -94,71 +100,69 @@ class OpDef(google.protobuf.message.Message):
         def __init__(
             self,
             *,
-            name: builtins.str | None = ...,
-            description: builtins.str | None = ...,
-            type: tensorflow.core.framework.types_pb2.DataType.ValueType | None = ...,
-            type_attr: builtins.str | None = ...,
-            number_attr: builtins.str | None = ...,
-            type_list_attr: builtins.str | None = ...,
-            handle_data: (
-                collections.abc.Iterable[tensorflow.core.framework.resource_handle_pb2.ResourceHandleProto.DtypeAndShape] | None
-            ) = ...,
-            is_ref: builtins.bool | None = ...,
-            experimental_full_type: tensorflow.core.framework.full_type_pb2.FullTypeDef | None = ...,
+            name: _builtins.str | None = ...,
+            description: _builtins.str | None = ...,
+            type: _types_pb2.DataType.ValueType | None = ...,
+            type_attr: _builtins.str | None = ...,
+            number_attr: _builtins.str | None = ...,
+            type_list_attr: _builtins.str | None = ...,
+            handle_data: _abc.Iterable[_resource_handle_pb2.ResourceHandleProto.DtypeAndShape] | None = ...,
+            is_ref: _builtins.bool | None = ...,
+            experimental_full_type: _full_type_pb2.FullTypeDef | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["experimental_full_type", b"experimental_full_type"]) -> builtins.bool: ...
-        def ClearField(
-            self,
-            field_name: typing.Literal[
-                "description",
-                b"description",
-                "experimental_full_type",
-                b"experimental_full_type",
-                "handle_data",
-                b"handle_data",
-                "is_ref",
-                b"is_ref",
-                "name",
-                b"name",
-                "number_attr",
-                b"number_attr",
-                "type",
-                b"type",
-                "type_attr",
-                b"type_attr",
-                "type_list_attr",
-                b"type_list_attr",
-            ],
-        ) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["experimental_full_type", b"experimental_full_type"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal[
+            "description",
+            b"description",
+            "experimental_full_type",
+            b"experimental_full_type",
+            "handle_data",
+            b"handle_data",
+            "is_ref",
+            b"is_ref",
+            "name",
+            b"name",
+            "number_attr",
+            b"number_attr",
+            "type",
+            b"type",
+            "type_attr",
+            b"type_attr",
+            "type_list_attr",
+            b"type_list_attr",
+        ]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    @typing.final
-    class AttrDef(google.protobuf.message.Message):
+    @_typing.final
+    class AttrDef(_message.Message):
         """Description of the graph-construction-time configuration of this
         Op.  That is to say, this describes the attr fields that will
         be specified in the NodeDef.
         """
 
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+        DESCRIPTOR: _descriptor.Descriptor
 
-        NAME_FIELD_NUMBER: builtins.int
-        TYPE_FIELD_NUMBER: builtins.int
-        DEFAULT_VALUE_FIELD_NUMBER: builtins.int
-        DESCRIPTION_FIELD_NUMBER: builtins.int
-        HAS_MINIMUM_FIELD_NUMBER: builtins.int
-        MINIMUM_FIELD_NUMBER: builtins.int
-        ALLOWED_VALUES_FIELD_NUMBER: builtins.int
-        name: builtins.str
+        NAME_FIELD_NUMBER: _builtins.int
+        TYPE_FIELD_NUMBER: _builtins.int
+        DEFAULT_VALUE_FIELD_NUMBER: _builtins.int
+        DESCRIPTION_FIELD_NUMBER: _builtins.int
+        HAS_MINIMUM_FIELD_NUMBER: _builtins.int
+        MINIMUM_FIELD_NUMBER: _builtins.int
+        ALLOWED_VALUES_FIELD_NUMBER: _builtins.int
+        name: _builtins.str
         """A descriptive name for the argument.  May be used, e.g. by the
         Python client, as a keyword argument name, and so should match
         the regexp "[a-z][a-z0-9_]+".
         """
-        type: builtins.str
+        type: _builtins.str
         """One of the type names from attr_value.proto ("string", "list(string)",
         "int", etc.).
         """
-        description: builtins.str
+        description: _builtins.str
         """Human-readable description."""
-        has_minimum: builtins.bool
+        has_minimum: _builtins.bool
         """--- Constraints ---
         These constraints are only in effect if specified.  Default is no
         constraints.
@@ -166,15 +170,15 @@ class OpDef(google.protobuf.message.Message):
         For type == "int", this is a minimum value.  For "list(___)"
         types, this is the minimum length.
         """
-        minimum: builtins.int
-        @property
-        def default_value(self) -> tensorflow.core.framework.attr_value_pb2.AttrValue:
+        minimum: _builtins.int
+        @_builtins.property
+        def default_value(self) -> _attr_value_pb2.AttrValue:
             """A reasonable default for this attribute if the user does not supply
             a value.  If not specified, the user must supply a value.
             """
 
-        @property
-        def allowed_values(self) -> tensorflow.core.framework.attr_value_pb2.AttrValue:
+        @_builtins.property
+        def allowed_values(self) -> _attr_value_pb2.AttrValue:
             """The set of allowed values.  Has type that is the "list" version
             of the "type" field above (uses the "list" field of AttrValue).
             If type == "type" or "list(type)" above, then the "type" field
@@ -186,65 +190,65 @@ class OpDef(google.protobuf.message.Message):
         def __init__(
             self,
             *,
-            name: builtins.str | None = ...,
-            type: builtins.str | None = ...,
-            default_value: tensorflow.core.framework.attr_value_pb2.AttrValue | None = ...,
-            description: builtins.str | None = ...,
-            has_minimum: builtins.bool | None = ...,
-            minimum: builtins.int | None = ...,
-            allowed_values: tensorflow.core.framework.attr_value_pb2.AttrValue | None = ...,
+            name: _builtins.str | None = ...,
+            type: _builtins.str | None = ...,
+            default_value: _attr_value_pb2.AttrValue | None = ...,
+            description: _builtins.str | None = ...,
+            has_minimum: _builtins.bool | None = ...,
+            minimum: _builtins.int | None = ...,
+            allowed_values: _attr_value_pb2.AttrValue | None = ...,
         ) -> None: ...
-        def HasField(
-            self, field_name: typing.Literal["allowed_values", b"allowed_values", "default_value", b"default_value"]
-        ) -> builtins.bool: ...
-        def ClearField(
-            self,
-            field_name: typing.Literal[
-                "allowed_values",
-                b"allowed_values",
-                "default_value",
-                b"default_value",
-                "description",
-                b"description",
-                "has_minimum",
-                b"has_minimum",
-                "minimum",
-                b"minimum",
-                "name",
-                b"name",
-                "type",
-                b"type",
-            ],
-        ) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal[
+            "allowed_values", b"allowed_values", "default_value", b"default_value"
+        ]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal[
+            "allowed_values",
+            b"allowed_values",
+            "default_value",
+            b"default_value",
+            "description",
+            b"description",
+            "has_minimum",
+            b"has_minimum",
+            "minimum",
+            b"minimum",
+            "name",
+            b"name",
+            "type",
+            b"type",
+        ]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    NAME_FIELD_NUMBER: builtins.int
-    INPUT_ARG_FIELD_NUMBER: builtins.int
-    OUTPUT_ARG_FIELD_NUMBER: builtins.int
-    CONTROL_OUTPUT_FIELD_NUMBER: builtins.int
-    ATTR_FIELD_NUMBER: builtins.int
-    DEPRECATION_FIELD_NUMBER: builtins.int
-    SUMMARY_FIELD_NUMBER: builtins.int
-    DESCRIPTION_FIELD_NUMBER: builtins.int
-    IS_COMMUTATIVE_FIELD_NUMBER: builtins.int
-    IS_AGGREGATE_FIELD_NUMBER: builtins.int
-    IS_STATEFUL_FIELD_NUMBER: builtins.int
-    ALLOWS_UNINITIALIZED_INPUT_FIELD_NUMBER: builtins.int
-    IS_DISTRIBUTED_COMMUNICATION_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    INPUT_ARG_FIELD_NUMBER: _builtins.int
+    OUTPUT_ARG_FIELD_NUMBER: _builtins.int
+    CONTROL_OUTPUT_FIELD_NUMBER: _builtins.int
+    ATTR_FIELD_NUMBER: _builtins.int
+    DEPRECATION_FIELD_NUMBER: _builtins.int
+    SUMMARY_FIELD_NUMBER: _builtins.int
+    DESCRIPTION_FIELD_NUMBER: _builtins.int
+    IS_COMMUTATIVE_FIELD_NUMBER: _builtins.int
+    IS_AGGREGATE_FIELD_NUMBER: _builtins.int
+    IS_STATEFUL_FIELD_NUMBER: _builtins.int
+    ALLOWS_UNINITIALIZED_INPUT_FIELD_NUMBER: _builtins.int
+    IS_DISTRIBUTED_COMMUNICATION_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """Op names starting with an underscore are reserved for internal use.
     Names should be CamelCase and match the regexp "[A-Z][a-zA-Z0-9>_]*".
     """
-    summary: builtins.str
+    summary: _builtins.str
     """One-line human-readable description of what the Op does."""
-    description: builtins.str
+    description: _builtins.str
     """Additional, longer human-readable description of what the Op does."""
-    is_commutative: builtins.bool
+    is_commutative: _builtins.bool
     """-------------------------------------------------------------------------
     Which optimizations this operation can participate in.
 
     True if the operation is commutative ("op(a,b) == op(b,a)" for all inputs)
     """
-    is_aggregate: builtins.bool
+    is_aggregate: _builtins.bool
     """If is_aggregate is true, then this operation accepts N >= 2
     inputs and produces 1 output all of the same type.  Should be
     associative and commutative, and produce output with the same
@@ -255,7 +259,7 @@ class OpDef(google.protobuf.message.Message):
     TODO(josh11b): Implement that optimization.
     for things like add
     """
-    is_stateful: builtins.bool
+    is_stateful: _builtins.bool
     """-------------------------------------------------------------------------
     Optimization constraints.
 
@@ -272,7 +276,7 @@ class OpDef(google.protobuf.message.Message):
     Subexpression Elimination (CSE).
     for things like variables, queue
     """
-    allows_uninitialized_input: builtins.bool
+    allows_uninitialized_input: _builtins.bool
     """-------------------------------------------------------------------------
     Non-standard options.
 
@@ -282,110 +286,118 @@ class OpDef(google.protobuf.message.Message):
     input.
     for Assign, etc.
     """
-    is_distributed_communication: builtins.bool
+    is_distributed_communication: _builtins.bool
     """Indicates whether the op implementation uses distributed communication.
     If True, the op is allowed to return errors for network disconnection and
     trigger TF network failure handling logics.
     """
-    @property
-    def input_arg(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___OpDef.ArgDef]:
+    @_builtins.property
+    def input_arg(self) -> _containers.RepeatedCompositeFieldContainer[Global___OpDef.ArgDef]:
         """Description of the input(s)."""
 
-    @property
-    def output_arg(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___OpDef.ArgDef]:
+    @_builtins.property
+    def output_arg(self) -> _containers.RepeatedCompositeFieldContainer[Global___OpDef.ArgDef]:
         """Description of the output(s)."""
 
-    @property
-    def control_output(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def control_output(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """Named control outputs for this operation. Useful only for composite
         operations (i.e. functions) which want to name different control outputs.
         """
 
-    @property
-    def attr(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___OpDef.AttrDef]: ...
-    @property
-    def deprecation(self) -> global___OpDeprecation:
+    @_builtins.property
+    def attr(self) -> _containers.RepeatedCompositeFieldContainer[Global___OpDef.AttrDef]: ...
+    @_builtins.property
+    def deprecation(self) -> Global___OpDeprecation:
         """Optional deprecation based on GraphDef versions."""
 
     def __init__(
         self,
         *,
-        name: builtins.str | None = ...,
-        input_arg: collections.abc.Iterable[global___OpDef.ArgDef] | None = ...,
-        output_arg: collections.abc.Iterable[global___OpDef.ArgDef] | None = ...,
-        control_output: collections.abc.Iterable[builtins.str] | None = ...,
-        attr: collections.abc.Iterable[global___OpDef.AttrDef] | None = ...,
-        deprecation: global___OpDeprecation | None = ...,
-        summary: builtins.str | None = ...,
-        description: builtins.str | None = ...,
-        is_commutative: builtins.bool | None = ...,
-        is_aggregate: builtins.bool | None = ...,
-        is_stateful: builtins.bool | None = ...,
-        allows_uninitialized_input: builtins.bool | None = ...,
-        is_distributed_communication: builtins.bool | None = ...,
+        name: _builtins.str | None = ...,
+        input_arg: _abc.Iterable[Global___OpDef.ArgDef] | None = ...,
+        output_arg: _abc.Iterable[Global___OpDef.ArgDef] | None = ...,
+        control_output: _abc.Iterable[_builtins.str] | None = ...,
+        attr: _abc.Iterable[Global___OpDef.AttrDef] | None = ...,
+        deprecation: Global___OpDeprecation | None = ...,
+        summary: _builtins.str | None = ...,
+        description: _builtins.str | None = ...,
+        is_commutative: _builtins.bool | None = ...,
+        is_aggregate: _builtins.bool | None = ...,
+        is_stateful: _builtins.bool | None = ...,
+        allows_uninitialized_input: _builtins.bool | None = ...,
+        is_distributed_communication: _builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["deprecation", b"deprecation"]) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "allows_uninitialized_input",
-            b"allows_uninitialized_input",
-            "attr",
-            b"attr",
-            "control_output",
-            b"control_output",
-            "deprecation",
-            b"deprecation",
-            "description",
-            b"description",
-            "input_arg",
-            b"input_arg",
-            "is_aggregate",
-            b"is_aggregate",
-            "is_commutative",
-            b"is_commutative",
-            "is_distributed_communication",
-            b"is_distributed_communication",
-            "is_stateful",
-            b"is_stateful",
-            "name",
-            b"name",
-            "output_arg",
-            b"output_arg",
-            "summary",
-            b"summary",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["deprecation", b"deprecation"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "allows_uninitialized_input",
+        b"allows_uninitialized_input",
+        "attr",
+        b"attr",
+        "control_output",
+        b"control_output",
+        "deprecation",
+        b"deprecation",
+        "description",
+        b"description",
+        "input_arg",
+        b"input_arg",
+        "is_aggregate",
+        b"is_aggregate",
+        "is_commutative",
+        b"is_commutative",
+        "is_distributed_communication",
+        b"is_distributed_communication",
+        "is_stateful",
+        b"is_stateful",
+        "name",
+        b"name",
+        "output_arg",
+        b"output_arg",
+        "summary",
+        b"summary",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___OpDef = OpDef
+Global___OpDef: _TypeAlias = OpDef  # noqa: Y015
 
-@typing.final
-class OpDeprecation(google.protobuf.message.Message):
+@_typing.final
+class OpDeprecation(_message.Message):
     """Information about version-dependent deprecation of an op"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VERSION_FIELD_NUMBER: builtins.int
-    EXPLANATION_FIELD_NUMBER: builtins.int
-    version: builtins.int
+    VERSION_FIELD_NUMBER: _builtins.int
+    EXPLANATION_FIELD_NUMBER: _builtins.int
+    version: _builtins.int
     """First GraphDef version at which the op is disallowed."""
-    explanation: builtins.str
+    explanation: _builtins.str
     """Explanation of why it was deprecated and what to use instead."""
-    def __init__(self, *, version: builtins.int | None = ..., explanation: builtins.str | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["explanation", b"explanation", "version", b"version"]) -> None: ...
+    def __init__(self, *, version: _builtins.int | None = ..., explanation: _builtins.str | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["explanation", b"explanation", "version", b"version"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___OpDeprecation = OpDeprecation
+Global___OpDeprecation: _TypeAlias = OpDeprecation  # noqa: Y015
 
-@typing.final
-class OpList(google.protobuf.message.Message):
+@_typing.final
+class OpList(_message.Message):
     """A collection of OpDefs"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    OP_FIELD_NUMBER: builtins.int
-    @property
-    def op(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___OpDef]: ...
-    def __init__(self, *, op: collections.abc.Iterable[global___OpDef] | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["op", b"op"]) -> None: ...
+    OP_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def op(self) -> _containers.RepeatedCompositeFieldContainer[Global___OpDef]: ...
+    def __init__(self, *, op: _abc.Iterable[Global___OpDef] | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["op", b"op"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___OpList = OpList
+Global___OpList: _TypeAlias = OpList  # noqa: Y015
