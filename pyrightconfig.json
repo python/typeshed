@@ -12,6 +12,7 @@
         "stubs/geopandas",
         // test cases use a custom config file
         "**/@tests/test_cases",
+        "python-ldap"
     ],
     "typeCheckingMode": "strict",
     // Allowed in base settings for incomplete stubs, checked in stricter settings

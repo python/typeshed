@@ -1,0 +1,11 @@
+version = "3.4.*"
+dependencies = ["types-pyasn1"]
+upstream-repository = "https://github.com/python-ldap/python-ldap"
+extra-description = """
+Type stubs for python-ldap, covering the public API as documented at
+https://www.python-ldap.org/doc/html/api.html.
+"""
+partial-stub = true
+
+[tool.stubtest]
+stubtest-dependencies = ["python-ldap"]
