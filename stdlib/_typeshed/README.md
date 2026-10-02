@@ -32,3 +32,12 @@ removed or changed in an incompatible way for at least one year.
 Before making such a change, the "stable" moniker will be removed
 and we will mark the type in question as deprecated. No guarantees
 are made about unmarked types.
+
+## Use in 3rd-party Packages (`stubs`)
+
+The `_typeshed` module is usually vendored by type checkers. To ensure that
+type checkers have a chance to pick up changes to this module, items added
+to `_typeshed` (or its submodules) have a two month cooldown period before
+they can be used in third-party stubs. For example, if `_typeshed.Fruzzle`
+is added on 2026-07-15, it can't be used before 2026-09-15. This restriction
+does not apply to standard library stubs.
