@@ -1,11 +1,13 @@
 # These all have class-level defaults that differ from the instance attributes
 pyflakes.messages.DuplicateArgument.message_args
+pyflakes.messages.EagerUseOfLazyImport.message_args
 pyflakes.messages.ForwardAnnotationSyntaxError.message_args
 pyflakes.messages.FutureFeatureNotDefined.message_args
 pyflakes.messages.ImportShadowedByLoopVar.message_args
 pyflakes.messages.ImportStarNotPermitted.message_args
 pyflakes.messages.ImportStarUsage.message_args
 pyflakes.messages.ImportStarUsed.message_args
+pyflakes.messages.LazyImportStarNotPermitted.message_args
 pyflakes.messages.MultiValueRepeatedKeyLiteral.message_args
 pyflakes.messages.MultiValueRepeatedKeyVariable.message_args
 pyflakes.messages.PercentFormatExtraNamedArguments.message_args
