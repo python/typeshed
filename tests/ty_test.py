@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import subprocess
+import tempfile
 from pathlib import Path
 
 from ts_utils.paths import STDLIB_PATH, STUBS_PATH, TS_BASE_PATH
@@ -49,16 +50,9 @@ def main() -> int:
     if not files:
         print("No stubs to check with ty.", flush=True)
         return 0
-    # Per-file overrides need typeshed as the project root. Exclude it from module
-    # search roots so ty resolves `builtins.pyi` as part of the custom typeshed,
-    # rather than as a project source.
     command = [
         "ty",
         "check",
-        "--project",
-        str(TS_BASE_PATH),
-        "--config",
-        "environment.root = []",
         "--config-file",
         str(TS_BASE_PATH / "ty.toml"),
         "--typeshed",
@@ -80,7 +74,11 @@ def main() -> int:
     command.extend(map(str, files))
 
     print(f"Checking {len(files)} stubs with ty ({args.python_version}, {args.platform})...", flush=True)
-    return subprocess.run(command, check=False).returncode
+    # The custom typeshed cannot also be the project root: ty would treat builtins.pyi
+    # as project source and panic while constructing its builtins model.
+    with tempfile.TemporaryDirectory() as project:
+        command[2:2] = ("--project", project)
+        return subprocess.run(command, check=False).returncode
 
 
 if __name__ == "__main__":

@@ -75,6 +75,15 @@ class dict_keys(KeysView[_KT_co], Generic[_KT_co, _VT_co]):  # undocumented
     def __reversed__(self) -> Iterator[_KT_co]: ...
     __hash__: ClassVar[None]  # type: ignore[assignment]
     if sys.version_info >= (3, 13):
+        # Unlike the inherited `isdisjoint`, the narrower input type can catch
+        # mismatched key types; keep it despite the conflict with key covariance
+        # and ignore ty's variance error.
+        #
+        # ty checks ignores in inactive branches, so `invalid-generic-class` is
+        # unused on Python <3.13. The two `unused-ignore-comment` ignores also
+        # suppress warnings about each other.
+        #
+        # ty:ignore[invalid-generic-class,unused-ignore-comment]  # ty:ignore[unused-ignore-comment]
         def isdisjoint(self, other: Iterable[_KT_co], /) -> bool: ...
 
     @property
@@ -92,6 +101,15 @@ class dict_items(ItemsView[_KT_co, _VT_co]):  # undocumented
     def __reversed__(self) -> Iterator[tuple[_KT_co, _VT_co]]: ...
     __hash__: ClassVar[None]  # type: ignore[assignment]
     if sys.version_info >= (3, 13):
+        # Unlike the inherited `isdisjoint`, the narrower input type can catch
+        # mismatched item types; keep it despite the conflict with key and value
+        # covariance and ignore ty's variance error.
+        #
+        # ty checks ignores in inactive branches, so `invalid-generic-class` is
+        # unused on Python <3.13. The two `unused-ignore-comment` ignores also
+        # suppress warnings about each other.
+        #
+        # ty:ignore[invalid-generic-class,unused-ignore-comment]  # ty:ignore[unused-ignore-comment]
         def isdisjoint(self, other: Iterable[tuple[_KT_co, _VT_co]], /) -> bool: ...
 
     @property

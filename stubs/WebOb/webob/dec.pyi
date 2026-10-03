@@ -115,6 +115,13 @@ class wsgify(Generic[_P, _RequestT_contra]):
     def request(self, url: str, **kw: Any) -> _AnyResponse: ...
     def call_func(self, req: _RequestT_contra, *args: _P.args, **kwargs: _P.kwargs) -> _AnyResponse: ...
     # technically this could bind different type vars, but we disallow it for safety
+    #
+    # TODO: We could consider making `wsgify` invariant in its request type: viewing it
+    # contravariantly can let `clone` install a narrower handler, even though the
+    # clone retains a subclass that accepts broader requests, which the handler
+    # cannot process. Ignore ty's variance error to preserve the existing API for now.
+    #
+    # ty:ignore[invalid-generic-class]
     def clone(self, func: _RequestHandler[_RequestT_contra, _P] | None = None, **kw: Never) -> Self: ...
     @property
     def undecorated(self) -> _RequestHandler[_RequestT_contra, _P] | None: ...

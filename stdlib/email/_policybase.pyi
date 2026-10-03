@@ -47,7 +47,11 @@ class _PolicyBase(Generic[_MessageT_co]):
         cte_type: str = ...,
         raise_on_defect: bool = ...,
         mangle_from_: bool = ...,
-        message_factory: _MessageFactory[_MessageT_co] | None = ...,
+        # TODO: We could consider making `_PolicyBase`, `Policy`, and `Compat32` invariant:
+        # a covariant upcast can let `clone` install a factory returning a wider
+        # message type, even though the clone retains its original subclass, which
+        # expects the narrower type. Ignore ty's error to preserve the API for now.
+        message_factory: _MessageFactory[_MessageT_co] | None = ...,  # ty:ignore[invalid-generic-class]
         # Added in Python 3.9.20, 3.10.15, 3.11.10, 3.12.5
         verify_generated_headers: bool = ...,
     ) -> Self: ...

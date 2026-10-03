@@ -56,6 +56,12 @@ class Dataset(ABC, Generic[_T1_co]):
     def choose_from_datasets(
         datasets: Sequence[Dataset[_T2]], choice_dataset: Dataset[tf.Tensor], stop_on_empty_dataset: bool = True
     ) -> Dataset[_T2]: ...
+    # TODO: We could consider making `Dataset` invariant: upcasting to `Dataset[object]`
+    # allows concatenating incompatible element types, e.g. a dataset of tensors
+    # with a dataset of tensor pairs, which raises `TypeError`. Ignore ty's error
+    # to preserve covariance for now.
+    #
+    # ty:ignore[invalid-generic-class]
     def concatenate(self, dataset: Dataset[_T1_co], name: str | None = None) -> Dataset[_T1_co]: ...
     @staticmethod
     def counter(
@@ -177,12 +183,12 @@ class Dataset(ABC, Generic[_T1_co]):
     def repeat(self, count: ScalarTensorCompatible | None = None, name: str | None = None) -> Dataset[_T1_co]: ...
     @staticmethod
     def sample_from_datasets(
-        datasets: Sequence[Dataset[_T1_co]],
+        datasets: Sequence[Dataset[_T2]],
         weights: TensorCompatible | None = None,
         seed: int | None = None,
         stop_on_empty_dataset: bool = False,
         rerandomize_each_iteration: bool | None = None,
-    ) -> Dataset[_T1_co]: ...
+    ) -> Dataset[_T2]: ...
     # Incomplete as tf.train.CheckpointOptions not yet covered.
     def save(
         self,
@@ -209,7 +215,11 @@ class Dataset(ABC, Generic[_T1_co]):
         self,
         path: str,
         compression: _CompressionTypes = "AUTO",
-        reader_func: Callable[[Dataset[Dataset[_T1_co]]], Dataset[_T1_co]] | None = None,
+        # TODO: We could consider making `Dataset` invariant: upcasting a dataset of tensors
+        # to `Dataset[object]` lets `reader_func` return a dataset of tensor pairs.
+        # The reader should return elements of the original dataset. Ignore ty's
+        # variance error to preserve covariance for now.
+        reader_func: Callable[[Dataset[Dataset[_T1_co]]], Dataset[_T1_co]] | None = None,  # ty:ignore[invalid-generic-class]
         shard_func: Callable[[_T1_co], ScalarTensorCompatible] | None = None,
         name: str | None = None,
     ) -> Dataset[_T1_co]: ...
