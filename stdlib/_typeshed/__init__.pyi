@@ -170,7 +170,7 @@ class SupportsTrunc(Protocol):
 
 # The second and third overload could technically be combined, but splitting
 # them works better with some type checkers.
-class SupportsGet(Protocol[_KT_contra, _VT_co]):  # type: ignore[misc] # Covariant type as parameter
+class SupportsGet(Protocol[_KT_contra, _VT_co]):  # type: ignore[misc]  # ty:ignore[invalid-protocol]  # Covariant type as parameter
     @overload
     def get(self, key: _KT_contra, /) -> _VT_co | None: ...
     @overload
