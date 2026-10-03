@@ -18,7 +18,7 @@ repos:
         additional_dependencies: ["json5==0.15.0"]
   - repo: https://github.com/astral-sh/ruff-pre-commit
     # The Ruff version must match requirements-tests.txt.
-    rev: c59bba8fb259db0fec2bbb77ad8ba51ea7341b56 # frozen: v0.15.20
+    rev: 2eeb5678de71a00c0902cbda7105d328432f72cb # frozen: v0.16.8
     hooks:
       - id: ruff
         name: Run ruff on stubs, tests and scripts

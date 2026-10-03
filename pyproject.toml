@@ -197,6 +197,7 @@ ignore = [
     "PLR5501", # Use `elif` instead of `else` then `if`, to reduce indentation
     # Often just leads to redundant more verbose code when needing an actual str
     "PTH208", # Use `pathlib.Path.iterdir()` instead.
+    "RUF036", # `None` is not at the end of the union
     # Allow FIXME
     "TD001", # Invalid TODO tag: `{tag}`
     # Git blame is sufficient
