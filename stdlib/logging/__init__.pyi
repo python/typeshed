@@ -225,7 +225,7 @@ class Logger(Filterer):
         lno: int,
         msg: object,
         args: _ArgsType,
-        exc_info: _SysExcInfoType | None,
+        exc_info: _SysExcInfoType | Literal[False] | None,
         func: str | None = None,
         extra: Mapping[str, object] | None = None,
         sinfo: str | None = None,
@@ -312,7 +312,9 @@ class LogRecord:
     args: _ArgsType | None
     asctime: str
     created: float
-    exc_info: _SysExcInfoType | None
+    # Logger._log() only normalizes truthy exc_info values so
+    # exc_info=False ends up on the record unchanged.
+    exc_info: _SysExcInfoType | Literal[False] | None
     exc_text: str | None
     filename: str
     funcName: str
@@ -343,7 +345,7 @@ class LogRecord:
         lineno: int,
         msg: object,
         args: _ArgsType | None,
-        exc_info: _SysExcInfoType | None,
+        exc_info: _SysExcInfoType | Literal[False] | None,
         func: str | None = None,
         sinfo: str | None = None,
     ) -> None: ...
