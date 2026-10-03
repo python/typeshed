@@ -4,6 +4,7 @@ from networkx.classes.graph import Graph
 from networkx.utils.backends import _dispatchable
 
 __all__ = [
+    "shrikhande_graph",
     "LCF_graph",
     "bull_graph",
     "chvatal_graph",
@@ -78,3 +79,5 @@ def truncated_cube_graph(create_using: Graph[Incomplete] | type[Graph[Incomplete
 def truncated_tetrahedron_graph(create_using: Graph[Incomplete] | type[Graph[Incomplete]] | None = None) -> Graph[Incomplete]: ...
 @_dispatchable
 def tutte_graph(create_using: Graph[Incomplete] | type[Graph[Incomplete]] | None = None) -> Graph[Incomplete]: ...
+@_dispatchable
+def shrikhande_graph(create_using: Graph[Incomplete] | type[Graph[Incomplete]] | None = None) -> Graph[Incomplete]: ...

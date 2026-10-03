@@ -1,9 +1,11 @@
 import numpy as np
 from networkx._typing import Array1D
+from networkx.classes.digraph import DiGraph
 from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
 
 __all__ = [
+    "magnetic_spectrum",
     "laplacian_spectrum",
     "adjacency_spectrum",
     "modularity_spectrum",
@@ -21,3 +23,7 @@ def adjacency_spectrum(G: Graph[_Node], weight: str | None = "weight") -> Array1
 def modularity_spectrum(G: Graph[_Node]) -> Array1D[np.complex128]: ...
 @_dispatchable
 def bethe_hessian_spectrum(G: Graph[_Node], r: float | None = None) -> Array1D[np.float64]: ...
+@_dispatchable
+def magnetic_spectrum(
+    G: DiGraph[_Node], *, q: float = 0.25, weight: str | None = "weight", normalized: bool = False
+) -> Array1D[np.float64]: ...
