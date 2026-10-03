@@ -650,7 +650,10 @@ class _NoExtraItemsType: ...
 NoExtraItems: _NoExtraItemsType
 
 # PEP 747
-TypeForm: _SpecialForm
+if sys.version_info >= (3, 15):
+    from typing import TypeForm as TypeForm
+else:
+    TypeForm: _SpecialForm
 
 # PEP 649/749
 if sys.version_info >= (3, 14):
