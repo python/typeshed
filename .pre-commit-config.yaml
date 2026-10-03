@@ -11,7 +11,7 @@ repos:
         args: [--fix=lf]
       - id: check-case-conflict
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 12e63946db2c5cfcc9030fac21c3883ba88c6ed8 # frozen: 0.38.0
+    rev: 0494aa7fa1314e98913a41227d8f0a515b2c1049 # frozen: 0.38.2
     hooks:
       - id: check-github-workflows
       - id: check-renovate
@@ -38,7 +38,7 @@ repos:
     hooks:
       - id: black
   - repo: https://github.com/pycqa/flake8
-    rev: c48217e1fc006c2dddd14df54e83b67da15de5cd # frozen: 7.3.0
+    rev: 7eccf20b526fe4f2230bf9afeeef2fc9f97faf8d # frozen: 7.4.1
     hooks:
       - id: flake8
         language: python
@@ -51,7 +51,7 @@ repos:
       - id: check-hooks-apply
   # zizmor detects security vulnerabilities in GitHub Actions workflows.
   - repo: https://github.com/zizmorcore/zizmor-pre-commit
-    rev: 451b56af716f9f0d0c2b816503a3fd0cf8b036fa # frozen: v1.29.0
+    rev: fa412071e4f5d44d44f9e365f4676f9df92456a2 # frozen: v1.30.1
     hooks:
       - id: zizmor
         args: [--no-progress, --fix]
