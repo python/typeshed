@@ -1,11 +1,11 @@
 import optparse
-from _typeshed import Incomplete, StrPath
-from collections.abc import Iterable, Mapping, Sequence
+from _typeshed import StrPath, SupportsWrite
+from collections.abc import Iterable, Mapping, MutableMapping, Sequence
 from configparser import RawConfigParser
 from typing import Any, ClassVar, Final, Literal, Protocol, overload, type_check_only
-from typing_extensions import deprecated
+from typing_extensions import Unpack, deprecated
 
-from docutils import SettingsSpec
+from docutils import SettingsSpec, _OptionKwargs, _OptionTuple, _SettingsSpecTuple
 from docutils.utils import DependencyList
 
 __docformat__: Final = "reStructuredText"
@@ -20,19 +20,21 @@ class _OptionValidator(Protocol):
         /,
         config_parser: ConfigParser | None = None,
         config_section: str | None = None,
-    ) -> Any: ...
+    ) -> object: ...
 
-@deprecated("Deprecated and will be removed with the switch to from optparse to argparse.")
-def store_multiple(option: optparse.Option, opt: str, value, parser: OptionParser, *args: str, **kwargs) -> None: ...
-@deprecated("Deprecated and will be removed with the switch to from optparse to argparse.")
-def read_config_file(option: optparse.Option, opt: str, value, parser: OptionParser) -> None: ...
+@deprecated("Deprecated and will be removed with the switch from optparse to argparse in Docutils 2.0.")
+def store_multiple(
+    option: optparse.Option, opt: str, value: object, parser: OptionParser, *args: str, **kwargs: object
+) -> None: ...
+@deprecated("Deprecated and will be removed with the switch from optparse to argparse in Docutils 2.0.")
+def read_config_file(option: optparse.Option, opt: str, value: str, parser: OptionParser) -> None: ...
 def validate_encoding(
     setting: str,
     value: str | None = None,
     option_parser: OptionParser | None = None,
     config_parser: ConfigParser | None = None,
     config_section: str | None = None,
-) -> str: ...
+) -> str | None: ...  # `None` for the deprecated empty value
 def validate_encoding_error_handler(
     setting: str,
     value: str | None = None,
@@ -124,31 +126,92 @@ def validate_smartquotes_locales(
     config_parser: ConfigParser | None = None,
     config_section: str | None = None,
 ) -> list[tuple[str, Sequence[str]]]: ...
-def make_paths_absolute(
-    pathdict: dict[str, list[StrPath] | StrPath], keys: tuple[str], base_path: StrPath | None = None
-) -> None: ...
+def make_paths_absolute(pathdict: MutableMapping[str, Any], keys: Iterable[str], base_path: StrPath | None = None) -> None: ...
 @deprecated("The `frontend.make_one_path_absolute` will be removed in Docutils 2.0 or later.")
 def make_one_path_absolute(base_path: StrPath, path: StrPath) -> str: ...
-def filter_settings_spec(settings_spec, *exclude, **replace) -> tuple[Any, ...]: ...
+def filter_settings_spec(settings_spec: _SettingsSpecTuple, *exclude: str, **replace: _OptionTuple) -> _SettingsSpecTuple: ...
 
-@deprecated("The `frontend.Values` class will be removed in Docutils 2.0 or later.")
+# Storage for setting values; one attribute per setting.
+# The attributes below are the settings of the core `OptionParser` (always present),
+# and of the reStructuredText parser (present when it is used).
+# Settings of other components are available via `optparse.Values.__getattr__()`.
 class Values(optparse.Values):
+    # Settings from `OptionParser.settings_spec` and `OptionParser.settings_defaults`
+    _config_files: list[str]
+    _destination: StrPath | None
+    _disable_config: bool | None
+    _source: StrPath | None
+    auto_id_prefix: str
+    config: str | None
+    datestamp: str | None
+    debug: bool | None
+    dump_internals: bool | None
+    dump_pseudo_xml: bool | None
+    dump_settings: bool | None
+    dump_transforms: bool | None
+    error_encoding: str
+    error_encoding_error_handler: str
+    exit_status_level: int
+    expose_internals: list[str] | None
+    footnote_backlinks: bool
+    generator: bool | None
+    halt_level: int
+    id_prefix: str
+    input_encoding: str | None
+    input_encoding_error_handler: str
+    language_code: str
+    output_encoding: str
+    output_encoding_error_handler: str
+    output_path: StrPath | None
     record_dependencies: DependencyList
-    def __init__(self, defaults: dict[str, Any] | None = None) -> None: ...
-    def update(self, other_dict: Values | Mapping[str, Incomplete], option_parser: OptionParser) -> None: ...
-    def copy(self) -> Values: ...
-    def setdefault(self, name: str, default): ...
+    report_level: int
+    root_prefix: str
+    sectnum_xform: bool
+    source_link: bool | None
+    source_url: str | None
+    strict_visitor: bool | None
+    strip_classes: list[str] | None
+    strip_comments: bool | None
+    strip_elements_with_classes: list[str] | None
+    title: str | None
+    toc_backlinks: Literal["entry", "top", False]
+    traceback: bool | None
+    warning_stream: str | SupportsWrite[str] | None
+    # Settings for the reStructuredText parser (`docutils.parsers.rst.Parser.settings_spec`)
+    character_level_inline_markup: bool
+    file_insertion_enabled: bool
+    legacy_ids: bool
+    line_length_limit: int
+    pep_base_url: str
+    pep_file_url_template: str
+    pep_references: bool | None
+    raw_enabled: bool
+    rfc_base_url: str
+    rfc_references: bool | None
+    # Any string starting with "alt" (as in "alternative") are meaningful.
+    # `apply()` catches AttributeError and sets it to False.
+    smart_quotes: bool | str
+    smartquotes_locales: list[tuple[str, Sequence[str]]] | None
+    syntax_highlight: Literal["long", "short", "none"]
+    tab_width: int
+    trim_footnote_reference_space: bool | None
+    validate: bool | None
 
-@deprecated("The `frontend.Option` class will be removed in Docutils 2.0 or later.")
+    @deprecated("The `frontend.Values` class will be removed in Docutils 2.0 or later.")
+    def __init__(self, defaults: Mapping[str, object] | None = None) -> None: ...
+    def update(self, other_dict: Values | Mapping[str, object], option_parser: OptionParser) -> None: ...
+    def copy(self) -> Values: ...
+    # Returns the current or new value of an arbitrary setting.
+    def setdefault(self, name: str, default: object) -> Any: ...
+
 class Option(optparse.Option):
     ATTRS: list[str]
     validator: _OptionValidator
     overrides: str | None
-    def __init__(self, *args: str | None, **kwargs) -> None: ...
 
-@deprecated(
-    "The `frontend.OptionParser` class will be replaced by a subclass of `argparse.ArgumentParser` in Docutils 2.0 or later."
-)
+    @deprecated("The `frontend.Option` class will be removed in Docutils 2.0 or later.")
+    def __init__(self, *args: str | None, **kwargs: Unpack[_OptionKwargs]) -> None: ...
+
 class OptionParser(optparse.OptionParser, SettingsSpec):
     standard_config_files: ClassVar[list[str]]
     threshold_choices: ClassVar[tuple[str, ...]]
@@ -164,19 +227,25 @@ class OptionParser(optparse.OptionParser, SettingsSpec):
     relative_path_settings: ClassVar[tuple[str, ...]]
     version: str
     components: tuple[SettingsSpec, ...]
+
+    @deprecated(
+        "The `frontend.OptionParser` class will be replaced by a subclass of `argparse.ArgumentParser` in Docutils 2.0 or later."
+    )
     def __init__(
         self,
         components: Iterable[SettingsSpec | type[SettingsSpec]] = (),
-        defaults: Mapping[str, Any] | None = None,
+        defaults: Mapping[str, object] | None = None,
         read_config_files: bool | None = False,
-        *args,
-        **kwargs,
+        *args: Any,  # passed on to `optparse.OptionParser.__init__()`
+        **kwargs: Any,
     ) -> None: ...
     def populate_from_components(self, components: Iterable[SettingsSpec]) -> None: ...
     @classmethod
     def get_standard_config_files(cls) -> Sequence[StrPath]: ...
     def get_standard_config_settings(self) -> Values: ...
-    def get_config_file_settings(self, config_file: str) -> dict[str, Incomplete]: ...
+    # `Any` for values of arbitrary settings
+    def get_config_file_settings(self, config_file: str) -> dict[str, Any]: ...
+    # Docutils itself commits this violation; not fixable in a stub.
     def check_values(self, values: Values, args: list[str]) -> Values: ...  # type: ignore[override]
     def check_args(self, args: list[str]) -> tuple[str | None, str | None]: ...
     def get_default_values(self) -> Values: ...

@@ -2,7 +2,6 @@ import numbers
 import xml.etree.ElementTree as ET
 from collections.abc import Iterable
 from typing import ClassVar, Final, SupportsIndex, overload
-from typing_extensions import Self
 
 __docformat__: Final = "reStructuredText"
 GLOBAL_ATTRIBUTES: Final[tuple[str, ...]]
@@ -10,7 +9,7 @@ GLOBAL_ATTRIBUTES: Final[tuple[str, ...]]
 class MathElement(ET.Element):
     nchildren: ClassVar[int | None]
     parent: MathElement | None
-    def __init__(self, *children, **attributes: object) -> None: ...  # attributes is passed to self.a_str method
+    def __init__(self, *children: MathElement, **attributes: object) -> None: ...  # attributes is passed to self.a_str method
     @staticmethod
     def a_str(v: object) -> str: ...
     def set(self, key: str, value: object) -> None: ...  # value is passed to self.a_str method
@@ -22,9 +21,11 @@ class MathElement(ET.Element):
 
     def is_full(self) -> bool: ...
     def close(self) -> MathElement | None: ...
-    def append(self, element: MathElement) -> Self: ...  # type: ignore[override]
-    def extend(self, elements: Iterable[MathElement]) -> Self: ...  # type: ignore[override]
-    def pop(self, index: int = -1): ...
+    # Return the new "current node" (insertion point): `self`, or, if `self` is full
+    # after appending, the first non-full ancestor or `None` (see `close()`).
+    def append(self, element: MathElement) -> MathElement | None: ...  # type: ignore[override]
+    def extend(self, elements: Iterable[MathElement]) -> MathElement | None: ...  # type: ignore[override]
+    def pop(self, index: int = -1) -> MathElement: ...
     def in_block(self) -> bool: ...
     def indent_xml(self, space: str = "  ", level: int = 0) -> None: ...
     def unindent_xml(self) -> None: ...
@@ -35,7 +36,7 @@ class MathRow(MathElement): ...
 class MathSchema(MathElement):
     nchildren: ClassVar[int]
     switch: bool
-    def __init__(self, *children, switch: bool = False, **kwargs) -> None: ...
+    def __init__(self, *children: MathElement, switch: bool = False, **kwargs: object) -> None: ...
 
 class MathToken(MathElement):
     nchildren: ClassVar[int]
@@ -52,7 +53,7 @@ class mspace(MathElement):
     nchildren: ClassVar[int]
 
 class mrow(MathRow):
-    def transfer_attributes(self, other) -> None: ...
+    def transfer_attributes(self, other: MathElement) -> None: ...
 
 class mfrac(MathSchema): ...
 

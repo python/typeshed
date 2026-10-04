@@ -1,31 +1,36 @@
-from _typeshed import Incomplete
-from typing import Any
+from _typeshed import SupportsWrite
+from collections.abc import Callable, Iterable
+from typing import Any, Protocol, type_check_only
 
-# Formatter[str] from types-pygments
+# A minimal stand-in for `pygments.formatter.Formatter[str]` (pygments is an optional dependency).
+@type_check_only
 class _Formatter:
-    name: Any
-    aliases: Any
-    filenames: Any
+    name: str | None
+    aliases: list[str]
+    filenames: list[str]
     unicodeoutput: bool
-    style: Any
-    full: Any
-    title: Any
-    encoding: Any
-    options: Any
-    def __init__(self, *, encoding: None = None, outencoding: None = None, **options) -> None: ...
-    def get_style_defs(self, arg: str = ""): ...
-    def format(self, tokensource, outfile): ...
+    style: type[object]
+    full: bool
+    title: str
+    encoding: str | None
+    options: dict[str, Any]  # arbitrary formatter options
+    def __init__(self, *, encoding: None = None, outencoding: None = None, **options: object) -> None: ...
+    def get_style_defs(self, arg: str = "") -> str: ...
+    def format(self, tokensource: Iterable[tuple[object, str]], outfile: SupportsWrite[str]) -> None: ...
+
+# `ODFTranslator.rststyle()`
+@type_check_only
+class _RstStyleFunction(Protocol):
+    def __call__(self, name: str, parameters: tuple[object, ...] = ..., /) -> str: ...
 
 class OdtPygmentsFormatter(_Formatter):
-    rststyle_function: Incomplete
-    escape_function: Incomplete
-    def __init__(self, rststyle_function, escape_function) -> None: ...
-    def rststyle(self, name, parameters=()): ...
-    def get_style_defs(self, arg: str = ""): ...
-    def format(self, tokensource, outfile): ...
+    rststyle_function: _RstStyleFunction
+    escape_function: Callable[[str], str]
+    def __init__(self, rststyle_function: _RstStyleFunction, escape_function: Callable[[str], str]) -> None: ...
+    def rststyle(self, name: str, parameters: tuple[object, ...] = ()) -> str: ...
 
 class OdtPygmentsProgFormatter(OdtPygmentsFormatter):
-    def format(self, tokensource, outfile) -> None: ...
+    def format(self, tokensource: Iterable[tuple[object, str]], outfile: SupportsWrite[str]) -> None: ...
 
 class OdtPygmentsLaTeXFormatter(OdtPygmentsFormatter):
-    def format(self, tokensource, outfile) -> None: ...
+    def format(self, tokensource: Iterable[tuple[object, str]], outfile: SupportsWrite[str]) -> None: ...
