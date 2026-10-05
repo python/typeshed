@@ -12,7 +12,7 @@ mypy-protobuf==5.1.0; python_version < "3.15"
 packaging==26.3
 pathspec>=1.1.1
 pre-commit
-ruff==0.15.20
+ruff==0.16.8
 # Required by create_baseline_stubs.py.
 # stubdefaulter depends on libcst, which does not yet install cleanly on Python 3.15.
 stubdefaulter==0.1.0; python_version < "3.15"
