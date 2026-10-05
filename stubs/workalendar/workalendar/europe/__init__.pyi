@@ -249,7 +249,8 @@ __all__ = (
     "Cantabria",
     "ValencianCommunity",
     # Switzerland
-    "Switzerland",
+    # The duplicate entry matches the runtime __all__.
+    "Switzerland",  # noqa: RUF068
     "Aargau",
     "AppenzellInnerrhoden",
     "AppenzellAusserrhoden",

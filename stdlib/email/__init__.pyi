@@ -31,7 +31,7 @@ __all__ = [  # noqa: F822  # Undefined names in __all__
 
 # Definitions imported by multiple submodules in typeshed
 _ParamType: TypeAlias = str | tuple[str | None, str | None, str]  # noqa: Y047
-_ParamsType: TypeAlias = str | None | tuple[str, str | None, str]  # noqa: Y047
+_ParamsType: TypeAlias = str | tuple[str, str | None, str] | None  # noqa: Y047
 
 @overload
 def message_from_string(s: str) -> Message[str, str]: ...
