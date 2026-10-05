@@ -541,7 +541,7 @@ else:
             self,
             name: str,
             *,
-            bound: None | AnnotationForm | str = None,
+            bound: AnnotationForm | str | None = None,
             contravariant: bool = False,
             covariant: bool = False,
             default: AnnotationForm = ...,

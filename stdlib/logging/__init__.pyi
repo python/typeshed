@@ -61,7 +61,7 @@ if sys.version_info >= (3, 12):
     __all__ += ["getHandlerByName", "getHandlerNames"]
 
 _SysExcInfoType: TypeAlias = tuple[type[BaseException], BaseException, TracebackType | None] | tuple[None, None, None]
-_ExcInfoType: TypeAlias = None | bool | _SysExcInfoType | BaseException
+_ExcInfoType: TypeAlias = bool | _SysExcInfoType | BaseException | None
 _ArgsType: TypeAlias = tuple[object, ...] | Mapping[str, object]
 _Level: TypeAlias = int | str
 _FormatStyle: TypeAlias = Literal["%", "{", "$"]
