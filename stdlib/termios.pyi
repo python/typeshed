@@ -183,12 +183,14 @@ if sys.platform != "win32":
     VWERASE: Final[int]
 
     if sys.version_info >= (3, 13):
+        EXTPROC: Final[int]
+        IUTF8: Final[int]
+
+        # On Linux, only available when Python was built against glibc 2.42 or newer.
         B14400: Final[int]
         B28800: Final[int]
         B7200: Final[int]
         B76800: Final[int]
-        EXTPROC: Final[int]
-        IUTF8: Final[int]
 
     if sys.platform == "darwin" and sys.version_info >= (3, 13):
         ALTWERASE: Final[int]
@@ -274,6 +276,7 @@ if sys.platform != "win32":
         B460800: Final[int]
         B500000: Final[int]
         B921600: Final[int]
+        # On Linux, only available when Python was built against glibc 2.42 or newer.
         IBSHIFT: Final[int]
 
     if sys.platform != "linux":
