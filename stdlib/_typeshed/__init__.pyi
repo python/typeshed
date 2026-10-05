@@ -191,6 +191,7 @@ class SupportsKeysAndGetItem(Protocol[_KT, _VT_co]):
 
 class SupportsKeysAndGet(Protocol[_KT, _VT_co]):
     def keys(self) -> Iterable[_KT]: ...
+
     @overload
     def get(self, key: _KT, /) -> _VT_co | None: ...
     @overload
