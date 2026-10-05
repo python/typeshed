@@ -2,7 +2,7 @@ from _typeshed import StrOrBytesPath, SupportsGet, SupportsKeysAndGet
 from abc import ABCMeta
 from collections import Counter
 from collections.abc import Sequence
-from typing import ClassVar, Literal, TypeAlias, TypedDict, type_check_only
+from typing import Literal, TypeAlias, TypedDict, type_check_only
 from typing_extensions import Required
 
 from _remote_debugging import AwaitedInfo, InterpreterInfo
@@ -14,8 +14,6 @@ from .collector import Collector, _Frame, _Location, _Timestamps
 _CaptureFeatureKeys: TypeAlias = Literal["all_threads", "native", "gc", "opcodes", "blocking"]
 
 class StackTraceCollector(Collector, metaclass=ABCMeta):
-    aggregating: ClassVar[bool]
-
     sample_interval_usec: int
     skip_idle: bool
 
@@ -76,7 +74,7 @@ class FlamegraphCollector(StackTraceCollector):
 class DiffFlamegraphCollector(FlamegraphCollector):
     baseline_binary_path: StrOrBytesPath
     mode: int | None
-    capture_config: SupportsKeysAndGet[_CaptureFeatureKeys, bool]
+    capture_config: SupportsKeysAndGet[_CaptureFeatureKeys, bool] | None
 
     def __init__(
         self,
