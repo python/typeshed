@@ -541,7 +541,7 @@ else:
             self,
             name: str,
             *,
-            bound: None | AnnotationForm | str = None,
+            bound: AnnotationForm | str | None = None,
             contravariant: bool = False,
             covariant: bool = False,
             default: AnnotationForm = ...,
@@ -650,7 +650,10 @@ class _NoExtraItemsType: ...
 NoExtraItems: _NoExtraItemsType
 
 # PEP 747
-TypeForm: _SpecialForm
+if sys.version_info >= (3, 15):
+    from typing import TypeForm as TypeForm
+else:
+    TypeForm: _SpecialForm
 
 # PEP 649/749
 if sys.version_info >= (3, 14):
