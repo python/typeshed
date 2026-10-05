@@ -4,8 +4,8 @@ from logging import Logger
 from subprocess import Popen
 from typing import Any, ClassVar, Literal, NewType
 
-import setuptools.command.sdist
 from fanstatic.core import Resource
+from fanstatic.sdist import sdist_compile as sdist_compile
 
 logger: Logger
 
@@ -40,8 +40,6 @@ class Minifier(Compiler):
     def source_to_target(self, resource: Resource) -> str: ...
 
 def compile_resources(argv: list[str] = ...) -> None: ...
-
-class sdist_compile(setuptools.command.sdist.sdist): ...
 
 class NullCompiler(Compiler):
     name: ClassVar[Literal[""]]
@@ -122,3 +120,5 @@ class Closure(PythonPackageBase, Minifier):
     def process(self, source: StrOrBytesPath, target: StrOrBytesPath) -> Popen[str]: ...
 
 CLOSURE_MINIFIER: Closure
+
+def __dir__() -> list[str]: ...
