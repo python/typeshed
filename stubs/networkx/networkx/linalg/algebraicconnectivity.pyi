@@ -2,14 +2,14 @@ from typing import Literal
 
 import numpy as np
 from networkx._typing import Array1D, Seed
-from networkx.classes.graph import Graph, _Node
+from networkx.classes.graph import Graph, _EdgeData, _Node, _NodeData
 from networkx.utils.backends import _dispatchable
 
 __all__ = ["algebraic_connectivity", "fiedler_vector", "spectral_ordering", "spectral_bisection"]
 
 @_dispatchable
 def algebraic_connectivity(
-    G: Graph[_Node],
+    G: Graph[_Node, _NodeData, _EdgeData],
     weight: str | None = "weight",
     normalized: bool = False,
     tol: float = 1e-08,
@@ -18,7 +18,7 @@ def algebraic_connectivity(
 ) -> float: ...
 @_dispatchable
 def fiedler_vector(
-    G: Graph[_Node],
+    G: Graph[_Node, _NodeData, _EdgeData],
     weight: str | None = "weight",
     normalized: bool = False,
     tol: float = 1e-08,
@@ -27,7 +27,7 @@ def fiedler_vector(
 ) -> Array1D[np.float64]: ...
 @_dispatchable
 def spectral_ordering(
-    G: Graph[_Node],
+    G: Graph[_Node, _NodeData, _EdgeData],
     weight: str | None = "weight",
     normalized: bool = False,
     tol: float = 1e-08,
@@ -36,7 +36,7 @@ def spectral_ordering(
 ) -> list[_Node]: ...
 @_dispatchable
 def spectral_bisection(
-    G: Graph[_Node],
+    G: Graph[_Node, _NodeData, _EdgeData],
     weight: str | None = "weight",
     normalized: bool = False,
     tol: float = 1e-08,
