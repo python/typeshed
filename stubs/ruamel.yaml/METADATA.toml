@@ -1,0 +1,6 @@
+version = "0.19.*"
+upstream-repository = "https://sourceforge.net/p/ruamel-yaml/code/"
+
+[tool.stubtest]
+skip = true  # mypy parse errors in upstream package
+stubtest-dependencies = ["configobj"]
