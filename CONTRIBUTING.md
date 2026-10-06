@@ -424,7 +424,9 @@ the latest mypy (`pip install -r requirements-tests.txt`) before running the scr
 
 ### Unsupported Type System Features
 
-Unless listed here, all type system features can be used:
+Unless listed here, all type system features that have been added to the
+[Python typing specification](https://typing.python.org/en/latest/spec/)
+can be used:
 
 - [PEP 695](https://peps.python.org/pep-0695/) type parameter syntax.
   (See [issue #10869](https://github.com/python/typeshed/issues/10869).) Use
