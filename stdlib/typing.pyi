@@ -151,6 +151,9 @@ if sys.version_info >= (3, 13):
 
 class Any: ...
 
+if sys.version_info >= (3, 13):
+    NoDefault: _NoDefaultType
+
 class _Final:
     __slots__ = ("__weakref__",)
 
@@ -183,7 +186,7 @@ class TypeVar:
             contravariant: bool = False,
             covariant: bool = False,
             infer_variance: bool = False,
-            default: Any = ...,  # AnnotationForm
+            default: Any = NoDefault,  # noqa: Y011  # AnnotationForm
         ) -> Self: ...
     elif sys.version_info >= (3, 12):
         def __new__(
@@ -283,11 +286,11 @@ if sys.version_info >= (3, 11):
                 bound: Any | None = None,  # AnnotationForm
                 covariant: bool = False,
                 contravariant: bool = False,
-                default: Any = ...,  # AnnotationForm
+                default: Any = NoDefault,  # noqa: Y011  # AnnotationForm
                 infer_variance: bool = False,
             ) -> Self: ...
         elif sys.version_info >= (3, 13):
-            def __new__(cls, name: str, *, default: Any = ...) -> Self: ...  # AnnotationForm
+            def __new__(cls, name: str, *, default: Any = NoDefault) -> Self: ...  # noqa: Y011  # AnnotationForm
         elif sys.version_info >= (3, 12):
             def __new__(cls, name: str) -> Self: ...
         else:
@@ -349,7 +352,7 @@ class ParamSpec:
             contravariant: bool = False,
             covariant: bool = False,
             infer_variance: bool = False,
-            default: Any = ...,  # AnnotationForm
+            default: Any = NoDefault,  # noqa: Y011  # AnnotationForm
         ) -> Self: ...
     elif sys.version_info >= (3, 12):
         def __new__(
@@ -1248,6 +1251,5 @@ if sys.version_info >= (3, 13):
     @type_check_only
     class _NoDefaultType: ...
 
-    NoDefault: _NoDefaultType
     TypeIs: _SpecialForm
     ReadOnly: _SpecialForm
