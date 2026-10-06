@@ -881,6 +881,78 @@ class CryptBitBlob(TypedDict):
     Data: ReadableBuffer
     UnusedBits: int
 
+@type_check_only
+class IOInfo(TypedDict):
+    ReadOperationCount: int
+    WriteOperationCount: int
+    OtherOperationCount: int
+    ReadTransferCount: int
+    WriteTransferCount: int
+    OtherTransferCount: int
+
+@type_check_only
+class JobObjectBasicAccountingInformation(TypedDict):
+    TotalUserTime: int
+    TotalKernelTime: int
+    ThisPeriodTotalUserTime: int
+    ThisPeriodTotalKernelTime: int
+    TotalPageFaultCount: int
+    TotalProcesses: int
+    ActiveProcesses: int
+    TotalTerminatedProcesses: int
+
+@type_check_only
+class JobObjectBasicLimitInformation(TypedDict):
+    PerProcessUserTimeLimit: int
+    PerJobUserTimeLimit: int
+    LimitFlags: int
+    MinimumWorkingSetSize: int
+    MaximumWorkingSetSize: int
+    ActiveProcessLimit: int
+    Affinity: int
+    PriorityClass: int
+    SchedulingClass: int
+
+@type_check_only
+class InformationJob(TypedDict, total=False):
+    TotalUserTime: int
+    TotalKernelTime: int
+    ThisPeriodTotalUserTime: int
+    ThisPeriodTotalKernelTime: int
+    TotalPageFaultCount: int
+    TotalProcesses: int
+    ActiveProcesses: int
+    TotalTerminatedProcesses: int
+    PerProcessUserTimeLimit: int
+    PerJobUserTimeLimit: int
+    LimitFlags: int
+    MinimumWorkingSetSize: int
+    MaximumWorkingSetSize: int
+    ActiveProcessLimit: int
+    Affinity: int
+    PriorityClass: int
+    SchedulingClass: int
+    BasicInfo: JobObjectBasicAccountingInformation
+    IoInfo: IOInfo
+    BasicLimitInformation: JobObjectBasicLimitInformation
+    ProcessMemoryLimit: int
+    JobMemoryLimit: int
+    PeakProcessMemoryUsed: int
+    PeakJobMemoryUsed: int
+    EndOfJobTimeAction: int
+    UIRestrictionsClass: int
+    MemberLevel: int
+
+@type_check_only
+class ProfileInfo(TypedDict):
+    UserName: str
+    Flags: NotRequired[int]
+    ProfilePath: NotRequired[str | None]
+    DefaultPath: NotRequired[str | None]
+    ServerName: NotRequired[str | None]
+    PolicyPath: NotRequired[str | None]
+    Profile: NotRequired[int | PyHANDLE | None]
+
 @final
 class PyConsoleScreenBuffer:
     def __new__(self, Handle) -> Self: ...
@@ -918,6 +990,12 @@ class PyConsoleScreenBuffer:
     def GetNumberOfConsoleInputEvents(self): ...
     def Close(self) -> None: ...
     def Detach(self) -> int: ...
+
+@type_check_only
+class ConsoleSelectionInfo(TypedDict):
+    Flags: int
+    SelectionAnchor: PyCOORD
+    Selection: PySMALL_RECT
 
 @disjoint_base
 class PyCredHandle:
@@ -2679,21 +2757,22 @@ class SERVICE_STATUS:
 class TRACKMOUSEEVENT: ...
 class WIN32_FIND_DATA: ...
 
-class connection:
-    def setautocommit(self, c, /) -> None: ...
+class odbcconn:
+    error: Incomplete
+    def setautocommit(self, c: bool | Literal[0, 1], /) -> None: ...
     def commit(self) -> None: ...
     def rollback(self) -> None: ...
-    def cursor(self) -> None: ...
+    def cursor(self) -> odbccur: ...
     def close(self) -> None: ...
 
-class cursor:
-    def close(self) -> None: ...
-    def execute(self, sql: str, arg, /): ...
-    def fetchone(self): ...
-    def fetchmany(self) -> list[Incomplete]: ...
-    def fetchall(self) -> list[Incomplete]: ...
-    def setinputsizes(self) -> None: ...
-    def setoutputsize(self) -> None: ...
+class odbccur:
+    def close(self, *args: Unused) -> None: ...
+    def execute(self, sql: str, arg, /) -> int | None: ...
+    def fetchone(self, *args: Unused) -> tuple[Incomplete, ...] | None: ...
+    def fetchmany(self, rows: int = 1) -> list[tuple[Incomplete, ...]]: ...
+    def fetchall(self, *args: Unused) -> list[tuple[Incomplete, ...]]: ...
+    def setinputsizes(self, *args: Unused) -> None: ...
+    def setoutputsize(self, size: int) -> None: ...
 
 class COMPONENT:
     @property
