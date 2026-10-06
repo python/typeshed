@@ -11,14 +11,14 @@ repos:
         args: [--fix=lf]
       - id: check-case-conflict
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0494aa7fa1314e98913a41227d8f0a515b2c1049 # frozen: 0.38.2
+    rev: 4f85d46a92dc17713078e5de73f8a13190edf6fc  # frozen: 0.38.2
     hooks:
       - id: check-github-workflows
       - id: check-renovate
         additional_dependencies: ["json5==0.15.0"]
   - repo: https://github.com/astral-sh/ruff-pre-commit
     # The Ruff version must match requirements-tests.txt.
-    rev: 2eeb5678de71a00c0902cbda7105d328432f72cb # frozen: v0.16.8
+    rev: f12be1ebaa5351c1fc76472de98db2c3446c8253  # frozen: v0.16.10
     hooks:
       - id: ruff
         name: Run ruff on stubs, tests and scripts
@@ -34,11 +34,11 @@ repos:
           - "--unsafe-fixes"
         files: '.*test_cases/.+\.py$'
   - repo: https://github.com/psf/black-pre-commit-mirror
-    rev: 4160603246a6b365d4a2af661c6d71b0a0f50478 # frozen: 26.5.1
+    rev: 96ae3e5802f3fe2d551e703e18f0a367d1a81ac2  # frozen: 26.10.0
     hooks:
       - id: black
   - repo: https://github.com/pycqa/flake8
-    rev: 7eccf20b526fe4f2230bf9afeeef2fc9f97faf8d # frozen: 7.4.1
+    rev: cfbbfdeb2391c14a37e101e92a77f54f329e1726  # frozen: 7.4.1
     hooks:
       - id: flake8
         language: python
