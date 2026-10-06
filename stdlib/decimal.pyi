@@ -191,8 +191,8 @@ class Context:
     Emax: int
     capitals: int
     clamp: int
-    traps: dict[_TrapType, bool]
-    flags: dict[_TrapType, bool]
+    traps: dict[_TrapType, bool]  # type: ignore[type-var]
+    flags: dict[_TrapType, bool]  # type: ignore[type-var]
     def __init__(
         self,
         prec: int | None = None,
@@ -201,8 +201,8 @@ class Context:
         Emax: int | None = None,
         capitals: int | None = None,
         clamp: int | None = None,
-        flags: dict[_TrapType, bool] | Container[_TrapType] | None = None,
-        traps: dict[_TrapType, bool] | Container[_TrapType] | None = None,
+        flags: dict[_TrapType, bool] | Container[_TrapType] | None = None,  # type: ignore[type-var]
+        traps: dict[_TrapType, bool] | Container[_TrapType] | None = None,  # type: ignore[type-var]
     ) -> None: ...
     def __reduce__(self) -> tuple[type[Self], tuple[Any, ...]]: ...
     def clear_flags(self) -> None: ...
