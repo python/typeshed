@@ -1,3 +1,4 @@
+from collections.abc import Set as AbstractSet
 from typing_extensions import Literal, assert_type
 
 
@@ -55,3 +56,14 @@ def test_frozenset_interface(s: frozenset[Literal["foo", "bar"]], y: frozenset[s
     assert_type(s & y, frozenset[Literal["foo", "bar"]])
     assert_type(s | y, frozenset[str])
     assert_type(s ^ y, frozenset[str])
+
+
+def test_xor_with_abstract_set(
+    s: set[Literal["foo", "bar"]], frozen: frozenset[Literal["foo", "bar"]], other: AbstractSet[str]
+) -> None:
+    s.__xor__(other)  # type: ignore
+    frozen.__xor__(other)  # type: ignore
+    assert_type(other.__rxor__(s), AbstractSet[str])
+    assert_type(other.__rxor__(frozen), AbstractSet[str])
+    assert_type(s ^ other, AbstractSet[str])
+    assert_type(frozen ^ other, AbstractSet[str])
