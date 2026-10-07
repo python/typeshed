@@ -115,7 +115,7 @@ select = [
     "ellipsis-in-non-empty-class-body", # Non-empty class bodies must not contain `...`
     "argument-default-in-stub", # Only simple default values allowed for arguments
     "assignment-default-in-stub", # Only simple default values allowed for assignments
-    "duplicate-union-member", # Duplicate union member `{}`
+    "duplicate-union-member",
     "unused-private-type-var", # Private `{type_var_like_kind}` `{type_var_like_name}` is never used
     "custom-type-var-for-self", # Methods like `{method_name}` should return `Self` instead of a custom `TypeVar`
     "quoted-annotation-in-stub", # Quoted annotations should not be included in stubs
@@ -149,20 +149,20 @@ select = [
     "if-expr-with-twisted-arms", # Use `{expr_else} if {expr_else} else {expr_body}` instead of `{expr_body} if not {expr_else} else {expr_else}`
     "expr-and-not-expr", # Use `False` instead of `{name} and not {name}`
     "expr-or-not-expr", # Use `True` instead of `{name} or not {name}`
-    "expr-or-true", # Use `{expr}` instead of `{replaced}`
-    "expr-and-false", # Use `{expr}` instead of `{replaced}`
+    "expr-or-true",
+    "expr-and-false",
     "yoda-conditions",
-    "if-else-block-instead-of-dict-get", # Use `{contents}` instead of an if block
+    "if-else-block-instead-of-dict-get",
     "split-static-string", # Consider using a list literal instead of `str.{}`
-    "dict-get-with-none-default", # Use `{expected}` instead of `{actual}` (dict-get-with-none-default)
-    "zip-dict-keys-and-values", # Use `{expected}` instead of `{actual}` (zip-dict-keys-and-values)
+    "dict-get-with-none-default",
+    "zip-dict-keys-and-values",
     # Don't include TC rules that create a TYPE_CHECKING block or stringifies annotations
     "runtime-import-in-type-checking-block", # Move import `{qualified_name}` out of type-checking block. Import is used for more than type hinting.
-    "empty-type-checking-block", # Found empty type-checking block
+    "empty-type-checking-block",
     "quoted-type-alias",
     "runtime-string-union", # Invalid string member in `X | Y`-style union type
     # Used for lint.flake8-import-conventions.aliases
-    "banned-api", # `{name}` is banned: {message}
+    "banned-api",
 ]
 extend-safe-fixes = [
     "outdated-version-block", # Remove unnecessary `sys.version_info` blocks
@@ -253,7 +253,7 @@ ignore = [
     # Leave the docstrings as-is, matching source
     "D", # pydocstyle
     # See comment on black's force-exclude config above
-    "line-too-long", # Line too long
+    "line-too-long",
     "outdated-version-block", # Remove unnecessary `sys.version_info` blocks
 ]
 
