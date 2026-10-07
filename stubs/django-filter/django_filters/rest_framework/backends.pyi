@@ -1,6 +1,7 @@
 from typing import Any, TypeAlias
+from typing_extensions import TypeVar
 
-from django.db.models import QuerySet
+from django.db.models import Model, QuerySet
 from django.http import HttpRequest
 from django_filters.filterset import FilterSetMetaclass
 
@@ -8,6 +9,9 @@ from . import filterset
 
 # APIView placeholder - djangorestframework is optional, so we use Any for compatibility
 _APIView: TypeAlias = Any
+
+_Model = TypeVar("_Model", bound=Model)
+_Row = TypeVar("_Row", default=_Model)
 
 class DjangoFilterBackend:
     filterset_base: FilterSetMetaclass = ...
@@ -25,5 +29,7 @@ class DjangoFilterBackend:
     def get_filterset_kwargs(self, request: HttpRequest, queryset: QuerySet[Any], view: _APIView) -> dict[str, Any]: ...
 
     # Filters any model type
-    def filter_queryset(self, request: HttpRequest, queryset: QuerySet[Any], view: _APIView) -> QuerySet[Any]: ...
+    def filter_queryset(
+        self, request: HttpRequest, queryset: QuerySet[_Model, _Row], view: _APIView
+    ) -> QuerySet[_Model, _Row]: ...
     def to_html(self, request: HttpRequest, queryset: QuerySet[Any], view: _APIView) -> str: ...  # Renders form for any model
