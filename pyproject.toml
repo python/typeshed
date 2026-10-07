@@ -159,7 +159,7 @@ select = [
     # Don't include TC rules that create a TYPE_CHECKING block or stringifies annotations
     "runtime-import-in-type-checking-block", # Move import `{qualified_name}` out of type-checking block. Import is used for more than type hinting.
     "empty-type-checking-block", # Found empty type-checking block
-    # "TC008", # TODO: Enable when out of preview
+    "quoted-type-alias",
     "runtime-string-union", # Invalid string member in `X | Y`-style union type
     # Used for lint.flake8-import-conventions.aliases
     "banned-api", # `{name}` is banned: {message}
