@@ -369,7 +369,7 @@ project's tracker to fix their documentation.
 ### Byte Types
 
 [PEP 688](https://www.python.org/dev/peps/pep-0688/) removes
-th implicit promotion from `bytearray` and `memoryview` to `bytes`.
+the implicit promotion from `bytearray` and `memoryview` to `bytes`.
 Typeshed stubs should be written assuming that these promotions
 do not happen, so a parameter that accepts either `bytes` or
 `bytearray` should be typed as `bytes | bytearray`.
