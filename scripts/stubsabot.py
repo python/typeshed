@@ -361,7 +361,7 @@ async def get_host_repo_info(session: aiohttp.ClientSession, stub_info: StubMeta
     # so no need to repeat all of them here
     split_url = urllib.parse.urlsplit(stub_info.upstream_repository)
     host = split_url.netloc.removesuffix(".com")
-    if host not in ("github", "gitlab"):
+    if host not in {"github", "gitlab"}:
         return None
     url_path = split_url.path.strip("/")
     assert len(Path(url_path).parts) == 2

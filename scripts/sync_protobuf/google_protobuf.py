@@ -33,7 +33,7 @@ PROTO_FILE_PATTERN = re.compile(r'"//:(.*)_proto"')
 
 def extract_python_version(file_path: Path) -> str:
     """Extract the Python version from https://github.com/protocolbuffers/protobuf/blob/main/version.json ."""
-    with file_path.open() as file:
+    with file_path.open(encoding="utf-8") as file:
         data: dict[str, Any] = json.load(file)
     # The root key will be the protobuf source code version
     version = next(iter(data.values()))["languages"]["python"]
