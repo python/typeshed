@@ -368,10 +368,8 @@ project's tracker to fix their documentation.
 
 ### Byte Types
 
-Some type checkers implicitly promote the `bytearray` and
-`memoryview` types to `bytes`.
 [PEP 688](https://www.python.org/dev/peps/pep-0688/) removes
-this implicit promotion.
+th implicit promotion from `bytearray` and `memoryview` to `bytes`.
 Typeshed stubs should be written assuming that these promotions
 do not happen, so a parameter that accepts either `bytes` or
 `bytearray` should be typed as `bytes | bytearray`.
