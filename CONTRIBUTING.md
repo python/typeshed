@@ -424,7 +424,7 @@ the latest mypy (`pip install -r requirements-tests.txt`) before running the scr
 
 Unless listed here, all type system features that have been added to the
 [Python typing specification](https://typing.python.org/en/latest/spec/)
-can be used:
+can be used. The following features are *not* supported:
 
 - [PEP 695](https://peps.python.org/pep-0695/) type parameter syntax.
   (See [issue #10869](https://github.com/python/typeshed/issues/10869).) Use
