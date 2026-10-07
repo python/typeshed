@@ -37,7 +37,7 @@ from types import CellType, CodeType, EllipsisType, GenericAlias, NotImplemented
 
 # mypy crashes if any of {ByteString, Sequence, MutableSequence, Mapping, MutableMapping}
 # are imported from collections.abc in builtins.pyi
-from typing import (  # noqa: Y022,UP035
+from typing import (  # noqa: Y022  # ruff: ignore[deprecated-import]
     IO,
     Any,
     BinaryIO,
@@ -65,7 +65,8 @@ from typing import (  # noqa: Y022,UP035
 )
 
 # we can't import `Literal` from typing or mypy crashes: see #11247
-from typing_extensions import Literal, LiteralString, Self, TypeIs, TypeVarTuple, deprecated, disjoint_base  # noqa: Y023, UP035
+# ruff: ignore[deprecated-import]
+from typing_extensions import Literal, LiteralString, Self, TypeIs, TypeVarTuple, deprecated, disjoint_base  # noqa: Y023
 
 if sys.version_info >= (3, 14):
     from _typeshed import AnnotateFunc
@@ -91,11 +92,11 @@ _P = ParamSpec("_P")
 
 # Type variables for slice
 _StartT_co = TypeVar("_StartT_co", covariant=True, default=Any)  # slice -> slice[Any, Any, Any]
-_StopT_co = TypeVar("_StopT_co", covariant=True, default=_StartT_co)  #  slice[A] -> slice[A, A, A]
+_StopT_co = TypeVar("_StopT_co", covariant=True, default=_StartT_co)  # slice[A] -> slice[A, A, A]
 # NOTE: step could differ from start and stop, (e.g. datetime/timedelta)l
 #   the default (start|stop) is chosen to cater to the most common case of int/index slices.
 # FIXME: https://github.com/python/typing/issues/213 (replace step=start|stop with step=start&stop)
-_StepT_co = TypeVar("_StepT_co", covariant=True, default=_StartT_co | _StopT_co)  #  slice[A,B] -> slice[A, B, A|B]
+_StepT_co = TypeVar("_StepT_co", covariant=True, default=_StartT_co | _StopT_co)  # slice[A,B] -> slice[A, B, A|B]
 
 @disjoint_base
 class object:
@@ -1005,7 +1006,7 @@ class memoryview(Sequence[_I]):
     def __enter__(self) -> Self: ...
     def __exit__(
         self,
-        exc_type: type[BaseException] | None,  # noqa: PYI036 # This is the module declaring BaseException
+        exc_type: type[BaseException] | None,  # ruff: ignore[bad-exit-annotation] # This is the module declaring BaseException
         exc_val: BaseException | None,
         exc_tb: TracebackType | None,
         /,
