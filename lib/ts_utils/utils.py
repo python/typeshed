@@ -266,8 +266,8 @@ else:
             TemporaryFileWrapper.close(self)  # pyright: ignore[reportUnknownMemberType]
             Path(self.name).unlink()
 
-        # We ignore the Ruff error here because this call is part of the helper that callers should use
-        # instead of `tempfile.NamedTemporaryFile`, which is banned by `banned-api`.
+        # We ignore the `banned-api` Ruff error here because this call is part of the helper that callers should use
+        # instead of `tempfile.NamedTemporaryFile`.
         #
         temp = tempfile.NamedTemporaryFile(mode, delete=False)  # ruff: ignore[open-file-with-context-handler, banned-api]
         temp.close = MethodType(close, temp)  # type: ignore[method-assign]

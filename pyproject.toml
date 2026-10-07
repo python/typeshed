@@ -205,12 +205,13 @@ ignore = [
     "missing-todo-link", # Missing issue link for this TODO
     # Mostly from scripts and tests, it's ok to have messages passed directly to exceptions
     "raise-vanilla-args", # Avoid specifying long messages outside the exception class
+    # Stubs need private imports to describe runtime APIs; our scripts also import local private modules such as `_utils`.
+    "import-private-name",
     ###
     # False-positives, but already checked by type-checkers
     ###
     # Ruff doesn't support multi-file analysis yet: https://github.com/astral-sh/ruff/issues/5295
     "implicit-optional", # PEP 484 prohibits implicit `Optional`
-    "import-private-name", # Private name import from external module
 ]
 
 [tool.ruff.lint.per-file-ignores]
@@ -240,7 +241,9 @@ ignore = [
     "single-string-slots", # Class `__slots__` should be a non-string iterable
     # Names in stubs should match implementation
     "bad-staticmethod-argument", # First argument of a static method should not be named `{argument_name}`
+    # Runtime classes may redefine inherited slots, which their stubs need to preserve.
     "redefined-slots-in-subclass",
+    # String literals in stubs must sometimes match runtime values containing confusable Unicode.
     "ambiguous-unicode-character-string",
 ]
 "lib/ts_utils/**" = [
