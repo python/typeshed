@@ -43,6 +43,26 @@ builtins.super.__self__
 builtins.super.__self_class__
 builtins.super.__thisclass__
 
+# These reverse operator implementations use generated slot wrappers
+# returning `NotImplemented`, which is why they aren't defined in typeshed.
+builtins.bytearray.__rmod__
+builtins.bytes.__rmod__
+builtins.frozenset.__rand__
+builtins.frozenset.__ror__
+builtins.frozenset.__rsub__
+builtins.frozenset.__rxor__
+builtins.set.__rand__
+builtins.set.__ror__
+builtins.set.__rsub__
+builtins.set.__rxor__
+builtins.str.__rmod__
+# The following reverse operators are also missing from the Python
+# implementation.
+datetime.timedelta.__rdivmod__
+datetime.timedelta.__rfloordiv__
+datetime.timedelta.__rmod__
+datetime.timedelta.__rtruediv__
+
 # Undocumented implementation details
 email.contentmanager.get_and_fixup_unknown_message_content
 email.contentmanager.get_message_content
