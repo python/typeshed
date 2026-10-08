@@ -43,6 +43,15 @@ builtins.super.__self__
 builtins.super.__self_class__
 builtins.super.__thisclass__
 
+# The following reverse operators are present in the C implementation
+# (probably incidental), but missing from the Python implementation.
+datetime.date.__rsub__
+datetime.datetime.__rsub__
+datetime.timedelta.__rdivmod__
+datetime.timedelta.__rfloordiv__
+datetime.timedelta.__rmod__
+datetime.timedelta.__rtruediv__
+
 # Undocumented implementation details
 email.contentmanager.get_and_fixup_unknown_message_content
 email.contentmanager.get_message_content
