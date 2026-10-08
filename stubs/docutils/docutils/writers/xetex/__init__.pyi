@@ -17,7 +17,7 @@ class Babel(latex2e.Babel):
     language_code: str
     reporter: Reporter
     language: str
-    warn_msg: str  # type: ignore[misc]
+    warn_msg: str
     quote_index: int
     quotes: tuple[str, ...]
     literal_double_quote: str
@@ -25,6 +25,6 @@ class Babel(latex2e.Babel):
     def __init__(self, language_code: str, reporter: Reporter) -> None: ...
 
 class XeLaTeXTranslator(latex2e.LaTeXTranslator):
-    is_xetex: bool  # type: ignore[misc]
+    is_xetex: bool
     def __init__(self, document: nodes.document) -> None: ...
     def to_latex_length(self, length_str: str, node: nodes.Node | None = None) -> str: ...

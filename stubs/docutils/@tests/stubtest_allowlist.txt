@@ -1,25 +1,61 @@
-docutils.nodes.Element.__iter__ # doesn't exist at runtime, but the class is iterable due to __getitem__
-docutils.nodes.Element.tagname  # class variable is overridden in __init__ method
-docutils.nodes.NodeVisitor.depart_\w+ # Methods are discovered dynamically on commonly-used subclasses
-docutils.nodes.NodeVisitor.visit_\w+  # Methods are discovered dynamically on commonly-used subclasses
-docutils.nodes.NodeVisitor.__init__   # Argument "document" should be positional-only, but subclasses are not
+# This class variable is overridden in __init__.
+docutils.nodes.Element.tagname
+# The `document` parameter should be positional-only, but there are subclasses where it is not.
+docutils.nodes.NodeVisitor.__init__
 
-# these methods take a rawsource parameter that has been deprecated and is completely ignored, so we omit it from the stub
+# This constructor technically still takes a `rawsource` parameter;
+# however, it is deprecated on Text nodes. Passing 'None' prints a warning, and passing
+# anything else will raise.
+# It is omitted for simplicity (e.g. not requiring matching overloads in child classes).
 docutils.nodes.Text.__new__
-docutils.parsers.rst.directives.admonitions.BaseAdmonition.node_class  # must be overridden by base classes (pseudo-abstract)
-docutils.statemachine.State.nested_sm  # is initialised in __init__
-docutils.statemachine.State.nested_sm_kwargs  # is initialised in __init__
-docutils.statemachine.ViewList.__iter__ # doesn't exist at runtime, but the class is iterable due to __getitem__
-docutils.transforms.Transform.apply # method apply is not implemented
-docutils.transforms.Transform.__getattr__
-docutils.TransformSpec.unknown_reference_resolvers
-docutils.writers.latex2e.PreambleCmds... contents
-docutils.writers.latex2e.PreambleCmds.inline role \w+  # attribute names with spaces, set with setattr() from docutils.sty
 
-# Files that don't exist at runtime of stubtests, raises ImportError:
+# This attribute is required to be overridden by base classes (pseudo-abstractmethod).
+docutils.parsers.rst.directives.admonitions.BaseAdmonition.node_class
+
+# These attributes are initialized to None in the classs-body, then initialized in __init__.
+# It is never None in practice.
+docutils.statemachine.State.nested_sm
+docutils.statemachine.State.nested_sm_kwargs
+
+# These attribute names contain spaces and are set using setattr from docutils.sty.
+docutils.writers.latex2e.PreambleCmds... contents
+docutils.writers.latex2e.PreambleCmds.inline role \w+
+
+# These modules have optional dependencies that likely are not available at runtime.
 docutils.parsers.commonmark_wrapper
 docutils.parsers.recommonmark_wrapper
-docutils.writers.odf_odt.pygmentsformatter # import `pygments` third-party library
 
-# `TYPE_CHECKING` variable is for internal use:
+# Imports `pygments`; using types-Pygments caused ts_utils to have a recuesion error.
+docutils.writers.odf_odt.pygmentsformatter
+
+# Docutils defines `TYPE_CHECKING` instead of importing it.
 docutils.*\.TYPE_CHECKING
+
+# stubtest infers `dict[Any, Any]` for the optional keyword arguments.
+# That obviously fails to match `_OptionKwargs`.
+docutils\..*\.settings_spec
+
+# Not generic at runtime, but it is runtime subscriptable via `__class_getitem__()`.
+# Take advantage by treating it like a proper generic.
+docutils.languages.LanguageImporter.__class_getitem__
+
+# These are functions defined in the class bodies without `self`.
+# They are only meant to be accessed via the class (e.g. in `option_spec`);
+# When docutils drops 3.9 support, they should theoretically be real staticmethods.
+docutils.parsers.rst.directives.images.Figure.align
+docutils.parsers.rst.directives.images.Figure.figwidth_value
+docutils.parsers.rst.directives.images.Image.align
+docutils.parsers.rst.directives.images.Image.loading
+docutils.parsers.rst.directives.parts.Contents.backlinks
+
+# These are aliased to `invalid_input(), with defaulted parameters, at runtime.
+# Subclasses must explicitly re-enable. This causes unavoidable signature conflicts.
+# The stub keeps the expected transition signatures so that subclasses may override without errors.
+docutils.parsers.rst.states.SpecializedBody.(anonymous|bullet|doctest|enumerator|explicit_markup|field_marker|grid_table_top|indent|line|line_block|option_marker|simple_table_top|text)
+docutils.parsers.rst.states.SpecializedText.(blank|indent|text|underline)
+
+# This is mutated at runtime. It is `None` at class level, and
+# once `Reader.read()` is called, it is no longer None.
+# `Reader.document` has no real good reason to be accessed before calling `read`, and
+# annotating as "| None" is an unnecessary nuissance.
+docutils.readers.standalone.Reader.document

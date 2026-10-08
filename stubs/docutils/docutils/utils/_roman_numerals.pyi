@@ -1,7 +1,7 @@
 from typing import Final, final
 from typing_extensions import Self
 
-__all__ = ("MAX", "MIN", "InvalidRomanNumeralError", "OutOfRangeError", "RomanNumeral")
+__all__: Final = ("MAX", "MIN", "InvalidRomanNumeralError", "OutOfRangeError", "RomanNumeral")
 
 MIN: Final = 1
 MAX: Final = 4_999
@@ -15,7 +15,7 @@ class InvalidRomanNumeralError(ValueError):
 
 @final
 class RomanNumeral:
-    __slots__ = ("_value",)
+    __slots__: Final = ("_value",)
     def __init__(self, value: int, /) -> None: ...
     def __int__(self) -> int: ...
     def __eq__(self, other: object) -> bool: ...

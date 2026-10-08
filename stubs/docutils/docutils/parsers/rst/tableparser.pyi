@@ -12,7 +12,7 @@ __docformat__: Final = "reStructuredText"
 
 class TableMarkupError(DataError):
     offset: int
-    def __init__(self, *args, **kwargs) -> None: ...
+    def __init__(self, *args: object, offset: int = 0) -> None: ...
 
 class TableParser:
     head_body_separator_pat: ClassVar[Pattern[str] | None]

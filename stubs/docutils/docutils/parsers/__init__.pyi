@@ -1,4 +1,4 @@
-from typing import ClassVar, Final
+from typing import ClassVar, Final, Literal
 
 from docutils import Component
 from docutils.nodes import _Document
@@ -6,10 +6,12 @@ from docutils.nodes import _Document
 __docformat__: Final = "reStructuredText"
 
 class Parser(Component):
-    component_type: ClassVar[str]
+    component_type: ClassVar[Literal["parser"]]
     config_section: ClassVar[str]
-    inputstring: str  # defined after call to setup_parse()
-    document: _Document  # defined after call to setup_parse()
+    # `input_string` is defined after calling `setup_parse()`.
+    inputstring: str
+    # `document` is defined after calling `setup_parse()`.
+    document: _Document
     def parse(self, inputstring: str, document: _Document) -> None: ...
     def setup_parse(self, inputstring: str, document: _Document) -> None: ...
     def finish_parse(self) -> None: ...
