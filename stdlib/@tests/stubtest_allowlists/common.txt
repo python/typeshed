@@ -46,6 +46,7 @@ builtins.super.__thisclass__
 # The following reverse operators are present in the C implementation
 # (probably incidental), but missing from the Python implementation.
 datetime.date.__rsub__
+datetime.datetime.__rsub__
 datetime.timedelta.__rdivmod__
 datetime.timedelta.__rfloordiv__
 datetime.timedelta.__rmod__
