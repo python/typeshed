@@ -1,7 +1,7 @@
 # Since this module defines "overload" it is not recognized by Ruff as typing.overload
 # TODO: The collections import is required, otherwise mypy crashes.
 # https://github.com/python/mypy/issues/16744
-import collections  # noqa: F401  # pyright: ignore[reportUnusedImport]
+import collections  # ruff: ignore[unused-import]  # pyright: ignore[reportUnusedImport]
 import sys
 import typing_extensions
 from _typeshed import IdentityFunction, ReadableBuffer, SupportsGetItem, SupportsGetItemViewable, SupportsKeysAndGetItem, Viewable
@@ -237,7 +237,6 @@ class _SpecialForm(_Final):
     def __ror__(self, other: Any) -> _SpecialForm: ...
 
 Union: _SpecialForm
-Protocol: _SpecialForm
 Callable: _SpecialForm
 Type: _SpecialForm
 NoReturn: _SpecialForm
@@ -471,6 +470,11 @@ class _Generic:
 
 Generic: type[_Generic]
 
+@type_check_only
+class _Protocol: ...
+
+Protocol: type[_Protocol]
+
 class _ProtocolMeta(ABCMeta):
     if sys.version_info >= (3, 12):
         def __init__(cls, *args: Any, **kwargs: Any) -> None: ...
@@ -602,10 +606,8 @@ class Awaitable(Protocol[_T_co]):
 _SendT_nd_contra = TypeVar("_SendT_nd_contra", contravariant=True)
 _ReturnT_nd_co = TypeVar("_ReturnT_nd_co", covariant=True)
 
-class Coroutine(Awaitable[_ReturnT_nd_co], Generic[_YieldT_co, _SendT_nd_contra, _ReturnT_nd_co]):
-    __name__: str
-    __qualname__: str
-
+@runtime_checkable
+class Coroutine(Awaitable[_ReturnT_nd_co], Protocol[_YieldT_co, _SendT_nd_contra, _ReturnT_nd_co]):
     @abstractmethod
     def send(self, value: _SendT_nd_contra, /) -> _YieldT_co: ...
 
@@ -1054,11 +1056,14 @@ class NamedTuple(tuple[Any, ...]):
     if sys.version_info >= (3, 12):
         __orig_bases__: ClassVar[tuple[Any, ...]]
 
-    @overload
-    def __init__(self, typename: str, fields: Iterable[tuple[str, Any]], /) -> None: ...
-    @overload
-    @deprecated("Creating a typing.NamedTuple using keyword arguments is deprecated and support will be removed in Python 3.15")
-    def __init__(self, typename: str, fields: None = None, /, **kwargs: Any) -> None: ...
+    if sys.version_info >= (3, 15):
+        def __init__(self, typename: str, fields: Iterable[tuple[str, Any]], /) -> None: ...
+    else:
+        @overload
+        def __init__(self, typename: str, fields: Iterable[tuple[str, Any]], /) -> None: ...
+        @overload
+        @deprecated("Creating a typing.NamedTuple using keyword arguments is deprecated; support removed in Python 3.15")
+        def __init__(self, typename: str, fields: None = None, /, **kwargs: Any) -> None: ...
 
     @final
     @classmethod
@@ -1161,7 +1166,15 @@ if sys.version_info >= (3, 12):
 
     @final
     class TypeAliasType:
-        def __new__(cls, name: str, value: Any, *, type_params: tuple[_TypeParameter, ...] = ()) -> Self: ...
+        if sys.version_info >= (3, 15):
+            def __new__(
+                cls, name: str, value: Any, *, type_params: tuple[_TypeParameter, ...] = (), qualname: str | None = None
+            ) -> Self: ...
+            @property
+            def __qualname__(self) -> str: ...
+        else:
+            def __new__(cls, name: str, value: Any, *, type_params: tuple[_TypeParameter, ...] = ()) -> Self: ...
+
         @property
         def __value__(self) -> Any: ...  # AnnotationForm
         @property
@@ -1170,9 +1183,6 @@ if sys.version_info >= (3, 12):
         def __parameters__(self) -> tuple[Any, ...]: ...  # AnnotationForm
         @property
         def __name__(self) -> str: ...
-        if sys.version_info >= (3, 15):
-            @property
-            def __qualname__(self) -> str: ...
         # It's writable on types, but not on instances of TypeAliasType.
         @property
         def __module__(self) -> str | None: ...  # type: ignore[override]
