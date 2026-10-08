@@ -1,5 +1,4 @@
 import sys
-import types
 from _typeshed import (
     OpenBinaryMode,
     OpenBinaryModeReading,
@@ -14,7 +13,7 @@ from _typeshed import (
 from collections.abc import Callable, Generator, Iterator, Sequence
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
 from os import PathLike, stat_result
-from types import GenericAlias, TracebackType
+from types import GenericAlias, ModuleType, TracebackType
 from typing import IO, Any, BinaryIO, ClassVar, Literal, TypeVar, overload
 from typing_extensions import Never, Self, deprecated
 
@@ -56,7 +55,7 @@ class PurePath(PathLike[str]):
         else:
             __slots__ = ("_drv", "_root", "_parts", "_str", "_hash", "_pparts", "_cached_cparts")
     if sys.version_info >= (3, 13):
-        parser: ClassVar[types.ModuleType]
+        parser: ClassVar[ModuleType]
         def full_match(self, pattern: StrPath, *, case_sensitive: bool | None = None) -> bool: ...
 
     @property
@@ -100,7 +99,7 @@ class PurePath(PathLike[str]):
     if sys.version_info < (3, 15):
         if sys.version_info >= (3, 13):
             @deprecated(
-                "Deprecated since Python 3.13; will be removed in Python 3.15. "
+                "Deprecated since Python 3.13; removed in Python 3.15. "
                 "Use `os.path.isreserved()` to detect reserved paths on Windows."
             )
             def is_reserved(self) -> bool: ...
