@@ -1,0 +1,13 @@
+from _typeshed import Incomplete
+
+from ..Qt import QtWidgets
+
+__all__ = ["DataTreeWidget"]
+
+class DataTreeWidget(QtWidgets.QTreeWidget):
+    def __init__(self, parent=None, data=None) -> None: ...
+    widgets: Incomplete
+    nodes: Incomplete
+    def setData(self, data, hideRoot: bool = False) -> None: ...
+    def buildTree(self, data, parent, name: str = "", hideRoot: bool = False, path=()) -> None: ...
+    def parse(self, data): ...
