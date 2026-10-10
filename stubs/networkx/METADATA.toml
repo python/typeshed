@@ -1,6 +1,6 @@
-version = "3.6.1"
-upstream-repository = "https://github.com/networkx/networkx"
 # Requires a version of NumPy with `numpy.typing.NDArray`.
+version = "3.7"
+upstream-repository = "https://github.com/networkx/networkx"
 optional-dependencies = ["numpy>=1.21"]
 
 [tool.stubtest]

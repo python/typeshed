@@ -8,5 +8,5 @@ __all__ = ["rich_club_coefficient"]
 
 @_dispatchable
 def rich_club_coefficient(
-    G: Graph[_Node], normalized: bool = True, Q: float = 100, seed: int | RandomState | None = None
+    G: Graph[_Node], normalized: bool = True, Q: float = 100, seed: int | RandomState | None = None, *, n_samples: int = 1
 ) -> dict[Incomplete, Incomplete]: ...
