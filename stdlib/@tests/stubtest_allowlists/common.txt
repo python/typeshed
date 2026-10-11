@@ -34,7 +34,6 @@ _frozen_importlib_external.WindowsRegistryFinder.REGISTRY_KEY
 _frozen_importlib_external.WindowsRegistryFinder.REGISTRY_KEY_DEBUG
 
 builtins.OSError.characters_written  # GetSetDescriptor that always raises AttributeError
-builtins.ellipsis  # does not exist at runtime, see https://github.com/python/typeshed/issues/7580
 builtins.float.__getformat__  # Internal method for CPython test suite
 
 # These super() dunders don't seem to be particularly useful,
@@ -42,6 +41,15 @@ builtins.float.__getformat__  # Internal method for CPython test suite
 builtins.super.__self__
 builtins.super.__self_class__
 builtins.super.__thisclass__
+
+# The following reverse operators are present in the C implementation
+# (probably incidental), but missing from the Python implementation.
+datetime.date.__rsub__
+datetime.datetime.__rsub__
+datetime.timedelta.__rdivmod__
+datetime.timedelta.__rfloordiv__
+datetime.timedelta.__rmod__
+datetime.timedelta.__rtruediv__
 
 # Undocumented implementation details
 email.contentmanager.get_and_fixup_unknown_message_content
@@ -396,7 +404,6 @@ typing.type_check_only  # typing decorator that is not available at runtime
 # Details of runtime definition don't need to be in stubs
 typing._Final
 typing._Final.__init_subclass__
-typing\.Protocol
 typing(_extensions)?\._TypedDict
 typing(_extensions)?\.Any.*
 typing(_extensions)?\.TypedDict
