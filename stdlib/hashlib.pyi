@@ -20,7 +20,7 @@ from _hashlib import (
 )
 from _typeshed import ReadableBuffer
 from collections.abc import Callable, Set as AbstractSet
-from typing import Protocol, type_check_only
+from typing import Protocol, TypeVar, overload, type_check_only
 
 if sys.version_info >= (3, 15):
     __all__ = (
@@ -94,6 +94,8 @@ def new(name: str, data: ReadableBuffer = b"", *, usedforsecurity: bool = True) 
 algorithms_guaranteed: AbstractSet[str]
 algorithms_available: AbstractSet[str]
 
+_T = TypeVar("_T", bound=_HashObject)
+
 if sys.version_info >= (3, 11):
     @type_check_only
     class _BytesIOLike(Protocol):
@@ -104,9 +106,10 @@ if sys.version_info >= (3, 11):
         def readinto(self, buf: bytearray, /) -> int: ...
         def readable(self) -> bool: ...
 
-    def file_digest(
-        fileobj: _BytesIOLike | _FileDigestFileObj, digest: str | Callable[[], _HashObject], /, *, _bufsize: int = 262144
-    ) -> HASH: ...
+    @overload
+    def file_digest(fileobj: _BytesIOLike | _FileDigestFileObj, digest: str, /, *, _bufsize: int = 262144) -> HASH: ...
+    @overload
+    def file_digest(fileobj: _BytesIOLike | _FileDigestFileObj, digest: Callable[[], _T], /, *, _bufsize: int = 262144) -> _T: ...
 
 # Legacy typing-only alias
 _Hash = HASH
