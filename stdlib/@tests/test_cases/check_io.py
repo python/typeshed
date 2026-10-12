@@ -23,9 +23,16 @@ class Index:
         return 1
 
 
-assert_type(BytesIO().seek(Index()), int)
 assert_type(FileIO("").seek(Index()), int)
 assert_type(BufferedReader(BytesIO()).seek(Index()), int)
 assert_type(BufferedWriter(BytesIO()).seek(Index()), int)
 assert_type(BufferedRandom(FileIO("")).seek(Index()), int)
-BytesIO().seek("1")  # type: ignore[arg-type]
+FileIO("").seek("1")  # type: ignore[arg-type]
+
+
+class NarrowBytesIO(BytesIO):
+    def seek(self, pos: int, whence: int = 0, /) -> int:
+        return super().seek(pos, whence)
+
+
+assert_type(NarrowBytesIO().seek(1), int)
