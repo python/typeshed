@@ -1,6 +1,6 @@
 from _io import BufferedReader, BufferedRWPair, BufferedWriter
 from gzip import GzipFile
-from io import FileIO, RawIOBase, TextIOWrapper
+from io import BufferedRandom, BytesIO, FileIO, RawIOBase, TextIOWrapper
 from socket import SocketIO
 from typing import Any
 from typing_extensions import assert_type
@@ -16,3 +16,16 @@ BufferedRWPair(open("", "rb"), open("", "wb"))
 assert_type(TextIOWrapper(FileIO("")).buffer, FileIO)
 assert_type(TextIOWrapper(FileIO(13)).detach(), FileIO)
 assert_type(TextIOWrapper(GzipFile("")).buffer, GzipFile)
+
+
+class Index:
+    def __index__(self) -> int:
+        return 1
+
+
+assert_type(BytesIO().seek(Index()), int)
+assert_type(FileIO("").seek(Index()), int)
+assert_type(BufferedReader(BytesIO()).seek(Index()), int)
+assert_type(BufferedWriter(BytesIO()).seek(Index()), int)
+assert_type(BufferedRandom(FileIO("")).seek(Index()), int)
+BytesIO().seek("1")  # type: ignore[arg-type]
