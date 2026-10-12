@@ -24,7 +24,9 @@ from _hashlib import (
 )
 from _typeshed import ReadableBuffer
 from collections.abc import Callable, Set as AbstractSet
-from typing import Protocol, overload, type_check_only
+from typing import Protocol, TypeVar, overload, type_check_only
+
+_HashT = TypeVar("_HashT", bound=_HashObject)
 
 if sys.version_info >= (3, 15):
     __all__ = (
@@ -113,9 +115,12 @@ if sys.version_info >= (3, 11):
         def readinto(self, buf: bytearray, /) -> int: ...
         def readable(self) -> bool: ...
 
+    @overload
+    def file_digest(fileobj: _BytesIOLike | _FileDigestFileObj, digest: str, /, *, _bufsize: int = 262144) -> HASH: ...
+    @overload
     def file_digest(
-        fileobj: _BytesIOLike | _FileDigestFileObj, digest: str | Callable[[], _HashObject], /, *, _bufsize: int = 262144
-    ) -> HASH: ...
+        fileobj: _BytesIOLike | _FileDigestFileObj, digest: Callable[[], _HashT], /, *, _bufsize: int = 262144
+    ) -> _HashT: ...
 
 # Legacy typing-only alias
 _Hash = HASH
