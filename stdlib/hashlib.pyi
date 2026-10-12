@@ -2,7 +2,11 @@ import sys
 from _blake2 import blake2b as blake2b, blake2s as blake2s
 from _hashlib import (
     HASH,
+    HASHXOF,
+    _FixedDigestName,
     _HashObject,
+    _HashObjectWithOptionalLength,
+    _XofDigestName,
     openssl_md5 as md5,
     openssl_sha1 as sha1,
     openssl_sha3_224 as sha3_224,
@@ -21,6 +25,8 @@ from _hashlib import (
 from _typeshed import ReadableBuffer
 from collections.abc import Callable, Set as AbstractSet
 from typing import Protocol, TypeVar, overload, type_check_only
+
+_HashT = TypeVar("_HashT", bound=_HashObject)
 
 if sys.version_info >= (3, 15):
     __all__ = (
@@ -89,12 +95,15 @@ else:
         "pbkdf2_hmac",
     )
 
-def new(name: str, data: ReadableBuffer = b"", *, usedforsecurity: bool = True) -> HASH: ...
+@overload
+def new(name: _XofDigestName, data: ReadableBuffer = b"", *, usedforsecurity: bool = True) -> HASHXOF: ...
+@overload
+def new(name: _FixedDigestName, data: ReadableBuffer = b"", *, usedforsecurity: bool = True) -> HASH: ...
+@overload
+def new(name: str, data: ReadableBuffer = b"", *, usedforsecurity: bool = True) -> _HashObjectWithOptionalLength: ...
 
 algorithms_guaranteed: AbstractSet[str]
 algorithms_available: AbstractSet[str]
-
-_T = TypeVar("_T", bound=_HashObject)
 
 if sys.version_info >= (3, 11):
     @type_check_only
@@ -109,7 +118,9 @@ if sys.version_info >= (3, 11):
     @overload
     def file_digest(fileobj: _BytesIOLike | _FileDigestFileObj, digest: str, /, *, _bufsize: int = 262144) -> HASH: ...
     @overload
-    def file_digest(fileobj: _BytesIOLike | _FileDigestFileObj, digest: Callable[[], _T], /, *, _bufsize: int = 262144) -> _T: ...
+    def file_digest(
+        fileobj: _BytesIOLike | _FileDigestFileObj, digest: Callable[[], _HashT], /, *, _bufsize: int = 262144
+    ) -> _HashT: ...
 
 # Legacy typing-only alias
 _Hash = HASH
