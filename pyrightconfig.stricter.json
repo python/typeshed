@@ -101,6 +101,7 @@
         "stubs/vobject",
         "stubs/workalendar",
         "stubs/xmldiff",
+        "stubs/yara-python",
     ],
     "typeCheckingMode": "strict",
     // TODO: Complete incomplete stubs
