@@ -241,13 +241,13 @@ class _SingleDispatchMethodCallable(Generic[_T]):
     __qualname__: str
     __wrapped__: Callable[..., _T]
     def __call__(self, /, *args: Any, **kwargs: Any) -> _T: ...
+
     @overload
     def register(self, cls: _RegType, method: None = None) -> Callable[[Callable[..., _T]], Callable[..., _T]]: ...
     @overload
     def register(self, cls: Callable[..., _T], method: None = None) -> Callable[..., _T]: ...
     @overload
     def register(self, cls: _RegType, method: Callable[..., _T]) -> Callable[..., _T]: ...
-
 
 class singledispatchmethod(Generic[_T]):
     dispatcher: _SingleDispatchCallable[_T]

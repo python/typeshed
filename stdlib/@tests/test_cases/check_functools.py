@@ -186,6 +186,8 @@ def format_bytes(self: Formatter, value: bytes) -> str:
 
 assert_type(formatter.format(3), str)
 assert_type(formatter.format(b"x"), str)
+
+
 def format_float(self: Formatter, value: float) -> str:
     return f"float:{value}"
 
