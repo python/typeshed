@@ -7,16 +7,20 @@ from typing_extensions import Self, deprecated, disjoint_base
 
 _IntTypeCode: TypeAlias = Literal["b", "B", "h", "H", "i", "I", "l", "L", "q", "Q"]
 if sys.version_info >= (3, 15):
-    _FloatTypeCode: TypeAlias = Literal["f", "d", "e", "Zf", "Zd"]
+    _FloatTypeCode: TypeAlias = Literal["f", "d", "e"]
+    _ComplexTypeCode: TypeAlias = Literal["Zf", "Zd"]
 else:
     _FloatTypeCode: TypeAlias = Literal["f", "d"]
 if sys.version_info >= (3, 13):
     _UnicodeTypeCode: TypeAlias = Literal["u", "w"]
 else:
     _UnicodeTypeCode: TypeAlias = Literal["u"]
-_TypeCode: TypeAlias = _IntTypeCode | _FloatTypeCode | _UnicodeTypeCode
-
-_T = TypeVar("_T", int, float, str)
+if sys.version_info >= (3, 15):
+    _TypeCode: TypeAlias = _IntTypeCode | _FloatTypeCode | _ComplexTypeCode | _UnicodeTypeCode
+    _T = TypeVar("_T", int, float, complex, str)
+else:
+    _TypeCode: TypeAlias = _IntTypeCode | _FloatTypeCode | _UnicodeTypeCode
+    _T = TypeVar("_T", int, float, str)
 
 if sys.version_info >= (3, 15):
     typecodes: tuple[str, ...]
@@ -38,6 +42,11 @@ class array(MutableSequence[_T]):
     def __new__(
         cls: type[array[float]], typecode: _FloatTypeCode, initializer: bytes | bytearray | Iterable[float] = ..., /
     ) -> array[float]: ...
+    if sys.version_info >= (3, 15):
+        @overload
+        def __new__(
+            cls: type[array[complex]], typecode: _ComplexTypeCode, initializer: bytes | bytearray | Iterable[complex] = ..., /
+        ) -> array[complex]: ...
     if sys.version_info >= (3, 13):
         @overload
         def __new__(
