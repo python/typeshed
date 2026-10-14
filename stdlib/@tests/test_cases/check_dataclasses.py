@@ -14,7 +14,6 @@ class Foo:
     attr: str
 
 
-
 assert_type(dc.fields(Foo), tuple[dc.Field[Any], ...])
 
 dc.asdict(Foo)  # type: ignore
