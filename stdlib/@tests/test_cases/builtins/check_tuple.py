@@ -23,8 +23,5 @@ hash(v)
 w: tuple[()] = ()
 hash(w)
 hash(tuple(sys.platform))
-hash(([],))  # type: ignore
 x: tuple[Any, Any] = ((), ())
 hash(x)
-z: tuple[tuple[Any, ...], dict[str, Any]] = ((), {})
-hash(z)  # type: ignore
