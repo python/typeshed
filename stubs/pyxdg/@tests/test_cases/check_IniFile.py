@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import re
-from typing import list, tuple
 from typing_extensions import assert_type
 
 from xdg.IniFile import IniFile
