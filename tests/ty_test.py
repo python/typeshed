@@ -5,11 +5,10 @@ from __future__ import annotations
 
 import argparse
 import subprocess
-import tempfile
 from pathlib import Path
 
 from ts_utils.paths import STDLIB_PATH, STUBS_PATH, TS_BASE_PATH
-from ts_utils.utils import parse_stdlib_versions_file, supported_versions_for_module
+from ts_utils.stubs import path_stubs, stdlib_stubs, third_party_stubs
 
 SUPPORTED_VERSIONS = ("3.10", "3.11", "3.12", "3.13", "3.14", "3.15")
 SUPPORTED_PLATFORMS = ("linux", "darwin", "win32")
@@ -19,36 +18,17 @@ EXCLUDED_STUBS = {"requests"}
 
 def stdlib_files(version: str) -> list[Path]:
     """Return the stdlib stubs available in the requested Python version."""
-    version_tuple = tuple(map(int, version.split(".")))
-    module_versions = parse_stdlib_versions_file()
-    files: list[Path] = []
-
-    for path in sorted(STDLIB_PATH.rglob("*.pyi")):
-        if "@tests" in path.parts:
-            continue
-        relative = path.relative_to(STDLIB_PATH)
-        # ty cannot resolve relative imports in the legacy distutils stubs.
-        if relative.parts[0] == "distutils":
-            continue
-        parts = list(relative.parts[:-1])
-        if relative.name != "__init__.pyi":
-            parts.append(relative.stem)
-        minimum, maximum = supported_versions_for_module(module_versions, ".".join(parts))
-        if minimum <= version_tuple <= maximum:
-            files.append(path)
-
-    return files
+    # ty cannot resolve relative imports in the legacy distutils stubs.
+    return [stub.path for stub in stdlib_stubs(version) if stub.module_parts[0] != "distutils"]
 
 
-def _path_files(path: Path) -> list[Path]:
-    if path.is_file():
-        return [path] if path.suffix == ".pyi" and "@tests" not in path.parts else []
-    return sorted(p for p in path.rglob("*.pyi") if "@tests" not in p.parts)
+def third_party_files() -> list[Path]:
+    return [stub.path for stub in third_party_stubs() if stub.upstream_distribution not in EXCLUDED_STUBS]
 
 
 def _filter_files(files: list[Path], paths: list[Path], root: Path) -> list[Path]:
     selected_paths = [path if path.is_absolute() else TS_BASE_PATH / path for path in paths]
-    selected_files = {file for path in selected_paths if path.is_relative_to(root) for file in _path_files(path)}
+    selected_files = {file for path in selected_paths if path.is_relative_to(root) for file in path_stubs(path)}
     return [file for file in files if file in selected_files]
 
 
@@ -60,22 +40,25 @@ def main() -> int:
     parser.add_argument("--platform", choices=SUPPORTED_PLATFORMS, default="linux")
     args = parser.parse_args()
 
-    third_party_files = sorted(
-        path
-        for path in STUBS_PATH.rglob("*.pyi")
-        if "@tests" not in path.parts and path.relative_to(STUBS_PATH).parts[0] not in EXCLUDED_STUBS
-    )
     stdlib = stdlib_files(args.python_version)
+    third_party = third_party_files()
     if args.paths:
         stdlib = _filter_files(stdlib, args.paths, STDLIB_PATH)
-        third_party_files = _filter_files(third_party_files, args.paths, STUBS_PATH)
-    files = [*stdlib, *third_party_files]
+        third_party = _filter_files(third_party, args.paths, STUBS_PATH)
+    files = [*stdlib, *third_party]
     if not files:
         print("No stubs to check with ty.", flush=True)
         return 0
+    # Per-file overrides need typeshed as the project root. Exclude it from module
+    # search roots so ty resolves `builtins.pyi` as part of the custom typeshed,
+    # rather than as a project source.
     command = [
         "ty",
         "check",
+        "--project",
+        str(TS_BASE_PATH),
+        "--config",
+        "environment.root = []",
         "--config-file",
         str(TS_BASE_PATH / "ty.toml"),
         "--typeshed",
@@ -97,11 +80,7 @@ def main() -> int:
     command.extend(map(str, files))
 
     print(f"Checking {len(files)} stubs with ty ({args.python_version}, {args.platform})...", flush=True)
-    # The custom typeshed cannot also be the project root: ty would treat builtins.pyi
-    # as project source and panic while constructing its builtins model.
-    with tempfile.TemporaryDirectory() as project:
-        command[2:2] = ("--project", project)
-        return subprocess.run(command, check=False).returncode
+    return subprocess.run(command, check=False).returncode
 
 
 if __name__ == "__main__":

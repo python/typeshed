@@ -9,7 +9,7 @@ import tempfile
 from collections.abc import Iterable, Mapping
 from pathlib import Path
 from types import MethodType
-from typing import TYPE_CHECKING, Any, Final, NamedTuple, TypeAlias
+from typing import TYPE_CHECKING, Any, Final, Literal, NamedTuple, TypeAlias
 
 import pathspec
 from packaging.requirements import Requirement
@@ -23,8 +23,28 @@ try:
     from termcolor import colored as colored  # pyright: ignore[reportAssignmentType]
 except ImportError:
 
-    def colored(text: str, color: str | None = None, **kwargs: Any) -> str:  # type: ignore[misc] # noqa: ARG001
+    def colored(text: str, color: str | None = None, **kwargs: Any) -> str:  # type: ignore[misc] # ruff: ignore[unused-function-argument]
         return text
+
+
+TextColor: TypeAlias = Literal[
+    "black",
+    "red",
+    "green",
+    "yellow",
+    "blue",
+    "magenta",
+    "cyan",
+    "white",
+    "light_grey",
+    "dark_grey",
+    "light_red",
+    "light_green",
+    "light_yellow",
+    "light_blue",
+    "light_magenta",
+    "light_cyan",
+]
 
 
 _REMOVE_COMMENT_RE = re.compile(
@@ -75,14 +95,6 @@ def print_command(cmd: str | Iterable[str]) -> None:
     print(colored(f"Running: {cmd}", "blue"))
 
 
-def print_info(message: str) -> None:
-    print(colored(message, "blue"))
-
-
-def print_warning(message: str) -> None:
-    print(colored(message, "yellow"))
-
-
 def print_skipped(message: str) -> None:
     print(colored(message, "yellow"))
 
@@ -99,18 +111,8 @@ def print_success_msg() -> None:
     print(colored("success", "green"))
 
 
-def print_divider() -> None:
-    """Print a row of * symbols across the screen.
-
-    This can be useful to divide terminal output into separate sections.
-    """
-    print()
-    print("*" * 70)
-    print()
-
-
-def print_time(t: float) -> None:
-    print(f"({t:.2f} s) ", end="")
+def format_time(t: float) -> str:
+    return f"({t:.2f} s)"
 
 
 # ====================================================================
@@ -149,19 +151,35 @@ def get_mypy_req() -> str:
 # ====================================================================
 
 VersionTuple: TypeAlias = tuple[int, int]
-SupportedVersionsDict: TypeAlias = dict[str, tuple[VersionTuple, VersionTuple]]
 
 VERSIONS_PATH = STDLIB_PATH / "VERSIONS"
 VERSION_LINE_RE = re.compile(r"^([a-zA-Z_][a-zA-Z0-9_.]*): ([23]\.\d{1,2})-([23]\.\d{1,2})?$")
 VERSION_RE = re.compile(r"^([23])\.(\d+)$")
 
 
-def parse_stdlib_versions_file() -> SupportedVersionsDict:
+class SupportedVersions:
+    def __init__(self, module_versions: dict[str, tuple[VersionTuple, VersionTuple]]) -> None:
+        self.module_versions = module_versions
+
+    def supported_versions_for_module(self, module_name: str) -> tuple[VersionTuple, VersionTuple]:
+        while "." in module_name:
+            if module_name in self.module_versions:
+                return self.module_versions[module_name]
+            module_name = ".".join(module_name.split(".")[:-1])
+        return self.module_versions[module_name]
+
+    def is_supported(self, module_name: str, version: str) -> bool:
+        version_tuple = tuple(map(int, version.split(".")))
+        minimum, maximum = self.supported_versions_for_module(module_name)
+        return minimum <= version_tuple <= maximum
+
+
+def parse_stdlib_versions_file() -> SupportedVersions:
     result: dict[str, tuple[VersionTuple, VersionTuple]] = {}
     with VERSIONS_PATH.open(encoding="UTF-8") as f:
         for line in f:
             stripped_line = strip_comments(line)
-            if stripped_line == "":
+            if not stripped_line:
                 continue
             m = VERSION_LINE_RE.match(stripped_line)
             assert m, f"invalid VERSIONS line: {stripped_line}"
@@ -170,15 +188,7 @@ def parse_stdlib_versions_file() -> SupportedVersionsDict:
             min_version = _parse_version(m.group(2))
             max_version = _parse_version(m.group(3)) if m.group(3) else (99, 99)
             result[mod] = min_version, max_version
-    return result
-
-
-def supported_versions_for_module(module_versions: SupportedVersionsDict, module_name: str) -> tuple[VersionTuple, VersionTuple]:
-    while "." in module_name:
-        if module_name in module_versions:
-            return module_versions[module_name]
-        module_name = ".".join(module_name.split(".")[:-1])
-    return module_versions[module_name]
+    return SupportedVersions(result)
 
 
 def _parse_version(v_str: str) -> tuple[int, int]:
@@ -245,15 +255,21 @@ TemporaryFileWrapper = tempfile._TemporaryFileWrapper  # pyright: ignore[reportP
 # For details, see https://github.com/python/typeshed/pull/13620#discussion_r1990185997
 # Python 3.12 added a cross-platform solution with `tempfile.NamedTemporaryFile("w+", delete_on_close=False)`
 if sys.platform != "win32":
-    NamedTemporaryFile = tempfile.NamedTemporaryFile  # noqa: TID251
+    # We ignore the Ruff error here because this defines the helper that callers should use
+    # instead of `tempfile.NamedTemporaryFile`, which is banned by `banned-api`.
+    #
+    NamedTemporaryFile = tempfile.NamedTemporaryFile  # ruff: ignore[banned-api]
 else:
 
-    def NamedTemporaryFile(mode: OpenTextMode) -> TemporaryFileWrapper[str]:  # noqa: N802
+    def NamedTemporaryFile(mode: OpenTextMode) -> TemporaryFileWrapper[str]:  # ruff: ignore[invalid-function-name]
         def close(self: TemporaryFileWrapper[str]) -> None:
             TemporaryFileWrapper.close(self)  # pyright: ignore[reportUnknownMemberType]
             Path(self.name).unlink()
 
-        temp = tempfile.NamedTemporaryFile(mode, delete=False)  # noqa: SIM115, TID251
+        # We ignore the `banned-api` Ruff error here because this call is part of the helper that callers should use
+        # instead of `tempfile.NamedTemporaryFile`.
+        #
+        temp = tempfile.NamedTemporaryFile(mode, delete=False)  # ruff: ignore[open-file-with-context-handler, banned-api]
         temp.close = MethodType(close, temp)  # type: ignore[method-assign]
         return temp
 

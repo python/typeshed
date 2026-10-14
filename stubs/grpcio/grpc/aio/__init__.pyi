@@ -15,8 +15,8 @@ from collections.abc import (
 )
 from concurrent import futures
 from types import TracebackType
-from typing import Any, Final, Generic, Literal, NoReturn, TypeAlias, TypeVar, overload, type_check_only
-from typing_extensions import Self
+from typing import Any, Final, Generic, Literal, TypeAlias, TypeVar, overload, type_check_only
+from typing_extensions import Never, Self
 
 from grpc import (
     CallCredentials,
@@ -28,6 +28,7 @@ from grpc import (
     RpcError,
     RpcMethodHandler,
     ServerCredentials,
+    Status,
     StatusCode,
     _Options,
 )
@@ -270,7 +271,7 @@ class _DoneCallback(Generic[_TRequest, _TResponse]):
 
 class ServicerContext(Generic[_TRequest, _TResponse], metaclass=abc.ABCMeta):
     @abc.abstractmethod
-    async def abort(self, code: StatusCode, details: str = "", trailing_metadata: _MetadataType = ()) -> NoReturn: ...
+    async def abort(self, code: StatusCode, details: str = "", trailing_metadata: _MetadataType = ()) -> Never: ...
     @abc.abstractmethod
     async def read(self) -> _TRequest: ...
     @abc.abstractmethod
@@ -278,6 +279,8 @@ class ServicerContext(Generic[_TRequest, _TResponse], metaclass=abc.ABCMeta):
     @abc.abstractmethod
     async def send_initial_metadata(self, initial_metadata: _MetadataType) -> None: ...
     def add_done_callback(self, callback: _DoneCallback[_TRequest, _TResponse]) -> None: ...
+    @abc.abstractmethod
+    async def abort_with_status(self, status: Status) -> Never: ...
     @abc.abstractmethod
     def set_trailing_metadata(self, trailing_metadata: _MetadataType) -> None: ...
     @abc.abstractmethod
@@ -359,6 +362,7 @@ class InterceptedUnaryUnaryCall(_InterceptedCall[_TRequest, _TResponse], metacla
         request_serializer: _Serializer[_TRequest],
         response_deserializer: _Deserializer[_TResponse],
         loop: asyncio.AbstractEventLoop,
+        registered_call_handle: int = 0,
     ) -> None: ...
 
     # pylint: disable=too-many-arguments
@@ -510,7 +514,7 @@ _T = TypeVar("_T")
 class Metadata(Collection[_MetadatumType]):
     def __init__(self, *args: tuple[_MetadataKey, _MetadataValue]) -> None: ...
     @classmethod
-    def from_tuple(cls, raw_metadata: tuple[_MetadataKey, _MetadataValue]) -> Metadata: ...
+    def from_tuple(cls, raw_metadata: Iterable[_MetadatumType]) -> Self: ...
     def add(self, key: _MetadataKey, value: _MetadataValue) -> None: ...
     def __len__(self) -> int: ...
     def __getitem__(self, key: _MetadataKey) -> _MetadataValue: ...
