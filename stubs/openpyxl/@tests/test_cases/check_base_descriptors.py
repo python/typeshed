@@ -90,7 +90,7 @@ class WithDescriptors(Serialisable):
     assert_type(typed_none, Typed[str, Literal[True]])
 
     assert_type(set_tuple, Set[Literal["a", 1] | float])  # type: ignore[assert-type]  # False-positive in mypy
-    assert_type(set_list, Set[str | int | float]])  # type: ignore[assert-type]  # False-positive in mypy # Literals are simplified in non-tuples
+    assert_type(set_list, Set[str | int | float])  # type: ignore[assert-type]  # False-positive in mypy # Literals are simplified in non-tuples
     assert_type(set_tuple_none, Set[Literal["a", 1, None] | float])  # type: ignore[assert-type]  # False-positive in mypy
 
     assert_type(noneset_tuple, NoneSet[Literal["a", 1] | float])  # type: ignore[assert-type]  # False-positive in mypy
@@ -167,7 +167,7 @@ assert_type(with_descriptors.set_list, str | int | float)  # type: ignore[assert
 assert_type(with_descriptors.set_tuple_none, Literal["a", 1, None] | float)  # type: ignore[assert-type]  # False-positive in mypy
 
 assert_type(with_descriptors.noneset_tuple, Literal["a", 1] | float | None)  # type: ignore[assert-type]  # False-positive in mypy
-assert_type(with_descriptors.noneset_list, str | float | None])  # type: ignore[assert-type]  # False-positive in mypy  # int and float are merged in generic unions
+assert_type(with_descriptors.noneset_list, str | float | None)  # type: ignore[assert-type]  # False-positive in mypy  # int and float are merged in generic unions
 
 assert_type(with_descriptors.length_tuple, tuple[str, str])
 assert_type(with_descriptors.length_list, list[str])
