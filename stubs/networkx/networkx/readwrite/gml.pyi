@@ -3,7 +3,7 @@ from collections.abc import Callable, Generator, Iterable
 from enum import Enum
 from typing import Final, Generic, NamedTuple, TypeVar
 
-from networkx.classes.graph import Graph, _Node
+from networkx.classes.graph import Graph, _EdgeData, _Node, _NodeData
 from networkx.utils.backends import _dispatchable
 
 _T = TypeVar("_T")
@@ -41,7 +41,11 @@ LIST_START_VALUE: Final = "_networkx_list_start"
 
 def parse_gml_lines(lines, label, destringizer): ...
 def literal_stringizer(value) -> str: ...
-def generate_gml(G: Graph[_Node], stringizer: Callable[..., Incomplete] | None = None) -> Generator[Incomplete, Incomplete]: ...
+def generate_gml(
+    G: Graph[_Node, _NodeData, _EdgeData], stringizer: Callable[..., Incomplete] | None = None
+) -> Generator[Incomplete, Incomplete]: ...
 def write_gml(
-    G: Graph[_Node], path: StrPath | SupportsWrite[bytes], stringizer: Callable[..., Incomplete] | None = None
+    G: Graph[_Node, _NodeData, _EdgeData],
+    path: StrPath | SupportsWrite[bytes],
+    stringizer: Callable[..., Incomplete] | None = None,
 ) -> None: ...

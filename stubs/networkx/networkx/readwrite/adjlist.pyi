@@ -1,14 +1,18 @@
 from _typeshed import Incomplete, StrPath, SupportsRead, SupportsWrite
 from collections.abc import Generator, Iterable
 
-from networkx.classes.graph import Graph, _Node
+from networkx.classes.graph import Graph, _EdgeData, _Node, _NodeData
 from networkx.utils.backends import _dispatchable
 
 __all__ = ["generate_adjlist", "write_adjlist", "parse_adjlist", "read_adjlist"]
 
-def generate_adjlist(G: Graph[_Node], delimiter: str = " ") -> Generator[str]: ...
+def generate_adjlist(G: Graph[_Node, _NodeData, _EdgeData], delimiter: str = " ") -> Generator[str]: ...
 def write_adjlist(
-    G: Graph[_Node], path: StrPath | SupportsWrite[bytes], comments: str = "#", delimiter: str = " ", encoding: str = "utf-8"
+    G: Graph[_Node, _NodeData, _EdgeData],
+    path: StrPath | SupportsWrite[bytes],
+    comments: str = "#",
+    delimiter: str = " ",
+    encoding: str = "utf-8",
 ) -> None: ...
 @_dispatchable
 def parse_adjlist(

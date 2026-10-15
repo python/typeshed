@@ -20,13 +20,15 @@ def to_networkx_graph(
     multigraph_input: bool = False,
 ) -> Graph[_Node, _NodeData, _EdgeData]: ...
 @_dispatchable
-def to_dict_of_lists(G: Graph[_Node], nodelist: Collection[_Node] | None = None) -> dict[_Node, list[_Node]]: ...
+def to_dict_of_lists(
+    G: Graph[_Node, _NodeData, _EdgeData], nodelist: Collection[_Node] | None = None
+) -> dict[_Node, list[_Node]]: ...
 @_dispatchable
 def from_dict_of_lists(
     d: dict[_Node, Iterable[_Node]], create_using: Graph[Incomplete] | type[Graph[Incomplete]] | None = None
 ) -> Graph[_Node]: ...
 def to_dict_of_dicts(
-    G: Graph[_Node], nodelist: Collection[_Node] | None = None, edge_data: float | None = None
+    G: Graph[_Node, _NodeData, _EdgeData], nodelist: Collection[_Node] | None = None, edge_data: float | None = None
 ) -> dict[Incomplete, Incomplete]: ...
 @_dispatchable
 def from_dict_of_dicts(
@@ -35,7 +37,7 @@ def from_dict_of_dicts(
     multigraph_input: bool = False,
 ) -> Graph[Incomplete]: ...
 @_dispatchable
-def to_edgelist(G: Graph[_Node], nodelist: Collection[_Node] | None = None): ...
+def to_edgelist(G: Graph[_Node, _NodeData, _EdgeData], nodelist: Collection[_Node] | None = None): ...
 @_dispatchable
 def from_edgelist(
     edgelist: Iterable[Incomplete], create_using: Graph[Incomplete] | type[Graph[Incomplete]] | None = None
