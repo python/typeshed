@@ -106,7 +106,7 @@ class Client:
         **kwargs,
     ): ...
     def parse_request_body_response(
-        self, body: str, scope: str | set[object] | tuple[object] | list[object] | None = None, **kwargs
+        self, body: str, scope: str | set[object] | tuple[object] | list[object] | None = None, **kwargs: object
     ) -> OAuth2Token: ...
     def prepare_refresh_body(
         self,
