@@ -31,6 +31,11 @@ _ActionT = TypeVar("_ActionT", bound=Action)
 _ArgumentParserT = TypeVar("_ArgumentParserT", bound=ArgumentParser)
 _N = TypeVar("_N")
 _ActionType: TypeAlias = Callable[[str], Any] | FileType | str
+# Type of the "values" parameter of Action.__call__: a single converted argument
+# (str by default) for nargs=None, a list for other nargs values, or the
+# const/default value (any object) when no arguments are given. Any is used so
+# that subclasses can narrow it.
+_ActionValue: TypeAlias = Any
 
 ONE_OR_MORE: Final = "+"
 OPTIONAL: Final = "?"
@@ -429,7 +434,7 @@ class Action(_AttributeHolder):
         ) -> None: ...
 
     def __call__(
-        self, parser: ArgumentParser, namespace: Namespace, values: str | Sequence[Any] | None, option_string: str | None = None
+        self, parser: ArgumentParser, namespace: Namespace, values: _ActionValue, option_string: str | None = None
     ) -> None: ...
     def format_usage(self) -> str: ...
 
