@@ -35,6 +35,7 @@ class Stats:
     mean: _StatsProperty
     max: _StatsProperty
     min: _StatsProperty
+    mode: _StatsProperty
     median: _StatsProperty
     iqr: _StatsProperty
     trimean: _StatsProperty
@@ -61,6 +62,7 @@ def describe(
 
 mean: Incomplete
 median: Incomplete
+mode: Incomplete
 iqr: Incomplete
 trimean: Incomplete
 variance: Incomplete
