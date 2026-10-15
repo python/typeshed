@@ -1,0 +1,4 @@
+version = "18.1.*"
+upstream_repository = "https://github.com/sighingnow/libclang"
+
+[tool.stubtest]
