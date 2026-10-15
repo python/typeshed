@@ -1,0 +1,7 @@
+version = "3.5.*"
+upstream-repository = "https://github.com/python-ldap/python-ldap"
+dependencies = ["types-pyasn1"]
+partial-stub = true
+
+[tool.stubtest]
+apt-dependencies = ["libsasl2-dev"]
