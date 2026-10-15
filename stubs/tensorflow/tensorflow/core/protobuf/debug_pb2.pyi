@@ -3,52 +3,58 @@
 isort:skip_file
 """
 
-import builtins
-import collections.abc
-import typing
+import builtins as _builtins
+import sys
+import typing as _typing
+from collections import abc as _abc
 
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.message
+from google.protobuf import descriptor as _descriptor, message as _message
+from google.protobuf.internal import containers as _containers
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
+else:
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-@typing.final
-class DebugTensorWatch(google.protobuf.message.Message):
+DESCRIPTOR: _descriptor.FileDescriptor
+
+@_typing.final
+class DebugTensorWatch(_message.Message):
     """Option for watching a node in TensorFlow Debugger (tfdbg)."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NODE_NAME_FIELD_NUMBER: builtins.int
-    OUTPUT_SLOT_FIELD_NUMBER: builtins.int
-    DEBUG_OPS_FIELD_NUMBER: builtins.int
-    DEBUG_URLS_FIELD_NUMBER: builtins.int
-    TOLERATE_DEBUG_OP_CREATION_FAILURES_FIELD_NUMBER: builtins.int
-    node_name: builtins.str
+    NODE_NAME_FIELD_NUMBER: _builtins.int
+    OUTPUT_SLOT_FIELD_NUMBER: _builtins.int
+    DEBUG_OPS_FIELD_NUMBER: _builtins.int
+    DEBUG_URLS_FIELD_NUMBER: _builtins.int
+    TOLERATE_DEBUG_OP_CREATION_FAILURES_FIELD_NUMBER: _builtins.int
+    node_name: _builtins.str
     """Name of the node to watch.
     Use "*" for wildcard. But note: currently, regex is not supported in
     general.
     """
-    output_slot: builtins.int
+    output_slot: _builtins.int
     """Output slot to watch.
     The semantics of output_slot == -1 is that all outputs of the node
     will be watched (i.e., a wildcard).
     Other negative values of output_slot are invalid and will lead to
     errors currently.
     """
-    tolerate_debug_op_creation_failures: builtins.bool
+    tolerate_debug_op_creation_failures: _builtins.bool
     """Do not error out if debug op creation fails (e.g., due to dtype
     incompatibility). Instead, just log the failure.
     """
-    @property
-    def debug_ops(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def debug_ops(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """Name(s) of the debugging op(s).
         One or more than one probes on a tensor.
         e.g., {"DebugIdentity", "DebugNanCount"}
         """
 
-    @property
-    def debug_urls(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def debug_urls(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """URL(s) for debug targets(s).
 
         Supported URL formats are:
@@ -74,126 +80,131 @@ class DebugTensorWatch(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        node_name: builtins.str | None = ...,
-        output_slot: builtins.int | None = ...,
-        debug_ops: collections.abc.Iterable[builtins.str] | None = ...,
-        debug_urls: collections.abc.Iterable[builtins.str] | None = ...,
-        tolerate_debug_op_creation_failures: builtins.bool | None = ...,
+        node_name: _builtins.str | None = ...,
+        output_slot: _builtins.int | None = ...,
+        debug_ops: _abc.Iterable[_builtins.str] | None = ...,
+        debug_urls: _abc.Iterable[_builtins.str] | None = ...,
+        tolerate_debug_op_creation_failures: _builtins.bool | None = ...,
     ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "debug_ops",
-            b"debug_ops",
-            "debug_urls",
-            b"debug_urls",
-            "node_name",
-            b"node_name",
-            "output_slot",
-            b"output_slot",
-            "tolerate_debug_op_creation_failures",
-            b"tolerate_debug_op_creation_failures",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "debug_ops",
+        b"debug_ops",
+        "debug_urls",
+        b"debug_urls",
+        "node_name",
+        b"node_name",
+        "output_slot",
+        b"output_slot",
+        "tolerate_debug_op_creation_failures",
+        b"tolerate_debug_op_creation_failures",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___DebugTensorWatch = DebugTensorWatch
+Global___DebugTensorWatch: _TypeAlias = DebugTensorWatch  # noqa: Y015
 
-@typing.final
-class DebugOptions(google.protobuf.message.Message):
+@_typing.final
+class DebugOptions(_message.Message):
     """Options for initializing DebuggerState in TensorFlow Debugger (tfdbg)."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    DEBUG_TENSOR_WATCH_OPTS_FIELD_NUMBER: builtins.int
-    GLOBAL_STEP_FIELD_NUMBER: builtins.int
-    RESET_DISK_BYTE_USAGE_FIELD_NUMBER: builtins.int
-    global_step: builtins.int
+    DEBUG_TENSOR_WATCH_OPTS_FIELD_NUMBER: _builtins.int
+    GLOBAL_STEP_FIELD_NUMBER: _builtins.int
+    RESET_DISK_BYTE_USAGE_FIELD_NUMBER: _builtins.int
+    global_step: _builtins.int
     """Caller-specified global step count.
     Note that this is distinct from the session run count and the executor
     step count.
     """
-    reset_disk_byte_usage: builtins.bool
+    reset_disk_byte_usage: _builtins.bool
     """Whether the total disk usage of tfdbg is to be reset to zero
     in this Session.run call. This is used by wrappers and hooks
     such as the local CLI ones to indicate that the dumped tensors
     are cleaned up from the disk after each Session.run.
     """
-    @property
-    def debug_tensor_watch_opts(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___DebugTensorWatch]:
+    @_builtins.property
+    def debug_tensor_watch_opts(self) -> _containers.RepeatedCompositeFieldContainer[Global___DebugTensorWatch]:
         """Debugging options"""
 
     def __init__(
         self,
         *,
-        debug_tensor_watch_opts: collections.abc.Iterable[global___DebugTensorWatch] | None = ...,
-        global_step: builtins.int | None = ...,
-        reset_disk_byte_usage: builtins.bool | None = ...,
+        debug_tensor_watch_opts: _abc.Iterable[Global___DebugTensorWatch] | None = ...,
+        global_step: _builtins.int | None = ...,
+        reset_disk_byte_usage: _builtins.bool | None = ...,
     ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "debug_tensor_watch_opts",
-            b"debug_tensor_watch_opts",
-            "global_step",
-            b"global_step",
-            "reset_disk_byte_usage",
-            b"reset_disk_byte_usage",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "debug_tensor_watch_opts",
+        b"debug_tensor_watch_opts",
+        "global_step",
+        b"global_step",
+        "reset_disk_byte_usage",
+        b"reset_disk_byte_usage",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___DebugOptions = DebugOptions
+Global___DebugOptions: _TypeAlias = DebugOptions  # noqa: Y015
 
-@typing.final
-class DebuggedSourceFile(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class DebuggedSourceFile(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    HOST_FIELD_NUMBER: builtins.int
-    FILE_PATH_FIELD_NUMBER: builtins.int
-    LAST_MODIFIED_FIELD_NUMBER: builtins.int
-    BYTES_FIELD_NUMBER: builtins.int
-    LINES_FIELD_NUMBER: builtins.int
-    host: builtins.str
+    HOST_FIELD_NUMBER: _builtins.int
+    FILE_PATH_FIELD_NUMBER: _builtins.int
+    LAST_MODIFIED_FIELD_NUMBER: _builtins.int
+    BYTES_FIELD_NUMBER: _builtins.int
+    LINES_FIELD_NUMBER: _builtins.int
+    host: _builtins.str
     """The host name on which a source code file is located."""
-    file_path: builtins.str
+    file_path: _builtins.str
     """Path to the source code file."""
-    last_modified: builtins.int
+    last_modified: _builtins.int
     """The timestamp at which the source code file is last modified."""
-    bytes: builtins.int
+    bytes: _builtins.int
     """Byte size of the file."""
-    @property
-    def lines(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def lines(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """Line-by-line content of the source code file."""
 
     def __init__(
         self,
         *,
-        host: builtins.str | None = ...,
-        file_path: builtins.str | None = ...,
-        last_modified: builtins.int | None = ...,
-        bytes: builtins.int | None = ...,
-        lines: collections.abc.Iterable[builtins.str] | None = ...,
+        host: _builtins.str | None = ...,
+        file_path: _builtins.str | None = ...,
+        last_modified: _builtins.int | None = ...,
+        bytes: _builtins.int | None = ...,
+        lines: _abc.Iterable[_builtins.str] | None = ...,
     ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "bytes", b"bytes", "file_path", b"file_path", "host", b"host", "last_modified", b"last_modified", "lines", b"lines"
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "bytes", b"bytes", "file_path", b"file_path", "host", b"host", "last_modified", b"last_modified", "lines", b"lines"
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___DebuggedSourceFile = DebuggedSourceFile
+Global___DebuggedSourceFile: _TypeAlias = DebuggedSourceFile  # noqa: Y015
 
-@typing.final
-class DebuggedSourceFiles(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class DebuggedSourceFiles(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    SOURCE_FILES_FIELD_NUMBER: builtins.int
-    @property
-    def source_files(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___DebuggedSourceFile]:
+    SOURCE_FILES_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def source_files(self) -> _containers.RepeatedCompositeFieldContainer[Global___DebuggedSourceFile]:
         """A collection of source code files."""
 
-    def __init__(self, *, source_files: collections.abc.Iterable[global___DebuggedSourceFile] | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["source_files", b"source_files"]) -> None: ...
+    def __init__(self, *, source_files: _abc.Iterable[Global___DebuggedSourceFile] | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["source_files", b"source_files"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___DebuggedSourceFiles = DebuggedSourceFiles
+Global___DebuggedSourceFiles: _TypeAlias = DebuggedSourceFiles  # noqa: Y015

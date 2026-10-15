@@ -3,216 +3,229 @@
 isort:skip_file
 """
 
-import builtins
-import collections.abc
-import typing
+import builtins as _builtins
+import sys
+import typing as _typing
+from collections import abc as _abc
 
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.message
+from google.protobuf import descriptor as _descriptor, message as _message
+from google.protobuf.internal import containers as _containers
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
+else:
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-@typing.final
-class MemAllocatorStats(google.protobuf.message.Message):
+DESCRIPTOR: _descriptor.FileDescriptor
+
+@_typing.final
+class MemAllocatorStats(_message.Message):
     """Some of the data from AllocatorStats"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NUM_ALLOCS_FIELD_NUMBER: builtins.int
-    BYTES_IN_USE_FIELD_NUMBER: builtins.int
-    PEAK_BYTES_IN_USE_FIELD_NUMBER: builtins.int
-    LARGEST_ALLOC_SIZE_FIELD_NUMBER: builtins.int
-    FRAGMENTATION_METRIC_FIELD_NUMBER: builtins.int
-    num_allocs: builtins.int
-    bytes_in_use: builtins.int
-    peak_bytes_in_use: builtins.int
-    largest_alloc_size: builtins.int
-    fragmentation_metric: builtins.float
+    NUM_ALLOCS_FIELD_NUMBER: _builtins.int
+    BYTES_IN_USE_FIELD_NUMBER: _builtins.int
+    PEAK_BYTES_IN_USE_FIELD_NUMBER: _builtins.int
+    LARGEST_ALLOC_SIZE_FIELD_NUMBER: _builtins.int
+    FRAGMENTATION_METRIC_FIELD_NUMBER: _builtins.int
+    num_allocs: _builtins.int
+    bytes_in_use: _builtins.int
+    peak_bytes_in_use: _builtins.int
+    largest_alloc_size: _builtins.int
+    fragmentation_metric: _builtins.float
     def __init__(
         self,
         *,
-        num_allocs: builtins.int | None = ...,
-        bytes_in_use: builtins.int | None = ...,
-        peak_bytes_in_use: builtins.int | None = ...,
-        largest_alloc_size: builtins.int | None = ...,
-        fragmentation_metric: builtins.float | None = ...,
+        num_allocs: _builtins.int | None = ...,
+        bytes_in_use: _builtins.int | None = ...,
+        peak_bytes_in_use: _builtins.int | None = ...,
+        largest_alloc_size: _builtins.int | None = ...,
+        fragmentation_metric: _builtins.float | None = ...,
     ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "bytes_in_use",
-            b"bytes_in_use",
-            "fragmentation_metric",
-            b"fragmentation_metric",
-            "largest_alloc_size",
-            b"largest_alloc_size",
-            "num_allocs",
-            b"num_allocs",
-            "peak_bytes_in_use",
-            b"peak_bytes_in_use",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "bytes_in_use",
+        b"bytes_in_use",
+        "fragmentation_metric",
+        b"fragmentation_metric",
+        "largest_alloc_size",
+        b"largest_alloc_size",
+        "num_allocs",
+        b"num_allocs",
+        "peak_bytes_in_use",
+        b"peak_bytes_in_use",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___MemAllocatorStats = MemAllocatorStats
+Global___MemAllocatorStats: _TypeAlias = MemAllocatorStats  # noqa: Y015
 
-@typing.final
-class MemChunk(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class MemChunk(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    ADDRESS_FIELD_NUMBER: builtins.int
-    SIZE_FIELD_NUMBER: builtins.int
-    REQUESTED_SIZE_FIELD_NUMBER: builtins.int
-    BIN_FIELD_NUMBER: builtins.int
-    OP_NAME_FIELD_NUMBER: builtins.int
-    FREED_AT_COUNT_FIELD_NUMBER: builtins.int
-    ACTION_COUNT_FIELD_NUMBER: builtins.int
-    IN_USE_FIELD_NUMBER: builtins.int
-    STEP_ID_FIELD_NUMBER: builtins.int
-    address: builtins.int
-    size: builtins.int
-    requested_size: builtins.int
-    bin: builtins.int
-    op_name: builtins.str
-    freed_at_count: builtins.int
-    action_count: builtins.int
-    in_use: builtins.bool
-    step_id: builtins.int
+    ADDRESS_FIELD_NUMBER: _builtins.int
+    SIZE_FIELD_NUMBER: _builtins.int
+    REQUESTED_SIZE_FIELD_NUMBER: _builtins.int
+    BIN_FIELD_NUMBER: _builtins.int
+    OP_NAME_FIELD_NUMBER: _builtins.int
+    FREED_AT_COUNT_FIELD_NUMBER: _builtins.int
+    ACTION_COUNT_FIELD_NUMBER: _builtins.int
+    IN_USE_FIELD_NUMBER: _builtins.int
+    STEP_ID_FIELD_NUMBER: _builtins.int
+    address: _builtins.int
+    size: _builtins.int
+    requested_size: _builtins.int
+    bin: _builtins.int
+    op_name: _builtins.str
+    freed_at_count: _builtins.int
+    action_count: _builtins.int
+    in_use: _builtins.bool
+    step_id: _builtins.int
     def __init__(
         self,
         *,
-        address: builtins.int | None = ...,
-        size: builtins.int | None = ...,
-        requested_size: builtins.int | None = ...,
-        bin: builtins.int | None = ...,
-        op_name: builtins.str | None = ...,
-        freed_at_count: builtins.int | None = ...,
-        action_count: builtins.int | None = ...,
-        in_use: builtins.bool | None = ...,
-        step_id: builtins.int | None = ...,
+        address: _builtins.int | None = ...,
+        size: _builtins.int | None = ...,
+        requested_size: _builtins.int | None = ...,
+        bin: _builtins.int | None = ...,
+        op_name: _builtins.str | None = ...,
+        freed_at_count: _builtins.int | None = ...,
+        action_count: _builtins.int | None = ...,
+        in_use: _builtins.bool | None = ...,
+        step_id: _builtins.int | None = ...,
     ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "action_count",
-            b"action_count",
-            "address",
-            b"address",
-            "bin",
-            b"bin",
-            "freed_at_count",
-            b"freed_at_count",
-            "in_use",
-            b"in_use",
-            "op_name",
-            b"op_name",
-            "requested_size",
-            b"requested_size",
-            "size",
-            b"size",
-            "step_id",
-            b"step_id",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "action_count",
+        b"action_count",
+        "address",
+        b"address",
+        "bin",
+        b"bin",
+        "freed_at_count",
+        b"freed_at_count",
+        "in_use",
+        b"in_use",
+        "op_name",
+        b"op_name",
+        "requested_size",
+        b"requested_size",
+        "size",
+        b"size",
+        "step_id",
+        b"step_id",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___MemChunk = MemChunk
+Global___MemChunk: _TypeAlias = MemChunk  # noqa: Y015
 
-@typing.final
-class BinSummary(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class BinSummary(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    BIN_FIELD_NUMBER: builtins.int
-    TOTAL_BYTES_IN_USE_FIELD_NUMBER: builtins.int
-    TOTAL_BYTES_IN_BIN_FIELD_NUMBER: builtins.int
-    TOTAL_CHUNKS_IN_USE_FIELD_NUMBER: builtins.int
-    TOTAL_CHUNKS_IN_BIN_FIELD_NUMBER: builtins.int
-    bin: builtins.int
-    total_bytes_in_use: builtins.int
-    total_bytes_in_bin: builtins.int
-    total_chunks_in_use: builtins.int
-    total_chunks_in_bin: builtins.int
+    BIN_FIELD_NUMBER: _builtins.int
+    TOTAL_BYTES_IN_USE_FIELD_NUMBER: _builtins.int
+    TOTAL_BYTES_IN_BIN_FIELD_NUMBER: _builtins.int
+    TOTAL_CHUNKS_IN_USE_FIELD_NUMBER: _builtins.int
+    TOTAL_CHUNKS_IN_BIN_FIELD_NUMBER: _builtins.int
+    bin: _builtins.int
+    total_bytes_in_use: _builtins.int
+    total_bytes_in_bin: _builtins.int
+    total_chunks_in_use: _builtins.int
+    total_chunks_in_bin: _builtins.int
     def __init__(
         self,
         *,
-        bin: builtins.int | None = ...,
-        total_bytes_in_use: builtins.int | None = ...,
-        total_bytes_in_bin: builtins.int | None = ...,
-        total_chunks_in_use: builtins.int | None = ...,
-        total_chunks_in_bin: builtins.int | None = ...,
+        bin: _builtins.int | None = ...,
+        total_bytes_in_use: _builtins.int | None = ...,
+        total_bytes_in_bin: _builtins.int | None = ...,
+        total_chunks_in_use: _builtins.int | None = ...,
+        total_chunks_in_bin: _builtins.int | None = ...,
     ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "bin",
-            b"bin",
-            "total_bytes_in_bin",
-            b"total_bytes_in_bin",
-            "total_bytes_in_use",
-            b"total_bytes_in_use",
-            "total_chunks_in_bin",
-            b"total_chunks_in_bin",
-            "total_chunks_in_use",
-            b"total_chunks_in_use",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "bin",
+        b"bin",
+        "total_bytes_in_bin",
+        b"total_bytes_in_bin",
+        "total_bytes_in_use",
+        b"total_bytes_in_use",
+        "total_chunks_in_bin",
+        b"total_chunks_in_bin",
+        "total_chunks_in_use",
+        b"total_chunks_in_use",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___BinSummary = BinSummary
+Global___BinSummary: _TypeAlias = BinSummary  # noqa: Y015
 
-@typing.final
-class SnapShot(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class SnapShot(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    ACTION_COUNT_FIELD_NUMBER: builtins.int
-    SIZE_FIELD_NUMBER: builtins.int
-    action_count: builtins.int
-    size: builtins.int
-    def __init__(self, *, action_count: builtins.int | None = ..., size: builtins.int | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["action_count", b"action_count", "size", b"size"]) -> None: ...
+    ACTION_COUNT_FIELD_NUMBER: _builtins.int
+    SIZE_FIELD_NUMBER: _builtins.int
+    action_count: _builtins.int
+    size: _builtins.int
+    def __init__(self, *, action_count: _builtins.int | None = ..., size: _builtins.int | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["action_count", b"action_count", "size", b"size"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___SnapShot = SnapShot
+Global___SnapShot: _TypeAlias = SnapShot  # noqa: Y015
 
-@typing.final
-class MemoryDump(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class MemoryDump(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    ALLOCATOR_NAME_FIELD_NUMBER: builtins.int
-    BIN_SUMMARY_FIELD_NUMBER: builtins.int
-    CHUNK_FIELD_NUMBER: builtins.int
-    SNAP_SHOT_FIELD_NUMBER: builtins.int
-    STATS_FIELD_NUMBER: builtins.int
-    allocator_name: builtins.str
-    @property
-    def bin_summary(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___BinSummary]: ...
-    @property
-    def chunk(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___MemChunk]: ...
-    @property
-    def snap_shot(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SnapShot]: ...
-    @property
-    def stats(self) -> global___MemAllocatorStats: ...
+    ALLOCATOR_NAME_FIELD_NUMBER: _builtins.int
+    BIN_SUMMARY_FIELD_NUMBER: _builtins.int
+    CHUNK_FIELD_NUMBER: _builtins.int
+    SNAP_SHOT_FIELD_NUMBER: _builtins.int
+    STATS_FIELD_NUMBER: _builtins.int
+    allocator_name: _builtins.str
+    @_builtins.property
+    def bin_summary(self) -> _containers.RepeatedCompositeFieldContainer[Global___BinSummary]: ...
+    @_builtins.property
+    def chunk(self) -> _containers.RepeatedCompositeFieldContainer[Global___MemChunk]: ...
+    @_builtins.property
+    def snap_shot(self) -> _containers.RepeatedCompositeFieldContainer[Global___SnapShot]: ...
+    @_builtins.property
+    def stats(self) -> Global___MemAllocatorStats: ...
     def __init__(
         self,
         *,
-        allocator_name: builtins.str | None = ...,
-        bin_summary: collections.abc.Iterable[global___BinSummary] | None = ...,
-        chunk: collections.abc.Iterable[global___MemChunk] | None = ...,
-        snap_shot: collections.abc.Iterable[global___SnapShot] | None = ...,
-        stats: global___MemAllocatorStats | None = ...,
+        allocator_name: _builtins.str | None = ...,
+        bin_summary: _abc.Iterable[Global___BinSummary] | None = ...,
+        chunk: _abc.Iterable[Global___MemChunk] | None = ...,
+        snap_shot: _abc.Iterable[Global___SnapShot] | None = ...,
+        stats: Global___MemAllocatorStats | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["stats", b"stats"]) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "allocator_name",
-            b"allocator_name",
-            "bin_summary",
-            b"bin_summary",
-            "chunk",
-            b"chunk",
-            "snap_shot",
-            b"snap_shot",
-            "stats",
-            b"stats",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["stats", b"stats"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "allocator_name",
+        b"allocator_name",
+        "bin_summary",
+        b"bin_summary",
+        "chunk",
+        b"chunk",
+        "snap_shot",
+        b"snap_shot",
+        "stats",
+        b"stats",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___MemoryDump = MemoryDump
+Global___MemoryDump: _TypeAlias = MemoryDump  # noqa: Y015

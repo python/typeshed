@@ -3,104 +3,125 @@
 isort:skip_file
 """
 
-import builtins
-import collections.abc
-import typing
+import builtins as _builtins
+import sys
+import typing as _typing
+from collections import abc as _abc
 
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.message
+from google.protobuf import descriptor as _descriptor, message as _message
+from google.protobuf.internal import containers as _containers
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
+else:
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-@typing.final
-class InterconnectLink(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+DESCRIPTOR: _descriptor.FileDescriptor
 
-    DEVICE_ID_FIELD_NUMBER: builtins.int
-    TYPE_FIELD_NUMBER: builtins.int
-    STRENGTH_FIELD_NUMBER: builtins.int
-    device_id: builtins.int
-    type: builtins.str
-    strength: builtins.int
+@_typing.final
+class InterconnectLink(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    DEVICE_ID_FIELD_NUMBER: _builtins.int
+    TYPE_FIELD_NUMBER: _builtins.int
+    STRENGTH_FIELD_NUMBER: _builtins.int
+    device_id: _builtins.int
+    type: _builtins.str
+    strength: _builtins.int
     def __init__(
-        self, *, device_id: builtins.int | None = ..., type: builtins.str | None = ..., strength: builtins.int | None = ...
+        self, *, device_id: _builtins.int | None = ..., type: _builtins.str | None = ..., strength: _builtins.int | None = ...
     ) -> None: ...
-    def ClearField(
-        self, field_name: typing.Literal["device_id", b"device_id", "strength", b"strength", "type", b"type"]
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "device_id", b"device_id", "strength", b"strength", "type", b"type"
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___InterconnectLink = InterconnectLink
+Global___InterconnectLink: _TypeAlias = InterconnectLink  # noqa: Y015
 
-@typing.final
-class LocalLinks(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class LocalLinks(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    LINK_FIELD_NUMBER: builtins.int
-    @property
-    def link(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___InterconnectLink]: ...
-    def __init__(self, *, link: collections.abc.Iterable[global___InterconnectLink] | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["link", b"link"]) -> None: ...
+    LINK_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def link(self) -> _containers.RepeatedCompositeFieldContainer[Global___InterconnectLink]: ...
+    def __init__(self, *, link: _abc.Iterable[Global___InterconnectLink] | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["link", b"link"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___LocalLinks = LocalLinks
+Global___LocalLinks: _TypeAlias = LocalLinks  # noqa: Y015
 
-@typing.final
-class DeviceLocality(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class DeviceLocality(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    BUS_ID_FIELD_NUMBER: builtins.int
-    NUMA_NODE_FIELD_NUMBER: builtins.int
-    LINKS_FIELD_NUMBER: builtins.int
-    bus_id: builtins.int
+    BUS_ID_FIELD_NUMBER: _builtins.int
+    NUMA_NODE_FIELD_NUMBER: _builtins.int
+    LINKS_FIELD_NUMBER: _builtins.int
+    bus_id: _builtins.int
     """Optional bus locality of device.  Default value of 0 means
     no specific locality.  Specific localities are indexed from 1.
     """
-    numa_node: builtins.int
+    numa_node: _builtins.int
     """Optional NUMA locality of device."""
-    @property
-    def links(self) -> global___LocalLinks:
+    @_builtins.property
+    def links(self) -> Global___LocalLinks:
         """Optional local interconnect links to other devices."""
 
     def __init__(
-        self, *, bus_id: builtins.int | None = ..., numa_node: builtins.int | None = ..., links: global___LocalLinks | None = ...
+        self,
+        *,
+        bus_id: _builtins.int | None = ...,
+        numa_node: _builtins.int | None = ...,
+        links: Global___LocalLinks | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["links", b"links"]) -> builtins.bool: ...
-    def ClearField(
-        self, field_name: typing.Literal["bus_id", b"bus_id", "links", b"links", "numa_node", b"numa_node"]
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["links", b"links"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "bus_id", b"bus_id", "links", b"links", "numa_node", b"numa_node"
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___DeviceLocality = DeviceLocality
+Global___DeviceLocality: _TypeAlias = DeviceLocality  # noqa: Y015
 
-@typing.final
-class DeviceAttributes(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class DeviceAttributes(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    DEVICE_TYPE_FIELD_NUMBER: builtins.int
-    MEMORY_LIMIT_FIELD_NUMBER: builtins.int
-    LOCALITY_FIELD_NUMBER: builtins.int
-    INCARNATION_FIELD_NUMBER: builtins.int
-    PHYSICAL_DEVICE_DESC_FIELD_NUMBER: builtins.int
-    XLA_GLOBAL_ID_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    DEVICE_TYPE_FIELD_NUMBER: _builtins.int
+    MEMORY_LIMIT_FIELD_NUMBER: _builtins.int
+    LOCALITY_FIELD_NUMBER: _builtins.int
+    INCARNATION_FIELD_NUMBER: _builtins.int
+    PHYSICAL_DEVICE_DESC_FIELD_NUMBER: _builtins.int
+    XLA_GLOBAL_ID_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """Fully specified name of the device within a cluster."""
-    device_type: builtins.str
+    device_type: _builtins.str
     """String representation of device_type."""
-    memory_limit: builtins.int
+    memory_limit: _builtins.int
     """Memory capacity of device in bytes."""
-    incarnation: builtins.int
+    incarnation: _builtins.int
     """A device is assigned a global unique number each time it is
     initialized. "incarnation" should never be 0.
     """
-    physical_device_desc: builtins.str
+    physical_device_desc: _builtins.str
     """String representation of the physical device that this device maps to."""
-    xla_global_id: builtins.int
+    xla_global_id: _builtins.int
     """A physical device ID for use in XLA DeviceAssignments, unique across
     clients in a multi-client setup. Set to -1 if unavailable, non-negative
     otherwise.
     """
-    @property
-    def locality(self) -> global___DeviceLocality:
+    @_builtins.property
+    def locality(self) -> Global___DeviceLocality:
         """Platform-specific data about device that may be useful
         for supporting efficient data transfers.
         """
@@ -108,33 +129,33 @@ class DeviceAttributes(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        name: builtins.str | None = ...,
-        device_type: builtins.str | None = ...,
-        memory_limit: builtins.int | None = ...,
-        locality: global___DeviceLocality | None = ...,
-        incarnation: builtins.int | None = ...,
-        physical_device_desc: builtins.str | None = ...,
-        xla_global_id: builtins.int | None = ...,
+        name: _builtins.str | None = ...,
+        device_type: _builtins.str | None = ...,
+        memory_limit: _builtins.int | None = ...,
+        locality: Global___DeviceLocality | None = ...,
+        incarnation: _builtins.int | None = ...,
+        physical_device_desc: _builtins.str | None = ...,
+        xla_global_id: _builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["locality", b"locality"]) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "device_type",
-            b"device_type",
-            "incarnation",
-            b"incarnation",
-            "locality",
-            b"locality",
-            "memory_limit",
-            b"memory_limit",
-            "name",
-            b"name",
-            "physical_device_desc",
-            b"physical_device_desc",
-            "xla_global_id",
-            b"xla_global_id",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["locality", b"locality"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "device_type",
+        b"device_type",
+        "incarnation",
+        b"incarnation",
+        "locality",
+        b"locality",
+        "memory_limit",
+        b"memory_limit",
+        "name",
+        b"name",
+        "physical_device_desc",
+        b"physical_device_desc",
+        "xla_global_id",
+        b"xla_global_id",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___DeviceAttributes = DeviceAttributes
+Global___DeviceAttributes: _TypeAlias = DeviceAttributes  # noqa: Y015

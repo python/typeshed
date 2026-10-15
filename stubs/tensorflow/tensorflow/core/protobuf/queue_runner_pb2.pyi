@@ -3,42 +3,46 @@
 isort:skip_file
 """
 
-import builtins
-import collections.abc
-import typing
+import builtins as _builtins
+import sys
+import typing as _typing
+from collections import abc as _abc
 
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.message
-import tensorflow.tsl.protobuf.error_codes_pb2
+from google.protobuf import descriptor as _descriptor, message as _message
+from google.protobuf.internal import containers as _containers
+from tensorflow.compiler.xla.tsl.protobuf import error_codes_pb2 as _error_codes_pb2
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
+else:
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-@typing.final
-class QueueRunnerDef(google.protobuf.message.Message):
+DESCRIPTOR: _descriptor.FileDescriptor
+
+@_typing.final
+class QueueRunnerDef(_message.Message):
     """Protocol buffer representing a QueueRunner."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    QUEUE_NAME_FIELD_NUMBER: builtins.int
-    ENQUEUE_OP_NAME_FIELD_NUMBER: builtins.int
-    CLOSE_OP_NAME_FIELD_NUMBER: builtins.int
-    CANCEL_OP_NAME_FIELD_NUMBER: builtins.int
-    QUEUE_CLOSED_EXCEPTION_TYPES_FIELD_NUMBER: builtins.int
-    queue_name: builtins.str
+    QUEUE_NAME_FIELD_NUMBER: _builtins.int
+    ENQUEUE_OP_NAME_FIELD_NUMBER: _builtins.int
+    CLOSE_OP_NAME_FIELD_NUMBER: _builtins.int
+    CANCEL_OP_NAME_FIELD_NUMBER: _builtins.int
+    QUEUE_CLOSED_EXCEPTION_TYPES_FIELD_NUMBER: _builtins.int
+    queue_name: _builtins.str
     """Queue name."""
-    close_op_name: builtins.str
+    close_op_name: _builtins.str
     """The operation to run to close the queue."""
-    cancel_op_name: builtins.str
+    cancel_op_name: _builtins.str
     """The operation to run to cancel the queue."""
-    @property
-    def enqueue_op_name(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def enqueue_op_name(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """A list of enqueue operations."""
 
-    @property
-    def queue_closed_exception_types(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[tensorflow.tsl.protobuf.error_codes_pb2.Code.ValueType]:
+    @_builtins.property
+    def queue_closed_exception_types(self) -> _containers.RepeatedScalarFieldContainer[_error_codes_pb2.Code.ValueType]:
         """A list of exception types considered to signal a safely closed queue
         if raised during enqueue operations.
         """
@@ -46,28 +50,27 @@ class QueueRunnerDef(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        queue_name: builtins.str | None = ...,
-        enqueue_op_name: collections.abc.Iterable[builtins.str] | None = ...,
-        close_op_name: builtins.str | None = ...,
-        cancel_op_name: builtins.str | None = ...,
-        queue_closed_exception_types: (
-            collections.abc.Iterable[tensorflow.tsl.protobuf.error_codes_pb2.Code.ValueType] | None
-        ) = ...,
+        queue_name: _builtins.str | None = ...,
+        enqueue_op_name: _abc.Iterable[_builtins.str] | None = ...,
+        close_op_name: _builtins.str | None = ...,
+        cancel_op_name: _builtins.str | None = ...,
+        queue_closed_exception_types: _abc.Iterable[_error_codes_pb2.Code.ValueType] | None = ...,
     ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "cancel_op_name",
-            b"cancel_op_name",
-            "close_op_name",
-            b"close_op_name",
-            "enqueue_op_name",
-            b"enqueue_op_name",
-            "queue_closed_exception_types",
-            b"queue_closed_exception_types",
-            "queue_name",
-            b"queue_name",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "cancel_op_name",
+        b"cancel_op_name",
+        "close_op_name",
+        b"close_op_name",
+        "enqueue_op_name",
+        b"enqueue_op_name",
+        "queue_closed_exception_types",
+        b"queue_closed_exception_types",
+        "queue_name",
+        b"queue_name",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___QueueRunnerDef = QueueRunnerDef
+Global___QueueRunnerDef: _TypeAlias = QueueRunnerDef  # noqa: Y015

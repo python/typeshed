@@ -3,70 +3,74 @@
 isort:skip_file
 """
 
-import builtins
-import collections.abc
-import typing
+import builtins as _builtins
+import sys
+import typing as _typing
+from collections import abc as _abc
 
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.message
-import tensorflow.core.framework.attr_value_pb2
+from google.protobuf import descriptor as _descriptor, message as _message
+from google.protobuf.internal import containers as _containers
+from tensorflow.core.framework import attr_value_pb2 as _attr_value_pb2
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
+else:
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-@typing.final
-class KernelDef(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+DESCRIPTOR: _descriptor.FileDescriptor
 
-    @typing.final
-    class AttrConstraint(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class KernelDef(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-        NAME_FIELD_NUMBER: builtins.int
-        ALLOWED_VALUES_FIELD_NUMBER: builtins.int
-        name: builtins.str
+    @_typing.final
+    class AttrConstraint(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
+
+        NAME_FIELD_NUMBER: _builtins.int
+        ALLOWED_VALUES_FIELD_NUMBER: _builtins.int
+        name: _builtins.str
         """Name of an attr from the Op."""
-        @property
-        def allowed_values(self) -> tensorflow.core.framework.attr_value_pb2.AttrValue:
+        @_builtins.property
+        def allowed_values(self) -> _attr_value_pb2.AttrValue:
             """A list of values that this kernel supports for this attr.
             Like OpDef.AttrDef.allowed_values, except for kernels instead of Ops.
             """
 
         def __init__(
-            self,
-            *,
-            name: builtins.str | None = ...,
-            allowed_values: tensorflow.core.framework.attr_value_pb2.AttrValue | None = ...,
+            self, *, name: _builtins.str | None = ..., allowed_values: _attr_value_pb2.AttrValue | None = ...
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["allowed_values", b"allowed_values"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["allowed_values", b"allowed_values", "name", b"name"]) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["allowed_values", b"allowed_values"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["allowed_values", b"allowed_values", "name", b"name"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    OP_FIELD_NUMBER: builtins.int
-    DEVICE_TYPE_FIELD_NUMBER: builtins.int
-    CONSTRAINT_FIELD_NUMBER: builtins.int
-    HOST_MEMORY_ARG_FIELD_NUMBER: builtins.int
-    LABEL_FIELD_NUMBER: builtins.int
-    PRIORITY_FIELD_NUMBER: builtins.int
-    op: builtins.str
+    OP_FIELD_NUMBER: _builtins.int
+    DEVICE_TYPE_FIELD_NUMBER: _builtins.int
+    CONSTRAINT_FIELD_NUMBER: _builtins.int
+    HOST_MEMORY_ARG_FIELD_NUMBER: _builtins.int
+    LABEL_FIELD_NUMBER: _builtins.int
+    PRIORITY_FIELD_NUMBER: _builtins.int
+    op: _builtins.str
     """Must match the name of an Op."""
-    device_type: builtins.str
+    device_type: _builtins.str
     """Type of device this kernel runs on."""
-    label: builtins.str
+    label: _builtins.str
     """This allows experimental kernels to be registered for an op that
     won't be used unless the user specifies a "_kernel" attr with
     value matching this.
     """
-    priority: builtins.int
+    priority: _builtins.int
     """Prioritization of kernel amongst different devices. By default we assume
     priority is 0. The higher the priority the better. By default (i.e. if
     this is not set), we prefer GPU kernels over CPU.
     """
-    @property
-    def constraint(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___KernelDef.AttrConstraint]: ...
-    @property
-    def host_memory_arg(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def constraint(self) -> _containers.RepeatedCompositeFieldContainer[Global___KernelDef.AttrConstraint]: ...
+    @_builtins.property
+    def host_memory_arg(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """Names of the Op's input_/output_args that reside in host memory
         instead of device memory.
         """
@@ -74,43 +78,48 @@ class KernelDef(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        op: builtins.str | None = ...,
-        device_type: builtins.str | None = ...,
-        constraint: collections.abc.Iterable[global___KernelDef.AttrConstraint] | None = ...,
-        host_memory_arg: collections.abc.Iterable[builtins.str] | None = ...,
-        label: builtins.str | None = ...,
-        priority: builtins.int | None = ...,
+        op: _builtins.str | None = ...,
+        device_type: _builtins.str | None = ...,
+        constraint: _abc.Iterable[Global___KernelDef.AttrConstraint] | None = ...,
+        host_memory_arg: _abc.Iterable[_builtins.str] | None = ...,
+        label: _builtins.str | None = ...,
+        priority: _builtins.int | None = ...,
     ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "constraint",
-            b"constraint",
-            "device_type",
-            b"device_type",
-            "host_memory_arg",
-            b"host_memory_arg",
-            "label",
-            b"label",
-            "op",
-            b"op",
-            "priority",
-            b"priority",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "constraint",
+        b"constraint",
+        "device_type",
+        b"device_type",
+        "host_memory_arg",
+        b"host_memory_arg",
+        "label",
+        b"label",
+        "op",
+        b"op",
+        "priority",
+        b"priority",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___KernelDef = KernelDef
+Global___KernelDef: _TypeAlias = KernelDef  # noqa: Y015
 
-@typing.final
-class KernelList(google.protobuf.message.Message):
+@_typing.final
+class KernelList(_message.Message):
     """A collection of KernelDefs"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    KERNEL_FIELD_NUMBER: builtins.int
-    @property
-    def kernel(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___KernelDef]: ...
-    def __init__(self, *, kernel: collections.abc.Iterable[global___KernelDef] | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["kernel", b"kernel"]) -> None: ...
+    KERNEL_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def kernel(self) -> _containers.RepeatedCompositeFieldContainer[Global___KernelDef]: ...
+    def __init__(self, *, kernel: _abc.Iterable[Global___KernelDef] | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["kernel", b"kernel"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___KernelList = KernelList
+Global___KernelList: _TypeAlias = KernelList  # noqa: Y015

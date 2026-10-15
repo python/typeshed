@@ -7,7 +7,7 @@ tsl/protobuf/error_codes.proto, results in name collision errors in generated
 code for some users that use JS through J2CL.
 """
 
-import google.protobuf.descriptor
-from tensorflow.tsl.protobuf.status_pb2 import StatusProto as StatusProto
+from google.protobuf import descriptor as _descriptor
+from tensorflow.compiler.xla.tsl.protobuf.status_pb2 import StatusProto as StatusProto
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+DESCRIPTOR: _descriptor.FileDescriptor
