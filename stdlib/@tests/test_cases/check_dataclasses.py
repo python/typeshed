@@ -39,17 +39,17 @@ if dc.is_dataclass(f):
 
 def is_dataclass_any(arg: Any) -> None:
     if dc.is_dataclass(arg):
-        assert_type(arg, "DataclassInstance" | type["DataclassInstance"])
+        assert_type(arg, DataclassInstance | type[DataclassInstance])
 
 
 def is_dataclass_object(arg: object) -> None:
     if dc.is_dataclass(arg):
-        assert_type(arg, "DataclassInstance" | type["DataclassInstance"])
+        assert_type(arg, DataclassInstance | type[DataclassInstance])
 
 
 def is_dataclass_type(arg: type) -> None:
     if dc.is_dataclass(arg):
-        assert_type(arg, type["DataclassInstance"])
+        assert_type(arg, type[DataclassInstance])
 
 
 def check_other_isdataclass_overloads(x: type, y: object) -> None:
@@ -68,7 +68,7 @@ def check_other_isdataclass_overloads(x: type, y: object) -> None:
     dc.replace(y)  # type: ignore
 
     if dc.is_dataclass(x):
-        assert_type(x, type["DataclassInstance"])
+        assert_type(x, type[DataclassInstance])
         assert_type(dc.fields(x), tuple[dc.Field[Any], ...])
 
         dc.asdict(x)  # type: ignore
@@ -76,7 +76,7 @@ def check_other_isdataclass_overloads(x: type, y: object) -> None:
         dc.replace(x)  # type: ignore
 
     if dc.is_dataclass(y):
-        assert_type(y, "DataclassInstance" | type["DataclassInstance"])
+        assert_type(y, DataclassInstance | type[DataclassInstance])
         assert_type(dc.fields(y), tuple[dc.Field[Any], ...])
 
         dc.asdict(y)  # type: ignore
@@ -84,7 +84,7 @@ def check_other_isdataclass_overloads(x: type, y: object) -> None:
         dc.replace(y)  # type: ignore
 
     if dc.is_dataclass(y) and not isinstance(y, type):
-        assert_type(y, "DataclassInstance")
+        assert_type(y, DataclassInstance)
         assert_type(dc.fields(y), tuple[dc.Field[Any], ...])
         assert_type(dc.asdict(y), dict[str, Any])
         assert_type(dc.astuple(y), tuple[Any, ...])
