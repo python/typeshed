@@ -46,7 +46,7 @@ assert_type(any_cc.public, bool)
 
 # NOTE: pyright gets confused about the `Literal["*"]` the types match
 req_cc.private  # type: ignore
-assert_type(res_cc.private, int | Literal["*"] | None)  # pyright: ignore
+assert_type(res_cc.private, str | Literal["*"] | None)  # pyright: ignore
 shared_cc.private  # type: ignore
 assert_type(any_cc.private, int | Literal["*"] | None)  # pyright: ignore
 
