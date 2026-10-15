@@ -11,8 +11,6 @@ _VT = TypeVar("_VT")
 _TT = TypeVar("_TT", default=float)
 _T = TypeVar("_T")
 _R = TypeVar("_R")
-_KT2 = TypeVar("_KT2")
-_VT2 = TypeVar("_VT2")
 
 class Cache(MutableMapping[_KT, _VT]):
     def __init__(self, maxsize: float, getsizeof: Callable[[_VT], float] | None = None) -> None: ...
@@ -66,7 +64,11 @@ class _TimedCache(Cache[_KT, _VT], Generic[_KT, _VT, _TT]):
 class TTLCache(_TimedCache[_KT, _VT, _TT]):
     @overload
     def __init__(
-        self: TTLCache[_KT2, _VT2, float], maxsize: float, ttl: float, *, getsizeof: Callable[[_VT2], float] | None = None
+        self: TTLCache[_KT, _VT, float],  # pyright: ignore[reportInvalidTypeVarUse]  #11780
+        maxsize: float,
+        ttl: float,
+        *,
+        getsizeof: Callable[[_VT], float] | None = None,
     ) -> None: ...
     @overload
     def __init__(
@@ -84,11 +86,11 @@ class TTLCache(_TimedCache[_KT, _VT, _TT]):
 class TLRUCache(_TimedCache[_KT, _VT, _TT]):
     @overload
     def __init__(
-        self: TLRUCache[_KT2, _VT2, float],
+        self: TLRUCache[_KT, _VT, float],  # pyright: ignore[reportInvalidTypeVarUse]  #11780
         maxsize: float,
-        ttu: Callable[[_KT2, _VT2, float], float],
+        ttu: Callable[[_KT, _VT, float], float],
         *,
-        getsizeof: Callable[[_VT2], float] | None = None,
+        getsizeof: Callable[[_VT], float] | None = None,
     ) -> None: ...
     @overload
     def __init__(
