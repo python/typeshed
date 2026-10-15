@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
-from typing import overload
+from collections.abc import Callable
+from typing import Any, TypeAlias, overload
 from typing_extensions import Never, deprecated
 
 from networkx.classes.graph import Graph, _Node
@@ -29,11 +30,17 @@ class GlobalRelabelThreshold:
 
 @overload
 @deprecated("MultiGraph and MultiDiGraph not supported (yet).")
-def build_residual_network(G: MultiGraph[_Node], capacity, *, backend: str | None = None, **backend_kwargs) -> Never: ...
+def build_residual_network(
+    G: MultiGraph[_Node], capacity: str | _CapacityFunc[_Node], *, backend: str | None = None, **backend_kwargs
+) -> Never: ...
 @overload
-def build_residual_network(G: Graph[_Node], capacity, *, backend: str | None = None, **backend_kwargs): ...
+def build_residual_network(
+    G: Graph[_Node], capacity: str | _CapacityFunc[_Node], *, backend: str | None = None, **backend_kwargs
+): ...
 
 @_dispatchable
 def detect_unboundedness(R, s, t) -> None: ...
 @_dispatchable
 def build_flow_dict(G: Graph[_Node], R): ...
+
+_CapacityFunc: TypeAlias = Callable[[_Node, _Node, dict[str, Any]], float]

@@ -1,12 +1,14 @@
 from _typeshed import Incomplete
 from collections.abc import Callable, Iterable
-from typing_extensions import deprecated
+from random import Random
 
+from networkx._typing import Seed
 from networkx.utils.backends import _dispatchable
 
-from ..classes.graph import Graph
+from ..classes.graph import Graph, _Node
 
 __all__ = [
+    "random_k_lift",
     "fast_gnp_random_graph",
     "gnp_random_graph",
     "dense_gnm_random_graph",
@@ -21,7 +23,6 @@ __all__ = [
     "dual_barabasi_albert_graph",
     "extended_barabasi_albert_graph",
     "powerlaw_cluster_graph",
-    "random_lobster",
     "random_lobster_graph",
     "random_shell_graph",
     "random_powerlaw_tree",
@@ -64,9 +65,6 @@ def powerlaw_cluster_graph(n: int, m: int, p: float, seed=None, *, create_using=
 @_dispatchable
 def random_lobster_graph(n: int, p1: float, p2: float, seed=None, *, create_using=None): ...
 @_dispatchable
-@deprecated("`random_lobster` is a deprecated alias for `random_lobster_graph`. Use `random_lobster_graph` instead.")
-def random_lobster(n, p1, p2, seed=None, *, create_using=None): ...
-@_dispatchable
 def random_shell_graph(constructor: Iterable[tuple[int, int, float]], seed=None, *, create_using=None): ...
 @_dispatchable
 def random_powerlaw_tree(n: int, gamma: float = 3, seed=None, tries: int = 100, *, create_using=None): ...
@@ -81,3 +79,5 @@ def random_kernel_graph(
     *,
     create_using=None,
 ): ...
+@_dispatchable
+def random_k_lift(G: Graph[_Node], k: int, seed: Seed | Random | None = None) -> Graph[tuple[_Node, int]]: ...

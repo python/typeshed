@@ -9,6 +9,7 @@ from networkx.utils.backends import _dispatchable
 from scipy.sparse import csr_array  # type: ignore[import-untyped]  # pyright: ignore[reportMissingImports]
 
 __all__ = [
+    "magnetic_laplacian_matrix",
     "laplacian_matrix",
     "normalized_laplacian_matrix",
     "directed_laplacian_matrix",
@@ -37,3 +38,12 @@ def directed_combinatorial_laplacian_matrix(
     walk_type: Literal["random", "lazy", "pagerank"] | None = None,
     alpha: float = 0.95,
 ) -> Array2D[np.float64]: ...
+@_dispatchable
+def magnetic_laplacian_matrix(
+    G: DiGraph[_Node],
+    *,
+    nodelist: Collection[_Node] | None = None,
+    normalized: bool = False,
+    q: float = 0.25,
+    weight: str | None = "weight",
+) -> csr_array: ...

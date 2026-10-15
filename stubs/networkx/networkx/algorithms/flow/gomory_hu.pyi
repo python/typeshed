@@ -1,6 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Callable
 
+from networkx.algorithms.flow.utils import _CapacityFunc
 from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
 
@@ -11,5 +12,5 @@ default_flow_func = edmonds_karp
 
 @_dispatchable
 def gomory_hu_tree(
-    G: Graph[_Node], capacity: str = "capacity", flow_func: Callable[..., Incomplete] | None = None
+    G: Graph[_Node], capacity: str | _CapacityFunc[_Node] = "capacity", flow_func: Callable[..., Incomplete] | None = None
 ) -> Graph[Incomplete]: ...
