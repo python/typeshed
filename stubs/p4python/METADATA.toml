@@ -1,0 +1,4 @@
+version = "2025.2.*"
+upstream_repository = "https://github.com/perforce/p4python"
+partial_stub = true
+requires_python = ">=3.11"
