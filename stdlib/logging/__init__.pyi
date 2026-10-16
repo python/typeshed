@@ -312,8 +312,8 @@ class LogRecord:
     args: _ArgsType | None
     asctime: str
     created: float
-    # Logger._log() only normalizes truthy exc_info values so
-    # exc_info=False ends up on the record unchanged.
+    # Prior to Python 3.16, Logger._log() only normalizes truthy exc_info
+    # values so exc_info=False ends up on the record unchanged.
     exc_info: _SysExcInfoType | Literal[False] | None
     exc_text: str | None
     filename: str
@@ -345,7 +345,7 @@ class LogRecord:
         lineno: int,
         msg: object,
         args: _ArgsType | None,
-        exc_info: _SysExcInfoType | Literal[False] | None,
+        exc_info: _SysExcInfoType | None,
         func: str | None = None,
         sinfo: str | None = None,
     ) -> None: ...
