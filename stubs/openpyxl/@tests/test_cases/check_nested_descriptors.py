@@ -4,7 +4,7 @@
 # These tests are essentially a mirror of check_base_descriptors
 from __future__ import annotations
 
-from typing import Literal, Union, cast
+from typing import Literal, cast
 from typing_extensions import assert_type
 
 from openpyxl.descriptors import Strict
@@ -81,12 +81,12 @@ class WithDescriptors(Serialisable):
     # Test inferred annotation
     assert_type(descriptor, Nested[str])
 
-    assert_type(set_tuple, NestedSet[Union[Literal["a", 1], float]])  # type: ignore[assert-type]  # False-positive in mypy
-    assert_type(set_list, NestedSet[Union[str, int, float]])  # type: ignore[assert-type]  # False-positive in mypy # Literals are simplified in non-tuples
-    assert_type(set_tuple_none, NestedSet[Union[Literal["a", 1, None], float]])  # type: ignore[assert-type]  # False-positive in mypy
+    assert_type(set_tuple, NestedSet[Literal["a", 1] | float])  # type: ignore[assert-type]  # False-positive in mypy
+    assert_type(set_list, NestedSet[str | int | float])  # type: ignore[assert-type]  # False-positive in mypy # Literals are simplified in non-tuples
+    assert_type(set_tuple_none, NestedSet[Literal["a", 1, None] | float])  # type: ignore[assert-type]  # False-positive in mypy
 
-    assert_type(noneset_tuple, NestedNoneSet[Union[Literal["a", 1], float]])  # type: ignore[assert-type]  # False-positive in mypy
-    assert_type(noneset_list, NestedNoneSet[Union[str, float]])  # type: ignore[assert-type]  # False-positive in mypy# int and float are merged in generic unions
+    assert_type(noneset_tuple, NestedNoneSet[Literal["a", 1] | float])  # type: ignore[assert-type]  # False-positive in mypy
+    assert_type(noneset_list, NestedNoneSet[str | float])  # type: ignore[assert-type]  # False-positive in mypy# int and float are merged in generic unions
 
     assert_type(convertible_default, NestedValue[int, Literal[False]])
     assert_type(convertible_not_none, NestedValue[int, Literal[False]])
@@ -147,40 +147,40 @@ WithDescriptorsStrict().descriptor = None
 # Test getters
 assert_type(with_descriptors.descriptor, str)
 
-assert_type(with_descriptors.set_tuple, Union[Literal["a", 1], float])  # type: ignore[assert-type]  # False-positive in mypy
-assert_type(with_descriptors.set_list, Union[str, int, float])  # type: ignore[assert-type]  # False-positive in mypy  # Literals are simplified in non-tuples
-assert_type(with_descriptors.set_tuple_none, Union[Literal["a", 1, None], float])  # type: ignore[assert-type]  # False-positive in mypy
+assert_type(with_descriptors.set_tuple, Literal["a", 1] | float)  # type: ignore[assert-type]  # False-positive in mypy
+assert_type(with_descriptors.set_list, str | int | float)  # type: ignore[assert-type]  # False-positive in mypy  # Literals are simplified in non-tuples
+assert_type(with_descriptors.set_tuple_none, Literal["a", 1, None] | float)  # type: ignore[assert-type]  # False-positive in mypy
 
-assert_type(with_descriptors.noneset_tuple, Union[Literal["a", 1], float, None])  # type: ignore[assert-type]  # False-positive in mypy
-assert_type(with_descriptors.noneset_list, Union[str, float, None])  # type: ignore[assert-type]  # False-positive in mypy  # int and float are merged in generic unions
+assert_type(with_descriptors.noneset_tuple, Literal["a", 1] | float | None)  # type: ignore[assert-type]  # False-positive in mypy
+assert_type(with_descriptors.noneset_list, str | float | None)  # type: ignore[assert-type]  # False-positive in mypy  # int and float are merged in generic unions
 
 assert_type(with_descriptors.convertible_not_none, int)
-assert_type(with_descriptors.convertible_none, Union[int, None])
+assert_type(with_descriptors.convertible_none, int | None)
 
 assert_type(with_descriptors.text_str_not_none, str)
-assert_type(with_descriptors.text_str_none, Union[str, None])
+assert_type(with_descriptors.text_str_none, str | None)
 assert_type(with_descriptors.text_int_not_none, int)
-assert_type(with_descriptors.text_int_none, Union[int, None])
+assert_type(with_descriptors.text_int_none, int | None)
 
 assert_type(with_descriptors.minmax_float, float)
-assert_type(with_descriptors.minmax_float_none, Union[float, None])
+assert_type(with_descriptors.minmax_float_none, float | None)
 assert_type(with_descriptors.minmax_int, int)
-assert_type(with_descriptors.minmax_int_none, Union[int, None])
+assert_type(with_descriptors.minmax_int_none, int | None)
 
 assert_type(with_descriptors.bool_not_none, bool)
-assert_type(with_descriptors.bool_none, Union[bool, None])
+assert_type(with_descriptors.bool_none, bool | None)
 
 assert_type(with_descriptors.emptytag_not_none, bool)
-assert_type(with_descriptors.emptytag_none, Union[bool, None])
+assert_type(with_descriptors.emptytag_none, bool | None)
 
 assert_type(with_descriptors.string_not_none, str)
-assert_type(with_descriptors.string_none, Union[str, None])
+assert_type(with_descriptors.string_none, str | None)
 
 assert_type(with_descriptors.float_not_none, float)
-assert_type(with_descriptors.float_none, Union[float, None])
+assert_type(with_descriptors.float_none, float | None)
 
 assert_type(with_descriptors.integer_not_none, int)
-assert_type(with_descriptors.integer_none, Union[int, None])
+assert_type(with_descriptors.integer_none, int | None)
 
 
 # Test setters (expected type, None, unexpected type, Elements)

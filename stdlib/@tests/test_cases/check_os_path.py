@@ -3,7 +3,7 @@ from __future__ import annotations
 from _typeshed import StrOrBytesPath
 from os import PathLike
 from os.path import abspath, expanduser, expandvars
-from typing import AnyStr, Union
+from typing import AnyStr
 from typing_extensions import assert_type
 
 
@@ -11,9 +11,9 @@ def test_str_path(str_path: StrOrBytesPath) -> None:
     # These methods are currently overloaded to work around python/mypy#17952 & python/mypy#11880
     # Let's ensure that they'll still work with a StrOrBytesPath if the workaround is removed
 
-    assert_type(abspath(str_path), Union[str, bytes])
-    assert_type(expanduser(str_path), Union[str, bytes])
-    assert_type(expandvars(str_path), Union[str, bytes])
+    assert_type(abspath(str_path), str | bytes)
+    assert_type(expanduser(str_path), str | bytes)
+    assert_type(expandvars(str_path), str | bytes)
 
 
 # See python/mypy#17952
