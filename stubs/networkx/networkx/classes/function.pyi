@@ -82,7 +82,6 @@ def to_directed(graph): ...
 def to_undirected(graph): ...
 def create_empty_copy(G: Graph[_Node], with_data: bool = True): ...
 
-# incomplete: Can "Any scalar value" be enforced?
 @overload
 def set_node_attributes(
     G: Graph[Hashable],
@@ -92,6 +91,8 @@ def set_node_attributes(
     backend=None,  # @_dispatchable adds these arguments, but we can't use this decorator with @overload
     **backend_kwargs,
 ) -> None: ...
+@overload
+def set_node_attributes(G: Graph[Hashable], values: object, name: str, *, backend=None, **backend_kwargs) -> None: ...
 @overload
 def set_node_attributes(
     G: Graph[_Node],
@@ -124,6 +125,10 @@ def set_edge_attributes(
     *,
     backend: str | None = None,
     **backend_kwargs,
+) -> None: ...
+@overload
+def set_edge_attributes(
+    G: Graph[Hashable], values: object, name: str, *, backend: str | None = None, **backend_kwargs
 ) -> None: ...
 @overload
 def set_edge_attributes(
