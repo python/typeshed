@@ -26,7 +26,6 @@ from grpc import (
     GenericRpcHandler,
     HandlerCallDetails,
     RpcError,
-    RpcMethodHandler,
     ServerCredentials,
     Status,
     StatusCode,
@@ -437,6 +436,19 @@ class StreamStreamClientInterceptor(ClientInterceptor, metaclass=abc.ABCMeta):
 
 # Server-Side Interceptor:
 
+# Async version of grpc.RpcMethodHandler. As opposed to the former, this type
+# does not exist at runtime.
+@type_check_only
+class _AsyncRpcMethodHandler(Generic[_TRequest, _TResponse]):
+    request_streaming: bool
+    response_streaming: bool
+    request_deserializer: _Deserializer[_TRequest] | None
+    response_serializer: _Serializer[_TResponse] | None
+    unary_unary: Callable[[_TRequest, ServicerContext[_TRequest, _TResponse]], Awaitable[_TResponse]] | None
+    unary_stream: Callable[[_TRequest, ServicerContext[_TRequest, _TResponse]], AsyncIterator[_TResponse]] | None
+    stream_unary: Callable[[AsyncIterator[_TRequest], ServicerContext[_TRequest, _TResponse]], Awaitable[_TResponse]] | None
+    stream_stream: Callable[[AsyncIterator[_TRequest], ServicerContext[_TRequest, _TResponse]], AsyncIterator[_TResponse]] | None
+
 class ServerInterceptor(metaclass=abc.ABCMeta):
     # This method (not the class) is generic over _TRequest and _TResponse
     # and the types must satisfy the no-op implementation of
@@ -447,9 +459,9 @@ class ServerInterceptor(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     async def intercept_service(
         self,
-        continuation: Callable[[HandlerCallDetails], Awaitable[RpcMethodHandler[_TRequest, _TResponse] | None]],
+        continuation: Callable[[HandlerCallDetails], Awaitable[_AsyncRpcMethodHandler[_TRequest, _TResponse] | None]],
         handler_call_details: HandlerCallDetails,
-    ) -> RpcMethodHandler[_TRequest, _TResponse] | None: ...
+    ) -> _AsyncRpcMethodHandler[_TRequest, _TResponse] | None: ...
 
 # Multi-Callable Interfaces:
 

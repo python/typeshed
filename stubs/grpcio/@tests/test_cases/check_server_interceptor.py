@@ -6,6 +6,7 @@ from typing import Awaitable, TypeVar
 
 import grpc
 import grpc.aio
+from grpc.aio import _AsyncRpcMethodHandler
 
 RequestT = TypeVar("RequestT")
 ResponseT = TypeVar("ResponseT")
@@ -26,9 +27,9 @@ grpc.server(interceptors=[NoopInterceptor()], thread_pool=ThreadPoolExecutor())
 class NoopAioInterceptor(grpc.aio.ServerInterceptor):
     async def intercept_service(
         self,
-        continuation: Callable[[grpc.HandlerCallDetails], Awaitable[grpc.RpcMethodHandler[RequestT, ResponseT] | None]],
+        continuation: Callable[[grpc.HandlerCallDetails], Awaitable[_AsyncRpcMethodHandler[RequestT, ResponseT] | None]],
         handler_call_details: grpc.HandlerCallDetails,
-    ) -> grpc.RpcMethodHandler[RequestT, ResponseT] | None:
+    ) -> _AsyncRpcMethodHandler[RequestT, ResponseT] | None:
         return await continuation(handler_call_details)
 
 
