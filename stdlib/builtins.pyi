@@ -182,28 +182,21 @@ class classmethod(Generic[_T, _P, _R_co]):
 @disjoint_base
 class type:
     # object.__base__ is None. Otherwise, it would be a type.
-    @property
-    def __base__(self) -> type | None: ...
+    __base__: Final[type | None]
     __bases__: tuple[type, ...]
-    @property
-    def __basicsize__(self) -> int: ...
+    __basicsize__: Final[int]
     # type.__dict__ is read-only at runtime, but that can't be expressed currently.
     # See https://github.com/python/typeshed/issues/11033 for a discussion.
     __dict__: Final[types.MappingProxyType[str, Any]]  # type: ignore[assignment]
-    @property
-    def __dictoffset__(self) -> int: ...
-    @property
-    def __flags__(self) -> int: ...
-    @property
-    def __itemsize__(self) -> int: ...
+    __dictoffset__: Final[int]
+    __flags__: Final[int]
+    __itemsize__: Final[int]
     __module__: str
     __mro__: Final[tuple[type, ...]]
     __name__: str
     __qualname__: str
-    @property
-    def __text_signature__(self) -> str | None: ...
-    @property
-    def __weakrefoffset__(self) -> int: ...
+    __text_signature__: Final[str | None]
+    __weakrefoffset__: Final[int]
 
     @overload
     def __init__(self, o: object, /) -> None: ...
