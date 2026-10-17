@@ -145,6 +145,8 @@ Run using
 This test compares the stdlib stubs against the objects at runtime. Because of
 this, the output depends on which version of Python and on what kind of system
 it is run.
+To check specific modules instead of the entire standard library, pass their
+import names, for example `python tests/stubtest_stdlib.py getopt`.
 As such, if you run this test locally, it may complain about system-specific
 differences (in e.g., `socket`) that the type system cannot capture or our stubtest settings
 in CI do not account for. If you run into this issue, consider opening a draft PR and letting CI
