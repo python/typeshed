@@ -197,8 +197,7 @@ class type:
     @property
     def __itemsize__(self) -> int: ...
     __module__: str
-    @property
-    def __mro__(self) -> tuple[type, ...]: ...
+    __mro__: Final[tuple[type, ...]]
     __name__: str
     __qualname__: str
     @property
