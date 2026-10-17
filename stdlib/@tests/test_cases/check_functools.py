@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from functools import cache, cached_property, lru_cache, wraps
+from functools import cache, cached_property, lru_cache, singledispatchmethod, wraps
 from typing import Callable, ParamSpec, TypeVar
 from typing_extensions import assert_type
 
@@ -163,3 +163,36 @@ class CachedChild(CachedParent):
     @cache
     def method(self) -> Child:
         return Child()
+
+
+class Formatter:
+    @singledispatchmethod
+    def format(self, value: object) -> str:
+        return str(value)
+
+
+formatter = Formatter()
+
+
+@Formatter.format.register(int)
+def format_int(self: Formatter, value: int) -> str:
+    return f"int:{value}"
+
+
+@formatter.format.register(bytes)
+def format_bytes(self: Formatter, value: bytes) -> str:
+    return value.decode("ascii")
+
+
+assert_type(formatter.format(3), str)
+assert_type(formatter.format(b"x"), str)
+
+
+def format_float(self: Formatter, value: float) -> str:
+    return f"float:{value}"
+
+
+assert_type(Formatter.format.register(float, format_float), Callable[..., str])
+assert_type(formatter.format.__name__, str)
+assert_type(formatter.format.__qualname__, str)
+assert_type(formatter.format.__wrapped__, Callable[..., str])
