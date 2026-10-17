@@ -2,7 +2,7 @@ from collections.abc import Callable, Collection, Sequence
 from typing import Any
 from typing_extensions import Self
 
-from wtforms.fields.core import Field, _Filter, _FormT, _Validator, _Widget
+from wtforms.fields.core import Field, _Filter, _FormT, _Text, _Validator, _Widget
 from wtforms.form import BaseForm
 from wtforms.meta import DefaultMeta, _SupportsGettextAndNgettext
 
@@ -28,12 +28,12 @@ class BooleanField(Field):
     false_values: Collection[Any]
     def __init__(
         self,
-        label: str | None = None,
+        label: _Text | None = None,
         validators: tuple[_Validator[_FormT, Self], ...] | list[Any] | None = None,
         false_values: Collection[Any] | None = None,
         *,
         filters: Sequence[_Filter] = (),
-        description: str = "",
+        description: _Text = "",
         id: str | None = None,
         default: bool | Callable[[], bool] | None = None,
         widget: _Widget[Self] | None = None,
@@ -50,10 +50,10 @@ class StringField(Field):
     default: str | Callable[[], str] | None
     def __init__(
         self,
-        label: str | None = None,
+        label: _Text | None = None,
         validators: tuple[_Validator[_FormT, Self], ...] | list[Any] | None = None,
         filters: Sequence[_Filter] = (),
-        description: str = "",
+        description: _Text = "",
         id: str | None = None,
         default: str | Callable[[], str] | None = None,
         widget: _Widget[Self] | None = None,

@@ -3,7 +3,7 @@ from datetime import date, datetime, time
 from typing import Any
 from typing_extensions import Self
 
-from wtforms.fields.core import Field, _Filter, _FormT, _Validator, _Widget
+from wtforms.fields.core import Field, _Filter, _FormT, _Text, _Validator, _Widget
 from wtforms.form import BaseForm
 from wtforms.meta import DefaultMeta, _SupportsGettextAndNgettext
 
@@ -16,12 +16,12 @@ class DateTimeField(Field):
     default: datetime | Callable[[], datetime] | None
     def __init__(
         self,
-        label: str | None = None,
+        label: _Text | None = None,
         validators: tuple[_Validator[_FormT, Self], ...] | list[Any] | None = None,
         format: str | list[str] = "%Y-%m-%d %H:%M:%S",
         *,
         filters: Sequence[_Filter] = (),
-        description: str = "",
+        description: _Text = "",
         id: str | None = None,
         default: datetime | Callable[[], datetime] | None = None,
         widget: _Widget[Self] | None = None,
@@ -38,12 +38,12 @@ class DateField(DateTimeField):
     default: date | Callable[[], date] | None  # type: ignore[assignment]
     def __init__(
         self,
-        label: str | None = None,
+        label: _Text | None = None,
         validators: tuple[_Validator[_FormT, Self], ...] | list[Any] | None = None,
         format: str | list[str] = "%Y-%m-%d",
         *,
         filters: Sequence[_Filter] = (),
-        description: str = "",
+        description: _Text = "",
         id: str | None = None,
         default: date | Callable[[], date] | None = None,
         widget: _Widget[Self] | None = None,
@@ -60,12 +60,12 @@ class TimeField(DateTimeField):
     default: time | Callable[[], time] | None  # type: ignore[assignment]
     def __init__(
         self,
-        label: str | None = None,
+        label: _Text | None = None,
         validators: tuple[_Validator[_FormT, Self], ...] | list[Any] | None = None,
         format: str | list[str] = "%H:%M",
         *,
         filters: Sequence[_Filter] = (),
-        description: str = "",
+        description: _Text = "",
         id: str | None = None,
         default: time | Callable[[], time] | None = None,
         widget: _Widget[Self] | None = None,
@@ -80,12 +80,12 @@ class TimeField(DateTimeField):
 class MonthField(DateField):
     def __init__(
         self,
-        label: str | None = None,
+        label: _Text | None = None,
         validators: tuple[_Validator[_FormT, Self], ...] | list[Any] | None = None,
         format: str | list[str] = "%Y-%m",
         *,
         filters: Sequence[_Filter] = (),
-        description: str = "",
+        description: _Text = "",
         id: str | None = None,
         default: time | Callable[[], time] | None = None,
         widget: _Widget[Self] | None = None,
@@ -100,12 +100,12 @@ class MonthField(DateField):
 class WeekField(DateField):
     def __init__(
         self,
-        label: str | None = None,
+        label: _Text | None = None,
         validators: tuple[_Validator[_FormT, Self], ...] | list[Any] | None = None,
         format: str | list[str] = "%Y-W%W",  # only difference is the default value
         *,
         filters: Sequence[_Filter] = (),
-        description: str = "",
+        description: _Text = "",
         id: str | None = None,
         default: time | Callable[[], time] | None = None,
         widget: _Widget[Self] | None = None,
@@ -120,12 +120,12 @@ class WeekField(DateField):
 class DateTimeLocalField(DateTimeField):
     def __init__(
         self,
-        label: str | None = None,
+        label: _Text | None = None,
         validators: tuple[_Validator[_FormT, Self], ...] | list[Any] | None = None,
         format: str | list[str] = ...,
         *,
         filters: Sequence[_Filter] = (),
-        description: str = "",
+        description: _Text = "",
         id: str | None = None,
         default: time | Callable[[], time] | None = None,
         widget: _Widget[Self] | None = None,
