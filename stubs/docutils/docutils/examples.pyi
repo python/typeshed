@@ -1,9 +1,9 @@
-from _typeshed import Incomplete, StrPath
+from _typeshed import StrPath
 from typing import Literal, TypeAlias, overload
 
-from docutils.core import Publisher
+from docutils.core import Publisher, _SettingsOverrides
 from docutils.nodes import document
-from docutils.writers import _WriterParts
+from docutils.writers import _HTMLWriterParts
 
 _HTMLHeaderLevel: TypeAlias = Literal[1, 2, 3, 4, 5, 6]
 
@@ -14,7 +14,7 @@ def html_parts(
     input_encoding: str = "unicode",
     doctitle: bool = True,
     initial_header_level: _HTMLHeaderLevel = 1,
-) -> _WriterParts: ...
+) -> _HTMLWriterParts: ...
 
 @overload
 def html_body(
@@ -41,5 +41,5 @@ def internals(
     source: str,
     source_path: StrPath | None = None,
     input_encoding: str = "unicode",
-    settings_overrides: dict[str, Incomplete] | None = None,
-) -> tuple[document | None, Publisher]: ...
+    settings_overrides: _SettingsOverrides | None = None,
+) -> tuple[document, Publisher]: ...

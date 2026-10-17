@@ -1,4 +1,3 @@
-from collections.abc import Callable
 from typing import ClassVar, Final
 from xml.sax.handler import ContentHandler
 from xml.sax.xmlreader import Locator, XMLReader
@@ -6,6 +5,7 @@ from xml.sax.xmlreader import Locator, XMLReader
 import docutils
 from docutils import nodes, writers
 from docutils.frontend import Values
+from docutils.utils import _ReporterMessageMethod
 
 __docformat__: Final = "reStructuredText"
 
@@ -22,8 +22,8 @@ class XMLTranslator(nodes.GenericNodeVisitor):
     doctype: ClassVar[str]
     generator: ClassVar[str]
     xmlparser: ClassVar[XMLReader]
-    warn: Callable[..., nodes.system_message]
-    error: Callable[..., nodes.system_message]
+    warn: _ReporterMessageMethod
+    error: _ReporterMessageMethod
     settings: Values
     indent: str
     newline: str

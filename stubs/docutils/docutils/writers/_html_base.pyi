@@ -1,12 +1,12 @@
-from _typeshed import Incomplete, StrPath
-from collections.abc import Callable
+from _typeshed import StrPath
+from collections.abc import Callable, Mapping
 from re import Pattern
-from typing import ClassVar, Final
+from typing import Any, ClassVar, Final
 from typing_extensions import Never
 
 from docutils import nodes, writers
 from docutils.frontend import Values
-from docutils.languages import _LanguageModule
+from docutils.languages import LanguageModule
 
 __docformat__: Final = "reStructuredText"
 
@@ -40,31 +40,32 @@ class HTMLTranslator(nodes.NodeVisitor):
     videotypes: ClassVar[tuple[str, ...]]
     attribution_formats: ClassVar[dict[str, tuple[str, str]]]
     settings: Values
-    language: _LanguageModule
+    language: LanguageModule
     initial_header_level: int
     image_loading: str
     body: list[str]
     body_prefix: list[str]
-    body_pre_docinfo: list[Incomplete]
+    body_pre_docinfo: list[str]
     body_suffix: list[str]
     docinfo: list[str]
     footer: list[str]
-    fragment: list[Incomplete]
-    head: list[Incomplete]
-    head_prefix: list[Incomplete]
-    header: list[Incomplete]
-    html_body: list[Incomplete]
-    html_head: list[Incomplete]
-    html_prolog: list[Incomplete]
-    html_subtitle: list[Incomplete]
-    html_title: list[Incomplete]
-    meta: list[Incomplete]
-    stylesheet: list[Incomplete]
-    title: list[Incomplete]
-    subtitle: list[Incomplete]
-    context: list[Incomplete]
+    fragment: list[str]
+    head: list[str]
+    head_prefix: list[str]
+    header: list[str]
+    html_body: list[str]
+    html_head: list[str]
+    html_prolog: list[str]
+    html_subtitle: list[str]
+    html_title: list[str]
+    meta: list[str]
+    stylesheet: list[str]
+    title: list[str]
+    subtitle: list[str]
+    # A stack of heterogeneous values (closing tags, flags, body positions, ...) used by visit/depart pairs.
+    context: list[Any]
     section_level: int
-    colspecs: list[Incomplete]
+    colspecs: list[nodes.colspec]
     compact_p: bool
     compact_simple: bool
     compact_field_list: bool
@@ -74,7 +75,7 @@ class HTMLTranslator(nodes.NodeVisitor):
     in_mailto: bool
     author_in_authors: bool
     math_header: list[str]
-    messages: list[Incomplete]
+    messages: list[nodes.system_message]
     def __init__(self, document: nodes.document) -> None: ...
     def astext(self) -> str: ...
     def attval(self, text: str, whitespace: Pattern[str] = ...) -> str: ...
@@ -82,13 +83,16 @@ class HTMLTranslator(nodes.NodeVisitor):
     def cloak_mailto(self, uri: str) -> str: ...
     def encode(self, text: object) -> str: ...
     def image_size(self, node: nodes.image) -> str: ...
-    def read_size_with_PIL(self, node) -> tuple[int, int] | None: ...
-    def prepare_svg(self, code: str | bytes, node: nodes.Element, atts: dict[str, Incomplete]) -> str: ...
+    def read_size_with_PIL(self, node: nodes.image) -> tuple[int, int] | None: ...
+    def prepare_svg(self, code: str, node: nodes.Element, atts: Mapping[str, str | int | float]) -> str: ...
     def stylesheet_call(self, path: StrPath, adjust_path: bool | None = None) -> str: ...
-    def starttag(self, node: nodes.Element, tagname: str, suffix: str = "\n", empty: bool = False, **attributes) -> str: ...
-    def emptytag(self, node: nodes.Element, tagname: str, suffix: str = "\n", **attributes) -> str: ...
+    # `attributes` are HTML attributes; values are converted with `str()`, lists are space-joined.
+    def starttag(
+        self, node: nodes.Element, tagname: str, suffix: str = "\n", empty: bool = False, **attributes: object
+    ) -> str: ...
+    def emptytag(self, node: nodes.Element, tagname: str, suffix: str = "\n", **attributes: object) -> str: ...
     def report_messages(self, node: nodes.Node) -> None: ...
-    def set_class_on_child(self, node, class_, index: int = 0) -> None: ...
+    def set_class_on_child(self, node: nodes.Element, class_: str, index: int = 0) -> None: ...
     def visit_Text(self, node: nodes.Text) -> None: ...
     def depart_Text(self, node: nodes.Text) -> None: ...
     def visit_abbreviation(self, node: nodes.abbreviation) -> None: ...
@@ -144,7 +148,7 @@ class HTMLTranslator(nodes.NodeVisitor):
     def depart_description(self, node: nodes.description) -> None: ...
     def visit_docinfo(self, node: nodes.docinfo) -> None: ...
     def depart_docinfo(self, node: nodes.docinfo) -> None: ...
-    def visit_docinfo_item(self, node, name: str, meta: bool = True) -> None: ...
+    def visit_docinfo_item(self, node: nodes.Element, name: str, meta: bool = True) -> None: ...
     def depart_docinfo_item(self) -> None: ...
     def visit_doctest_block(self, node: nodes.doctest_block) -> None: ...
     def depart_doctest_block(self, node: nodes.doctest_block) -> None: ...
@@ -195,7 +199,8 @@ class HTMLTranslator(nodes.NodeVisitor):
     def visit_literal_block(self, node: nodes.literal_block) -> None: ...
     def depart_literal_block(self, node: nodes.literal_block) -> None: ...
     math_tags: dict[str, tuple[str, str, list[str]]]
-    math_output: str | Incomplete
+    math_output: str
+    math_options: str
     def visit_math(self, node: nodes.math) -> None: ...
     def depart_math(self, node: nodes.math) -> None: ...
     def visit_math_block(self, node: nodes.math_block) -> None: ...
