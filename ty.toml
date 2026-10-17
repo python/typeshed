@@ -17,6 +17,7 @@ allowed-unresolved-imports = [
 deprecated = "ignore"
 invalid-attribute-override = "ignore"
 invalid-method-override = "ignore"
+invalid-property-type-override = "ignore"
 override-of-final-method = "ignore"
 # Some `__init__` self annotations retain class-scoped type variables for mypy
 # compatibility (https://github.com/python/typeshed/pull/11780). Disable ty's
