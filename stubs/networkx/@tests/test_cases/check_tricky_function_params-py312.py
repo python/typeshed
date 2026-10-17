@@ -23,3 +23,8 @@ degree_view = DegreeView(G_str)
 assert_type(degree_view(""), int)
 assert_type(degree_view([""]), DegreeView[str])
 assert_type(degree_view({""}), DegreeView[str])
+
+# Test that set_node_attributes/set_edge_attributes accept a scalar value with a name
+G_path = nx.path_graph(3)
+nx.set_node_attributes(G_path, 5, "some name")
+nx.set_edge_attributes(G_path, 5, "some name")
