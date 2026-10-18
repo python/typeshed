@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, List, Literal, Union
+from typing import Any, Literal
 from typing_extensions import assert_type
 
 
@@ -31,10 +31,10 @@ assert_type(sum([True, False]), int)
 assert_type(sum([True, False], True), int)
 assert_type(sum(literal_list), int)
 
-assert_type(sum([["foo"], ["bar"]], ["baz"]), List[str])
+assert_type(sum([["foo"], ["bar"]], ["baz"]), list[str])
 
 assert_type(sum([Foo(), Foo()], Foo()), Foo)
-assert_type(sum([Baz(), Baz()]), Union[Baz, Literal[0]])
+assert_type(sum([Baz(), Baz()]), Baz | Literal[0])
 
 # mypy and pyright infer the types differently for these, so we can't use assert_type
 # Just test that no error is emitted for any of these

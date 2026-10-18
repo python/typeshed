@@ -9,7 +9,7 @@ from typing import TypeAlias, overload
 # At runtime, listing submodules in __all__ without them being imported is
 # valid, and causes them to be included in a star import. See #6523
 
-__all__ = [  # noqa: F822  # Undefined names in __all__
+__all__ = [  # ruff: ignore[undefined-export]  # Undefined names in __all__
     "base64mime",  # pyright: ignore[reportUnsupportedDunderAll]
     "charset",  # pyright: ignore[reportUnsupportedDunderAll]
     "encoders",  # pyright: ignore[reportUnsupportedDunderAll]
