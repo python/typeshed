@@ -9,7 +9,7 @@ import tempfile
 from collections.abc import Iterable, Mapping
 from pathlib import Path
 from types import MethodType
-from typing import TYPE_CHECKING, Any, Final, NamedTuple, TypeAlias
+from typing import TYPE_CHECKING, Any, Final, Literal, NamedTuple, TypeAlias
 
 import pathspec
 from packaging.requirements import Requirement
@@ -23,8 +23,28 @@ try:
     from termcolor import colored as colored  # pyright: ignore[reportAssignmentType]
 except ImportError:
 
-    def colored(text: str, color: str | None = None, **kwargs: Any) -> str:  # type: ignore[misc] # noqa: ARG001
+    def colored(text: str, color: str | None = None, **kwargs: Any) -> str:  # type: ignore[misc] # ruff: ignore[unused-function-argument]
         return text
+
+
+TextColor: TypeAlias = Literal[
+    "black",
+    "red",
+    "green",
+    "yellow",
+    "blue",
+    "magenta",
+    "cyan",
+    "white",
+    "light_grey",
+    "dark_grey",
+    "light_red",
+    "light_green",
+    "light_yellow",
+    "light_blue",
+    "light_magenta",
+    "light_cyan",
+]
 
 
 _REMOVE_COMMENT_RE = re.compile(
@@ -75,14 +95,6 @@ def print_command(cmd: str | Iterable[str]) -> None:
     print(colored(f"Running: {cmd}", "blue"))
 
 
-def print_info(message: str) -> None:
-    print(colored(message, "blue"))
-
-
-def print_warning(message: str) -> None:
-    print(colored(message, "yellow"))
-
-
 def print_skipped(message: str) -> None:
     print(colored(message, "yellow"))
 
@@ -99,18 +111,8 @@ def print_success_msg() -> None:
     print(colored("success", "green"))
 
 
-def print_divider() -> None:
-    """Print a row of * symbols across the screen.
-
-    This can be useful to divide terminal output into separate sections.
-    """
-    print()
-    print("*" * 70)
-    print()
-
-
-def print_time(t: float) -> None:
-    print(f"({t:.2f} s) ", end="")
+def format_time(t: float) -> str:
+    return f"({t:.2f} s)"
 
 
 # ====================================================================
@@ -177,7 +179,7 @@ def parse_stdlib_versions_file() -> SupportedVersions:
     with VERSIONS_PATH.open(encoding="UTF-8") as f:
         for line in f:
             stripped_line = strip_comments(line)
-            if stripped_line == "":
+            if not stripped_line:
                 continue
             m = VERSION_LINE_RE.match(stripped_line)
             assert m, f"invalid VERSIONS line: {stripped_line}"
@@ -253,15 +255,21 @@ TemporaryFileWrapper = tempfile._TemporaryFileWrapper  # pyright: ignore[reportP
 # For details, see https://github.com/python/typeshed/pull/13620#discussion_r1990185997
 # Python 3.12 added a cross-platform solution with `tempfile.NamedTemporaryFile("w+", delete_on_close=False)`
 if sys.platform != "win32":
-    NamedTemporaryFile = tempfile.NamedTemporaryFile  # noqa: TID251
+    # We ignore the Ruff error here because this defines the helper that callers should use
+    # instead of `tempfile.NamedTemporaryFile`, which is banned by `banned-api`.
+    #
+    NamedTemporaryFile = tempfile.NamedTemporaryFile  # ruff: ignore[banned-api]
 else:
 
-    def NamedTemporaryFile(mode: OpenTextMode) -> TemporaryFileWrapper[str]:  # noqa: N802
+    def NamedTemporaryFile(mode: OpenTextMode) -> TemporaryFileWrapper[str]:  # ruff: ignore[invalid-function-name]
         def close(self: TemporaryFileWrapper[str]) -> None:
             TemporaryFileWrapper.close(self)  # pyright: ignore[reportUnknownMemberType]
             Path(self.name).unlink()
 
-        temp = tempfile.NamedTemporaryFile(mode, delete=False)  # noqa: SIM115, TID251
+        # We ignore the `banned-api` Ruff error here because this call is part of the helper that callers should use
+        # instead of `tempfile.NamedTemporaryFile`.
+        #
+        temp = tempfile.NamedTemporaryFile(mode, delete=False)  # ruff: ignore[open-file-with-context-handler, banned-api]
         temp.close = MethodType(close, temp)  # type: ignore[method-assign]
         return temp
 

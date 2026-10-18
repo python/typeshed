@@ -115,7 +115,7 @@ class _InfoDict(TypedDict, total=False):
     album_artist: Incomplete
     creator: str | None
 
-_StrNoDefaultOrNone: TypeAlias = str | None | type[NO_DEFAULT]
+_StrNoDefaultOrNone: TypeAlias = str | type[NO_DEFAULT] | None
 _T = TypeVar("_T")
 
 class InfoExtractor:
@@ -908,6 +908,8 @@ class InfoExtractor:
     @cached_property
     def _cookies_passed(self) -> bool: ...
     def _mark_watched(self, *args: Any, **kwargs: Any) -> Any: ...  # Not implemented here.
+    @staticmethod
+    def _generate_blockbuster_headers(*, min_headers: int = 2, max_headers: int = 8) -> dict[str, str]: ...
     @staticmethod
     def _generic_id(url: str) -> str: ...
     def _generic_title(self, url: str = "", webpage: str = "", *, default: str | None = None) -> str | None: ...

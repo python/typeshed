@@ -38,7 +38,7 @@ from ts_utils.utils import (
 
 # Fail early if mypy isn't installed
 try:
-    import mypy  # pyright: ignore[reportUnusedImport]  # noqa: F401
+    import mypy  # pyright: ignore[reportUnusedImport]  # ruff: ignore[unused-import]
 except ImportError:
     print_error("Cannot import mypy. Did you install it?")
     sys.exit(1)
