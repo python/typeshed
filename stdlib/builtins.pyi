@@ -1473,7 +1473,7 @@ class set(MutableSet[_H1]):
 
     def __or__(self, value: AbstractSet[_H2], /) -> set[_H1 | _H2]: ...
     def __ior__(self, value: AbstractSet[_H1], /) -> Self: ...  # type: ignore[override,misc]
-    
+
     @overload
     def __ror__(self, value: set[_H2], /) -> set[_H1 | _H2]: ...
     @overload
@@ -1489,7 +1489,7 @@ class set(MutableSet[_H1]):
 
     def __xor__(self, value: AbstractSet[_H2], /) -> set[_H1 | _H2]: ...
     def __ixor__(self, value: AbstractSet[_H1], /) -> Self: ...  # type: ignore[override,misc]
-    
+
     @overload
     def __rxor__(self, value: set[_H2], /) -> set[_H1 | _H2]: ...
     @overload
