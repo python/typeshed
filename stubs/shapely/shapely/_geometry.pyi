@@ -28,6 +28,7 @@ __all__ = [
     "get_point",
     "get_precision",
     "get_rings",
+    "get_segments",
     "get_srid",
     "get_type_id",
     "get_x",
@@ -183,6 +184,19 @@ def get_num_geometries(geometry: OptGeoArrayLikeSeq, **kwargs) -> NDArray[np.int
 def get_precision(geometry: Geometry | None, **kwargs) -> np.float64: ...
 @overload
 def get_precision(geometry: OptGeoArrayLikeSeq, **kwargs) -> NDArray[np.float64]: ...
+
+@overload
+def get_segments(
+    geometry: OptGeoArrayLike, *, include_z: bool = False, return_index: Literal[False] = False, **kwargs
+) -> GeoArray: ...
+@overload
+def get_segments(
+    geometry: OptGeoArrayLike, *, include_z: bool = False, return_index: Literal[True], **kwargs
+) -> tuple[GeoArray, NDArray[np.int64]]: ...
+@overload
+def get_segments(
+    geometry: OptGeoArrayLike, *, include_z: bool = False, return_index: bool, **kwargs
+) -> GeoArray | tuple[GeoArray, NDArray[np.int64]]: ...
 
 class SetPrecisionMode(ParamEnum):
     valid_output = 0

@@ -29,8 +29,8 @@ def transform(
 def transform_coordseq(
     geometry: OptGeoT,
     transformation: Callable[[NDArray[np.float64]], NDArray[np.float64]],
-    include_z: bool | None = False,
     *,
+    include_z: bool | None = False,
     interleaved: bool = True,
 ) -> OptGeoT: ...
 @overload
