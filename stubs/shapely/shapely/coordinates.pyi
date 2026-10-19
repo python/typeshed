@@ -24,6 +24,7 @@ def transform(
     *,
     interleaved: bool = True,
 ) -> GeoArray: ...
+
 @overload
 def transform_coordseq(
     geometry: OptGeoT,
@@ -40,6 +41,7 @@ def transform_coordseq(
     *,
     interleaved: bool = True,
 ) -> GeoArray: ...
+
 def count_coordinates(geometry: OptGeoArrayLike) -> int: ...
 
 @overload
