@@ -460,6 +460,7 @@ def split(geometry: OptGeoArrayLikeSeq, splitter: OptGeoArrayLike, **kwargs: Unp
 def split(geometry: OptGeoArrayLike, splitter: OptGeoArrayLikeSeq, **kwargs: Unpack[UFuncKwargs]) -> GeometryCollection: ...
 @overload
 def split(geometry: OptGeoArrayLike, splitter: OptGeoArrayLike, **kwargs: Unpack[UFuncKwargs]) -> GeometryCollection: ...
+
 @overload
 def voronoi_polygons(
     geometry: Geometry,
