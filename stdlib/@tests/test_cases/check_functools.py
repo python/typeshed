@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from functools import cache, cached_property, lru_cache, wraps
+from functools import cache, cached_property, lru_cache, update_wrapper, wraps
 from typing import Callable, ParamSpec, TypeVar
 from typing_extensions import assert_type
 
@@ -33,9 +33,26 @@ def check_wraps_function() -> None:
     def identical_wrapper(x: int) -> None: ...
     @wraps(wrapped)
     def other_signature_wrapper(x: str, y: float) -> None: ...
+    @wraps(wrapped)
+    def no_args_wrapper() -> None: ...
+    @wraps(wrapped)
+    def keyword_only_wrapper(*, x: int) -> None: ...
 
     identical_wrapper(3)
+    identical_wrapper(x=3)
     other_signature_wrapper("parrot", 42.0)
+    no_args_wrapper()
+    keyword_only_wrapper(x=3)
+
+
+def check_update_wrapper() -> None:
+    def wrapped(x: int) -> None: ...
+    def wrapper(*, text: str) -> int:
+        return len(text)
+
+    updated = update_wrapper(wrapper, wrapped)
+    assert_type(updated(text="parrot"), int)
+    assert_type(updated.__wrapped__(3), None)
 
 
 def check_wraps_method() -> None:
@@ -44,18 +61,19 @@ def check_wraps_method() -> None:
         @wraps(wrapped)
         def wrapper(self, x: int) -> None: ...
 
-    class Wrapper:  # pyright: ignore[reportUnusedClass]
+    class Wrapper:
         @wraps(Wrapped.wrapped)
         def method(self, x: int) -> None: ...
 
     @wraps(Wrapped.wrapped)
     def func_wrapper(x: int) -> None: ...
 
-    # TODO: The following should work, but currently don't.
-    # https://github.com/python/typeshed/issues/10653
-    # Wrapped().wrapper(3)
-    # Wrapper().method(3)
+    assert_type(Wrapped.wrapper(Wrapped(), x=3), None)
+    assert_type(Wrapped().wrapper(3), None)
+    assert_type(Wrapped().wrapper(x=3), None)
+    assert_type(Wrapper().method(3), None)
     func_wrapper(3)
+    func_wrapper(x=3)
 
 
 #
