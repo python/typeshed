@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from typing import Any, Hashable, Sequence, Union
+from collections.abc import Hashable, Sequence
+from typing import Any
 from typing_extensions import assert_type
 
 
@@ -46,8 +47,8 @@ def check_setdefault_method() -> None:
 
     d.setdefault(1)  # type: ignore
     assert_type(d.setdefault(1, "x"), str)
-    assert_type(d2.setdefault(1), Union[str, None])
-    assert_type(d2.setdefault(1, None), Union[str, None])
-    assert_type(d2.setdefault(1, "x"), Union[str, None])
-    assert_type(d3.setdefault(1), Union[Any, None])
+    assert_type(d2.setdefault(1), str | None)
+    assert_type(d2.setdefault(1, None), str | None)
+    assert_type(d2.setdefault(1, "x"), str | None)
+    assert_type(d3.setdefault(1), Any | None)
     assert_type(d3.setdefault(1, "x"), Any)
