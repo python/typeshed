@@ -27,6 +27,7 @@ __all__ = [
     "minimum_bounding_circle",
     "minimum_clearance_line",
     "minimum_rotated_rectangle",
+    "minimum_width",
     "node",
     "normalize",
     "offset_curve",
@@ -40,6 +41,7 @@ __all__ = [
     "segmentize",
     "simplify",
     "snap",
+    "split",
     "voronoi_polygons",
 ]
 
@@ -453,6 +455,15 @@ def snap(
 ) -> GeoArray: ...
 
 @overload
+def split(geometry: Geometry | None, reference: None, **kwargs: Unpack[UFuncKwargs]) -> None: ...
+@overload
+def split(geometry: OptGeoArrayLikeSeq, reference: OptGeoArrayLike, **kwargs: Unpack[UFuncKwargs]) -> GeometryCollection: ...
+@overload
+def split(geometry: OptGeoArrayLike, reference: OptGeoArrayLikeSeq, **kwargs: Unpack[UFuncKwargs]) -> GeometryCollection: ...
+@overload
+def split(geometry: OptGeoArrayLike, reference: OptGeoArrayLike, **kwargs: Unpack[UFuncKwargs]) -> GeometryCollection: ...
+
+@overload
 def voronoi_polygons(
     geometry: Geometry,
     tolerance: float = 0.0,
@@ -608,6 +619,19 @@ def minimum_bounding_circle(geometry: None, **kwargs: Unpack[UFuncKwargs]) -> No
 def minimum_bounding_circle(geometry: Geometry | None, **kwargs: Unpack[UFuncKwargs]) -> Polygon | Point | None: ...
 @overload
 def minimum_bounding_circle(geometry: OptGeoArrayLikeSeq, **kwargs: Unpack[UFuncKwargs]) -> GeoArray: ...
+
+@overload
+def minimum_width(geometry: Point, **kwargs: Unpack[UFuncKwargs]) -> LineString: ...
+@overload
+def minimum_width(geometry: LineString | Polygon | BaseMultipartGeometry, **kwargs: Unpack[UFuncKwargs]) -> LineString: ...
+@overload
+def minimum_width(geometry: Geometry, **kwargs: Unpack[UFuncKwargs]) -> LineString: ...
+@overload
+def minimum_width(geometry: None, **kwargs: Unpack[UFuncKwargs]) -> None: ...
+@overload
+def minimum_width(geometry: Geometry | None, **kwargs: Unpack[UFuncKwargs]) -> LineString | None: ...
+@overload
+def minimum_width(geometry: OptGeoArrayLikeSeq, **kwargs: Unpack[UFuncKwargs]) -> LineString: ...
 
 @overload
 def maximum_inscribed_circle(

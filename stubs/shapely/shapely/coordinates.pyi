@@ -6,7 +6,7 @@ from numpy.typing import NDArray
 
 from ._typing import ArrayLikeSeq, GeoArray, GeoT, OptGeoArrayLike, OptGeoArrayLikeSeq, OptGeoT
 
-__all__ = ["transform", "count_coordinates", "get_coordinates", "set_coordinates"]
+__all__ = ["transform", "count_coordinates", "get_coordinates", "set_coordinates", "transform_coordseq"]
 
 @overload
 def transform(
@@ -24,7 +24,22 @@ def transform(
     *,
     interleaved: bool = True,
 ) -> GeoArray: ...
-
+@overload
+def transform_coordseq(
+    geometry: OptGeoT,
+    transformation: Callable[[NDArray[np.float64]], NDArray[np.float64]],
+    include_z: bool | None = False,
+    *,
+    interleaved: bool = True,
+) -> OptGeoT: ...
+@overload
+def transform_coordseq(
+    geometry: OptGeoArrayLikeSeq,
+    transformation: Callable[[NDArray[np.float64]], NDArray[np.float64]],
+    include_z: bool | None = False,
+    *,
+    interleaved: bool = True,
+) -> GeoArray: ...
 def count_coordinates(geometry: OptGeoArrayLike) -> int: ...
 
 @overload
