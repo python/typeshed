@@ -8,10 +8,13 @@ from collections.abc import (
     Callable,
     Collection,
     Generator,
+    ItemsView,
     Iterable,
     Iterator,
+    KeysView,
     Mapping,
     Sequence,
+    ValuesView,
 )
 from concurrent import futures
 from types import TracebackType
@@ -522,6 +525,9 @@ class Metadata(Collection[_MetadatumType]):
     def __delitem__(self, key: _MetadataKey) -> None: ...
     def delete_all(self, key: _MetadataKey) -> None: ...
     def __iter__(self) -> Iterator[_MetadatumType]: ...
+    def keys(self) -> KeysView[_MetadataKey]: ...
+    def values(self) -> ValuesView[list[_MetadataValue]]: ...
+    def items(self) -> ItemsView[_MetadataKey, list[_MetadataValue]]: ...
 
     @overload
     def get(self, key: _MetadataKey, default: None = None) -> _MetadataValue | None: ...
