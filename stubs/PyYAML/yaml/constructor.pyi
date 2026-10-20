@@ -14,7 +14,7 @@ from .emitter import _YAMLObject
 from .loader import _Loader
 
 _L = TypeVar("_L", bound=_Loader | _CLoader)
-_N = TypeVar("_N", bound=Node | MappingNode | ScalarNode | SequenceNode)
+_N = TypeVar("_N", bound=Node)
 
 class ConstructorError(MarkedYAMLError): ...
 
