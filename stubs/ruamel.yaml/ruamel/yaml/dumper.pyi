@@ -1,7 +1,7 @@
 from _typeshed import Unused
 from typing import TypeAlias
 
-from .compat import VersionType, _WriteStream
+from .compat import _VersionInput, _WriteStream
 from .emitter import Emitter, _Inf, _LineBreak
 from .representer import BaseRepresenter, Representer, RoundTripRepresenter, SafeRepresenter
 from .resolver import BaseResolver, Resolver, VersionedResolver
@@ -27,7 +27,7 @@ class BaseDumper(Emitter, Serializer, BaseRepresenter, BaseResolver):
         encoding: str | None = None,
         explicit_start: bool | None = None,
         explicit_end: bool | None = None,
-        version: VersionType | None = None,
+        version: _VersionInput | None = None,
         tags: _TagHandleToPrefix | None = None,
         block_seq_indent: int | None = None,
         top_level_colon_align: Unused = None,
@@ -48,7 +48,7 @@ class SafeDumper(Emitter, Serializer, SafeRepresenter, Resolver):
         encoding: str | None = None,
         explicit_start: bool | None = None,
         explicit_end: bool | None = None,
-        version: VersionType | None = None,
+        version: _VersionInput | None = None,
         tags: _TagHandleToPrefix | None = None,
         block_seq_indent: int | None = None,
         top_level_colon_align: Unused = None,
@@ -69,7 +69,7 @@ class Dumper(Emitter, Serializer, Representer, Resolver):
         encoding: str | None = None,
         explicit_start: bool | None = None,
         explicit_end: bool | None = None,
-        version: VersionType | None = None,
+        version: _VersionInput | None = None,
         tags: _TagHandleToPrefix | None = None,
         block_seq_indent: int | None = None,
         top_level_colon_align: Unused = None,
@@ -90,7 +90,7 @@ class RoundTripDumper(Emitter, Serializer, RoundTripRepresenter, VersionedResolv
         encoding: str | None = None,
         explicit_start: bool | None = None,
         explicit_end: bool | None = None,
-        version: VersionType | None = None,
+        version: _VersionInput | None = None,
         tags: _TagHandleToPrefix | None = None,
         block_seq_indent: int | None = None,
         top_level_colon_align: int | None = None,

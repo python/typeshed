@@ -1,7 +1,7 @@
 from _typeshed import Unused
 from typing import TypeAlias
 
-from .compat import VersionType, _ReadStream
+from .compat import _ReadStream, _VersionInput
 from .composer import Composer
 from .constructor import BaseConstructor, Constructor, RoundTripConstructor, SafeConstructor
 from .parser import Parser, RoundTripParser
@@ -15,16 +15,18 @@ _Loader: TypeAlias = Loader | BaseLoader | SafeLoader | RoundTripLoader  # noqa:
 
 class BaseLoader(Reader, Scanner, Parser, Composer, BaseConstructor, VersionedResolver):  # type: ignore[misc]  # pyrefly: ignore [inconsistent-inheritance]
     comment_handling: int | None
-    def __init__(self, stream: _ReadStream, version: VersionType | None = None, preserve_quotes: Unused = None) -> None: ...
+    def __init__(self, stream: _ReadStream, version: _VersionInput | None = None, preserve_quotes: Unused = None) -> None: ...
 
 class SafeLoader(Reader, Scanner, Parser, Composer, SafeConstructor, VersionedResolver):  # type: ignore[misc]  # pyrefly: ignore [inconsistent-inheritance]
     comment_handling: int | None
-    def __init__(self, stream: _ReadStream, version: VersionType | None = None, preserve_quotes: Unused = None) -> None: ...
+    def __init__(self, stream: _ReadStream, version: _VersionInput | None = None, preserve_quotes: Unused = None) -> None: ...
 
 class Loader(Reader, Scanner, Parser, Composer, Constructor, VersionedResolver):  # type: ignore[misc]  # pyrefly: ignore [inconsistent-inheritance]
     comment_handling: int | None
-    def __init__(self, stream: _ReadStream, version: VersionType | None = None, preserve_quotes: Unused = None) -> None: ...
+    def __init__(self, stream: _ReadStream, version: _VersionInput | None = None, preserve_quotes: Unused = None) -> None: ...
 
 class RoundTripLoader(Reader, RoundTripScanner, RoundTripParser, Composer, RoundTripConstructor, VersionedResolver):  # type: ignore[misc]  # pyrefly: ignore [inconsistent-inheritance]
     comment_handling: int | None
-    def __init__(self, stream: _ReadStream, version: VersionType | None = None, preserve_quotes: bool | None = None) -> None: ...
+    def __init__(
+        self, stream: _ReadStream, version: _VersionInput | None = None, preserve_quotes: bool | None = None
+    ) -> None: ...

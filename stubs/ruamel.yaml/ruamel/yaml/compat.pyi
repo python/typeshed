@@ -2,10 +2,9 @@ from _typeshed import SupportsRead, SupportsWrite
 from abc import ABCMeta, abstractmethod
 from collections import OrderedDict
 from collections.abc import Iterable, MutableSequence
+from io import BytesIO as BytesIO, StringIO as StringIO
 from typing import IO, Any, Final, TypeAlias, TypeVar, overload
 from typing_extensions import Self
-
-from .docinfo import Version
 
 _T = TypeVar("_T")
 _KT = TypeVar("_KT")
@@ -14,9 +13,7 @@ _VT = TypeVar("_VT")
 _ReadStream: TypeAlias = str | bytes | SupportsRead[str] | SupportsRead[bytes]
 _WriteStream: TypeAlias = SupportsWrite[str] | SupportsWrite[bytes]
 
-StreamType: TypeAlias = _WriteStream
-StreamTextType: TypeAlias = _ReadStream
-VersionType: TypeAlias = str | tuple[int, int] | list[int] | Version | None
+_VersionInput: TypeAlias = str | tuple[int, int] | list[int]
 
 class ordereddict(OrderedDict[_KT, _VT]):
     def insert(self, pos: int, key: _KT, value: _VT) -> None: ...

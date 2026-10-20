@@ -9,10 +9,10 @@ from typing_extensions import Self, deprecated
 from _ruamel_yaml import CEmitter, CParser
 
 from .comments import CommentedMap, CommentedSeq
-from .compat import VersionType, _ReadStream, _WriteStream
+from .compat import _ReadStream, _VersionInput, _WriteStream
 from .composer import Composer
 from .constructor import BaseConstructor, Constructor, RoundTripConstructor, _ConstructorFunction, _MultiConstructorFunction
-from .docinfo import DocInfo
+from .docinfo import DocInfo, Version
 from .emitter import Emitter, RoundTripEmitter, _Inf, _LineBreak
 from .events import Event
 from .nodes import Node
@@ -202,7 +202,7 @@ class YAML:
     @property
     def version(self) -> _VersionTuple | None: ...
     @version.setter
-    def version(self, val: VersionType) -> None: ...
+    def version(self, val: _VersionInput | Version | None) -> None: ...
 
     @property
     def tags(self) -> _TagHandleToPrefix | None: ...
@@ -352,50 +352,114 @@ def add_path_resolver(
 
 @overload
 def add_constructor(
-    tag: Tag | str | None, object_constructor: _ConstructorFunction[_Constructor], *, constructor: type[_Constructor]
+    tag: Tag | str | None,
+    object_constructor: _ConstructorFunction[_Constructor],
+    Loader: None,
+    constructor: type[_Constructor],
 ) -> None: ...
 @overload
 def add_constructor(
-    tag: Tag | str | None, object_constructor: _ConstructorFunction[_Constructor], Loader: type[_Constructor]
+    tag: Tag | str | None,
+    object_constructor: _ConstructorFunction[_Constructor],
+    Loader: None = None,
+    *,
+    constructor: type[_Constructor],
 ) -> None: ...
 @overload
-def add_constructor(tag: Tag | str | None, object_constructor: _ConstructorFunction[Constructor]) -> None: ...
+def add_constructor(
+    tag: Tag | str | None,
+    object_constructor: _ConstructorFunction[_Constructor],
+    Loader: type[_Constructor],
+    constructor: type[BaseConstructor] = ...,
+) -> None: ...
+@overload
+def add_constructor(
+    tag: Tag | str | None, object_constructor: _ConstructorFunction[Constructor], Loader: None = None
+) -> None: ...
 
 @overload
 def add_multi_constructor(
-    tag_prefix: str | None, multi_constructor: _MultiConstructorFunction[_Constructor], *, constructor: type[_Constructor]
+    tag_prefix: str | None,
+    multi_constructor: _MultiConstructorFunction[_Constructor],
+    Loader: None,
+    constructor: type[_Constructor],
 ) -> None: ...
 @overload
 def add_multi_constructor(
-    tag_prefix: str | None, multi_constructor: _MultiConstructorFunction[_Constructor], Loader: type[_Constructor]
+    tag_prefix: str | None,
+    multi_constructor: _MultiConstructorFunction[_Constructor],
+    Loader: None = None,
+    *,
+    constructor: type[_Constructor],
 ) -> None: ...
 @overload
-def add_multi_constructor(tag_prefix: str | None, multi_constructor: _MultiConstructorFunction[Constructor]) -> None: ...
+def add_multi_constructor(
+    tag_prefix: str | None,
+    multi_constructor: _MultiConstructorFunction[_Constructor],
+    Loader: type[_Constructor],
+    constructor: type[BaseConstructor] = ...,
+) -> None: ...
+@overload
+def add_multi_constructor(
+    tag_prefix: str | None, multi_constructor: _MultiConstructorFunction[Constructor], Loader: None = None
+) -> None: ...
 
 @overload
 def add_representer(
-    data_type: type[_T] | None, object_representer: _RepresenterFunction[_Representer, _T], *, representer: type[_Representer]
+    data_type: type[_T] | None,
+    object_representer: _RepresenterFunction[_Representer, _T],
+    Dumper: None,
+    representer: type[_Representer],
 ) -> None: ...
 @overload
 def add_representer(
-    data_type: type[_T] | None, object_representer: _RepresenterFunction[_Representer, _T], Dumper: type[_Representer]
+    data_type: type[_T] | None,
+    object_representer: _RepresenterFunction[_Representer, _T],
+    Dumper: None = None,
+    *,
+    representer: type[_Representer],
 ) -> None: ...
 @overload
-def add_representer(data_type: type[_T] | None, object_representer: _RepresenterFunction[Representer, _T]) -> None: ...
+def add_representer(
+    data_type: type[_T] | None,
+    object_representer: _RepresenterFunction[_Representer, _T],
+    Dumper: type[_Representer],
+    representer: type[BaseRepresenter] = ...,
+) -> None: ...
+@overload
+def add_representer(
+    data_type: type[_T] | None, object_representer: _RepresenterFunction[Representer, _T], Dumper: None = None
+) -> None: ...
 
 @overload
 def add_multi_representer(
-    data_type: type[_T] | None, multi_representer: _RepresenterFunction[_Representer, _T], *, representer: type[_Representer]
+    data_type: type[_T] | None,
+    multi_representer: _RepresenterFunction[_Representer, _T],
+    Dumper: None,
+    representer: type[_Representer],
 ) -> None: ...
 @overload
 def add_multi_representer(
-    data_type: type[_T] | None, multi_representer: _RepresenterFunction[_Representer, _T], Dumper: type[_Representer]
+    data_type: type[_T] | None,
+    multi_representer: _RepresenterFunction[_Representer, _T],
+    Dumper: None = None,
+    *,
+    representer: type[_Representer],
 ) -> None: ...
 @overload
-def add_multi_representer(data_type: type[_T] | None, multi_representer: _RepresenterFunction[Representer, _T]) -> None: ...
+def add_multi_representer(
+    data_type: type[_T] | None,
+    multi_representer: _RepresenterFunction[_Representer, _T],
+    Dumper: type[_Representer],
+    representer: type[BaseRepresenter] = ...,
+) -> None: ...
+@overload
+def add_multi_representer(
+    data_type: type[_T] | None, multi_representer: _RepresenterFunction[Representer, _T], Dumper: None = None
+) -> None: ...
 
 class YAMLObjectMetaclass(type):
-    def __init__(cls, name: str, bases: tuple[type, ...], kwds: dict[str, object], /) -> None: ...
+    def __init__(cls, name: str, bases: tuple[type, ...], kwds: dict[str, object]) -> None: ...
 
 class YAMLObject(metaclass=YAMLObjectMetaclass):
     yaml_constructor: ClassVar[type[BaseConstructor]]

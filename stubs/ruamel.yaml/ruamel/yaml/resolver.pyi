@@ -3,7 +3,7 @@ from collections.abc import Iterable
 from re import Pattern
 from typing import TypeAlias, overload
 
-from .compat import VersionType
+from .compat import _VersionInput
 from .dumper import _Dumper
 from .error import YAMLError
 from .loader import _Loader
@@ -59,14 +59,14 @@ class Resolver(BaseResolver): ...
 class VersionedResolver(BaseResolver):
     def __init__(
         self,
-        version: VersionType | None = None,
+        version: _VersionInput | None = None,
         loader: YAML | _Loader | _Dumper | None = None,
         loadumper: YAML | _Loader | _Dumper | None = None,
     ) -> None: ...
     def add_version_implicit_resolver(
-        self, version: VersionType, tag: _TagStr, regexp: Pattern[str], first: list[_First] | None
+        self, version: _VersionTuple, tag: _TagStr, regexp: Pattern[str], first: list[_First] | None
     ) -> None: ...
-    def get_loader_version(self, version: VersionType | None) -> _VersionTuple | None: ...
+    def get_loader_version(self, version: _VersionInput | None) -> _VersionTuple | None: ...
     @property
     def versioned_resolver(self) -> dict[_First, list[tuple[_TagStr, Pattern[str]]]]: ...
     @property

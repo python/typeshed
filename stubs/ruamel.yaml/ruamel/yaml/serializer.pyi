@@ -1,7 +1,7 @@
 from re import Pattern
 from typing import Final, Literal
 
-from .compat import VersionType
+from .compat import _VersionInput
 from .dumper import _Dumper
 from .emitter import Emitter
 from .error import YAMLError
@@ -33,7 +33,7 @@ class Serializer:
         encoding: str | None = None,
         explicit_start: bool | None = None,
         explicit_end: bool | None = None,
-        version: VersionType | None = None,
+        version: _VersionInput | None = None,
         tags: _TagHandleToPrefix | None = None,
         dumper: YAML | _Dumper | None = None,
     ) -> None: ...

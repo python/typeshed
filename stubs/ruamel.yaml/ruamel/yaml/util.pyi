@@ -3,7 +3,7 @@ from collections.abc import Callable, Iterator
 from datetime import date, datetime
 from typing import Any, Final
 
-from configobj import ConfigObj as _ConfigObj  # type: ignore[import-not-found]  # pyright: ignore[reportMissingImports]  # ty:ignore[unresolved-import]  # pyrefly: ignore [missing-import]
+from configobj import ConfigObj as _ConfigObj  # type: ignore[import-not-found, import-untyped]  # pyright: ignore[reportMissingImports]  # ty:ignore[unresolved-import]  # pyrefly: ignore [missing-import]
 
 from .compat import _ReadStream
 from .main import _YAMLObject
@@ -18,7 +18,6 @@ RegExp: Final = re.compile
 timestamp_regexp: Final[re.Pattern[str]]
 
 def create_timestamp(
-    *,
     year: str,
     month: str,
     day: str,
@@ -32,5 +31,5 @@ def create_timestamp(
     tz_hour: str | None,
     tz_minute: str | None,
 ) -> date | datetime: ...
-def load_yaml_guess_indent(stream: _ReadStream, /, **kw: object) -> tuple[_YAMLObject, int | None, int | None]: ...
-def configobj_walker(cfg: _ConfigObj, /) -> Iterator[str]: ...
+def load_yaml_guess_indent(stream: _ReadStream, **kw: object) -> tuple[_YAMLObject, int | None, int | None]: ...
+def configobj_walker(cfg: _ConfigObj) -> Iterator[str]: ...

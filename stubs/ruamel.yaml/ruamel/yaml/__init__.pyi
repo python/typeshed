@@ -1,6 +1,6 @@
 from typing import Final
 
-from .comments import CommentedMap as CommentedMap, CommentedSeq as CommentedSeq
+from .comments import C_PRE as C_PRE, CommentedMap as CommentedMap, CommentedSeq as CommentedSeq
 from .constructor import *
 from .cyaml import *
 from .dumper import *
