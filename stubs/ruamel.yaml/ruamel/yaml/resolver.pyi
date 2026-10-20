@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Iterable
 from re import Pattern
-from typing import Final, TypeAlias, overload
+from typing import TypeAlias, overload
 
 from .compat import VersionType
 from .dumper import _Dumper
@@ -23,9 +23,9 @@ implicit_resolvers: list[tuple[list[_VersionTuple], _TagStr, Pattern[str], list[
 class ResolverError(YAMLError): ...
 
 class BaseResolver:
-    DEFAULT_SCALAR_TAG: Final[Tag]
-    DEFAULT_SEQUENCE_TAG: Final[Tag]
-    DEFAULT_MAPPING_TAG: Final[Tag]
+    DEFAULT_SCALAR_TAG: Tag
+    DEFAULT_SEQUENCE_TAG: Tag
+    DEFAULT_MAPPING_TAG: Tag
     yaml_implicit_resolvers: dict[_First, list[tuple[_TagStr, Pattern[str]]]]
     yaml_path_resolvers: dict[Incomplete, _TagStr]
     loadumper: YAML | _Loader | _Dumper | None

@@ -16,7 +16,7 @@ __all__ = ["Serializer", "SerializerError"]
 class SerializerError(YAMLError): ...
 
 class Serializer:
-    ANCHOR_TEMPLATE: Final[str]
+    ANCHOR_TEMPLATE: str
     ANCHOR_RE: Final[Pattern[str]]
     dumper: YAML | _Dumper | None
     use_encoding: str | None

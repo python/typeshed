@@ -1,5 +1,5 @@
 from collections.abc import Callable
-from typing import Final, Literal, TypeAlias
+from typing import Literal, TypeAlias
 
 from .compat import _WriteStream
 from .dumper import _Dumper
@@ -51,14 +51,14 @@ class Indents:
     def __len__(self) -> int: ...
 
 class Emitter:
-    DEFAULT_TAG_PREFIXES: Final[_TagHandleToPrefix]
-    MAX_SIMPLE_KEY_LENGTH: Final = 128
-    flow_seq_start: Final = "["
-    flow_seq_end: Final = "]"
-    flow_seq_separator: Final = ","
-    flow_map_start: Final = "{"
-    flow_map_end: Final = "}"
-    flow_map_separator: Final = ","
+    DEFAULT_TAG_PREFIXES: _TagHandleToPrefix
+    MAX_SIMPLE_KEY_LENGTH: int
+    flow_seq_start: str
+    flow_seq_end: str
+    flow_seq_separator: str
+    flow_map_start: str
+    flow_map_end: str
+    flow_map_separator: str
     dumper: YAML | _Dumper | None
     encoding: str | None
     allow_space_break: bool | None
@@ -182,7 +182,7 @@ class Emitter:
     def write_version_directive(self, version_text: str) -> None: ...
     def write_tag_directive(self, handle_text: str, prefix_text: str) -> None: ...
     def write_single_quoted(self, text: str, split: bool = True) -> None: ...
-    ESCAPE_REPLACEMENTS: Final[dict[str, str]]
+    ESCAPE_REPLACEMENTS: dict[str, str]
     def write_double_quoted(self, text: str, split: bool = True) -> None: ...
     def determine_block_hints(self, text: str) -> tuple[str, int, str]: ...
     def write_folded(self, text: str, comment: str) -> None: ...

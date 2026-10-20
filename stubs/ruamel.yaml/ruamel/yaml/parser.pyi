@@ -1,5 +1,4 @@
 from collections.abc import Callable
-from typing import Final
 
 from .error import MarkedYAMLError, _Mark
 from .events import Event
@@ -15,7 +14,7 @@ __all__ = ["Parser", "RoundTripParser", "ParserError"]
 class ParserError(MarkedYAMLError): ...
 
 class Parser:
-    DEFAULT_TAGS: Final[_TagHandleToPrefix]
+    DEFAULT_TAGS: _TagHandleToPrefix
     loader: YAML | _Loader
     def __init__(self, loader: YAML | _Loader) -> None: ...
     current_event: Event | None
