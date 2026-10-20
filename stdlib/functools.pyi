@@ -245,6 +245,20 @@ class _SingleDispatchCallable(Generic[_T]):
 
 def singledispatch(func: Callable[..., _T]) -> _SingleDispatchCallable[_T]: ...
 
+@type_check_only
+class _SingleDispatchMethodCallable(Generic[_T]):
+    __name__: str
+    __qualname__: str
+    __wrapped__: Callable[..., _T]
+    def __call__(self, /, *args: Any, **kwargs: Any) -> _T: ...
+
+    @overload
+    def register(self, cls: _RegType, method: None = None) -> Callable[[Callable[..., _T]], Callable[..., _T]]: ...
+    @overload
+    def register(self, cls: Callable[..., _T], method: None = None) -> Callable[..., _T]: ...
+    @overload
+    def register(self, cls: _RegType, method: Callable[..., _T]) -> Callable[..., _T]: ...
+
 class singledispatchmethod(Generic[_T]):
     dispatcher: _SingleDispatchCallable[_T]
     func: Callable[..., _T]
@@ -259,7 +273,7 @@ class singledispatchmethod(Generic[_T]):
     @overload
     def register(self, cls: _RegType, method: Callable[..., _T]) -> Callable[..., _T]: ...
 
-    def __get__(self, obj: _S, cls: type[_S] | None = None) -> Callable[..., _T]: ...
+    def __get__(self, obj: _S, cls: type[_S] | None = None) -> _SingleDispatchMethodCallable[_T]: ...
 
 class cached_property(Generic[_T_co]):
     func: Callable[[Any], _T_co]
