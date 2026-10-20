@@ -10,22 +10,9 @@ import collections
 import math
 import operator
 import sys
+from collections.abc import Callable, Collection, Hashable, Iterable, Iterator, Sequence
 from itertools import chain, combinations, count, cycle, filterfalse, groupby, islice, product, repeat, starmap, tee, zip_longest
-from typing import (
-    Any,
-    Literal,
-    TypeAlias,
-    TypeVar,
-    overload,
-)
-from collections.abc import (
-    Callable,
-    Collection,
-    Hashable,
-    Iterable,
-    Iterator,
-    Sequence,
-)
+from typing import Any, Literal, TypeAlias, TypeVar, overload
 from typing_extensions import TypeVarTuple, Unpack
 
 _T = TypeVar("_T")
