@@ -352,10 +352,7 @@ def add_path_resolver(
 
 @overload
 def add_constructor(
-    tag: Tag | str | None,
-    object_constructor: _ConstructorFunction[_Constructor],
-    Loader: None,
-    constructor: type[_Constructor],
+    tag: Tag | str | None, object_constructor: _ConstructorFunction[_Constructor], Loader: None, constructor: type[_Constructor]
 ) -> None: ...
 @overload
 def add_constructor(
