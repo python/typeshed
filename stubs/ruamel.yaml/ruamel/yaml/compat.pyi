@@ -10,10 +10,10 @@ _T = TypeVar("_T")
 _KT = TypeVar("_KT")
 _VT = TypeVar("_VT")
 
-_ReadStream: TypeAlias = str | bytes | SupportsRead[str] | SupportsRead[bytes]
-_WriteStream: TypeAlias = SupportsWrite[str] | SupportsWrite[bytes]
+_ReadStream: TypeAlias = str | bytes | SupportsRead[str] | SupportsRead[bytes]  # noqa: Y047
+_WriteStream: TypeAlias = SupportsWrite[str] | SupportsWrite[bytes]  # noqa: Y047
 
-_VersionInput: TypeAlias = str | tuple[int, int] | list[int]
+_VersionInput: TypeAlias = str | tuple[int, int] | list[int]  # noqa: Y047
 
 class ordereddict(OrderedDict[_KT, _VT]):
     def insert(self, pos: int, key: _KT, value: _VT) -> None: ...
