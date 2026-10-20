@@ -1,10 +1,8 @@
-from typing import Any
-
 from markdown.extensions import Extension
 
-extensions: Any
+extensions: list[str]
 
 class ExtraExtension(Extension):
     def __init__(self, **kwargs) -> None: ...
 
-def makeExtension(**kwargs): ...
+def makeExtension(**kwargs) -> ExtraExtension: ...

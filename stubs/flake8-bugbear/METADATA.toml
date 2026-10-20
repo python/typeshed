@@ -1,1 +1,2 @@
-version = "22.10.27"
+version = "26.9.9"
+upstream-repository = "https://github.com/PyCQA/flake8-bugbear"

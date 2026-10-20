@@ -1,22 +1,17 @@
-from typing import Any
+from typing import Any, Final
 
 from docutils.parsers.rst import Directive
 
-MODULEDOC: str
-LEXERDOC: str
-FMTERDOC: str
-FILTERDOC: str
+MODULEDOC: Final[str]
+LEXERDOC: Final[str]
+FMTERDOC: Final[str]
+FILTERDOC: Final[str]
 
 class PygmentsDoc(Directive):
-    has_content: bool
-    required_arguments: int
-    optional_arguments: int
-    final_argument_whitespace: bool
-    option_spec: Any
-    filenames: Any
-    def run(self): ...
-    def document_lexers(self): ...
-    def document_formatters(self): ...
-    def document_filters(self): ...
+    filenames: set[str]
+    def document_lexers_overview(self) -> str: ...
+    def document_lexers(self) -> str: ...
+    def document_formatters(self) -> str: ...
+    def document_filters(self) -> str: ...
 
-def setup(app) -> None: ...
+def setup(app: Any) -> None: ...  # Actual type of 'app' is sphinx.application.Sphinx

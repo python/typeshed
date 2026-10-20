@@ -1,14 +1,12 @@
 from collections.abc import Iterable
 from logging import Logger
-from typing import Any
-
-from aws_xray_sdk import global_sdk_config as global_sdk_config
-
-from .utils.compat import PY2 as PY2, is_classmethod as is_classmethod, is_instance_method as is_instance_method
+from typing import Final
 
 log: Logger
-SUPPORTED_MODULES: Any
-NO_DOUBLE_PATCH: Any
+SUPPORTED_MODULES: Final[tuple[str, ...]]
+NO_DOUBLE_PATCH: Final[tuple[str, ...]]
 
-def patch_all(double_patch: bool = ...) -> None: ...
-def patch(modules_to_patch: Iterable[str], raise_errors: bool = ..., ignore_module_patterns: str | None = ...) -> None: ...
+def patch_all(double_patch: bool = False) -> None: ...
+def patch(
+    modules_to_patch: Iterable[str], raise_errors: bool = True, ignore_module_patterns: Iterable[str] | None = None
+) -> None: ...

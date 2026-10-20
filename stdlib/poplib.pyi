@@ -1,9 +1,11 @@
 import socket
 import ssl
+import sys
+from _typeshed import StrOrBytesPath
 from builtins import list as _list  # conflicts with a method named "list"
 from re import Pattern
-from typing import Any, BinaryIO, NoReturn, overload
-from typing_extensions import Literal, TypeAlias
+from typing import Any, BinaryIO, Final, TypeAlias, overload
+from typing_extensions import Never, deprecated
 
 __all__ = ["POP3", "error_proto", "POP3_SSL"]
 
@@ -11,12 +13,12 @@ _LongResp: TypeAlias = tuple[bytes, list[bytes], int]
 
 class error_proto(Exception): ...
 
-POP3_PORT: Literal[110]
-POP3_SSL_PORT: Literal[995]
-CR: Literal[b"\r"]
-LF: Literal[b"\n"]
-CRLF: Literal[b"\r\n"]
-HAVE_SSL: bool
+POP3_PORT: Final = 110
+POP3_SSL_PORT: Final = 995
+CR: Final = b"\r"
+LF: Final = b"\n"
+CRLF: Final = b"\r\n"
+HAVE_SSL: Final[bool]
 
 class POP3:
     encoding: str
@@ -25,13 +27,13 @@ class POP3:
     sock: socket.socket
     file: BinaryIO
     welcome: bytes
-    def __init__(self, host: str, port: int = ..., timeout: float = ...) -> None: ...
+    def __init__(self, host: str, port: int = 110, timeout: float = ...) -> None: ...
     def getwelcome(self) -> bytes: ...
     def set_debuglevel(self, level: int) -> None: ...
     def user(self, user: str) -> bytes: ...
     def pass_(self, pswd: str) -> bytes: ...
     def stat(self) -> tuple[int, int]: ...
-    def list(self, which: Any | None = ...) -> _LongResp: ...
+    def list(self, which: Any | None = None) -> _LongResp: ...
     def retr(self, which: Any) -> _LongResp: ...
     def dele(self, which: Any) -> bytes: ...
     def noop(self) -> bytes: ...
@@ -42,23 +44,50 @@ class POP3:
     timestamp: Pattern[str]
     def apop(self, user: str, password: str) -> bytes: ...
     def top(self, which: Any, howmuch: int) -> _LongResp: ...
+
     @overload
     def uidl(self) -> _LongResp: ...
     @overload
     def uidl(self, which: Any) -> bytes: ...
+
     def utf8(self) -> bytes: ...
     def capa(self) -> dict[str, _list[str]]: ...
-    def stls(self, context: ssl.SSLContext | None = ...) -> bytes: ...
+    def stls(self, context: ssl.SSLContext | None = None) -> bytes: ...
 
 class POP3_SSL(POP3):
-    def __init__(
-        self,
-        host: str,
-        port: int = ...,
-        keyfile: str | None = ...,
-        certfile: str | None = ...,
-        timeout: float = ...,
-        context: ssl.SSLContext | None = ...,
-    ) -> None: ...
-    # "context" is actually the last argument, but that breaks LSP and it doesn't really matter because all the arguments are ignored
-    def stls(self, context: Any = ..., keyfile: Any = ..., certfile: Any = ...) -> NoReturn: ...
+    if sys.version_info >= (3, 12):
+        def __init__(
+            self, host: str, port: int = 995, *, timeout: float = ..., context: ssl.SSLContext | None = None
+        ) -> None: ...
+        def stls(self, context: Any = None) -> Never: ...
+    else:
+        @overload
+        def __init__(
+            self,
+            host: str,
+            port: int = 995,
+            keyfile: None = None,
+            certfile: None = None,
+            timeout: float = ...,
+            context: ssl.SSLContext | None = None,
+        ) -> None: ...
+        @overload
+        @deprecated(
+            "The `keyfile`, `certfile` parameters are deprecated since Python 3.6; "
+            "removed in Python 3.12. Use `context` parameter instead."
+        )
+        def __init__(
+            self,
+            host: str,
+            port: int = 995,
+            keyfile: StrOrBytesPath | None = None,
+            certfile: StrOrBytesPath | None = None,
+            timeout: float = ...,
+            context: None = None,
+        ) -> None: ...
+
+        keyfile: StrOrBytesPath | None
+        certfile: StrOrBytesPath | None
+        # "context" is actually the last argument,
+        # but that breaks LSP and it doesn't really matter because all the arguments are ignored
+        def stls(self, context: Any = None, keyfile: Any = None, certfile: Any = None) -> Never: ...

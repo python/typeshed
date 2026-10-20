@@ -1,11 +1,9 @@
-from typing import Any
+from _typeshed import Incomplete
 
-from braintree import exceptions as exceptions
-from braintree.client_token import ClientToken as ClientToken
-from braintree.resource import Resource as Resource
+from braintree.braintree_gateway import BraintreeGateway
 
 class ClientTokenGateway:
-    gateway: Any
-    config: Any
-    def __init__(self, gateway) -> None: ...
-    def generate(self, params: Any | None = ...): ...
+    gateway: BraintreeGateway
+    config: Incomplete
+    def __init__(self, gateway: BraintreeGateway) -> None: ...
+    def generate(self, params: dict[str, Incomplete] | None = None) -> str: ...

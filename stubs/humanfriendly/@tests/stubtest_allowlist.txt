@@ -1,2 +1,0 @@
-humanfriendly.compat.StringIO.seek
-humanfriendly.compat.StringIO.truncate

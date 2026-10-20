@@ -1,15 +1,15 @@
 import builtins
 import ctypes
 import sys
-from _typeshed import Self
+from _typeshed import Incomplete
 from types import TracebackType
-from typing import Any
+from typing_extensions import Self
 
 if sys.platform == "win32":
     def format_system_message(errno: int) -> str | None: ...
 
     class WindowsError(builtins.WindowsError):
-        def __init__(self, value: int | None = ...) -> None: ...
+        def __init__(self, value: int | None = None) -> None: ...
         @property
         def message(self) -> str: ...
         @property
@@ -17,30 +17,31 @@ if sys.platform == "win32":
 
     def handle_nonzero_success(result: int) -> None: ...
     GMEM_MOVEABLE: int
-    GlobalAlloc: Any
-    GlobalLock: Any
-    GlobalUnlock: Any
-    GlobalSize: Any
-    CreateFileMapping: Any
-    MapViewOfFile: Any
-    UnmapViewOfFile: Any
-    RtlMoveMemory: Any
+    GlobalAlloc: Incomplete
+    GlobalLock: Incomplete
+    GlobalUnlock: Incomplete
+    GlobalSize: Incomplete
+    CreateFileMapping: Incomplete
+    MapViewOfFile: Incomplete
+    UnmapViewOfFile: Incomplete
+    RtlMoveMemory: Incomplete
 
     class MemoryMap:
         name: str
         length: int
-        security_attributes: Any = ...
+        security_attributes: Incomplete | None
         pos: int
-        filemap: Any = ...
-        view: Any = ...
-        def __init__(self, name: str, length: int, security_attributes: Any | None = ...) -> None: ...
-        def __enter__(self: Self) -> Self: ...
+        filemap: Incomplete
+        view: Incomplete
+        def __init__(self, name: str, length: int, security_attributes=None) -> None: ...
+        def __enter__(self) -> Self: ...
         def seek(self, pos: int) -> None: ...
         def write(self, msg: bytes) -> None: ...
         def read(self, n: int) -> bytes: ...
         def __exit__(
             self, exc_type: type[BaseException] | None, exc_val: BaseException | None, tb: TracebackType | None
         ) -> None: ...
+
     READ_CONTROL: int
     STANDARD_RIGHTS_REQUIRED: int
     STANDARD_RIGHTS_READ: int
@@ -73,21 +74,32 @@ if sys.platform == "win32":
 
     class TOKEN_USER(ctypes.Structure):
         num: int
+        SID: Incomplete
+        ATTRIBUTES: Incomplete
 
     class SECURITY_DESCRIPTOR(ctypes.Structure):
-        SECURITY_DESCRIPTOR_CONTROL: Any
+        SECURITY_DESCRIPTOR_CONTROL: Incomplete
         REVISION: int
+        Revision: int
+        Sbz1: Incomplete
+        Control: Incomplete
+        Owner: Incomplete
+        Group: Incomplete
+        Sacl: Incomplete
+        Dacl: Incomplete
 
     class SECURITY_ATTRIBUTES(ctypes.Structure):
         nLength: int
-        lpSecurityDescriptor: Any
-        def __init__(self, *args: Any, **kwargs: Any) -> None: ...
-        @property
-        def descriptor(self) -> Any: ...
-        @descriptor.setter
-        def descriptor(self, value: Any) -> None: ...
+        lpSecurityDescriptor: int
+        bInheritHandle: bool
+        def __init__(self, *args, **kwargs) -> None: ...
 
-    def GetTokenInformation(token: Any, information_class: Any) -> Any: ...
-    def OpenProcessToken(proc_handle: Any, access: Any) -> Any: ...
+        @property
+        def descriptor(self): ...
+        @descriptor.setter
+        def descriptor(self, value) -> None: ...
+
+    def GetTokenInformation(token, information_class): ...
+    def OpenProcessToken(proc_handle, access): ...
     def get_current_user() -> TOKEN_USER: ...
-    def get_security_attributes_for_user(user: TOKEN_USER | None = ...) -> SECURITY_ATTRIBUTES: ...
+    def get_security_attributes_for_user(user: TOKEN_USER | None = None) -> SECURITY_ATTRIBUTES: ...

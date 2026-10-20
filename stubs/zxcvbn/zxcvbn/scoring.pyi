@@ -1,7 +1,7 @@
 from collections.abc import Iterable
 from decimal import Decimal
 from re import Pattern
-from typing_extensions import TypedDict
+from typing import TypedDict, type_check_only
 
 from .adjacency_graphs import _Graph
 from .matching import _Match
@@ -15,6 +15,7 @@ MIN_SUBMATCH_GUESSES_MULTI_CHAR: int
 MIN_YEAR_SPACE: int
 REFERENCE_YEAR: int
 
+@type_check_only
 class _GuessesResult(TypedDict):
     password: str
     guesses: int
@@ -22,7 +23,9 @@ class _GuessesResult(TypedDict):
     sequence: list[_Match]
 
 def nCk(n: int, k: int) -> float: ...
-def most_guessable_match_sequence(password: str, matches: Iterable[_Match], _exclude_additive: bool = ...) -> _GuessesResult: ...
+def most_guessable_match_sequence(
+    password: str, matches: Iterable[_Match], _exclude_additive: bool = False
+) -> _GuessesResult: ...
 def estimate_guesses(match: _Match, password: str) -> Decimal: ...
 def bruteforce_guesses(match: _Match) -> int: ...
 def dictionary_guesses(match: _Match) -> int: ...

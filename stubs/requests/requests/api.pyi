@@ -1,11 +1,11 @@
 from collections.abc import Mapping
-from typing import Any
-from typing_extensions import TypeAlias
+from http.cookiejar import CookieJar
+from typing import TypeAlias
 
-from .models import Response
-from .sessions import RequestsCookieJar, _Auth, _Cert, _Data, _Files, _HooksInput, _Params, _TextMapping, _Timeout, _Verify
+from .models import _JSON, Response
+from .sessions import _Auth, _Cert, _Data, _Files, _HooksInput, _Params, _TextMapping, _Timeout, _Verify
 
-_HeadersMapping: TypeAlias = Mapping[str, str | bytes]
+_HeadersMapping: TypeAlias = Mapping[str, str | bytes | None]
 
 def request(
     method: str | bytes,
@@ -14,7 +14,7 @@ def request(
     params: _Params | None = ...,
     data: _Data | None = ...,
     headers: _HeadersMapping | None = ...,
-    cookies: RequestsCookieJar | _TextMapping | None = ...,
+    cookies: CookieJar | _TextMapping | None = ...,
     files: _Files | None = ...,
     auth: _Auth | None = ...,
     timeout: _Timeout | None = ...,
@@ -24,15 +24,15 @@ def request(
     stream: bool | None = ...,
     verify: _Verify | None = ...,
     cert: _Cert | None = ...,
-    json: Any | None = ...,
+    json: _JSON | None = None,
 ) -> Response: ...
 def get(
     url: str | bytes,
-    params: _Params | None = ...,
+    params: _Params | None = None,
     *,
     data: _Data | None = ...,
     headers: _HeadersMapping | None = ...,
-    cookies: RequestsCookieJar | _TextMapping | None = ...,
+    cookies: CookieJar | _TextMapping | None = ...,
     files: _Files | None = ...,
     auth: _Auth | None = ...,
     timeout: _Timeout | None = ...,
@@ -42,7 +42,7 @@ def get(
     stream: bool | None = ...,
     verify: _Verify | None = ...,
     cert: _Cert | None = ...,
-    json: Any | None = ...,
+    json: _JSON | None = None,
 ) -> Response: ...
 def options(
     url: str | bytes,
@@ -50,7 +50,7 @@ def options(
     params: _Params | None = ...,
     data: _Data | None = ...,
     headers: _HeadersMapping | None = ...,
-    cookies: RequestsCookieJar | _TextMapping | None = ...,
+    cookies: CookieJar | _TextMapping | None = ...,
     files: _Files | None = ...,
     auth: _Auth | None = ...,
     timeout: _Timeout | None = ...,
@@ -60,7 +60,7 @@ def options(
     stream: bool | None = ...,
     verify: _Verify | None = ...,
     cert: _Cert | None = ...,
-    json: Any | None = ...,
+    json: _JSON | None = None,
 ) -> Response: ...
 def head(
     url: str | bytes,
@@ -68,7 +68,7 @@ def head(
     params: _Params | None = ...,
     data: _Data | None = ...,
     headers: _HeadersMapping | None = ...,
-    cookies: RequestsCookieJar | _TextMapping | None = ...,
+    cookies: CookieJar | _TextMapping | None = ...,
     files: _Files | None = ...,
     auth: _Auth | None = ...,
     timeout: _Timeout | None = ...,
@@ -78,16 +78,16 @@ def head(
     stream: bool | None = ...,
     verify: _Verify | None = ...,
     cert: _Cert | None = ...,
-    json: Any | None = ...,
+    json: _JSON | None = None,
 ) -> Response: ...
 def post(
     url: str | bytes,
-    data: _Data | None = ...,
-    json: Any | None = ...,
+    data: _Data | None = None,
+    json: _JSON | None = None,
     *,
     params: _Params | None = ...,
     headers: _HeadersMapping | None = ...,
-    cookies: RequestsCookieJar | _TextMapping | None = ...,
+    cookies: CookieJar | _TextMapping | None = ...,
     files: _Files | None = ...,
     auth: _Auth | None = ...,
     timeout: _Timeout | None = ...,
@@ -100,11 +100,11 @@ def post(
 ) -> Response: ...
 def put(
     url: str | bytes,
-    data: _Data | None = ...,
+    data: _Data | None = None,
     *,
     params: _Params | None = ...,
     headers: _HeadersMapping | None = ...,
-    cookies: RequestsCookieJar | _TextMapping | None = ...,
+    cookies: CookieJar | _TextMapping | None = ...,
     files: _Files | None = ...,
     auth: _Auth | None = ...,
     timeout: _Timeout | None = ...,
@@ -114,15 +114,15 @@ def put(
     stream: bool | None = ...,
     verify: _Verify | None = ...,
     cert: _Cert | None = ...,
-    json: Any | None = ...,
+    json: _JSON | None = None,
 ) -> Response: ...
 def patch(
     url: str | bytes,
-    data: _Data | None = ...,
+    data: _Data | None = None,
     *,
     params: _Params | None = ...,
     headers: _HeadersMapping | None = ...,
-    cookies: RequestsCookieJar | _TextMapping | None = ...,
+    cookies: CookieJar | _TextMapping | None = ...,
     files: _Files | None = ...,
     auth: _Auth | None = ...,
     timeout: _Timeout | None = ...,
@@ -132,7 +132,7 @@ def patch(
     stream: bool | None = ...,
     verify: _Verify | None = ...,
     cert: _Cert | None = ...,
-    json: Any | None = ...,
+    json: _JSON | None = None,
 ) -> Response: ...
 def delete(
     url: str | bytes,
@@ -140,7 +140,7 @@ def delete(
     params: _Params | None = ...,
     data: _Data | None = ...,
     headers: _HeadersMapping | None = ...,
-    cookies: RequestsCookieJar | _TextMapping | None = ...,
+    cookies: CookieJar | _TextMapping | None = ...,
     files: _Files | None = ...,
     auth: _Auth | None = ...,
     timeout: _Timeout | None = ...,
@@ -150,5 +150,5 @@ def delete(
     stream: bool | None = ...,
     verify: _Verify | None = ...,
     cert: _Cert | None = ...,
-    json: Any | None = ...,
+    json: _JSON | None = None,
 ) -> Response: ...

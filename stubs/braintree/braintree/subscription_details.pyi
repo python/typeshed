@@ -1,3 +1,7 @@
-from braintree.attribute_getter import AttributeGetter as AttributeGetter
+from datetime import date
 
-class SubscriptionDetails(AttributeGetter): ...
+from braintree.attribute_getter import AttributeGetter
+
+class SubscriptionDetails(AttributeGetter):
+    billing_period_start_date: date
+    billing_period_end_date: date

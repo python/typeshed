@@ -1,29 +1,68 @@
+from _typeshed import SupportsRead
 from collections.abc import Callable
+from email._policybase import _MessageT
 from email.message import Message
 from email.policy import Policy
-from typing import IO, Union
-from typing_extensions import TypeAlias
+from io import _WrappedBuffer
+from typing import TypeAlias, overload
+
+# At runtime, listing submodules in __all__ without them being imported is
+# valid, and causes them to be included in a star import. See #6523
+
+__all__ = [  # ruff: ignore[undefined-export]  # Undefined names in __all__
+    "base64mime",  # pyright: ignore[reportUnsupportedDunderAll]
+    "charset",  # pyright: ignore[reportUnsupportedDunderAll]
+    "encoders",  # pyright: ignore[reportUnsupportedDunderAll]
+    "errors",  # pyright: ignore[reportUnsupportedDunderAll]
+    "feedparser",  # pyright: ignore[reportUnsupportedDunderAll]
+    "generator",  # pyright: ignore[reportUnsupportedDunderAll]
+    "header",  # pyright: ignore[reportUnsupportedDunderAll]
+    "iterators",  # pyright: ignore[reportUnsupportedDunderAll]
+    "message",  # pyright: ignore[reportUnsupportedDunderAll]
+    "message_from_file",
+    "message_from_binary_file",
+    "message_from_string",
+    "message_from_bytes",
+    "mime",  # pyright: ignore[reportUnsupportedDunderAll]
+    "parser",  # pyright: ignore[reportUnsupportedDunderAll]
+    "quoprimime",  # pyright: ignore[reportUnsupportedDunderAll]
+    "utils",  # pyright: ignore[reportUnsupportedDunderAll]
+]
 
 # Definitions imported by multiple submodules in typeshed
-_ParamType: TypeAlias = Union[str, tuple[str | None, str | None, str]]  # noqa: Y047
-_ParamsType: TypeAlias = Union[str, None, tuple[str, str | None, str]]  # noqa: Y047
+_ParamType: TypeAlias = str | tuple[str | None, str | None, str]  # noqa: Y047
+_ParamsType: TypeAlias = str | tuple[str, str | None, str] | None  # noqa: Y047
 
-def message_from_string(s: str, _class: Callable[[], Message] = ..., *, policy: Policy = ...) -> Message: ...
-def message_from_bytes(s: bytes | bytearray, _class: Callable[[], Message] = ..., *, policy: Policy = ...) -> Message: ...
-def message_from_file(fp: IO[str], _class: Callable[[], Message] = ..., *, policy: Policy = ...) -> Message: ...
-def message_from_binary_file(fp: IO[bytes], _class: Callable[[], Message] = ..., *, policy: Policy = ...) -> Message: ...
+@overload
+def message_from_string(s: str) -> Message[str, str]: ...
+@overload
+def message_from_string(s: str, _class: Callable[[], _MessageT]) -> _MessageT: ...
+@overload
+def message_from_string(s: str, _class: Callable[[], _MessageT] = ..., *, policy: Policy[_MessageT]) -> _MessageT: ...
 
-# Names in __all__ with no definition:
-#   base64mime
-#   charset
-#   encoders
-#   errors
-#   feedparser
-#   generator
-#   header
-#   iterators
-#   message
-#   mime
-#   parser
-#   quoprimime
-#   utils
+@overload
+def message_from_bytes(s: bytes | bytearray) -> Message[str, str]: ...
+@overload
+def message_from_bytes(s: bytes | bytearray, _class: Callable[[], _MessageT]) -> _MessageT: ...
+@overload
+def message_from_bytes(
+    s: bytes | bytearray, _class: Callable[[], _MessageT] = ..., *, policy: Policy[_MessageT]
+) -> _MessageT: ...
+
+@overload
+def message_from_file(fp: SupportsRead[str]) -> Message[str, str]: ...
+@overload
+def message_from_file(fp: SupportsRead[str], _class: Callable[[], _MessageT]) -> _MessageT: ...
+@overload
+def message_from_file(
+    fp: SupportsRead[str], _class: Callable[[], _MessageT] = ..., *, policy: Policy[_MessageT]
+) -> _MessageT: ...
+
+@overload
+def message_from_binary_file(fp: _WrappedBuffer) -> Message[str, str]: ...
+@overload
+def message_from_binary_file(fp: _WrappedBuffer, _class: Callable[[], _MessageT]) -> _MessageT: ...
+@overload
+def message_from_binary_file(
+    fp: _WrappedBuffer, _class: Callable[[], _MessageT] = ..., *, policy: Policy[_MessageT]
+) -> _MessageT: ...

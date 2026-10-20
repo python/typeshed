@@ -1,60 +1,76 @@
-from typing import Any
+from collections.abc import Mapping
+from typing import TypeAlias
+
+from ._yaml import Mark as _CMark
+from .error import Mark
+
+_Mark: TypeAlias = Mark | _CMark
 
 class Event:
-    start_mark: Any
-    end_mark: Any
-    def __init__(self, start_mark=..., end_mark=...) -> None: ...
+    start_mark: _Mark | None
+    end_mark: _Mark | None
+    def __init__(self, start_mark: _Mark | None = None, end_mark: _Mark | None = None) -> None: ...
 
 class NodeEvent(Event):
-    anchor: Any
-    start_mark: Any
-    end_mark: Any
-    def __init__(self, anchor, start_mark=..., end_mark=...) -> None: ...
+    anchor: str | None
+    def __init__(self, anchor: str | None, start_mark: _Mark | None = None, end_mark: _Mark | None = None) -> None: ...
 
 class CollectionStartEvent(NodeEvent):
-    anchor: Any
-    tag: Any
-    implicit: Any
-    start_mark: Any
-    end_mark: Any
-    flow_style: Any
-    def __init__(self, anchor, tag, implicit, start_mark=..., end_mark=..., flow_style=...) -> None: ...
+    tag: str | None
+    implicit: bool
+    flow_style: bool | None
+    def __init__(
+        self,
+        anchor: str | None,
+        tag: str | None,
+        implicit: bool,
+        start_mark: _Mark | None = None,
+        end_mark: _Mark | None = None,
+        flow_style: bool | None = None,
+    ) -> None: ...
 
 class CollectionEndEvent(Event): ...
 
 class StreamStartEvent(Event):
-    start_mark: Any
-    end_mark: Any
-    encoding: Any
-    def __init__(self, start_mark=..., end_mark=..., encoding=...) -> None: ...
+    encoding: str | None
+    def __init__(self, start_mark: _Mark | None = None, end_mark: _Mark | None = None, encoding: str | None = None) -> None: ...
 
 class StreamEndEvent(Event): ...
 
 class DocumentStartEvent(Event):
-    start_mark: Any
-    end_mark: Any
-    explicit: Any
-    version: Any
-    tags: Any
-    def __init__(self, start_mark=..., end_mark=..., explicit=..., version=..., tags=...) -> None: ...
+    explicit: bool | None
+    version: tuple[int, int] | None
+    tags: Mapping[str, str] | None
+    def __init__(
+        self,
+        start_mark: _Mark | None = None,
+        end_mark: _Mark | None = None,
+        explicit: bool | None = None,
+        version: tuple[int, int] | None = None,
+        tags: Mapping[str, str] | None = None,
+    ) -> None: ...
 
 class DocumentEndEvent(Event):
-    start_mark: Any
-    end_mark: Any
-    explicit: Any
-    def __init__(self, start_mark=..., end_mark=..., explicit=...) -> None: ...
+    explicit: bool | None
+    def __init__(self, start_mark: _Mark | None = None, end_mark: _Mark | None = None, explicit: bool | None = None) -> None: ...
 
 class AliasEvent(NodeEvent): ...
 
 class ScalarEvent(NodeEvent):
-    anchor: Any
-    tag: Any
-    implicit: Any
-    value: Any
-    start_mark: Any
-    end_mark: Any
-    style: Any
-    def __init__(self, anchor, tag, implicit, value, start_mark=..., end_mark=..., style=...) -> None: ...
+    tag: str | None
+    implicit: tuple[bool, bool]
+    value: str
+    style: str | None
+    def __init__(
+        self,
+        anchor: str | None,
+        tag: str | None,
+        implicit: tuple[bool, bool],
+        value: str,
+        start_mark: _Mark | None = None,
+        end_mark: _Mark | None = None,
+        style: str | None = None,
+    ) -> None: ...
 
 class SequenceStartEvent(CollectionStartEvent): ...
 class SequenceEndEvent(CollectionEndEvent): ...

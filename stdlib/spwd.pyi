@@ -1,23 +1,22 @@
 import sys
 from _typeshed import structseq
-from typing import Any
-from typing_extensions import Final, final
+from typing import Any, Final, final
 
 if sys.platform != "win32":
     @final
     class struct_spwd(structseq[Any], tuple[str, str, int, int, int, int, int, int, int]):
-        if sys.version_info >= (3, 10):
-            __match_args__: Final = (
-                "sp_namp",
-                "sp_pwdp",
-                "sp_lstchg",
-                "sp_min",
-                "sp_max",
-                "sp_warn",
-                "sp_inact",
-                "sp_expire",
-                "sp_flag",
-            )
+        __match_args__: Final = (
+            "sp_namp",
+            "sp_pwdp",
+            "sp_lstchg",
+            "sp_min",
+            "sp_max",
+            "sp_warn",
+            "sp_inact",
+            "sp_expire",
+            "sp_flag",
+        )
+
         @property
         def sp_namp(self) -> str: ...
         @property
@@ -36,6 +35,11 @@ if sys.platform != "win32":
         def sp_expire(self) -> int: ...
         @property
         def sp_flag(self) -> int: ...
+        # Deprecated aliases below.
+        @property
+        def sp_nam(self) -> str: ...
+        @property
+        def sp_pwd(self) -> str: ...
 
     def getspall() -> list[struct_spwd]: ...
-    def getspnam(__arg: str) -> struct_spwd: ...
+    def getspnam(arg: str, /) -> struct_spwd: ...

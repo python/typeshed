@@ -1,37 +1,43 @@
 from _typeshed import Incomplete
+from abc import ABC, abstractmethod
+from typing import Any, Final
 
-from pythoncom import (
-    DISPID_COLLECT as DISPID_COLLECT,
-    DISPID_CONSTRUCTOR as DISPID_CONSTRUCTOR,
-    DISPID_DESTRUCTOR as DISPID_DESTRUCTOR,
-    DISPID_UNKNOWN as DISPID_UNKNOWN,
-)
-from win32com.server.dispatcher import DispatcherTrace as DispatcherTrace, DispatcherWin32trace as DispatcherWin32trace
-from win32com.server.exception import COMException as COMException
+import _win32typing
 
-S_OK: int
+__author__: Final[str]
+S_OK: Final = 0
 IDispatchType: Incomplete
 IUnknownType: Incomplete
-error: Incomplete
 regSpec: str
 regPolicy: str
 regDispatcher: str
 regAddnPath: str
 
-def CreateInstance(clsid, reqIID): ...
+def CreateInstance(clsid, reqIID: _win32typing.PyIID) -> _win32typing.PyIUnknown: ...
 
-class BasicWrapPolicy:
+class BasicWrapPolicy(ABC):
     def __init__(self, object) -> None: ...
+    def _InvokeEx_(self, dispid, lcid, wFlags, args, kwargs, serviceProvider) -> tuple[Incomplete]: ...
+    @abstractmethod
+    def _invokeex_(self, dispid, lcid, wFlags, args, kwargs, serviceProvider) -> tuple[Incomplete]: ...
 
-class MappedWrapPolicy(BasicWrapPolicy): ...
+class MappedWrapPolicy(BasicWrapPolicy):
+    _dispid_to_func_: dict[int, str]
+    def _invokeex_(self, dispid, lcid, wFlags, args, kwargs, serviceProvider) -> tuple[Incomplete]: ...
+
 class DesignatedWrapPolicy(MappedWrapPolicy): ...
 class EventHandlerPolicy(DesignatedWrapPolicy): ...
-class DynamicPolicy(BasicWrapPolicy): ...
+
+class DynamicPolicy(BasicWrapPolicy):
+    def _invokeex_(self, dispid, lcid, wFlags, args, kwargs, serviceProvider) -> tuple[Incomplete]: ...
 
 DefaultPolicy = DesignatedWrapPolicy
 
-def resolve_func(spec): ...
-def call_func(spec, *args): ...
+# Imports an arbitrary object by it's fully-qualified name.
+def resolve_func(spec: str) -> Any: ...
+
+# Imports and calls an arbitrary callable by it's fully-qualified name.
+def call_func(spec: str, *args: Any) -> Any: ...
 
 DISPATCH_METHOD: int
 DISPATCH_PROPERTYGET: int

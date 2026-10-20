@@ -16,6 +16,8 @@ class PartialAuthentication(AuthenticationException):
     allowed_types: list[str]
     def __init__(self, types: list[str]) -> None: ...
 
+class UnableToAuthenticate(AuthenticationException): ...
+
 class ChannelException(SSHException):
     code: int
     text: str
@@ -27,10 +29,14 @@ class BadHostKeyException(SSHException):
     expected_key: PKey
     def __init__(self, hostname: str, got_key: PKey, expected_key: PKey) -> None: ...
 
+class IncompatiblePeer(SSHException): ...
+
 class ProxyCommandFailure(SSHException):
     command: str
     error: str
     def __init__(self, command: str, error: str) -> None: ...
+
+class MessageOrderError(SSHException): ...
 
 class NoValidConnectionsError(socket.error):
     errors: Mapping[tuple[str, int] | tuple[str, int, int, int], Exception]

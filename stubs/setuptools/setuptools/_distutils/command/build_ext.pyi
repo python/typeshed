@@ -1,38 +1,38 @@
-from typing import Any
+from _typeshed import Incomplete, Unused
+from collections.abc import Callable
+from typing import ClassVar
 
+from ..ccompiler import CCompiler
 from ..cmd import Command
-
-extension_name_re: Any
-
-def show_compilers() -> None: ...
+from ..extension import Extension
 
 class build_ext(Command):
-    description: str
-    sep_by: Any
-    user_options: Any
-    boolean_options: Any
-    help_options: Any
-    extensions: Any
-    build_lib: Any
-    plat_name: Any
-    build_temp: Any
-    inplace: int
-    package: Any
-    include_dirs: Any
-    define: Any
-    undef: Any
-    libraries: Any
-    library_dirs: Any
-    rpath: Any
-    link_objects: Any
-    debug: Any
-    force: Any
-    compiler: Any
-    swig: Any
-    swig_cpp: Any
-    swig_opts: Any
-    user: Any
-    parallel: Any
+    description: ClassVar[str]
+    sep_by: Incomplete
+    user_options: ClassVar[list[tuple[str, str | None, str]]]
+    boolean_options: ClassVar[list[str]]
+    help_options: ClassVar[list[tuple[str, str | None, str, Callable[[], Unused]]]]
+    extensions: list[Extension] | None
+    build_lib: str
+    plat_name: str
+    build_temp: str
+    inplace: bool
+    package: str | None
+    include_dirs: list[str]
+    define: Incomplete
+    undef: Incomplete
+    libraries: list[str]
+    library_dirs: list[str]
+    rpath: list[str]
+    link_objects: Incomplete
+    debug: Incomplete
+    force: bool | None
+    compiler: str | CCompiler | None
+    swig: Incomplete
+    swig_cpp: Incomplete
+    swig_opts: list[str]
+    user: Incomplete
+    parallel: int | None
     def initialize_options(self) -> None: ...
     def finalize_options(self) -> None: ...
     def run(self) -> None: ...
@@ -43,8 +43,8 @@ class build_ext(Command):
     def build_extension(self, ext) -> None: ...
     def swig_sources(self, sources, extension): ...
     def find_swig(self): ...
-    def get_ext_fullpath(self, ext_name): ...
-    def get_ext_fullname(self, ext_name): ...
-    def get_ext_filename(self, ext_name): ...
-    def get_export_symbols(self, ext): ...
-    def get_libraries(self, ext): ...
+    def get_ext_fullpath(self, ext_name: str) -> str: ...
+    def get_ext_fullname(self, ext_name: str) -> str: ...
+    def get_ext_filename(self, ext_name: str) -> str: ...
+    def get_export_symbols(self, ext: Extension) -> list[str]: ...
+    def get_libraries(self, ext: Extension) -> list[str]: ...

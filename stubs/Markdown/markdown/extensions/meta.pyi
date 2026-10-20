@@ -1,11 +1,11 @@
+from logging import Logger
 from re import Pattern
-from typing import Any
 
 from markdown.core import Markdown
 from markdown.extensions import Extension
 from markdown.preprocessors import Preprocessor
 
-log: Any
+log: Logger
 META_RE: Pattern[str]
 META_MORE_RE: Pattern[str]
 BEGIN_RE: Pattern[str]
@@ -17,4 +17,4 @@ class MetaExtension(Extension):
 
 class MetaPreprocessor(Preprocessor): ...
 
-def makeExtension(**kwargs): ...
+def makeExtension(**kwargs) -> MetaExtension: ...

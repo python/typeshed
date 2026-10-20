@@ -2,32 +2,46 @@ import sys
 from collections.abc import Callable, Iterable, Mapping
 from typing import Any
 
-if sys.version_info >= (3, 8):
-    __all__ = ["BaseProcess", "current_process", "active_children", "parent_process"]
-else:
-    __all__ = ["BaseProcess", "current_process", "active_children"]
+__all__ = ["BaseProcess", "current_process", "active_children", "parent_process"]
 
 class BaseProcess:
     name: str
     daemon: bool
     authkey: bytes
     _identity: tuple[int, ...]  # undocumented
-    def __init__(
-        self,
-        group: None = ...,
-        target: Callable[..., object] | None = ...,
-        name: str | None = ...,
-        args: Iterable[Any] = ...,
-        kwargs: Mapping[str, Any] = ...,
-        *,
-        daemon: bool | None = ...,
-    ) -> None: ...
+    if sys.version_info >= (3, 14):
+        # kwargs default changed in Python 3.14.1
+        def __init__(
+            self,
+            group: None = None,
+            target: Callable[..., object] | None = None,
+            name: str | None = None,
+            args: Iterable[Any] = (),
+            kwargs: Mapping[str, Any] | None = None,
+            *,
+            daemon: bool | None = None,
+        ) -> None: ...
+    else:
+        def __init__(
+            self,
+            group: None = None,
+            target: Callable[..., object] | None = None,
+            name: str | None = None,
+            args: Iterable[Any] = (),
+            kwargs: Mapping[str, Any] = {},
+            *,
+            daemon: bool | None = None,
+        ) -> None: ...
+
     def run(self) -> None: ...
     def start(self) -> None: ...
+    if sys.version_info >= (3, 14):
+        def interrupt(self) -> None: ...
+
     def terminate(self) -> None: ...
     def kill(self) -> None: ...
     def close(self) -> None: ...
-    def join(self, timeout: float | None = ...) -> None: ...
+    def join(self, timeout: float | None = None) -> None: ...
     def is_alive(self) -> bool: ...
     @property
     def exitcode(self) -> int | None: ...
@@ -40,6 +54,4 @@ class BaseProcess:
 
 def current_process() -> BaseProcess: ...
 def active_children() -> list[BaseProcess]: ...
-
-if sys.version_info >= (3, 8):
-    def parent_process() -> BaseProcess | None: ...
+def parent_process() -> BaseProcess | None: ...

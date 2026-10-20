@@ -1,9 +1,11 @@
-name: Post mypy_primer comment
+name: mypy_primer (comment)
 
-on:
+# workflow_run is needed to comment on PRs from forks. This workflow only reads
+# artifacts as data; it never checks out or executes PR code.
+on: # zizmor: ignore[dangerous-triggers]
   workflow_run:
     workflows:
-      - Run mypy_primer
+      - mypy_primer
     types:
       - completed
 
@@ -14,11 +16,11 @@ permissions:
 jobs:
   comment:
     name: Comment PR from mypy_primer
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: Download diffs
-        uses: actions/github-script@v6
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
         with:
           script: |
             const fs = require('fs');
@@ -44,18 +46,23 @@ jobs:
 
       - name: Post comment
         id: post-comment
-        uses: actions/github-script@v6
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
         with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const fs = require('fs')
             let data = fs.readFileSync('fulldiff.txt', { encoding: 'utf8' })
-            // posting comment fails if too long, so truncate
-            if (data.length > 30000) {
-              let truncated_data = data.substring(0, 30000)
+
+            // Maximum comment length is 65536 characters. We need much less than 236 for extra text.
+            const MAX_LENGTH = 65300
+            if (data.length > MAX_LENGTH) {
+              let truncated_data = data.substring(0, MAX_LENGTH)
               let lines_truncated = data.split('\n').length - truncated_data.split('\n').length
               data = truncated_data + `\n\n... (truncated ${lines_truncated} lines) ...\n`
             }
+
+            console.log("Diff from mypy_primer:")
+            console.log(data)
 
             let body
             if (data.trim()) {
@@ -74,8 +81,7 @@ jobs:
             return prNumber
 
       - name: Hide old comments
-        # v0.3.0
-        uses: kanga333/comment-hider@bbdf5b562fbec24e6f60572d8f712017428b92e0
+        uses: kanga333/comment-hider@c12bb20b48aeb8fc098e35967de8d4f8018fffdf # v0.4.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           leave_visible: 1

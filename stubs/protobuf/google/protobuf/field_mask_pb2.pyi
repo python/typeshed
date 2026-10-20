@@ -31,22 +31,19 @@ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
+
 import builtins
 import collections.abc
+import typing
+
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.internal.well_known_types
 import google.protobuf.message
-import sys
-
-if sys.version_info >= (3, 8):
-    import typing as typing_extensions
-else:
-    import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
-@typing_extensions.final
+@typing.final
 class FieldMask(google.protobuf.message.Message, google.protobuf.internal.well_known_types.FieldMask):
     """`FieldMask` represents a set of symbolic field paths, for example:
 
@@ -160,24 +157,22 @@ class FieldMask(google.protobuf.message.Message, google.protobuf.internal.well_k
     An implementation may provide options to override this default behavior for
     repeated and message fields.
 
-    In order to reset a field's value to the default, the field must
-    be in the mask and set to the default value in the provided resource.
-    Hence, in order to reset all fields of a resource, provide a default
-    instance of the resource and set all fields in the mask, or do
-    not provide a mask as described below.
+    Note that libraries which implement FieldMask resolution have various
+    different behaviors in the face of empty masks or the special "*" mask.
+    When implementing a service you should confirm these cases have the
+    appropriate behavior in the underlying FieldMask library that you desire,
+    and you may need to special case those cases in your application code if
+    the underlying field mask library behavior differs from your intended
+    service semantics.
 
-    If a field mask is not present on update, the operation applies to
-    all fields (as if a field mask of all fields has been specified).
-    Note that in the presence of schema evolution, this may mean that
-    fields the client does not know and has therefore not filled into
-    the request will be reset to their default. If this is unwanted
-    behavior, a specific service may require a client to always specify
-    a field mask, producing an error if not.
+    Update methods implementing https://google.aip.dev/134
+    - MUST support the special value * meaning "full replace"
+    - MUST treat an omitted field mask as "replace fields which are present".
 
-    As with get operations, the location of the resource which
-    describes the updated values in the request message depends on the
-    operation kind. In any case, the effect of the field mask is
-    required to be honored by the API.
+    Other methods implementing https://google.aip.dev/157
+    - SHOULD support the special value "*" to mean "get all".
+    - MUST treat an omitted field mask to mean "get all", unless otherwise
+    documented.
 
     ## Considerations for HTTP REST
 
@@ -255,11 +250,8 @@ class FieldMask(google.protobuf.message.Message, google.protobuf.internal.well_k
     @property
     def paths(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
         """The set of field mask paths."""
-    def __init__(
-        self,
-        *,
-        paths: collections.abc.Iterable[builtins.str] | None = ...,
-    ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["paths", b"paths"]) -> None: ...
+
+    def __init__(self, *, paths: collections.abc.Iterable[builtins.str] | None = ...) -> None: ...
+    def ClearField(self, field_name: typing.Literal["paths", b"paths"]) -> None: ...
 
 global___FieldMask = FieldMask

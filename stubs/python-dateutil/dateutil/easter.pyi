@@ -1,8 +1,10 @@
 from datetime import date
-from typing_extensions import Literal
+from typing import Final, Literal
 
-EASTER_JULIAN: Literal[1]
-EASTER_ORTHODOX: Literal[2]
-EASTER_WESTERN: Literal[3]
+__all__ = ["easter", "EASTER_JULIAN", "EASTER_ORTHODOX", "EASTER_WESTERN"]
 
-def easter(year: int, method: Literal[1, 2, 3] = ...) -> date: ...
+EASTER_JULIAN: Final = 1
+EASTER_ORTHODOX: Final = 2
+EASTER_WESTERN: Final = 3
+
+def easter(year: int, method: Literal[1, 2, 3] = 3) -> date: ...

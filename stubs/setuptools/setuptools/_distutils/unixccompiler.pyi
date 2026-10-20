@@ -1,3 +1,3 @@
-from distutils.ccompiler import CCompiler
+from .compilers.C import unix
 
-class UnixCCompiler(CCompiler): ...
+UnixCCompiler = unix.Compiler

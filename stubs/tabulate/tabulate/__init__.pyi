@@ -1,15 +1,17 @@
 from collections.abc import Callable, Container, Iterable, Mapping, Sequence
-from typing import Any, NamedTuple
-from typing_extensions import TypeAlias
+from typing import Any, Final, Literal, NamedTuple, TypeAlias
+from typing_extensions import Self
 
-__version__: str
+__all__ = ["tabulate", "tabulate_formats", "simple_separated_format"]
 
-LATEX_ESCAPE_RULES: dict[str, str]
-MIN_PADDING: int
+__version__: Final[str]
+# These constants are meant to be configurable
+# https://github.com/astanin/python-tabulate#text-formatting
 PRESERVE_WHITESPACE: bool
+MIN_PADDING: int
+# https://github.com/astanin/python-tabulate#wide-fullwidth-cjk-symbols
 WIDE_CHARS_MODE: bool
-multiline_formats: dict[str, str]
-tabulate_formats: list[str]
+SEPARATING_LINE: str
 
 class Line(NamedTuple):
     begin: str
@@ -22,8 +24,8 @@ class DataRow(NamedTuple):
     sep: str
     end: str
 
-_TableFormatLine: TypeAlias = None | Line | Callable[[list[int], list[str]], str]
-_TableFormatRow: TypeAlias = None | DataRow | Callable[[list[Any], list[int], list[str]], str]
+_TableFormatLine: TypeAlias = Line | Callable[[list[int], list[str]], str] | None
+_TableFormatRow: TypeAlias = DataRow | Callable[[list[Any], list[int], list[str]], str] | None
 
 class TableFormat(NamedTuple):
     lineabove: _TableFormatLine
@@ -35,20 +37,35 @@ class TableFormat(NamedTuple):
     padding: int
     with_header_hide: Container[str] | None
 
+LATEX_ESCAPE_RULES: Final[dict[str, str]]
+tabulate_formats: list[str]
+multiline_formats: dict[str, str]
+
 def simple_separated_format(separator: str) -> TableFormat: ...
 def tabulate(
-    tabular_data: Mapping[str, Iterable[Any]] | Iterable[Iterable[Any]],
-    headers: str | dict[str, str] | Sequence[str] = ...,
-    tablefmt: str | TableFormat = ...,
-    floatfmt: str | Iterable[str] = ...,
-    intfmt: str | Iterable[str] = ...,
-    numalign: str | None = ...,
-    stralign: str | None = ...,
-    missingval: str | Iterable[str] = ...,
-    showindex: str | bool | Iterable[Any] = ...,
-    disable_numparse: bool | Iterable[int] = ...,
-    colalign: Iterable[str | None] | None = ...,
-    maxcolwidths: int | Iterable[int | None] | None = ...,
-    rowalign: str | Iterable[str] | None = ...,
-    maxheadercolwidths: int | Iterable[int] | None = ...,
+    # The key is converted using str().
+    tabular_data: Mapping[Any, Iterable[Any]] | Iterable[Iterable[Any]],
+    headers: str | dict[str, str] | Sequence[str] = (),
+    tablefmt: str | TableFormat = "simple",
+    floatfmt: str | Iterable[str] = "g",
+    intfmt: str | Iterable[str] = "",
+    numalign: str | None = "default",
+    stralign: str | None = "default",
+    missingval: str | Iterable[str] = "",
+    showindex: str | bool | Iterable[Any] = "default",
+    disable_numparse: bool | Iterable[int] = False,
+    colglobalalign: Literal["right", "center", "decimal", "left"] | None = None,
+    colalign: Iterable[str | None] | None = None,
+    preserve_whitespace: bool = False,
+    maxcolwidths: int | Iterable[int | None] | None = None,
+    headersglobalalign: Literal["right", "center", "left"] | None = None,
+    headersalign: Iterable[str | None] | None = None,
+    rowalign: str | Iterable[str] | None = None,
+    maxheadercolwidths: int | Iterable[int] | None = None,
+    break_long_words: bool = True,
+    break_on_hyphens: bool = True,
 ) -> str: ...
+
+class JupyterHTMLStr(str):
+    @property
+    def str(self) -> Self: ...

@@ -1,4 +1,4 @@
-from typing import Any
+from _typeshed import Incomplete
 
 from MySQLdb import connections as connections, constants as constants, converters as converters, cursors as cursors
 from MySQLdb._mysql import (
@@ -33,19 +33,63 @@ threadsafety: int
 apilevel: str
 paramstyle: str
 
-class DBAPISet(frozenset[Any]):
+class DBAPISet(frozenset[Incomplete]):
     def __eq__(self, other): ...
 
-STRING: Any
-BINARY: Any
-NUMBER: Any
-DATE: Any
-TIME: Any
-TIMESTAMP: Any
-DATETIME: Any
-ROWID: Any
+STRING: Incomplete
+BINARY: Incomplete
+NUMBER: Incomplete
+DATE: Incomplete
+TIME: Incomplete
+TIMESTAMP: Incomplete
+DATETIME: Incomplete
+ROWID: Incomplete
 
 def Binary(x): ...
-def Connect(*args, **kwargs): ...
+def Connect(*args, **kwargs) -> Connection: ...
 
 connect = Connect
+
+__all__ = [
+    "BINARY",
+    "Binary",
+    "Connect",
+    "Connection",
+    "DATE",
+    "Date",
+    "Time",
+    "Timestamp",
+    "DateFromTicks",
+    "TimeFromTicks",
+    "TimestampFromTicks",
+    "DataError",
+    "DatabaseError",
+    "Error",
+    "FIELD_TYPE",
+    "IntegrityError",
+    "InterfaceError",
+    "InternalError",
+    "MySQLError",
+    "NUMBER",
+    "NotSupportedError",
+    "DBAPISet",
+    "OperationalError",
+    "ProgrammingError",
+    "ROWID",
+    "STRING",
+    "TIME",
+    "TIMESTAMP",
+    "Warning",
+    "apilevel",
+    "connect",
+    "connections",
+    "constants",
+    "converters",
+    "cursors",
+    "debug",
+    "get_client_info",
+    "paramstyle",
+    "string_literal",
+    "threadsafety",
+    "version_info",
+]

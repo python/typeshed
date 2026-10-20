@@ -1,44 +1,42 @@
-from typing import Any
+from _typeshed import Incomplete
+from collections import ChainMap
+from typing import Any, ClassVar
 
 from ..cmd import Command
 
-HAS_USER_SITE: bool
-SCHEME_KEYS: tuple[str, ...]
-INSTALL_SCHEMES: dict[str, dict[Any, Any]]
-
 class install(Command):
-    description: str
-    user_options: Any
-    boolean_options: Any
-    negative_opt: Any
+    description: ClassVar[str]
+    user_options: ClassVar[list[tuple[str, str | None, str]]]
+    boolean_options: ClassVar[list[str]]
+    negative_opt: ClassVar[dict[str, str]]
     prefix: str | None
-    exec_prefix: Any
+    exec_prefix: Incomplete
     home: str | None
     user: bool
-    install_base: Any
-    install_platbase: Any
+    install_base: str | None
+    install_platbase: str | None
     root: str | None
-    install_purelib: Any
-    install_platlib: Any
-    install_headers: Any
+    install_purelib: str | None
+    install_platlib: str | None
+    install_headers: str | None
     install_lib: str | None
-    install_scripts: Any
-    install_data: Any
-    install_userbase: Any
-    install_usersite: Any
-    compile: Any
-    optimize: Any
-    extra_path: Any
-    install_path_file: int
-    force: int
-    skip_build: int
-    warn_dir: int
-    build_base: Any
-    build_lib: Any
-    record: Any
+    install_scripts: str | None
+    install_data: str | None
+    install_userbase: Incomplete
+    install_usersite: Incomplete
+    compile: Incomplete
+    optimize: Incomplete
+    extra_path: Incomplete
+    install_path_file: bool
+    force: bool
+    skip_build: bool
+    warn_dir: bool
+    build_base: Incomplete
+    build_lib: Incomplete
+    record: Incomplete
     def initialize_options(self) -> None: ...
-    config_vars: Any
-    install_libbase: Any
+    config_vars: ChainMap[str, Any]  # Any: Same as sysconfig.get_config_vars
+    install_libbase: Incomplete
     def finalize_options(self) -> None: ...
     def dump_dirs(self, msg) -> None: ...
     def finalize_unix(self) -> None: ...
@@ -47,8 +45,8 @@ class install(Command):
     def expand_basedirs(self) -> None: ...
     def expand_dirs(self) -> None: ...
     def convert_paths(self, *names) -> None: ...
-    path_file: Any
-    extra_dirs: Any
+    path_file: Incomplete
+    extra_dirs: Incomplete
     def handle_extra_path(self) -> None: ...
     def change_roots(self, *names) -> None: ...
     def create_home_path(self) -> None: ...
@@ -56,8 +54,7 @@ class install(Command):
     def create_path_file(self) -> None: ...
     def get_outputs(self): ...
     def get_inputs(self): ...
-    def has_lib(self): ...
-    def has_headers(self): ...
-    def has_scripts(self): ...
-    def has_data(self): ...
-    sub_commands: Any
+    def has_lib(self) -> bool: ...
+    def has_headers(self) -> bool: ...
+    def has_scripts(self) -> bool: ...
+    def has_data(self) -> bool: ...

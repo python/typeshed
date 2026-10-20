@@ -1,19 +1,24 @@
-import distutils.command.sdist as orig
-from typing import Any
+from _typeshed import Incomplete
+from collections.abc import Iterator
+from typing import ClassVar
 
-from .py36compat import sdist_add_defaults
+from setuptools.dist import Distribution
 
-def walk_revctrl(dirname: str = ...) -> None: ...
+from .._distutils.command import sdist as orig
 
-class sdist(sdist_add_defaults, orig.sdist):
-    user_options: Any
-    negative_opt: Any
-    README_EXTENSIONS: Any
-    READMES: Any
-    filelist: Any
+def walk_revctrl(dirname: str = "") -> Iterator[Incomplete]: ...
+
+class sdist(orig.sdist):
+    distribution: Distribution  # override distutils.dist.Distribution with setuptools.dist.Distribution
+    user_options: ClassVar[list[tuple[str, str | None, str]]]
+    negative_opt: ClassVar[dict[str, str]]
+    README_EXTENSIONS: ClassVar[list[str]]
+    READMES: ClassVar[tuple[str, ...]]
+    filelist: Incomplete
     def run(self) -> None: ...
     def initialize_options(self) -> None: ...
     def make_distribution(self) -> None: ...
+    def prune_file_list(self) -> None: ...
     def check_readme(self) -> None: ...
     def make_release_tree(self, base_dir, files) -> None: ...
     def read_manifest(self) -> None: ...

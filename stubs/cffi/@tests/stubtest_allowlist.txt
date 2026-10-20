@@ -2,10 +2,3 @@
 cffi.(api.)?FFI.CData
 cffi.(api.)?FFI.CType
 cffi.(api.)?FFI.buffer
-
-# Exists at runtime, but missing from stubs
-cffi.vengine_cpy.__warningregistry__
-
-# Unnecessary re-exports
-cffi.cparser.COMMON_TYPES
-cffi.verifier.__version_verifier_modules__

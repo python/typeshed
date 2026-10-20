@@ -1,6 +1,7 @@
 from _typeshed import Incomplete, SupportsWrite
 from collections.abc import Iterable, Mapping
-from typing import Generic, NoReturn, TypeVar, overload
+from typing import TypeVar, overload
+from typing_extensions import Never
 
 from .std import tqdm as std_tqdm
 
@@ -8,7 +9,7 @@ __all__ = ["tqdm_gui", "tgrange", "tqdm", "trange"]
 
 _T = TypeVar("_T")
 
-class tqdm_gui(Generic[_T], std_tqdm[_T]):
+class tqdm_gui(std_tqdm[_T]):
     mpl: Incomplete
     plt: Incomplete
     toolbar: Incomplete
@@ -23,6 +24,7 @@ class tqdm_gui(Generic[_T], std_tqdm[_T]):
     def close(self) -> None: ...
     def clear(self, *_, **__) -> None: ...
     def display(self, *_, **__) -> None: ...
+
     @overload
     def __init__(
         self,
@@ -56,8 +58,8 @@ class tqdm_gui(Generic[_T], std_tqdm[_T]):
     ) -> None: ...
     @overload
     def __init__(
-        self: tqdm_gui[NoReturn],
-        iterable: None = ...,
+        self: tqdm_gui[Never],
+        iterable: None = None,
         desc: str | None = ...,
         total: float | None = ...,
         leave: bool | None = ...,

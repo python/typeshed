@@ -1,8 +1,5 @@
 from _typeshed import Incomplete
 
-from win32comext.axdebug import contexts as contexts
-from win32comext.axdebug.util import RaiseNotImpl as RaiseNotImpl
-
 class SourceCodeContainer:
     sourceContext: Incomplete
     text: Incomplete
@@ -11,7 +8,7 @@ class SourceCodeContainer:
     codeContexts: Incomplete
     site: Incomplete
     startLineNumber: Incomplete
-    debugDocument: Incomplete
+    debugDocument: Incomplete | None
     def __init__(
         self,
         text,

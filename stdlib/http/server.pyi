@@ -1,18 +1,59 @@
+import _socket
 import email.message
 import io
 import socketserver
 import sys
-from _typeshed import StrPath, SupportsRead, SupportsWrite
-from collections.abc import Mapping, Sequence
-from typing import Any, AnyStr, BinaryIO, ClassVar
+from _ssl import _PasswordType
+from _typeshed import ReadableBuffer, StrOrBytesPath, StrPath, SupportsRead, SupportsWrite
+from collections.abc import Callable, Iterable, Mapping, Sequence
+from ssl import Purpose, SSLContext
+from typing import Any, AnyStr, BinaryIO, ClassVar, Protocol, type_check_only
+from typing_extensions import Self, deprecated
 
-__all__ = ["HTTPServer", "ThreadingHTTPServer", "BaseHTTPRequestHandler", "SimpleHTTPRequestHandler", "CGIHTTPRequestHandler"]
+__all__ = ["HTTPServer", "ThreadingHTTPServer", "BaseHTTPRequestHandler", "SimpleHTTPRequestHandler"]
+if sys.version_info < (3, 15):
+    __all__ += ["CGIHTTPRequestHandler"]
+if sys.version_info >= (3, 14):
+    __all__ = ["HTTPSServer", "ThreadingHTTPSServer"]
 
 class HTTPServer(socketserver.TCPServer):
     server_name: str
     server_port: int
 
 class ThreadingHTTPServer(socketserver.ThreadingMixIn, HTTPServer): ...
+
+if sys.version_info >= (3, 14):
+    @type_check_only
+    class _SSLModule(Protocol):
+        @staticmethod
+        def create_default_context(
+            purpose: Purpose = ...,
+            *,
+            cafile: StrOrBytesPath | None = None,
+            capath: StrOrBytesPath | None = None,
+            cadata: str | ReadableBuffer | None = None,
+        ) -> SSLContext: ...
+
+    class HTTPSServer(HTTPServer):
+        ssl: _SSLModule
+        certfile: StrOrBytesPath
+        keyfile: StrOrBytesPath | None
+        password: _PasswordType | None
+        alpn_protocols: Iterable[str]
+        def __init__(
+            self,
+            server_address: socketserver._AfInetAddress,
+            RequestHandlerClass: Callable[[Any, _socket._RetAddress, Self], socketserver.BaseRequestHandler],
+            bind_and_activate: bool = True,
+            *,
+            certfile: StrOrBytesPath,
+            keyfile: StrOrBytesPath | None = None,
+            password: _PasswordType | None = None,
+            alpn_protocols: Iterable[str] | None = None,
+        ) -> None: ...
+        def server_activate(self) -> None: ...
+
+    class ThreadingHTTPSServer(socketserver.ThreadingMixIn, HTTPSServer): ...
 
 class BaseHTTPRequestHandler(socketserver.StreamRequestHandler):
     client_address: tuple[str, int]
@@ -29,22 +70,24 @@ class BaseHTTPRequestHandler(socketserver.StreamRequestHandler):
     protocol_version: str
     MessageClass: type
     responses: Mapping[int, tuple[str, str]]
+    if sys.version_info >= (3, 15):
+        default_content_type: str
     default_request_version: str  # undocumented
     weekdayname: ClassVar[Sequence[str]]  # undocumented
     monthname: ClassVar[Sequence[str | None]]  # undocumented
     def handle_one_request(self) -> None: ...
     def handle_expect_100(self) -> bool: ...
-    def send_error(self, code: int, message: str | None = ..., explain: str | None = ...) -> None: ...
-    def send_response(self, code: int, message: str | None = ...) -> None: ...
+    def send_error(self, code: int, message: str | None = None, explain: str | None = None) -> None: ...
+    def send_response(self, code: int, message: str | None = None) -> None: ...
     def send_header(self, keyword: str, value: str) -> None: ...
-    def send_response_only(self, code: int, message: str | None = ...) -> None: ...
+    def send_response_only(self, code: int, message: str | None = None) -> None: ...
     def end_headers(self) -> None: ...
     def flush_headers(self) -> None: ...
-    def log_request(self, code: int | str = ..., size: int | str = ...) -> None: ...
+    def log_request(self, code: int | str = "-", size: int | str = "-") -> None: ...
     def log_error(self, format: str, *args: Any) -> None: ...
     def log_message(self, format: str, *args: Any) -> None: ...
     def version_string(self) -> str: ...
-    def date_time_string(self, timestamp: int | None = ...) -> str: ...
+    def date_time_string(self, timestamp: float | None = None) -> str: ...
     def log_date_time_string(self) -> str: ...
     def address_string(self) -> str: ...
     def parse_request(self) -> bool: ...  # undocumented
@@ -52,23 +95,26 @@ class BaseHTTPRequestHandler(socketserver.StreamRequestHandler):
 class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
     extensions_map: dict[str, str]
     if sys.version_info >= (3, 12):
+        index_pages: ClassVar[tuple[str, ...]]
+    directory: str
+    if sys.version_info >= (3, 15):
         def __init__(
             self,
             request: socketserver._RequestType,
-            client_address: socketserver._AddressType,
+            client_address: _socket._RetAddress,
             server: socketserver.BaseServer,
             *,
-            directory: str | None = ...,
-            index_pages: Sequence[str] | None = ...,
+            directory: StrPath | None = None,
+            extra_response_headers: Mapping[str, str] | None = None,
         ) -> None: ...
     else:
         def __init__(
             self,
             request: socketserver._RequestType,
-            client_address: socketserver._AddressType,
+            client_address: _socket._RetAddress,
             server: socketserver.BaseServer,
             *,
-            directory: str | None = ...,
+            directory: StrPath | None = None,
         ) -> None: ...
 
     def do_GET(self) -> None: ...
@@ -81,11 +127,13 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
 
 def executable(path: StrPath) -> bool: ...  # undocumented
 
-class CGIHTTPRequestHandler(SimpleHTTPRequestHandler):
-    cgi_directories: list[str]
-    have_fork: bool  # undocumented
-    def do_POST(self) -> None: ...
-    def is_cgi(self) -> bool: ...  # undocumented
-    def is_executable(self, path: StrPath) -> bool: ...  # undocumented
-    def is_python(self, path: StrPath) -> bool: ...  # undocumented
-    def run_cgi(self) -> None: ...  # undocumented
+if sys.version_info < (3, 15):
+    @deprecated("Deprecated and unsafe; removed in Python 3.15.")
+    class CGIHTTPRequestHandler(SimpleHTTPRequestHandler):
+        cgi_directories: list[str]
+        have_fork: bool  # undocumented
+        def do_POST(self) -> None: ...
+        def is_cgi(self) -> bool: ...  # undocumented
+        def is_executable(self, path: StrPath) -> bool: ...  # undocumented
+        def is_python(self, path: StrPath) -> bool: ...  # undocumented
+        def run_cgi(self) -> None: ...  # undocumented

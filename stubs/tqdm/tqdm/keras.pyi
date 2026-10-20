@@ -1,14 +1,12 @@
 from _typeshed import Incomplete
-from typing import Any
-from typing_extensions import TypeAlias
+
+from tensorflow import keras
 
 __all__ = ["TqdmCallback"]
 
-_Callback: TypeAlias = Any  # Actually tensorflow.keras.callbacks.Callback
-
-class TqdmCallback(_Callback):
+class TqdmCallback(keras.callbacks.Callback):
     @staticmethod
-    def bar2callback(bar, pop: Incomplete | None = ..., delta=...): ...
+    def bar2callback(bar, pop=None, delta=...): ...
     tqdm_class: Incomplete
     epoch_bar: Incomplete
     on_epoch_end: Incomplete
@@ -16,15 +14,7 @@ class TqdmCallback(_Callback):
     verbose: Incomplete
     batch_bar: Incomplete
     on_batch_end: Incomplete
-    def __init__(
-        self,
-        epochs: Incomplete | None = ...,
-        data_size: Incomplete | None = ...,
-        batch_size: Incomplete | None = ...,
-        verbose: int = ...,
-        tqdm_class=...,
-        **tqdm_kwargs,
-    ) -> None: ...
+    def __init__(self, epochs=None, data_size=None, batch_size=None, verbose: int = 1, tqdm_class=..., **tqdm_kwargs) -> None: ...
     def on_train_begin(self, *_, **__) -> None: ...
     def on_epoch_begin(self, epoch, *_, **__) -> None: ...
     def on_train_end(self, *_, **__) -> None: ...

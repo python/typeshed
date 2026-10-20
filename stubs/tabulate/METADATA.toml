@@ -1,4 +1,2 @@
-version = "0.9.*"
-
-[tool.stubtest]
-ignore_missing_stub = false
+version = "0.10.*"
+upstream-repository = "https://github.com/astanin/python-tabulate"

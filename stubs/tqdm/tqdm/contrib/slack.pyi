@@ -1,6 +1,7 @@
 from _typeshed import Incomplete, SupportsWrite
 from collections.abc import Iterable, Mapping
-from typing import Generic, NoReturn, TypeVar, overload
+from typing import TypeVar, overload
+from typing_extensions import Never
 
 from ..auto import tqdm as tqdm_auto
 from .utils_worker import MonoWorker
@@ -16,8 +17,9 @@ class SlackIO(MonoWorker):
 
 _T = TypeVar("_T")
 
-class tqdm_slack(Generic[_T], tqdm_auto[_T]):
+class tqdm_slack(tqdm_auto[_T]):
     sio: Incomplete
+
     @overload
     def __init__(
         self,
@@ -47,14 +49,15 @@ class tqdm_slack(Generic[_T], tqdm_auto[_T]):
         colour: str | None = ...,
         delay: float | None = ...,
         gui: bool = ...,
-        token: str = ...,
-        channel: int = ...,
+        *,
+        token: str | None = None,
+        channel: int | None = None,
         **kwargs,
     ) -> None: ...
     @overload
     def __init__(
-        self: tqdm_slack[NoReturn],
-        iterable: None = ...,
+        self: tqdm_slack[Never],
+        iterable: None = None,
         desc: str | None = ...,
         total: float | None = ...,
         leave: bool | None = ...,
@@ -80,11 +83,15 @@ class tqdm_slack(Generic[_T], tqdm_auto[_T]):
         colour: str | None = ...,
         delay: float | None = ...,
         gui: bool = ...,
-        token: str = ...,
-        channel: int = ...,
+        *,
+        token: str | None = None,
+        channel: int | None = None,
         **kwargs,
     ) -> None: ...
-    def display(self, *, msg: str | None = ..., pos: int | None = ..., close: bool = ..., bar_style: Incomplete = ..., check_delay: bool = ...) -> None: ...  # type: ignore[override]
+
+    def display(  # type: ignore[override]
+        self, *, msg: str | None = ..., pos: int | None = ..., close: bool = ..., bar_style=..., check_delay: bool = ...
+    ) -> None: ...
     def clear(self, *args, **kwargs) -> None: ...
 
 def tsrange(*args, **kwargs) -> tqdm_slack[int]: ...

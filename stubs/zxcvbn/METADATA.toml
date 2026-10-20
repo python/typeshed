@@ -1,4 +1,2 @@
-version = "4.4.*"
-
-[tool.stubtest]
-ignore_missing_stub = false
+version = "4.5.*"
+upstream-repository = "https://github.com/dwolfhub/zxcvbn-python"

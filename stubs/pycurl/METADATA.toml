@@ -1,5 +1,5 @@
-version = "7.45.*"
+version = "7.48.0"
+upstream-repository = "https://github.com/pycurl/pycurl"
 
 [tool.stubtest]
-platforms = ["linux"]
-apt_dependencies = ["libcurl4-openssl-dev"]
+ci-platforms = ["darwin", "linux", "win32"]

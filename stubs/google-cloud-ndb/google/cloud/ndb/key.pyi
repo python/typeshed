@@ -1,6 +1,6 @@
-from typing import Any
+from _typeshed import Incomplete
 
-UNDEFINED: Any
+UNDEFINED: Incomplete
 
 class Key:
     def __new__(cls, *path_args, **kwargs): ...
@@ -16,7 +16,8 @@ class Key:
     def root(self): ...
     def namespace(self): ...
     def project(self): ...
-    app: Any
+    app: Incomplete
+    def database(self) -> str | None: ...
     def id(self): ...
     def string_id(self): ...
     def integer_id(self): ...
@@ -29,69 +30,69 @@ class Key:
     def to_legacy_urlsafe(self, location_prefix): ...
     def get(
         self,
-        read_consistency: Any | None = ...,
-        read_policy: Any | None = ...,
-        transaction: Any | None = ...,
-        retries: Any | None = ...,
-        timeout: Any | None = ...,
-        deadline: Any | None = ...,
-        use_cache: Any | None = ...,
-        use_global_cache: Any | None = ...,
-        use_datastore: Any | None = ...,
-        global_cache_timeout: Any | None = ...,
-        use_memcache: Any | None = ...,
-        memcache_timeout: Any | None = ...,
-        max_memcache_items: Any | None = ...,
-        force_writes: Any | None = ...,
-        _options: Any | None = ...,
+        read_consistency=None,
+        read_policy=None,
+        transaction=None,
+        retries=None,
+        timeout=None,
+        deadline=None,
+        use_cache=None,
+        use_global_cache=None,
+        use_datastore=None,
+        global_cache_timeout=None,
+        use_memcache=None,
+        memcache_timeout=None,
+        max_memcache_items=None,
+        force_writes=None,
+        _options=None,
     ): ...
     def get_async(
         self,
-        read_consistency: Any | None = ...,
-        read_policy: Any | None = ...,
-        transaction: Any | None = ...,
-        retries: Any | None = ...,
-        timeout: Any | None = ...,
-        deadline: Any | None = ...,
-        use_cache: Any | None = ...,
-        use_global_cache: Any | None = ...,
-        use_datastore: Any | None = ...,
-        global_cache_timeout: Any | None = ...,
-        use_memcache: Any | None = ...,
-        memcache_timeout: Any | None = ...,
-        max_memcache_items: Any | None = ...,
-        force_writes: Any | None = ...,
-        _options: Any | None = ...,
+        read_consistency=None,
+        read_policy=None,
+        transaction=None,
+        retries=None,
+        timeout=None,
+        deadline=None,
+        use_cache=None,
+        use_global_cache=None,
+        use_datastore=None,
+        global_cache_timeout=None,
+        use_memcache=None,
+        memcache_timeout=None,
+        max_memcache_items=None,
+        force_writes=None,
+        _options=None,
     ): ...
     def delete(
         self,
-        retries: Any | None = ...,
-        timeout: Any | None = ...,
-        deadline: Any | None = ...,
-        use_cache: Any | None = ...,
-        use_global_cache: Any | None = ...,
-        use_datastore: Any | None = ...,
-        global_cache_timeout: Any | None = ...,
-        use_memcache: Any | None = ...,
-        memcache_timeout: Any | None = ...,
-        max_memcache_items: Any | None = ...,
-        force_writes: Any | None = ...,
-        _options: Any | None = ...,
+        retries=None,
+        timeout=None,
+        deadline=None,
+        use_cache=None,
+        use_global_cache=None,
+        use_datastore=None,
+        global_cache_timeout=None,
+        use_memcache=None,
+        memcache_timeout=None,
+        max_memcache_items=None,
+        force_writes=None,
+        _options=None,
     ): ...
     def delete_async(
         self,
-        retries: Any | None = ...,
-        timeout: Any | None = ...,
-        deadline: Any | None = ...,
-        use_cache: Any | None = ...,
-        use_global_cache: Any | None = ...,
-        use_datastore: Any | None = ...,
-        global_cache_timeout: Any | None = ...,
-        use_memcache: Any | None = ...,
-        memcache_timeout: Any | None = ...,
-        max_memcache_items: Any | None = ...,
-        force_writes: Any | None = ...,
-        _options: Any | None = ...,
+        retries=None,
+        timeout=None,
+        deadline=None,
+        use_cache=None,
+        use_global_cache=None,
+        use_datastore=None,
+        global_cache_timeout=None,
+        use_memcache=None,
+        memcache_timeout=None,
+        max_memcache_items=None,
+        force_writes=None,
+        _options=None,
     ): ...
     @classmethod
     def from_old_key(cls, old_key) -> None: ...

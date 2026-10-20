@@ -1,4 +1,6 @@
-from typing import Any
+from typing import Final
 
-default_parsers: Any
-settings: Any
+from dateparser import _Settings
+
+default_parsers: Final[list[str]]
+settings: Final[_Settings]

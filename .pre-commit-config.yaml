@@ -1,32 +1,64 @@
 repos:
-  - repo: https://github.com/hadialqattan/pycln
-    rev: v2.1.1 # must match requirements-tests.txt
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: 3e8a8703264a2f4a69428a0aa4dcb512790b2c8c # frozen: v6.0.0
     hooks:
-      - id: pycln
-        args: [--all, stubs, stdlib, tests, scripts]
-  - repo: https://github.com/psf/black
-    rev: 22.10.0 # must match requirements-tests.txt
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-toml
+      - id: check-merge-conflict
+      - id: mixed-line-ending
+        args: [--fix=lf]
+      - id: check-case-conflict
+  - repo: https://github.com/python-jsonschema/check-jsonschema
+    rev: 4f85d46a92dc17713078e5de73f8a13190edf6fc  # frozen: 0.38.2
+    hooks:
+      - id: check-github-workflows
+      - id: check-renovate
+        additional_dependencies: ["json5==0.15.0"]
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    # The Ruff version must match requirements-tests.txt.
+    rev: f12be1ebaa5351c1fc76472de98db2c3446c8253  # frozen: v0.16.10
+    hooks:
+      - id: ruff
+        name: Run ruff on stubs, tests and scripts
+        args: ["--exit-non-zero-on-fix"]
+      - id: ruff
+        # Very few rules are useful to run on our test cases;
+        # we explicitly enumerate them here:
+        name: Run ruff on the test cases
+        args:
+          - "--exit-non-zero-on-fix"
+          - "--select=FA,I,ICN001,RUF100"
+          - "--no-force-exclude"
+          - "--unsafe-fixes"
+        files: '.*test_cases/.+\.py$'
+  - repo: https://github.com/psf/black-pre-commit-mirror
+    rev: 96ae3e5802f3fe2d551e703e18f0a367d1a81ac2  # frozen: 26.10.0
     hooks:
       - id: black
-        language_version: python3.9
-  - repo: https://github.com/pycqa/isort
-    rev: 5.10.1  # must match requirements-tests.txt
-    hooks:
-      - id: isort
-        name: isort (python)
   - repo: https://github.com/pycqa/flake8
-    rev: 5.0.4  # must match requirements-tests.txt
+    rev: cfbbfdeb2391c14a37e101e92a77f54f329e1726  # frozen: 7.4.1
     hooks:
       - id: flake8
+        language: python
         additional_dependencies:
-          - 'flake8-bugbear==22.10.27'  # must match requirements-tests.txt
-          - 'flake8-noqa==1.2.9'        # must match requirements-tests.txt
-          - 'flake8-pyi==22.10.0'       # must match requirements-tests.txt
+          - "flake8-pyi==26.5.0"
+        types: [file]
+        types_or: [python, pyi]
+  - repo: meta
+    hooks:
+      - id: check-hooks-apply
+  # zizmor detects security vulnerabilities in GitHub Actions workflows.
+  - repo: https://github.com/zizmorcore/zizmor-pre-commit
+    rev: fa412071e4f5d44d44f9e365f4676f9df92456a2 # frozen: v1.30.1
+    hooks:
+      - id: zizmor
+        args: [--no-progress, --fix]
 
 ci:
-    autofix_commit_msg: '[pre-commit.ci] auto fixes from pre-commit.com hooks'
-    autofix_prs: true
-    autoupdate_commit_msg: '[pre-commit.ci] pre-commit autoupdate'
-    autoupdate_schedule: weekly
-    skip: [flake8]
-    submodules: false
+  autofix_commit_msg: "[pre-commit.ci] auto fixes from pre-commit.com hooks"
+  autofix_prs: true
+  autoupdate_commit_msg: "[pre-commit.ci] pre-commit autoupdate"
+  autoupdate_schedule: quarterly
+  submodules: false

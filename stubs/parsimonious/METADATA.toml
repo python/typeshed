@@ -1,4 +1,2 @@
-version = "0.10.*"
-
-[tool.stubtest]
-ignore_missing_stub = false
+version = "0.11.*"
+upstream-repository = "https://github.com/erikrose/parsimonious"

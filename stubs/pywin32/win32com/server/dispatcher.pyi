@@ -1,12 +1,11 @@
-from _typeshed import Incomplete
-from typing_extensions import TypeAlias
+from logging import Logger
+from typing import TypeAlias
 
-from win32com.server.exception import IsCOMServerException as IsCOMServerException
-from win32com.util import IIDToInterfaceName as IIDToInterfaceName
+from win32com.server.policy import BasicWrapPolicy
 
 class DispatcherBase:
-    policy: Incomplete
-    logger: Incomplete
+    policy: BasicWrapPolicy
+    logger: Logger
     def __init__(self, policyClass, object) -> None: ...
 
 class DispatcherTrace(DispatcherBase): ...
@@ -16,7 +15,4 @@ class DispatcherWin32trace(DispatcherTrace):
 
 class DispatcherOutputDebugString(DispatcherTrace): ...
 
-class DispatcherWin32dbg(DispatcherBase):
-    def __init__(self, policyClass, ob) -> None: ...
-
-DefaultDebugDispatcher: TypeAlias = DispatcherWin32trace
+DefaultDebugDispatcher: TypeAlias = DispatcherTrace

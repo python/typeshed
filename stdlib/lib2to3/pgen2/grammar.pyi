@@ -1,5 +1,6 @@
-from _typeshed import Self, StrPath
-from typing_extensions import TypeAlias
+from _typeshed import StrPath
+from typing import TypeAlias
+from typing_extensions import Self
 
 _Label: TypeAlias = tuple[int, str | None]
 _DFA: TypeAlias = list[list[tuple[int, int]]]
@@ -17,7 +18,7 @@ class Grammar:
     start: int
     def dump(self, filename: StrPath) -> None: ...
     def load(self, filename: StrPath) -> None: ...
-    def copy(self: Self) -> Self: ...
+    def copy(self) -> Self: ...
     def report(self) -> None: ...
 
 opmap_raw: str

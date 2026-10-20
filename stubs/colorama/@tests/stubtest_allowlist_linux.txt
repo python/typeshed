@@ -2,7 +2,3 @@
 colorama.winterm.WinColor
 colorama.winterm.WinStyle
 colorama.winterm.WinTerm
-
-# These are re-exports that are implementation detail:
-colorama.ansitowin32.windll
-colorama.winterm.get_osfhandle

@@ -1,6 +1,0 @@
-# The "dest" argument is unused and will be removed.
-fpdf.FPDF.output
-fpdf.fpdf.FPDF.output
-
-# Unnecessary re-export from codecs
-fpdf.syntax.BOM_UTF16_BE

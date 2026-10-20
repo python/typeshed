@@ -1,16 +1,15 @@
-from typing import Any
-
-from braintree.environment import Environment as Environment
-from braintree.exceptions.configuration_error import ConfigurationError as ConfigurationError
+from braintree.environment import Environment
 
 class CredentialsParser:
-    client_id: Any
-    client_secret: Any
-    access_token: Any
-    def __init__(self, client_id: Any | None = ..., client_secret: Any | None = ..., access_token: Any | None = ...) -> None: ...
-    environment: Any
+    client_id: str | None
+    client_secret: str | None
+    access_token: str | None
+    environment: Environment | None
+    merchant_id: str
+    def __init__(
+        self, client_id: str | None = None, client_secret: str | None = None, access_token: str | None = None
+    ) -> None: ...
     def parse_client_credentials(self) -> None: ...
-    merchant_id: Any
     def parse_access_token(self) -> None: ...
-    def get_environment(self, credential): ...
-    def get_merchant_id(self, credential): ...
+    def get_environment(self, credential: str) -> Environment | None: ...
+    def get_merchant_id(self, credential: str) -> str: ...

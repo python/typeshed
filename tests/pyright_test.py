@@ -6,7 +6,8 @@ import subprocess
 import sys
 from pathlib import Path
 
-_PYRIGHT_VERSION = "1.1.278"  # Must match .github/workflows/tests.yml.
+from ts_utils.utils import parse_requirements, print_command
+
 _WELL_KNOWN_FILE = Path("tests", "pyright_test.py")
 
 
@@ -23,16 +24,23 @@ def main() -> None:
         sys.exit(1)
 
     try:
-        subprocess.run([npx, "--version"])
+        subprocess.run([npx, "--version"], check=False)
     except OSError:
         print("error running npx; is Node.js installed?", file=sys.stderr)
         sys.exit(1)
 
-    os.environ["PYRIGHT_PYTHON_FORCE_VERSION"] = _PYRIGHT_VERSION
-    command = [npx, f"pyright@{_PYRIGHT_VERSION}"] + sys.argv[1:]
-    print("Running:", " ".join(command))
+    req = parse_requirements()["pyright"]
+    spec = str(req.specifier)
+    pyright_version = spec[2:]
 
-    ret = subprocess.run(command).returncode
+    # TODO: We're currently using npx to run pyright, instead of calling the
+    # version installed into the virtual environment, due to failures on some
+    # platforms. https://github.com/python/typeshed/issues/11614
+    os.environ["PYRIGHT_PYTHON_FORCE_VERSION"] = pyright_version
+    command = [npx, f"pyright@{pyright_version}", *sys.argv[1:]]
+    print_command(command)
+
+    ret = subprocess.run(command, check=False).returncode
     sys.exit(ret)
 
 

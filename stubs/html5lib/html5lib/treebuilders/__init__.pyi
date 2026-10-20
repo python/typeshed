@@ -1,5 +1,5 @@
-from typing import Any
+from typing import Literal
 
-treeBuilderCache: Any
+treeBuilderCache: dict[str, type]
 
-def getTreeBuilder(treeType, implementation: Any | None = ..., **kwargs): ...
+def getTreeBuilder(treeType: Literal["dom", "etree", "lxml"], implementation=None, **kwargs): ...

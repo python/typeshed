@@ -1,7 +1,6 @@
 from _typeshed import SupportsRead
 from collections.abc import Mapping, Sequence
-from typing import IO, Any
-from typing_extensions import TypeAlias
+from typing import IO, Any, TypeAlias
 
 from ._yaml import CEmitter, CParser
 from .constructor import BaseConstructor, FullConstructor, SafeConstructor, UnsafeConstructor
@@ -11,6 +10,7 @@ from .resolver import BaseResolver, Resolver
 __all__ = ["CBaseLoader", "CSafeLoader", "CFullLoader", "CUnsafeLoader", "CLoader", "CBaseDumper", "CSafeDumper", "CDumper"]
 
 _Readable: TypeAlias = SupportsRead[str | bytes]
+_CLoader: TypeAlias = CLoader | CBaseLoader | CFullLoader | CSafeLoader | CUnsafeLoader  # noqa: Y047  # Used in other modules
 
 class CBaseLoader(CParser, BaseConstructor, BaseResolver):
     def __init__(self, stream: str | bytes | _Readable) -> None: ...
@@ -31,38 +31,38 @@ class CBaseDumper(CEmitter, BaseRepresenter, BaseResolver):
     def __init__(
         self,
         stream: IO[Any],
-        default_style: str | None = ...,
-        default_flow_style: bool | None = ...,
-        canonical: Any | None = ...,
-        indent: int | None = ...,
-        width: int | None = ...,
-        allow_unicode: Any | None = ...,
-        line_break: str | None = ...,
-        encoding: str | None = ...,
-        explicit_start: Any | None = ...,
-        explicit_end: Any | None = ...,
-        version: Sequence[int] | None = ...,
-        tags: Mapping[str, str] | None = ...,
-        sort_keys: bool = ...,
+        default_style: str | None = None,
+        default_flow_style: bool | None = False,
+        canonical=None,
+        indent: int | None = None,
+        width: int | None = None,
+        allow_unicode=None,
+        line_break: str | None = None,
+        encoding: str | None = None,
+        explicit_start=None,
+        explicit_end=None,
+        version: Sequence[int] | None = None,
+        tags: Mapping[str, str] | None = None,
+        sort_keys: bool = True,
     ) -> None: ...
 
 class CDumper(CEmitter, SafeRepresenter, Resolver):
     def __init__(
         self,
         stream: IO[Any],
-        default_style: str | None = ...,
-        default_flow_style: bool = ...,
-        canonical: Any | None = ...,
-        indent: int | None = ...,
-        width: int | None = ...,
-        allow_unicode: Any | None = ...,
-        line_break: str | None = ...,
-        encoding: str | None = ...,
-        explicit_start: Any | None = ...,
-        explicit_end: Any | None = ...,
-        version: Sequence[int] | None = ...,
-        tags: Mapping[str, str] | None = ...,
-        sort_keys: bool = ...,
+        default_style: str | None = None,
+        default_flow_style: bool = False,
+        canonical=None,
+        indent: int | None = None,
+        width: int | None = None,
+        allow_unicode=None,
+        line_break: str | None = None,
+        encoding: str | None = None,
+        explicit_start=None,
+        explicit_end=None,
+        version: Sequence[int] | None = None,
+        tags: Mapping[str, str] | None = None,
+        sort_keys: bool = True,
     ) -> None: ...
 
 CSafeDumper = CDumper

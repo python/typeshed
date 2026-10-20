@@ -1,20 +1,20 @@
 from collections.abc import Callable, Iterable
 from datetime import timedelta
 from logging import Logger
+from re import Pattern
 from typing import Any
-from typing_extensions import TypeAlias
 
-_App: TypeAlias = Any  # flask is not part of typeshed
+import flask
 
 LOG: Logger
 
 class CORS:
     def __init__(
         self,
-        app: Any | None = ...,
+        app: flask.Flask | flask.Blueprint | None = None,
         *,
         resources: dict[str, dict[str, Any]] | list[str] | str | None = ...,
-        origins: str | list[str] | None = ...,
+        origins: str | Pattern[str] | Iterable[str | Pattern[str]] = ...,
         methods: str | list[str] | None = ...,
         expose_headers: str | list[str] | None = ...,
         allow_headers: str | list[str] | None = ...,
@@ -26,10 +26,10 @@ class CORS:
     ) -> None: ...
     def init_app(
         self,
-        app: _App,
+        app: flask.Flask,
         *,
         resources: dict[str, dict[str, Any]] | list[str] | str = ...,
-        origins: str | list[str] = ...,
+        origins: str | Pattern[str] | Iterable[str | Pattern[str]] = ...,
         methods: str | list[str] = ...,
         expose_headers: str | list[str] = ...,
         allow_headers: str | list[str] = ...,
