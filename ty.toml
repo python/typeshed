@@ -18,3 +18,37 @@ deprecated = "ignore"
 invalid-attribute-override = "ignore"
 invalid-method-override = "ignore"
 override-of-final-method = "ignore"
+# Some `__init__` self annotations retain class-scoped type variables for mypy
+# compatibility (https://github.com/python/typeshed/pull/11780). Disable ty's
+# check; Pyright checks the stubs it covers, with targeted ignores where needed.
+invalid-init-type-variable = "ignore"
+
+# Several existing annotations conflict with ty's variance checks.
+# Ignore these errors temporarily in the affected files until they can be
+# handled individually.
+[[overrides]]
+include = [
+    "stdlib/_collections_abc.pyi",
+    "stdlib/builtins.pyi",
+    "stdlib/email/_policybase.pyi",
+    "stdlib/email/message.pyi",
+    "stdlib/functools.pyi",
+    "stdlib/mailbox.pyi",
+    "stdlib/types.pyi",
+    "stdlib/typing.pyi",
+    "stubs/WebOb/webob/dec.pyi",
+    "stubs/boltons/boltons/tbutils.pyi",
+    "stubs/psycopg2/psycopg2/_range.pyi",
+    "stubs/tensorflow/tensorflow/data/__init__.pyi",
+]
+
+[overrides.rules]
+invalid-generic-class = "ignore"
+
+# `types.pyi` already has an inline `invalid-generic-class` ignore; suppress
+# `unused-ignore-comment` while the rule is ignored for the whole file.
+[[overrides]]
+include = ["stdlib/types.pyi"]
+
+[overrides.rules]
+unused-ignore-comment = "ignore"

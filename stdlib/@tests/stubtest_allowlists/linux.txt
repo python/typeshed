@@ -23,6 +23,7 @@ curses.COLOR_PAIRS  # Initialized after start_color
 curses.COLS  # Initialized only after initscr call
 curses.LINES  # Initialized only after initscr call
 fcntl.I_[A-Z0-9_]+  # Platform differences that cannot be captured by the type system
+(fcntl.F_DUPFD_QUERY)?  # Depends on the glibc version Python was built against
 multiprocessing.popen_spawn_win32  # exists on Linux but fails to import
 select.poll  # Actually a function; we have a class so it can be used as a type
 
@@ -90,6 +91,9 @@ select.poll  # Actually a function; we have a class so it can be used as a type
 (_?socket\.HCI_CHANNEL_RAW)?
 (_?socket\.HCI_CHANNEL_USER)?
 (_?socket\.HCI_DEV_NONE)?
+(_?socket\.HCI_DATA_DIR)?
+(_?socket\.HCI_FILTER)?
+(_?socket\.HCI_TIME_STAMP)?
 (_?socket\.L2CAP_LM)?
 (_?socket\.L2CAP_LM_AUTH)?
 (_?socket\.L2CAP_LM_ENCRYPT)?
@@ -132,6 +136,13 @@ _?socket.SOL_ROSE
 # This is available on Linux, but it's documented as for kernel debugging and
 # not present on GitHub Actions runners.
 termios.TIOCTTYGSTRUCT
+
+# Only defined when Python was built against glibc 2.42 or newer
+(termios.B7200)?
+(termios.B14400)?
+(termios.B28800)?
+(termios.B76800)?
+(termios.IBSHIFT)?
 
 tkinter.Tk.createfilehandler  # Methods that come from __getattr__() at runtime
 tkinter.Tk.deletefilehandler  # Methods that come from __getattr__() at runtime

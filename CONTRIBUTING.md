@@ -366,6 +366,16 @@ documentation.  Whenever you find them disagreeing, model the type
 information after the actual implementation and file an issue on the
 project's tracker to fix their documentation.
 
+### Byte Types
+
+[PEP 688](https://www.python.org/dev/peps/pep-0688/) removes
+the implicit promotion from `bytearray` and `memoryview` to `bytes`.
+Typeshed stubs should be written assuming that these promotions
+do not happen, so a parameter that accepts either `bytes` or
+`bytearray` should be typed as `bytes | bytearray`.
+Often one of the aliases from `_typeshed`, such as
+`_typeshed.ReadableBuffer`, can be used instead.
+
 ### Deprecations (using the `@deprecated` decorator)
 
 Generally deprecactions using the `@deprecated` decorator are added more
@@ -410,27 +420,18 @@ When the script has finished running, it will print instructions telling you wha
 If it has been a while since you set up the virtualenv, make sure you have
 the latest mypy (`pip install -r requirements-tests.txt`) before running the script.
 
-### Supported type system features
+### Unsupported Type System Features
 
-Since [PEP 484](https://peps.python.org/pep-0484/) was accepted, there have been
-many other PEPs that added new features to the Python type system. In general,
-new features can be used in typeshed as soon as the PEP has been accepted and
-implemented and most type checkers support the new feature.
+Unless listed here, all type system features that have been added to the
+[Python typing specification](https://typing.python.org/en/latest/spec/)
+can be used. The following features are *not* supported:
 
-Supported features include:
-- [PEP 544](https://peps.python.org/pep-0544/) (`Protocol`)
-- [PEP 585](https://peps.python.org/pep-0585/) (builtin generics)
-- [PEP 586](https://peps.python.org/pep-0586/) (`Literal`)
-- [PEP 591](https://peps.python.org/pep-0591/) (`Final`/`@final`)
-- [PEP 589](https://peps.python.org/pep-0589/) (`TypedDict`)
-- [PEP 604](https://peps.python.org/pep-0604/) (`Foo | Bar` union syntax)
-- [PEP 612](https://peps.python.org/pep-0612/) (`ParamSpec`)
-- [PEP 647](https://peps.python.org/pep-0647/) (`TypeGuard`):
-  see [#5406](https://github.com/python/typeshed/issues/5406)
-- [PEP 655](https://peps.python.org/pep-0655/) (`Required` and `NotRequired`)
-- [PEP 673](https://peps.python.org/pep-0673/) (`Self`)
-- [PEP 675](https://peps.python.org/pep-0675/) (`LiteralString`)
-- [PEP 702](https://peps.python.org/pep-0702/) (`@deprecated()`)
+- [PEP 695](https://peps.python.org/pep-0695/) type parameter syntax.
+  (See [issue #10869](https://github.com/python/typeshed/issues/10869).) Use
+  explicit `TypeVar` definitions.
+- [PEP 695](https://peps.python.org/pep-0695/) type statement for aliases.
+  (See [issue #10870](https://github.com/python/typeshed/issues/10870).) Use
+  `TypeAlias` annotations.
 
 Features from the `typing` module that are not present in all
 supported Python versions must be imported from `typing_extensions`
@@ -443,16 +444,7 @@ instead in typeshed stubs. This currently affects:
 - `Required` and `NotRequired` (new in Python 3.11)
 - `Buffer` (new in Python 3.12; in the `collections.abc` module)
 - `@deprecated` (new in Python 3.13; in the `warnings` module)
-
-Some type checkers implicitly promote the `bytearray` and
-`memoryview` types to `bytes`.
-[PEP 688](https://www.python.org/dev/peps/pep-0688/) removes
-this implicit promotion.
-Typeshed stubs should be written assuming that these promotions
-do not happen, so a parameter that accepts either `bytes` or
-`bytearray` should be typed as `bytes | bytearray`.
-Often one of the aliases from `_typeshed`, such as
-`_typeshed.ReadableBuffer`, can be used instead.
+- `TypeForm` (new in Python 3.15)
 
 ## Submitting Changes
 

@@ -3,7 +3,7 @@ from __future__ import annotations
 from decimal import Decimal
 from fractions import Fraction
 from math import prod
-from typing import Any, Literal, Union
+from typing import Any, Literal
 from typing_extensions import assert_type
 
 
@@ -35,16 +35,16 @@ assert_type(prod([True, False], start=True), int)
 assert_type(prod(literal_list), int)
 
 assert_type(prod([SupportsMul(), SupportsMul()], start=SupportsMul()), SupportsMul)
-assert_type(prod([SupportsMulAndRMul(), SupportsMulAndRMul()]), Union[SupportsMulAndRMul, Literal[1]])
+assert_type(prod([SupportsMulAndRMul(), SupportsMulAndRMul()]), SupportsMulAndRMul | Literal[1])
 
-assert_type(prod([5.6, 3.2]), Union[float, Literal[1]])
-assert_type(prod([5.6, 3.2], start=3), Union[float, int])
+assert_type(prod([5.6, 3.2]), float | Literal[1])
+assert_type(prod([5.6, 3.2], start=3), float | int)
 
-assert_type(prod([Fraction(7, 2), Fraction(3, 5)]), Union[Fraction, Literal[1]])
+assert_type(prod([Fraction(7, 2), Fraction(3, 5)]), Fraction | Literal[1])
 assert_type(prod([Fraction(7, 2), Fraction(3, 5)], start=Fraction(1)), Fraction)
-assert_type(prod([Decimal("3.14"), Decimal("2.71")]), Union[Decimal, Literal[1]])
+assert_type(prod([Decimal("3.14"), Decimal("2.71")]), Decimal | Literal[1])
 assert_type(prod([Decimal("3.14"), Decimal("2.71")], start=Decimal("1.00")), Decimal)
-assert_type(prod([complex(7, 2), complex(3, 5)]), Union[complex, Literal[1]])
+assert_type(prod([complex(7, 2), complex(3, 5)]), complex | Literal[1])
 assert_type(prod([complex(7, 2), complex(3, 5)], start=complex(1, 0)), complex)
 
 
