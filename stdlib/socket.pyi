@@ -1501,16 +1501,6 @@ class socket(_socket.socket):
     @overload
     def makefile(
         self,
-        mode: Literal["b", "rb", "br", "wb", "bw", "rwb", "rbw", "wrb", "wbr", "brw", "bwr"],
-        buffering: int,
-        *,
-        encoding: str | None = None,
-        errors: str | None = None,
-        newline: str | None = None,
-    ) -> IOBase: ...
-    @overload
-    def makefile(
-        self,
         mode: Literal["r", "w", "rw", "wr", ""] = "r",
         buffering: int | None = None,
         *,
