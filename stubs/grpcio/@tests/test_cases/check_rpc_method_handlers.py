@@ -241,3 +241,48 @@ def check_optional_codecs(
         "SS": grpc.stream_stream_rpc_method_handler(partial_async_stream_stream, deserializer, serializer),
     }
     aio_server.add_registered_method_handlers("test.Partial", partial_handlers)
+
+
+# A broad serializer cannot distinguish an awaitable response from a value.
+def serialize_object(value: object) -> bytes:
+    return b""
+
+
+async def erased_async_unary(request: Any, context: Any) -> str:
+    return "response"
+
+
+def check_broad_serializers(serializer: Callable[[object], bytes] | None) -> None:
+    assert_type(grpc.unary_unary_rpc_method_handler(partial_async_unary, bytes.decode, serialize_object), Any)
+    assert_type(grpc.unary_unary_rpc_method_handler(partial_async_unary, response_serializer=serialize_object), Any)
+    assert_type(grpc.stream_unary_rpc_method_handler(erased_async_unary, bytes.decode, serialize_object), Any)
+    assert_type(grpc.stream_unary_rpc_method_handler(erased_async_unary, response_serializer=serialize_object), Any)
+    assert_type(grpc.unary_unary_rpc_method_handler(partial_async_unary, bytes.decode, serializer), Any)
+    assert_type(grpc.stream_unary_rpc_method_handler(erased_async_unary, bytes.decode, serializer), Any)
+    assert_type(
+        grpc.unary_unary_rpc_method_handler(async_unary, bytes.decode, serialize_object),
+        grpc.aio._AsyncRpcMethodHandler[str, str],
+    )
+    assert_type(
+        grpc.stream_unary_rpc_method_handler(async_stream_unary, bytes.decode, serialize_object),
+        grpc.aio._AsyncRpcMethodHandler[str, str],
+    )
+
+
+# Synchronous-only contexts must retain their handler interface without codecs
+# and when a codec is optional, rather than falling through to Any.
+def check_sync_inference(serializer: Callable[[str], bytes] | None) -> None:
+    assert_type(grpc.unary_unary_rpc_method_handler(sync_unary), grpc.RpcMethodHandler[str, str])
+    assert_type(grpc.unary_stream_rpc_method_handler(sync_unary_stream), grpc.RpcMethodHandler[str, str])
+    assert_type(grpc.stream_unary_rpc_method_handler(sync_stream_unary), grpc.RpcMethodHandler[str, str])
+    assert_type(grpc.stream_stream_rpc_method_handler(sync_stream), grpc.RpcMethodHandler[str, str])
+    assert_type(grpc.unary_unary_rpc_method_handler(sync_unary, response_serializer=serializer), grpc.RpcMethodHandler[str, str])
+    assert_type(
+        grpc.unary_stream_rpc_method_handler(sync_unary_stream, response_serializer=serializer), grpc.RpcMethodHandler[str, str]
+    )
+    assert_type(
+        grpc.stream_unary_rpc_method_handler(sync_stream_unary, response_serializer=serializer), grpc.RpcMethodHandler[str, str]
+    )
+    assert_type(
+        grpc.stream_stream_rpc_method_handler(sync_stream, response_serializer=serializer), grpc.RpcMethodHandler[str, str]
+    )
