@@ -37,8 +37,8 @@ def transform_coordseq(
 def transform_coordseq(
     geometry: OptGeoArrayLikeSeq,
     transformation: Callable[[NDArray[np.float64]], NDArray[np.float64]],
-    include_z: bool | None = False,
     *,
+    include_z: bool | None = False,
     interleaved: bool = True,
 ) -> GeoArray: ...
 
