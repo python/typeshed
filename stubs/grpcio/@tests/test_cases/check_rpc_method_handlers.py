@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from collections.abc import AsyncIterator, Iterator, Mapping
+from collections.abc import AsyncIterator, Callable, Iterator, Mapping
 from typing import TYPE_CHECKING, Any, TypeAlias
 from typing_extensions import assert_type
 
@@ -180,3 +180,64 @@ partial_async_handlers: dict[str, grpc.aio._AsyncRpcMethodHandler[str, str]] = {
 # Without enough annotations or a serializer, avoid claiming a specific kind.
 assert_type(grpc.unary_unary_rpc_method_handler(partial_async_unary), Any)
 assert_type(grpc.unary_stream_rpc_method_handler(partial_async_unary_stream), Any)
+
+
+# Optional codecs must not select an async overload for an Any-typed callback.
+# Keep factory inference independent of the server registration's expected type.
+def check_optional_codecs(
+    server: grpc.Server,
+    aio_server: grpc.aio.Server,
+    callback: Callable[[Any, Any], Any],
+    serializer: Callable[[str], bytes] | None,
+    deserializer: Callable[[bytes], str] | None,
+) -> None:
+    uu = grpc.unary_unary_rpc_method_handler(callback, deserializer, serializer)
+    us = grpc.unary_stream_rpc_method_handler(callback, deserializer, serializer)
+    su = grpc.stream_unary_rpc_method_handler(callback, deserializer, serializer)
+    ss = grpc.stream_stream_rpc_method_handler(callback, deserializer, serializer)
+    assert_type(uu, Any)
+    assert_type(us, Any)
+    assert_type(su, Any)
+    assert_type(ss, Any)
+    handlers = {"UU": uu, "US": us, "SU": su, "SS": ss}
+    server.add_registered_method_handlers("test.Optional", handlers)
+    server.add_generic_rpc_handlers([grpc.method_handlers_generic_handler("test.Optional", handlers)])
+    aio_server.add_registered_method_handlers("test.Optional", handlers)
+    assert_type(grpc.unary_unary_rpc_method_handler(callback, response_serializer=serializer), Any)
+    assert_type(grpc.unary_stream_rpc_method_handler(callback, response_serializer=serializer), Any)
+    assert_type(grpc.stream_unary_rpc_method_handler(callback, response_serializer=serializer), Any)
+    assert_type(grpc.stream_stream_rpc_method_handler(callback, response_serializer=serializer), Any)
+
+    # Explicit aio contexts retain precise types even with optional codecs.
+    assert_type(
+        grpc.unary_unary_rpc_method_handler(async_unary, deserializer, serializer), grpc.aio._AsyncRpcMethodHandler[str, str]
+    )
+    assert_type(
+        grpc.unary_stream_rpc_method_handler(async_unary_stream, deserializer, serializer),
+        grpc.aio._AsyncRpcMethodHandler[str, str],
+    )
+    assert_type(
+        grpc.stream_unary_rpc_method_handler(async_stream_unary, deserializer, serializer),
+        grpc.aio._AsyncRpcMethodHandler[str, str],
+    )
+    assert_type(
+        grpc.stream_stream_rpc_method_handler(async_stream_stream, deserializer, serializer),
+        grpc.aio._AsyncRpcMethodHandler[str, str],
+    )
+    assert_type(
+        grpc.unary_stream_rpc_method_handler(async_write, deserializer, serializer), grpc.aio._AsyncRpcMethodHandler[str, str]
+    )
+    assert_type(
+        grpc.stream_stream_rpc_method_handler(async_stream_write, deserializer, serializer),
+        grpc.aio._AsyncRpcMethodHandler[str, str],
+    )
+
+    # Broad contexts must not turn coroutine and async-generator results into
+    # synchronous handlers. Checkers may retain Any for ambiguous signatures.
+    partial_handlers: dict[str, grpc.aio._AsyncRpcMethodHandler[str, str]] = {
+        "UU": grpc.unary_unary_rpc_method_handler(partial_async_unary, deserializer, serializer),
+        "US": grpc.unary_stream_rpc_method_handler(partial_async_unary_stream, deserializer, serializer),
+        "SU": grpc.stream_unary_rpc_method_handler(partial_async_stream_unary, deserializer, serializer),
+        "SS": grpc.stream_stream_rpc_method_handler(partial_async_stream_stream, deserializer, serializer),
+    }
+    aio_server.add_registered_method_handlers("test.Partial", partial_handlers)

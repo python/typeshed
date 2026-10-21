@@ -155,8 +155,9 @@ class _Behaviour(Protocol):
     def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
 
 # Prefer synchronous handlers when Any makes both signatures applicable.
-# Without a response serializer, a callback accepting either context may also
-# be asynchronous; retain Any rather than inferring the wrong handler kind.
+# If no definite serializer disambiguates a callback accepting either context,
+# retain Any rather than inferring the wrong handler kind. This also covers
+# optional serializers without relying on overload union expansion.
 @overload
 def unary_unary_rpc_method_handler(
     behavior: Callable[[_TRequest, ServicerContext], _TResponse],
@@ -171,7 +172,7 @@ def unary_unary_rpc_method_handler(
 def unary_unary_rpc_method_handler(
     behavior: Callable[[_TRequest, ServicerContext], Any],
     request_deserializer: _Deserializer[_TRequest] | None = None,
-    response_serializer: None = None,
+    response_serializer: _Serializer[_TResponse] | None = None,
 ) -> Any: ...
 @overload
 def unary_unary_rpc_method_handler(
@@ -200,7 +201,7 @@ def unary_stream_rpc_method_handler(
 def unary_stream_rpc_method_handler(
     behavior: Callable[[_TRequest, ServicerContext], Any],
     request_deserializer: _Deserializer[_TRequest] | None = None,
-    response_serializer: None = None,
+    response_serializer: _Serializer[_TResponse] | None = None,
 ) -> Any: ...
 @overload
 def unary_stream_rpc_method_handler(
@@ -229,7 +230,7 @@ def stream_unary_rpc_method_handler(
 def stream_unary_rpc_method_handler(
     behavior: Callable[[Iterator[_TRequest], ServicerContext], Any],
     request_deserializer: _Deserializer[_TRequest] | None = None,
-    response_serializer: None = None,
+    response_serializer: _Serializer[_TResponse] | None = None,
 ) -> Any: ...
 @overload
 def stream_unary_rpc_method_handler(
@@ -260,7 +261,7 @@ def stream_stream_rpc_method_handler(
 def stream_stream_rpc_method_handler(
     behavior: Callable[[Iterator[_TRequest], ServicerContext], Any],
     request_deserializer: _Deserializer[_TRequest] | None = None,
-    response_serializer: None = None,
+    response_serializer: _Serializer[_TResponse] | None = None,
 ) -> Any: ...
 @overload
 def stream_stream_rpc_method_handler(
