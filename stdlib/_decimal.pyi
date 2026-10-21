@@ -58,8 +58,8 @@ if sys.version_info >= (3, 11):
         Emax: int | None = None,
         capitals: int | None = None,
         clamp: int | None = None,
-        traps: dict[_TrapType, bool] | None = None,
-        flags: dict[_TrapType, bool] | None = None,
+        traps: dict[_TrapType, bool] | None = None,  # type: ignore[type-var]
+        flags: dict[_TrapType, bool] | None = None,  # type: ignore[type-var]
     ) -> _ContextManager: ...
 
 else:
