@@ -3,7 +3,7 @@ import codecs
 import sys
 from _typeshed import FileDescriptorOrPath, MaybeNone, ReadableBuffer, WriteableBuffer
 from abc import abstractmethod
-from collections.abc import Callable, Iterable, Iterator
+from collections.abc import Iterable, Iterator
 from io import BufferedIOBase, RawIOBase, TextIOBase, UnsupportedOperation as UnsupportedOperation
 from os import _Opener
 from types import TracebackType
