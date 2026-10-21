@@ -37,10 +37,20 @@ async def async_stream_write(requests: AsyncIterator[str], context: grpc.aio.Ser
         await context.write(request)
 
 
+def sync_unary_stream(request: str, context: grpc.ServicerContext) -> Iterator[str]:
+    yield request
+
+
+def sync_stream_unary(requests: Iterator[str], context: grpc.ServicerContext) -> str:
+    return next(requests)
+
+
 def sync_stream(requests: Iterator[str], context: grpc.ServicerContext) -> Iterator[str]:
     return requests
 
 
+assert_type(grpc.unary_stream_rpc_method_handler(sync_unary_stream, bytes.decode, str.encode), grpc.RpcMethodHandler[str, str])
+assert_type(grpc.stream_unary_rpc_method_handler(sync_stream_unary, bytes.decode, str.encode), grpc.RpcMethodHandler[str, str])
 assert_type(grpc.unary_unary_rpc_method_handler(sync_unary, bytes.decode, str.encode), grpc.RpcMethodHandler[str, str])
 assert_type(grpc.stream_stream_rpc_method_handler(sync_stream, bytes.decode, str.encode), grpc.RpcMethodHandler[str, str])
 assert_type(grpc.unary_unary_rpc_method_handler(async_unary), grpc.aio._AsyncRpcMethodHandler[str, str])
@@ -110,3 +120,63 @@ def check_mixed_registration(server: grpc.aio.Server, details: grpc.HandlerCallD
     grpc.aio.server(handlers=[generic])
     server.add_generic_rpc_handlers([generic])
     server.add_registered_method_handlers("test.Mixed", mixed)
+
+
+# Any-returning callbacks must remain usable by synchronous servers. Their
+# response type is deliberately not asserted: checkers resolve Any differently.
+def dynamic_unary(request: str, context: Any) -> Any:
+    return request
+
+
+def dynamic_stream(requests: Iterator[str], context: Any) -> Any:
+    return next(requests)
+
+
+async def partial_async_unary(request: str, context: Any) -> str:
+    return request
+
+
+async def partial_async_unary_stream(request: str, context: Any) -> AsyncIterator[str]:
+    yield request
+
+
+async def partial_async_stream_unary(requests: AsyncIterator[str], context: Any) -> str:
+    return await anext(requests)
+
+
+async def partial_async_stream_stream(requests: AsyncIterator[str], context: Any) -> AsyncIterator[str]:
+    async for request in requests:
+        yield request
+
+
+def check_dynamic_callbacks(server: grpc.Server, aio_server: grpc.aio.Server) -> None:
+    handlers: dict[str, grpc.RpcMethodHandler[str, str]] = {
+        "UnaryUnary": grpc.unary_unary_rpc_method_handler(dynamic_unary, bytes.decode, str.encode),
+        "UnaryStream": grpc.unary_stream_rpc_method_handler(dynamic_unary, bytes.decode, str.encode),
+        "StreamUnary": grpc.stream_unary_rpc_method_handler(dynamic_stream, bytes.decode, str.encode),
+        "StreamStream": grpc.stream_stream_rpc_method_handler(dynamic_stream, bytes.decode, str.encode),
+        "KeywordUnaryUnary": grpc.unary_unary_rpc_method_handler(dynamic_unary, response_serializer=str.encode),
+        "KeywordUnaryStream": grpc.unary_stream_rpc_method_handler(dynamic_unary, response_serializer=str.encode),
+        "KeywordStreamUnary": grpc.stream_unary_rpc_method_handler(dynamic_stream, response_serializer=str.encode),
+        "KeywordStreamStream": grpc.stream_stream_rpc_method_handler(dynamic_stream, response_serializer=str.encode),
+        "RawUnaryUnary": grpc.unary_unary_rpc_method_handler(dynamic_unary),
+        "RawUnaryStream": grpc.unary_stream_rpc_method_handler(dynamic_unary),
+        "RawStreamUnary": grpc.stream_unary_rpc_method_handler(dynamic_stream),
+        "RawStreamStream": grpc.stream_stream_rpc_method_handler(dynamic_stream),
+    }
+    server.add_registered_method_handlers("test.Dynamic", handlers)
+    server.add_generic_rpc_handlers([grpc.method_handlers_generic_handler("test.Dynamic", handlers)])
+    aio_server.add_registered_method_handlers("test.Dynamic", handlers)
+
+
+# A broad context annotation must not cause a coroutine to be inferred as a
+# synchronous behavior when the serializer supplies a concrete response type.
+partial_async_handlers: dict[str, grpc.aio._AsyncRpcMethodHandler[str, str]] = {
+    "UnaryUnary": grpc.unary_unary_rpc_method_handler(partial_async_unary, bytes.decode, str.encode),
+    "UnaryStream": grpc.unary_stream_rpc_method_handler(partial_async_unary_stream, bytes.decode, str.encode),
+    "StreamUnary": grpc.stream_unary_rpc_method_handler(partial_async_stream_unary, bytes.decode, str.encode),
+    "StreamStream": grpc.stream_stream_rpc_method_handler(partial_async_stream_stream, bytes.decode, str.encode),
+}
+# Without enough annotations or a serializer, avoid claiming a specific kind.
+assert_type(grpc.unary_unary_rpc_method_handler(partial_async_unary), Any)
+assert_type(grpc.unary_stream_rpc_method_handler(partial_async_unary_stream), Any)
