@@ -12,7 +12,7 @@ from wtforms.meta import DefaultMeta, _SupportsGettextAndNgettext
 __all__ = ("SelectField", "Choice", "SelectChoice", "SelectMultipleField", "RadioField")
 
 _FieldT = TypeVar("_FieldT", bound=Field)
-_LegacyChoice: TypeAlias = tuple[str, str] | tuple[str, str, dict[str, Any]]
+_LegacyChoice: TypeAlias = tuple[Any, str] | tuple[Any, str, dict[str, Any]]
 _Choice: TypeAlias = SelectChoice | _LegacyChoice
 # it's too difficult to get type safety here due to to nested partially invariant collections
 _GroupedChoices: TypeAlias = dict[str, Any]  # Any should be Collection[_Choice]
@@ -95,6 +95,7 @@ class SelectField(SelectFieldBase):
         invalid_value_message: str | None = None,
         invalid_choice_message: str | None = None,
         *,
+        option_widget: _Widget[_Option] | None = None,
         filters: Sequence[_Filter] = (),
         description: str = "",
         id: str | None = None,
@@ -119,6 +120,7 @@ class SelectField(SelectFieldBase):
         invalid_value_message: str | None = None,
         invalid_choice_message: str | None = None,
         *,
+        option_widget: _Widget[_Option] | None = None,
         filters: Sequence[_Filter] = (),
         description: str = "",
         id: str | None = None,
@@ -152,6 +154,7 @@ class RadioField(SelectField):
         label: str | None = None,
         validators: tuple[_Validator[_FormT, Self], ...] | list[Any] | None = None,
         *,
+        option_widget: _Widget[_Option] | None = None,
         coerce: Callable[[Any], Any] = ...,
         choices: _LegacyChoices | _LegacyChoicesCallback | None = None,
         validate_choice: bool = True,
@@ -176,6 +179,7 @@ class RadioField(SelectField):
         label: str | None = None,
         validators: tuple[_Validator[_FormT, Self], ...] | list[Any] | None = None,
         *,
+        option_widget: _Widget[_Option] | None = None,
         coerce: Callable[[Any], Any] = ...,
         choices: Iterable[SelectChoice] | _SelectChoicesCallback[Self] | None = None,
         validate_choice: bool = True,
