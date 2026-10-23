@@ -291,6 +291,10 @@ importlib.metadata._meta.SimplePath.joinpath  # Runtime definition of protocol i
 inspect.Parameter.__init__
 inspect.Signature.__init__
 
+# Abstract methods that don't exist at runtime
+_io._IOBase.read
+_io._IOBase.write
+
 logging.LogRecord.__setattr__  # doesn't exist, but makes things easy if we pretend it does
 
 # Iterable classes that don't define __iter__ at runtime (usually iterable via __getitem__)
