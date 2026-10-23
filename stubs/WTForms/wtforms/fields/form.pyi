@@ -1,7 +1,7 @@
 from collections.abc import Iterator
 from typing import Any, Generic, TypeVar
 
-from wtforms.fields.core import Field, _Widget
+from wtforms.fields.core import Field, _Text, _Widget
 from wtforms.form import BaseForm, _FormErrors
 from wtforms.meta import DefaultMeta, _SupportsGettextAndNgettext
 
@@ -16,11 +16,11 @@ class FormField(Field, Generic[_BoundFormT]):
     def __init__(
         self: FormField[_BoundFormT],  # pyright: ignore[reportInvalidTypeVarUse]  #11780
         form_class: type[_BoundFormT],
-        label: str | None = None,
+        label: _Text | None = None,
         validators: None = None,
         separator: str = "-",
         *,
-        description: str = "",
+        description: _Text = "",
         id: str | None = None,
         default: object | None = None,
         widget: _Widget[FormField[_BoundFormT]] | None = None,

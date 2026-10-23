@@ -24,6 +24,16 @@ class _Validator(Protocol[_FormT_contra, _FieldT_contra]):
 class _Widget(Protocol[_FieldT_contra]):
     def __call__(self, field: _FieldT_contra, **kwargs: Any) -> Markup: ...
 
+# A deferred translation such as flask_babel's LazyString: labels and
+# descriptions render it through markupsafe.escape(), and some validators
+# %-format their message before raising.
+@type_check_only
+class _LazyString(Protocol):
+    def __html__(self) -> str: ...
+    def __mod__(self, value: Any, /) -> str: ...
+
+_Text: TypeAlias = str | _LazyString
+
 class Field:
     errors: Sequence[str]
     process_errors: Sequence[str]
@@ -37,7 +47,7 @@ class Field:
     do_not_call_in_templates: bool
     meta: DefaultMeta
     default: Any | None
-    description: str
+    description: _Text
     render_kw: dict[str, Any]
     filters: Sequence[_Filter]
     flags: Flags
@@ -52,7 +62,7 @@ class Field:
     def __new__(cls, *args: Any, **kwargs: Any) -> Self: ...
     def __init__(
         self,
-        label: str | None = None,
+        label: _Text | None = None,
         # for tuple we can be a bit more type safe and only accept validators
         # that would work on this or a less specific field, but in general it
         # would be too annoying to restrict to Sequence[_Validator], since mypy
@@ -60,7 +70,7 @@ class Field:
         # the common base class between all validators
         validators: tuple[_Validator[_FormT, Self], ...] | list[Any] | None = None,
         filters: Sequence[_Filter] = (),
-        description: str = "",
+        description: _Text = "",
         id: str | None = None,
         default: object | None = None,
         widget: _Widget[Self] | None = None,
@@ -128,7 +138,7 @@ class Flags:
 
 class Label:
     field_id: str
-    text: str
-    def __init__(self, field_id: str, text: str) -> None: ...
+    text: _Text
+    def __init__(self, field_id: str, text: _Text) -> None: ...
     def __html__(self) -> str: ...
-    def __call__(self, text: str | None = None, **kwargs: Any) -> Markup: ...
+    def __call__(self, text: _Text | None = None, **kwargs: Any) -> Markup: ...
