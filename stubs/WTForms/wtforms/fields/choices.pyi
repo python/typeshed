@@ -17,7 +17,7 @@ _Choice: TypeAlias = SelectChoice | _LegacyChoice
 # it's too difficult to get type safety here due to to nested partially invariant collections
 _GroupedChoices: TypeAlias = dict[str, Any]  # Any should be Collection[_Choice]
 _LegacyChoices: TypeAlias = Iterable[_LegacyChoice] | _GroupedChoices
-_LegacyChoicesCallback: TypeAlias = Callable[[], Sequence[_Choice] | _GroupedChoices]
+_LegacyChoicesCallback: TypeAlias = Callable[[], Sequence[_LegacyChoice] | _GroupedChoices]
 _SelectChoicesCallback: TypeAlias = Callable[[Any, _FieldT], Sequence[SelectChoice]] | Callable[[], Sequence[SelectChoice]]
 _FullChoice: TypeAlias = Choice | tuple[Any, str, bool, dict[str, Any]]  # value, label, selected, render_kw
 _FullGroupedChoices: TypeAlias = tuple[str, Iterable[_FullChoice]]
@@ -166,7 +166,7 @@ class SelectField(SelectFieldBase):
     ) -> None: ...
 
     @property
-    def choices(self) -> Sequence[SelectChoice] | _LegacyChoices: ...
+    def choices(self) -> Sequence[_Choice]: ...
     # we would like to have a deprecated overload here as well, but that's not supported
     @choices.setter
     def choices(
