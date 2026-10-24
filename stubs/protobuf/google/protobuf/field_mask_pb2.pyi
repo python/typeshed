@@ -32,19 +32,24 @@ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 
-import builtins
-import collections.abc
-import typing
+import builtins as _builtins
+import sys
+import typing as _typing
+from collections import abc as _abc
 
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.internal.well_known_types
-import google.protobuf.message
+from google.protobuf import descriptor as _descriptor, message as _message
+from google.protobuf.internal import containers as _containers, well_known_types as _well_known_types
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
+else:
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-@typing.final
-class FieldMask(google.protobuf.message.Message, google.protobuf.internal.well_known_types.FieldMask):
+DESCRIPTOR: _descriptor.FileDescriptor
+
+@_typing.final
+class FieldMask(_message.Message, _well_known_types.FieldMask):
     """`FieldMask` represents a set of symbolic field paths, for example:
 
         paths: "f.a"
@@ -244,14 +249,18 @@ class FieldMask(google.protobuf.message.Message, google.protobuf.internal.well_k
     `INVALID_ARGUMENT` error if any path is unmappable.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    PATHS_FIELD_NUMBER: builtins.int
-    @property
-    def paths(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    PATHS_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def paths(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """The set of field mask paths."""
 
-    def __init__(self, *, paths: collections.abc.Iterable[builtins.str] | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["paths", b"paths"]) -> None: ...
+    def __init__(self, *, paths: _abc.Iterable[_builtins.str] | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["paths", b"paths"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___FieldMask = FieldMask
+Global___FieldMask: _TypeAlias = FieldMask  # noqa: Y015

@@ -1,34 +1,35 @@
 from collections.abc import Callable
-from typing import TypeAlias
+from typing import Any, TypeAlias
 
 from google.protobuf.descriptor import FieldDescriptor
 
-_Sizer: TypeAlias = Callable[[int, bool, bool], int]
+_Sizer: TypeAlias = Callable[[Any], int]
+_SizerFactory: TypeAlias = Callable[[int, bool, bool], _Sizer]
 
-Int32Sizer: _Sizer
-Int64Sizer: _Sizer
-EnumSizer: _Sizer
-UInt32Sizer: _Sizer
-UInt64Sizer: _Sizer
-SInt32Sizer: _Sizer
-SInt64Sizer: _Sizer
-Fixed32Sizer: _Sizer
-SFixed32Sizer: _Sizer
-FloatSizer: _Sizer
-Fixed64Sizer: _Sizer
-SFixed64Sizer: _Sizer
-DoubleSizer: _Sizer
-BoolSizer: _Sizer
+Int32Sizer: _SizerFactory
+Int64Sizer: _SizerFactory
+EnumSizer: _SizerFactory
+UInt32Sizer: _SizerFactory
+UInt64Sizer: _SizerFactory
+SInt32Sizer: _SizerFactory
+SInt64Sizer: _SizerFactory
+Fixed32Sizer: _SizerFactory
+SFixed32Sizer: _SizerFactory
+FloatSizer: _SizerFactory
+Fixed64Sizer: _SizerFactory
+SFixed64Sizer: _SizerFactory
+DoubleSizer: _SizerFactory
+BoolSizer: _SizerFactory
 
 def StringSizer(field_number: int, is_repeated: bool, is_packed: bool) -> _Sizer: ...
 def BytesSizer(field_number: int, is_repeated: bool, is_packed: bool) -> _Sizer: ...
 def GroupSizer(field_number: int, is_repeated: bool, is_packed: bool) -> _Sizer: ...
 def MessageSizer(field_number: int, is_repeated: bool, is_packed: bool) -> _Sizer: ...
 def MessageSetItemSizer(field_number: int) -> _Sizer: ...
-def MapSizer(field_descriptor: FieldDescriptor, is_message_map: bool) -> _Sizer: ...
+def MapSizer(field_descriptor: FieldDescriptor, key_sizer: _Sizer, value_sizer: _Sizer) -> _Sizer: ...
 def TagBytes(field_number: int, wire_type: int) -> bytes: ...
 
-_Encoder: TypeAlias = Callable[[Callable[[bytes], int], bytes, bool], int]
+_Encoder: TypeAlias = Callable[[Callable[[bytes], object], Any, bool], None]
 
 def Int32Encoder(field_number: int, is_repeated: bool, is_packed: bool) -> _Encoder: ...
 def Int64Encoder(field_number: int, is_repeated: bool, is_packed: bool) -> _Encoder: ...
@@ -49,4 +50,6 @@ def BytesEncoder(field_number: int, is_repeated: bool, is_packed: bool) -> _Enco
 def GroupEncoder(field_number: int, is_repeated: bool, is_packed: bool) -> _Encoder: ...
 def MessageEncoder(field_number: int, is_repeated: bool, is_packed: bool) -> _Encoder: ...
 def MessageSetItemEncoder(field_number: int) -> _Encoder: ...
-def MapEncoder(field_descriptor: FieldDescriptor) -> _Encoder: ...
+def MapEncoder(
+    field_descriptor: FieldDescriptor, key_encoder: _Encoder, value_encoder: _Encoder, key_sizer: _Sizer, value_sizer: _Sizer
+) -> _Encoder: ...
