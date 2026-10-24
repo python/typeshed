@@ -3,7 +3,7 @@
 mypy==2.4.0
 pyrefly==1.4.0
 pyright==1.1.414
-ty==0.0.88
+ty==0.0.89
 
 # Libraries used by our various scripts.
 aiohttp==3.14.4
