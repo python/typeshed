@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from collections.abc import Generator, Iterable
 from typing import ClassVar, Final, Literal
 
@@ -37,7 +36,7 @@ class StripComments(Transform):
 
 class StripClassesAndElements(Transform):
     default_priority: ClassVar[int]
-    strip_elements: set[Incomplete]
+    strip_elements: set[str]
     def apply(self) -> None: ...
     def check_classes(self, node: object) -> bool: ...
 

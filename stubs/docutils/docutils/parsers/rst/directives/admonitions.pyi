@@ -1,4 +1,5 @@
-from typing import Final
+from collections.abc import Callable, Sequence
+from typing import ClassVar, Final
 
 from docutils import nodes
 from docutils.parsers.rst import Directive
@@ -6,7 +7,11 @@ from docutils.parsers.rst import Directive
 __docformat__: Final = "reStructuredText"
 
 class BaseAdmonition(Directive):
-    node_class: type[nodes.Admonition]  # Subclasses must set this to the appropriate admonition node class.
+    option_spec: ClassVar[dict[str, Callable[[str], object]]]
+    # `None` at runtime; subclasses must set this to the appropriate admonition node class.
+    # The contract specifies all subclasses must override such that it is not None.
+    node_class: type[nodes.Admonition]
+    def run(self) -> Sequence[nodes.Node]: ...
 
 class Admonition(BaseAdmonition):
     node_class: type[nodes.admonition]

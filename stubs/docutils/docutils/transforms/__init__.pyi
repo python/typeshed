@@ -1,9 +1,8 @@
-from _typeshed import Incomplete
 from collections.abc import Iterable, Mapping
 from typing import Any, ClassVar, Final, TypeAlias
 
 from docutils import ApplicationError, TransformSpec, nodes
-from docutils.languages import LanguageImporter
+from docutils.languages import LanguageModule
 
 _TransformTuple: TypeAlias = tuple[str, type[Transform], nodes.Node | None, dict[str, Any]]
 
@@ -15,9 +14,13 @@ class Transform:
     default_priority: ClassVar[int | None]
     document: nodes.document
     startnode: nodes.Node | None
-    language: LanguageImporter
+    language: LanguageModule
     def __init__(self, document: nodes.document, startnode: nodes.Node | None = None) -> None: ...
-    def __getattr__(self, name: str, /) -> Incomplete: ...  # method apply is not implemented
+    # The base method accepts (and ignores) `**kwargs` at runtime, so that `Transformer`
+    # can pass on the keyword arguments given to `add_transform()`. These are never used
+    # in practice, and docutils' own transforms don't accept any, so the stub declares the
+    # call that all transforms support; subclasses may still accept optional keywords.
+    def apply(self) -> None: ...
 
 class Transformer(TransformSpec):
     transforms: list[_TransformTuple]
@@ -26,8 +29,8 @@ class Transformer(TransformSpec):
     sorted: bool
     components: Mapping[str, TransformSpec]
     serialno: int
-    def __init__(self, document: nodes.document): ...
-    def add_transform(self, transform_class: type[Transform], priority: int | None = None, **kwargs) -> None: ...
+    def __init__(self, document: nodes.document) -> None: ...
+    def add_transform(self, transform_class: type[Transform], priority: int | None = None, **kwargs: object) -> None: ...
     def add_transforms(self, transform_list: Iterable[type[Transform]]) -> None: ...
     def add_pending(self, pending: nodes.pending, priority: int | None = None) -> None: ...
     def get_priority_string(self, priority: int) -> str: ...
