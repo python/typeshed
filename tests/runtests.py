@@ -92,7 +92,8 @@ def main() -> None:
     stubtest_result: subprocess.CompletedProcess[bytes] | None = None
 
     print("\nRunning pre-commit...")
-    pre_commit_result = subprocess.run(["pre-commit", "run", "--files", *path.rglob("*")], check=False)
+    files = [path] if path.is_file() else list(path.rglob("*"))
+    pre_commit_result = subprocess.run(["pre-commit", "run", "--files", *files], check=False)
 
     print("\nRunning check_typeshed_structure.py...")
     check_structure_result = subprocess.run([sys.executable, "tests/check_typeshed_structure.py"], check=False)
@@ -154,7 +155,7 @@ def main() -> None:
     if mypy_result.returncode == 0:
         if folder == "stdlib":
             print("\nRunning stubtest...")
-            stubtest_result = subprocess.run([sys.executable, "tests/stubtest_stdlib.py", stub], check=False)
+            stubtest_result = subprocess.run([sys.executable, "tests/stubtest_stdlib.py", Path(stub).stem], check=False)
         else:
             if run_stubtest:
                 print("\nRunning stubtest...")
