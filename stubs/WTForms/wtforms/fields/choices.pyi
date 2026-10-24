@@ -38,7 +38,11 @@ class SelectChoice:
     def __post_init__(self) -> None: ...
     def __iter__(self) -> Iterator[tuple[str, str, dict[str, Any], str | None]]: ...
     @classmethod
-    def from_input(cls, input: SelectChoice | _LegacyChoice | str, optgroup: str | None = None) -> Self: ...
+    def from_input(
+        cls,
+        input: SelectChoice | tuple[str, str | None] | tuple[str, str | None, dict[str, Any]] | str,
+        optgroup: str | None = None,
+    ) -> Self: ...
 
 # we could make these generic, but it's not really worth it
 def enum_choices(
@@ -87,14 +91,40 @@ class SelectField(SelectFieldBase):
     @deprecated("Starting with WTForms 3.4 only SelectChoice will be supported as choices inputs")
     def __init__(
         self,
-        label: str | None = None,
-        validators: tuple[_Validator[_FormT, Self], ...] | list[Any] | None = None,
-        coerce: Callable[[Any], Any] = ...,
-        choices: _LegacyChoices | _LegacyChoicesCallback | None = None,
+        label: str | None,
+        validators: tuple[_Validator[_FormT, Self], ...] | list[Any] | None,
+        coerce: Callable[[Any], Any],
+        choices: _LegacyChoices | _LegacyChoicesCallback,
         validate_choice: bool = True,
         invalid_value_message: str | None = None,
         invalid_choice_message: str | None = None,
         *,
+        option_widget: _Widget[_Option] | None = None,
+        filters: Sequence[_Filter] = (),
+        description: str = "",
+        id: str | None = None,
+        default: object | None = None,
+        widget: _Widget[Self] | None = None,
+        render_kw: dict[str, Any] | None = None,
+        name: str | None = None,
+        datalist: DataList | str | None = None,
+        _form: BaseForm | None = None,
+        _prefix: str = "",
+        _translations: _SupportsGettextAndNgettext | None = None,
+        _meta: DefaultMeta | None = None,
+    ) -> None: ...
+    @overload
+    @deprecated("Starting with WTForms 3.4 only SelectChoice will be supported as choices inputs")
+    def __init__(
+        self,
+        label: str | None = None,
+        validators: tuple[_Validator[_FormT, Self], ...] | list[Any] | None = None,
+        coerce: Callable[[Any], Any] = ...,
+        *,
+        choices: _LegacyChoices | _LegacyChoicesCallback,
+        validate_choice: bool = True,
+        invalid_value_message: str | None = None,
+        invalid_choice_message: str | None = None,
         option_widget: _Widget[_Option] | None = None,
         filters: Sequence[_Filter] = (),
         description: str = "",
