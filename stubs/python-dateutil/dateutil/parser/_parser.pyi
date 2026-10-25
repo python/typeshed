@@ -1,24 +1,25 @@
 import re
-from _typeshed import SupportsRead
-from collections.abc import Callable, Mapping
+from collections.abc import Callable, Sequence
 from datetime import _TzInfo, datetime
 from io import StringIO
-from typing import IO, Any, Literal, TypeAlias, overload
+from typing import Literal, Protocol, TypeAlias, overload, type_check_only
 from typing_extensions import Self
 
-_FileOrStr: TypeAlias = bytes | str | IO[str] | IO[Any]
+from .._common import _ContainsGet, _SizedReader
+
+_FileOrStr: TypeAlias = bytes | bytearray | str | _SizedReader[str]
 _TzData: TypeAlias = _TzInfo | int | str | None
-_TzInfos: TypeAlias = Mapping[str, _TzData] | Callable[[str, int], _TzData]
+_TzInfos: TypeAlias = _ContainsGet[str, _TzData] | Callable[[str | None, int | None], _TzData]
 
 __all__ = ["parse", "parserinfo", "ParserError"]
 
 class _timelex:
     _split_decimal: re.Pattern[str]
-    instream: StringIO | SupportsRead[str]
+    instream: StringIO | _SizedReader[str]
     charstack: list[str]
     tokenstack: list[str]
     eof: bool
-    def __init__(self, instream: str | bytes | bytearray | SupportsRead[str]) -> None: ...
+    def __init__(self, instream: str | bytes | bytearray | _SizedReader[str]) -> None: ...
     def get_token(self) -> str | None: ...
     def __iter__(self) -> Self: ...
     def __next__(self) -> str: ...
@@ -37,7 +38,28 @@ class _resultbase:
     def _repr(self, classname: str) -> str: ...
     def __len__(self) -> int: ...
 
+@type_check_only
+class _ParserInfo(Protocol):
+    @property
+    def dayfirst(self) -> bool: ...
+    @property
+    def yearfirst(self) -> bool: ...
+    @property
+    def UTCZONE(self) -> Sequence[str]: ...
+    def convertyear(self, year: int, century_specified: bool = False) -> int: ...
+    def validate(self, res: parser._result) -> bool: ...
+    def jump(self, name: str) -> bool: ...
+    def pertain(self, name: str) -> bool: ...
+    def utczone(self, name: str) -> bool: ...
+    def weekday(self, name: str) -> int | None: ...
+    def month(self, name: str) -> int | None: ...
+    def hms(self, name: str) -> int | None: ...
+    def ampm(self, name: str) -> int | None: ...
+    def tzoffset(self, name: str) -> int | None: ...
+
 class parserinfo:
+    dayfirst: bool
+    yearfirst: bool
     JUMP: list[str]
     WEEKDAYS: list[tuple[str, str]]
     MONTHS: list[tuple[str, str] | tuple[str, str, str]]
@@ -56,7 +78,7 @@ class parserinfo:
     def utczone(self, name: str) -> bool: ...
     def tzoffset(self, name: str) -> int | None: ...
     def convertyear(self, year: int, century_specified: bool = False) -> int: ...
-    def validate(self, res: datetime) -> bool: ...
+    def validate(self, res: parser._result) -> bool: ...
 
 class _ymd(list[int]):
     century_specified: bool
@@ -75,15 +97,29 @@ class _ymd(list[int]):
     def resolve_ymd(self, yearfirst: bool | None, dayfirst: bool | None) -> tuple[int, int, int]: ...
 
 class parser:
-    info: parserinfo
-    def __init__(self, info: parserinfo | None = None) -> None: ...
+    class _result(_resultbase):
+        year: int | None
+        month: int | None
+        day: int | None
+        weekday: int | None
+        hour: int | None
+        minute: int | None
+        second: int | None
+        microsecond: int | None
+        tzname: str | None
+        tzoffset: int | None
+        ampm: int | None
+        any_unused_tokens: bool | None
+
+    info: _ParserInfo
+    def __init__(self, info: _ParserInfo | None = None) -> None: ...
 
     @overload
     def parse(
         self,
         timestr: _FileOrStr,
         default: datetime | None = None,
-        ignoretz: bool = False,
+        ignoretz: bool | None = False,
         tzinfos: _TzInfos | None = None,
         *,
         dayfirst: bool | None = ...,
@@ -96,7 +132,7 @@ class parser:
         self,
         timestr: _FileOrStr,
         default: datetime | None = None,
-        ignoretz: bool = False,
+        ignoretz: bool | None = False,
         tzinfos: _TzInfos | None = None,
         *,
         dayfirst: bool | None = ...,
@@ -104,17 +140,30 @@ class parser:
         fuzzy: bool = ...,
         fuzzy_with_tokens: Literal[True],
     ) -> tuple[datetime, tuple[str, ...]]: ...
+    @overload
+    def parse(
+        self,
+        timestr: _FileOrStr,
+        default: datetime | None = None,
+        ignoretz: bool | None = False,
+        tzinfos: _TzInfos | None = None,
+        *,
+        dayfirst: bool | None = ...,
+        yearfirst: bool | None = ...,
+        fuzzy: bool = ...,
+        fuzzy_with_tokens: bool,
+    ) -> datetime | tuple[datetime, tuple[str, ...]]: ...
 
 DEFAULTPARSER: parser
 
 @overload
 def parse(
     timestr: _FileOrStr,
-    parserinfo: parserinfo | None = None,
+    parserinfo: _ParserInfo | None = None,
     *,
     dayfirst: bool | None = ...,
     yearfirst: bool | None = ...,
-    ignoretz: bool = ...,
+    ignoretz: bool | None = ...,
     fuzzy: bool = ...,
     fuzzy_with_tokens: Literal[False] = False,
     default: datetime | None = ...,
@@ -123,16 +172,29 @@ def parse(
 @overload
 def parse(
     timestr: _FileOrStr,
-    parserinfo: parserinfo | None = None,
+    parserinfo: _ParserInfo | None = None,
     *,
     dayfirst: bool | None = ...,
     yearfirst: bool | None = ...,
-    ignoretz: bool = ...,
+    ignoretz: bool | None = ...,
     fuzzy: bool = ...,
     fuzzy_with_tokens: Literal[True],
     default: datetime | None = ...,
     tzinfos: _TzInfos | None = ...,
 ) -> tuple[datetime, tuple[str, ...]]: ...
+@overload
+def parse(
+    timestr: _FileOrStr,
+    parserinfo: _ParserInfo | None = None,
+    *,
+    dayfirst: bool | None = ...,
+    yearfirst: bool | None = ...,
+    ignoretz: bool | None = ...,
+    fuzzy: bool = ...,
+    fuzzy_with_tokens: bool,
+    default: datetime | None = ...,
+    tzinfos: _TzInfos | None = ...,
+) -> datetime | tuple[datetime, tuple[str, ...]]: ...
 
 class _tzparser:
     class _result(_resultbase):

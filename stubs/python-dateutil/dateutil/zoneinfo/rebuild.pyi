@@ -1,12 +1,10 @@
-from _typeshed import StrOrBytesPath, Unused
-from collections.abc import Iterable
+from typing_extensions import deprecated
 
-from ..zoneinfo import _MetadataType
+__all__ = ["rebuild", "RebuildDeprecationWarning"]
 
+class RebuildDeprecationWarning(FutureWarning): ...
+
+@deprecated("dateutil no longer ships a zoneinfo tarball; use tzdata or system time zone data instead")
 def rebuild(
-    filename: StrOrBytesPath,
-    tag: Unused | None = None,
-    format: str = "gz",
-    zonegroups: Iterable[str] = [],
-    metadata: _MetadataType | None = None,
+    filename: object, tag: object = None, format: object = "gz", zonegroups: object = [], metadata: object = None
 ) -> None: ...

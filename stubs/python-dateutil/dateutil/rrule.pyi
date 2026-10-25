@@ -1,11 +1,11 @@
 import datetime
-from collections.abc import Callable, Generator, Iterable, Iterator, Mapping, Sequence
+from collections.abc import Callable, Generator, Iterable, Iterator, Sequence
 from typing import Final, Literal, TypeAlias, overload
 from typing_extensions import Self
 
 from dateutil.parser._parser import _TzInfos
 
-from ._common import weekday as weekdaybase
+from ._common import _Gettable, _Weekday, weekday as weekdaybase
 
 __all__ = [
     "rrule",
@@ -59,9 +59,14 @@ SU: weekday
 class rrulebase:
     def __init__(self, cache: bool | None = False) -> None: ...
     def __iter__(self) -> Iterator[datetime.datetime]: ...
-    def __getitem__(self, item: int | slice) -> datetime.datetime: ...
+
+    @overload
+    def __getitem__(self, item: int) -> datetime.datetime: ...
+    @overload
+    def __getitem__(self, item: slice) -> Sequence[datetime.datetime]: ...
+
     def __contains__(self, item: datetime.datetime) -> bool: ...
-    def count(self) -> int | None: ...
+    def count(self) -> int: ...
     def before(self, dt: datetime.datetime, inc: bool = False) -> datetime.datetime | None: ...
     def after(self, dt: datetime.datetime, inc: bool = False) -> datetime.datetime | None: ...
     def xafter(self, dt: datetime.datetime, count: int | None = None, inc: bool = False) -> Generator[datetime.datetime]: ...
@@ -72,19 +77,19 @@ class rrulebase:
 class rrule(rrulebase):
     def __init__(
         self,
-        freq: Literal[0, 1, 2, 3, 4, 5, 6],
+        freq: int,
         dtstart: datetime.date | None = None,
         interval: int = 1,
-        wkst: weekday | int | None = None,
+        wkst: _Weekday | int | None = None,
         count: int | None = None,
-        until: datetime.date | int | None = None,
+        until: datetime.date | None = None,
         bysetpos: int | Iterable[int] | None = None,
         bymonth: int | Iterable[int] | None = None,
         bymonthday: int | Iterable[int] | None = None,
         byyearday: int | Iterable[int] | None = None,
         byeaster: int | Iterable[int] | None = None,
         byweekno: int | Iterable[int] | None = None,
-        byweekday: int | weekday | Iterable[int] | Iterable[weekday] | None = None,
+        byweekday: int | _Weekday | Iterable[int | _Weekday] | None = None,
         byhour: int | Iterable[int] | None = None,
         byminute: int | Iterable[int] | None = None,
         bysecond: int | Iterable[int] | None = None,
@@ -93,24 +98,24 @@ class rrule(rrulebase):
     def replace(
         self,
         *,
-        freq: Literal[0, 1, 2, 3, 4, 5, 6] = ...,
+        freq: int = ...,
         dtstart: datetime.date | None = ...,
         interval: int = ...,
-        wkst: weekday | int | None = ...,
+        wkst: _Weekday | int | None = ...,
         count: int | None = ...,
-        until: datetime.date | int | None = ...,
+        until: datetime.date | None = ...,
         bysetpos: int | Iterable[int] | None = None,
         bymonth: int | Iterable[int] | None = None,
         bymonthday: int | Iterable[int] | None = None,
         byyearday: int | Iterable[int] | None = None,
         byeaster: int | Iterable[int] | None = None,
         byweekno: int | Iterable[int] | None = None,
-        byweekday: int | weekday | Iterable[int] | Iterable[weekday] | None = None,
+        byweekday: int | _Weekday | Iterable[int | _Weekday] | None = None,
         byhour: int | Iterable[int] | None = None,
         byminute: int | Iterable[int] | None = None,
         bysecond: int | Iterable[int] | None = None,
         cache: bool | None = ...,
-    ) -> Self: ...
+    ) -> rrule: ...
 
 _RRule: TypeAlias = rrule
 
@@ -171,9 +176,9 @@ class rruleset(rrulebase):
         def __ne__(self, other: object) -> bool: ...
 
     def __init__(self, cache: bool | None = False) -> None: ...
-    def rrule(self, rrule: _RRule) -> None: ...
+    def rrule(self, rrule: Iterable[datetime.datetime]) -> None: ...
     def rdate(self, rdate: datetime.datetime) -> None: ...
-    def exrule(self, exrule: _RRule) -> None: ...
+    def exrule(self, exrule: Iterable[datetime.datetime]) -> None: ...
     def exdate(self, exdate: datetime.datetime) -> None: ...
 
 class _rrulestr:
@@ -188,7 +193,7 @@ class _rrulestr:
         unfold: bool = False,
         compatible: bool = False,
         ignoretz: bool = False,
-        tzids: Callable[[str], datetime.tzinfo] | Mapping[str, datetime.tzinfo] | None = None,
+        tzids: Callable[[str], datetime.tzinfo | None] | _Gettable[str, datetime.tzinfo] | None = None,
         tzinfos: _TzInfos | None = None,
     ) -> rruleset: ...
     @overload
@@ -202,7 +207,7 @@ class _rrulestr:
         unfold: bool = False,
         forceset: bool = False,
         ignoretz: bool = False,
-        tzids: Callable[[str], datetime.tzinfo] | Mapping[str, datetime.tzinfo] | None = None,
+        tzids: Callable[[str], datetime.tzinfo | None] | _Gettable[str, datetime.tzinfo] | None = None,
         tzinfos: _TzInfos | None = None,
     ) -> rruleset: ...
     @overload
@@ -216,7 +221,7 @@ class _rrulestr:
         forceset: bool = False,
         compatible: bool = False,
         ignoretz: bool = False,
-        tzids: Callable[[str], datetime.tzinfo] | Mapping[str, datetime.tzinfo] | None = None,
+        tzids: Callable[[str], datetime.tzinfo | None] | _Gettable[str, datetime.tzinfo] | None = None,
         tzinfos: _TzInfos | None = None,
     ) -> rrule | rruleset: ...
 
