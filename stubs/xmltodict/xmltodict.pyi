@@ -20,7 +20,7 @@ class _DictSAXHandler:
     cdata_key: str
     force_cdata: bool | Container[str] | Callable[[tuple[str, _AttrDict | None], str, str], bool]
     cdata_separator: str
-    postprocessor: Callable[[list[tuple[str, _AttrDict | None]], str, _AttrValue], tuple[str, _AttrValue]] | None
+    postprocessor: Callable[[list[tuple[str, _AttrDict | None]], str, _AttrValue], tuple[str, _AttrValue] | None] | None
     dict_constructor: type
     strip_whitespace: bool
     namespace_separator: str
@@ -37,7 +37,9 @@ class _DictSAXHandler:
         cdata_key: str = "#text",
         force_cdata: bool | Container[str] | Callable[[tuple[str, _AttrDict | None], str, str], bool] = False,
         cdata_separator: str = "",
-        postprocessor: Callable[[list[tuple[str, _AttrDict | None]], str, _AttrValue], tuple[str, _AttrValue]] | None = None,
+        postprocessor: (
+            Callable[[list[tuple[str, _AttrDict | None]], str, _AttrValue], tuple[str, _AttrValue] | None] | None
+        ) = None,
         dict_constructor: type = ...,
         strip_whitespace: bool = True,
         namespace_separator: str = ":",
@@ -68,7 +70,7 @@ def parse(
     cdata_key: str = "#text",
     force_cdata: bool | Container[str] | Callable[[tuple[str, _AttrDict | None], str, str], bool] = False,
     cdata_separator: str = "",
-    postprocessor: Callable[[list[tuple[str, _AttrDict | None]], str, _AttrValue], tuple[str, _AttrValue]] | None = None,
+    postprocessor: Callable[[list[tuple[str, _AttrDict | None]], str, _AttrValue], tuple[str, _AttrValue] | None] | None = None,
     dict_constructor: type = ...,
     strip_whitespace: bool = True,
     namespaces: Mapping[str, str | None] | None = None,
