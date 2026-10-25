@@ -1,6 +1,6 @@
 from _typeshed import Incomplete, SupportsItems, SupportsKeysAndGetItem, Unused
 from collections.abc import Callable, Collection, Generator, Iterable, Iterator
-from typing import Literal, TypeVar, overload
+from typing import Any, Literal, TypeVar, overload
 
 from networkx import _dispatchable
 from networkx.algorithms.planarity import PlanarEmbedding
@@ -88,8 +88,8 @@ def set_node_attributes(
     values: SupportsItems[_Node, Unused],
     name: str,
     *,
-    backend=None,  # @_dispatchable adds these arguments, but we can't use this decorator with @overload
-    **backend_kwargs,
+    backend: str | None = None,  # @_dispatchable adds these arguments, but we can't use this decorator with @overload
+    **backend_kwargs: Any,
 ) -> None: ...
 @overload
 def set_node_attributes(
@@ -97,11 +97,13 @@ def set_node_attributes(
     values: SupportsItems[_Node, SupportsKeysAndGetItem[Incomplete, Incomplete] | Iterable[tuple[Incomplete, Incomplete]]],
     name: None = None,
     *,
-    backend=None,
-    **backend_kwargs,
+    backend: str | None = None,
+    **backend_kwargs: Any,
 ) -> None: ...
 @overload
-def set_node_attributes(G: Graph[_Node], values: object, name: str, *, backend=None, **backend_kwargs) -> None: ...
+def set_node_attributes(
+    G: Graph[_Node], values: object, name: str, *, backend: str | None = None, **backend_kwargs: Any
+) -> None: ...
 
 @_dispatchable
 def get_node_attributes(G: Graph[_Node], name: str, default=None) -> dict[_Node, Incomplete]: ...
@@ -115,7 +117,7 @@ def set_edge_attributes(
     name: str,
     *,
     backend: str | None = None,  # @_dispatchable adds these arguments, but we can't use this decorator with @overload
-    **backend_kwargs,
+    **backend_kwargs: Any,
 ) -> None: ...
 @overload
 def set_edge_attributes(
@@ -124,12 +126,16 @@ def set_edge_attributes(
     name: str,
     *,
     backend: str | None = None,
-    **backend_kwargs,
+    **backend_kwargs: Any,
 ) -> None: ...
 @overload
-def set_edge_attributes(G: Graph[_Node], values: object, name: str, *, backend: str | None = None, **backend_kwargs) -> None: ...
+def set_edge_attributes(
+    G: Graph[_Node], values: object, name: str, *, backend: str | None = None, **backend_kwargs: Any
+) -> None: ...
 @overload
-def set_edge_attributes(G: Graph[_Node], values, name: None = None, *, backend: str | None = None, **backend_kwargs) -> None: ...
+def set_edge_attributes(
+    G: Graph[_Node], values: Incomplete, name: None = None, *, backend: str | None = None, **backend_kwargs: Any
+) -> None: ...
 
 @_dispatchable
 def get_edge_attributes(G: Graph[_Node], name: str, default=None) -> dict[tuple[_Node, _Node], Incomplete]: ...
