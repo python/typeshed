@@ -134,7 +134,7 @@ def set_edge_attributes(
 ) -> None: ...
 @overload
 def set_edge_attributes(
-    G: Graph[_Node], values: Incomplete, name: None = None, *, backend: str | None = None, **backend_kwargs: Any
+    G: Graph[_Node], values: Any, name: None = None, *, backend: str | None = None, **backend_kwargs: Any
 ) -> None: ...
 
 @_dispatchable
