@@ -84,7 +84,9 @@ class _lru_cache_wrapper(Generic[_T_co, _CacheArgT_contra]):
     __qualname__: str
 
 @overload
-def lru_cache(maxsize: Literal[0, False], typed: bool = False) -> Callable[[Callable[..., _T]], _lru_cache_wrapper[_T, object]]: ...
+def lru_cache(
+    maxsize: Literal[0, False], typed: bool = False
+) -> Callable[[Callable[..., _T]], _lru_cache_wrapper[_T, object]]: ...
 @overload
 def lru_cache(maxsize: int | None = 128, typed: bool = False) -> Callable[[Callable[..., _T]], _lru_cache_wrapper[_T]]: ...
 @overload
