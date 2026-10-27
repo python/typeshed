@@ -65,7 +65,7 @@ class _CacheInfo(NamedTuple):
 
 @type_check_only
 class _CacheParameters(TypedDict):
-    maxsize: int
+    maxsize: int | None
     typed: bool
 
 @final
