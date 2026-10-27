@@ -1,8 +1,8 @@
 from __future__ import annotations
 
-from collections.abc import Callable
+from collections.abc import Awaitable, Callable
 from concurrent.futures.thread import ThreadPoolExecutor
-from typing import Awaitable, TypeVar
+from typing import TypeVar
 
 import grpc
 import grpc.aio

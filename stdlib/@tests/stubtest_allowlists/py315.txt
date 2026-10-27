@@ -4,7 +4,6 @@
 
 dataclasses.MISSING
 dataclasses._MISSING_TYPE
-dataclasses.field
 
 # =============================================================
 # Allowlist entries that cannot or should not be fixed; >= 3.15
@@ -15,8 +14,6 @@ _colorize.BackgroundStyle
 
 # runtime default is a list object used as a sentinel
 base64.b64decode
-urllib.parse.urlunparse
-urllib.parse.urlunsplit
 
 # Internal implementation details of the sampling profiler.
 profiling.sampling.binary_collector

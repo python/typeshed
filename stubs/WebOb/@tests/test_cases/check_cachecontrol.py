@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, Literal, Union
+from typing import Any, Literal
 from typing_extensions import assert_type
 
 from webob.cachecontrol import CacheControl
@@ -24,15 +24,15 @@ assert_type(res_cc, CacheControl[Literal["response"]])
 assert_type(shared_cc, CacheControl[None])
 any_cc = CacheControl[Any]({}, None)
 
-assert_type(req_cc.max_stale, Union[int, Literal["*"], None])
+assert_type(req_cc.max_stale, int | Literal["*"] | None)
 res_cc.max_stale  # type: ignore
 shared_cc.max_stale  # type: ignore
-assert_type(any_cc.max_stale, Union[int, Literal["*"], None])
+assert_type(any_cc.max_stale, int | Literal["*"] | None)
 
-assert_type(req_cc.min_fresh, Union[int, None])
+assert_type(req_cc.min_fresh, int | None)
 res_cc.min_fresh  # type: ignore
 shared_cc.min_fresh  # type: ignore
-assert_type(any_cc.min_fresh, Union[int, None])
+assert_type(any_cc.min_fresh, int | None)
 
 assert_type(req_cc.only_if_cached, bool)
 res_cc.only_if_cached  # type: ignore
@@ -46,14 +46,14 @@ assert_type(any_cc.public, bool)
 
 # NOTE: pyright gets confused about the `Literal["*"]` the types match
 req_cc.private  # type: ignore
-assert_type(res_cc.private, Union[str, Literal["*"], None])  # pyright: ignore
+assert_type(res_cc.private, str | Literal["*"] | None)  # pyright: ignore
 shared_cc.private  # type: ignore
-assert_type(any_cc.private, Union[str, Literal["*"], None])  # pyright: ignore
+assert_type(any_cc.private, str | Literal["*"] | None)  # pyright: ignore
 
-assert_type(req_cc.no_cache, Union[str, Literal["*"], None])  # pyright: ignore
-assert_type(res_cc.no_cache, Union[str, Literal["*"], None])  # pyright: ignore
-assert_type(shared_cc.no_cache, Union[str, Literal["*"], None])  # pyright: ignore
-assert_type(any_cc.no_cache, Union[str, Literal["*"], None])  # pyright: ignore
+assert_type(req_cc.no_cache, str | Literal["*"] | None)  # pyright: ignore
+assert_type(res_cc.no_cache, str | Literal["*"] | None)  # pyright: ignore
+assert_type(shared_cc.no_cache, str | Literal["*"] | None)  # pyright: ignore
+assert_type(any_cc.no_cache, str | Literal["*"] | None)  # pyright: ignore
 
 assert_type(req_cc.no_store, bool)
 assert_type(res_cc.no_store, bool)
@@ -76,27 +76,27 @@ shared_cc.proxy_revalidate  # type: ignore
 assert_type(any_cc.proxy_revalidate, bool)
 
 # NOTE: pyright gets confused about the `Literal[-1]` the types match
-assert_type(req_cc.max_age, Union[int, Literal[-1], None])  # pyright: ignore
-assert_type(res_cc.max_age, Union[int, Literal[-1], None])  # pyright: ignore
-assert_type(shared_cc.max_age, Union[int, Literal[-1], None])  # pyright: ignore
-assert_type(any_cc.max_age, Union[int, Literal[-1], None])  # pyright: ignore
+assert_type(req_cc.max_age, int | Literal[-1] | None)  # pyright: ignore
+assert_type(res_cc.max_age, int | Literal[-1] | None)  # pyright: ignore
+assert_type(shared_cc.max_age, int | Literal[-1] | None)  # pyright: ignore
+assert_type(any_cc.max_age, int | Literal[-1] | None)  # pyright: ignore
 
 req_cc.s_maxage  # type: ignore
-assert_type(res_cc.s_maxage, Union[int, None])
+assert_type(res_cc.s_maxage, int | None)
 shared_cc.s_maxage  # type: ignore
-assert_type(any_cc.s_maxage, Union[int, None])
+assert_type(any_cc.s_maxage, int | None)
 
 req_cc.s_max_age  # type: ignore
-assert_type(res_cc.s_max_age, Union[int, None])
+assert_type(res_cc.s_max_age, int | None)
 shared_cc.s_max_age  # type: ignore
-assert_type(any_cc.s_max_age, Union[int, None])
+assert_type(any_cc.s_max_age, int | None)
 
 req_cc.stale_while_revalidate  # type: ignore
-assert_type(res_cc.stale_while_revalidate, Union[int, None])
+assert_type(res_cc.stale_while_revalidate, int | None)
 shared_cc.stale_while_revalidate  # type: ignore
-assert_type(any_cc.stale_while_revalidate, Union[int, None])
+assert_type(any_cc.stale_while_revalidate, int | None)
 
 req_cc.stale_if_error  # type: ignore
-assert_type(res_cc.stale_if_error, Union[int, None])
+assert_type(res_cc.stale_if_error, int | None)
 shared_cc.stale_if_error  # type: ignore
-assert_type(any_cc.stale_if_error, Union[int, None])
+assert_type(any_cc.stale_if_error, int | None)
