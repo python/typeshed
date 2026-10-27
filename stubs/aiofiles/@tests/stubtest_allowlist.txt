@@ -64,7 +64,6 @@ aiofiles.os.remove
 aiofiles.os.unlink
 aiofiles.os.mkdir
 aiofiles.os.makedirs
-aiofiles.os.link
 aiofiles.os.symlink
 aiofiles.os.readlink
 aiofiles.os.rmdir
