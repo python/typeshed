@@ -65,5 +65,8 @@ def test_xor_with_abstract_set(
     frozen.__xor__(other)  # type: ignore
     assert_type(other.__rxor__(s), AbstractSet[str])
     assert_type(other.__rxor__(frozen), AbstractSet[str])
+    assert_type(other.__rxor__([1]), AbstractSet[str | int])
+    assert_type([1] ^ other, AbstractSet[str | int])
+    assert_type(("foo", "baz") ^ other, AbstractSet[str])
     assert_type(s ^ other, AbstractSet[str])
     assert_type(frozen ^ other, AbstractSet[str])
