@@ -84,12 +84,7 @@ def create_empty_copy(G: Graph[_Node], with_data: bool = True): ...
 
 @overload
 def set_node_attributes(
-    G: Graph[_Node],
-    values: SupportsItems[_Node, Unused],
-    name: str,
-    *,
-    backend: str | None = None,
-    **backend_kwargs,
+    G: Graph[_Node], values: SupportsItems[_Node, Unused], name: str, *, backend: str | None = None, **backend_kwargs
 ) -> None: ...
 @overload
 def set_node_attributes(
@@ -101,9 +96,7 @@ def set_node_attributes(
     **backend_kwargs,
 ) -> None: ...
 @overload
-def set_node_attributes(
-    G: Graph[_Node], values: object, name: str, *, backend: str | None = None, **backend_kwargs
-) -> None: ...
+def set_node_attributes(G: Graph[_Node], values: object, name: str, *, backend: str | None = None, **backend_kwargs) -> None: ...
 
 @_dispatchable
 def get_node_attributes(G: Graph[_Node], name: str, default=None) -> dict[_Node, Incomplete]: ...
@@ -129,13 +122,9 @@ def set_edge_attributes(
     **backend_kwargs,
 ) -> None: ...
 @overload
-def set_edge_attributes(
-    G: Graph[_Node], values: object, name: str, *, backend: str | None = None, **backend_kwargs
-) -> None: ...
+def set_edge_attributes(G: Graph[_Node], values: object, name: str, *, backend: str | None = None, **backend_kwargs) -> None: ...
 @overload
-def set_edge_attributes(
-    G: Graph[_Node], values, name: None = None, *, backend: str | None = None, **backend_kwargs
-) -> None: ...
+def set_edge_attributes(G: Graph[_Node], values, name: None = None, *, backend: str | None = None, **backend_kwargs) -> None: ...
 
 @_dispatchable
 def get_edge_attributes(G: Graph[_Node], name: str, default=None) -> dict[tuple[_Node, _Node], Incomplete]: ...
