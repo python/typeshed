@@ -1,10 +1,14 @@
 import builtins
 import sys
+from collections.abc import Sequence
 from datetime import datetime
 from typing_extensions import Self
+from zoneinfo import reset_tzpath as reset_tzpath
 
 from ._common import tzrangebase
 from .tz import (
+    DeprecatedTzKeyWarning as DeprecatedTzKeyWarning,
+    available_iana_timezones as available_iana_timezones,
     datetime_ambiguous as datetime_ambiguous,
     datetime_exists as datetime_exists,
     enfold as enfold,
@@ -44,6 +48,8 @@ else:
     tzwin: None
     tzwinlocal: None
 
+TZPATH: Sequence[str]
+
 UTC: tzutc
 
 __all__ = [
@@ -61,7 +67,11 @@ __all__ = [
     "datetime_ambiguous",
     "datetime_exists",
     "resolve_imaginary",
+    "available_iana_timezones",
     "UTC",
+    "TZPATH",
+    "reset_tzpath",
+    "DeprecatedTzKeyWarning",
     "DeprecatedTzFormatWarning",
 ]
 
