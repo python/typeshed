@@ -1,6 +1,6 @@
 from _typeshed import Incomplete, SupportsItems, SupportsKeysAndGetItem, Unused
 from collections.abc import Callable, Collection, Generator, Iterable, Iterator
-from typing import Any, Literal, TypeVar, overload
+from typing import Literal, TypeVar, overload
 
 from networkx import _dispatchable
 from networkx.algorithms.planarity import PlanarEmbedding
@@ -88,8 +88,8 @@ def set_node_attributes(
     values: SupportsItems[_Node, Unused],
     name: str,
     *,
-    backend: str | None = None,  # @_dispatchable adds these arguments, but we can't use this decorator with @overload
-    **backend_kwargs: Any,
+    backend: str | None = None,
+    **backend_kwargs,
 ) -> None: ...
 @overload
 def set_node_attributes(
@@ -98,11 +98,11 @@ def set_node_attributes(
     name: None = None,
     *,
     backend: str | None = None,
-    **backend_kwargs: Any,
+    **backend_kwargs,
 ) -> None: ...
 @overload
 def set_node_attributes(
-    G: Graph[_Node], values: object, name: str, *, backend: str | None = None, **backend_kwargs: Any
+    G: Graph[_Node], values: object, name: str, *, backend: str | None = None, **backend_kwargs
 ) -> None: ...
 
 @_dispatchable
@@ -116,8 +116,8 @@ def set_edge_attributes(
     values: SupportsItems[tuple[_Node, _Node], Incomplete],
     name: str,
     *,
-    backend: str | None = None,  # @_dispatchable adds these arguments, but we can't use this decorator with @overload
-    **backend_kwargs: Any,
+    backend: str | None = None,
+    **backend_kwargs,
 ) -> None: ...
 @overload
 def set_edge_attributes(
@@ -126,15 +126,15 @@ def set_edge_attributes(
     name: str,
     *,
     backend: str | None = None,
-    **backend_kwargs: Any,
+    **backend_kwargs,
 ) -> None: ...
 @overload
 def set_edge_attributes(
-    G: Graph[_Node], values: object, name: str, *, backend: str | None = None, **backend_kwargs: Any
+    G: Graph[_Node], values: object, name: str, *, backend: str | None = None, **backend_kwargs
 ) -> None: ...
 @overload
 def set_edge_attributes(
-    G: Graph[_Node], values: Any, name: None = None, *, backend: str | None = None, **backend_kwargs: Any
+    G: Graph[_Node], values, name: None = None, *, backend: str | None = None, **backend_kwargs
 ) -> None: ...
 
 @_dispatchable
