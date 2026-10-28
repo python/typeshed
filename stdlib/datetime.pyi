@@ -270,8 +270,8 @@ _TzInfoT = TypeVar("_TzInfoT", bound=tzinfo | None, default=tzinfo | None)
 
 @disjoint_base
 class datetime(date, Generic[_TzInfoT]):
-    min: Final[datetime[None]]
-    max: Final[datetime[None]]
+    min: ClassVar[datetime[None]]
+    max: ClassVar[datetime[None]]
 
     @overload
     def __new__(
