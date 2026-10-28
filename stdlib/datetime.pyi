@@ -466,10 +466,10 @@ class datetime(date, Generic[_TzInfoT]):
 
     if sys.version_info >= (3, 15):
         @classmethod
-        def strptime(cls, string: str, format: str, /) -> datetime[_TzInfo | None]: ...  # type: ignore[override]
+        def strptime(cls, string: str, format: str, /) -> datetime[_TzInfo] | datetime[None]: ...  # type: ignore[override]
     else:
         @classmethod
-        def strptime(cls, date_string: str, format: str, /) -> datetime[_TzInfo | None]: ...  # type: ignore[override]
+        def strptime(cls, date_string: str, format: str, /) -> datetime[_TzInfo] | datetime[None]: ...  # type: ignore[override]
 
     def utcoffset(self) -> timedelta | None: ...
     def tzname(self) -> str | None: ...
