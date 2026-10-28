@@ -1,25 +1,6 @@
-At present the active maintainers are (alphabetically):
+# Guidelines for typeshed Maintainers
 
-* Rebecca Chen (@rchen152)
-* Jukka Lehtosalo (@JukkaL)
-* Ivan Levkivskyi (@ilevkivskyi)
-* Sebastian Rittau (@srittau)
-* Guido van Rossum (@gvanrossum)
-* Brian Schubert (@brianschubert)
-* Shantanu (@hauntsaninja)
-* Nikita Sobolev (@sobolevn)
-* Samuel Therrien (@Avasam)
-* Aku Viljanen (@Akuli)
-* Alex Waygood (@AlexWaygood)
-* Jelle Zijlstra (@JelleZijlstra)
-
-Former maintainers include:
-
-* David Fisher (@ddfisher)
-* Matthias Kramm (@matthiaskramm)
-* Łukasz Langa (@ambv)
-* Greg Price (@gnprice)
-* Rune Tynan (@CraftSpider)
+## Maintainer Removal
 
 For security reasons, maintainers who haven't been active for twelve months
 (no PR reviews or merges, no opened PRs, no significant participation in
@@ -29,14 +10,14 @@ They will also be moved to the "former maintainers" section here.
 Former maintainers who want their access rights restored should open
 an issue or mail one of the active maintainers.
 
-## Maintainer guidelines
+## Preparing and Submitting Changes
 
 The process for preparing and submitting changes as outlined
-in the [CONTRIBUTING document](./CONTRIBUTING.md) also applies to
+in the [CONTRIBUTING document](../CONTRIBUTING.md) also applies to
 maintainers.  This ensures high quality contributions and keeps
 everybody on the same page.  Do not make direct pushes to the repository.
 
-### Reviewing and merging pull requests
+## Reviewing and Merging Pull Requests
 
 When reviewing pull requests, follow these guidelines:
 
@@ -59,9 +40,9 @@ When merging pull requests, follow these guidelines:
   and assume that the reader has no access to the diff.
 * Delete branches for merged PRs (by maintainers pushing to the main repo).
 
-### Marking PRs as "deferred"
+## Marking PRs as "deferred"
 
-*See also the [guidelines in the CONTRIBUTING file](./CONTRIBUTING.md#marking-prs-as-deferred).*
+*See also the [guidelines in the CONTRIBUTING file](../CONTRIBUTING.md#marking-prs-as-deferred).*
 
 PRs should only be marked as "deferred" if there is a clear path towards getting
 the blocking issue resolved within a reasonable time frame. If a PR depends on
@@ -71,25 +52,27 @@ the PEP stage, it should instead be closed.
 Maintainers who add the "deferred" label should state clearly what exactly the
 blocker is, usually with a link to an open issue in another project.
 
-### Closing stale PRs
+## Issue/PR Message Templates
 
-*See also the [guidelines in the CONTRIBUTING file](./CONTRIBUTING.md#closing-stale-prs).*
+### Closing Stale PRs
+
+*See also the [guidelines in the CONTRIBUTING file](../CONTRIBUTING.md#closing-stale-prs).*
 
 We want to maintain a welcoming atmosphere for contributors, so use a friendly
 message when closing the PR. Example message:
 
     Thanks for contributing! I'm closing this PR for now, because it still <fails some tests OR has unresolved review feedback OR has a merge conflict> after three months of inactivity. If you are still interested, please feel free to open a new PR (or ping us to reopen this one).
 
-### Closing PRs for future standard library changes
+### Closing PRs for Future Standard Library Changes
 
-*See also the [guidelines in the CONTRIBUTING file](./CONTRIBUTING.md#standard-library-stubs).*
+*See also the [guidelines in the CONTRIBUTING file](../CONTRIBUTING.md#standard-library-stubs).*
 
 When rejecting a PR for a change for a future Python version, use a message
 like:
 
     Thanks for contributing! Unfortunately, [as outlined in our CONTRIBUTING document](https://github.com/python/typeshed/blob/main/CONTRIBUTING.md#standard-library-stubs) we only accept pull requests to the standard library for future Python versions after the first beta version has been released. This is in part to prevent churn in the stubs, and in part because the testing infrastructure for the future version is not yet in place. Please feel free to open a new PR when the first beta version has been released. Alternatively, if this PR is still relevant, you can leave a comment here to reopen it.
 
-### Closing requests for third-party stubs
+### Closing Requests for Third-Party Stubs
 
 We don't keep requests for third-party library stubs open. Close those
 requests as "not planned" with an explanation like this:
@@ -98,7 +81,7 @@ requests as "not planned" with an explanation like this:
 
     That said, we don't keep requests for third-party library stubs open, unless there are issues that need to be addressed before a PR can be opened. Therefore, I'm closing this issue.
 
-### Asking to remove tests
+### Asking to Remove Tests
 
     Please remove the tests. In typeshed, we only add regression tests for functions and classes which are known to have caused complex problems in the past, or where stubs are difficult to get right. 100% test coverage for typeshed is neither necessary nor desirable, as it would lead to code duplication.
 
