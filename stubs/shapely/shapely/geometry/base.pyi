@@ -36,9 +36,8 @@ class BaseGeometry(Geometry):
         "Directly calling 'BaseGeometry()' is deprecated. To create an empty geometry, "
         "use one of the subclasses instead, for example 'GeometryCollection()'."
     )
-    def __new__(self) -> GeometryCollection: ...
+    def __new__(cls) -> GeometryCollection: ...
     def __bool__(self) -> bool: ...
-    def __nonzero__(self) -> bool: ...
     def __format__(self, format_spec: str) -> str: ...
 
     @overload
@@ -323,4 +322,4 @@ class EmptyGeometry(BaseGeometry):
         "The 'EmptyGeometry()' constructor is deprecated. Use one of the "
         "geometry subclasses instead, for example 'GeometryCollection()'."
     )
-    def __new__(self) -> GeometryCollection: ...  # type: ignore[misc]
+    def __new__(cls) -> GeometryCollection: ...  # type: ignore[misc]
