@@ -1,7 +1,9 @@
+from collections.abc import Mapping
 from typing import ClassVar, Literal, final
 
 from google._upb._message import Descriptor, FileDescriptor, MessageMeta
 from google.protobuf import message
+from google.protobuf.internal.containers import MessageMap
 from google.protobuf.internal.enum_type_wrapper import EnumTypeWrapper
 
 DESCRIPTOR: FileDescriptor
@@ -23,4 +25,24 @@ class HealthCheckResponse(message.Message, metaclass=MessageMeta):
     STATUS_FIELD_NUMBER: ClassVar[int]
     status: int
     def __init__(self, status: int | str | None = ...) -> None: ...
+    DESCRIPTOR: Descriptor
+
+@final
+class HealthListRequest(message.Message, metaclass=MessageMeta):
+    DESCRIPTOR: Descriptor
+
+@final
+class HealthListResponse(message.Message, metaclass=MessageMeta):
+    @final
+    class StatusesEntry(message.Message, metaclass=MessageMeta):
+        KEY_FIELD_NUMBER: ClassVar[int]
+        VALUE_FIELD_NUMBER: ClassVar[int]
+        key: str
+        value: HealthCheckResponse
+        def __init__(self, key: str | None = ..., value: HealthCheckResponse | None = ...) -> None: ...
+        DESCRIPTOR: Descriptor
+
+    STATUSES_FIELD_NUMBER: ClassVar[int]
+    statuses: MessageMap[str, HealthCheckResponse]
+    def __init__(self, statuses: Mapping[str, HealthCheckResponse] | None = ...) -> None: ...
     DESCRIPTOR: Descriptor
