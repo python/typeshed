@@ -2,7 +2,7 @@ from collections.abc import Callable, Iterable, Iterator, Sequence
 from typing import Any, TypeAlias
 from typing_extensions import Self
 
-from wtforms.fields.core import Field, _Filter, _FormT, _Validator, _Widget
+from wtforms.fields.core import Field, _Filter, _FormT, _Text, _Validator, _Widget
 from wtforms.form import BaseForm
 from wtforms.meta import DefaultMeta, _SupportsGettextAndNgettext
 
@@ -20,12 +20,12 @@ class SelectFieldBase(Field):
     option_widget: _Widget[_Option]
     def __init__(
         self,
-        label: str | None = None,
+        label: _Text | None = None,
         validators: tuple[_Validator[_FormT, Self], ...] | list[Any] | None = None,
         option_widget: _Widget[_Option] | None = None,
         *,
         filters: Sequence[_Filter] = (),
-        description: str = "",
+        description: _Text = "",
         id: str | None = None,
         default: object | None = None,
         widget: _Widget[Self] | None = None,
@@ -50,14 +50,14 @@ class SelectField(SelectFieldBase):
     validate_choice: bool
     def __init__(
         self,
-        label: str | None = None,
+        label: _Text | None = None,
         validators: tuple[_Validator[_FormT, Self], ...] | list[Any] | None = None,
         coerce: Callable[[Any], Any] = ...,
         choices: Iterable[_Choice] | _GroupedChoices | Callable[[], Iterable[_Choice] | _GroupedChoices] | None = None,
         validate_choice: bool = True,
         *,
         filters: Sequence[_Filter] = (),
-        description: str = "",
+        description: _Text = "",
         id: str | None = None,
         default: object | None = None,
         widget: _Widget[Self] | None = None,

@@ -3,7 +3,7 @@ from decimal import Decimal
 from typing import Any, Literal, overload
 from typing_extensions import Self
 
-from wtforms.fields.core import Field, _Filter, _FormT, _Validator, _Widget
+from wtforms.fields.core import Field, _Filter, _FormT, _Text, _Validator, _Widget
 from wtforms.form import BaseForm
 from wtforms.meta import DefaultMeta, _SupportsGettextAndNgettext
 from wtforms.utils import UnsetValue
@@ -16,7 +16,7 @@ class LocaleAwareNumberField(Field):
     locale: str
     def __init__(
         self,
-        label: str | None = None,
+        label: _Text | None = None,
         validators: tuple[_Validator[_FormT, Self], ...] | list[Any] | None = None,
         use_locale: bool = False,
         # this accepts a babel.numbers.NumberPattern, but since it
@@ -25,7 +25,7 @@ class LocaleAwareNumberField(Field):
         number_format: str | Any | None = None,
         *,
         filters: Sequence[_Filter] = (),
-        description: str = "",
+        description: _Text = "",
         id: str | None = None,
         default: object | None = None,
         widget: _Widget[Self] | None = None,
@@ -44,11 +44,11 @@ class IntegerField(Field):
     default: int | Callable[[], int] | None
     def __init__(
         self,
-        label: str | None = None,
+        label: _Text | None = None,
         validators: tuple[_Validator[_FormT, Self], ...] | list[Any] | None = None,
         *,
         filters: Sequence[_Filter] = (),
-        description: str = "",
+        description: _Text = "",
         id: str | None = None,
         default: int | Callable[[], int] | None = None,
         widget: _Widget[Self] | None = None,
@@ -71,7 +71,7 @@ class DecimalField(LocaleAwareNumberField):
     @overload
     def __init__(
         self,
-        label: str | None = None,
+        label: _Text | None = None,
         validators: tuple[_Validator[_FormT, Self], ...] | list[Any] | None = None,
         *,
         places: UnsetValue = ...,
@@ -82,7 +82,7 @@ class DecimalField(LocaleAwareNumberField):
         # for annotation this one argument
         number_format: str | Any | None = None,
         filters: Sequence[_Filter] = (),
-        description: str = "",
+        description: _Text = "",
         id: str | None = None,
         default: Decimal | Callable[[], Decimal] | None = None,
         widget: _Widget[Self] | None = None,
@@ -96,7 +96,7 @@ class DecimalField(LocaleAwareNumberField):
     @overload
     def __init__(
         self,
-        label: str | None = None,
+        label: _Text | None = None,
         validators: tuple[_Validator[_FormT, Self], ...] | list[Any] | None = None,
         places: int | UnsetValue | None = ...,
         rounding: str | None = None,
@@ -107,7 +107,7 @@ class DecimalField(LocaleAwareNumberField):
         # for annotation this one argument
         number_format: str | Any | None = None,
         filters: Sequence[_Filter] = (),
-        description: str = "",
+        description: _Text = "",
         id: str | None = None,
         default: Decimal | Callable[[], Decimal] | None = None,
         widget: _Widget[Self] | None = None,
@@ -126,11 +126,11 @@ class FloatField(Field):
     default: float | Callable[[], float] | None
     def __init__(
         self,
-        label: str | None = None,
+        label: _Text | None = None,
         validators: tuple[_Validator[_FormT, Self], ...] | list[Any] | None = None,
         *,
         filters: Sequence[_Filter] = (),
-        description: str = "",
+        description: _Text = "",
         id: str | None = None,
         default: float | Callable[[], float] | None = None,
         widget: _Widget[Self] | None = None,
