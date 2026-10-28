@@ -1,7 +1,7 @@
 import sys
 from abc import abstractmethod
 from time import struct_time
-from typing import Any, ClassVar, Final, Generic, NoReturn, SupportsIndex, TypeVar, TypeAlias, final, overload, type_check_only
+from typing import Any, ClassVar, Final, Generic, NoReturn, SupportsIndex, TypeAlias, TypeVar, final, overload, type_check_only
 from typing_extensions import CapsuleType, Never, Self, deprecated, disjoint_base
 
 if sys.version_info >= (3, 11):
@@ -114,8 +114,7 @@ class date:
     def __radd__(self, value: timedelta, /) -> Self: ...
 
     @overload
-    def __sub__(self, value: datetime, /) ->
-    : ...
+    def __sub__(self, value: datetime, /) -> Never: ...
     @overload
     def __sub__(self, value: Self, /) -> timedelta: ...
     @overload
