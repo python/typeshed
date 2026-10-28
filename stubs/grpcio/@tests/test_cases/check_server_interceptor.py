@@ -1,8 +1,8 @@
 from __future__ import annotations
 
-from collections.abc import Callable
+from collections.abc import Awaitable, Callable
 from concurrent.futures.thread import ThreadPoolExecutor
-from typing import Awaitable, TypeVar
+from typing import TypeVar
 
 import grpc
 import grpc.aio
@@ -26,9 +26,9 @@ grpc.server(interceptors=[NoopInterceptor()], thread_pool=ThreadPoolExecutor())
 class NoopAioInterceptor(grpc.aio.ServerInterceptor):
     async def intercept_service(
         self,
-        continuation: Callable[[grpc.HandlerCallDetails], Awaitable[grpc.RpcMethodHandler[RequestT, ResponseT]]],
+        continuation: Callable[[grpc.HandlerCallDetails], Awaitable[grpc.RpcMethodHandler[RequestT, ResponseT] | None]],
         handler_call_details: grpc.HandlerCallDetails,
-    ) -> grpc.RpcMethodHandler[RequestT, ResponseT]:
+    ) -> grpc.RpcMethodHandler[RequestT, ResponseT] | None:
         return await continuation(handler_call_details)
 
 

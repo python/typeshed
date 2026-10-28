@@ -10,23 +10,10 @@ import collections
 import math
 import operator
 import sys
+from collections.abc import Callable, Collection, Hashable, Iterable, Iterator, Sequence
 from itertools import chain, combinations, count, cycle, filterfalse, groupby, islice, product, repeat, starmap, tee, zip_longest
-from typing import (
-    Any,
-    Callable,
-    Collection,
-    Hashable,
-    Iterable,
-    Iterator,
-    Literal,
-    Sequence,
-    Tuple,
-    Type,
-    TypeVar,
-    Union,
-    overload,
-)
-from typing_extensions import TypeAlias, TypeVarTuple, Unpack
+from typing import Any, Literal, TypeAlias, TypeVar, overload
+from typing_extensions import TypeVarTuple, Unpack
 
 _T = TypeVar("_T")
 _T1 = TypeVar("_T1")
@@ -140,7 +127,7 @@ def first_true(iterable: Iterable[object], default: object = False, pred: Callab
     return next(filter(pred, iterable), default)
 
 
-_ExceptionOrExceptionTuple: TypeAlias = Union[Type[BaseException], Tuple[Type[BaseException], ...]]
+_ExceptionOrExceptionTuple: TypeAlias = type[BaseException] | tuple[type[BaseException], ...]
 
 
 @overload
@@ -326,44 +313,46 @@ def nth_combination(iterable: Iterable[_T], r: int, index: int) -> tuple[_T, ...
     return tuple(result)
 
 
-if sys.version_info >= (3, 10):
+@overload
+def grouper(
+    iterable: Iterable[_T], n: int, *, incomplete: Literal["fill"] = "fill", fillvalue: None = None
+) -> Iterator[tuple[_T | None, ...]]: ...
 
-    @overload
-    def grouper(
-        iterable: Iterable[_T], n: int, *, incomplete: Literal["fill"] = "fill", fillvalue: None = None
-    ) -> Iterator[tuple[_T | None, ...]]: ...
 
-    @overload
-    def grouper(
-        iterable: Iterable[_T], n: int, *, incomplete: Literal["fill"] = "fill", fillvalue: _T1
-    ) -> Iterator[tuple[_T | _T1, ...]]: ...
+@overload
+def grouper(
+    iterable: Iterable[_T], n: int, *, incomplete: Literal["fill"] = "fill", fillvalue: _T1
+) -> Iterator[tuple[_T | _T1, ...]]: ...
 
-    @overload
-    def grouper(
-        iterable: Iterable[_T], n: int, *, incomplete: Literal["strict", "ignore"], fillvalue: None = None
-    ) -> Iterator[tuple[_T, ...]]: ...
 
-    def grouper(
-        iterable: Iterable[object], n: int, *, incomplete: Literal["fill", "strict", "ignore"] = "fill", fillvalue: object = None
-    ) -> Iterator[tuple[object, ...]]:
-        "Collect data into non-overlapping fixed-length chunks or blocks"
-        # grouper('ABCDEFG', 3, fillvalue='x') --> ABC DEF Gxx
-        # grouper('ABCDEFG', 3, incomplete='strict') --> ABC DEF ValueError
-        # grouper('ABCDEFG', 3, incomplete='ignore') --> ABC DEF
-        args = [iter(iterable)] * n
-        if incomplete == "fill":
-            return zip_longest(*args, fillvalue=fillvalue)
-        if incomplete == "strict":
-            return zip(*args, strict=True)
-        if incomplete == "ignore":
-            return zip(*args)
-        else:
-            raise ValueError("Expected fill, strict, or ignore")
+@overload
+def grouper(
+    iterable: Iterable[_T], n: int, *, incomplete: Literal["strict", "ignore"], fillvalue: None = None
+) -> Iterator[tuple[_T, ...]]: ...
 
-    def transpose(it: Iterable[Iterable[_T]]) -> Iterator[tuple[_T, ...]]:
-        "Swap the rows and columns of the input."
-        # transpose([(1, 2, 3), (11, 22, 33)]) --> (1, 11) (2, 22) (3, 33)
-        return zip(*it, strict=True)
+
+def grouper(
+    iterable: Iterable[object], n: int, *, incomplete: Literal["fill", "strict", "ignore"] = "fill", fillvalue: object = None
+) -> Iterator[tuple[object, ...]]:
+    "Collect data into non-overlapping fixed-length chunks or blocks"
+    # grouper('ABCDEFG', 3, fillvalue='x') --> ABC DEF Gxx
+    # grouper('ABCDEFG', 3, incomplete='strict') --> ABC DEF ValueError
+    # grouper('ABCDEFG', 3, incomplete='ignore') --> ABC DEF
+    args = [iter(iterable)] * n
+    if incomplete == "fill":
+        return zip_longest(*args, fillvalue=fillvalue)
+    if incomplete == "strict":
+        return zip(*args, strict=True)
+    if incomplete == "ignore":
+        return zip(*args)
+    else:
+        raise ValueError("Expected fill, strict, or ignore")
+
+
+def transpose(it: Iterable[Iterable[_T]]) -> Iterator[tuple[_T, ...]]:
+    "Swap the rows and columns of the input."
+    # transpose([(1, 2, 3), (11, 22, 33)]) --> (1, 11) (2, 22) (3, 33)
+    return zip(*it, strict=True)
 
 
 if sys.version_info >= (3, 12):

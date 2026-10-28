@@ -33,13 +33,22 @@ tarfile.LinkFallbackError
 tarfile.TarFile._extract_member
 tarfile.TarFile.makelink_with_filter
 
+# Incompatible changes introduced in Python 3.11.14
+# (Remove once 3.11.14 becomes available for GitHub Actions)
+pyexpat.XMLParserType.SetBillionLaughsAttackProtectionActivationThreshold
+pyexpat.XMLParserType.SetBillionLaughsAttackProtectionMaximumAmplification
+
 # Incompatible changes introduced in Python 3.11.15
 # (Remove once 3.11.15 becomes available for GitHub Actions)
+email._header_value_parser.make_parenthesis_pairs
 html.parser.HTMLParser.__init__ # parameter `scripting`
 pyexpat.XMLParserType.SetAllocTrackerActivationThreshold
 pyexpat.XMLParserType.SetAllocTrackerMaximumAmplification
-xml.parsers.expat.XMLParserType.SetAllocTrackerActivationThreshold
-xml.parsers.expat.XMLParserType.SetAllocTrackerMaximumAmplification
+
+# Incompatible changes introduced in Python 3.11.18
+# (Remove once 3.11.18 becomes available for GitHub Actions)
+email._header_value_parser.Terminal.contains_token_type
+email._header_value_parser.TokenList.contains_token_type
 
 
 # =============================================================
