@@ -1,7 +1,7 @@
 import sys
 from abc import abstractmethod
 from time import struct_time
-from typing import Any, ClassVar, Final, Generic, NoReturn, SupportsIndex, TypeAlias, TypeVar, final, overload, type_check_only
+from typing import Any, ClassVar, Final, Generic, SupportsIndex, TypeAlias, TypeVar, final, overload, type_check_only
 from typing_extensions import CapsuleType, Never, Self, deprecated, disjoint_base
 
 if sys.version_info >= (3, 11):
@@ -457,8 +457,7 @@ class datetime(date, Generic[_TzInfoT]):
         tzinfo: None,
         fold: int = ...,
     ) -> datetime[None]: ...
-
-    def astimezone(self, tz: _TzInfo | None = None) -> Self: ...
+    def astimezone(self, tz: _TzInfo | None = None) -> datetime[_TzInfo]: ...
     def isoformat(self, sep: str = "T", timespec: str = "auto") -> str: ...
 
     if sys.version_info >= (3, 15):
@@ -479,8 +478,7 @@ class datetime(date, Generic[_TzInfoT]):
     @overload
     def __le__(self: datetime[None] | datetime[_TzInfo | None], value: datetime[None] | datetime[_TzInfo | None], /) -> bool: ...  # type: ignore[misc]
     @overload
-    def __le__(self: datetime[Any], value: datetime[Any], /) -> NoReturn: ...
-
+    def __le__(self: datetime[Any], value: datetime[Any], /) -> Never: ...
     @overload  # type: ignore[override]
     def __lt__(  # type: ignore[overload-overlap]
         self: datetime[_TzInfo] | datetime[_TzInfo | None], value: datetime[_TzInfo] | datetime[_TzInfo | None], /
@@ -488,8 +486,7 @@ class datetime(date, Generic[_TzInfoT]):
     @overload
     def __lt__(self: datetime[None] | datetime[_TzInfo | None], value: datetime[None] | datetime[_TzInfo | None], /) -> bool: ...  # type: ignore[misc]
     @overload
-    def __lt__(self: datetime[Any], value: datetime[Any], /) -> NoReturn: ...
-
+    def __lt__(self: datetime[Any], value: datetime[Any], /) -> Never: ...
     @overload  # type: ignore[override]
     def __ge__(  # type: ignore[overload-overlap]
         self: datetime[_TzInfo] | datetime[_TzInfo | None], value: datetime[_TzInfo] | datetime[_TzInfo | None], /
@@ -497,8 +494,7 @@ class datetime(date, Generic[_TzInfoT]):
     @overload
     def __ge__(self: datetime[None] | datetime[_TzInfo | None], value: datetime[None] | datetime[_TzInfo | None], /) -> bool: ...  # type: ignore[misc]
     @overload
-    def __ge__(self: datetime[Any], value: datetime[Any], /) -> NoReturn: ...
-
+    def __ge__(self: datetime[Any], value: datetime[Any], /) -> Never: ...
     @overload  # type: ignore[override]
     def __gt__(  # type: ignore[overload-overlap]
         self: datetime[_TzInfo] | datetime[_TzInfo | None], value: datetime[_TzInfo] | datetime[_TzInfo | None], /
@@ -506,8 +502,7 @@ class datetime(date, Generic[_TzInfoT]):
     @overload
     def __gt__(self: datetime[None] | datetime[_TzInfo | None], value: datetime[None] | datetime[_TzInfo | None], /) -> bool: ...  # type: ignore[misc]
     @overload
-    def __gt__(self: datetime[Any], value: datetime[Any], /) -> NoReturn: ...
-
+    def __gt__(self: datetime[Any], value: datetime[Any], /) -> Never: ...
     def __eq__(self, value: object, /) -> bool: ...
     def __hash__(self) -> int: ...
 
@@ -520,7 +515,7 @@ class datetime(date, Generic[_TzInfoT]):
         self: datetime[None] | datetime[_TzInfo | None], value: datetime[None] | datetime[_TzInfo | None], /
     ) -> timedelta: ...
     @overload
-    def __sub__(self: datetime[Any], value: datetime[Any], /) -> NoReturn: ...
+    def __sub__(self: datetime[Any], value: datetime[Any], /) -> Never: ...
     @overload
     def __sub__(self, value: timedelta, /) -> Self: ...
 
