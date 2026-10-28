@@ -17,18 +17,24 @@ limitations under the License.
 ==============================================================================
 """
 
-import builtins
-import collections.abc
-import typing
+import builtins as _builtins
+import sys
+import typing as _typing
+from collections import abc as _abc
 
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.message
+from google.protobuf import descriptor as _descriptor, message as _message
+from google.protobuf.internal import containers as _containers
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
+else:
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-@typing.final
-class JobDef(google.protobuf.message.Message):
+DESCRIPTOR: _descriptor.FileDescriptor
+
+@_typing.final
+class JobDef(_message.Message):
     """This file contains protos to be used when defining a TensorFlow
     cluster.
 
@@ -73,25 +79,29 @@ class JobDef(google.protobuf.message.Message):
     Defines a single job in a TensorFlow cluster.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class TasksEntry(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class TasksEntry(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        KEY_FIELD_NUMBER: builtins.int
-        VALUE_FIELD_NUMBER: builtins.int
-        key: builtins.int
-        value: builtins.str
-        def __init__(self, *, key: builtins.int | None = ..., value: builtins.str | None = ...) -> None: ...
-        def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
+        KEY_FIELD_NUMBER: _builtins.int
+        VALUE_FIELD_NUMBER: _builtins.int
+        key: _builtins.int
+        value: _builtins.str
+        def __init__(self, *, key: _builtins.int | None = ..., value: _builtins.str | None = ...) -> None: ...
+        _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["key", b"key", "value", b"value"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    NAME_FIELD_NUMBER: builtins.int
-    TASKS_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    TASKS_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """The name of this job."""
-    @property
-    def tasks(self) -> google.protobuf.internal.containers.ScalarMap[builtins.int, builtins.str]:
+    @_builtins.property
+    def tasks(self) -> _containers.ScalarMap[_builtins.int, _builtins.str]:
         """Mapping from task ID to "hostname:port" string.
 
         If the `name` field contains "worker", and the `tasks` map contains a
@@ -103,24 +113,32 @@ class JobDef(google.protobuf.message.Message):
         """
 
     def __init__(
-        self, *, name: builtins.str | None = ..., tasks: collections.abc.Mapping[builtins.int, builtins.str] | None = ...
+        self, *, name: _builtins.str | None = ..., tasks: _abc.Mapping[_builtins.int, _builtins.str] | None = ...
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["name", b"name", "tasks", b"tasks"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["name", b"name", "tasks", b"tasks"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___JobDef = JobDef
+Global___JobDef: _TypeAlias = JobDef  # noqa: Y015
 
-@typing.final
-class ClusterDef(google.protobuf.message.Message):
+@_typing.final
+class ClusterDef(_message.Message):
     """Defines a TensorFlow cluster as a set of jobs."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    JOB_FIELD_NUMBER: builtins.int
-    @property
-    def job(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___JobDef]:
+    JOB_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def job(self) -> _containers.RepeatedCompositeFieldContainer[Global___JobDef]:
         """The jobs that comprise the cluster."""
 
-    def __init__(self, *, job: collections.abc.Iterable[global___JobDef] | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["job", b"job"]) -> None: ...
+    def __init__(self, *, job: _abc.Iterable[Global___JobDef] | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["job", b"job"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___ClusterDef = ClusterDef
+Global___ClusterDef: _TypeAlias = ClusterDef  # noqa: Y015

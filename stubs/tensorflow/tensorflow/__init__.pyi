@@ -6,7 +6,7 @@ from collections.abc import Callable, Generator, Iterable, Iterator, Sequence
 from contextlib import contextmanager
 from enum import Enum
 from types import TracebackType
-from typing import Any, Generic, Literal, ParamSpec, TypeAlias, TypeVar, overload
+from typing import Any, Generic, Literal, ParamSpec, TypeAlias, TypeVar, overload, type_check_only
 from typing_extensions import Self
 
 from google.protobuf.message import Message
@@ -93,7 +93,6 @@ from tensorflow.sparse import SparseTensor as SparseTensor
 # run quickly into many places where type system is not strong enough today.
 # So shape typing is probably not worth doing anytime soon.
 class Tensor:
-    def __init__(self, op: Operation, value_index: int, dtype: DType) -> None: ...
     def consumers(self) -> list[Incomplete]: ...
     @property
     def shape(self) -> TensorShape: ...
@@ -153,6 +152,7 @@ class VariableAggregation(Enum):
     MEAN = 2
     ONLY_FIRST_REPLICA = 3
 
+@type_check_only
 class _VariableMetaclass(type): ...
 
 # Variable class in intent/documentation is a Tensor. In implementation there's
@@ -202,8 +202,9 @@ class RaggedTensor(metaclass=ABCMeta):
     def __getattr__(self, name: str) -> Incomplete: ...
 
 class Operation:
-    def __init__(
-        self,
+    @classmethod
+    def from_node_def(
+        cls,
         node_def,
         g: Graph,
         # isinstance is used so can not be Sequence/Iterable.
@@ -213,7 +214,7 @@ class Operation:
         input_types: Iterable[DType] | None = None,
         original_op: Operation | None = None,
         op_def=None,
-    ) -> None: ...
+    ) -> Operation: ...
     @property
     def inputs(self) -> list[Tensor]: ...
     @property
@@ -506,18 +507,11 @@ def clip_by_value(
     t: Tensor | IndexedSlices, clip_value_min: TensorCompatible, clip_value_max: TensorCompatible, name: str | None = None
 ) -> Tensor: ...
 def tile(input: RaggedTensorLike, multiples: Tensor | Sequence[int], name: str | None = None) -> Tensor: ...
-
-@overload
 def range(
-    limit: int | Tensor, /, *, delta: int | Tensor = 1, dtype: DTypeLike | None = None, name: str | None = "range"
-) -> Tensor: ...
-@overload
-def range(
-    start: int | Tensor = 0,
-    limit: int | Tensor = 0,
+    start: int | Tensor,
+    limit: int | Tensor | None = None,
     delta: int | Tensor = 1,
     dtype: DTypeLike | None = None,
     name: str | None = "range",
 ) -> Tensor: ...
-
 def __getattr__(name: str): ...  # incomplete module

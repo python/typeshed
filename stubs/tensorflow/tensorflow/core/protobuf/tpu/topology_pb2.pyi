@@ -3,37 +3,36 @@
 isort:skip_file
 """
 
-import builtins
-import collections.abc
+import builtins as _builtins
 import sys
-import typing
+import typing as _typing
+from collections import abc as _abc
 
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.internal.enum_type_wrapper
-import google.protobuf.message
+from google.protobuf import descriptor as _descriptor, message as _message
+from google.protobuf.internal import containers as _containers, enum_type_wrapper as _enum_type_wrapper
 
-if sys.version_info >= (3, 10):
-    import typing as typing_extensions
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
 else:
-    import typing_extensions
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+DESCRIPTOR: _descriptor.FileDescriptor
 
-@typing.final
-class TPUHardwareFeature(google.protobuf.message.Message):
+@_typing.final
+class TPUHardwareFeature(_message.Message):
     """Describes features of a tpu."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _EmbeddingFeature:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
     class _EmbeddingFeatureEnumTypeWrapper(
-        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[TPUHardwareFeature._EmbeddingFeature.ValueType], builtins.type
+        _enum_type_wrapper._EnumTypeWrapper[TPUHardwareFeature._EmbeddingFeature.ValueType], _builtins.type
     ):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        DESCRIPTOR: _descriptor.EnumDescriptor
         UNSUPPORTED: TPUHardwareFeature._EmbeddingFeature.ValueType  # 0
         """No embedding lookup accelerator available on the tpu."""
         V1: TPUHardwareFeature._EmbeddingFeature.ValueType  # 1
@@ -63,51 +62,52 @@ class TPUHardwareFeature(google.protobuf.message.Message):
     lookup layer is allowed.
     """
 
-    EMBEDDING_FEATURE_FIELD_NUMBER: builtins.int
-    NUM_EMBEDDING_DEVICES_PER_CHIP_FIELD_NUMBER: builtins.int
-    embedding_feature: global___TPUHardwareFeature.EmbeddingFeature.ValueType
-    num_embedding_devices_per_chip: builtins.int
+    EMBEDDING_FEATURE_FIELD_NUMBER: _builtins.int
+    NUM_EMBEDDING_DEVICES_PER_CHIP_FIELD_NUMBER: _builtins.int
+    embedding_feature: Global___TPUHardwareFeature.EmbeddingFeature.ValueType
+    num_embedding_devices_per_chip: _builtins.int
     """Number of embedding accelerator devices per chip."""
     def __init__(
         self,
         *,
-        embedding_feature: global___TPUHardwareFeature.EmbeddingFeature.ValueType | None = ...,
-        num_embedding_devices_per_chip: builtins.int | None = ...,
+        embedding_feature: Global___TPUHardwareFeature.EmbeddingFeature.ValueType | None = ...,
+        num_embedding_devices_per_chip: _builtins.int | None = ...,
     ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "embedding_feature", b"embedding_feature", "num_embedding_devices_per_chip", b"num_embedding_devices_per_chip"
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "embedding_feature", b"embedding_feature", "num_embedding_devices_per_chip", b"num_embedding_devices_per_chip"
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___TPUHardwareFeature = TPUHardwareFeature
+Global___TPUHardwareFeature: _TypeAlias = TPUHardwareFeature  # noqa: Y015
 
-@typing.final
-class TopologyProto(google.protobuf.message.Message):
+@_typing.final
+class TopologyProto(_message.Message):
     """Describes the geometry of a TPU mesh."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    MESH_SHAPE_FIELD_NUMBER: builtins.int
-    NUM_TASKS_FIELD_NUMBER: builtins.int
-    NUM_TPU_DEVICES_PER_TASK_FIELD_NUMBER: builtins.int
-    DEVICE_COORDINATES_FIELD_NUMBER: builtins.int
-    TPU_HARDWARE_FEATURE_FIELD_NUMBER: builtins.int
-    num_tasks: builtins.int
+    MESH_SHAPE_FIELD_NUMBER: _builtins.int
+    NUM_TASKS_FIELD_NUMBER: _builtins.int
+    NUM_TPU_DEVICES_PER_TASK_FIELD_NUMBER: _builtins.int
+    DEVICE_COORDINATES_FIELD_NUMBER: _builtins.int
+    TPU_HARDWARE_FEATURE_FIELD_NUMBER: _builtins.int
+    num_tasks: _builtins.int
     """Number of TensorFlow tasks in the cluster."""
-    num_tpu_devices_per_task: builtins.int
+    num_tpu_devices_per_task: _builtins.int
     """Number of TPU devices per task."""
-    @property
-    def mesh_shape(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+    @_builtins.property
+    def mesh_shape(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]:
         """The dimensions of the TPU topology, in cores. Typically, this is a 4D
         topology [x, y, z, core], where the major dimensions correspond to TPU
         chips, and the minor dimension describes the number of cores on a multicore
         chip.
         """
 
-    @property
-    def device_coordinates(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+    @_builtins.property
+    def device_coordinates(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]:
         """A flattened rank 3 int32 array with shape
         [num_tasks, num_tpu_devices_per_task, len(mesh_shape)].
         `tasks` is the number of tasks in the TPU cluster, `devices` is the number
@@ -116,34 +116,34 @@ class TopologyProto(google.protobuf.message.Message):
         `axis`-th coordinate in the topology of a task/device pair.
         """
 
-    @property
-    def tpu_hardware_feature(self) -> global___TPUHardwareFeature:
+    @_builtins.property
+    def tpu_hardware_feature(self) -> Global___TPUHardwareFeature:
         """TPU supported features."""
 
     def __init__(
         self,
         *,
-        mesh_shape: collections.abc.Iterable[builtins.int] | None = ...,
-        num_tasks: builtins.int | None = ...,
-        num_tpu_devices_per_task: builtins.int | None = ...,
-        device_coordinates: collections.abc.Iterable[builtins.int] | None = ...,
-        tpu_hardware_feature: global___TPUHardwareFeature | None = ...,
+        mesh_shape: _abc.Iterable[_builtins.int] | None = ...,
+        num_tasks: _builtins.int | None = ...,
+        num_tpu_devices_per_task: _builtins.int | None = ...,
+        device_coordinates: _abc.Iterable[_builtins.int] | None = ...,
+        tpu_hardware_feature: Global___TPUHardwareFeature | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["tpu_hardware_feature", b"tpu_hardware_feature"]) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "device_coordinates",
-            b"device_coordinates",
-            "mesh_shape",
-            b"mesh_shape",
-            "num_tasks",
-            b"num_tasks",
-            "num_tpu_devices_per_task",
-            b"num_tpu_devices_per_task",
-            "tpu_hardware_feature",
-            b"tpu_hardware_feature",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["tpu_hardware_feature", b"tpu_hardware_feature"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "device_coordinates",
+        b"device_coordinates",
+        "mesh_shape",
+        b"mesh_shape",
+        "num_tasks",
+        b"num_tasks",
+        "num_tpu_devices_per_task",
+        b"num_tpu_devices_per_task",
+        "tpu_hardware_feature",
+        b"tpu_hardware_feature",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___TopologyProto = TopologyProto
+Global___TopologyProto: _TypeAlias = TopologyProto  # noqa: Y015

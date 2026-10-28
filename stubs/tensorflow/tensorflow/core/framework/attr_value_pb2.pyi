@@ -3,141 +3,119 @@
 isort:skip_file
 """
 
-import builtins
-import collections.abc
-import typing
+import builtins as _builtins
+import sys
+import typing as _typing
+from collections import abc as _abc
 
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.message
-import tensorflow.core.framework.tensor_pb2
-import tensorflow.core.framework.tensor_shape_pb2
-import tensorflow.core.framework.types_pb2
+from google.protobuf import descriptor as _descriptor, message as _message
+from google.protobuf.internal import containers as _containers
+from tensorflow.core.framework import tensor_pb2 as _tensor_pb2, tensor_shape_pb2 as _tensor_shape_pb2, types_pb2 as _types_pb2
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
+else:
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-@typing.final
-class AttrValue(google.protobuf.message.Message):
+DESCRIPTOR: _descriptor.FileDescriptor
+
+@_typing.final
+class AttrValue(_message.Message):
     """Protocol buffer representing the value for an attr used to configure an Op.
     Comment indicates the corresponding attr type.  Only the field matching the
     attr type may be filled.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class ListValue(google.protobuf.message.Message):
+    @_typing.final
+    class ListValue(_message.Message):
         """LINT.IfChange"""
 
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+        DESCRIPTOR: _descriptor.Descriptor
 
-        S_FIELD_NUMBER: builtins.int
-        I_FIELD_NUMBER: builtins.int
-        F_FIELD_NUMBER: builtins.int
-        B_FIELD_NUMBER: builtins.int
-        TYPE_FIELD_NUMBER: builtins.int
-        SHAPE_FIELD_NUMBER: builtins.int
-        TENSOR_FIELD_NUMBER: builtins.int
-        FUNC_FIELD_NUMBER: builtins.int
-        @property
-        def s(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.bytes]:
+        S_FIELD_NUMBER: _builtins.int
+        I_FIELD_NUMBER: _builtins.int
+        F_FIELD_NUMBER: _builtins.int
+        B_FIELD_NUMBER: _builtins.int
+        TYPE_FIELD_NUMBER: _builtins.int
+        SHAPE_FIELD_NUMBER: _builtins.int
+        TENSOR_FIELD_NUMBER: _builtins.int
+        FUNC_FIELD_NUMBER: _builtins.int
+        @_builtins.property
+        def s(self) -> _containers.RepeatedScalarFieldContainer[_builtins.bytes]:
             """ "list(string)" """
 
-        @property
-        def i(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+        @_builtins.property
+        def i(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]:
             """ "list(int)" """
 
-        @property
-        def f(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.float]:
+        @_builtins.property
+        def f(self) -> _containers.RepeatedScalarFieldContainer[_builtins.float]:
             """ "list(float)" """
 
-        @property
-        def b(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.bool]:
+        @_builtins.property
+        def b(self) -> _containers.RepeatedScalarFieldContainer[_builtins.bool]:
             """ "list(bool)" """
 
-        @property
-        def type(
-            self,
-        ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[
-            tensorflow.core.framework.types_pb2.DataType.ValueType
-        ]:
+        @_builtins.property
+        def type(self) -> _containers.RepeatedScalarFieldContainer[_types_pb2.DataType.ValueType]:
             """ "list(type)" """
 
-        @property
-        def shape(
-            self,
-        ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
-            tensorflow.core.framework.tensor_shape_pb2.TensorShapeProto
-        ]:
+        @_builtins.property
+        def shape(self) -> _containers.RepeatedCompositeFieldContainer[_tensor_shape_pb2.TensorShapeProto]:
             """ "list(shape)" """
 
-        @property
-        def tensor(
-            self,
-        ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
-            tensorflow.core.framework.tensor_pb2.TensorProto
-        ]:
+        @_builtins.property
+        def tensor(self) -> _containers.RepeatedCompositeFieldContainer[_tensor_pb2.TensorProto]:
             """ "list(tensor)" """
 
-        @property
-        def func(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___NameAttrList]:
+        @_builtins.property
+        def func(self) -> _containers.RepeatedCompositeFieldContainer[Global___NameAttrList]:
             """ "list(attr)" """
 
         def __init__(
             self,
             *,
-            s: collections.abc.Iterable[builtins.bytes] | None = ...,
-            i: collections.abc.Iterable[builtins.int] | None = ...,
-            f: collections.abc.Iterable[builtins.float] | None = ...,
-            b: collections.abc.Iterable[builtins.bool] | None = ...,
-            type: collections.abc.Iterable[tensorflow.core.framework.types_pb2.DataType.ValueType] | None = ...,
-            shape: collections.abc.Iterable[tensorflow.core.framework.tensor_shape_pb2.TensorShapeProto] | None = ...,
-            tensor: collections.abc.Iterable[tensorflow.core.framework.tensor_pb2.TensorProto] | None = ...,
-            func: collections.abc.Iterable[global___NameAttrList] | None = ...,
+            s: _abc.Iterable[_builtins.bytes] | None = ...,
+            i: _abc.Iterable[_builtins.int] | None = ...,
+            f: _abc.Iterable[_builtins.float] | None = ...,
+            b: _abc.Iterable[_builtins.bool] | None = ...,
+            type: _abc.Iterable[_types_pb2.DataType.ValueType] | None = ...,
+            shape: _abc.Iterable[_tensor_shape_pb2.TensorShapeProto] | None = ...,
+            tensor: _abc.Iterable[_tensor_pb2.TensorProto] | None = ...,
+            func: _abc.Iterable[Global___NameAttrList] | None = ...,
         ) -> None: ...
-        def ClearField(
-            self,
-            field_name: typing.Literal[
-                "b",
-                b"b",
-                "f",
-                b"f",
-                "func",
-                b"func",
-                "i",
-                b"i",
-                "s",
-                b"s",
-                "shape",
-                b"shape",
-                "tensor",
-                b"tensor",
-                "type",
-                b"type",
-            ],
-        ) -> None: ...
+        _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal[
+            "b", b"b", "f", b"f", "func", b"func", "i", b"i", "s", b"s", "shape", b"shape", "tensor", b"tensor", "type", b"type"
+        ]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    S_FIELD_NUMBER: builtins.int
-    I_FIELD_NUMBER: builtins.int
-    F_FIELD_NUMBER: builtins.int
-    B_FIELD_NUMBER: builtins.int
-    TYPE_FIELD_NUMBER: builtins.int
-    SHAPE_FIELD_NUMBER: builtins.int
-    TENSOR_FIELD_NUMBER: builtins.int
-    LIST_FIELD_NUMBER: builtins.int
-    FUNC_FIELD_NUMBER: builtins.int
-    PLACEHOLDER_FIELD_NUMBER: builtins.int
-    s: builtins.bytes
+    S_FIELD_NUMBER: _builtins.int
+    I_FIELD_NUMBER: _builtins.int
+    F_FIELD_NUMBER: _builtins.int
+    B_FIELD_NUMBER: _builtins.int
+    TYPE_FIELD_NUMBER: _builtins.int
+    SHAPE_FIELD_NUMBER: _builtins.int
+    TENSOR_FIELD_NUMBER: _builtins.int
+    LIST_FIELD_NUMBER: _builtins.int
+    FUNC_FIELD_NUMBER: _builtins.int
+    PLACEHOLDER_FIELD_NUMBER: _builtins.int
+    s: _builtins.bytes
     """"string" """
-    i: builtins.int
+    i: _builtins.int
     """"int" """
-    f: builtins.float
+    f: _builtins.float
     """"float" """
-    b: builtins.bool
+    b: _builtins.bool
     """"bool" """
-    type: tensorflow.core.framework.types_pb2.DataType.ValueType
+    type: _types_pb2.DataType.ValueType
     """"type" """
-    placeholder: builtins.str
+    placeholder: _builtins.str
     """This is a placeholder only used in nodes defined inside a
     function.  It indicates the attr value will be supplied when
     the function is instantiated.  For example, let us suppose a
@@ -146,20 +124,20 @@ class AttrValue(google.protobuf.message.Message):
     set to "bar", the instantiated node N's attr A will have been
     given the value "bar".
     """
-    @property
-    def shape(self) -> tensorflow.core.framework.tensor_shape_pb2.TensorShapeProto:
+    @_builtins.property
+    def shape(self) -> _tensor_shape_pb2.TensorShapeProto:
         """ "shape" """
 
-    @property
-    def tensor(self) -> tensorflow.core.framework.tensor_pb2.TensorProto:
+    @_builtins.property
+    def tensor(self) -> _tensor_pb2.TensorProto:
         """ "tensor" """
 
-    @property
-    def list(self) -> global___AttrValue.ListValue:
+    @_builtins.property
+    def list(self) -> Global___AttrValue.ListValue:
         """any "list(...)" """
 
-    @property
-    def func(self) -> global___NameAttrList:
+    @_builtins.property
+    def func(self) -> Global___NameAttrList:
         """ "func" represents a function. func.name is a function's name or
         a primitive op's name. func.attr.first is the name of an attr
         defined for that function. func.attr.second is the value for
@@ -169,106 +147,111 @@ class AttrValue(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        s: builtins.bytes | None = ...,
-        i: builtins.int | None = ...,
-        f: builtins.float | None = ...,
-        b: builtins.bool | None = ...,
-        type: tensorflow.core.framework.types_pb2.DataType.ValueType | None = ...,
-        shape: tensorflow.core.framework.tensor_shape_pb2.TensorShapeProto | None = ...,
-        tensor: tensorflow.core.framework.tensor_pb2.TensorProto | None = ...,
-        list: global___AttrValue.ListValue | None = ...,
-        func: global___NameAttrList | None = ...,
-        placeholder: builtins.str | None = ...,
+        s: _builtins.bytes | None = ...,
+        i: _builtins.int | None = ...,
+        f: _builtins.float | None = ...,
+        b: _builtins.bool | None = ...,
+        type: _types_pb2.DataType.ValueType | None = ...,
+        shape: _tensor_shape_pb2.TensorShapeProto | None = ...,
+        tensor: _tensor_pb2.TensorProto | None = ...,
+        list: Global___AttrValue.ListValue | None = ...,
+        func: Global___NameAttrList | None = ...,
+        placeholder: _builtins.str | None = ...,
     ) -> None: ...
-    def HasField(
-        self,
-        field_name: typing.Literal[
-            "b",
-            b"b",
-            "f",
-            b"f",
-            "func",
-            b"func",
-            "i",
-            b"i",
-            "list",
-            b"list",
-            "placeholder",
-            b"placeholder",
-            "s",
-            b"s",
-            "shape",
-            b"shape",
-            "tensor",
-            b"tensor",
-            "type",
-            b"type",
-            "value",
-            b"value",
-        ],
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "b",
-            b"b",
-            "f",
-            b"f",
-            "func",
-            b"func",
-            "i",
-            b"i",
-            "list",
-            b"list",
-            "placeholder",
-            b"placeholder",
-            "s",
-            b"s",
-            "shape",
-            b"shape",
-            "tensor",
-            b"tensor",
-            "type",
-            b"type",
-            "value",
-            b"value",
-        ],
-    ) -> None: ...
-    def WhichOneof(
-        self, oneof_group: typing.Literal["value", b"value"]
-    ) -> typing.Literal["s", "i", "f", "b", "type", "shape", "tensor", "list", "func", "placeholder"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal[
+        "b",
+        b"b",
+        "f",
+        b"f",
+        "func",
+        b"func",
+        "i",
+        b"i",
+        "list",
+        b"list",
+        "placeholder",
+        b"placeholder",
+        "s",
+        b"s",
+        "shape",
+        b"shape",
+        "tensor",
+        b"tensor",
+        "type",
+        b"type",
+        "value",
+        b"value",
+    ]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "b",
+        b"b",
+        "f",
+        b"f",
+        "func",
+        b"func",
+        "i",
+        b"i",
+        "list",
+        b"list",
+        "placeholder",
+        b"placeholder",
+        "s",
+        b"s",
+        "shape",
+        b"shape",
+        "tensor",
+        b"tensor",
+        "type",
+        b"type",
+        "value",
+        b"value",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType_value: _TypeAlias = _typing.Literal[
+        "s", "i", "f", "b", "type", "shape", "tensor", "list", "func", "placeholder"
+    ]  # noqa: Y015
+    _WhichOneofArgType_value: _TypeAlias = _typing.Literal["value", b"value"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType_value) -> _WhichOneofReturnType_value | None: ...
 
-global___AttrValue = AttrValue
+Global___AttrValue: _TypeAlias = AttrValue  # noqa: Y015
 
-@typing.final
-class NameAttrList(google.protobuf.message.Message):
+@_typing.final
+class NameAttrList(_message.Message):
     """A list of attr names and their values. The whole list is attached
     with a string name.  E.g., MatMul[T=float].
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class AttrEntry(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class AttrEntry(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        KEY_FIELD_NUMBER: builtins.int
-        VALUE_FIELD_NUMBER: builtins.int
-        key: builtins.str
-        @property
-        def value(self) -> global___AttrValue: ...
-        def __init__(self, *, key: builtins.str | None = ..., value: global___AttrValue | None = ...) -> None: ...
-        def HasField(self, field_name: typing.Literal["value", b"value"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
+        KEY_FIELD_NUMBER: _builtins.int
+        VALUE_FIELD_NUMBER: _builtins.int
+        key: _builtins.str
+        @_builtins.property
+        def value(self) -> Global___AttrValue: ...
+        def __init__(self, *, key: _builtins.str | None = ..., value: Global___AttrValue | None = ...) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["value", b"value"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["key", b"key", "value", b"value"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    NAME_FIELD_NUMBER: builtins.int
-    ATTR_FIELD_NUMBER: builtins.int
-    name: builtins.str
-    @property
-    def attr(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, global___AttrValue]: ...
+    NAME_FIELD_NUMBER: _builtins.int
+    ATTR_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
+    @_builtins.property
+    def attr(self) -> _containers.MessageMap[_builtins.str, Global___AttrValue]: ...
     def __init__(
-        self, *, name: builtins.str | None = ..., attr: collections.abc.Mapping[builtins.str, global___AttrValue] | None = ...
+        self, *, name: _builtins.str | None = ..., attr: _abc.Mapping[_builtins.str, Global___AttrValue] | None = ...
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["attr", b"attr", "name", b"name"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["attr", b"attr", "name", b"name"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___NameAttrList = NameAttrList
+Global___NameAttrList: _TypeAlias = NameAttrList  # noqa: Y015

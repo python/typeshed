@@ -3,26 +3,36 @@
 isort:skip_file
 """
 
-import builtins
-import collections.abc
-import typing
+import builtins as _builtins
+import sys
+import typing as _typing
+from collections import abc as _abc
 
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.message
+from google.protobuf import descriptor as _descriptor, message as _message
+from google.protobuf.internal import containers as _containers
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
+else:
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-@typing.final
-class RecvBufRespExtra(google.protobuf.message.Message):
+DESCRIPTOR: _descriptor.FileDescriptor
+
+@_typing.final
+class RecvBufRespExtra(_message.Message):
     """Extra data needed on a non-RDMA RecvBufResponse."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    TENSOR_CONTENT_FIELD_NUMBER: builtins.int
-    @property
-    def tensor_content(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.bytes]: ...
-    def __init__(self, *, tensor_content: collections.abc.Iterable[builtins.bytes] | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["tensor_content", b"tensor_content"]) -> None: ...
+    TENSOR_CONTENT_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def tensor_content(self) -> _containers.RepeatedScalarFieldContainer[_builtins.bytes]: ...
+    def __init__(self, *, tensor_content: _abc.Iterable[_builtins.bytes] | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["tensor_content", b"tensor_content"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___RecvBufRespExtra = RecvBufRespExtra
+Global___RecvBufRespExtra: _TypeAlias = RecvBufRespExtra  # noqa: Y015

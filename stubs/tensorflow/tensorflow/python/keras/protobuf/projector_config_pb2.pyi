@@ -6,124 +6,135 @@ Keep this file in sync with the source proto definition at
 https://github.com/tensorflow/tensorboard/blob/master/tensorboard/plugins/projector/projector_config.proto
 """
 
-import builtins
-import collections.abc
-import typing
+import builtins as _builtins
+import sys
+import typing as _typing
+from collections import abc as _abc
 
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.message
+from google.protobuf import descriptor as _descriptor, message as _message
+from google.protobuf.internal import containers as _containers
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
+else:
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-@typing.final
-class SpriteMetadata(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+DESCRIPTOR: _descriptor.FileDescriptor
 
-    IMAGE_PATH_FIELD_NUMBER: builtins.int
-    SINGLE_IMAGE_DIM_FIELD_NUMBER: builtins.int
-    image_path: builtins.str
-    @property
-    def single_image_dim(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+@_typing.final
+class SpriteMetadata(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    IMAGE_PATH_FIELD_NUMBER: _builtins.int
+    SINGLE_IMAGE_DIM_FIELD_NUMBER: _builtins.int
+    image_path: _builtins.str
+    @_builtins.property
+    def single_image_dim(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]:
         """[width, height] of a single image in the sprite."""
 
     def __init__(
-        self, *, image_path: builtins.str | None = ..., single_image_dim: collections.abc.Iterable[builtins.int] | None = ...
+        self, *, image_path: _builtins.str | None = ..., single_image_dim: _abc.Iterable[_builtins.int] | None = ...
     ) -> None: ...
-    def ClearField(
-        self, field_name: typing.Literal["image_path", b"image_path", "single_image_dim", b"single_image_dim"]
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "image_path", b"image_path", "single_image_dim", b"single_image_dim"
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___SpriteMetadata = SpriteMetadata
+Global___SpriteMetadata: _TypeAlias = SpriteMetadata  # noqa: Y015
 
-@typing.final
-class EmbeddingInfo(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class EmbeddingInfo(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    TENSOR_NAME_FIELD_NUMBER: builtins.int
-    METADATA_PATH_FIELD_NUMBER: builtins.int
-    BOOKMARKS_PATH_FIELD_NUMBER: builtins.int
-    TENSOR_SHAPE_FIELD_NUMBER: builtins.int
-    SPRITE_FIELD_NUMBER: builtins.int
-    TENSOR_PATH_FIELD_NUMBER: builtins.int
-    tensor_name: builtins.str
-    metadata_path: builtins.str
-    bookmarks_path: builtins.str
-    tensor_path: builtins.str
+    TENSOR_NAME_FIELD_NUMBER: _builtins.int
+    METADATA_PATH_FIELD_NUMBER: _builtins.int
+    BOOKMARKS_PATH_FIELD_NUMBER: _builtins.int
+    TENSOR_SHAPE_FIELD_NUMBER: _builtins.int
+    SPRITE_FIELD_NUMBER: _builtins.int
+    TENSOR_PATH_FIELD_NUMBER: _builtins.int
+    tensor_name: _builtins.str
+    metadata_path: _builtins.str
+    bookmarks_path: _builtins.str
+    tensor_path: _builtins.str
     """Path to the TSV file holding the tensor values. If missing, the tensor
     is assumed to be stored in the model checkpoint.
     """
-    @property
-    def tensor_shape(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+    @_builtins.property
+    def tensor_shape(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]:
         """Shape of the 2D tensor [N x D]. If missing, it will be inferred from the
         model checkpoint.
         """
 
-    @property
-    def sprite(self) -> global___SpriteMetadata: ...
+    @_builtins.property
+    def sprite(self) -> Global___SpriteMetadata: ...
     def __init__(
         self,
         *,
-        tensor_name: builtins.str | None = ...,
-        metadata_path: builtins.str | None = ...,
-        bookmarks_path: builtins.str | None = ...,
-        tensor_shape: collections.abc.Iterable[builtins.int] | None = ...,
-        sprite: global___SpriteMetadata | None = ...,
-        tensor_path: builtins.str | None = ...,
+        tensor_name: _builtins.str | None = ...,
+        metadata_path: _builtins.str | None = ...,
+        bookmarks_path: _builtins.str | None = ...,
+        tensor_shape: _abc.Iterable[_builtins.int] | None = ...,
+        sprite: Global___SpriteMetadata | None = ...,
+        tensor_path: _builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["sprite", b"sprite"]) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "bookmarks_path",
-            b"bookmarks_path",
-            "metadata_path",
-            b"metadata_path",
-            "sprite",
-            b"sprite",
-            "tensor_name",
-            b"tensor_name",
-            "tensor_path",
-            b"tensor_path",
-            "tensor_shape",
-            b"tensor_shape",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["sprite", b"sprite"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "bookmarks_path",
+        b"bookmarks_path",
+        "metadata_path",
+        b"metadata_path",
+        "sprite",
+        b"sprite",
+        "tensor_name",
+        b"tensor_name",
+        "tensor_path",
+        b"tensor_path",
+        "tensor_shape",
+        b"tensor_shape",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___EmbeddingInfo = EmbeddingInfo
+Global___EmbeddingInfo: _TypeAlias = EmbeddingInfo  # noqa: Y015
 
-@typing.final
-class ProjectorConfig(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class ProjectorConfig(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    MODEL_CHECKPOINT_PATH_FIELD_NUMBER: builtins.int
-    EMBEDDINGS_FIELD_NUMBER: builtins.int
-    MODEL_CHECKPOINT_DIR_FIELD_NUMBER: builtins.int
-    model_checkpoint_path: builtins.str
+    MODEL_CHECKPOINT_PATH_FIELD_NUMBER: _builtins.int
+    EMBEDDINGS_FIELD_NUMBER: _builtins.int
+    MODEL_CHECKPOINT_DIR_FIELD_NUMBER: _builtins.int
+    model_checkpoint_path: _builtins.str
     """Path to the checkpoint file. Use either this or model_checkpoint_dir."""
-    model_checkpoint_dir: builtins.str
+    model_checkpoint_dir: _builtins.str
     """Path to the checkpoint directory. The directory will be scanned for the
     latest checkpoint file.
     """
-    @property
-    def embeddings(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___EmbeddingInfo]: ...
+    @_builtins.property
+    def embeddings(self) -> _containers.RepeatedCompositeFieldContainer[Global___EmbeddingInfo]: ...
     def __init__(
         self,
         *,
-        model_checkpoint_path: builtins.str | None = ...,
-        embeddings: collections.abc.Iterable[global___EmbeddingInfo] | None = ...,
-        model_checkpoint_dir: builtins.str | None = ...,
+        model_checkpoint_path: _builtins.str | None = ...,
+        embeddings: _abc.Iterable[Global___EmbeddingInfo] | None = ...,
+        model_checkpoint_dir: _builtins.str | None = ...,
     ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "embeddings",
-            b"embeddings",
-            "model_checkpoint_dir",
-            b"model_checkpoint_dir",
-            "model_checkpoint_path",
-            b"model_checkpoint_path",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "embeddings",
+        b"embeddings",
+        "model_checkpoint_dir",
+        b"model_checkpoint_dir",
+        "model_checkpoint_path",
+        b"model_checkpoint_path",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___ProjectorConfig = ProjectorConfig
+Global___ProjectorConfig: _TypeAlias = ProjectorConfig  # noqa: Y015

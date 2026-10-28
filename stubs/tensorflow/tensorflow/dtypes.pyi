@@ -1,12 +1,13 @@
 from _typeshed import Incomplete
 from abc import ABCMeta
 from builtins import bool as _bool
-from typing import Any
+from typing import Any, type_check_only
 
 import numpy as np
 from tensorflow._aliases import DTypeLike
 from tensorflow.python.framework.dtypes import HandleData
 
+@type_check_only
 class _DTypeMeta(ABCMeta): ...
 
 class DType(metaclass=_DTypeMeta):

@@ -3,31 +3,27 @@
 isort:skip_file
 """
 
-import builtins
-import collections.abc
+import builtins as _builtins
 import sys
-import typing
+import typing as _typing
+from collections import abc as _abc
 
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.internal.enum_type_wrapper
-import google.protobuf.message
+from google.protobuf import descriptor as _descriptor, message as _message
+from google.protobuf.internal import containers as _containers, enum_type_wrapper as _enum_type_wrapper
 
 if sys.version_info >= (3, 10):
-    import typing as typing_extensions
+    from typing import TypeAlias as _TypeAlias
 else:
-    import typing_extensions
+    from typing import TypeAlias as _TypeAlias
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+DESCRIPTOR: _descriptor.FileDescriptor
 
 class _FullTypeId:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _FullTypeIdEnumTypeWrapper(
-    google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_FullTypeId.ValueType], builtins.type
-):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _FullTypeIdEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_FullTypeId.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     TFT_UNSET: _FullTypeId.ValueType  # 0
     """The default represents an uninitialized values."""
     TFT_VAR: _FullTypeId.ValueType  # 1
@@ -574,44 +570,48 @@ translation. This type should not normally appear after type inference.
 Note that LEGACY_VARIANT != ANY: TENSOR[INT32] is a subtype of ANY, but is
 not a subtype of LEGACY_VARIANT.
 """
-global___FullTypeId = FullTypeId
+Global___FullTypeId: _TypeAlias = FullTypeId  # noqa: Y015
 
-@typing.final
-class FullTypeDef(google.protobuf.message.Message):
+@_typing.final
+class FullTypeDef(_message.Message):
     """Highly experimental and very likely to change.
     This encoding uses tags instead of dedicated messages for regularity. In
     particular the encoding imposes no restrictions on what the parameters of any
     type should be, which in particular needs to be true for type symbols.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    TYPE_ID_FIELD_NUMBER: builtins.int
-    ARGS_FIELD_NUMBER: builtins.int
-    S_FIELD_NUMBER: builtins.int
-    I_FIELD_NUMBER: builtins.int
-    type_id: global___FullTypeId.ValueType
+    TYPE_ID_FIELD_NUMBER: _builtins.int
+    ARGS_FIELD_NUMBER: _builtins.int
+    S_FIELD_NUMBER: _builtins.int
+    I_FIELD_NUMBER: _builtins.int
+    type_id: Global___FullTypeId.ValueType
     """The principal type represented by this object. This may be a concrete type
     (Tensor, Dataset) a type variable (used for dependent types) a type
     symbol (Any, Union). See FullTypeId for details.
     """
-    s: builtins.str
-    i: builtins.int
+    s: _builtins.str
+    i: _builtins.int
     """TODO(mdan): list/tensor, map? Need to reconcile with TFT_RECORD, etc."""
-    @property
-    def args(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FullTypeDef]: ...
+    @_builtins.property
+    def args(self) -> _containers.RepeatedCompositeFieldContainer[Global___FullTypeDef]: ...
     def __init__(
         self,
         *,
-        type_id: global___FullTypeId.ValueType | None = ...,
-        args: collections.abc.Iterable[global___FullTypeDef] | None = ...,
-        s: builtins.str | None = ...,
-        i: builtins.int | None = ...,
+        type_id: Global___FullTypeId.ValueType | None = ...,
+        args: _abc.Iterable[Global___FullTypeDef] | None = ...,
+        s: _builtins.str | None = ...,
+        i: _builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["attr", b"attr", "i", b"i", "s", b"s"]) -> builtins.bool: ...
-    def ClearField(
-        self, field_name: typing.Literal["args", b"args", "attr", b"attr", "i", b"i", "s", b"s", "type_id", b"type_id"]
-    ) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["attr", b"attr"]) -> typing.Literal["s", "i"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["attr", b"attr", "i", b"i", "s", b"s"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "args", b"args", "attr", b"attr", "i", b"i", "s", b"s", "type_id", b"type_id"
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType_attr: _TypeAlias = _typing.Literal["s", "i"]  # noqa: Y015
+    _WhichOneofArgType_attr: _TypeAlias = _typing.Literal["attr", b"attr"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType_attr) -> _WhichOneofReturnType_attr | None: ...
 
-global___FullTypeDef = FullTypeDef
+Global___FullTypeDef: _TypeAlias = FullTypeDef  # noqa: Y015

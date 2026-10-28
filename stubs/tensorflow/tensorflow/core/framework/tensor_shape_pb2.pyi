@@ -3,51 +3,61 @@
 isort:skip_file
 Protocol buffer representing the shape of tensors."""
 
-import builtins
-import collections.abc
-import typing
+import builtins as _builtins
+import sys
+import typing as _typing
+from collections import abc as _abc
 
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.message
+from google.protobuf import descriptor as _descriptor, message as _message
+from google.protobuf.internal import containers as _containers
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
+else:
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-@typing.final
-class TensorShapeProto(google.protobuf.message.Message):
+DESCRIPTOR: _descriptor.FileDescriptor
+
+@_typing.final
+class TensorShapeProto(_message.Message):
     """Dimensions of a tensor."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class Dim(google.protobuf.message.Message):
+    @_typing.final
+    class Dim(_message.Message):
         """One dimension of the tensor."""
 
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+        DESCRIPTOR: _descriptor.Descriptor
 
-        SIZE_FIELD_NUMBER: builtins.int
-        NAME_FIELD_NUMBER: builtins.int
-        size: builtins.int
+        SIZE_FIELD_NUMBER: _builtins.int
+        NAME_FIELD_NUMBER: _builtins.int
+        size: _builtins.int
         """Size of the tensor in that dimension.
         This value must be >= -1, but values of -1 are reserved for "unknown"
         shapes (values of -1 mean "unknown" dimension).  Certain wrappers
         that work with TensorShapeProto may fail at runtime when deserializing
         a TensorShapeProto containing a dim value of -1.
         """
-        name: builtins.str
+        name: _builtins.str
         """Optional name of the tensor dimension."""
-        def __init__(self, *, size: builtins.int | None = ..., name: builtins.str | None = ...) -> None: ...
-        def ClearField(self, field_name: typing.Literal["name", b"name", "size", b"size"]) -> None: ...
+        def __init__(self, *, size: _builtins.int | None = ..., name: _builtins.str | None = ...) -> None: ...
+        _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["name", b"name", "size", b"size"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    DIM_FIELD_NUMBER: builtins.int
-    UNKNOWN_RANK_FIELD_NUMBER: builtins.int
-    unknown_rank: builtins.bool
+    DIM_FIELD_NUMBER: _builtins.int
+    UNKNOWN_RANK_FIELD_NUMBER: _builtins.int
+    unknown_rank: _builtins.bool
     """If true, the number of dimensions in the shape is unknown.
 
     If true, "dim.size()" must be 0.
     """
-    @property
-    def dim(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___TensorShapeProto.Dim]:
+    @_builtins.property
+    def dim(self) -> _containers.RepeatedCompositeFieldContainer[Global___TensorShapeProto.Dim]:
         """Dimensions of the tensor, such as {"input", 30}, {"output", 40}
         for a 30 x 40 2D tensor.  If an entry has size -1, this
         corresponds to a dimension of unknown size. The names are
@@ -64,11 +74,12 @@ class TensorShapeProto(google.protobuf.message.Message):
         """
 
     def __init__(
-        self,
-        *,
-        dim: collections.abc.Iterable[global___TensorShapeProto.Dim] | None = ...,
-        unknown_rank: builtins.bool | None = ...,
+        self, *, dim: _abc.Iterable[Global___TensorShapeProto.Dim] | None = ..., unknown_rank: _builtins.bool | None = ...
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["dim", b"dim", "unknown_rank", b"unknown_rank"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["dim", b"dim", "unknown_rank", b"unknown_rank"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___TensorShapeProto = TensorShapeProto
+Global___TensorShapeProto: _TypeAlias = TensorShapeProto  # noqa: Y015
