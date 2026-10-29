@@ -808,7 +808,7 @@ class Progressbar(Widget):
         class_: str = "",
         cursor: tkinter._Cursor = "",
         font: _FontDescription = ...,  # new in Tcl/Tk 9.0
-        foreground: str = "",  # new in Tcl/Tk 9.0
+        foreground: str = ...,  # new in Tcl/Tk 9.0
         justify: Literal["left", "center", "right"] = ...,  # new in Tcl/Tk 9.0
         length: float | str = 100,
         maximum: float = 100,
