@@ -279,6 +279,10 @@ class ErrorCodes:
             DirectoryResponseIsInvalid: Final = "942121"
             CavvAlgorithmIsInvalid: Final = "942122"
 
+        class ExternalVault:
+            StatusWithPreviousMastercardTransactionLinkIdIsInvalid: Final = "942205"
+            PreviousMastercardTransactionLinkIdIsInvalid: Final = "942206"
+
         class Options:
             AmountCannotBeNegative: Final = "94201"
             AmountFormatIsInvalid: Final = "94202"
@@ -482,6 +486,7 @@ class ErrorCodes:
         CannotRefundUnlessSettled: Final = "91506"
         CannotRefundWithPendingMerchantAccount: Final = "91559"
         CannotRefundWithSuspendedMerchantAccount: Final = "91538"
+        CannotReverseAtThisTime: Final = "915282"
         CannotSimulateTransactionSettlement: Final = "91575"
         CannotSubmitForPartialSettlement: Final = "915103"
         CannotSubmitForSettlement: Final = "91507"
@@ -621,6 +626,8 @@ class ErrorCodes:
             StatusWithPreviousNetworkTransactionIdIsInvalid: Final = "915177"
             CardTypeIsInvalid: Final = "915178"
             PreviousNetworkTransactionIdIsInvalid: Final = "915179"
+            StatusWithPreviousMastercardTransactionLinkIdIsInvalid: Final = "915278"
+            PreviousMastercardTransactionLinkIdIsInvalid: Final = "915279"
 
         class Options:
             SubmitForSettlementIsRequiredForCloning: Final = "91544"
