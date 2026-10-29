@@ -9,8 +9,8 @@ if sys.version_info >= (3, 14):
 
 _PathT_str = TypeVar("_PathT_str", bound=str | PathLike[str])
 _PathT_bytes = TypeVar("_PathT_bytes", bound=bytes | PathLike[bytes])
-_T_str = TypeVar("_PathT_str", bound=str)
-_T_bytes = TypeVar("_PathT_bytes", bound=bytes)
+_T_str = TypeVar("_T_str", bound=str)
+_T_bytes = TypeVar("_T_bytes", bound=bytes)
 
 def fnmatch(name: AnyStr | PathLike[AnyStr], pat: AnyStr | PathLike[AnyStr]) -> bool: ...
 def fnmatchcase(name: AnyStr, pat: AnyStr) -> bool: ...
