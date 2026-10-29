@@ -7,7 +7,7 @@ __all__ = ["filter", "fnmatch", "fnmatchcase", "translate"]
 if sys.version_info >= (3, 14):
     __all__ += ["filterfalse"]
 
-_PathT = TypeVar("_PathT", str, bytes, PathLike[Any])
+_PathT = TypeVar("_PathT", str | PathLike[str], bytes | PathLike[bytes])
 
 def fnmatch(name: AnyStr | PathLike[AnyStr], pat: AnyStr | PathLike[AnyStr]) -> bool: ...
 def fnmatchcase(name: AnyStr, pat: AnyStr) -> bool: ...
