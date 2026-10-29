@@ -137,5 +137,12 @@ _?socket.SOL_ROSE
 # not present on GitHub Actions runners.
 termios.TIOCTTYGSTRUCT
 
+# Only defined when Python was built against glibc 2.42 or newer
+(termios.B7200)?
+(termios.B14400)?
+(termios.B28800)?
+(termios.B76800)?
+(termios.IBSHIFT)?
+
 tkinter.Tk.createfilehandler  # Methods that come from __getattr__() at runtime
 tkinter.Tk.deletefilehandler  # Methods that come from __getattr__() at runtime

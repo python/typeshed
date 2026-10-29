@@ -37,9 +37,36 @@
     {
       groupName: "most test/lint dependencies",
       matchManagers: ["pip_requirements", "pre-commit"],
-      matchPackageNames: ["!pyright"],
       description: "Quarterly update of most test dependencies",
       schedule: ["every 3 months on the first day of the month"]
+    },
+    {
+      groupName: "ruff",
+      matchManagers: ["pip_requirements", "pre-commit"],
+      matchPackageNames: ["ruff", "astral-sh/ruff-pre-commit"],
+      description: "Quarterly update of Ruff",
+      schedule: ["every 3 months on the first day of the month"]
+    },
+    {
+      groupName: "ty",
+      matchManagers: ["pip_requirements"],
+      matchPackageNames: ["ty"],
+      description: "Daily update of ty",
+      schedule: ["before 4am"]
+    },
+    {
+      groupName: "pyrefly",
+      matchManagers: ["pip_requirements"],
+      matchPackageNames: ["pyrefly"],
+      description: "Daily update of pyrefly",
+      schedule: ["before 4am"]
+    },
+    {
+      groupName: "mypy",
+      matchManagers: ["pip_requirements"],
+      matchPackageNames: ["mypy"],
+      description: "Daily update of mypy",
+      schedule: ["before 4am"]
     },
     {
       "groupName": "pyright",

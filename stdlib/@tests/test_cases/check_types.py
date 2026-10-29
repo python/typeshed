@@ -3,7 +3,7 @@ from __future__ import annotations
 import sys
 import types
 from collections import UserDict
-from typing import Any, Literal, TypeVar, Union
+from typing import Any, Literal, TypeVar
 from typing_extensions import assert_type
 
 _T = TypeVar("_T")
@@ -36,11 +36,11 @@ types.SimpleNamespace([[[], 2]])  # type: ignore
 mp = types.MappingProxyType({1: 2, 3: 4})
 mp.get("x")  # type: ignore
 item = mp.get(1)
-assert_type(item, Union[int, None])
+assert_type(item, int | None)
 item_2 = mp.get(2, 0)
 assert_type(item_2, int)
 item_3 = mp.get(3, "default")
-assert_type(item_3, Union[int, str])
+assert_type(item_3, int | str)
 # Default isn't accepted as a keyword argument.
 mp.get(4, default="default")  # type: ignore
 
