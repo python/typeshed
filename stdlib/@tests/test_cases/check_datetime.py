@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from datetime import date, datetime, time, timedelta, timezone, tzinfo
-from typing import Union, cast
+from typing import Any, Union, cast
 from typing_extensions import Never, assert_type
 
 UTC: timezone = timezone.utc
