@@ -1,7 +1,7 @@
 import sys
 from collections.abc import Iterable
 from os import PathLike
-from typing import AnyStr
+from typing import AnyStr, TypeVar
 
 __all__ = ["filter", "fnmatch", "fnmatchcase", "translate"]
 if sys.version_info >= (3, 14):
