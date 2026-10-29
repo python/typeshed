@@ -1,3 +1,4 @@
+from .authorization_request import OpenIDJWTAuthenticationRequest as OpenIDJWTAuthenticationRequest
 from .claims import (
     CodeIDToken as CodeIDToken,
     HybridIDToken as HybridIDToken,
@@ -16,6 +17,7 @@ from .models import AuthorizationCodeMixin as AuthorizationCodeMixin
 from .userinfo import UserInfoEndpoint as UserInfoEndpoint
 
 __all__ = [
+    "OpenIDJWTAuthenticationRequest",
     "AuthorizationCodeMixin",
     "IDToken",
     "CodeIDToken",
