@@ -339,6 +339,9 @@ class datetime(date, Generic[_TzInfoT]):
         @overload
         @classmethod
         def fromtimestamp(cls, timestamp: float, tz: _TzInfo) -> datetime[_TzInfo]: ...
+        @overload
+        @classmethod
+        def fromtimestamp(cls, timestamp: float, tz: _TzInfo | None) -> datetime[_TzInfo] | datetime[None]: ...
     else:
         @overload  # type: ignore[override]
         @classmethod
@@ -346,6 +349,9 @@ class datetime(date, Generic[_TzInfoT]):
         @overload
         @classmethod
         def fromtimestamp(cls, timestamp: float, /, tz: _TzInfo) -> datetime[_TzInfo]: ...
+        @overload
+        @classmethod
+        def fromtimestamp(cls, timestamp: float, /, tz: _TzInfo | None) -> datetime[_TzInfo] | datetime[None]: ...
 
     @classmethod
     @deprecated("Use timezone-aware objects to represent datetimes in UTC; e.g. by calling .fromtimestamp(datetime.UTC)")
