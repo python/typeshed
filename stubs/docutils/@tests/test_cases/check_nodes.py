@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from typing import Any
 from typing_extensions import assert_type
 
 from docutils import nodes
@@ -16,8 +15,10 @@ def attributes(node: nodes.Element) -> None:
     assert_type(node.get("refuri"), "str | None")
     assert_type(node.get("refuri", ""), str)
 
-    # Arbitrary attributes are `Any`.
-    assert_type(node.get("highlight_args", {}), Any)
+    # Arbitrary attributes are `object` and must be narrowed before use.
+    assert_type(node["highlight_args"], object)
+    assert_type(node.get("highlight_args"), object)
+    assert_type(node.setdefault("highlight_args"), object)
 
 
 # Visitor methods should be overridable with any return type.

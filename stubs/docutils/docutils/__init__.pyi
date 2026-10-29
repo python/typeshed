@@ -1,21 +1,13 @@
 from collections.abc import Callable, Sequence
 from optparse import Option
-from typing import (
-    Any,
-    ClassVar,
-    Final,
-    Literal,
-    NamedTuple,
-    Protocol,
-    TypeAlias,
-    TypedDict,
-    type_check_only,
-)
-from typing_extensions import Self
+from typing import Any, ClassVar, Final, Generic, Literal, NamedTuple, Protocol, TypeAlias, TypedDict, type_check_only
+from typing_extensions import Self, TypeVar
 
 from docutils.frontend import OptionParser, _OptionValidator
 from docutils.nodes import Element
 from docutils.transforms import Transform
+
+_C = TypeVar("_C", bound=Callable[..., object], default=Callable[..., object])
 
 __docformat__: Final = "reStructuredText"
 __version__: Final[str]
@@ -51,7 +43,7 @@ class DataError(ApplicationError): ...
 
 # The signature `optparse` calls a "callback" action's callback with, when the option
 # does not specify  `callback_args` or `callback_kwargs`; those are passed on as
-# further positional and keyword argumentss. A callback that expects them
+# further positional and keyword arguments. A callback that expects them
 # needs a type of its own.
 #
 # It is offered because `_OptionKwargs` is generic over its `callback`, whose
@@ -67,11 +59,11 @@ class _OptionCallback(Protocol):
 # extensions "validator" and "overrides".
 #
 # `_C` defaults to what `callback` was declared as before it became a type parameter
-# so the unparameterised spelling means exactly what it did before. A `TypedDict` field
+# so the unparameterized spelling means exactly what it did before. A `TypedDict` field
 # is invariant, so a spec that names a callback type would need a cast where the
-# a cast where the default spelling is expected, and the other way round.
+# default spelling is expected, and the other way round.
 @type_check_only
-class _OptionKwargs[_C: Callable[..., object] = Callable[..., object]](TypedDict, total=False):
+class _OptionKwargs(TypedDict, Generic[_C], total=False):
     action: str
     type: str
     dest: str
@@ -88,11 +80,9 @@ class _OptionKwargs[_C: Callable[..., object] = Callable[..., object]](TypedDict
     overrides: str
 
 # Option tuple holding: (help text, option strings, keyword arguments).
-type _OptionTuple[_C: Callable[..., object] = Callable[..., object]] = tuple[str, list[str], _OptionKwargs[_C]]
+_OptionTuple: TypeAlias = tuple[str, list[str], _OptionKwargs[_C]]
 # A flat sequence of (group title, group description, options) tuples.
-type _SettingsSpecTuple[_C: Callable[..., object] = Callable[..., object]] = tuple[
-    str | Sequence[_OptionTuple[_C]] | None, ...
-]
+_SettingsSpecTuple: TypeAlias = tuple[str | Sequence[_OptionTuple[_C]] | None, ...]
 
 class SettingsSpec:
     settings_spec: ClassVar[_SettingsSpecTuple]
