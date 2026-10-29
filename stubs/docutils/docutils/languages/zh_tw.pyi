@@ -4,4 +4,4 @@ __docformat__: Final = "reStructuredText"
 
 labels: dict[str, str]
 bibliographic_fields: dict[str, str]
-author_separators: list[str | Literal[";", ",", "；", "，", "、"]]  # noqa: RUF001, Y051
+author_separators: list[str | Literal[";", ",", "；", "，", "、"]]  # noqa: Y051
