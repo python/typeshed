@@ -1,2 +1,2 @@
-version = "2.7.*"
-upstream_repository = "https://github.com/Shoobx/xmldiff"
+version = "3.0.*"
+upstream-repository = "https://github.com/Shoobx/xmldiff"

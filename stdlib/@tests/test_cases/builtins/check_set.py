@@ -1,3 +1,4 @@
+from collections.abc import Set as AbstractSet
 from typing_extensions import Literal, assert_type
 
 
@@ -12,3 +13,60 @@ def test_set_difference(x: set[Literal["foo", "bar"]], y: set[str], z: set[int])
     assert_type(z - x, set[int])
     assert_type(y - z, set[str])
     assert_type(z - y, set[int])
+
+
+def test_set_interface_overlapping_type(s: set[Literal["foo", "bar"]], y: set[str], key: str) -> None:
+    s.add(key)  # type: ignore
+    s.discard(key)
+    s.remove(key)  # type: ignore
+    s.difference_update(y)
+    s.intersection_update(y)
+    s.symmetric_difference_update(y)  # type: ignore
+    s.update(y)  # type: ignore
+
+    assert_type(s.difference(y), set[Literal["foo", "bar"]])
+    assert_type(s.intersection(y), set[Literal["foo", "bar"]])
+    assert_type(s.isdisjoint(y), bool)
+    assert_type(s.issubset(y), bool)
+    assert_type(s.issuperset(y), bool)
+    assert_type(s.symmetric_difference(y), set[str])
+    assert_type(s.union(y), set[str])
+
+    assert_type(s - y, set[Literal["foo", "bar"]])
+    assert_type(s & y, set[Literal["foo", "bar"]])
+    assert_type(s | y, set[str])
+    assert_type(s ^ y, set[str])
+
+    s -= y
+    s &= y
+    s |= y  # type: ignore
+    s ^= y  # type: ignore
+
+
+def test_frozenset_interface(s: frozenset[Literal["foo", "bar"]], y: frozenset[str]) -> None:
+    assert_type(s.difference(y), frozenset[Literal["foo", "bar"]])
+    assert_type(s.intersection(y), frozenset[Literal["foo", "bar"]])
+    assert_type(s.isdisjoint(y), bool)
+    assert_type(s.issubset(y), bool)
+    assert_type(s.issuperset(y), bool)
+    assert_type(s.symmetric_difference(y), frozenset[str])
+    assert_type(s.union(y), frozenset[str])
+
+    assert_type(s - y, frozenset[Literal["foo", "bar"]])
+    assert_type(s & y, frozenset[Literal["foo", "bar"]])
+    assert_type(s | y, frozenset[str])
+    assert_type(s ^ y, frozenset[str])
+
+
+def test_xor_with_abstract_set(
+    s: set[Literal["foo", "bar"]], frozen: frozenset[Literal["foo", "bar"]], other: AbstractSet[str]
+) -> None:
+    s.__xor__(other)  # type: ignore
+    frozen.__xor__(other)  # type: ignore
+    assert_type(other.__rxor__(s), AbstractSet[str])
+    assert_type(other.__rxor__(frozen), AbstractSet[str])
+    assert_type(other.__rxor__([1]), AbstractSet[str | int])
+    assert_type([1] ^ other, AbstractSet[str | int])
+    assert_type(("foo", "baz") ^ other, AbstractSet[str])
+    assert_type(s ^ other, AbstractSet[str])
+    assert_type(frozen ^ other, AbstractSet[str])

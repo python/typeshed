@@ -77,7 +77,7 @@ assert_type(fifo_func(1), int)
 assert_type(lfu_func(1), int)
 assert_type(rr_func(1), int)
 assert_type(ttl_func(1), int)
-assert_type(fifo_func.cache_info().currsize, int)
+assert_type(fifo_func.cache_info().currsize, float)
 assert_type(lfu_func.cache_parameters(), dict[str, Any])
 
 

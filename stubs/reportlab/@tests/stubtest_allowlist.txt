@@ -19,7 +19,7 @@ reportlab.pdfbase.ttfonts.shapeFragWord
 # to get less noise from derived classes that don't have these parameters
 reportlab\.platypus\.(doctemplate\.|flowables\.)?[A-Za-z_]+\.drawOn
 
-# similary the wrap/split methods use inconsistent names for their
+# similarly the wrap/split methods use inconsistent names for their
 # parameters, so we decided to make them positional-only
 reportlab.graphics.shapes.Drawing.wrap
 reportlab\.platypus\.(doctemplate\.|flowables\.|tableofcontents\.)?[A-Za-z_]+\.split
@@ -41,10 +41,9 @@ reportlab.platypus.flowables._ContainerSpace.getSpaceBefore
 
 # this has an internal __boundary__ argument which confuses stubtest
 # we've decided to just get rid of the argument in the stub entirely
-reportlab.platypus.Frame.drawBoundary
 reportlab.platypus.frames.Frame.drawBoundary
 
-# this is just a case-insenstive version of dict and changes in parameter
+# this is just a case-insensitive version of dict and changes in parameter
 # names and them changing from positional-only to keyword or positional
 # is entirely untintentional, for simplicity we assume these methods
 # work the same as in the base class, there is only one exception
@@ -73,7 +72,6 @@ reportlab.lib.abag.ABag.__setattr__
 reportlab.lib.styles.PropertySet.__setattr__
 
 # *-imports that cause a mess we don't want to propagate
-reportlab.graphics.charts.lineplots.pi
 reportlab\.graphics\.render(base|PDF|PM|PS|SVG)\.EVEN_ODD
 reportlab\.graphics\.render(base|PDF|PM|PS|SVG)\.FILL_EVEN_ODD
 reportlab\.graphics\.render(base|PDF|PM|PS|SVG)\.FILL_NON_ZERO

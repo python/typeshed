@@ -1,5 +1,5 @@
-from typing import Any, Literal, SupportsIndex, overload
-from typing_extensions import TypeAlias
+from _typeshed import MaybeNone
+from typing import Literal, SupportsIndex, TypeAlias, overload
 
 import numpy as np
 from numpy.typing import NDArray
@@ -30,6 +30,7 @@ class STRtree:
     def __len__(self) -> int: ...
     @property
     def geometries(self) -> GeoArray: ...
+
     @overload
     def query(
         self, geometry: OptGeoArrayLike, predicate: Literal["dwithin"], distance: ArrayLike[float]
@@ -38,11 +39,13 @@ class STRtree:
     def query(
         self, geometry: OptGeoArrayLike, predicate: _BinaryPredicate | None = None, distance: object = None
     ) -> NDArray[np.int64]: ...
+
     # nearest may return `None` if the tree is empty, use the "Any trick"
     @overload
-    def nearest(self, geometry: Geometry) -> np.int64 | Any: ...
+    def nearest(self, geometry: Geometry) -> np.int64 | MaybeNone: ...
     @overload
-    def nearest(self, geometry: GeoArrayLikeSeq) -> NDArray[np.int64] | Any: ...
+    def nearest(self, geometry: GeoArrayLikeSeq) -> NDArray[np.int64] | MaybeNone: ...
+
     @overload  # return_distance=False
     def query_nearest(
         self,

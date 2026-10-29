@@ -12,27 +12,27 @@ class build_ext(Command):
     user_options: ClassVar[list[tuple[str, str | None, str]]]
     boolean_options: ClassVar[list[str]]
     help_options: ClassVar[list[tuple[str, str | None, str, Callable[[], Unused]]]]
-    extensions: Incomplete
-    build_lib: Incomplete
-    plat_name: Incomplete
-    build_temp: Incomplete
+    extensions: list[Extension] | None
+    build_lib: str
+    plat_name: str
+    build_temp: str
     inplace: bool
-    package: Incomplete
-    include_dirs: Incomplete
+    package: str | None
+    include_dirs: list[str]
     define: Incomplete
     undef: Incomplete
-    libraries: Incomplete
-    library_dirs: Incomplete
-    rpath: Incomplete
+    libraries: list[str]
+    library_dirs: list[str]
+    rpath: list[str]
     link_objects: Incomplete
     debug: Incomplete
-    force: Incomplete
-    compiler: CCompiler | str | None  # Is only set to `Compiler` after `run`
+    force: bool | None
+    compiler: str | CCompiler | None  # Is only set to `Compiler` after `run`
     swig: Incomplete
     swig_cpp: Incomplete
-    swig_opts: Incomplete
+    swig_opts: list[str]
     user: Incomplete
-    parallel: Incomplete
+    parallel: int | None
     def initialize_options(self) -> None: ...
     def finalize_options(self) -> None: ...
     def run(self) -> None: ...

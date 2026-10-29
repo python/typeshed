@@ -1,8 +1,17 @@
+# =========
+# Temporary
+# =========
+
+# Incompatible changes introduced in Python 3.13.18
+# (Remove once 3.13.18 becomes available for GitHub Actions)
+email._header_value_parser.Terminal.contains_token_type
+email._header_value_parser.TokenList.contains_token_type
+
+
 # =======
 # >= 3.12
 # =======
 
 # Undocumented internal method, not really for public consumption.
 # (Hard to add types for unless we add stubs for the undocumented _overlapped module...)
-asyncio.IocpProactor.finish_socket_func
 asyncio.windows_events.IocpProactor.finish_socket_func
