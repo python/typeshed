@@ -1,0 +1,3 @@
+# The metaclass of FuzzedDataProvider is pybind11_builtins.pybind11_type, which is
+# not importable from a stub, and pybind11 is not a runtime dependency of atheris.
+atheris.native.FuzzedDataProvider
