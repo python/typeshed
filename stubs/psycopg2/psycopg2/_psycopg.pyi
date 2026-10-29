@@ -97,7 +97,7 @@ class cursor:
     itersize: int
     row_factory: Incomplete | None
     scrollable: bool | None
-    string_types: Incomplete | None
+    string_types: dict[int, _type] | None
     tzinfo_factory: Callable[..., dt.tzinfo]
     withhold: bool
     def __init__(self, conn: _Connection, name: str | bytes | None = None) -> None: ...
@@ -480,7 +480,7 @@ class connection:
     @property
     def status(self) -> int: ...
     @property
-    def string_types(self) -> dict[Incomplete, Incomplete]: ...
+    def string_types(self) -> dict[int, _type]: ...
     # Really it's dsn: str, async: int = 0, async_: int = 0, but
     # that would be a syntax error.
     def __init__(self, dsn: str, *, async_: int = 0) -> None: ...
