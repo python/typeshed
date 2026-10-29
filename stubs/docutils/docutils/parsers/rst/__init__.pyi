@@ -1,5 +1,4 @@
-from _typeshed import Incomplete
-from collections.abc import Callable, Sequence
+from collections.abc import Callable, Mapping, Sequence
 from typing import Any, ClassVar, Final, Literal, TypeAlias
 
 from docutils import nodes, parsers
@@ -29,11 +28,12 @@ class Directive:
     required_arguments: ClassVar[int]
     optional_arguments: ClassVar[int]
     final_argument_whitespace: ClassVar[bool]
-    option_spec: ClassVar[dict[str, Callable[[str], Incomplete]] | None]
+    # Despite the concrete `Directives` class using  a `dict`, it is only read from, so a Mapping is the effective API surface.
+    option_spec: ClassVar[Mapping[str, Callable[[str], object]] | None]
     has_content: ClassVar[bool]
     name: str
     arguments: list[str]
-    options: dict[str, Incomplete]
+    options: dict[str, Any]
     content: StringList
     lineno: int
     content_offset: int
@@ -45,7 +45,7 @@ class Directive:
         self,
         name: str,
         arguments: list[str],
-        options: dict[str, Incomplete],
+        options: Mapping[str, object],
         content: StringList,
         lineno: int,
         content_offset: int,
@@ -53,6 +53,8 @@ class Directive:
         state: RSTState,
         state_machine: RSTStateMachine,
     ) -> None: ...
+    # This must return a `list` at runtime; the alternative would be the less helpful "list[Any]".
+    # `Sequence` allows covariant overrides like `list[nodes.table]`.
     def run(self) -> Sequence[nodes.Node]: ...
     def directive_error(self, level: int, message: str) -> DirectiveError: ...
     def debug(self, message: str) -> DirectiveError: ...
@@ -64,7 +66,7 @@ class Directive:
     def add_name(self, node: nodes.Node) -> None: ...
 
 _DirectiveFn: TypeAlias = Callable[
-    [str, list[str], dict[str, Any], StringList, int, int, str, RSTState, RSTStateMachine], Directive
+    [str, list[str], dict[str, Any], StringList, int, int, str, RSTState, RSTStateMachine], Sequence[nodes.Node]
 ]
 
 def convert_directive_function(directive_fn: _DirectiveFn) -> type[Directive]: ...

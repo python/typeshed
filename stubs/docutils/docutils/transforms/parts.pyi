@@ -1,6 +1,6 @@
-from _typeshed import Incomplete, Unused
+from _typeshed import Unused
 from collections.abc import Iterable, Sequence
-from typing import ClassVar, Final
+from typing import ClassVar, Final, Literal
 from typing_extensions import Never
 
 from docutils import nodes
@@ -19,8 +19,8 @@ class SectNum(Transform):
 
 class Contents(Transform):
     default_priority: ClassVar[int]
-    toc_id: Incomplete
-    backlinks: Incomplete
+    toc_id: str
+    backlinks: Literal["entry", "top", False] | None
     def apply(self) -> None: ...
     def build_contents(
         self, node: nodes.Element, level: int = 0

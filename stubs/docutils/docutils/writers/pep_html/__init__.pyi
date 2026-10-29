@@ -1,5 +1,6 @@
 from typing import ClassVar, Final
 
+from docutils import nodes
 from docutils.writers import html4css1
 
 __docformat__: Final = "reStructuredText"
@@ -17,4 +18,4 @@ class Writer(html4css1.Writer):
     def interpolation_dict(self) -> dict[str, str | int]: ...  # type: ignore[override]
 
 class HTMLTranslator(html4css1.HTMLTranslator):
-    def depart_field_list(self, node) -> None: ...
+    def depart_field_list(self, node: nodes.field_list) -> None: ...
