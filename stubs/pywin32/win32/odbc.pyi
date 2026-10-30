@@ -1,32 +1,31 @@
-from _typeshed import Incomplete
-from typing import ClassVar, Literal
+from typing import ClassVar, Final
 
 import _win32typing
 
-def odbc(connectionString: str, /) -> _win32typing.connection: ...
-def SQLDataSources(direction, /) -> tuple[Incomplete, Incomplete]: ...
+def odbc(connectionString: str, /) -> _win32typing.odbcconn: ...
+def SQLDataSources(direction: int, /) -> tuple[str, str] | None: ...
 
-DATE: str
-NUMBER: str
-RAW: str
-SQL_FETCH_ABSOLUTE: int
-SQL_FETCH_FIRST: int
-SQL_FETCH_FIRST_SYSTEM: int
-SQL_FETCH_FIRST_USER: int
-SQL_FETCH_LAST: int
-SQL_FETCH_NEXT: int
-SQL_FETCH_PRIOR: int
-SQL_FETCH_RELATIVE: int
-STRING: str
-TYPES: tuple[Literal["STRING"], Literal["RAW"], Literal["NUMBER"], Literal["DATE"]]
+STRING: Final = "STRING"
+RAW: Final = "RAW"
+NUMBER: Final = "NUMBER"
+DATE: Final = "DATE"
+TYPES: Final = ("STRING", "RAW", "NUMBER", "DATE")
+SQL_FETCH_NEXT: Final[int]
+SQL_FETCH_FIRST: Final[int]
+SQL_FETCH_LAST: Final[int]
+SQL_FETCH_PRIOR: Final[int]
+SQL_FETCH_ABSOLUTE: Final[int]
+SQL_FETCH_RELATIVE: Final[int]
+SQL_FETCH_FIRST_USER: Final[int]
+SQL_FETCH_FIRST_SYSTEM: Final[int]
 
 class error(Exception):
     __name__: ClassVar[str] = "odbcError"
 
 # These all pretend to come from a module called "dbi", but that module doesn't exist
-class dataError(Exception): ...
-class integrityError(Exception): ...
-class internalError(Exception): ...
 class noError(Exception): ...
 class opError(Exception): ...
 class progError(Exception): ...
+class integrityError(Exception): ...
+class dataError(Exception): ...
+class internalError(Exception): ...
