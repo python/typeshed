@@ -11,10 +11,10 @@ class GeometryCollection(BaseMultipartGeometry[_GeoT_co]):
 
     @overload
     def __new__(
-        self, geoms: BaseMultipartGeometry[_GeoT_co] | GeometrySequence[BaseMultipartGeometry[_GeoT_co]] | Collection[_GeoT_co]
+        cls, geoms: BaseMultipartGeometry[_GeoT_co] | GeometrySequence[BaseMultipartGeometry[_GeoT_co]] | Collection[_GeoT_co]
     ) -> Self: ...
     @overload
-    def __new__(self, geoms: OptGeoArrayLike = None) -> Self: ...
+    def __new__(cls, geoms: OptGeoArrayLike = None) -> Self: ...
 
     # more precise base overrides
     @property
