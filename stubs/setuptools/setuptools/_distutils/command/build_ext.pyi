@@ -27,7 +27,7 @@ class build_ext(Command):
     link_objects: Incomplete
     debug: Incomplete
     force: bool | None
-    compiler: str | CCompiler | None
+    compiler: str | CCompiler | None  # Is only set to `Compiler` after `run`
     swig: Incomplete
     swig_cpp: Incomplete
     swig_opts: list[str]
