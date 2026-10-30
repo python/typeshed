@@ -26,12 +26,16 @@ def RawArray(typecode_or_type: str, size_or_initializer: int | Sequence[Any]) ->
 def Value(typecode_or_type: type[_CT], *args: Any, lock: Literal[False], ctx: BaseContext | None = None) -> _CT: ...
 @overload
 def Value(
+    typecode_or_type: type[_SimpleCData[_T]], *args: Any, lock: Literal[True] | _LockLike = True, ctx: BaseContext | None = None
+) -> Synchronized[_T]: ...
+@overload
+def Value(
     typecode_or_type: type[_CT], *args: Any, lock: Literal[True] | _LockLike = True, ctx: BaseContext | None = None
 ) -> SynchronizedBase[_CT]: ...
 @overload
 def Value(
     typecode_or_type: str, *args: Any, lock: Literal[True] | _LockLike = True, ctx: BaseContext | None = None
-) -> SynchronizedBase[Any]: ...
+) -> Synchronized[Any]: ...
 @overload
 def Value(
     typecode_or_type: str | type[_CData], *args: Any, lock: bool | _LockLike = True, ctx: BaseContext | None = None
@@ -40,7 +44,7 @@ def Value(
 @overload
 def Array(
     typecode_or_type: type[_CT], size_or_initializer: int | Sequence[Any], *, lock: Literal[False], ctx: BaseContext | None = None
-) -> _CT: ...
+) -> ctypes.Array[_CT]: ...
 @overload
 def Array(
     typecode_or_type: type[c_char],
