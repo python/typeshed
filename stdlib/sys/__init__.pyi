@@ -5,7 +5,20 @@ from builtins import object as _object
 from collections.abc import AsyncGenerator, Callable, Sequence
 from io import TextIOWrapper
 from types import FrameType, ModuleType, SimpleNamespace, TracebackType
-from typing import Any, Final, Literal, Protocol, TextIO, TypeAlias, TypeVar, final, overload, type_check_only
+from typing import (
+    Any,
+    Final,
+    Literal,
+    Protocol,
+    SupportsFloat,
+    SupportsIndex,
+    TextIO,
+    TypeAlias,
+    TypeVar,
+    final,
+    overload,
+    type_check_only,
+)
 from typing_extensions import LiteralString, Never, deprecated
 
 _T = TypeVar("_T")
@@ -453,8 +466,8 @@ __breakpointhook__ = breakpointhook  # Contains the original value of breakpoint
 if sys.platform != "win32":
     def setdlopenflags(flags: int, /) -> None: ...
 
-def setrecursionlimit(limit: int, /) -> None: ...
-def setswitchinterval(interval: float, /) -> None: ...
+def setrecursionlimit(limit: SupportsIndex, /) -> None: ...
+def setswitchinterval(interval: SupportsFloat | SupportsIndex, /) -> None: ...
 def gettotalrefcount() -> int: ...  # Debug builds only
 
 # Doesn't exist at runtime, but exported in the stubs so pytest etc. can annotate their code more easily.
@@ -503,7 +516,7 @@ def set_coroutine_origin_tracking_depth(depth: int) -> None: ...
 
 # The following two functions were added in 3.11.0, 3.10.7, and 3.9.14,
 # as part of the response to CVE-2020-10735
-def set_int_max_str_digits(maxdigits: int) -> None: ...
+def set_int_max_str_digits(maxdigits: SupportsIndex) -> None: ...
 def get_int_max_str_digits() -> int: ...
 
 if sys.version_info >= (3, 15):
