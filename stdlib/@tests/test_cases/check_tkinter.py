@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import sys
 import tkinter
+import tkinter.filedialog
 import traceback
 import types
 from typing_extensions import assert_type
@@ -71,3 +72,9 @@ if sys.version_info >= (3, 13):
         t.count("1.0", "2.3", "indices", "lines", "chars", "ypixels", return_ints=True), tuple[int, ...]
     )  # (15, 1, 15, 19)
     assert_type(t.count("2.3", "2.3", "indices", "lines", "chars", "ypixels", return_ints=True), tuple[int, ...])  # (0, 0, 0, 0)
+
+
+# Cancelling a dialog gives an empty string or an empty tuple, depending on the Tk version.
+assert_type(tkinter.filedialog.askopenfilename(), str | tuple[()])
+assert_type(tkinter.filedialog.asksaveasfilename(), str | tuple[()])
+assert_type(tkinter.filedialog.askdirectory(), str | tuple[()])
