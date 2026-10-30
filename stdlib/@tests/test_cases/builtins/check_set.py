@@ -1,4 +1,4 @@
-from collections.abc import Set as AbstractSet
+from collections.abc import Iterator, MutableSet, Set as AbstractSet
 from typing_extensions import Literal, assert_type
 
 
@@ -58,15 +58,104 @@ def test_frozenset_interface(s: frozenset[Literal["foo", "bar"]], y: frozenset[s
     assert_type(s ^ y, frozenset[str])
 
 
-def test_xor_with_abstract_set(
+# set and frozenset only support set and frozenset operands. Other abstract
+# sets are handled by their reflected methods, which return abstract sets.
+def test_binary_ops_with_abstract_set(
     s: set[Literal["foo", "bar"]], frozen: frozenset[Literal["foo", "bar"]], other: AbstractSet[str]
 ) -> None:
+    s.__and__(other)  # type: ignore
+    s.__or__(other)  # type: ignore
+    s.__sub__(other)  # type: ignore
     s.__xor__(other)  # type: ignore
+    frozen.__and__(other)  # type: ignore
+    frozen.__or__(other)  # type: ignore
+    frozen.__sub__(other)  # type: ignore
     frozen.__xor__(other)  # type: ignore
-    assert_type(other.__rxor__(s), AbstractSet[str])
-    assert_type(other.__rxor__(frozen), AbstractSet[str])
-    assert_type(other.__rxor__([1]), AbstractSet[str | int])
-    assert_type([1] ^ other, AbstractSet[str | int])
-    assert_type(("foo", "baz") ^ other, AbstractSet[str])
+    assert_type(s & other, AbstractSet[Literal["foo", "bar"]])
+    assert_type(s | other, AbstractSet[str])
+    assert_type(s - other, AbstractSet[Literal["foo", "bar"]])
     assert_type(s ^ other, AbstractSet[str])
+    assert_type(frozen & other, AbstractSet[Literal["foo", "bar"]])
+    assert_type(frozen | other, AbstractSet[str])
+    assert_type(frozen - other, AbstractSet[Literal["foo", "bar"]])
     assert_type(frozen ^ other, AbstractSet[str])
+
+    # The mixin methods accept any iterable, but set and frozenset don't.
+    [1] & other  # type: ignore
+    [1] | other  # type: ignore
+    [1] - other  # type: ignore
+    [1] ^ other  # type: ignore
+
+
+# The in-place operators of set only work in place for set and frozenset
+# operands. For other operands, the target is rebound to the result of the
+# operand's reflected method.
+def test_inplace_ops_with_other_operands(s: set[int], ms: MutableSet[int], d: dict[int, str], other: AbstractSet[int]) -> None:
+    assert_type(s.__ior__(d.keys()), set[int])
+    assert_type(s.__iand__(d.keys()), set[int])
+    assert_type(s.__isub__(d.keys()), set[int])
+    assert_type(s.__ixor__(d.keys()), set[int])
+
+    s |= d.keys()
+    s &= d.keys()
+    s -= d.keys()
+    s ^= d.keys()
+    ms |= d.keys()
+    ms &= d.keys()
+    ms -= d.keys()
+    ms ^= d.keys()
+
+    # Dict items views rebind the target to a set of tuples.
+    pairs: set[tuple[int, str]] = set()
+    pairs |= d.items()
+    s |= d.items()  # type: ignore
+
+    # At runtime, these rebind the target to an arbitrary abstract set,
+    # which is not necessarily a set or even mutable.
+    s |= other  # type: ignore
+    s &= other  # type: ignore
+    s -= other  # type: ignore
+    s ^= other  # type: ignore
+    ms |= other  # type: ignore
+    ms &= other  # type: ignore
+    ms -= other  # type: ignore
+    ms ^= other  # type: ignore
+
+
+class _ImmutableSet(AbstractSet[int]):
+    def __contains__(self, x: object) -> bool:
+        return False
+
+    def __iter__(self) -> Iterator[int]:
+        return iter(())
+
+    def __len__(self) -> int:
+        return 0
+
+
+def test_inplace_ops_with_custom_set(s: set[int], ms: MutableSet[int]) -> None:
+    # At runtime, s and ms would be rebound to an _ImmutableSet instance.
+    s |= _ImmutableSet()  # type: ignore
+    s &= _ImmutableSet()  # type: ignore
+    s -= _ImmutableSet()  # type: ignore
+    s ^= _ImmutableSet()  # type: ignore
+    ms |= _ImmutableSet()  # type: ignore
+    ms &= _ImmutableSet()  # type: ignore
+    ms -= _ImmutableSet()  # type: ignore
+    ms ^= _ImmutableSet()  # type: ignore
+
+    # Set operands are still modified in place.
+    assert_type(s.__ior__({1}), set[int])
+    assert_type(s.__iand__(frozenset({1})), set[int])
+    s |= {1}
+    s &= frozenset({1})
+    ms |= {1}
+    ms &= frozenset({1})
+
+
+def test_binary_ops_with_custom_set(s: set[int], frozen: frozenset[int]) -> None:
+    # The result is an _ImmutableSet instance at runtime, not a set.
+    x: set[int] = s & _ImmutableSet()  # type: ignore
+    y: frozenset[int] = frozen | _ImmutableSet()  # type: ignore
+    assert_type(s & _ImmutableSet(), AbstractSet[int])
+    assert_type(frozen | _ImmutableSet(), AbstractSet[int])
