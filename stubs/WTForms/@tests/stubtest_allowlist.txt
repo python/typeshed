@@ -10,3 +10,13 @@ wtforms.meta.DefaultMeta.__getattr__
 # Should allow setting and deleting any attribute
 wtforms.fields.core.Flags.__delattr__
 wtforms.fields.core.Flags.__setattr__
+
+# Error: is inconsistent
+# =============================
+# __post_init__ ensures label never is None
+wtforms.fields.choices.SelectChoice.__init__
+
+# Error: variable differs from runtime type
+# =============================
+# __post_init__ ensures label never is None
+wtforms.fields.choices.SelectChoice.label

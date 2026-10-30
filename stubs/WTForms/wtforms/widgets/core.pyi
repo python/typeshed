@@ -2,12 +2,15 @@ from decimal import Decimal
 from typing import Any, Literal
 
 from markupsafe import Markup
+from wtforms.datalist import DataList
 from wtforms.fields import Field, FormField, StringField
-from wtforms.fields.choices import SelectFieldBase, _Option
+from wtforms.fields.choices import Choice, SelectFieldBase, _Option
 
 __all__ = (
+    "Button",
     "CheckboxInput",
     "ColorInput",
+    "DataListWidget",
     "DateInput",
     "DateTimeInput",
     "DateTimeLocalInput",
@@ -49,11 +52,22 @@ class TableWidget:
     def __init__(self, with_table_tag: bool = True) -> None: ...
     def __call__(self, field: FormField[Any], **kwargs: object) -> Markup: ...
 
+class DataListWidget:
+    def __call__(self, datalist: DataList, field: Field | None = None, **kwargs: Any) -> Markup: ...
+
 class Input:
     validation_attrs: list[str]
     input_type: str
     def __init__(self, input_type: str | None = None) -> None: ...
     def __call__(self, field: Field, **kwargs: object) -> Markup: ...
+    @staticmethod
+    def html_params(**kwargs: object) -> str: ...
+
+class Button:
+    input_type: str
+    validation_attrs: list[str]
+    def __init__(self, input_type: str | None = None) -> None: ...
+    def __call__(self, field: Field, **kwargs: Any) -> Markup: ...
     @staticmethod
     def html_params(**kwargs: object) -> str: ...
 
@@ -85,7 +99,7 @@ class Select:
     def __init__(self, multiple: bool = False) -> None: ...
     def __call__(self, field: SelectFieldBase, **kwargs: object) -> Markup: ...
     @classmethod
-    def render_option(cls, value: object, label: str, selected: bool, **kwargs: object) -> Markup: ...
+    def render_option(cls, choice: Choice, **kwargs: object) -> Markup: ...
 
 class Option:
     def __call__(self, field: _Option, **kwargs: object) -> Markup: ...
@@ -112,9 +126,5 @@ class NumberInput(Input):
         max: Decimal | float | str | None = None,
     ) -> None: ...
 
-class RangeInput(Input):
-    # maybe we should allow any str for this
-    step: Decimal | float | str | None
-    def __init__(self, step: Decimal | float | str | None = None) -> None: ...
-
+class RangeInput(Input): ...
 class ColorInput(Input): ...
