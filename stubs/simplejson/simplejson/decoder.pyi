@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from collections.abc import Callable
 from re import Match
 from typing import Any, Literal
@@ -14,11 +13,11 @@ class JSONDecoder:
     strict: bool
     array_hook: Callable[[list[Any]], Any] | None  # transforms a JSON value to an arbitrary value
     # They have many parameters, it might be better to use Protocol:
-    parse_object: Callable[..., tuple[Incomplete, int]]
-    parse_array: Callable[..., tuple[Incomplete, int]]
-    parse_string: Callable[..., tuple[Incomplete, int]]
+    parse_object: Callable[..., tuple[Any, int]]
+    parse_array: Callable[..., tuple[Any, int]]
+    parse_string: Callable[..., tuple[str, int]]
     memo: dict[Any, Any]
-    scan_once: Callable[[str, int], tuple[bool, int]]
+    scan_once: Callable[[str, int], tuple[Any, int]]
 
     def __init__(
         self,
