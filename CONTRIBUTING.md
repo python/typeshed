@@ -529,3 +529,8 @@ To keep the number of open PRs manageable, we may close PRs when they have been
 open for too long. Specifically, we close open PRs that either have failures in CI,
 serious merge conflicts or unaddressed feedback, and that have not seen any
 activity in three months.
+
+## Further Documentation
+
+See [docs/README.md](./docs/README.md) for an overview of all documentation
+available for typeshed.
