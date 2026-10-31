@@ -90,18 +90,9 @@ class HTTPAdapter(BaseAdapter):
         # ssl_context (ssl.SSLContext), socket_options (list), etc.
         # We use Any because the exact set is dynamic and not fully specified in stubs.
     ) -> None: ...
-    def proxy_manager_for(
-        self,
-        proxy: str,
-        **proxy_kwargs: Any,
-    ) -> ProxyManager | SOCKSProxyManager: ...
-
+    def proxy_manager_for(self, proxy: str, **proxy_kwargs: Any) -> ProxyManager | SOCKSProxyManager: ...
     def cert_verify(
-        self,
-        conn: Any,
-        url: str,
-        verify: bool | str | None,
-        cert: bytes | str | tuple[bytes | str, bytes | str] | None,
+        self, conn: Any, url: str, verify: bool | str | None, cert: bytes | str | tuple[bytes | str, bytes | str] | None
     ) -> None: ...
     def build_response(self, req: PreparedRequest, resp: urllib3.BaseHTTPResponse) -> Response: ...
     def build_connection_pool_key_attributes(
