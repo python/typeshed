@@ -76,7 +76,6 @@ reportlab\.graphics\.render(base|PDF|PM|PS|SVG)\.EVEN_ODD
 reportlab\.graphics\.render(base|PDF|PM|PS|SVG)\.FILL_EVEN_ODD
 reportlab\.graphics\.render(base|PDF|PM|PS|SVG)\.FILL_NON_ZERO
 reportlab\.graphics\.render(base|PDF|PM|PS|SVG)\.NON_ZERO_WINDING
-reportlab\.graphics\.render(base|PDF|PM|PS|SVG)\.STATE_DEFAULTS
 reportlab\.graphics\.render(base|PDF|PM|PS|SVG)\.decimalSymbol
 reportlab\.graphics\.render(base|PDF|PM|PS|SVG)\.pi
 reportlab\.graphics\.render(base|PDF|PM|PS|SVG)\.shapeChecking
