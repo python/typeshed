@@ -3,47 +3,57 @@
 isort:skip_file
 """
 
-import builtins
-import typing
+import builtins as _builtins
+import sys
+import typing as _typing
 
-import google.protobuf.descriptor
-import google.protobuf.message
-import tensorflow.core.framework.allocation_description_pb2
-import tensorflow.core.framework.tensor_shape_pb2
-import tensorflow.core.framework.types_pb2
+from google.protobuf import descriptor as _descriptor, message as _message
+from tensorflow.core.framework import (
+    allocation_description_pb2 as _allocation_description_pb2,
+    tensor_shape_pb2 as _tensor_shape_pb2,
+    types_pb2 as _types_pb2,
+)
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
+else:
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-@typing.final
-class TensorDescription(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+DESCRIPTOR: _descriptor.FileDescriptor
 
-    DTYPE_FIELD_NUMBER: builtins.int
-    SHAPE_FIELD_NUMBER: builtins.int
-    ALLOCATION_DESCRIPTION_FIELD_NUMBER: builtins.int
-    dtype: tensorflow.core.framework.types_pb2.DataType.ValueType
+@_typing.final
+class TensorDescription(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    DTYPE_FIELD_NUMBER: _builtins.int
+    SHAPE_FIELD_NUMBER: _builtins.int
+    ALLOCATION_DESCRIPTION_FIELD_NUMBER: _builtins.int
+    dtype: _types_pb2.DataType.ValueType
     """Data type of tensor elements"""
-    @property
-    def shape(self) -> tensorflow.core.framework.tensor_shape_pb2.TensorShapeProto:
+    @_builtins.property
+    def shape(self) -> _tensor_shape_pb2.TensorShapeProto:
         """Shape of the tensor."""
 
-    @property
-    def allocation_description(self) -> tensorflow.core.framework.allocation_description_pb2.AllocationDescription:
+    @_builtins.property
+    def allocation_description(self) -> _allocation_description_pb2.AllocationDescription:
         """Information about the size and allocator used for the data"""
 
     def __init__(
         self,
         *,
-        dtype: tensorflow.core.framework.types_pb2.DataType.ValueType | None = ...,
-        shape: tensorflow.core.framework.tensor_shape_pb2.TensorShapeProto | None = ...,
-        allocation_description: tensorflow.core.framework.allocation_description_pb2.AllocationDescription | None = ...,
+        dtype: _types_pb2.DataType.ValueType | None = ...,
+        shape: _tensor_shape_pb2.TensorShapeProto | None = ...,
+        allocation_description: _allocation_description_pb2.AllocationDescription | None = ...,
     ) -> None: ...
-    def HasField(
-        self, field_name: typing.Literal["allocation_description", b"allocation_description", "shape", b"shape"]
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal["allocation_description", b"allocation_description", "dtype", b"dtype", "shape", b"shape"],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal[
+        "allocation_description", b"allocation_description", "shape", b"shape"
+    ]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "allocation_description", b"allocation_description", "dtype", b"dtype", "shape", b"shape"
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___TensorDescription = TensorDescription
+Global___TensorDescription: _TypeAlias = TensorDescription  # noqa: Y015

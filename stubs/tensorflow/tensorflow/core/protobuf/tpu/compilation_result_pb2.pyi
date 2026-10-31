@@ -3,42 +3,41 @@
 isort:skip_file
 """
 
-import builtins
-import collections.abc
+import builtins as _builtins
 import sys
-import typing
+import typing as _typing
+from collections import abc as _abc
 
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.internal.enum_type_wrapper
-import google.protobuf.message
-import tensorflow.compiler.xla.service.hlo_pb2
-import tensorflow.tsl.protobuf.error_codes_pb2
+from google.protobuf import descriptor as _descriptor, message as _message
+from google.protobuf.internal import containers as _containers, enum_type_wrapper as _enum_type_wrapper
+from tensorflow.compiler.xla.service import hlo_pb2 as _hlo_pb2
+from tensorflow.compiler.xla.tsl.protobuf import error_codes_pb2 as _error_codes_pb2
 
-if sys.version_info >= (3, 10):
-    import typing as typing_extensions
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
 else:
-    import typing_extensions
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+DESCRIPTOR: _descriptor.FileDescriptor
 
-@typing.final
-class CompilationResultProto(google.protobuf.message.Message):
+@_typing.final
+class CompilationResultProto(_message.Message):
     """Describes the result of a TPU compilation. This is also used as TPU
     compilation result status payload.
     URI: "type.googleapis.com/tensorflow.tpu.CompilationResultProto"
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _ErrorCode:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
     class _ErrorCodeEnumTypeWrapper(
-        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[CompilationResultProto._ErrorCode.ValueType], builtins.type
+        _enum_type_wrapper._EnumTypeWrapper[CompilationResultProto._ErrorCode.ValueType], _builtins.type
     ):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        DESCRIPTOR: _descriptor.EnumDescriptor
         UNKNOWN: CompilationResultProto._ErrorCode.ValueType  # 0
         OUT_OF_MEMORY: CompilationResultProto._ErrorCode.ValueType  # 1
 
@@ -46,40 +45,39 @@ class CompilationResultProto(google.protobuf.message.Message):
     UNKNOWN: CompilationResultProto.ErrorCode.ValueType  # 0
     OUT_OF_MEMORY: CompilationResultProto.ErrorCode.ValueType  # 1
 
-    STATUS_CODE_FIELD_NUMBER: builtins.int
-    STATUS_ERROR_MESSAGE_FIELD_NUMBER: builtins.int
-    HLO_PROTOS_FIELD_NUMBER: builtins.int
-    ERROR_CODE_FIELD_NUMBER: builtins.int
-    status_code: tensorflow.tsl.protobuf.error_codes_pb2.Code.ValueType
+    STATUS_CODE_FIELD_NUMBER: _builtins.int
+    STATUS_ERROR_MESSAGE_FIELD_NUMBER: _builtins.int
+    HLO_PROTOS_FIELD_NUMBER: _builtins.int
+    ERROR_CODE_FIELD_NUMBER: _builtins.int
+    status_code: _error_codes_pb2.Code.ValueType
     """The error message, if any, returned during compilation."""
-    status_error_message: builtins.str
-    error_code: global___CompilationResultProto.ErrorCode.ValueType
-    @property
-    def hlo_protos(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[tensorflow.compiler.xla.service.hlo_pb2.HloProto]:
+    status_error_message: _builtins.str
+    error_code: Global___CompilationResultProto.ErrorCode.ValueType
+    @_builtins.property
+    def hlo_protos(self) -> _containers.RepeatedCompositeFieldContainer[_hlo_pb2.HloProto]:
         """HLO proto."""
 
     def __init__(
         self,
         *,
-        status_code: tensorflow.tsl.protobuf.error_codes_pb2.Code.ValueType | None = ...,
-        status_error_message: builtins.str | None = ...,
-        hlo_protos: collections.abc.Iterable[tensorflow.compiler.xla.service.hlo_pb2.HloProto] | None = ...,
-        error_code: global___CompilationResultProto.ErrorCode.ValueType | None = ...,
+        status_code: _error_codes_pb2.Code.ValueType | None = ...,
+        status_error_message: _builtins.str | None = ...,
+        hlo_protos: _abc.Iterable[_hlo_pb2.HloProto] | None = ...,
+        error_code: Global___CompilationResultProto.ErrorCode.ValueType | None = ...,
     ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "error_code",
-            b"error_code",
-            "hlo_protos",
-            b"hlo_protos",
-            "status_code",
-            b"status_code",
-            "status_error_message",
-            b"status_error_message",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "error_code",
+        b"error_code",
+        "hlo_protos",
+        b"hlo_protos",
+        "status_code",
+        b"status_code",
+        "status_error_message",
+        b"status_error_message",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___CompilationResultProto = CompilationResultProto
+Global___CompilationResultProto: _TypeAlias = CompilationResultProto  # noqa: Y015

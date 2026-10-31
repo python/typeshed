@@ -17,18 +17,24 @@ limitations under the License.
 ==============================================================================
 """
 
-import builtins
-import collections.abc
-import typing
+import builtins as _builtins
+import sys
+import typing as _typing
+from collections import abc as _abc
 
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.message
+from google.protobuf import descriptor as _descriptor, message as _message
+from google.protobuf.internal import containers as _containers
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
+else:
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-@typing.final
-class TaskDeviceFilters(google.protobuf.message.Message):
+DESCRIPTOR: _descriptor.FileDescriptor
+
+@_typing.final
+class TaskDeviceFilters(_message.Message):
     """This file contains protos to be used when defining a TensorFlow
     cluster.
 
@@ -62,63 +68,75 @@ class TaskDeviceFilters(google.protobuf.message.Message):
     Defines the device filters for a remote task.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    DEVICE_FILTERS_FIELD_NUMBER: builtins.int
-    @property
-    def device_filters(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
-    def __init__(self, *, device_filters: collections.abc.Iterable[builtins.str] | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["device_filters", b"device_filters"]) -> None: ...
+    DEVICE_FILTERS_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def device_filters(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]: ...
+    def __init__(self, *, device_filters: _abc.Iterable[_builtins.str] | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["device_filters", b"device_filters"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___TaskDeviceFilters = TaskDeviceFilters
+Global___TaskDeviceFilters: _TypeAlias = TaskDeviceFilters  # noqa: Y015
 
-@typing.final
-class JobDeviceFilters(google.protobuf.message.Message):
+@_typing.final
+class JobDeviceFilters(_message.Message):
     """Defines the device filters for tasks in a job."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class TasksEntry(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class TasksEntry(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        KEY_FIELD_NUMBER: builtins.int
-        VALUE_FIELD_NUMBER: builtins.int
-        key: builtins.int
-        @property
-        def value(self) -> global___TaskDeviceFilters: ...
-        def __init__(self, *, key: builtins.int | None = ..., value: global___TaskDeviceFilters | None = ...) -> None: ...
-        def HasField(self, field_name: typing.Literal["value", b"value"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
+        KEY_FIELD_NUMBER: _builtins.int
+        VALUE_FIELD_NUMBER: _builtins.int
+        key: _builtins.int
+        @_builtins.property
+        def value(self) -> Global___TaskDeviceFilters: ...
+        def __init__(self, *, key: _builtins.int | None = ..., value: Global___TaskDeviceFilters | None = ...) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["value", b"value"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["key", b"key", "value", b"value"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    NAME_FIELD_NUMBER: builtins.int
-    TASKS_FIELD_NUMBER: builtins.int
-    name: builtins.str
+    NAME_FIELD_NUMBER: _builtins.int
+    TASKS_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
     """The name of this job."""
-    @property
-    def tasks(self) -> google.protobuf.internal.containers.MessageMap[builtins.int, global___TaskDeviceFilters]:
+    @_builtins.property
+    def tasks(self) -> _containers.MessageMap[_builtins.int, Global___TaskDeviceFilters]:
         """Mapping from task ID to task device filters."""
 
     def __init__(
-        self,
-        *,
-        name: builtins.str | None = ...,
-        tasks: collections.abc.Mapping[builtins.int, global___TaskDeviceFilters] | None = ...,
+        self, *, name: _builtins.str | None = ..., tasks: _abc.Mapping[_builtins.int, Global___TaskDeviceFilters] | None = ...
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["name", b"name", "tasks", b"tasks"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["name", b"name", "tasks", b"tasks"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___JobDeviceFilters = JobDeviceFilters
+Global___JobDeviceFilters: _TypeAlias = JobDeviceFilters  # noqa: Y015
 
-@typing.final
-class ClusterDeviceFilters(google.protobuf.message.Message):
+@_typing.final
+class ClusterDeviceFilters(_message.Message):
     """Defines the device filters for jobs in a cluster."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    JOBS_FIELD_NUMBER: builtins.int
-    @property
-    def jobs(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___JobDeviceFilters]: ...
-    def __init__(self, *, jobs: collections.abc.Iterable[global___JobDeviceFilters] | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["jobs", b"jobs"]) -> None: ...
+    JOBS_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def jobs(self) -> _containers.RepeatedCompositeFieldContainer[Global___JobDeviceFilters]: ...
+    def __init__(self, *, jobs: _abc.Iterable[Global___JobDeviceFilters] | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["jobs", b"jobs"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___ClusterDeviceFilters = ClusterDeviceFilters
+Global___ClusterDeviceFilters: _TypeAlias = ClusterDeviceFilters  # noqa: Y015

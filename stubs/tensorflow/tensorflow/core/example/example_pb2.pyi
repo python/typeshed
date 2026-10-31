@@ -5,17 +5,23 @@ Protocol messages for describing input data Examples for machine learning
 model training or inference.
 """
 
-import builtins
-import typing
+import builtins as _builtins
+import sys
+import typing as _typing
 
-import google.protobuf.descriptor
-import google.protobuf.message
-import tensorflow.core.example.feature_pb2
+from google.protobuf import descriptor as _descriptor, message as _message
+from tensorflow.core.example import feature_pb2 as _feature_pb2
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
+else:
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-@typing.final
-class Example(google.protobuf.message.Message):
+DESCRIPTOR: _descriptor.FileDescriptor
+
+@_typing.final
+class Example(_message.Message):
     """An Example is a mostly-normalized data format for storing data for
     training and inference.  It contains a key-value store (features); where
     each key (string) maps to a Feature message (which is oneof packed BytesList,
@@ -90,19 +96,22 @@ class Example(google.protobuf.message.Message):
           is considered to be an empty tensor and no default will be used.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    FEATURES_FIELD_NUMBER: builtins.int
-    @property
-    def features(self) -> tensorflow.core.example.feature_pb2.Features: ...
-    def __init__(self, *, features: tensorflow.core.example.feature_pb2.Features | None = ...) -> None: ...
-    def HasField(self, field_name: typing.Literal["features", b"features"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["features", b"features"]) -> None: ...
+    FEATURES_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def features(self) -> _feature_pb2.Features: ...
+    def __init__(self, *, features: _feature_pb2.Features | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["features", b"features"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["features", b"features"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___Example = Example
+Global___Example: _TypeAlias = Example  # noqa: Y015
 
-@typing.final
-class SequenceExample(google.protobuf.message.Message):
+@_typing.final
+class SequenceExample(_message.Message):
     """A SequenceExample is an Example representing one or more sequences, and
     some context.  The context contains features which apply to the entire
     example. The feature_lists contain a key, value map where each key is
@@ -310,21 +319,21 @@ class SequenceExample(google.protobuf.message.Message):
        } }
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    CONTEXT_FIELD_NUMBER: builtins.int
-    FEATURE_LISTS_FIELD_NUMBER: builtins.int
-    @property
-    def context(self) -> tensorflow.core.example.feature_pb2.Features: ...
-    @property
-    def feature_lists(self) -> tensorflow.core.example.feature_pb2.FeatureLists: ...
+    CONTEXT_FIELD_NUMBER: _builtins.int
+    FEATURE_LISTS_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def context(self) -> _feature_pb2.Features: ...
+    @_builtins.property
+    def feature_lists(self) -> _feature_pb2.FeatureLists: ...
     def __init__(
-        self,
-        *,
-        context: tensorflow.core.example.feature_pb2.Features | None = ...,
-        feature_lists: tensorflow.core.example.feature_pb2.FeatureLists | None = ...,
+        self, *, context: _feature_pb2.Features | None = ..., feature_lists: _feature_pb2.FeatureLists | None = ...
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["context", b"context", "feature_lists", b"feature_lists"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["context", b"context", "feature_lists", b"feature_lists"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["context", b"context", "feature_lists", b"feature_lists"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["context", b"context", "feature_lists", b"feature_lists"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___SequenceExample = SequenceExample
+Global___SequenceExample: _TypeAlias = SequenceExample  # noqa: Y015

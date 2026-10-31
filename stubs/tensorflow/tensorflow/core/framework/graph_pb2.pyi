@@ -3,49 +3,71 @@
 isort:skip_file
 """
 
-import builtins
-import collections.abc
-import typing
+import builtins as _builtins
+import sys
+import typing as _typing
+from collections import abc as _abc
 
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.message
-import tensorflow.core.framework.function_pb2
-import tensorflow.core.framework.graph_debug_info_pb2
-import tensorflow.core.framework.node_def_pb2
-import tensorflow.core.framework.versions_pb2
+from google.protobuf import descriptor as _descriptor, message as _message
+from google.protobuf.internal import containers as _containers
+from tensorflow.core.framework import (
+    function_pb2 as _function_pb2,
+    graph_debug_info_pb2 as _graph_debug_info_pb2,
+    node_def_pb2 as _node_def_pb2,
+    versions_pb2 as _versions_pb2,
+)
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
+else:
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-@typing.final
-class GraphDef(google.protobuf.message.Message):
+if sys.version_info >= (3, 13):
+    from warnings import deprecated as _deprecated
+else:
+    from typing_extensions import deprecated as _deprecated
+
+DESCRIPTOR: _descriptor.FileDescriptor
+
+@_typing.final
+class GraphDef(_message.Message):
     """Represents the graph of operations"""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NODE_FIELD_NUMBER: builtins.int
-    VERSIONS_FIELD_NUMBER: builtins.int
-    VERSION_FIELD_NUMBER: builtins.int
-    LIBRARY_FIELD_NUMBER: builtins.int
-    DEBUG_INFO_FIELD_NUMBER: builtins.int
-    version: builtins.int
-    """Deprecated single version field; use versions above instead.  Since all
-    GraphDef changes before "versions" was introduced were forward
-    compatible, this field is entirely ignored.
-    """
-    @property
-    def node(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[tensorflow.core.framework.node_def_pb2.NodeDef]: ...
-    @property
-    def versions(self) -> tensorflow.core.framework.versions_pb2.VersionDef:
+    NODE_FIELD_NUMBER: _builtins.int
+    VERSIONS_FIELD_NUMBER: _builtins.int
+    VERSION_FIELD_NUMBER: _builtins.int
+    LIBRARY_FIELD_NUMBER: _builtins.int
+    DEBUG_INFO_FIELD_NUMBER: _builtins.int
+
+    @_builtins.property
+    @_deprecated("""This field has been marked as deprecated using proto field options.""")
+    def version(self) -> _builtins.int:
+        """Deprecated single version field; use versions above instead.  Since all
+        GraphDef changes before "versions" was introduced were forward
+        compatible, this field is entirely ignored.
+        """
+    @version.setter
+    @_deprecated("""This field has been marked as deprecated using proto field options.""")
+    def version(self, value: _builtins.int) -> None:
+        """Deprecated single version field; use versions above instead.  Since all
+        GraphDef changes before "versions" was introduced were forward
+        compatible, this field is entirely ignored.
+        """
+
+    @_builtins.property
+    def node(self) -> _containers.RepeatedCompositeFieldContainer[_node_def_pb2.NodeDef]: ...
+    @_builtins.property
+    def versions(self) -> _versions_pb2.VersionDef:
         """Compatibility versions of the graph.  See core/public/version.h for version
         history.  The GraphDef version is distinct from the TensorFlow version, and
         each release of TensorFlow will support a range of GraphDef versions.
         """
 
-    @property
-    def library(self) -> tensorflow.core.framework.function_pb2.FunctionDefLibrary:
+    @_builtins.property
+    def library(self) -> _function_pb2.FunctionDefLibrary:
         """ "library" provides user-defined functions.
 
         Naming:
@@ -74,27 +96,27 @@ class GraphDef(google.protobuf.message.Message):
             function are ready.
         """
 
-    @property
-    def debug_info(self) -> tensorflow.core.framework.graph_debug_info_pb2.GraphDebugInfo:
+    @_builtins.property
+    def debug_info(self) -> _graph_debug_info_pb2.GraphDebugInfo:
         """Stack traces for the nodes in this graph."""
 
     def __init__(
         self,
         *,
-        node: collections.abc.Iterable[tensorflow.core.framework.node_def_pb2.NodeDef] | None = ...,
-        versions: tensorflow.core.framework.versions_pb2.VersionDef | None = ...,
-        version: builtins.int | None = ...,
-        library: tensorflow.core.framework.function_pb2.FunctionDefLibrary | None = ...,
-        debug_info: tensorflow.core.framework.graph_debug_info_pb2.GraphDebugInfo | None = ...,
+        node: _abc.Iterable[_node_def_pb2.NodeDef] | None = ...,
+        versions: _versions_pb2.VersionDef | None = ...,
+        version: _builtins.int | None = ...,
+        library: _function_pb2.FunctionDefLibrary | None = ...,
+        debug_info: _graph_debug_info_pb2.GraphDebugInfo | None = ...,
     ) -> None: ...
-    def HasField(
-        self, field_name: typing.Literal["debug_info", b"debug_info", "library", b"library", "versions", b"versions"]
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "debug_info", b"debug_info", "library", b"library", "node", b"node", "version", b"version", "versions", b"versions"
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal[
+        "debug_info", b"debug_info", "library", b"library", "versions", b"versions"
+    ]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "debug_info", b"debug_info", "library", b"library", "node", b"node", "version", b"version", "versions", b"versions"
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___GraphDef = GraphDef
+Global___GraphDef: _TypeAlias = GraphDef  # noqa: Y015

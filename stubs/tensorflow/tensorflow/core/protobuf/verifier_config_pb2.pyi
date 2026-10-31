@@ -3,35 +3,33 @@
 isort:skip_file
 """
 
-import builtins
+import builtins as _builtins
 import sys
-import typing
+import typing as _typing
 
-import google.protobuf.descriptor
-import google.protobuf.internal.enum_type_wrapper
-import google.protobuf.message
+from google.protobuf import descriptor as _descriptor, message as _message
+from google.protobuf.internal import enum_type_wrapper as _enum_type_wrapper
 
-if sys.version_info >= (3, 10):
-    import typing as typing_extensions
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
 else:
-    import typing_extensions
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+DESCRIPTOR: _descriptor.FileDescriptor
 
-@typing.final
-class VerifierConfig(google.protobuf.message.Message):
+@_typing.final
+class VerifierConfig(_message.Message):
     """The config for graph verifiers."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _Toggle:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
-    class _ToggleEnumTypeWrapper(
-        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[VerifierConfig._Toggle.ValueType], builtins.type
-    ):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    class _ToggleEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[VerifierConfig._Toggle.ValueType], _builtins.type):
+        DESCRIPTOR: _descriptor.EnumDescriptor
         DEFAULT: VerifierConfig._Toggle.ValueType  # 0
         ON: VerifierConfig._Toggle.ValueType  # 1
         OFF: VerifierConfig._Toggle.ValueType  # 2
@@ -41,25 +39,26 @@ class VerifierConfig(google.protobuf.message.Message):
     ON: VerifierConfig.Toggle.ValueType  # 1
     OFF: VerifierConfig.Toggle.ValueType  # 2
 
-    VERIFICATION_TIMEOUT_IN_MS_FIELD_NUMBER: builtins.int
-    STRUCTURE_VERIFIER_FIELD_NUMBER: builtins.int
-    verification_timeout_in_ms: builtins.int
+    VERIFICATION_TIMEOUT_IN_MS_FIELD_NUMBER: _builtins.int
+    STRUCTURE_VERIFIER_FIELD_NUMBER: _builtins.int
+    verification_timeout_in_ms: _builtins.int
     """Deadline for completion of all verification i.e. all the Toggle ON
     verifiers must complete execution within this time.
     """
-    structure_verifier: global___VerifierConfig.Toggle.ValueType
+    structure_verifier: Global___VerifierConfig.Toggle.ValueType
     """Perform structural validation on a tensorflow graph. Default is OFF."""
     def __init__(
         self,
         *,
-        verification_timeout_in_ms: builtins.int | None = ...,
-        structure_verifier: global___VerifierConfig.Toggle.ValueType | None = ...,
+        verification_timeout_in_ms: _builtins.int | None = ...,
+        structure_verifier: Global___VerifierConfig.Toggle.ValueType | None = ...,
     ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "structure_verifier", b"structure_verifier", "verification_timeout_in_ms", b"verification_timeout_in_ms"
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "structure_verifier", b"structure_verifier", "verification_timeout_in_ms", b"verification_timeout_in_ms"
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___VerifierConfig = VerifierConfig
+Global___VerifierConfig: _TypeAlias = VerifierConfig  # noqa: Y015
