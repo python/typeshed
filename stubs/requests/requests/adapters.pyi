@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from collections.abc import Mapping
 from ssl import SSLContext
 from typing import Any, Literal, TypedDict, type_check_only
@@ -14,7 +13,7 @@ from urllib3.exceptions import (
     ReadTimeoutError as ReadTimeoutError,
     ResponseError as ResponseError,
 )
-from urllib3.poolmanager import PoolManager as PoolManager, proxy_from_url as proxy_from_url
+from urllib3.poolmanager import PoolManager as PoolManager, ProxyManager, proxy_from_url as proxy_from_url
 from urllib3.util.retry import Retry as Retry
 
 from .cookies import extract_cookies_to_jar as extract_cookies_to_jar
@@ -72,14 +71,14 @@ class BaseAdapter:
     def close(self) -> None: ...
 
 class HTTPAdapter(BaseAdapter):
-    __attrs__: Incomplete
+    __attrs__: list[str]
     max_retries: Retry
-    config: Incomplete
-    proxy_manager: Incomplete
+    config: dict[str, Any]
+    proxy_manager: dict[str, ProxyManager | SOCKSProxyManager]
     def __init__(
         self, pool_connections: int = 10, pool_maxsize: int = 10, max_retries: Retry | int | None = 0, pool_block: bool = False
     ) -> None: ...
-    poolmanager: Incomplete
+    poolmanager: PoolManager
     def init_poolmanager(
         self,
         connections: int,
@@ -91,17 +90,10 @@ class HTTPAdapter(BaseAdapter):
         # ssl_context (ssl.SSLContext), socket_options (list), etc.
         # We use Any because the exact set is dynamic and not fully specified in stubs.
     ) -> None: ...
-    def proxy_manager_for(
-        self,
-        proxy: str,
-        **proxy_kwargs: Any,  # Any: Same as pool_kwargs above, passed to ProxyManager or SOCKSProxyManager.
-        # May include: ssl_context, cert_reqs, ca_certs, ca_cert_dir, etc.
-    ) -> Any:  # Any: Returns either urllib3.ProxyManager (for HTTP/HTTPS proxies) or SOCKSProxyManager (for SOCKS).
-        # The exact return type depends on the proxy scheme and is not needed by callers; using Any avoids
-        # circular imports or complex union types. In practice, the object adheres to a common interface.
-        ...
-
-    def cert_verify(self, conn, url, verify, cert): ...
+    def proxy_manager_for(self, proxy: str, **proxy_kwargs: Any) -> ProxyManager | SOCKSProxyManager: ...
+    def cert_verify(
+        self, conn: Any, url: str, verify: bool | str | None, cert: bytes | str | tuple[bytes | str, bytes | str] | None
+    ) -> None: ...
     def build_response(self, req: PreparedRequest, resp: urllib3.BaseHTTPResponse) -> Response: ...
     def build_connection_pool_key_attributes(
         self, request: PreparedRequest, verify: bool | str, cert: str | tuple[str, str] | None = None
