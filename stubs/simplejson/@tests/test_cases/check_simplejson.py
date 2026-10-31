@@ -22,12 +22,7 @@ assert_type(decoder.parse_string('"hello"', 1), tuple[str, int])
 assert_type(decoder.parse_array(("[]", 1), decoder.scan_once), tuple[Any, int])
 assert_type(
     decoder.parse_object(
-        ("{}", 1),
-        decoder.encoding,
-        decoder.strict,
-        decoder.scan_once,
-        decoder.object_hook,
-        decoder.object_pairs_hook,
+        ("{}", 1), decoder.encoding, decoder.strict, decoder.scan_once, decoder.object_hook, decoder.object_pairs_hook
     ),
     tuple[Any, int],
 )
