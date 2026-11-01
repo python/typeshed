@@ -5031,7 +5031,8 @@ class PyIViewObject2:
 
 class PyMAPINAMEIDArray: ...
 class PyOLEMENUGROUPWIDTHS: ...
-class PyPROPERTYKEY: ...
+
+PyPROPERTYKEY: TypeAlias = tuple[PyIID, int]
 
 @final
 class PyPROPVARIANT:
