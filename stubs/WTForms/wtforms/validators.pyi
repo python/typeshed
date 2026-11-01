@@ -68,12 +68,15 @@ class Length:
     def __call__(self, form: BaseForm, field: StringField) -> None: ...
 
 class NumberRange:
-    min: float | Decimal | None
-    max: float | Decimal | None
+    min: float | Decimal | Callable[[], float | Decimal | None] | None
+    max: float | Decimal | Callable[[], float | Decimal | None] | None
     message: str | None
     field_flags: dict[str, Any]
     def __init__(
-        self, min: float | Decimal | None = None, max: float | Decimal | None = None, message: str | None = None
+        self,
+        min: float | Decimal | Callable[[], float | Decimal | None] | None = None,
+        max: float | Decimal | Callable[[], float | Decimal | None] | None = None,
+        message: str | None = None,
     ) -> None: ...
     # any numeric field will work, for now we don't try to use a union
     # to restrict to the defined numeric fields, since user-defined fields
