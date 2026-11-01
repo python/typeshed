@@ -82,14 +82,14 @@ class NumberRange:
     def __call__(self, form: BaseForm, field: Field) -> None: ...
 
 class DateRange:
-    min: date | datetime | Callable[[], date | datetime] | None
-    max: date | datetime | Callable[[], date | datetime] | None
+    min: date | datetime | Callable[[], date | datetime | None] | None
+    max: date | datetime | Callable[[], date | datetime | None] | None
     message: str
     field_flags: dict[str, Any]
     def __init__(
         self,
-        min: date | datetime | Callable[[], date | datetime] | None = None,
-        max: date | datetime | Callable[[], date | datetime] | None = None,
+        min: date | datetime | Callable[[], date | datetime | None] | None = None,
+        max: date | datetime | Callable[[], date | datetime | None] | None = None,
         message: str | None = None,
     ) -> None: ...
     def __call__(self, form: BaseForm, field: Field) -> None: ...
