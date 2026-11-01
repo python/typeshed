@@ -1,7 +1,8 @@
 from __future__ import annotations
 
 import os
-from typing import Any, Dict, Generic, Iterable, Mapping, TypeVar, Union
+from collections.abc import Iterable, Mapping
+from typing import Any, Generic, TypeVar
 from typing_extensions import Self, assert_type
 
 ###################################################################
@@ -15,9 +16,9 @@ from typing_extensions import Self, assert_type
 # https://github.com/python/mypy/issues/12358
 # bad = dict()
 good: dict[str, str] = dict()
-assert_type(good, Dict[str, str])
+assert_type(good, dict[str, str])
 
-assert_type(dict(arg=1), Dict[str, int])
+assert_type(dict(arg=1), dict[str, int])
 
 _KT = TypeVar("_KT")
 _VT = TypeVar("_VT")
@@ -37,11 +38,11 @@ class KeysAndGetItem(Generic[_KT, _VT]):
 
 
 kt1: KeysAndGetItem[int, str] = KeysAndGetItem({0: ""})
-assert_type(dict(kt1), Dict[int, str])
+assert_type(dict(kt1), dict[int, str])
 dict(kt1, arg="a")  # type: ignore
 
 kt2: KeysAndGetItem[str, int] = KeysAndGetItem({"": 0})
-assert_type(dict(kt2, arg=1), Dict[str, int])
+assert_type(dict(kt2, arg=1), dict[str, int])
 
 
 def test_iterable_tuple_overload(x: Iterable[tuple[int, str]]) -> dict[int, str]:
@@ -53,12 +54,12 @@ test_iterable_tuple_overload(i1)
 dict(i1, arg="a")  # type: ignore
 
 i2: Iterable[tuple[str, int]] = [("a", 1), ("b", 2)]
-assert_type(dict(i2, arg=1), Dict[str, int])
+assert_type(dict(i2, arg=1), dict[str, int])
 
 i3: Iterable[str] = ["a.b"]
 i4: Iterable[bytes] = [b"a.b"]
-assert_type(dict(string.split(".") for string in i3), Dict[str, str])
-assert_type(dict(string.split(b".") for string in i4), Dict[bytes, bytes])
+assert_type(dict(string.split(".") for string in i3), dict[str, str])
+assert_type(dict(string.split(b".") for string in i4), dict[bytes, bytes])
 
 dict(["foo", "bar", "baz"])  # type: ignore
 dict([b"foo", b"bar", b"baz"])  # type: ignore
@@ -71,19 +72,19 @@ str_value = "value"
 int_value = 1
 
 assert_type(d_any["key"], Any)
-assert_type(d_any.get("key"), Union[Any, None])
-assert_type(d_any.get("key", None), Union[Any, None])
+assert_type(d_any.get("key"), Any | None)
+assert_type(d_any.get("key", None), Any | None)
 assert_type(d_any.get("key", any_value), Any)
 assert_type(d_any.get("key", str_value), Any)
 assert_type(d_any.get("key", int_value), Any)
 
 assert_type(d_str["key"], str)
-assert_type(d_str.get("key"), Union[str, None])
-assert_type(d_str.get("key", None), Union[str, None])
+assert_type(d_str.get("key"), str | None)
+assert_type(d_str.get("key", None), str | None)
 # Pyright has str instead of Any here
 assert_type(d_str.get("key", any_value), Any)  # pyright: ignore[reportAssertTypeFailure]
 assert_type(d_str.get("key", str_value), str)
-assert_type(d_str.get("key", int_value), Union[str, int])
+assert_type(d_str.get("key", int_value), str | int)
 
 # Now with context!
 result: str
@@ -184,7 +185,7 @@ def test_dict_dot_or(
     assert_type(a | b, dict[int, int])
     assert_type(b | a, dict[int, int])
 
-    assert_type(a | c, dict[Union[int, str], Union[int, str]])
+    assert_type(a | c, dict[int | str, int | str])
 
     # arbitrary mappings are not accepted by `dict.__or__`;
     # it has to be a subclass of `dict`
@@ -192,8 +193,8 @@ def test_dict_dot_or(
 
     # but Mappings such as `os._Environ` or `CustomMappingWithDunderOr`,
     # which define `__ror__` methods that accept `dict`, are fine:
-    assert_type(a | os.environ, dict[Union[str, int], Union[str, int]])
-    assert_type(os.environ | a, dict[Union[str, int], Union[str, int]])
+    assert_type(a | os.environ, dict[int | str, int | str])
+    assert_type(os.environ | a, dict[int | str, int | str])
 
     assert_type(c | os.environ, dict[str, str])
     assert_type(c | e, dict[str, str])

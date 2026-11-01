@@ -1,11 +1,25 @@
 from collections.abc import Callable
+from http.cookiejar import CookieJar
 from typing import Any, ClassVar, TypeVar
 
 from authlib.oauth2.auth import ClientAuth, TokenAuth
 from authlib.oauth2.client import OAuth2Client
-from oauthlib.oauth2 import OAuth2Token
 from requests import PreparedRequest, Response, Session
+from requests._types import (
+    AuthType,
+    CertType,
+    DataType,
+    FilesType,
+    HeadersType,
+    HooksInputType,
+    JsonType,
+    ParamsType,
+    TimeoutType,
+    UriType,
+    VerifyType,
+)
 from requests.auth import AuthBase
+from requests.cookies import RequestsCookieJar
 
 from ..base_client import OAuthError
 
@@ -43,4 +57,24 @@ class OAuth2Session(OAuth2Client, Session):
         **kwargs,
     ) -> None: ...
     def fetch_access_token(self, url: str | None = None, **kwargs) -> OAuth2Token: ...
-    def request(self, method: str, url: str, withhold_token: bool = False, auth=None, **kwargs) -> Response: ...  # type: ignore[override]
+    def request(  # type: ignore[override]
+        self,
+        method: str,
+        url: UriType,
+        withhold_token: bool = False,
+        auth: AuthType = None,
+        *,
+        params: ParamsType = None,
+        data: DataType = None,
+        headers: HeadersType = None,
+        cookies: RequestsCookieJar | CookieJar | dict[str, str] | None = None,
+        files: FilesType = None,
+        timeout: TimeoutType = None,
+        allow_redirects: bool = True,
+        proxies: dict[str, str] | None = None,
+        hooks: HooksInputType | None = None,
+        stream: bool | None = None,
+        verify: VerifyType | None = None,
+        cert: CertType = None,
+        json: JsonType = None,
+    ) -> Response: ...
