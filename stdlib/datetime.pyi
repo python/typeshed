@@ -64,7 +64,6 @@ class date:
     @classmethod
     def fromordinal(cls, n: int, /) -> Self: ...
 
-    # fromisoformat returns Self, but we can't specialize "Self"
     if sys.version_info >= (3, 15):
         @classmethod
         def fromisoformat(cls, string: str, /) -> Self: ...
