@@ -4,6 +4,7 @@ from typing import Any, ClassVar, TypeVar
 
 from authlib.oauth2.auth import ClientAuth, TokenAuth
 from authlib.oauth2.client import OAuth2Client
+from oauthlib.oauth2 import OAuth2Token
 from requests import PreparedRequest, Response, Session
 from requests._types import (
     AuthType,
