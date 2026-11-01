@@ -53,7 +53,7 @@ class OAuth2Session(OAuth2Client, Session):
         token: dict[str, Any] | None = None,
         token_placement: str = ...,
         update_token: Callable[[OAuth2Token], None] | None = None,
-        leeway: int = ...,
+        leeway: int = 60,
         default_timeout: float | tuple[float | None, float | None] | None = None,
         **kwargs,
     ) -> None: ...
