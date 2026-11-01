@@ -169,6 +169,10 @@ supported:
   be listed here, for security reasons. See
   [this issue](https://github.com/typeshed-internal/stub_uploader/issues/90)
   for more information about what external dependencies are allowed.
+* `optional-dependencies` (optional): A list of other stub packages or packages
+  with type information that are imported by some stubs in this package. This
+  is often used for packages that provide optional features that require extra
+  dependencies. The same limitations apply to this field as to `dependencies`.
 * `extra-description` (optional): Can be used to add a custom description to
   the package's long description. It should be a multi-line string in
   Markdown format.
@@ -176,10 +180,10 @@ supported:
   This defaults to `types-<distribution>` and should only be set in special
   cases.
 * `upstream-repository` (recommended): The URL of the upstream repository.
-* `obsolete-since` (optional): This field is part of our process for
+* `obsolete-since` (optional): This table is part of our process for
   [removing obsolete third-party libraries](#third-party-library-removal-policy).
   It contains the first version of the corresponding library that ships
-  its own `py.typed` file.
+  its own `py.typed` file, and the date when that version was released.
 * `no-longer-updated` (optional): This field is set to `true` before removing
   stubs for other reasons than the upstream library shipping with type
   information.
@@ -187,8 +191,8 @@ supported:
   uploads to PyPI. This should only be used in special cases, e.g. when the stubs
   break the upload.
 * `partial-stub` (optional): This field marks the type stub package as
-  [partial](https://peps.python.org/pep-0561/#partial-stub-packages). This is for
-  3rd-party stubs that don't cover the entirety of the package's public API.
+  [partial](https://typing.python.org/en/latest/spec/distributing.html#partial-stub-packages).
+  This is for 3rd-party stubs that don't cover the entirety of the package's public API.
 * `requires-python` (optional): The minimum version of Python required to install
   the type stub package. It must be in the form `>=3.*`. If omitted, the oldest
   Python version supported by typeshed is used.
@@ -198,19 +202,24 @@ This has the following keys:
 * `skip` (default: `false`): Whether stubtest should be run against this
   package. Please avoid setting this to `true`, and add a comment if you have
   to.
-* `ignore-missing-stub`: When set to `true`, this will add the
-  `--ignore-missing-stub` option to the stubtest call. See
+* `ignore-missing-stub` (default: `false`): When set to `true`, this will add
+  the `--ignore-missing-stub` option to the stubtest call. See
   [tests/README.md](./tests/README.md) for more information. In most cases,
   this field should be identical to `partial-stub`.
 * `stubtest-dependencies` (default: `[]`): A list of Python packages that need
   to be installed for stubtest to run successfully. These packages are installed
-  in addition to the dependencies in the `dependencies` field.
+  in addition to the dependencies in the `dependencies` and
+  `optional-dependencies` fields.
 * `apt-dependencies` (default: `[]`): A list of Ubuntu APT packages
   that need to be installed for stubtest to run successfully.
 * `brew-dependencies` (default: `[]`): A list of MacOS Homebrew packages
   that need to be installed for stubtest to run successfully
 * `choco-dependencies` (default: `[]`): A list of Windows Chocolatey packages
   that need to be installed for stubtest to run successfully
+* `extras` (default: `[]`): A list of optional dependency groups
+  ([extras](https://packaging.python.org/en/latest/specifications/core-metadata/#provides-extra-multiple-use))
+  that need to be installed for stubtest to run successfully.
+  For example, `extras = ["foo"]` installs the package as `<package>[foo]`.
 * `supported-platforms` (default: all platforms): A list of OSes on which
   stubtest can be run. When a package is not platform-specific, this should
   not be set. If the package is platform-specific, this should usually be set
@@ -226,6 +235,12 @@ when running stubtest. For example: `mypy-plugins = ["mypy_django_plugin.main"]`
 * `mypy-plugins-config` (default: `{}`): A dictionary mapping plugin names to their
 configuration dictionaries for use by mypy plugins. For example:
 `mypy-plugins-config = {"django-stubs" = {"django_settings_module" = "@tests.django_settings"}}`
+* `install-environment` (default: `{}`): A dictionary of environment variables
+  to set while `pip install`ing the package and its dependencies for stubtest.
+  Useful for packages that read build-time options from the environment, for
+  example to disable CPU-specific compiler flags that do not survive CI's
+  shared wheel cache. For example:
+  `install-environment = { HNSWLIB_NO_NATIVE = "1" }`
 
 `*-dependencies` are usually packages needed to `pip install` the implementation
 distribution.
@@ -233,6 +248,42 @@ distribution.
 The format of all `METADATA.toml` files can be checked by running
 `python3 ./tests/check_typeshed_structure.py`.
 
+### Dependencies
+
+When a third-party stub package depends on another package, there are several
+strategies available, depending on whether the other package is typed.
+
+1. If the other package is typed and includes a `py.typed` marker, add that
+    package to the `dependencies` key in `METADATA.toml`. This might fail the
+    stub uploader checks, in which case you can ask the maintainers for help.
+2. Otherwise, if a type package is available, add that package to the
+    `dependencies` key. If the type package originates from typeshed, the
+    stub uploader checks should succeed.
+3. In case the dependency in untyped and no stubs are available, you may stub
+    the dependency in your type stubs. For example:
+
+    ```python
+    from typing import Any
+    # from fruzzle import Frobnicator  # won't work
+
+    _Frobnicator: TypeAlias = Any  # actually fruzzle.Frobnicator
+    ```
+
+    In more complex or advanced cases you may instead opt to add a stubs
+    is a separate helper package:
+
+    ```python
+    # stubs/my-stubs/my_stubs/_fruzzle.pyi
+
+    # Utility stubs for the untyped "fruzzle" package.
+
+    from typing import Any, Protocol
+
+    Frobnicator: TypeAlias = Any
+
+    class Flubberer(Protocol):
+        def flubb_it(self, x: int, /) -> str: ...
+    ```
 
 ## Making Changes
 
@@ -315,6 +366,35 @@ documentation.  Whenever you find them disagreeing, model the type
 information after the actual implementation and file an issue on the
 project's tracker to fix their documentation.
 
+### Byte Types
+
+[PEP 688](https://www.python.org/dev/peps/pep-0688/) removes
+the implicit promotion from `bytearray` and `memoryview` to `bytes`.
+Typeshed stubs should be written assuming that these promotions
+do not happen, so a parameter that accepts either `bytes` or
+`bytearray` should be typed as `bytes | bytearray`.
+Often one of the aliases from `_typeshed`, such as
+`_typeshed.ReadableBuffer`, can be used instead.
+
+### Deprecations (using the `@deprecated` decorator)
+
+Generally deprecactions using the `@deprecated` decorator are added more
+liberally in typeshed than runtime deprecation warnings. Here are some
+guidelines that can be deviated from in special cases.
+
+Use `@deprecated` if and only if
+
+- a feature is deprecated at runtime (either using `@deprecated` or with a
+  runtime warning); or
+- a feature is documented to be deprecated (e.g. in API documentation,
+  docstrings, or comments).
+
+For standard library features that are not deprecated in all Python versions
+currently supported by typeshed use `@deprecated` for
+
+- all versions starting with the "Deprecated since" version, plus
+- all versions for which an alternative is available.
+
 ### Docstrings
 
 Typeshed stubs should not include duplicated docstrings from the source code.
@@ -340,27 +420,18 @@ When the script has finished running, it will print instructions telling you wha
 If it has been a while since you set up the virtualenv, make sure you have
 the latest mypy (`pip install -r requirements-tests.txt`) before running the script.
 
-### Supported type system features
+### Unsupported Type System Features
 
-Since [PEP 484](https://peps.python.org/pep-0484/) was accepted, there have been
-many other PEPs that added new features to the Python type system. In general,
-new features can be used in typeshed as soon as the PEP has been accepted and
-implemented and most type checkers support the new feature.
+Unless listed here, all type system features that have been added to the
+[Python typing specification](https://typing.python.org/en/latest/spec/)
+can be used. The following features are *not* supported:
 
-Supported features include:
-- [PEP 544](https://peps.python.org/pep-0544/) (`Protocol`)
-- [PEP 585](https://peps.python.org/pep-0585/) (builtin generics)
-- [PEP 586](https://peps.python.org/pep-0586/) (`Literal`)
-- [PEP 591](https://peps.python.org/pep-0591/) (`Final`/`@final`)
-- [PEP 589](https://peps.python.org/pep-0589/) (`TypedDict`)
-- [PEP 604](https://peps.python.org/pep-0604/) (`Foo | Bar` union syntax)
-- [PEP 612](https://peps.python.org/pep-0612/) (`ParamSpec`)
-- [PEP 647](https://peps.python.org/pep-0647/) (`TypeGuard`):
-  see [#5406](https://github.com/python/typeshed/issues/5406)
-- [PEP 655](https://peps.python.org/pep-0655/) (`Required` and `NotRequired`)
-- [PEP 673](https://peps.python.org/pep-0673/) (`Self`)
-- [PEP 675](https://peps.python.org/pep-0675/) (`LiteralString`)
-- [PEP 702](https://peps.python.org/pep-0702/) (`@deprecated()`)
+- [PEP 695](https://peps.python.org/pep-0695/) type parameter syntax.
+  (See [issue #10869](https://github.com/python/typeshed/issues/10869).) Use
+  explicit `TypeVar` definitions.
+- [PEP 695](https://peps.python.org/pep-0695/) type statement for aliases.
+  (See [issue #10870](https://github.com/python/typeshed/issues/10870).) Use
+  `TypeAlias` annotations.
 
 Features from the `typing` module that are not present in all
 supported Python versions must be imported from `typing_extensions`
@@ -373,16 +444,7 @@ instead in typeshed stubs. This currently affects:
 - `Required` and `NotRequired` (new in Python 3.11)
 - `Buffer` (new in Python 3.12; in the `collections.abc` module)
 - `@deprecated` (new in Python 3.13; in the `warnings` module)
-
-Some type checkers implicitly promote the `bytearray` and
-`memoryview` types to `bytes`.
-[PEP 688](https://www.python.org/dev/peps/pep-0688/) removes
-this implicit promotion.
-Typeshed stubs should be written assuming that these promotions
-do not happen, so a parameter that accepts either `bytes` or
-`bytearray` should be typed as `bytes | bytearray`.
-Often one of the aliases from `_typeshed`, such as
-`_typeshed.ReadableBuffer`, can be used instead.
+- `TypeForm` (new in Python 3.15)
 
 ## Submitting Changes
 
@@ -441,7 +503,7 @@ these steps:
 
 1. Open an issue explaining why the stubs should be removed.
 2. A maintainer will add the
-   ["stubs: removal" label](https://github.com/python/typeshed/labels/%22stubs%3A%20removal%22).
+   ["stubs: removal" label](https://github.com/python/typeshed/labels/stubs%3A%20removal).
 3. Open a PR that sets the `no-longer-updated` field in the `METADATA.toml`
    file to `true`.
 4. When a new version of the package was automatically uploaded to PyPI (which
@@ -452,7 +514,7 @@ for any stub obsoletions or removals.
 
 ### Marking PRs as "deferred"
 
-We sometimes use the ["status: deferred" label](https://github.com/python/typeshed/labels/%22status%3A%20deferred%22)
+We sometimes use the ["status: deferred" label](https://github.com/python/typeshed/labels/status%3A%20deferred)
 to mark PRs and issues that we'd like to accept, but that are blocked by some
 external factor. Blockers can include:
 
@@ -467,3 +529,8 @@ To keep the number of open PRs manageable, we may close PRs when they have been
 open for too long. Specifically, we close open PRs that either have failures in CI,
 serious merge conflicts or unaddressed feedback, and that have not seen any
 activity in three months.
+
+## Further Documentation
+
+See [docs/README.md](./docs/README.md) for an overview of all documentation
+available for typeshed.
