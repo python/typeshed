@@ -67,10 +67,10 @@ class date:
     # fromisoformat returns Self, but we can't specialize "Self"
     if sys.version_info >= (3, 15):
         @classmethod
-        def fromisoformat(cls, string: str, /) -> datetime[_TzInfo] | datetime[None]: ...
+        def fromisoformat(cls, string: str, /) -> Self: ...
     else:
         @classmethod
-        def fromisoformat(cls, date_string: str, /) -> datetime[_TzInfo] | datetime[None]: ...
+        def fromisoformat(cls, date_string: str, /) -> Self: ...
 
     @classmethod
     def fromisocalendar(cls, year: int, week: int, day: int) -> Self: ...
@@ -352,6 +352,14 @@ class datetime(date, Generic[_TzInfoT]):
         @overload
         @classmethod
         def fromtimestamp(cls, timestamp: float, /, tz: _TzInfo | None) -> datetime[_TzInfo] | datetime[None]: ...
+
+    # fromisoformat returns Self, but we can't specialize "Self"
+    if sys.version_info >= (3, 15):
+        @classmethod
+        def fromisoformat(cls, string: str, /) -> datetime[_TzInfo] | datetime[None]: ...  # type: ignore[override]
+    else:
+        @classmethod
+        def fromisoformat(cls, date_string: str, /) -> datetime[_TzInfo] | datetime[None]: ...  # type: ignore[override]
 
     @classmethod
     @deprecated("Use timezone-aware objects to represent datetimes in UTC; e.g. by calling .fromtimestamp(datetime.UTC)")
