@@ -43,6 +43,9 @@ __all__ = (
 # extra parameters, so we use `Any` to give people more flexibility.
 _RenderArg: TypeAlias = Any
 
+# apart from `True` and `False`, which are special-cased, all values get coerced
+# to `str` via either the `__html__` method or a conversion via `str()` by
+# `markupsafe.escape`.
 def html_params(**kwargs: object) -> str: ...
 
 class ListWidget:
