@@ -1,6 +1,7 @@
 from collections.abc import Generator
+from contextlib import _AsyncGeneratorContextManager
 from typing import ClassVar
-from typing_extensions import Never
+from typing_extensions import Never, Self
 
 import httpx2
 from authlib.oauth2.auth import ClientAuth, TokenAuth
@@ -42,8 +43,11 @@ class AsyncOAuth2Client(_OAuth2Client, httpx2.AsyncClient):
         leeway=60,
         **kwargs,
     ) -> None: ...
+    async def __aenter__(self) -> Self: ...
     async def request(self, method, url, withhold_token: bool = False, auth=..., **kwargs): ...
-    async def stream(self, method, url, withhold_token: bool = False, auth=..., **kwargs) -> Generator[Response]: ...  # type: ignore[override]
+    def stream(
+        self, method, url, withhold_token: bool = False, auth=..., **kwargs
+    ) -> _AsyncGeneratorContextManager[Response]: ...
     async def ensure_active_token(self, token): ...  # type: ignore[override]
 
 class OAuth2Client(_OAuth2Client, httpx2.Client):
