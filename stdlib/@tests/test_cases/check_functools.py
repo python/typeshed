@@ -122,6 +122,17 @@ assert_type(check_lru_cache.cache_info().misses, int)
 assert_type(check_lru_cache_with_maxsize.cache_info().misses, int)
 
 
+def check_cache_keys() -> None:
+    def size(*, self: list[int]) -> int:
+        return len(self)
+
+    disabled = lru_cache(maxsize=0)(size)
+    assert_type(disabled(self=[]), int)
+    assert_type(lru_cache(False, typed=True)(size)(self=[]), int)
+    cache(size)(self=[])  # type: ignore[arg-type]
+    lru_cache(1)(size)(self=[])  # type: ignore[arg-type]
+
+
 #
 # Tests for @cached_property
 #
