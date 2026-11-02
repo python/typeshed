@@ -3,7 +3,7 @@ from typing import TypeAlias, overload
 
 from win32.lib.pywintypes import error as error
 
-_EnumResult: TypeAlias = tuple[list[dict[str, Incomplete]], int, int] # ([dict, ...], total, resumeHandle)
+_EnumResult: TypeAlias = tuple[list[dict[str, Incomplete]], int, int]  # ([dict, ...], total, resumeHandle)
 
 def NetGetJoinInformation() -> tuple[str, Incomplete]: ...
 def NetGroupGetInfo(server: str, groupname: str, level, /): ...
