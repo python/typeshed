@@ -12,13 +12,19 @@ from wtforms.meta import DefaultMeta, _SupportsGettextAndNgettext
 __all__ = ("SelectField", "Choice", "SelectChoice", "SelectMultipleField", "RadioField")
 
 _FieldT = TypeVar("_FieldT", bound=Field)
-_LegacyChoice: TypeAlias = tuple[Any, str] | tuple[Any, str, dict[str, Any]]
+_LegacyChoice: TypeAlias = tuple[Any, str] | tuple[Any, str, dict[str, Any]]  # value, label, [render_kw]
 _Choice: TypeAlias = SelectChoice | _LegacyChoice
 # it's too difficult to get type safety here due to to nested partially invariant collections
 _GroupedChoices: TypeAlias = dict[str, Any]  # Any should be Collection[_Choice]
 _LegacyChoices: TypeAlias = Iterable[_LegacyChoice] | _GroupedChoices
 _LegacyChoicesCallback: TypeAlias = Callable[[], Sequence[_LegacyChoice] | _GroupedChoices]
-_SelectChoicesCallback: TypeAlias = Callable[[Any, _FieldT], Sequence[SelectChoice]] | Callable[[], Sequence[SelectChoice]]
+# For the two argument callback the implementation might depend on a specific form class
+# which is perfectly valid, but since parameter types are contravariant, we cannot restrict
+# the callback to `BaseForm`, so we use `Any` instead. We could perhaps use the same trick
+# as with _Validators leveraging a `Protocol` with an unbound contravariant type parameter
+# but I'm not sure it's worth the extra complexity.
+_AnyForm: TypeAlias = Any
+_SelectChoicesCallback: TypeAlias = Callable[[_AnyForm, _FieldT], Sequence[SelectChoice]] | Callable[[], Sequence[SelectChoice]]
 _FullChoice: TypeAlias = Choice | tuple[Any, str, bool, dict[str, Any]]  # value, label, selected, render_kw
 _FullGroupedChoices: TypeAlias = tuple[str, Iterable[_FullChoice]]
 _Option: TypeAlias = SelectFieldBase._Option

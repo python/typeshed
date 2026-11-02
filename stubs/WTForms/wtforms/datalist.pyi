@@ -12,6 +12,7 @@ _DataListChoices: TypeAlias = Sequence[DataListChoice | _RawDataListChoice] | di
 
 @type_check_only
 class _DataListWidget(Protocol):
+    # see the comment on `wtforms.widgets.core._RenderArg` for a thorough explanation of the kwargs
     def __call__(self, datalist: DataList, /, *, field: Field | None = None, **kwargs: Any) -> Markup: ...
 
 __all__ = ("DataList", "DataListChoice", "enum_datalist")
@@ -40,4 +41,6 @@ class DataList:
         widget: _DataListWidget | None = None,
     ) -> None: ...
     def iter_choices(self, field: Field | None = None) -> list[DataListChoice]: ...
+    # by default this invokes the bound `widget.__call__` with the given kwargs and bound `render_kw`
+    # see the comment on `wtforms.widgets.core._RenderArg` for a thorough explanation
     def __call__(self, field: Field | None = None, **kwargs: Any) -> Markup: ...
