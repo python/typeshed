@@ -12,12 +12,12 @@ PRIVATE_KEYS_MAP: Final[dict[str, type]]
 class OKPKey(AsymmetricKey):
     kty: str
     REQUIRED_JSON_FIELDS: ClassVar[list[str]]
-    PUBLIC_KEY_FIELDS = REQUIRED_JSON_FIELDS
+    PUBLIC_KEY_FIELDS = REQUIRED_JSON_FIELDS  # pyrefly: ignore [unknown-name]
     PRIVATE_KEY_FIELDS: ClassVar[list[str]]
     PUBLIC_KEY_CLS: ClassVar[tuple[type, ...]]
     PRIVATE_KEY_CLS: ClassVar[tuple[type, ...]]
     SSH_PUBLIC_PREFIX: ClassVar[bytes]
-    def exchange_shared_key(self, pubkey) -> bytes: ...
+    def exchange_shared_key(self, pubkey: X25519PrivateKey | X448PublicKey) -> bytes: ...
     @staticmethod
     def get_key_curve(key) -> str | None: ...
     def load_private_key(self) -> Ed25519PrivateKey | Ed448PrivateKey | X25519PrivateKey | X448PrivateKey: ...
