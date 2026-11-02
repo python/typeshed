@@ -361,7 +361,7 @@ async def get_host_repo_info(session: aiohttp.ClientSession, stub_info: StubMeta
     # so no need to repeat all of them here
     split_url = urllib.parse.urlsplit(stub_info.upstream_repository)
     host = split_url.netloc.removesuffix(".com")
-    if host not in ("github", "gitlab"):
+    if host not in {"github", "gitlab"}:
         return None
     url_path = split_url.path.strip("/")
     assert len(Path(url_path).parts) == 2
@@ -863,8 +863,6 @@ def get_update_pr_body(update: Update, settings: StubtestSettings) -> str:
             If stubtest fails for this PR:
             - Leave this PR open (as a reminder, and to prevent stubsabot from opening another PR)
             - Fix stubtest failures in another PR, then close this PR
-
-            Note that you will need to close and re-open the PR in order to trigger CI
             """)
     else:
         body += textwrap.dedent(f"""

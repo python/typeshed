@@ -30,7 +30,7 @@ from collections.abc import (
 from contextlib import AbstractAsyncContextManager as AsyncContextManager, AbstractContextManager as ContextManager
 from re import Match as Match, Pattern as Pattern
 from types import GenericAlias, ModuleType, UnionType
-from typing import (  # noqa: Y022,Y037,Y038,Y039,UP035
+from typing import (  # noqa: Y022,Y037,Y038,Y039  # ruff: ignore[deprecated-import]
     IO as IO,
     TYPE_CHECKING as TYPE_CHECKING,
     AbstractSet as AbstractSet,
@@ -215,12 +215,15 @@ _T_contra = _TypeVar("_T_contra", contravariant=True)
 if sys.version_info < (3, 15):
     def no_type_check_decorator(decorator: _F) -> _F: ...
 
+@type_check_only
+class _Protocol: ...
+
 # Do not import (and re-export) Protocol or runtime_checkable from
 # typing module because type checkers need to be able to distinguish
 # typing.Protocol and typing_extensions.Protocol so they can properly
 # warn users about potential runtime exceptions when using typing.Protocol
 # on older versions of Python.
-Protocol: _SpecialForm
+Protocol: type[_Protocol]
 
 def runtime_checkable(cls: _TC) -> _TC: ...
 
@@ -538,7 +541,7 @@ else:
             self,
             name: str,
             *,
-            bound: None | AnnotationForm | str = None,
+            bound: AnnotationForm | str | None = None,
             contravariant: bool = False,
             covariant: bool = False,
             default: AnnotationForm = ...,
@@ -647,7 +650,10 @@ class _NoExtraItemsType: ...
 NoExtraItems: _NoExtraItemsType
 
 # PEP 747
-TypeForm: _SpecialForm
+if sys.version_info >= (3, 15):
+    from typing import TypeForm as TypeForm
+else:
+    TypeForm: _SpecialForm
 
 # PEP 649/749
 if sys.version_info >= (3, 14):
