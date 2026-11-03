@@ -2,6 +2,7 @@ from collections.abc import Callable, Iterable
 from typing import Any, Literal
 
 from matplotlib.axes import Axes
+from matplotlib.colors import Colormap
 from matplotlib.typing import ColorType, LineStyleType, MarkerType
 
 from ._core.typing import ColumnName, DataSource, Default, NormSpec
@@ -21,7 +22,7 @@ def boxplot(
     hue_order: Iterable[ColumnName] | None = None,
     orient: Literal["v", "h", "x", "y"] | None = None,
     color: ColorType | None = None,
-    palette: _Palette | None = None,
+    palette: _Palette | Colormap | None = None,
     saturation: float = 0.75,
     fill: bool = True,
     dodge: bool | Literal["auto"] = "auto",
@@ -49,7 +50,7 @@ def violinplot(
     hue_order: Iterable[ColumnName] | None = None,
     orient: Literal["v", "h", "x", "y"] | None = None,
     color: ColorType | None = None,
-    palette: _Palette | None = None,
+    palette: _Palette | Colormap | None = None,
     saturation: float = 0.75,
     fill: bool = True,
     inner: str | None = "box",
@@ -87,7 +88,7 @@ def boxenplot(
     hue_order: Iterable[ColumnName] | None = None,
     orient: Literal["v", "h", "x", "y"] | None = None,
     color: ColorType | None = None,
-    palette: _Palette | None = None,
+    palette: _Palette | Colormap | None = None,
     saturation: float = 0.75,
     fill: bool = True,
     dodge: bool | Literal["auto"] = "auto",
@@ -124,7 +125,7 @@ def stripplot(
     dodge: bool = False,
     orient: Literal["v", "h", "x", "y"] | None = None,
     color: ColorType | None = None,
-    palette: _Palette | None = None,
+    palette: _Palette | Colormap | None = None,
     size: float = 5,
     edgecolor: ColorType | Default = ...,
     linewidth: float = 0,
@@ -147,7 +148,7 @@ def swarmplot(
     dodge: bool = False,
     orient: Literal["v", "h", "x", "y"] | None = None,
     color: ColorType | None = None,
-    palette: _Palette | None = None,
+    palette: _Palette | Colormap | None = None,
     size: float = 5,
     edgecolor: ColorType | None = None,
     linewidth: float = 0,
@@ -176,7 +177,7 @@ def barplot(
     seed: _Seed | None = None,
     orient: Literal["v", "h", "x", "y"] | None = None,
     color: ColorType | None = None,
-    palette: _Palette | None = None,
+    palette: _Palette | Colormap | None = None,
     saturation: float = 0.75,
     fill: bool = True,
     hue_norm: NormSpec = None,
@@ -210,7 +211,7 @@ def pointplot(
     weights: ColumnName | _Vector | None = None,
     seed: _Seed | None = None,
     color: ColorType | None = None,
-    palette: _Palette | None = None,
+    palette: _Palette | Colormap | None = None,
     hue_norm: NormSpec = None,
     markers: MarkerType | list[MarkerType] | Default = ...,
     linestyles: LineStyleType | list[LineStyleType] | Default = ...,
@@ -239,7 +240,7 @@ def countplot(
     hue_order: Iterable[ColumnName] | None = None,
     orient: Literal["v", "h", "x", "y"] | None = None,
     color: ColorType | None = None,
-    palette: _Palette | None = None,
+    palette: _Palette | Colormap | None = None,
     saturation: float = 0.75,
     fill: bool = True,
     hue_norm: NormSpec = None,
@@ -281,7 +282,7 @@ def catplot(
     formatter: Callable[[Any], str] | None = None,
     orient: Literal["v", "h", "x", "y"] | None = None,
     color: ColorType | None = None,
-    palette: _Palette | None = None,
+    palette: _Palette | Colormap | None = None,
     hue_norm: NormSpec = None,
     legend: _Legend = "auto",
     legend_out: bool = True,
