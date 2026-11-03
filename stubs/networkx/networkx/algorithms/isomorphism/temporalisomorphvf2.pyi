@@ -1,6 +1,8 @@
 from _typeshed import Incomplete
+from typing import Any
 
-from ...classes.graph import Graph, _Node
+from ...classes.digraph import DiGraph
+from ...classes.graph import Graph
 from .isomorphvf2 import DiGraphMatcher, GraphMatcher
 
 __all__ = ["TimeRespectingGraphMatcher", "TimeRespectingDiGraphMatcher"]
@@ -9,7 +11,14 @@ class TimeRespectingGraphMatcher(GraphMatcher):
     temporal_attribute_name: Incomplete
     delta: Incomplete
 
-    def __init__(self, G1: Graph[_Node], G2: Graph[_Node], temporal_attribute_name, delta) -> None: ...
+    def __init__(
+        self,
+        # Any: G1 and G2 can have unrelated node and data types
+        G1: Graph[Any, Any, Any],
+        G2: Graph[Any, Any, Any],
+        temporal_attribute_name,
+        delta,
+    ) -> None: ...
     def one_hop(self, Gx, Gx_node, neighbors): ...
     def two_hop(self, Gx, core_x, Gx_node, neighbors): ...
     def semantic_feasibility(self, G1_node, G2_node): ...
@@ -18,7 +27,14 @@ class TimeRespectingDiGraphMatcher(DiGraphMatcher):
     temporal_attribute_name: Incomplete
     delta: Incomplete
 
-    def __init__(self, G1: Graph[_Node], G2: Graph[_Node], temporal_attribute_name, delta) -> None: ...
+    def __init__(
+        self,
+        # Any: G1 and G2 can have unrelated node and data types
+        G1: DiGraph[Any, Any, Any],
+        G2: DiGraph[Any, Any, Any],
+        temporal_attribute_name,
+        delta,
+    ) -> None: ...
     def get_pred_dates(self, Gx, Gx_node, core_x, pred): ...
     def get_succ_dates(self, Gx, Gx_node, core_x, succ): ...
     def one_hop(self, Gx, Gx_node, core_x, pred, succ): ...
