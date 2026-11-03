@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from collections.abc import Collection, Iterable
+from collections.abc import Collection
 
 import numpy as np
 from networkx.classes.graph import Graph, _Node
@@ -22,6 +22,6 @@ def from_biadjacency_matrix(
     create_using: Graph[_Node] | type[Graph[_Node]] | None = None,
     edge_attribute: str = "weight",
     *,
-    row_order: Iterable[Incomplete] | None = None,
-    column_order: Iterable[Incomplete] | None = None,
+    row_order: Collection[Incomplete] | None = None,
+    column_order: Collection[Incomplete] | None = None,
 ) -> Graph[Incomplete]: ...

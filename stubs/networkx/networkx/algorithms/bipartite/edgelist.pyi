@@ -12,11 +12,15 @@ def write_edgelist(
     path: StrPath | SupportsWrite[bytes],
     comments: str = "#",
     delimiter: str = " ",
-    data: bool | Iterable[Incomplete] = True,
+    data: bool | Collection[Incomplete] = True,  # Not Iterable: iterated more than once, one-shot iterables give wrong results
     encoding: str = "utf-8",
 ) -> None: ...
 @_dispatchable
-def generate_edgelist(G: Graph[_Node], delimiter: str = " ", data: bool | Iterable[Incomplete] = True) -> Generator[str]: ...
+def generate_edgelist(
+    G: Graph[_Node],
+    delimiter: str = " ",
+    data: bool | Collection[Incomplete] = True,  # Not Iterable: iterated more than once, one-shot iterables give wrong results
+) -> Generator[str]: ...
 @_dispatchable
 def parse_edgelist(
     lines: Iterable[str],
