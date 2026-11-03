@@ -1,6 +1,7 @@
 from _typeshed import Incomplete
-from collections.abc import Collection
+from collections.abc import Sequence
 
+from networkx.classes.graph import Graph
 from networkx.utils.backends import _dispatchable
 
 __all__ = [
@@ -17,31 +18,37 @@ __all__ = [
 ]
 
 @_dispatchable
-def caveman_graph(l: int, k: int): ...
+def caveman_graph(l: int, k: int) -> Graph[int]: ...
 @_dispatchable
-def connected_caveman_graph(l: int, k: int): ...
+def connected_caveman_graph(l: int, k: int) -> Graph[int]: ...
 @_dispatchable
-def relaxed_caveman_graph(l: int, k: int, p: float, seed=None): ...
+def relaxed_caveman_graph(l: int, k: int, p: float, seed=None) -> Graph[int]: ...
 @_dispatchable
-def random_partition_graph(sizes: Collection[int], p_in: float, p_out: float, seed=None, directed: bool = False): ...
+def random_partition_graph(
+    sizes: Sequence[int], p_in: float, p_out: float, seed=None, directed: bool = False
+) -> Graph[int]: ...  # DiGraph if directed is True
 @_dispatchable
-def planted_partition_graph(l: int, k: int, p_in: float, p_out: float, seed=None, directed: bool = False): ...
+def planted_partition_graph(
+    l: int, k: int, p_in: float, p_out: float, seed=None, directed: bool = False
+) -> Graph[int]: ...  # DiGraph if directed is True
 @_dispatchable
-def gaussian_random_partition_graph(n: int, s: float, v: float, p_in: float, p_out: float, directed: bool = False, seed=None): ...
+def gaussian_random_partition_graph(
+    n: int, s: float, v: float, p_in: float, p_out: float, directed: bool = False, seed=None
+) -> Graph[int]: ...  # DiGraph if directed is True
 @_dispatchable
-def ring_of_cliques(num_cliques: int, clique_size: int): ...
+def ring_of_cliques(num_cliques: int, clique_size: int) -> Graph[int]: ...
 @_dispatchable
-def windmill_graph(n: int, k: int): ...
+def windmill_graph(n: int, k: int) -> Graph[int]: ...
 @_dispatchable
 def stochastic_block_model(
-    sizes: Collection[int],
-    p,
-    nodelist: Collection[Incomplete] | None = None,
+    sizes: Sequence[int],
+    p: Sequence[Sequence[float]],
+    nodelist: Sequence[Incomplete] | None = None,
     seed=None,
     directed: bool = False,
     selfloops: bool = False,
     sparse: bool = True,
-): ...
+) -> Graph[Incomplete]: ...  # DiGraph if directed is True
 @_dispatchable
 def LFR_benchmark_graph(
     n: int,
@@ -53,7 +60,7 @@ def LFR_benchmark_graph(
     max_degree: int | None = None,
     min_community: int | None = None,
     max_community: int | None = None,
-    tol: float = 1.0e-7,
+    tol: float = 1e-07,
     max_iters: int = 500,
     seed=None,
-): ...
+) -> Graph[int]: ...

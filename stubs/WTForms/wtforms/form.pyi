@@ -1,7 +1,6 @@
 from _typeshed import SupportsItems
 from collections.abc import Iterable, Iterator, Mapping, Sequence
-from typing import Any, ClassVar, Protocol, TypeVar, overload, type_check_only
-from typing_extensions import TypeAlias
+from typing import Any, ClassVar, Protocol, TypeAlias, TypeVar, overload, type_check_only
 
 from wtforms.fields.core import Field, UnboundField
 from wtforms.meta import DefaultMeta, _MultiDictLike
@@ -47,6 +46,7 @@ class BaseForm:
         extra_filters: Mapping[str, Sequence[Any]] | None = None,
         **kwargs: object,
     ) -> None: ...
+    def post_process(self, formdata: _MultiDictLike | None = None) -> None: ...
     # same thing here with extra_validators
     def validate(self, extra_validators: Mapping[str, Sequence[Any]] | None = None) -> bool: ...
     @property

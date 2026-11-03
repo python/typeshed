@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from collections.abc import Iterable, Mapping
+from collections.abc import Callable, Iterable, Mapping
 
 from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
@@ -16,7 +16,7 @@ __all__ = [
 ]
 
 @_dispatchable
-def geometric_edges(G: Graph[_Node], radius: float, p: float = 2): ...
+def geometric_edges(G: Graph[_Node], radius: float, p: float = 2) -> list[Incomplete]: ...
 @_dispatchable
 def random_geometric_graph(
     n: int | Iterable[Incomplete],
@@ -25,7 +25,7 @@ def random_geometric_graph(
     pos: Mapping[Incomplete, Incomplete] | None = None,
     p: float = 2,
     seed=None,
-): ...
+) -> Graph[Incomplete]: ...
 @_dispatchable
 def soft_random_geometric_graph(
     n: int | Iterable[Incomplete],
@@ -33,28 +33,28 @@ def soft_random_geometric_graph(
     dim: int = 2,
     pos: Mapping[Incomplete, Incomplete] | None = None,
     p: float = 2,
-    p_dist=None,
+    p_dist: Callable[[float], float] | None = None,
     seed=None,
-): ...
+) -> Graph[Incomplete]: ...
 @_dispatchable
 def geographical_threshold_graph(
     n: int | Iterable[Incomplete],
-    theta,
+    theta: float,
     dim: int = 2,
     pos: Mapping[Incomplete, Incomplete] | None = None,
-    weight: Mapping[Incomplete, Incomplete] | None = None,
-    metric=None,
-    p_dist=None,
+    weight: Mapping[Incomplete, float] | None = None,
+    metric: Callable[[Incomplete, Incomplete], float] | None = None,
+    p_dist: Callable[[float], float] | None = None,
     seed=None,
-): ...
+) -> Graph[Incomplete]: ...
 @_dispatchable
 def waxman_graph(
     n: int | Iterable[Incomplete],
     beta: float = 0.4,
     alpha: float = 0.1,
     L: float | None = None,
-    domain=(0, 0, 1, 1),
-    metric=None,
+    domain: tuple[float, float, float, float] = (0, 0, 1, 1),
+    metric: Callable[..., Incomplete] | None = None,
     seed=None,
 ) -> Graph[Incomplete]: ...
 
@@ -67,11 +67,11 @@ def thresholded_random_geometric_graph(
     radius: float,
     theta: float,
     dim: int = 2,
-    pos: Mapping[Incomplete, Incomplete] | None = None,
-    weight: Mapping[Incomplete, Incomplete] | None = None,
+    pos: dict[Incomplete, Incomplete] | None = None,
+    weight: dict[Incomplete, Incomplete] | None = None,
     p: float = 2,
     seed=None,
-): ...
+) -> Graph[Incomplete]: ...
 @_dispatchable
 def geometric_soft_configuration_graph(
     *, beta, n=None, gamma=None, mean_degree=None, kappas=None, seed=None

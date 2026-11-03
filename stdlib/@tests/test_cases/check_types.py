@@ -3,7 +3,7 @@ from __future__ import annotations
 import sys
 import types
 from collections import UserDict
-from typing import Any, Literal, TypeVar, Union
+from typing import Any, Literal, TypeVar
 from typing_extensions import assert_type
 
 _T = TypeVar("_T")
@@ -36,11 +36,11 @@ types.SimpleNamespace([[[], 2]])  # type: ignore
 mp = types.MappingProxyType({1: 2, 3: 4})
 mp.get("x")  # type: ignore
 item = mp.get(1)
-assert_type(item, Union[int, None])
+assert_type(item, int | None)
 item_2 = mp.get(2, 0)
 assert_type(item_2, int)
 item_3 = mp.get(3, "default")
-assert_type(item_3, Union[int, str])
+assert_type(item_3, int | str)
 # Default isn't accepted as a keyword argument.
 mp.get(4, default="default")  # type: ignore
 
@@ -65,22 +65,23 @@ class DCAtest:
 # check that NotImplemented is treated as an "Any"
 x: int = NotImplemented
 
-if sys.version_info >= (3, 10):
-    # test NotImplementedType usage
-    assert_type(NotImplemented, types.NotImplementedType)
-    assert_type(types.NotImplementedType(), types.NotImplementedType)
-    # test EllipsisType usage
-    assert_type(Ellipsis, types.EllipsisType)
-    assert_type(types.EllipsisType(), types.EllipsisType)
-    # test NoneType usage (disabled, passes with pyright, but mypy errors
-    # assert_type(None, types.NoneType)
-    # assert_type(types.NoneType(), types.NoneType)
+# test NotImplementedType usage
+assert_type(NotImplemented, types.NotImplementedType)
+assert_type(types.NotImplementedType(), types.NotImplementedType)
+# test EllipsisType usage
+assert_type(Ellipsis, types.EllipsisType)
+assert_type(types.EllipsisType(), types.EllipsisType)
+# test NoneType usage (disabled, passes with pyright, but mypy errors
+# assert_type(None, types.NoneType)
+# assert_type(types.NoneType(), types.NoneType)
 
 if sys.version_info >= (3, 11):
     union_type = int | list[_T]
 
+    # pyright and mypy infer different types here
     # ideally this would be `_SpecialForm` (Union)
-    assert_type(union_type | Literal[1], types.UnionType | Any)
+    assert_type(union_type | Literal[1], types.UnionType | Any)  # pyright: ignore[reportAssertTypeFailure]
+    # assert_type(union_type | Literal[1], types.UnionType | type[Literal[1]])  # this is what pyright infers
     # Both mypy and pyright special-case this operation,
     # but in different ways, so we just check that no error is emitted:
     _ = union_type[int]

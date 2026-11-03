@@ -11,5 +11,8 @@ __all__ = ["adjacency_data", "adjacency_graph"]
 def adjacency_data(G: Graph[_Node], attrs: Mapping[str, Incomplete] = {"id": "id", "key": "key"}) -> dict[str, Any]: ...
 @_dispatchable
 def adjacency_graph(
-    data, directed: bool = False, multigraph: bool = True, attrs: Mapping[str, Incomplete] = {"id": "id", "key": "key"}
-): ...
+    data: Mapping[str, Incomplete],
+    directed: bool = False,
+    multigraph: bool = True,
+    attrs: Mapping[str, Incomplete] = {"id": "id", "key": "key"},
+) -> Graph[Incomplete]: ...

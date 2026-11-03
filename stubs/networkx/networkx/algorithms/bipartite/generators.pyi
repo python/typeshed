@@ -1,5 +1,4 @@
-from _typeshed import Incomplete
-from collections.abc import Collection
+from collections.abc import Sequence
 
 from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
@@ -17,27 +16,32 @@ __all__ = [
 ]
 
 @_dispatchable
-def complete_bipartite_graph(n1, n2, create_using: Graph[_Node] | None = None): ...
+def complete_bipartite_graph(n1, n2, create_using: Graph[_Node] | type[Graph[_Node]] | None = None): ...
 @_dispatchable
 def configuration_model(
-    aseq: Collection[Incomplete],
-    bseq: Collection[Incomplete],
-    create_using: Graph[_Node] | None = None,
+    aseq: Sequence[int],
+    bseq: Sequence[int],
+    create_using: Graph[_Node] | type[Graph[_Node]] | None = None,
     seed: int | RandomState | None = None,
 ): ...
 @_dispatchable
-def havel_hakimi_graph(aseq: Collection[Incomplete], bseq: Collection[Incomplete], create_using: Graph[_Node] | None = None): ...
+def havel_hakimi_graph(
+    aseq: Sequence[int], bseq: Sequence[int], create_using: Graph[_Node] | type[Graph[_Node]] | None = None
+): ...
 @_dispatchable
 def reverse_havel_hakimi_graph(
-    aseq: Collection[Incomplete], bseq: Collection[Incomplete], create_using: Graph[_Node] | None = None
+    aseq: Sequence[int], bseq: Sequence[int], create_using: Graph[_Node] | type[Graph[_Node]] | None = None
 ): ...
 @_dispatchable
 def alternating_havel_hakimi_graph(
-    aseq: Collection[Incomplete], bseq: Collection[Incomplete], create_using: Graph[_Node] | None = None
+    aseq: Sequence[int], bseq: Sequence[int], create_using: Graph[_Node] | type[Graph[_Node]] | None = None
 ): ...
 @_dispatchable
 def preferential_attachment_graph(
-    aseq: Collection[Incomplete], p: float, create_using: Graph[_Node] | None = None, seed: int | RandomState | None = None
+    aseq: Sequence[int],
+    p: float,
+    create_using: Graph[_Node] | type[Graph[_Node]] | None = None,
+    seed: int | RandomState | None = None,
 ): ...
 @_dispatchable
 def random_graph(n: int, m: int, p: float, seed: int | RandomState | None = None, directed: bool | None = False): ...

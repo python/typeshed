@@ -15,7 +15,7 @@ def node_link_data(
     key: str = "key",
     edges: str = "edges",
     nodes: str = "nodes",
-): ...
+) -> dict[Incomplete, Incomplete]: ...
 @_dispatchable
 def node_link_graph(
     data: Mapping[str, Incomplete],
@@ -28,4 +28,4 @@ def node_link_graph(
     key: str = "key",
     edges: str = "edges",
     nodes: str = "nodes",
-): ...
+) -> Graph[Incomplete]: ...
