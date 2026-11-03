@@ -86,7 +86,7 @@ def asksaveasfilename(
     parent: Misc | None = None,
     title: str | None = None,
     typevariable: StringVar | str | None = None,
-) -> str: ...  # can be empty string
+) -> str | tuple[()]: ...  # can be empty string or empty tuple
 def askopenfilename(
     *,
     defaultextension: str | None = "",
@@ -96,7 +96,7 @@ def askopenfilename(
     parent: Misc | None = None,
     title: str | None = None,
     typevariable: StringVar | str | None = None,
-) -> str: ...  # can be empty string
+) -> str | tuple[()]: ...  # can be empty string or empty tuple
 def askopenfilenames(
     *,
     defaultextension: str | None = "",
@@ -113,7 +113,7 @@ def askdirectory(
     mustexist: bool | None = False,
     parent: Misc | None = None,
     title: str | None = None,
-) -> str: ...  # can be empty string
+) -> str | tuple[()]: ...  # can be empty string or empty tuple
 
 # TODO: If someone actually uses these, overload to have the actual return type of open(..., mode)
 def asksaveasfile(
