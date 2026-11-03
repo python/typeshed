@@ -97,19 +97,19 @@ class _Stream(_WritableStream, _ReadableStream, Protocol): ...
 
 @type_check_only
 class _Encoder(Protocol):
-    def __call__(self, input: str, errors: str = ..., /) -> tuple[bytes, int]: ...  # signature of Codec().encode
+    def __call__(self, input: str, errors: str = ...) -> tuple[bytes, int]: ...  # signature of Codec().encode
 
 @type_check_only
 class _Decoder(Protocol):
-    def __call__(self, input: ReadableBuffer, errors: str = ..., /) -> tuple[str, int]: ...  # signature of Codec().decode
+    def __call__(self, input: ReadableBuffer, errors: str = ...) -> tuple[str, int]: ...  # signature of Codec().decode
 
 @type_check_only
 class _StreamReader(Protocol):
-    def __call__(self, stream: _ReadableStream, errors: str = ..., /) -> StreamReader: ...
+    def __call__(self, stream: _ReadableStream, errors: str = ...) -> StreamReader: ...
 
 @type_check_only
 class _StreamWriter(Protocol):
-    def __call__(self, stream: _WritableStream, errors: str = ..., /) -> StreamWriter: ...
+    def __call__(self, stream: _WritableStream, errors: str = ...) -> StreamWriter: ...
 
 @type_check_only
 class _IncrementalEncoder(Protocol):
