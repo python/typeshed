@@ -1,3 +1,6 @@
+# Is a functools.partial, so stubtest says "is not a function"
+setuptools._distutils._modified.newer_pairwise_group
+
 # Dynamically created in __init__
 setuptools._distutils.dist.Distribution.get_name
 setuptools._distutils.dist.Distribution.get_version
