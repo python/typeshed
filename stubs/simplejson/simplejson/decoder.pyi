@@ -13,10 +13,13 @@ class JSONDecoder:
     strict: bool
     array_hook: Callable[[list[Any]], Any] | None  # transforms a JSON value to an arbitrary value
     # They have many parameters, it might be better to use Protocol:
+    # Any represents the decoded JSON object (dict, or custom value from hook)
     parse_object: Callable[..., tuple[Any, int]]
+    # Any represents the decoded JSON array (list, or custom value from hook)
     parse_array: Callable[..., tuple[Any, int]]
     parse_string: Callable[..., tuple[str, int]]
     memo: dict[Any, Any]
+    # Any represents the decoded JSON value (str, int, float, bool, list, dict, None)
     scan_once: Callable[[str, int], tuple[Any, int]]
 
     def __init__(
