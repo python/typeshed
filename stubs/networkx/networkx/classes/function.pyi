@@ -82,7 +82,7 @@ def to_directed(graph): ...
 def to_undirected(graph): ...
 def create_empty_copy(G: Graph[_Node], with_data: bool = True): ...
 
-# incomplete: Can "Any scalar value" be enforced?
+# Values can be a dict-like mapping or any scalar value when name is provided
 @overload
 def set_node_attributes(
     G: Graph[_Node],
@@ -92,6 +92,8 @@ def set_node_attributes(
     backend=None,  # @_dispatchable adds these arguments, but we can't use this decorator with @overload
     **backend_kwargs,
 ) -> None: ...
+@overload
+def set_node_attributes(G: Graph[_Node], values: object, name: str, *, backend=None, **backend_kwargs) -> None: ...
 @overload
 def set_node_attributes(
     G: Graph[_Node],
@@ -109,6 +111,15 @@ def remove_node_attributes(G: Graph[_Node], *attr_names, nbunch=None) -> None: .
 
 @overload
 def set_edge_attributes(
+    G: MultiGraph[_Node],
+    values: dict[tuple[_Node, _Node, Incomplete], Incomplete],
+    name: str,
+    *,
+    backend: str | None = None,
+    **backend_kwargs,
+) -> None: ...
+@overload
+def set_edge_attributes(
     G: Graph[_Node],
     values: SupportsItems[tuple[_Node, _Node], Incomplete],
     name: str,
@@ -117,14 +128,7 @@ def set_edge_attributes(
     **backend_kwargs,
 ) -> None: ...
 @overload
-def set_edge_attributes(
-    G: MultiGraph[_Node],
-    values: dict[tuple[_Node, _Node, Incomplete], Incomplete],
-    name: str,
-    *,
-    backend: str | None = None,
-    **backend_kwargs,
-) -> None: ...
+def set_edge_attributes(G: Graph[_Node], values: object, name: str, *, backend: str | None = None, **backend_kwargs) -> None: ...
 @overload
 def set_edge_attributes(G: Graph[_Node], values, name: None = None, *, backend: str | None = None, **backend_kwargs) -> None: ...
 
