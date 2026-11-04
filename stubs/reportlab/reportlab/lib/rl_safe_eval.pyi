@@ -17,6 +17,7 @@ class FilteredModule:
     def __init__(
         self, m: types.ModuleType, mnames: str | tuple[str, ...] = (), mpattern: re.Pattern[str] | None = None
     ) -> None: ...
+    # Forwarded to the module passed to __init__; disallowed submodules raise AttributeError
     def __getattr__(self, a: str) -> Any: ...
     def __eq__(self, other: object) -> bool: ...
 
@@ -173,7 +174,7 @@ def safer_globals(g=None): ...
 
 math_log10 = math.log10
 __rl_undef__: Incomplete
-GenericAlias: Incomplete
+GenericAlias = types.GenericAlias
 
 class __RL_SAFE_ENV__:
     __time_time__ = time.time
