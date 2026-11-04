@@ -11,3 +11,7 @@ codecs.decode("x", "utf-8")  # type: ignore
 
 assert_type(codecs.decode("ab", "hex"), bytes)
 assert_type(codecs.decode(b"ab", "hex"), bytes)
+
+info = codecs.lookup("utf-8")
+assert_type(info.decode(b"potato", errors="replace"), tuple[str, int])
+assert_type(info.encode("potato", errors="replace"), tuple[bytes, int])
