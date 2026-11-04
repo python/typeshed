@@ -42,17 +42,11 @@ When merging pull requests, follow these guidelines:
 
 ## Subscribing to Changes with CODEOWNERS
 
-The [`.github/CODEOWNERS`](../.github/CODEOWNERS) file lets Contributors and Maintainers subscribe to changes to specific stubs. GitHub automatically requests a review from everyone listed for the paths a pull request touches.
+The [`.github/CODEOWNERS`](../.github/CODEOWNERS) file lets maintainers subscribe to changes to specific stubs. GitHub automatically requests a review from everyone listed for the paths a pull request touches.
 
 Despite its name, this file is not about who "owns" the code. Being listed is only a way to get notified. It grants no extra permissions, and a review from a listed person is not required to merge a PR.
 
-Maintainers can freely add and remove themselves.
-
-Trusted contributors who are actively involved with specific stubs (for example, the original author of those stubs) may request to be added by opening a PR that edits the file. This is limited to trusted and involved contributors, so that maintainers don't have to constantly edit the file. By requesting to be added, a contributor acknowledges that:
-
-* They will be requested as a reviewer on every PR touching those stubs.
-* Maintainers will not necessarily wait for their review before merging.
-* Requests to be removed from the file also go through a PR, and may take some time to be merged.
+Maintainers can freely add and remove themselves. GitHub [requires code owners to have write access to the repository](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners#codeowners-syntax).
 
 ## Marking PRs as "deferred"
 
