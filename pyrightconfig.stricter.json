@@ -26,7 +26,6 @@
         "stdlib/tkinter/tix.pyi",
         "stdlib/tkinter/ttk.pyi",
         "stubs/antlr4-python3-runtime",
-        "stubs/auth0-python",
         "stubs/Authlib",
         "stubs/aws-xray-sdk",
         "stubs/behave",
