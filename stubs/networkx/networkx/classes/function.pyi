@@ -1,4 +1,4 @@
-from _typeshed import Incomplete, SupportsItems, SupportsKeysAndGetItem, Unused
+from _typeshed import Incomplete, SupportsItems, SupportsKeysAndGetItem
 from collections.abc import Callable, Collection, Generator, Iterable, Iterator
 from typing import Literal, TypeVar, overload
 
@@ -82,11 +82,10 @@ def to_directed(graph): ...
 def to_undirected(graph): ...
 def create_empty_copy(G: Graph[_Node], with_data: bool = True): ...
 
-# incomplete: Can "Any scalar value" be enforced?
 @overload
 def set_node_attributes(
     G: Graph[_Node],
-    values: SupportsItems[_Node, Unused],
+    values: object,
     name: str,
     *,
     backend=None,  # @_dispatchable adds these arguments, but we can't use this decorator with @overload
@@ -110,7 +109,7 @@ def remove_node_attributes(G: Graph[_Node], *attr_names, nbunch=None) -> None: .
 @overload
 def set_edge_attributes(
     G: Graph[_Node],
-    values: SupportsItems[tuple[_Node, _Node], Incomplete],
+    values: object,
     name: str,
     *,
     backend: str | None = None,  # @_dispatchable adds these arguments, but we can't use this decorator with @overload
@@ -119,14 +118,21 @@ def set_edge_attributes(
 @overload
 def set_edge_attributes(
     G: MultiGraph[_Node],
-    values: dict[tuple[_Node, _Node, Incomplete], Incomplete],
-    name: str,
+    values: SupportsItems[tuple[_Node, _Node, Incomplete], Incomplete],
+    name: None = None,
     *,
     backend: str | None = None,
     **backend_kwargs,
 ) -> None: ...
 @overload
-def set_edge_attributes(G: Graph[_Node], values, name: None = None, *, backend: str | None = None, **backend_kwargs) -> None: ...
+def set_edge_attributes(
+    G: Graph[_Node],
+    values: SupportsItems[tuple[_Node, _Node], Incomplete],
+    name: None = None,
+    *,
+    backend: str | None = None,
+    **backend_kwargs,
+) -> None: ...
 
 @_dispatchable
 def get_edge_attributes(G: Graph[_Node], name: str, default=None) -> dict[tuple[_Node, _Node], Incomplete]: ...

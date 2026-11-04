@@ -23,3 +23,18 @@ degree_view = DegreeView(G_str)
 assert_type(degree_view(""), int)
 assert_type(degree_view([""]), DegreeView[str])
 assert_type(degree_view({""}), DegreeView[str])
+
+# Test set_edge_attributes and set_node_attributes with scalar values (issue #16542)
+nx.set_edge_attributes(G, 5, "weight")
+nx.set_edge_attributes(G, "red", name="color")
+nx.set_edge_attributes(G, {(1, 2): 10}, "capacity")
+nx.set_edge_attributes(G, {(1, 2): {"weight": 10}})
+
+MG: nx.MultiGraph[int] = nx.MultiGraph()
+nx.set_edge_attributes(MG, 5, "weight")
+nx.set_edge_attributes(MG, {(1, 2, 0): {"weight": 10}})
+
+nx.set_node_attributes(G, 5, "cost")
+nx.set_node_attributes(G, "red", name="color")
+nx.set_node_attributes(G, {1: 10}, "cost")
+nx.set_node_attributes(G, {1: {"cost": 10}})
