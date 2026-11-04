@@ -9,3 +9,6 @@
 /stubs/python-xlib/ @Avasam
 /stubs/pywin32/ @Avasam
 /stubs/setuptools/ @Avasam
+
+/stdlib/tkinter/ @Akuli
+/stubs/ttkthemes/ @Akuli
