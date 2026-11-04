@@ -1,4 +1,5 @@
 import re
+from _typeshed import MaybeNone
 from collections.abc import Iterable, Iterator
 from typing import Any, ClassVar, TypeAlias, overload
 from typing_extensions import Self, deprecated
@@ -11,7 +12,7 @@ _Args: TypeAlias = list[Any] | tuple[Any, ...] | dict[str, Any]
 class Cursor:
     max_stmt_length: ClassVar[int]
     connection: Connection[Any]
-    description: tuple[str, ...]
+    description: tuple[tuple[str, int, None, int, int, int, bool], ...] | MaybeNone
     rownumber: int
     rowcount: int
     arraysize: int
