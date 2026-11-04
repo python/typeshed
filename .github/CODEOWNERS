@@ -1,0 +1,11 @@
+# See docs/maintainer-guide.md#subscribing-to-changes-with-codeowners
+# Last matching pattern wins: list all subscribers to a path on one line.
+
+/stdlib/distutils/ @Avasam
+
+/stubs/keyboard/ @Avasam
+/stubs/PyAutoGUI/ @Avasam
+/stubs/pyinstaller/ @Avasam
+/stubs/python-xlib/ @Avasam
+/stubs/pywin32/ @Avasam
+/stubs/setuptools/ @Avasam
