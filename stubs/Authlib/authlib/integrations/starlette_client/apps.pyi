@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from typing import Any
 
 from starlette.datastructures import URL
@@ -17,7 +16,7 @@ class StarletteAppMixin:
 
 class StarletteOAuth1App(StarletteAppMixin, AsyncOAuth1Mixin, BaseApp):
     client_cls = AsyncOAuth1Client
-    async def authorize_access_token(self, request: Request, **kwargs) -> dict[Incomplete, Incomplete]: ...
+    async def authorize_access_token(self, request: Request, **kwargs) -> dict[str, Any]: ...
 
 class StarletteOAuth2App(StarletteAppMixin, AsyncOAuth2Mixin, AsyncOpenIDMixin, BaseApp):
     client_cls = AsyncOAuth2Client
