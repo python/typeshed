@@ -1,3 +1,4 @@
+from collections.abc import Collection
 from typing import Any, type_check_only
 
 from asgiref.typing import ASGIReceiveCallable, ASGISendCallable, Scope
@@ -19,9 +20,9 @@ class _ExtendedURLPattern(URLPattern):
     callback: _ASGIApplicationProtocol | URLRouter
 
 class URLRouter:
-    routes: list[_ExtendedURLPattern | URLRouter]
+    routes: Collection[_ExtendedURLPattern | URLRouter]
 
-    def __init__(self, routes: list[_ExtendedURLPattern | URLRouter]) -> None: ...
+    def __init__(self, routes: Collection[_ExtendedURLPattern | URLRouter]) -> None: ...
     async def __call__(self, scope: Scope, receive: ASGIReceiveCallable, send: ASGISendCallable) -> None: ...
 
 class ChannelNameRouter:

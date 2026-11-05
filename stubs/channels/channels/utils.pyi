@@ -1,11 +1,12 @@
-from collections.abc import Awaitable, Callable
+from collections.abc import Awaitable, Callable, Sequence
 from typing import Any, Protocol, TypeAlias, type_check_only
 
 from asgiref.typing import ASGIApplication, ASGIReceiveCallable
 
 def name_that_thing(thing: object) -> str: ...
 async def await_many_dispatch(
-    consumer_callables: list[Callable[[], Awaitable[ASGIReceiveCallable]]], dispatch: Callable[[dict[str, Any]], Awaitable[None]]
+    consumer_callables: Sequence[Callable[[], Awaitable[ASGIReceiveCallable]]],
+    dispatch: Callable[[dict[str, Any]], Awaitable[object]],
 ) -> None: ...
 
 # Defines a generic ASGI middleware protocol.
