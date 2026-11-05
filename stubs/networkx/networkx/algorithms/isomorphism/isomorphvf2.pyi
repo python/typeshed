@@ -1,5 +1,9 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
+from typing import Any
+
+from ...classes.digraph import DiGraph
+from ...classes.graph import Graph
 
 __all__ = ["GraphMatcher", "DiGraphMatcher"]
 
@@ -12,7 +16,12 @@ class GraphMatcher:
     old_recursion_limit: Incomplete
     test: str
 
-    def __init__(self, G1, G2) -> None: ...
+    def __init__(
+        self,
+        # Any: G1 and G2 can have unrelated node and data types
+        G1: Graph[Any, Any, Any],
+        G2: Graph[Any, Any, Any],
+    ) -> None: ...
     def reset_recursion_limit(self) -> None: ...
     def candidate_pairs_iter(self) -> Generator[Incomplete]: ...
     core_1: Incomplete
@@ -34,7 +43,12 @@ class GraphMatcher:
     def syntactic_feasibility(self, G1_node, G2_node): ...
 
 class DiGraphMatcher(GraphMatcher):
-    def __init__(self, G1, G2) -> None: ...
+    def __init__(
+        self,
+        # Any: G1 and G2 can have unrelated node and data types
+        G1: DiGraph[Any, Any, Any],
+        G2: DiGraph[Any, Any, Any],
+    ) -> None: ...
     def candidate_pairs_iter(self) -> Generator[Incomplete]: ...
     core_1: Incomplete
     core_2: Incomplete

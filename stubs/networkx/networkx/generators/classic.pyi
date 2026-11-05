@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
-from collections.abc import Iterable
+from collections.abc import Callable, Iterable
 
-from networkx.classes import Graph
+from networkx.classes.graph import Graph
 from networkx.utils.backends import _dispatchable
 
 __all__ = [
@@ -60,9 +60,9 @@ def dorogovtsev_goltsev_mendes_graph(
 ) -> Graph[Incomplete]: ...
 @_dispatchable
 def empty_graph(
-    n: Incomplete | int = 0,
+    n: int | Iterable[Incomplete] = 0,
     create_using: Graph[Incomplete] | type[Graph[Incomplete]] | None = None,
-    default: type[Graph[Incomplete]] = ...,
+    default: Callable[[], Graph[Incomplete]] = ...,
 ): ...
 @_dispatchable
 def ladder_graph(n, create_using=None): ...

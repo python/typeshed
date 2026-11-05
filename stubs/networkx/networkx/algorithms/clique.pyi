@@ -35,11 +35,13 @@ def make_clique_bipartite(
 ) -> Graph[_Node]: ...
 
 @overload
-def node_clique_number(
-    G: Graph[_Node], nodes=None, cliques: Iterable[Incomplete] | None = None, separate_nodes=False
+def node_clique_number(  # type: ignore[overload-overlap]
+    G: Graph[_Node], nodes: Iterable[_Node] | None = None, cliques: Iterable[Incomplete] | None = None, separate_nodes=False
 ) -> dict[_Node, int]: ...
 @overload
-def node_clique_number(G: Graph[_Node], nodes=None, cliques: Iterable[Incomplete] | None = None, separate_nodes=False) -> int: ...
+def node_clique_number(
+    G: Graph[_Node], nodes: _Node, cliques: Iterable[Incomplete] | None = None, separate_nodes=False
+) -> int: ...
 
 def number_of_cliques(
     G: Graph[_Node], nodes: list[_Node] | _Node | None = None, cliques: Iterable[Incomplete] | None = None
