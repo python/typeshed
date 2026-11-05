@@ -51,10 +51,16 @@ assert_type(pow(complex(9), 7.3, None), complex)
 assert_type(Fraction() ** 4, Fraction)
 
 assert_type(pow(Fraction(3, 7), complex(1, 8)), complex)
-assert_type(Fraction(3, 7) ** complex(1, 8), complex)
+assert_type(Fraction(3, 7) ** complex(1, 8), Fraction | float | complex)
+
+assert_type(Fraction(-2).__pow__(0.5), Fraction | float | complex)
+assert_type(Fraction(-2).__rpow__(0.5), Fraction | float | complex)
+
+assert_type(Fraction(2).__pow__(Fraction(4)), Fraction | float | complex)
+assert_type(Fraction(2).__rpow__(Fraction(4)), Fraction | float | complex)
 
 assert_type(pow(complex(4, -8), Fraction(2, 3)), complex)
-assert_type(complex(4, -8) ** Fraction(2, 3), complex)
+assert_type(complex(4, -8) ** Fraction(2, 3), Fraction | float | complex)
 
 assert_type(pow(Decimal("1.0"), Decimal("1.6")), Decimal)
 assert_type(Decimal("1.0") ** Decimal("1.6"), Decimal)
