@@ -3,6 +3,7 @@ from collections.abc import Callable, Collection, Generator, Iterable, Iterator
 from typing import Any, Literal, TypeVar, overload
 
 from networkx import _dispatchable
+from networkx._typing import Scalar
 from networkx.algorithms.planarity import PlanarEmbedding
 from networkx.classes.digraph import DiGraph
 from networkx.classes.graph import Graph, _EdgeData, _NBunch, _Node, _NodeData
@@ -86,15 +87,11 @@ def create_empty_copy(G: Graph[_Node], with_data: bool = True): ...
 @overload
 def set_node_attributes(
     G: Graph[_Node],
-    values: SupportsItems[_Node, Unused],
+    values: SupportsItems[_Node, Unused] | Scalar,
     name: str,
     *,
     backend: str | None = None,  # @_dispatchable adds these arguments, but we can't use this decorator with @overload
     **backend_kwargs: Any,
-) -> None: ...
-@overload
-def set_node_attributes(
-    G: Graph[_Node], values: object, name: str, *, backend: str | None = None, **backend_kwargs: Any
 ) -> None: ...
 @overload
 def set_node_attributes(
@@ -114,7 +111,7 @@ def remove_node_attributes(G: Graph[_Node], *attr_names, nbunch=None) -> None: .
 @overload
 def set_edge_attributes(
     G: MultiGraph[_Node],
-    values: dict[tuple[_Node, _Node, Incomplete], Incomplete],
+    values: dict[tuple[_Node, _Node, Incomplete], Incomplete] | Scalar,
     name: str,
     *,
     backend: str | None = None,
@@ -123,15 +120,11 @@ def set_edge_attributes(
 @overload
 def set_edge_attributes(
     G: Graph[_Node],
-    values: SupportsItems[tuple[_Node, _Node], Incomplete],
+    values: SupportsItems[tuple[_Node, _Node], Incomplete] | Scalar,
     name: str,
     *,
     backend: str | None = None,  # @_dispatchable adds these arguments, but we can't use this decorator with @overload
     **backend_kwargs: Any,
-) -> None: ...
-@overload
-def set_edge_attributes(
-    G: Graph[_Node], values: object, name: str, *, backend: str | None = None, **backend_kwargs: Any
 ) -> None: ...
 @overload
 def set_edge_attributes(
