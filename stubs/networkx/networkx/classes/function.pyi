@@ -82,15 +82,9 @@ def to_directed(graph): ...
 def to_undirected(graph): ...
 def create_empty_copy(G: Graph[_Node], with_data: bool = True): ...
 
-# incomplete: Can "Any scalar value" be enforced?
 @overload
 def set_node_attributes(
-    G: Graph[_Node],
-    values: SupportsItems[_Node, Unused],
-    name: str,
-    *,
-    backend=None,  # @_dispatchable adds these arguments, but we can't use this decorator with @overload
-    **backend_kwargs,
+    G: Graph[_Node], values: SupportsItems[_Node, Unused], name: str, *, backend: str | None = None, **backend_kwargs
 ) -> None: ...
 @overload
 def set_node_attributes(
@@ -98,9 +92,11 @@ def set_node_attributes(
     values: SupportsItems[_Node, SupportsKeysAndGetItem[Incomplete, Incomplete] | Iterable[tuple[Incomplete, Incomplete]]],
     name: None = None,
     *,
-    backend=None,
+    backend: str | None = None,
     **backend_kwargs,
 ) -> None: ...
+@overload
+def set_node_attributes(G: Graph[_Node], values: object, name: str, *, backend: str | None = None, **backend_kwargs) -> None: ...
 
 @_dispatchable
 def get_node_attributes(G: Graph[_Node], name: str, default=None) -> dict[_Node, Incomplete]: ...
@@ -113,7 +109,7 @@ def set_edge_attributes(
     values: SupportsItems[tuple[_Node, _Node], Incomplete],
     name: str,
     *,
-    backend: str | None = None,  # @_dispatchable adds these arguments, but we can't use this decorator with @overload
+    backend: str | None = None,
     **backend_kwargs,
 ) -> None: ...
 @overload
@@ -125,6 +121,8 @@ def set_edge_attributes(
     backend: str | None = None,
     **backend_kwargs,
 ) -> None: ...
+@overload
+def set_edge_attributes(G: Graph[_Node], values: object, name: str, *, backend: str | None = None, **backend_kwargs) -> None: ...
 @overload
 def set_edge_attributes(G: Graph[_Node], values, name: None = None, *, backend: str | None = None, **backend_kwargs) -> None: ...
 
