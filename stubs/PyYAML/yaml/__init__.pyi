@@ -411,17 +411,19 @@ def add_path_resolver(
 ) -> None: ...
 
 @overload
-def add_constructor(tag: str, constructor: Callable[[_L, _N], Incomplete], Loader: None = None) -> None: ...
+def add_constructor(tag: str | None, constructor: Callable[[_L, _N], Incomplete], Loader: None = None) -> None: ...
 @overload
-def add_constructor(tag: str, constructor: Callable[[_Constructor, _N], Incomplete], Loader: type[_Constructor]) -> None: ...
+def add_constructor(
+    tag: str | None, constructor: Callable[[_Constructor, _N], Incomplete], Loader: type[_Constructor]
+) -> None: ...
 
 @overload
 def add_multi_constructor(
-    tag_prefix: str, multi_constructor: Callable[[_L, str, _N], Incomplete], Loader: None = None
+    tag_prefix: str | None, multi_constructor: Callable[[_L, str, _N], Incomplete], Loader: None = None
 ) -> None: ...
 @overload
 def add_multi_constructor(
-    tag_prefix: str, multi_constructor: Callable[[_Constructor, str, _N], Incomplete], Loader: type[_Constructor]
+    tag_prefix: str | None, multi_constructor: Callable[[_Constructor, str, _N], Incomplete], Loader: type[_Constructor]
 ) -> None: ...
 
 @overload
