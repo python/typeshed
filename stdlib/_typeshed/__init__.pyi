@@ -146,6 +146,15 @@ class SupportsDivMod(Protocol[_T_contra, _T_co]):
 class SupportsRDivMod(Protocol[_T_contra, _T_co]):
     def __rdivmod__(self, other: _T_contra, /) -> _T_co: ...
 
+class SupportsRAnd(Protocol[_T_contra, _T_co]):
+    def __rand__(self, other: _T_contra, /) -> _T_co: ...
+
+class SupportsROr(Protocol[_T_contra, _T_co]):
+    def __ror__(self, other: _T_contra, /) -> _T_co: ...
+
+class SupportsRXor(Protocol[_T_contra, _T_co]):
+    def __rxor__(self, other: _T_contra, /) -> _T_co: ...
+
 # This protocol is generic over the iterator type, while Iterable is
 # generic over the type that is iterated over.
 class SupportsIter(Protocol[_T_co]):
