@@ -6,7 +6,7 @@ from email.message import Message
 from http.client import HTTPConnection, HTTPMessage, HTTPResponse
 from http.cookiejar import CookieJar
 from re import Pattern
-from typing import IO, Any, ClassVar, Literal, Protocol, TypeAlias, TypeVar, overload, type_check_only
+from typing import IO, Any, ClassVar, Generic, Literal, Protocol, TypeAlias, TypeVar, overload, type_check_only
 from typing_extensions import Never, deprecated
 from urllib.error import HTTPError as HTTPError
 from urllib.response import addclosehook, addinfourl
@@ -58,6 +58,10 @@ _T = TypeVar("_T")
 _UrlopenRet: TypeAlias = Any
 
 _DataType: TypeAlias = ReadableBuffer | SupportsRead[bytes] | Iterable[bytes] | None
+# Default to Any so that plain `Request` annotations accept every
+# specialization. A covariant type variable would require a setter that
+# accepts any data type, letting incorrect assignments go unnoticed.
+_DataT = TypeVar("_DataT", bound=_DataType, default=Any)
 
 if sys.version_info >= (3, 13):
     def urlopen(
@@ -121,7 +125,7 @@ if sys.platform == "win32" or sys.platform == "darwin":
 else:
     def proxy_bypass(host: str, proxies: Mapping[str, str] | None = None) -> Any: ...  # undocumented
 
-class Request:
+class Request(Generic[_DataT]):
     @property
     def full_url(self) -> str: ...
     @full_url.setter
@@ -133,21 +137,41 @@ class Request:
     host: str
     origin_req_host: str
     selector: str
-    data: _DataType
+
+    @property
+    def data(self) -> _DataT: ...
+    @data.setter
+    def data(self, data: _DataT) -> None: ...
+    @data.deleter
+    def data(self) -> None: ...
+
     headers: MutableMapping[str, str]
     unredirected_hdrs: dict[str, str]
     unverifiable: bool
     method: str | None
     timeout: float | None  # Undocumented, only set after __init__() by OpenerDirector.open()
+
+    @overload
     def __init__(
-        self,
+        self: Request[_DataType],
         url: str,
-        data: _DataType = None,
+        data: None = None,
         headers: SupportsItems[str, str] = {},
         origin_req_host: str | None = None,
         unverifiable: bool = False,
         method: str | None = None,
     ) -> None: ...
+    @overload
+    def __init__(
+        self,
+        url: str,
+        data: _DataT,
+        headers: SupportsItems[str, str] = {},
+        origin_req_host: str | None = None,
+        unverifiable: bool = False,
+        method: str | None = None,
+    ) -> None: ...
+
     def get_method(self) -> str: ...
     def add_header(self, key: str, val: str) -> None: ...
     def add_unredirected_header(self, key: str, val: str) -> None: ...
