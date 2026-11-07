@@ -38,10 +38,7 @@ if sys.version_info >= (3, 13):
 
     @overload
     def replace(
-        obj: _SupportsReplace[_P, _RT_co],
-        /,
-        *_: _P.args,
-        **changes: _P.kwargs,  # does not accept positional arguments at runtime
+        obj: _SupportsReplace[_P, _RT_co], /, *_: _P.args, **changes: _P.kwargs  # does not accept positional arguments at runtime
     ) -> _RT_co: ...
     @overload
     def replace(obj: _Unreplaceable, /, **changes: object) -> Never: ...
