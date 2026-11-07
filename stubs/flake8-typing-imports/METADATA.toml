@@ -1,2 +1,3 @@
 version = "1.19.*"
 upstream-repository = "https://github.com/asottile/flake8-typing-imports"
+no-longer-updated = true
