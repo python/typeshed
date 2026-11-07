@@ -1,7 +1,7 @@
-version = "1.8.0"
+# Requires a version of flask with a `py.typed` file
+version = "1.9.5"
 upstream-repository = "https://github.com/authlib/authlib"
 dependencies = ["cryptography"]
-# Requires a version of flask with a `py.typed` file
 optional-dependencies = ["django-stubs", "Flask>=2.0.0", "httpx2", "requests", "starlette", "types-oauthlib"]
 
 [tool.stubtest]
