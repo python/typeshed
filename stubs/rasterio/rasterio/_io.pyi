@@ -82,6 +82,7 @@ class DatasetReaderBase(DatasetBase):
         fill_value: NumType | None = None,
         out_dtype: DTypeLike | None = None,
     ) -> NDArray[Any] | MaskedArray[Any, Any]: ...
+
     def read_masks(
         self,
         indexes: Indexes | None = None,
