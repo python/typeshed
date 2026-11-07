@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing_extensions import assert_type
 from xml.dom.minidom import Document
+from xml.etree.ElementTree import Comment, ElementTree, ProcessingInstruction
 
 document = Document()
 
@@ -29,3 +30,18 @@ assert_type(document.toprettyxml("  ", "\r\n"), str)
 assert_type(document.toprettyxml("  ", "\r\n", "UTF8"), bytes)
 assert_type(document.toprettyxml("  ", "\r\n", "UTF8", True), bytes)
 assert_type(document.toprettyxml("  ", "\r\n", standalone=True), str)
+
+
+# Regression for #14671: ET.Comment/ProcessingInstruction are valid
+# element tags at runtime (insert_comments=True), so a plain Element's
+# tag must be comparable with them.
+def check_comment_tag(doc: ElementTree) -> None:
+    for el in doc.findall("*"):
+        _ = el.tag is Comment
+        _ = el.tag is ProcessingInstruction
+
+
+def check_comment_element() -> None:
+    c = Comment("a comment")
+    assert c.tag is Comment
+    assert c.tag is not ProcessingInstruction
