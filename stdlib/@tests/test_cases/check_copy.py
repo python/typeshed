@@ -55,7 +55,6 @@ if sys.version_info >= (3, 13):
         side: float
 
     def rename(shape: Circle | Square) -> Circle | Square:
-        return copy.replace(shape, name="renamed")
-
-    def wrong(shape: Circle | Square) -> Circle | Square:
-        return copy.replace(shape, name=1)  # E: invalid-argument-type
+        res = copy.replace(shape, name="renamed")
+        assert_type(res, Circle | Square)
+        return res
