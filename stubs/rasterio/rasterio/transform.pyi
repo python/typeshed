@@ -1,9 +1,10 @@
 from _typeshed import ConvertibleToInt
 from collections.abc import Callable, Sequence
-from typing import Final, Literal, TypeAlias, overload
+from typing import Any, Final, Literal, TypeAlias, overload
 from typing_extensions import Self, TypeVar, deprecated
 
 from affine import Affine as Affine
+from numpy.typing import ArrayLike, NDArray
 from rasterio._transform import GCPTransformerBase, RPCTransformerBase
 from rasterio._typing import _GDALOption
 from rasterio.control import GroundControlPoint
@@ -22,23 +23,23 @@ GDAL_IDENTITY: Final[_Sextuple]
 class TransformMethodsMixin:
     def xy(
         self,
-        row: int | Sequence[int],
-        col: int | Sequence[int],
-        z: float | Sequence[float] | None = None,
+        row: int | Sequence[int] | ArrayLike,
+        col: int | Sequence[int] | ArrayLike,
+        z: float | Sequence[float] | ArrayLike | None = None,
         offset: _OffsetOptions = "center",
         transform_method: TransformMethod = ...,
         **rpc_options: _GDALOption,
-    ) -> tuple[float, float] | tuple[list[float], list[float]]: ...
+    ) -> tuple[float, float] | tuple[list[float], list[float]] | tuple[NDArray[Any], NDArray[Any]]: ...
     def index(
         self,
-        x: float | Sequence[float],
-        y: float | Sequence[float],
-        z: float | Sequence[float] | None = None,
+        x: float | Sequence[float] | ArrayLike,
+        y: float | Sequence[float] | ArrayLike,
+        z: float | Sequence[float] | ArrayLike | None = None,
         op: _RoundOperation[ConvertibleToInt] | None = None,
         precision: int | None = None,
         transform_method: TransformMethod = ...,
         **rpc_options: _GDALOption,
-    ) -> tuple[int, int] | tuple[list[int], list[int]]: ...
+    ) -> tuple[int, int] | tuple[list[int], list[int]] | tuple[NDArray[Any], NDArray[Any]]: ...
 
 def tastes_like_gdal(seq: Affine | _Sextuple) -> bool: ...
 def guard_transform(transform: Affine | _Sextuple) -> Affine: ...
@@ -48,21 +49,21 @@ def array_bounds(height: int, width: int, transform: Affine) -> tuple[float, flo
 def from_gcps(gcps: Sequence[GroundControlPoint]) -> Affine: ...
 def xy(
     transform: Affine | Sequence[GroundControlPoint] | RPC,
-    rows: int | Sequence[int],
-    cols: int | Sequence[int],
-    zs: float | Sequence[float] | None = None,
+    rows: int | Sequence[int] | ArrayLike,
+    cols: int | Sequence[int] | ArrayLike,
+    zs: float | Sequence[float] | ArrayLike | None = None,
     offset: _OffsetOptions = "center",
     **rpc_options: _GDALOption,
-) -> tuple[float, float] | tuple[list[float], list[float]]: ...
+) -> tuple[float, float] | tuple[list[float], list[float]] | tuple[NDArray[Any], NDArray[Any]]: ...
 def rowcol(
     transform: Affine | Sequence[GroundControlPoint] | RPC,
-    xs: float | Sequence[float],
-    ys: float | Sequence[float],
-    zs: float | Sequence[float] | None = None,
+    xs: float | Sequence[float] | ArrayLike,
+    ys: float | Sequence[float] | ArrayLike,
+    zs: float | Sequence[float] | ArrayLike | None = None,
     op: _RoundOperation[_T] | None = None,
     precision: int | None = None,
     **rpc_options: _GDALOption,
-) -> tuple[_T, _T] | tuple[list[_T], list[_T]]: ...
+) -> tuple[_T, _T] | tuple[list[_T], list[_T]] | tuple[NDArray[Any], NDArray[Any]]: ...
 def get_transformer(
     transform: Affine | Sequence[GroundControlPoint] | RPC, **rpc_options: _GDALOption
 ) -> type[TransformerBase]: ...
@@ -73,30 +74,30 @@ class TransformerBase:
     def __exit__(self, *args: object) -> None: ...
     def xy(
         self,
-        rows: int | Sequence[int],
-        cols: int | Sequence[int],
-        zs: float | Sequence[float] | None = None,
+        rows: int | Sequence[int] | ArrayLike,
+        cols: int | Sequence[int] | ArrayLike,
+        zs: float | Sequence[float] | ArrayLike | None = None,
         offset: _OffsetOptions = "center",
-    ) -> tuple[float, float] | tuple[list[float], list[float]]: ...
+    ) -> tuple[float, float] | tuple[list[float], list[float]] | tuple[NDArray[Any], NDArray[Any]]: ...
 
     @overload
     def rowcol(
         self,
-        xs: float | Sequence[float],
-        ys: float | Sequence[float],
-        zs: float | Sequence[float] | None = None,
+        xs: float | Sequence[float] | ArrayLike,
+        ys: float | Sequence[float] | ArrayLike,
+        zs: float | Sequence[float] | ArrayLike | None = None,
         op: _RoundOperation[_T] | None = None,
-    ) -> tuple[_T, _T] | tuple[list[_T], list[_T]]: ...
+    ) -> tuple[_T, _T] | tuple[list[_T], list[_T]] | tuple[NDArray[Any], NDArray[Any]]: ...
     @overload
     @deprecated("The `precision` parameter is unused since rasterio 1.3 and will be removed in 2.0.0.")
     def rowcol(
         self,
-        xs: float | Sequence[float],
-        ys: float | Sequence[float],
-        zs: float | Sequence[float] | None = None,
+        xs: float | Sequence[float] | ArrayLike,
+        ys: float | Sequence[float] | ArrayLike,
+        zs: float | Sequence[float] | ArrayLike | None = None,
         op: _RoundOperation[_T] | None = None,
         precision: int | None = None,
-    ) -> tuple[_T, _T] | tuple[list[_T], list[_T]]: ...
+    ) -> tuple[_T, _T] | tuple[list[_T], list[_T]] | tuple[NDArray[Any], NDArray[Any]]: ...
 
 class GDALTransformerBase(TransformerBase):
     def __init__(self) -> None: ...
