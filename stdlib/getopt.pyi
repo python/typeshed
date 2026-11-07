@@ -1,3 +1,4 @@
+import sys
 from collections.abc import Iterable, Sequence
 from typing import Protocol, TypeVar, overload, type_check_only
 
@@ -15,9 +16,16 @@ __all__ = ["GetoptError", "error", "getopt", "gnu_getopt"]
 def getopt(
     args: _SliceableT[_StrSequenceT_co], shortopts: str, longopts: Iterable[str] | str = []
 ) -> tuple[list[tuple[str, str]], _StrSequenceT_co]: ...
-def gnu_getopt(
-    args: Sequence[str], shortopts: str, longopts: Iterable[str] | str = []
-) -> tuple[list[tuple[str, str]], list[str]]: ...
+
+if sys.version_info >= (3, 14):
+    def gnu_getopt(
+        args: Sequence[str], shortopts: str, longopts: Iterable[str] | str = []
+    ) -> tuple[list[tuple[str, str] | tuple[None, list[str]]], list[str]]: ...
+
+else:
+    def gnu_getopt(
+        args: Sequence[str], shortopts: str, longopts: Iterable[str] | str = []
+    ) -> tuple[list[tuple[str, str]], list[str]]: ...
 
 class GetoptError(Exception):
     msg: str
