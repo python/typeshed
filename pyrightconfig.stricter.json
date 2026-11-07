@@ -98,6 +98,7 @@
         "stubs/tensorflow",
         "stubs/tqdm",
         "stubs/vobject",
+        "stubs/weasyprint",
         "stubs/workalendar",
         "stubs/xmldiff",
     ],
