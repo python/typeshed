@@ -1,6 +1,6 @@
 import sys
-from typing import Any, Protocol, TypeVar, type_check_only
-from typing_extensions import ParamSpec
+from typing import Any, Protocol, TypeVar, final, overload, type_check_only
+from typing_extensions import Never, ParamSpec
 
 __all__ = ["Error", "copy", "deepcopy"]
 
@@ -12,6 +12,14 @@ _P = ParamSpec("_P")
 class _SupportsReplace(Protocol[_P, _RT_co]):
     # In reality doesn't support args, but there's no great way to express this.
     def __replace__(self, /, *_: _P.args, **changes: _P.kwargs) -> _RT_co: ...
+
+# @final + empty: no argument can be an instance of it. The second replace
+# overload below is never matched directly; it exists so checkers fall back
+# to argument-type expansion (typing spec overload evaluation step 3) and
+# evaluate a union argument member-by-member. See #16582.
+@final
+@type_check_only
+class _Unreplaceable: ...
 
 # None in CPython but non-None in Jython
 PyStringMap: Any
@@ -28,9 +36,12 @@ else:
 if sys.version_info >= (3, 13):
     __all__ += ["replace"]
 
+    @overload
     def replace(
         obj: _SupportsReplace[_P, _RT_co], /, *_: _P.args, **changes: _P.kwargs  # does not accept positional arguments at runtime
     ) -> _RT_co: ...
+    @overload
+    def replace(obj: _Unreplaceable, /, **changes: object) -> Never: ...
 
 class Error(Exception): ...
 
