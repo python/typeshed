@@ -1,10 +1,11 @@
 import os
 from collections.abc import Iterator, Sequence
-from typing import Any, BinaryIO, Final
+from typing import Any, BinaryIO, Final, Literal, overload
 from typing_extensions import Self, deprecated
 
 import numpy as np
 from affine import Affine as Affine
+from numpy.ma import MaskedArray
 from numpy.typing import DTypeLike, NDArray
 from rasterio._base import DatasetBase
 from rasterio._path import _ParsedPath, _UnparsedPath
@@ -42,6 +43,33 @@ class Statistics:
     def __init__(self, min: float, max: float, mean: float, std: float) -> None: ...
 
 class DatasetReaderBase(DatasetBase):
+    @overload
+    def read(
+        self,
+        indexes: Indexes | None = None,
+        out: NDArray[Any] | None = None,
+        window: WindowInput | None = None,
+        masked: Literal[True] = ...,
+        out_shape: ShapeND | None = None,
+        boundless: bool = False,
+        resampling: Resampling = ...,
+        fill_value: NumType | None = None,
+        out_dtype: DTypeLike | None = None,
+    ) -> MaskedArray[Any, Any]: ...
+    @overload
+    def read(
+        self,
+        indexes: Indexes | None = None,
+        out: NDArray[Any] | None = None,
+        window: WindowInput | None = None,
+        masked: Literal[False] = False,
+        out_shape: ShapeND | None = None,
+        boundless: bool = False,
+        resampling: Resampling = ...,
+        fill_value: NumType | None = None,
+        out_dtype: DTypeLike | None = None,
+    ) -> NDArray[Any]: ...
+    @overload
     def read(
         self,
         indexes: Indexes | None = None,
@@ -53,7 +81,7 @@ class DatasetReaderBase(DatasetBase):
         resampling: Resampling = ...,
         fill_value: NumType | None = None,
         out_dtype: DTypeLike | None = None,
-    ) -> NDArray[Any]: ...
+    ) -> NDArray[Any] | MaskedArray[Any, Any]: ...
     def read_masks(
         self,
         indexes: Indexes | None = None,
