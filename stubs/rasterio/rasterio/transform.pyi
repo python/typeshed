@@ -79,6 +79,7 @@ class TransformerBase:
         zs: float | Sequence[float] | ArrayLike | None = None,
         offset: _OffsetOptions = "center",
     ) -> tuple[float, float] | tuple[list[float], list[float]] | tuple[NDArray[Any], NDArray[Any]]: ...
+
     @overload
     def rowcol(
         self,
