@@ -24,6 +24,7 @@ from _decimal import (
     localcontext as localcontext,
     setcontext as setcontext,
 )
+from _typeshed import ComplexInt
 from collections.abc import Container, Sequence
 from types import TracebackType
 from typing import Any, ClassVar, Literal, NamedTuple, TypeAlias, final, overload, type_check_only
@@ -117,7 +118,7 @@ class Decimal:
     @property
     def imag(self) -> Decimal: ...
     def conjugate(self) -> Decimal: ...
-    def __complex__(self) -> complex: ...
+    def __complex__(self) -> ComplexInt: ...
 
     @overload
     def __round__(self) -> int: ...

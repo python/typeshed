@@ -23,7 +23,7 @@ from _ctypes import (
     set_errno as set_errno,
     sizeof as sizeof,
 )
-from _typeshed import StrPath, SupportsBool, SupportsLen
+from _typeshed import ComplexInt, StrPath, SupportsBool, SupportsLen
 from ctypes._endian import BigEndianStructure as BigEndianStructure, LittleEndianStructure as LittleEndianStructure
 from types import GenericAlias
 from typing import Any, ClassVar, Final, Generic, Literal, TypeAlias, TypeVar, overload, type_check_only
@@ -333,7 +333,7 @@ if sys.version_info >= (3, 14) and sys.platform != "win32":
     # NOTE: currently (3.14.4) the `__ctype_{be,le}__` attributes of these complex types are missing at runtime:
     # https://github.com/python/cpython/issues/148464
 
-    class c_double_complex(_SimpleCData[complex]):
+    class c_double_complex(_SimpleCData[ComplexInt]):
         if sys.version_info >= (3, 15):
             _type_: ClassVar[Literal["Zd"]]
         else:
@@ -341,7 +341,7 @@ if sys.version_info >= (3, 14) and sys.platform != "win32":
         __ctype_be__: ClassVar[type[Self]]
         __ctype_le__: ClassVar[type[Self]]
 
-    class c_float_complex(_SimpleCData[complex]):
+    class c_float_complex(_SimpleCData[ComplexInt]):
         if sys.version_info >= (3, 15):
             _type_: ClassVar[Literal["Zf"]]
         else:
@@ -349,7 +349,7 @@ if sys.version_info >= (3, 14) and sys.platform != "win32":
         __ctype_be__: ClassVar[type[Self]]
         __ctype_le__: ClassVar[type[Self]]
 
-    class c_longdouble_complex(_SimpleCData[complex]):
+    class c_longdouble_complex(_SimpleCData[ComplexInt]):
         if sys.version_info >= (3, 15):
             _type_: ClassVar[Literal["Zg"]]
         else:
