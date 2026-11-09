@@ -1,9 +1,13 @@
 from _typeshed import Incomplete
+from collections.abc import Callable, Iterable
+from typing import TypeVar
 
 from networkx.classes.digraph import DiGraph
 from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
 from numpy.random import RandomState
+
+_T = TypeVar("_T")
 
 __all__ = [
     "hamiltonian_path",
@@ -15,6 +19,7 @@ __all__ = [
     "tournament_matrix",
 ]
 
+def index_satisfying(iterable: Iterable[_T], condition: Callable[[_T], object]) -> int: ...
 @_dispatchable
 def is_tournament(G: Graph[_Node]) -> bool: ...
 @_dispatchable

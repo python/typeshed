@@ -2,6 +2,8 @@ from _typeshed import Incomplete
 from collections.abc import Callable, Generator, Hashable, Iterable
 from typing import Any
 
+from ...classes.graph import Graph
+
 __all__ = ["ISMAGS"]
 
 def are_all_equal(iterable: Iterable[Any]) -> bool: ...
@@ -21,7 +23,15 @@ class ISMAGS:
     graph: Incomplete
     subgraph: Incomplete
 
-    def __init__(self, graph, subgraph, node_match=None, edge_match=None, cache=None) -> None: ...
+    def __init__(
+        self,
+        # Any: graph and subgraph can have unrelated node and data types
+        graph: Graph[Any, Any, Any],
+        subgraph: Graph[Any, Any, Any],
+        node_match=None,
+        edge_match=None,
+        cache=None,
+    ) -> None: ...
     def create_aligned_partitions(self, thing_matcher, sg_things, g_things): ...
     def find_isomorphisms(self, symmetry: bool = True) -> Generator[Incomplete, Incomplete, Incomplete]: ...
     def largest_common_subgraph(self, symmetry: bool = True) -> Generator[Incomplete, Incomplete]: ...

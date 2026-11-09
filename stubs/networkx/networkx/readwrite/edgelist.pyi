@@ -1,5 +1,5 @@
 from _typeshed import Incomplete, StrPath, SupportsRead, SupportsWrite
-from collections.abc import Generator, Iterable
+from collections.abc import Callable, Collection, Generator, Iterable
 
 from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
@@ -13,32 +13,36 @@ __all__ = [
     "write_weighted_edgelist",
 ]
 
-def generate_edgelist(G: Graph[_Node], delimiter: str = " ", data: bool = True) -> Generator[Incomplete]: ...
+def generate_edgelist(
+    G: Graph[_Node],
+    delimiter: str = " ",
+    data: bool | Collection[Incomplete] = True,  # Not Iterable: iterated more than once, one-shot iterables give wrong results
+) -> Generator[str]: ...
 def write_edgelist(
     G: Graph[_Node],
     path: StrPath | SupportsWrite[bytes],
     comments: str = "#",
     delimiter: str = " ",
-    data: bool = True,
+    data: bool | Collection[Incomplete] = True,  # Not Iterable: iterated more than once, one-shot iterables give wrong results
     encoding: str = "utf-8",
 ) -> None: ...
 @_dispatchable
 def parse_edgelist(
     lines: Iterable[str],
-    comments: str = "#",
+    comments: str | None = "#",
     delimiter: str | None = None,
     create_using: Graph[Incomplete] | type[Graph[Incomplete]] | None = None,
-    nodetype: type[Incomplete] | None = None,
-    data: bool = True,
+    nodetype: Callable[[str], Incomplete] | None = None,
+    data: bool | Collection[tuple[str, Callable[[str], Incomplete]]] = True,
 ) -> Graph[Incomplete]: ...
 @_dispatchable
 def read_edgelist(
     path: StrPath | SupportsRead[bytes],
-    comments: str = "#",
+    comments: str | None = "#",
     delimiter: str | None = None,
     create_using: Graph[Incomplete] | type[Graph[Incomplete]] | None = None,
-    nodetype=None,
-    data: bool = True,
+    nodetype: Callable[[str], Incomplete] | None = None,
+    data: bool | Collection[tuple[str, Callable[[str], Incomplete]]] = True,
     edgetype=None,
     encoding: str = "utf-8",
 ) -> Graph[Incomplete]: ...
@@ -48,9 +52,9 @@ def write_weighted_edgelist(
 @_dispatchable
 def read_weighted_edgelist(
     path: StrPath | SupportsRead[bytes],
-    comments: str = "#",
+    comments: str | None = "#",
     delimiter: str | None = None,
     create_using: Graph[Incomplete] | type[Graph[Incomplete]] | None = None,
-    nodetype=None,
+    nodetype: Callable[[str], Incomplete] | None = None,
     encoding: str = "utf-8",
 ) -> Graph[Incomplete]: ...

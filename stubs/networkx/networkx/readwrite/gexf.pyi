@@ -26,7 +26,7 @@ def read_gexf(
 ) -> Graph[Incomplete]: ...
 
 class GEXF:
-    versions: Incomplete
+    versions: dict[str, dict[str, str]]
     xml_type: Incomplete
     python_type: Incomplete
     def construct_types(self) -> None: ...

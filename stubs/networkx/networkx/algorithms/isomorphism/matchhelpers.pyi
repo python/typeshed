@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from collections.abc import Callable, Iterable, Sequence
+from collections.abc import Callable, Iterable
 from types import FunctionType
 
 from networkx.utils.backends import _dispatchable
@@ -20,38 +20,46 @@ def copyfunc(f, name=None) -> FunctionType: ...
 def allclose(x, y, rtol: float = 1.0000000000000001e-05, atol: float = 1e-08) -> bool: ...
 @_dispatchable
 def categorical_node_match(
-    attr: str | Iterable[Incomplete], default: Incomplete | Iterable[Incomplete]
-) -> Callable[..., Incomplete]: ...
+    attr: str | Iterable[str], default: Incomplete | list[Incomplete]
+) -> Callable[[Incomplete, Incomplete], bool]: ...
 
-categorical_edge_match: Incomplete
-
+# Same as categorical_node_match, but not dispatchable
+def categorical_edge_match(
+    attr: str | Iterable[str], default: Incomplete | list[Incomplete]
+) -> Callable[[Incomplete, Incomplete], bool]: ...
 @_dispatchable
 def categorical_multiedge_match(
-    attr: str | Iterable[Incomplete], default: Incomplete | Iterable[Incomplete]
-) -> Callable[..., Incomplete]: ...
+    attr: str | Iterable[str], default: Incomplete | list[Incomplete]
+) -> Callable[[Incomplete, Incomplete], bool]: ...
 @_dispatchable
 def numerical_node_match(
-    attr: str | Iterable[Incomplete], default: Incomplete | Iterable[Incomplete], rtol: float = 1e-05, atol: float = 1e-08
-) -> Callable[..., Incomplete]: ...
+    attr: str | Iterable[str], default: Incomplete | list[Incomplete], rtol: float = 1e-05, atol: float = 1e-08
+) -> Callable[[Incomplete, Incomplete], bool]: ...
 
-numerical_edge_match: Incomplete
-
+# Same as numerical_node_match, but not dispatchable
+def numerical_edge_match(
+    attr: str | Iterable[str], default: Incomplete | list[Incomplete], rtol: float = 1e-05, atol: float = 1e-08
+) -> Callable[[Incomplete, Incomplete], bool]: ...
 @_dispatchable
 def numerical_multiedge_match(
-    attr: str | Iterable[Incomplete], default: Incomplete | Iterable[Incomplete], rtol: float = 1e-05, atol: float = 1e-08
-) -> Callable[..., Incomplete]: ...
+    attr: str | Iterable[str], default: Incomplete | list[Incomplete], rtol: float = 1e-05, atol: float = 1e-08
+) -> Callable[[Incomplete, Incomplete], bool]: ...
 @_dispatchable
 def generic_node_match(
-    attr: str | Iterable[Incomplete],
-    default: Incomplete | Iterable[Incomplete],
-    op: Callable[..., Incomplete] | Sequence[Incomplete],
-) -> Callable[..., Incomplete]: ...
+    attr: str | Iterable[str],
+    default: Incomplete | list[Incomplete],
+    op: Callable[[Incomplete, Incomplete], Incomplete] | list[Callable[[Incomplete, Incomplete], Incomplete]],
+) -> Callable[[Incomplete, Incomplete], bool]: ...
 
-generic_edge_match: Incomplete
-
+# Same as generic_node_match, but not dispatchable
+def generic_edge_match(
+    attr: str | Iterable[str],
+    default: Incomplete | list[Incomplete],
+    op: Callable[[Incomplete, Incomplete], Incomplete] | list[Callable[[Incomplete, Incomplete], Incomplete]],
+) -> Callable[[Incomplete, Incomplete], bool]: ...
 @_dispatchable
 def generic_multiedge_match(
-    attr: str | Iterable[Incomplete],
-    default: Incomplete | Iterable[Incomplete],
-    op: Callable[..., Incomplete] | Sequence[Incomplete],
-) -> Callable[..., Incomplete]: ...
+    attr: str | Iterable[str],
+    default: Incomplete | list[Incomplete],
+    op: Callable[[Incomplete, Incomplete], Incomplete] | list[Callable[[Incomplete, Incomplete], Incomplete]],
+) -> Callable[[Incomplete, Incomplete], bool]: ...

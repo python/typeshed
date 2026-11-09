@@ -1,5 +1,5 @@
 from _typeshed import Incomplete, StrPath, SupportsRead, SupportsWrite
-from collections.abc import Generator, Iterable
+from collections.abc import Callable, Generator, Iterable
 
 from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
@@ -16,7 +16,7 @@ def parse_adjlist(
     comments: str = "#",
     delimiter: str | None = None,
     create_using: Graph[Incomplete] | type[Graph[Incomplete]] | None = None,
-    nodetype: type[Incomplete] | None = None,
+    nodetype: Callable[[str], Incomplete] | None = None,
 ) -> Graph[Incomplete]: ...
 @_dispatchable
 def read_adjlist(
@@ -24,6 +24,6 @@ def read_adjlist(
     comments: str = "#",
     delimiter: str | None = None,
     create_using: Graph[Incomplete] | type[Graph[Incomplete]] | None = None,
-    nodetype: type[Incomplete] | None = None,
+    nodetype: Callable[[str], Incomplete] | None = None,
     encoding: str = "utf-8",
 ) -> Graph[Incomplete]: ...

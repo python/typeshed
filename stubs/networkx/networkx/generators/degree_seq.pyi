@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from collections.abc import Collection
 
 from networkx.utils.backends import _dispatchable
 
@@ -29,7 +30,7 @@ def directed_configuration_model(
     seed=None,
 ) -> MultiDiGraph[Incomplete]: ...
 @_dispatchable
-def expected_degree_graph(w: list[Incomplete], seed=None, selfloops: bool = True) -> Graph[Incomplete]: ...
+def expected_degree_graph(w: Collection[float], seed=None, selfloops: bool = True) -> Graph[int]: ...
 @_dispatchable
 def havel_hakimi_graph(deg_sequence: list[int], create_using: Graph[Incomplete] | type[Graph[Incomplete]] | None = None): ...
 @_dispatchable

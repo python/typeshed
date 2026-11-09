@@ -65,7 +65,7 @@ def powerlaw_cluster_graph(n: int, m: int, p: float, seed=None, *, create_using=
 def random_lobster_graph(n: int, p1: float, p2: float, seed=None, *, create_using=None): ...
 @_dispatchable
 @deprecated("`random_lobster` is a deprecated alias for `random_lobster_graph`. Use `random_lobster_graph` instead.")
-def random_lobster(n, p1, p2, seed=None, *, create_using=None): ...
+def random_lobster(n: int, p1: float, p2: float, seed=None, *, create_using=None): ...
 @_dispatchable
 def random_shell_graph(constructor: Iterable[tuple[int, int, float]], seed=None, *, create_using=None): ...
 @_dispatchable
@@ -75,8 +75,8 @@ def random_powerlaw_tree_sequence(n: int, gamma: float = 3, seed=None, tries: in
 @_dispatchable
 def random_kernel_graph(
     n: int,
-    kernel_integral: Callable[..., Incomplete],
-    kernel_root: Callable[..., Incomplete] | None = None,
+    kernel_integral: Callable[[float, float, float], float],
+    kernel_root: Callable[[float, float, float], float] | None = None,
     seed=None,
     *,
     create_using=None,
