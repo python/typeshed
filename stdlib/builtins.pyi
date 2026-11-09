@@ -436,8 +436,8 @@ class complex:
     @overload
     def __new__(
         cls,
-        real: complex | float | int | SupportsComplex | SupportsFloat | SupportsIndex = 0,
-        imag: complex | float | int | SupportsFloat | SupportsIndex = 0,
+        real: complex | SupportsComplex | SupportsFloat | SupportsIndex = 0,
+        imag: complex | SupportsFloat | SupportsIndex = 0,
     ) -> Self: ...
     @overload
     def __new__(cls, real: str | SupportsComplex | SupportsFloat | SupportsIndex | complex | float | int) -> Self: ...
@@ -469,7 +469,7 @@ class complex:
         def __complex__(self) -> complex: ...
     if sys.version_info >= (3, 14):
         @classmethod
-        def from_number(cls, number: complex | float | int | SupportsComplex | SupportsFloat | SupportsIndex, /) -> Self: ...
+        def from_number(cls, number: SupportsComplex | SupportsFloat | SupportsIndex, /) -> Self: ...
 
 @type_check_only
 class _FormatMapMapping(Protocol):
