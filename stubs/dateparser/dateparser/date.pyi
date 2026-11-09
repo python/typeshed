@@ -5,6 +5,7 @@ from collections.abc import Callable, Iterable, Iterator, Set as AbstractSet
 from datetime import date, datetime, tzinfo
 from typing import Any, ClassVar, Final, Literal, NamedTuple, TypeAlias, TypeVar, overload, type_check_only
 
+from dateparser._parts_of_day import PartOfDay
 from dateparser.conf import Settings
 from dateparser.languages.loader import LocaleDataLoader
 from dateparser.languages.locale import Locale
@@ -12,7 +13,7 @@ from dateparser.languages.locale import Locale
 _DateT = TypeVar("_DateT", bound=date)
 
 _DetectLanguagesFunction: TypeAlias = Callable[[str, float], list[str]]
-_Period: TypeAlias = Literal["time", "day", "week", "month", "year"]
+_Period: TypeAlias = Literal["time", "part_of_day", "day", "week", "month", "quarter", "year"]
 # Work around attribute and type having the same name.
 _Weekday: TypeAlias = Incomplete  # Actually it's dateutil._common.weekday class
 
@@ -23,15 +24,18 @@ class _DateData(NamedTuple):
     period: _Period | None
 
 APOSTROPHE_LOOK_ALIKE_CHARS: Final[list[str]]
+DASH_LOOK_ALIKE_CHARS: Final[list[str]]
 RE_NBSP: Final[re.Pattern[str]]
 RE_SPACES: Final[re.Pattern[str]]
 RE_TRIM_SPACES: Final[re.Pattern[str]]
-RE_TRIM_COLONS: Final[re.Pattern[str]]
+RE_TRIM_COLONS: Final[re.Pattern[str]]  # deprecated since 1.5.0, emits FutureWarning
 RE_SANITIZE_SKIP: Final[re.Pattern[str]]
 RE_SANITIZE_RUSSIAN: Final[re.Pattern[str]]
 RE_SANITIZE_PERIOD: Final[re.Pattern[str]]
+RE_SANITIZE_DECIMAL_COMMA: Final[re.Pattern[str]]
 RE_SANITIZE_ON: Final[re.Pattern[str]]
 RE_SANITIZE_APOSTROPHE: Final[re.Pattern[str]]
+RE_SANITIZE_DASH: Final[re.Pattern[str]]
 RE_SEARCH_TIMESTAMP: Final[re.Pattern[str]]
 RE_SANITIZE_CROATIAN: Final[re.Pattern[str]]
 RE_SEARCH_NEGATIVE_TIMESTAMP: Final[re.Pattern[str]]
@@ -75,16 +79,9 @@ class _DateLocaleParser:
         date_formats: list[str] | tuple[str, ...] | AbstractSet[str] | None,
         settings: Settings | None = None,
         ignore_surrounding_text: bool = False,
+        alternatives: bool = False,
+        failed: set[tuple[str, str | None, str]] | None = None,
     ) -> None: ...
-    @classmethod
-    def parse(
-        cls,
-        locale: Locale,
-        date_string: str,
-        date_formats: list[str] | tuple[str, ...] | AbstractSet[str] | None = None,
-        settings: Settings | None = None,
-        ignore_surrounding_text: bool = False,
-    ) -> DateData: ...
     def _parse(self) -> DateData | None: ...
     def _try_timestamp(self) -> DateData: ...
     def _try_freshness_parser(self) -> DateData | None: ...
@@ -97,10 +94,19 @@ class _DateLocaleParser:
     def _is_valid_date_data(self, date_data: DateData) -> bool: ...
 
 class DateData:
+    part_of_day: PartOfDay | None
     date_obj: datetime | None
     locale: str | None
     period: _Period | None
-    def __init__(self, *, date_obj: datetime | None = None, period: _Period | None = None, locale: str | None = None) -> None: ...
+    parts: tuple[Literal["year", "month", "day", "time"], ...]
+    def __init__(
+        self,
+        *,
+        date_obj: datetime | None = None,
+        period: _Period | None = None,
+        locale: str | None = None,
+        parts: tuple[Literal["year", "month", "day", "time"], ...] = (),
+    ) -> None: ...
 
     @overload
     def __getitem__(self, k: Literal["date_obj"]) -> datetime | None: ...
@@ -108,6 +114,10 @@ class DateData:
     def __getitem__(self, k: Literal["locale"]) -> str | None: ...
     @overload
     def __getitem__(self, k: Literal["period"]) -> _Period | None: ...
+    @overload
+    def __getitem__(self, k: Literal["parts"]) -> tuple[Literal["year", "month", "day", "time"], ...]: ...
+    @overload
+    def __getitem__(self, k: Literal["part_of_day"]) -> PartOfDay | None: ...
 
     @overload
     def __setitem__(self, k: Literal["date_obj"], v: datetime) -> None: ...
@@ -115,6 +125,10 @@ class DateData:
     def __setitem__(self, k: Literal["locale"], v: str) -> None: ...
     @overload
     def __setitem__(self, k: Literal["period"], v: _Period) -> None: ...
+    @overload
+    def __setitem__(self, k: Literal["parts"], v: tuple[Literal["year", "month", "day", "time"], ...]) -> None: ...
+    @overload
+    def __setitem__(self, k: Literal["part_of_day"], v: PartOfDay | None) -> None: ...
 
 class DateDataParser:
     _settings: Settings

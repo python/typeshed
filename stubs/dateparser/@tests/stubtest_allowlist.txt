@@ -1,3 +1,4 @@
+dateparser.calendars.french_republican
 dateparser.calendars.hijri
 dateparser.calendars.hijri_parser
 dateparser.calendars.jalali
@@ -6,3 +7,6 @@ dateparser.search.detection.BaseLanguageDetector.iterate_applicable_languages
 
 # Timezone and other internal data:
 dateparser.data.date_translation_data.*
+
+# A (str, Enum) mixin: stubtest compares str.__new__ in the stub with Enum.__new__ at runtime.
+dateparser._parts_of_day.PartOfDay.__new__

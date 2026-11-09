@@ -1,7 +1,10 @@
 import re
 from collections.abc import Generator
 from datetime import datetime, timedelta, tzinfo
-from typing import TypeVar
+from typing import Literal, TypeVar, overload
+from typing_extensions import deprecated
+
+from dateparser.conf import Settings
 
 _DateTimeT = TypeVar("_DateTimeT", bound=datetime)
 
@@ -13,10 +16,20 @@ class StaticTzInfo(tzinfo):
     def localize(self, dt: _DateTimeT, is_dst: bool = False) -> _DateTimeT: ...
     def __getinitargs__(self) -> tuple[str, timedelta]: ...
 
-def pop_tz_offset_from_string(date_string: str, as_offset: bool = True) -> tuple[str, StaticTzInfo | str | None]: ...
+@overload
+def pop_tz_offset_from_string(
+    date_string: str, as_offset: Literal[True] = True, settings: Settings | None = None
+) -> tuple[str, StaticTzInfo | None]: ...
+@overload
+def pop_tz_offset_from_string(
+    date_string: str, as_offset: Literal[False], settings: Settings | None = None
+) -> tuple[str, str | None]: ...
+
 def word_is_tz(word: str) -> bool: ...
 def is_timezone_token(token: str) -> bool: ...
+@deprecated("Deprecated since dateparser 1.5.0; it will be removed in a future version.")
 def convert_to_local_tz(datetime_obj: _DateTimeT, datetime_tz_offset: timedelta) -> _DateTimeT: ...
+@deprecated("Deprecated since dateparser 1.5.0; it will be removed in a future version.")
 def build_tz_offsets(search_regex_parts: list[str]) -> Generator[tuple[str, dict[str, re.Pattern[str] | timedelta]]]: ...
 def get_local_tz_offset() -> timedelta: ...
 

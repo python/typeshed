@@ -1,0 +1,19 @@
+from dataclasses import dataclass
+from datetime import time
+from enum import Enum
+
+class PartOfDay(str, Enum):
+    EARLY_MORNING = "early_morning"
+    MORNING = "morning"
+    AFTERNOON = "afternoon"
+    EVENING = "evening"
+    NIGHT = "night"
+
+@dataclass(frozen=True)
+class PartsOfDay:
+    early_morning: time = ...
+    morning: time = ...
+    afternoon: time = ...
+    evening: time = ...
+    night: time = ...
+    def __post_init__(self) -> None: ...
