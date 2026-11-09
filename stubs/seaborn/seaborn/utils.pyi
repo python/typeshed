@@ -1,5 +1,5 @@
 import datetime as dt
-from _typeshed import ComplexInt, Incomplete, SupportsGetItem
+from _typeshed import Incomplete, SupportsGetItem
 from collections.abc import Callable, Iterable, Mapping, Sequence
 from typing import Any, Literal, SupportsIndex, TypeAlias, TypeVar, overload
 from typing_extensions import deprecated
@@ -40,8 +40,9 @@ _Palette: TypeAlias = str | Sequence[ColorType] | Mapping[Any, ColorType]  # noq
 _Seed: TypeAlias = int | np.random.Generator | np.random.RandomState  # noqa: Y047
 _Scalar: TypeAlias = (
     # numeric
-    float
-    | ComplexInt
+    complex
+    | float
+    | int
     | np.number[Any]
     # dates
     | dt.date

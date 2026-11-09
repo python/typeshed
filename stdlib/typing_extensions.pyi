@@ -2,7 +2,7 @@ import abc
 import enum
 import sys
 from _collections_abc import dict_items, dict_keys, dict_values
-from _typeshed import AnnotationForm, ComplexInt, IdentityFunction, Incomplete, Unused
+from _typeshed import AnnotationForm, IdentityFunction, Incomplete, Unused
 from collections.abc import (
     AsyncGenerator as AsyncGenerator,
     AsyncIterable as AsyncIterable,
@@ -413,7 +413,7 @@ else:
     class SupportsComplex(Protocol, metaclass=abc.ABCMeta):
         __slots__ = ()
         @abc.abstractmethod
-        def __complex__(self) -> ComplexInt: ...
+        def __complex__(self) -> complex: ...
 
     @runtime_checkable
     class SupportsBytes(Protocol, metaclass=abc.ABCMeta):

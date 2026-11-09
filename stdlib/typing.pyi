@@ -5,15 +5,7 @@ import collections  # ruff: ignore[unused-import]  # pyright: ignore[reportUnuse
 import sys
 import typing_extensions
 from _collections_abc import dict_items, dict_keys, dict_values
-from _typeshed import (
-    ComplexInt,
-    IdentityFunction,
-    ReadableBuffer,
-    SupportsGetItem,
-    SupportsGetItemViewable,
-    SupportsKeysAndGetItem,
-    Viewable,
-)
+from _typeshed import IdentityFunction, ReadableBuffer, SupportsGetItem, SupportsGetItemViewable, SupportsKeysAndGetItem, Viewable
 from abc import ABCMeta, abstractmethod
 from re import Match as Match, Pattern as Pattern
 from types import (
@@ -508,7 +500,7 @@ class SupportsFloat(Protocol, metaclass=ABCMeta):
 class SupportsComplex(Protocol, metaclass=ABCMeta):
     __slots__ = ()
     @abstractmethod
-    def __complex__(self) -> ComplexInt: ...
+    def __complex__(self) -> complex: ...
 
 @runtime_checkable
 class SupportsBytes(Protocol, metaclass=ABCMeta):

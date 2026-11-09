@@ -8,7 +8,7 @@ from _ast import (
     PyCF_ONLY_AST as PyCF_ONLY_AST,
     PyCF_TYPE_COMMENTS as PyCF_TYPE_COMMENTS,
 )
-from _typeshed import ComplexInt, ReadableBuffer, Unused
+from _typeshed import ReadableBuffer, Unused
 from collections.abc import Iterable, Iterator, Sequence
 from types import EllipsisType
 from typing import Any, ClassVar, Generic, Literal, TypedDict, TypeVar as _TypeVar, overload, type_check_only
@@ -1711,7 +1711,7 @@ else:
 if sys.version_info < (3, 14):
     @deprecated("Removed in Python 3.14. Use `ast.Constant` instead.")
     class Num(Constant, metaclass=_ABC):
-        def __new__(cls, n: ComplexInt, **kwargs: Unpack[_Attributes]) -> Constant: ...  # type: ignore[misc]  # pyright: ignore[reportInconsistentConstructor]
+        def __new__(cls, n: complex | float | int, **kwargs: Unpack[_Attributes]) -> Constant: ...  # type: ignore[misc]  # pyright: ignore[reportInconsistentConstructor]
 
     @deprecated("Removed in Python 3.14. Use `ast.Constant` instead.")
     class Str(Constant, metaclass=_ABC):
