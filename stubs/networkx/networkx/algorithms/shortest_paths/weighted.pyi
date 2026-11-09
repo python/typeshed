@@ -53,6 +53,7 @@ def single_source_dijkstra_path(
 def single_source_dijkstra_path_length(
     G: Graph[_Node], source: _Node, cutoff: float | None = None, weight: str | _WeightFunc[_Node] | None = "weight"
 ) -> dict[_Node, float]: ...
+
 @overload  # target is None => (distances, paths)
 def single_source_dijkstra(
     G: Graph[_Node],
@@ -75,6 +76,7 @@ def single_source_dijkstra(
     backend: str | None = None,
     **backend_kwargs: Any,
 ) -> tuple[float, list[_Node]]: ...
+
 @_dispatchable
 def multi_source_dijkstra_path(
     G: Graph[_Node], sources: Collection[_Node], cutoff: float | None = None, weight: str | _WeightFunc[_Node] | None = "weight"
@@ -83,6 +85,7 @@ def multi_source_dijkstra_path(
 def multi_source_dijkstra_path_length(
     G: Graph[_Node], sources: Collection[_Node], cutoff: float | None = None, weight: str | _WeightFunc[_Node] | None = "weight"
 ) -> dict[_Node, float]: ...
+
 @overload  # target is None => (distances, paths)
 def multi_source_dijkstra(
     G: Graph[_Node],
@@ -105,6 +108,7 @@ def multi_source_dijkstra(
     backend: str | None = None,
     **backend_kwargs: Any,
 ) -> tuple[float, list[_Node]]: ...
+
 @_dispatchable
 def dijkstra_predecessor_and_distance(
     G: Graph[_Node], source: _Node, cutoff: float | None = None, weight: str | _WeightFunc[_Node] | None = "weight"
@@ -145,6 +149,7 @@ def single_source_bellman_ford_path(
 def single_source_bellman_ford_path_length(
     G: Graph[_Node], source: _Node, weight: str | _WeightFunc[_Node] | None = "weight"
 ) -> dict[_Node, float]: ...
+
 @overload  # target is None => (distances, paths)
 def single_source_bellman_ford(
     G: Graph[_Node],
@@ -165,6 +170,7 @@ def single_source_bellman_ford(
     backend: str | None = None,
     **backend_kwargs: Any,
 ) -> tuple[float, list[_Node]]: ...
+
 @_dispatchable
 def all_pairs_bellman_ford_path_length(
     G: Graph[_Node], weight: str | _WeightFunc[_Node] | None = "weight"
