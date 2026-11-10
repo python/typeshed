@@ -323,6 +323,7 @@ def geometrycollections(
     out: NDArray[np.object_] | None = None,
     **kwargs: Unpack[UFuncKwargsNoOut],
 ) -> GeometryCollection | GeoArray: ...
+
 @overload
 def prepare(geometry: OptGeoArrayLike, out: None = None, **kwargs: Unpack[UFuncKwargsNoOut]) -> np.bool_: ...
 @overload
