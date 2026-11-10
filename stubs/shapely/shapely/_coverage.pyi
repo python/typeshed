@@ -3,9 +3,16 @@ from typing import Literal, overload
 import numpy as np
 
 from ._typing import ArrayLike, GeoArray, GeoArrayLikeSeq, OptGeoArrayLike
+from ._enum import ParamEnum
 from .geometry import Polygon
 
 __all__ = ["coverage_clean", "coverage_invalid_edges", "coverage_is_valid", "coverage_simplify"]
+
+class CoverageCleanMergeStrategy(ParamEnum):
+    longest_border = 0
+    max_area = 1
+    min_area = 2
+    min_index = 3
 
 def coverage_clean(
     geometry: OptGeoArrayLike,

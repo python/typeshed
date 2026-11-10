@@ -1,8 +1,8 @@
-from collections.abc import Callable
+from collections.abc import Callable, Sequence
 from typing import Literal, overload
 
 import numpy as np
-from numpy.typing import NDArray
+from numpy.typing import ArrayLike, NDArray
 
 from ._typing import ArrayLikeSeq, GeoArray, GeoT, OptGeoArrayLike, OptGeoArrayLikeSeq, OptGeoT
 
@@ -41,7 +41,22 @@ def transform_coordseq(
     include_z: bool | None = False,
     interleaved: bool = True,
 ) -> GeoArray: ...
-
+@overload
+def transform_coordseq(
+    geometry: OptGeoT,
+    transformation: Callable[..., Sequence[ArrayLike] | NDArray[np.float64]],
+    *,
+    include_z: bool | None = False,
+    interleaved: Literal[False],
+) -> OptGeoT: ...
+@overload
+def transform_coordseq(
+    geometry: OptGeoArrayLikeSeq,
+    transformation: Callable[..., Sequence[ArrayLike] | NDArray[np.float64]],
+    *,
+    include_z: bool | None = False,
+    interleaved: Literal[False],
+) -> GeoArray: ...
 def count_coordinates(geometry: OptGeoArrayLike) -> int: ...
 
 @overload
