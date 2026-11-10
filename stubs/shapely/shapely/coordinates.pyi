@@ -57,6 +57,7 @@ def transform_coordseq(
     include_z: bool | None = False,
     interleaved: Literal[False],
 ) -> GeoArray: ...
+
 def count_coordinates(geometry: OptGeoArrayLike) -> int: ...
 
 @overload

@@ -2,8 +2,8 @@ from typing import Literal, overload
 
 import numpy as np
 
-from ._typing import ArrayLike, GeoArray, GeoArrayLikeSeq, OptGeoArrayLike
 from ._enum import ParamEnum
+from ._typing import ArrayLike, GeoArray, GeoArrayLikeSeq, OptGeoArrayLike
 from .geometry import Polygon
 
 __all__ = ["coverage_clean", "coverage_invalid_edges", "coverage_is_valid", "coverage_simplify"]
