@@ -1,8 +1,8 @@
 from _typeshed import Incomplete
 from collections import OrderedDict
 from collections.abc import Iterable, Iterator, Mapping, Sequence
-from typing import ClassVar, NoReturn, TypeAlias, TypeVar, overload
-from typing_extensions import Self
+from typing import ClassVar, TypeAlias, TypeVar, overload
+from typing_extensions import Never, Self
 
 from behave.model_core import Replayable
 
@@ -38,7 +38,7 @@ class Table(Replayable):
     def __getitem__(self, index: slice) -> list[Row]: ...
 
     # Always raises: the comparison is asserted and then `NotImplementedError` is raised.
-    def assert_equals(self, data: object) -> NoReturn: ...
+    def assert_equals(self, data: object) -> Never: ...
     @classmethod
     def from_dicts(cls, headings: list[str], table_data: Sequence[dict[str, str]], line: int | None = None) -> Self: ...
     @classmethod
