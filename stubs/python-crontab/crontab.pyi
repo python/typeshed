@@ -62,11 +62,11 @@ class Process:
     def __eq__(self, other: object) -> bool: ...
 
 class CronTab:
-    lines: list[str | CronItem] | None
-    crons: list[CronItem] | None
+    lines: list[str | CronItem]
+    crons: list[CronItem]
     filen: str | None
     cron_command: str
-    env: OrderedVariableList[str, str] | None
+    env: OrderedVariableList[str, str]
     root: bool
     intab: str | None
     tabfile: str | None
