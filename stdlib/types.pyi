@@ -17,6 +17,7 @@ from collections.abc import (
     ValuesView,
 )
 from importlib.machinery import ModuleSpec
+from inspect import Signature
 from typing import Any, ClassVar, Literal, ParamSpec, TypeVar, final, overload
 from typing_extensions import Self, TypeAliasType, TypeVarTuple, deprecated, disjoint_base
 
@@ -95,6 +96,7 @@ class FunctionType:
         __type_params__: tuple[TypeVar | ParamSpec | TypeVarTuple, ...]
 
     __module__: str
+    __signature__: Signature | None
     if sys.version_info >= (3, 13):
         def __new__(
             cls,
