@@ -89,8 +89,6 @@
         "stubs/pywin32",
         "stubs/PyYAML",
         "stubs/reportlab",
-        "stubs/requests",
-        "stubs/requests-oauthlib",
         "stubs/seaborn",
         "stubs/setuptools/setuptools",
         "stubs/shapely",

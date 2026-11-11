@@ -1,6 +1,0 @@
-from typing import Any
-
-HOOKS: list[str]
-
-def default_hooks() -> dict[str, list[Any]]: ...
-def dispatch_hook(key, hooks, hook_data, **kwargs): ...
