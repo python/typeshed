@@ -68,7 +68,6 @@
         "stubs/openpyxl",
         "stubs/opentracing/opentracing/span.pyi",
         "stubs/paramiko/paramiko/_winapi.pyi",
-        "stubs/parsimonious/parsimonious/nodes.pyi",
         "stubs/peewee",
         "stubs/pexpect",
         "stubs/pika/pika/adapters/twisted_connection.pyi",
