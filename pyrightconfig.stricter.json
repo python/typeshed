@@ -59,6 +59,7 @@
         "stubs/m3u8/m3u8/model.pyi",
         "stubs/Markdown",
         "stubs/mock/mock/mock.pyi",
+        "stubs/msal",
         "stubs/mysqlclient",
         "stubs/netaddr/netaddr/core.pyi",
         "stubs/netaddr/netaddr/ip/__init__.pyi",
