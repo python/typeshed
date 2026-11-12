@@ -61,7 +61,7 @@ class M3U8:
     version: str | None
     allow_cache: str | None
     playlist_type: str | None
-    discontinuity_sequence: Incomplete | None  # undocmented
+    discontinuity_sequence: int | None  # undocmented
     is_images_only: bool | None
 
     def __init__(
@@ -110,13 +110,13 @@ class Segment(BasePathMixin):
     scte35: str | None
     oatcls_scte35: str | None
     scte35_duration: float | None
-    scte35_elapsedtime: Incomplete | None
+    scte35_elapsedtime: str | None
     asset_metadata: dict[str, Incomplete] | None
     key: Key | None
     parts: PartialSegmentList
     init_section: InitializationSection | None
     dateranges: DateRangeList
-    gap_tag: Incomplete | None
+    gap_tag: bool | None
     custom_parser_values: dict[str, Incomplete]
     def __init__(
         self,
@@ -137,13 +137,13 @@ class Segment(BasePathMixin):
         scte35: str | None = None,
         oatcls_scte35: str | None = None,
         scte35_duration: float | None = None,
-        scte35_elapsedtime=None,
+        scte35_elapsedtime: str | None = None,
         asset_metadata: Mapping[str, str] | None = None,
         keyobject: Key | None = None,
         parts: Iterable[Mapping[str, Incomplete]] | None = None,
         init_section: Mapping[str, Incomplete] | None = None,
         dateranges: Iterable[Mapping[str, Incomplete]] | None = None,
-        gap_tag: list[Mapping[str, Incomplete]] | None = None,
+        gap_tag: bool | None = None,
         media_sequence: int | None = None,
         custom_parser_values: dict[str, Incomplete] | None = None,
     ) -> None: ...
@@ -186,12 +186,12 @@ class PartialSegment(BasePathMixin):
         program_date_time: dt.datetime | None = None,
         current_program_date_time: dt.datetime | None = None,
         byterange: str | None = None,
-        independent=None,
-        gap=None,
+        independent: str | None = None,
+        gap: str | None = None,
         dateranges: Iterable[Mapping[str, Incomplete]] | None = None,
-        gap_tag=None,
+        gap_tag: bool | None = None,
     ) -> None: ...
-    def dumps(self, last_segment) -> str: ...
+    def dumps(self, last_segment: object) -> str: ...
 
 class PartialSegmentList(list[PartialSegment], GroupedBasePathMixin[PartialSegment]): ...
 
@@ -212,7 +212,7 @@ class Key(BasePathMixin):
         iv: str | None = None,
         keyformat: str | None = None,
         keyformatversions: str | None = None,
-        **kwargs,
+        **kwargs: Any,
     ) -> None: ...
     def __eq__(self, other: object) -> bool: ...
     def __ne__(self, other: object) -> bool: ...
@@ -244,7 +244,7 @@ class IFramePlaylist(_PlaylistProtocol):
 
 class StreamInfo:
     bandwidth: int | None
-    closed_captions: Incomplete | None
+    closed_captions: str | None
     average_bandwidth: int | None
     program_id: int | None
     resolution: tuple[int, int] | None
@@ -262,7 +262,7 @@ class StreamInfo:
         self,
         *,
         bandwidth: int | None = None,
-        closed_captions=None,
+        closed_captions: str | None = None,
         average_bandwidth: int | None = None,
         program_id: int | None = None,
         resolution: tuple[int, int] | None = None,
@@ -311,7 +311,7 @@ class Media(BasePathMixin):
         assoc_language: str | None = None,
         instream_id: str | None = None,
         base_uri: str | None = None,
-        **extras,
+        **extras: Any,
     ) -> None: ...
     def dumps(self) -> str: ...
 
@@ -404,7 +404,7 @@ class DateRange:
     scte35_cmd: str | None
     scte35_out: str | None
     scte35_in: str | None
-    end_on_next: Incomplete
+    end_on_next: str | None
     x_client_attrs: list[tuple[str, str]]
     def __init__(
         self,
@@ -418,7 +418,7 @@ class DateRange:
         scte35_cmd: str | None = None,
         scte35_out: str | None = None,
         scte35_in: str | None = None,
-        end_on_next=None,
+        end_on_next: str | None = None,
         **kwargs: str,  # for arguments with `x_` prefix
     ) -> None: ...
     def dumps(self) -> str: ...
@@ -436,12 +436,12 @@ class ImagePlaylist(_PlaylistProtocol):
     image_stream_info: StreamInfo
     def __init__(self, base_uri: str | None, uri: str | None, image_stream_info: Mapping[str, Incomplete]) -> None: ...
 
-class Tiles(BasePathMixin):  # this is unused in runtime, so this is (temporary) has incomplete
+class Tiles(BasePathMixin):
     uri: str | None
-    resolution: Incomplete
-    layout: Incomplete
-    duration: Incomplete
-    def __init__(self, resolution, layout, duration) -> None: ...
+    resolution: str
+    layout: str
+    duration: str
+    def __init__(self, resolution: str, layout: str, duration: str) -> None: ...
     def dumps(self) -> str: ...
 
 @overload
