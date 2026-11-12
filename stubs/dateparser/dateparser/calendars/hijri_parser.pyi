@@ -17,7 +17,6 @@ class HijriDate:
     month: int
     day: int
     def __init__(self, year: int, month: int, day: int) -> None: ...
-    def weekday(self) -> int | None: ...
 
 class hijri_parser(non_gregorian_parser):
     calendar_converter: ClassVar[type[hijri]]

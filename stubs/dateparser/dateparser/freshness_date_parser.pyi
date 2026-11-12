@@ -15,6 +15,6 @@ class FreshnessDateDataParser:
     def get_kwargs(
         self, date_string: str
     ) -> tuple[dict[str, float], dict[str, Incomplete]] | dict[None, None]: ...  # return empty dict if pattern not found
-    def get_date_data(self, date_string: str, settings: Settings | None = None) -> DateData: ...
+    def get_date_data(self, date_string: str, settings: Settings) -> DateData: ...
 
 freshness_date_parser: FreshnessDateDataParser

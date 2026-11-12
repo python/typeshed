@@ -61,15 +61,8 @@ class _parser:
         tokens: Iterable[tuple[str, _TokenType]],
         settings: Settings,
         date_order: Literal["DMY", "DYM", "MDY", "MYD", "YDM", "YMD"] | None = None,
-    ) -> None: ...
-    @classmethod
-    def parse(
-        cls,
-        datestring: str,
-        settings: Settings,
         tz: datetime.tzinfo | None = None,
-        date_order: Literal["DMY", "DYM", "MDY", "MYD", "YDM", "YMD"] | None = None,
-    ) -> tuple[datetime.datetime, str | None]: ...
+    ) -> None: ...
 
 class tokenizer:
     digits: Literal["0123456789:"]
