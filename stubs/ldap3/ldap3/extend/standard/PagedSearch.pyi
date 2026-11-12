@@ -1,3 +1,6 @@
+from _typeshed import Incomplete
+from collections.abc import Iterator
+
 def paged_search_generator(
     connection,
     search_base,
@@ -12,7 +15,7 @@ def paged_search_generator(
     controls=None,
     paged_size: int = 100,
     paged_criticality: bool = False,
-) -> None: ...
+) -> Iterator[Incomplete]: ...
 def paged_search_accumulator(
     connection,
     search_base,
