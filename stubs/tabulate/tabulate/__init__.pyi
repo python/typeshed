@@ -44,7 +44,10 @@ multiline_formats: dict[str, str]
 def simple_separated_format(separator: str) -> TableFormat: ...
 def tabulate(
     # The key is converted using str().
-    tabular_data: Mapping[Any, Iterable[Any]] | Iterable[Iterable[Any]],
+    # Iterable[Any] also covers pandas.DataFrame, which tabulate accepts
+    # at runtime and which iterates as column names (Iterable[Hashable]),
+    # not as rows; see #16708.
+    tabular_data: Mapping[Any, Iterable[Any]] | Iterable[Any],
     headers: str | dict[str, str] | Sequence[str] = (),
     tablefmt: str | TableFormat = "simple",
     floatfmt: str | Iterable[str] = "g",
