@@ -1,5 +1,5 @@
 from collections.abc import Callable, Collection, Generator
-from typing import Any, TypeAlias
+from typing import Any, TypeAlias, overload
 
 from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
@@ -53,14 +53,30 @@ def single_source_dijkstra_path(
 def single_source_dijkstra_path_length(
     G: Graph[_Node], source: _Node, cutoff: float | None = None, weight: str | _WeightFunc[_Node] | None = "weight"
 ) -> dict[_Node, float]: ...
-@_dispatchable
+
+@overload  # target is None => (distances, paths)
 def single_source_dijkstra(
     G: Graph[_Node],
     source: _Node,
-    target: _Node | None = None,
+    target: None = None,
     cutoff: float | None = None,
     weight: str | _WeightFunc[_Node] | None = "weight",
-) -> tuple[dict[_Node, float], dict[_Node, list[_Node]]] | tuple[float, list[_Node]]: ...  # TODO: overload on target
+    *,
+    backend: str | None = None,
+    **backend_kwargs: Any,
+) -> tuple[dict[_Node, float], dict[_Node, list[_Node]]]: ...
+@overload  # target is specified => (distance, path)
+def single_source_dijkstra(
+    G: Graph[_Node],
+    source: _Node,
+    target: _Node,
+    cutoff: float | None = None,
+    weight: str | _WeightFunc[_Node] | None = "weight",
+    *,
+    backend: str | None = None,
+    **backend_kwargs: Any,
+) -> tuple[float, list[_Node]]: ...
+
 @_dispatchable
 def multi_source_dijkstra_path(
     G: Graph[_Node], sources: Collection[_Node], cutoff: float | None = None, weight: str | _WeightFunc[_Node] | None = "weight"
@@ -69,14 +85,30 @@ def multi_source_dijkstra_path(
 def multi_source_dijkstra_path_length(
     G: Graph[_Node], sources: Collection[_Node], cutoff: float | None = None, weight: str | _WeightFunc[_Node] | None = "weight"
 ) -> dict[_Node, float]: ...
-@_dispatchable
+
+@overload  # target is None => (distances, paths)
 def multi_source_dijkstra(
     G: Graph[_Node],
     sources: Collection[_Node],
-    target: _Node | None = None,
+    target: None = None,
     cutoff: float | None = None,
     weight: str | _WeightFunc[_Node] | None = "weight",
-) -> tuple[dict[_Node, float], dict[_Node, list[_Node]]] | tuple[float, list[_Node]]: ...  # TODO: overload on target
+    *,
+    backend: str | None = None,
+    **backend_kwargs: Any,
+) -> tuple[dict[_Node, float], dict[_Node, list[_Node]]]: ...
+@overload  # target is specified => (distance, path)
+def multi_source_dijkstra(
+    G: Graph[_Node],
+    sources: Collection[_Node],
+    target: _Node,
+    cutoff: float | None = None,
+    weight: str | _WeightFunc[_Node] | None = "weight",
+    *,
+    backend: str | None = None,
+    **backend_kwargs: Any,
+) -> tuple[float, list[_Node]]: ...
+
 @_dispatchable
 def dijkstra_predecessor_and_distance(
     G: Graph[_Node], source: _Node, cutoff: float | None = None, weight: str | _WeightFunc[_Node] | None = "weight"
@@ -117,10 +149,28 @@ def single_source_bellman_ford_path(
 def single_source_bellman_ford_path_length(
     G: Graph[_Node], source: _Node, weight: str | _WeightFunc[_Node] | None = "weight"
 ) -> dict[_Node, float]: ...
-@_dispatchable
+
+@overload  # target is None => (distances, paths)
 def single_source_bellman_ford(
-    G: Graph[_Node], source: _Node, target: _Node | None = None, weight: str | _WeightFunc[_Node] | None = "weight"
-) -> tuple[dict[_Node, float], dict[_Node, list[_Node]]] | tuple[float, list[_Node]]: ...  # TODO: overload on target
+    G: Graph[_Node],
+    source: _Node,
+    target: None = None,
+    weight: str | _WeightFunc[_Node] | None = "weight",
+    *,
+    backend: str | None = None,
+    **backend_kwargs: Any,
+) -> tuple[dict[_Node, float], dict[_Node, list[_Node]]]: ...
+@overload  # target is specified => (distance, path)
+def single_source_bellman_ford(
+    G: Graph[_Node],
+    source: _Node,
+    target: _Node,
+    weight: str | _WeightFunc[_Node] | None = "weight",
+    *,
+    backend: str | None = None,
+    **backend_kwargs: Any,
+) -> tuple[float, list[_Node]]: ...
+
 @_dispatchable
 def all_pairs_bellman_ford_path_length(
     G: Graph[_Node], weight: str | _WeightFunc[_Node] | None = "weight"
