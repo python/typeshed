@@ -8,8 +8,8 @@ nan: Final[float]
 nanj: Final[complex]
 tau: Final[float]
 
-_F: TypeAlias = SupportsIndex | SupportsFloat
-_C: TypeAlias = SupportsIndex | SupportsFloat | SupportsComplex | int | float | complex
+_F: TypeAlias = SupportsFloat | SupportsIndex
+_C: TypeAlias = SupportsComplex | SupportsFloat | SupportsIndex | complex | float | int
 
 def acos(z: _C, /) -> complex: ...
 def acosh(z: _C, /) -> complex: ...
