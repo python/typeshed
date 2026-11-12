@@ -38,5 +38,5 @@ class LegacyApplicationClient(Client):
         client_secret: str | None = None,
         code: str | None = None,
         redirect_uri: str | None = None,
-        **kwargs,
+        **kwargs: object,
     ) -> str: ...
