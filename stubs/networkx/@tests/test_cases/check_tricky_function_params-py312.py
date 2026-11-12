@@ -23,3 +23,9 @@ degree_view = DegreeView(G_str)
 assert_type(degree_view(""), int)
 assert_type(degree_view([""]), DegreeView[str])
 assert_type(degree_view({""}), DegreeView[str])
+
+# Test scalar attributes with name in set_node_attributes and set_edge_attributes
+nx.set_node_attributes(G, 5, "some_name")
+nx.set_node_attributes(G, {1: "val"}, "some_name")
+nx.set_edge_attributes(G, 10, "weight")
+nx.set_edge_attributes(G, {(1, 2): 10}, "weight")
