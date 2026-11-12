@@ -22,6 +22,7 @@ class _TqdmCommonKwargs(TypedDict, total=False):
     # Concurrent-specific parameters
     tqdm_class: type[tqdm[object]]
     max_workers: int | None
+    timeout: float | None
     chunksize: int
     # Standard tqdm parameters
     desc: str | None
