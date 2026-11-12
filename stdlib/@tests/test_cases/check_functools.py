@@ -1,7 +1,8 @@
 from __future__ import annotations
 
-from functools import cache, cached_property, lru_cache, singledispatchmethod, update_wrapper, wraps
-from typing import Callable, ParamSpec, TypeVar
+from collections.abc import Callable
+from functools import cache, cached_property, lru_cache, partialmethod, singledispatchmethod, update_wrapper, wraps
+from typing import ParamSpec, TypeVar
 from typing_extensions import assert_type
 
 P = ParamSpec("P")
@@ -225,3 +226,18 @@ assert_type(Formatter.format.register(float, format_float), Callable[..., str])
 assert_type(formatter.format.__name__, str)
 assert_type(formatter.format.__qualname__, str)
 assert_type(formatter.format.__wrapped__, Callable[..., str])
+
+
+def _pm_func(arg: object, /, *, options: dict[str, str]) -> str:
+    return "dummy"
+
+
+pm = partialmethod(_pm_func, options={})
+assert_type(pm, partialmethod[str])
+
+
+class _Bar:
+    my_method = partialmethod(_pm_func, options={})
+
+
+assert_type(_Bar().my_method(), str)
