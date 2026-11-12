@@ -11,13 +11,14 @@ from __future__ import annotations
 
 import subprocess
 import sys
+from collections.abc import Sequence
 from pathlib import Path
 
 from ts_utils.paths import TS_BASE_PATH, allowlists_path
 from ts_utils.utils import allowlist_stubtest_arguments
 
 
-def run_stubtest(typeshed_dir: Path) -> int:
+def run_stubtest(typeshed_dir: Path, modules: Sequence[str] = ()) -> int:
     # Note when stubtest imports distutils, it will likely actually import setuptools._distutils
     # This is fine because we don't care about distutils and allowlist all errors from it
     # https://github.com/python/typeshed/pull/10253#discussion_r1216712404
@@ -26,13 +27,16 @@ def run_stubtest(typeshed_dir: Path) -> int:
         sys.executable,
         "-m",
         "mypy.stubtest",
-        "--check-typeshed",
+        *(modules if modules else ["--check-typeshed"]),
         "--show-traceback",
         "--strict-type-check-only",
         "--custom-typeshed-dir",
         str(typeshed_dir),
         *allowlist_stubtest_arguments("stdlib"),
     ]
+    if modules:
+        # Entries for modules outside this selection are expected to be unused.
+        cmd.append("--ignore-unused-allowlist")
     print(" ".join(cmd), file=sys.stderr)
     try:
         subprocess.run(cmd, check=True)
@@ -56,4 +60,4 @@ def run_stubtest(typeshed_dir: Path) -> int:
 
 
 if __name__ == "__main__":
-    sys.exit(run_stubtest(typeshed_dir=TS_BASE_PATH))
+    sys.exit(run_stubtest(typeshed_dir=TS_BASE_PATH, modules=sys.argv[1:]))
