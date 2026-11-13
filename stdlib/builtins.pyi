@@ -202,13 +202,13 @@ class type:
     @overload
     def __init__(self, o: object, /) -> None: ...
     @overload
-    def __init__(self, name: str, bases: tuple[type, ...], dict: dict[str, Any], /, **kwds: Any) -> None: ...
+    def __init__(self, name: str, bases: tuple[type, ...], dict: _TypeNamespace, /, **kwds: Any) -> None: ...
 
     @overload
     def __new__(cls, o: object, /) -> type: ...
     @overload
     def __new__(
-        cls: type[_typeshed.Self], name: str, bases: tuple[type, ...], namespace: dict[str, Any], /, **kwds: Any
+        cls: type[_typeshed.Self], name: str, bases: tuple[type, ...], namespace: _TypeNamespace, /, **kwds: Any
     ) -> _typeshed.Self: ...
 
     def __call__(self, *args: Any, **kwds: Any) -> Any: ...
@@ -1428,6 +1428,11 @@ if sys.version_info >= (3, 15):
         def __ror__(self, value: dict[_T1, _T2], /) -> dict[_KT | _T1, _VT_co | _T2]: ...
         @overload
         def __ror__(self, value: frozendict[_T1, _T2], /) -> frozendict[_KT | _T1, _VT_co | _T2]: ...
+
+    _TypeNamespace: TypeAlias = dict[str, Any] | frozendict[str, Any]
+
+else:
+    _TypeNamespace: TypeAlias = dict[str, Any]
 
 @disjoint_base
 class set(MutableSet[_T]):
