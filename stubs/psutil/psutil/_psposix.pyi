@@ -8,7 +8,7 @@ from . import _ntuples as ntp
 def pid_exists(pid: int) -> bool: ...
 
 # Sync with `signal.Signals`, but with opposite values:
-class Negsignal(enum.IntEnum):
+class NegSignal(enum.IntEnum):
     SIGABRT = -6
     SIGFPE = -8
     SIGILL = -4
@@ -57,7 +57,7 @@ class Negsignal(enum.IntEnum):
             if sys.version_info >= (3, 11):
                 SIGSTKFLT = -16
 
-def negsig_to_enum(num: int) -> int: ...
+def negsig_to_enum(num: int) -> NegSignal | int: ...
 def convert_exit_code(status: int) -> int: ...
 def wait_pid_posix(
     pid: int,
@@ -80,6 +80,6 @@ if sys.platform == "darwin":
 else:
     def disk_usage(path: FileDescriptorOrPath) -> ntp.sdiskusage: ...
 
-def get_terminal_map() -> dict[int, str]: ...
+def get_terminal(tty_nr: int) -> str | None: ...
 
-__all__ = ["pid_exists", "wait_pid", "disk_usage", "get_terminal_map"]
+__all__ = ["pid_exists", "wait_pid", "disk_usage", "get_terminal"]

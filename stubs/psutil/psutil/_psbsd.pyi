@@ -17,11 +17,10 @@ if sys.platform != "linux" and sys.platform != "win32" and sys.platform != "darw
         ZombieProcess as ZombieProcess,
         conn_tmap as conn_tmap,
         conn_to_ntuple as conn_to_ntuple,
-        memoize as memoize,
         usage_percent as usage_percent,
     )
 
-    from . import _ntuples as ntp, _psposix, _psutil_bsd
+    from . import _ntuples as ntp, _psposix, _psutil
 
     _P = ParamSpec("_P")
     _R = TypeVar("_R")
@@ -30,11 +29,10 @@ if sys.platform != "linux" and sys.platform != "win32" and sys.platform != "darw
     PROC_STATUSES: Final[dict[int, str]]
     TCP_STATUSES: Final[dict[int, str]]
     PAGESIZE: Final[int]
-    AF_LINK: Final = _psutil_bsd.AF_LINK
+    AF_LINK: Final = _psutil.AF_LINK
     HAS_PROC_NUM_THREADS: Final[bool]
-    kinfo_proc_map: Final[dict[str, int]]
 
-    class svmem(NamedTuple):
+    class smem(NamedTuple):
         total: int
         available: int
         percent: float
@@ -49,9 +47,9 @@ if sys.platform != "linux" and sys.platform != "win32" and sys.platform != "darw
 
     class scputimes(NamedTuple):
         user: float
-        nice: float
         system: float
         idle: float
+        nice: float
         irq: float
 
     class pmem(NamedTuple):
@@ -60,6 +58,7 @@ if sys.platform != "linux" and sys.platform != "win32" and sys.platform != "darw
         text: int
         data: int
         stack: int
+        peak_rss: int
 
     pfullmem = pmem
 
@@ -94,10 +93,10 @@ if sys.platform != "linux" and sys.platform != "win32" and sys.platform != "darw
         write_time: Incomplete
         busy_time: Incomplete
 
-    def virtual_memory() -> svmem: ...
-    def swap_memory() -> ntp.sswap: ...
-    heap_info = _psutil_bsd.heap_info  # only FreeBSD and NetBSD
-    heap_trim = _psutil_bsd.heap_trim  # only FreeBSD and NetBSD
+    def memory_physical() -> smem: ...
+    def memory_swap() -> ntp.sswap: ...
+    heap_info = _psutil.heap_info  # only FreeBSD and NetBSD
+    heap_trim = _psutil.heap_trim  # only FreeBSD and NetBSD
     def cpu_times() -> scputimes: ...
     def per_cpu_times() -> list[scputimes]: ...
     def cpu_count_logical() -> int | None: ...
@@ -106,9 +105,9 @@ if sys.platform != "linux" and sys.platform != "win32" and sys.platform != "darw
     def disk_partitions(all: bool = False) -> list[ntp.sdiskpart]: ...
 
     disk_usage = _psposix.disk_usage
-    disk_io_counters = _psutil_bsd.disk_io_counters
-    net_io_counters = _psutil_bsd.net_io_counters
-    net_if_addrs = _psutil_bsd.net_if_addrs
+    disk_io_counters = _psutil.disk_io_counters
+    net_io_counters = _psutil.net_io_counters
+    net_if_addrs = _psutil.net_if_addrs
 
     def net_if_stats() -> dict[str, ntp.snicstats]: ...
     def net_connections(kind: str) -> list[ntp.sconn]: ...
@@ -172,10 +171,10 @@ if sys.platform != "linux" and sys.platform != "win32" and sys.platform != "darw
         def cpu_times(self) -> ntp.pcputimes: ...
         def cpu_num(self) -> int: ...  # only FreeBSD
         def memory_info(self) -> pmem: ...
-        memory_full_info = memory_info
         def create_time(self, monotonic: bool = False) -> float: ...
+        def ctx_switches(self) -> ntp.pctxsw: ...
+        def page_faults(self) -> ntp.ppagefaults: ...
         def num_threads(self) -> int: ...
-        def num_ctx_switches(self) -> ntp.pctxsw: ...
         def threads(self) -> list[ntp.pthread]: ...
         def net_connections(self, kind: str = "inet") -> list[ntp.pconn]: ...
         def wait(self, timeout: float | None = None) -> int | None: ...
