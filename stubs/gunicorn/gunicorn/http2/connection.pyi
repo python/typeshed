@@ -1,7 +1,8 @@
 from _typeshed import Incomplete
+from collections import deque
 from collections.abc import Iterable
 from ssl import SSLSocket
-from typing import Any, ClassVar, TypeAlias
+from typing import Any, ClassVar, Final, TypeAlias
 
 from gunicorn.config import Config
 from gunicorn.http.message import Request
@@ -12,12 +13,23 @@ from .._types import _AddressType
 
 _H2Connection: TypeAlias = Any  # h2.connection.H2Connection class
 
+RST_STREAM_RATE_LIMIT: Final = 200
+RST_STREAM_RATE_WINDOW: Final = 10.0
+CONTROL_FRAME_RATE_LIMIT: Final = 1000
+CONTROL_FRAME_RATE_WINDOW: Final = 10.0
+MAX_DEFERRED_EVENTS: Final = 10000
+
 class HTTP2ServerConnection:
     READ_BUFFER_SIZE: ClassVar[int]
     cfg: Config
     sock: SSLSocket
     client_addr: _AddressType
     streams: dict[int, HTTP2Stream]
+    pending_requests: deque[HTTP2Request]
+    draining: bool
+    peer_last_stream_id: int | None
+    stream_timeout: float | int | None
+    idle_timeout: float | int | None
     initial_window_size: int
     max_concurrent_streams: int
     max_frame_size: int
@@ -28,11 +40,13 @@ class HTTP2ServerConnection:
     def initiate_connection(self) -> None: ...
     def initiate_upgrade(self, settings_header: bytes | None, http1_req: Request, body: bytes | None = None) -> HTTP2Request: ...
     def receive_data(self, data: bytes | None = None) -> list[HTTP2Request]: ...
+    def pump(self, stream_id: int | None = None) -> None: ...
     def send_informational(self, stream_id: int, status: int, headers: Iterable[tuple[str, Incomplete]]) -> None: ...
     def send_response_headers(
         self, stream_id: int, status: int, headers: Iterable[tuple[str, Incomplete]], end_stream: bool = False
     ) -> bool: ...
     def end_stream(self, stream_id: int, trailers: Iterable[tuple[str, Incomplete]] | None = None) -> bool: ...
+    def acknowledge_data(self, stream_id: int, size: int) -> None: ...
     def send_response(
         self, stream_id: int, status: int, headers: Iterable[tuple[str, Incomplete]], body: bytes | None = None
     ) -> bool: ...
@@ -40,6 +54,7 @@ class HTTP2ServerConnection:
     def send_trailers(self, stream_id: int, trailers: Iterable[tuple[str, Incomplete]]) -> bool: ...
     def send_error(self, stream_id: int, status_code: int, message: str | None = None) -> None: ...
     def reset_stream(self, stream_id: int, error_code: int = 0x8) -> None: ...
+    def abort_stream(self, stream_id: int, error_code: int) -> None: ...
     def close(self, error_code: int = 0x0, last_stream_id: int | None = None) -> None: ...
     @property
     def is_closed(self) -> bool: ...

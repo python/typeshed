@@ -1,5 +1,6 @@
 from collections.abc import Callable, Iterable
 from enum import IntEnum
+from re import Pattern
 from typing import Any, Final, Literal, SupportsIndex, TypeAlias, TypedDict, type_check_only
 from typing_extensions import Self
 
@@ -53,8 +54,14 @@ class InvalidHeader(ParseError): ...
 class UnsupportedTransferCoding(ParseError): ...
 class InvalidChunkSize(ParseError): ...
 class InvalidChunkExtension(ParseError): ...
+class ChunkMissingTerminator(ParseError): ...
 
 RFC9110_5_3_SINGLETON_FIELDS: Final[frozenset[bytes]]
+RFC9112_TARGET_INVALID: Final[Pattern[bytes]]
+
+MAX_UNLIMITED_REQUEST_LINE: Final[int]
+DEFAULT_MAX_FIELD_LINE: Final[int]
+DEFAULT_MAX_FIELDS: Final[int]
 
 class PythonProtocol:
     __slots__ = (
@@ -86,6 +93,8 @@ class PythonProtocol:
         "_permit_unconventional_http_method",
         "_permit_unconventional_http_version",
         "_header_count",
+        "_scan_from",
+        "_empty_line_skipped",
         "_proxy_protocol",
         "_proxy_protocol_info",
         "_proxy_protocol_done",
@@ -131,7 +140,7 @@ class CallbackRequest:
         "query",
         "fragment",
         "version",
-        "headers",
+        "_headers",
         "headers_bytes",
         "scheme",
         "raw_path",
@@ -140,6 +149,8 @@ class CallbackRequest:
         "must_close",
         "proxy_protocol_info",
         "_expect_100_continue",
+        "_connection",
+        "_has_upgrade",
     )
     method: str | None
     uri: str | None
@@ -147,7 +158,6 @@ class CallbackRequest:
     query: str | None
     fragment: str | None
     version: tuple[int, int] | None
-    headers: list[tuple[str, str]]
     headers_bytes: list[tuple[bytes, bytes]]
     scheme: Literal["https", "http"]
     raw_path: bytes
@@ -157,7 +167,14 @@ class CallbackRequest:
     proxy_protocol_info: _ProxyProtocolInfo | _ProxyProtocolInfoUnknown | None
 
     def __init__(self) -> None: ...
+
+    @property
+    def headers(self) -> list[tuple[str, str]]: ...
+    @headers.setter
+    def headers(self, value: list[tuple[str, str]]) -> None: ...
+
     @classmethod
     def from_parser(cls, parser: _H1CProtocol | PythonProtocol, is_ssl: bool = False) -> Self: ...
     def should_close(self) -> bool: ...
+    def may_upgrade(self) -> bool: ...
     def get_header(self, name: str) -> str | None: ...

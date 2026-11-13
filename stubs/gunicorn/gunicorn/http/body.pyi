@@ -1,9 +1,16 @@
 import io
 from collections.abc import Callable, Generator, Iterator
-from typing import TypeAlias
+from re import Pattern
+from typing import Final, TypeAlias
 
 from gunicorn.http.message import Request
 from gunicorn.http.unreader import Unreader
+
+CHUNK_EXT_RE: Final[Pattern[str]]
+
+MAX_READ_STEP: Final[int]
+DEFAULT_MAX_CHUNK_SIZE_LINE: Final[int]
+DEFAULT_MAX_TRAILER_SECTION: Final[int]
 
 class ChunkedReader:
     req: Request
@@ -16,6 +23,7 @@ class ChunkedReader:
     def parse_chunked(self, unreader: Unreader) -> Generator[bytes]: ...
     def parse_chunk_size(self, unreader: Unreader, data: bytes | None = None) -> tuple[int, bytes | None]: ...
     def get_data(self, unreader: Unreader, buf: io.BytesIO) -> None: ...
+    def read_into(self, unreader: Unreader, buf: bytearray) -> None: ...
 
 class LengthReader:
     unreader: Unreader
