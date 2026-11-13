@@ -31,9 +31,9 @@ _ConvertibleToCRS: TypeAlias = str | int | tuple[str, str] | list[str] | dict[st
 _AffinityOrigin: TypeAlias = (
     Literal["center", "centroid"] | Point | tuple[FloatInt, FloatInt] | tuple[FloatInt, FloatInt, FloatInt]
 )
-_ClipMask: TypeAlias = (
+_ClipMask: TypeAlias = (  # noqa: Y047
     GeoDataFrame | GeoSeries | Polygon | MultiPolygon | tuple[FloatInt, FloatInt, FloatInt, FloatInt]
-)  # noqa: Y047
+)
 # np.floating[Any] because precision is not important
 _BboxLike: TypeAlias = Sequence[FloatInt] | NDArray[np.floating[Any]] | Geometry | GeoDataFrame | GeoSeries  # noqa: Y047
 _MaskLike: TypeAlias = dict[str, Incomplete] | Geometry | GeoDataFrame | GeoSeries  # noqa: Y047
