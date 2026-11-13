@@ -99,7 +99,6 @@
         "stubs/tqdm",
         "stubs/vobject",
         "stubs/workalendar",
-        "stubs/xmldiff",
     ],
     "typeCheckingMode": "strict",
     // TODO: Complete incomplete stubs

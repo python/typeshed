@@ -1,37 +1,36 @@
-from _typeshed import Incomplete
-from typing import NamedTuple
+from typing import NamedTuple, TypeAlias
 
 class DeleteNode(NamedTuple):
     node: str
 
 class InsertNode(NamedTuple):
-    target: Incomplete
+    target: str
     tag: str
     position: int
 
 class RenameNode(NamedTuple):
     node: str
-    tag: Incomplete
+    tag: str
 
 class MoveNode(NamedTuple):
     node: str
-    target: Incomplete
+    target: str
     position: int
 
 class UpdateTextIn(NamedTuple):
     node: str
-    text: Incomplete
-    oldtext: Incomplete | None = None
+    text: str | None
+    oldtext: str | None = None
 
 class UpdateTextAfter(NamedTuple):
     node: str
-    text: Incomplete
-    oldtext: Incomplete | None = None
+    text: str | None
+    oldtext: str | None = None
 
 class UpdateAttrib(NamedTuple):
     node: str
     name: str
-    value: Incomplete
+    value: str
 
 class DeleteAttrib(NamedTuple):
     node: str
@@ -40,7 +39,7 @@ class DeleteAttrib(NamedTuple):
 class InsertAttrib(NamedTuple):
     node: str
     name: str
-    value: Incomplete
+    value: str
 
 class RenameAttrib(NamedTuple):
     node: str
@@ -48,13 +47,29 @@ class RenameAttrib(NamedTuple):
     newname: str
 
 class InsertComment(NamedTuple):
-    target: Incomplete
-    position: Incomplete
-    text: Incomplete
+    target: str
+    position: int
+    text: str | None
 
 class InsertNamespace(NamedTuple):
-    prefix: str
+    prefix: str | None
     uri: str
 
 class DeleteNamespace(NamedTuple):
-    prefix: str
+    prefix: str | None
+
+_Action: TypeAlias = (  # noqa: Y047  # Used in other modules
+    DeleteNode
+    | InsertNode
+    | RenameNode
+    | MoveNode
+    | UpdateTextIn
+    | UpdateTextAfter
+    | UpdateAttrib
+    | DeleteAttrib
+    | InsertAttrib
+    | RenameAttrib
+    | InsertComment
+    | InsertNamespace
+    | DeleteNamespace
+)
