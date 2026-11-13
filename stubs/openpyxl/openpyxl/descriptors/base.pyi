@@ -13,7 +13,7 @@ _T = TypeVar("_T")
 _P = TypeVar("_P", str, ReadableBuffer)
 _N = TypeVar("_N", bound=bool, default=Literal[False])
 _L = TypeVar("_L", bound=Sized)
-_M = TypeVar("_M", int, float)
+_M = TypeVar("_M", int, float, FloatInt)  # TODO: remove FloatInt, update users
 
 _ExpectedTypeParam: TypeAlias = type[_T] | tuple[type[_T], ...]
 _ConvertibleToMultiCellRange: TypeAlias = MultiCellRange | str | Iterable[CellRange]
