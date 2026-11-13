@@ -1,6 +1,6 @@
 from _typeshed import SupportsWrite
 from collections.abc import Iterator, Mapping
-from typing import Final
+from typing import Any, Final
 
 BIG_ENDIAN_PLATFORM: bool
 INET_PTON: Final = 1
@@ -13,7 +13,7 @@ class AddrConversionError(Exception): ...
 class NotRegisteredError(Exception): ...
 
 class Subscriber:
-    def update(self, data) -> None: ...
+    def update(self, data: Any) -> None: ...
 
 class PrettyPrinter(Subscriber):
     fh: SupportsWrite[str]
