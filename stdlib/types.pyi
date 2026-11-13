@@ -95,6 +95,7 @@ class FunctionType:
         __type_params__: tuple[TypeVar | ParamSpec | TypeVarTuple, ...]
 
     __module__: str
+    __signature__: Any | None  # inspect.Signature | None (cannot import inspect due to import cycle)
     if sys.version_info >= (3, 13):
         def __new__(
             cls,
