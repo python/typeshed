@@ -1,4 +1,5 @@
-from typing import Literal, Self
+from typing import Literal
+from typing_extensions import Self
 
 from gunicorn._types import _AddressType
 from gunicorn.asgi.parser import _ProxyProtocolInfo, _ProxyProtocolInfoUnknown
