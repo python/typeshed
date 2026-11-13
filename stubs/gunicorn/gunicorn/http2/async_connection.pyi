@@ -1,15 +1,19 @@
 from _typeshed import Incomplete
 from asyncio import StreamReader, StreamWriter
 from collections.abc import Iterable
-from typing import ClassVar
+from typing import ClassVar, Final
 
+from gunicorn._types import _AddressType
 from gunicorn.config import Config
 from gunicorn.http.message import Request
 from gunicorn.http2.connection import _H2Connection
 from gunicorn.http2.request import HTTP2Request
 from gunicorn.http2.stream import HTTP2Stream
 
-from .._types import _AddressType
+RST_STREAM_RATE_LIMIT: Final = 200
+RST_STREAM_RATE_WINDOW: Final = 10.0
+CONTROL_FRAME_RATE_LIMIT: Final = 1000
+CONTROL_FRAME_RATE_WINDOW: Final = 10.0
 
 class AsyncHTTP2Connection:
     READ_BUFFER_SIZE: ClassVar[int]
@@ -18,6 +22,8 @@ class AsyncHTTP2Connection:
     writer: StreamWriter
     client_addr: _AddressType
     streams: dict[int, HTTP2Stream]
+    draining: bool
+    peer_last_stream_id: int | None
     initial_window_size: int
     max_concurrent_streams: int
     max_frame_size: int
@@ -30,7 +36,12 @@ class AsyncHTTP2Connection:
         self, settings_header: bytes | None, http1_req: Request, body: bytes | None = b""
     ) -> HTTP2Request: ...
     async def receive_data(self, timeout: float | None = None) -> list[HTTP2Request]: ...
+    def abort_streams_nowait(self) -> None: ...
+    def acknowledge_data(self, stream_id: int, size: int) -> None: ...
     async def send_informational(self, stream_id: int, status: int, headers: Iterable[tuple[str, Incomplete]]) -> None: ...
+    async def send_response_headers(
+        self, stream_id: int, headers: Iterable[tuple[str, str]], end_stream: bool = False
+    ) -> bool: ...
     async def send_response(
         self, stream_id: int, status: int, headers: Iterable[tuple[str, Incomplete]], body: bytes | None = None
     ) -> bool: ...
@@ -38,6 +49,7 @@ class AsyncHTTP2Connection:
     async def send_trailers(self, stream_id: int, trailers: Iterable[tuple[str, Incomplete]]) -> bool: ...
     async def send_error(self, stream_id: int, status_code: int, message: str | None = None) -> None: ...
     async def reset_stream(self, stream_id: int, error_code: int = 0x8) -> None: ...
+    async def abort_stream(self, stream_id: int, error_code: int) -> None: ...
     async def close(self, error_code: int = 0x0, last_stream_id: int | None = None) -> None: ...
     @property
     def is_closed(self) -> bool: ...

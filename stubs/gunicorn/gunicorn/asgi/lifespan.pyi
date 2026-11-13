@@ -4,6 +4,8 @@ from gunicorn.glogging import Logger as GLogger
 
 from .._types import _ASGIAppType
 
+class LifespanStartupFailed(RuntimeError): ...
+
 class LifespanManager:
     app: _ASGIAppType
     logger: GLogger

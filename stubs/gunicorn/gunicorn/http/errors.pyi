@@ -52,24 +52,31 @@ class InvalidHeaderName(ParseException):
 
     def __init__(self, hdr: str) -> None: ...
 
+class InvalidResponseHeader(InvalidHeader): ...
+class InvalidResponseHeaderName(InvalidHeaderName): ...
+
 class UnsupportedTransferCoding(ParseException):
     hdr: str
     code: int
 
     def __init__(self, hdr: str) -> None: ...
 
-class InvalidChunkSize(IOError):
+class InvalidChunkSize(ParseException):
     data: bytes
+    code: int
 
     def __init__(self, data: bytes) -> None: ...
 
-class ChunkMissingTerminator(IOError):
+class ChunkMissingTerminator(ParseException):
     term: bytes
+    code: int
 
     def __init__(self, term: bytes) -> None: ...
 
-class InvalidChunkExtension(IOError):
+class InvalidChunkExtension(ParseException):
     reason: str
+    code: int
+
     def __init__(self, reason: str) -> None: ...
 
 class LimitRequestLine(ParseException):

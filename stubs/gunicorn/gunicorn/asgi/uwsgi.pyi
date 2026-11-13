@@ -17,6 +17,7 @@ class AsyncUWSGIRequest(UWSGIRequest):
     method: str | None
     uri: str | None
     path: str | None
+    raw_path: bytes | None
     query: str | None
     fragment: str | None
     version: tuple[int, int]

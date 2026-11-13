@@ -25,3 +25,5 @@ def read_preface_blocking(sock: socket.socket, timeout: float | None = None) -> 
 UPGRADE_101: Final[bytes]
 
 def upgrade_settings(req: _HasHeaders) -> bytes | None: ...
+
+H2C_UPGRADE_BODY_LIMIT: Final = 65536
