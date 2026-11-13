@@ -362,7 +362,7 @@ class Call(RpcContext, metaclass=abc.ABCMeta):
 
 class ClientCallDetails(abc.ABC):
     method: str
-    timeout: FloatInt | None
+    timeout: float | None
     metadata: _Metadata | None
     credentials: CallCredentials | None
 
