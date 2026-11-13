@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from collections.abc import Iterable
 from logging import Logger
 from typing import Any, TypeAlias, TypedDict, type_check_only
 
@@ -18,7 +19,7 @@ class _TokenDict(TypedDict, total=False):
 
 log: Logger
 
-def urldecode(body): ...
+def urldecode(body: str | bytes | bytearray) -> Any: ...
 
 class TokenRequestDenied(ValueError):
     response: requests.Response
@@ -36,23 +37,23 @@ class OAuth1Session(requests.Session):
     auth: OAuth1
     def __init__(
         self,
-        client_key,
-        client_secret=None,
-        resource_owner_key=None,
-        resource_owner_secret=None,
-        callback_uri=None,
-        signature_method="HMAC-SHA1",
-        signature_type="AUTH_HEADER",
-        rsa_key=None,
-        verifier=None,
+        client_key: str | bytes,
+        client_secret: str | bytes | None = None,
+        resource_owner_key: str | bytes | None = None,
+        resource_owner_secret: str | bytes | None = None,
+        callback_uri: str | bytes | None = None,
+        signature_method: str | bytes = "HMAC-SHA1",
+        signature_type: str | bytes = "AUTH_HEADER",
+        rsa_key: str | bytes | None = None,
+        verifier: str | bytes | None = None,
         client_class: type[Client] | None = None,
         force_include_body: bool = False,
         *,
         decoding: str | None = "utf-8",
-        realm=None,
+        realm: str | bytes | None = None,
         encoding: str = "utf-8",
-        nonce=None,
-        timestamp=None,
+        nonce: str | bytes | None = None,
+        timestamp: str | bytes | None = None,
         **kwargs: Any,  # passed to client_class's __init__
     ) -> None: ...
 
@@ -63,8 +64,8 @@ class OAuth1Session(requests.Session):
 
     @property
     def authorized(self) -> bool: ...
-    def authorization_url(self, url: str, request_token=None, **kwargs) -> str: ...
-    def fetch_request_token(self, url: str, realm=None, **request_kwargs) -> _ParsedToken: ...
-    def fetch_access_token(self, url: str, verifier=None, **request_kwargs) -> _ParsedToken: ...
+    def authorization_url(self, url: str, request_token: str | None = None, **kwargs: Any) -> str: ...
+    def fetch_request_token(self, url: str, realm: Iterable[str] | None = None, **request_kwargs: Any) -> _ParsedToken: ...
+    def fetch_access_token(self, url: str, verifier: str | None = None, **request_kwargs: Any) -> _ParsedToken: ...
     def parse_authorization_response(self, url: str) -> _ParsedToken: ...
     def rebuild_auth(self, prepared_request: requests.PreparedRequest, response: requests.Response) -> None: ...
