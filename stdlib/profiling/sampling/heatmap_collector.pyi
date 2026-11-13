@@ -1,4 +1,4 @@
-from _typeshed import StrOrBytesPath
+from _typeshed import FloatInt, StrOrBytesPath
 from collections.abc import Sequence
 
 from _remote_debugging import AwaitedInfo, InterpreterInfo
@@ -16,9 +16,9 @@ class HeatmapCollector(Collector):
     def set_stats(
         self,
         sample_interval_usec: int,
-        duration_sec: float,
-        sample_rate: float,
-        error_rate: float | None = None,
-        missed_samples: float | None = None,
+        duration_sec: FloatInt,
+        sample_rate: FloatInt,
+        error_rate: FloatInt | None = None,
+        missed_samples: FloatInt | None = None,
         **kwargs: object,
     ) -> None: ...

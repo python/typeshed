@@ -1,5 +1,5 @@
 import sys
-from _typeshed import StrOrBytesPath, SupportsRead, SupportsReadline
+from _typeshed import FloatInt, StrOrBytesPath, SupportsRead, SupportsReadline
 from collections.abc import Callable, Iterable, Iterator
 from socket import socket
 from ssl import SSLContext
@@ -31,7 +31,7 @@ class FTP:
     sock: socket | None
     welcome: str | None
     passiveserver: int
-    timeout: float | None
+    timeout: FloatInt | None
     af: int
     lastresp: str
     file: TextIO | None
@@ -47,13 +47,13 @@ class FTP:
         user: str = "",
         passwd: str = "",
         acct: str = "",
-        timeout: float | None = ...,
+        timeout: FloatInt | None = ...,
         source_address: tuple[str, int] | None = None,
         *,
         encoding: str = "utf-8",
     ) -> None: ...
     def connect(
-        self, host: str = "", port: int = 0, timeout: float = -999, source_address: tuple[str, int] | None = None
+        self, host: str = "", port: int = 0, timeout: FloatInt = -999, source_address: tuple[str, int] | None = None
     ) -> str: ...
     def getwelcome(self) -> str: ...
     def set_debuglevel(self, level: int) -> None: ...
@@ -115,7 +115,7 @@ class FTP_TLS(FTP):
             acct: str = "",
             *,
             context: SSLContext | None = None,
-            timeout: float | None = ...,
+            timeout: FloatInt | None = ...,
             source_address: tuple[str, int] | None = None,
             encoding: str = "utf-8",
         ) -> None: ...
@@ -130,7 +130,7 @@ class FTP_TLS(FTP):
             keyfile: None = None,
             certfile: None = None,
             context: SSLContext | None = None,
-            timeout: float | None = ...,
+            timeout: FloatInt | None = ...,
             source_address: tuple[str, int] | None = None,
             *,
             encoding: str = "utf-8",
@@ -149,7 +149,7 @@ class FTP_TLS(FTP):
             keyfile: StrOrBytesPath | None = None,
             certfile: StrOrBytesPath | None = None,
             context: None = None,
-            timeout: float | None = ...,
+            timeout: FloatInt | None = ...,
             source_address: tuple[str, int] | None = None,
             *,
             encoding: str = "utf-8",

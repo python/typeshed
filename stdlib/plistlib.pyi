@@ -1,5 +1,5 @@
 import sys
-from _typeshed import ReadableBuffer
+from _typeshed import FloatInt, ReadableBuffer
 from collections.abc import Mapping, MutableMapping
 from datetime import datetime
 from enum import Enum
@@ -38,7 +38,7 @@ else:
 
 if sys.version_info >= (3, 13):
     def dump(
-        value: Mapping[str, Any] | list[Any] | tuple[Any, ...] | str | bool | float | bytes | bytearray | datetime,
+        value: Mapping[str, Any] | list[Any] | tuple[Any, ...] | str | bool | FloatInt | bytes | bytearray | datetime,
         fp: IO[bytes],
         *,
         fmt: PlistFormat = ...,
@@ -47,7 +47,7 @@ if sys.version_info >= (3, 13):
         aware_datetime: bool = False,
     ) -> None: ...
     def dumps(
-        value: Mapping[str, Any] | list[Any] | tuple[Any, ...] | str | bool | float | bytes | bytearray | datetime,
+        value: Mapping[str, Any] | list[Any] | tuple[Any, ...] | str | bool | FloatInt | bytes | bytearray | datetime,
         *,
         fmt: PlistFormat = ...,
         skipkeys: bool = False,
@@ -57,7 +57,7 @@ if sys.version_info >= (3, 13):
 
 else:
     def dump(
-        value: Mapping[str, Any] | list[Any] | tuple[Any, ...] | str | bool | float | bytes | bytearray | datetime,
+        value: Mapping[str, Any] | list[Any] | tuple[Any, ...] | str | bool | FloatInt | bytes | bytearray | datetime,
         fp: IO[bytes],
         *,
         fmt: PlistFormat = ...,
@@ -65,7 +65,7 @@ else:
         skipkeys: bool = False,
     ) -> None: ...
     def dumps(
-        value: Mapping[str, Any] | list[Any] | tuple[Any, ...] | str | bool | float | bytes | bytearray | datetime,
+        value: Mapping[str, Any] | list[Any] | tuple[Any, ...] | str | bool | FloatInt | bytes | bytearray | datetime,
         *,
         fmt: PlistFormat = ...,
         skipkeys: bool = False,

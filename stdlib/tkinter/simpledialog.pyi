@@ -1,4 +1,5 @@
 import sys
+from _typeshed import FloatInt
 from tkinter import Event, Frame, Misc, Toplevel
 
 if sys.version_info >= (3, 15):
@@ -33,9 +34,9 @@ def askfloat(
     title: str | None,
     prompt: str,
     *,
-    initialvalue: float | None = ...,
-    minvalue: float | None = ...,
-    maxvalue: float | None = ...,
+    initialvalue: FloatInt | None = ...,
+    minvalue: FloatInt | None = ...,
+    maxvalue: FloatInt | None = ...,
     parent: Misc | None = ...,
 ) -> float | None: ...
 def askinteger(

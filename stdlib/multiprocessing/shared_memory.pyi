@@ -6,7 +6,7 @@ from typing_extensions import Self
 
 __all__ = ["SharedMemory", "ShareableList"]
 
-_SLT = TypeVar("_SLT", int, float, bool, str, bytes, None)
+_SLT = TypeVar("_SLT", float, int, bool, str, bytes, None)
 
 class SharedMemory:
     if sys.version_info >= (3, 13):

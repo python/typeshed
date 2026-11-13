@@ -7,6 +7,7 @@ from _asyncio import (
     _register_task as _register_task,
     _unregister_task as _unregister_task,
 )
+from _typeshed import FloatInt
 from collections.abc import AsyncIterator, Awaitable, Coroutine, Generator, Iterable, Iterator
 from typing import Any, Final, Literal, Protocol, TypeAlias, TypeVar, overload, type_check_only
 
@@ -89,10 +90,10 @@ if sys.version_info >= (3, 13):
     @type_check_only
     class _SyncAndAsyncIterator(Iterator[Coroutine[Any, Any, _T]], AsyncIterator[Future[_T]], Protocol[_T]): ...
 
-    def as_completed(fs: Iterable[_FutureLike[_T]], *, timeout: float | None = None) -> _SyncAndAsyncIterator[_T]: ...
+    def as_completed(fs: Iterable[_FutureLike[_T]], *, timeout: FloatInt | None = None) -> _SyncAndAsyncIterator[_T]: ...
 
 else:
-    def as_completed(fs: Iterable[_FutureLike[_T]], *, timeout: float | None = None) -> Iterator[Future[_T]]: ...
+    def as_completed(fs: Iterable[_FutureLike[_T]], *, timeout: FloatInt | None = None) -> Iterator[Future[_T]]: ...
 
 @overload
 def ensure_future(coro_or_future: _FT, *, loop: AbstractEventLoop | None = None) -> _FT: ...  # type: ignore[overload-overlap]
@@ -220,25 +221,25 @@ def run_coroutine_threadsafe(coro: Coroutine[Any, Any, _T], loop: AbstractEventL
 def shield(arg: _FutureLike[_T]) -> Future[_T]: ...
 
 @overload
-async def sleep(delay: float) -> None: ...
+async def sleep(delay: FloatInt) -> None: ...
 @overload
-async def sleep(delay: float, result: _T) -> _T: ...
+async def sleep(delay: FloatInt, result: _T) -> _T: ...
 
-async def wait_for(fut: _FutureLike[_T], timeout: float | None) -> _T: ...
+async def wait_for(fut: _FutureLike[_T], timeout: FloatInt | None) -> _T: ...
 
 if sys.version_info >= (3, 11):
     async def wait(
-        fs: Iterable[_FT], *, timeout: float | None = None, return_when: str = "ALL_COMPLETED"
+        fs: Iterable[_FT], *, timeout: FloatInt | None = None, return_when: str = "ALL_COMPLETED"
     ) -> tuple[set[_FT], set[_FT]]: ...
 
 else:
     @overload
     async def wait(  # type: ignore[overload-overlap]
-        fs: Iterable[_FT], *, timeout: float | None = None, return_when: str = "ALL_COMPLETED"
+        fs: Iterable[_FT], *, timeout: FloatInt | None = None, return_when: str = "ALL_COMPLETED"
     ) -> tuple[set[_FT], set[_FT]]: ...
     @overload
     async def wait(
-        fs: Iterable[Awaitable[_T]], *, timeout: float | None = None, return_when: str = "ALL_COMPLETED"
+        fs: Iterable[Awaitable[_T]], *, timeout: FloatInt | None = None, return_when: str = "ALL_COMPLETED"
     ) -> tuple[set[Task[_T]], set[Task[_T]]]: ...
 
 if sys.version_info >= (3, 12):

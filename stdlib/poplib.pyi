@@ -1,7 +1,7 @@
 import socket
 import ssl
 import sys
-from _typeshed import StrOrBytesPath
+from _typeshed import FloatInt, StrOrBytesPath
 from builtins import list as _list  # conflicts with a method named "list"
 from re import Pattern
 from typing import Any, BinaryIO, Final, TypeAlias, overload
@@ -27,7 +27,7 @@ class POP3:
     sock: socket.socket
     file: BinaryIO
     welcome: bytes
-    def __init__(self, host: str, port: int = 110, timeout: float = ...) -> None: ...
+    def __init__(self, host: str, port: int = 110, timeout: FloatInt = ...) -> None: ...
     def getwelcome(self) -> bytes: ...
     def set_debuglevel(self, level: int) -> None: ...
     def user(self, user: str) -> bytes: ...
@@ -57,7 +57,7 @@ class POP3:
 class POP3_SSL(POP3):
     if sys.version_info >= (3, 12):
         def __init__(
-            self, host: str, port: int = 995, *, timeout: float = ..., context: ssl.SSLContext | None = None
+            self, host: str, port: int = 995, *, timeout: FloatInt = ..., context: ssl.SSLContext | None = None
         ) -> None: ...
         def stls(self, context: Any = None) -> Never: ...
     else:
@@ -68,7 +68,7 @@ class POP3_SSL(POP3):
             port: int = 995,
             keyfile: None = None,
             certfile: None = None,
-            timeout: float = ...,
+            timeout: FloatInt = ...,
             context: ssl.SSLContext | None = None,
         ) -> None: ...
         @overload
@@ -82,7 +82,7 @@ class POP3_SSL(POP3):
             port: int = 995,
             keyfile: StrOrBytesPath | None = None,
             certfile: StrOrBytesPath | None = None,
-            timeout: float = ...,
+            timeout: FloatInt = ...,
             context: None = None,
         ) -> None: ...
 

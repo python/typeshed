@@ -1,10 +1,11 @@
+from _typeshed import FloatInt
 from collections.abc import Callable
 from typing import Any, TypeAlias
 
 __all__ = ["getline", "clearcache", "checkcache", "lazycache"]
 
 _ModuleGlobals: TypeAlias = dict[str, Any]
-_ModuleMetadata: TypeAlias = tuple[int, float | None, list[str], str]
+_ModuleMetadata: TypeAlias = tuple[int, FloatInt | None, list[str], str]
 
 _SourceLoader: TypeAlias = tuple[Callable[[], str | None]]
 

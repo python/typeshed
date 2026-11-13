@@ -1,6 +1,6 @@
 import sys
 import threading
-from _typeshed import ConvertibleToInt, Incomplete, Unused
+from _typeshed import ConvertibleToInt, FloatInt, Incomplete, Unused
 from collections.abc import Callable, Iterable, Mapping, MutableMapping, Sequence
 from logging import Logger, _Level as _LoggingLevel
 from typing import Any, Final, Generic, TypeVar, overload
@@ -96,7 +96,7 @@ class Finalize(Generic[_R_co]):
 def is_exiting() -> bool: ...
 
 class ForkAwareThreadLock:
-    acquire: Callable[[bool, float], bool]
+    acquire: Callable[[bool, FloatInt], bool]
     release: Callable[[], None]
     def __enter__(self) -> bool: ...
     def __exit__(self, *args: Unused) -> None: ...

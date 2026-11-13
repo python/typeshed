@@ -1,4 +1,4 @@
-from _typeshed import StrOrBytesPath, SupportsGet, SupportsKeysAndGet
+from _typeshed import FloatInt, StrOrBytesPath, SupportsGet, SupportsKeysAndGet
 from abc import ABCMeta
 from collections import Counter
 from collections.abc import Sequence
@@ -32,10 +32,10 @@ class CollapsedStackCollector(StackTraceCollector):
 @type_check_only
 class _FlamegraphCollectorStats(TypedDict, total=False):
     sample_interval_usec: Required[int]
-    duration_sec: float
-    sample_rate: float
-    error_rate: float | None
-    missed_samples: float | None
+    duration_sec: FloatInt
+    sample_rate: FloatInt
+    error_rate: FloatInt | None
+    missed_samples: FloatInt | None
     mode: int | None
 
 @type_check_only
@@ -60,13 +60,13 @@ class FlamegraphCollector(StackTraceCollector):
     def set_stats(
         self,
         sample_interval_usec: int,
-        duration_sec: float,
-        sample_rate: float,
-        error_rate: float | None = None,
-        missed_samples: float | None = None,
+        duration_sec: FloatInt,
+        sample_rate: FloatInt,
+        error_rate: FloatInt | None = None,
+        missed_samples: FloatInt | None = None,
         mode: int | None = None,
     ) -> None: ...
-    def set_replay_stats(self, info: SupportsGet[str, float | None]) -> None: ...
+    def set_replay_stats(self, info: SupportsGet[str, FloatInt | None]) -> None: ...
     def set_mode(self, mode: int | None) -> None: ...
     def export(self, filename: StrOrBytesPath) -> None: ...
     def process_frames(self, frames: Sequence[_Frame], thread_id: int, weight: int = 1) -> None: ...

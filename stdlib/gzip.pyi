@@ -1,6 +1,6 @@
 import sys
 import zlib
-from _typeshed import ReadableBuffer, SizedBuffer, StrOrBytesPath, WriteableBuffer
+from _typeshed import FloatInt, ReadableBuffer, SizedBuffer, StrOrBytesPath, WriteableBuffer
 from io import FileIO, TextIOWrapper
 from typing import Final, Literal, Protocol, TypeAlias, overload, type_check_only
 from typing_extensions import deprecated
@@ -104,7 +104,7 @@ class GzipFile(BaseStream):
         mode: _ReadBinaryMode,
         compresslevel: int = 9,
         fileobj: _ReadableFileobj | None = None,
-        mtime: float | None = None,
+        mtime: FloatInt | None = None,
     ) -> None: ...
     @overload
     def __init__(
@@ -113,7 +113,7 @@ class GzipFile(BaseStream):
         mode: _ReadBinaryMode,
         compresslevel: int = 9,
         fileobj: _ReadableFileobj | None = None,
-        mtime: float | None = None,
+        mtime: FloatInt | None = None,
     ) -> None: ...
     @overload
     def __init__(
@@ -122,7 +122,7 @@ class GzipFile(BaseStream):
         mode: _WriteBinaryMode,
         compresslevel: int = 9,
         fileobj: _WritableFileobj | None = None,
-        mtime: float | None = None,
+        mtime: FloatInt | None = None,
     ) -> None: ...
     @overload
     def __init__(
@@ -131,7 +131,7 @@ class GzipFile(BaseStream):
         mode: _WriteBinaryMode,
         compresslevel: int = 9,
         fileobj: _WritableFileobj | None = None,
-        mtime: float | None = None,
+        mtime: FloatInt | None = None,
     ) -> None: ...
     @overload
     def __init__(
@@ -140,7 +140,7 @@ class GzipFile(BaseStream):
         mode: str | None = None,
         compresslevel: int = 9,
         fileobj: _ReadableFileobj | _WritableFileobj | None = None,
-        mtime: float | None = None,
+        mtime: FloatInt | None = None,
     ) -> None: ...
 
     if sys.version_info < (3, 12):
@@ -170,12 +170,12 @@ class _GzipReader(DecompressReader):
     def __init__(self, fp: _ReadableFileobj) -> None: ...
 
 if sys.version_info >= (3, 15):
-    def compress(data: SizedBuffer, compresslevel: int = 6, *, mtime: float = 0) -> bytes: ...
+    def compress(data: SizedBuffer, compresslevel: int = 6, *, mtime: FloatInt = 0) -> bytes: ...
 
 elif sys.version_info >= (3, 14):
-    def compress(data: SizedBuffer, compresslevel: int = 9, *, mtime: float = 0) -> bytes: ...
+    def compress(data: SizedBuffer, compresslevel: int = 9, *, mtime: FloatInt = 0) -> bytes: ...
 
 else:
-    def compress(data: SizedBuffer, compresslevel: int = 9, *, mtime: float | None = None) -> bytes: ...
+    def compress(data: SizedBuffer, compresslevel: int = 9, *, mtime: FloatInt | None = None) -> bytes: ...
 
 def decompress(data: ReadableBuffer) -> bytes: ...

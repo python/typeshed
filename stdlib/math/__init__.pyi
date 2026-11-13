@@ -1,5 +1,5 @@
 import sys
-from _typeshed import SupportsMul, SupportsRMul
+from _typeshed import FloatInt, SupportsMul, SupportsRMul
 from collections.abc import Iterable
 from typing import Any, Final, Literal, Protocol, SupportsFloat, SupportsIndex, TypeAlias, TypeVar, overload, type_check_only
 
@@ -8,11 +8,11 @@ _T_co = TypeVar("_T_co", covariant=True)
 
 _SupportsFloatOrIndex: TypeAlias = SupportsFloat | SupportsIndex
 
-e: Final[float]
-pi: Final[float]
-inf: Final[float]
-nan: Final[float]
-tau: Final[float]
+e: Final[FloatInt]
+pi: Final[FloatInt]
+inf: Final[FloatInt]
+nan: Final[FloatInt]
+tau: Final[FloatInt]
 
 def acos(x: _SupportsFloatOrIndex, /) -> float: ...
 def acosh(x: _SupportsFloatOrIndex, /) -> float: ...
@@ -139,7 +139,7 @@ if sys.version_info >= (3, 15):
 def sinh(x: _SupportsFloatOrIndex, /) -> float: ...
 
 if sys.version_info >= (3, 12):
-    def sumprod(p: Iterable[float], q: Iterable[float], /) -> float: ...
+    def sumprod(p: Iterable[FloatInt], q: Iterable[FloatInt], /) -> float: ...
 
 def sqrt(x: _SupportsFloatOrIndex, /) -> float: ...
 def tan(x: _SupportsFloatOrIndex, /) -> float: ...

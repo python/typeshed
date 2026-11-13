@@ -1,5 +1,6 @@
 import re
 import sys
+from _typeshed import FloatInt
 from collections.abc import Callable, Iterable, Iterator, Sequence
 from types import GenericAlias
 from typing import Any, AnyStr, Generic, Literal, NamedTuple, TypeVar, overload
@@ -53,10 +54,10 @@ class SequenceMatcher(Generic[_T]):
     def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
 
 @overload
-def get_close_matches(word: AnyStr, possibilities: Iterable[AnyStr], n: int = 3, cutoff: float = 0.6) -> list[AnyStr]: ...
+def get_close_matches(word: AnyStr, possibilities: Iterable[AnyStr], n: int = 3, cutoff: FloatInt = 0.6) -> list[AnyStr]: ...
 @overload
 def get_close_matches(
-    word: Sequence[_T], possibilities: Iterable[Sequence[_T]], n: int = 3, cutoff: float = 0.6
+    word: Sequence[_T], possibilities: Iterable[Sequence[_T]], n: int = 3, cutoff: FloatInt = 0.6
 ) -> list[Sequence[_T]]: ...
 
 class Differ:

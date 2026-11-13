@@ -1,6 +1,6 @@
 import signal
 import sys
-from _typeshed import structseq
+from _typeshed import FloatInt, structseq
 from collections.abc import Callable
 from threading import Thread
 from types import TracebackType
@@ -15,7 +15,7 @@ def _count() -> int: ...
 
 @final
 class RLock:
-    def acquire(self, blocking: bool = True, timeout: float = -1) -> bool: ...
+    def acquire(self, blocking: bool = True, timeout: FloatInt = -1) -> bool: ...
     def release(self) -> None: ...
     __enter__ = acquire
     def __exit__(
@@ -29,7 +29,7 @@ if sys.version_info >= (3, 13):
     class _ThreadHandle:
         ident: int
 
-        def join(self, timeout: float | None = None, /) -> None: ...
+        def join(self, timeout: FloatInt | None = None, /) -> None: ...
         def is_done(self) -> bool: ...
         def _set_done(self) -> None: ...
 
@@ -39,11 +39,11 @@ if sys.version_info >= (3, 13):
 
     @final
     class lock:
-        def acquire(self, blocking: bool = True, timeout: float = -1) -> bool: ...
+        def acquire(self, blocking: bool = True, timeout: FloatInt = -1) -> bool: ...
         def release(self) -> None: ...
         def locked(self) -> bool: ...
         @deprecated("Obsolete synonym. Use `acquire()` instead.")
-        def acquire_lock(self, blocking: bool = True, timeout: float = -1) -> bool: ...  # undocumented
+        def acquire_lock(self, blocking: bool = True, timeout: FloatInt = -1) -> bool: ...  # undocumented
         @deprecated("Obsolete synonym. Use `release()` instead.")
         def release_lock(self) -> None: ...  # undocumented
         @deprecated("Obsolete synonym. Use `locked()` instead.")
@@ -57,11 +57,11 @@ if sys.version_info >= (3, 13):
 else:
     @final
     class LockType:
-        def acquire(self, blocking: bool = True, timeout: float = -1) -> bool: ...
+        def acquire(self, blocking: bool = True, timeout: FloatInt = -1) -> bool: ...
         def release(self) -> None: ...
         def locked(self) -> bool: ...
         @deprecated("Obsolete synonym. Use `acquire()` instead.")
-        def acquire_lock(self, blocking: bool = True, timeout: float = -1) -> bool: ...  # undocumented
+        def acquire_lock(self, blocking: bool = True, timeout: FloatInt = -1) -> bool: ...  # undocumented
         @deprecated("Obsolete synonym. Use `release()` instead.")
         def release_lock(self) -> None: ...  # undocumented
         @deprecated("Obsolete synonym. Use `locked()` instead.")
@@ -93,7 +93,7 @@ def allocate() -> LockType: ...  # undocumented
 def get_ident() -> int: ...
 def stack_size(size: int = 0, /) -> int: ...
 
-TIMEOUT_MAX: Final[float]
+TIMEOUT_MAX: Final[FloatInt]
 
 def get_native_id() -> int: ...  # only available on some platforms
 

@@ -3,7 +3,7 @@ import io
 import ssl
 import sys
 import types
-from _typeshed import MaybeNone, ReadableBuffer, StrOrBytesPath, SupportsRead, SupportsReadline, WriteableBuffer
+from _typeshed import FloatInt, MaybeNone, ReadableBuffer, StrOrBytesPath, SupportsRead, SupportsReadline, WriteableBuffer
 from collections.abc import Callable, Iterable, Iterator, Mapping
 from email._policybase import _MessageT
 from socket import socket
@@ -176,7 +176,7 @@ class HTTPConnection:
     debuglevel: int
     default_port: int  # undocumented
     response_class: type[HTTPResponse]  # undocumented
-    timeout: float | None
+    timeout: FloatInt | None
     host: str
     port: int
     sock: socket | MaybeNone  # can be `None` if `.connect()` was not called
@@ -185,7 +185,7 @@ class HTTPConnection:
             self,
             host: str,
             port: int | None = None,
-            timeout: float | None = ...,
+            timeout: FloatInt | None = ...,
             source_address: tuple[str, int] | None = None,
             blocksize: int = 8192,
             *,
@@ -196,7 +196,7 @@ class HTTPConnection:
             self,
             host: str,
             port: int | None = None,
-            timeout: float | None = ...,
+            timeout: FloatInt | None = ...,
             source_address: tuple[str, int] | None = None,
             blocksize: int = 8192,
         ) -> None: ...
@@ -232,7 +232,7 @@ class HTTPSConnection(HTTPConnection):
             host: str,
             port: int | None = None,
             *,
-            timeout: float | None = ...,
+            timeout: FloatInt | None = ...,
             source_address: tuple[str, int] | None = None,
             context: ssl.SSLContext | None = None,
             blocksize: int = 8192,
@@ -244,7 +244,7 @@ class HTTPSConnection(HTTPConnection):
             host: str,
             port: int | None = None,
             *,
-            timeout: float | None = ...,
+            timeout: FloatInt | None = ...,
             source_address: tuple[str, int] | None = None,
             context: ssl.SSLContext | None = None,
             blocksize: int = 8192,
@@ -257,7 +257,7 @@ class HTTPSConnection(HTTPConnection):
             port: int | None = None,
             key_file: None = None,
             cert_file: None = None,
-            timeout: float | None = ...,
+            timeout: FloatInt | None = ...,
             source_address: tuple[str, int] | None = None,
             *,
             context: ssl.SSLContext | None = None,
@@ -275,7 +275,7 @@ class HTTPSConnection(HTTPConnection):
             port: int | None = None,
             key_file: StrOrBytesPath | None = None,
             cert_file: StrOrBytesPath | None = None,
-            timeout: float | None = ...,
+            timeout: FloatInt | None = ...,
             source_address: tuple[str, int] | None = None,
             *,
             context: ssl.SSLContext | None = None,

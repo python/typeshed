@@ -1,5 +1,5 @@
 import sys
-from _typeshed import StrOrBytesPath
+from _typeshed import FloatInt, StrOrBytesPath
 from collections.abc import Iterable
 from cProfile import Profile as _cProfile
 from dataclasses import dataclass
@@ -43,16 +43,16 @@ else:
 @dataclass(unsafe_hash=True)
 class FunctionProfile:
     ncalls: str
-    tottime: float
-    percall_tottime: float
-    cumtime: float
-    percall_cumtime: float
+    tottime: FloatInt
+    percall_tottime: FloatInt
+    cumtime: FloatInt
+    percall_cumtime: FloatInt
     file_name: str
     line_number: int
 
 @dataclass(unsafe_hash=True)
 class StatsProfile:
-    total_tt: float
+    total_tt: FloatInt
     func_profiles: dict[str, FunctionProfile]
 
 _SortArgDict: TypeAlias = dict[str, tuple[tuple[tuple[int, int], ...], str]]

@@ -1,5 +1,5 @@
 import sys
-from _typeshed import MaybeNone, OptExcInfo, ProfileFunction, StrOrBytesPath, TraceFunction, structseq
+from _typeshed import FloatInt, MaybeNone, OptExcInfo, ProfileFunction, StrOrBytesPath, TraceFunction, structseq
 from _typeshed.importlib import MetaPathFinderProtocol, PathEntryFinderProtocol
 from builtins import object as _object
 from collections.abc import AsyncGenerator, Callable, Sequence
@@ -454,7 +454,7 @@ if sys.platform != "win32":
     def setdlopenflags(flags: int, /) -> None: ...
 
 def setrecursionlimit(limit: int, /) -> None: ...
-def setswitchinterval(interval: float, /) -> None: ...
+def setswitchinterval(interval: FloatInt, /) -> None: ...
 def gettotalrefcount() -> int: ...  # Debug builds only
 
 # Doesn't exist at runtime, but exported in the stubs so pytest etc. can annotate their code more easily.

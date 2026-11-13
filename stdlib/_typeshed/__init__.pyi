@@ -58,7 +58,7 @@ Unused: TypeAlias = object  # stable
 # for more information.
 MaybeNone: TypeAlias = Any  # stable
 
-# typeshed-internal type aliases to facilitate transition from
+# typeshed-internal type alias to facilitate transition from
 # `float` to either `float | int` or `float`. When you encounter this type
 # alias, you are encouraged to replace it with the correct type. Please don't
 # use it outside typeshed.

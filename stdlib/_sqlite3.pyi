@@ -1,5 +1,5 @@
 import sys
-from _typeshed import ReadableBuffer, StrOrBytesPath
+from _typeshed import FloatInt, ReadableBuffer, StrOrBytesPath
 from collections.abc import Callable
 from sqlite3 import (
     Connection as Connection,
@@ -26,7 +26,7 @@ if sys.version_info >= (3, 11):
 
 _T = TypeVar("_T")
 _ConnectionT = TypeVar("_ConnectionT", bound=Connection)
-_SqliteData: TypeAlias = str | ReadableBuffer | int | float | None
+_SqliteData: TypeAlias = str | ReadableBuffer | float | int | None
 _Adapter: TypeAlias = Callable[[_T], _SqliteData]
 _Converter: TypeAlias = Callable[[bytes], Any]
 
@@ -227,7 +227,7 @@ if sys.version_info >= (3, 12):
     @overload
     def connect(
         database: StrOrBytesPath,
-        timeout: float = 5.0,
+        timeout: FloatInt = 5.0,
         detect_types: int = 0,
         isolation_level: _IsolationLevel = "DEFERRED",
         check_same_thread: bool = True,
@@ -239,7 +239,7 @@ if sys.version_info >= (3, 12):
     @overload
     def connect(
         database: StrOrBytesPath,
-        timeout: float,
+        timeout: FloatInt,
         detect_types: int,
         isolation_level: _IsolationLevel,
         check_same_thread: bool,
@@ -252,7 +252,7 @@ if sys.version_info >= (3, 12):
     @overload
     def connect(
         database: StrOrBytesPath,
-        timeout: float = 5.0,
+        timeout: FloatInt = 5.0,
         detect_types: int = 0,
         isolation_level: _IsolationLevel = "DEFERRED",
         check_same_thread: bool = True,
@@ -266,7 +266,7 @@ else:
     @overload
     def connect(
         database: StrOrBytesPath,
-        timeout: float = 5.0,
+        timeout: FloatInt = 5.0,
         detect_types: int = 0,
         isolation_level: _IsolationLevel = "DEFERRED",
         check_same_thread: bool = True,
@@ -276,7 +276,7 @@ else:
     @overload
     def connect(
         database: StrOrBytesPath,
-        timeout: float,
+        timeout: FloatInt,
         detect_types: int,
         isolation_level: _IsolationLevel,
         check_same_thread: bool,
@@ -287,7 +287,7 @@ else:
     @overload
     def connect(
         database: StrOrBytesPath,
-        timeout: float = 5.0,
+        timeout: FloatInt = 5.0,
         detect_types: int = 0,
         isolation_level: _IsolationLevel = "DEFERRED",
         check_same_thread: bool = True,
