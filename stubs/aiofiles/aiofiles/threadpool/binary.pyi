@@ -1,14 +1,17 @@
 from _typeshed import FileDescriptorOrPath, ReadableBuffer, WriteableBuffer
 from collections.abc import Iterable
 from io import FileIO
-from typing import type_check_only
+from typing import Generic, type_check_only
+from typing_extensions import TypeVar
 
 from ..base import AsyncBase, AsyncIndirectBase
+
+_NameT_co = TypeVar("_NameT_co", bound=FileDescriptorOrPath, default=FileDescriptorOrPath, covariant=True)
 
 # This class does not exist at runtime and instead these methods are
 # all dynamically patched in.
 @type_check_only
-class _UnknownAsyncBinaryIO(AsyncBase[bytes]):
+class _UnknownAsyncBinaryIO(AsyncBase[bytes], Generic[_NameT_co]):
     async def close(self) -> None: ...
     async def flush(self) -> None: ...
     async def isatty(self) -> bool: ...
@@ -30,28 +33,28 @@ class _UnknownAsyncBinaryIO(AsyncBase[bytes]):
     @property
     def mode(self) -> str: ...
     @property
-    def name(self) -> FileDescriptorOrPath: ...
+    def name(self) -> _NameT_co: ...
 
-class AsyncBufferedIOBase(_UnknownAsyncBinaryIO):
+class AsyncBufferedIOBase(_UnknownAsyncBinaryIO[_NameT_co]):
     async def read1(self, size: int = ..., /) -> bytes: ...
     def detach(self) -> FileIO: ...
     @property
     def raw(self) -> FileIO: ...
 
-class AsyncIndirectBufferedIOBase(AsyncIndirectBase[bytes], _UnknownAsyncBinaryIO):
+class AsyncIndirectBufferedIOBase(AsyncIndirectBase[bytes], _UnknownAsyncBinaryIO[_NameT_co]):
     async def read1(self, size: int = ..., /) -> bytes: ...
     def detach(self) -> FileIO: ...
     @property
     def raw(self) -> FileIO: ...
 
-class AsyncBufferedReader(AsyncBufferedIOBase):
+class AsyncBufferedReader(AsyncBufferedIOBase[_NameT_co]):
     async def peek(self, size: int = ..., /) -> bytes: ...
 
-class AsyncIndirectBufferedReader(AsyncIndirectBufferedIOBase):
+class AsyncIndirectBufferedReader(AsyncIndirectBufferedIOBase[_NameT_co]):
     async def peek(self, size: int = ..., /) -> bytes: ...
 
-class AsyncFileIO(_UnknownAsyncBinaryIO):
+class AsyncFileIO(_UnknownAsyncBinaryIO[_NameT_co]):
     async def readall(self) -> bytes: ...
 
-class AsyncIndirectFileIO(AsyncIndirectBase[bytes], _UnknownAsyncBinaryIO):
+class AsyncIndirectFileIO(AsyncIndirectBase[bytes], _UnknownAsyncBinaryIO[_NameT_co]):
     async def readall(self) -> bytes: ...

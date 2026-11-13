@@ -82,14 +82,42 @@ if sys.version_info >= (3, 12):
         buffering: int = -1,
         encoding: str | None = None,
         newline: str | None = None,
-        suffix: AnyStr | None = None,
-        prefix: AnyStr | None = None,
+        suffix: str | None = None,
+        prefix: str | None = None,
+        dir: StrPath | None = None,
+        delete: bool = True,
+        delete_on_close: bool = True,
+        loop: AbstractEventLoop | None = None,
+        executor: Executor | None = None,
+    ) -> AiofilesContextManager[AsyncTextIOWrapper[str]]: ...
+    @overload
+    def NamedTemporaryFile(
+        mode: OpenTextMode,
+        buffering: int = -1,
+        encoding: str | None = None,
+        newline: str | None = None,
+        suffix: bytes | None = None,
+        prefix: bytes | None = None,
+        dir: BytesPath | None = None,
+        delete: bool = True,
+        delete_on_close: bool = True,
+        loop: AbstractEventLoop | None = None,
+        executor: Executor | None = None,
+    ) -> AiofilesContextManager[AsyncTextIOWrapper[bytes]]: ...
+    @overload
+    def NamedTemporaryFile(
+        mode: OpenTextMode,
+        buffering: int = -1,
+        encoding: str | None = None,
+        newline: str | None = None,
+        suffix: str | bytes | None = None,
+        prefix: str | bytes | None = None,
         dir: StrOrBytesPath | None = None,
         delete: bool = True,
         delete_on_close: bool = True,
         loop: AbstractEventLoop | None = None,
         executor: Executor | None = None,
-    ) -> AiofilesContextManager[AsyncTextIOWrapper]: ...
+    ) -> AiofilesContextManager[AsyncTextIOWrapper[str | bytes]]: ...
 
     # Unbuffered binary: returns a FileIO
     @overload
@@ -98,14 +126,42 @@ if sys.version_info >= (3, 12):
         buffering: Literal[0],
         encoding: None = None,
         newline: None = None,
-        suffix: AnyStr | None = None,
-        prefix: AnyStr | None = None,
+        suffix: str | None = None,
+        prefix: str | None = None,
+        dir: StrPath | None = None,
+        delete: bool = True,
+        delete_on_close: bool = True,
+        loop: AbstractEventLoop | None = None,
+        executor: Executor | None = None,
+    ) -> AiofilesContextManager[AsyncFileIO[str]]: ...
+    @overload
+    def NamedTemporaryFile(
+        mode: OpenBinaryMode,
+        buffering: Literal[0],
+        encoding: None = None,
+        newline: None = None,
+        suffix: bytes | None = None,
+        prefix: bytes | None = None,
+        dir: BytesPath | None = None,
+        delete: bool = True,
+        delete_on_close: bool = True,
+        loop: AbstractEventLoop | None = None,
+        executor: Executor | None = None,
+    ) -> AiofilesContextManager[AsyncFileIO[bytes]]: ...
+    @overload
+    def NamedTemporaryFile(
+        mode: OpenBinaryMode,
+        buffering: Literal[0],
+        encoding: None = None,
+        newline: None = None,
+        suffix: str | bytes | None = None,
+        prefix: str | bytes | None = None,
         dir: StrOrBytesPath | None = None,
         delete: bool = True,
         delete_on_close: bool = True,
         loop: AbstractEventLoop | None = None,
         executor: Executor | None = None,
-    ) -> AiofilesContextManager[AsyncFileIO]: ...
+    ) -> AiofilesContextManager[AsyncFileIO[str | bytes]]: ...
 
     # Buffered binary reading/updating: AsyncBufferedReader
     @overload
@@ -114,14 +170,42 @@ if sys.version_info >= (3, 12):
         buffering: Literal[-1, 1] = -1,
         encoding: None = None,
         newline: None = None,
-        suffix: AnyStr | None = None,
-        prefix: AnyStr | None = None,
+        suffix: str | None = None,
+        prefix: str | None = None,
+        dir: StrPath | None = None,
+        delete: bool = True,
+        delete_on_close: bool = True,
+        loop: AbstractEventLoop | None = None,
+        executor: Executor | None = None,
+    ) -> AiofilesContextManager[AsyncBufferedReader[str]]: ...
+    @overload
+    def NamedTemporaryFile(
+        mode: OpenBinaryModeReading | OpenBinaryModeUpdating = "w+b",
+        buffering: Literal[-1, 1] = -1,
+        encoding: None = None,
+        newline: None = None,
+        suffix: bytes | None = None,
+        prefix: bytes | None = None,
+        dir: BytesPath | None = None,
+        delete: bool = True,
+        delete_on_close: bool = True,
+        loop: AbstractEventLoop | None = None,
+        executor: Executor | None = None,
+    ) -> AiofilesContextManager[AsyncBufferedReader[bytes]]: ...
+    @overload
+    def NamedTemporaryFile(
+        mode: OpenBinaryModeReading | OpenBinaryModeUpdating = "w+b",
+        buffering: Literal[-1, 1] = -1,
+        encoding: None = None,
+        newline: None = None,
+        suffix: str | bytes | None = None,
+        prefix: str | bytes | None = None,
         dir: StrOrBytesPath | None = None,
         delete: bool = True,
         delete_on_close: bool = True,
         loop: AbstractEventLoop | None = None,
         executor: Executor | None = None,
-    ) -> AiofilesContextManager[AsyncBufferedReader]: ...
+    ) -> AiofilesContextManager[AsyncBufferedReader[str | bytes]]: ...
 
     # Buffered binary writing: AsyncBufferedIOBase
     @overload
@@ -130,14 +214,42 @@ if sys.version_info >= (3, 12):
         buffering: Literal[-1, 1] = -1,
         encoding: None = None,
         newline: None = None,
-        suffix: AnyStr | None = None,
-        prefix: AnyStr | None = None,
+        suffix: str | None = None,
+        prefix: str | None = None,
+        dir: StrPath | None = None,
+        delete: bool = True,
+        delete_on_close: bool = True,
+        loop: AbstractEventLoop | None = None,
+        executor: Executor | None = None,
+    ) -> AiofilesContextManager[AsyncBufferedIOBase[str]]: ...
+    @overload
+    def NamedTemporaryFile(
+        mode: OpenBinaryModeWriting,
+        buffering: Literal[-1, 1] = -1,
+        encoding: None = None,
+        newline: None = None,
+        suffix: bytes | None = None,
+        prefix: bytes | None = None,
+        dir: BytesPath | None = None,
+        delete: bool = True,
+        delete_on_close: bool = True,
+        loop: AbstractEventLoop | None = None,
+        executor: Executor | None = None,
+    ) -> AiofilesContextManager[AsyncBufferedIOBase[bytes]]: ...
+    @overload
+    def NamedTemporaryFile(
+        mode: OpenBinaryModeWriting,
+        buffering: Literal[-1, 1] = -1,
+        encoding: None = None,
+        newline: None = None,
+        suffix: str | bytes | None = None,
+        prefix: str | bytes | None = None,
         dir: StrOrBytesPath | None = None,
         delete: bool = True,
         delete_on_close: bool = True,
         loop: AbstractEventLoop | None = None,
         executor: Executor | None = None,
-    ) -> AiofilesContextManager[AsyncBufferedIOBase]: ...
+    ) -> AiofilesContextManager[AsyncBufferedIOBase[str | bytes]]: ...
 else:
     # Text mode: always returns AsyncTextIOWrapper
     @overload
@@ -146,13 +258,39 @@ else:
         buffering: int = -1,
         encoding: str | None = None,
         newline: str | None = None,
-        suffix: AnyStr | None = None,
-        prefix: AnyStr | None = None,
+        suffix: str | None = None,
+        prefix: str | None = None,
+        dir: StrPath | None = None,
+        delete: bool = True,
+        loop: AbstractEventLoop | None = None,
+        executor: Executor | None = None,
+    ) -> AiofilesContextManager[AsyncTextIOWrapper[str]]: ...
+    @overload
+    def NamedTemporaryFile(
+        mode: OpenTextMode,
+        buffering: int = -1,
+        encoding: str | None = None,
+        newline: str | None = None,
+        suffix: bytes | None = None,
+        prefix: bytes | None = None,
+        dir: BytesPath | None = None,
+        delete: bool = True,
+        loop: AbstractEventLoop | None = None,
+        executor: Executor | None = None,
+    ) -> AiofilesContextManager[AsyncTextIOWrapper[bytes]]: ...
+    @overload
+    def NamedTemporaryFile(
+        mode: OpenTextMode,
+        buffering: int = -1,
+        encoding: str | None = None,
+        newline: str | None = None,
+        suffix: str | bytes | None = None,
+        prefix: str | bytes | None = None,
         dir: StrOrBytesPath | None = None,
         delete: bool = True,
         loop: AbstractEventLoop | None = None,
         executor: Executor | None = None,
-    ) -> AiofilesContextManager[AsyncTextIOWrapper]: ...
+    ) -> AiofilesContextManager[AsyncTextIOWrapper[str | bytes]]: ...
 
     # Unbuffered binary: returns a FileIO
     @overload
@@ -161,13 +299,39 @@ else:
         buffering: Literal[0],
         encoding: None = None,
         newline: None = None,
-        suffix: AnyStr | None = None,
-        prefix: AnyStr | None = None,
+        suffix: str | None = None,
+        prefix: str | None = None,
+        dir: StrPath | None = None,
+        delete: bool = True,
+        loop: AbstractEventLoop | None = None,
+        executor: Executor | None = None,
+    ) -> AiofilesContextManager[AsyncFileIO[str]]: ...
+    @overload
+    def NamedTemporaryFile(
+        mode: OpenBinaryMode,
+        buffering: Literal[0],
+        encoding: None = None,
+        newline: None = None,
+        suffix: bytes | None = None,
+        prefix: bytes | None = None,
+        dir: BytesPath | None = None,
+        delete: bool = True,
+        loop: AbstractEventLoop | None = None,
+        executor: Executor | None = None,
+    ) -> AiofilesContextManager[AsyncFileIO[bytes]]: ...
+    @overload
+    def NamedTemporaryFile(
+        mode: OpenBinaryMode,
+        buffering: Literal[0],
+        encoding: None = None,
+        newline: None = None,
+        suffix: str | bytes | None = None,
+        prefix: str | bytes | None = None,
         dir: StrOrBytesPath | None = None,
         delete: bool = True,
         loop: AbstractEventLoop | None = None,
         executor: Executor | None = None,
-    ) -> AiofilesContextManager[AsyncFileIO]: ...
+    ) -> AiofilesContextManager[AsyncFileIO[str | bytes]]: ...
 
     # Buffered binary reading/updating: AsyncBufferedReader
     @overload
@@ -176,13 +340,39 @@ else:
         buffering: Literal[-1, 1] = -1,
         encoding: None = None,
         newline: None = None,
-        suffix: AnyStr | None = None,
-        prefix: AnyStr | None = None,
+        suffix: str | None = None,
+        prefix: str | None = None,
+        dir: StrPath | None = None,
+        delete: bool = True,
+        loop: AbstractEventLoop | None = None,
+        executor: Executor | None = None,
+    ) -> AiofilesContextManager[AsyncBufferedReader[str]]: ...
+    @overload
+    def NamedTemporaryFile(
+        mode: OpenBinaryModeReading | OpenBinaryModeUpdating = "w+b",
+        buffering: Literal[-1, 1] = -1,
+        encoding: None = None,
+        newline: None = None,
+        suffix: bytes | None = None,
+        prefix: bytes | None = None,
+        dir: BytesPath | None = None,
+        delete: bool = True,
+        loop: AbstractEventLoop | None = None,
+        executor: Executor | None = None,
+    ) -> AiofilesContextManager[AsyncBufferedReader[bytes]]: ...
+    @overload
+    def NamedTemporaryFile(
+        mode: OpenBinaryModeReading | OpenBinaryModeUpdating = "w+b",
+        buffering: Literal[-1, 1] = -1,
+        encoding: None = None,
+        newline: None = None,
+        suffix: str | bytes | None = None,
+        prefix: str | bytes | None = None,
         dir: StrOrBytesPath | None = None,
         delete: bool = True,
         loop: AbstractEventLoop | None = None,
         executor: Executor | None = None,
-    ) -> AiofilesContextManager[AsyncBufferedReader]: ...
+    ) -> AiofilesContextManager[AsyncBufferedReader[str | bytes]]: ...
 
     # Buffered binary writing: AsyncBufferedIOBase
     @overload
@@ -191,13 +381,39 @@ else:
         buffering: Literal[-1, 1] = -1,
         encoding: None = None,
         newline: None = None,
-        suffix: AnyStr | None = None,
-        prefix: AnyStr | None = None,
+        suffix: str | None = None,
+        prefix: str | None = None,
+        dir: StrPath | None = None,
+        delete: bool = True,
+        loop: AbstractEventLoop | None = None,
+        executor: Executor | None = None,
+    ) -> AiofilesContextManager[AsyncBufferedIOBase[str]]: ...
+    @overload
+    def NamedTemporaryFile(
+        mode: OpenBinaryModeWriting,
+        buffering: Literal[-1, 1] = -1,
+        encoding: None = None,
+        newline: None = None,
+        suffix: bytes | None = None,
+        prefix: bytes | None = None,
+        dir: BytesPath | None = None,
+        delete: bool = True,
+        loop: AbstractEventLoop | None = None,
+        executor: Executor | None = None,
+    ) -> AiofilesContextManager[AsyncBufferedIOBase[bytes]]: ...
+    @overload
+    def NamedTemporaryFile(
+        mode: OpenBinaryModeWriting,
+        buffering: Literal[-1, 1] = -1,
+        encoding: None = None,
+        newline: None = None,
+        suffix: str | bytes | None = None,
+        prefix: str | bytes | None = None,
         dir: StrOrBytesPath | None = None,
         delete: bool = True,
         loop: AbstractEventLoop | None = None,
         executor: Executor | None = None,
-    ) -> AiofilesContextManager[AsyncBufferedIOBase]: ...
+    ) -> AiofilesContextManager[AsyncBufferedIOBase[str | bytes]]: ...
 
 # Text mode: always returns AsyncTextIOWrapper
 @overload
