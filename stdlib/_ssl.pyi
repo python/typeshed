@@ -1,5 +1,5 @@
 import sys
-from _typeshed import ReadableBuffer, StrOrBytesPath
+from _typeshed import FloatInt, ReadableBuffer, StrOrBytesPath
 from collections.abc import Callable
 from ssl import (
     SSLCertVerificationError as SSLCertVerificationError,
@@ -47,7 +47,7 @@ class _CertInfo(TypedDict):
     caIssuers: NotRequired[tuple[str, ...] | None]
     crlDistributionPoints: NotRequired[tuple[str, ...] | None]
 
-def RAND_add(string: str | ReadableBuffer, entropy: float, /) -> None: ...
+def RAND_add(string: str | ReadableBuffer, entropy: FloatInt, /) -> None: ...
 def RAND_bytes(n: int, /) -> bytes: ...
 
 if sys.version_info < (3, 12):

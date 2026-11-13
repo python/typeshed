@@ -1,11 +1,11 @@
 import sys
 import unittest.case
-from _typeshed import OptExcInfo
+from _typeshed import FloatInt, OptExcInfo
 from collections.abc import Callable
 from typing import Any, Final, TextIO, TypeAlias, TypeVar
 
 _F = TypeVar("_F", bound=Callable[..., Any])
-_DurationsType: TypeAlias = list[tuple[str, float]]
+_DurationsType: TypeAlias = list[tuple[str, FloatInt]]
 
 STDOUT_LINE: Final[str]
 STDERR_LINE: Final[str]
@@ -43,4 +43,4 @@ class TestResult:
     def addUnexpectedSuccess(self, test: unittest.case.TestCase) -> None: ...
     def addSubTest(self, test: unittest.case.TestCase, subtest: unittest.case.TestCase, err: OptExcInfo | None) -> None: ...
     if sys.version_info >= (3, 12):
-        def addDuration(self, test: unittest.case.TestCase, elapsed: float) -> None: ...
+        def addDuration(self, test: unittest.case.TestCase, elapsed: FloatInt) -> None: ...

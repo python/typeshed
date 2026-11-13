@@ -1,4 +1,4 @@
-from _typeshed import Incomplete, StrOrBytesPath, StrPath
+from _typeshed import FloatInt, Incomplete, StrOrBytesPath, StrPath
 from collections.abc import Generator, Sequence
 from tempfile import TemporaryDirectory
 from typing import Any, ClassVar, Final, TypedDict, type_check_only
@@ -61,9 +61,9 @@ class GeckoThreadSpill:
     sample_count: int
     marker_count: int
     def __init__(self, directory: StrPath, tid: int) -> None: ...
-    def append_sample(self, stack_index: int, time_ms: float) -> None: ...
+    def append_sample(self, stack_index: int, time_ms: FloatInt) -> None: ...
     def append_marker(
-        self, name_idx: int, start_time: float, end_time: float, phase: int, category: int, data: dict[str, Any]
+        self, name_idx: int, start_time: FloatInt, end_time: FloatInt, phase: int, category: int, data: dict[str, Any]
     ) -> None: ...
     def prepare_read(self) -> None: ...
 
@@ -73,7 +73,7 @@ class GeckoCollector(Collector):
     sample_interval_usec: int
     skip_idle: bool
     opcodes_enabled: bool
-    start_time: float
+    start_time: FloatInt
 
     global_strings: list[str]
     global_string_map: dict[str, int]
@@ -85,8 +85,8 @@ class GeckoCollector(Collector):
     libs: list[Incomplete]
 
     sample_count: int
-    last_sample_time: float
-    interval: float
+    last_sample_time: FloatInt
+    interval: FloatInt
 
     has_gil_start: dict[Incomplete, Incomplete]
     no_gil_start: dict[Incomplete, Incomplete]
@@ -98,11 +98,11 @@ class GeckoCollector(Collector):
     exception_start: dict[Incomplete, Incomplete]
     no_exception_start: dict[Incomplete, Incomplete]
 
-    gc_start_per_thread: dict[int, float]
+    gc_start_per_thread: dict[int, FloatInt]
 
     initialized_threads: set[Incomplete]
 
-    opcode_state: dict[int, tuple[Incomplete, int, int, str, str, float]]
+    opcode_state: dict[int, tuple[Incomplete, int, int, str, str, FloatInt]]
 
     def __init__(self, sample_interval_usec: int, *, skip_idle: bool = False, opcodes: bool = False) -> None: ...
     def collect(

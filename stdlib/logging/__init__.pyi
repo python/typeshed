@@ -1,6 +1,6 @@
 import sys
 import threading
-from _typeshed import StrPath, SupportsWrite
+from _typeshed import FloatInt, StrPath, SupportsWrite
 from collections.abc import Callable, Iterable, Mapping, MutableMapping, Sequence
 from io import TextIOWrapper
 from re import Pattern
@@ -267,7 +267,7 @@ if sys.version_info >= (3, 12):
     def getHandlerNames() -> frozenset[str]: ...
 
 class Formatter:
-    converter: Callable[[float | None], struct_time]
+    converter: Callable[[FloatInt | None], struct_time]
     _fmt: str | None  # undocumented
     datefmt: str | None  # undocumented
     _style: PercentStyle  # undocumented
@@ -312,7 +312,7 @@ class LogRecord:
     # see https://github.com/python/cpython/issues/88639
     args: _ArgsType | None
     asctime: str
-    created: float
+    created: FloatInt
     # Prior to Python 3.16, Logger._log() only normalizes truthy exc_info
     # values so exc_info=False ends up on the record unchanged.
     exc_info: _SysExcInfoType | Literal[False] | None
@@ -323,7 +323,7 @@ class LogRecord:
     levelno: int
     lineno: int
     module: str
-    msecs: float
+    msecs: FloatInt
     # Only created when logging.Formatter.format is called. See #6132.
     message: str
     msg: str | Any  # The runtime accepts any object, but will be a str in 99% of cases
@@ -331,7 +331,7 @@ class LogRecord:
     pathname: str
     process: int | None
     processName: str | None
-    relativeCreated: float
+    relativeCreated: FloatInt
     stack_info: str | None
     thread: int | None
     threadName: str | None

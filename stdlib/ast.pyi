@@ -1107,7 +1107,7 @@ if sys.version_info >= (3, 14):
             **kwargs: Unpack[_Attributes],
         ) -> Self: ...
 
-_ConstantValue: typing_extensions.TypeAlias = str | bytes | bool | int | float | complex | EllipsisType | None
+_ConstantValue: typing_extensions.TypeAlias = str | bytes | bool | complex | float | int | EllipsisType | None
 
 class Constant(expr):
     __match_args__ = ("value", "kind")

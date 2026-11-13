@@ -1,5 +1,6 @@
 import ctypes
 from _ctypes import _CData
+from _typeshed import FloatInt
 from collections.abc import Callable, Iterable, Sequence
 from ctypes import _SimpleCData, c_char
 from multiprocessing.context import BaseContext
@@ -89,7 +90,7 @@ def synchronized(obj: _CT, lock: _LockLike | None = None, ctx: Any | None = None
 
 @type_check_only
 class _AcquireFunc(Protocol):
-    def __call__(self, block: bool = ..., timeout: float | None = ..., /) -> bool: ...
+    def __call__(self, block: bool = ..., timeout: FloatInt | None = ..., /) -> bool: ...
 
 class SynchronizedBase(Generic[_CT]):
     acquire: _AcquireFunc

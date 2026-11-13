@@ -5,6 +5,7 @@ from _typeshed import (
     FileDescriptor,
     FileDescriptorLike,
     FileDescriptorOrPath,
+    FloatInt,
     GenericPath,
     OpenBinaryMode,
     OpenBinaryModeReading,
@@ -1446,7 +1447,7 @@ def truncate(path: FileDescriptorOrPath, length: int) -> None: ...  # Unix only 
 def unlink(path: StrOrBytesPath, *, dir_fd: int | None = None) -> None: ...
 def utime(
     path: FileDescriptorOrPath,
-    times: tuple[int, int] | tuple[float, float] | None = None,
+    times: tuple[int, int] | tuple[FloatInt, FloatInt] | None = None,
     *,
     ns: tuple[int, int] = ...,
     dir_fd: int | None = None,
@@ -1884,7 +1885,7 @@ if sys.version_info >= (3, 13) and sys.platform == "linux":
 
     def timerfd_create(clockid: int, /, *, flags: int = 0) -> int: ...
     def timerfd_settime(
-        fd: FileDescriptor, /, *, flags: int = 0, initial: float = 0.0, interval: float = 0.0
+        fd: FileDescriptor, /, *, flags: int = 0, initial: FloatInt = 0.0, interval: FloatInt = 0.0
     ) -> tuple[float, float]: ...
     def timerfd_settime_ns(fd: FileDescriptor, /, *, flags: int = 0, initial: int = 0, interval: int = 0) -> tuple[int, int]: ...
     def timerfd_gettime(fd: FileDescriptor, /) -> tuple[float, float]: ...

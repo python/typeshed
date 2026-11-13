@@ -1,14 +1,13 @@
 import sys
-from _typeshed import structseq
+from _typeshed import FloatInt, structseq
 from typing import Any, Final, Literal, Protocol, SupportsFloat, SupportsIndex, TypeAlias, final, type_check_only
 
 _TimeTuple: TypeAlias = tuple[int, int, int, int, int, int, int, int, int]
 
 if sys.version_info >= (3, 15):
-    # anticipate on https://github.com/python/cpython/pull/139224
     _SupportsFloatOrIndex: TypeAlias = SupportsFloat | SupportsIndex
 else:
-    # before, time functions only accept (subclass of) float, *not* SupportsFloat
+    # time functions only accept float, *not* SupportsFloat
     _SupportsFloatOrIndex: TypeAlias = float | SupportsIndex
 
 altzone: int
@@ -90,7 +89,7 @@ class _ClockInfo(Protocol):
     adjustable: bool
     implementation: str
     monotonic: bool
-    resolution: float
+    resolution: FloatInt
 
 def get_clock_info(name: Literal["monotonic", "perf_counter", "process_time", "time", "thread_time"], /) -> _ClockInfo: ...
 def monotonic() -> float: ...
@@ -100,7 +99,7 @@ def process_time() -> float: ...
 if sys.platform != "win32":
     def clock_getres(clk_id: int, /) -> float: ...  # Unix only
     def clock_gettime(clk_id: int, /) -> float: ...  # Unix only
-    def clock_settime(clk_id: int, time: float, /) -> None: ...  # Unix only
+    def clock_settime(clk_id: int, time: FloatInt, /) -> None: ...  # Unix only
 
 if sys.platform != "win32":
     def clock_gettime_ns(clk_id: int, /) -> int: ...

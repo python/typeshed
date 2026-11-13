@@ -1,7 +1,7 @@
 import gzip
 import http.client
 import time
-from _typeshed import ReadableBuffer, SizedBuffer, SupportsRead, SupportsWrite
+from _typeshed import FloatInt, ReadableBuffer, SizedBuffer, SupportsRead, SupportsWrite
 from collections.abc import Callable, Iterable, Mapping
 from datetime import datetime
 from io import BytesIO
@@ -16,8 +16,8 @@ class _SupportsTimeTuple(Protocol):
 _DateTimeComparable: TypeAlias = DateTime | datetime | str | _SupportsTimeTuple
 _Marshallable: TypeAlias = (
     bool
-    | int
     | float
+    | int
     | str
     | bytes
     | bytearray
@@ -123,7 +123,7 @@ class Marshaller:
     def dump_bool(self, value: bool, write: _WriteCallback) -> None: ...
     def dump_long(self, value: int, write: _WriteCallback) -> None: ...
     def dump_int(self, value: int, write: _WriteCallback) -> None: ...
-    def dump_double(self, value: float, write: _WriteCallback) -> None: ...
+    def dump_double(self, value: FloatInt, write: _WriteCallback) -> None: ...
     def dump_unicode(self, value: str, write: _WriteCallback, escape: Callable[[str], str] = ...) -> None: ...
     def dump_bytes(self, value: ReadableBuffer, write: _WriteCallback) -> None: ...
     def dump_array(self, value: Iterable[_Marshallable], write: _WriteCallback) -> None: ...

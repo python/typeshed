@@ -1,5 +1,6 @@
 import queue
 import sys
+from _typeshed import FloatInt
 from typing import Final, SupportsIndex
 from typing_extensions import Self
 
@@ -53,7 +54,7 @@ if sys.version_info >= (3, 14):  # needed to satisfy pyright checks for Python <
                 timeout: SupportsIndex | None = None,
                 *,
                 unbounditems: _AnyUnbound | None = None,
-                _delay: float = 0.01,
+                _delay: FloatInt = 0.01,
             ) -> None: ...
         else:
             def put(
@@ -62,13 +63,13 @@ if sys.version_info >= (3, 14):  # needed to satisfy pyright checks for Python <
                 timeout: SupportsIndex | None = None,
                 *,
                 unbounditems: _AnyUnbound | None = None,
-                _delay: float = 0.01,
+                _delay: FloatInt = 0.01,
             ) -> None: ...
 
         def put_nowait(self, obj: object, *, unbounditems: _AnyUnbound | None = None) -> None: ...
         if sys.version_info >= (3, 14):
-            def get(self, block: bool = True, timeout: SupportsIndex | None = None, *, _delay: float = 0.01) -> object: ...
+            def get(self, block: bool = True, timeout: SupportsIndex | None = None, *, _delay: FloatInt = 0.01) -> object: ...
         else:
-            def get(self, timeout: SupportsIndex | None = None, *, _delay: float = 0.01) -> object: ...
+            def get(self, timeout: SupportsIndex | None = None, *, _delay: FloatInt = 0.01) -> object: ...
 
         def get_nowait(self) -> object: ...

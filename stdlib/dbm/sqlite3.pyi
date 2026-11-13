@@ -13,7 +13,7 @@ ITER_KEYS: Final[LiteralString]
 if sys.version_info >= (3, 15):
     REORGANIZE: Final[LiteralString]
 
-_SqliteData: TypeAlias = str | ReadableBuffer | int | float
+_SqliteData: TypeAlias = str | ReadableBuffer | float | int
 
 class error(OSError): ...
 

@@ -1,6 +1,7 @@
 import ctypes
 import sys
 from _ctypes import _CData
+from _typeshed import FloatInt
 from collections.abc import Callable, Iterable, Sequence
 from ctypes import _SimpleCData, c_char
 from logging import Logger, _Level as _LoggingLevel
@@ -56,7 +57,7 @@ class BaseContext:
         def Pipe(self, duplex: bool = True) -> tuple[PipeConnection[Any, Any], PipeConnection[Any, Any]]: ...
 
     def Barrier(
-        self, parties: int, action: Callable[..., object] | None = None, timeout: float | None = None
+        self, parties: int, action: Callable[..., object] | None = None, timeout: FloatInt | None = None
     ) -> synchronize.Barrier: ...
     def BoundedSemaphore(self, value: int = 1) -> synchronize.BoundedSemaphore: ...
     def Condition(self, lock: _LockLike | None = None) -> synchronize.Condition: ...

@@ -2,7 +2,7 @@ import datetime
 import http.client
 import ssl
 import sys
-from _typeshed import ReadableBuffer, StrPath
+from _typeshed import FloatInt, ReadableBuffer, StrPath
 from collections.abc import Callable
 from logging import FileHandler, Handler, LogRecord
 from re import Pattern
@@ -88,12 +88,12 @@ class SocketHandler(Handler):
     address: tuple[str, int] | str  # undocumented
     sock: socket | None  # undocumented
     closeOnError: bool  # undocumented
-    retryTime: float | None  # undocumented
-    retryStart: float  # undocumented
-    retryFactor: float  # undocumented
-    retryMax: float  # undocumented
+    retryTime: FloatInt | None  # undocumented
+    retryStart: FloatInt  # undocumented
+    retryFactor: FloatInt  # undocumented
+    retryMax: FloatInt  # undocumented
     def __init__(self, host: str, port: int | None) -> None: ...
-    def makeSocket(self, timeout: float = 1) -> socket: ...  # timeout is undocumented
+    def makeSocket(self, timeout: FloatInt = 1) -> socket: ...  # timeout is undocumented
     def makePickle(self, record: LogRecord) -> bytes: ...
     def send(self, s: ReadableBuffer) -> None: ...
     def createSocket(self) -> None: ...
@@ -145,13 +145,13 @@ class SysLogHandler(Handler):
     facility_names: ClassVar[dict[str, int]]  # undocumented
     priority_map: ClassVar[dict[str, str]]  # undocumented
     if sys.version_info >= (3, 14):
-        timeout: float | None
+        timeout: FloatInt | None
         def __init__(
             self,
             address: tuple[str, int] | str = ("localhost", 514),
             facility: str | int = 1,
             socktype: SocketKind | None = None,
-            timeout: float | None = None,
+            timeout: FloatInt | None = None,
         ) -> None: ...
     else:
         def __init__(
@@ -180,7 +180,7 @@ class SMTPHandler(Handler):
     toaddrs: list[str]  # undocumented
     subject: str  # undocumented
     secure: tuple[()] | tuple[str] | tuple[str, str] | None  # undocumented
-    timeout: float  # undocumented
+    timeout: FloatInt  # undocumented
     def __init__(
         self,
         mailhost: str | tuple[str, int],
@@ -189,7 +189,7 @@ class SMTPHandler(Handler):
         subject: str,
         credentials: tuple[str, str] | None = None,
         secure: tuple[()] | tuple[str] | tuple[str, str] | None = None,
-        timeout: float = 5.0,
+        timeout: FloatInt = 5.0,
     ) -> None: ...
     def getSubject(self, record: LogRecord) -> str: ...
 

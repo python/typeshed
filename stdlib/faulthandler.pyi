@@ -1,5 +1,5 @@
 import sys
-from _typeshed import FileDescriptorLike
+from _typeshed import FileDescriptorLike, FloatInt
 
 def cancel_dump_traceback_later() -> None: ...
 def disable() -> None: ...
@@ -17,7 +17,7 @@ if sys.version_info >= (3, 14):
 
 if sys.version_info >= (3, 15):
     def dump_traceback_later(
-        timeout: float,
+        timeout: FloatInt,
         repeat: bool = False,
         file: FileDescriptorLike = sys.stderr,
         exit: bool = False,
@@ -27,7 +27,7 @@ if sys.version_info >= (3, 15):
 
 else:
     def dump_traceback_later(
-        timeout: float, repeat: bool = False, file: FileDescriptorLike = sys.stderr, exit: bool = False
+        timeout: FloatInt, repeat: bool = False, file: FileDescriptorLike = sys.stderr, exit: bool = False
     ) -> None: ...
 
 if sys.version_info >= (3, 15):

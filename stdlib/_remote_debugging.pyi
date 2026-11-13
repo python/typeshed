@@ -1,11 +1,11 @@
-from _typeshed import StrOrBytesPath, structseq
+from _typeshed import FloatInt, StrOrBytesPath, structseq
 from collections.abc import Callable
 from typing import Final, TypeAlias, final
 from typing_extensions import Self
 
 _Location: TypeAlias = tuple[int, int, int, int] | LocationInfo | None
 _Frame: TypeAlias = tuple[str, _Location, str, int | None] | FrameInfo
-_Stats: TypeAlias = dict[str, int | float]
+_Stats: TypeAlias = dict[str, float | int]
 
 PROCESS_VM_READV_SUPPORTED: Final[int]
 THREAD_STATUS_GIL_REQUESTED: Final[int]
@@ -161,7 +161,12 @@ class BinaryWriter:
     def limit_reached(self) -> bool: ...
     def write_sample(self, stack_frames: list[InterpreterInfo], timestamp_us: int) -> None: ...
     def set_stats(
-        self, /, duration_sec: float, sample_rate: float, error_rate: float | None = None, missed_samples: float | None = None
+        self,
+        /,
+        duration_sec: FloatInt,
+        sample_rate: FloatInt,
+        error_rate: FloatInt | None = None,
+        missed_samples: FloatInt | None = None,
     ) -> None: ...
     def finalize(self) -> None: ...
     def close(self) -> None: ...

@@ -1,5 +1,5 @@
 import sys
-from _typeshed import ReadableBuffer, SupportsRead, SupportsWrite
+from _typeshed import FloatInt, ReadableBuffer, SupportsRead, SupportsWrite
 from collections.abc import Iterable, MutableSequence
 from types import GenericAlias
 from typing import Any, ClassVar, Literal, SupportsIndex, TypeAlias, TypeVar, overload
@@ -16,7 +16,7 @@ else:
     _UnicodeTypeCode: TypeAlias = Literal["u"]
 _TypeCode: TypeAlias = _IntTypeCode | _FloatTypeCode | _UnicodeTypeCode
 
-_T = TypeVar("_T", int, float, str)
+_T = TypeVar("_T", float, int, str)
 
 if sys.version_info >= (3, 15):
     typecodes: tuple[str, ...]
@@ -36,7 +36,7 @@ class array(MutableSequence[_T]):
     ) -> array[int]: ...
     @overload
     def __new__(
-        cls: type[array[float]], typecode: _FloatTypeCode, initializer: bytes | bytearray | Iterable[float] = ..., /
+        cls: type[array[float]], typecode: _FloatTypeCode, initializer: bytes | bytearray | Iterable[FloatInt] = ..., /
     ) -> array[float]: ...
     if sys.version_info >= (3, 13):
         @overload

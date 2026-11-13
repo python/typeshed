@@ -1,5 +1,6 @@
 import sys
 import time
+from _typeshed import FloatInt
 from collections.abc import Callable, Sequence
 from typing import IO, Any, TypeAlias
 
@@ -23,10 +24,10 @@ class Timer:
     def repeat(self, repeat: int = 5, number: int = 1000000) -> list[float]: ...
     if sys.version_info >= (3, 15):
         def autorange(
-            self, callback: Callable[[int, float], object] | None = None, target_time: float = 0.2
+            self, callback: Callable[[int, FloatInt], object] | None = None, target_time: FloatInt = 0.2
         ) -> tuple[int, float]: ...
     else:
-        def autorange(self, callback: Callable[[int, float], object] | None = None) -> tuple[int, float]: ...
+        def autorange(self, callback: Callable[[int, FloatInt], object] | None = None) -> tuple[int, float]: ...
 
 def timeit(
     stmt: _Stmt = "pass",
