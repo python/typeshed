@@ -113,11 +113,11 @@ class Convertible(Typed[_T, _N]):
     # float
     @overload
     def __set__(
-        self: Convertible[FloatInt, Literal[True]], instance: Serialisable | Strict, value: ConvertibleToFloat | None
+        self: Convertible[float, Literal[True]], instance: Serialisable | Strict, value: ConvertibleToFloat | None
     ) -> None: ...
     @overload
     def __set__(
-        self: Convertible[FloatInt, Literal[False]], instance: Serialisable | Strict, value: ConvertibleToFloat
+        self: Convertible[float, Literal[False]], instance: Serialisable | Strict, value: ConvertibleToFloat
     ) -> None: ...
     # Anything else
     @overload
@@ -126,7 +126,7 @@ class Convertible(Typed[_T, _N]):
 class Max(Convertible[_M, _N]):
     expected_type: type[_M]
     allow_none: _N
-    max: FloatInt
+    max: float | int
 
     @overload
     def __init__(
@@ -143,17 +143,17 @@ class Max(Convertible[_M, _N]):
     # mypy can't infer type from `expected_type = float` (pyright can), so we have to add extra overloads
     @overload
     def __init__(
-        self: Max[FloatInt, Literal[True]],
+        self: Max[float, Literal[True]],
         *,
-        expected_type: _ExpectedTypeParam[FloatInt] = ...,
+        expected_type: _ExpectedTypeParam[float] = ...,
         allow_none: Literal[True],
         max: FloatInt,
     ) -> None: ...
     @overload
     def __init__(
-        self: Max[FloatInt, Literal[False]],
+        self: Max[float, Literal[False]],
         *,
-        expected_type: _ExpectedTypeParam[FloatInt] = ...,
+        expected_type: _ExpectedTypeParam[float] = ...,
         allow_none: Literal[False] = False,
         max: FloatInt,
     ) -> None: ...
@@ -172,7 +172,7 @@ class Max(Convertible[_M, _N]):
 class Min(Convertible[_M, _N]):
     expected_type: type[_M]
     allow_none: _N
-    min: FloatInt
+    min: float | int
 
     @overload
     def __init__(
@@ -189,17 +189,17 @@ class Min(Convertible[_M, _N]):
     # mypy can't infer type from `expected_type = float` (pyright can), so we have to add extra overloads
     @overload
     def __init__(
-        self: Min[FloatInt, Literal[True]],
+        self: Min[float, Literal[True]],
         *,
-        expected_type: _ExpectedTypeParam[FloatInt] = ...,
+        expected_type: _ExpectedTypeParam[float] = ...,
         allow_none: Literal[True],
         min: FloatInt,
     ) -> None: ...
     @overload
     def __init__(
-        self: Min[FloatInt, Literal[False]],
+        self: Min[float, Literal[False]],
         *,
-        expected_type: _ExpectedTypeParam[FloatInt] = ...,
+        expected_type: _ExpectedTypeParam[float] = ...,
         allow_none: Literal[False] = False,
         min: FloatInt,
     ) -> None: ...
@@ -240,18 +240,18 @@ class MinMax(Min[_M, _N], Max[_M, _N]):
     # mypy can't infer type from `expected_type = float` (pyright can), so we have to add extra overloads
     @overload
     def __init__(
-        self: MinMax[FloatInt, Literal[True]],
+        self: MinMax[float, Literal[True]],
         *,
-        expected_type: _ExpectedTypeParam[FloatInt] = ...,
+        expected_type: _ExpectedTypeParam[float] = ...,
         allow_none: Literal[True],
         min: FloatInt,
         max: FloatInt,
     ) -> None: ...
     @overload
     def __init__(
-        self: MinMax[FloatInt, Literal[False]],
+        self: MinMax[float, Literal[False]],
         *,
-        expected_type: _ExpectedTypeParam[FloatInt] = ...,
+        expected_type: _ExpectedTypeParam[float] = ...,
         allow_none: Literal[False] = False,
         min: FloatInt,
         max: FloatInt,

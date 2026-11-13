@@ -5,8 +5,8 @@ from re import Match, Pattern
 from typing import Any, Final, Generic, Literal, Protocol, TypeAlias, TypeVar, overload, type_check_only
 from typing_extensions import Never, Self
 
-_R_co = TypeVar("_R_co", float, datetime.datetime, default=float, covariant=True)
-_R2_co = TypeVar("_R2_co", float, datetime.datetime, covariant=True)
+_R_co = TypeVar("_R_co", FloatInt, datetime.datetime, default=FloatInt, covariant=True)
+_R2_co = TypeVar("_R2_co", FloatInt, datetime.datetime, covariant=True)
 _Expressions: TypeAlias = list[str]  # fixed-length list of 5 or 6 strings
 ExpandedExpression: TypeAlias = list[int | Literal["*", "l"]]
 
