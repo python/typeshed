@@ -1,5 +1,4 @@
 import sys
-from _typeshed import Incomplete
 from typing import Final
 
 from networkx.utils.backends import _dispatchable
@@ -17,6 +16,6 @@ NUM_GRAPHS: Final = 1253
 ATLAS_FILE: Final[Traversable]
 
 @_dispatchable
-def graph_atlas(i: int) -> Graph[Incomplete]: ...
+def graph_atlas(i: int) -> Graph[int]: ...
 @_dispatchable
-def graph_atlas_g() -> list[Graph[Incomplete]]: ...
+def graph_atlas_g() -> list[Graph[int]]: ...
