@@ -4,48 +4,18 @@ from collections.abc import Callable, Collection, Iterable, Iterator
 from contextlib import AbstractContextManager
 from subprocess import _CMD, _ENV, _FILE
 from types import TracebackType
-from typing import Any, Literal, Protocol, TypeAlias, overload, type_check_only
+from typing import Any, Literal, Protocol, overload, type_check_only
 from typing_extensions import Self, deprecated
 
 from psutil._common import (
     AIX as AIX,
     BSD as BSD,
-    CONN_CLOSE as CONN_CLOSE,
-    CONN_CLOSE_WAIT as CONN_CLOSE_WAIT,
-    CONN_CLOSING as CONN_CLOSING,
-    CONN_ESTABLISHED as CONN_ESTABLISHED,
-    CONN_FIN_WAIT1 as CONN_FIN_WAIT1,
-    CONN_FIN_WAIT2 as CONN_FIN_WAIT2,
-    CONN_LAST_ACK as CONN_LAST_ACK,
-    CONN_LISTEN as CONN_LISTEN,
-    CONN_NONE as CONN_NONE,
-    CONN_SYN_RECV as CONN_SYN_RECV,
-    CONN_SYN_SENT as CONN_SYN_SENT,
-    CONN_TIME_WAIT as CONN_TIME_WAIT,
     FREEBSD as FREEBSD,
     LINUX as LINUX,
     MACOS as MACOS,
     NETBSD as NETBSD,
-    NIC_DUPLEX_FULL as NIC_DUPLEX_FULL,
-    NIC_DUPLEX_HALF as NIC_DUPLEX_HALF,
-    NIC_DUPLEX_UNKNOWN as NIC_DUPLEX_UNKNOWN,
     OPENBSD as OPENBSD,
-    OSX as OSX,
     POSIX as POSIX,
-    POWER_TIME_UNKNOWN as POWER_TIME_UNKNOWN,
-    POWER_TIME_UNLIMITED as POWER_TIME_UNLIMITED,
-    STATUS_DEAD as STATUS_DEAD,
-    STATUS_DISK_SLEEP as STATUS_DISK_SLEEP,
-    STATUS_IDLE as STATUS_IDLE,
-    STATUS_LOCKED as STATUS_LOCKED,
-    STATUS_PARKED as STATUS_PARKED,
-    STATUS_RUNNING as STATUS_RUNNING,
-    STATUS_SLEEPING as STATUS_SLEEPING,
-    STATUS_STOPPED as STATUS_STOPPED,
-    STATUS_TRACING_STOP as STATUS_TRACING_STOP,
-    STATUS_WAITING as STATUS_WAITING,
-    STATUS_WAKING as STATUS_WAKING,
-    STATUS_ZOMBIE as STATUS_ZOMBIE,
     SUNOS as SUNOS,
     WINDOWS as WINDOWS,
     AccessDenied as AccessDenied,
@@ -53,6 +23,12 @@ from psutil._common import (
     NoSuchProcess as NoSuchProcess,
     TimeoutExpired as TimeoutExpired,
     ZombieProcess as ZombieProcess,
+)
+from psutil._enums import (
+    BatteryTime as BatteryTime,
+    ConnectionStatus as ConnectionStatus,
+    NicDuplex as NicDuplex,
+    ProcessStatus as ProcessStatus,
 )
 
 from . import _ntuples as _ntp
@@ -67,55 +43,28 @@ __all__ = [
     # constants
     "version_info",
     "__version__",
-    "STATUS_RUNNING",
-    "STATUS_IDLE",
-    "STATUS_SLEEPING",
-    "STATUS_DISK_SLEEP",
-    "STATUS_STOPPED",
-    "STATUS_TRACING_STOP",
-    "STATUS_ZOMBIE",
-    "STATUS_DEAD",
-    "STATUS_WAKING",
-    "STATUS_LOCKED",
-    "STATUS_WAITING",
-    "STATUS_PARKED",
-    "CONN_ESTABLISHED",
-    "CONN_SYN_SENT",
-    "CONN_SYN_RECV",
-    "CONN_FIN_WAIT1",
-    "CONN_FIN_WAIT2",
-    "CONN_TIME_WAIT",
-    "CONN_CLOSE",
-    "CONN_CLOSE_WAIT",
-    "CONN_LAST_ACK",
-    "CONN_LISTEN",
-    "CONN_CLOSING",
-    "CONN_NONE",
     "AF_LINK",
-    "NIC_DUPLEX_FULL",
-    "NIC_DUPLEX_HALF",
-    "NIC_DUPLEX_UNKNOWN",
-    "POWER_TIME_UNKNOWN",
-    "POWER_TIME_UNLIMITED",
     "BSD",
     "FREEBSD",
     "LINUX",
     "NETBSD",
     "OPENBSD",
     "MACOS",
-    "OSX",
     "POSIX",
     "SUNOS",
     "WINDOWS",
     "AIX",
     # classes
     "Process",
+    "ProcessSnapshot",
     "Popen",
     # functions
     "pid_exists",
     "pids",
     "process_iter",
     "wait_procs",
+    "memory_physical",
+    "memory_swap",
     "virtual_memory",
     "swap_memory",
     "cpu_times",
@@ -123,7 +72,6 @@ __all__ = [
     "cpu_times_percent",
     "cpu_count",
     "cpu_stats",
-    "cpu_freq",
     "getloadavg",
     "net_io_counters",
     "net_connections",
@@ -132,9 +80,47 @@ __all__ = [
     "disk_io_counters",
     "disk_partitions",
     "disk_usage",
-    "sensors_battery",
     "users",
     "boot_time",
+    "bytes2human",
+    "ProcessStatus",
+    "STATUS_DEAD",
+    "STATUS_DISK_SLEEP",
+    "STATUS_IDLE",
+    "STATUS_LOCKED",
+    "STATUS_PARKED",
+    "STATUS_RUNNING",
+    "STATUS_SLEEPING",
+    "STATUS_STOPPED",
+    "STATUS_SUSPENDED",
+    "STATUS_TRACING_STOP",
+    "STATUS_UNKNOWN",
+    "STATUS_WAITING",
+    "STATUS_WAKE_KILL",
+    "STATUS_WAKING",
+    "STATUS_ZOMBIE",
+    "ConnectionStatus",
+    "CONN_CLOSE",
+    "CONN_CLOSE_WAIT",
+    "CONN_CLOSING",
+    "CONN_ESTABLISHED",
+    "CONN_FIN_WAIT1",
+    "CONN_FIN_WAIT2",
+    "CONN_LAST_ACK",
+    "CONN_LISTEN",
+    "CONN_NONE",
+    "CONN_SYN_RECV",
+    "CONN_SYN_SENT",
+    "CONN_TIME_WAIT",
+    "NicDuplex",
+    "NIC_DUPLEX_FULL",
+    "NIC_DUPLEX_HALF",
+    "NIC_DUPLEX_UNKNOWN",
+    "BatteryTime",
+    "POWER_TIME_UNKNOWN",
+    "POWER_TIME_UNLIMITED",
+    "cpu_freq",
+    "sensors_battery",
     "heap_info",
     "heap_trim",
 ]
@@ -184,12 +170,12 @@ elif sys.platform == "win32":
     ]
 
 if sys.platform == "linux":
-    from ._pslinux import (
-        IOPRIO_CLASS_BE as IOPRIO_CLASS_BE,
-        IOPRIO_CLASS_IDLE as IOPRIO_CLASS_IDLE,
-        IOPRIO_CLASS_NONE as IOPRIO_CLASS_NONE,
-        IOPRIO_CLASS_RT as IOPRIO_CLASS_RT,
-    )
+    from ._enums import ProcessIOPriority as ProcessIOPriority, ProcessRlimit as ProcessRlimit
+
+    IOPRIO_CLASS_NONE: ProcessIOPriority
+    IOPRIO_CLASS_RT: ProcessIOPriority
+    IOPRIO_CLASS_BE: ProcessIOPriority
+    IOPRIO_CLASS_IDLE: ProcessIOPriority
     def sensors_temperatures(fahrenheit: bool = False) -> dict[str, list[_ntp.shwtemp]]: ...
     def sensors_fans() -> dict[str, list[_ntp.sfan]]: ...
     PROCFS_PATH: str
@@ -211,23 +197,22 @@ if sys.platform == "linux":
     RLIMIT_STACK: int
     RLIM_INFINITY: int
 if sys.platform == "win32":
-    from ._psutil_windows import (
-        ABOVE_NORMAL_PRIORITY_CLASS as ABOVE_NORMAL_PRIORITY_CLASS,
-        BELOW_NORMAL_PRIORITY_CLASS as BELOW_NORMAL_PRIORITY_CLASS,
-        HIGH_PRIORITY_CLASS as HIGH_PRIORITY_CLASS,
-        IDLE_PRIORITY_CLASS as IDLE_PRIORITY_CLASS,
-        NORMAL_PRIORITY_CLASS as NORMAL_PRIORITY_CLASS,
-        REALTIME_PRIORITY_CLASS as REALTIME_PRIORITY_CLASS,
-    )
-    from ._pswindows import (
-        CONN_DELETE_TCB as CONN_DELETE_TCB,
-        IOPRIO_HIGH as IOPRIO_HIGH,
-        IOPRIO_LOW as IOPRIO_LOW,
-        IOPRIO_NORMAL as IOPRIO_NORMAL,
-        IOPRIO_VERYLOW as IOPRIO_VERYLOW,
-        win_service_get as win_service_get,
-        win_service_iter as win_service_iter,
-    )
+    from ._enums import ProcessIOPriority as ProcessIOPriority, ProcessPriority as ProcessPriority
+    from ._pswindows import WindowsService as WindowsService
+
+    IOPRIO_VERYLOW: ProcessIOPriority
+    IOPRIO_LOW: ProcessIOPriority
+    IOPRIO_NORMAL: ProcessIOPriority
+    IOPRIO_HIGH: ProcessIOPriority
+    ABOVE_NORMAL_PRIORITY_CLASS: ProcessPriority
+    BELOW_NORMAL_PRIORITY_CLASS: ProcessPriority
+    HIGH_PRIORITY_CLASS: ProcessPriority
+    IDLE_PRIORITY_CLASS: ProcessPriority
+    NORMAL_PRIORITY_CLASS: ProcessPriority
+    REALTIME_PRIORITY_CLASS: ProcessPriority
+    CONN_DELETE_TCB: ConnectionStatus
+    def win_service_get(name: str) -> WindowsService: ...
+    def win_service_iter() -> Iterator[WindowsService]: ...
 
 # Linux + glibc, Windows, macOS, FreeBSD, NetBSD:
 def heap_info() -> _ntp.pheap: ...
@@ -246,33 +231,105 @@ AF_LINK: int
 version_info: tuple[int, int, int]
 __version__: str
 __author__: str
+bytes2human: Callable[[int], str]
 
-_Status: TypeAlias = Literal[
-    "running",
-    "sleeping",
-    "disk-sleep",
-    "stopped",
-    "tracing-stop",
-    "zombie",
-    "dead",
-    "wake-kill",
-    "waking",
-    "idle",
-    "locked",
-    "waiting",
-    "suspended",
-    "parked",
-]
+STATUS_DEAD: ProcessStatus
+STATUS_DISK_SLEEP: ProcessStatus
+STATUS_IDLE: ProcessStatus
+STATUS_LOCKED: ProcessStatus
+STATUS_PARKED: ProcessStatus
+STATUS_RUNNING: ProcessStatus
+STATUS_SLEEPING: ProcessStatus
+STATUS_STOPPED: ProcessStatus
+STATUS_SUSPENDED: ProcessStatus
+STATUS_TRACING_STOP: ProcessStatus
+STATUS_UNKNOWN: ProcessStatus
+STATUS_WAITING: ProcessStatus
+STATUS_WAKE_KILL: ProcessStatus
+STATUS_WAKING: ProcessStatus
+STATUS_ZOMBIE: ProcessStatus
+
+CONN_CLOSE: ConnectionStatus
+CONN_CLOSE_WAIT: ConnectionStatus
+CONN_CLOSING: ConnectionStatus
+CONN_ESTABLISHED: ConnectionStatus
+CONN_FIN_WAIT1: ConnectionStatus
+CONN_FIN_WAIT2: ConnectionStatus
+CONN_LAST_ACK: ConnectionStatus
+CONN_LISTEN: ConnectionStatus
+CONN_NONE: ConnectionStatus
+CONN_SYN_RECV: ConnectionStatus
+CONN_SYN_SENT: ConnectionStatus
+CONN_TIME_WAIT: ConnectionStatus
+
+NIC_DUPLEX_FULL: NicDuplex
+NIC_DUPLEX_HALF: NicDuplex
+NIC_DUPLEX_UNKNOWN: NicDuplex
+
+POWER_TIME_UNKNOWN: BatteryTime
+POWER_TIME_UNLIMITED: BatteryTime
+
+class ProcessSnapshot:
+    cmdline: list[str]
+    cpu_affinity: list[int]
+    cpu_num: int
+    cpu_percent: float
+    cpu_times: _ntp.pcputimes
+    create_time: float
+    ctx_switches: _ntp.pctxsw
+    cwd: str
+    environ: dict[str, str]
+    exe: str
+    gids: _ntp.pgids
+    io_counters: _ntp.pio
+    ionice: _ntp.pionice
+    memory_extras: _ntp.pmem_extras
+    memory_footprint: _ntp.pfootprint
+    memory_info: _ntp.pmem
+    memory_maps: list[_ntp.pmmap_grouped] | list[_ntp.pmmap_ext]
+    memory_percent: float
+    name: str
+    net_connections: list[_ntp.pconn]
+    nice: int
+    num_fds: int
+    num_handles: int
+    num_threads: int
+    open_files: list[_ntp.popenfile]
+    page_faults: _ntp.ppagefaults
+    pid: int
+    ppid: int
+    status: ProcessStatus
+    terminal: str | None
+    threads: list[_ntp.pthread]
+    uids: _ntp.puids
+    username: str
+
+    def __init__(self, data: dict[str, Any]) -> None: ...
+    def __eq__(self, other: object) -> bool: ...
+    __hash__: None  # type: ignore[assignment]  # unhashable
+    def __bool__(self) -> bool: ...
+    def __getattr__(self, name: str) -> Any: ...
+    def __setattr__(self, name: str, value: Any) -> None: ...
+    def __delattr__(self, name: str) -> None: ...
+    def as_dict(self) -> dict[str, Any]: ...
 
 class Process:
+    attrs: frozenset[str]
     def __init__(self, pid: int | None = None) -> None: ...
     def __eq__(self, other: object) -> bool: ...
-    def __ne__(self, other: object) -> bool: ...
+    def __ne__(self, other: object, /) -> bool: ...
     def __hash__(self) -> int: ...
     @property
     def pid(self) -> int: ...
-    # Only present if attrs argument is passed to process_iter
-    info: dict[str, Incomplete]
+    @property
+    def snapshot(self) -> ProcessSnapshot: ...
+
+    @property
+    @deprecated("use Process.snapshot.as_dict() instead")
+    def info(self) -> dict[str, Any]: ...
+    @info.setter
+    def info(self, value: dict[str, Any]) -> None: ...
+
     def oneshot(self) -> AbstractContextManager[None]: ...
     def as_dict(
         self, attrs: list[str] | tuple[str, ...] | set[str] | frozenset[str] | None = None, ad_value=None
@@ -284,7 +341,7 @@ class Process:
     def name(self) -> str: ...
     def exe(self) -> str: ...
     def cmdline(self) -> list[str]: ...
-    def status(self) -> _Status: ...
+    def status(self) -> ProcessStatus: ...
     def username(self) -> str: ...
     def create_time(self) -> float: ...
     def cwd(self) -> str: ...
@@ -323,6 +380,8 @@ class Process:
     if sys.platform == "win32":
         def num_handles(self) -> int: ...
 
+    def ctx_switches(self) -> _ntp.pctxsw: ...
+    @deprecated("use ctx_switches() method instead")
     def num_ctx_switches(self) -> _ntp.pctxsw: ...
     def num_threads(self) -> int: ...
     def threads(self) -> list[_ntp.pthread]: ...
@@ -330,8 +389,14 @@ class Process:
     def cpu_percent(self, interval: float | None = None) -> float: ...
     def cpu_times(self) -> _ntp.pcputimes: ...
     def memory_info(self) -> _ntp.pmem: ...
+    if sys.platform == "linux" or sys.platform == "darwin" or sys.platform == "win32":
+        def memory_extras(self) -> _ntp.pmem_extras: ...
+        def memory_footprint(self) -> _ntp.pfootprint: ...
+
+    @deprecated("use memory_footprint() method instead")
     def memory_full_info(self) -> _ntp.pfullmem: ...
     def memory_percent(self, memtype: str = "rss") -> float: ...
+    def page_faults(self) -> _ntp.ppagefaults: ...
     def open_files(self) -> list[_ntp.popenfile]: ...
     @deprecated('use "net_connections" method instead')
     def connections(self, kind: str = "inet") -> list[_ntp.pconn]: ...
@@ -457,7 +522,11 @@ def cpu_times_percent(*, percpu: Literal[True]) -> list[_ntp.scputimes]: ...
 
 def cpu_stats() -> _ntp.scpustats: ...
 def getloadavg() -> tuple[float, float, float]: ...
-def virtual_memory() -> _ntp.svmem: ...
+def memory_physical() -> _ntp.smem: ...
+def memory_swap() -> _ntp.sswap: ...
+@deprecated("use memory_physical() function instead")
+def virtual_memory() -> _ntp.smem: ...
+@deprecated("use memory_swap() function instead")
 def swap_memory() -> _ntp.sswap: ...
 def disk_usage(path: str) -> _ntp.sdiskusage: ...
 def disk_partitions(all: bool = False) -> list[_ntp.sdiskpart]: ...
