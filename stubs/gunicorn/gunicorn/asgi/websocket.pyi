@@ -51,7 +51,7 @@ class WebSocketProtocol:
         scope: _ScopeType,
         app: _ASGIAppType,
         log: GLogger,
-        max_message_size: int = DEFAULT_MAX_MESSAGE_SIZE,
+        max_message_size: int = DEFAULT_MAX_MESSAGE_SIZE,  # noqa: Y011
         drain: Callable[[], Awaitable[object]] | None = None,
     ) -> None: ...
     def feed_data(self, data: bytes) -> None: ...
