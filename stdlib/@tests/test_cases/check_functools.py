@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from functools import cache, cached_property, lru_cache, singledispatchmethod, update_wrapper, wraps
+from functools import cache, cached_property, lru_cache, partial, singledispatchmethod, update_wrapper, wraps
 from typing import Callable, ParamSpec, TypeVar
 from typing_extensions import assert_type
 
@@ -192,6 +192,20 @@ class CachedChild(CachedParent):
     @cache
     def method(self) -> Child:
         return Child()
+
+
+def _returns_child() -> Child:
+    return Child()
+
+
+def _accept_parent_partial(p: partial[Parent]) -> None:
+    assert_type(p(), Parent)
+
+
+def check_partial_covariance() -> None:
+    p_child = partial(_returns_child)
+    assert_type(p_child, partial[Child])
+    _accept_parent_partial(p_child)
 
 
 class Formatter:
