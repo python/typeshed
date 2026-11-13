@@ -1,4 +1,3 @@
-from _typeshed import FloatInt
 from datetime import date, datetime, time, timedelta
 from decimal import Decimal
 from typing import Any, TypeAlias
@@ -13,7 +12,8 @@ _TimeTypes: TypeAlias = datetime | date | time | timedelta
 _CellGetValue: TypeAlias = (  # noqa: Y047 # Used in other modules
     # if numpy is installed also numpy bool and number types
     bool
-    | FloatInt
+    | float
+    | int
     | Decimal
     | str
     | CellRichText

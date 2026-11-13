@@ -1,4 +1,4 @@
-from _typeshed import ConvertibleToFloat, ConvertibleToInt, FloatInt, Incomplete, ReadableBuffer, Unused
+from _typeshed import ConvertibleToFloat, ConvertibleToInt, Incomplete, ReadableBuffer, Unused
 from collections.abc import Iterable, Sized
 from datetime import datetime
 from re import Pattern
@@ -13,7 +13,7 @@ _T = TypeVar("_T")
 _P = TypeVar("_P", str, ReadableBuffer)
 _N = TypeVar("_N", bound=bool, default=Literal[False])
 _L = TypeVar("_L", bound=Sized)
-_M = TypeVar("_M", int, float, FloatInt)  # TODO: remove FloatInt, update users
+_M = TypeVar("_M", int, float)
 
 _ExpectedTypeParam: TypeAlias = type[_T] | tuple[type[_T], ...]
 _ConvertibleToMultiCellRange: TypeAlias = MultiCellRange | str | Iterable[CellRange]
@@ -128,7 +128,7 @@ class Max(Convertible[_M, _N]):
 
     @overload
     def __init__(
-        self: Max[int, Literal[True]], *, expected_type: _ExpectedTypeParam[int], allow_none: Literal[True], max: FloatInt
+        self: Max[int, Literal[True]], *, expected_type: _ExpectedTypeParam[int], allow_none: Literal[True], max: float | int
     ) -> None: ...
     @overload
     def __init__(
@@ -136,7 +136,7 @@ class Max(Convertible[_M, _N]):
         *,
         expected_type: _ExpectedTypeParam[int],
         allow_none: Literal[False] = False,
-        max: FloatInt,
+        max: float | int,
     ) -> None: ...
     # mypy can't infer type from `expected_type = float` (pyright can), so we have to add extra overloads
     @overload
@@ -145,7 +145,7 @@ class Max(Convertible[_M, _N]):
         *,
         expected_type: _ExpectedTypeParam[float] = ...,
         allow_none: Literal[True],
-        max: FloatInt,
+        max: float | int,
     ) -> None: ...
     @overload
     def __init__(
@@ -153,7 +153,7 @@ class Max(Convertible[_M, _N]):
         *,
         expected_type: _ExpectedTypeParam[float] = ...,
         allow_none: Literal[False] = False,
-        max: FloatInt,
+        max: float | int,
     ) -> None: ...
 
     @overload  # type: ignore[override]  # Different restrictions
@@ -162,10 +162,10 @@ class Max(Convertible[_M, _N]):
     def __set__(self: Max[int, Literal[False]], instance: Serialisable | Strict, value: ConvertibleToInt) -> None: ...
     @overload
     def __set__(
-        self: Max[FloatInt, Literal[True]], instance: Serialisable | Strict, value: ConvertibleToFloat | None
+        self: Max[float, Literal[True]], instance: Serialisable | Strict, value: ConvertibleToFloat | None
     ) -> None: ...
     @overload
-    def __set__(self: Max[FloatInt, Literal[False]], instance: Serialisable | Strict, value: ConvertibleToFloat) -> None: ...
+    def __set__(self: Max[float, Literal[False]], instance: Serialisable | Strict, value: ConvertibleToFloat) -> None: ...
 
 class Min(Convertible[_M, _N]):
     expected_type: type[_M]
@@ -174,7 +174,7 @@ class Min(Convertible[_M, _N]):
 
     @overload
     def __init__(
-        self: Min[int, Literal[True]], *, expected_type: _ExpectedTypeParam[int], allow_none: Literal[True], min: FloatInt
+        self: Min[int, Literal[True]], *, expected_type: _ExpectedTypeParam[int], allow_none: Literal[True], min: float | int
     ) -> None: ...
     @overload
     def __init__(
@@ -182,7 +182,7 @@ class Min(Convertible[_M, _N]):
         *,
         expected_type: _ExpectedTypeParam[int],
         allow_none: Literal[False] = False,
-        min: FloatInt,
+        min: float | int,
     ) -> None: ...
     # mypy can't infer type from `expected_type = float` (pyright can), so we have to add extra overloads
     @overload
@@ -191,7 +191,7 @@ class Min(Convertible[_M, _N]):
         *,
         expected_type: _ExpectedTypeParam[float] = ...,
         allow_none: Literal[True],
-        min: FloatInt,
+        min: float | int,
     ) -> None: ...
     @overload
     def __init__(
@@ -199,7 +199,7 @@ class Min(Convertible[_M, _N]):
         *,
         expected_type: _ExpectedTypeParam[float] = ...,
         allow_none: Literal[False] = False,
-        min: FloatInt,
+        min: float | int,
     ) -> None: ...
 
     @overload  # type: ignore[override]  # Different restrictions
@@ -208,10 +208,10 @@ class Min(Convertible[_M, _N]):
     def __set__(self: Min[int, Literal[False]], instance: Serialisable | Strict, value: ConvertibleToInt) -> None: ...
     @overload
     def __set__(
-        self: Min[FloatInt, Literal[True]], instance: Serialisable | Strict, value: ConvertibleToFloat | None
+        self: Min[float, Literal[True]], instance: Serialisable | Strict, value: ConvertibleToFloat | None
     ) -> None: ...
     @overload
-    def __set__(self: Min[FloatInt, Literal[False]], instance: Serialisable | Strict, value: ConvertibleToFloat) -> None: ...
+    def __set__(self: Min[float, Literal[False]], instance: Serialisable | Strict, value: ConvertibleToFloat) -> None: ...
 
 class MinMax(Min[_M, _N], Max[_M, _N]):
     expected_type: type[_M]
@@ -223,8 +223,8 @@ class MinMax(Min[_M, _N], Max[_M, _N]):
         *,
         expected_type: _ExpectedTypeParam[int],
         allow_none: Literal[True],
-        min: FloatInt,
-        max: FloatInt,
+        min: float | int,
+        max: float | int,
     ) -> None: ...
     @overload
     def __init__(
@@ -232,8 +232,8 @@ class MinMax(Min[_M, _N], Max[_M, _N]):
         *,
         expected_type: _ExpectedTypeParam[int],
         allow_none: Literal[False] = False,
-        min: FloatInt,
-        max: FloatInt,
+        min: float | int,
+        max: float | int,
     ) -> None: ...
     # mypy can't infer type from `expected_type = float` (pyright can), so we have to add extra overloads
     @overload
@@ -242,8 +242,8 @@ class MinMax(Min[_M, _N], Max[_M, _N]):
         *,
         expected_type: _ExpectedTypeParam[float] = ...,
         allow_none: Literal[True],
-        min: FloatInt,
-        max: FloatInt,
+        min: float | int,
+        max: float | int,
     ) -> None: ...
     @overload
     def __init__(
@@ -251,8 +251,8 @@ class MinMax(Min[_M, _N], Max[_M, _N]):
         *,
         expected_type: _ExpectedTypeParam[float] = ...,
         allow_none: Literal[False] = False,
-        min: FloatInt,
-        max: FloatInt,
+        min: float | int,
+        max: float | int,
     ) -> None: ...
 
 class Set(Descriptor[_T]):

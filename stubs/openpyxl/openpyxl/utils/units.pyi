@@ -1,12 +1,11 @@
-from _typeshed import FloatInt
 from typing import Final
 
-DEFAULT_ROW_HEIGHT: Final[FloatInt]
+DEFAULT_ROW_HEIGHT: Final[float]
 BASE_COL_WIDTH: Final = 8
 DEFAULT_COLUMN_WIDTH: Final = 13
-DEFAULT_LEFT_MARGIN: Final[FloatInt]
-DEFAULT_TOP_MARGIN: Final[FloatInt]
-DEFAULT_HEADER: Final[FloatInt]
+DEFAULT_LEFT_MARGIN: Final[float]
+DEFAULT_TOP_MARGIN: Final[float]
+DEFAULT_HEADER: Final[float]
 
 def inch_to_dxa(value): ...
 def dxa_to_inch(value): ...

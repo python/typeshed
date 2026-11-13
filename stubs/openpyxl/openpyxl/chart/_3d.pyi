@@ -1,4 +1,4 @@
-from _typeshed import ConvertibleToFloat, ConvertibleToInt, FloatInt, Unused
+from _typeshed import ConvertibleToFloat, ConvertibleToInt, Unused
 from typing import ClassVar, Literal
 
 from openpyxl.chart.picture import PictureOptions
@@ -12,9 +12,9 @@ from ..xml._functions_overloads import _HasTagAndGet
 
 class View3D(Serialisable):
     tagname: ClassVar[str]
-    rotX: NestedMinMax[FloatInt, Literal[True]]
+    rotX: NestedMinMax[float, Literal[True]]
     x_rotation: Alias
-    hPercent: NestedMinMax[FloatInt, Literal[True]]
+    hPercent: NestedMinMax[float, Literal[True]]
     height_percent: Alias
     rotY: NestedInteger[Literal[True]]
     y_rotation: Alias

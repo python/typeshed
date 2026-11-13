@@ -1,4 +1,4 @@
-from _typeshed import ConvertibleToFloat, ConvertibleToInt, FloatInt, Incomplete, Unused
+from _typeshed import ConvertibleToFloat, ConvertibleToInt, Incomplete, Unused
 from collections.abc import Iterator
 from re import Pattern
 from typing import ClassVar, Final, Literal, TypeVar, overload
@@ -35,7 +35,7 @@ class Color(Serialisable):
     indexed: Integer[Literal[False]]
     auto: Bool[Literal[False]]
     theme: Integer[Literal[False]]
-    tint: MinMax[FloatInt, Literal[False]]
+    tint: MinMax[float, Literal[False]]
     type: String[Literal[False]]
     def __init__(
         self,

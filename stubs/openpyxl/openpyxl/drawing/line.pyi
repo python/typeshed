@@ -1,4 +1,4 @@
-from _typeshed import ConvertibleToFloat, ConvertibleToInt, FloatInt, Incomplete, Unused
+from _typeshed import ConvertibleToFloat, ConvertibleToInt, Incomplete, Unused
 from typing import ClassVar, Literal, TypeAlias
 
 from openpyxl.descriptors.base import Alias, Integer, MinMax, NoneSet, Typed, _ConvertibleToBool
@@ -48,7 +48,7 @@ class DashStopList(Serialisable):
 class LineProperties(Serialisable):
     tagname: ClassVar[str]
     namespace: ClassVar[str]
-    w: MinMax[FloatInt, Literal[True]]
+    w: MinMax[float, Literal[True]]
     width: Alias
     cap: NoneSet[_LinePropertiesCap]
     cmpd: NoneSet[_LinePropertiesCmpd]

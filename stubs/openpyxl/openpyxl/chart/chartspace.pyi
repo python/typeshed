@@ -1,4 +1,4 @@
-from _typeshed import ConvertibleToFloat, FloatInt, Incomplete, Unused
+from _typeshed import ConvertibleToFloat, Incomplete, Unused
 from typing import ClassVar, Literal, TypeAlias, overload
 
 from openpyxl.chart._3d import Surface, View3D
@@ -91,7 +91,7 @@ class ChartSpace(Serialisable):
     date1904: NestedBool[Literal[True]]
     lang: NestedString[Literal[True]]
     roundedCorners: NestedBool[Literal[True]]
-    style: NestedMinMax[FloatInt, Literal[True]]
+    style: NestedMinMax[float, Literal[True]]
     clrMapOvr: Typed[ColorMapping, Literal[True]]
     pivotSource: Typed[PivotSource, Literal[True]]
     protection: Typed[Protection, Literal[True]]

@@ -1,4 +1,4 @@
-from _typeshed import ConvertibleToFloat, ConvertibleToInt, FloatInt, Incomplete, Unused
+from _typeshed import ConvertibleToFloat, ConvertibleToInt, Incomplete, Unused
 from typing import ClassVar, Literal, TypeAlias
 
 from openpyxl.descriptors.base import Alias, Bool, Integer, MinMax, NoneSet, Set, String, Typed, _ConvertibleToBool
@@ -168,7 +168,7 @@ class Font(Serialisable):
     namespace: ClassVar[str]
     typeface: String[Literal[False]]
     panose: Incomplete
-    pitchFamily: MinMax[FloatInt, Literal[True]]
+    pitchFamily: MinMax[float, Literal[True]]
     charset: Integer[Literal[True]]
     def __init__(
         self, typeface: str, panose=None, pitchFamily: ConvertibleToFloat | None = None, charset: ConvertibleToInt | None = None
@@ -180,7 +180,7 @@ class CharacterProperties(Serialisable):
     kumimoji: Bool[Literal[True]]
     lang: String[Literal[True]]
     altLang: String[Literal[True]]
-    sz: MinMax[FloatInt, Literal[True]]
+    sz: MinMax[float, Literal[True]]
     b: Bool[Literal[True]]
     i: Bool[Literal[True]]
     u: NoneSet[_CharacterPropertiesU]

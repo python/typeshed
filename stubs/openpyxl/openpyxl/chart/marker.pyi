@@ -1,4 +1,4 @@
-from _typeshed import ConvertibleToFloat, ConvertibleToInt, FloatInt, Unused
+from _typeshed import ConvertibleToFloat, ConvertibleToInt, Unused
 from typing import ClassVar, Literal, TypeAlias
 
 from openpyxl.chart.picture import PictureOptions
@@ -17,7 +17,7 @@ _MarkerSymbol: TypeAlias = Literal[
 class Marker(Serialisable):
     tagname: ClassVar[str]
     symbol: NestedNoneSet[_MarkerSymbol]
-    size: NestedMinMax[FloatInt, Literal[True]]
+    size: NestedMinMax[float, Literal[True]]
     spPr: Typed[GraphicalProperties, Literal[True]]
     graphicalProperties: Alias
     extLst: Typed[ExtensionList, Literal[True]]

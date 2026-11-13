@@ -1,4 +1,4 @@
-from _typeshed import ConvertibleToFloat, ConvertibleToInt, FloatInt, Incomplete, Unused
+from _typeshed import ConvertibleToFloat, ConvertibleToInt, Incomplete, Unused
 from typing import ClassVar, Literal, TypeAlias, overload
 from typing_extensions import Self
 
@@ -221,7 +221,7 @@ class TextAxis(_BaseAxis):
     # crossesAt = _BaseAxis.crossesAt
     auto: NestedBool[Literal[True]]
     lblAlgn: NestedNoneSet[_TextAxisLblAlgn]
-    lblOffset: NestedMinMax[FloatInt, Literal[False]]
+    lblOffset: NestedMinMax[float, Literal[False]]
     tickLblSkip: NestedInteger[Literal[True]]
     tickMarkSkip: NestedInteger[Literal[True]]
     noMultiLvlLbl: NestedBool[Literal[True]]

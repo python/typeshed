@@ -1,4 +1,4 @@
-from _typeshed import ConvertibleToFloat, ConvertibleToInt, FloatInt, Incomplete, Unused
+from _typeshed import ConvertibleToFloat, ConvertibleToInt, Incomplete, Unused
 from typing import ClassVar, Literal, TypeAlias, overload
 
 from openpyxl.descriptors.base import Alias, Bool, Float, Integer, MinMax, NoneSet, Set, String, Typed, _ConvertibleToBool
@@ -504,7 +504,7 @@ class AdjPoint2D(Serialisable):
     def __init__(self, x=None, y=None) -> None: ...
 
 class ConnectionSite(Serialisable):
-    ang: MinMax[FloatInt, Literal[False]]
+    ang: MinMax[float, Literal[False]]
     pos: Typed[AdjPoint2D, Literal[False]]
     def __init__(self, ang: ConvertibleToFloat, pos: AdjPoint2D) -> None: ...
 

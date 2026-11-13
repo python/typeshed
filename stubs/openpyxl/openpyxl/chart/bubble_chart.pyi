@@ -1,4 +1,4 @@
-from _typeshed import ConvertibleToFloat, FloatInt, Incomplete, Unused
+from _typeshed import ConvertibleToFloat, Incomplete, Unused
 from typing import ClassVar, Literal, TypeAlias
 
 from openpyxl.chart.axis import NumericAxis
@@ -19,7 +19,7 @@ class BubbleChart(ChartBase):
     dLbls: Typed[DataLabelList, Literal[True]]
     dataLabels: Alias
     bubble3D: NestedBool[Literal[True]]
-    bubbleScale: NestedMinMax[FloatInt, Literal[True]]
+    bubbleScale: NestedMinMax[float, Literal[True]]
     showNegBubbles: NestedBool[Literal[True]]
     sizeRepresents: NestedNoneSet[_BubbleChartSizeRepresents]
     extLst: Typed[ExtensionList, Literal[True]]

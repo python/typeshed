@@ -1,4 +1,3 @@
-from _typeshed import FloatInt
 from typing import Literal
 
 from openpyxl.chart.data_source import NumFmt
@@ -8,13 +7,13 @@ from openpyxl.descriptors.serialisable import Serialisable
 
 class NestedGapAmount(NestedMinMax[float, bool]):
     allow_none: bool
-    min: FloatInt
-    max: FloatInt
+    min: float | int
+    max: float | int
 
 class NestedOverlap(NestedMinMax[float, bool]):
     allow_none: bool
-    min: FloatInt
-    max: FloatInt
+    min: float | int
+    max: float | int
 
 class NumberFormatDescriptor(Typed[NumFmt, Literal[True]]):
     expected_type: type[NumFmt]

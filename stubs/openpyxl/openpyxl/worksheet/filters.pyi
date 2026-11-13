@@ -1,4 +1,4 @@
-from _typeshed import ConvertibleToFloat, ConvertibleToInt, FloatInt, Incomplete, Unused
+from _typeshed import ConvertibleToFloat, ConvertibleToInt, Incomplete, Unused
 from datetime import datetime
 from typing import ClassVar, Final, Literal, TypeAlias, overload
 
@@ -228,10 +228,10 @@ class Top10(Serialisable):
 class DateGroupItem(Serialisable):
     tagname: ClassVar[str]
     year: Integer[Literal[False]]
-    month: MinMax[FloatInt, Literal[True]]
-    day: MinMax[FloatInt, Literal[True]]
-    hour: MinMax[FloatInt, Literal[True]]
-    minute: MinMax[FloatInt, Literal[True]]
+    month: MinMax[float, Literal[True]]
+    day: MinMax[float, Literal[True]]
+    hour: MinMax[float, Literal[True]]
+    minute: MinMax[float, Literal[True]]
     second: Integer[Literal[True]]
     dateTimeGrouping: Set[_DateGroupItemDateTimeGrouping]
 

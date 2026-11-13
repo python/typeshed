@@ -1,4 +1,4 @@
-from _typeshed import FloatInt, Incomplete
+from _typeshed import Incomplete
 from typing import ClassVar, Literal
 
 from . import Integer, MatchPattern, MinMax, Strict, String
@@ -13,15 +13,15 @@ class UniversalMeasure(MatchPattern[str, Incomplete]):
 
 class TextPoint(MinMax[_M, _N]):
     expected_type: type[_M]
-    min: FloatInt
-    max: FloatInt
+    min: float | int
+    max: float | int
 
 Coordinate = Integer
 
 class Percentage(MinMax[float, Incomplete]):
     pattern: str
-    min: FloatInt
-    max: FloatInt
+    min: float | int
+    max: float | int
     def __set__(self, instance: Serialisable | Strict, value) -> None: ...
 
 class Extension(Serialisable):

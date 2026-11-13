@@ -1,4 +1,4 @@
-from _typeshed import ConvertibleToFloat, FloatInt
+from _typeshed import ConvertibleToFloat
 from collections.abc import Iterator
 from typing import ClassVar, Final, Literal, TypeAlias
 
@@ -23,10 +23,10 @@ class Alignment(Serialisable):
     wrap_text: Alias
     shrinkToFit: Bool[Literal[True]]
     shrink_to_fit: Alias
-    indent: MinMax[FloatInt, Literal[False]]
-    relativeIndent: MinMax[FloatInt, Literal[False]]
+    indent: MinMax[float, Literal[False]]
+    relativeIndent: MinMax[float, Literal[False]]
     justifyLastLine: Bool[Literal[True]]
-    readingOrder: Min[FloatInt, Literal[False]]
+    readingOrder: Min[float, Literal[False]]
     def __init__(
         self,
         horizontal=None,

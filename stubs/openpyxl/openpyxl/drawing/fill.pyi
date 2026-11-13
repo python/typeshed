@@ -1,4 +1,4 @@
-from _typeshed import ConvertibleToFloat, ConvertibleToInt, FloatInt, Incomplete
+from _typeshed import ConvertibleToFloat, ConvertibleToInt, Incomplete
 from typing import ClassVar, Literal, TypeAlias
 
 from openpyxl.descriptors.base import Alias, Bool, Integer, MinMax, NoneSet, Set, Typed, _ConvertibleToBool
@@ -128,7 +128,7 @@ class StretchInfoProperties(Serialisable):
 class GradientStop(Serialisable):
     tagname: ClassVar[str]
     namespace: ClassVar[str]
-    pos: MinMax[FloatInt, Literal[True]]
+    pos: MinMax[float, Literal[True]]
     scrgbClr: Typed[_RGBPercent, Literal[True]]
     RGBPercent: Alias
     srgbClr: NestedValue[_RGBPercent, Literal[True]]

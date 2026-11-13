@@ -1,4 +1,4 @@
-from _typeshed import ConvertibleToInt, FloatInt, Incomplete, Unused
+from _typeshed import ConvertibleToInt, Incomplete, Unused
 from typing import ClassVar, Literal, TypeAlias
 
 from openpyxl.chart.layout import Layout
@@ -29,8 +29,8 @@ class ChartBase(Serialisable):
     title: TitleDescriptor
     anchor: str
     width: int
-    height: FloatInt
-    style: MinMax[FloatInt, Literal[True]]
+    height: float | int
+    style: MinMax[float, Literal[True]]
     mime_type: str
     graphical_properties: Typed[GraphicalProperties, Literal[True]]
     __elements__: ClassVar[tuple[str, ...]]

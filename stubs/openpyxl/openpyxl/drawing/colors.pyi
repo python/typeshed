@@ -1,4 +1,4 @@
-from _typeshed import ConvertibleToFloat, ConvertibleToInt, FloatInt, Incomplete
+from _typeshed import ConvertibleToFloat, ConvertibleToInt, Incomplete
 from typing import ClassVar, Final, Literal, TypeAlias, overload
 
 from openpyxl.descriptors import Strict, Typed
@@ -332,15 +332,15 @@ class SystemColor(Serialisable):
 class HSLColor(Serialisable):
     tagname: ClassVar[str]
     hue: Integer[Literal[False]]
-    sat: MinMax[FloatInt, Literal[False]]
-    lum: MinMax[FloatInt, Literal[False]]
+    sat: MinMax[float, Literal[False]]
+    lum: MinMax[float, Literal[False]]
     def __init__(self, hue: ConvertibleToInt, sat: ConvertibleToFloat, lum: ConvertibleToFloat) -> None: ...
 
 class RGBPercent(Serialisable):
     tagname: ClassVar[str]
-    r: MinMax[FloatInt, Literal[False]]
-    g: MinMax[FloatInt, Literal[False]]
-    b: MinMax[FloatInt, Literal[False]]
+    r: MinMax[float, Literal[False]]
+    g: MinMax[float, Literal[False]]
+    b: MinMax[float, Literal[False]]
     def __init__(self, r: ConvertibleToFloat, g: ConvertibleToFloat, b: ConvertibleToFloat) -> None: ...
 
 _RGBPercent: TypeAlias = RGBPercent

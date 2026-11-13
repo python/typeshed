@@ -1,4 +1,4 @@
-from _typeshed import ConvertibleToFloat, FloatInt, Unused
+from _typeshed import ConvertibleToFloat, Unused
 from typing import ClassVar, Literal, TypeAlias
 
 from openpyxl.descriptors.base import Alias, Typed
@@ -18,11 +18,11 @@ class ManualLayout(Serialisable):
     yMode: NestedNoneSet[_ManualLayoutMode]
     wMode: NestedSet[_ManualLayoutMode]
     hMode: NestedSet[_ManualLayoutMode]
-    x: NestedMinMax[FloatInt, Literal[True]]
-    y: NestedMinMax[FloatInt, Literal[True]]
-    w: NestedMinMax[FloatInt, Literal[True]]
+    x: NestedMinMax[float, Literal[True]]
+    y: NestedMinMax[float, Literal[True]]
+    w: NestedMinMax[float, Literal[True]]
     width: Alias
-    h: NestedMinMax[FloatInt, Literal[True]]
+    h: NestedMinMax[float, Literal[True]]
     height: Alias
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: ClassVar[tuple[str, ...]]
