@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import Incomplete
 from collections.abc import Iterable
 from typing import Final
@@ -12,11 +13,11 @@ __version__: Final[str]
 class RL_CorpLogo(Widget):
     fillColor: Incomplete
     strokeColor: Incomplete
-    strokeWidth: float
+    strokeWidth: FloatInt
     background: Incomplete
     border: Incomplete
     borderWidth: int
-    shadow: float
+    shadow: FloatInt
     height: int
     width: int
     x: int

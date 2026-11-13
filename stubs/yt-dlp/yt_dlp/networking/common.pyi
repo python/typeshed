@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 import abc
 import enum
 import io
@@ -50,7 +51,7 @@ class RequestHandler(abc.ABC, metaclass=abc.ABCMeta):
         logger: _YDLLogger,
         headers: HTTPHeaderDict | Mapping[str, str] | None = None,
         cookiejar: YoutubeDLCookieJar | None = None,
-        timeout: float | None = None,
+        timeout: FloatInt | None = None,
         proxies: Mapping[str, Any] | None = None,
         source_address: str | None = None,
         verbose: bool = False,

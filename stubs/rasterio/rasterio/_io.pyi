@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 import os
 from collections.abc import Iterator, Sequence
 from typing import Any, BinaryIO, Final
@@ -21,8 +22,8 @@ def _gdal_typename(dt: DTypeLike) -> str: ...
 def _get_gdal_dtype(type_name: DTypeLike) -> int: ...
 def _boundless_vrt_doc(
     src_dataset: DatasetBase,
-    nodata: float | None = None,
-    background: float | None = None,
+    nodata: FloatInt | None = None,
+    background: FloatInt | None = None,
     hidenodata: bool = False,
     width: int | None = None,
     height: int | None = None,
@@ -31,15 +32,15 @@ def _boundless_vrt_doc(
     resampling: Resampling = ...,
 ) -> str: ...
 def sample_gen(
-    dataset: DatasetBase, xy: Sequence[tuple[float, float]], indexes: Indexes | None = None, masked: bool = False
+    dataset: DatasetBase, xy: Sequence[tuple[FloatInt, FloatInt]], indexes: Indexes | None = None, masked: bool = False
 ) -> Iterator[NDArray[Any]]: ...
 
 class Statistics:
-    min: float
-    max: float
-    mean: float
-    std: float
-    def __init__(self, min: float, max: float, mean: float, std: float) -> None: ...
+    min: FloatInt
+    max: FloatInt
+    mean: FloatInt
+    std: FloatInt
+    def __init__(self, min: FloatInt, max: FloatInt, mean: FloatInt, std: FloatInt) -> None: ...
 
 class DatasetReaderBase(DatasetBase):
     def read(
@@ -72,7 +73,7 @@ class DatasetReaderBase(DatasetBase):
         resampling: Resampling = ...,
     ) -> NDArray[Any]: ...
     def sample(
-        self, xy: Sequence[tuple[float, float]], indexes: Indexes | None = None, masked: bool = False
+        self, xy: Sequence[tuple[FloatInt, FloatInt]], indexes: Indexes | None = None, masked: bool = False
     ) -> Iterator[NDArray[Any]]: ...
     def stats(self, *, indexes: Indexes | None = None, approx: bool = False) -> list[Statistics]: ...
     @deprecated("DatasetReaderBase.statistics() will be removed in 2.0.0; please switch to stats().")
@@ -117,7 +118,7 @@ class DatasetWriterBase(DatasetReaderBase):
         crs: CRSInput | None = None,
         transform: Affine | None = None,
         dtype: DTypeLike | None = None,
-        nodata: float | None = None,
+        nodata: FloatInt | None = None,
         gcps: Sequence[GroundControlPoint] | None = None,
         rpcs: RPC | None = None,
         sharing: bool = False,
@@ -165,7 +166,7 @@ class BufferedDatasetWriterBase(DatasetWriterBase):
         crs: CRSInput | None = None,
         transform: Affine | None = None,
         dtype: DTypeLike | None = None,
-        nodata: float | None = None,
+        nodata: FloatInt | None = None,
         gcps: Sequence[GroundControlPoint] | None = None,
         rpcs: RPC | None = None,
         sharing: bool = False,

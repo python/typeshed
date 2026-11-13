@@ -1,13 +1,14 @@
+from _typeshed import FloatInt
 from typing import Final
 
 from pymeeus.Angle import Angle
 from pymeeus.Epoch import Epoch
 
-VSOP87_L: Final[list[list[list[float]]]]
-VSOP87_B: Final[list[list[list[float]]]]
-VSOP87_R: Final[list[list[list[float]]]]
-ORBITAL_ELEM: Final[list[list[float]]]
-ORBITAL_ELEM_J2000: Final[list[list[float]]]
+VSOP87_L: Final[list[list[list[FloatInt]]]]
+VSOP87_B: Final[list[list[list[FloatInt]]]]
+VSOP87_R: Final[list[list[list[FloatInt]]]]
+ORBITAL_ELEM: Final[list[list[FloatInt]]]
+ORBITAL_ELEM_J2000: Final[list[list[FloatInt]]]
 
 class Saturn:
     @staticmethod
@@ -33,7 +34,7 @@ class Saturn:
     @staticmethod
     def passage_nodes(epoch: Epoch, ascending: bool = True) -> tuple[Epoch, float]: ...
     @staticmethod
-    def magnitude(sun_dist: float, earth_dist: float, delta_U: float | Angle, B: float | Angle) -> float: ...
+    def magnitude(sun_dist: FloatInt, earth_dist: FloatInt, delta_U: FloatInt | Angle, B: FloatInt | Angle) -> float: ...
     @staticmethod
     def ring_inclination(epoch: Epoch) -> Angle: ...
     @staticmethod

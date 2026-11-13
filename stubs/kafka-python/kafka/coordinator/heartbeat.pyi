@@ -1,12 +1,13 @@
+from _typeshed import FloatInt
 from _typeshed import Incomplete
 
 class Heartbeat:
     DEFAULT_CONFIG: dict[str, Incomplete]
     config: dict[str, Incomplete]
-    last_send: float
-    last_receive: float
-    last_poll: float
-    last_reset: float
+    last_send: FloatInt
+    last_receive: FloatInt
+    last_poll: FloatInt
+    last_reset: FloatInt
     heartbeat_failed: bool | None
     def __init__(self, **configs) -> None: ...
     def poll(self) -> None: ...

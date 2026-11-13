@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 import datetime
 from _typeshed import Unused
 from collections.abc import Generator, Iterable
@@ -14,11 +15,11 @@ ExpandedExpression: TypeAlias = list[int | Literal["*", "l"]]
 class _AllIter(Protocol[_R_co]):
     @overload
     def __call__(
-        self, ret_type: type[_R2_co], start_time: float | datetime.datetime | None = None, update_current: bool | None = None
+        self, ret_type: type[_R2_co], start_time: FloatInt | datetime.datetime | None = None, update_current: bool | None = None
     ) -> Generator[_R2_co]: ...
     @overload
     def __call__(
-        self, ret_type: None = None, start_time: float | datetime.datetime | None = None, update_current: bool | None = None
+        self, ret_type: None = None, start_time: FloatInt | datetime.datetime | None = None, update_current: bool | None = None
     ) -> Generator[_R_co]: ...
 
 def is_32bit() -> bool: ...
@@ -104,9 +105,9 @@ class croniter(Generic[_R_co]):
     second_at_beginning: bool
     tzinfo: datetime.tzinfo | None
 
-    start_time: float
-    dst_start_time: float
-    cur: float
+    start_time: FloatInt
+    dst_start_time: FloatInt
+    cur: FloatInt
 
     expanded: list[list[str]]
     nth_weekday_of_month: dict[str, set[int]]
@@ -118,7 +119,7 @@ class croniter(Generic[_R_co]):
     def __new__(
         cls,
         expr_format: str,
-        start_time: float | datetime.datetime | None = None,
+        start_time: FloatInt | datetime.datetime | None = None,
         ret_type: type[float] = ...,
         day_or: bool = True,
         max_years_between_matches: int | None = None,
@@ -132,7 +133,7 @@ class croniter(Generic[_R_co]):
     def __new__(
         cls,
         expr_format: str,
-        start_time: float | datetime.datetime | None,
+        start_time: FloatInt | datetime.datetime | None,
         ret_type: type[datetime.datetime],
         day_or: bool = True,
         max_years_between_matches: int | None = None,
@@ -160,7 +161,7 @@ class croniter(Generic[_R_co]):
     def __init__(
         self,
         expr_format: str,
-        start_time: float | datetime.datetime | None = None,
+        start_time: FloatInt | datetime.datetime | None = None,
         ret_type: type[_R_co] = ...,
         day_or: bool = True,
         max_years_between_matches: int | None = None,
@@ -173,20 +174,20 @@ class croniter(Generic[_R_co]):
 
     @overload
     def get_next(
-        self, ret_type: type[_R2_co], start_time: float | datetime.datetime | None = None, update_current: bool = True
+        self, ret_type: type[_R2_co], start_time: FloatInt | datetime.datetime | None = None, update_current: bool = True
     ) -> _R2_co: ...
     @overload
     def get_next(
-        self, ret_type: None = None, start_time: float | datetime.datetime | None = None, update_current: bool = True
+        self, ret_type: None = None, start_time: FloatInt | datetime.datetime | None = None, update_current: bool = True
     ) -> _R_co: ...
 
     @overload
     def get_prev(
-        self, ret_type: type[_R2_co], start_time: float | datetime.datetime | None = None, update_current: bool = True
+        self, ret_type: type[_R2_co], start_time: FloatInt | datetime.datetime | None = None, update_current: bool = True
     ) -> _R2_co: ...
     @overload
     def get_prev(
-        self, ret_type: None = None, start_time: float | datetime.datetime | None = None, update_current: bool = True
+        self, ret_type: None = None, start_time: FloatInt | datetime.datetime | None = None, update_current: bool = True
     ) -> _R_co: ...
 
     @overload
@@ -194,27 +195,27 @@ class croniter(Generic[_R_co]):
     @overload
     def get_current(self, ret_type: None = None) -> _R_co: ...
 
-    def set_current(self, start_time: float | datetime.datetime | None, force: bool = True) -> float: ...
+    def set_current(self, start_time: FloatInt | datetime.datetime | None, force: bool = True) -> float: ...
     @staticmethod
     def datetime_to_timestamp(d: datetime.datetime) -> float: ...
-    def timestamp_to_datetime(self, timestamp: float, tzinfo: datetime.tzinfo | None = ...) -> datetime.datetime: ...
+    def timestamp_to_datetime(self, timestamp: FloatInt, tzinfo: datetime.tzinfo | None = ...) -> datetime.datetime: ...
 
     @overload
     def all_next(
-        self, ret_type: type[_R2_co], start_time: float | datetime.datetime | None = None, update_current: bool | None = None
+        self, ret_type: type[_R2_co], start_time: FloatInt | datetime.datetime | None = None, update_current: bool | None = None
     ) -> Generator[_R2_co]: ...
     @overload
     def all_next(
-        self, ret_type: None = None, start_time: float | datetime.datetime | None = None, update_current: bool | None = None
+        self, ret_type: None = None, start_time: FloatInt | datetime.datetime | None = None, update_current: bool | None = None
     ) -> Generator[_R_co]: ...
 
     @overload
     def all_prev(
-        self, ret_type: type[_R2_co], start_time: float | datetime.datetime | None = None, update_current: bool | None = None
+        self, ret_type: type[_R2_co], start_time: FloatInt | datetime.datetime | None = None, update_current: bool | None = None
     ) -> Generator[_R2_co]: ...
     @overload
     def all_prev(
-        self, ret_type: None = None, start_time: float | datetime.datetime | None = None, update_current: bool | None = None
+        self, ret_type: None = None, start_time: FloatInt | datetime.datetime | None = None, update_current: bool | None = None
     ) -> Generator[_R_co]: ...
 
     def iter(self, *args: Unused, **kwargs: Unused) -> _AllIter[_R_co]: ...
@@ -224,7 +225,7 @@ class croniter(Generic[_R_co]):
     def next(
         self,
         ret_type: type[_R2_co],
-        start_time: float | datetime.datetime | None = None,
+        start_time: FloatInt | datetime.datetime | None = None,
         is_prev: bool | None = None,
         update_current: bool | None = None,
     ) -> _R2_co: ...
@@ -232,7 +233,7 @@ class croniter(Generic[_R_co]):
     def next(
         self,
         ret_type: None = None,
-        start_time: float | datetime.datetime | None = None,
+        start_time: FloatInt | datetime.datetime | None = None,
         is_prev: bool | None = None,
         update_current: bool | None = None,
     ) -> _R_co: ...
@@ -252,7 +253,7 @@ class croniter(Generic[_R_co]):
         expr_format: str,
         hash_id: bytes | None = None,
         second_at_beginning: bool = False,
-        from_timestamp: float | None = None,
+        from_timestamp: FloatInt | None = None,
         strict: bool = False,
         strict_year: int | Iterable[int] | None = None,
     ) -> tuple[list[ExpandedExpression], dict[str, set[int]]]: ...
@@ -270,7 +271,7 @@ class croniter(Generic[_R_co]):
     def match(
         cls,
         cron_expression: str,
-        testdate: float | datetime.datetime | None,
+        testdate: FloatInt | datetime.datetime | None,
         day_or: bool = True,
         second_at_beginning: bool = False,
         precision_in_seconds: int | None = None,
@@ -288,8 +289,8 @@ class croniter(Generic[_R_co]):
 
 @overload
 def croniter_range(
-    start: float | datetime.datetime,
-    stop: float | datetime.datetime,
+    start: FloatInt | datetime.datetime,
+    stop: FloatInt | datetime.datetime,
     expr_format: str,
     ret_type: type[_R2_co],
     day_or: bool = True,
@@ -300,8 +301,8 @@ def croniter_range(
 ) -> Generator[_R2_co]: ...
 @overload
 def croniter_range(
-    start: float,
-    stop: float | datetime.datetime,
+    start: FloatInt,
+    stop: FloatInt | datetime.datetime,
     expr_format: str,
     ret_type: None = None,
     day_or: bool = True,
@@ -313,7 +314,7 @@ def croniter_range(
 @overload
 def croniter_range(
     start: datetime.datetime,
-    stop: float | datetime.datetime,
+    stop: FloatInt | datetime.datetime,
     expr_format: str,
     ret_type: None = None,
     day_or: bool = True,

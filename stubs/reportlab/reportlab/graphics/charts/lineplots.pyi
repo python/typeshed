@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import Incomplete
 from typing import Final
 
@@ -59,8 +60,8 @@ class LinePlot(AbstractLineChart):
     def addCrossHair(self, name, xv, yv, strokeColor=..., strokeWidth: int = 1, beforeLines: bool = True): ...
 
 class LinePlot3D(LinePlot):
-    theta_x: float
-    theta_y: float
+    theta_x: FloatInt
+    theta_y: FloatInt
     zDepth: int
     zSpace: int
     def calcPositions(self) -> None: ...

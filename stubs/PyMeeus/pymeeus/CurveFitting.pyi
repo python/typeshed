@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Callable
 from typing import overload
 
@@ -9,14 +10,14 @@ class CurveFitting:
     @overload
     def __init__(self, a: CurveFitting, /) -> None: ...
     @overload
-    def __init__(self, a: list[float | Angle] | tuple[float | Angle, ...], /) -> None: ...
+    def __init__(self, a: list[FloatInt | Angle] | tuple[FloatInt | Angle, ...], /) -> None: ...
     @overload
     def __init__(
-        self, a1: list[float | Angle] | tuple[float | Angle, ...], a2: list[float | Angle] | tuple[float | Angle, ...], /
+        self, a1: list[FloatInt | Angle] | tuple[FloatInt | Angle, ...], a2: list[FloatInt | Angle] | tuple[FloatInt | Angle, ...], /
     ) -> None: ...
     @overload
     def __init__(
-        self, a1: float | Angle, a2: float | Angle, a3: float | Angle, a4: float | Angle, /, *rest: float | Angle
+        self, a1: FloatInt | Angle, a2: FloatInt | Angle, a3: FloatInt | Angle, a4: FloatInt | Angle, /, *rest: FloatInt | Angle
     ) -> None: ...
 
     @overload
@@ -24,14 +25,14 @@ class CurveFitting:
     @overload
     def set(self, a: CurveFitting, /) -> None: ...
     @overload
-    def set(self, a: list[float | Angle] | tuple[float | Angle, ...], /) -> None: ...
+    def set(self, a: list[FloatInt | Angle] | tuple[FloatInt | Angle, ...], /) -> None: ...
     @overload
     def set(
-        self, a1: list[float | Angle] | tuple[float | Angle, ...], a2: list[float | Angle] | tuple[float | Angle, ...], /
+        self, a1: list[FloatInt | Angle] | tuple[FloatInt | Angle, ...], a2: list[FloatInt | Angle] | tuple[FloatInt | Angle, ...], /
     ) -> None: ...
     @overload
     def set(
-        self, a1: float | Angle, a2: float | Angle, a3: float | Angle, a4: float | Angle, /, *rest: float | Angle
+        self, a1: FloatInt | Angle, a2: FloatInt | Angle, a3: FloatInt | Angle, a4: FloatInt | Angle, /, *rest: FloatInt | Angle
     ) -> None: ...
 
     def __len__(self) -> int: ...

@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import ConvertibleToFloat, Incomplete, Unused
 from typing import ClassVar, Literal, TypeAlias
 
@@ -33,7 +34,7 @@ class PieChart(_PieChartBase):
     # varyColors = _PieChartBase.varyColors
     # ser = _PieChartBase.ser
     # dLbls = _PieChartBase.dLbls
-    firstSliceAng: NestedMinMax[float, Literal[False]]
+    firstSliceAng: NestedMinMax[FloatInt, Literal[False]]
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(
@@ -55,8 +56,8 @@ class DoughnutChart(_PieChartBase):
     # varyColors = _PieChartBase.varyColors
     # ser = _PieChartBase.ser
     # dLbls = _PieChartBase.dLbls
-    firstSliceAng: NestedMinMax[float, Literal[False]]
-    holeSize: NestedMinMax[float, Literal[True]]
+    firstSliceAng: NestedMinMax[FloatInt, Literal[False]]
+    holeSize: NestedMinMax[FloatInt, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(
@@ -85,7 +86,7 @@ class ProjectedPieChart(_PieChartBase):
     splitType: NestedNoneSet[_ProjectedPieChartSplitType]
     splitPos: NestedFloat[Literal[True]]
     custSplit: Typed[CustomSplit, Literal[True]]
-    secondPieSize: NestedMinMax[float, Literal[True]]
+    secondPieSize: NestedMinMax[FloatInt, Literal[True]]
     serLines: Typed[ChartLines, Literal[True]]
     join_lines: Alias
     extLst: Typed[ExtensionList, Literal[True]]

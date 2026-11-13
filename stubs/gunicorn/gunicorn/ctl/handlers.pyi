@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import Incomplete
 from typing import Literal, TypedDict, type_check_only
 from typing_extensions import NotRequired
@@ -9,7 +10,7 @@ class _Worker(TypedDict):
     pid: int
     age: int
     booted: bool
-    last_heartbeat: float
+    last_heartbeat: FloatInt
     aborted: NotRequired[bool]
     apps: NotRequired[list[str]]
 
@@ -34,7 +35,7 @@ class _ShowDirtyReturnType(TypedDict):
 
 @type_check_only
 class _ShowStatsReturnType(TypedDict):
-    uptime: float | None
+    uptime: FloatInt | None
     pid: int
     workers_current: int
     workers_target: int

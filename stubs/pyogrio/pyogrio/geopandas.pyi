@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 import os
 from collections.abc import Collection, Mapping
 from typing import Any, Literal, overload
@@ -20,7 +21,7 @@ def read_dataframe(
     skip_features: int = 0,
     max_features: int | None = None,
     where: str | None = None,
-    bbox: tuple[float, float, float, float] | None = None,
+    bbox: tuple[FloatInt, FloatInt, FloatInt, FloatInt] | None = None,
     mask: shp.Geometry | None = None,
     fids: ArrayLikeInt | None = None,
     sql: str | None = None,
@@ -46,7 +47,7 @@ def read_dataframe(
     skip_features: int = 0,
     max_features: int | None = None,
     where: str | None = None,
-    bbox: tuple[float, float, float, float] | None = None,
+    bbox: tuple[FloatInt, FloatInt, FloatInt, FloatInt] | None = None,
     mask: shp.Geometry | None = None,
     fids: ArrayLikeInt | None = None,
     sql: str | None = None,

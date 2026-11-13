@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 import logging
 from collections.abc import Iterable
 from typing import Any, Final
@@ -18,17 +19,17 @@ def raster_geometry_mask(
     invert: bool = False,
     crop: bool = False,
     pad: bool = False,
-    pad_width: float = 0.5,
+    pad_width: FloatInt = 0.5,
 ) -> tuple[NDArray[Any], Affine, tuple[int, int, int, int]]: ...
 def mask(
     dataset: DatasetReaderBase,
     shapes: Iterable[Geometry],
     all_touched: bool = False,
     invert: bool = False,
-    nodata: float | None = None,
+    nodata: FloatInt | None = None,
     filled: bool = True,
     crop: bool = False,
     pad: bool = False,
-    pad_width: float = 0.5,
+    pad_width: FloatInt = 0.5,
     indexes: int | Iterable[int] | None = None,
 ) -> tuple[NDArray[Any], Affine]: ...

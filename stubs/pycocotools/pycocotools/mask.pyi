@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from typing import Any, TypeAlias, overload
 
 import numpy as np
@@ -11,8 +12,8 @@ _NDArrayUInt32: TypeAlias = npt.NDArray[np.uint32]
 _NDArrayFloat64: TypeAlias = npt.NDArray[np.float64]
 
 def iou(
-    dt: _NDArrayUInt32 | list[float] | list[_EncodedRLE],
-    gt: _NDArrayUInt32 | list[float] | list[_EncodedRLE],
+    dt: _NDArrayUInt32 | list[FloatInt] | list[_EncodedRLE],
+    gt: _NDArrayUInt32 | list[FloatInt] | list[_EncodedRLE],
     pyiscrowd: list[int] | _NDArrayUInt8,
 ) -> list[Any] | _NDArrayFloat64: ...
 def merge(rleObjs: list[_EncodedRLE], intersect: int = 0) -> _EncodedRLE: ...

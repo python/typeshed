@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import ConvertibleToFloat, Incomplete, Unused
 from collections.abc import Iterable, Iterator, Sequence as ABCSequence
 from typing import ClassVar, Final, Literal, TypeAlias
@@ -83,7 +84,7 @@ DEFAULT_GRAY_FILL: Final[PatternFill]
 
 class Stop(Serialisable):
     tagname: ClassVar[str]
-    position: MinMax[float, Literal[False]]
+    position: MinMax[FloatInt, Literal[False]]
     color: Incomplete
     def __init__(self, color, position: ConvertibleToFloat) -> None: ...
 

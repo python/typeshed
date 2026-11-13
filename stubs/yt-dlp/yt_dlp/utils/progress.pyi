@@ -1,9 +1,10 @@
+from _typeshed import FloatInt
 class ProgressCalculator:
     SAMPLING_WINDOW: int
-    SAMPLING_RATE: float
+    SAMPLING_RATE: FloatInt
     GRACE_PERIOD: int
     downloaded: int
-    elapsed: float
+    elapsed: FloatInt
     speed: SmoothValue
     eta: SmoothValue
     def __init__(self, initial: int) -> None: ...
@@ -17,8 +18,8 @@ class ProgressCalculator:
     def update(self, size: int | None) -> None: ...
 
 class SmoothValue:
-    value: float | None
-    def __init__(self, initial: float | None, smoothing: float) -> None: ...
-    smooth: float | None
-    def set(self, value: float) -> None: ...
+    value: FloatInt | None
+    def __init__(self, initial: FloatInt | None, smoothing: FloatInt) -> None: ...
+    smooth: FloatInt | None
+    def set(self, value: FloatInt) -> None: ...
     def reset(self) -> None: ...

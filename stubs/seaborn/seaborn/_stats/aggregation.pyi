@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Callable
 from dataclasses import dataclass
 
@@ -11,7 +12,7 @@ class Agg(Stat):
 @dataclass
 class Est(Stat):
     func: str | Callable[[Vector], float] = "mean"
-    errorbar: str | tuple[str, float] = ("ci", 95)
+    errorbar: str | tuple[str, FloatInt] = ("ci", 95)
     n_boot: int = 1000
     seed: int | None = None
 

@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 import re
 import unittest
 from _typeshed import Incomplete, StrPath, Unused
@@ -7,7 +8,7 @@ from typing import Final, Literal
 
 __version__: Final[str]
 
-def invariantSeed(n: float | str | bytes | bytearray | None) -> None: ...
+def invariantSeed(n: FloatInt | str | bytes | bytearray | None) -> None: ...
 def haveRenderPM() -> ModuleType | Literal[False]: ...
 
 DEJAVUSANS: Final = ("DejaVuSans", "DejaVuSans-Bold", "DejaVuSans-Oblique", "DejaVuSans-BoldOblique")
@@ -53,7 +54,7 @@ class SecureTestCase(unittest.TestCase):
 
 class NearTestCase(unittest.TestCase):
     @staticmethod
-    def assertNear(a, b, accuracy: float = 1e-05) -> None: ...
+    def assertNear(a, b, accuracy: FloatInt = 1e-05) -> None: ...
 
 class ScriptThatMakesFileTest(unittest.TestCase):
     scriptDir: Incomplete

@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import Incomplete, Unused
 from collections.abc import Callable, Mapping
 from typing import Any, Final, Literal, Protocol, TypeAlias, TypedDict, TypeVar, overload, type_check_only
@@ -11,14 +12,14 @@ from reportlab.platypus.flowables import Flowable
 
 _T = TypeVar("_T")
 _BoolInt: TypeAlias = Literal[0, 1]
-_Op: TypeAlias = _SupportsWidthAndExecute | str | float | tuple[str, Unpack[tuple[Any, ...]]]
+_Op: TypeAlias = _SupportsWidthAndExecute | str | FloatInt | tuple[str, Unpack[tuple[Any, ...]]]
 # NOTE: Output from pyRXP xml parser
 _ParsedText: TypeAlias = tuple[str, dict[str, Any], list[_ParsedText], Any] | list[_ParsedText] | str
 
 @type_check_only
 class _LineOpHandler(Protocol):
-    def start_at(self, x: float, y: float, para: paragraphEngine, canvas: Canvas, textobject: PDFTextObject) -> None: ...
-    def end_at(self, x: float, y: float, para: paragraphEngine, canvas: Canvas, textobject: PDFTextObject) -> None: ...
+    def start_at(self, x: FloatInt, y: FloatInt, para: paragraphEngine, canvas: Canvas, textobject: PDFTextObject) -> None: ...
+    def end_at(self, x: FloatInt, y: FloatInt, para: paragraphEngine, canvas: Canvas, textobject: PDFTextObject) -> None: ...
 
 @type_check_only
 class _SupportsWidthAndExecute(Protocol):
@@ -28,36 +29,36 @@ class _SupportsWidthAndExecute(Protocol):
 @type_check_only
 class _SimpleStyleKwargs(TypedDict, total=False):
     fontName: str
-    fontSize: float
-    leading: float
-    leftIndent: float
-    rightIndent: float
-    firstLineIndent: float
+    fontSize: FloatInt
+    leading: FloatInt
+    leftIndent: FloatInt
+    rightIndent: FloatInt
+    firstLineIndent: FloatInt
     alignment: Literal[0, 1, 2, 4]
-    spaceBefore: float
-    spaceAfter: float
+    spaceBefore: FloatInt
+    spaceAfter: FloatInt
     bulletFontName: str
-    bulletFontSize: float
-    bulletIndent: float
+    bulletFontSize: FloatInt
+    bulletIndent: FloatInt
     textColor: _Color
     backColor: _Color | None
 
 debug: int
 DUMPPROGRAM: int
-TOOSMALLSPACE: float
+TOOSMALLSPACE: FloatInt
 
 class paragraphEngine:
     TEXT_STATE_VARIABLES: Final[tuple[str, ...]]
     lineOpHandlers: list[_LineOpHandler]
     program: list[_Op]
-    indent: float
-    baseindent: float
+    indent: FloatInt
+    baseindent: FloatInt
     fontName: str
-    fontSize: float
-    leading: float
+    fontSize: FloatInt
+    leading: FloatInt
     fontColor: _Color
-    x: float
-    y: float
+    x: FloatInt
+    y: FloatInt
     alignment: Literal[0, 1, 2, 4]
     # NOTE: The inner list matches TEXT_STATE_VARIABLES
     textStateStack: list[list[Any]]
@@ -65,23 +66,23 @@ class paragraphEngine:
     def pushTextState(self) -> list[Any]: ...
     def popTextState(self) -> None: ...
     def format(
-        self, maxwidth: float, maxheight: float, program: list[_Op], leading: float = 0
+        self, maxwidth: FloatInt, maxheight: FloatInt, program: list[_Op], leading: FloatInt = 0
     ) -> tuple[list[_Op], str, dict[str, Any], float]: ...
     def getState(self) -> dict[str, Any]: ...
     def resetState(self, state: dict[str, Any]) -> None: ...
     def fitLine(
-        self, program: list[_Op], totalLength: float
+        self, program: list[_Op], totalLength: FloatInt
     ) -> tuple[Literal[0, 1], list[_Op], int, float, float, float, Literal[0, 1]]: ...
-    def centerAlign(self, line: list[_Op], lineLength: float, maxLength: float) -> list[_Op]: ...
-    def rightAlign(self, line: list[_Op], lineLength: float, maxLength: float) -> list[_Op]: ...
-    def insertShift(self, line: list[_Op], shift: float) -> list[_Op]: ...
-    def justifyAlign(self, line: list[_Op], lineLength: float, maxLength: float) -> list[_Op]: ...
+    def centerAlign(self, line: list[_Op], lineLength: FloatInt, maxLength: FloatInt) -> list[_Op]: ...
+    def rightAlign(self, line: list[_Op], lineLength: FloatInt, maxLength: FloatInt) -> list[_Op]: ...
+    def insertShift(self, line: list[_Op], shift: FloatInt) -> list[_Op]: ...
+    def justifyAlign(self, line: list[_Op], lineLength: FloatInt, maxLength: FloatInt) -> list[_Op]: ...
     def shrinkWrap(self, line: list[_Op]) -> list[_Op]: ...
     def cleanProgram(self, line: list[_Op]) -> list[_Op]: ...
     def runOpCodes(self, program: list[_Op], canvas: Canvas, textobject: PDFTextObject) -> dict[str, Any]: ...
 
-def stringLine(line: list[_Op], length: float) -> list[_Op]: ...
-def simpleJustifyAlign(line: list[_Op], currentLength: float, maxLength: float) -> list[_Op]: ...
+def stringLine(line: list[_Op], length: FloatInt) -> list[_Op]: ...
+def simpleJustifyAlign(line: list[_Op], currentLength: FloatInt, maxLength: FloatInt) -> list[_Op]: ...
 def readBool(text: str) -> _BoolInt: ...
 def readAlignment(text: str) -> Literal[0, 1, 2, 4] | None: ...
 def readLength(text: str) -> float: ...
@@ -110,17 +111,17 @@ class StyleAttributeConverters:
 class SimpleStyle:
     name: str
     fontName: str
-    fontSize: float
-    leading: float
-    leftIndent: float
-    rightIndent: float
-    firstLineIndent: float
+    fontSize: FloatInt
+    leading: FloatInt
+    leftIndent: FloatInt
+    rightIndent: FloatInt
+    firstLineIndent: FloatInt
     alignment: Literal[0, 1, 2, 4]
-    spaceBefore: float
-    spaceAfter: float
+    spaceBefore: FloatInt
+    spaceAfter: FloatInt
     bulletFontName: str
-    bulletFontSize: float
-    bulletIndent: float
+    bulletFontSize: FloatInt
+    bulletIndent: FloatInt
     textColor: _Color
     backColor: _Color | None
     # NOTE: We are being generous by allowing PropertySet i.e. ParagraphStyle here
@@ -143,7 +144,7 @@ def defaultContext() -> dict[str, PropertySet]: ...
 def buildContext(stylesheet: StyleSheet1 | None = None) -> dict[str, PropertySet]: ...
 
 class Para(Flowable):
-    baseindent: float
+    baseindent: FloatInt
     context: dict[str, PropertySet]
     parsedText: _ParsedText
     bulletText: str | None
@@ -155,7 +156,7 @@ class Para(Flowable):
     bold: _BoolInt
     italic: _BoolInt
     face: str
-    size: float
+    size: FloatInt
     def __init__(
         self,
         # NOTE: We are being generous by allowing PropertySet i.e. ParagraphStyle here
@@ -165,7 +166,7 @@ class Para(Flowable):
         bulletText: str | None = None,
         state: dict[str, Any] | None = None,
         context: dict[str, PropertySet] | None = None,
-        baseindent: float = 0,
+        baseindent: FloatInt = 0,
     ) -> None: ...
     def draw(self) -> None: ...
     def compileProgram(self, parsedText: _ParsedText, program: list[_Op] | None = None) -> list[_Op]: ...
@@ -245,11 +246,11 @@ def Paragraph(
 class UnderLineHandler:
     color: _Color | None
     # NOTE: available after start_at
-    xStart: float
-    yStart: float
+    xStart: FloatInt
+    yStart: FloatInt
     def __init__(self, color: _Color | None = None) -> None: ...
-    def start_at(self, x: float, y: float, para: paragraphEngine, canvas: Canvas, textobject: PDFTextObject) -> None: ...
-    def end_at(self, x: float, y: float, para: paragraphEngine, canvas: Canvas, textobject: PDFTextObject) -> None: ...
+    def start_at(self, x: FloatInt, y: FloatInt, para: paragraphEngine, canvas: Canvas, textobject: PDFTextObject) -> None: ...
+    def end_at(self, x: FloatInt, y: FloatInt, para: paragraphEngine, canvas: Canvas, textobject: PDFTextObject) -> None: ...
 
 UNDERLINE: Final[UnderLineHandler]
 

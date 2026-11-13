@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 import collections
 import types
 from collections.abc import Callable, Collection, Iterable, Mapping
@@ -10,7 +11,7 @@ from yt_dlp.utils._utils import function_with_repr
 from .utils import ExtractorError
 
 def int_to_int32(n: int) -> int: ...
-def js_number_to_string(val: float, radix: int = 10) -> str: ...
+def js_number_to_string(val: FloatInt, radix: int = 10) -> str: ...
 
 class JS_Undefined: ...
 

@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import Incomplete
 
 from networkx.classes.digraph import DiGraph
@@ -15,5 +16,5 @@ def shortest_augmenting_path(
     residual: Graph[_Node] | None = None,
     value_only: bool = False,
     two_phase: bool = False,
-    cutoff: float | None = None,
+    cutoff: FloatInt | None = None,
 ) -> DiGraph[Incomplete]: ...

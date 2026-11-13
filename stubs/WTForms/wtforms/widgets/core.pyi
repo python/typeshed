@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from decimal import Decimal
 from typing import Any, Literal, TypeAlias
 
@@ -128,14 +129,14 @@ class TimeInput(Input): ...
 class DateTimeLocalInput(Input): ...
 
 class NumberInput(Input):
-    step: Decimal | float | str | None
-    min: Decimal | float | str | None
-    max: Decimal | float | str | None
+    step: Decimal | FloatInt | str | None
+    min: Decimal | FloatInt | str | None
+    max: Decimal | FloatInt | str | None
     def __init__(
         self,
-        step: Decimal | float | str | None = None,
-        min: Decimal | float | str | None = None,
-        max: Decimal | float | str | None = None,
+        step: Decimal | FloatInt | str | None = None,
+        min: Decimal | FloatInt | str | None = None,
+        max: Decimal | FloatInt | str | None = None,
     ) -> None: ...
 
 class RangeInput(Input): ...

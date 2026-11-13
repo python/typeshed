@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Callable, Iterable
 from pathlib import PurePath
 from types import TracebackType
@@ -28,7 +29,7 @@ def asunicode_win(s: bytes | str) -> str: ...
 class SCPClient:
     transport: Transport
     buff_size: int
-    socket_timeout: float | None
+    socket_timeout: FloatInt | None
     channel: Channel | None
     preserve_times: bool
     sanitize: Callable[[bytes], bytes]
@@ -38,7 +39,7 @@ class SCPClient:
         self,
         transport: Transport,
         buff_size: int = 16384,
-        socket_timeout: float | None = 10.0,
+        socket_timeout: FloatInt | None = 10.0,
         progress: Callable[[str | bytes, int, int], None] | None = None,
         progress4: Callable[[str | bytes, int, int, tuple[str, int]], None] | None = None,
         sanitize: Callable[[bytes], bytes] | Literal[False] = ...,

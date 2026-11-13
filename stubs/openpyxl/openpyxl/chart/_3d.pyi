@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import ConvertibleToFloat, ConvertibleToInt, Unused
 from typing import ClassVar, Literal
 
@@ -12,9 +13,9 @@ from ..xml._functions_overloads import _HasTagAndGet
 
 class View3D(Serialisable):
     tagname: ClassVar[str]
-    rotX: NestedMinMax[float, Literal[True]]
+    rotX: NestedMinMax[FloatInt, Literal[True]]
     x_rotation: Alias
-    hPercent: NestedMinMax[float, Literal[True]]
+    hPercent: NestedMinMax[FloatInt, Literal[True]]
     height_percent: Alias
     rotY: NestedInteger[Literal[True]]
     y_rotation: Alias

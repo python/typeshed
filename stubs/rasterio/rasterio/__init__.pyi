@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 import logging
 import os
 from collections.abc import Callable, Sequence
@@ -77,7 +78,7 @@ def open(
     crs: CRSInput | None = None,
     transform: Affine | None = None,
     dtype: DTypeLike | None = None,
-    nodata: float | None = None,
+    nodata: FloatInt | None = None,
     sharing: bool = False,
     thread_safe: bool = False,
     opener: _Opener | None = None,
@@ -94,7 +95,7 @@ def open(
     crs: CRSInput | None = None,
     transform: Affine | None = None,
     dtype: DTypeLike | None = None,
-    nodata: float | None = None,
+    nodata: FloatInt | None = None,
     sharing: bool = False,
     thread_safe: bool = False,
     opener: _Opener | None = None,
@@ -111,7 +112,7 @@ def open(
     crs: CRSInput | None = None,
     transform: Affine | None = None,
     dtype: DTypeLike | None = None,
-    nodata: float | None = None,
+    nodata: FloatInt | None = None,
     sharing: bool = False,
     thread_safe: bool = False,
     opener: _Opener | None = None,

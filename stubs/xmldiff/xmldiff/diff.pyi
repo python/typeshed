@@ -1,16 +1,17 @@
+from _typeshed import FloatInt
 from _typeshed import Incomplete
 from collections.abc import Generator
 from typing import Literal
 
 class Differ:
-    F: float
+    F: FloatInt
     uniqueattrs: Incomplete
     fast_match: Incomplete
     best_match: Incomplete
     ignored_attrs: Incomplete
     def __init__(
         self,
-        F: float | None = None,
+        F: FloatInt | None = None,
         uniqueattrs=None,
         ratio_mode: Literal["accurate", "fast", "faster"] = "fast",
         fast_match: bool = False,

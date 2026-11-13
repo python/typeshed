@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 import re
 from collections.abc import Callable, Iterable, Mapping
 from contextlib import AbstractContextManager
@@ -22,7 +23,7 @@ _Headers: TypeAlias = Mapping[str, _HeaderValue]
 _Body: TypeAlias = str | bytes
 _ResponseBody: TypeAlias = _Body | Callable[[HTTPrettyRequest, str, _Headers], tuple[int, _Headers, _Body]]
 
-def set_default_thread_timeout(timeout: float) -> None: ...
+def set_default_thread_timeout(timeout: FloatInt) -> None: ...
 def get_default_thread_timeout() -> float: ...
 
 class HTTPrettyRequest(HttpBaseClass):
@@ -31,7 +32,7 @@ class HTTPrettyRequest(HttpBaseClass):
     path: str
     querystring: dict[str, list[str]]
     parsed_body: Any  # It can be any object after parsing raw (str) body
-    created_at: float
+    created_at: FloatInt
     def __init__(
         self, headers: str | bytes, body: _Body = "", sock: object | None = None, path_encoding: str = "iso-8859-1"
     ) -> None: ...

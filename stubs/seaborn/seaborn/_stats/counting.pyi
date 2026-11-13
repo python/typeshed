@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from dataclasses import dataclass
 
 from numpy.typing import ArrayLike
@@ -10,8 +11,8 @@ class Count(Stat): ...
 class Hist(Stat):
     stat: str = "count"
     bins: str | int | ArrayLike = "auto"
-    binwidth: float | None = None
-    binrange: tuple[float, float] | None = None
+    binwidth: FloatInt | None = None
+    binrange: tuple[FloatInt, FloatInt] | None = None
     common_norm: bool | list[str] = True
     common_bins: bool | list[str] = True
     cumulative: bool = False

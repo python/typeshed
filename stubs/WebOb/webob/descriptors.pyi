@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Callable, Iterable
 from datetime import date, datetime, timedelta
 from time import _TimeTuple, struct_time
@@ -17,7 +18,7 @@ _DescriptorT = TypeVar("_DescriptorT", bound=AsymmetricPropertyWithDelete[Any, A
 _StringProperty: TypeAlias = SymmetricPropertyWithDelete[str | None]
 _ListProperty: TypeAlias = AsymmetricPropertyWithDelete[tuple[str, ...] | None, Iterable[str] | str | None]
 _DateProperty: TypeAlias = AsymmetricPropertyWithDelete[
-    datetime | None, date | datetime | timedelta | _TimeTuple | struct_time | float | str | None
+    datetime | None, date | datetime | timedelta | _TimeTuple | struct_time | FloatInt | str | None
 ]
 _ContentRangeParams: TypeAlias = (
     ContentRange

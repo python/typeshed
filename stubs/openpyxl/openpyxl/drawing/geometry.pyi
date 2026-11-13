@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import ConvertibleToFloat, ConvertibleToInt, Incomplete, Unused
 from typing import ClassVar, Literal, TypeAlias, overload
 
@@ -504,7 +505,7 @@ class AdjPoint2D(Serialisable):
     def __init__(self, x=None, y=None) -> None: ...
 
 class ConnectionSite(Serialisable):
-    ang: MinMax[float, Literal[False]]
+    ang: MinMax[FloatInt, Literal[False]]
     pos: Typed[AdjPoint2D, Literal[False]]
     def __init__(self, ang: ConvertibleToFloat, pos: AdjPoint2D) -> None: ...
 

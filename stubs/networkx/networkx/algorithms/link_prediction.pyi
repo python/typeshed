@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import Incomplete
 from collections.abc import Iterable, Iterator
 
@@ -37,5 +38,5 @@ def ra_index_soundarajan_hopcroft(
 ) -> Iterator[Incomplete]: ...
 @_dispatchable
 def within_inter_cluster(
-    G: Graph[_Node], ebunch: Iterable[Incomplete] | None = None, delta: float | None = 0.001, community: str | None = "community"
+    G: Graph[_Node], ebunch: Iterable[Incomplete] | None = None, delta: FloatInt | None = 0.001, community: str | None = "community"
 ) -> Iterator[Incomplete]: ...

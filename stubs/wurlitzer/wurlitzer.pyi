@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 __all__ = ["STDOUT", "PIPE", "Wurlitzer", "pipes", "sys_pipes", "sys_pipes_forever", "stop_sys_pipes"]
 
 import contextlib
@@ -29,7 +30,7 @@ class _Stream(SupportsWrite[_T_contra], Protocol):
 _InteractiveShell: TypeAlias = Any
 
 class Wurlitzer:
-    flush_interval: float
+    flush_interval: FloatInt
     encoding: str | None
     thread: Thread | None
     handle: tuple[
@@ -52,7 +53,7 @@ class Wurlitzer:
         self, exc_type: type[BaseException] | None, exc_value: BaseException | None, traceback: TracebackType | None
     ) -> None: ...
 
-def dup2(a: int, b: int, timeout: float = 3) -> int: ...
+def dup2(a: int, b: int, timeout: FloatInt = 3) -> int: ...
 def sys_pipes(encoding: str = ..., bufsize: int | None = None) -> contextlib._GeneratorContextManager[tuple[TextIO, TextIO]]: ...
 
 # stubtest does not support overloaded context managers, hence the _GeneratorContextManager[Foo] return types.

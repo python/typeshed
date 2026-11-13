@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import Incomplete
 
 from reportlab.graphics.barcode.common import Barcode
@@ -9,9 +10,9 @@ class _Code39Base(Barcode):
     quiet: int
     gap: Incomplete
     barHeight: Incomplete
-    ratio: float
+    ratio: FloatInt
     checksum: int
-    bearers: float
+    bearers: FloatInt
     stop: int
     def __init__(self, value: str = "", **args) -> None: ...
     decomposed: Incomplete

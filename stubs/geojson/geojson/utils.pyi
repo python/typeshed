@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import Incomplete
 from collections.abc import Callable, Generator
 from typing import Any, Literal
@@ -12,5 +13,5 @@ def map_geometries(func: Callable[[Incomplete], float | Geometry], obj: GeoJSON 
 def generate_random(
     featureType: Literal["Point", "LineString", "Polygon"],
     numberVertices: int = 3,
-    boundingBox: list[float] = [-180.0, -90.0, 180.0, 90.0],
+    boundingBox: list[FloatInt] = [-180.0, -90.0, 180.0, 90.0],
 ) -> Point | LineString | Polygon: ...

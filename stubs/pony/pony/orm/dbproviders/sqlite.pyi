@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 import re
 import sys
 import types
@@ -194,7 +195,7 @@ class SQLitePool(Pool):
             filename: StrOrBytesPath,
             create_db: bool | None,
             *,
-            timeout: float = 5.0,
+            timeout: FloatInt = 5.0,
             detect_types: int = 0,
             check_same_thread: bool = True,
             factory: type[_Connection],
@@ -209,7 +210,7 @@ class SQLitePool(Pool):
             filename: StrOrBytesPath,
             create_db: bool | None,
             *,
-            timeout: float = 5.0,
+            timeout: FloatInt = 5.0,
             detect_types: int = 0,
             check_same_thread: bool = True,
             factory: type[_Connection],

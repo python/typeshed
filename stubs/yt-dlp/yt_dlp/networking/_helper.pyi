@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 import ssl
 from _socket import _Address
 from _typeshed import StrOrBytesPath
@@ -35,7 +36,7 @@ _IPAddress: TypeAlias = tuple[
 ]
 
 def create_socks_proxy_socket(
-    dest_addr: _Address, proxy_args: Mapping[str, Any], proxy_ip_addr: _IPAddress, timeout: float | None, source_address: _Address
+    dest_addr: _Address, proxy_args: Mapping[str, Any], proxy_ip_addr: _IPAddress, timeout: FloatInt | None, source_address: _Address
 ) -> sockssocket: ...
 def create_connection(
     address: tuple[str, int],

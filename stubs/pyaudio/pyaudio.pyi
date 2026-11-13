@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 import sys
 from collections.abc import Callable, Mapping, Sequence
 from typing import ClassVar, Final, TypeAlias
@@ -94,7 +95,7 @@ else:
 _ChannelMap: TypeAlias = Sequence[int]
 _PaHostApiInfo: TypeAlias = Mapping[str, str | int]
 _PaDeviceInfo: TypeAlias = Mapping[str, str | int | float]
-_StreamCallback: TypeAlias = Callable[[bytes | None, int, Mapping[str, float], int], tuple[bytes | None, int]]
+_StreamCallback: TypeAlias = Callable[[bytes | None, int, Mapping[str, FloatInt], int], tuple[bytes | None, int]]
 
 def get_format_from_width(width: int, unsigned: bool = ...) -> int: ...
 def get_portaudio_version() -> int: ...

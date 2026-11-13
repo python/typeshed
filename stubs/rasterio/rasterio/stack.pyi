@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 import logging
 import os
 from collections.abc import Sequence
@@ -12,9 +13,9 @@ logger: Final[logging.Logger]
 
 def stack(
     sources: Sequence[DatasetReaderBase | str | os.PathLike[str]],
-    bounds: tuple[float, float, float, float] | None = None,
-    res: float | tuple[float, float] | None = None,
-    nodata: float | None = None,
+    bounds: tuple[FloatInt, FloatInt, FloatInt, FloatInt] | None = None,
+    res: FloatInt | tuple[FloatInt, FloatInt] | None = None,
+    nodata: FloatInt | None = None,
     dtype: DTypeLike | None = None,
     indexes: int | Sequence[int] | None = None,
     output_count: int | None = None,

@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Generator
 from typing import TextIO, type_check_only
 
@@ -20,14 +21,14 @@ class FormatRaw(_Formatter):
     def __init__(self, output: TextIO, color: bool) -> None: ...
 
 class FormatHexdump(_Formatter):
-    start_time: float
+    start_time: FloatInt
     output: TextIO
     color: bool
     rx_color: str
     tx_color: str
     control_color: str
     def __init__(self, output: TextIO, color: bool) -> None: ...
-    def write_line(self, timestamp: float, label: str, value: str, value2: str = "") -> None: ...
+    def write_line(self, timestamp: FloatInt, label: str, value: str, value2: str = "") -> None: ...
 
 class Serial(serial.Serial):
     formatter: FormatRaw | FormatHexdump | None

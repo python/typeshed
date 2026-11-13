@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import Incomplete
 from typing import Final
 
@@ -7,7 +8,7 @@ from networkx.utils.backends import _dispatchable
 __all__ = ["lukes_partitioning"]
 
 D_EDGE_W: Final = "weight"
-D_EDGE_VALUE: Final[float]
+D_EDGE_VALUE: Final[FloatInt]
 D_NODE_W: Final = "weight"
 D_NODE_VALUE: Final = 1
 PKEY: Final = "partitions"

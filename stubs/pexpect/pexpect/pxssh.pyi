@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import FileDescriptorOrPath
 from collections.abc import Mapping
 from typing import AnyStr, Literal
@@ -23,7 +24,7 @@ class pxssh(spawn[AnyStr]):
     options: dict[str, str]
     def __init__(
         self,
-        timeout: float | None = 30,
+        timeout: FloatInt | None = 30,
         maxread: int = 2000,
         searchwindowsize: int | None = None,
         logfile: _Logfile | None = None,
@@ -39,7 +40,7 @@ class pxssh(spawn[AnyStr]):
     ) -> None: ...
     def levenshtein_distance(self, a, b): ...
     def try_read_prompt(self, timeout_multiplier): ...
-    def sync_original_prompt(self, sync_multiplier: float = 1.0): ...
+    def sync_original_prompt(self, sync_multiplier: FloatInt = 1.0): ...
     def login(
         self,
         server,
@@ -47,7 +48,7 @@ class pxssh(spawn[AnyStr]):
         password: str = "",
         terminal_type: str = "ansi",
         original_prompt: str = "[#$]",
-        login_timeout: float | None = 10,
+        login_timeout: FloatInt | None = 10,
         port: int | None = None,
         auto_prompt_reset: bool = True,
         ssh_key: FileDescriptorOrPath | Literal[True] | None = None,
@@ -62,5 +63,5 @@ class pxssh(spawn[AnyStr]):
         cmd: str = "ssh",
     ): ...
     def logout(self) -> None: ...
-    def prompt(self, timeout: float | None = -1): ...
+    def prompt(self, timeout: FloatInt | None = -1): ...
     def set_unique_prompt(self): ...

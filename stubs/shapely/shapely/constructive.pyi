@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import MaybeNone
 from collections.abc import Sequence
 from typing import Literal, SupportsIndex, overload
@@ -70,55 +71,55 @@ def boundary(geometry: OptGeoArrayLikeSeq, **kwargs: Unpack[UFuncKwargs]) -> Geo
 @overload
 def buffer(
     geometry: Geometry,
-    distance: float,
+    distance: FloatInt,
     quad_segs: int = 8,
     cap_style: BufferJoinStyle | Literal["round", "square", "flat"] = "round",
     join_style: BufferJoinStyle | Literal["round", "mitre", "bevel"] = "round",
-    mitre_limit: float = 5.0,
+    mitre_limit: FloatInt = 5.0,
     single_sided: bool = False,
     **kwargs: Unpack[UFuncKwargs],
 ) -> Polygon: ...
 @overload
 def buffer(
     geometry: None,
-    distance: float,
+    distance: FloatInt,
     quad_segs: int = 8,
     cap_style: BufferJoinStyle | Literal["round", "square", "flat"] = "round",
     join_style: BufferJoinStyle | Literal["round", "mitre", "bevel"] = "round",
-    mitre_limit: float = 5.0,
+    mitre_limit: FloatInt = 5.0,
     single_sided: bool = False,
     **kwargs: Unpack[UFuncKwargs],
 ) -> None: ...
 @overload
 def buffer(
     geometry: Geometry | None,
-    distance: float,
+    distance: FloatInt,
     quad_segs: int = 8,
     cap_style: BufferJoinStyle | Literal["round", "square", "flat"] = "round",
     join_style: BufferJoinStyle | Literal["round", "mitre", "bevel"] = "round",
-    mitre_limit: float = 5.0,
+    mitre_limit: FloatInt = 5.0,
     single_sided: bool = False,
     **kwargs: Unpack[UFuncKwargs],
 ) -> Polygon | None: ...
 @overload
 def buffer(
     geometry: OptGeoArrayLike,
-    distance: ArrayLikeSeq[float],
+    distance: ArrayLikeSeq[FloatInt],
     quad_segs: int = 8,
     cap_style: BufferJoinStyle | Literal["round", "square", "flat"] = "round",
     join_style: BufferJoinStyle | Literal["round", "mitre", "bevel"] = "round",
-    mitre_limit: float = 5.0,
+    mitre_limit: FloatInt = 5.0,
     single_sided: bool = False,
     **kwargs: Unpack[UFuncKwargs],
 ) -> GeoArray: ...
 @overload
 def buffer(
     geometry: OptGeoArrayLikeSeq,
-    distance: ArrayLike[float],
+    distance: ArrayLike[FloatInt],
     quad_segs: int = 8,
     cap_style: BufferJoinStyle | Literal["round", "square", "flat"] = "round",
     join_style: BufferJoinStyle | Literal["round", "mitre", "bevel"] = "round",
-    mitre_limit: float = 5.0,
+    mitre_limit: FloatInt = 5.0,
     single_sided: bool = False,
     **kwargs: Unpack[UFuncKwargs],
 ) -> GeoArray: ...
@@ -126,46 +127,46 @@ def buffer(
 @overload
 def offset_curve(
     geometry: Geometry,
-    distance: float,
+    distance: FloatInt,
     quad_segs: SupportsIndex = 8,
     join_style: BufferJoinStyle | Literal["round", "mitre", "bevel"] = "round",
-    mitre_limit: float = 5.0,
+    mitre_limit: FloatInt = 5.0,
     **kwargs: Unpack[UFuncKwargs],
 ) -> LineString | MultiLineString: ...
 @overload
 def offset_curve(
     geometry: None,
-    distance: float,
+    distance: FloatInt,
     quad_segs: SupportsIndex = 8,
     join_style: BufferJoinStyle | Literal["round", "mitre", "bevel"] = "round",
-    mitre_limit: float = 5.0,
+    mitre_limit: FloatInt = 5.0,
     **kwargs: Unpack[UFuncKwargs],
 ) -> None: ...
 @overload
 def offset_curve(
     geometry: Geometry | None,
-    distance: float,
+    distance: FloatInt,
     quad_segs: SupportsIndex = 8,
     join_style: BufferJoinStyle | Literal["round", "mitre", "bevel"] = "round",
-    mitre_limit: float = 5.0,
+    mitre_limit: FloatInt = 5.0,
     **kwargs: Unpack[UFuncKwargs],
 ) -> LineString | MultiLineString | None: ...
 @overload
 def offset_curve(
     geometry: OptGeoArrayLike,
-    distance: ArrayLikeSeq[float],
+    distance: ArrayLikeSeq[FloatInt],
     quad_segs: SupportsIndex = 8,
     join_style: BufferJoinStyle | Literal["round", "mitre", "bevel"] = "round",
-    mitre_limit: float = 5.0,
+    mitre_limit: FloatInt = 5.0,
     **kwargs: Unpack[UFuncKwargs],
 ) -> GeoArray: ...
 @overload
 def offset_curve(
     geometry: OptGeoArrayLikeSeq,
-    distance: ArrayLike[float],
+    distance: ArrayLike[FloatInt],
     quad_segs: SupportsIndex = 8,
     join_style: BufferJoinStyle | Literal["round", "mitre", "bevel"] = "round",
-    mitre_limit: float = 5.0,
+    mitre_limit: FloatInt = 5.0,
     **kwargs: Unpack[UFuncKwargs],
 ) -> GeoArray: ...
 
@@ -180,32 +181,32 @@ def centroid(geometry: OptGeoArrayLikeSeq, **kwargs: Unpack[UFuncKwargs]) -> Geo
 
 @overload
 def clip_by_rect(
-    geometry: Geometry, xmin: float, ymin: float, xmax: float, ymax: float, **kwargs: Unpack[UFuncKwargs]
+    geometry: Geometry, xmin: FloatInt, ymin: FloatInt, xmax: FloatInt, ymax: FloatInt, **kwargs: Unpack[UFuncKwargs]
 ) -> BaseGeometry: ...
 @overload
-def clip_by_rect(geometry: None, xmin: float, ymin: float, xmax: float, ymax: float, **kwargs: Unpack[UFuncKwargs]) -> None: ...
+def clip_by_rect(geometry: None, xmin: FloatInt, ymin: FloatInt, xmax: FloatInt, ymax: FloatInt, **kwargs: Unpack[UFuncKwargs]) -> None: ...
 @overload
 def clip_by_rect(
-    geometry: Geometry | None, xmin: float, ymin: float, xmax: float, ymax: float, **kwargs: Unpack[UFuncKwargs]
+    geometry: Geometry | None, xmin: FloatInt, ymin: FloatInt, xmax: FloatInt, ymax: FloatInt, **kwargs: Unpack[UFuncKwargs]
 ) -> BaseGeometry | None: ...
 @overload
 def clip_by_rect(
-    geometry: OptGeoArrayLikeSeq, xmin: float, ymin: float, xmax: float, ymax: float, **kwargs: Unpack[UFuncKwargs]
+    geometry: OptGeoArrayLikeSeq, xmin: FloatInt, ymin: FloatInt, xmax: FloatInt, ymax: FloatInt, **kwargs: Unpack[UFuncKwargs]
 ) -> GeoArray: ...
 
 @overload
 def concave_hull(
-    geometry: Geometry, ratio: float = 0.0, allow_holes: bool = False, **kwargs: Unpack[UFuncKwargs]
+    geometry: Geometry, ratio: FloatInt = 0.0, allow_holes: bool = False, **kwargs: Unpack[UFuncKwargs]
 ) -> BaseGeometry: ...
 @overload
-def concave_hull(geometry: None, ratio: float = 0.0, allow_holes: bool = False, **kwargs: Unpack[UFuncKwargs]) -> None: ...
+def concave_hull(geometry: None, ratio: FloatInt = 0.0, allow_holes: bool = False, **kwargs: Unpack[UFuncKwargs]) -> None: ...
 @overload
 def concave_hull(
-    geometry: Geometry | None, ratio: float = 0.0, allow_holes: bool = False, **kwargs: Unpack[UFuncKwargs]
+    geometry: Geometry | None, ratio: FloatInt = 0.0, allow_holes: bool = False, **kwargs: Unpack[UFuncKwargs]
 ) -> BaseGeometry | None: ...
 @overload
 def concave_hull(
-    geometry: OptGeoArrayLikeSeq, ratio: float = 0.0, allow_holes: bool = False, **kwargs: Unpack[UFuncKwargs]
+    geometry: OptGeoArrayLikeSeq, ratio: FloatInt = 0.0, allow_holes: bool = False, **kwargs: Unpack[UFuncKwargs]
 ) -> GeoArray: ...
 
 @overload
@@ -219,44 +220,44 @@ def convex_hull(geometry: OptGeoArrayLikeSeq, **kwargs: Unpack[UFuncKwargs]) -> 
 
 @overload
 def delaunay_triangles(
-    geometry: Geometry, tolerance: float = 0.0, only_edges: Literal[False] = False, **kwargs: Unpack[UFuncKwargs]
+    geometry: Geometry, tolerance: FloatInt = 0.0, only_edges: Literal[False] = False, **kwargs: Unpack[UFuncKwargs]
 ) -> GeometryCollection: ...
 @overload
 def delaunay_triangles(
-    geometry: Geometry, tolerance: float, only_edges: Literal[True], **kwargs: Unpack[UFuncKwargs]
+    geometry: Geometry, tolerance: FloatInt, only_edges: Literal[True], **kwargs: Unpack[UFuncKwargs]
 ) -> MultiLineString: ...
 @overload
 def delaunay_triangles(
-    geometry: Geometry, tolerance: float = 0.0, *, only_edges: Literal[True], **kwargs: Unpack[UFuncKwargs]
+    geometry: Geometry, tolerance: FloatInt = 0.0, *, only_edges: Literal[True], **kwargs: Unpack[UFuncKwargs]
 ) -> MultiLineString: ...
 @overload
 def delaunay_triangles(
-    geometry: Geometry, tolerance: float = 0.0, only_edges: bool = False, **kwargs: Unpack[UFuncKwargs]
+    geometry: Geometry, tolerance: FloatInt = 0.0, only_edges: bool = False, **kwargs: Unpack[UFuncKwargs]
 ) -> GeometryCollection | MultiLineString: ...
 @overload
 def delaunay_triangles(
-    geometry: None, tolerance: float = 0.0, only_edges: bool = False, **kwargs: Unpack[UFuncKwargs]
+    geometry: None, tolerance: FloatInt = 0.0, only_edges: bool = False, **kwargs: Unpack[UFuncKwargs]
 ) -> None: ...
 @overload
 def delaunay_triangles(
-    geometry: Geometry | None, tolerance: float = 0.0, only_edges: bool = False, **kwargs: Unpack[UFuncKwargs]
+    geometry: Geometry | None, tolerance: FloatInt = 0.0, only_edges: bool = False, **kwargs: Unpack[UFuncKwargs]
 ) -> GeometryCollection | MultiLineString | None: ...
 @overload
 def delaunay_triangles(
-    geometry: OptGeoArrayLike, tolerance: ArrayLike[float], only_edges: ArrayLikeSeq[bool], **kwargs: Unpack[UFuncKwargs]
+    geometry: OptGeoArrayLike, tolerance: ArrayLike[FloatInt], only_edges: ArrayLikeSeq[bool], **kwargs: Unpack[UFuncKwargs]
 ) -> GeoArray: ...
 @overload
 def delaunay_triangles(
-    geometry: OptGeoArrayLike, tolerance: ArrayLike[float] = 0.0, *, only_edges: ArrayLikeSeq[bool], **kwargs: Unpack[UFuncKwargs]
+    geometry: OptGeoArrayLike, tolerance: ArrayLike[FloatInt] = 0.0, *, only_edges: ArrayLikeSeq[bool], **kwargs: Unpack[UFuncKwargs]
 ) -> GeoArray: ...
 @overload
 def delaunay_triangles(
-    geometry: OptGeoArrayLike, tolerance: ArrayLikeSeq[float], only_edges: ArrayLike[bool] = False, **kwargs: Unpack[UFuncKwargs]
+    geometry: OptGeoArrayLike, tolerance: ArrayLikeSeq[FloatInt], only_edges: ArrayLike[bool] = False, **kwargs: Unpack[UFuncKwargs]
 ) -> GeoArray: ...
 @overload
 def delaunay_triangles(
     geometry: OptGeoArrayLikeSeq,
-    tolerance: ArrayLike[float] = 0.0,
+    tolerance: ArrayLike[FloatInt] = 0.0,
     only_edges: ArrayLike[bool] = False,
     **kwargs: Unpack[UFuncKwargs],
 ) -> GeoArray: ...
@@ -409,9 +410,9 @@ def polygonize_full(
 ): ...
 
 @overload
-def remove_repeated_points(geometry: OptGeoT, tolerance: float = 0.0, **kwargs: Unpack[UFuncKwargs]) -> OptGeoT: ...
+def remove_repeated_points(geometry: OptGeoT, tolerance: FloatInt = 0.0, **kwargs: Unpack[UFuncKwargs]) -> OptGeoT: ...
 @overload
-def remove_repeated_points(geometry: OptGeoArrayLikeSeq, tolerance: float = 0.0, **kwargs: Unpack[UFuncKwargs]) -> GeoArray: ...
+def remove_repeated_points(geometry: OptGeoArrayLikeSeq, tolerance: FloatInt = 0.0, **kwargs: Unpack[UFuncKwargs]) -> GeoArray: ...
 
 @overload
 def reverse(geometry: OptGeoT, **kwargs: Unpack[UFuncKwargs]) -> OptGeoT: ...
@@ -419,44 +420,44 @@ def reverse(geometry: OptGeoT, **kwargs: Unpack[UFuncKwargs]) -> OptGeoT: ...
 def reverse(geometry: OptGeoArrayLikeSeq, **kwargs: Unpack[UFuncKwargs]) -> GeoArray: ...
 
 @overload
-def segmentize(geometry: OptGeoT, max_segment_length: float, **kwargs: Unpack[UFuncKwargs]) -> OptGeoT: ...
+def segmentize(geometry: OptGeoT, max_segment_length: FloatInt, **kwargs: Unpack[UFuncKwargs]) -> OptGeoT: ...
 @overload
-def segmentize(geometry: OptGeoArrayLike, max_segment_length: ArrayLikeSeq[float], **kwargs: Unpack[UFuncKwargs]) -> GeoArray: ...
+def segmentize(geometry: OptGeoArrayLike, max_segment_length: ArrayLikeSeq[FloatInt], **kwargs: Unpack[UFuncKwargs]) -> GeoArray: ...
 @overload
-def segmentize(geometry: OptGeoArrayLikeSeq, max_segment_length: ArrayLike[float], **kwargs: Unpack[UFuncKwargs]) -> GeoArray: ...
+def segmentize(geometry: OptGeoArrayLikeSeq, max_segment_length: ArrayLike[FloatInt], **kwargs: Unpack[UFuncKwargs]) -> GeoArray: ...
 
 @overload
-def simplify(geometry: OptGeoT, tolerance: float, preserve_topology: bool = True, **kwargs: Unpack[UFuncKwargs]) -> OptGeoT: ...
+def simplify(geometry: OptGeoT, tolerance: FloatInt, preserve_topology: bool = True, **kwargs: Unpack[UFuncKwargs]) -> OptGeoT: ...
 @overload
 def simplify(
-    geometry: OptGeoArrayLike, tolerance: ArrayLikeSeq[float], preserve_topology: bool = True, **kwargs: Unpack[UFuncKwargs]
+    geometry: OptGeoArrayLike, tolerance: ArrayLikeSeq[FloatInt], preserve_topology: bool = True, **kwargs: Unpack[UFuncKwargs]
 ) -> GeoArray: ...
 @overload
 def simplify(
-    geometry: OptGeoArrayLikeSeq, tolerance: ArrayLike[float], preserve_topology: bool = True, **kwargs: Unpack[UFuncKwargs]
+    geometry: OptGeoArrayLikeSeq, tolerance: ArrayLike[FloatInt], preserve_topology: bool = True, **kwargs: Unpack[UFuncKwargs]
 ) -> GeoArray: ...
 
 @overload
-def snap(geometry: OptGeoT, reference: Geometry, tolerance: float, **kwargs: Unpack[UFuncKwargs]) -> OptGeoT: ...
+def snap(geometry: OptGeoT, reference: Geometry, tolerance: FloatInt, **kwargs: Unpack[UFuncKwargs]) -> OptGeoT: ...
 @overload
-def snap(geometry: Geometry | None, reference: None, tolerance: float, **kwargs: Unpack[UFuncKwargs]) -> None: ...
+def snap(geometry: Geometry | None, reference: None, tolerance: FloatInt, **kwargs: Unpack[UFuncKwargs]) -> None: ...
 @overload
 def snap(
-    geometry: OptGeoArrayLikeSeq, reference: OptGeoArrayLike, tolerance: ArrayLike[float], **kwargs: Unpack[UFuncKwargs]
+    geometry: OptGeoArrayLikeSeq, reference: OptGeoArrayLike, tolerance: ArrayLike[FloatInt], **kwargs: Unpack[UFuncKwargs]
 ) -> GeoArray: ...
 @overload
 def snap(
-    geometry: OptGeoArrayLike, reference: OptGeoArrayLikeSeq, tolerance: ArrayLike[float], **kwargs: Unpack[UFuncKwargs]
+    geometry: OptGeoArrayLike, reference: OptGeoArrayLikeSeq, tolerance: ArrayLike[FloatInt], **kwargs: Unpack[UFuncKwargs]
 ) -> GeoArray: ...
 @overload
 def snap(
-    geometry: OptGeoArrayLike, reference: OptGeoArrayLike, tolerance: ArrayLikeSeq[float], **kwargs: Unpack[UFuncKwargs]
+    geometry: OptGeoArrayLike, reference: OptGeoArrayLike, tolerance: ArrayLikeSeq[FloatInt], **kwargs: Unpack[UFuncKwargs]
 ) -> GeoArray: ...
 
 @overload
 def voronoi_polygons(
     geometry: Geometry,
-    tolerance: float = 0.0,
+    tolerance: FloatInt = 0.0,
     extend_to: Geometry | None = None,
     only_edges: Literal[False] = False,
     ordered: bool = False,
@@ -465,7 +466,7 @@ def voronoi_polygons(
 @overload
 def voronoi_polygons(
     geometry: Geometry,
-    tolerance: float,
+    tolerance: FloatInt,
     extend_to: Geometry | None,
     only_edges: Literal[True],
     ordered: bool = False,
@@ -474,7 +475,7 @@ def voronoi_polygons(
 @overload
 def voronoi_polygons(
     geometry: Geometry,
-    tolerance: float = 0.0,
+    tolerance: FloatInt = 0.0,
     extend_to: Geometry | None = None,
     *,
     only_edges: Literal[True],
@@ -484,7 +485,7 @@ def voronoi_polygons(
 @overload
 def voronoi_polygons(
     geometry: Geometry,
-    tolerance: float = 0.0,
+    tolerance: FloatInt = 0.0,
     extend_to: Geometry | None = None,
     only_edges: bool = False,
     ordered: bool = False,
@@ -493,7 +494,7 @@ def voronoi_polygons(
 @overload
 def voronoi_polygons(
     geometry: None,
-    tolerance: float = 0.0,
+    tolerance: FloatInt = 0.0,
     extend_to: Geometry | None = None,
     only_edges: bool = False,
     ordered: bool = False,
@@ -502,7 +503,7 @@ def voronoi_polygons(
 @overload
 def voronoi_polygons(
     geometry: Geometry | None,
-    tolerance: float = 0.0,
+    tolerance: FloatInt = 0.0,
     extend_to: Geometry | None = None,
     only_edges: bool = False,
     ordered: bool = False,
@@ -511,7 +512,7 @@ def voronoi_polygons(
 @overload  # `geometry` as sequence-like
 def voronoi_polygons(
     geometry: OptGeoArrayLikeSeq,
-    tolerance: ArrayLike[float] = 0.0,
+    tolerance: ArrayLike[FloatInt] = 0.0,
     extend_to: OptGeoArrayLike = None,
     only_edges: ArrayLike[bool] = False,
     ordered: ArrayLike[bool] = False,
@@ -520,7 +521,7 @@ def voronoi_polygons(
 @overload  # `tolerance` as sequence-like
 def voronoi_polygons(
     geometry: OptGeoArrayLike,
-    tolerance: ArrayLikeSeq[float],
+    tolerance: ArrayLikeSeq[FloatInt],
     extend_to: OptGeoArrayLike = None,
     only_edges: ArrayLike[bool] = False,
     ordered: ArrayLike[bool] = False,
@@ -529,7 +530,7 @@ def voronoi_polygons(
 @overload
 def voronoi_polygons(  # `extend_to` as positional sequence-like
     geometry: OptGeoArrayLike,
-    tolerance: ArrayLike[float],
+    tolerance: ArrayLike[FloatInt],
     extend_to: OptGeoArrayLikeSeq,
     only_edges: ArrayLike[bool] = False,
     ordered: ArrayLike[bool] = False,
@@ -538,7 +539,7 @@ def voronoi_polygons(  # `extend_to` as positional sequence-like
 @overload  # `extend_to` as keyword sequence-like
 def voronoi_polygons(
     geometry: OptGeoArrayLike,
-    tolerance: ArrayLike[float] = 0.0,
+    tolerance: ArrayLike[FloatInt] = 0.0,
     *,
     extend_to: OptGeoArrayLikeSeq,
     only_edges: ArrayLike[bool] = False,
@@ -548,7 +549,7 @@ def voronoi_polygons(
 @overload
 def voronoi_polygons(  # `only_edges` as positional sequence-like
     geometry: OptGeoArrayLike,
-    tolerance: ArrayLike[float],
+    tolerance: ArrayLike[FloatInt],
     extend_to: OptGeoArrayLike,
     only_edges: ArrayLikeSeq[bool],
     ordered: ArrayLike[bool] = False,
@@ -557,7 +558,7 @@ def voronoi_polygons(  # `only_edges` as positional sequence-like
 @overload
 def voronoi_polygons(  # `only_edges` as keyword sequence-like
     geometry: OptGeoArrayLike,
-    tolerance: ArrayLike[float] = 0.0,
+    tolerance: ArrayLike[FloatInt] = 0.0,
     extend_to: OptGeoArrayLike = None,
     *,
     only_edges: ArrayLikeSeq[bool],
@@ -567,7 +568,7 @@ def voronoi_polygons(  # `only_edges` as keyword sequence-like
 @overload  # `ordered` as positional sequence-like
 def voronoi_polygons(
     geometry: OptGeoArrayLike,
-    tolerance: ArrayLike[float],
+    tolerance: ArrayLike[FloatInt],
     extend_to: OptGeoArrayLike,
     only_edges: ArrayLike[bool],
     ordered: ArrayLikeSeq[bool],
@@ -576,7 +577,7 @@ def voronoi_polygons(
 @overload  # `ordered` as keyword sequence-like
 def voronoi_polygons(
     geometry: OptGeoArrayLike,
-    tolerance: ArrayLike[float] = 0.0,
+    tolerance: ArrayLike[FloatInt] = 0.0,
     extend_to: OptGeoArrayLike = None,
     *,
     only_edges: ArrayLike[bool] = False,
@@ -612,21 +613,21 @@ def minimum_bounding_circle(geometry: OptGeoArrayLikeSeq, **kwargs: Unpack[UFunc
 
 @overload
 def maximum_inscribed_circle(
-    geometry: Polygon | MultiPolygon, tolerance: float | None = None, **kwargs: Unpack[UFuncKwargs]
+    geometry: Polygon | MultiPolygon, tolerance: FloatInt | None = None, **kwargs: Unpack[UFuncKwargs]
 ) -> LineString: ...
 @overload
-def maximum_inscribed_circle(geometry: None, tolerance: float | None = None, **kwargs: Unpack[UFuncKwargs]) -> None: ...
+def maximum_inscribed_circle(geometry: None, tolerance: FloatInt | None = None, **kwargs: Unpack[UFuncKwargs]) -> None: ...
 @overload
 def maximum_inscribed_circle(
-    geometry: Polygon | MultiPolygon | None, tolerance: float | None = None, **kwargs: Unpack[UFuncKwargs]
+    geometry: Polygon | MultiPolygon | None, tolerance: FloatInt | None = None, **kwargs: Unpack[UFuncKwargs]
 ) -> LineString | None: ...
 @overload
 def maximum_inscribed_circle(
-    geometry: OptGeoArrayLikeSeq, tolerance: ArrayLike[float] | None = None, **kwargs: Unpack[UFuncKwargs]
+    geometry: OptGeoArrayLikeSeq, tolerance: ArrayLike[FloatInt] | None = None, **kwargs: Unpack[UFuncKwargs]
 ) -> GeoArray: ...
 @overload
 def maximum_inscribed_circle(
-    geometry: OptGeoArrayLike, tolerance: ArrayLikeSeq[float], **kwargs: Unpack[UFuncKwargs]
+    geometry: OptGeoArrayLike, tolerance: ArrayLikeSeq[FloatInt], **kwargs: Unpack[UFuncKwargs]
 ) -> GeoArray: ...
 
 @overload

@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import Incomplete
 from collections.abc import Callable, Container, Iterator
 from pathlib import Path
@@ -39,7 +40,7 @@ class Model(Layer[_InputT_contra, _OutputT_co]):
         self,
         optimizer: Optimizer | str = "rmsprop",
         loss: ContainerGeneric[_Loss] | None = None,
-        loss_weights: ContainerGeneric[float] | None = None,
+        loss_weights: ContainerGeneric[FloatInt] | None = None,
         metrics: ContainerGeneric[_Metric] | None = None,
         weighted_metrics: ContainerGeneric[_Metric] | None = None,
         run_eagerly: bool = False,
@@ -81,10 +82,10 @@ class Model(Layer[_InputT_contra, _OutputT_co]):
         epochs: int = 1,
         verbose: Literal["auto", 0, 1, 2] = "auto",
         callbacks: list[tf.keras.callbacks.Callback] | None = None,
-        validation_split: float = 0.0,
+        validation_split: FloatInt = 0.0,
         validation_data: TensorCompatible | tf.data.Dataset[Any] | None = None,
         shuffle: bool = True,
-        class_weight: dict[int, float] | None = None,
+        class_weight: dict[int, FloatInt] | None = None,
         sample_weight: npt.NDArray[np.float64] | None = None,
         initial_epoch: int = 0,
         steps_per_epoch: int | None = None,
@@ -122,7 +123,7 @@ class Model(Layer[_InputT_contra, _OutputT_co]):
         x: TensorCompatible | dict[str, TensorCompatible] | tf.data.Dataset[Incomplete],
         y: TensorCompatible | dict[str, TensorCompatible] | tf.data.Dataset[Incomplete] | None = None,
         sample_weight: npt.NDArray[np.float64] | None = None,
-        class_weight: dict[int, float] | None = None,
+        class_weight: dict[int, FloatInt] | None = None,
         return_dict: bool = False,
     ) -> float | list[float]: ...
     def test_on_batch(
@@ -151,7 +152,7 @@ class Model(Layer[_InputT_contra, _OutputT_co]):
     def summary(
         self,
         line_length: int | None = None,
-        positions: list[float] | None = None,
+        positions: list[FloatInt] | None = None,
         print_fn: Callable[[str], None] | None = None,
         expand_nested: bool = False,
         show_trainable: bool = False,

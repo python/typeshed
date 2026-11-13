@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import Incomplete
 
 from networkx.classes.graph import Graph, _Node
@@ -8,5 +9,5 @@ __all__ = ["spanner"]
 
 @_dispatchable
 def spanner(
-    G: Graph[_Node], stretch: float, weight: str | None = None, seed: int | RandomState | None = None
+    G: Graph[_Node], stretch: FloatInt, weight: str | None = None, seed: int | RandomState | None = None
 ) -> Graph[Incomplete]: ...

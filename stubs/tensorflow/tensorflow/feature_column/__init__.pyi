@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Callable, Iterable, Sequence
 
 import tensorflow as tf
@@ -7,11 +8,11 @@ from tensorflow.python.feature_column import feature_column_v2 as fc, sequence_f
 def numeric_column(
     key: str,
     shape: ShapeLike = (1,),
-    default_value: float | None = None,
+    default_value: FloatInt | None = None,
     dtype: tf.DType = ...,
     normalizer_fn: Callable[[tf.Tensor], tf.Tensor] | None = None,
 ) -> fc.NumericColumn: ...
-def bucketized_column(source_column: fc.NumericColumn, boundaries: list[float] | tuple[float, ...]) -> fc.BucketizedColumn: ...
+def bucketized_column(source_column: fc.NumericColumn, boundaries: list[FloatInt] | tuple[FloatInt, ...]) -> fc.BucketizedColumn: ...
 def embedding_column(
     categorical_column: fc.CategoricalColumn,
     dimension: int,
@@ -19,7 +20,7 @@ def embedding_column(
     initializer: Callable[[ShapeLike], tf.Tensor] | None = None,
     ckpt_to_load_from: str | None = None,
     tensor_name_in_ckpt: str | None = None,
-    max_norm: float | None = None,
+    max_norm: FloatInt | None = None,
     trainable: bool = True,
     use_safe_embedding_lookup: bool = True,
 ) -> fc.EmbeddingColumn: ...
@@ -31,7 +32,7 @@ def shared_embeddings(
     shared_embedding_collection_name: str | None = None,
     ckpt_to_load_from: str | None = None,
     tensor_name_in_ckpt: str | None = None,
-    max_norm: float | None = None,
+    max_norm: FloatInt | None = None,
     trainable: bool = True,
     use_safe_embedding_lookup: bool = True,
 ) -> list[fc.SharedEmbeddingColumn]: ...
@@ -65,7 +66,7 @@ def crossed_column(
 def sequence_numeric_column(
     key: str,
     shape: ShapeLike = (1,),
-    default_value: float = 0.0,
+    default_value: FloatInt = 0.0,
     dtype: tf.DType = ...,
     normalizer_fn: Callable[[tf.Tensor], tf.Tensor] | None = None,
 ) -> seq_fc.SequenceNumericColumn: ...

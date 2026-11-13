@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import Incomplete
 from collections.abc import Iterator
 from types import TracebackType
@@ -20,9 +21,9 @@ class StashKeyNotFoundError(StashError):
 
 class StashClient:
     socket_path: str
-    timeout: float
+    timeout: FloatInt
 
-    def __init__(self, socket_path: str, timeout: float = 30.0) -> None: ...
+    def __init__(self, socket_path: str, timeout: FloatInt = 30.0) -> None: ...
     def put(self, table: str, key: str, value) -> None: ...
     def get(self, table: str, key: str, default=None): ...
     def delete(self, table: str, key: str) -> bool: ...

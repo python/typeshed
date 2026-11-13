@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 import enum
 import io
 import sys
@@ -90,17 +91,17 @@ class AccessDenied(Error):
     def __init__(self, pid: int | None = None, name: str | None = None, msg: str | None = None) -> None: ...
 
 class TimeoutExpired(Error):
-    seconds: float
+    seconds: FloatInt
     pid: int | None
     name: str | None
     msg: str
-    def __init__(self, seconds: float, pid: int | None = None, name: str | None = None) -> None: ...
+    def __init__(self, seconds: FloatInt, pid: int | None = None, name: str | None = None) -> None: ...
 
 _P = ParamSpec("_P")
 _R = TypeVar("_R")
 _T = TypeVar("_T")
 
-def usage_percent(used: ConvertibleToFloat, total: float, round_: SupportsIndex | None = None) -> float: ...
+def usage_percent(used: ConvertibleToFloat, total: FloatInt, round_: SupportsIndex | None = None) -> float: ...
 
 # returned function has `cache_clear()` attribute:
 def memoize(fun: Callable[_P, _R]) -> Callable[_P, _R]: ...

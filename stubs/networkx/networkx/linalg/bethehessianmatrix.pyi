@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Collection
 
 from networkx.classes.graph import Graph, _Node
@@ -7,4 +8,4 @@ from scipy.sparse import csr_array  # type: ignore[import-untyped]  # pyright: i
 __all__ = ["bethe_hessian_matrix"]
 
 @_dispatchable
-def bethe_hessian_matrix(G: Graph[_Node], r: float | None = None, nodelist: Collection[_Node] | None = None) -> csr_array: ...
+def bethe_hessian_matrix(G: Graph[_Node], r: FloatInt | None = None, nodelist: Collection[_Node] | None = None) -> csr_array: ...

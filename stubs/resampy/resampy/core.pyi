@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Callable
 from typing import Any, TypeAlias, TypeVar
 
@@ -11,19 +12,19 @@ _FilterType: TypeAlias = str | Callable[[int], np.ndarray[tuple[int], np.dtype[n
 
 def resample(
     x: _FloatArray,
-    sr_orig: float,
-    sr_new: float,
+    sr_orig: FloatInt,
+    sr_new: FloatInt,
     axis: int = -1,
     filter: _FilterType = "kaiser_best",
     parallel: bool = False,
     *,
     num_zeros: int = 64,
     precision: int = 9,
-    rolloff: float = 0.945,
+    rolloff: FloatInt = 0.945,
 ) -> _FloatArray: ...
 def resample_nu(
     x: _FloatArray,
-    sr_orig: float,
+    sr_orig: FloatInt,
     t_out: _FloatArray,
     axis: int = -1,
     filter: _FilterType = "kaiser_best",
@@ -31,5 +32,5 @@ def resample_nu(
     *,
     num_zeros: int = 64,
     precision: int = 9,
-    rolloff: float = 0.945,
+    rolloff: FloatInt = 0.945,
 ) -> _FloatArray: ...

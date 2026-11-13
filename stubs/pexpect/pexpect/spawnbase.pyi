@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from asyncio import ReadTransport
 from collections.abc import Awaitable, Callable, Iterable
 from re import Match, Pattern
@@ -46,17 +47,17 @@ class SpawnBase(Generic[AnyStr]):
     signalstatus: int | None
     status: int | None
     child_fd: int
-    timeout: float | None
+    timeout: FloatInt | None
     delimiter: type[EOF]
     logfile: _Logfile | None
     logfile_read: _Logfile | None
     logfile_send: _Logfile | None
     maxread: int
     searchwindowsize: int | None
-    delaybeforesend: float | None
-    delayafterclose: float
-    delayafterterminate: float
-    delayafterread: float | None
+    delaybeforesend: FloatInt | None
+    delayafterclose: FloatInt
+    delayafterterminate: FloatInt
+    delayafterread: FloatInt | None
     softspace: bool
     name: str
     closed: bool
@@ -70,7 +71,7 @@ class SpawnBase(Generic[AnyStr]):
     async_pw_transport: tuple[PatternWaiter[AnyStr], ReadTransport] | None
     def __init__(
         self,
-        timeout: float | None = 30,
+        timeout: FloatInt | None = 30,
         maxread: int = 2000,
         searchwindowsize: int | None = None,
         logfile: _Logfile | None = None,
@@ -83,14 +84,14 @@ class SpawnBase(Generic[AnyStr]):
     @buffer.setter
     def buffer(self, value: AnyStr) -> None: ...
 
-    def read_nonblocking(self, size: int = 1, timeout: float | None = None) -> AnyStr: ...
+    def read_nonblocking(self, size: int = 1, timeout: FloatInt | None = None) -> AnyStr: ...
     def compile_pattern_list(self, patterns: _InputRePattern | list[_InputRePattern]) -> list[_CompiledRePattern[AnyStr]]: ...
 
     @overload
     def expect(
         self,
         pattern: _InputRePattern | list[_InputRePattern],
-        timeout: float | None = -1,
+        timeout: FloatInt | None = -1,
         searchwindowsize: int | None = -1,
         async_: Literal[False] = False,
     ) -> int: ...
@@ -98,7 +99,7 @@ class SpawnBase(Generic[AnyStr]):
     def expect(
         self,
         pattern: _InputRePattern | list[_InputRePattern],
-        timeout: float | None = -1,
+        timeout: FloatInt | None = -1,
         searchwindowsize: int | None = -1,
         *,
         async_: Literal[True],
@@ -108,7 +109,7 @@ class SpawnBase(Generic[AnyStr]):
     def expect_list(
         self,
         pattern_list: list[_CompiledRePattern[AnyStr]],
-        timeout: float | None = -1,
+        timeout: FloatInt | None = -1,
         searchwindowsize: int | None = -1,
         async_: Literal[False] = False,
     ) -> int: ...
@@ -116,7 +117,7 @@ class SpawnBase(Generic[AnyStr]):
     def expect_list(
         self,
         pattern_list: list[_CompiledRePattern[AnyStr]],
-        timeout: float | None = -1,
+        timeout: FloatInt | None = -1,
         searchwindowsize: int | None = -1,
         *,
         async_: Literal[True],
@@ -126,7 +127,7 @@ class SpawnBase(Generic[AnyStr]):
     def expect_exact(
         self,
         pattern_list: _InputStringPattern | Iterable[_InputStringPattern],
-        timeout: float | None = -1,
+        timeout: FloatInt | None = -1,
         searchwindowsize: int | None = -1,
         async_: Literal[False] = False,
     ) -> int: ...
@@ -134,13 +135,13 @@ class SpawnBase(Generic[AnyStr]):
     def expect_exact(
         self,
         pattern_list: _InputStringPattern | Iterable[_InputStringPattern],
-        timeout: float | None = -1,
+        timeout: FloatInt | None = -1,
         searchwindowsize: int | None = -1,
         *,
         async_: Literal[True],
     ) -> Awaitable[int]: ...
 
-    def expect_loop(self, searcher: _Searcher[AnyStr], timeout: float | None = -1, searchwindowsize: int | None = -1) -> int: ...
+    def expect_loop(self, searcher: _Searcher[AnyStr], timeout: FloatInt | None = -1, searchwindowsize: int | None = -1) -> int: ...
     def read(self, size: int = -1) -> AnyStr: ...
     def readline(self, size: int = -1) -> AnyStr: ...
     def __iter__(self): ...

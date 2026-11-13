@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import Incomplete
 
 from reportlab.graphics.widgetbase import Widget
@@ -17,12 +18,12 @@ class SlideBox(Widget):
     triangleWidth: Incomplete
     triangleFillColor: Incomplete
     triangleStrokeColor: Incomplete
-    triangleStrokeWidth: float
+    triangleStrokeWidth: FloatInt
     boxHeight: Incomplete
     boxWidth: Incomplete
     boxSpacing: Incomplete
     boxOutlineColor: Incomplete
-    boxOutlineWidth: float
+    boxOutlineWidth: FloatInt
     leftPadding: int
     rightPadding: int
     topPadding: int

@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import ConvertibleToFloat, Incomplete, Unused
 from typing import ClassVar, Literal, TypeAlias, overload
 
@@ -91,7 +92,7 @@ class ChartSpace(Serialisable):
     date1904: NestedBool[Literal[True]]
     lang: NestedString[Literal[True]]
     roundedCorners: NestedBool[Literal[True]]
-    style: NestedMinMax[float, Literal[True]]
+    style: NestedMinMax[FloatInt, Literal[True]]
     clrMapOvr: Typed[ColorMapping, Literal[True]]
     pivotSource: Typed[PivotSource, Literal[True]]
     protection: Typed[Protection, Literal[True]]

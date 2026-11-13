@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 import datetime
 from collections.abc import Callable
 from typing import Any, Literal, ParamSpec, TypeVar
@@ -29,7 +30,7 @@ class Settings:
     DEFAULT_DAYS_IN_MONTH: int
     PARSERS: list[Literal["timestamp", "relative-time", "custom-formats", "absolute-time", "no-spaces-time"]]
     DEFAULT_LANGUAGES: list[str]
-    LANGUAGE_DETECTION_CONFIDENCE_THRESHOLD: float
+    LANGUAGE_DETECTION_CONFIDENCE_THRESHOLD: FloatInt
     CACHE_SIZE_LIMIT: int
 
     def __new__(cls, *args, **kwargs) -> Self: ...

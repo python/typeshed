@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import Incomplete
 
 from networkx.classes.graph import Graph, _Node
@@ -10,11 +11,11 @@ __all__ = ["leiden_communities", "leiden_partitions"]
 def leiden_communities(
     G: Graph[_Node],
     weight: str | None = "weight",
-    resolution: float = 1,
+    resolution: FloatInt = 1,
     max_level: int | None = None,
     seed: int | RandomState | None = None,
 ) -> list[Incomplete]: ...
 @_dispatchable
 def leiden_partitions(
-    G: Graph[_Node], weight: str | None = "weight", resolution: float = 1, seed: int | RandomState | None = None
+    G: Graph[_Node], weight: str | None = "weight", resolution: FloatInt = 1, seed: int | RandomState | None = None
 ): ...

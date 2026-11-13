@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import Incomplete
 from logging import Logger
 from traceback import StackSummary
@@ -12,19 +13,19 @@ ORIGIN_TRACE_HEADER_ATTR_KEY: Final = "_origin_trace_header"
 class Entity:
     id: str
     name: str
-    start_time: float
+    start_time: FloatInt
     parent_id: str | None
     sampled: bool
     in_progress: bool
     http: dict[str, dict[str, str | int]]
-    annotations: dict[str, float | str | bool]
+    annotations: dict[str, FloatInt | str | bool]
     metadata: dict[str, dict[str, Any]]  # value is any object that can be serialized into JSON string
     aws: dict[str, Incomplete]
     cause: dict[str, str | list[Throwable]]
     subsegments: list[Subsegment]
-    end_time: float
+    end_time: FloatInt
     def __init__(self, name: str, entity_id: str | None = None) -> None: ...
-    def close(self, end_time: float | None = None) -> None: ...
+    def close(self, end_time: FloatInt | None = None) -> None: ...
     def add_subsegment(self, subsegment: Subsegment) -> None: ...
     def remove_subsegment(self, subsegment: Subsegment) -> None: ...
 
@@ -33,7 +34,7 @@ class Entity:
     @overload
     def put_http_meta(self, key: Literal["url", "method", "user_agent", "client_ip", "x_forwarded_for"], value: str) -> None: ...
 
-    def put_annotation(self, key: str, value: float | str | bool) -> None: ...
+    def put_annotation(self, key: str, value: FloatInt | str | bool) -> None: ...
     def put_metadata(
         self, key: str, value: Any, namespace: str = "default"  # value is any object that can be serialized into JSON string
     ) -> None: ...

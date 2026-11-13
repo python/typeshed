@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import Incomplete
 from collections.abc import Generator
 from typing import NamedTuple
@@ -30,13 +31,13 @@ class _StateParameters(NamedTuple):
 
 @_dispatchable
 def vf2pp_isomorphism(
-    G1: Graph[_Node], G2: Graph[_Node], node_label: str | None = None, default_label: float | None = None
+    G1: Graph[_Node], G2: Graph[_Node], node_label: str | None = None, default_label: FloatInt | None = None
 ) -> dict[Incomplete, Incomplete] | None: ...
 @_dispatchable
 def vf2pp_is_isomorphic(
-    G1: Graph[_Node], G2: Graph[_Node], node_label: str | None = None, default_label: float | None = None
+    G1: Graph[_Node], G2: Graph[_Node], node_label: str | None = None, default_label: FloatInt | None = None
 ) -> bool: ...
 @_dispatchable
 def vf2pp_all_isomorphisms(
-    G1: Graph[_Node], G2: Graph[_Node], node_label: str | None = None, default_label: float | None = None
+    G1: Graph[_Node], G2: Graph[_Node], node_label: str | None = None, default_label: FloatInt | None = None
 ) -> Generator[Incomplete, None, Incomplete]: ...

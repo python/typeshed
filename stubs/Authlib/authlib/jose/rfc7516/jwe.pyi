@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import Incomplete, ReadableBuffer
 from collections import OrderedDict
 from collections.abc import Iterable
@@ -18,7 +19,7 @@ class JsonWebEncryption:
     def serialize(self, header, payload, key, sender_key=None) -> OrderedDict[Incomplete, Incomplete] | bytes: ...
     def deserialize_compact(
         self,
-        s: str | bytes | float | Iterable[SupportsIndex] | SupportsIndex | SupportsBytes | ReadableBuffer,
+        s: str | bytes | FloatInt | Iterable[SupportsIndex] | SupportsIndex | SupportsBytes | ReadableBuffer,
         key,
         decode=None,
         sender_key=None,

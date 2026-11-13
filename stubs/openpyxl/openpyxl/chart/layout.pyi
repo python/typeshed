@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import ConvertibleToFloat, Unused
 from typing import ClassVar, Literal, TypeAlias
 
@@ -18,11 +19,11 @@ class ManualLayout(Serialisable):
     yMode: NestedNoneSet[_ManualLayoutMode]
     wMode: NestedSet[_ManualLayoutMode]
     hMode: NestedSet[_ManualLayoutMode]
-    x: NestedMinMax[float, Literal[True]]
-    y: NestedMinMax[float, Literal[True]]
-    w: NestedMinMax[float, Literal[True]]
+    x: NestedMinMax[FloatInt, Literal[True]]
+    y: NestedMinMax[FloatInt, Literal[True]]
+    w: NestedMinMax[FloatInt, Literal[True]]
     width: Alias
-    h: NestedMinMax[float, Literal[True]]
+    h: NestedMinMax[FloatInt, Literal[True]]
     height: Alias
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: ClassVar[tuple[str, ...]]

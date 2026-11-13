@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 import sys
 from _typeshed import Incomplete
 from socket import AddressFamily, SocketKind
@@ -10,7 +11,7 @@ class sswap(NamedTuple):
     total: int
     used: int
     free: int
-    percent: float
+    percent: FloatInt
     sin: int
     sout: int
 
@@ -18,7 +19,7 @@ class sdiskusage(NamedTuple):
     total: int
     used: int
     free: int
-    percent: float
+    percent: FloatInt
 
 # redefine for linux:
 if sys.platform != "linux":
@@ -50,7 +51,7 @@ class suser(NamedTuple):
     name: str
     terminal: str | None
     host: str | None
-    started: float
+    started: FloatInt
     pid: str
 
 class sconn(NamedTuple):
@@ -83,15 +84,15 @@ class scpustats(NamedTuple):
     syscalls: int
 
 class scpufreq(NamedTuple):
-    current: float
-    min: float
-    max: float
+    current: FloatInt
+    min: FloatInt
+    max: FloatInt
 
 class shwtemp(NamedTuple):
     label: str
-    current: float
-    high: float | None
-    critical: float | None
+    current: FloatInt
+    high: FloatInt | None
+    critical: FloatInt | None
 
 class sbattery(NamedTuple):
     percent: int
@@ -117,10 +118,10 @@ else:
 # redefine for linux:
 if sys.platform != "linux":
     class pcputimes(NamedTuple):
-        user: float
-        system: float
-        children_user: float
-        children_system: float
+        user: FloatInt
+        system: FloatInt
+        children_user: FloatInt
+        children_system: FloatInt
 
     class popenfile(NamedTuple):
         path: str
@@ -128,8 +129,8 @@ if sys.platform != "linux":
 
 class pthread(NamedTuple):
     id: int
-    user_time: float
-    system_time: float
+    user_time: FloatInt
+    system_time: FloatInt
 
 class puids(NamedTuple):
     real: int
@@ -173,21 +174,21 @@ if sys.platform == "linux":
     class scputimes(NamedTuple):
         # Note: scputimes has different fields depending on exactly how Linux
         # is setup, but we'll include the "complete" set of fields
-        user: float
-        nice: float
-        system: float
-        idle: float
-        iowait: float
-        irq: float
-        softirq: float
-        steal: float
-        guest: float
-        guest_nice: float
+        user: FloatInt
+        nice: FloatInt
+        system: FloatInt
+        idle: FloatInt
+        iowait: FloatInt
+        irq: FloatInt
+        softirq: FloatInt
+        steal: FloatInt
+        guest: FloatInt
+        guest_nice: FloatInt
 
     class svmem(NamedTuple):
         total: int
         available: int
-        percent: float
+        percent: FloatInt
         used: int
         free: int
         active: int
@@ -273,24 +274,24 @@ if sys.platform == "linux":
         write_chars: int
 
     class pcputimes(NamedTuple):
-        user: float
-        system: float
-        children_user: float
-        children_system: float
-        iowait: float
+        user: FloatInt
+        system: FloatInt
+        children_user: FloatInt
+        children_system: FloatInt
+        iowait: FloatInt
 
 elif sys.platform == "win32":
     class scputimes(NamedTuple):
-        user: float
-        system: float
-        idle: float
-        interrupt: float
-        dpc: float
+        user: FloatInt
+        system: FloatInt
+        idle: FloatInt
+        interrupt: FloatInt
+        dpc: FloatInt
 
     class svmem(NamedTuple):
         total: int
         available: int
-        percent: float
+        percent: FloatInt
         used: int
         free: int
 
@@ -343,15 +344,15 @@ elif sys.platform == "win32":
 
 elif sys.platform == "darwin":
     class scputimes(NamedTuple):
-        user: float
-        nice: float
-        system: float
-        idle: float
+        user: FloatInt
+        nice: FloatInt
+        system: FloatInt
+        idle: FloatInt
 
     class svmem(NamedTuple):
         total: int
         available: int
-        percent: float
+        percent: FloatInt
         used: int
         free: int
         active: int

@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 # PYZ, EXE and COLLECT referenced in https://pyinstaller.org/en/stable/spec-files.html#spec-file-operation
 # MERGE is referenced in https://pyinstaller.org/en/stable/spec-files.html#example-merge-spec-file
 # hide_console referenced in https://pyinstaller.org/en/stable/feature-notes.html#automatic-hiding-and-minimization-of-console-window-under-windows
@@ -145,7 +146,7 @@ class EXE(Target):
         upx: bool = False,
         cdict: Mapping[str, bool] | None = None,
     ) -> None: ...
-    mtm: float
+    mtm: FloatInt
     def assemble(self) -> None: ...
 
 class COLLECT(Target):

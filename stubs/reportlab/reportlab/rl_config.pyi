@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import Incomplete
 from collections.abc import Callable
 from typing import Any, Literal
@@ -16,7 +17,7 @@ defaultEncoding: str
 defaultGraphicsFontName: str
 pageCompression: int
 useA85: int
-defaultPageSize: tuple[float, float]
+defaultPageSize: tuple[FloatInt, FloatInt]
 defaultImageCaching: int
 warnOnMissingFontGlyphs: int
 verbose: int
@@ -30,7 +31,7 @@ eps_ttf_embed_uid: int
 overlapAttachedSpace: int
 longTableOptimize: int
 autoConvertEncoding: int
-_FUZZ: float
+_FUZZ: FloatInt
 wrapA85: int
 fsEncodings: tuple[Literal["utf8"], Literal["cp1252"], Literal["cp430"]]
 odbc_driver: str
@@ -56,7 +57,7 @@ decimalSymbol: str
 errorOnDuplicatePageLabelPage: int
 autoGenerateMissingTTFName: int
 allowTTFSubsetting: list[str]
-spaceShrinkage: float
+spaceShrinkage: FloatInt
 hyphenationLang: str
 uriWasteReduce: int
 embeddedHyphenation: int
@@ -70,7 +71,7 @@ renderPMBackend: str
 xmlParser: str
 textPaths: str
 toColorCanUse: str
-defCWRF: float
+defCWRF: FloatInt
 unShapedFontGlob: list[str] | None
 std14Embed: bool
 T1SearchPath: list[str]

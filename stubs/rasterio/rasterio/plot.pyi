@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 import logging
 from collections.abc import Mapping, Sequence
 from typing import Any, Final, Literal
@@ -24,7 +25,7 @@ def show(
     ax: Any | None = None,
     title: str | None = None,
     transform: Affine | None = None,
-    percent_range: tuple[float, float] | None = None,
+    percent_range: tuple[FloatInt, FloatInt] | None = None,
     adjust: bool = False,
     **kwargs: Any,
 ) -> Any: ...
@@ -42,8 +43,8 @@ def show_hist(
     title: str = "Histogram",
     ax: Any | None = None,
     label: str | Sequence[str] | None = None,
-    range: tuple[float, float] | None = None,
+    range: tuple[FloatInt, FloatInt] | None = None,
     **kwargs: Any,
 ) -> None: ...
 def adjust_band(band: NDArray[Any], kind: Literal["linear", "log"] | None = None) -> NDArray[Any]: ...
-def contrast_strech(arr: NDArray[Any], percent_range: tuple[float, float] = (2.0, 98.0)) -> NDArray[Any]: ...
+def contrast_strech(arr: NDArray[Any], percent_range: tuple[FloatInt, FloatInt] = (2.0, 98.0)) -> NDArray[Any]: ...

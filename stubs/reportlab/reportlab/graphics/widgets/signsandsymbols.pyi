@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import Incomplete
 from typing import Final
 
@@ -12,7 +13,7 @@ class _Symbol(Widget):
     size: int
     fillColor: Incomplete
     strokeColor: Incomplete
-    strokeWidth: float
+    strokeWidth: FloatInt
     def __init__(self) -> None: ...
     def demo(self): ...
 
@@ -156,7 +157,7 @@ class CrossHair(_Symbol):
     size: int
     fillColor: Incomplete
     strokeColor: Incomplete
-    strokeWidth: float
+    strokeWidth: FloatInt
     innerGap: str
     def __init__(self) -> None: ...
     def draw(self): ...

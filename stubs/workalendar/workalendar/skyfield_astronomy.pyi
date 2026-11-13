@@ -1,12 +1,13 @@
+from _typeshed import FloatInt
 import datetime
 from _typeshed import Incomplete
 from math import _SupportsFloatOrIndex
 from typing import Final
 
-hour: Final[float]
-minute: Final[float]
-second: Final[float]
-newton_precision: Final[float]
+hour: Final[FloatInt]
+minute: Final[FloatInt]
+second: Final[FloatInt]
+newton_precision: Final[FloatInt]
 
 def calculate_equinoxes(year, timezone: str = "UTC") -> tuple[Incomplete, Incomplete]: ...
 def get_current_longitude(current_date, earth, sun): ...

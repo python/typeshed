@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import Incomplete
 from collections.abc import Iterable
 
@@ -11,7 +12,7 @@ def grid_2d_graph(
     m, n, periodic: bool = False, create_using: Graph[Incomplete] | type[Graph[Incomplete]] | None = None
 ) -> Graph[Incomplete]: ...
 @_dispatchable
-def grid_graph(dim: list[float] | tuple[float, ...] | Iterable[Incomplete], periodic: bool = False) -> Graph[Incomplete]: ...
+def grid_graph(dim: list[FloatInt] | tuple[FloatInt, ...] | Iterable[Incomplete], periodic: bool = False) -> Graph[Incomplete]: ...
 @_dispatchable
 def hypercube_graph(n: int) -> Graph[Incomplete]: ...
 @_dispatchable

@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import Incomplete
 from typing import Final
 
@@ -14,11 +15,11 @@ class TableWidget(Widget):
     height: int
     borderStrokeColor: Incomplete
     fillColor: Incomplete
-    borderStrokeWidth: float
+    borderStrokeWidth: FloatInt
     horizontalDividerStrokeColor: Incomplete
     verticalDividerStrokeColor: Incomplete
-    horizontalDividerStrokeWidth: float
-    verticalDividerStrokeWidth: float
+    horizontalDividerStrokeWidth: FloatInt
+    verticalDividerStrokeWidth: FloatInt
     dividerDashArray: Incomplete
     data: Incomplete
     boxAnchor: str

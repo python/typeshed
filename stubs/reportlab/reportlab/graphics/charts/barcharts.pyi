@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import Incomplete
 from typing import Final
 
@@ -10,7 +11,7 @@ __version__: Final[str]
 class BarChartProperties(PropHolder):
     strokeColor: Incomplete
     fillColor: Incomplete
-    strokeWidth: float
+    strokeWidth: FloatInt
     symbol: Incomplete
     strokeDashArray: Incomplete
     def __init__(self) -> None: ...
@@ -49,8 +50,8 @@ class _FakeGroup:
     def sort(self) -> None: ...
 
 class BarChart3D(BarChart):
-    theta_x: float
-    theta_y: float
+    theta_x: FloatInt
+    theta_y: FloatInt
     zDepth: Incomplete
     zSpace: Incomplete
     def calcBarPositions(self) -> None: ...

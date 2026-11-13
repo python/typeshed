@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import Incomplete
 from abc import abstractmethod
 from collections.abc import Callable
@@ -111,11 +112,11 @@ class FrameActionFlowable(Flowable):
     def frameAction(self, frame: Frame) -> None: ...
 
 class Indenter(FrameActionFlowable):
-    width: float
-    height: float
-    left: float
-    right: float
-    def __init__(self, left: float | str = 0, right: float | str = 0) -> None: ...
+    width: FloatInt
+    height: FloatInt
+    left: FloatInt
+    right: FloatInt
+    def __init__(self, left: FloatInt | str = 0, right: FloatInt | str = 0) -> None: ...
     def frameAction(self, frame: Frame) -> None: ...
 
 class NotAtTopPageBreak(FrameActionFlowable):
@@ -133,7 +134,7 @@ class PageTemplate:
     frames: list[Frame]
     onPage: _PageCallback
     onPageEnd: _PageCallback
-    pagesize: tuple[float, float]
+    pagesize: tuple[FloatInt, FloatInt]
     autoNextPageTemplate: Incomplete
     cropBox: Incomplete
     artBox: Incomplete
@@ -145,7 +146,7 @@ class PageTemplate:
         frames: list[Frame] | Frame = [],
         onPage: _PageCallback = ...,
         onPageEnd: _PageCallback = ...,
-        pagesize: tuple[float, float] | None = None,
+        pagesize: tuple[FloatInt, FloatInt] | None = None,
         autoNextPageTemplate=None,
         cropBox=None,
         artBox=None,
@@ -186,12 +187,12 @@ class _DocTemplateKwargs(TypedDict, total=False):
     pagesize: Incomplete
     pageTemplates: list[PageTemplate]
     showBoundary: Incomplete
-    width: float
-    height: float
-    leftMargin: float
-    rightMargin: float
-    topMargin: float
-    bottomMargin: float
+    width: FloatInt
+    height: FloatInt
+    leftMargin: FloatInt
+    rightMargin: FloatInt
+    topMargin: FloatInt
+    bottomMargin: FloatInt
     allowSplitting: Incomplete
     title: Incomplete | None
     author: Incomplete | None
@@ -234,12 +235,12 @@ class BaseDocTemplate:
     pagesize: Incomplete
     pageTemplates: list[PageTemplate]
     showBoundary: Incomplete
-    width: float
-    height: float
-    leftMargin: float
-    rightMargin: float
-    topMargin: float
-    bottomMargin: float
+    width: FloatInt
+    height: FloatInt
+    leftMargin: FloatInt
+    rightMargin: FloatInt
+    topMargin: FloatInt
+    bottomMargin: FloatInt
     allowSplitting: Incomplete
     title: Incomplete | None
     author: Incomplete | None

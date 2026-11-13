@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 import builtins
 from _typeshed import Unused
 from datetime import datetime as _datetime
@@ -6,14 +7,14 @@ from typing_extensions import Never, Self, deprecated, disjoint_base
 
 _DateInitType: TypeAlias = (
     Date
-    | float
+    | FloatInt
     | str
     | tuple[int]
     | tuple[int, int]
-    | tuple[int, int, float]
-    | tuple[int, int, float, float]
-    | tuple[int, int, float, float, float]
-    | tuple[int, int, float, float, float, float]
+    | tuple[int, int, FloatInt]
+    | tuple[int, int, FloatInt, FloatInt]
+    | tuple[int, int, FloatInt, FloatInt, FloatInt]
+    | tuple[int, int, FloatInt, FloatInt, FloatInt, FloatInt]
     | _datetime
 )
 
@@ -33,7 +34,7 @@ class _AngleDescriptorRadiansHours:
     @overload
     def __get__(self, obj: object, objtype: type | None = None) -> Angle: ...
 
-    def __set__(self, obj: object, value: float | str) -> None: ...
+    def __set__(self, obj: object, value: FloatInt | str) -> None: ...
 
 @type_check_only
 class _AngleDescriptorRadiansDegrees:
@@ -42,7 +43,7 @@ class _AngleDescriptorRadiansDegrees:
     @overload
     def __get__(self, obj: object, objtype: type | None = None) -> Angle: ...
 
-    def __set__(self, obj: object, value: float | str) -> None: ...
+    def __set__(self, obj: object, value: FloatInt | str) -> None: ...
 
 @type_check_only
 class _AngleDescriptorDegreesRadians:
@@ -55,14 +56,14 @@ class _AngleDescriptorDegreesRadians:
     @deprecated("Do not pass Angle objects! The radian value will be incorrectly interpreted as degrees.")
     def __set__(self, obj: object, value: Angle) -> None: ...
     @overload
-    def __set__(self, obj: object, value: float | str) -> None: ...
+    def __set__(self, obj: object, value: FloatInt | str) -> None: ...
 
-J2000: Final[float]
-MJD0: Final[float]
-earth_radius: Final[float]
-meters_per_au: Final[float]
-moon_radius: Final[float]
-sun_radius: Final[float]
+J2000: Final[FloatInt]
+MJD0: Final[FloatInt]
+earth_radius: Final[FloatInt]
+meters_per_au: Final[FloatInt]
+moon_radius: Final[FloatInt]
+sun_radius: Final[FloatInt]
 
 @disjoint_base
 class Angle(float):  # type: ignore[type-var]
@@ -87,18 +88,18 @@ class Observer:
     lat: _AngleDescriptorRadiansDegrees
     lon: _AngleDescriptorRadiansDegrees
     long: _AngleDescriptorRadiansDegrees
-    elevation: float
-    elev: float
-    temp: float
-    temperature: float
-    pressure: float
+    elevation: FloatInt
+    elev: FloatInt
+    temp: FloatInt
+    temperature: FloatInt
+    pressure: FloatInt
     horizon: _AngleDescriptorRadiansDegrees
     epoch: _DateDescriptor
     date: _DateDescriptor
 
     def __init__(self) -> None: ...
     def sidereal_time(self) -> Angle: ...
-    def radec_of(self, az: float | str, alt: float | str) -> tuple[Angle, Angle]: ...
+    def radec_of(self, az: FloatInt | str, alt: FloatInt | str) -> tuple[Angle, Angle]: ...
 
 @disjoint_base
 class Body:
@@ -259,15 +260,15 @@ class PlanetMoon:
 
 class FixedBody(Body):
     name: str | None
-    mag: float
+    mag: FloatInt
     _spect: str
-    _ratio: float
+    _ratio: FloatInt
     _pa: _AngleDescriptorRadiansDegrees
     _epoch: _DateDescriptor
     _ra: _AngleDescriptorRadiansHours
     _dec: _AngleDescriptorRadiansDegrees
-    _pmra: float
-    _pmdec: float
+    _pmra: FloatInt
+    _pmdec: FloatInt
     _class: str
 
     def __init__(self) -> None: ...
@@ -280,13 +281,13 @@ class EllipticalBody(Planet):
     _M: _AngleDescriptorDegreesRadians
     _epoch_M: _DateDescriptor
     _epoch: _DateDescriptor
-    _H: float
-    _G: float
-    _g: float
-    _k: float
-    _a: float
-    _size: float
-    _e: float
+    _H: FloatInt
+    _G: FloatInt
+    _g: FloatInt
+    _k: FloatInt
+    _a: FloatInt
+    _size: FloatInt
+    _e: FloatInt
 
     def __init__(self, *args: Unused, **kwargs: Unused) -> None: ...
 
@@ -297,10 +298,10 @@ class ParabolicBody(Planet):
     _inc: _AngleDescriptorDegreesRadians
     _om: _AngleDescriptorDegreesRadians
     _Om: _AngleDescriptorDegreesRadians
-    _q: float
-    _g: float
-    _k: float
-    _size: float
+    _q: FloatInt
+    _g: FloatInt
+    _k: FloatInt
+    _size: FloatInt
 
     def __init__(self, *args: Unused, **kwargs: Unused) -> None: ...
 
@@ -311,11 +312,11 @@ class HyperbolicBody(Planet):
     _inc: _AngleDescriptorDegreesRadians
     _Om: _AngleDescriptorDegreesRadians
     _om: _AngleDescriptorDegreesRadians
-    _e: float
-    _q: float
-    _g: float
-    _k: float
-    _size: float
+    _e: FloatInt
+    _q: FloatInt
+    _g: FloatInt
+    _k: FloatInt
+    _size: FloatInt
 
     def __init__(self, *args: Unused, **kwargs: Unused) -> None: ...
 
@@ -328,19 +329,19 @@ class EarthSatellite(Body):
     _raan: _AngleDescriptorDegreesRadians
     _ap: _AngleDescriptorDegreesRadians
     _M: _AngleDescriptorDegreesRadians
-    n: float
-    inc: float
-    raan: float
-    e: float
-    ap: float
-    M: float
-    decay: float
-    drag: float
-    orbit: float
-    _n: float
-    _e: float
-    _decay: float
-    _drag: float
+    n: FloatInt
+    inc: FloatInt
+    raan: FloatInt
+    e: FloatInt
+    ap: FloatInt
+    M: FloatInt
+    decay: FloatInt
+    drag: FloatInt
+    orbit: FloatInt
+    _n: FloatInt
+    _e: FloatInt
+    _decay: FloatInt
+    _drag: FloatInt
     _orbit: int
     catalog_number: str | None
 
@@ -363,32 +364,32 @@ class _MoonPhases(TypedDict):
     full: Date
 
 def builtin_planets() -> list[tuple[int, str, str]]: ...
-def degrees(angle: float | str, /) -> Angle: ...
-def hours(angle: float | str, /) -> Angle: ...
+def degrees(angle: FloatInt | str, /) -> Angle: ...
+def hours(angle: FloatInt | str, /) -> Angle: ...
 def now() -> Date: ...
 def separation(
-    obj1: tuple[float | str, float | str] | Body | Observer, obj2: tuple[float | str, float | str] | Body | Observer, /
+    obj1: tuple[FloatInt | str, FloatInt | str] | Body | Observer, obj2: tuple[FloatInt | str, FloatInt | str] | Body | Observer, /
 ) -> Angle: ...
 def readdb(db_line: str, /) -> Body: ...
 def readtle(name: str, line1: str, line2: str, /) -> EarthSatellite: ...
-def unrefract(pressure: float, temperature: float, apparent_alt: float, /) -> Angle: ...
-def uranometria(ra: float | str, dec: float | str, /) -> int: ...
-def uranometria2000(ra: float | str, dec: float | str, /) -> int: ...
-def millennium_atlas(ra: float | str, dec: float | str, /) -> int: ...
+def unrefract(pressure: FloatInt, temperature: FloatInt, apparent_alt: FloatInt, /) -> Angle: ...
+def uranometria(ra: FloatInt | str, dec: FloatInt | str, /) -> int: ...
+def uranometria2000(ra: FloatInt | str, dec: FloatInt | str, /) -> int: ...
+def millennium_atlas(ra: FloatInt | str, dec: FloatInt | str, /) -> int: ...
 
 @overload
 def constellation(position: Body) -> tuple[str, str]: ...
 @overload
-def constellation(position: tuple[Angle | float, Angle | float], epoch: Date | float = ...) -> tuple[str, str]: ...
+def constellation(position: tuple[Angle | FloatInt, Angle | FloatInt], epoch: Date | FloatInt = ...) -> tuple[str, str]: ...
 
 def julian_date(date: _DateInitType | Observer = ..., /) -> float: ...
 def delta_t(date: _DateInitType | Observer = ..., /) -> float: ...
 def moon_phases(date: _DateInitType | Observer = ...) -> _MoonPhases: ...
-def eq_ecl(epoch: Date | float, ra: Angle | float, dec: Angle | float, /) -> tuple[Angle, Angle]: ...
-def ecl_eq(epoch: Date | float, lon: Angle | float, lat: Angle | float, /) -> tuple[Angle, Angle]: ...
-def eq_gal(epoch: Date | float, ra: Angle | float, dec: Angle | float, /) -> tuple[Angle, Angle]: ...
-def gal_eq(epoch: Date | float, glon: Angle | float, glat: Angle | float, /) -> tuple[Angle, Angle]: ...
-def precess(epoch1: Date | float, epoch2: Date | float, ra: Angle | float, dec: Angle | float, /) -> tuple[Angle, Angle]: ...
+def eq_ecl(epoch: Date | FloatInt, ra: Angle | FloatInt, dec: Angle | FloatInt, /) -> tuple[Angle, Angle]: ...
+def ecl_eq(epoch: Date | FloatInt, lon: Angle | FloatInt, lat: Angle | FloatInt, /) -> tuple[Angle, Angle]: ...
+def eq_gal(epoch: Date | FloatInt, ra: Angle | FloatInt, dec: Angle | FloatInt, /) -> tuple[Angle, Angle]: ...
+def gal_eq(epoch: Date | FloatInt, glon: Angle | FloatInt, glat: Angle | FloatInt, /) -> tuple[Angle, Angle]: ...
+def precess(epoch1: Date | FloatInt, epoch2: Date | FloatInt, ra: Angle | FloatInt, dec: Angle | FloatInt, /) -> tuple[Angle, Angle]: ...
 def _next_pass(
     observer: Observer, body: Body, /
 ) -> tuple[Date | None, Angle | None, Date | None, Angle | None, Date | None, Angle | None]: ...

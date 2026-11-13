@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import Incomplete
 
 from networkx.classes.digraph import DiGraph
@@ -13,6 +14,6 @@ def preflow_push(
     t: _Node,
     capacity: str = "capacity",
     residual: Graph[_Node] | None = None,
-    global_relabel_freq: float = 1,
+    global_relabel_freq: FloatInt = 1,
     value_only: bool = False,
 ) -> DiGraph[Incomplete]: ...

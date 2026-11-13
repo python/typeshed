@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import ConvertibleToFloat, ConvertibleToInt, Unused
 from collections.abc import Iterable
 from typing import Any, ClassVar, Literal, TypeAlias, overload
@@ -97,13 +98,13 @@ class NestedValue(Nested[_T], Convertible[_T, _N]):  # type: ignore[misc]
     # float
     @overload
     def __set__(
-        self: NestedValue[float, Literal[True]],
+        self: NestedValue[FloatInt, Literal[True]],
         instance: Serialisable | Strict,
         value: _HasTagAndGet[ConvertibleToFloat | None] | ConvertibleToFloat | None,
     ) -> None: ...
     @overload
     def __set__(
-        self: NestedValue[float, Literal[False]],
+        self: NestedValue[FloatInt, Literal[False]],
         instance: Serialisable | Strict,
         value: _HasTagAndGet[ConvertibleToFloat] | ConvertibleToFloat,
     ) -> None: ...
@@ -207,8 +208,8 @@ class NestedMinMax(Nested[_M], MinMax[_M, _N]):  # type: ignore[misc]  # pyrefly
         *,
         expected_type: _ExpectedTypeParam[int],
         allow_none: Literal[True],
-        min: float,
-        max: float,
+        min: FloatInt,
+        max: FloatInt,
     ) -> None: ...
     @overload
     def __init__(
@@ -216,27 +217,27 @@ class NestedMinMax(Nested[_M], MinMax[_M, _N]):  # type: ignore[misc]  # pyrefly
         *,
         expected_type: _ExpectedTypeParam[int],
         allow_none: Literal[False] = False,
-        min: float,
-        max: float,
+        min: FloatInt,
+        max: FloatInt,
     ) -> None: ...
     # mypy can't infer type from `expected_type = float` (pyright can), so we have to add extra overloads
     @overload
     def __init__(
-        self: NestedMinMax[float, Literal[True]],
+        self: NestedMinMax[FloatInt, Literal[True]],
         *,
-        expected_type: _ExpectedTypeParam[float] = ...,
+        expected_type: _ExpectedTypeParam[FloatInt] = ...,
         allow_none: Literal[True],
-        min: float,
-        max: float,
+        min: FloatInt,
+        max: FloatInt,
     ) -> None: ...
     @overload
     def __init__(
-        self: NestedMinMax[float, Literal[False]],
+        self: NestedMinMax[FloatInt, Literal[False]],
         *,
-        expected_type: _ExpectedTypeParam[float] = ...,
+        expected_type: _ExpectedTypeParam[FloatInt] = ...,
         allow_none: Literal[False] = False,
-        min: float,
-        max: float,
+        min: FloatInt,
+        max: FloatInt,
     ) -> None: ...
 
     @overload
@@ -258,13 +259,13 @@ class NestedMinMax(Nested[_M], MinMax[_M, _N]):  # type: ignore[misc]  # pyrefly
     ) -> None: ...
     @overload
     def __set__(
-        self: NestedMinMax[float, Literal[True]],
+        self: NestedMinMax[FloatInt, Literal[True]],
         instance: Serialisable | Strict,
         value: _HasTagAndGet[ConvertibleToFloat | None] | ConvertibleToFloat | None,
     ) -> None: ...
     @overload
     def __set__(
-        self: NestedMinMax[float, Literal[False]],
+        self: NestedMinMax[FloatInt, Literal[False]],
         instance: Serialisable | Strict,
         value: _HasTagAndGet[ConvertibleToFloat] | ConvertibleToFloat,
     ) -> None: ...

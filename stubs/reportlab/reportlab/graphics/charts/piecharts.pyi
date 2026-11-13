@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import Incomplete
 from typing import Final
 
@@ -22,29 +23,29 @@ class WedgeProperties(PropHolder):
     fontName: Incomplete
     fontSize: Incomplete
     fontColor: Incomplete
-    labelRadius: float
+    labelRadius: FloatInt
     label_dx: int
     label_text: Incomplete
     label_topPadding: int
     label_boxAnchor: str
     label_boxStrokeColor: Incomplete
-    label_boxStrokeWidth: float
+    label_boxStrokeWidth: FloatInt
     label_boxFillColor: Incomplete
     label_strokeColor: Incomplete
-    label_strokeWidth: float
+    label_strokeWidth: FloatInt
     label_leading: Incomplete
     label_textAnchor: str
     label_simple_pointer: int
     label_visible: int
     label_pointer_strokeColor: Incomplete
-    label_pointer_strokeWidth: float
+    label_pointer_strokeWidth: FloatInt
     label_pointer_elbowLength: int
     label_pointer_edgePad: int
     label_pointer_piePad: int
     visible: int
     shadingKind: Incomplete
-    shadingAmount: float
-    shadingAngle: float
+    shadingAmount: FloatInt
+    shadingAngle: FloatInt
     shadingDirection: str
     def __init__(self) -> None: ...
 
@@ -54,7 +55,7 @@ class AbstractPieChart(PlotArea):
 
 def boundsOverlap(P, Q): ...
 def findOverlapRun(B, wrap: int = 1): ...
-def fixLabelOverlaps(L, sideLabels: bool = False, mult0: float = 1.0) -> None: ...
+def fixLabelOverlaps(L, sideLabels: bool = False, mult0: FloatInt = 1.0) -> None: ...
 def intervalIntersection(A, B): ...
 def theta0(data, direction): ...
 
@@ -78,7 +79,7 @@ class Pie(AbstractPieChart):
     orderMode: str
     xradius: Incomplete
     sideLabels: int
-    sideLabelsOffset: float
+    sideLabelsOffset: FloatInt
     slices: Incomplete
     angleRange: int
     def __init__(self, *, angleRange: int = 360, **kwds) -> None: ...
@@ -119,7 +120,7 @@ class LegendedPie(Pie):
 
 class Wedge3dProperties(PropHolder):
     strokeWidth: int
-    shading: float
+    shading: FloatInt
     visible: int
     strokeColorShaded: Incomplete
     strokeColor: Incomplete
@@ -128,16 +129,16 @@ class Wedge3dProperties(PropHolder):
     fontName: Incomplete
     fontSize: Incomplete
     fontColor: Incomplete
-    labelRadius: float
+    labelRadius: FloatInt
     label_dx: int
     label_text: Incomplete
     label_topPadding: int
     label_boxAnchor: str
     label_boxStrokeColor: Incomplete
-    label_boxStrokeWidth: float
+    label_boxStrokeWidth: FloatInt
     label_boxFillColor: Incomplete
     label_strokeColor: Incomplete
-    label_strokeWidth: float
+    label_strokeWidth: FloatInt
     label_leading: Incomplete
     label_textAnchor: str
     label_visible: int

@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import Incomplete
 from typing import IO, Final
 
@@ -9,7 +10,7 @@ __version__: Final[str]
 
 def Color2Hex(c): ...
 def CairoColor(c): ...
-def draw(drawing: Drawing, canvas: Canvas, x: float, y: float, showBoundary=...) -> None: ...
+def draw(drawing: Drawing, canvas: Canvas, x: FloatInt, y: FloatInt, showBoundary=...) -> None: ...
 
 class _PMRenderer(Renderer):
     def pop(self) -> None: ...
@@ -27,7 +28,7 @@ class _PMRenderer(Renderer):
     def drawString(self, stringObj) -> None: ...
     def drawPath(self, path): ...
 
-BEZIER_ARC_MAGIC: float
+BEZIER_ARC_MAGIC: FloatInt
 
 class PMCanvas:
     ctm: Incomplete
@@ -44,13 +45,13 @@ class PMCanvas:
     def bezierArcCCW(self, cx, cy, rx, ry, theta0, theta1): ...
     def addEllipsoidalArc(self, cx, cy, rx, ry, ang1, ang2) -> None: ...
     def drawCentredString(
-        self, x: float, y: float, text: str, text_anchor: str = "middle", direction: str | None = None, shaping: bool = False
+        self, x: FloatInt, y: FloatInt, text: str, text_anchor: str = "middle", direction: str | None = None, shaping: bool = False
     ) -> None: ...
-    def drawRightString(self, text: str, x: float, y: float, direction: str | None = None) -> None: ...
+    def drawRightString(self, text: str, x: FloatInt, y: FloatInt, direction: str | None = None) -> None: ...
     def drawString(
         self,
-        x: float,
-        y: float,
+        x: FloatInt,
+        y: FloatInt,
         text: str,
         _fontInfo=None,
         text_anchor: str = "left",
@@ -80,7 +81,7 @@ class PMCanvas:
 
 def drawToPMCanvas(
     d: Drawing,
-    dpi: float = 72,
+    dpi: FloatInt = 72,
     bg: int = 0xFFFFFF,
     configPIL=None,
     showBoundary=...,
@@ -89,7 +90,7 @@ def drawToPMCanvas(
 ): ...
 def drawToPIL(
     d: Drawing,
-    dpi: float = 72,
+    dpi: FloatInt = 72,
     bg: int = 0xFFFFFF,
     configPIL=None,
     showBoundary=...,
@@ -98,7 +99,7 @@ def drawToPIL(
 ): ...
 def drawToPILP(
     d: Drawing,
-    dpi: float = 72,
+    dpi: FloatInt = 72,
     bg: int = 0xFFFFFF,
     configPIL=None,
     showBoundary=...,
@@ -109,7 +110,7 @@ def drawToFile(
     d: Drawing,
     fn: str | IO[bytes],
     fmt: str = "GIF",
-    dpi: float = 72,
+    dpi: FloatInt = 72,
     bg: int = 0xFFFFFF,
     configPIL=None,
     showBoundary=...,
@@ -119,7 +120,7 @@ def drawToFile(
 def drawToString(
     d: Drawing,
     fmt: str = "GIF",
-    dpi: float = 72,
+    dpi: FloatInt = 72,
     bg: int = 0xFFFFFF,
     configPIL=None,
     showBoundary=...,

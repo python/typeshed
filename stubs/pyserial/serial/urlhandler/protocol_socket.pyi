@@ -1,10 +1,11 @@
+from _typeshed import FloatInt
 import logging
 from _typeshed import ReadableBuffer
 
 from serial.serialutil import SerialBase
 
 LOGGER_LEVELS: dict[str, int]
-POLL_TIMEOUT: float
+POLL_TIMEOUT: FloatInt
 
 class Serial(SerialBase):
     logger: logging.Logger | None

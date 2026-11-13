@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 import socket
 import threading
 from _typeshed import FileDescriptorLike
@@ -22,21 +23,21 @@ class _ThreadClassProtocol(Protocol):
 class _EventClassProtocol(Protocol):
     def clear(self) -> None: ...
     def set(self) -> None: ...
-    def wait(self, timeout: float | None = None) -> bool: ...
+    def wait(self, timeout: FloatInt | None = None) -> bool: ...
 
 @type_check_only
 class _SelectorClassProtocol(Protocol):
     # the signature of `register` here is the same as `selectors._BaseSelectorImpl` from the stdlib
     def register(self, fileobj: FileDescriptorLike, events: int, data: Any = None) -> SelectorKey: ...
     # the signature of `select` here is the same as `selectors.DefaultSelector` from the stdlib
-    def select(self, timeout: float | None = None) -> list[tuple[SelectorKey, int]]: ...
+    def select(self, timeout: FloatInt | None = None) -> list[tuple[SelectorKey, int]]: ...
     def close(self) -> None: ...
 
 class Base:
     subprotocol: str | None
     sock: socket.socket | None
     receive_bytes: int
-    ping_interval: float | None
+    ping_interval: FloatInt | None
     max_message_size: int | None
     pong_received: bool
     input_buffer: list[bytes | str]
@@ -55,7 +56,7 @@ class Base:
         sock: socket.socket | None = None,
         connection_type: ConnectionType | None = None,
         receive_bytes: int = 4096,
-        ping_interval: float | None = None,
+        ping_interval: FloatInt | None = None,
         max_message_size: int | None = None,
         thread_class: type[_ThreadClassProtocol] | None = None,
         event_class: type[_EventClassProtocol] | None = None,
@@ -64,7 +65,7 @@ class Base:
     def handshake(self) -> None: ...
     # data can be antyhing. a special case is made for `bytes`, anything else is converted to `str`.
     def send(self, data: bytes | Any) -> None: ...
-    def receive(self, timeout: float | None = None) -> bytes | str | None: ...
+    def receive(self, timeout: FloatInt | None = None) -> bytes | str | None: ...
     def close(self, reason: CloseReason | None = None, message: str | None = None) -> None: ...
     def choose_subprotocol(self, request: Request) -> str | None: ...
 
@@ -78,7 +79,7 @@ class Server(Base):
         environ: WSGIEnvironment,
         subprotocols: list[str] | None = None,
         receive_bytes: int = 4096,
-        ping_interval: float | None = None,
+        ping_interval: FloatInt | None = None,
         max_message_size: int | None = None,
         thread_class: type[_ThreadClassProtocol] | None = None,
         event_class: type[_EventClassProtocol] | None = None,
@@ -90,7 +91,7 @@ class Server(Base):
         environ: WSGIEnvironment,
         subprotocols: list[str] | None = None,
         receive_bytes: int = 4096,
-        ping_interval: float | None = None,
+        ping_interval: FloatInt | None = None,
         max_message_size: int | None = None,
         thread_class: type[_ThreadClassProtocol] | None = None,
         event_class: type[_EventClassProtocol] | None = None,
@@ -113,7 +114,7 @@ class Client(Base):
         subprotocols: list[str] | None = None,
         headers: dict[bytes, bytes] | list[tuple[bytes, bytes]] | None = None,
         receive_bytes: int = 4096,
-        ping_interval: float | None = None,
+        ping_interval: FloatInt | None = None,
         max_message_size: int | None = None,
         ssl_context: SSLContext | None = None,
         thread_class: type[_ThreadClassProtocol] | None = None,
@@ -126,7 +127,7 @@ class Client(Base):
         subprotocols: list[str] | None = None,
         headers: dict[bytes, bytes] | list[tuple[bytes, bytes]] | None = None,
         receive_bytes: int = 4096,
-        ping_interval: float | None = None,
+        ping_interval: FloatInt | None = None,
         max_message_size: int | None = None,
         ssl_context: SSLContext | None = None,
         thread_class: type[_ThreadClassProtocol] | None = None,

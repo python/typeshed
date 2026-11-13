@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import Incomplete
 from typing import Final
 
@@ -53,7 +54,7 @@ class CategoryAxis(_AxisG):
     gridStrokeLineJoin: Incomplete
     gridStrokeLineCap: Incomplete
     gridStrokeMiterLimit: Incomplete
-    gridStrokeWidth: float
+    gridStrokeWidth: FloatInt
     gridStrokeColor: Incomplete
     gridStrokeDashArray: Incomplete
     gridStart: Incomplete
@@ -141,7 +142,7 @@ class _isListOfDaysAndMonths(Validator):
 isListOfDaysAndMonths: Incomplete
 
 class NormalDateXValueAxis(XValueAxis):
-    bottomAxisLabelSlack: float
+    bottomAxisLabelSlack: FloatInt
     niceMonth: int
     forceEndDate: int
     forceFirstDate: int
@@ -177,7 +178,7 @@ class XTimeValueAxis(TimeValueAxis, XValueAxis):
 class AdjYValueAxis(YValueAxis):
     requiredRange: int
     leftAxisPercent: int
-    leftAxisOrigShiftIPC: float
+    leftAxisOrigShiftIPC: FloatInt
     leftAxisOrigShiftMin: int
     leftAxisSkipLL0: int
     valueSteps: Incomplete

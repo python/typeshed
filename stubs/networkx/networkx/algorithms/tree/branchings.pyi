@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import Incomplete
 from dataclasses import dataclass
 from typing import Final
@@ -21,22 +22,22 @@ __all__ = [
 
 KINDS: Final[set[str]]
 STYLES: Final[dict[str, str]]
-INF: Final[float]
+INF: Final[FloatInt]
 
 def random_string(L=15, seed=None): ...
 @_dispatchable
-def branching_weight(G: DiGraph[_Node], attr: str = "weight", default: float = 1) -> int | float: ...
+def branching_weight(G: DiGraph[_Node], attr: str = "weight", default: FloatInt = 1) -> int | float: ...
 @_dispatchable
 def greedy_branching(
-    G: DiGraph[_Node], attr: str = "weight", default: float = 1, kind: str = "max", seed: int | RandomState | None = None
+    G: DiGraph[_Node], attr: str = "weight", default: FloatInt = 1, kind: str = "max", seed: int | RandomState | None = None
 ) -> Graph[Incomplete]: ...
 @_dispatchable
 def maximum_branching(
-    G: DiGraph[_Node], attr: str = "weight", default: float = 1, preserve_attrs: bool = False, partition: str | None = None
+    G: DiGraph[_Node], attr: str = "weight", default: FloatInt = 1, preserve_attrs: bool = False, partition: str | None = None
 ) -> DiGraph[Incomplete]: ...
 @_dispatchable
 def minimum_branching(
-    G: DiGraph[_Node], attr: str = "weight", default: float = 1, preserve_attrs: bool = False, partition: str | None = None
+    G: DiGraph[_Node], attr: str = "weight", default: FloatInt = 1, preserve_attrs: bool = False, partition: str | None = None
 ) -> DiGraph[Incomplete]: ...
 @_dispatchable
 def minimal_branching(
@@ -44,17 +45,17 @@ def minimal_branching(
 ) -> DiGraph[Incomplete]: ...
 @_dispatchable
 def maximum_spanning_arborescence(
-    G: DiGraph[_Node], attr: str = "weight", default: float = 1, preserve_attrs: bool = False, partition: str | None = None
+    G: DiGraph[_Node], attr: str = "weight", default: FloatInt = 1, preserve_attrs: bool = False, partition: str | None = None
 ) -> DiGraph[Incomplete]: ...
 @_dispatchable
 def minimum_spanning_arborescence(
-    G: DiGraph[_Node], attr: str = "weight", default: float = 1, preserve_attrs: bool = False, partition: str | None = None
+    G: DiGraph[_Node], attr: str = "weight", default: FloatInt = 1, preserve_attrs: bool = False, partition: str | None = None
 ) -> DiGraph[Incomplete]: ...
 
 class ArborescenceIterator:
     @dataclass(order=True)
     class Partition:
-        mst_weight: float
+        mst_weight: FloatInt
         partition_dict: dict[Incomplete, Incomplete]
         def __copy__(self) -> ArborescenceIterator.Partition: ...
 

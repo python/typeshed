@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import Incomplete
 from typing import Final
 
@@ -46,8 +47,8 @@ class _FakeGroup:
     def sort(self) -> None: ...
 
 class HorizontalLineChart3D(HorizontalLineChart):
-    theta_x: float
-    theta_y: float
+    theta_x: FloatInt
+    theta_y: FloatInt
     zDepth: int
     zSpace: int
     def calcPositions(self) -> None: ...

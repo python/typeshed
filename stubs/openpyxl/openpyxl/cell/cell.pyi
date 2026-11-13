@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import ReadableBuffer
 from datetime import datetime
 from re import Pattern
@@ -106,4 +107,4 @@ class MergedCell(StyleableObject):
     # The value of a MergedCell is always None.
     value: None
 
-def WriteOnlyCell(ws: _WorkbookChild | ReadOnlyWorksheet, value: str | float | datetime | None = None) -> Cell: ...
+def WriteOnlyCell(ws: _WorkbookChild | ReadOnlyWorksheet, value: str | FloatInt | datetime | None = None) -> Cell: ...

@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from typing import Literal, SupportsIndex, final, overload
 from typing_extensions import Never, Self, disjoint_base
 
@@ -160,7 +161,7 @@ class STRtree:
     def nearest(self, geoms: NDArray[np.object_], /) -> NDArray[np.int64]: ...
     def query(self, geoms: NDArray[np.object_], predicate: SupportsIndex, /) -> NDArray[np.int64]: ...
     def query_nearest(
-        self, geoms: NDArray[np.object_], max_distance: float, exclusive: SupportsIndex, all_matches: SupportsIndex, /
+        self, geoms: NDArray[np.object_], max_distance: FloatInt, exclusive: SupportsIndex, all_matches: SupportsIndex, /
     ) -> tuple[NDArray[np.int64], NDArray[np.float64]]: ...
 
 class ShapelyError(Exception): ...

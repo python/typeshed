@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 import datetime
 from _io import _BufferedReaderStream
 from builtins import list as _list
@@ -113,9 +114,9 @@ class Container(Model):
         stream: Literal[True],
         timestamps: bool = False,
         tail: Literal["all"] | int = "all",
-        since: datetime.datetime | float | None = None,
+        since: datetime.datetime | FloatInt | None = None,
         follow: bool | None = None,
-        until: datetime.datetime | float | None = None,
+        until: datetime.datetime | FloatInt | None = None,
     ) -> CancellableStream[bytes]: ...
     @overload
     def logs(
@@ -126,9 +127,9 @@ class Container(Model):
         stream: Literal[False] = False,
         timestamps: bool = False,
         tail: Literal["all"] | int = "all",
-        since: datetime.datetime | float | None = None,
+        since: datetime.datetime | FloatInt | None = None,
         follow: bool | None = None,
-        until: datetime.datetime | float | None = None,
+        until: datetime.datetime | FloatInt | None = None,
     ) -> bytes: ...
 
     def pause(self) -> None: ...
@@ -138,7 +139,7 @@ class Container(Model):
     def rename(self, name: str) -> None: ...
     def resize(self, height: int, width: int) -> None: ...
     # Please keep in sync with docker.api.container.ContainerApiMixin.restart
-    def restart(self, *, timeout: float | None = 10) -> None: ...
+    def restart(self, *, timeout: FloatInt | None = 10) -> None: ...
     # Please keep in sync with docker.api.container.ContainerApiMixin.start
     def start(self) -> None: ...
     # Please keep in sync with docker.api.container.ContainerApiMixin.stats
@@ -146,7 +147,7 @@ class Container(Model):
         self, *, decode: bool | None = None, stream: bool = True, one_shot: bool | None = None
     ) -> Iterator[dict[str, Any]] | dict[str, Any]: ...
     # Please keep in sync with docker.api.container.ContainerApiMixin.stop
-    def stop(self, *, timeout: float | None = None) -> None: ...
+    def stop(self, *, timeout: FloatInt | None = None) -> None: ...
     # Please keep in sync with docker.api.container.ContainerApiMixin.top
     def top(self, *, ps_args: str | None = None) -> _TopResult: ...
     def unpause(self) -> None: ...
@@ -160,15 +161,15 @@ class Container(Model):
         cpu_shares: int | None = None,
         cpuset_cpus: str | None = None,
         cpuset_mems: str | None = None,
-        mem_limit: float | str | None = None,
-        mem_reservation: float | str | None = None,
+        mem_limit: FloatInt | str | None = None,
+        mem_reservation: FloatInt | str | None = None,
         memswap_limit: int | str | None = None,
         kernel_memory: int | str | None = None,
         restart_policy: _RestartPolicy | None = None,
     ): ...
     # Please keep in sync with docker.api.container.ContainerApiMixin.wait
     def wait(
-        self, *, timeout: float | None = None, condition: Literal["not-running", "next-exit", "removed"] | None = None
+        self, *, timeout: FloatInt | None = None, condition: Literal["not-running", "next-exit", "removed"] | None = None
     ) -> WaitContainerResponse: ...
 
 class ContainerCollection(Collection[Container]):

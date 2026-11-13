@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import Incomplete
 from threading import Thread
 
@@ -9,9 +10,9 @@ class TMonitor(Thread):
     daemon: bool
     woken: int
     tqdm_cls: type[Incomplete]
-    sleep_interval: float
+    sleep_interval: FloatInt
     was_killed: Incomplete
-    def __init__(self, tqdm_cls: type[Incomplete], sleep_interval: float) -> None: ...
+    def __init__(self, tqdm_cls: type[Incomplete], sleep_interval: FloatInt) -> None: ...
     def exit(self): ...
     def get_instances(self): ...
     def run(self) -> None: ...

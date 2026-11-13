@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from pathlib import Path
 from typing import Any, Literal, TypedDict, type_check_only
 
@@ -34,7 +35,7 @@ class _LayerInfo(TypedDict):
     geometry_type: str | None
     features: int
     # total_bounds is `None` for non-spatial layers or if expensive to compute
-    total_bounds: tuple[float, float, float, float] | None
+    total_bounds: tuple[FloatInt, FloatInt, FloatInt, FloatInt] | None
     driver: str
     capabilities: _Capabilities
     dataset_metadata: dict[str, str] | None
@@ -61,7 +62,7 @@ def read_bounds(
     skip_features: int = 0,
     max_features: int | None = None,
     where: str | None = None,
-    bbox: tuple[float, float, float, float] | None = None,
+    bbox: tuple[FloatInt, FloatInt, FloatInt, FloatInt] | None = None,
     mask: shp.Geometry | None = None,
 ) -> tuple[Array1D[np.int64], Array2D[np.float64]]: ...
 def read_info(

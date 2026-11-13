@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import IdentityFunction
 from collections.abc import Callable, Sequence
 from logging import Logger
@@ -13,18 +14,18 @@ def retry_call(
     fkwargs: dict[str, Any] | None = None,
     exceptions: type[Exception] | tuple[type[Exception], ...] = ...,
     tries: int = -1,
-    delay: float = 0,
-    max_delay: float | None = None,
-    backoff: float = 1,
-    jitter: tuple[float, float] | float = 0,
+    delay: FloatInt = 0,
+    max_delay: FloatInt | None = None,
+    backoff: FloatInt = 1,
+    jitter: tuple[FloatInt, FloatInt] | FloatInt = 0,
     logger: Logger | None = ...,
 ) -> _R: ...
 def retry(
     exceptions: type[Exception] | tuple[type[Exception], ...] = ...,
     tries: int = -1,
-    delay: float = 0,
-    max_delay: float | None = None,
-    backoff: float = 1,
-    jitter: tuple[float, float] | float = 0,
+    delay: FloatInt = 0,
+    max_delay: FloatInt | None = None,
+    backoff: FloatInt = 1,
+    jitter: tuple[FloatInt, FloatInt] | FloatInt = 0,
     logger: Logger | None = ...,
 ) -> IdentityFunction: ...

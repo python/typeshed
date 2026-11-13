@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import ConvertibleToFloat, ConvertibleToInt, Incomplete, Unused
 from typing import ClassVar, Literal, TypeAlias
 
@@ -48,7 +49,7 @@ class DashStopList(Serialisable):
 class LineProperties(Serialisable):
     tagname: ClassVar[str]
     namespace: ClassVar[str]
-    w: MinMax[float, Literal[True]]
+    w: MinMax[FloatInt, Literal[True]]
     width: Alias
     cap: NoneSet[_LinePropertiesCap]
     cmpd: NoneSet[_LinePropertiesCmpd]

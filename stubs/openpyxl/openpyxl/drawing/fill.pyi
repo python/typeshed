@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import ConvertibleToFloat, ConvertibleToInt, Incomplete
 from typing import ClassVar, Literal, TypeAlias
 
@@ -128,7 +129,7 @@ class StretchInfoProperties(Serialisable):
 class GradientStop(Serialisable):
     tagname: ClassVar[str]
     namespace: ClassVar[str]
-    pos: MinMax[float, Literal[True]]
+    pos: MinMax[FloatInt, Literal[True]]
     scrgbClr: Typed[_RGBPercent, Literal[True]]
     RGBPercent: Alias
     srgbClr: NestedValue[_RGBPercent, Literal[True]]

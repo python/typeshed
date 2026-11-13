@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import ConvertibleToFloat, Incomplete, Unused
 from typing import ClassVar, Literal, TypeAlias
 
@@ -19,7 +20,7 @@ class BubbleChart(ChartBase):
     dLbls: Typed[DataLabelList, Literal[True]]
     dataLabels: Alias
     bubble3D: NestedBool[Literal[True]]
-    bubbleScale: NestedMinMax[float, Literal[True]]
+    bubbleScale: NestedMinMax[FloatInt, Literal[True]]
     showNegBubbles: NestedBool[Literal[True]]
     sizeRepresents: NestedNoneSet[_BubbleChartSizeRepresents]
     extLst: Typed[ExtensionList, Literal[True]]

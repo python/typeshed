@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Sequence
 from socket import _RetAddress, socket
 from threading import Condition, Lock
@@ -18,7 +19,7 @@ class HTTPChannel(wasyncore.dispatcher):
     error_task_class: type[ErrorTask]
     parser_class: type[HTTPRequestParser]
     request: HTTPRequestParser | None
-    last_activity: float
+    last_activity: FloatInt
     will_close: bool
     close_when_flushed: bool
     requests: Sequence[HTTPRequestParser]
@@ -28,7 +29,7 @@ class HTTPChannel(wasyncore.dispatcher):
     server: BaseWSGIServer
     adj: Adjustments
     outbufs: Sequence[OverflowableBuffer]
-    creation_time: float
+    creation_time: FloatInt
     sendbuf_len: int
     task_lock: Lock
     outbuf_lock: Condition

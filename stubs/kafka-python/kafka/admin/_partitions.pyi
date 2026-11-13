@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import Incomplete
 from collections.abc import Mapping, Sequence
 from typing_extensions import deprecated
@@ -15,7 +16,7 @@ class PartitionAdminMixin:
         raise_errors: bool = True,
     ): ...
     def delete_records(
-        self, records_to_delete: Mapping[TopicPartition, int], timeout_ms: float | None = None, partition_leader_id=None
+        self, records_to_delete: Mapping[TopicPartition, int], timeout_ms: FloatInt | None = None, partition_leader_id=None
     ) -> dict[TopicPartition, Incomplete]: ...
     def elect_leaders(self, election_type, topic_partitions=None, timeout_ms=None, raise_errors: bool = True): ...
     def alter_partition_reassignments(self, reassignments, timeout_ms=None): ...

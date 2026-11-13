@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 import json
 import re
 import types
@@ -142,7 +143,7 @@ class IntConverter(Converter):
 class RealConverter(Converter):
     EQ: str
     NE: str
-    default_tolerance: float
+    default_tolerance: FloatInt
     optimistic: bool
     def init(self, kwargs) -> None: ...
     def validate(self, val, obj=None): ...

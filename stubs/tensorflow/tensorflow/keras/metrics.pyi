@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import Incomplete
 from abc import ABCMeta, abstractmethod
 from collections.abc import Callable, Iterable, Sequence
@@ -44,7 +45,7 @@ class AUC(Metric):
         summation_method: Literal["interpolation", "minoring", "majoring"] = "interpolation",
         name: str | None = None,
         dtype: DTypeLike | None = None,
-        thresholds: Sequence[float] | None = None,
+        thresholds: Sequence[FloatInt] | None = None,
         multi_label: bool = False,
         num_labels: int | None = None,
         label_weights: TensorCompatible | None = None,
@@ -58,7 +59,7 @@ class AUC(Metric):
 class Precision(Metric):
     def __init__(
         self,
-        thresholds: float | Sequence[float] | None = None,
+        thresholds: FloatInt | Sequence[FloatInt] | None = None,
         top_k: int | None = None,
         class_id: int | None = None,
         name: str | None = None,
@@ -72,7 +73,7 @@ class Precision(Metric):
 class Recall(Metric):
     def __init__(
         self,
-        thresholds: float | Sequence[float] | None = None,
+        thresholds: FloatInt | Sequence[FloatInt] | None = None,
         top_k: int | None = None,
         class_id: int | None = None,
         name: str | None = None,
@@ -93,7 +94,7 @@ class MeanMetricWrapper(Metric):
     def result(self) -> tf.Tensor: ...
 
 class BinaryAccuracy(MeanMetricWrapper):
-    def __init__(self, name: str | None = "binary_accuracy", dtype: DTypeLike | None = None, threshold: float = 0.5) -> None: ...
+    def __init__(self, name: str | None = "binary_accuracy", dtype: DTypeLike | None = None, threshold: FloatInt = 0.5) -> None: ...
 
 class Accuracy(MeanMetricWrapper):
     def __init__(self, name: str | None = "accuracy", dtype: DTypeLike | None = None) -> None: ...
@@ -133,9 +134,9 @@ class Mean(Reduce):
 
 def serialize(metric: KerasSerializable) -> dict[str, Any]: ...
 def binary_crossentropy(
-    y_true: TensorCompatible, y_pred: TensorCompatible, from_logits: bool = False, label_smoothing: float = 0.0, axis: int = -1
+    y_true: TensorCompatible, y_pred: TensorCompatible, from_logits: bool = False, label_smoothing: FloatInt = 0.0, axis: int = -1
 ) -> Tensor: ...
 def categorical_crossentropy(
-    y_true: TensorCompatible, y_pred: TensorCompatible, from_logits: bool = False, label_smoothing: float = 0.0, axis: int = -1
+    y_true: TensorCompatible, y_pred: TensorCompatible, from_logits: bool = False, label_smoothing: FloatInt = 0.0, axis: int = -1
 ) -> Tensor: ...
 def __getattr__(name: str): ...  # incomplete module

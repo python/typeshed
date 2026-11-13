@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 import sys
 
 # sys.platform.startswith(("freebsd", "midnightbsd", "openbsd", "netbsd")):
@@ -37,7 +38,7 @@ if sys.platform != "linux" and sys.platform != "win32" and sys.platform != "darw
     class svmem(NamedTuple):
         total: int
         available: int
-        percent: float
+        percent: FloatInt
         used: int
         free: int
         active: int
@@ -48,11 +49,11 @@ if sys.platform != "linux" and sys.platform != "win32" and sys.platform != "darw
         wired: int
 
     class scputimes(NamedTuple):
-        user: float
-        nice: float
-        system: float
-        idle: float
-        irq: float
+        user: FloatInt
+        nice: FloatInt
+        system: FloatInt
+        idle: FloatInt
+        irq: FloatInt
 
     class pmem(NamedTuple):
         rss: int
@@ -64,10 +65,10 @@ if sys.platform != "linux" and sys.platform != "win32" and sys.platform != "darw
     pfullmem = pmem
 
     class pcputimes(NamedTuple):
-        user: float
-        system: float
-        children_user: float
-        children_system: float
+        user: FloatInt
+        system: FloatInt
+        children_user: FloatInt
+        children_system: FloatInt
 
     class pmmap_grouped(NamedTuple):
         path: Incomplete
@@ -118,9 +119,9 @@ if sys.platform != "linux" and sys.platform != "win32" and sys.platform != "darw
     def boot_time() -> float: ...
     def users() -> list[ntp.suser]: ...
 
-    INIT_BOOT_TIME: Final[float]  # only NetBSD
+    INIT_BOOT_TIME: Final[FloatInt]  # only NetBSD
 
-    def adjust_proc_create_time(ctime: float) -> float: ...  # only NetBSD
+    def adjust_proc_create_time(ctime: FloatInt) -> float: ...  # only NetBSD
     def pids() -> list[int]: ...
     def pid_exists(pid: int) -> bool: ...
     def wrap_exceptions(fun: Callable[_P, _R]) -> Callable[_P, _R]: ...
@@ -178,7 +179,7 @@ if sys.platform != "linux" and sys.platform != "win32" and sys.platform != "darw
         def num_ctx_switches(self) -> ntp.pctxsw: ...
         def threads(self) -> list[ntp.pthread]: ...
         def net_connections(self, kind: str = "inet") -> list[ntp.pconn]: ...
-        def wait(self, timeout: float | None = None) -> int | None: ...
+        def wait(self, timeout: FloatInt | None = None) -> int | None: ...
         def nice_get(self) -> int: ...
         def nice_set(self, value: int) -> None: ...
         def status(self) -> str: ...

@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import Incomplete
 
 from networkx.classes.graph import Graph, _Node
@@ -7,5 +8,5 @@ __all__ = ["closeness_vitality"]
 
 @_dispatchable
 def closeness_vitality(
-    G: Graph[_Node], node=None, weight: str | None = None, wiener_index: float | None = None
+    G: Graph[_Node], node=None, weight: str | None = None, wiener_index: FloatInt | None = None
 ) -> float | dict[Incomplete, Incomplete]: ...

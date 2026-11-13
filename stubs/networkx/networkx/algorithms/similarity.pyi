@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import Incomplete, SupportsItemAccess
 from collections.abc import Callable, Generator
 
@@ -29,8 +30,8 @@ def graph_edit_distance(
     edge_del_cost: Callable[..., Incomplete] | None = None,
     edge_ins_cost: Callable[..., Incomplete] | None = None,
     roots: tuple[Incomplete, Incomplete] | None = None,
-    upper_bound: float | None = None,
-    timeout: float | None = None,
+    upper_bound: FloatInt | None = None,
+    timeout: FloatInt | None = None,
 ): ...
 @_dispatchable
 def optimal_edit_paths(
@@ -44,7 +45,7 @@ def optimal_edit_paths(
     edge_subst_cost: Callable[..., Incomplete] | None = None,
     edge_del_cost: Callable[..., Incomplete] | None = None,
     edge_ins_cost: Callable[..., Incomplete] | None = None,
-    upper_bound: float | None = None,
+    upper_bound: FloatInt | None = None,
 ) -> tuple[list[tuple[Incomplete, Incomplete]], float]: ...
 @_dispatchable
 def optimize_graph_edit_distance(
@@ -58,7 +59,7 @@ def optimize_graph_edit_distance(
     edge_subst_cost: Callable[..., Incomplete] | None = None,
     edge_del_cost: Callable[..., Incomplete] | None = None,
     edge_ins_cost: Callable[..., Incomplete] | None = None,
-    upper_bound: float | None = None,
+    upper_bound: FloatInt | None = None,
 ) -> Generator[Incomplete]: ...
 @_dispatchable
 def optimize_edit_paths(
@@ -72,19 +73,19 @@ def optimize_edit_paths(
     edge_subst_cost: Callable[..., Incomplete] | None = None,
     edge_del_cost: Callable[..., Incomplete] | None = None,
     edge_ins_cost: Callable[..., Incomplete] | None = None,
-    upper_bound: float | None = None,
+    upper_bound: FloatInt | None = None,
     strictly_decreasing: bool = True,
     roots: tuple[Incomplete, Incomplete] | None = None,
-    timeout: float | None = None,
+    timeout: FloatInt | None = None,
 ) -> Generator[Incomplete, None, Incomplete]: ...
 @_dispatchable
 def simrank_similarity(
     G: Graph[_Node],
     source: _Node | None = None,
     target: _Node | None = None,
-    importance_factor: float = 0.9,
+    importance_factor: FloatInt = 0.9,
     max_iterations: int = 1000,
-    tolerance: float = 0.0001,
+    tolerance: FloatInt = 0.0001,
 ) -> float | dict[Incomplete, Incomplete]: ...
 @_dispatchable
 def panther_similarity(
@@ -92,9 +93,9 @@ def panther_similarity(
     source: _Node,
     k: int = 5,
     path_length: int = 5,
-    c: float = 0.5,
-    delta: float = 0.1,
-    eps: float | None = None,
+    c: FloatInt = 0.5,
+    delta: FloatInt = 0.1,
+    eps: FloatInt | None = None,
     weight: str | None = "weight",
     seed: int | RandomState | None = None,
 ) -> dict[bytes, bytes]: ...
@@ -106,9 +107,9 @@ def panther_vector_similarity(
     D: int = 10,
     k: int = 5,
     path_length: int = 5,
-    c: float = 0.5,
-    delta: float = 0.1,
-    eps: float | None = None,
+    c: FloatInt = 0.5,
+    delta: FloatInt = 0.1,
+    eps: FloatInt | None = None,
     weight: str | None = "weight",
     seed: int | RandomState | None = None,
 ) -> dict[Incomplete, float]: ...

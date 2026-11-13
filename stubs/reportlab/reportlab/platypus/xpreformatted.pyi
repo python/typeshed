@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from reportlab.lib.styles import PropertySet
 from reportlab.platypus.paragraph import Paragraph, ParaLines
 from reportlab.platypus.paraparser import ParaFrag
@@ -13,7 +14,7 @@ class XPreformatted(Paragraph):
         caseSensitive: int = 1,
         dedent: int = 0,
     ) -> None: ...
-    def breakLinesCJK(self, width: float | list[float] | tuple[float, ...]) -> ParaLines | ParaFrag: ...
+    def breakLinesCJK(self, width: FloatInt | list[FloatInt] | tuple[FloatInt, ...]) -> ParaLines | ParaFrag: ...
 
 class PythonPreformatted(XPreformatted):
     formats: dict[str, tuple[str, str]]

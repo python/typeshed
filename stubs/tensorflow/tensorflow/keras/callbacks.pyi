@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Callable, Mapping, Sequence
 from typing import Any, Literal, TypeAlias
 
@@ -71,11 +72,11 @@ class EarlyStopping(Callback):
     def __init__(
         self,
         monitor: str = "val_loss",
-        min_delta: float = 0,
+        min_delta: FloatInt = 0,
         patience: int = 0,
         verbose: Literal[0, 1] = 0,
         mode: Literal["auto", "min", "max"] = "auto",
-        baseline: float | None = None,
+        baseline: FloatInt | None = None,
         restore_best_weights: bool = False,
         start_from_epoch: int = 0,
     ) -> None: ...
@@ -98,7 +99,7 @@ class LambdaCallback(Callback):
 class LearningRateScheduler(Callback):
     def __init__(
         self,
-        schedule: LearningRateSchedule | Callable[[int], float | tf.Tensor] | Callable[[int, float], float | tf.Tensor],
+        schedule: LearningRateSchedule | Callable[[int], float | tf.Tensor] | Callable[[int, FloatInt], float | tf.Tensor],
         verbose: Literal[0, 1] = 0,
     ) -> None: ...
 
@@ -114,7 +115,7 @@ class ModelCheckpoint(Callback):
         save_weights_only: bool = False,
         mode: Literal["auto", "min", "max"] = "auto",
         save_freq: str | int = "epoch",
-        initial_value_threshold: float | None = None,
+        initial_value_threshold: FloatInt | None = None,
     ) -> None: ...
     def _save_model(self, epoch: int, batch: int | None, logs: _Logs) -> None: ...
 
@@ -126,13 +127,13 @@ class ReduceLROnPlateau(Callback):
     def __init__(
         self,
         monitor: str = "val_loss",
-        factor: float = 0.1,
+        factor: FloatInt = 0.1,
         patience: int = 10,
         verbose: Literal[0, 1] = 0,
         mode: Literal["auto", "min", "max"] = "auto",
-        min_delta: float = 1e-4,
+        min_delta: FloatInt = 1e-4,
         cooldown: int = 0,
-        min_lr: float = 0.0,
+        min_lr: FloatInt = 0.0,
         **kwargs,
     ) -> None: ...
     def in_cooldown(self) -> bool: ...

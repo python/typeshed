@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import Incomplete
 from collections.abc import Mapping, Sequence
 from typing import Any, Final, TypeAlias, overload
@@ -10,7 +11,7 @@ from rasterio.control import GroundControlPoint
 from rasterio.enums import Resampling
 from rasterio.rpc import RPC
 
-_Resolution: TypeAlias = tuple[float, float] | float
+_Resolution: TypeAlias = tuple[FloatInt, FloatInt] | FloatInt
 _Gcps: TypeAlias = Sequence[GroundControlPoint]
 _Rpcs: TypeAlias = RPC | Mapping[str, Any]
 
@@ -22,7 +23,7 @@ def transform(
 
 @overload
 def transform_geom(
-    src_crs: CRSInput, dst_crs: CRSInput, geom: Geometry | Sequence[Geometry], *, precision: float = -1
+    src_crs: CRSInput, dst_crs: CRSInput, geom: Geometry | Sequence[Geometry], *, precision: FloatInt = -1
 ) -> dict[str, Any] | list[dict[str, Any]]: ...
 @overload
 @deprecated(
@@ -35,12 +36,12 @@ def transform_geom(
     dst_crs: CRSInput,
     geom: Geometry | Sequence[Geometry],
     antimeridian_cutting: bool | None = None,
-    antimeridian_offset: float | None = None,
-    precision: float = -1,
+    antimeridian_offset: FloatInt | None = None,
+    precision: FloatInt = -1,
 ) -> dict[str, Any] | list[dict[str, Any]]: ...
 
 def transform_bounds(
-    src_crs: CRSInput, dst_crs: CRSInput, left: float, bottom: float, right: float, top: float, densify_pts: int = 21
+    src_crs: CRSInput, dst_crs: CRSInput, left: FloatInt, bottom: FloatInt, right: FloatInt, top: FloatInt, densify_pts: int = 21
 ) -> tuple[float, float, float, float]: ...
 def reproject(
     source: ArrayLike | Incomplete,
@@ -49,10 +50,10 @@ def reproject(
     gcps: _Gcps | None = None,
     rpcs: _Rpcs | None = None,
     src_crs: CRSInput | None = None,
-    src_nodata: float | None = None,
+    src_nodata: FloatInt | None = None,
     dst_transform: Affine | None = None,
     dst_crs: CRSInput | None = None,
-    dst_nodata: float | None = None,
+    dst_nodata: FloatInt | None = None,
     dst_resolution: _Resolution | None = None,
     src_alpha: int = 0,
     dst_alpha: int = 0,
@@ -60,7 +61,7 @@ def reproject(
     resampling: Resampling = ...,
     num_threads: int = 1,
     init_dest_nodata: bool = True,
-    tolerance: float = 0.125,
+    tolerance: FloatInt = 0.125,
     warp_mem_limit: int = 0,
     src_geoloc_array: NDArray[Any] | None = None,
     **kwargs: _GDALOption,
@@ -71,10 +72,10 @@ def calculate_default_transform(
     dst_crs: CRSInput,
     width: int,
     height: int,
-    left: float | None = None,
-    bottom: float | None = None,
-    right: float | None = None,
-    top: float | None = None,
+    left: FloatInt | None = None,
+    bottom: FloatInt | None = None,
+    right: FloatInt | None = None,
+    top: FloatInt | None = None,
     gcps: _Gcps | None = None,
     rpcs: _Rpcs | None = None,
     resolution: _Resolution | None = None,

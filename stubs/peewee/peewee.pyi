@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 import re
 import threading
 from _typeshed import Incomplete, SupportsKeysAndGetItem
@@ -794,7 +795,7 @@ class ViewMetadata(NamedTuple):
 class QueryEvent(NamedTuple):
     sql: str
     params: Incomplete
-    duration: float
+    duration: FloatInt
     exception: BaseException | None
 
 class _ConnectionState:

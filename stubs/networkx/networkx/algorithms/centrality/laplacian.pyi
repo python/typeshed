@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import Incomplete
 from collections.abc import Collection
 
@@ -13,5 +14,5 @@ def laplacian_centrality(
     nodelist: Collection[_Node] | None = None,
     weight: str | None = "weight",
     walk_type: str | None = None,
-    alpha: float = 0.95,
+    alpha: FloatInt = 0.95,
 ) -> dict[Incomplete, Incomplete]: ...

@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 import selectors
 import ssl
 from _typeshed import Incomplete
@@ -30,7 +31,7 @@ class KafkaProducer:
         enable_idempotence: bool = True,
         transactional_id: str | None = None,
         transaction_timeout_ms: int = 60000,
-        delivery_timeout_ms: float = 120000,
+        delivery_timeout_ms: FloatInt = 120000,
         acks: int | Literal["all"] = -1,
         compression_type: Literal["gzip", "snappy", "lz4", "zstd"] | None = None,
         retries: int | float = ...,
@@ -85,7 +86,7 @@ class KafkaProducer:
     def __exit__(
         self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
     ) -> None: ...
-    def close(self, timeout: float | None = None, null_logger: bool = False) -> None: ...
+    def close(self, timeout: FloatInt | None = None, null_logger: bool = False) -> None: ...
     def partitions_for(self, topic: str) -> set[int]: ...
     @classmethod
     def max_usable_produce_magic(cls, api_version): ...
@@ -105,5 +106,5 @@ class KafkaProducer:
         partition: int | None = None,
         timestamp_ms: int | None = None,
     ) -> FutureRecordMetadata: ...
-    def flush(self, timeout: float | None = None) -> None: ...
+    def flush(self, timeout: FloatInt | None = None) -> None: ...
     def metrics(self, raw: bool = False) -> dict[str, dict[str, object]] | dict[object, object] | None: ...

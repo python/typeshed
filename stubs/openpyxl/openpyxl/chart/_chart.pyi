@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import ConvertibleToInt, Incomplete, Unused
 from typing import ClassVar, Literal, TypeAlias
 
@@ -29,8 +30,8 @@ class ChartBase(Serialisable):
     title: TitleDescriptor
     anchor: str
     width: int
-    height: float
-    style: MinMax[float, Literal[True]]
+    height: FloatInt
+    style: MinMax[FloatInt, Literal[True]]
     mime_type: str
     graphical_properties: Typed[GraphicalProperties, Literal[True]]
     __elements__: ClassVar[tuple[str, ...]]

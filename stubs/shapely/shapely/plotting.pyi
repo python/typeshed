@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from typing import Any, Literal, overload
 
 from matplotlib.axes import Axes  # type: ignore[import-not-found]
@@ -18,7 +19,7 @@ def plot_polygon(
     color: ColorType | None = None,
     facecolor: ColorType | None = None,
     edgecolor: ColorType | None = None,
-    linewidth: float | None = None,
+    linewidth: FloatInt | None = None,
     **kwargs: Any,
 ) -> tuple[PathPatch, Line2D]: ...
 @overload
@@ -30,7 +31,7 @@ def plot_polygon(
     color: ColorType | None = None,
     facecolor: ColorType | None = None,
     edgecolor: ColorType | None = None,
-    linewidth: float | None = None,
+    linewidth: FloatInt | None = None,
     **kwargs: Any,
 ) -> PathPatch: ...
 @overload
@@ -41,7 +42,7 @@ def plot_polygon(
     color: ColorType | None = None,
     facecolor: ColorType | None = None,
     edgecolor: ColorType | None = None,
-    linewidth: float | None = None,
+    linewidth: FloatInt | None = None,
     **kwargs: Any,
 ) -> PathPatch: ...
 
@@ -51,7 +52,7 @@ def plot_line(
     ax: Axes | None = None,
     add_points: Literal[True] = True,
     color: ColorType | None = None,
-    linewidth: float = 2,
+    linewidth: FloatInt = 2,
     **kwargs: Any,
 ) -> tuple[PathPatch, Line2D]: ...
 @overload
@@ -61,7 +62,7 @@ def plot_line(
     *,
     add_points: Literal[False],
     color: ColorType | None = None,
-    linewidth: float = 2,
+    linewidth: FloatInt = 2,
     **kwargs: Any,
 ) -> PathPatch: ...
 @overload
@@ -70,7 +71,7 @@ def plot_line(
     ax: Axes | None,
     add_points: Literal[False],
     color: ColorType | None = None,
-    linewidth: float = 2,
+    linewidth: FloatInt = 2,
     **kwargs: Any,
 ) -> PathPatch: ...
 

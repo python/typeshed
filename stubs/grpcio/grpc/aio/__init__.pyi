@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 import abc
 import asyncio
 from _typeshed import Incomplete, MaybeNone
@@ -143,7 +144,7 @@ _Deserializer: TypeAlias = Callable[[bytes], _T]
 
 class Channel(abc.ABC):
     @abc.abstractmethod
-    async def close(self, grace: float | None = None) -> None: ...
+    async def close(self, grace: FloatInt | None = None) -> None: ...
     @abc.abstractmethod
     def get_state(self, try_to_connect: bool = False) -> ChannelConnectivity: ...
     @abc.abstractmethod
@@ -206,11 +207,11 @@ class Server(metaclass=abc.ABCMeta):
 
     # Grace period is in seconds.
     @abc.abstractmethod
-    async def stop(self, grace: float | None) -> None: ...
+    async def stop(self, grace: FloatInt | None) -> None: ...
 
     # Returns a bool indicates if the operation times out. Timeout is in seconds.
     @abc.abstractmethod
-    async def wait_for_termination(self, timeout: float | None = None) -> bool: ...
+    async def wait_for_termination(self, timeout: FloatInt | None = None) -> bool: ...
 
 # Client-Side Context:
 
@@ -320,14 +321,14 @@ class ClientCallDetails(abc.ABC):
     def __new__(
         _cls,
         method: str,
-        timeout: float | None,
+        timeout: FloatInt | None,
         metadata: Metadata | None,
         credentials: CallCredentials | None,
         wait_for_ready: bool | None,
     ) -> Self: ...
 
     method: str
-    timeout: float | None
+    timeout: FloatInt | None
     metadata: Metadata | None
     credentials: CallCredentials | None
 
@@ -359,7 +360,7 @@ class InterceptedUnaryUnaryCall(_InterceptedCall[_TRequest, _TResponse], metacla
         self,
         interceptors: Sequence[UnaryUnaryClientInterceptor],
         request: _TRequest,
-        timeout: float | None,
+        timeout: FloatInt | None,
         metadata: Metadata,
         credentials: CallCredentials | None,
         wait_for_ready: bool | None,
@@ -376,7 +377,7 @@ class InterceptedUnaryUnaryCall(_InterceptedCall[_TRequest, _TResponse], metacla
         self,
         interceptors: Sequence[UnaryUnaryClientInterceptor],
         method: bytes,
-        timeout: float | None,
+        timeout: FloatInt | None,
         metadata: Metadata | None,
         credentials: CallCredentials | None,
         wait_for_ready: bool | None,
@@ -465,7 +466,7 @@ class UnaryUnaryMultiCallable(Generic[_TRequest, _TResponse], metaclass=abc.ABCM
         self,
         request: _TRequest,
         *,
-        timeout: float | None = None,
+        timeout: FloatInt | None = None,
         metadata: _MetadataType | None = None,
         credentials: CallCredentials | None = None,
         wait_for_ready: bool | None = None,
@@ -478,7 +479,7 @@ class UnaryStreamMultiCallable(Generic[_TRequest, _TResponse], metaclass=abc.ABC
         self,
         request: _TRequest,
         *,
-        timeout: float | None = None,
+        timeout: FloatInt | None = None,
         metadata: _MetadataType | None = None,
         credentials: CallCredentials | None = None,
         wait_for_ready: bool | None = None,
@@ -490,7 +491,7 @@ class StreamUnaryMultiCallable(Generic[_TRequest, _TResponse], metaclass=abc.ABC
     def __call__(
         self,
         request_iterator: AsyncIterator[_TRequest] | Iterator[_TRequest] | None = None,
-        timeout: float | None = None,
+        timeout: FloatInt | None = None,
         metadata: _MetadataType | None = None,
         credentials: CallCredentials | None = None,
         wait_for_ready: bool | None = None,
@@ -502,7 +503,7 @@ class StreamStreamMultiCallable(Generic[_TRequest, _TResponse], metaclass=abc.AB
     def __call__(
         self,
         request_iterator: AsyncIterator[_TRequest] | Iterator[_TRequest] | None = None,
-        timeout: float | None = None,
+        timeout: FloatInt | None = None,
         metadata: _MetadataType | None = None,
         credentials: CallCredentials | None = None,
         wait_for_ready: bool | None = None,

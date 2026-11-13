@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import Incomplete
 
 from networkx.classes.digraph import DiGraph
@@ -14,5 +15,5 @@ def boykov_kolmogorov(
     capacity: str = "capacity",
     residual: Graph[_Node] | None = None,
     value_only: bool = False,
-    cutoff: float | None = None,
+    cutoff: FloatInt | None = None,
 ) -> DiGraph[Incomplete]: ...

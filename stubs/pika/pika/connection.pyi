@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 import abc
 import ssl
 from _typeshed import Incomplete
@@ -62,7 +63,7 @@ class Parameters:
     @property
     def blocked_connection_timeout(self) -> float | None: ...
     @blocked_connection_timeout.setter
-    def blocked_connection_timeout(self, value: float | None) -> None: ...
+    def blocked_connection_timeout(self, value: FloatInt | None) -> None: ...
 
     @property
     def channel_max(self) -> int: ...
@@ -112,17 +113,17 @@ class Parameters:
     @property
     def retry_delay(self) -> int | float: ...
     @retry_delay.setter
-    def retry_delay(self, value: float) -> None: ...
+    def retry_delay(self, value: FloatInt) -> None: ...
 
     @property
     def socket_timeout(self) -> float | None: ...
     @socket_timeout.setter
-    def socket_timeout(self, value: float | None) -> None: ...
+    def socket_timeout(self, value: FloatInt | None) -> None: ...
 
     @property
     def stack_timeout(self) -> float | None: ...
     @stack_timeout.setter
-    def stack_timeout(self, value: float | None) -> None: ...
+    def stack_timeout(self, value: FloatInt | None) -> None: ...
 
     @property
     def ssl_options(self) -> SSLOptions | None: ...
@@ -152,11 +153,11 @@ class ConnectionParameters(Parameters):
         heartbeat: int | Callable[[Connection, int], int] | None = ...,
         ssl_options: SSLOptions | None = ...,
         connection_attempts: int = ...,
-        retry_delay: float = ...,
-        socket_timeout: float | None = ...,
-        stack_timeout: float | None = ...,
+        retry_delay: FloatInt = ...,
+        socket_timeout: FloatInt | None = ...,
+        stack_timeout: FloatInt | None = ...,
         locale: str = ...,
-        blocked_connection_timeout: float | None = ...,
+        blocked_connection_timeout: FloatInt | None = ...,
         client_properties: dict[str, Incomplete] | None = ...,
         tcp_options: dict[str, Incomplete] | None = ...,
     ) -> None: ...

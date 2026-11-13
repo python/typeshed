@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import Incomplete
 
 from networkx.classes.graph import Graph, _Node
@@ -8,7 +9,7 @@ __all__ = ["randomized_partitioning", "one_exchange"]
 
 @_dispatchable
 def randomized_partitioning(
-    G: Graph[_Node], seed: int | RandomState | None = None, p: float = 0.5, weight: str | None = None
+    G: Graph[_Node], seed: int | RandomState | None = None, p: FloatInt = 0.5, weight: str | None = None
 ) -> tuple[float, tuple[set[Incomplete], set[Incomplete]]]: ...
 @_dispatchable
 def one_exchange(

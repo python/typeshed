@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 import sys
 
 # sys.platform.startswith(("sunos", "solaris")):
@@ -37,21 +38,21 @@ if sys.platform != "linux" and sys.platform != "win32" and sys.platform != "darw
     proc_info_map: Final[dict[str, int]]
 
     class scputimes(NamedTuple):
-        user: float
-        system: float
-        idle: float
-        iowait: float
+        user: FloatInt
+        system: FloatInt
+        idle: FloatInt
+        iowait: FloatInt
 
     class pcputimes(NamedTuple):
-        user: float
-        system: float
-        children_user: float
-        children_system: float
+        user: FloatInt
+        system: FloatInt
+        children_user: FloatInt
+        children_system: FloatInt
 
     class svmem(NamedTuple):
         total: int
         available: int
-        percent: float
+        percent: FloatInt
         used: int
         free: int
 
@@ -148,4 +149,4 @@ if sys.platform != "linux" and sys.platform != "win32" and sys.platform != "darw
         def memory_maps(self) -> list[tuple[str, str, str, int, int, int]]: ...
         def num_fds(self) -> int: ...
         def num_ctx_switches(self) -> ntp.pctxsw: ...
-        def wait(self, timeout: float | None = None) -> int | None: ...
+        def wait(self, timeout: FloatInt | None = None) -> int | None: ...

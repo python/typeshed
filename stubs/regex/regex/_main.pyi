@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import MaybeNone, ReadableBuffer, Unused
 from collections.abc import Callable, Mapping
 from types import GenericAlias
@@ -92,7 +93,7 @@ def search(
     endpos: int | None = None,
     partial: bool = False,
     concurrent: bool | None = None,
-    timeout: float | None = None,
+    timeout: FloatInt | None = None,
     ignore_unused: bool = False,
     **kwargs: Any,
 ) -> Match[str] | None: ...
@@ -105,7 +106,7 @@ def search(
     endpos: int | None = None,
     partial: bool = False,
     concurrent: bool | None = None,
-    timeout: float | None = None,
+    timeout: FloatInt | None = None,
     ignore_unused: bool = False,
     **kwargs: Any,
 ) -> Match[bytes] | None: ...
@@ -119,7 +120,7 @@ def match(
     endpos: int | None = None,
     partial: bool = False,
     concurrent: bool | None = None,
-    timeout: float | None = None,
+    timeout: FloatInt | None = None,
     ignore_unused: bool = False,
     **kwargs: Any,
 ) -> Match[str] | None: ...
@@ -132,7 +133,7 @@ def match(
     endpos: int | None = None,
     partial: bool = False,
     concurrent: bool | None = None,
-    timeout: float | None = None,
+    timeout: FloatInt | None = None,
     ignore_unused: bool = False,
     **kwargs: Any,
 ) -> Match[bytes] | None: ...
@@ -148,7 +149,7 @@ def fullmatch(
     endpos: int | None = None,
     partial: bool = False,
     concurrent: bool | None = None,
-    timeout: float | None = None,
+    timeout: FloatInt | None = None,
     ignore_unused: bool = False,
     **kwargs: Any,
 ) -> Match[str] | None: ...
@@ -161,7 +162,7 @@ def fullmatch(
     endpos: int | None = None,
     partial: bool = False,
     concurrent: bool | None = None,
-    timeout: float | None = None,
+    timeout: FloatInt | None = None,
     ignore_unused: bool = False,
     **kwargs: Any,
 ) -> Match[bytes] | None: ...
@@ -173,7 +174,7 @@ def split(
     maxsplit: int = 0,
     flags: int = 0,
     concurrent: bool | None = None,
-    timeout: float | None = None,
+    timeout: FloatInt | None = None,
     ignore_unused: bool = False,
     **kwargs: Any,
 ) -> list[str | MaybeNone]: ...
@@ -184,7 +185,7 @@ def split(
     maxsplit: int = 0,
     flags: int = 0,
     concurrent: bool | None = None,
-    timeout: float | None = None,
+    timeout: FloatInt | None = None,
     ignore_unused: bool = False,
     **kwargs: Any,
 ) -> list[bytes | MaybeNone]: ...
@@ -196,7 +197,7 @@ def splititer(
     maxsplit: int = 0,
     flags: int = 0,
     concurrent: bool | None = None,
-    timeout: float | None = None,
+    timeout: FloatInt | None = None,
     ignore_unused: bool = False,
     **kwargs: Any,
 ) -> _regex.Splitter[str]: ...
@@ -207,7 +208,7 @@ def splititer(
     maxsplit: int = 0,
     flags: int = 0,
     concurrent: bool | None = None,
-    timeout: float | None = None,
+    timeout: FloatInt | None = None,
     ignore_unused: bool = False,
     **kwargs: Any,
 ) -> _regex.Splitter[bytes]: ...
@@ -221,7 +222,7 @@ def findall(
     endpos: int | None = None,
     overlapped: bool = False,
     concurrent: bool | None = None,
-    timeout: float | None = None,
+    timeout: FloatInt | None = None,
     ignore_unused: bool = False,
     **kwargs: Any,
 ) -> list[Any]: ...
@@ -234,7 +235,7 @@ def findall(
     endpos: int | None = None,
     overlapped: bool = False,
     concurrent: bool | None = None,
-    timeout: float | None = None,
+    timeout: FloatInt | None = None,
     ignore_unused: bool = False,
     **kwargs: Any,
 ) -> list[Any]: ...
@@ -249,7 +250,7 @@ def finditer(
     overlapped: bool = False,
     partial: bool = False,
     concurrent: bool | None = None,
-    timeout: float | None = None,
+    timeout: FloatInt | None = None,
     ignore_unused: bool = False,
     **kwargs: Any,
 ) -> _regex.Scanner[str]: ...
@@ -263,7 +264,7 @@ def finditer(
     overlapped: bool = False,
     partial: bool = False,
     concurrent: bool | None = None,
-    timeout: float | None = None,
+    timeout: FloatInt | None = None,
     ignore_unused: bool = False,
     **kwargs: Any,
 ) -> _regex.Scanner[bytes]: ...
@@ -278,7 +279,7 @@ def sub(
     pos: int | None = None,
     endpos: int | None = None,
     concurrent: bool | None = None,
-    timeout: float | None = None,
+    timeout: FloatInt | None = None,
     ignore_unused: bool = False,
     **kwargs: Any,
 ) -> str: ...
@@ -292,7 +293,7 @@ def sub(
     pos: int | None = None,
     endpos: int | None = None,
     concurrent: bool | None = None,
-    timeout: float | None = None,
+    timeout: FloatInt | None = None,
     ignore_unused: bool = False,
     **kwargs: Any,
 ) -> bytes: ...
@@ -307,7 +308,7 @@ def subf(
     pos: int | None = None,
     endpos: int | None = None,
     concurrent: bool | None = None,
-    timeout: float | None = None,
+    timeout: FloatInt | None = None,
     ignore_unused: bool = False,
     **kwargs: Any,
 ) -> str: ...
@@ -321,7 +322,7 @@ def subf(
     pos: int | None = None,
     endpos: int | None = None,
     concurrent: bool | None = None,
-    timeout: float | None = None,
+    timeout: FloatInt | None = None,
     ignore_unused: bool = False,
     **kwargs: Any,
 ) -> bytes: ...
@@ -336,7 +337,7 @@ def subn(
     pos: int | None = None,
     endpos: int | None = None,
     concurrent: bool | None = None,
-    timeout: float | None = None,
+    timeout: FloatInt | None = None,
     ignore_unused: bool = False,
     **kwargs: Any,
 ) -> tuple[str, int]: ...
@@ -350,7 +351,7 @@ def subn(
     pos: int | None = None,
     endpos: int | None = None,
     concurrent: bool | None = None,
-    timeout: float | None = None,
+    timeout: FloatInt | None = None,
     ignore_unused: bool = False,
     **kwargs: Any,
 ) -> tuple[bytes, int]: ...
@@ -365,7 +366,7 @@ def subfn(
     pos: int | None = None,
     endpos: int | None = None,
     concurrent: bool | None = None,
-    timeout: float | None = None,
+    timeout: FloatInt | None = None,
     ignore_unused: bool = False,
     **kwargs: Any,
 ) -> tuple[str, int]: ...
@@ -379,7 +380,7 @@ def subfn(
     pos: int | None = None,
     endpos: int | None = None,
     concurrent: bool | None = None,
-    timeout: float | None = None,
+    timeout: FloatInt | None = None,
     ignore_unused: bool = False,
     **kwargs: Any,
 ) -> tuple[bytes, int]: ...
@@ -420,7 +421,7 @@ class Pattern(Generic[AnyStr]):
         endpos: int | None = None,
         concurrent: bool | None = None,
         partial: bool = False,
-        timeout: float | None = None,
+        timeout: FloatInt | None = None,
     ) -> Match[str] | None: ...
     @overload
     def search(
@@ -430,7 +431,7 @@ class Pattern(Generic[AnyStr]):
         endpos: int | None = None,
         concurrent: bool | None = None,
         partial: bool = False,
-        timeout: float | None = None,
+        timeout: FloatInt | None = None,
     ) -> Match[bytes] | None: ...
 
     @overload
@@ -441,7 +442,7 @@ class Pattern(Generic[AnyStr]):
         endpos: int | None = None,
         concurrent: bool | None = None,
         partial: bool = False,
-        timeout: float | None = None,
+        timeout: FloatInt | None = None,
     ) -> Match[str] | None: ...
     @overload
     def match(
@@ -451,7 +452,7 @@ class Pattern(Generic[AnyStr]):
         endpos: int | None = None,
         concurrent: bool | None = None,
         partial: bool = False,
-        timeout: float | None = None,
+        timeout: FloatInt | None = None,
     ) -> Match[bytes] | None: ...
 
     prefixmatch = match
@@ -464,7 +465,7 @@ class Pattern(Generic[AnyStr]):
         endpos: int | None = None,
         concurrent: bool | None = None,
         partial: bool = False,
-        timeout: float | None = None,
+        timeout: FloatInt | None = None,
     ) -> Match[str] | None: ...
     @overload
     def fullmatch(
@@ -474,12 +475,12 @@ class Pattern(Generic[AnyStr]):
         endpos: int | None = None,
         concurrent: bool | None = None,
         partial: bool = False,
-        timeout: float | None = None,
+        timeout: FloatInt | None = None,
     ) -> Match[bytes] | None: ...
 
     @overload
     def split(
-        self: Pattern[str], string: str, maxsplit: int = 0, concurrent: bool | None = None, timeout: float | None = None
+        self: Pattern[str], string: str, maxsplit: int = 0, concurrent: bool | None = None, timeout: FloatInt | None = None
     ) -> list[str | MaybeNone]: ...
     @overload
     def split(
@@ -487,12 +488,12 @@ class Pattern(Generic[AnyStr]):
         string: ReadableBuffer,
         maxsplit: int = 0,
         concurrent: bool | None = None,
-        timeout: float | None = None,
+        timeout: FloatInt | None = None,
     ) -> list[bytes | MaybeNone]: ...
 
     @overload
     def splititer(
-        self: Pattern[str], string: str, maxsplit: int = 0, concurrent: bool | None = None, timeout: float | None = None
+        self: Pattern[str], string: str, maxsplit: int = 0, concurrent: bool | None = None, timeout: FloatInt | None = None
     ) -> _regex.Splitter[str]: ...
     @overload
     def splititer(
@@ -500,7 +501,7 @@ class Pattern(Generic[AnyStr]):
         string: ReadableBuffer,
         maxsplit: int = 0,
         concurrent: bool | None = None,
-        timeout: float | None = None,
+        timeout: FloatInt | None = None,
     ) -> _regex.Splitter[bytes]: ...
 
     @overload
@@ -511,7 +512,7 @@ class Pattern(Generic[AnyStr]):
         endpos: int | None = None,
         overlapped: bool = False,
         concurrent: bool | None = None,
-        timeout: float | None = None,
+        timeout: FloatInt | None = None,
     ) -> list[Any]: ...
     @overload
     def findall(
@@ -521,7 +522,7 @@ class Pattern(Generic[AnyStr]):
         endpos: int | None = None,
         overlapped: bool = False,
         concurrent: bool | None = None,
-        timeout: float | None = None,
+        timeout: FloatInt | None = None,
     ) -> list[Any]: ...
 
     @overload
@@ -533,7 +534,7 @@ class Pattern(Generic[AnyStr]):
         overlapped: bool = False,
         concurrent: bool | None = None,
         partial: bool = False,
-        timeout: float | None = None,
+        timeout: FloatInt | None = None,
     ) -> _regex.Scanner[str]: ...
     @overload
     def finditer(
@@ -544,7 +545,7 @@ class Pattern(Generic[AnyStr]):
         overlapped: bool = False,
         concurrent: bool | None = None,
         partial: bool = False,
-        timeout: float | None = None,
+        timeout: FloatInt | None = None,
     ) -> _regex.Scanner[bytes]: ...
 
     @overload
@@ -556,7 +557,7 @@ class Pattern(Generic[AnyStr]):
         pos: int | None = None,
         endpos: int | None = None,
         concurrent: bool | None = None,
-        timeout: float | None = None,
+        timeout: FloatInt | None = None,
     ) -> str: ...
     @overload
     def sub(
@@ -567,7 +568,7 @@ class Pattern(Generic[AnyStr]):
         pos: int | None = None,
         endpos: int | None = None,
         concurrent: bool | None = None,
-        timeout: float | None = None,
+        timeout: FloatInt | None = None,
     ) -> bytes: ...
 
     @overload
@@ -579,7 +580,7 @@ class Pattern(Generic[AnyStr]):
         pos: int | None = None,
         endpos: int | None = None,
         concurrent: bool | None = None,
-        timeout: float | None = None,
+        timeout: FloatInt | None = None,
     ) -> str: ...
     @overload
     def subf(
@@ -590,7 +591,7 @@ class Pattern(Generic[AnyStr]):
         pos: int | None = None,
         endpos: int | None = None,
         concurrent: bool | None = None,
-        timeout: float | None = None,
+        timeout: FloatInt | None = None,
     ) -> bytes: ...
 
     @overload
@@ -602,7 +603,7 @@ class Pattern(Generic[AnyStr]):
         pos: int | None = None,
         endpos: int | None = None,
         concurrent: bool | None = None,
-        timeout: float | None = None,
+        timeout: FloatInt | None = None,
     ) -> tuple[str, int]: ...
     @overload
     def subn(
@@ -613,7 +614,7 @@ class Pattern(Generic[AnyStr]):
         pos: int | None = None,
         endpos: int | None = None,
         concurrent: bool | None = None,
-        timeout: float | None = None,
+        timeout: FloatInt | None = None,
     ) -> tuple[bytes, int]: ...
 
     @overload
@@ -625,7 +626,7 @@ class Pattern(Generic[AnyStr]):
         pos: int | None = None,
         endpos: int | None = None,
         concurrent: bool | None = None,
-        timeout: float | None = None,
+        timeout: FloatInt | None = None,
     ) -> tuple[str, int]: ...
     @overload
     def subfn(
@@ -636,7 +637,7 @@ class Pattern(Generic[AnyStr]):
         pos: int | None = None,
         endpos: int | None = None,
         concurrent: bool | None = None,
-        timeout: float | None = None,
+        timeout: FloatInt | None = None,
     ) -> tuple[bytes, int]: ...
 
     @overload
@@ -648,7 +649,7 @@ class Pattern(Generic[AnyStr]):
         overlapped: bool = False,
         concurrent: bool | None = None,
         partial: bool = False,
-        timeout: float | None = None,
+        timeout: FloatInt | None = None,
     ) -> _regex.Scanner[str]: ...
     @overload
     def scanner(
@@ -659,7 +660,7 @@ class Pattern(Generic[AnyStr]):
         overlapped: bool = False,
         concurrent: bool | None = None,
         partial: bool = False,
-        timeout: float | None = None,
+        timeout: FloatInt | None = None,
     ) -> _regex.Scanner[bytes]: ...
 
     def __copy__(self) -> Self: ...

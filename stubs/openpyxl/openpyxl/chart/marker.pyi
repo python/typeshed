@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import ConvertibleToFloat, ConvertibleToInt, Unused
 from typing import ClassVar, Literal, TypeAlias
 
@@ -17,7 +18,7 @@ _MarkerSymbol: TypeAlias = Literal[
 class Marker(Serialisable):
     tagname: ClassVar[str]
     symbol: NestedNoneSet[_MarkerSymbol]
-    size: NestedMinMax[float, Literal[True]]
+    size: NestedMinMax[FloatInt, Literal[True]]
     spPr: Typed[GraphicalProperties, Literal[True]]
     graphicalProperties: Alias
     extLst: Typed[ExtensionList, Literal[True]]

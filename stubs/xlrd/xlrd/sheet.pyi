@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import SupportsWrite
 from array import array
 from collections.abc import Callable, Generator, Sequence
@@ -44,7 +45,7 @@ ctype_text: Final[dict[int, str]]
 class Cell(BaseObject):
     __slots__ = ["ctype", "value", "xf_index"]
     ctype: Literal[0, 1, 2, 3, 4, 5, 6]
-    value: str | float
+    value: str | FloatInt
     xf_index: int | None
     def __init__(self, ctype: Literal[0, 1, 2, 3, 4, 5, 6], value: str, xf_index: int | None = None) -> None: ...
 
@@ -96,8 +97,8 @@ class Sheet(BaseObject):
     row_label_ranges: list[tuple[int, int, int, int]]
     merged_cells: list[tuple[int, int, int, int]]
     rich_text_runlist_map: dict[tuple[int, int], list[tuple[int, int]]]
-    defcolwidth: float | None
-    standardwidth: float | None
+    defcolwidth: FloatInt | None
+    standardwidth: FloatInt | None
     default_row_height: int | None
     default_row_height_mismatch: int | None
     default_row_hidden: int | None

@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 import tkinter
 from collections.abc import Callable
 from typing import Any, Literal
@@ -31,21 +32,21 @@ class ThemedTk(tkinter.Tk, ThemedWidget):
         toplevel: bool | None = ...,
         theme: str | None = ...,
         background: str = ...,
-        bd: float | str = ...,
+        bd: FloatInt | str = ...,
         bg: str = ...,
-        border: float | str = ...,
-        borderwidth: float | str = ...,
+        border: FloatInt | str = ...,
+        borderwidth: FloatInt | str = ...,
         cursor: tkinter._Cursor = ...,
-        height: float | str = ...,
+        height: FloatInt | str = ...,
         highlightbackground: str = ...,
         highlightcolor: str = ...,
-        highlightthickness: float | str = ...,
+        highlightthickness: FloatInt | str = ...,
         menu: tkinter.Menu = ...,
-        padx: float | str = ...,
-        pady: float | str = ...,
+        padx: FloatInt | str = ...,
+        pady: FloatInt | str = ...,
         relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
         takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = ...,
-        width: float | str = ...,
+        width: FloatInt | str = ...,
     ) -> dict[str, tuple[str, str, str, Any, Any]] | None: ...
     def cget(self, k: str) -> Any: ...
     def configure(  # type: ignore[override]
@@ -56,21 +57,21 @@ class ThemedTk(tkinter.Tk, ThemedWidget):
         toplevel: bool | None = ...,
         theme: str | None = ...,
         background: str = ...,
-        bd: float | str = ...,
+        bd: FloatInt | str = ...,
         bg: str = ...,
-        border: float | str = ...,
-        borderwidth: float | str = ...,
+        border: FloatInt | str = ...,
+        borderwidth: FloatInt | str = ...,
         cursor: tkinter._Cursor = ...,
-        height: float | str = ...,
+        height: FloatInt | str = ...,
         highlightbackground: str = ...,
         highlightcolor: str = ...,
-        highlightthickness: float | str = ...,
+        highlightthickness: FloatInt | str = ...,
         menu: tkinter.Menu = ...,
-        padx: float | str = ...,
-        pady: float | str = ...,
+        padx: FloatInt | str = ...,
+        pady: FloatInt | str = ...,
         relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
         takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = ...,
-        width: float | str = ...,
+        width: FloatInt | str = ...,
     ) -> dict[str, tuple[str, str, str, Any, Any]] | None: ...
     def __getitem__(self, k: str) -> Any: ...
     def __setitem__(self, k: str, v: Any) -> None: ...

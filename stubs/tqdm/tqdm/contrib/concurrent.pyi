@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 import sys
 from _typeshed import SupportsWrite
 from collections.abc import Callable, Generator, Iterable, Mapping
@@ -25,29 +26,29 @@ class _TqdmCommonKwargs(TypedDict, total=False):
     chunksize: int
     # Standard tqdm parameters
     desc: str | None
-    total: float | None
+    total: FloatInt | None
     leave: bool | None
     file: SupportsWrite[str] | None
     ncols: int | None
-    mininterval: float
-    maxinterval: float
-    miniters: float | None
+    mininterval: FloatInt
+    maxinterval: FloatInt
+    miniters: FloatInt | None
     ascii: bool | str | None
     disable: bool | None
     unit: str
-    unit_scale: bool | float
+    unit_scale: bool | FloatInt
     dynamic_ncols: bool
-    smoothing: float
+    smoothing: FloatInt
     bar_format: str | None
-    initial: float
+    initial: FloatInt
     position: int | None
     postfix: Mapping[str, object] | str | None
-    unit_divisor: float
+    unit_divisor: FloatInt
     write_bytes: bool | None
-    lock_args: tuple[bool | None, float | None] | tuple[bool | None] | None
+    lock_args: tuple[bool | None, FloatInt | None] | tuple[bool | None] | None
     nrows: int | None
     colour: str | None
-    delay: float | None
+    delay: FloatInt | None
 
 # TODO: refactor this, when `TypedDict` will support conditional fields
 if sys.version_info >= (3, 14):

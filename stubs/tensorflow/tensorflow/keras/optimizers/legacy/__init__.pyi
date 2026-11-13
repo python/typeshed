@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Callable, Iterable
 from typing import Any, TypeAlias
 
@@ -6,7 +7,7 @@ from tensorflow._aliases import Gradients
 from tensorflow.keras.optimizers import schedules as schedules
 from tensorflow.python.trackable.base import Trackable
 
-_LearningRate: TypeAlias = float | tf.Tensor | schedules.LearningRateSchedule | Callable[[], float | tf.Tensor]
+_LearningRate: TypeAlias = FloatInt | tf.Tensor | schedules.LearningRateSchedule | Callable[[], float | tf.Tensor]
 _GradientAggregator: TypeAlias = Callable[[list[tuple[Gradients, tf.Variable]]], list[tuple[Gradients, tf.Variable]]] | None
 _GradientTransformer: TypeAlias = (
     Iterable[Callable[[list[tuple[Gradients, tf.Variable]]], list[tuple[Gradients, tf.Variable]]]] | None
@@ -32,29 +33,29 @@ class Adam(Optimizer):
     def __init__(
         self,
         learning_rate: _LearningRate = 0.001,
-        beta_1: float = 0.9,
-        beta_2: float = 0.999,
-        epsilon: float = 1e-07,
+        beta_1: FloatInt = 0.9,
+        beta_2: FloatInt = 0.999,
+        epsilon: FloatInt = 1e-07,
         amsgrad: bool = False,
         name: str = "Adam",
         **kwargs: Any,
     ) -> None: ...
 
 class Adagrad(Optimizer):
-    _initial_accumulator_value: float
+    _initial_accumulator_value: FloatInt
 
     def __init__(
         self,
         learning_rate: _LearningRate = 0.001,
-        initial_accumulator_value: float = 0.1,
-        epsilon: float = 1e-7,
+        initial_accumulator_value: FloatInt = 0.1,
+        epsilon: FloatInt = 1e-7,
         name: str = "Adagrad",
         **kwargs: Any,
     ) -> None: ...
 
 class SGD(Optimizer):
     def __init__(
-        self, learning_rate: _LearningRate = 0.01, momentum: float = 0.0, nesterov: bool = False, name: str = "SGD", **kwargs: Any
+        self, learning_rate: _LearningRate = 0.01, momentum: FloatInt = 0.0, nesterov: bool = False, name: str = "SGD", **kwargs: Any
     ) -> None: ...
 
 def __getattr__(name: str): ...  # incomplete module

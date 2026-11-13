@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import Incomplete
 from collections.abc import Callable
 from dataclasses import dataclass
@@ -17,15 +18,15 @@ class Move:
 
 @dataclass
 class Jitter(Move):
-    width: float | Default = ...
-    x: float = 0
-    y: float = 0
+    width: FloatInt | Default = ...
+    x: FloatInt = 0
+    y: FloatInt = 0
     seed: int | None = None
 
 @dataclass
 class Dodge(Move):
     empty: str = "keep"
-    gap: float = 0
+    gap: FloatInt = 0
     by: list[str] | None = None
 
 @dataclass
@@ -33,8 +34,8 @@ class Stack(Move): ...
 
 @dataclass
 class Shift(Move):
-    x: float = 0
-    y: float = 0
+    x: FloatInt = 0
+    y: FloatInt = 0
 
 @dataclass
 class Norm(Move):

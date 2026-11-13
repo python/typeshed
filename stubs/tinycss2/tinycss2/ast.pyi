@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from typing import Literal
 
 class Node:
@@ -79,32 +80,32 @@ class UnicodeRangeToken(Node):
 
 class NumberToken(Node):
     type: Literal["number"]
-    value: float
+    value: FloatInt
     int_value: int | None
     is_integer: bool
     representation: str
     repr_format: str
-    def __init__(self, line: int, column: int, value: float, int_value: int | None, representation: str) -> None: ...
+    def __init__(self, line: int, column: int, value: FloatInt, int_value: int | None, representation: str) -> None: ...
 
 class PercentageToken(Node):
     type: Literal["percentage"]
-    value: float
+    value: FloatInt
     int_value: int | None
     is_integer: bool
     representation: str
     repr_format: str
-    def __init__(self, line: int, column: int, value: float, int_value: int | None, representation: str) -> None: ...
+    def __init__(self, line: int, column: int, value: FloatInt, int_value: int | None, representation: str) -> None: ...
 
 class DimensionToken(Node):
     type: Literal["dimension"]
-    value: float
+    value: FloatInt
     int_value: int | None
     is_integer: bool
     representation: str
     unit: str
     lower_unit: str
     repr_format: str
-    def __init__(self, line: int, column: int, value: float, int_value: int | None, representation: str, unit: str) -> None: ...
+    def __init__(self, line: int, column: int, value: FloatInt, int_value: int | None, representation: str, unit: str) -> None: ...
 
 class ParenthesesBlock(Node):
     type: Literal["() block"]

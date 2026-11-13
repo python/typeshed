@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from gevent._ffi import watcher as _base
 from gevent._types import _IoWatcher
 
@@ -27,7 +28,7 @@ class async_(_base.AsyncMixin, watcher): ...
 class timer(_base.TimerMixin, watcher): ...
 
 class stat(_base.StatMixin, watcher):
-    MIN_STAT_INTERVAL: float
+    MIN_STAT_INTERVAL: FloatInt
 
 class signal(_base.SignalMixin, watcher): ...
 class idle(_base.IdleMixin, watcher): ...

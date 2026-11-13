@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import Incomplete
 from typing import TypedDict, type_check_only
 
@@ -17,9 +18,9 @@ class DirtyError(Exception):
     def from_dict(cls, data: dict[str, Incomplete]) -> DirtyError: ...
 
 class DirtyTimeoutError(DirtyError):
-    timeout: float | None
+    timeout: FloatInt | None
 
-    def __init__(self, message: str = "Operation timed out", timeout: float | None = None) -> None: ...
+    def __init__(self, message: str = "Operation timed out", timeout: FloatInt | None = None) -> None: ...
 
 class DirtyConnectionError(DirtyError):
     socket_path: str | None

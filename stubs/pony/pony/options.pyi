@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from typing import Final
 
 DEBUG: Final[bool]
@@ -8,7 +9,7 @@ STD_STYLESHEETS: Final[list[tuple[str, ...]]]
 BASE_STYLESHEETS_PLACEHOLDER: Final[str]
 COMPONENT_STYLESHEETS_PLACEHOLDER: Final[str]
 SCRIPTS_PLACEHOLDER: Final[str]
-RELOADING_CHECK_INTERVAL: Final[float]
+RELOADING_CHECK_INTERVAL: Final[FloatInt]
 LOG_TO_SQLITE: Final[None]
 LOGGING_LEVEL: Final[None]
 LOGGING_PONY_LEVEL: Final[None]

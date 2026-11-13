@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import Incomplete
 from collections.abc import Callable, Generator, Iterator
 from dataclasses import dataclass
@@ -86,7 +87,7 @@ def random_spanning_tree(
 class SpanningTreeIterator:
     @dataclass(order=True)
     class Partition:
-        mst_weight: float
+        mst_weight: FloatInt
         partition_dict: dict[Incomplete, Incomplete]
         def __copy__(self) -> SpanningTreeIterator.Partition: ...
 

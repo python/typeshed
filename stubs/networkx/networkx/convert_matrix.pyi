@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import Incomplete
 from collections.abc import Callable, Collection, Hashable, Iterable
 from typing import Literal, TypeAlias, TypeVar, overload
@@ -34,9 +35,9 @@ def to_pandas_adjacency(
     nodelist: _Axes[_Node] | None = None,
     dtype: numpy.dtype[Incomplete] | None = None,
     order: numpy._OrderCF = None,
-    multigraph_weight: Callable[[list[float]], float] = ...,
+    multigraph_weight: Callable[[list[FloatInt]], float] = ...,
     weight: str = "weight",
-    nonedge: float = 0.0,
+    nonedge: FloatInt = 0.0,
 ) -> _DataFrame: ...
 
 @overload
@@ -104,9 +105,9 @@ def to_numpy_array(
     nodelist: Collection[_Node] | None = None,
     dtype: numpy.dtype[Incomplete] | None = None,
     order: numpy._OrderCF = None,
-    multigraph_weight: Callable[[list[float]], float] = ...,
+    multigraph_weight: Callable[[list[FloatInt]], float] = ...,
     weight: str = "weight",
-    nonedge: float = 0.0,
+    nonedge: FloatInt = 0.0,
 ) -> numpy.ndarray[Incomplete, numpy.dtype[Incomplete]]: ...
 
 @overload

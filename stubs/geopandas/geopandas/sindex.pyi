@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Iterable
 from typing import Any, Final, Literal, overload
 
@@ -21,7 +22,7 @@ class SpatialIndex:
         geometry: Geometry | ArrayLike,
         predicate: str | None = None,
         sort: bool = False,
-        distance: float | ArrayLike | None = None,
+        distance: FloatInt | ArrayLike | None = None,
         output_format: Literal["indices"] = "indices",
     ) -> NDArray[np.int64]: ...
     @overload
@@ -30,7 +31,7 @@ class SpatialIndex:
         geometry: Geometry | ArrayLike,
         predicate: str | None = None,
         sort: bool = False,
-        distance: float | ArrayLike | None = None,
+        distance: FloatInt | ArrayLike | None = None,
         *,
         output_format: Literal["dense"],
     ) -> NDArray[np.bool_]: ...
@@ -40,7 +41,7 @@ class SpatialIndex:
         geometry: Geometry | ArrayLike,
         predicate: str | None = None,
         sort: bool = False,
-        distance: float | ArrayLike | None = None,
+        distance: FloatInt | ArrayLike | None = None,
         *,
         output_format: Literal["sparse"],
     ) -> Any: ...  # returns scipy coo_array but we don't depend on scipy
@@ -50,7 +51,7 @@ class SpatialIndex:
         self,
         geometry,
         return_all: bool = True,
-        max_distance: float | None = None,
+        max_distance: FloatInt | None = None,
         return_distance: Literal[False] = False,
         exclusive: bool = False,
     ) -> _Array2D[np.int64]: ...
@@ -59,7 +60,7 @@ class SpatialIndex:
         self,
         geometry,
         return_all: bool = True,
-        max_distance: float | None = None,
+        max_distance: FloatInt | None = None,
         *,
         return_distance: Literal[True],
         exclusive: bool = False,
@@ -69,12 +70,12 @@ class SpatialIndex:
         self,
         geometry,
         return_all: bool = True,
-        max_distance: float | None = None,
+        max_distance: FloatInt | None = None,
         return_distance: bool = False,
         exclusive: bool = False,
     ) -> _Array2D[np.int64] | tuple[_Array2D[np.int64], _Array1D[np.float64]]: ...
 
-    def intersection(self, coordinates: Iterable[float]) -> _Array1D[np.int64]: ...
+    def intersection(self, coordinates: Iterable[FloatInt]) -> _Array1D[np.int64]: ...
     @property
     def size(self) -> int: ...
     @property

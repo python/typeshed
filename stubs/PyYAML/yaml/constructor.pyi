@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import Incomplete
 from collections.abc import Callable, Generator, Hashable
 from datetime import date
@@ -50,8 +51,8 @@ class SafeConstructor(BaseConstructor):
     bool_values: ClassVar[dict[str, bool]]
     def construct_yaml_bool(self, node: ScalarNode) -> bool: ...
     def construct_yaml_int(self, node: ScalarNode) -> int: ...
-    inf_value: ClassVar[float]
-    nan_value: ClassVar[float]
+    inf_value: ClassVar[FloatInt]
+    nan_value: ClassVar[FloatInt]
     def construct_yaml_float(self, node: ScalarNode) -> float: ...
     def construct_yaml_binary(self, node: ScalarNode) -> bytes: ...
     timestamp_regexp: ClassVar[Pattern[str]]

@@ -1,19 +1,20 @@
+from _typeshed import FloatInt
 from collections.abc import Sequence
 
 from .flowables import Flowable, _Container, _FindSplitterMixin
 
 class MultiCol(_Container, _FindSplitterMixin, Flowable):  # pyrefly: ignore [inconsistent-inheritance]
     contents: Sequence[Flowable]
-    widths: Sequence[float | str]
-    minHeightNeeded: float
+    widths: Sequence[FloatInt | str]
+    minHeightNeeded: FloatInt
     def __init__(
         self,
         contents: Sequence[Flowable],
-        widths: Sequence[float | str],
-        minHeightNeeded: float = 36,
-        spaceBefore: float | None = None,
-        spaceAfter: float | None = None,
+        widths: Sequence[FloatInt | str],
+        minHeightNeeded: FloatInt = 36,
+        spaceBefore: FloatInt | None = None,
+        spaceAfter: FloatInt | None = None,
     ) -> None: ...
-    def nWidths(self, aW: float) -> list[float]: ...
+    def nWidths(self, aW: FloatInt) -> list[float]: ...
 
 __all__ = ["MultiCol"]

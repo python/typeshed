@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Callable, Collection, Iterable
 from datetime import date, datetime
 from decimal import Decimal
@@ -69,14 +70,14 @@ class Length:
     def __call__(self, form: BaseForm, field: StringField) -> None: ...
 
 class NumberRange:
-    min: float | Decimal | Callable[[], float | Decimal | None] | None
-    max: float | Decimal | Callable[[], float | Decimal | None] | None
+    min: FloatInt | Decimal | Callable[[], float | Decimal | None] | None
+    max: FloatInt | Decimal | Callable[[], float | Decimal | None] | None
     message: _Text | None
     field_flags: dict[str, Any]
     def __init__(
         self,
-        min: float | Decimal | Callable[[], float | Decimal | None] | None = None,
-        max: float | Decimal | Callable[[], float | Decimal | None] | None = None,
+        min: FloatInt | Decimal | Callable[[], float | Decimal | None] | None = None,
+        max: FloatInt | Decimal | Callable[[], float | Decimal | None] | None = None,
         message: _Text | None = None,
     ) -> None: ...
     # any numeric field will work, for now we don't try to use a union

@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 import asyncio
 from re import Pattern
 from typing import Any, ClassVar, TypeAlias, overload
@@ -65,11 +66,11 @@ class BaseChannelLayer:
     @deprecated("Use require_valid_group_name instead.")
     def valid_group_name(self, group_name: str) -> bool: ...
 
-_InMemoryQueueData: TypeAlias = tuple[float, dict[str, Any]]
+_InMemoryQueueData: TypeAlias = tuple[FloatInt, dict[str, Any]]
 
 class InMemoryChannelLayer(BaseChannelLayer):
     channels: dict[str, asyncio.Queue[_InMemoryQueueData]]
-    groups: dict[str, dict[str, float]]
+    groups: dict[str, dict[str, FloatInt]]
     group_expiry: int
 
     def __init__(

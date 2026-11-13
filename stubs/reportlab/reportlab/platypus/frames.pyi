@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from typing import Literal
 
 from reportlab.pdfgen.canvas import Canvas
@@ -5,25 +6,25 @@ from reportlab.platypus.flowables import Flowable
 
 class Frame:
     id: str | None
-    x1: float
-    y1: float
-    width: float
-    height: float
-    leftPadding: float
-    bottomPadding: float
-    rightPadding: float
-    topPadding: float
+    x1: FloatInt
+    y1: FloatInt
+    width: FloatInt
+    height: FloatInt
+    leftPadding: FloatInt
+    bottomPadding: FloatInt
+    rightPadding: FloatInt
+    topPadding: FloatInt
     showBoundary: int
     def __init__(
         self,
-        x1: float,
-        y1: float,
-        width: float,
-        height: float,
-        leftPadding: float = 6,
-        bottomPadding: float = 6,
-        rightPadding: float = 6,
-        topPadding: float = 6,
+        x1: FloatInt,
+        y1: FloatInt,
+        width: FloatInt,
+        height: FloatInt,
+        leftPadding: FloatInt = 6,
+        bottomPadding: FloatInt = 6,
+        rightPadding: FloatInt = 6,
+        topPadding: FloatInt = 6,
         id: str | None = None,
         showBoundary: int = 0,
         overlapAttachedSpace=None,

@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import Incomplete
 from asyncio import StreamReader, StreamWriter
 from collections.abc import Iterable
@@ -29,7 +30,7 @@ class AsyncHTTP2Connection:
     async def initiate_upgrade(
         self, settings_header: bytes | None, http1_req: Request, body: bytes | None = b""
     ) -> HTTP2Request: ...
-    async def receive_data(self, timeout: float | None = None) -> list[HTTP2Request]: ...
+    async def receive_data(self, timeout: FloatInt | None = None) -> list[HTTP2Request]: ...
     async def send_informational(self, stream_id: int, status: int, headers: Iterable[tuple[str, Incomplete]]) -> None: ...
     async def send_response(
         self, stream_id: int, status: int, headers: Iterable[tuple[str, Incomplete]], body: bytes | None = None

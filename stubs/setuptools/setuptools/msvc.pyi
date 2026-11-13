@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 import sys
 from typing import Final, TypedDict, overload
 from typing_extensions import LiteralString, NotRequired
@@ -70,11 +71,11 @@ class SystemInfo:
 
     ri: RegistryInfo
     pi: PlatformInfo
-    known_vs_paths: dict[float, str]
-    vs_ver: float
-    vc_ver: float
+    known_vs_paths: dict[FloatInt, str]
+    vs_ver: FloatInt
+    vc_ver: FloatInt
 
-    def __init__(self, registry_info: RegistryInfo, vc_ver: float | None = None) -> None: ...
+    def __init__(self, registry_info: RegistryInfo, vc_ver: FloatInt | None = None) -> None: ...
     def find_reg_vs_vers(self) -> list[float]: ...
     def find_programdata_vs_vers(self) -> dict[float, str]: ...
     @property
@@ -120,7 +121,7 @@ class EnvironmentInfo:
     ri: RegistryInfo
     si: SystemInfo
 
-    def __init__(self, arch: str, vc_ver: float | None = None, vc_min_ver: float = 0) -> None: ...
+    def __init__(self, arch: str, vc_ver: FloatInt | None = None, vc_min_ver: FloatInt = 0) -> None: ...
     @property
     def vs_ver(self) -> float: ...
     @property

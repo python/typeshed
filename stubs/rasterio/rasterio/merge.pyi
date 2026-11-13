@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 import logging
 import os
 from collections.abc import Callable, Sequence
@@ -27,9 +28,9 @@ def copy_count(merged_data: _Arr, new_data: _Arr, merged_mask: _Arr, new_mask: _
 @overload
 def merge(
     sources: Sequence[DatasetReaderBase | str | os.PathLike[str]],
-    bounds: tuple[float, float, float, float] | None = None,
-    res: float | tuple[float, float] | None = None,
-    nodata: float | None = None,
+    bounds: tuple[FloatInt, FloatInt, FloatInt, FloatInt] | None = None,
+    res: FloatInt | tuple[FloatInt, FloatInt] | None = None,
+    nodata: FloatInt | None = None,
     dtype: DTypeLike | None = None,
     *,
     indexes: int | Sequence[int] | None = None,
@@ -47,9 +48,9 @@ def merge(
 @deprecated("The `precision` parameter is unused since rasterio 1.3 and will be removed in 2.0.0.")
 def merge(
     sources: Sequence[DatasetReaderBase | str | os.PathLike[str]],
-    bounds: tuple[float, float, float, float] | None = None,
-    res: float | tuple[float, float] | None = None,
-    nodata: float | None = None,
+    bounds: tuple[FloatInt, FloatInt, FloatInt, FloatInt] | None = None,
+    res: FloatInt | tuple[FloatInt, FloatInt] | None = None,
+    nodata: FloatInt | None = None,
     dtype: DTypeLike | None = None,
     precision: int | None = None,
     indexes: int | Sequence[int] | None = None,

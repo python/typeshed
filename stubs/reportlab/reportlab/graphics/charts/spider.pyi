@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import Incomplete
 from typing import Final
 
@@ -19,12 +20,12 @@ class StrandProperty(PropHolder):
     def __init__(self) -> None: ...
 
 class SpokeProperty(PropHolder):
-    strokeWidth: float
+    strokeWidth: FloatInt
     fillColor: Incomplete
     strokeColor: Incomplete
     strokeDashArray: Incomplete
     visible: int
-    labelRadius: float
+    labelRadius: FloatInt
     def __init__(self, **kw) -> None: ...
 
 class SpokeLabel(WedgeLabel):
@@ -52,7 +53,7 @@ class SpiderChart(PlotArea):
     height: int
     def __init__(self) -> None: ...
     def demo(self): ...
-    def normalizeData(self, outer: float = 0.0): ...
+    def normalizeData(self, outer: FloatInt = 0.0): ...
     def labelClass(self, kind): ...
     def draw(self): ...
 

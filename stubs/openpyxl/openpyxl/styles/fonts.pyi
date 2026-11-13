@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import ConvertibleToFloat, ConvertibleToInt
 from typing import ClassVar, Final, Literal, TypeAlias
 from typing_extensions import Self
@@ -28,7 +29,7 @@ class Font(Serialisable):
     UNDERLINE_SINGLE_ACCOUNTING: Final = "singleAccounting"
     name: NestedString[Literal[True]]
     charset: NestedInteger[Literal[True]]
-    family: NestedMinMax[float, Literal[True]]
+    family: NestedMinMax[FloatInt, Literal[True]]
     sz: NestedFloat[Literal[True]]
     size: Alias
     b: NestedBool[Literal[False]]

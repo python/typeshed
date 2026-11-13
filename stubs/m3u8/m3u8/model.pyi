@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 import datetime as dt
 from _typeshed import Incomplete, StrOrBytesPath, Unused
 from collections.abc import Callable, Iterable, Mapping
@@ -54,7 +55,7 @@ class M3U8:
     is_variant: bool | None
     is_endlist: bool | None
     is_i_frames_only: bool | None
-    target_duration: float | None
+    target_duration: FloatInt | None
     media_sequence: int | None
     program_date_time: dt.datetime | None
     is_independent_segments: bool | None
@@ -96,7 +97,7 @@ class M3U8:
 class Segment(BasePathMixin):
     media_sequence: int | None
     uri: str | None
-    duration: float | None
+    duration: FloatInt | None
     title: str
     bitrate: int | None
     byterange: str | None
@@ -109,7 +110,7 @@ class Segment(BasePathMixin):
     cue_in: bool
     scte35: str | None
     oatcls_scte35: str | None
-    scte35_duration: float | None
+    scte35_duration: FloatInt | None
     scte35_elapsedtime: Incomplete | None
     asset_metadata: dict[str, Incomplete] | None
     key: Key | None
@@ -124,7 +125,7 @@ class Segment(BasePathMixin):
         base_uri: str | None = None,
         program_date_time: dt.datetime | None = None,
         current_program_date_time: dt.datetime | None = None,
-        duration: float | None = None,
+        duration: FloatInt | None = None,
         title: str | None = None,
         bitrate: int | None = None,
         byterange: str | None = None,
@@ -136,7 +137,7 @@ class Segment(BasePathMixin):
         key: Unused = None,
         scte35: str | None = None,
         oatcls_scte35: str | None = None,
-        scte35_duration: float | None = None,
+        scte35_duration: FloatInt | None = None,
         scte35_elapsedtime=None,
         asset_metadata: Mapping[str, str] | None = None,
         keyobject: Key | None = None,
@@ -169,7 +170,7 @@ class SegmentList(list[Segment], GroupedBasePathMixin[Segment]):
 class PartialSegment(BasePathMixin):
     base_uri: str
     uri: str | None
-    duration: float | None
+    duration: FloatInt | None
     program_date_time: dt.datetime | None
     current_program_date_time: dt.datetime | None
     byterange: str | None
@@ -182,7 +183,7 @@ class PartialSegment(BasePathMixin):
         self,
         base_uri: str,
         uri: str | None,
-        duration: float | None,
+        duration: FloatInt | None,
         program_date_time: dt.datetime | None = None,
         current_program_date_time: dt.datetime | None = None,
         byterange: str | None = None,
@@ -252,7 +253,7 @@ class StreamInfo:
     audio: str | None
     video: str | None
     subtitles: str | None
-    frame_rate: float | None
+    frame_rate: FloatInt | None
     video_range: str | None
     hdcp_level: str | None
     pathway_id: str | None
@@ -270,7 +271,7 @@ class StreamInfo:
         audio: str | None = None,
         video: str | None = None,
         subtitles: str | None = None,
-        frame_rate: float | None = None,
+        frame_rate: FloatInt | None = None,
         video_range: str | None = None,
         hdcp_level: str | None = None,
         pathway_id: str | None = None,
@@ -325,9 +326,9 @@ class PlaylistList(TagList[_PlaylistAnyT], list[_PlaylistAnyT], GroupedBasePathM
 class SessionDataList(TagList[SessionData], list[SessionData]): ...
 
 class Start:
-    time_offset: float
+    time_offset: FloatInt
     precise: Literal["YES", "NO"]
-    def __init__(self, time_offset: float, precise: Literal["YES", "NO"] | None = None) -> None: ...
+    def __init__(self, time_offset: FloatInt, precise: Literal["YES", "NO"] | None = None) -> None: ...
 
 class RenditionReport(BasePathMixin):
     base_uri: str | None
@@ -340,17 +341,17 @@ class RenditionReport(BasePathMixin):
 class RenditionReportList(list[RenditionReport], GroupedBasePathMixin[RenditionReport]): ...
 
 class ServerControl:
-    can_skip_until: float | None
+    can_skip_until: FloatInt | None
     can_block_reload: str | None
-    hold_back: float | None
-    part_hold_back: float | None
+    hold_back: FloatInt | None
+    part_hold_back: FloatInt | None
     can_skip_dateranges: str | None
     def __init__(
         self,
-        can_skip_until: float | None = None,
+        can_skip_until: FloatInt | None = None,
         can_block_reload: str | None = None,
-        hold_back: float | None = None,
-        part_hold_back: float | None = None,
+        hold_back: FloatInt | None = None,
+        part_hold_back: FloatInt | None = None,
         can_skip_dateranges: str | None = None,
     ) -> None: ...
     def __getitem__(self, item: str) -> str | float | None: ...
@@ -363,8 +364,8 @@ class Skip:
     def dumps(self) -> str: ...
 
 class PartInformation:
-    part_target: float | None
-    def __init__(self, part_target: float | None = None) -> None: ...
+    part_target: FloatInt | None
+    def __init__(self, part_target: FloatInt | None = None) -> None: ...
     def dumps(self) -> str: ...
 
 class PreloadHint(BasePathMixin):
@@ -399,8 +400,8 @@ class DateRange:
     start_date: str | None
     class_: str | None
     end_date: str | None
-    duration: float | None
-    planned_duration: float | None
+    duration: FloatInt | None
+    planned_duration: FloatInt | None
     scte35_cmd: str | None
     scte35_out: str | None
     scte35_in: str | None
@@ -413,8 +414,8 @@ class DateRange:
         start_date: str | None = None,
         class_: str | None = None,  # actually passing as `class` argument
         end_date: str | None = None,
-        duration: float | None = None,
-        planned_duration: float | None = None,
+        duration: FloatInt | None = None,
+        planned_duration: FloatInt | None = None,
         scte35_cmd: str | None = None,
         scte35_out: str | None = None,
         scte35_in: str | None = None,
@@ -451,4 +452,4 @@ def find_key(keydata: Mapping[str, Any], keylist: Iterable[Key | None]) -> Key: 
 
 def denormalize_attribute(attribute: str) -> str: ...
 def quoted(string: str | None) -> str: ...
-def number_to_string(number: str | float | Decimal) -> str: ...
+def number_to_string(number: str | FloatInt | Decimal) -> str: ...

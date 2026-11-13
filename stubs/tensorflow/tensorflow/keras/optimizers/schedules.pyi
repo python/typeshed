@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from abc import abstractmethod
 from collections.abc import Sequence
 from typing import Any
@@ -17,8 +18,8 @@ class LearningRateSchedule:
 class PiecewiseConstantDecay(LearningRateSchedule):
     def __init__(
         self,
-        boundaries: Sequence[tf.Tensor] | Sequence[float],
-        values: Sequence[float] | Sequence[tf.Tensor],
+        boundaries: Sequence[tf.Tensor] | Sequence[FloatInt],
+        values: Sequence[FloatInt] | Sequence[tf.Tensor],
         name: str = "PiecewiseConstant",
     ) -> None: ...
     def __call__(self, step: int | tf.Tensor) -> float | tf.Tensor: ...
@@ -29,9 +30,9 @@ class PiecewiseConstantDecay(LearningRateSchedule):
 class InverseTimeDecay(LearningRateSchedule):
     def __init__(
         self,
-        initial_learning_rate: float | tf.Tensor,
+        initial_learning_rate: FloatInt | tf.Tensor,
         decay_steps: int,
-        decay_rate: float,
+        decay_rate: FloatInt,
         staircase: bool = False,
         name: str = "InverseTimeDecay",
     ) -> None: ...
@@ -43,10 +44,10 @@ class InverseTimeDecay(LearningRateSchedule):
 class PolynomialDecay(LearningRateSchedule):
     def __init__(
         self,
-        initial_learning_rate: float | tf.Tensor,
+        initial_learning_rate: FloatInt | tf.Tensor,
         decay_steps: int,
-        end_learning_rate: float | tf.Tensor = 0.0001,
-        power: float = 1.0,
+        end_learning_rate: FloatInt | tf.Tensor = 0.0001,
+        power: FloatInt = 1.0,
         cycle: bool = False,
         name: str = "PolynomialDecay",
     ) -> None: ...
@@ -58,9 +59,9 @@ class PolynomialDecay(LearningRateSchedule):
 class CosineDecay(LearningRateSchedule):
     def __init__(
         self,
-        initial_learning_rate: float | tf.Tensor,
+        initial_learning_rate: FloatInt | tf.Tensor,
         decay_steps: int,
-        alpha: float | tf.Tensor = 0.0,
+        alpha: FloatInt | tf.Tensor = 0.0,
         name: str = "CosineDecay",
         warmup_target: int | tf.Tensor | None = None,  # float32 or float64 Tensor
         warmup_steps: int | tf.Tensor = 0,  # int32 or int64 Tensor
@@ -73,11 +74,11 @@ class CosineDecay(LearningRateSchedule):
 class CosineDecayRestarts(LearningRateSchedule):
     def __init__(
         self,
-        initial_learning_rate: float | tf.Tensor,
+        initial_learning_rate: FloatInt | tf.Tensor,
         first_decay_steps: int | tf.Tensor,
-        t_mul: float | tf.Tensor = 2.0,
-        m_mul: float | tf.Tensor = 1.0,
-        alpha: float | tf.Tensor = 0.0,
+        t_mul: FloatInt | tf.Tensor = 2.0,
+        m_mul: FloatInt | tf.Tensor = 1.0,
+        alpha: FloatInt | tf.Tensor = 0.0,
         name: str = "SGDRDecay",
     ) -> None: ...
     def __call__(self, step: int | tf.Tensor) -> float | tf.Tensor: ...
@@ -88,9 +89,9 @@ class CosineDecayRestarts(LearningRateSchedule):
 class ExponentialDecay(LearningRateSchedule):
     def __init__(
         self,
-        initial_learning_rate: float | tf.Tensor,
+        initial_learning_rate: FloatInt | tf.Tensor,
         decay_steps: int | tf.Tensor,
-        decay_rate: float | tf.Tensor,
+        decay_rate: FloatInt | tf.Tensor,
         staircase: bool = False,
         name: str = "ExponentialDecay",
     ) -> None: ...

@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import Incomplete
 from dataclasses import dataclass
 from typing import Any, TypeAlias, TypeVar
@@ -22,7 +23,7 @@ class Mappable:
 
 MappableBool: TypeAlias = bool | Mappable
 MappableString: TypeAlias = str | Mappable
-MappableFloat: TypeAlias = float | Mappable
+MappableFloat: TypeAlias = FloatInt | Mappable
 MappableColor: TypeAlias = str | tuple[Incomplete, ...] | Mappable
 MappableStyle: TypeAlias = str | DashPattern | DashPatternWithOffset | Mappable
 

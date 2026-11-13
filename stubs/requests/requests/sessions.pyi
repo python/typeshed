@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from _typeshed import SupportsItems, SupportsRead, Unused
 from collections.abc import Callable, Iterable, Mapping, MutableMapping
 from typing import Any, TypeAlias, TypedDict, type_check_only
@@ -102,7 +103,7 @@ _Params: TypeAlias = (
 )
 _TextMapping: TypeAlias = MutableMapping[str, str]
 _HeadersUpdateMapping: TypeAlias = Mapping[str, str | bytes | None]
-_Timeout: TypeAlias = float | tuple[float | None, float | None]
+_Timeout: TypeAlias = FloatInt | tuple[FloatInt | None, FloatInt | None]
 _Verify: TypeAlias = bool | str
 
 @type_check_only

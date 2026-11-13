@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 import sys
 from _typeshed import SupportsWrite
 from collections.abc import Iterator
@@ -70,8 +71,8 @@ class Book(BaseObject):
     style_name_map: dict[str, tuple[int, int]]
     colour_map: dict[int, tuple[int, int, int] | None]
     palette_record: list[tuple[int, int, int]]
-    load_time_stage_1: float
-    load_time_stage_2: float
+    load_time_stage_1: FloatInt
+    load_time_stage_2: FloatInt
     def sheets(self) -> list[Sheet]: ...
     def sheet_by_index(self, sheetx: int) -> Sheet: ...
     def __iter__(self) -> Iterator[Sheet]: ...
