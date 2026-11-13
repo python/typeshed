@@ -684,9 +684,15 @@ class Sequence(Reversible[_T_co], Collection[_T_co]):
     @overload
     @abstractmethod
     def __getitem__(self, index: int, /) -> _T_co: ...
-    @overload
-    @abstractmethod
-    def __getitem__(self, index: slice[int | None], /) -> Sequence[_T_co]: ...
+
+    if sys.version_info >= (3, 11):
+        @overload
+        @abstractmethod
+        def __getitem__(self, index: slice[int | None], /) -> Self: ...
+    else:
+        @overload
+        @abstractmethod
+        def __getitem__(self, index: slice[int | None], /) -> Sequence[_T_co]: ...
 
     # Mixin methods
     def index(self, value: Any, start: int = 0, stop: int = ..., /) -> int: ...
