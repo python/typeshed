@@ -1,4 +1,5 @@
 from _typeshed import FloatInt
+
 import serial
 
 class RS485Settings:

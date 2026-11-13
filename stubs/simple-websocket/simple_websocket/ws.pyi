@@ -1,7 +1,6 @@
-from _typeshed import FloatInt
 import socket
 import threading
-from _typeshed import FileDescriptorLike
+from _typeshed import FileDescriptorLike, FloatInt
 from _typeshed.wsgi import WSGIEnvironment
 from collections.abc import Callable
 from selectors import SelectorKey

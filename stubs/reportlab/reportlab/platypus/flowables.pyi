@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import Incomplete, SupportsRead, Unused
+from _typeshed import FloatInt, Incomplete, SupportsRead, Unused
 from collections.abc import Callable, Iterable, Sequence
 from typing import Any, Literal, Protocol, TypeAlias, type_check_only
 from typing_extensions import Never, Self

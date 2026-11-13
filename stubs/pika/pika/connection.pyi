@@ -1,7 +1,6 @@
-from _typeshed import FloatInt
 import abc
 import ssl
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from collections.abc import Callable
 from logging import Logger
 from typing import Final, Literal

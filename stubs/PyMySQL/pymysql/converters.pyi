@@ -1,8 +1,7 @@
-from _typeshed import FloatInt
 import datetime
 import re
 import time
-from _typeshed import Unused
+from _typeshed import FloatInt, Unused
 from collections.abc import Callable, Mapping, Sequence
 from decimal import Decimal
 from typing import Any, TypeAlias, TypeVar

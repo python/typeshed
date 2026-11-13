@@ -1,7 +1,6 @@
-from _typeshed import FloatInt
 import abc
 import asyncio
-from _typeshed import Incomplete, MaybeNone
+from _typeshed import FloatInt, Incomplete, MaybeNone
 from collections.abc import (
     AsyncIterable,
     AsyncIterator,

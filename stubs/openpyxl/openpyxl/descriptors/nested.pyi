@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import ConvertibleToFloat, ConvertibleToInt, Unused
+from _typeshed import ConvertibleToFloat, ConvertibleToInt, FloatInt, Unused
 from collections.abc import Iterable
 from typing import Any, ClassVar, Literal, TypeAlias, overload
 from typing_extensions import Never

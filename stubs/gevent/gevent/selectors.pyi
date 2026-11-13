@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import FileDescriptorLike
+from _typeshed import FileDescriptorLike, FloatInt
 from collections.abc import Mapping
 from selectors import BaseSelector, SelectorKey
 from typing import Any

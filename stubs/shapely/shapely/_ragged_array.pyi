@@ -1,4 +1,5 @@
 from _typeshed import FloatInt
+
 import numpy as np
 from numpy.typing import NDArray
 

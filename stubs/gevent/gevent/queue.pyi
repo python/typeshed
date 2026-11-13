@@ -1,6 +1,6 @@
-from _typeshed import FloatInt
 import sys
 import types
+from _typeshed import FloatInt
 from collections import deque
 from collections.abc import Iterable
 

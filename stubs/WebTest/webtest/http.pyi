@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from _typeshed.wsgi import StartResponse, WSGIApplication, WSGIEnvironment
 from collections.abc import Iterable
 from threading import Thread

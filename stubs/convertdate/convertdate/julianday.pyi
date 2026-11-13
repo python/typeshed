@@ -1,5 +1,5 @@
-from _typeshed import FloatInt
 import datetime
+from _typeshed import FloatInt
 
 def to_datetime(jdc: FloatInt) -> datetime.datetime: ...
 def from_datetime(dt: datetime.datetime) -> float: ...

@@ -1,6 +1,5 @@
-from _typeshed import FloatInt
 import socket
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 
 class KafkaTCPTransport:
     host: Incomplete | None

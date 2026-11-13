@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import SupportsItems
+from _typeshed import FloatInt, SupportsItems
 from collections.abc import Iterable, Iterator, KeysView, Mapping, Sequence
 from datetime import datetime, timedelta, tzinfo
 from typing import Any as tAny, TypeAlias

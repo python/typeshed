@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from collections.abc import Sequence
 from math import cos as cos, pi as pi, sin as sin
 from typing import IO, Final

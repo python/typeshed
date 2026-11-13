@@ -1,6 +1,5 @@
-from _typeshed import FloatInt
 import os
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from collections.abc import Collection, Hashable, Iterable, Mapping, Sequence
 from typing import Literal, TypeAlias, overload
 

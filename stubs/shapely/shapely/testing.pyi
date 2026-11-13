@@ -1,4 +1,5 @@
 from _typeshed import FloatInt
+
 from ._typing import ArrayLike, OptGeoArrayLike
 
 __all__ = ["assert_geometries_equal"]

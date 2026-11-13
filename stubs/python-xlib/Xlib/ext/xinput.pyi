@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import ConvertibleToFloat, SliceableBuffer, Unused
+from _typeshed import ConvertibleToFloat, FloatInt, SliceableBuffer, Unused
 from collections.abc import Iterable, Sequence
 from typing import Final, TypeVar
 
@@ -183,7 +182,12 @@ def get_device_property(
 class XIChangeProperty(rq.Request): ...
 
 def change_device_property(
-    self: Display | resource.Resource, deviceid: int, property: int, type: int, mode: int, value: Sequence[FloatInt] | Sequence[str]
+    self: Display | resource.Resource,
+    deviceid: int,
+    property: int,
+    type: int,
+    mode: int,
+    value: Sequence[FloatInt] | Sequence[str],
 ) -> XIChangeProperty: ...
 
 class XIDeleteProperty(rq.Request): ...

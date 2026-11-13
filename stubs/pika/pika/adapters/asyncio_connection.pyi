@@ -1,6 +1,5 @@
-from _typeshed import FloatInt
 import asyncio
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from collections.abc import Callable, Sequence
 from logging import Logger
 from typing_extensions import Self

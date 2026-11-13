@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from typing import TypedDict, type_check_only
 
 @type_check_only

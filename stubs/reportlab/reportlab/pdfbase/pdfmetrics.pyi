@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import Incomplete, StrOrBytesPath
+from _typeshed import FloatInt, Incomplete, StrOrBytesPath
 from typing import ClassVar, Final, Literal
 
 from reportlab.lib.rl_accel import unicode2T1 as unicode2T1

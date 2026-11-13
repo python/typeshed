@@ -1,2 +1,3 @@
 from _typeshed import FloatInt
+
 def detect_languages(text: str, confidence_threshold: FloatInt) -> list[str]: ...

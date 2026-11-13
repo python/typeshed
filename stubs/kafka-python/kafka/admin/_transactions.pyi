@@ -1,6 +1,5 @@
-from _typeshed import FloatInt
 import sys
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from typing import NamedTuple
 
 from kafka.structs import TopicPartition

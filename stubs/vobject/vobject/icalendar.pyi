@@ -1,6 +1,5 @@
-from _typeshed import FloatInt
 import datetime
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from collections.abc import Iterable
 from datetime import timedelta, tzinfo
 from typing import Final, Literal, overload

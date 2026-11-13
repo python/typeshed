@@ -1,6 +1,5 @@
-from _typeshed import FloatInt
 import subprocess
-from _typeshed import StrOrBytesPath
+from _typeshed import FloatInt, StrOrBytesPath
 from collections.abc import Callable
 from typing import AnyStr
 

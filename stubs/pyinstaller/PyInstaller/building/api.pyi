@@ -1,10 +1,9 @@
-from _typeshed import FloatInt
 # PYZ, EXE and COLLECT referenced in https://pyinstaller.org/en/stable/spec-files.html#spec-file-operation
 # MERGE is referenced in https://pyinstaller.org/en/stable/spec-files.html#example-merge-spec-file
 # hide_console referenced in https://pyinstaller.org/en/stable/feature-notes.html#automatic-hiding-and-minimization-of-console-window-under-windows
 # Not to be imported during runtime, but is the type reference for spec files which are executed as python code
 import sys
-from _typeshed import FileDescriptorOrPath, StrOrBytesPath, StrPath, Unused
+from _typeshed import FileDescriptorOrPath, FloatInt, StrOrBytesPath, StrPath, Unused
 from collections.abc import Iterable, Mapping, Sequence
 from types import CodeType
 from typing import ClassVar, Final, Literal, TypeAlias

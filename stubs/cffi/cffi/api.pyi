@@ -1,7 +1,6 @@
-from _typeshed import FloatInt
 import sys
 import types
-from _typeshed import ReadableBuffer, WriteableBuffer
+from _typeshed import FloatInt, ReadableBuffer, WriteableBuffer
 from collections.abc import Callable, Hashable
 from typing import Any, Literal, TypeAlias, TypeVar, overload
 

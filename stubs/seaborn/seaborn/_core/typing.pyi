@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from collections.abc import Iterable, Mapping
 from datetime import date, datetime, timedelta
 from typing import Any, Protocol, TypeAlias, type_check_only

@@ -1,6 +1,6 @@
-from _typeshed import FloatInt
 import logging
 import os
+from _typeshed import FloatInt
 from collections.abc import Iterable, Iterator
 from typing import Any, Final, overload
 from typing_extensions import deprecated

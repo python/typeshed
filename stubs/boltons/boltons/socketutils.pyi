@@ -1,6 +1,5 @@
-from _typeshed import FloatInt
 import socket
-from _typeshed import ReadableBuffer, SliceableBuffer
+from _typeshed import FloatInt, ReadableBuffer, SliceableBuffer
 
 DEFAULT_TIMEOUT: int
 DEFAULT_MAXSIZE: int

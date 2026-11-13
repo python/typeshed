@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import Incomplete, SupportsItems
+from _typeshed import FloatInt, Incomplete, SupportsItems
 from abc import abstractmethod
 from collections.abc import Iterable, Sequence
 from typing import Any, Final, Literal, TypeAlias, TypedDict, type_check_only
@@ -171,7 +170,12 @@ class Drawing(Group, Flowable):
     ): ...
     def asString(self, format: str, verbose: bool | None = None, preview: int = 0, **kw) -> str: ...
     def resized(
-        self, kind: Literal["fit", "fitx", "fity"] = "fit", lpad: FloatInt = 0, rpad: FloatInt = 0, bpad: FloatInt = 0, tpad: FloatInt = 0
+        self,
+        kind: Literal["fit", "fitx", "fity"] = "fit",
+        lpad: FloatInt = 0,
+        rpad: FloatInt = 0,
+        bpad: FloatInt = 0,
+        tpad: FloatInt = 0,
     ) -> Drawing: ...
 
 class _DrawingEditorMixin: ...
@@ -265,7 +269,11 @@ class ArcPath(Path):
     ) -> None: ...
 
 def definePath(
-    pathSegs: Iterable[_PathOp] = [], isClipPath: _BoolLike = 0, dx: FloatInt = 0, dy: FloatInt = 0, **kw: Unpack[_DefinePathKwArgs]
+    pathSegs: Iterable[_PathOp] = [],
+    isClipPath: _BoolLike = 0,
+    dx: FloatInt = 0,
+    dy: FloatInt = 0,
+    **kw: Unpack[_DefinePathKwArgs],
 ) -> Path: ...
 
 class Rect(SolidShape):
@@ -276,7 +284,14 @@ class Rect(SolidShape):
     rx: FloatInt
     ry: FloatInt
     def __init__(
-        self, x: FloatInt, y: FloatInt, width: FloatInt, height: FloatInt, rx: FloatInt = 0, ry: FloatInt = 0, **kw: _SolidShapeKwArgs
+        self,
+        x: FloatInt,
+        y: FloatInt,
+        width: FloatInt,
+        height: FloatInt,
+        rx: FloatInt = 0,
+        ry: FloatInt = 0,
+        **kw: _SolidShapeKwArgs,
     ) -> None: ...
     def copy(self) -> Self: ...
     def getBounds(self) -> tuple[float, float, float, float]: ...
@@ -287,7 +302,9 @@ class Image(SolidShape):
     width: FloatInt
     height: FloatInt
     path: Incomplete
-    def __init__(self, x: FloatInt, y: FloatInt, width: FloatInt, height: FloatInt, path, **kw: Unpack[_SolidShapeKwArgs]) -> None: ...
+    def __init__(
+        self, x: FloatInt, y: FloatInt, width: FloatInt, height: FloatInt, path, **kw: Unpack[_SolidShapeKwArgs]
+    ) -> None: ...
     def copy(self) -> Self: ...
     def getBounds(self) -> tuple[float, float, float, float]: ...
 

@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from collections.abc import Callable, Generator, Iterator
 from dataclasses import dataclass
 from enum import Enum

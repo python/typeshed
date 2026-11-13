@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import HasFileno, OptExcInfo, ReadOnlyBuffer
+from _typeshed import FloatInt, HasFileno, OptExcInfo, ReadOnlyBuffer
 from _typeshed.wsgi import WSGIApplication
 from collections.abc import Callable
 from types import ModuleType

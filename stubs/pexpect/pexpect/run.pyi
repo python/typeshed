@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import FileDescriptorOrPath
+from _typeshed import FileDescriptorOrPath, FloatInt
 from collections.abc import Mapping
 from typing import AnyStr
 

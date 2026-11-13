@@ -1,5 +1,5 @@
-from _typeshed import FloatInt
 import datetime
+from _typeshed import FloatInt
 from collections.abc import Callable
 from typing import Any, Literal, ParamSpec, TypeVar
 from typing_extensions import Self

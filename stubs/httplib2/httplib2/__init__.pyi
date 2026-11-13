@@ -1,10 +1,9 @@
-from _typeshed import FloatInt
 import builtins
 import email.message
 import http.client
 import re
 from _ssl import _PasswordType
-from _typeshed import ConvertibleToFloat, ConvertibleToInt, Incomplete, MaybeNone, StrOrBytesPath
+from _typeshed import ConvertibleToFloat, ConvertibleToInt, FloatInt, Incomplete, MaybeNone, StrOrBytesPath
 from collections.abc import Generator
 from ssl import _SSLMethod
 from typing import Any, ClassVar, Final, Literal, TypeVar, overload

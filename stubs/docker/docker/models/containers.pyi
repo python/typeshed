@@ -1,6 +1,6 @@
-from _typeshed import FloatInt
 import datetime
 from _io import _BufferedReaderStream
+from _typeshed import FloatInt
 from builtins import list as _list
 from collections.abc import Iterable, Iterator, Mapping
 from socket import SocketIO

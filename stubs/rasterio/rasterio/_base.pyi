@@ -1,6 +1,6 @@
-from _typeshed import FloatInt
 import logging
 import os
+from _typeshed import FloatInt
 from collections.abc import Iterable, Sequence
 from types import TracebackType
 from typing import Any, Final

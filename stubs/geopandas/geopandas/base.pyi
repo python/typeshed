@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import Incomplete, SupportsGetItem
+from _typeshed import FloatInt, Incomplete, SupportsGetItem
 from collections.abc import Callable, Collection, Hashable, Iterable, Mapping, Sequence
 from typing import Any, Literal, Protocol, SupportsIndex, TypeAlias, overload, type_check_only
 from typing_extensions import Self, deprecated
@@ -29,8 +28,12 @@ class _SupportsGeoInterface(Protocol):  # noqa: Y046
     def __geo_interface__(self) -> dict[str, Any]: ...  # values are arbitrary
 
 _ConvertibleToCRS: TypeAlias = str | int | tuple[str, str] | list[str] | dict[str, Incomplete] | _SupportsToWkt
-_AffinityOrigin: TypeAlias = Literal["center", "centroid"] | Point | tuple[FloatInt, FloatInt] | tuple[FloatInt, FloatInt, FloatInt]
-_ClipMask: TypeAlias = GeoDataFrame | GeoSeries | Polygon | MultiPolygon | tuple[FloatInt, FloatInt, FloatInt, FloatInt]  # noqa: Y047
+_AffinityOrigin: TypeAlias = (
+    Literal["center", "centroid"] | Point | tuple[FloatInt, FloatInt] | tuple[FloatInt, FloatInt, FloatInt]
+)
+_ClipMask: TypeAlias = (
+    GeoDataFrame | GeoSeries | Polygon | MultiPolygon | tuple[FloatInt, FloatInt, FloatInt, FloatInt]
+)  # noqa: Y047
 # np.floating[Any] because precision is not important
 _BboxLike: TypeAlias = Sequence[FloatInt] | NDArray[np.floating[Any]] | Geometry | GeoDataFrame | GeoSeries  # noqa: Y047
 _MaskLike: TypeAlias = dict[str, Incomplete] | Geometry | GeoDataFrame | GeoSeries  # noqa: Y047
@@ -145,7 +148,9 @@ class GeoPandasBase:
     def intersection_all(self) -> BaseGeometry: ...
     def contains(self, other: GeoSeries | Geometry, align: bool | None = None) -> pd.Series[bool]: ...
     def contains_properly(self, other: GeoSeries | Geometry, align: bool | None = None) -> pd.Series[bool]: ...
-    def dwithin(self, other: GeoSeries | Geometry, distance: FloatInt | ArrayLike, align: bool | None = None) -> pd.Series[bool]: ...
+    def dwithin(
+        self, other: GeoSeries | Geometry, distance: FloatInt | ArrayLike, align: bool | None = None
+    ) -> pd.Series[bool]: ...
     def geom_equals(self, other: GeoSeries | Geometry, align: bool | None = None) -> pd.Series[bool]: ...
     def geom_equals_exact(
         self, other: GeoSeries | Geometry, tolerance: FloatInt | ArrayLike, align: bool | None = None
@@ -166,7 +171,9 @@ class GeoPandasBase:
     def frechet_distance(
         self, other: GeoSeries | Geometry, align: bool | None = None, densify: FloatInt | ArrayLike | None = None
     ) -> pd.Series[float]: ...
-    def difference(self, other: GeoSeries | Geometry, align: bool | None = None, grid_size: FloatInt | None = None) -> GeoSeries: ...
+    def difference(
+        self, other: GeoSeries | Geometry, align: bool | None = None, grid_size: FloatInt | None = None
+    ) -> GeoSeries: ...
     def symmetric_difference(
         self, other: GeoSeries | Geometry, align: bool | None = None, grid_size: FloatInt | None = None
     ) -> GeoSeries: ...

@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import MaybeNone
+from _typeshed import FloatInt, MaybeNone
 from typing import Literal, SupportsIndex, TypeAlias, overload
 
 import numpy as np

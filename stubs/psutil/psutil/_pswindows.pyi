@@ -1,5 +1,5 @@
-from _typeshed import FloatInt
 import sys
+from _typeshed import FloatInt
 
 if sys.platform == "win32":
     import enum

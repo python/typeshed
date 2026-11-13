@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import SupportsItems
+from _typeshed import FloatInt, SupportsItems
 from collections.abc import Callable
 from typing import Any
 

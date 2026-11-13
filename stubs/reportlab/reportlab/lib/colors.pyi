@@ -6,7 +6,9 @@ from typing_extensions import Self
 _ColorT = TypeVar("_ColorT", bound=Color)
 # NOTE: Reportlab is very inconsistent and sometimes uses the interpretation
 #       used in reportlab.pdfgen.textobject instead, so we pick a different name
-_ConvertibleToColor: TypeAlias = Color | list[FloatInt] | tuple[FloatInt, FloatInt, FloatInt, FloatInt] | tuple[FloatInt, FloatInt, FloatInt] | str | int
+_ConvertibleToColor: TypeAlias = (
+    Color | list[FloatInt] | tuple[FloatInt, FloatInt, FloatInt, FloatInt] | tuple[FloatInt, FloatInt, FloatInt] | str | int
+)
 
 __version__: Final[str]
 

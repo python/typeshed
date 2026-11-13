@@ -1,6 +1,5 @@
-from _typeshed import FloatInt
 import os
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from collections.abc import Callable, Generator, Iterable, Mapping
 from typing import IO, Any, Concatenate, Literal, ParamSpec, TypeAlias, TypeVar
 from typing_extensions import Self, deprecated

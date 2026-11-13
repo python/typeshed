@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from enum import IntEnum
 
 from kafka.producer.future import FutureProduceResult

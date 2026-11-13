@@ -1,7 +1,6 @@
-from _typeshed import FloatInt
 import io
 import os
-from _typeshed import Incomplete, SupportsGetItem, SupportsLenAndGetItem, SupportsRead, SupportsWrite
+from _typeshed import FloatInt, Incomplete, SupportsGetItem, SupportsLenAndGetItem, SupportsRead, SupportsWrite
 from collections.abc import Callable, Container, Hashable, Iterable, Iterator, Mapping, Sequence
 from json import JSONEncoder
 from typing import Any, Literal, overload

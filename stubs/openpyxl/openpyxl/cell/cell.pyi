@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import ReadableBuffer
+from _typeshed import FloatInt, ReadableBuffer
 from datetime import datetime
 from re import Pattern
 from typing import Final, Literal, overload

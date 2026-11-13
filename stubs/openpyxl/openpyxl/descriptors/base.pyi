@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import ConvertibleToFloat, ConvertibleToInt, Incomplete, ReadableBuffer, Unused
+from _typeshed import ConvertibleToFloat, ConvertibleToInt, FloatInt, Incomplete, ReadableBuffer, Unused
 from collections.abc import Iterable, Sized
 from datetime import datetime
 from re import Pattern
@@ -117,7 +116,9 @@ class Convertible(Typed[_T, _N]):
         self: Convertible[FloatInt, Literal[True]], instance: Serialisable | Strict, value: ConvertibleToFloat | None
     ) -> None: ...
     @overload
-    def __set__(self: Convertible[FloatInt, Literal[False]], instance: Serialisable | Strict, value: ConvertibleToFloat) -> None: ...
+    def __set__(
+        self: Convertible[FloatInt, Literal[False]], instance: Serialisable | Strict, value: ConvertibleToFloat
+    ) -> None: ...
     # Anything else
     @overload
     def __set__(self: Convertible[_T, Literal[True]], instance: Serialisable | Strict, value: _T | int | Any | None) -> None: ...
@@ -133,12 +134,20 @@ class Max(Convertible[_M, _N]):
     ) -> None: ...
     @overload
     def __init__(
-        self: Max[int, Literal[False]], *, expected_type: _ExpectedTypeParam[int], allow_none: Literal[False] = False, max: FloatInt
+        self: Max[int, Literal[False]],
+        *,
+        expected_type: _ExpectedTypeParam[int],
+        allow_none: Literal[False] = False,
+        max: FloatInt,
     ) -> None: ...
     # mypy can't infer type from `expected_type = float` (pyright can), so we have to add extra overloads
     @overload
     def __init__(
-        self: Max[FloatInt, Literal[True]], *, expected_type: _ExpectedTypeParam[FloatInt] = ..., allow_none: Literal[True], max: FloatInt
+        self: Max[FloatInt, Literal[True]],
+        *,
+        expected_type: _ExpectedTypeParam[FloatInt] = ...,
+        allow_none: Literal[True],
+        max: FloatInt,
     ) -> None: ...
     @overload
     def __init__(
@@ -154,7 +163,9 @@ class Max(Convertible[_M, _N]):
     @overload
     def __set__(self: Max[int, Literal[False]], instance: Serialisable | Strict, value: ConvertibleToInt) -> None: ...
     @overload
-    def __set__(self: Max[FloatInt, Literal[True]], instance: Serialisable | Strict, value: ConvertibleToFloat | None) -> None: ...
+    def __set__(
+        self: Max[FloatInt, Literal[True]], instance: Serialisable | Strict, value: ConvertibleToFloat | None
+    ) -> None: ...
     @overload
     def __set__(self: Max[FloatInt, Literal[False]], instance: Serialisable | Strict, value: ConvertibleToFloat) -> None: ...
 
@@ -169,12 +180,20 @@ class Min(Convertible[_M, _N]):
     ) -> None: ...
     @overload
     def __init__(
-        self: Min[int, Literal[False]], *, expected_type: _ExpectedTypeParam[int], allow_none: Literal[False] = False, min: FloatInt
+        self: Min[int, Literal[False]],
+        *,
+        expected_type: _ExpectedTypeParam[int],
+        allow_none: Literal[False] = False,
+        min: FloatInt,
     ) -> None: ...
     # mypy can't infer type from `expected_type = float` (pyright can), so we have to add extra overloads
     @overload
     def __init__(
-        self: Min[FloatInt, Literal[True]], *, expected_type: _ExpectedTypeParam[FloatInt] = ..., allow_none: Literal[True], min: FloatInt
+        self: Min[FloatInt, Literal[True]],
+        *,
+        expected_type: _ExpectedTypeParam[FloatInt] = ...,
+        allow_none: Literal[True],
+        min: FloatInt,
     ) -> None: ...
     @overload
     def __init__(
@@ -190,7 +209,9 @@ class Min(Convertible[_M, _N]):
     @overload
     def __set__(self: Min[int, Literal[False]], instance: Serialisable | Strict, value: ConvertibleToInt) -> None: ...
     @overload
-    def __set__(self: Min[FloatInt, Literal[True]], instance: Serialisable | Strict, value: ConvertibleToFloat | None) -> None: ...
+    def __set__(
+        self: Min[FloatInt, Literal[True]], instance: Serialisable | Strict, value: ConvertibleToFloat | None
+    ) -> None: ...
     @overload
     def __set__(self: Min[FloatInt, Literal[False]], instance: Serialisable | Strict, value: ConvertibleToFloat) -> None: ...
 

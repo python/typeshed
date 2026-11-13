@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import MaybeNone
+from _typeshed import FloatInt, MaybeNone
 from array import array
 from collections.abc import Iterator
 from typing import Any, Generic, Literal, overload

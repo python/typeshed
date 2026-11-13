@@ -1,5 +1,5 @@
-from _typeshed import FloatInt
 import asyncio
+from _typeshed import FloatInt
 from re import Pattern
 from typing import Any, ClassVar, TypeAlias, overload
 from typing_extensions import deprecated

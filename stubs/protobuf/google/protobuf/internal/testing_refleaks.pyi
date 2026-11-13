@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import OptExcInfo
+from _typeshed import FloatInt, OptExcInfo
 from collections.abc import Callable
 from typing import TypeVar
 from unittest import TestCase as _TestCase, TestResult

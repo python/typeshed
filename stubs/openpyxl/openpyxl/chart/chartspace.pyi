@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import ConvertibleToFloat, Incomplete, Unused
+from _typeshed import ConvertibleToFloat, FloatInt, Incomplete, Unused
 from typing import ClassVar, Literal, TypeAlias, overload
 
 from openpyxl.chart._3d import Surface, View3D

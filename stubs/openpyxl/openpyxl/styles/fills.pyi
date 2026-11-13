@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import ConvertibleToFloat, Incomplete, Unused
+from _typeshed import ConvertibleToFloat, FloatInt, Incomplete, Unused
 from collections.abc import Iterable, Iterator, Sequence as ABCSequence
 from typing import ClassVar, Final, Literal, TypeAlias
 

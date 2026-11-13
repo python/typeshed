@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import ConvertibleToFloat, ConvertibleToInt, Incomplete
+from _typeshed import ConvertibleToFloat, ConvertibleToInt, FloatInt, Incomplete
 from typing import ClassVar, Final, Literal, TypeAlias, overload
 
 from openpyxl.descriptors import Strict, Typed

@@ -1,5 +1,5 @@
-from _typeshed import FloatInt
 import tkinter
+from _typeshed import FloatInt
 from collections.abc import Callable
 from typing import Any, Literal
 

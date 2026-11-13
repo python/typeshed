@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import Incomplete, ReadableBuffer
+from _typeshed import FloatInt, Incomplete, ReadableBuffer
 from collections.abc import Collection, Iterable, Mapping
 from typing import SupportsBytes, SupportsIndex
 
@@ -13,7 +12,14 @@ class JsonWebKey:
     def import_key(
         cls,
         raw: (
-            str | bytes | FloatInt | Iterable[SupportsIndex] | SupportsIndex | SupportsBytes | ReadableBuffer | Mapping[str, object]
+            str
+            | bytes
+            | FloatInt
+            | Iterable[SupportsIndex]
+            | SupportsIndex
+            | SupportsBytes
+            | ReadableBuffer
+            | Mapping[str, object]
         ),
         options: Mapping[str, object] | None = None,
     ) -> Key: ...

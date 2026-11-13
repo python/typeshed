@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import Unused
+from _typeshed import FloatInt, Unused
 from collections.abc import Callable, Sequence
 from typing import Any, Literal, TypeVar
 from typing_extensions import deprecated
@@ -71,5 +70,8 @@ class _AxesStyle(_RCAesthetics[_KT, _VT]): ...
 class _PlottingContext(_RCAesthetics[_KT, _VT]): ...
 
 def set_palette(
-    palette: str | Sequence[ColorType] | None, n_colors: int | None = None, desat: FloatInt | None = None, color_codes: bool = False
+    palette: str | Sequence[ColorType] | None,
+    n_colors: int | None = None,
+    desat: FloatInt | None = None,
+    color_codes: bool = False,
 ) -> None: ...

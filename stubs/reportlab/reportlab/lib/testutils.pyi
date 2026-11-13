@@ -1,7 +1,6 @@
-from _typeshed import FloatInt
 import re
 import unittest
-from _typeshed import Incomplete, StrPath, Unused
+from _typeshed import FloatInt, Incomplete, StrPath, Unused
 from configparser import ConfigParser, _SectionName
 from types import ModuleType
 from typing import Final, Literal

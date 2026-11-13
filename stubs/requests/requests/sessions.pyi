@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import SupportsItems, SupportsRead, Unused
+from _typeshed import FloatInt, SupportsItems, SupportsRead, Unused
 from collections.abc import Callable, Iterable, Mapping, MutableMapping
 from typing import Any, TypeAlias, TypedDict, type_check_only
 from typing_extensions import Self

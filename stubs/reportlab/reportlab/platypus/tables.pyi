@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from abc import abstractmethod
 from collections.abc import Collection, Iterable, Sequence
 from typing import Any, Literal, NamedTuple, TypeAlias, overload
@@ -12,7 +11,9 @@ from reportlab.platypus.flowables import Flowable, _HAlignment, _VAlignment
 
 __all__ = ("Table", "TableStyle", "CellStyle", "LongTable")
 
-_Color: TypeAlias = Color | list[FloatInt] | tuple[FloatInt, FloatInt, FloatInt, FloatInt] | tuple[FloatInt, FloatInt, FloatInt] | str | int
+_Color: TypeAlias = (
+    Color | list[FloatInt] | tuple[FloatInt, FloatInt, FloatInt, FloatInt] | tuple[FloatInt, FloatInt, FloatInt] | str | int
+)
 # TODO: consider creating a tagged union of all the possible commands, although
 #       this would restrict us to passing cmds to TableStyle.__init__ in a tuple
 #       since a list would not be able to be inferred correctly

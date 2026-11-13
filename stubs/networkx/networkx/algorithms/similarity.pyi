@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import Incomplete, SupportsItemAccess
+from _typeshed import FloatInt, Incomplete, SupportsItemAccess
 from collections.abc import Callable, Generator
 
 from networkx.classes.graph import Graph, _Node

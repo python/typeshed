@@ -1,4 +1,3 @@
-from _typeshed import FloatInt
 import enum
 import html.parser
 import json
@@ -11,6 +10,7 @@ from _typeshed import (
     ExcInfo,
     FileDescriptorLike,
     FileDescriptorOrPath,
+    FloatInt,
     MaybeNone,
     OpenBinaryMode,
     OpenTextMode,

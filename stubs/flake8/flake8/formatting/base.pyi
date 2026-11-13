@@ -1,6 +1,5 @@
-from _typeshed import FloatInt
 import argparse
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 
 from ..statistics import Statistics
 from ..violation import Violation as Violation

@@ -1,5 +1,5 @@
-from _typeshed import FloatInt
 import collections.abc
+from _typeshed import FloatInt
 from collections.abc import Callable, Mapping
 from re import Pattern
 from typing import Any, TypeAlias

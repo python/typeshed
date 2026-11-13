@@ -1,6 +1,5 @@
-from _typeshed import FloatInt
 import contextlib
-from _typeshed import Incomplete, SupportsRead, SupportsWrite
+from _typeshed import FloatInt, Incomplete, SupportsRead, SupportsWrite
 from collections.abc import Callable, Iterable, Iterator, Mapping, MutableMapping
 from types import TracebackType
 from typing import Any, ClassVar, Generic, Literal, TypeVar, overload

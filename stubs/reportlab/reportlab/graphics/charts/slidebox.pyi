@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 
 from reportlab.graphics.widgetbase import Widget
 from reportlab.lib.attrmap import *

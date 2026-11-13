@@ -1,9 +1,8 @@
-from _typeshed import FloatInt
 import http.client
 import ssl
 import sys
 import urllib.request
-from _typeshed import Incomplete, SupportsKeysAndGetItem
+from _typeshed import FloatInt, Incomplete, SupportsKeysAndGetItem
 from typing import Any, TypeVar
 
 import socks

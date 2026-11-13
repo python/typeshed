@@ -1,9 +1,8 @@
-from _typeshed import FloatInt
 import ast
 import io
 import pickle
 import re
-from _typeshed import Incomplete, Unused
+from _typeshed import FloatInt, Incomplete, Unused
 from collections.abc import Callable, Iterable
 from datetime import datetime
 from threading import local as _localbase

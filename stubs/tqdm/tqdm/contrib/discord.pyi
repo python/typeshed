@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import Incomplete, SupportsWrite
+from _typeshed import FloatInt, Incomplete, SupportsWrite
 from collections.abc import Iterable, Mapping
 from concurrent.futures import Future
 from typing import TypeVar, overload

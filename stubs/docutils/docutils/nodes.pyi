@@ -1,7 +1,6 @@
-from _typeshed import FloatInt
 import sys
 import xml.dom.minidom
-from _typeshed import Incomplete, MaybeNone, StrPath
+from _typeshed import FloatInt, Incomplete, MaybeNone, StrPath
 from abc import abstractmethod
 from collections import Counter
 from collections.abc import Callable, Generator, Iterable, Iterator, Mapping, Sequence

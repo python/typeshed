@@ -1,6 +1,6 @@
-from _typeshed import FloatInt
 import collections
 import types
+from _typeshed import FloatInt
 from collections.abc import Callable, Collection, Iterable, Mapping
 from typing import Any, TypeAlias
 from typing_extensions import Never

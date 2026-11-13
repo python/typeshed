@@ -1,5 +1,5 @@
-from _typeshed import FloatInt
 import urllib.request
+from _typeshed import FloatInt
 from typing import Any, Protocol, type_check_only
 
 @type_check_only

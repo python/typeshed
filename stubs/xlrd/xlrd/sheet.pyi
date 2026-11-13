@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import SupportsWrite
+from _typeshed import FloatInt, SupportsWrite
 from array import array
 from collections.abc import Callable, Generator, Sequence
 from typing import Any, Final, Literal, overload

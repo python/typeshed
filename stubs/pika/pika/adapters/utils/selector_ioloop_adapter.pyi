@@ -1,5 +1,5 @@
-from _typeshed import FloatInt
 import abc
+from _typeshed import FloatInt
 from collections.abc import Callable
 from logging import Logger
 from typing import Final, Generic, Protocol, TypeVar, type_check_only

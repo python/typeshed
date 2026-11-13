@@ -1,6 +1,5 @@
-from _typeshed import FloatInt
 import threading
-from _typeshed import OptExcInfo
+from _typeshed import FloatInt, OptExcInfo
 from collections.abc import Callable
 from queue import Queue
 from types import ModuleType, TracebackType

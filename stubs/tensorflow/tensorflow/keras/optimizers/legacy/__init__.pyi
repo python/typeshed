@@ -55,7 +55,12 @@ class Adagrad(Optimizer):
 
 class SGD(Optimizer):
     def __init__(
-        self, learning_rate: _LearningRate = 0.01, momentum: FloatInt = 0.0, nesterov: bool = False, name: str = "SGD", **kwargs: Any
+        self,
+        learning_rate: _LearningRate = 0.01,
+        momentum: FloatInt = 0.0,
+        nesterov: bool = False,
+        name: str = "SGD",
+        **kwargs: Any,
     ) -> None: ...
 
 def __getattr__(name: str): ...  # incomplete module

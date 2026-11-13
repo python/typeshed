@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import ConvertibleToFloat
+from _typeshed import ConvertibleToFloat, FloatInt
 from collections.abc import Iterator
 from typing import ClassVar, Final, Literal, TypeAlias
 

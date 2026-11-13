@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from weakref import ReferenceType
 
 from reportlab.lib.colors import Color

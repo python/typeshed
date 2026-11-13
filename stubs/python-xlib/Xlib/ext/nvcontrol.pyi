@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import Unused
+from _typeshed import FloatInt, Unused
 from typing import Final
 
 from Xlib.display import Display

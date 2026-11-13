@@ -1,6 +1,5 @@
-from _typeshed import FloatInt
 import logging
-from _typeshed import ReadableBuffer
+from _typeshed import FloatInt, ReadableBuffer
 from collections.abc import Callable, Generator
 from typing import Any
 

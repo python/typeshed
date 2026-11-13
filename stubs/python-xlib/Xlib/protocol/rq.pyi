@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import ConvertibleToInt, SliceableBuffer, Unused
+from _typeshed import ConvertibleToInt, FloatInt, SliceableBuffer, Unused
 from array import array
 
 # Avoid name collision with List.type

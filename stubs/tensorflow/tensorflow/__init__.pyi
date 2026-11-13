@@ -1,6 +1,5 @@
-from _typeshed import FloatInt
 import abc
-from _typeshed import Incomplete, Unused
+from _typeshed import FloatInt, Incomplete, Unused
 from abc import ABC, ABCMeta, abstractmethod
 from builtins import bool as _bool, slice as _slice
 from collections.abc import Callable, Generator, Iterable, Iterator, Sequence

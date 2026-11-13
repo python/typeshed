@@ -1,6 +1,5 @@
-from _typeshed import FloatInt
 import datetime
-from _typeshed import Incomplete, ReadableBuffer, SupportsItems
+from _typeshed import FloatInt, Incomplete, ReadableBuffer, SupportsItems
 from collections.abc import Callable, Iterable, Mapping
 from types import BuiltinFunctionType, FunctionType, ModuleType
 from typing import ClassVar, TypeVar

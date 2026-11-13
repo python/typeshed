@@ -12,7 +12,9 @@ def numeric_column(
     dtype: tf.DType = ...,
     normalizer_fn: Callable[[tf.Tensor], tf.Tensor] | None = None,
 ) -> fc.NumericColumn: ...
-def bucketized_column(source_column: fc.NumericColumn, boundaries: list[FloatInt] | tuple[FloatInt, ...]) -> fc.BucketizedColumn: ...
+def bucketized_column(
+    source_column: fc.NumericColumn, boundaries: list[FloatInt] | tuple[FloatInt, ...]
+) -> fc.BucketizedColumn: ...
 def embedding_column(
     categorical_column: fc.CategoricalColumn,
     dimension: int,

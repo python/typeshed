@@ -1,5 +1,5 @@
-from _typeshed import FloatInt
 import abc
+from _typeshed import FloatInt
 from decimal import Decimal
 from typing import Any, NamedTuple
 from xml.etree.ElementTree import Element, QName

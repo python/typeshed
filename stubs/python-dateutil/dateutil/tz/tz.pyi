@@ -1,6 +1,5 @@
-from _typeshed import FloatInt
 import sys
-from _typeshed import Unused
+from _typeshed import FloatInt, Unused
 from datetime import datetime, timedelta, tzinfo
 from typing import Any, ClassVar, Literal, Protocol, TypeVar, type_check_only
 from typing_extensions import Self

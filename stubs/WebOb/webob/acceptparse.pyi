@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import SupportsItems
+from _typeshed import FloatInt, SupportsItems
 from collections.abc import Callable, Iterable, Iterator, Sequence
 from typing import Any, Literal, NamedTuple, Protocol, TypeAlias, TypeVar, overload, type_check_only
 from typing_extensions import Self

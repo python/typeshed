@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import Unused
+from _typeshed import FloatInt, Unused
 from datetime import date, datetime, time, timedelta
 
 from MySQLdb._mysql import string_literal as string_literal

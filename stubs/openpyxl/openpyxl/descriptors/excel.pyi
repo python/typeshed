@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from typing import ClassVar, Literal
 
 from . import Integer, MatchPattern, MinMax, Strict, String

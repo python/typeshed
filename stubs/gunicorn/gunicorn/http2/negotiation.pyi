@@ -1,5 +1,5 @@
-from _typeshed import FloatInt
 import socket
+from _typeshed import FloatInt
 from typing import Final, Literal, Protocol, type_check_only
 
 from gunicorn.config import Config

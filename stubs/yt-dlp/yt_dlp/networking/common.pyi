@@ -1,8 +1,7 @@
-from _typeshed import FloatInt
 import abc
 import enum
 import io
-from _typeshed import Unused
+from _typeshed import FloatInt, Unused
 from collections.abc import Callable, Iterable, Mapping
 from email.message import Message
 from logging import Logger

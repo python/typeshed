@@ -1,4 +1,5 @@
 from _typeshed import FloatInt
+
 from m3u8.version_matching_rules import VersionMatchingError
 
 def get_version(file_lines: list[str]) -> float | None: ...

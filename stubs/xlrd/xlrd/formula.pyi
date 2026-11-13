@@ -53,7 +53,9 @@ class Operand:
     kind: int
     text: str
     rank: int
-    def __init__(self, akind: int | None = None, avalue: FloatInt | str | None = None, arank: int = 0, atext: str = "?") -> None: ...
+    def __init__(
+        self, akind: int | None = None, avalue: FloatInt | str | None = None, arank: int = 0, atext: str = "?"
+    ) -> None: ...
 
 class Ref3D(tuple[int, int, int, int, int, int, int, int, int, int, int, int]):
     coords: tuple[int, int, int, int, int, int]

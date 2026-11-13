@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from dataclasses import dataclass
 from typing import Final
 from typing_extensions import Self

@@ -1,5 +1,5 @@
-from _typeshed import FloatInt
 import datetime
+from _typeshed import FloatInt
 
 class DayCount:
     epoch: FloatInt

@@ -1,5 +1,5 @@
-from _typeshed import FloatInt
 import sys
+from _typeshed import FloatInt
 from typing import Final, TypedDict, overload
 from typing_extensions import LiteralString, NotRequired
 

@@ -1,8 +1,7 @@
-from _typeshed import FloatInt
 import itertools
 import re
 import zipfile
-from _typeshed import FileDescriptorOrPath, Incomplete, ReadableBuffer, SizedBuffer, Unused
+from _typeshed import FileDescriptorOrPath, FloatInt, Incomplete, ReadableBuffer, SizedBuffer, Unused
 from collections.abc import Generator
 from typing import ClassVar, Final, Literal
 from xml.etree import ElementTree

@@ -1,5 +1,5 @@
-from _typeshed import FloatInt
 import asyncio
+from _typeshed import FloatInt
 from typing import AnyStr, Generic
 
 from .expect import Expecter

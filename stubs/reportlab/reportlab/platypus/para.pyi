@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import Incomplete, Unused
+from _typeshed import FloatInt, Incomplete, Unused
 from collections.abc import Callable, Mapping
 from typing import Any, Final, Literal, Protocol, TypeAlias, TypedDict, TypeVar, overload, type_check_only
 from typing_extensions import Unpack

@@ -1,6 +1,5 @@
-from _typeshed import FloatInt
 import datetime
-from _typeshed import Unused
+from _typeshed import FloatInt, Unused
 from collections.abc import Generator, Iterable
 from re import Match, Pattern
 from typing import Any, Final, Generic, Literal, Protocol, TypeAlias, TypeVar, overload, type_check_only

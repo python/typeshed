@@ -1,6 +1,5 @@
-from _typeshed import FloatInt
 import sys
-from _typeshed import SupportsWrite
+from _typeshed import FloatInt, SupportsWrite
 from collections.abc import Iterator
 from types import TracebackType
 from typing import Final, Literal

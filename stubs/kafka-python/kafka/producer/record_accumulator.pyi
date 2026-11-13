@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 
 class AtomicInteger:
     def __init__(self, val: int = 0) -> None: ...

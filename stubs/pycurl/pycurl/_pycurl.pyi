@@ -1,7 +1,6 @@
-from _typeshed import FloatInt
 # Stub for the pycurl C extension (imported at runtime as `pycurl._pycurl`).
 import sys
-from _typeshed import ReadableBuffer, Unused, WriteableBuffer
+from _typeshed import FloatInt, ReadableBuffer, Unused, WriteableBuffer
 from collections.abc import Callable
 from datetime import datetime
 from types import TracebackType

@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import ReadableBuffer
+from _typeshed import FloatInt, ReadableBuffer
 from collections.abc import Iterable
 from typing import SupportsBytes, SupportsIndex
 

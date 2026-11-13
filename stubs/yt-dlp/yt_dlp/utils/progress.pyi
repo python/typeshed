@@ -1,4 +1,5 @@
 from _typeshed import FloatInt
+
 class ProgressCalculator:
     SAMPLING_WINDOW: int
     SAMPLING_RATE: FloatInt

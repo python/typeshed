@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import SupportsRead
+from _typeshed import FloatInt, SupportsRead
 from pathlib import Path
 
 from PIL import Image

@@ -1,6 +1,5 @@
-from _typeshed import FloatInt
 import builtins
-from _typeshed import Incomplete, Unused
+from _typeshed import FloatInt, Incomplete, Unused
 from collections.abc import Callable, Collection
 from typing import Any, ClassVar, Final, Literal, SupportsIndex, TypeAlias, TypeVar, overload
 from typing_extensions import Never, Self, deprecated

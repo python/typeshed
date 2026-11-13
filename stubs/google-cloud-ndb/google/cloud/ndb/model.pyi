@@ -1,6 +1,5 @@
-from _typeshed import FloatInt
 import datetime
-from _typeshed import Unused
+from _typeshed import FloatInt, Unused
 from collections.abc import Callable, Iterable, Sequence
 from typing import Any, Literal, TypeAlias
 from typing_extensions import Never, Self

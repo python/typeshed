@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import FileDescriptor
+from _typeshed import FileDescriptor, FloatInt
 from collections.abc import Callable, Collection, Iterable
 from types import TracebackType
 from typing import Any, Generic, Protocol, TypeVar, overload, type_check_only

@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import ConvertibleToFloat, ConvertibleToInt, Incomplete, Unused
+from _typeshed import ConvertibleToFloat, ConvertibleToInt, FloatInt, Incomplete, Unused
 from datetime import datetime
 from typing import ClassVar, Final, Literal, TypeAlias, overload
 

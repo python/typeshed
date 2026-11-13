@@ -1,7 +1,7 @@
-from _typeshed import FloatInt
 import datetime
 import urllib.request
 import xml.etree.ElementTree as etree
+from _typeshed import FloatInt
 
 from yt_dlp.networking import Request
 

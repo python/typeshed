@@ -1,6 +1,5 @@
-from _typeshed import FloatInt
 # Not available at runtime. Contains type definitions that are otherwise not exposed and not part of a specific module.
-from _typeshed import Incomplete, ReadableBuffer, Unused
+from _typeshed import FloatInt, Incomplete, ReadableBuffer, Unused
 from collections.abc import Callable, Iterable, Sequence
 from typing import Literal, SupportsIndex, TypeAlias, TypedDict, final, overload, type_check_only
 from typing_extensions import Never, NotRequired, Required, Self, deprecated, disjoint_base

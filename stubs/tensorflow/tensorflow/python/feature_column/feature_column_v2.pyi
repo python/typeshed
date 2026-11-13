@@ -1,9 +1,7 @@
-from _typeshed import FloatInt
 # The types here are all undocumented, but all feature columns are return types of the
 # public functions in tf.feature_column. As they are undocumented internals while some
 # common methods are included, they are incomplete and do not have getattr Incomplete fallback.
-
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from abc import ABC, ABCMeta, abstractmethod
 from collections.abc import Callable, Sequence
 from typing import Literal, TypeAlias

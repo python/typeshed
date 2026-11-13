@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from collections.abc import Iterable, Iterator, Sequence
 from re import Pattern, RegexFlag
 from typing import ClassVar, Final

@@ -1,6 +1,5 @@
-from _typeshed import FloatInt
 import io
-from _typeshed import ReadableBuffer, WriteableBuffer
+from _typeshed import FloatInt, ReadableBuffer, WriteableBuffer
 from abc import abstractmethod
 from collections.abc import Callable, Generator
 from typing import Any, Final

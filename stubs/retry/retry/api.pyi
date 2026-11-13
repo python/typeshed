@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import IdentityFunction
+from _typeshed import FloatInt, IdentityFunction
 from collections.abc import Callable, Sequence
 from logging import Logger
 from typing import Any, TypeVar

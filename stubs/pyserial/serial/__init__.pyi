@@ -1,5 +1,5 @@
-from _typeshed import FloatInt
 import sys
+from _typeshed import FloatInt
 
 from serial.serialutil import *
 

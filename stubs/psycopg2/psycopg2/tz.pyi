@@ -1,5 +1,5 @@
-from _typeshed import FloatInt
 import datetime
+from _typeshed import FloatInt
 from typing import Any
 from typing_extensions import Self
 

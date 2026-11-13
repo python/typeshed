@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import StrPath
+from _typeshed import FloatInt, StrPath
 from collections.abc import Collection
 
 from xdg.IniFile import IniFile

@@ -1,4 +1,5 @@
 from _typeshed import FloatInt
+
 class Sensor:
     __slots__ = (
         "_lock",

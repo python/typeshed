@@ -1,4 +1,5 @@
 from _typeshed import FloatInt
+
 import numpy as np
 from networkx._typing import Array1D
 from networkx.classes.graph import Graph, _Node

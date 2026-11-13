@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from typing import Any, ClassVar, Literal, TypeAlias, TypeVar, overload
 from typing_extensions import Self
 

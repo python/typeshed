@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import OptExcInfo, StrOrBytesPath, SupportsWrite
+from _typeshed import FloatInt, OptExcInfo, StrOrBytesPath, SupportsWrite
 from _typeshed.wsgi import WSGIApplication, WSGIEnvironment
 from collections.abc import Callable, Container, Iterable, Iterator
 from http.client import HTTPMessage

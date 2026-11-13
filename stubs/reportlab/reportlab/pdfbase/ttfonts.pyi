@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import Incomplete, ReadableBuffer, StrOrBytesPath
+from _typeshed import FloatInt, Incomplete, ReadableBuffer, StrOrBytesPath
 from collections.abc import Sequence
 from typing import Final, Literal, NamedTuple
 from typing_extensions import Self

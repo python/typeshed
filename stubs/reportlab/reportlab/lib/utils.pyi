@@ -1,7 +1,6 @@
-from _typeshed import FloatInt
 import datetime as _datetime
 import zipimport
-from _typeshed import Incomplete, SupportsItems
+from _typeshed import FloatInt, Incomplete, SupportsItems
 from builtins import _ClassInfo
 from collections.abc import Generator, Iterable, MutableMapping
 from os import PathLike

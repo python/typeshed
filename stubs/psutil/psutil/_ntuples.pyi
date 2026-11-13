@@ -1,6 +1,5 @@
-from _typeshed import FloatInt
 import sys
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from socket import AddressFamily, SocketKind
 from typing import Any, NamedTuple
 

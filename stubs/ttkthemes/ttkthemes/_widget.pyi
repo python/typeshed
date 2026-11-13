@@ -1,6 +1,5 @@
-from _typeshed import FloatInt
 import _tkinter
-from _typeshed import StrPath
+from _typeshed import FloatInt, StrPath
 from typing import ClassVar
 
 class ThemedWidget:

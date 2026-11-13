@@ -1,6 +1,5 @@
-from _typeshed import FloatInt
 import weakref
-from _typeshed import Incomplete, SupportsItems, SupportsKeysAndGetItem
+from _typeshed import FloatInt, Incomplete, SupportsItems, SupportsKeysAndGetItem
 from collections.abc import Callable, Generator, Hashable, Iterable, Iterator, Mapping
 from typing import Any, Generic, TypeVar, overload
 from typing_extensions import Self

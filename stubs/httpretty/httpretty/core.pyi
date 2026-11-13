@@ -1,5 +1,5 @@
-from _typeshed import FloatInt
 import re
+from _typeshed import FloatInt
 from collections.abc import Callable, Iterable, Mapping
 from contextlib import AbstractContextManager
 from http.client import HTTPMessage

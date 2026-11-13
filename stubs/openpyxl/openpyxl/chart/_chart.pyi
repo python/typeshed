@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import ConvertibleToInt, Incomplete, Unused
+from _typeshed import ConvertibleToInt, FloatInt, Incomplete, Unused
 from typing import ClassVar, Literal, TypeAlias
 
 from openpyxl.chart.layout import Layout

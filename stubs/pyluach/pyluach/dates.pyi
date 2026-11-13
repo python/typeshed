@@ -1,7 +1,7 @@
-from _typeshed import FloatInt
 import abc
 import builtins
 import datetime
+from _typeshed import FloatInt
 from collections.abc import Generator
 from enum import Enum
 from typing import TypedDict, overload, type_check_only

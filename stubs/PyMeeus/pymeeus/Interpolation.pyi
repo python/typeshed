@@ -12,7 +12,10 @@ class Interpolation:
     def __init__(self, a: list[FloatInt | Angle] | tuple[FloatInt | Angle, ...], /) -> None: ...
     @overload
     def __init__(
-        self, a1: list[FloatInt | Angle] | tuple[FloatInt | Angle, ...], a2: list[FloatInt | Angle] | tuple[FloatInt | Angle, ...], /
+        self,
+        a1: list[FloatInt | Angle] | tuple[FloatInt | Angle, ...],
+        a2: list[FloatInt | Angle] | tuple[FloatInt | Angle, ...],
+        /,
     ) -> None: ...
     @overload
     def __init__(
@@ -27,7 +30,10 @@ class Interpolation:
     def set(self, a: list[FloatInt | Angle] | tuple[FloatInt | Angle, ...], /) -> None: ...
     @overload
     def set(
-        self, a1: list[FloatInt | Angle] | tuple[FloatInt | Angle, ...], a2: list[FloatInt | Angle] | tuple[FloatInt | Angle, ...], /
+        self,
+        a1: list[FloatInt | Angle] | tuple[FloatInt | Angle, ...],
+        a2: list[FloatInt | Angle] | tuple[FloatInt | Angle, ...],
+        /,
     ) -> None: ...
     @overload
     def set(

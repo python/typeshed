@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from types import TracebackType
 from typing import Any, ClassVar
 from typing_extensions import Self

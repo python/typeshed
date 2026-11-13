@@ -1,5 +1,5 @@
-from _typeshed import FloatInt
 import os
+from _typeshed import FloatInt
 from collections.abc import Iterator, Sequence
 from typing import Any, BinaryIO, Final
 from typing_extensions import Self, deprecated

@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import Incomplete, Unused
+from _typeshed import FloatInt, Incomplete, Unused
 from typing_extensions import Self
 
 class ControlClientError(Exception): ...

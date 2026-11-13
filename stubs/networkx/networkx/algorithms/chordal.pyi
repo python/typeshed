@@ -1,6 +1,5 @@
-from _typeshed import FloatInt
 import sys
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from collections.abc import Generator
 
 from networkx.classes.graph import Graph, _Node

@@ -1,6 +1,5 @@
-from _typeshed import FloatInt
 import datetime
-from _typeshed import FileDescriptorOrPath, ReadableBuffer, Unused
+from _typeshed import FileDescriptorOrPath, FloatInt, ReadableBuffer, Unused
 from collections.abc import Iterable, Mapping
 from shlex import _ShlexInstream
 from typing import Literal, NamedTuple, TypedDict, TypeVar, overload, type_check_only

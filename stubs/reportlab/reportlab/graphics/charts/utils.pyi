@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from collections.abc import Sequence
 from typing import Final, Literal
 
@@ -70,4 +69,6 @@ class FillPairedData(list[Incomplete]):
 
 def angle2dir(angle: FloatInt) -> Literal["n", "ne", "e", "se", "s", "sw", "w", "nw", "c"]: ...
 def angle2corner(angle: FloatInt) -> Literal["n", "ne", "e", "se", "s", "sw", "w", "nw", "c"]: ...
-def boxCornerCoords(bb: Sequence[FloatInt], cn: Literal["n", "ne", "e", "se", "s", "sw", "w", "nw", "c"]) -> tuple[float, float]: ...
+def boxCornerCoords(
+    bb: Sequence[FloatInt], cn: Literal["n", "ne", "e", "se", "s", "sw", "w", "nw", "c"]
+) -> tuple[float, float]: ...

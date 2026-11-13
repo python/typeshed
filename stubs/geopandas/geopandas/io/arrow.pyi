@@ -1,6 +1,5 @@
-from _typeshed import FloatInt
 import os
-from _typeshed import Incomplete, SupportsGetItem, SupportsKeysAndGetItem
+from _typeshed import FloatInt, Incomplete, SupportsGetItem, SupportsKeysAndGetItem
 from collections.abc import Iterable, Mapping
 from typing import Any, Final
 

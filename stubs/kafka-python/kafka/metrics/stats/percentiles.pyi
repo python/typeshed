@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 
 from kafka.metrics.compound_stat import AbstractCompoundStat
 from kafka.metrics.stats.sampled_stat import AbstractSampledStat

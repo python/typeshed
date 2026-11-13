@@ -1,6 +1,5 @@
-from _typeshed import FloatInt
 import sys
-from _typeshed import FileDescriptor
+from _typeshed import FileDescriptor, FloatInt
 from collections.abc import Sequence
 
 from gevent._ffi.loop import AbstractLoop

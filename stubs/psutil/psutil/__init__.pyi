@@ -1,6 +1,5 @@
-from _typeshed import FloatInt
 import sys
-from _typeshed import Incomplete, StrOrBytesPath
+from _typeshed import FloatInt, Incomplete, StrOrBytesPath
 from collections.abc import Callable, Collection, Iterable, Iterator
 from contextlib import AbstractContextManager
 from subprocess import _CMD, _ENV, _FILE

@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import Incomplete, Unused
+from _typeshed import FloatInt, Incomplete, Unused
 from collections.abc import Callable
 from socket import _Address, socket as _socket
 from ssl import SSLContext, _PasswordType

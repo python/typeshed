@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import Incomplete, SupportsGetItem
+from _typeshed import FloatInt, Incomplete, SupportsGetItem
 from collections.abc import Collection, Generator, Iterable
 from typing import NamedTuple
 

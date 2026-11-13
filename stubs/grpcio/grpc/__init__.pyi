@@ -1,7 +1,7 @@
-from _typeshed import FloatInt
 import abc
 import enum
 import threading
+from _typeshed import FloatInt
 from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
 from concurrent import futures
 from types import ModuleType, TracebackType

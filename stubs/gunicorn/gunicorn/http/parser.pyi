@@ -1,5 +1,5 @@
-from _typeshed import FloatInt
 import socket
+from _typeshed import FloatInt
 from collections.abc import Callable, Iterable, Iterator
 from typing import ClassVar
 

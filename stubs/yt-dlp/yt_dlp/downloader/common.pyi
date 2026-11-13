@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import OpenBinaryMode, OpenTextMode
+from _typeshed import FloatInt, OpenBinaryMode, OpenTextMode
 from collections.abc import Callable, Mapping
 from typing import IO, Any, AnyStr, TypedDict, type_check_only
 

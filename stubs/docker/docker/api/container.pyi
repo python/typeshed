@@ -1,6 +1,5 @@
-from _typeshed import FloatInt
 import datetime
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from collections.abc import Iterable, Mapping
 from typing import Any, Literal, TypeAlias, TypedDict, overload, type_check_only
 from typing_extensions import NotRequired

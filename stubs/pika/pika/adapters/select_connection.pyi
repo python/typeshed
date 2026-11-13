@@ -1,6 +1,6 @@
-from _typeshed import FloatInt
 import abc
 import select
+from _typeshed import FloatInt
 from collections.abc import Callable, Sequence
 from logging import Logger
 from typing import ClassVar, Final, Literal, TypeAlias, TypedDict

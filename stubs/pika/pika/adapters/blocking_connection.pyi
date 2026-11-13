@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from collections import deque
 from collections.abc import Callable, Generator, Mapping, Sequence
 from logging import Logger

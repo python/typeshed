@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import Incomplete, SupportsWrite
+from _typeshed import FloatInt, Incomplete, SupportsWrite
 from collections.abc import Iterable, Iterator, Mapping
 from typing import TypeVar, overload
 from typing_extensions import Never

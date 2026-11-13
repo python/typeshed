@@ -1,5 +1,5 @@
-from _typeshed import FloatInt
 import weakref
+from _typeshed import FloatInt
 from collections.abc import Callable, Iterable, Sequence
 from types import FrameType, TracebackType
 from typing import Any, ClassVar, Generic, ParamSpec, TypeVar, overload

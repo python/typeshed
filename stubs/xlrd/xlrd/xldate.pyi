@@ -1,5 +1,5 @@
-from _typeshed import FloatInt
 import datetime
+from _typeshed import FloatInt
 from typing import Final, Literal
 
 _JDN_delta: Final[tuple[int, int]]

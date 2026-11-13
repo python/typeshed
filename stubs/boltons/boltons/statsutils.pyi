@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import ConvertibleToFloat, Incomplete
+from _typeshed import ConvertibleToFloat, FloatInt, Incomplete
 from collections.abc import Callable, Iterable, Iterator
 from typing import Any, Literal, overload
 from typing_extensions import Self
@@ -21,7 +20,9 @@ class Stats:
     default: FloatInt
 
     @overload
-    def __init__(self, data: list[FloatInt], default: FloatInt = 0.0, *, use_copy: Literal[False], is_sorted: bool = False) -> None: ...
+    def __init__(
+        self, data: list[FloatInt], default: FloatInt = 0.0, *, use_copy: Literal[False], is_sorted: bool = False
+    ) -> None: ...
     @overload
     def __init__(self, data: list[FloatInt], default: FloatInt, use_copy: Literal[False], is_sorted: bool = False) -> None: ...
     @overload

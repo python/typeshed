@@ -1,5 +1,5 @@
-from _typeshed import FloatInt
 import abc
+from _typeshed import FloatInt
 from collections.abc import Callable
 from socket import socket
 from ssl import SSLContext

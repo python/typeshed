@@ -1,6 +1,5 @@
-from _typeshed import FloatInt
 import re
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from collections import OrderedDict
 from collections.abc import Callable, Iterable, Iterator, Set as AbstractSet
 from datetime import date, datetime, tzinfo

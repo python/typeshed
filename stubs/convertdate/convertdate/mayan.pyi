@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import Unused
+from _typeshed import FloatInt, Unused
 from collections.abc import Generator
 from typing import Final, Literal, overload
 from typing_extensions import Never

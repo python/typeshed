@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from threading import Thread
 
 __all__ = ["TMonitor", "TqdmSynchronisationWarning"]

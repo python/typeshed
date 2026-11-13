@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from collections.abc import Callable, Iterable
 from typing_extensions import deprecated
 
@@ -59,7 +58,9 @@ def dual_barabasi_albert_graph(
     n: int, m1: int, m2: int, p: FloatInt, seed=None, initial_graph: Graph[Incomplete] | None = None, *, create_using=None
 ) -> Graph[Incomplete]: ...
 @_dispatchable
-def extended_barabasi_albert_graph(n: int, m: int, p: FloatInt, q: FloatInt, seed=None, *, create_using=None) -> Graph[Incomplete]: ...
+def extended_barabasi_albert_graph(
+    n: int, m: int, p: FloatInt, q: FloatInt, seed=None, *, create_using=None
+) -> Graph[Incomplete]: ...
 @_dispatchable
 def powerlaw_cluster_graph(n: int, m: int, p: FloatInt, seed=None, *, create_using=None): ...
 @_dispatchable

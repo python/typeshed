@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import MaybeNone, ReadableBuffer, Unused
+from _typeshed import FloatInt, MaybeNone, ReadableBuffer, Unused
 from collections.abc import Callable, Mapping
 from types import GenericAlias
 from typing import Any, AnyStr, Generic, Literal, TypeVar, final, overload

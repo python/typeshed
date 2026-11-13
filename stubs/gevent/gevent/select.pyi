@@ -1,6 +1,5 @@
-from _typeshed import FloatInt
 import sys
-from _typeshed import FileDescriptorLike
+from _typeshed import FileDescriptorLike, FloatInt
 from collections.abc import Iterable
 from select import error as error
 from typing import Any

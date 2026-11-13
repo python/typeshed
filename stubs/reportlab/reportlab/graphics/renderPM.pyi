@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from typing import IO, Final
 
 from reportlab.graphics.renderbase import Renderer
@@ -45,7 +44,13 @@ class PMCanvas:
     def bezierArcCCW(self, cx, cy, rx, ry, theta0, theta1): ...
     def addEllipsoidalArc(self, cx, cy, rx, ry, ang1, ang2) -> None: ...
     def drawCentredString(
-        self, x: FloatInt, y: FloatInt, text: str, text_anchor: str = "middle", direction: str | None = None, shaping: bool = False
+        self,
+        x: FloatInt,
+        y: FloatInt,
+        text: str,
+        text_anchor: str = "middle",
+        direction: str | None = None,
+        shaping: bool = False,
     ) -> None: ...
     def drawRightString(self, text: str, x: FloatInt, y: FloatInt, direction: str | None = None) -> None: ...
     def drawString(

@@ -64,11 +64,17 @@ def single_source_dijkstra(
 ) -> tuple[dict[_Node, float], dict[_Node, list[_Node]]] | tuple[float, list[_Node]]: ...  # TODO: overload on target
 @_dispatchable
 def multi_source_dijkstra_path(
-    G: Graph[_Node], sources: Collection[_Node], cutoff: FloatInt | None = None, weight: str | _WeightFunc[_Node] | None = "weight"
+    G: Graph[_Node],
+    sources: Collection[_Node],
+    cutoff: FloatInt | None = None,
+    weight: str | _WeightFunc[_Node] | None = "weight",
 ) -> dict[_Node, list[_Node]]: ...
 @_dispatchable
 def multi_source_dijkstra_path_length(
-    G: Graph[_Node], sources: Collection[_Node], cutoff: FloatInt | None = None, weight: str | _WeightFunc[_Node] | None = "weight"
+    G: Graph[_Node],
+    sources: Collection[_Node],
+    cutoff: FloatInt | None = None,
+    weight: str | _WeightFunc[_Node] | None = "weight",
 ) -> dict[_Node, float]: ...
 @_dispatchable
 def multi_source_dijkstra(

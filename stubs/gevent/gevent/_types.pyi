@@ -1,6 +1,5 @@
-from _typeshed import FloatInt
 import sys
-from _typeshed import FileDescriptor, StrOrBytesPath
+from _typeshed import FileDescriptor, FloatInt, StrOrBytesPath
 from collections.abc import Callable
 from types import TracebackType
 from typing import Any, Literal, Protocol, TypeAlias, overload, type_check_only

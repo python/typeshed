@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import Incomplete, SupportsLenAndGetItem
+from _typeshed import FloatInt, Incomplete, SupportsLenAndGetItem
 from collections.abc import Callable, Iterable, Mapping
 from typing import Any, Literal, TypeVar
 

@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from abc import abstractmethod
 from collections.abc import Callable
 from typing import IO, Any, Literal, Protocol, TypeAlias, TypedDict, type_check_only

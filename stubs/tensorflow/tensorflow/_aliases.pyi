@@ -1,7 +1,7 @@
 from _typeshed import FloatInt
+
 # Commonly used type aliases.
 # Everything in this module is private for stubs. There is no runtime equivalent.
-
 from collections.abc import Iterable, Mapping, Sequence
 from typing import Any, Protocol, TypeAlias, TypeVar, type_check_only
 

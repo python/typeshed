@@ -1,9 +1,8 @@
-from _typeshed import FloatInt
 import enum
 import io
 import sys
 import threading
-from _typeshed import ConvertibleToFloat, FileDescriptorOrPath, Incomplete, StrOrBytesPath, SupportsWrite
+from _typeshed import ConvertibleToFloat, FileDescriptorOrPath, FloatInt, Incomplete, StrOrBytesPath, SupportsWrite
 from collections import defaultdict
 from collections.abc import Callable
 from socket import AF_INET6 as AF_INET6, AddressFamily, SocketKind

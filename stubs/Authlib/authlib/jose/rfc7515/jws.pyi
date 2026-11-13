@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import Incomplete, ReadableBuffer
+from _typeshed import FloatInt, Incomplete, ReadableBuffer
 from collections.abc import Iterable
 from typing import SupportsBytes, SupportsIndex
 
@@ -14,7 +13,10 @@ class JsonWebSignature:
     def register_algorithm(cls, algorithm: JWSAlgorithm) -> None: ...
     def serialize_compact(self, protected, payload, key) -> bytes: ...
     def deserialize_compact(
-        self, s: str | bytes | FloatInt | Iterable[SupportsIndex] | SupportsIndex | SupportsBytes | ReadableBuffer, key, decode=None
+        self,
+        s: str | bytes | FloatInt | Iterable[SupportsIndex] | SupportsIndex | SupportsBytes | ReadableBuffer,
+        key,
+        decode=None,
     ) -> JWSObject: ...
     def serialize_json(self, header_obj, payload, key) -> dict[str, Incomplete]: ...
     def deserialize_json(self, obj, key, decode=None) -> JWSObject: ...

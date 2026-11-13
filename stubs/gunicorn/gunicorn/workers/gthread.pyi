@@ -1,6 +1,5 @@
-from _typeshed import FloatInt
 import socket
-from _typeshed import Unused
+from _typeshed import FloatInt, Unused
 from collections import deque
 from collections.abc import Callable
 from concurrent.futures import Future, ThreadPoolExecutor

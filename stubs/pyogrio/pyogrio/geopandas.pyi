@@ -1,5 +1,5 @@
-from _typeshed import FloatInt
 import os
+from _typeshed import FloatInt
 from collections.abc import Collection, Mapping
 from typing import Any, Literal, overload
 

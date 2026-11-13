@@ -1,7 +1,6 @@
-from _typeshed import FloatInt
 import selectors
 import ssl
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
 from types import TracebackType
 from typing import Final, Literal, TypeAlias, overload
@@ -144,6 +143,8 @@ class KafkaConsumer(Iterator[ConsumerRecord]):
     def beginning_offsets(
         self, partitions: Iterable[TopicPartition], timeout_ms: FloatInt | None = None
     ) -> dict[TopicPartition, int]: ...
-    def end_offsets(self, partitions: Iterable[TopicPartition], timeout_ms: FloatInt | None = None) -> dict[TopicPartition, int]: ...
+    def end_offsets(
+        self, partitions: Iterable[TopicPartition], timeout_ms: FloatInt | None = None
+    ) -> dict[TopicPartition, int]: ...
     def __iter__(self) -> Self: ...
     def __next__(self) -> ConsumerRecord: ...

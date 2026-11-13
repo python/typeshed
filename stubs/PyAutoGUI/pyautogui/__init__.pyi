@@ -1,6 +1,5 @@
-from _typeshed import FloatInt
 import contextlib
-from _typeshed import ConvertibleToInt
+from _typeshed import ConvertibleToInt, FloatInt
 from collections.abc import Callable, Iterable, Sequence
 from datetime import datetime
 from typing import Final, NamedTuple, ParamSpec, SupportsIndex, SupportsInt, TypeAlias, TypeVar

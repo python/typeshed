@@ -1,6 +1,5 @@
-from _typeshed import FloatInt
 import sys
-from _typeshed import FileDescriptor
+from _typeshed import FileDescriptor, FloatInt
 from typing import NamedTuple
 
 from gevent._ffi.loop import AbstractLoop

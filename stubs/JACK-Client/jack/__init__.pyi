@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import Unused
+from _typeshed import FloatInt, Unused
 from collections.abc import Callable, Generator, Iterable, Iterator, Sequence
 from typing import Any, Final, Literal, overload, type_check_only
 from typing_extensions import Never, Self

@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import Incomplete, ReadableBuffer
+from _typeshed import FloatInt, Incomplete, ReadableBuffer
 from collections.abc import Callable
 from hashlib import _Hash
 from logging import Logger

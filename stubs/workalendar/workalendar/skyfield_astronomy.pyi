@@ -1,6 +1,5 @@
-from _typeshed import FloatInt
 import datetime
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from math import _SupportsFloatOrIndex
 from typing import Final
 

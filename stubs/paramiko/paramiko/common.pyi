@@ -1,5 +1,5 @@
-from _typeshed import FloatInt
 import logging
+from _typeshed import FloatInt
 from typing import Final
 
 def byte_ord(c: int | str) -> int: ...

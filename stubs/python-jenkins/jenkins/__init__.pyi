@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from collections.abc import Mapping, MutableMapping, Sequence
 from re import Pattern
 from typing import Any, Final, Literal, TypeAlias, TypedDict, overload, type_check_only

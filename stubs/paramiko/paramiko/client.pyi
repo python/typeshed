@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import FileDescriptorOrPath
+from _typeshed import FileDescriptorOrPath, FloatInt
 from collections.abc import Iterable, Mapping
 from typing import Protocol, type_check_only
 from typing_extensions import Never

@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import ConvertibleToFloat, ConvertibleToInt, Incomplete, Unused
+from _typeshed import ConvertibleToFloat, ConvertibleToInt, FloatInt, Incomplete, Unused
 from collections.abc import Iterator
 from re import Pattern
 from typing import ClassVar, Final, Literal, TypeVar, overload

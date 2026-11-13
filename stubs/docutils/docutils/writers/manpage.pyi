@@ -1,6 +1,5 @@
-from _typeshed import FloatInt
 import re
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from collections.abc import Callable
 from typing import ClassVar, Final, Protocol, type_check_only
 from typing_extensions import Never

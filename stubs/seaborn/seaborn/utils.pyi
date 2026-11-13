@@ -1,6 +1,5 @@
-from _typeshed import FloatInt
 import datetime as dt
-from _typeshed import Incomplete, SupportsGetItem
+from _typeshed import FloatInt, Incomplete, SupportsGetItem
 from collections.abc import Callable, Iterable, Mapping, Sequence
 from typing import Any, Literal, SupportsIndex, TypeAlias, TypeVar, overload
 from typing_extensions import deprecated

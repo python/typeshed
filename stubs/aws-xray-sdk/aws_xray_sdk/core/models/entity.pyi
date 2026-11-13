@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from logging import Logger
 from traceback import StackSummary
 from typing import Any, Final, Literal, overload

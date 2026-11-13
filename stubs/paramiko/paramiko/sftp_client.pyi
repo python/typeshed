@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import StrOrBytesPath
+from _typeshed import FloatInt, StrOrBytesPath
 from collections.abc import Callable, Iterator
 from logging import Logger
 from typing import IO, TypeAlias

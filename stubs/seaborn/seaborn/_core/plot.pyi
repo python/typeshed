@@ -1,7 +1,6 @@
-from _typeshed import FloatInt
 import inspect
 import os
-from _typeshed import Incomplete, SupportsKeysAndGetItem
+from _typeshed import FloatInt, Incomplete, SupportsKeysAndGetItem
 from collections.abc import Callable, Generator
 from contextlib import contextmanager
 from typing import IO, Any, Literal, TypedDict, TypeVar

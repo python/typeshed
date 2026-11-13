@@ -1,7 +1,6 @@
-from _typeshed import FloatInt
 import asyncio
 import socket
-from _typeshed import Incomplete, Unused
+from _typeshed import FloatInt, Incomplete, Unused
 from _typeshed.wsgi import WSGIEnvironment
 from collections.abc import Awaitable, Callable
 from ssl import SSLContext

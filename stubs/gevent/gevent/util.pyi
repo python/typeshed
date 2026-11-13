@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import SupportsWrite
+from _typeshed import FloatInt, SupportsWrite
 from collections.abc import Callable
 from types import TracebackType
 from typing import Any, Generic, ParamSpec, TypeVar

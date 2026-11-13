@@ -1,4 +1,5 @@
 from _typeshed import FloatInt
+
 from reportlab.lib.styles import PropertySet
 from reportlab.platypus.paragraph import Paragraph, ParaLines
 from reportlab.platypus.paraparser import ParaFrag

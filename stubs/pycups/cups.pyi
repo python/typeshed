@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import Unused
+from _typeshed import FloatInt, Unused
 from collections.abc import Callable, Sequence
 from io import IOBase
 from typing import Final, Literal, TypeAlias, TypedDict, TypeVar, final, overload, type_check_only

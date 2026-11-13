@@ -1,6 +1,6 @@
-from _typeshed import FloatInt
 import logging
 import socket
+from _typeshed import FloatInt
 from collections.abc import Mapping
 from datetime import timedelta
 from typing import Final

@@ -1,5 +1,5 @@
-from _typeshed import FloatInt
 import re
+from _typeshed import FloatInt
 from collections.abc import Iterable
 from typing import AnyStr, Generic
 

@@ -40,7 +40,11 @@ _SeabornPaletteName: TypeAlias = Literal[
 
 @overload
 def color_palette(  # type: ignore[overload-overlap]
-    palette: _SeabornPaletteName | None = None, n_colors: int | None = None, desat: FloatInt | None = None, *, as_cmap: Literal[True]
+    palette: _SeabornPaletteName | None = None,
+    n_colors: int | None = None,
+    desat: FloatInt | None = None,
+    *,
+    as_cmap: Literal[True],
 ) -> list[str]: ...  # this might be a bug in seaborn because we expect the return type to be a Colormap instance
 @overload
 def color_palette(

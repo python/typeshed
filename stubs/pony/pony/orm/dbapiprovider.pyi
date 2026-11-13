@@ -1,8 +1,7 @@
-from _typeshed import FloatInt
 import json
 import re
 import types
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from collections.abc import Iterable
 from typing import ClassVar
 

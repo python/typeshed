@@ -1,5 +1,5 @@
-from _typeshed import FloatInt
 import sys
+from _typeshed import FloatInt
 from collections.abc import Callable, Iterable
 from ctypes import c_long
 from typing import Literal, SupportsInt, TypeAlias, TypeVar

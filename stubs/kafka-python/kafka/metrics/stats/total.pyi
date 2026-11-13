@@ -1,4 +1,5 @@
 from _typeshed import FloatInt
+
 from kafka.metrics.measurable_stat import AbstractMeasurableStat
 
 class Total(AbstractMeasurableStat):

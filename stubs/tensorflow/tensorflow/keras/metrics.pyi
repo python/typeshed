@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from abc import ABCMeta, abstractmethod
 from collections.abc import Callable, Iterable, Sequence
 from enum import Enum
@@ -94,7 +93,9 @@ class MeanMetricWrapper(Metric):
     def result(self) -> tf.Tensor: ...
 
 class BinaryAccuracy(MeanMetricWrapper):
-    def __init__(self, name: str | None = "binary_accuracy", dtype: DTypeLike | None = None, threshold: FloatInt = 0.5) -> None: ...
+    def __init__(
+        self, name: str | None = "binary_accuracy", dtype: DTypeLike | None = None, threshold: FloatInt = 0.5
+    ) -> None: ...
 
 class Accuracy(MeanMetricWrapper):
     def __init__(self, name: str | None = "accuracy", dtype: DTypeLike | None = None) -> None: ...

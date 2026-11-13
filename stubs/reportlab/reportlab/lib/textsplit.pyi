@@ -1,6 +1,5 @@
-from _typeshed import FloatInt
 import re
-from _typeshed import Incomplete, ReadableBuffer
+from _typeshed import FloatInt, Incomplete, ReadableBuffer
 from collections.abc import Sequence
 from typing import Final
 

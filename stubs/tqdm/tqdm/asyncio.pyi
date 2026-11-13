@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import SupportsWrite
+from _typeshed import FloatInt, SupportsWrite
 from asyncio import Future
 from collections.abc import AsyncIterator, Awaitable, Callable, Iterable, Iterator, Mapping
 from typing import TypeVar, overload

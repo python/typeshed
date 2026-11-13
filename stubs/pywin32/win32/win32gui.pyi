@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import Incomplete, ReadableBuffer, WriteableBuffer
+from _typeshed import FloatInt, Incomplete, ReadableBuffer, WriteableBuffer
 from collections.abc import Callable, Iterable
 from typing import Any, Literal, TypeAlias, TypeVar
 

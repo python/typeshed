@@ -1,5 +1,5 @@
-from _typeshed import FloatInt
 import logging
+from _typeshed import FloatInt
 from types import TracebackType
 from typing import Any, Final
 from typing_extensions import Self, deprecated

@@ -1,5 +1,5 @@
-from _typeshed import FloatInt
 import datetime
+from _typeshed import FloatInt
 from typing import Final, Literal, overload
 from typing_extensions import Self
 
@@ -15,7 +15,15 @@ class Epoch:
     def __init__(self) -> None: ...
     @overload
     def __init__(
-        self, year: int, month: int, day: int, /, *time: FloatInt, leap_seconds: FloatInt = 0, local: bool = False, utc: bool = False
+        self,
+        year: int,
+        month: int,
+        day: int,
+        /,
+        *time: FloatInt,
+        leap_seconds: FloatInt = 0,
+        local: bool = False,
+        utc: bool = False,
     ) -> None: ...
     @overload
     def __init__(
@@ -34,7 +42,15 @@ class Epoch:
     def set(self) -> None: ...
     @overload
     def set(
-        self, year: int, month: int, day: int, /, *time: FloatInt, leap_seconds: FloatInt = 0, local: bool = False, utc: bool = False
+        self,
+        year: int,
+        month: int,
+        day: int,
+        /,
+        *time: FloatInt,
+        leap_seconds: FloatInt = 0,
+        local: bool = False,
+        utc: bool = False,
     ) -> None: ...
     @overload
     def set(

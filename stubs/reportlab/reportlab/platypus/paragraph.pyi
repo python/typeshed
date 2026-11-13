@@ -1,4 +1,5 @@
 from _typeshed import FloatInt
+
 from reportlab.lib.abag import ABag
 from reportlab.lib.styles import ParagraphStyle, PropertySet
 from reportlab.pdfgen.textobject import PDFTextObject

@@ -1,6 +1,5 @@
-from _typeshed import FloatInt
 # https://pyinstaller.org/en/stable/hooks.html#module-PyInstaller.compat
-from _typeshed import FileDescriptorOrPath
+from _typeshed import FileDescriptorOrPath, FloatInt
 from collections.abc import Iterable
 from types import ModuleType
 from typing import Final, Literal, overload

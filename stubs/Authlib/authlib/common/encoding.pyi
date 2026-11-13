@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import ReadableBuffer
+from _typeshed import FloatInt, ReadableBuffer
 from collections.abc import Iterable
 from typing import Any, SupportsBytes, SupportsIndex, overload
 
@@ -22,7 +21,9 @@ def json_loads(s: str | bytes | bytearray) -> Any: ...  # returns json.loads()
 def json_dumps(data: Any, ensure_ascii: bool = False) -> str: ...  # data pass to json.dumps()
 def urlsafe_b64decode(s: bytes | bytearray) -> bytes: ...
 def urlsafe_b64encode(s: ReadableBuffer) -> bytes: ...
-def base64_to_int(s: str | bytes | FloatInt | Iterable[SupportsIndex] | SupportsIndex | SupportsBytes | ReadableBuffer) -> int: ...
+def base64_to_int(
+    s: str | bytes | FloatInt | Iterable[SupportsIndex] | SupportsIndex | SupportsBytes | ReadableBuffer,
+) -> int: ...
 def int_to_base64(num: int) -> str: ...
 def json_b64encode(
     text: str | bytes | FloatInt | Iterable[SupportsIndex] | SupportsIndex | SupportsBytes | ReadableBuffer,

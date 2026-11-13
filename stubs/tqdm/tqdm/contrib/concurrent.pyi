@@ -1,6 +1,5 @@
-from _typeshed import FloatInt
 import sys
-from _typeshed import SupportsWrite
+from _typeshed import FloatInt, SupportsWrite
 from collections.abc import Callable, Generator, Iterable, Mapping
 from contextlib import contextmanager
 from multiprocessing.context import BaseContext

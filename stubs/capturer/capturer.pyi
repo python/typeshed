@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import FileDescriptorOrPath, SupportsWrite
+from _typeshed import FileDescriptorOrPath, FloatInt, SupportsWrite
 from collections.abc import Callable
 from io import BufferedReader
 from multiprocessing import Process
@@ -46,7 +45,12 @@ class CaptureOutput(MultiProcessHelper):
     stdout: PseudoTerminal
     stderr: PseudoTerminal
     def __init__(
-        self, merged: bool = True, encoding: str = ..., termination_delay: FloatInt = ..., chunk_size: int = 1024, relay: bool = True
+        self,
+        merged: bool = True,
+        encoding: str = ...,
+        termination_delay: FloatInt = ...,
+        chunk_size: int = 1024,
+        relay: bool = True,
     ) -> None: ...
     def initialize_stream(self, file_obj: IO[str], expected_fd: int) -> Stream: ...
     def __enter__(self) -> Self: ...

@@ -85,7 +85,11 @@ class Hinge(Loss):
 
 class Huber(Loss):
     def __init__(
-        self, delta: FloatInt = 1.0, reduction: _ReductionValues = "sum_over_batch_size", name: str | None = "huber_loss", dtype=None
+        self,
+        delta: FloatInt = 1.0,
+        reduction: _ReductionValues = "sum_over_batch_size",
+        name: str | None = "huber_loss",
+        dtype=None,
     ) -> None: ...
     def call(self, y_true: Tensor, y_pred: Tensor) -> Tensor: ...
 

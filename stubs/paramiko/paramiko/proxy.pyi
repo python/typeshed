@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import ReadableBuffer
+from _typeshed import FloatInt, ReadableBuffer
 from subprocess import Popen
 from typing import Any
 

@@ -1,5 +1,5 @@
-from _typeshed import FloatInt
 import datetime
+from _typeshed import FloatInt
 from collections.abc import Iterable
 from decimal import Decimal
 from typing import TypedDict, type_check_only

@@ -1,6 +1,5 @@
-from _typeshed import FloatInt
 import uuid
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from collections.abc import Mapping, Sequence
 from typing_extensions import deprecated
 

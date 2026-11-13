@@ -1,6 +1,5 @@
-from _typeshed import FloatInt
 import sys
-from _typeshed import ReadableBuffer
+from _typeshed import FloatInt, ReadableBuffer
 from typing_extensions import Never
 
 from serial.serialutil import SerialBase

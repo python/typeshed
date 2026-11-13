@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import ConvertibleToFloat, Incomplete, SupportsItemAccess
+from _typeshed import ConvertibleToFloat, FloatInt, Incomplete, SupportsItemAccess
 from collections.abc import Iterable, Mapping
 
 from networkx.classes.graph import Graph, _Node

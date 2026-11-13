@@ -1,5 +1,5 @@
-from _typeshed import FloatInt
 import sys
+from _typeshed import FloatInt
 
 # sys.platform.startswith(("freebsd", "midnightbsd", "openbsd", "netbsd")):
 if sys.platform != "linux" and sys.platform != "win32" and sys.platform != "darwin":

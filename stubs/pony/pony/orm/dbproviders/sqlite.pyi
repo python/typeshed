@@ -1,8 +1,7 @@
-from _typeshed import FloatInt
 import re
 import sys
 import types
-from _typeshed import Incomplete, StrOrBytesPath
+from _typeshed import FloatInt, Incomplete, StrOrBytesPath
 from sqlite3 import Connection as _Connection
 from typing import Any, ClassVar, overload
 

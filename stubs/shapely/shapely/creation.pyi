@@ -220,7 +220,9 @@ def polygons(
 ) -> Polygon | GeoArray: ...
 
 @overload
-def box(xmin: FloatInt, ymin: FloatInt, xmax: FloatInt, ymax: FloatInt, ccw: bool = True, **kwargs: Unpack[UFuncKwargsNoOut]) -> Polygon: ...
+def box(
+    xmin: FloatInt, ymin: FloatInt, xmax: FloatInt, ymax: FloatInt, ccw: bool = True, **kwargs: Unpack[UFuncKwargsNoOut]
+) -> Polygon: ...
 @overload
 def box(
     xmin: ArrayLikeSeq[FloatInt],

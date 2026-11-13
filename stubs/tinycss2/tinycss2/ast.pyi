@@ -105,7 +105,9 @@ class DimensionToken(Node):
     unit: str
     lower_unit: str
     repr_format: str
-    def __init__(self, line: int, column: int, value: FloatInt, int_value: int | None, representation: str, unit: str) -> None: ...
+    def __init__(
+        self, line: int, column: int, value: FloatInt, int_value: int | None, representation: str, unit: str
+    ) -> None: ...
 
 class ParenthesesBlock(Node):
     type: Literal["() block"]

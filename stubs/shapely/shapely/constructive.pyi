@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import MaybeNone
+from _typeshed import FloatInt, MaybeNone
 from collections.abc import Sequence
 from typing import Literal, SupportsIndex, overload
 from typing_extensions import Unpack
@@ -184,7 +183,9 @@ def clip_by_rect(
     geometry: Geometry, xmin: FloatInt, ymin: FloatInt, xmax: FloatInt, ymax: FloatInt, **kwargs: Unpack[UFuncKwargs]
 ) -> BaseGeometry: ...
 @overload
-def clip_by_rect(geometry: None, xmin: FloatInt, ymin: FloatInt, xmax: FloatInt, ymax: FloatInt, **kwargs: Unpack[UFuncKwargs]) -> None: ...
+def clip_by_rect(
+    geometry: None, xmin: FloatInt, ymin: FloatInt, xmax: FloatInt, ymax: FloatInt, **kwargs: Unpack[UFuncKwargs]
+) -> None: ...
 @overload
 def clip_by_rect(
     geometry: Geometry | None, xmin: FloatInt, ymin: FloatInt, xmax: FloatInt, ymax: FloatInt, **kwargs: Unpack[UFuncKwargs]
@@ -248,11 +249,18 @@ def delaunay_triangles(
 ) -> GeoArray: ...
 @overload
 def delaunay_triangles(
-    geometry: OptGeoArrayLike, tolerance: ArrayLike[FloatInt] = 0.0, *, only_edges: ArrayLikeSeq[bool], **kwargs: Unpack[UFuncKwargs]
+    geometry: OptGeoArrayLike,
+    tolerance: ArrayLike[FloatInt] = 0.0,
+    *,
+    only_edges: ArrayLikeSeq[bool],
+    **kwargs: Unpack[UFuncKwargs],
 ) -> GeoArray: ...
 @overload
 def delaunay_triangles(
-    geometry: OptGeoArrayLike, tolerance: ArrayLikeSeq[FloatInt], only_edges: ArrayLike[bool] = False, **kwargs: Unpack[UFuncKwargs]
+    geometry: OptGeoArrayLike,
+    tolerance: ArrayLikeSeq[FloatInt],
+    only_edges: ArrayLike[bool] = False,
+    **kwargs: Unpack[UFuncKwargs],
 ) -> GeoArray: ...
 @overload
 def delaunay_triangles(
@@ -412,7 +420,9 @@ def polygonize_full(
 @overload
 def remove_repeated_points(geometry: OptGeoT, tolerance: FloatInt = 0.0, **kwargs: Unpack[UFuncKwargs]) -> OptGeoT: ...
 @overload
-def remove_repeated_points(geometry: OptGeoArrayLikeSeq, tolerance: FloatInt = 0.0, **kwargs: Unpack[UFuncKwargs]) -> GeoArray: ...
+def remove_repeated_points(
+    geometry: OptGeoArrayLikeSeq, tolerance: FloatInt = 0.0, **kwargs: Unpack[UFuncKwargs]
+) -> GeoArray: ...
 
 @overload
 def reverse(geometry: OptGeoT, **kwargs: Unpack[UFuncKwargs]) -> OptGeoT: ...
@@ -422,12 +432,18 @@ def reverse(geometry: OptGeoArrayLikeSeq, **kwargs: Unpack[UFuncKwargs]) -> GeoA
 @overload
 def segmentize(geometry: OptGeoT, max_segment_length: FloatInt, **kwargs: Unpack[UFuncKwargs]) -> OptGeoT: ...
 @overload
-def segmentize(geometry: OptGeoArrayLike, max_segment_length: ArrayLikeSeq[FloatInt], **kwargs: Unpack[UFuncKwargs]) -> GeoArray: ...
+def segmentize(
+    geometry: OptGeoArrayLike, max_segment_length: ArrayLikeSeq[FloatInt], **kwargs: Unpack[UFuncKwargs]
+) -> GeoArray: ...
 @overload
-def segmentize(geometry: OptGeoArrayLikeSeq, max_segment_length: ArrayLike[FloatInt], **kwargs: Unpack[UFuncKwargs]) -> GeoArray: ...
+def segmentize(
+    geometry: OptGeoArrayLikeSeq, max_segment_length: ArrayLike[FloatInt], **kwargs: Unpack[UFuncKwargs]
+) -> GeoArray: ...
 
 @overload
-def simplify(geometry: OptGeoT, tolerance: FloatInt, preserve_topology: bool = True, **kwargs: Unpack[UFuncKwargs]) -> OptGeoT: ...
+def simplify(
+    geometry: OptGeoT, tolerance: FloatInt, preserve_topology: bool = True, **kwargs: Unpack[UFuncKwargs]
+) -> OptGeoT: ...
 @overload
 def simplify(
     geometry: OptGeoArrayLike, tolerance: ArrayLikeSeq[FloatInt], preserve_topology: bool = True, **kwargs: Unpack[UFuncKwargs]

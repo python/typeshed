@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import Incomplete, Unused
+from _typeshed import FloatInt, Incomplete, Unused
 from collections.abc import Generator, Iterable, Mapping, MutableSet, Reversible
 from decimal import Decimal
 from typing_extensions import Never

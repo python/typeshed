@@ -1,8 +1,7 @@
-from _typeshed import FloatInt
 import logging
 import socket
 import types
-from _typeshed import ReadableBuffer
+from _typeshed import FloatInt, ReadableBuffer
 from collections.abc import Callable, Iterable, Mapping
 from typing import Final, ParamSpec, TypeAlias, TypeVar, overload
 

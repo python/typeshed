@@ -1,6 +1,5 @@
-from _typeshed import FloatInt
 import io
-from _typeshed import ReadableBuffer
+from _typeshed import FloatInt, ReadableBuffer
 from typing import Any, Literal, TypeAlias
 from typing_extensions import Never
 

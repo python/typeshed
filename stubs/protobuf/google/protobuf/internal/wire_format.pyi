@@ -1,4 +1,5 @@
 from _typeshed import FloatInt
+
 from google.protobuf.message import Message
 
 TAG_TYPE_BITS: int

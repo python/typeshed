@@ -1,7 +1,6 @@
-from _typeshed import FloatInt
 import enum
 import sys
-from _typeshed import FileDescriptorOrPath, Incomplete, StrOrBytesPath, Unused
+from _typeshed import FileDescriptorOrPath, FloatInt, Incomplete, StrOrBytesPath, Unused
 from collections.abc import Callable
 
 from . import _ntuples as ntp

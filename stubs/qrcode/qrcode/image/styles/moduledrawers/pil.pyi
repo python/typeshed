@@ -1,5 +1,5 @@
-from _typeshed import FloatInt
 import abc
+from _typeshed import FloatInt
 from typing import Literal
 
 from PIL import Image, ImageDraw

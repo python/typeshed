@@ -1,6 +1,5 @@
-from _typeshed import FloatInt
 import sys
-from _typeshed import ReadableBuffer
+from _typeshed import FloatInt, ReadableBuffer
 from collections.abc import Mapping
 from io import BytesIO
 from logging import Logger

@@ -1,6 +1,5 @@
-from _typeshed import FloatInt
 import types
-from _typeshed import FileDescriptorLike, FileDescriptorOrPath, StrOrBytesPath
+from _typeshed import FileDescriptorLike, FileDescriptorOrPath, FloatInt, StrOrBytesPath
 from inspect import _IntrospectableCallable, _ParameterKind
 from re import Pattern
 from socket import socket

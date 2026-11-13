@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import Incomplete, Unused
+from _typeshed import FloatInt, Incomplete, Unused
 from collections.abc import Callable
 from typing import Final, Literal, TypeAlias
 
@@ -8,7 +7,9 @@ from reportlab.pdfbase.ttfonts import ShapedStr
 from reportlab.pdfgen.canvas import Canvas
 
 # NOTE: This is slightly different from what toColor accepts and interprets
-_Color: TypeAlias = Color | tuple[FloatInt, FloatInt, FloatInt, FloatInt] | tuple[FloatInt, FloatInt, FloatInt] | list[FloatInt] | str
+_Color: TypeAlias = (
+    Color | tuple[FloatInt, FloatInt, FloatInt, FloatInt] | tuple[FloatInt, FloatInt, FloatInt] | list[FloatInt] | str
+)
 
 __version__: Final[str]
 log2vis: Callable[..., str | None]
@@ -49,7 +50,9 @@ class _PDFColorSetter:
 
 class PDFTextObject(_PDFColorSetter):
     direction: Literal["LTR", "RTL"]
-    def __init__(self, canvas: Canvas, x: FloatInt = 0, y: FloatInt = 0, direction: Literal["LTR", "RTL"] | None = None) -> None: ...
+    def __init__(
+        self, canvas: Canvas, x: FloatInt = 0, y: FloatInt = 0, direction: Literal["LTR", "RTL"] | None = None
+    ) -> None: ...
     def getCode(self) -> str: ...
     def setTextOrigin(self, x: FloatInt, y: FloatInt) -> None: ...
     def setTextTransform(self, a: FloatInt, b: FloatInt, c: FloatInt, d: FloatInt, e: FloatInt, f: FloatInt) -> None: ...

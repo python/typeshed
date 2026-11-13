@@ -1,6 +1,5 @@
-from _typeshed import FloatInt
 import decimal
-from _typeshed import Incomplete, ReadableBuffer
+from _typeshed import FloatInt, Incomplete, ReadableBuffer
 from collections.abc import Callable, Sequence
 from datetime import date, datetime, time
 from types import TracebackType

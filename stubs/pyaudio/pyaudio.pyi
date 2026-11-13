@@ -1,5 +1,5 @@
-from _typeshed import FloatInt
 import sys
+from _typeshed import FloatInt
 from collections.abc import Callable, Mapping, Sequence
 from typing import ClassVar, Final, TypeAlias
 

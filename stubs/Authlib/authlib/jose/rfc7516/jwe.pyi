@@ -1,5 +1,4 @@
-from _typeshed import FloatInt
-from _typeshed import Incomplete, ReadableBuffer
+from _typeshed import FloatInt, Incomplete, ReadableBuffer
 from collections import OrderedDict
 from collections.abc import Iterable
 from typing import SupportsBytes, SupportsIndex
