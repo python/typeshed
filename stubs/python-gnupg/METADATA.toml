@@ -1,0 +1,2 @@
+version = "~=0.5.7"
+upstream-repository = "https://github.com/vsajip/python-gnupg"
