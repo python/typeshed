@@ -28,7 +28,7 @@ def set_self_blocking(function: Callable[_P, _T]) -> Callable[_P, _T]: ...  # un
 
 class ProxyError(IOError):
     msg: str
-    socket_err: socket.error
+    socket_err: socket.error | None
     def __init__(self, msg: str, socket_err: socket.error | None = None) -> None: ...
 
 class GeneralProxyError(ProxyError): ...
@@ -74,7 +74,7 @@ _Endpoint: TypeAlias = tuple[str, int]
 
 def create_connection(
     dest_pair: _Endpoint,
-    timeout: int | None = None,
+    timeout: float | int | None = None,
     source_address: _Endpoint | None = None,
     proxy_type: _ProxyType | None = None,
     proxy_addr: str | None = None,
