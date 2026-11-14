@@ -12,7 +12,7 @@ _FilterType: TypeAlias = str | Callable[[int], np.ndarray[tuple[int], np.dtype[n
 
 @overload
 def resample(
-    x: np.ndarray[_Shape, np.dtype[np.integer[Any]]],
+    x: np.ndarray[_Shape, np.dtype[np.integer]],
     sr_orig: float,
     sr_new: float,
     axis: int = -1,
