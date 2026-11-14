@@ -1,3 +1,5 @@
+from _typeshed import ReadableBuffer
+
 import serial
 
 class RS485Settings:
@@ -15,4 +17,5 @@ class RS485Settings:
         delay_before_rx: float | None = None,
     ) -> None: ...
 
-class RS485(serial.Serial): ...
+class RS485(serial.Serial):
+    def write(self, b: ReadableBuffer) -> None: ...
