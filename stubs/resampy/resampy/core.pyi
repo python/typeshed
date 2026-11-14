@@ -63,16 +63,3 @@ def resample_nu(
     precision: int = 9,
     rolloff: float = 0.945,
 ) -> np.ndarray[_Shape, np.dtype[_Floating]]: ...
-@overload
-def resample_nu(
-    x: np.ndarray[_Shape, np.dtype[np.integer[Any]]] | np.ndarray[_Shape, np.dtype[_Floating]],
-    sr_orig: float,
-    t_out: np.ndarray[_Shape, np.dtype[np.float32]] | np.ndarray[_Shape, np.dtype[_Floating]],
-    axis: int = -1,
-    filter: _FilterType = "kaiser_best",
-    parallel: bool = False,
-    *,
-    num_zeros: int = 64,
-    precision: int = 9,
-    rolloff: float = 0.945,
-) -> np.ndarray[_Shape, np.dtype[np.float32]] | np.ndarray[_Shape, np.dtype[_Floating]]: ...
