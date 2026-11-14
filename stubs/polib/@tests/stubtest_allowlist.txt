@@ -1,0 +1,8 @@
+# Implementation has "*args" argument which is ignored.
+polib.MOEntry.__init__
+polib.MOFile.__init__
+polib.POEntry.__init__
+polib._BaseEntry.__init__
+polib._BaseFile.__init__
+polib._MOFileParser.__init__
+polib._POFileParser.__init__
