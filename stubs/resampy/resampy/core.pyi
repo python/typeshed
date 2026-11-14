@@ -39,7 +39,7 @@ def resample(
 
 @overload
 def resample_nu(
-    x: np.ndarray[_Shape, np.dtype[np.integer[Any]]],
+    x: np.ndarray[_Shape, np.dtype[np.integer]],
     sr_orig: float,
     t_out: np.ndarray[_Shape, np.dtype[np.float32]],
     axis: int = -1,
