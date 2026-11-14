@@ -74,7 +74,7 @@ _Endpoint: TypeAlias = tuple[str, int]
 
 def create_connection(
     dest_pair: _Endpoint,
-    timeout: float | None = None,
+    timeout: float | int | None = None,
     source_address: _Endpoint | None = None,
     proxy_type: _ProxyType | None = None,
     proxy_addr: str | None = None,
