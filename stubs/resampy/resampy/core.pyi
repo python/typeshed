@@ -5,6 +5,7 @@ import numpy as np
 
 __all__ = ["resample", "resample_nu"]
 
+# np.floating[Any] because precision is not important
 _Floating = TypeVar("_Floating", bound=np.floating[Any])
 _Shape = TypeVar("_Shape", bound=tuple[int, ...])
 _FilterType: TypeAlias = str | Callable[[int], np.ndarray[tuple[int], np.dtype[np.float64]]]
