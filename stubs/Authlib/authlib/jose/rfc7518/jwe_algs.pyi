@@ -1,4 +1,4 @@
-from _typeshed import Incomplete, ReadableBuffer
+from _typeshed import FloatInt, Incomplete, ReadableBuffer
 from collections.abc import Iterable
 from typing import ClassVar, Final, SupportsBytes, SupportsIndex
 
@@ -67,7 +67,7 @@ class ECDHESAlgorithm(JWEAlgorithm):
     def unwrap(self, enc_alg, ek, headers, key) -> bytes: ...
 
 def u32be_len_input(
-    s: str | bytes | float | Iterable[SupportsIndex] | SupportsIndex | SupportsBytes | ReadableBuffer, base64: bool = False
+    s: str | bytes | FloatInt | Iterable[SupportsIndex] | SupportsIndex | SupportsBytes | ReadableBuffer, base64: bool = False
 ) -> bytes: ...
 
 JWE_ALG_ALGORITHMS: Final[list[JWEAlgorithm]]

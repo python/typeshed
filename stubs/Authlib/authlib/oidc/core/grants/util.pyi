@@ -1,4 +1,4 @@
-from _typeshed import ReadableBuffer
+from _typeshed import FloatInt, ReadableBuffer
 from collections.abc import Collection, Iterable
 from typing import Literal, SupportsBytes, SupportsIndex, overload
 
@@ -19,7 +19,7 @@ def generate_id_token(
     auth_time: int | None = None,
     acr: str | None = None,
     amr: list[str] | None = None,
-    code: str | bytes | float | Iterable[SupportsIndex] | SupportsIndex | SupportsBytes | ReadableBuffer | None = None,
+    code: str | bytes | FloatInt | Iterable[SupportsIndex] | SupportsIndex | SupportsBytes | ReadableBuffer | None = None,
     kid: str | None = None,
 ) -> str: ...
 

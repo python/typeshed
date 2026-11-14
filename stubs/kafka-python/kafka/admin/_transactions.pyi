@@ -1,5 +1,5 @@
 import sys
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from typing import NamedTuple
 
 from kafka.structs import TopicPartition
@@ -71,10 +71,10 @@ class TransactionsAdminMixin:
         broker_ids=None,
         producer_id_filters=None,
         state_filters=None,
-        duration_filter_ms: float | None = None,
+        duration_filter_ms: FloatInt | None = None,
         transactional_id_pattern: str | None = None,
     ): ...
     def describe_transactions(self, transactional_ids): ...
     def describe_producers(self, partitions, broker_id: int | None = None): ...
     def abort_transaction(self, spec): ...
-    def find_hanging_transactions(self, broker_ids=None, max_transaction_timeout_ms: float = 900000): ...
+    def find_hanging_transactions(self, broker_ids=None, max_transaction_timeout_ms: FloatInt = 900000): ...

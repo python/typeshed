@@ -1,4 +1,4 @@
-from _typeshed import Incomplete, SupportsItems
+from _typeshed import FloatInt, Incomplete, SupportsItems
 from abc import abstractmethod
 from collections.abc import Iterable, Sequence
 from typing import Any, Final, Literal, TypeAlias, TypedDict, type_check_only
@@ -13,9 +13,9 @@ from reportlab.platypus.flowables import _HAlignment, _VAlignment
 _IntBool: TypeAlias = Literal[0, 1]
 _BoolLike: TypeAlias = _IntBool | bool
 _PathOp: TypeAlias = (
-    tuple[Literal["moveTo"], float, float]
-    | tuple[Literal["lineTo"], float, float]
-    | tuple[Literal["curveTo"], float, float, float, float, float, float]
+    tuple[Literal["moveTo"], FloatInt, FloatInt]
+    | tuple[Literal["lineTo"], FloatInt, FloatInt]
+    | tuple[Literal["curveTo"], FloatInt, FloatInt, FloatInt, FloatInt, FloatInt, FloatInt]
     # close path may either be a tuple or just the string
     | Literal["closePath"]
     | tuple[Literal["closePath"]]
@@ -27,7 +27,7 @@ _PathOp: TypeAlias = (
 #       verified at runtime
 @type_check_only
 class _GroupKwArgs(TypedDict, total=False):
-    transform: tuple[float, float, float, float, float, float] | list[float] | list[int]
+    transform: tuple[FloatInt, FloatInt, FloatInt, FloatInt, FloatInt, FloatInt] | list[FloatInt] | list[int]
     # NOTE: This should be used with care, since it will replace elements
     #       it's mostly useful for circumventing validation logic and
     #       reusing the list, rather than populating a new list
@@ -48,32 +48,32 @@ class _DrawingKwArgs(_GroupKwArgs, total=False):
     #       we assume it is turned off and allow all valid values
     hAlign: _HAlignment
     vAlign: _VAlignment
-    renderScale: float
+    renderScale: FloatInt
     initialFontName: str | None
-    initialFontSize: float | None
+    initialFontSize: FloatInt | None
 
 @type_check_only
 class _LineShapeKwArgs(TypedDict, total=False):
     strokeColor: Color | None
-    strokeWidth: float
+    strokeWidth: FloatInt
     strokeLineCap: Literal[0, 1, 2]
     strokeLineJoin: Literal[0, 1, 2]
-    strokeMiterLimit: float
-    strokeDashArray: Sequence[float] | tuple[float, Sequence[float]]
-    strokeOpacity: float | None
+    strokeMiterLimit: FloatInt
+    strokeDashArray: Sequence[FloatInt] | tuple[FloatInt, Sequence[FloatInt]]
+    strokeOpacity: FloatInt | None
     strokeOverprint: _BoolLike
     overprintMask: _BoolLike
 
 @type_check_only
 class _PathKwArgs(_LineShapeKwArgs, total=False):
     fillColor: Color | None
-    fillOpacity: float
+    fillOpacity: FloatInt
     fillOverprint: _BoolLike
 
 @type_check_only
 class _AllPathKwArgs(_PathKwArgs, total=False):
-    points: list[float] | None
-    operators: list[float] | None
+    points: list[FloatInt] | None
+    operators: list[FloatInt] | None
     isClipPath: _BoolLike
     autoclose: Literal["svg", "pdf"] | None
     fillMode: Literal[0, 1]
@@ -85,17 +85,17 @@ class _SolidShapeKwArgs(_PathKwArgs, total=False):
 @type_check_only
 class _DefinePathKwArgs(_SolidShapeKwArgs, total=False):
     autoclose: Literal["svg", "pdf"] | None
-    bbox: tuple[float, float, float, float] | None
+    bbox: tuple[FloatInt, FloatInt, FloatInt, FloatInt] | None
 
 @type_check_only
 class _WedgeKwArgs(_SolidShapeKwArgs, total=False):
-    radius1: float | None
-    yradius1: float | None
+    radius1: FloatInt | None
+    yradius1: FloatInt | None
 
 @type_check_only
 class _StringKwArgs(TypedDict, total=False):
     fontName: str
-    fontSize: float
+    fontSize: FloatInt
     fillColor: Color | None
     textAnchor: Literal["start", "middle", "end", "numeric"]
     encoding: str
@@ -133,28 +133,28 @@ class Shape(_SetKeyWordArgs, _DrawTimeResizeable):
 
 class Group(Shape):
     contents: list[Shape]
-    transform: tuple[float, float, float, float, float, float] | list[float] | list[int]
+    transform: tuple[FloatInt, FloatInt, FloatInt, FloatInt, FloatInt, FloatInt] | list[FloatInt] | list[int]
     def __init__(self, *elements: Shape | UserNode, **keywords: Unpack[_GroupKwArgs]) -> None: ...
     def add(self, node: Shape | UserNode, name: str | None = None) -> None: ...
     def insert(self, i: int, n: Shape | UserNode, name: str | None = None) -> None: ...
     def expandUserNodes(self) -> Group: ...
     def copy(self) -> Self: ...
-    def rotate(self, theta: float, cx: float = 0, cy: float = 0) -> None: ...
-    def translate(self, dx: float, dy: float = 0) -> None: ...
-    def scale(self, sx: float, sy: float = 1) -> None: ...
-    def skew(self, kx: float, ky: float = 0) -> None: ...
-    def shift(self, x: float, y: float = 0) -> None: ...
+    def rotate(self, theta: FloatInt, cx: FloatInt = 0, cy: FloatInt = 0) -> None: ...
+    def translate(self, dx: FloatInt, dy: FloatInt = 0) -> None: ...
+    def scale(self, sx: FloatInt, sy: FloatInt = 1) -> None: ...
+    def skew(self, kx: FloatInt, ky: FloatInt = 0) -> None: ...
+    def shift(self, x: FloatInt, y: FloatInt = 0) -> None: ...
     # NOTE: This changes the object to a Drawing, rather than returning
     #       a new one, which is not ideal...
-    def asDrawing(self, width: float, height: float) -> None: ...
+    def asDrawing(self, width: FloatInt, height: FloatInt) -> None: ...
     def getContents(self) -> list[Shape | UserNode]: ...
     def getBounds(self) -> tuple[float, float, float, float]: ...
 
 class Drawing(Group, Flowable):
     background: Shape | UserNode | None
-    renderScale: float
+    renderScale: FloatInt
     def __init__(
-        self, width: float = 400, height: float = 200, *nodes: Shape | UserNode, **keywords: Unpack[_DrawingKwArgs]
+        self, width: FloatInt = 400, height: FloatInt = 200, *nodes: Shape | UserNode, **keywords: Unpack[_DrawingKwArgs]
     ) -> None: ...
     def draw(self, showBoundary=...) -> None: ...
     def expandUserNodes(self) -> Drawing: ...
@@ -170,7 +170,12 @@ class Drawing(Group, Flowable):
     ): ...
     def asString(self, format: str, verbose: bool | None = None, preview: int = 0, **kw) -> str: ...
     def resized(
-        self, kind: Literal["fit", "fitx", "fity"] = "fit", lpad: float = 0, rpad: float = 0, bpad: float = 0, tpad: float = 0
+        self,
+        kind: Literal["fit", "fitx", "fity"] = "fit",
+        lpad: FloatInt = 0,
+        rpad: FloatInt = 0,
+        bpad: FloatInt = 0,
+        tpad: FloatInt = 0,
     ) -> Drawing: ...
 
 class _DrawingEditorMixin: ...
@@ -183,12 +188,12 @@ isStrokeDashArray: _isStrokeDashArray
 
 class LineShape(Shape):
     strokeColor: Color | None
-    strokeWidth: float
+    strokeWidth: FloatInt
     strokeLineCap: Literal[0, 1, 2]
     strokeLineJoin: Literal[0, 1, 2]
-    strokeMiterLimit: float
-    strokeDashArray: Sequence[float] | tuple[float, Sequence[float]]
-    strokeOpacity: float | None
+    strokeMiterLimit: FloatInt
+    strokeDashArray: Sequence[FloatInt] | tuple[FloatInt, Sequence[FloatInt]]
+    strokeOpacity: FloatInt | None
     def __init__(self, kw: _LineShapeKwArgs) -> None: ...
     @abstractmethod
     def copy(self) -> Self: ...
@@ -196,18 +201,18 @@ class LineShape(Shape):
     def getBounds(self) -> tuple[float, float, float, float]: ...
 
 class Line(LineShape):
-    x1: float
-    y1: float
-    x2: float
-    y2: float
-    def __init__(self, x1: float, y1: float, x2: float, y2: float, **kw: Unpack[_LineShapeKwArgs]) -> None: ...
+    x1: FloatInt
+    y1: FloatInt
+    x2: FloatInt
+    y2: FloatInt
+    def __init__(self, x1: FloatInt, y1: FloatInt, x2: FloatInt, y2: FloatInt, **kw: Unpack[_LineShapeKwArgs]) -> None: ...
     # NOTE: For some reason Line doesn't implement copy
     def copy(self) -> Never: ...
     def getBounds(self) -> tuple[float, float, float, float]: ...
 
 class SolidShape(LineShape):
     fillColor: Color | None
-    fillOpacity: float | None
+    fillOpacity: FloatInt | None
     def __init__(self, kw: _SolidShapeKwArgs) -> None: ...
     @abstractmethod
     def copy(self) -> Self: ...
@@ -215,117 +220,130 @@ class SolidShape(LineShape):
     def getBounds(self) -> tuple[float, float, float, float]: ...
 
 class Path(SolidShape):
-    points: list[float]
-    operators: list[float]
+    points: list[FloatInt]
+    operators: list[FloatInt]
     isClipPath: _BoolLike
     autoclose: Literal["svg", "pdf"] | None
     fillMode: Literal[0, 1]
     def __init__(
         self,
-        points: list[float] | None = None,
-        operators: list[float] | None = None,
+        points: list[FloatInt] | None = None,
+        operators: list[FloatInt] | None = None,
         isClipPath: _BoolLike = 0,
         autoclose: Literal["svg", "pdf"] | None = None,
         fillMode: Literal[0, 1] = 0,
         **kw: Unpack[_PathKwArgs],
     ) -> None: ...
     def copy(self) -> Self: ...
-    def moveTo(self, x: float, y: float) -> None: ...
-    def lineTo(self, x: float, y: float) -> None: ...
-    def curveTo(self, x1: float, y1: float, x2: float, y2: float, x3: float, y3: float) -> None: ...
+    def moveTo(self, x: FloatInt, y: FloatInt) -> None: ...
+    def lineTo(self, x: FloatInt, y: FloatInt) -> None: ...
+    def curveTo(self, x1: FloatInt, y1: FloatInt, x2: FloatInt, y2: FloatInt, x3: FloatInt, y3: FloatInt) -> None: ...
     def closePath(self) -> None: ...
     def getBounds(self) -> tuple[float, float, float, float]: ...
 
 EmptyClipPath: Final[Path]
 
 def getArcPoints(
-    centerx: float,
-    centery: float,
-    radius: float,
-    startangledegrees: float,
-    endangledegrees: float,
-    yradius: float | None = None,
-    degreedelta: float | None = None,
+    centerx: FloatInt,
+    centery: FloatInt,
+    radius: FloatInt,
+    startangledegrees: FloatInt,
+    endangledegrees: FloatInt,
+    yradius: FloatInt | None = None,
+    degreedelta: FloatInt | None = None,
     reverse: _BoolLike | None = None,
 ) -> list[float]: ...
 
 class ArcPath(Path):
     def addArc(
         self,
-        centerx: float,
-        centery: float,
-        radius: float,
-        startangledegrees: float,
-        endangledegrees: float,
-        yradius: float | None = None,
-        degreedelta: float | None = None,
+        centerx: FloatInt,
+        centery: FloatInt,
+        radius: FloatInt,
+        startangledegrees: FloatInt,
+        endangledegrees: FloatInt,
+        yradius: FloatInt | None = None,
+        degreedelta: FloatInt | None = None,
         moveTo: _BoolLike | None = None,
         reverse: _BoolLike | None = None,
     ) -> None: ...
 
 def definePath(
-    pathSegs: Iterable[_PathOp] = [], isClipPath: _BoolLike = 0, dx: float = 0, dy: float = 0, **kw: Unpack[_DefinePathKwArgs]
+    pathSegs: Iterable[_PathOp] = [],
+    isClipPath: _BoolLike = 0,
+    dx: FloatInt = 0,
+    dy: FloatInt = 0,
+    **kw: Unpack[_DefinePathKwArgs],
 ) -> Path: ...
 
 class Rect(SolidShape):
-    x: float
-    y: float
-    width: float
-    height: float
-    rx: float
-    ry: float
+    x: FloatInt
+    y: FloatInt
+    width: FloatInt
+    height: FloatInt
+    rx: FloatInt
+    ry: FloatInt
     def __init__(
-        self, x: float, y: float, width: float, height: float, rx: float = 0, ry: float = 0, **kw: _SolidShapeKwArgs
+        self,
+        x: FloatInt,
+        y: FloatInt,
+        width: FloatInt,
+        height: FloatInt,
+        rx: FloatInt = 0,
+        ry: FloatInt = 0,
+        **kw: _SolidShapeKwArgs,
     ) -> None: ...
     def copy(self) -> Self: ...
     def getBounds(self) -> tuple[float, float, float, float]: ...
 
 class Image(SolidShape):
-    x: float
-    y: float
-    width: float
-    height: float
+    x: FloatInt
+    y: FloatInt
+    width: FloatInt
+    height: FloatInt
     path: Incomplete
-    def __init__(self, x: float, y: float, width: float, height: float, path, **kw: Unpack[_SolidShapeKwArgs]) -> None: ...
+    def __init__(
+        self, x: FloatInt, y: FloatInt, width: FloatInt, height: FloatInt, path, **kw: Unpack[_SolidShapeKwArgs]
+    ) -> None: ...
     def copy(self) -> Self: ...
     def getBounds(self) -> tuple[float, float, float, float]: ...
 
 class Circle(SolidShape):
-    cx: float
-    cy: float
-    r: float
-    def __init__(self, cx: float, cy: float, r: float, **kw: Unpack[_SolidShapeKwArgs]) -> None: ...
+    cx: FloatInt
+    cy: FloatInt
+    r: FloatInt
+    def __init__(self, cx: FloatInt, cy: FloatInt, r: FloatInt, **kw: Unpack[_SolidShapeKwArgs]) -> None: ...
     def copy(self) -> Self: ...
     def getBounds(self) -> tuple[float, float, float, float]: ...
 
 class Ellipse(SolidShape):
-    cx: float
-    cy: float
-    rx: float
-    ry: float
-    def __init__(self, cx: float, cy: float, rx: float, ry: float, **kw: Unpack[_SolidShapeKwArgs]) -> None: ...
+    cx: FloatInt
+    cy: FloatInt
+    rx: FloatInt
+    ry: FloatInt
+    def __init__(self, cx: FloatInt, cy: FloatInt, rx: FloatInt, ry: FloatInt, **kw: Unpack[_SolidShapeKwArgs]) -> None: ...
     def copy(self) -> Self: ...
     def getBounds(self) -> tuple[float, float, float, float]: ...
 
 class Wedge(SolidShape):
-    centerx: float
-    centery: float
-    radius: float
-    startangledegrees: float
-    endangledegrees: float
-    yradius: float | None
+    centerx: FloatInt
+    centery: FloatInt
+    radius: FloatInt
+    startangledegrees: FloatInt
+    endangledegrees: FloatInt
+    yradius: FloatInt | None
     annular: bool
     # NOTE: This one is not actually settable on the instance if runtime validation
     #       is turned on, but it seems bad to disallow it anyways
-    degreedelta: float
+    degreedelta: FloatInt
     def __init__(
         self,
-        centerx: float,
-        centery: float,
-        radius: float,
-        startangledegrees: float,
-        endangledegrees: float,
-        yradius: float | None = None,
+        centerx: FloatInt,
+        centery: FloatInt,
+        radius: FloatInt,
+        startangledegrees: FloatInt,
+        endangledegrees: FloatInt,
+        yradius: FloatInt | None = None,
         annular: bool = False,
         **kw: Unpack[_WedgeKwArgs],
     ) -> None: ...
@@ -334,43 +352,43 @@ class Wedge(SolidShape):
     def getBounds(self) -> tuple[float, float, float, float]: ...
 
 class Polygon(SolidShape):
-    points: list[float]
-    def __init__(self, points: list[float] = [], **kw: Unpack[_SolidShapeKwArgs]) -> None: ...
+    points: list[FloatInt]
+    def __init__(self, points: list[FloatInt] = [], **kw: Unpack[_SolidShapeKwArgs]) -> None: ...
     def copy(self) -> Self: ...
     def getBounds(self) -> tuple[float, float, float, float]: ...
 
 class PolyLine(LineShape):
-    points: list[float]
-    def __init__(self, points: list[float] = [], **kw: Unpack[_SolidShapeKwArgs]) -> None: ...
+    points: list[FloatInt]
+    def __init__(self, points: list[FloatInt] = [], **kw: Unpack[_SolidShapeKwArgs]) -> None: ...
     def copy(self) -> Self: ...
     def getBounds(self) -> tuple[float, float, float, float]: ...
 
 class Hatching(Path):
-    xyLists: Sequence[tuple[float, float]]
-    angles: Sequence[float]
-    spacings: Sequence[float]
+    xyLists: Sequence[tuple[FloatInt, FloatInt]]
+    angles: Sequence[FloatInt]
+    spacings: Sequence[FloatInt]
     def __init__(
         self,
-        spacings: float | Sequence[float] = 2,
-        angles: float | Sequence[float] = 45,
-        xyLists: Sequence[tuple[float, float] | list[float]] = [],
+        spacings: FloatInt | Sequence[FloatInt] = 2,
+        angles: FloatInt | Sequence[FloatInt] = 45,
+        xyLists: Sequence[tuple[FloatInt, FloatInt] | list[FloatInt]] = [],
         **kwds: Unpack[_AllPathKwArgs],
     ) -> None: ...
 
 def numericXShift(
-    tA, text: str, w: float, fontName: str, fontSize: float, encoding: str | None = None, pivotCharacter: str = "."
+    tA, text: str, w: FloatInt, fontName: str, fontSize: FloatInt, encoding: str | None = None, pivotCharacter: str = "."
 ) -> float: ...
 
 class String(Shape):
     encoding: str
-    x: float
-    y: float
+    x: FloatInt
+    y: FloatInt
     text: str
     textAnchor: Literal["start", "middle", "end", "numeric"]
     fontName: str
-    fontSize: float
+    fontSize: FloatInt
     fillColor: Color | None
-    def __init__(self, x: float, y: float, text: str, **kw: Unpack[_StringKwArgs]) -> None: ...
+    def __init__(self, x: FloatInt, y: FloatInt, text: str, **kw: Unpack[_StringKwArgs]) -> None: ...
     def getEast(self): ...
     def copy(self) -> Self: ...
     def getBounds(self) -> tuple[float, float, float, float]: ...

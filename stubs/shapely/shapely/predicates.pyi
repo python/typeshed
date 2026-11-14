@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from typing import Any, Literal, TypeGuard, overload
 from typing_extensions import Unpack
 
@@ -198,13 +199,13 @@ def within(a: OptGeoArrayLike, b: OptGeoArrayLikeSeq, **kwargs: Unpack[UFuncKwar
 
 @overload
 def equals_exact(
-    a: Geometry | None, b: Geometry | None, tolerance: float = 0.0, *, normalize: bool = False, **kwargs: Unpack[UFuncKwargs]
+    a: Geometry | None, b: Geometry | None, tolerance: FloatInt = 0.0, *, normalize: bool = False, **kwargs: Unpack[UFuncKwargs]
 ) -> np.bool_: ...
 @overload
 def equals_exact(
     a: OptGeoArrayLike,
     b: OptGeoArrayLike,
-    tolerance: ArrayLikeSeq[float],
+    tolerance: ArrayLikeSeq[FloatInt],
     *,
     normalize: bool = False,
     **kwargs: Unpack[UFuncKwargs],
@@ -213,7 +214,7 @@ def equals_exact(
 def equals_exact(
     a: OptGeoArrayLikeSeq,
     b: OptGeoArrayLike,
-    tolerance: ArrayLike[float] = 0.0,
+    tolerance: ArrayLike[FloatInt] = 0.0,
     *,
     normalize: bool = False,
     **kwargs: Unpack[UFuncKwargs],
@@ -222,7 +223,7 @@ def equals_exact(
 def equals_exact(
     a: OptGeoArrayLike,
     b: OptGeoArrayLikeSeq,
-    tolerance: ArrayLike[float] = 0.0,
+    tolerance: ArrayLike[FloatInt] = 0.0,
     *,
     normalize: bool = False,
     **kwargs: Unpack[UFuncKwargs],
@@ -258,46 +259,50 @@ def relate_pattern(
 ) -> NDArray[np.bool_]: ...
 
 @overload
-def dwithin(a: Geometry | None, b: Geometry | None, distance: float, **kwargs: Unpack[UFuncKwargs]) -> np.bool_: ...
+def dwithin(a: Geometry | None, b: Geometry | None, distance: FloatInt, **kwargs: Unpack[UFuncKwargs]) -> np.bool_: ...
 @overload
-def dwithin(a: OptGeoArrayLikeSeq, b: OptGeoArrayLike, distance: float, **kwargs: Unpack[UFuncKwargs]) -> NDArray[np.bool_]: ...
-@overload
-def dwithin(a: OptGeoArrayLike, b: OptGeoArrayLikeSeq, distance: float, **kwargs: Unpack[UFuncKwargs]) -> NDArray[np.bool_]: ...
-
-@overload
-def contains_xy(geom: Geometry | None, x: float, y: float, **kwargs: Unpack[UFuncKwargs]) -> np.bool_: ...
-@overload
-def contains_xy(
-    geom: OptGeoArrayLike, x: ArrayLikeSeq[float], y: None = None, **kwargs: Unpack[UFuncKwargs]
+def dwithin(
+    a: OptGeoArrayLikeSeq, b: OptGeoArrayLike, distance: FloatInt, **kwargs: Unpack[UFuncKwargs]
 ) -> NDArray[np.bool_]: ...
 @overload
-def contains_xy(
-    geom: Geometry | None, x: ArrayLike[float], y: ArrayLikeSeq[float], **kwargs: Unpack[UFuncKwargs]
-) -> NDArray[np.bool_]: ...
-@overload
-def contains_xy(
-    geom: Geometry | None, x: ArrayLikeSeq[float], y: ArrayLike[float], **kwargs: Unpack[UFuncKwargs]
-) -> NDArray[np.bool_]: ...
-@overload
-def contains_xy(
-    geom: OptGeoArrayLikeSeq, x: ArrayLike[float], y: ArrayLike[float], **kwargs: Unpack[UFuncKwargs]
+def dwithin(
+    a: OptGeoArrayLike, b: OptGeoArrayLikeSeq, distance: FloatInt, **kwargs: Unpack[UFuncKwargs]
 ) -> NDArray[np.bool_]: ...
 
 @overload
-def intersects_xy(geom: Geometry | None, x: float, y: float, **kwargs: Unpack[UFuncKwargs]) -> np.bool_: ...
+def contains_xy(geom: Geometry | None, x: FloatInt, y: FloatInt, **kwargs: Unpack[UFuncKwargs]) -> np.bool_: ...
+@overload
+def contains_xy(
+    geom: OptGeoArrayLike, x: ArrayLikeSeq[FloatInt], y: None = None, **kwargs: Unpack[UFuncKwargs]
+) -> NDArray[np.bool_]: ...
+@overload
+def contains_xy(
+    geom: Geometry | None, x: ArrayLike[FloatInt], y: ArrayLikeSeq[FloatInt], **kwargs: Unpack[UFuncKwargs]
+) -> NDArray[np.bool_]: ...
+@overload
+def contains_xy(
+    geom: Geometry | None, x: ArrayLikeSeq[FloatInt], y: ArrayLike[FloatInt], **kwargs: Unpack[UFuncKwargs]
+) -> NDArray[np.bool_]: ...
+@overload
+def contains_xy(
+    geom: OptGeoArrayLikeSeq, x: ArrayLike[FloatInt], y: ArrayLike[FloatInt], **kwargs: Unpack[UFuncKwargs]
+) -> NDArray[np.bool_]: ...
+
+@overload
+def intersects_xy(geom: Geometry | None, x: FloatInt, y: FloatInt, **kwargs: Unpack[UFuncKwargs]) -> np.bool_: ...
 @overload
 def intersects_xy(
-    geom: OptGeoArrayLike, x: ArrayLikeSeq[float], y: None = None, **kwargs: Unpack[UFuncKwargs]
+    geom: OptGeoArrayLike, x: ArrayLikeSeq[FloatInt], y: None = None, **kwargs: Unpack[UFuncKwargs]
 ) -> NDArray[np.bool_]: ...
 @overload
 def intersects_xy(
-    geom: Geometry | None, x: ArrayLike[float], y: ArrayLikeSeq[float], **kwargs: Unpack[UFuncKwargs]
+    geom: Geometry | None, x: ArrayLike[FloatInt], y: ArrayLikeSeq[FloatInt], **kwargs: Unpack[UFuncKwargs]
 ) -> NDArray[np.bool_]: ...
 @overload
 def intersects_xy(
-    geom: Geometry | None, x: ArrayLikeSeq[float], y: ArrayLike[float], **kwargs: Unpack[UFuncKwargs]
+    geom: Geometry | None, x: ArrayLikeSeq[FloatInt], y: ArrayLike[FloatInt], **kwargs: Unpack[UFuncKwargs]
 ) -> NDArray[np.bool_]: ...
 @overload
 def intersects_xy(
-    geom: OptGeoArrayLikeSeq, x: ArrayLike[float], y: ArrayLike[float], **kwargs: Unpack[UFuncKwargs]
+    geom: OptGeoArrayLikeSeq, x: ArrayLike[FloatInt], y: ArrayLike[FloatInt], **kwargs: Unpack[UFuncKwargs]
 ) -> NDArray[np.bool_]: ...

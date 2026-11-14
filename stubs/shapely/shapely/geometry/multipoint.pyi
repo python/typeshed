@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Collection
 from typing import Literal
 from typing_extensions import Self
@@ -16,7 +17,7 @@ class MultiPoint(BaseMultipartGeometry[Point]):
     # I went with Collection as false negatives seem better to me than false positives in this case
     __slots__: list[str] = []
     def __new__(self, points: MultiPoint | Collection[_PointLike] | None = None) -> Self: ...
-    def svg(self, scale_factor: float = 1.0, fill_color: str | None = None, opacity: float | None = None) -> str: ...  # type: ignore[override]
+    def svg(self, scale_factor: FloatInt = 1.0, fill_color: str | None = None, opacity: FloatInt | None = None) -> str: ...  # type: ignore[override]
     # more precise base overrides
     @property
     def geom_type(self) -> Literal["MultiPoint"]: ...

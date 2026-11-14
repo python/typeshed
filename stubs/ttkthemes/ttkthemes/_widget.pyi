@@ -1,5 +1,5 @@
 import _tkinter
-from _typeshed import StrPath
+from _typeshed import FloatInt, StrPath
 from typing import ClassVar
 
 class ThemedWidget:
@@ -17,9 +17,9 @@ class ThemedWidget:
     def set_theme_advanced(
         self,
         theme_name: str,
-        brightness: float = 1.0,
-        saturation: float = 1.0,
-        hue: float = 1.0,
+        brightness: FloatInt = 1.0,
+        saturation: FloatInt = 1.0,
+        hue: FloatInt = 1.0,
         preserve_transparency: bool = True,
         output_dir: StrPath | None = None,
         advanced_name: str = "advanced",

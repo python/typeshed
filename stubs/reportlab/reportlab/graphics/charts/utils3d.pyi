@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 
 class _YStrip:
     y0: Incomplete
@@ -6,7 +6,7 @@ class _YStrip:
     slope: Incomplete
     fillColor: Incomplete
     fillColorShaded: Incomplete
-    def __init__(self, y0, y1, slope, fillColor, fillColorShaded, shading: float = 0.1) -> None: ...
+    def __init__(self, y0, y1, slope, fillColor, fillColorShaded, shading: FloatInt = 0.1) -> None: ...
 
 def mod_2pi(radians): ...
 

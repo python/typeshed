@@ -3,7 +3,7 @@ import email.message
 import http.client
 import re
 from _ssl import _PasswordType
-from _typeshed import ConvertibleToFloat, ConvertibleToInt, Incomplete, MaybeNone, StrOrBytesPath
+from _typeshed import ConvertibleToFloat, ConvertibleToInt, FloatInt, Incomplete, MaybeNone, StrOrBytesPath
 from collections.abc import Generator
 from ssl import _SSLMethod
 from typing import Any, ClassVar, Final, Literal, TypeVar, overload
@@ -34,7 +34,7 @@ __all__ = [
     "UnimplementedHmacDigestAuthOptionError",
 ]
 
-def has_timeout(timeout: float | None) -> bool: ...
+def has_timeout(timeout: FloatInt | None) -> bool: ...
 
 debuglevel: Final[int]
 RETRIES: Final[int]
@@ -158,7 +158,7 @@ class HTTPSConnectionWithTimeout(http.client.HTTPSConnection):
         port: int | None = None,
         key_file: StrOrBytesPath | None = None,
         cert_file: StrOrBytesPath | None = None,
-        timeout: float | None = None,
+        timeout: FloatInt | None = None,
         proxy_info=None,
         ca_certs: StrOrBytesPath | None = None,
         disable_ssl_certificate_validation: bool = False,
@@ -189,13 +189,13 @@ class Http:
     follow_all_redirects: bool
     ignore_etag: bool
     force_exception_to_status_code: bool
-    timeout: float | None
+    timeout: FloatInt | None
     forward_authorization_headers: bool
-    limit_kwargs: dict[str, float]
+    limit_kwargs: dict[str, FloatInt]
     def __init__(
         self,
         cache: str | FileCache | None = None,
-        timeout: float | None = None,
+        timeout: FloatInt | None = None,
         proxy_info=...,
         ca_certs=None,
         disable_ssl_certificate_validation: bool = False,

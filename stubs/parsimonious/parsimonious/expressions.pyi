@@ -1,4 +1,5 @@
 import collections.abc
+from _typeshed import FloatInt
 from collections.abc import Callable, Mapping
 from re import Pattern
 from typing import Any, TypeAlias
@@ -74,8 +75,8 @@ def Not(term: Expression) -> Lookahead: ...
 class Quantifier(Compound):
     __slots__ = ["min", "max"]
     min: int
-    max: float
-    def __init__(self, member: Expression, *, min: int = 0, max: float = ..., name: str = "", **kwargs: Any) -> None: ...
+    max: FloatInt
+    def __init__(self, member: Expression, *, min: int = 0, max: FloatInt = ..., name: str = "", **kwargs: Any) -> None: ...
 
 def ZeroOrMore(member: Expression, name: str = "") -> Quantifier: ...
 def OneOrMore(member: Expression, name: str = "", min: int = 1) -> Quantifier: ...

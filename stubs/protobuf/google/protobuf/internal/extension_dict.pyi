@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Iterator
 from typing import Any, Generic, TypeVar, type_check_only
 
@@ -8,7 +9,7 @@ from google.protobuf.message import Message
 _ContainerMessageT = TypeVar("_ContainerMessageT", bound=Message)
 _ExtenderMessageT = TypeVar(
     "_ExtenderMessageT",
-    bound=Message | RepeatedScalarFieldContainer[Any] | RepeatedCompositeFieldContainer[Any] | bool | float | str | bytes,
+    bound=Message | RepeatedScalarFieldContainer[Any] | RepeatedCompositeFieldContainer[Any] | bool | FloatInt | str | bytes,
 )
 
 @type_check_only

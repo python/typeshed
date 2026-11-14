@@ -1,4 +1,4 @@
-from _typeshed import ConvertibleToFloat, SliceableBuffer, Unused
+from _typeshed import ConvertibleToFloat, FloatInt, SliceableBuffer, Unused
 from collections.abc import Iterable, Sequence
 from typing import Final, TypeVar
 
@@ -115,7 +115,7 @@ PROPERTY_TYPE_FLOAT: Final = "FLOAT"
 
 # ignore[override] because of Liskov substitution principle violations
 class FP1616(rq.Int32):
-    def check_value(self, value: float) -> int: ...  # type: ignore[override]
+    def check_value(self, value: FloatInt) -> int: ...  # type: ignore[override]
     def parse_value(self, value: ConvertibleToFloat, display: Unused) -> float: ...  # type: ignore[override]
 
 class FP3232(rq.ValueField):
@@ -182,7 +182,12 @@ def get_device_property(
 class XIChangeProperty(rq.Request): ...
 
 def change_device_property(
-    self: Display | resource.Resource, deviceid: int, property: int, type: int, mode: int, value: Sequence[float] | Sequence[str]
+    self: Display | resource.Resource,
+    deviceid: int,
+    property: int,
+    type: int,
+    mode: int,
+    value: Sequence[FloatInt] | Sequence[str],
 ) -> XIChangeProperty: ...
 
 class XIDeleteProperty(rq.Request): ...

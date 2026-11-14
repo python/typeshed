@@ -13,15 +13,15 @@ class UniversalMeasure(MatchPattern[str, Incomplete]):
 
 class TextPoint(MinMax[_M, _N]):
     expected_type: type[_M]
-    min: float
-    max: float
+    min: float | int
+    max: float | int
 
 Coordinate = Integer
 
 class Percentage(MinMax[float, Incomplete]):
     pattern: str
-    min: float
-    max: float
+    min: float | int
+    max: float | int
     def __set__(self, instance: Serialisable | Strict, value) -> None: ...
 
 class Extension(Serialisable):

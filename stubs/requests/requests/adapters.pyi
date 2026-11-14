@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from collections.abc import Mapping
 from ssl import SSLContext
 from typing import Any, Literal, TypedDict, type_check_only
@@ -56,7 +56,7 @@ class _PoolKwargs(TypedDict):
 DEFAULT_POOLBLOCK: bool
 DEFAULT_POOLSIZE: int
 DEFAULT_RETRIES: int
-DEFAULT_POOL_TIMEOUT: float | None
+DEFAULT_POOL_TIMEOUT: FloatInt | None
 
 class BaseAdapter:
     def __init__(self) -> None: ...
@@ -64,7 +64,7 @@ class BaseAdapter:
         self,
         request: PreparedRequest,
         stream: bool = False,
-        timeout: float | tuple[float, float] | tuple[float, None] | None = None,
+        timeout: FloatInt | tuple[FloatInt, FloatInt] | tuple[FloatInt, None] | None = None,
         verify: bool | str = True,
         cert: bytes | str | tuple[bytes | str, bytes | str] | None = None,
         proxies: Mapping[str, str] | None = None,
@@ -130,7 +130,7 @@ class HTTPAdapter(BaseAdapter):
         self,
         request: PreparedRequest,
         stream: bool = False,
-        timeout: float | tuple[float, float] | tuple[float, None] | None = None,
+        timeout: FloatInt | tuple[FloatInt, FloatInt] | tuple[FloatInt, None] | None = None,
         verify: bool | str = True,
         cert: bytes | str | tuple[bytes | str, bytes | str] | None = None,
         proxies: Mapping[str, str] | None = None,

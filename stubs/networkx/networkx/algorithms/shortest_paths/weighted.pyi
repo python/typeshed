@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Callable, Collection, Generator
 from typing import Any, TypeAlias
 
@@ -47,51 +48,57 @@ def dijkstra_path_length(
 ) -> float: ...
 @_dispatchable
 def single_source_dijkstra_path(
-    G: Graph[_Node], source: _Node, cutoff: float | None = None, weight: str | _WeightFunc[_Node] | None = "weight"
+    G: Graph[_Node], source: _Node, cutoff: FloatInt | None = None, weight: str | _WeightFunc[_Node] | None = "weight"
 ) -> dict[_Node, list[_Node]]: ...
 @_dispatchable
 def single_source_dijkstra_path_length(
-    G: Graph[_Node], source: _Node, cutoff: float | None = None, weight: str | _WeightFunc[_Node] | None = "weight"
+    G: Graph[_Node], source: _Node, cutoff: FloatInt | None = None, weight: str | _WeightFunc[_Node] | None = "weight"
 ) -> dict[_Node, float]: ...
 @_dispatchable
 def single_source_dijkstra(
     G: Graph[_Node],
     source: _Node,
     target: _Node | None = None,
-    cutoff: float | None = None,
+    cutoff: FloatInt | None = None,
     weight: str | _WeightFunc[_Node] | None = "weight",
 ) -> tuple[dict[_Node, float], dict[_Node, list[_Node]]] | tuple[float, list[_Node]]: ...  # TODO: overload on target
 @_dispatchable
 def multi_source_dijkstra_path(
-    G: Graph[_Node], sources: Collection[_Node], cutoff: float | None = None, weight: str | _WeightFunc[_Node] | None = "weight"
+    G: Graph[_Node],
+    sources: Collection[_Node],
+    cutoff: FloatInt | None = None,
+    weight: str | _WeightFunc[_Node] | None = "weight",
 ) -> dict[_Node, list[_Node]]: ...
 @_dispatchable
 def multi_source_dijkstra_path_length(
-    G: Graph[_Node], sources: Collection[_Node], cutoff: float | None = None, weight: str | _WeightFunc[_Node] | None = "weight"
+    G: Graph[_Node],
+    sources: Collection[_Node],
+    cutoff: FloatInt | None = None,
+    weight: str | _WeightFunc[_Node] | None = "weight",
 ) -> dict[_Node, float]: ...
 @_dispatchable
 def multi_source_dijkstra(
     G: Graph[_Node],
     sources: Collection[_Node],
     target: _Node | None = None,
-    cutoff: float | None = None,
+    cutoff: FloatInt | None = None,
     weight: str | _WeightFunc[_Node] | None = "weight",
 ) -> tuple[dict[_Node, float], dict[_Node, list[_Node]]] | tuple[float, list[_Node]]: ...  # TODO: overload on target
 @_dispatchable
 def dijkstra_predecessor_and_distance(
-    G: Graph[_Node], source: _Node, cutoff: float | None = None, weight: str | _WeightFunc[_Node] | None = "weight"
+    G: Graph[_Node], source: _Node, cutoff: FloatInt | None = None, weight: str | _WeightFunc[_Node] | None = "weight"
 ) -> tuple[dict[_Node, list[_Node]], dict[_Node, float]]: ...
 @_dispatchable
 def all_pairs_dijkstra(
-    G: Graph[_Node], cutoff: float | None = None, weight: str | _WeightFunc[_Node] | None = "weight"
+    G: Graph[_Node], cutoff: FloatInt | None = None, weight: str | _WeightFunc[_Node] | None = "weight"
 ) -> Generator[tuple[_Node, tuple[dict[_Node, float], dict[_Node, list[_Node]]]]]: ...
 @_dispatchable
 def all_pairs_dijkstra_path_length(
-    G: Graph[_Node], cutoff: float | None = None, weight: str | _WeightFunc[_Node] | None = "weight"
+    G: Graph[_Node], cutoff: FloatInt | None = None, weight: str | _WeightFunc[_Node] | None = "weight"
 ) -> Generator[tuple[_Node, dict[_Node, float]]]: ...
 @_dispatchable
 def all_pairs_dijkstra_path(
-    G: Graph[_Node], cutoff: float | None = None, weight: str | _WeightFunc[_Node] | None = "weight"
+    G: Graph[_Node], cutoff: FloatInt | None = None, weight: str | _WeightFunc[_Node] | None = "weight"
 ) -> Generator[tuple[_Node, dict[_Node, list[_Node]]]]: ...
 @_dispatchable
 def bellman_ford_predecessor_and_distance(

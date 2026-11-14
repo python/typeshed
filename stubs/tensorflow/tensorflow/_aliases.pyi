@@ -1,6 +1,7 @@
+from _typeshed import FloatInt
+
 # Commonly used type aliases.
 # Everything in this module is private for stubs. There is no runtime equivalent.
-
 from collections.abc import Iterable, Mapping, Sequence
 from typing import Any, Protocol, TypeAlias, TypeVar, type_check_only
 
@@ -31,13 +32,13 @@ KerasSerializable: TypeAlias = KerasSerializable1 | KerasSerializable2
 
 TensorValue: TypeAlias = tf.Tensor  # Alias for a 0D Tensor
 Integer: TypeAlias = TensorValue | int | IntArray | np.number[Any]  # Here IntArray are assumed to be 0D.
-Float: TypeAlias = Integer | float | FloatArray
+Float: TypeAlias = Integer | FloatInt | FloatArray
 Slice: TypeAlias = tf.Tensor | tf.RaggedTensor | int | slice | None
-FloatDataSequence: TypeAlias = Sequence[float] | Sequence[FloatDataSequence]
+FloatDataSequence: TypeAlias = Sequence[FloatInt] | Sequence[FloatDataSequence]
 IntDataSequence: TypeAlias = Sequence[int] | Sequence[IntDataSequence]
 StrDataSequence: TypeAlias = Sequence[str] | Sequence[StrDataSequence]
 DataSequence: TypeAlias = FloatDataSequence | StrDataSequence | IntDataSequence
-ScalarTensorCompatible: TypeAlias = tf.Tensor | str | float | np.ndarray[Any, Any] | np.number[Any]
+ScalarTensorCompatible: TypeAlias = tf.Tensor | str | FloatInt | np.ndarray[Any, Any] | np.number[Any]
 UIntTensorCompatible: TypeAlias = tf.Tensor | int | UIntArray
 IntTensorCompatible: TypeAlias = tf.Tensor | int | IntArray | Sequence[IntTensorCompatible]
 FloatTensorCompatible: TypeAlias = tf.Tensor | int | IntArray | float | FloatArray | np.number[Any]

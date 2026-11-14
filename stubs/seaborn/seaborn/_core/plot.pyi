@@ -1,6 +1,6 @@
 import inspect
 import os
-from _typeshed import Incomplete, SupportsKeysAndGetItem
+from _typeshed import FloatInt, Incomplete, SupportsKeysAndGetItem
 from collections.abc import Callable, Generator
 from contextlib import contextmanager
 from typing import IO, Any, Literal, TypedDict, TypeVar
@@ -57,7 +57,7 @@ class ThemeConfig(mpl.RcParams):
 
 class DisplayConfig(TypedDict):
     format: Literal["png", "svg"]
-    scaling: float
+    scaling: FloatInt
     hidpi: bool
 
 class PlotConfig:
@@ -101,9 +101,9 @@ class Plot:
     def layout(
         self,
         *,
-        size: tuple[float, float] | Default = ...,
+        size: tuple[FloatInt, FloatInt] | Default = ...,
         engine: str | Default | None = ...,
-        extent: tuple[float, float, float, float] | Default = ...,
+        extent: tuple[FloatInt, FloatInt, FloatInt, FloatInt] | Default = ...,
     ) -> Plot: ...
     def theme(self, config: dict[str, Any], /) -> Plot: ...
     # Same signature as Plotter.save
@@ -112,13 +112,13 @@ class Plot:
         loc: str | os.PathLike[Any] | IO[Any],
         *,
         transparent: bool | None = None,
-        dpi: float | None = 96,
+        dpi: FloatInt | None = 96,
         facecolor: ColorType | Literal["auto"] | None = ...,
         edgecolor: ColorType | Literal["auto"] | None = ...,
         orientation: str = "portrait",
         format: str | None = None,
         bbox_inches: Literal["tight"] | Bbox | None = None,
-        pad_inches: float | None = None,
+        pad_inches: FloatInt | None = None,
         bbox_extra_artists: list[Artist] | None = None,
         backend: str | None = None,
         **kwargs: Any,
@@ -137,13 +137,13 @@ class Plotter:
         transparent: bool | None = None,
         # keyword-only arguments below are the same as matplotlib.backend_bases.FigureCanvasBase.print_figure
         # but with different defaults
-        dpi: float | None = 96,
+        dpi: FloatInt | None = 96,
         facecolor: ColorType | Literal["auto"] | None = ...,
         edgecolor: ColorType | Literal["auto"] | None = ...,
         orientation: str = "portrait",
         format: str | None = None,
         bbox_inches: Literal["tight"] | Bbox | None = None,
-        pad_inches: float | None = None,
+        pad_inches: FloatInt | None = None,
         bbox_extra_artists: list[Artist] | None = None,
         backend: str | None = None,
         # Further **kwargs can truly be anything from an overridden Canvas method that is still passed down

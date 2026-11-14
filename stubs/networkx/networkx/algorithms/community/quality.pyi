@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from collections.abc import Iterable
 
 from networkx.classes.graph import Graph, _Node
@@ -21,7 +21,7 @@ def inter_community_edges(G: Graph[_Node], partition: Iterable[Incomplete]): ...
 def inter_community_non_edges(G: Graph[_Node], partition: Iterable[Incomplete]): ...
 @_dispatchable
 def modularity(
-    G: Graph[_Node], communities: Iterable[set[Incomplete]], weight: str | None = "weight", resolution: float = 1
+    G: Graph[_Node], communities: Iterable[set[Incomplete]], weight: str | None = "weight", resolution: FloatInt = 1
 ) -> float: ...
 @_dispatchable
 def partition_quality(G: Graph[_Node], partition: Iterable[Incomplete]) -> tuple[float, float]: ...

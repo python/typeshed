@@ -1,4 +1,4 @@
-from _typeshed import OptExcInfo, StrOrBytesPath, SupportsWrite
+from _typeshed import FloatInt, OptExcInfo, StrOrBytesPath, SupportsWrite
 from _typeshed.wsgi import WSGIApplication, WSGIEnvironment
 from collections.abc import Callable, Container, Iterable, Iterator
 from http.client import HTTPMessage
@@ -73,8 +73,8 @@ class WSGIHandler:
     provided_date: str | None
     provided_content_length: str | None
     close_connection: bool
-    time_start: float
-    time_finish: float
+    time_start: FloatInt
+    time_finish: FloatInt
     headers_sent: bool
     response_use_chunked: bool
     connection_upgraded: bool

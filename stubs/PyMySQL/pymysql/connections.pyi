@@ -1,4 +1,4 @@
-from _typeshed import Incomplete, Unused
+from _typeshed import FloatInt, Incomplete, Unused
 from collections.abc import Callable
 from socket import _Address, socket as _socket
 from ssl import SSLContext, _PasswordType
@@ -49,7 +49,7 @@ class Connection(Generic[_C]):
     use_unicode: bool
     client_flag: int
     cursorclass: type[_C]
-    connect_timeout: float | None
+    connect_timeout: FloatInt | None
     host_info: str
     sql_mode: str | None
     init_command: str | None
@@ -79,15 +79,15 @@ class Connection(Generic[_C]):
         client_flag: int = 0,
         cursorclass: type[_C] = ...,
         init_command: str | None = None,
-        connect_timeout: float = 10,
+        connect_timeout: FloatInt = 10,
         read_default_group: str | None = None,
         autocommit: bool | None = False,
         local_infile: bool = False,
         max_allowed_packet: int = 16_777_216,
         defer_connect: bool = False,
         auth_plugin_map: dict[str, Callable[[Connection[Any]], Any]] | None = None,
-        read_timeout: float | None = None,
-        write_timeout: float | None = None,
+        read_timeout: FloatInt | None = None,
+        write_timeout: FloatInt | None = None,
         bind_address: str | None = None,
         binary_prefix: bool = False,
         program_name: str | None = None,
@@ -126,15 +126,15 @@ class Connection(Generic[_C]):
         client_flag: int = 0,
         cursorclass: type[_C] = ...,
         init_command: str | None = None,
-        connect_timeout: float = 10,
+        connect_timeout: FloatInt = 10,
         read_default_group: str | None = None,
         autocommit: bool | None = False,
         local_infile: bool = False,
         max_allowed_packet: int = 16_777_216,
         defer_connect: bool = False,
         auth_plugin_map: dict[str, Callable[[Connection[Any]], Any]] | None = None,
-        read_timeout: float | None = None,
-        write_timeout: float | None = None,
+        read_timeout: FloatInt | None = None,
+        write_timeout: FloatInt | None = None,
         bind_address: str | None = None,
         binary_prefix: bool = False,
         program_name: str | None = None,
@@ -173,15 +173,15 @@ class Connection(Generic[_C]):
         client_flag: int = 0,
         cursorclass: type[_C] = ...,
         init_command: str | None = None,
-        connect_timeout: float = 10,
+        connect_timeout: FloatInt = 10,
         read_default_group: str | None = None,
         autocommit: bool | None = False,
         local_infile: bool = False,
         max_allowed_packet: int = 16_777_216,
         defer_connect: bool = False,
         auth_plugin_map: dict[str, Callable[[Connection[Any]], Any]] | None = None,
-        read_timeout: float | None = None,
-        write_timeout: float | None = None,
+        read_timeout: FloatInt | None = None,
+        write_timeout: FloatInt | None = None,
         bind_address: str | None = None,
         binary_prefix: bool = False,
         program_name: str | None = None,

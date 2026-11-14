@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from abc import abstractmethod
 from collections.abc import Collection, Iterable, Sequence
 from typing import Any, Literal, NamedTuple, TypeAlias, overload
@@ -11,7 +11,9 @@ from reportlab.platypus.flowables import Flowable, _HAlignment, _VAlignment
 
 __all__ = ("Table", "TableStyle", "CellStyle", "LongTable")
 
-_Color: TypeAlias = Color | list[float] | tuple[float, float, float, float] | tuple[float, float, float] | str | int
+_Color: TypeAlias = (
+    Color | list[FloatInt] | tuple[FloatInt, FloatInt, FloatInt, FloatInt] | tuple[FloatInt, FloatInt, FloatInt] | str | int
+)
 # TODO: consider creating a tagged union of all the possible commands, although
 #       this would restrict us to passing cmds to TableStyle.__init__ in a tuple
 #       since a list would not be able to be inferred correctly
@@ -21,20 +23,20 @@ _Color: TypeAlias = Color | list[float] | tuple[float, float, float, float] | tu
 #       the ROUNDEDCORNERS command which applies to the whole table always.
 _SpecialRow: TypeAlias = Literal["splitfirst", "splitlast", "inrowsplitstart", "inrowsplitend"]
 _TableSectionCommand: TypeAlias = tuple[str, tuple[int | _SpecialRow, int], tuple[int, int], Unpack[tuple[Any, ...]]]
-_CornerRadii: TypeAlias = tuple[float, float, float, float] | list[float]
+_CornerRadii: TypeAlias = tuple[FloatInt, FloatInt, FloatInt, FloatInt] | list[FloatInt]
 _RoundedCornersTableCommand: TypeAlias = tuple[Literal["ROUNDEDCORNERS"], _CornerRadii | None]
 _TableCommand: TypeAlias = _TableSectionCommand | _RoundedCornersTableCommand
 
 class CellStyle(PropertySet):
     name: str
     fontname: str
-    fontsize: float
-    leading: float
-    leftPadding: float
-    rightPadding: float
-    topPadding: float
-    bottomPadding: float
-    firstLineIndent: float
+    fontsize: FloatInt
+    leading: FloatInt
+    leftPadding: FloatInt
+    rightPadding: FloatInt
+    topPadding: FloatInt
+    bottomPadding: FloatInt
+    firstLineIndent: FloatInt
     color: _Color
     alignment: Literal["LEFT", "CENTER", "CENTRE", "RIGHT", "DECIMAL"]
     background: _Color
@@ -70,15 +72,15 @@ class Table(Flowable):
     repeatCols: int
     splitByRow: int
     splitInRow: int
-    spaceBefore: float
-    spaceAfter: float
+    spaceBefore: FloatInt
+    spaceAfter: FloatInt
     def __init__(
         self,
         # NOTE: Technically only list or tuple works but lack of covariance
         #       on list makes this too annoying
         data: Sequence[list[Any] | tuple[Any, ...]],
-        colWidths: Sequence[float | str | None] | float | str | None = None,
-        rowHeights: Sequence[float | None] | float | None = None,
+        colWidths: Sequence[FloatInt | str | None] | FloatInt | str | None = None,
+        rowHeights: Sequence[FloatInt | None] | FloatInt | None = None,
         style: TableStyle | Iterable[_TableCommand] | None = None,
         # docs say list/tuple, but the implementation allows any collection
         repeatRows: int | Collection[int] = 0,
@@ -92,10 +94,10 @@ class Table(Flowable):
         normalizedData: int = 0,
         cellStyles: Sequence[Sequence[CellStyle]] | None = None,
         rowSplitRange: tuple[int, int] | None = None,
-        spaceBefore: float | None = None,
-        spaceAfter: float | None = None,
+        spaceBefore: FloatInt | None = None,
+        spaceAfter: FloatInt | None = None,
         longTableOptimize=None,
-        minRowHeights: Sequence[float] | None = None,
+        minRowHeights: Sequence[FloatInt] | None = None,
         cornerRadii: _CornerRadii | _UNSET_ | None = ...,
         renderCB: TableRenderCB | None = None,
         shadow: ShadowStyle | None = None,

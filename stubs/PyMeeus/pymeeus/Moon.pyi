@@ -1,10 +1,11 @@
+from _typeshed import FloatInt
 from typing import Final, Literal
 
 from pymeeus.Angle import Angle
 from pymeeus.Epoch import Epoch
 
-PERIODIC_TERMS_LR_TABLE: Final[list[list[float]]]
-PERIODIC_TERMS_B_TABLE: Final[list[list[float]]]
+PERIODIC_TERMS_LR_TABLE: Final[list[list[FloatInt]]]
+PERIODIC_TERMS_B_TABLE: Final[list[list[FloatInt]]]
 
 class Moon:
     @staticmethod

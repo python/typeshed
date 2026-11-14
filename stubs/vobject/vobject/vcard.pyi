@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from typing import AnyStr
 
 from .base import ContentLine
@@ -77,7 +78,7 @@ class Label(VCardTextBehavior):
 class GEO(VCardBehavior): ...
 
 wacky_apple_photo_serialize: bool
-REALLY_LARGE: float
+REALLY_LARGE: FloatInt
 
 class Photo(VCardTextBehavior):
     name: str

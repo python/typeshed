@@ -1,4 +1,4 @@
-from _typeshed import Incomplete, SupportsRead, Unused
+from _typeshed import FloatInt, Incomplete, SupportsRead, Unused
 from collections.abc import Callable, Iterable, Sequence
 from typing import Any, Literal, Protocol, TypeAlias, type_check_only
 from typing_extensions import Never, Self
@@ -78,8 +78,8 @@ class TraceInfo:
     def __init__(self) -> None: ...
 
 class Flowable:
-    width: float
-    height: float
+    width: FloatInt
+    height: FloatInt
     wrapped: int
     hAlign: _HAlignment
     vAlign: _VAlignment
@@ -89,8 +89,8 @@ class Flowable:
     # NOTE: The following attributes will not exist on all flowables, but
     #       they need to be settable on individual instances
     keepWithNext: Incomplete
-    spaceAfter: float
-    spaceBefore: float
+    spaceAfter: FloatInt
+    spaceBefore: FloatInt
     def __init__(self) -> None: ...
     # NOTE: We pretend the optional internal _sW argument does not exist
     #       since not all flowables support it and we'd have to deal with
@@ -98,12 +98,12 @@ class Flowable:
     #       subclasses that rely on the argument existing when called through
     #       super() inside their own implementation, so we can't really
     #       make everyone happy here, sigh...
-    def drawOn(self, canvas: Canvas, x: float, y: float) -> None: ...
-    def wrapOn(self, canv: Canvas, aW: float, aH: float) -> tuple[float, float]: ...
-    def wrap(self, aW: float, aH: float) -> tuple[float, float]: ...
+    def drawOn(self, canvas: Canvas, x: FloatInt, y: FloatInt) -> None: ...
+    def wrapOn(self, canv: Canvas, aW: FloatInt, aH: FloatInt) -> tuple[float, float]: ...
+    def wrap(self, aW: FloatInt, aH: FloatInt) -> tuple[float, float]: ...
     def minWidth(self) -> float: ...
-    def splitOn(self, canv: Canvas, aW: float, aH: float) -> list[Flowable]: ...
-    def split(self, aW: float, aH: float, /) -> list[Flowable]: ...
+    def splitOn(self, canv: Canvas, aW: FloatInt, aH: FloatInt) -> list[Flowable]: ...
+    def split(self, aW: FloatInt, aH: FloatInt, /) -> list[Flowable]: ...
     def getKeepWithNext(self): ...
     def getSpaceAfter(self) -> float: ...
     def getSpaceBefore(self) -> float: ...
@@ -112,7 +112,7 @@ class Flowable:
 
 class XBox(Flowable):
     text: str
-    def __init__(self, width: float, height: float, text: str = "A Box") -> None: ...
+    def __init__(self, width: FloatInt, height: FloatInt, text: str = "A Box") -> None: ...
     def draw(self) -> None: ...
 
 def splitLines(lines, maximum_length, split_characters, new_line_characters): ...
@@ -142,8 +142,8 @@ class Image(Flowable):
     # as soon as these attributes are accessed
     imageWidth: int
     imageHeight: int
-    drawWidth: float
-    drawHeight: float
+    drawWidth: FloatInt
+    drawHeight: FloatInt
     def __init__(
         self,
         # TODO: I think this might also accept a PIL.Image and other
@@ -151,8 +151,8 @@ class Image(Flowable):
         #       with reportlab.lib.utils.ImageReader, except for the
         #       potential PIL.Image shortcut
         filename: str | SupportsRead[bytes] | Incomplete,
-        width: float | None = None,
-        height: float | None = None,
+        width: FloatInt | None = None,
+        height: FloatInt | None = None,
         kind: str = "direct",
         mask: str = "auto",
         lazy: int = 1,
@@ -167,8 +167,8 @@ class NullDraw(Flowable):
 class Spacer(NullDraw):
     # NOTE: This may actually be a bug, it seems likely that Spacer is meant
     #       to set spaceBefore in the isGlue case.
-    spacebefore: float
-    def __init__(self, width: float, height: float, isGlue: bool = False) -> None: ...
+    spacebefore: FloatInt
+    def __init__(self, width: FloatInt, height: FloatInt, isGlue: bool = False) -> None: ...
 
 class UseUpSpace(NullDraw): ...
 
@@ -182,7 +182,7 @@ class PageBreakIfNotEmpty(PageBreak): ...
 
 class CondPageBreak(Spacer):
     locChanger: int
-    def __init__(self, height: float) -> None: ...
+    def __init__(self, height: FloatInt) -> None: ...
 
 class _ContainerSpace:
     def getSpaceBefore(self) -> float: ...
@@ -206,39 +206,39 @@ class Macro(Flowable):
 class CallerMacro(Flowable):
     def __init__(
         self,
-        drawCallable: Callable[[CallerMacro, float, float], object] | None = None,
-        wrapCallable: Callable[[CallerMacro, float, float], object] | None = None,
+        drawCallable: Callable[[CallerMacro, FloatInt, FloatInt], object] | None = None,
+        wrapCallable: Callable[[CallerMacro, FloatInt, FloatInt], object] | None = None,
     ) -> None: ...
     def draw(self) -> None: ...
 
 class ParagraphAndImage(Flowable):
     P: Paragraph
     I: Image
-    xpad: float
-    ypad: float
-    def __init__(self, P: Paragraph, I: Image, xpad: float = 3, ypad: float = 3, side: str = "right") -> None: ...
+    xpad: FloatInt
+    ypad: FloatInt
+    def __init__(self, P: Paragraph, I: Image, xpad: FloatInt = 3, ypad: FloatInt = 3, side: str = "right") -> None: ...
     def draw(self) -> None: ...
 
 class FailOnWrap(NullDraw):
-    def wrap(self, aW: float, aH: float) -> Never: ...
+    def wrap(self, aW: FloatInt, aH: FloatInt) -> Never: ...
 
 class FailOnDraw(Flowable):
     def draw(self) -> Never: ...
 
 class HRFlowable(Flowable):
-    width: float | str  # type: ignore[assignment]
-    lineWidth: float
+    width: FloatInt | str  # type: ignore[assignment]
+    lineWidth: FloatInt
     lineCap: str
     color: _Color
     dash: Incomplete | None
     def __init__(
         self,
-        width: float | str = "80%",
-        thickness: float = 1,
+        width: FloatInt | str = "80%",
+        thickness: FloatInt = 1,
         lineCap: str = "round",
         color: _Color = ...,
-        spaceBefore: float = 1,
-        spaceAfter: float = 1,
+        spaceBefore: FloatInt = 1,
+        spaceAfter: FloatInt = 1,
         hAlign: _HAlignment = "CENTER",
         vAlign: _VAlignment = "BOTTOM",
         dash=None,
@@ -246,7 +246,7 @@ class HRFlowable(Flowable):
     def draw(self) -> None: ...
 
 class _Container(_ContainerSpace):
-    def drawOn(self, canv: Canvas, x: float, y: float) -> None: ...
+    def drawOn(self, canv: Canvas, x: FloatInt, y: FloatInt) -> None: ...
     def copyContent(self, content: _FlowableSublist | None = None) -> None: ...
 
 class PTOContainer(_Container, Flowable):  # pyrefly: ignore [inconsistent-inheritance]
@@ -256,15 +256,15 @@ class PTOContainer(_Container, Flowable):  # pyrefly: ignore [inconsistent-inher
 
 class KeepInFrame(_Container, Flowable):  # pyrefly: ignore [inconsistent-inheritance]
     name: str
-    maxWidth: float
-    maxHeight: float
+    maxWidth: FloatInt
+    maxHeight: FloatInt
     mode: Literal["error", "continue", "shrink", "truncate"]
     mergespace: Incomplete | None
     fakeWidth: bool | None
     def __init__(
         self,
-        maxWidth: float,
-        maxHeight: float,
+        maxWidth: FloatInt,
+        maxHeight: FloatInt,
         content: list[Flowable] = [],
         mergeSpace: Incomplete | None = 1,
         mode: Literal["error", "continue", "shrink", "truncate"] = "shrink",
@@ -279,8 +279,8 @@ class PlacedStory(Flowable):
         self,
         x,
         y,
-        maxWidth: float,
-        maxHeight: float,
+        maxWidth: FloatInt,
+        maxHeight: FloatInt,
         content: list[Flowable] = [],
         mergeSpace: Incomplete | None = 1,
         mode: Literal["error", "continue", "shrink", "truncate"] = "shrink",
@@ -293,7 +293,7 @@ class PlacedStory(Flowable):
         origin="page",
     ) -> None: ...
     def wrap(self, _aW: Unused, _aH: Unused) -> tuple[Literal[0], Literal[0]]: ...
-    def drawOn(self, canv: Canvas, lx: float, ly: float, _sW=0) -> None: ...
+    def drawOn(self, canv: Canvas, lx: FloatInt, ly: FloatInt, _sW=0) -> None: ...
 
 class _FindSplitterMixin: ...
 
@@ -303,10 +303,10 @@ class ImageAndFlowables(_Container, _FindSplitterMixin, Flowable):  # pyrefly: i
         self,
         I: Image,
         F: _FlowableSublist | None,
-        imageLeftPadding: float = 0,
-        imageRightPadding: float = 3,
-        imageTopPadding: float = 0,
-        imageBottomPadding: float = 3,
+        imageLeftPadding: FloatInt = 0,
+        imageRightPadding: FloatInt = 3,
+        imageTopPadding: FloatInt = 0,
+        imageBottomPadding: FloatInt = 3,
         imageSide: str = "right",
         imageHref: str | None = None,
     ) -> None: ...
@@ -315,28 +315,28 @@ class ImageAndFlowables(_Container, _FindSplitterMixin, Flowable):  # pyrefly: i
 class BalancedColumns(_FindSplitterMixin, NullDraw):
     name: str
     showBoundary: Incomplete | None
-    endSlack: float
+    endSlack: FloatInt
     def __init__(
         self,
         F: _FlowableSublist | None,
         nCols: int = 2,
-        needed: float = 72,
-        spaceBefore: float = 0,
-        spaceAfter: float = 0,
+        needed: FloatInt = 72,
+        spaceBefore: FloatInt = 0,
+        spaceAfter: FloatInt = 0,
         showBoundary=None,
-        leftPadding: float | None = None,
-        innerPadding: float | None = None,
-        rightPadding: float | None = None,
-        topPadding: float | None = None,
-        bottomPadding: float | None = None,
+        leftPadding: FloatInt | None = None,
+        innerPadding: FloatInt | None = None,
+        rightPadding: FloatInt | None = None,
+        topPadding: FloatInt | None = None,
+        bottomPadding: FloatInt | None = None,
         name: str = "",
-        endSlack: float = 0.1,
+        endSlack: FloatInt = 0.1,
         boxStrokeColor: Color | None = None,
-        boxStrokeWidth: float = 0,
+        boxStrokeWidth: FloatInt = 0,
         boxFillColor: Color | None = None,
         boxMargin: tuple[int, int, int, int] | tuple[int, int, int] | tuple[int, int] | tuple[int] | None = None,
         vLinesStrokeColor: Color | None = None,
-        vLinesStrokeWidth: float | None = None,
+        vLinesStrokeWidth: FloatInt | None = None,
     ) -> None: ...
 
 class AnchorFlowable(Spacer):
@@ -344,35 +344,35 @@ class AnchorFlowable(Spacer):
 
 class FrameBG(AnchorFlowable):
     start: bool
-    left: float
-    right: float
+    left: FloatInt
+    right: FloatInt
     color: Color
-    strokeWidth: float
+    strokeWidth: FloatInt
     strokeColor: Color
-    strokeDashArray: list[float] | tuple[float, ...] | None
+    strokeDashArray: list[FloatInt] | tuple[FloatInt, ...] | None
     def __init__(
         self,
         color: Color | None = None,
-        left: float | str = 0,
-        right: float | str = 0,
+        left: FloatInt | str = 0,
+        right: FloatInt | str = 0,
         start: bool = True,
-        strokeWidth: float | None = None,
+        strokeWidth: FloatInt | None = None,
         strokeColor: Color | None = None,
-        strokeDashArray: list[float] | tuple[float, ...] | None = None,
+        strokeDashArray: list[FloatInt] | tuple[FloatInt, ...] | None = None,
     ) -> None: ...
 
 class FrameSplitter(NullDraw):
     nextTemplate: str
     nextFrames: list[str]
-    gap: float
-    required: float
+    gap: FloatInt
+    required: FloatInt
     adjustHeight: bool
     def __init__(
         self,
         nextTemplate: str,
         nextFrames: list[str] | None = [],
-        gap: float = 10,
-        required: float = 72,
+        gap: FloatInt = 10,
+        required: FloatInt = 72,
         adjustHeight: bool = True,
     ) -> None: ...
 
@@ -391,20 +391,20 @@ class BulletDrawer:
         bulletDir: str = "ltr",
         bulletFormat=None,
     ) -> None: ...
-    def drawOn(self, indenter: DDIndenter, canv: Canvas, x: float, y: float) -> None: ...
+    def drawOn(self, indenter: DDIndenter, canv: Canvas, x: FloatInt, y: FloatInt) -> None: ...
 
 class DDIndenter(Flowable):
-    def __init__(self, flowable: Flowable, leftIndent: float = 0, rightIndent: float = 0) -> None: ...
+    def __init__(self, flowable: Flowable, leftIndent: FloatInt = 0, rightIndent: FloatInt = 0) -> None: ...
 
 class LIIndenter(DDIndenter):
     def __init__(
         self,
         flowable: Flowable,
-        leftIndent: float = 0,
-        rightIndent: float = 0,
+        leftIndent: FloatInt = 0,
+        rightIndent: FloatInt = 0,
         bullet=None,
-        spaceBefore: float | None = None,
-        spaceAfter: float | None = None,
+        spaceBefore: FloatInt | None = None,
+        spaceAfter: FloatInt | None = None,
     ) -> None: ...
 
 class ListItem:
@@ -429,7 +429,7 @@ class TopPadder(Flowable):
 class DocAssign(NullDraw):
     args: tuple[Any, ...]
     def __init__(self, var: str, expr: object, life: str = "forever") -> None: ...
-    def funcWrap(self, aW: float, aH: float) -> None: ...
+    def funcWrap(self, aW: FloatInt, aH: FloatInt) -> None: ...
     def func(self) -> None: ...
 
 class DocExec(DocAssign):
@@ -449,10 +449,10 @@ class DocPara(DocAssign):
         klass: _StyledFlowableFactory | None = None,
         escape: bool = True,
     ) -> None: ...
-    def funcWrap(self, aW: float, aH: float) -> Any: ...
+    def funcWrap(self, aW: FloatInt, aH: FloatInt) -> Any: ...
     def func(self) -> Any: ...
     def add_content(self, *args: Flowable) -> None: ...
-    def get_value(self, aW: float, aH: float) -> str: ...
+    def get_value(self, aW: FloatInt, aH: FloatInt) -> str: ...
 
 class DocAssert(DocPara):
     def __init__(self, cond: object, format: str | None = None) -> None: ...

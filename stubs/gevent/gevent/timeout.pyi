@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Callable
 from types import TracebackType
 from typing import Any, Literal, ParamSpec, Protocol, TypeVar, overload, type_check_only
@@ -17,12 +18,12 @@ class _HasSeconds(Protocol):
     def seconds(self) -> float | int: ...
 
 class Timeout(BaseException):
-    seconds: float | None
+    seconds: FloatInt | None
     exception: type[BaseException] | BaseException | None
     timer: _TimerWatcher
     def __init__(
         self,
-        seconds: float | None = None,
+        seconds: FloatInt | None = None,
         exception: type[BaseException] | BaseException | None = None,
         ref: bool = True,
         priority: int = -1,
@@ -32,7 +33,7 @@ class Timeout(BaseException):
     @overload
     @classmethod
     def start_new(
-        cls, timeout: float | None = None, exception: type[BaseException] | BaseException | None = None, ref: bool = True
+        cls, timeout: FloatInt | None = None, exception: type[BaseException] | BaseException | None = None, ref: bool = True
     ) -> Self: ...
     @overload
     @classmethod
@@ -46,15 +47,15 @@ class Timeout(BaseException):
     def __exit__(
         self, typ: type[BaseException] | None, value: BaseException | None, tb: TracebackType | None
     ) -> Literal[True] | None: ...
-    def __lt__(self, other: _HasSeconds | float) -> bool: ...
+    def __lt__(self, other: _HasSeconds | FloatInt) -> bool: ...
 
 # when timeout_value is provided we unfortunately get no type checking on *args, **kwargs, because
 # ParamSpec does not allow mixing in additional keyword arguments
 @overload
 def with_timeout(
-    seconds: float | None, function: Callable[..., _T1], *args: Any, timeout_value: _T2, **kwds: Any
+    seconds: FloatInt | None, function: Callable[..., _T1], *args: Any, timeout_value: _T2, **kwds: Any
 ) -> _T1 | _T2: ...
 @overload
-def with_timeout(seconds: float | None, function: Callable[_P, _T], *args: _P.args, **kwds: _P.kwargs) -> _T: ...
+def with_timeout(seconds: FloatInt | None, function: Callable[_P, _T], *args: _P.args, **kwds: _P.kwargs) -> _T: ...
 
 __all__ = ["Timeout", "with_timeout"]

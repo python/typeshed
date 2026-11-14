@@ -1,11 +1,11 @@
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 
 class diff_match_patch:
-    Diff_Timeout: float
+    Diff_Timeout: FloatInt
     Diff_EditCost: int
-    Match_Threshold: float
+    Match_Threshold: FloatInt
     Match_Distance: int
-    Patch_DeleteThreshold: float
+    Patch_DeleteThreshold: FloatInt
     Patch_Margin: int
     Match_MaxBits: int
     def __init__(self) -> None: ...

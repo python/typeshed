@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from typing import Final
 
 from .book import Book, Name
@@ -48,11 +49,13 @@ okind_dict: Final[dict[int, str]]
 class FormulaError(Exception): ...
 
 class Operand:
-    value: float | str | None
+    value: FloatInt | str | None
     kind: int
     text: str
     rank: int
-    def __init__(self, akind: int | None = None, avalue: float | str | None = None, arank: int = 0, atext: str = "?") -> None: ...
+    def __init__(
+        self, akind: int | None = None, avalue: FloatInt | str | None = None, arank: int = 0, atext: str = "?"
+    ) -> None: ...
 
 class Ref3D(tuple[int, int, int, int, int, int, int, int, int, int, int, int]):
     coords: tuple[int, int, int, int, int, int]

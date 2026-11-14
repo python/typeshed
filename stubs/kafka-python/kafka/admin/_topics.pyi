@@ -1,5 +1,5 @@
 import uuid
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from collections.abc import Mapping, Sequence
 from typing_extensions import deprecated
 
@@ -10,13 +10,13 @@ class TopicAdminMixin:
     def create_topics(
         self,
         new_topics: dict[str, dict[Incomplete, Incomplete]] | Sequence[NewTopic],
-        timeout_ms: float | None = None,
+        timeout_ms: FloatInt | None = None,
         validate_only: bool = False,
         raise_errors: bool = True,
         wait_for_metadata: bool = False,
     ): ...
-    def wait_for_topics(self, topic_names, timeout_ms: float | None = 10000): ...
-    def delete_topics(self, topics: Sequence[str | uuid.UUID], timeout_ms: float | None = None, raise_errors: bool = True): ...
+    def wait_for_topics(self, topic_names, timeout_ms: FloatInt | None = 10000): ...
+    def delete_topics(self, topics: Sequence[str | uuid.UUID], timeout_ms: FloatInt | None = None, raise_errors: bool = True): ...
 
 @deprecated("Deprecated since v3.0.0. Use simple `dict` instead.")
 class NewTopic:

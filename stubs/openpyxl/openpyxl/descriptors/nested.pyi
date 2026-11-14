@@ -207,8 +207,8 @@ class NestedMinMax(Nested[_M], MinMax[_M, _N]):  # type: ignore[misc]  # pyrefly
         *,
         expected_type: _ExpectedTypeParam[int],
         allow_none: Literal[True],
-        min: float,
-        max: float,
+        min: float | int,
+        max: float | int,
     ) -> None: ...
     @overload
     def __init__(
@@ -216,8 +216,8 @@ class NestedMinMax(Nested[_M], MinMax[_M, _N]):  # type: ignore[misc]  # pyrefly
         *,
         expected_type: _ExpectedTypeParam[int],
         allow_none: Literal[False] = False,
-        min: float,
-        max: float,
+        min: float | int,
+        max: float | int,
     ) -> None: ...
     # mypy can't infer type from `expected_type = float` (pyright can), so we have to add extra overloads
     @overload
@@ -226,8 +226,8 @@ class NestedMinMax(Nested[_M], MinMax[_M, _N]):  # type: ignore[misc]  # pyrefly
         *,
         expected_type: _ExpectedTypeParam[float] = ...,
         allow_none: Literal[True],
-        min: float,
-        max: float,
+        min: float | int,
+        max: float | int,
     ) -> None: ...
     @overload
     def __init__(
@@ -235,8 +235,8 @@ class NestedMinMax(Nested[_M], MinMax[_M, _N]):  # type: ignore[misc]  # pyrefly
         *,
         expected_type: _ExpectedTypeParam[float] = ...,
         allow_none: Literal[False] = False,
-        min: float,
-        max: float,
+        min: float | int,
+        max: float | int,
     ) -> None: ...
 
     @overload

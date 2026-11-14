@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from collections.abc import Callable
 
 from networkx.classes.digraph import DiGraph
@@ -14,17 +14,17 @@ def gn_graph(
     n: int, kernel: Callable[..., Incomplete] | None = None, create_using: DiGraph[Incomplete] | None = None, seed=None
 ): ...
 @_dispatchable
-def gnr_graph(n: int, p: float, create_using: DiGraph[Incomplete] | type[DiGraph[Incomplete]] | None = None, seed=None): ...
+def gnr_graph(n: int, p: FloatInt, create_using: DiGraph[Incomplete] | type[DiGraph[Incomplete]] | None = None, seed=None): ...
 @_dispatchable
 def gnc_graph(n: int, create_using: DiGraph[Incomplete] | type[DiGraph[Incomplete]] | None = None, seed=None): ...
 @_dispatchable
 def scale_free_graph(
     n: int,
-    alpha: float = 0.41,
-    beta: float = 0.54,
-    gamma: float = 0.05,
-    delta_in: float = 0.2,
-    delta_out: float = 0,
+    alpha: FloatInt = 0.41,
+    beta: FloatInt = 0.54,
+    gamma: FloatInt = 0.05,
+    delta_in: FloatInt = 0.2,
+    delta_out: FloatInt = 0,
     create_using=None,
     seed=None,
     initial_graph: MultiDiGraph[Incomplete] | None = None,
@@ -34,4 +34,4 @@ def random_uniform_k_out_graph(
     n: int, k: int, self_loops: bool = True, with_replacement: bool = True, seed=None
 ) -> Graph[Incomplete]: ...
 @_dispatchable
-def random_k_out_graph(n: int, k: int, alpha: float, self_loops: bool = True, seed=None) -> MultiDiGraph[Incomplete]: ...
+def random_k_out_graph(n: int, k: int, alpha: FloatInt, self_loops: bool = True, seed=None) -> MultiDiGraph[Incomplete]: ...

@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Collection, Sequence
 from pathlib import Path
 from typing import Any, Generic, Literal, TypeAlias, TypedDict, TypeVar, overload, type_check_only
@@ -16,7 +17,7 @@ class _Image(TypedDict):
     height: int
     file_name: str
 
-_TPolygonSegmentation: TypeAlias = list[list[float]]
+_TPolygonSegmentation: TypeAlias = list[list[FloatInt]]
 
 @type_check_only
 class _RLE(TypedDict):
@@ -29,8 +30,8 @@ class _Annotation(TypedDict):
     image_id: int
     category_id: int
     segmentation: _TPolygonSegmentation | _RLE | _EncodedRLE
-    area: float
-    bbox: list[float]
+    area: FloatInt
+    bbox: list[FloatInt]
     iscrowd: int
 
 _TSeg = TypeVar("_TSeg", _TPolygonSegmentation, _RLE, _EncodedRLE)
@@ -41,8 +42,8 @@ class _AnnotationG(TypedDict, Generic[_TSeg]):
     image_id: int
     category_id: int
     segmentation: _TSeg
-    area: float
-    bbox: list[float]
+    area: FloatInt
+    bbox: list[FloatInt]
     iscrowd: int
 
 @type_check_only
@@ -71,7 +72,7 @@ class COCO:
         self,
         imgIds: Collection[int] | int = [],
         catIds: Collection[int] | int = [],
-        areaRng: Sequence[float] = [],
+        areaRng: Sequence[FloatInt] = [],
         iscrowd: bool | None = None,
     ) -> list[int]: ...
     def getCatIds(

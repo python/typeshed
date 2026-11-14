@@ -1,4 +1,5 @@
 import abc
+from _typeshed import FloatInt
 from decimal import Decimal
 from typing import Any, NamedTuple
 from xml.etree.ElementTree import Element, QName
@@ -22,7 +23,7 @@ class BaseSvgQRModuleDrawer(QRModuleDrawer, metaclass=abc.ABCMeta):
     size_ratio: Decimal
     # kwargs are used to allow for subclasses with additional keyword arguments
     def __init__(self, *, size_ratio: Decimal = ..., **kwargs: Any) -> None: ...
-    box_delta: float
+    box_delta: FloatInt
     box_size: Decimal
     box_half: Decimal
     def coords(self, box: Box) -> Coords: ...

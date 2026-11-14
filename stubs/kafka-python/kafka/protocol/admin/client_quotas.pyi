@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 
 from kafka.protocol.api_message import ApiMessage
 from kafka.protocol.data_container import DataContainer
@@ -17,10 +17,10 @@ class AlterClientQuotasRequest(ApiMessage):
 
         class OpData(DataContainer):
             key: str
-            value: float
+            value: FloatInt
             remove: bool
             def __init__(
-                self, *args, key: str = ..., value: float = ..., remove: bool = ..., version: int | None = None, **kwargs
+                self, *args, key: str = ..., value: FloatInt = ..., remove: bool = ..., version: int | None = None, **kwargs
             ) -> None: ...
             @property
             def version(self) -> int | None: ...
@@ -161,8 +161,8 @@ class DescribeClientQuotasResponse(ApiMessage):
 
         class ValueData(DataContainer):
             key: str
-            value: float
-            def __init__(self, *args, key: str = ..., value: float = ..., version: int | None = None, **kwargs) -> None: ...
+            value: FloatInt
+            def __init__(self, *args, key: str = ..., value: FloatInt = ..., version: int | None = None, **kwargs) -> None: ...
             @property
             def version(self) -> int | None: ...
             def to_dict(self, meta: bool = False, json: bool = True) -> dict[Incomplete, Incomplete]: ...

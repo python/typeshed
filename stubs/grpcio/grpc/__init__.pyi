@@ -1,6 +1,7 @@
 import abc
 import enum
 import threading
+from _typeshed import FloatInt
 from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
 from concurrent import futures
 from types import ModuleType, TracebackType
@@ -58,15 +59,15 @@ class Future(abc.ABC, Generic[_TFutureValue]):
     @abc.abstractmethod
     def done(self) -> bool: ...
     @abc.abstractmethod
-    def exception(self, timeout: float | None = None) -> Exception | None: ...
+    def exception(self, timeout: FloatInt | None = None) -> Exception | None: ...
     @abc.abstractmethod
-    def result(self, timeout: float | None = None) -> _TFutureValue: ...
+    def result(self, timeout: FloatInt | None = None) -> _TFutureValue: ...
     @abc.abstractmethod
     def running(self) -> bool: ...
 
     # FIXME: unsure of the exact return type here. Is it a traceback.StackSummary?
     @abc.abstractmethod
-    def traceback(self, timeout: float | None = None): ...
+    def traceback(self, timeout: FloatInt | None = None): ...
 
 # Create Client:
 
@@ -278,11 +279,11 @@ class Server(abc.ABC):
 
     # Grace period is in seconds.
     @abc.abstractmethod
-    def stop(self, grace: float | None) -> threading.Event: ...
+    def stop(self, grace: FloatInt | None) -> threading.Event: ...
 
     # Block current thread until the server stops. Returns a bool
     # indicates if the operation times out. Timeout is in seconds.
-    def wait_for_termination(self, timeout: float | None = None) -> bool: ...
+    def wait_for_termination(self, timeout: FloatInt | None = None) -> bool: ...
 
 # Authentication & Authorization Objects:
 
@@ -520,7 +521,7 @@ class UnaryUnaryMultiCallable(abc.ABC, Generic[_TRequest, _TResponse]):
     def __call__(
         self,
         request: _TRequest,
-        timeout: float | None = None,
+        timeout: FloatInt | None = None,
         metadata: _Metadata | None = None,
         credentials: CallCredentials | None = None,
         wait_for_ready: bool | None = None,
@@ -530,7 +531,7 @@ class UnaryUnaryMultiCallable(abc.ABC, Generic[_TRequest, _TResponse]):
     def future(
         self,
         request: _TRequest,
-        timeout: float | None = None,
+        timeout: FloatInt | None = None,
         metadata: _Metadata | None = None,
         credentials: CallCredentials | None = None,
         wait_for_ready: bool | None = None,
@@ -540,7 +541,7 @@ class UnaryUnaryMultiCallable(abc.ABC, Generic[_TRequest, _TResponse]):
     def with_call(
         self,
         request: _TRequest,
-        timeout: float | None = None,
+        timeout: FloatInt | None = None,
         metadata: _Metadata | None = None,
         credentials: CallCredentials | None = None,
         wait_for_ready: bool | None = None,
@@ -554,7 +555,7 @@ class UnaryStreamMultiCallable(abc.ABC, Generic[_TRequest, _TResponse]):
     def __call__(
         self,
         request: _TRequest,
-        timeout: float | None = None,
+        timeout: FloatInt | None = None,
         metadata: _Metadata | None = None,
         credentials: CallCredentials | None = None,
         wait_for_ready: bool | None = None,
@@ -566,7 +567,7 @@ class StreamUnaryMultiCallable(abc.ABC, Generic[_TRequest, _TResponse]):
     def __call__(
         self,
         request_iterator: Iterator[_TRequest],
-        timeout: float | None = None,
+        timeout: FloatInt | None = None,
         metadata: _Metadata | None = None,
         credentials: CallCredentials | None = None,
         wait_for_ready: bool | None = None,
@@ -576,7 +577,7 @@ class StreamUnaryMultiCallable(abc.ABC, Generic[_TRequest, _TResponse]):
     def future(
         self,
         request_iterator: Iterator[_TRequest],
-        timeout: float | None = None,
+        timeout: FloatInt | None = None,
         metadata: _Metadata | None = None,
         credentials: CallCredentials | None = None,
         wait_for_ready: bool | None = None,
@@ -586,7 +587,7 @@ class StreamUnaryMultiCallable(abc.ABC, Generic[_TRequest, _TResponse]):
     def with_call(
         self,
         request_iterator: Iterator[_TRequest],
-        timeout: float | None = None,
+        timeout: FloatInt | None = None,
         metadata: _Metadata | None = None,
         credentials: CallCredentials | None = None,
         wait_for_ready: bool | None = None,
@@ -600,7 +601,7 @@ class StreamStreamMultiCallable(abc.ABC, Generic[_TRequest, _TResponse]):
     def __call__(
         self,
         request_iterator: Iterator[_TRequest],
-        timeout: float | None = None,
+        timeout: FloatInt | None = None,
         metadata: _Metadata | None = None,
         credentials: CallCredentials | None = None,
         wait_for_ready: bool | None = None,

@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from collections.abc import Callable, Iterable, Sequence
 from types import FunctionType
 
@@ -17,7 +17,7 @@ __all__ = [
 ]
 
 def copyfunc(f, name=None) -> FunctionType: ...
-def allclose(x, y, rtol: float = 1.0000000000000001e-05, atol: float = 1e-08) -> bool: ...
+def allclose(x, y, rtol: FloatInt = 1.0000000000000001e-05, atol: FloatInt = 1e-08) -> bool: ...
 @_dispatchable
 def categorical_node_match(
     attr: str | Iterable[Incomplete], default: Incomplete | Iterable[Incomplete]
@@ -31,14 +31,14 @@ def categorical_multiedge_match(
 ) -> Callable[..., Incomplete]: ...
 @_dispatchable
 def numerical_node_match(
-    attr: str | Iterable[Incomplete], default: Incomplete | Iterable[Incomplete], rtol: float = 1e-05, atol: float = 1e-08
+    attr: str | Iterable[Incomplete], default: Incomplete | Iterable[Incomplete], rtol: FloatInt = 1e-05, atol: FloatInt = 1e-08
 ) -> Callable[..., Incomplete]: ...
 
 numerical_edge_match: Incomplete
 
 @_dispatchable
 def numerical_multiedge_match(
-    attr: str | Iterable[Incomplete], default: Incomplete | Iterable[Incomplete], rtol: float = 1e-05, atol: float = 1e-08
+    attr: str | Iterable[Incomplete], default: Incomplete | Iterable[Incomplete], rtol: FloatInt = 1e-05, atol: FloatInt = 1e-08
 ) -> Callable[..., Incomplete]: ...
 @_dispatchable
 def generic_node_match(

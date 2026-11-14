@@ -1,6 +1,6 @@
 import asyncio
 import socket
-from _typeshed import Incomplete, Unused
+from _typeshed import FloatInt, Incomplete, Unused
 from _typeshed.wsgi import WSGIEnvironment
 from collections.abc import Awaitable, Callable
 from ssl import SSLContext
@@ -16,7 +16,7 @@ class AioBase:
     subprotocol: str | None
     connection_type: ConnectionType
     receive_bytes: int
-    ping_interval: float | None
+    ping_interval: FloatInt | None
     max_message_size: int | None
     pong_received: bool
     input_buffer: list[bytes | str]
@@ -35,14 +35,14 @@ class AioBase:
         self,
         connection_type: ConnectionType | None = None,
         receive_bytes: int = 4096,
-        ping_interval: float | None = None,
+        ping_interval: FloatInt | None = None,
         max_message_size: int | None = None,
     ) -> None: ...
     async def connect(self) -> None: ...
     async def handshake(self) -> None: ...
     # data can be antyhing. a special case is made for `bytes`, anything else is converted to `str`.
     async def send(self, data: bytes | Any) -> None: ...
-    async def receive(self, timeout: float | None = None) -> bytes | str | None: ...
+    async def receive(self, timeout: FloatInt | None = None) -> bytes | str | None: ...
     async def close(self, reason: CloseReason | None = None, message: str | None = None) -> None: ...
     def choose_subprotocol(self, request: Request) -> str | None: ...
 
@@ -65,7 +65,7 @@ class AioServer(AioBase):
         request: _AioServerRequest,
         subprotocols: list[str] | None = None,
         receive_bytes: int = 4096,
-        ping_interval: float | None = None,
+        ping_interval: FloatInt | None = None,
         max_message_size: int | None = None,
     ) -> None: ...
     @classmethod
@@ -85,7 +85,7 @@ class AioServer(AioBase):
         headers: dict[str, Any] | None = None,
         subprotocols: list[str] | None = None,
         receive_bytes: int = 4096,
-        ping_interval: float | None = None,
+        ping_interval: FloatInt | None = None,
         max_message_size: int | None = None,
     ) -> WebSocketASGI | AioServer: ...
     async def handshake(self) -> None: ...
@@ -108,7 +108,7 @@ class AioClient(AioBase):
         subprotocols: list[str] | None = None,
         headers: dict[str, Any] | None = None,
         receive_bytes: int = 4096,
-        ping_interval: float | None = None,
+        ping_interval: FloatInt | None = None,
         max_message_size: int | None = None,
         ssl_context: SSLContext | None = None,
     ) -> None: ...
@@ -120,7 +120,7 @@ class AioClient(AioBase):
         subprotocols: list[str] | None = None,
         headers: dict[str, Any] | None = None,
         receive_bytes: int = 4096,
-        ping_interval: float | None = None,
+        ping_interval: FloatInt | None = None,
         max_message_size: int | None = None,
         ssl_context: SSLContext | None = None,
         thread_class: Unused = None,

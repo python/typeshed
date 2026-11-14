@@ -1,5 +1,5 @@
 import weakref
-from _typeshed import Incomplete, SupportsItems, SupportsKeysAndGetItem
+from _typeshed import FloatInt, Incomplete, SupportsItems, SupportsKeysAndGetItem
 from collections.abc import Callable, Generator, Hashable, Iterable, Iterator, Mapping
 from typing import Any, Generic, TypeVar, overload
 from typing_extensions import Self
@@ -118,7 +118,7 @@ class cachedproperty(Generic[_KT, _VT]):
 
 class ThresholdCounter(Generic[_T]):
     total: int
-    def __init__(self, threshold: float = 0.001) -> None: ...
+    def __init__(self, threshold: FloatInt = 0.001) -> None: ...
     @property
     def threshold(self) -> float: ...
     def add(self, key: _T) -> None: ...

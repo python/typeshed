@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Callable
 from datetime import datetime as _datetime, timedelta as _timedelta, tzinfo as _tzinfo
 from typing import Final, overload
@@ -8,28 +9,28 @@ from . import _libastro
 __version__: Final[str]
 
 # Mathematical constants
-tau: Final[float]
-twopi: Final[float]
-halfpi: Final[float]
-quarterpi: Final[float]
-eighthpi: Final[float]
-degree: Final[float]
-arcminute: Final[float]
-arcsecond: Final[float]
-half_arcsecond: Final[float]
-tiny: Final[float]
+tau: Final[FloatInt]
+twopi: Final[FloatInt]
+halfpi: Final[FloatInt]
+quarterpi: Final[FloatInt]
+eighthpi: Final[FloatInt]
+degree: Final[FloatInt]
+arcminute: Final[FloatInt]
+arcsecond: Final[FloatInt]
+half_arcsecond: Final[FloatInt]
+tiny: Final[FloatInt]
 
 # Physical constants
-c: Final[float]
-meters_per_au: Final[float]
-earth_radius: Final[float]
-moon_radius: Final[float]
-sun_radius: Final[float]
+c: Final[FloatInt]
+meters_per_au: Final[FloatInt]
+earth_radius: Final[FloatInt]
+moon_radius: Final[FloatInt]
+sun_radius: Final[FloatInt]
 
 # Epoch constants
-B1900: Final[float]
-B1950: Final[float]
-J2000: Final[float]
+B1900: Final[FloatInt]
+B1950: Final[FloatInt]
+J2000: Final[FloatInt]
 
 # Type imports from _libastro
 Angle = _libastro.Angle
@@ -38,12 +39,12 @@ hours = _libastro.hours
 Date = _libastro.Date
 
 # Time constants
-hour: Final[float]
-minute: Final[float]
-second: Final[float]
+hour: Final[FloatInt]
+minute: Final[FloatInt]
+second: Final[FloatInt]
 
 # Precision constants
-default_newton_precision: Final[float]
+default_newton_precision: Final[FloatInt]
 rise_set_iterations: Final[tuple[int, int, int, int, int, int, int]]
 
 # Function imports from _libastro
@@ -159,10 +160,10 @@ class Miranda(PlanetMoon):
     __planet__: Final = 28
 
 # Newton's method
-def newton(f: Callable[[float], float], x0: float, x1: float, precision: float = ...) -> float: ...
+def newton(f: Callable[[FloatInt], float], x0: FloatInt, x1: FloatInt, precision: FloatInt = ...) -> float: ...
 
 # Equinox and solstice functions
-def holiday(d0: _libastro._DateInitType, motion: float, offset: float) -> Date: ...
+def holiday(d0: _libastro._DateInitType, motion: FloatInt, offset: FloatInt) -> Date: ...
 def previous_vernal_equinox(date: _libastro._DateInitType) -> Date: ...
 def next_vernal_equinox(date: _libastro._DateInitType) -> Date: ...
 def previous_summer_solstice(date: _libastro._DateInitType) -> Date: ...
@@ -212,7 +213,7 @@ class Observer(_libastro.Observer):
     def next_transit(self, body: Body, start: _libastro._DateInitType | None = None) -> Date: ...
     def previous_antitransit(self, body: Body, start: _libastro._DateInitType | None = None) -> Date: ...
     def next_antitransit(self, body: Body, start: _libastro._DateInitType | None = None) -> Date: ...
-    def disallow_circumpolar(self, declination: float) -> None: ...
+    def disallow_circumpolar(self, declination: FloatInt) -> None: ...
     def previous_rising(self, body: Body, start: _libastro._DateInitType | None = None, use_center: bool = False) -> Date: ...
     def previous_setting(self, body: Body, start: _libastro._DateInitType | None = None, use_center: bool = False) -> Date: ...
     def next_rising(self, body: Body, start: _libastro._DateInitType | None = None, use_center: bool = False) -> Date: ...
@@ -222,7 +223,7 @@ class Observer(_libastro.Observer):
     ) -> tuple[Date | None, Date | None, Date | None, Date | None, Date | None, Date | None]: ...
 
 # Time conversion functions
-def localtime(date: Date | float) -> _datetime: ...
+def localtime(date: Date | FloatInt) -> _datetime: ...
 
 class _UTC(_tzinfo):
     ZERO: _timedelta
@@ -232,7 +233,7 @@ class _UTC(_tzinfo):
 
 UTC: _UTC
 
-def to_timezone(date: Date | float, tzinfo: _tzinfo) -> _datetime: ...
+def to_timezone(date: Date | FloatInt, tzinfo: _tzinfo) -> _datetime: ...
 
 # Coordinate classes
 class Coordinate:
@@ -241,7 +242,9 @@ class Coordinate:
     @overload
     def __init__(self, body: Body, *, epoch: _libastro._DateInitType | None = None) -> None: ...
     @overload
-    def __init__(self, coord1: float | str, coord2: float | str, *, epoch: _libastro._DateInitType | None = None) -> None: ...
+    def __init__(
+        self, coord1: FloatInt | str, coord2: FloatInt | str, *, epoch: _libastro._DateInitType | None = None
+    ) -> None: ...
     @overload
     def __init__(self, coord: Coordinate, *, epoch: _libastro._DateInitType | None = None) -> None: ...
 
@@ -250,7 +253,7 @@ class Equatorial(Coordinate):
     dec: Angle
 
     def get(self) -> tuple[Angle, Angle]: ...
-    def set(self, ra: float | str, dec: float | str) -> None: ...
+    def set(self, ra: FloatInt | str, dec: FloatInt | str) -> None: ...
 
     to_radec = get
     from_radec = set
@@ -259,7 +262,7 @@ class LonLatCoordinate(Coordinate):
     lon: Angle
     lat: Angle
 
-    def set(self, lon: float | str, lat: float | str) -> None: ...
+    def set(self, lon: FloatInt | str, lat: FloatInt | str) -> None: ...
     def get(self) -> tuple[Angle, Angle]: ...
 
     @property
@@ -269,11 +272,11 @@ class LonLatCoordinate(Coordinate):
 
 class Ecliptic(LonLatCoordinate):
     def to_radec(self) -> tuple[Angle, Angle]: ...
-    def from_radec(self, ra: float | str, dec: float | str) -> None: ...
+    def from_radec(self, ra: FloatInt | str, dec: FloatInt | str) -> None: ...
 
 class Galactic(LonLatCoordinate):
     def to_radec(self) -> tuple[Angle, Angle]: ...
-    def from_radec(self, ra: float | str, dec: float | str) -> None: ...
+    def from_radec(self, ra: FloatInt | str, dec: FloatInt | str) -> None: ...
 
 # Backwards compatibility aliases
 date = Date

@@ -1,4 +1,4 @@
-from _typeshed import Unused
+from _typeshed import FloatInt, Unused
 from collections.abc import Callable, Iterable, Sequence
 from typing import Any, Final, Literal, TypeAlias, TypedDict, TypeVar, overload, type_check_only
 from typing_extensions import Unpack
@@ -14,7 +14,7 @@ _SequencerFormat: TypeAlias = Literal["I", "i", "123", "ABC", "abc"]
 
 @type_check_only
 class _TableOfContentsKwargs(TypedDict, total=False):
-    rightColumnWidth: float
+    rightColumnWidth: FloatInt
     levelStyles: list[PropertySet]  # should be ParagraphStyle
     tableStyle: TableStyle
     dotsMinLevel: int
@@ -37,19 +37,19 @@ def drawPageNumbers(
     canvas: Canvas,
     style: PropertySet,  # should be ParagraphStyle
     pages: Iterable[tuple[int | str, Unused]],
-    availWidth: float,
-    availHeight: float,
+    availWidth: FloatInt,
+    availHeight: FloatInt,
     dot: str = " . ",
     formatter: Unused | None = None,
 ) -> None: ...
 
-delta: float
-epsilon: float
+delta: FloatInt
+epsilon: FloatInt
 defaultLevelStyles: list[ParagraphStyle]
 defaultTableStyle: TableStyle
 
 class TableOfContents(IndexingFlowable):
-    rightColumnWidth: float
+    rightColumnWidth: FloatInt
     levelStyles: list[ParagraphStyle]
     tableStyle: TableStyle
     dotsMinLevel: int
@@ -77,7 +77,7 @@ class SimpleIndex(IndexingFlowable):
     headers: bool
     name: str
     formatFunc: Callable[[int], str]
-    offset: float
+    offset: FloatInt
     def __init__(self, **kwargs: Unpack[_SimpleIndexKwargs]) -> None: ...
     def getFormatFunc(self, formatName): ...
     def setup(
@@ -88,7 +88,7 @@ class SimpleIndex(IndexingFlowable):
         headers: bool = True,
         name: str | None = None,
         format: _SequencerFormat = "123",
-        offset: float = 0,
+        offset: FloatInt = 0,
     ) -> None: ...
     def __call__(self, canv: Canvas, kind: str | None, label: str) -> None: ...
     def getCanvasMaker(self, canvasmaker: _CanvasMaker = ...) -> _CanvasMaker: ...

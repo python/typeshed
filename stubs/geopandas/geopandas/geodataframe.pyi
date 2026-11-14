@@ -1,6 +1,6 @@
 import io
 import os
-from _typeshed import Incomplete, SupportsGetItem, SupportsLenAndGetItem, SupportsRead, SupportsWrite
+from _typeshed import FloatInt, Incomplete, SupportsGetItem, SupportsLenAndGetItem, SupportsRead, SupportsWrite
 from collections.abc import Callable, Container, Hashable, Iterable, Iterator, Mapping, Sequence
 from json import JSONEncoder
 from typing import Any, Literal, overload
@@ -322,7 +322,7 @@ class GeoDataFrame(GeoPandasBase, pd.DataFrame):  # type: ignore[misc]  # pyrefl
         observed: bool = False,
         dropna: bool = True,
         method: Literal["coverage", "unary", "disjoint_subset"] = "unary",
-        grid_size: float | None = None,
+        grid_size: FloatInt | None = None,
         **kwargs,
     ) -> GeoDataFrame: ...
     def explode(self, column: IndexLabel | None = None, ignore_index: bool = False, index_parts: bool = False) -> Self: ...
@@ -350,7 +350,7 @@ class GeoDataFrame(GeoPandasBase, pd.DataFrame):  # type: ignore[misc]  # pyrefl
         rsuffix: str = "right",
         *,
         # **kwargs passed to geopandas.sjoin
-        distance: float | ArrayLike | None = None,
+        distance: FloatInt | ArrayLike | None = None,
         on_attribute: str | Sequence[str] | None = None,
         **kwargs,
     ) -> GeoDataFrame: ...
@@ -358,7 +358,7 @@ class GeoDataFrame(GeoPandasBase, pd.DataFrame):  # type: ignore[misc]  # pyrefl
         self,
         right: GeoDataFrame,
         how: Literal["left", "right", "inner"] = "inner",
-        max_distance: float | None = None,
+        max_distance: FloatInt | None = None,
         lsuffix: str = "left",
         rsuffix: str = "right",
         distance_col: str | None = None,

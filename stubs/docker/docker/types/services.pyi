@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Iterable, Mapping
 from typing import Any, Final, Literal, TypedDict, TypeVar, overload, type_check_only
 
@@ -99,7 +100,7 @@ class UpdateConfig(dict[str, Any]):
         delay: int | None = None,
         failure_action: Literal["pause", "continue", "rollback"] = "continue",
         monitor: int | None = None,
-        max_failure_ratio: float | None = None,
+        max_failure_ratio: FloatInt | None = None,
         order: Literal["start-first", "stop-first"] | None = None,
     ) -> None: ...
 

@@ -1,5 +1,5 @@
 import sys
-from _typeshed import ConvertibleToFloat, Incomplete, StrOrBytesPath, Unused
+from _typeshed import ConvertibleToFloat, FloatInt, Incomplete, StrOrBytesPath, Unused
 from collections.abc import Callable, Generator
 from typing import Final, NamedTuple, ParamSpec, TypeAlias, TypeVar, overload
 
@@ -75,7 +75,7 @@ def locate(
 @overload
 def locateOnScreen(
     image: str | Image.Image | _MatLike,
-    minSearchTime: float = 0,
+    minSearchTime: FloatInt = 0,
     *,
     grayscale: bool | None = None,
     limit: Unused = 1,
@@ -88,7 +88,7 @@ def locateOnScreen(
 @overload
 def locateOnScreen(
     image: str | Image.Image,
-    minSearchTime: float = 0,
+    minSearchTime: FloatInt = 0,
     *,
     grayscale: bool | None = None,
     limit: Unused = 1,
@@ -126,7 +126,7 @@ def locateAllOnScreen(
 def locateCenterOnScreen(
     image: str | Image.Image | _MatLike,
     *,
-    minSearchTime: float = 0,
+    minSearchTime: FloatInt = 0,
     grayscale: bool | None = None,
     limit: Unused = 1,
     region: tuple[int, int, int, int] | None = None,
@@ -139,7 +139,7 @@ def locateCenterOnScreen(
 def locateCenterOnScreen(
     image: str | Image.Image,
     *,
-    minSearchTime: float = 0,
+    minSearchTime: FloatInt = 0,
     grayscale: bool | None = None,
     limit: Unused = 1,
     region: tuple[int, int, int, int] | None = None,

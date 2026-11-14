@@ -1,4 +1,5 @@
 import logging
+from _typeshed import FloatInt
 from typing import Final
 
 def byte_ord(c: int | str) -> int: ...
@@ -123,7 +124,7 @@ WARNING = logging.WARNING
 ERROR = logging.ERROR
 CRITICAL = logging.CRITICAL
 
-io_sleep: float
+io_sleep: FloatInt
 
 DEFAULT_WINDOW_SIZE: Final[int]
 DEFAULT_MAX_PACKET_SIZE: Final[int]

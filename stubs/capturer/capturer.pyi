@@ -1,4 +1,4 @@
-from _typeshed import FileDescriptorOrPath, SupportsWrite
+from _typeshed import FileDescriptorOrPath, FloatInt, SupportsWrite
 from collections.abc import Callable
 from io import BufferedReader
 from multiprocessing import Process
@@ -13,7 +13,7 @@ __version__: str
 aliases: dict[str, Any]
 DEFAULT_TEXT_ENCODING: str
 GRACEFUL_SHUTDOWN_SIGNAL: Signals
-TERMINATION_DELAY: float
+TERMINATION_DELAY: FloatInt
 PARTIAL_DEFAULT: bool
 STDOUT_FD: int
 STDERR_FD: int
@@ -35,7 +35,7 @@ class CaptureOutput(MultiProcessHelper):
     encoding: str
     merged: bool
     relay: bool
-    termination_delay: float
+    termination_delay: FloatInt
     pseudo_terminals: list[PseudoTerminal]
     streams: list[tuple[int, Stream]]
     stdout_stream: Stream
@@ -45,7 +45,12 @@ class CaptureOutput(MultiProcessHelper):
     stdout: PseudoTerminal
     stderr: PseudoTerminal
     def __init__(
-        self, merged: bool = True, encoding: str = ..., termination_delay: float = ..., chunk_size: int = 1024, relay: bool = True
+        self,
+        merged: bool = True,
+        encoding: str = ...,
+        termination_delay: FloatInt = ...,
+        chunk_size: int = 1024,
+        relay: bool = True,
     ) -> None: ...
     def initialize_stream(self, file_obj: IO[str], expected_fd: int) -> Stream: ...
     def __enter__(self) -> Self: ...
@@ -79,7 +84,7 @@ class OutputBuffer:
 
 class PseudoTerminal(MultiProcessHelper):
     encoding: str
-    termination_delay: float
+    termination_delay: FloatInt
     chunk_size: int
     relay_fd: int | None
     output_queue: Queue[tuple[Any, bytes]] | None
@@ -92,7 +97,7 @@ class PseudoTerminal(MultiProcessHelper):
     def __init__(
         self,
         encoding: str,
-        termination_delay: float,
+        termination_delay: FloatInt,
         chunk_size: int,
         relay_fd: int | None,
         output_queue: Queue[tuple[int, bytes]] | None,

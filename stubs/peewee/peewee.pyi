@@ -1,6 +1,6 @@
 import re
 import threading
-from _typeshed import Incomplete, SupportsKeysAndGetItem
+from _typeshed import FloatInt, Incomplete, SupportsKeysAndGetItem
 from collections.abc import Callable, Generator, Iterable, Iterator
 from datetime import date, datetime, time
 from decimal import Decimal
@@ -794,7 +794,7 @@ class ViewMetadata(NamedTuple):
 class QueryEvent(NamedTuple):
     sql: str
     params: Incomplete
-    duration: float
+    duration: FloatInt
     exception: BaseException | None
 
 class _ConnectionState:

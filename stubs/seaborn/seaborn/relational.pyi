@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Iterable, Mapping, Sequence
 from typing import Any, Literal, TypeAlias
 
@@ -11,8 +12,8 @@ from .utils import _DataSourceWideForm, _ErrorBar, _Estimator, _Legend, _Palette
 
 __all__ = ["relplot", "scatterplot", "lineplot"]
 
-_Sizes: TypeAlias = list[int] | list[float] | dict[str, int] | dict[str, float] | tuple[float, float]
-_DashType: TypeAlias = tuple[None, None] | Sequence[float]  # See matplotlib.lines.Line2D.set_dashes
+_Sizes: TypeAlias = list[int] | list[FloatInt] | dict[str, int] | dict[str, FloatInt] | tuple[FloatInt, FloatInt]
+_DashType: TypeAlias = tuple[None, None] | Sequence[FloatInt]  # See matplotlib.lines.Line2D.set_dashes
 # "dashes" and "markers" require dict but we use mapping to avoid long unions because dict is invariant in its value type
 _Dashes: TypeAlias = bool | Sequence[_DashType] | Mapping[Any, _DashType]
 _Markers: TypeAlias = bool | Sequence[MarkerType] | Mapping[Any, MarkerType]
@@ -95,8 +96,8 @@ def relplot(
     style_order: Iterable[ColumnName] | None = None,
     legend: _Legend = "auto",
     kind: Literal["scatter", "line"] = "scatter",
-    height: float = 5,
-    aspect: float = 1,
+    height: FloatInt = 5,
+    aspect: FloatInt = 1,
     facet_kws: dict[str, Any] | None = None,
     **kwargs: Any,
 ) -> FacetGrid: ...

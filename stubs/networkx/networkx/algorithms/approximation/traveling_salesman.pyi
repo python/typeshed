@@ -1,4 +1,4 @@
-from _typeshed import Incomplete, SupportsLenAndGetItem
+from _typeshed import FloatInt, Incomplete, SupportsLenAndGetItem
 from collections.abc import Callable, Iterable, Mapping
 from typing import Any, Literal, TypeVar
 
@@ -53,7 +53,7 @@ def simulated_annealing_tsp(
     move: Callable[..., Incomplete] | Literal["1-1", "1-0"] = "1-1",
     max_iterations: int | None = 10,
     N_inner: int | None = 100,
-    alpha: float = 0.01,
+    alpha: FloatInt = 0.01,
     seed: int | RandomState | None = None,
 ) -> list[Incomplete]: ...
 @_dispatchable
@@ -66,6 +66,6 @@ def threshold_accepting_tsp(
     move: Callable[..., Incomplete] | Literal["1-1", "1-0"] = "1-1",
     max_iterations: int | None = 10,
     N_inner: int | None = 100,
-    alpha: float = 0.1,
+    alpha: FloatInt = 0.1,
     seed: int | RandomState | None = None,
 ) -> list[Incomplete]: ...

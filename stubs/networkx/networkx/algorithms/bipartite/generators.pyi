@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from collections.abc import Iterable
 
 from networkx.classes.graph import Graph, _Node
@@ -40,11 +40,11 @@ def alternating_havel_hakimi_graph(
 @_dispatchable
 def preferential_attachment_graph(
     aseq: Iterable[Incomplete],
-    p: float,
+    p: FloatInt,
     create_using: Graph[_Node] | type[Graph[_Node]] | None = None,
     seed: int | RandomState | None = None,
 ): ...
 @_dispatchable
-def random_graph(n: int, m: int, p: float, seed: int | RandomState | None = None, directed: bool | None = False): ...
+def random_graph(n: int, m: int, p: FloatInt, seed: int | RandomState | None = None, directed: bool | None = False): ...
 @_dispatchable
 def gnmk_random_graph(n: int, m: int, k: int, seed: int | RandomState | None = None, directed: bool | None = False): ...

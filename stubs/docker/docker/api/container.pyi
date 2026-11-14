@@ -1,5 +1,5 @@
 import datetime
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from collections.abc import Iterable, Mapping
 from typing import Any, Literal, TypeAlias, TypedDict, overload, type_check_only
 from typing_extensions import NotRequired
@@ -259,9 +259,9 @@ class ContainerApiMixin:
         stream: Literal[True],
         timestamps: bool = False,
         tail: Literal["all"] | int = "all",
-        since: datetime.datetime | float | None = None,
+        since: datetime.datetime | FloatInt | None = None,
         follow: bool | None = None,
-        until: datetime.datetime | float | None = None,
+        until: datetime.datetime | FloatInt | None = None,
     ) -> CancellableStream[bytes]: ...
     @overload
     def logs(
@@ -272,9 +272,9 @@ class ContainerApiMixin:
         stream: Literal[True],
         timestamps: bool = False,
         tail: Literal["all"] | int = "all",
-        since: datetime.datetime | float | None = None,
+        since: datetime.datetime | FloatInt | None = None,
         follow: bool | None = None,
-        until: datetime.datetime | float | None = None,
+        until: datetime.datetime | FloatInt | None = None,
     ) -> CancellableStream[bytes]: ...
     @overload
     def logs(
@@ -285,9 +285,9 @@ class ContainerApiMixin:
         stream: Literal[False] = False,
         timestamps: bool = False,
         tail: Literal["all"] | int = "all",
-        since: datetime.datetime | float | None = None,
+        since: datetime.datetime | FloatInt | None = None,
         follow: bool | None = None,
-        until: datetime.datetime | float | None = None,
+        until: datetime.datetime | FloatInt | None = None,
     ) -> bytes: ...
 
     def pause(self, container: _Container) -> None: ...
@@ -312,8 +312,8 @@ class ContainerApiMixin:
         cpu_shares: int | None = None,
         cpuset_cpus: str | None = None,
         cpuset_mems: str | None = None,
-        mem_limit: float | str | None = None,
-        mem_reservation: float | str | None = None,
+        mem_limit: FloatInt | str | None = None,
+        mem_reservation: FloatInt | str | None = None,
         memswap_limit: int | str | None = None,
         kernel_memory: int | str | None = None,
         restart_policy: _RestartPolicy | None = None,

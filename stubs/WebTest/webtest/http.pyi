@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from _typeshed.wsgi import StartResponse, WSGIApplication, WSGIEnvironment
 from collections.abc import Iterable
 from threading import Thread
@@ -13,7 +13,7 @@ from waitress.server import TcpWSGIServer
 _WSGIServerParams: TypeAlias = Incomplete
 
 def get_free_port() -> tuple[str, int]: ...
-def check_server(host: str, port: int, path_info: str = "/", timeout: float = 3, retries: int = 30) -> int: ...
+def check_server(host: str, port: int, path_info: str = "/", timeout: FloatInt = 3, retries: int = 30) -> int: ...
 
 class StopableWSGIServer(TcpWSGIServer):
     was_shutdown: bool

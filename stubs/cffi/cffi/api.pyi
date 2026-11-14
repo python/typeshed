@@ -1,6 +1,6 @@
 import sys
 import types
-from _typeshed import ReadableBuffer, WriteableBuffer
+from _typeshed import FloatInt, ReadableBuffer, WriteableBuffer
 from collections.abc import Callable, Hashable
 from typing import Any, Literal, TypeAlias, TypeVar, overload
 
@@ -45,7 +45,7 @@ class FFI:
         free: Callable[[CData], Any] | None = None,
         should_clear_after_alloc: bool = True,
     ) -> _cffi_backend._Allocator: ...
-    def cast(self, cdecl: str | CType, source: CData | float) -> CData: ...
+    def cast(self, cdecl: str | CType, source: CData | FloatInt) -> CData: ...
     def string(self, cdata: CData, maxlen: int = -1) -> bytes | str: ...
     def unpack(self, cdata: CData, length: int) -> bytes | str | list[Any]: ...
 

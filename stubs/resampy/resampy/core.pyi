@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Callable
 from typing import Any, TypeAlias, TypeVar, overload
 
@@ -13,34 +14,34 @@ _FilterType: TypeAlias = str | Callable[[int], np.ndarray[tuple[int], np.dtype[n
 @overload
 def resample(
     x: np.ndarray[_Shape, np.dtype[np.integer]],
-    sr_orig: float,
-    sr_new: float,
+    sr_orig: FloatInt,
+    sr_new: FloatInt,
     axis: int = -1,
     filter: _FilterType = "kaiser_best",
     parallel: bool = False,
     *,
     num_zeros: int = 64,
     precision: int = 9,
-    rolloff: float = 0.945,
+    rolloff: FloatInt = 0.945,
 ) -> np.ndarray[_Shape, np.dtype[np.float32]]: ...
 @overload
 def resample(
     x: np.ndarray[_Shape, np.dtype[_Floating]],
-    sr_orig: float,
-    sr_new: float,
+    sr_orig: FloatInt,
+    sr_new: FloatInt,
     axis: int = -1,
     filter: _FilterType = "kaiser_best",
     parallel: bool = False,
     *,
     num_zeros: int = 64,
     precision: int = 9,
-    rolloff: float = 0.945,
+    rolloff: FloatInt = 0.945,
 ) -> np.ndarray[_Shape, np.dtype[_Floating]]: ...
 
 @overload
 def resample_nu(
     x: np.ndarray[_Shape, np.dtype[np.integer]],
-    sr_orig: float,
+    sr_orig: FloatInt,
     t_out: np.ndarray[_Shape, np.dtype[np.float32]],
     axis: int = -1,
     filter: _FilterType = "kaiser_best",
@@ -48,12 +49,12 @@ def resample_nu(
     *,
     num_zeros: int = 64,
     precision: int = 9,
-    rolloff: float = 0.945,
+    rolloff: FloatInt = 0.945,
 ) -> np.ndarray[_Shape, np.dtype[np.float32]]: ...
 @overload
 def resample_nu(
     x: np.ndarray[_Shape, np.dtype[_Floating]],
-    sr_orig: float,
+    sr_orig: FloatInt,
     t_out: np.ndarray[_Shape, np.dtype[_Floating]],
     axis: int = -1,
     filter: _FilterType = "kaiser_best",
@@ -61,5 +62,5 @@ def resample_nu(
     *,
     num_zeros: int = 64,
     precision: int = 9,
-    rolloff: float = 0.945,
+    rolloff: FloatInt = 0.945,
 ) -> np.ndarray[_Shape, np.dtype[_Floating]]: ...

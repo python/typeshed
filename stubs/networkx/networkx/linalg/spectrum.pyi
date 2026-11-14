@@ -1,3 +1,5 @@
+from _typeshed import FloatInt
+
 import numpy as np
 from networkx._typing import Array1D
 from networkx.classes.graph import Graph, _Node
@@ -20,4 +22,4 @@ def adjacency_spectrum(G: Graph[_Node], weight: str | None = "weight") -> Array1
 @_dispatchable
 def modularity_spectrum(G: Graph[_Node]) -> Array1D[np.complex128]: ...
 @_dispatchable
-def bethe_hessian_spectrum(G: Graph[_Node], r: float | None = None) -> Array1D[np.float64]: ...
+def bethe_hessian_spectrum(G: Graph[_Node], r: FloatInt | None = None) -> Array1D[np.float64]: ...

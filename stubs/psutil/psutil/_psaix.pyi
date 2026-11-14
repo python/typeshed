@@ -1,4 +1,5 @@
 import sys
+from _typeshed import FloatInt
 
 # sys.platform.startswith("aix"):
 if sys.platform != "linux" and sys.platform != "win32" and sys.platform != "darwin":
@@ -37,15 +38,15 @@ if sys.platform != "linux" and sys.platform != "win32" and sys.platform != "darw
     pfullmem = pmem
 
     class scputimes(NamedTuple):
-        user: float
-        system: float
-        idle: float
-        iowait: float
+        user: FloatInt
+        system: FloatInt
+        idle: FloatInt
+        iowait: FloatInt
 
     class svmem(NamedTuple):
         total: int
         available: int
-        percent: float
+        percent: FloatInt
         used: int
         free: int
 
@@ -108,5 +109,5 @@ if sys.platform != "linux" and sys.platform != "win32" and sys.platform != "darw
         def open_files(self) -> list[ntp.popenfile]: ...
         def num_fds(self) -> int: ...
         def num_ctx_switches(self) -> ntp.pctxsw: ...
-        def wait(self, timeout: float | None = None) -> int | None: ...
+        def wait(self, timeout: FloatInt | None = None) -> int | None: ...
         def io_counters(self) -> ntp.pio: ...

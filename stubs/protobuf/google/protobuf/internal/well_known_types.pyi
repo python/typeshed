@@ -1,4 +1,4 @@
-from _typeshed import SupportsItems
+from _typeshed import FloatInt, SupportsItems
 from collections.abc import Iterable, Iterator, KeysView, Mapping, Sequence
 from datetime import datetime, timedelta, tzinfo
 from typing import Any as tAny, TypeAlias
@@ -72,7 +72,7 @@ class FieldMask:
         self, source: _Message, destination: _Message, replace_message_field: bool = False, replace_repeated_field: bool = False
     ) -> None: ...
 
-_StructValue: TypeAlias = struct_pb2.Struct | struct_pb2.ListValue | str | float | bool | None
+_StructValue: TypeAlias = struct_pb2.Struct | struct_pb2.ListValue | str | FloatInt | bool | None
 _StructValueArg: TypeAlias = _StructValue | Mapping[str, _StructValueArg] | Sequence[_StructValueArg]
 
 class Struct:

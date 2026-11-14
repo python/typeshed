@@ -7,7 +7,7 @@ from typing_extensions import NotRequired
 
 # Type alias for JSON, explained at:
 # https://github.com/python/typing/issues/182#issuecomment-1320974824.
-JSON: TypeAlias = dict[str, JSON] | list[JSON] | str | int | float | bool | None
+JSON: TypeAlias = dict[str, JSON] | list[JSON] | str | float | int | bool | None
 
 @type_check_only
 class ContainerWeightDevice(TypedDict):

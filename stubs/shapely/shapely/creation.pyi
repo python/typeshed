@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Sequence
 from typing import Literal, SupportsIndex, TypeAlias, overload
 from typing_extensions import Unpack
@@ -35,9 +36,9 @@ _HandleNaN: TypeAlias = Literal["allow", "skip", "error"] | HandleNaN
 
 @overload
 def points(
-    coords: float,
-    y: float,
-    z: float | None = None,
+    coords: FloatInt,
+    y: FloatInt,
+    z: FloatInt | None = None,
     indices: None = None,
     *,
     handle_nan: _HandleNaN = ...,
@@ -46,7 +47,7 @@ def points(
 ) -> Point: ...
 @overload
 def points(
-    coords: Sequence[float],
+    coords: Sequence[FloatInt],
     y: None = None,
     z: None = None,
     indices: None = None,
@@ -57,9 +58,9 @@ def points(
 ) -> Point: ...
 @overload
 def points(
-    coords: Sequence[float],  # acts as (x1, x2, ...)
-    y: Sequence[float],  # must be (y1, y2, ...)
-    z: Sequence[float] | None = None,
+    coords: Sequence[FloatInt],  # acts as (x1, x2, ...)
+    y: Sequence[FloatInt],  # must be (y1, y2, ...)
+    z: Sequence[FloatInt] | None = None,
     indices: ArrayLikeSeq[int] | None = None,
     *,
     handle_nan: _HandleNaN = ...,
@@ -68,7 +69,7 @@ def points(
 ) -> GeoArray: ...
 @overload
 def points(
-    coords: Sequence[Sequence[float]],  # acts as (x1, x2, ...), (y1, y2, ...)[, (z1, z2, ...)]
+    coords: Sequence[Sequence[FloatInt]],  # acts as (x1, x2, ...), (y1, y2, ...)[, (z1, z2, ...)]
     y: None = None,
     z: None = None,
     indices: ArrayLikeSeq[int] | None = None,
@@ -79,9 +80,9 @@ def points(
 ) -> GeoArray: ...
 @overload
 def points(
-    coords: ArrayLike[float],
-    y: ArrayLike[float],
-    z: ArrayLike[float] | None = None,
+    coords: ArrayLike[FloatInt],
+    y: ArrayLike[FloatInt],
+    z: ArrayLike[FloatInt] | None = None,
     indices: ArrayLikeSeq[int] | None = None,
     *,
     handle_nan: _HandleNaN = ...,
@@ -90,9 +91,9 @@ def points(
 ) -> Point | GeoArray: ...
 @overload
 def points(
-    coords: ArrayLikeSeq[float],
-    y: ArrayLike[float] | None = None,
-    z: ArrayLike[float] | None = None,
+    coords: ArrayLikeSeq[FloatInt],
+    y: ArrayLike[FloatInt] | None = None,
+    z: ArrayLike[FloatInt] | None = None,
     indices: ArrayLikeSeq[int] | None = None,
     *,
     handle_nan: _HandleNaN = ...,
@@ -102,9 +103,9 @@ def points(
 
 @overload
 def linestrings(
-    coords: Sequence[float],  # acts as (x1, x2, ...)
-    y: Sequence[float],
-    z: Sequence[float] | None = None,
+    coords: Sequence[FloatInt],  # acts as (x1, x2, ...)
+    y: Sequence[FloatInt],
+    z: Sequence[FloatInt] | None = None,
     indices: None = None,
     *,
     handle_nan: _HandleNaN = ...,
@@ -113,7 +114,7 @@ def linestrings(
 ) -> LineString: ...
 @overload
 def linestrings(
-    coords: Sequence[Sequence[float]],  # acts as (x1, y1[, z1]), (x2, y2[, z2]), ...
+    coords: Sequence[Sequence[FloatInt]],  # acts as (x1, y1[, z1]), (x2, y2[, z2]), ...
     y: None = None,
     z: None = None,
     indices: None = None,
@@ -124,7 +125,7 @@ def linestrings(
 ) -> LineString: ...
 @overload
 def linestrings(
-    coords: Sequence[Sequence[Sequence[float]]],  # acts as seq of (x1, y1[, z1]), (x2, y2[, z2]), ...
+    coords: Sequence[Sequence[Sequence[FloatInt]]],  # acts as seq of (x1, y1[, z1]), (x2, y2[, z2]), ...
     y: None = None,
     z: None = None,
     indices: ArrayLikeSeq[int] | None = None,
@@ -135,9 +136,9 @@ def linestrings(
 ) -> GeoArray: ...
 @overload
 def linestrings(
-    coords: ArrayLikeSeq[float],
-    y: ArrayLikeSeq[float] | None = None,
-    z: ArrayLikeSeq[float] | None = None,
+    coords: ArrayLikeSeq[FloatInt],
+    y: ArrayLikeSeq[FloatInt] | None = None,
+    z: ArrayLikeSeq[FloatInt] | None = None,
     indices: ArrayLikeSeq[int] | None = None,
     *,
     handle_nan: _HandleNaN = ...,
@@ -147,9 +148,9 @@ def linestrings(
 
 @overload
 def linearrings(
-    coords: Sequence[float],  # acts as (x1, x2, ...)
-    y: Sequence[float],
-    z: Sequence[float] | None = None,
+    coords: Sequence[FloatInt],  # acts as (x1, x2, ...)
+    y: Sequence[FloatInt],
+    z: Sequence[FloatInt] | None = None,
     indices: None = None,
     *,
     handle_nan: _HandleNaN = ...,
@@ -158,7 +159,7 @@ def linearrings(
 ) -> LinearRing: ...
 @overload
 def linearrings(
-    coords: Sequence[Sequence[float]],  # acts as (x1, y1[, z1]), (x2, y2[, z2]), ...
+    coords: Sequence[Sequence[FloatInt]],  # acts as (x1, y1[, z1]), (x2, y2[, z2]), ...
     y: None = None,
     z: None = None,
     indices: None = None,
@@ -169,7 +170,7 @@ def linearrings(
 ) -> LinearRing: ...
 @overload
 def linearrings(
-    coords: Sequence[Sequence[Sequence[float]]],  # acts as seq of (x1, y1[, z1]), (x2, y2[, z2]), ...
+    coords: Sequence[Sequence[Sequence[FloatInt]]],  # acts as seq of (x1, y1[, z1]), (x2, y2[, z2]), ...
     y: None = None,
     z: None = None,
     indices: ArrayLikeSeq[int] | None = None,
@@ -180,9 +181,9 @@ def linearrings(
 ) -> GeoArray: ...
 @overload
 def linearrings(
-    coords: ArrayLikeSeq[float],
-    y: ArrayLikeSeq[float] | None = None,
-    z: ArrayLikeSeq[float] | None = None,
+    coords: ArrayLikeSeq[FloatInt],
+    y: ArrayLikeSeq[FloatInt] | None = None,
+    z: ArrayLikeSeq[FloatInt] | None = None,
     indices: ArrayLikeSeq[int] | None = None,
     *,
     handle_nan: _HandleNaN = ...,
@@ -192,8 +193,8 @@ def linearrings(
 
 @overload
 def polygons(
-    geometries: LinearRing | Sequence[Sequence[float]] | None,
-    holes: ArrayLikeSeq[float] | OptGeoArrayLikeSeq | None = None,
+    geometries: LinearRing | Sequence[Sequence[FloatInt]] | None,
+    holes: ArrayLikeSeq[FloatInt] | OptGeoArrayLikeSeq | None = None,
     indices: None = None,
     *,
     out: None = None,
@@ -201,8 +202,8 @@ def polygons(
 ) -> Polygon: ...
 @overload
 def polygons(
-    geometries: Sequence[LinearRing | Sequence[Sequence[float]] | None],
-    holes: ArrayLikeSeq[float] | OptGeoArrayLikeSeq | None = None,
+    geometries: Sequence[LinearRing | Sequence[Sequence[FloatInt]] | None],
+    holes: ArrayLikeSeq[FloatInt] | OptGeoArrayLikeSeq | None = None,
     indices: ArrayLikeSeq[int] | None = None,
     *,
     out: NDArray[np.object_] | None = None,
@@ -210,8 +211,8 @@ def polygons(
 ) -> GeoArray: ...
 @overload
 def polygons(
-    geometries: ArrayLikeSeq[float] | OptGeoArrayLikeSeq,
-    holes: ArrayLikeSeq[float] | OptGeoArrayLikeSeq | None = None,
+    geometries: ArrayLikeSeq[FloatInt] | OptGeoArrayLikeSeq,
+    holes: ArrayLikeSeq[FloatInt] | OptGeoArrayLikeSeq | None = None,
     indices: ArrayLikeSeq[int] | None = None,
     *,
     out: NDArray[np.object_] | None = None,
@@ -219,20 +220,22 @@ def polygons(
 ) -> Polygon | GeoArray: ...
 
 @overload
-def box(xmin: float, ymin: float, xmax: float, ymax: float, ccw: bool = True, **kwargs: Unpack[UFuncKwargsNoOut]) -> Polygon: ...
+def box(
+    xmin: FloatInt, ymin: FloatInt, xmax: FloatInt, ymax: FloatInt, ccw: bool = True, **kwargs: Unpack[UFuncKwargsNoOut]
+) -> Polygon: ...
 @overload
 def box(
-    xmin: ArrayLikeSeq[float],
-    ymin: ArrayLikeSeq[float],
-    xmax: ArrayLikeSeq[float],
-    ymax: ArrayLikeSeq[float],
+    xmin: ArrayLikeSeq[FloatInt],
+    ymin: ArrayLikeSeq[FloatInt],
+    xmax: ArrayLikeSeq[FloatInt],
+    ymax: ArrayLikeSeq[FloatInt],
     ccw: bool = True,
     **kwargs: Unpack[UFuncKwargsNoOut],
 ) -> GeoArray: ...
 
 @overload
 def multipoints(
-    geometries: Sequence[Point | Sequence[float] | None],
+    geometries: Sequence[Point | Sequence[FloatInt] | None],
     indices: None = None,
     *,
     out: None = None,
@@ -240,7 +243,7 @@ def multipoints(
 ) -> MultiPoint: ...
 @overload
 def multipoints(
-    geometries: Sequence[Sequence[Point | Sequence[float] | None]],
+    geometries: Sequence[Sequence[Point | Sequence[FloatInt] | None]],
     indices: ArrayLikeSeq[int] | None = None,
     *,
     out: NDArray[np.object_] | None = None,
@@ -257,7 +260,7 @@ def multipoints(
 
 @overload
 def multilinestrings(
-    geometries: Sequence[LineString | Sequence[Sequence[float]] | None],
+    geometries: Sequence[LineString | Sequence[Sequence[FloatInt]] | None],
     indices: None = None,
     *,
     out: None = None,
@@ -265,7 +268,7 @@ def multilinestrings(
 ) -> MultiLineString: ...
 @overload
 def multilinestrings(
-    geometries: Sequence[Sequence[LineString | Sequence[Sequence[float]] | None]],
+    geometries: Sequence[Sequence[LineString | Sequence[Sequence[FloatInt]] | None]],
     indices: ArrayLikeSeq[int] | None = None,
     *,
     out: NDArray[np.object_] | None = None,
@@ -282,7 +285,7 @@ def multilinestrings(
 
 @overload
 def multipolygons(
-    geometries: Sequence[Polygon | Sequence[Sequence[float]] | None],
+    geometries: Sequence[Polygon | Sequence[Sequence[FloatInt]] | None],
     indices: None = None,
     *,
     out: None = None,
@@ -290,7 +293,7 @@ def multipolygons(
 ) -> MultiPolygon: ...
 @overload
 def multipolygons(
-    geometries: Sequence[Sequence[Polygon | Sequence[Sequence[float]] | None]],
+    geometries: Sequence[Sequence[Polygon | Sequence[Sequence[FloatInt]] | None]],
     indices: ArrayLikeSeq[int] | None = None,
     *,
     out: NDArray[np.object_] | None = None,

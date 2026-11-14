@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from collections.abc import Collection
 
 from networkx.classes.digraph import DiGraph
@@ -23,18 +23,18 @@ def caveman_graph(l: int, k: int) -> Graph[int]: ...
 @_dispatchable
 def connected_caveman_graph(l: int, k: int) -> Graph[int]: ...
 @_dispatchable
-def relaxed_caveman_graph(l: int, k: int, p: float, seed=None) -> Graph[int]: ...
+def relaxed_caveman_graph(l: int, k: int, p: FloatInt, seed=None) -> Graph[int]: ...
 @_dispatchable
 def random_partition_graph(
-    sizes: list[int], p_in: float, p_out: float, seed=None, directed: bool = False
+    sizes: list[int], p_in: FloatInt, p_out: FloatInt, seed=None, directed: bool = False
 ) -> DiGraph[Incomplete]: ...
 @_dispatchable
 def planted_partition_graph(
-    l: int, k: int, p_in: float, p_out: float, seed=None, directed: bool = False
+    l: int, k: int, p_in: FloatInt, p_out: FloatInt, seed=None, directed: bool = False
 ) -> DiGraph[Incomplete]: ...
 @_dispatchable
 def gaussian_random_partition_graph(
-    n: int, s: float, v: float, p_in: float, p_out: float, directed: bool = False, seed=None
+    n: int, s: FloatInt, v: FloatInt, p_in: FloatInt, p_out: FloatInt, directed: bool = False, seed=None
 ) -> DiGraph[Incomplete]: ...
 @_dispatchable
 def ring_of_cliques(num_cliques: int, clique_size: int) -> Graph[int]: ...
@@ -43,7 +43,7 @@ def windmill_graph(n: int, k: int) -> Graph[int]: ...
 @_dispatchable
 def stochastic_block_model(
     sizes: list[int],
-    p: list[list[float]],
+    p: list[list[FloatInt]],
     nodelist: Collection[Incomplete] | None = None,
     seed=None,
     directed: bool = False,
@@ -53,15 +53,15 @@ def stochastic_block_model(
 @_dispatchable
 def LFR_benchmark_graph(
     n: int,
-    tau1: float,
-    tau2: float,
-    mu: float,
-    average_degree: float | None = None,
+    tau1: FloatInt,
+    tau2: FloatInt,
+    mu: FloatInt,
+    average_degree: FloatInt | None = None,
     min_degree: int | None = None,
     max_degree: int | None = None,
     min_community: int | None = None,
     max_community: int | None = None,
-    tol: float = 1e-07,
+    tol: FloatInt = 1e-07,
     max_iters: int = 500,
     seed=None,
 ) -> Graph[int]: ...

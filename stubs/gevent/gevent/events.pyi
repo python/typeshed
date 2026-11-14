@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Callable, Mapping, Sequence
 from types import ModuleType
 from typing import Any, Protocol, TypeAlias, TypeVar, type_check_only
@@ -20,10 +21,10 @@ subscribers: list[Callable[[Any], object]]
 
 @type_check_only
 class _PeriodicMonitorThread(Protocol):
-    def add_monitoring_function(self, function: Callable[[Hub], object], period: float | None) -> object: ...
+    def add_monitoring_function(self, function: Callable[[Hub], object], period: FloatInt | None) -> object: ...
 
 class IPeriodicMonitorThread(Interface):
-    def add_monitoring_function(function: Callable[[Hub], object], period: float | None) -> object: ...
+    def add_monitoring_function(function: Callable[[Hub], object], period: FloatInt | None) -> object: ...
 
 class IPeriodicMonitorThreadStartedEvent(Interface):
     monitor: IPeriodicMonitorThread
@@ -36,17 +37,17 @@ class PeriodicMonitorThreadStartedEvent:
 
 class IEventLoopBlocked(Interface):
     greenlet: greenlet_t
-    blocking_time: float
+    blocking_time: FloatInt
     info: Sequence[str]
     hub: Hub | None
 
 @implementer(IEventLoopBlocked)
 class EventLoopBlocked:
     greenlet: greenlet_t
-    blocking_time: float
+    blocking_time: FloatInt
     info: Sequence[str]
     hub: Hub | None
-    def __init__(self, greenlet: greenlet_t, blocking_time: float, info: Sequence[str], *, hub: Hub | None = None) -> None: ...
+    def __init__(self, greenlet: greenlet_t, blocking_time: FloatInt, info: Sequence[str], *, hub: Hub | None = None) -> None: ...
 
 class IMemoryUsageThresholdExceeded(Interface):
     mem_usage: int

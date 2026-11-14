@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from collections.abc import Callable, Collection, Iterable
 
 from networkx.classes.graph import Graph, _Data, _EdgeData, _Node, _NodeData
@@ -26,7 +26,7 @@ def from_dict_of_lists(
     d: dict[_Node, Iterable[_Node]], create_using: Graph[Incomplete] | type[Graph[Incomplete]] | None = None
 ) -> Graph[_Node]: ...
 def to_dict_of_dicts(
-    G: Graph[_Node], nodelist: Collection[_Node] | None = None, edge_data: float | None = None
+    G: Graph[_Node], nodelist: Collection[_Node] | None = None, edge_data: FloatInt | None = None
 ) -> dict[Incomplete, Incomplete]: ...
 @_dispatchable
 def from_dict_of_dicts(

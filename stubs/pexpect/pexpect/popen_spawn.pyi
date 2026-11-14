@@ -1,5 +1,5 @@
 import subprocess
-from _typeshed import StrOrBytesPath
+from _typeshed import FloatInt, StrOrBytesPath
 from collections.abc import Callable
 from typing import AnyStr
 
@@ -11,7 +11,7 @@ class PopenSpawn(SpawnBase[AnyStr]):
     def __init__(
         self,
         cmd,
-        timeout: float | None = 30,
+        timeout: FloatInt | None = 30,
         maxread: int = 2000,
         searchwindowsize: int | None = None,
         logfile: _Logfile | None = None,

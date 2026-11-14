@@ -1,4 +1,5 @@
 import sys
+from _typeshed import FloatInt
 from typing import Literal, NamedTuple, TypeAlias
 
 _MouseEvent: TypeAlias = ButtonEvent | WheelEvent | MoveEvent  # noqa: Y047  # Used outside
@@ -30,13 +31,13 @@ else:
 class ButtonEvent(NamedTuple):
     event_type: _MouseEventType
     button: _MouseButton
-    time: float
+    time: FloatInt
 
 class WheelEvent(NamedTuple):
     delta: int
-    time: float
+    time: FloatInt
 
 class MoveEvent(NamedTuple):
     x: int
     y: int
-    time: float
+    time: FloatInt

@@ -1,7 +1,7 @@
 import abc
 import enum
 import io
-from _typeshed import Unused
+from _typeshed import FloatInt, Unused
 from collections.abc import Callable, Iterable, Mapping
 from email.message import Message
 from logging import Logger
@@ -50,7 +50,7 @@ class RequestHandler(abc.ABC, metaclass=abc.ABCMeta):
         logger: _YDLLogger,
         headers: HTTPHeaderDict | Mapping[str, str] | None = None,
         cookiejar: YoutubeDLCookieJar | None = None,
-        timeout: float | None = None,
+        timeout: FloatInt | None = None,
         proxies: Mapping[str, Any] | None = None,
         source_address: str | None = None,
         verbose: bool = False,

@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Sequence
 from typing import Any, Final, overload
 from typing_extensions import deprecated
@@ -26,15 +27,15 @@ def _reproject(
     gcps: Sequence[GroundControlPoint] | None = None,
     rpcs: RPC | None = None,
     src_crs: CRSInput | None = None,
-    src_nodata: float | None = None,
+    src_nodata: FloatInt | None = None,
     dst_transform: Affine | None = None,
     dst_crs: CRSInput | None = None,
-    dst_nodata: float | None = None,
+    dst_nodata: FloatInt | None = None,
     dst_alpha: int = 0,
     src_alpha: int = 0,
     resampling: Resampling = ...,
     init_dest_nodata: bool = True,
-    tolerance: float = 0.125,
+    tolerance: FloatInt = 0.125,
     num_threads: int = 1,
     warp_mem_limit: int = 0,
     working_data_type: int = 0,
@@ -46,17 +47,17 @@ def _calculate_default_transform(
     dst_crs: CRSInput,
     width: int,
     height: int,
-    left: float | None = None,
-    bottom: float | None = None,
-    right: float | None = None,
-    top: float | None = None,
+    left: FloatInt | None = None,
+    bottom: FloatInt | None = None,
+    right: FloatInt | None = None,
+    top: FloatInt | None = None,
     gcps: Sequence[GroundControlPoint] | None = None,
     rpcs: RPC | None = None,
     src_geoloc_array: NDArray[Any] | None = None,
     **kwargs: _GDALOption,
 ) -> tuple[Affine, int, int]: ...
 def _transform_bounds(
-    src_crs: CRS, dst_crs: CRS, left: float, bottom: float, right: float, top: float, densify_pts: int
+    src_crs: CRS, dst_crs: CRS, left: FloatInt, bottom: FloatInt, right: FloatInt, top: FloatInt, densify_pts: int
 ) -> tuple[float, float, float, float]: ...
 def _suggested_proxy_vrt_doc(
     width: int,
@@ -72,9 +73,9 @@ class WarpedVRTReaderBase(DatasetReaderBase):
     src_crs: CRS
     src_transform: Affine | None
     resampling: Resampling
-    tolerance: float
-    src_nodata: float | None
-    dst_nodata: float | None
+    tolerance: FloatInt
+    src_nodata: FloatInt | None
+    dst_nodata: FloatInt | None
     working_dtype: DTypeLike | None
     warp_extras: dict[str, _GDALOption]
 
@@ -90,9 +91,9 @@ class WarpedVRTReaderBase(DatasetReaderBase):
         src_crs: CRSInput | None = None,
         crs: CRSInput | None = None,
         resampling: Resampling = ...,
-        tolerance: float = 0.125,
-        src_nodata: float | None = ...,
-        nodata: float | None = ...,
+        tolerance: FloatInt = 0.125,
+        src_nodata: FloatInt | None = ...,
+        nodata: FloatInt | None = ...,
         width: int | None = None,
         height: int | None = None,
         src_transform: Affine | None = None,
@@ -112,9 +113,9 @@ class WarpedVRTReaderBase(DatasetReaderBase):
         src_crs: CRSInput | None = None,
         crs: CRSInput | None = None,
         resampling: Resampling = ...,
-        tolerance: float = 0.125,
-        src_nodata: float | None = ...,
-        nodata: float | None = ...,
+        tolerance: FloatInt = 0.125,
+        src_nodata: FloatInt | None = ...,
+        nodata: FloatInt | None = ...,
         width: int | None = None,
         height: int | None = None,
         src_transform: Affine | None = None,
@@ -136,7 +137,7 @@ class WarpedVRTReaderBase(DatasetReaderBase):
         masked: bool = False,
         out_shape: ShapeND | None = None,
         resampling: Resampling = ...,
-        fill_value: float | None = None,
+        fill_value: FloatInt | None = None,
         out_dtype: DTypeLike | None = None,
         # Swallows the deprecated `boundless` kwarg (raises ValueError if True).
         **kwargs: bool,

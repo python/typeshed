@@ -1,8 +1,7 @@
 # The types here are all undocumented, but all feature columns are return types of the
 # public functions in tf.feature_column. As they are undocumented internals while some
 # common methods are included, they are incomplete and do not have getattr Incomplete fallback.
-
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from abc import ABC, ABCMeta, abstractmethod
 from collections.abc import Callable, Sequence
 from typing import Literal, TypeAlias
@@ -36,7 +35,7 @@ class SequenceDenseColumn(_FeatureColumn, metaclass=ABCMeta): ...
 class NumericColumn(DenseColumn):
     key: str
     shape: ShapeLike
-    default_value: float
+    default_value: FloatInt
     dtype: tf.DType
     normalizer_fn: Callable[[tf.Tensor], tf.Tensor] | None
 
@@ -44,7 +43,7 @@ class NumericColumn(DenseColumn):
         _cls,
         key: str,
         shape: ShapeLike,
-        default_value: float,
+        default_value: FloatInt,
         dtype: tf.DType,
         normalizer_fn: Callable[[tf.Tensor], tf.Tensor] | None,
     ) -> Self: ...
@@ -62,9 +61,9 @@ class CategoricalColumn(_FeatureColumn):
 
 class BucketizedColumn(DenseColumn, CategoricalColumn):
     source_column: NumericColumn
-    boundaries: list[float] | tuple[float, ...]
+    boundaries: list[FloatInt] | tuple[FloatInt, ...]
 
-    def __new__(_cls, source_column: NumericColumn, boundaries: list[float] | tuple[float, ...]) -> Self: ...
+    def __new__(_cls, source_column: NumericColumn, boundaries: list[FloatInt] | tuple[FloatInt, ...]) -> Self: ...
     @property
     def name(self) -> str: ...
     @property
@@ -81,7 +80,7 @@ class EmbeddingColumn(DenseColumn, SequenceDenseColumn):
     initializer: Callable[[ShapeLike], tf.Tensor] | None
     ckpt_to_load_from: str | None
     tensor_name_in_ckpt: str | None
-    max_norm: float | None
+    max_norm: FloatInt | None
     trainable: bool
     use_safe_embedding_lookup: bool
 
@@ -94,7 +93,7 @@ class EmbeddingColumn(DenseColumn, SequenceDenseColumn):
         initializer: Callable[[ShapeLike], tf.Tensor] | None,
         ckpt_to_load_from: str | None,
         tensor_name_in_ckpt: str | None,
-        max_norm: float | None,
+        max_norm: FloatInt | None,
         trainable: bool,
         use_safe_embedding_lookup: bool = True,
     ) -> Self: ...
@@ -123,7 +122,7 @@ class SharedEmbeddingColumn(DenseColumn, SequenceDenseColumn):
     categorical_column: CategoricalColumn
     shared_embedding_column_creator: SharedEmbeddingColumnCreator
     combiner: _Combiners
-    max_norm: float | None
+    max_norm: FloatInt | None
     use_safe_embedding_lookup: bool
 
     def __new__(
@@ -131,7 +130,7 @@ class SharedEmbeddingColumn(DenseColumn, SequenceDenseColumn):
         categorical_column: CategoricalColumn,
         shared_embedding_column_creator: SharedEmbeddingColumnCreator,
         combiner: _Combiners,
-        max_norm: float | None,
+        max_norm: FloatInt | None,
         use_safe_embedding_lookup: bool = True,
     ) -> Self: ...
     @property

@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Iterable, Sequence
 from typing import Literal, TypeAlias, TypeVar, overload
 from typing_extensions import Self
@@ -32,43 +33,47 @@ class _ColorPalette(list[_ColorT]):
     def __exit__(self, *args: object) -> None: ...
     def as_hex(self) -> _ColorPalette[str]: ...
 
-_RGBColorPalette: TypeAlias = _ColorPalette[tuple[float, float, float]]
+_RGBColorPalette: TypeAlias = _ColorPalette[tuple[FloatInt, FloatInt, FloatInt]]
 _SeabornPaletteName: TypeAlias = Literal[
     "deep", "deep6", "muted", "muted6", "pastel", "pastel6", "bright", "bright6", "dark", "dark6", "colorblind", "colorblind6"
 ]
 
 @overload
 def color_palette(  # type: ignore[overload-overlap]
-    palette: _SeabornPaletteName | None = None, n_colors: int | None = None, desat: float | None = None, *, as_cmap: Literal[True]
+    palette: _SeabornPaletteName | None = None,
+    n_colors: int | None = None,
+    desat: FloatInt | None = None,
+    *,
+    as_cmap: Literal[True],
 ) -> list[str]: ...  # this might be a bug in seaborn because we expect the return type to be a Colormap instance
 @overload
 def color_palette(
-    palette: str | Sequence[ColorType], n_colors: int | None = None, desat: float | None = None, *, as_cmap: Literal[True]
+    palette: str | Sequence[ColorType], n_colors: int | None = None, desat: FloatInt | None = None, *, as_cmap: Literal[True]
 ) -> Colormap: ...
 @overload
 def color_palette(
     palette: str | Sequence[ColorType] | None = None,
     n_colors: int | None = None,
-    desat: float | None = None,
+    desat: FloatInt | None = None,
     as_cmap: Literal[False] = False,
 ) -> _RGBColorPalette: ...
 
 @overload
 def hls_palette(
-    n_colors: int = 6, h: float = 0.01, l: float = 0.6, s: float = 0.65, *, as_cmap: Literal[True]
+    n_colors: int = 6, h: FloatInt = 0.01, l: FloatInt = 0.6, s: FloatInt = 0.65, *, as_cmap: Literal[True]
 ) -> ListedColormap: ...
 @overload
 def hls_palette(
-    n_colors: int = 6, h: float = 0.01, l: float = 0.6, s: float = 0.65, as_cmap: Literal[False] = False
+    n_colors: int = 6, h: FloatInt = 0.01, l: FloatInt = 0.6, s: FloatInt = 0.65, as_cmap: Literal[False] = False
 ) -> _RGBColorPalette: ...
 
 @overload
 def husl_palette(
-    n_colors: int = 6, h: float = 0.01, s: float = 0.9, l: float = 0.65, *, as_cmap: Literal[True]
+    n_colors: int = 6, h: FloatInt = 0.01, s: FloatInt = 0.9, l: FloatInt = 0.65, *, as_cmap: Literal[True]
 ) -> ListedColormap: ...
 @overload
 def husl_palette(
-    n_colors: int = 6, h: float = 0.01, s: float = 0.9, l: float = 0.65, as_cmap: Literal[False] = False
+    n_colors: int = 6, h: FloatInt = 0.01, s: FloatInt = 0.9, l: FloatInt = 0.65, as_cmap: Literal[False] = False
 ) -> _RGBColorPalette: ...
 
 @overload
@@ -96,10 +101,10 @@ def light_palette(
 
 @overload
 def diverging_palette(
-    h_neg: float,
-    h_pos: float,
-    s: float = 75,
-    l: float = 50,
+    h_neg: FloatInt,
+    h_pos: FloatInt,
+    s: FloatInt = 75,
+    l: FloatInt = 50,
     sep: int = 1,
     n: int = 6,
     center: Literal["light", "dark"] = "light",
@@ -108,10 +113,10 @@ def diverging_palette(
 ) -> LinearSegmentedColormap: ...
 @overload
 def diverging_palette(
-    h_neg: float,
-    h_pos: float,
-    s: float = 75,
-    l: float = 50,
+    h_neg: FloatInt,
+    h_pos: FloatInt,
+    s: FloatInt = 75,
+    l: FloatInt = 50,
     sep: int = 1,
     n: int = 6,
     center: Literal["light", "dark"] = "light",
@@ -133,12 +138,12 @@ def crayon_palette(colors: Iterable[str]) -> _RGBColorPalette: ...
 @overload
 def cubehelix_palette(
     n_colors: int = 6,
-    start: float = 0,
-    rot: float = 0.4,
-    gamma: float = 1.0,
-    hue: float = 0.8,
-    light: float = 0.85,
-    dark: float = 0.15,
+    start: FloatInt = 0,
+    rot: FloatInt = 0.4,
+    gamma: FloatInt = 1.0,
+    hue: FloatInt = 0.8,
+    light: FloatInt = 0.85,
+    dark: FloatInt = 0.15,
     reverse: bool = False,
     *,
     as_cmap: Literal[True],
@@ -146,12 +151,12 @@ def cubehelix_palette(
 @overload
 def cubehelix_palette(
     n_colors: int = 6,
-    start: float = 0,
-    rot: float = 0.4,
-    gamma: float = 1.0,
-    hue: float = 0.8,
-    light: float = 0.85,
-    dark: float = 0.15,
+    start: FloatInt = 0,
+    rot: FloatInt = 0.4,
+    gamma: FloatInt = 1.0,
+    hue: FloatInt = 0.8,
+    light: FloatInt = 0.85,
+    dark: FloatInt = 0.15,
     reverse: bool = False,
     as_cmap: Literal[False] = False,
 ) -> _RGBColorPalette: ...

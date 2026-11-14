@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Callable
 
 from networkx.algorithms.shortest_paths.weighted import _WeightFunc
@@ -14,7 +15,7 @@ def astar_path(
     heuristic: Callable[[_Node, _Node], float] | None = None,
     weight: str | _WeightFunc[_Node] | None = "weight",
     *,
-    cutoff: float | None = None,
+    cutoff: FloatInt | None = None,
 ) -> list[_Node]: ...
 @_dispatchable
 def astar_path_length(
@@ -24,5 +25,5 @@ def astar_path_length(
     heuristic: Callable[[_Node, _Node], float] | None = None,
     weight: str | _WeightFunc[_Node] | None = "weight",
     *,
-    cutoff: float | None = None,
+    cutoff: FloatInt | None = None,
 ) -> float: ...

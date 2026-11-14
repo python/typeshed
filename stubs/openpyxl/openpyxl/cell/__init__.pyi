@@ -13,6 +13,7 @@ _CellGetValue: TypeAlias = (  # noqa: Y047 # Used in other modules
     # if numpy is installed also numpy bool and number types
     bool
     | float
+    | int
     | Decimal
     | str
     | CellRichText

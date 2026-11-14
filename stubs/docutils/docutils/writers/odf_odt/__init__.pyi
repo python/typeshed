@@ -1,7 +1,7 @@
 import itertools
 import re
 import zipfile
-from _typeshed import FileDescriptorOrPath, Incomplete, ReadableBuffer, SizedBuffer, Unused
+from _typeshed import FileDescriptorOrPath, FloatInt, Incomplete, ReadableBuffer, SizedBuffer, Unused
 from collections.abc import Generator
 from typing import ClassVar, Final, Literal
 from xml.etree import ElementTree
@@ -357,7 +357,7 @@ class ODFTranslator(nodes.GenericNodeVisitor):
     def depart_system_message(self, node: nodes.system_message) -> None: ...
     def get_table_style(self, node) -> TableStyle: ...
     current_table_style: _ElementInterfaceWrapper
-    table_width: float
+    table_width: FloatInt
     def visit_table(self, node: nodes.table) -> None: ...
     def depart_table(self, node: nodes.table) -> None: ...
     def visit_tgroup(self, node: nodes.tgroup) -> None: ...

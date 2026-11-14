@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Callable, Iterable, Sequence
 from typing import Any, Generic, TypeVar
 from typing_extensions import Self, disjoint_base
@@ -26,7 +27,7 @@ class channel:
         self,
         loop: _Loop,
         flags: str | int | None = None,
-        timeout: str | float | None = None,
+        timeout: str | FloatInt | None = None,
         tries: str | int | None = None,
         ndots: str | int | None = None,
         udp_port: str | int | None = None,

@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Iterable
 from typing import Literal, SupportsFloat, SupportsIndex, TypeAlias
 from typing_extensions import Self
@@ -12,26 +13,26 @@ from .polygon import Polygon
 
 __all__ = ["LineString"]
 
-_ConvertibleToLineString: TypeAlias = LineString | ArrayLikeSeq[float] | Iterable[Point | Iterable[SupportsFloat]]
+_ConvertibleToLineString: TypeAlias = LineString | ArrayLikeSeq[FloatInt] | Iterable[Point | Iterable[SupportsFloat]]
 
 class LineString(BaseGeometry):
     __slots__: list[str] = []
     def __new__(self, coordinates: _ConvertibleToLineString | None = None) -> Self: ...
-    def svg(self, scale_factor: float = 1.0, stroke_color: str | None = None, opacity: float | None = None) -> str: ...  # type: ignore[override]
+    def svg(self, scale_factor: FloatInt = 1.0, stroke_color: str | None = None, opacity: FloatInt | None = None) -> str: ...  # type: ignore[override]
     def offset_curve(
         self,
-        distance: float,
+        distance: FloatInt,
         quad_segs: SupportsIndex = 16,
         join_style: BufferJoinStyle | Literal["round", "mitre", "bevel"] = ...,
-        mitre_limit: float = 5.0,
+        mitre_limit: FloatInt = 5.0,
     ) -> LineString | MultiLineString: ...
     def parallel_offset(  # to be deprecated
         self,
-        distance: float,
+        distance: FloatInt,
         side: str = "right",
         resolution: SupportsIndex = 16,
         join_style: BufferJoinStyle | Literal["round", "mitre", "bevel"] = ...,
-        mitre_limit: float = 5.0,
+        mitre_limit: FloatInt = 5.0,
     ) -> LineString | MultiLineString: ...
     # more precise base overrides
     @property

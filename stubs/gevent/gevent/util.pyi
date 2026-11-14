@@ -1,4 +1,4 @@
-from _typeshed import SupportsWrite
+from _typeshed import FloatInt, SupportsWrite
 from collections.abc import Callable
 from types import TracebackType
 from typing import Any, Generic, ParamSpec, TypeVar
@@ -42,9 +42,9 @@ class GreenletTree:
 class assert_switches:
     hub: Hub | None
     tracer: object | None
-    max_blocking_time: float | None
+    max_blocking_time: FloatInt | None
     hub_only: bool
-    def __init__(self, max_blocking_time: float | None = None, hub_only: bool = False) -> None: ...
+    def __init__(self, max_blocking_time: FloatInt | None = None, hub_only: bool = False) -> None: ...
     def __enter__(self) -> Self: ...
     def __exit__(self, t: type[BaseException] | None, v: BaseException | None, tb: TracebackType | None) -> None: ...
 

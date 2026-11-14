@@ -1,5 +1,6 @@
 import logging
 import os
+from _typeshed import FloatInt
 from collections.abc import Iterable, Iterator
 from typing import Any, Final, overload
 from typing_extensions import deprecated
@@ -28,16 +29,16 @@ def sieve(
     source: NDArray[Any], size: int, out: NDArray[Any] | None = None, mask: NDArray[np.bool_] | None = None, connectivity: int = 4
 ) -> NDArray[Any]: ...
 def rasterize(
-    shapes: Iterable[tuple[Geometry, float] | Geometry],
+    shapes: Iterable[tuple[Geometry, FloatInt] | Geometry],
     out_shape: tuple[int, int] | None = None,
-    fill: float = 0,
-    nodata: float | None = None,
+    fill: FloatInt = 0,
+    nodata: FloatInt | None = None,
     masked: bool = False,
     out: NDArray[Any] | None = None,
     transform: Affine = ...,
     all_touched: bool = False,
     merge_alg: MergeAlg = ...,
-    default_value: float = 1,
+    default_value: FloatInt = 1,
     dtype: DTypeLike | None = None,
     skip_invalid: bool = True,
     dst_path: str | os.PathLike[str] | None = None,
@@ -47,7 +48,7 @@ def bounds(geometry: Geometry, north_up: bool = True, transform: Affine | None =
 
 @overload
 def geometry_window(
-    dataset: DatasetReaderBase, shapes: Iterable[Geometry], pad_x: float = 0, pad_y: float = 0, *, boundless: bool = False
+    dataset: DatasetReaderBase, shapes: Iterable[Geometry], pad_x: FloatInt = 0, pad_y: FloatInt = 0, *, boundless: bool = False
 ) -> Window: ...
 @overload
 @deprecated(
@@ -57,11 +58,11 @@ def geometry_window(
 def geometry_window(
     dataset: DatasetReaderBase,
     shapes: Iterable[Geometry],
-    pad_x: float = 0,
-    pad_y: float = 0,
+    pad_x: FloatInt = 0,
+    pad_y: FloatInt = 0,
     north_up: bool | None = None,
     rotated: bool | None = None,
-    pixel_precision: float | None = None,
+    pixel_precision: FloatInt | None = None,
     boundless: bool = False,
 ) -> Window: ...
 

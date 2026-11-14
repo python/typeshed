@@ -1,5 +1,6 @@
 import logging
 import os
+from _typeshed import FloatInt
 from collections.abc import Callable, Sequence
 from typing import Any, Final, Literal, NamedTuple, TypeAlias, overload
 
@@ -77,7 +78,7 @@ def open(
     crs: CRSInput | None = None,
     transform: Affine | None = None,
     dtype: DTypeLike | None = None,
-    nodata: float | None = None,
+    nodata: FloatInt | None = None,
     sharing: bool = False,
     thread_safe: bool = False,
     opener: _Opener | None = None,
@@ -94,7 +95,7 @@ def open(
     crs: CRSInput | None = None,
     transform: Affine | None = None,
     dtype: DTypeLike | None = None,
-    nodata: float | None = None,
+    nodata: FloatInt | None = None,
     sharing: bool = False,
     thread_safe: bool = False,
     opener: _Opener | None = None,
@@ -111,7 +112,7 @@ def open(
     crs: CRSInput | None = None,
     transform: Affine | None = None,
     dtype: DTypeLike | None = None,
-    nodata: float | None = None,
+    nodata: FloatInt | None = None,
     sharing: bool = False,
     thread_safe: bool = False,
     opener: _Opener | None = None,

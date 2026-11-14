@@ -29,7 +29,7 @@ class ChartBase(Serialisable):
     title: TitleDescriptor
     anchor: str
     width: int
-    height: float
+    height: float | int
     style: MinMax[float, Literal[True]]
     mime_type: str
     graphical_properties: Typed[GraphicalProperties, Literal[True]]

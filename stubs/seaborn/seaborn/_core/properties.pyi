@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from collections.abc import Callable
 from typing import Any, TypeAlias
 
@@ -8,12 +8,12 @@ from numpy.typing import ArrayLike
 from pandas import Series
 from seaborn._core.scales import Scale
 
-RGBTuple: TypeAlias = tuple[float, float, float]
-RGBATuple: TypeAlias = tuple[float, float, float, float]
+RGBTuple: TypeAlias = tuple[FloatInt, FloatInt, FloatInt]
+RGBATuple: TypeAlias = tuple[FloatInt, FloatInt, FloatInt, FloatInt]
 ColorSpec: TypeAlias = RGBTuple | RGBATuple | str
-DashPattern: TypeAlias = tuple[float, ...]
-DashPatternWithOffset: TypeAlias = tuple[float, DashPattern | None]
-MarkerPattern: TypeAlias = float | str | tuple[int, int, float] | list[tuple[float, float]] | Path | MarkerStyle
+DashPattern: TypeAlias = tuple[FloatInt, ...]
+DashPatternWithOffset: TypeAlias = tuple[FloatInt, DashPattern | None]
+MarkerPattern: TypeAlias = FloatInt | str | tuple[int, int, FloatInt] | list[tuple[FloatInt, FloatInt]] | Path | MarkerStyle
 Mapping: TypeAlias = Callable[[ArrayLike], ArrayLike]
 
 class Property:

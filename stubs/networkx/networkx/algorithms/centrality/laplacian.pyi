@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from collections.abc import Collection
 
 from networkx.classes.graph import Graph, _Node
@@ -13,5 +13,5 @@ def laplacian_centrality(
     nodelist: Collection[_Node] | None = None,
     weight: str | None = "weight",
     walk_type: str | None = None,
-    alpha: float = 0.95,
+    alpha: FloatInt = 0.95,
 ) -> dict[Incomplete, Incomplete]: ...
