@@ -2,3 +2,4 @@ shapely\.conftest
 shapely\.tests.*
 
 shapely\._typing  # stubs only module
+shapely\.lib\..*_scalar  # internal fast paths
