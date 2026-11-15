@@ -1,14 +1,15 @@
 from _typeshed import Incomplete
 from logging import Logger
-from typing import ClassVar, Final
+from typing import ClassVar, Final, Literal
 
 from authlib.oauth2.rfc6749 import BaseGrant, TokenEndpointMixin
+from authlib.oauth2.rfc6750.token import _Token
 
 log: Logger
 JWT_BEARER_GRANT_TYPE: Final[str]
 
 class JWTBearerGrant(BaseGrant, TokenEndpointMixin):
-    GRANT_TYPE = JWT_BEARER_GRANT_TYPE
+    GRANT_TYPE: ClassVar[str]
     CLAIMS_OPTIONS: ClassVar[dict[str, dict[str, bool]]]
     LEEWAY: ClassVar[int]
     @staticmethod
@@ -17,7 +18,7 @@ class JWTBearerGrant(BaseGrant, TokenEndpointMixin):
     def process_assertion_claims(self, assertion) -> dict[str, Incomplete]: ...
     def extract_assertion(self, assertion: str) -> tuple[dict[str, Incomplete], dict[Incomplete, Incomplete]]: ...
     def validate_token_request(self) -> None: ...
-    def create_token_response(self): ...
+    def create_token_response(self) -> tuple[Literal[200], _Token, list[tuple[str, str]]]: ...
     def resolve_issuer_client(self, issuer): ...
     def resolve_client_public_key(self, client): ...
     def authenticate_user(self, subject): ...
