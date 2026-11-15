@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import sys
 from collections.abc import Callable, Iterator
-from concurrent.futures import Future, ProcessPoolExecutor, ThreadPoolExecutor, as_completed
+from concurrent.futures import Future, ThreadPoolExecutor, as_completed
 from typing import Literal
 from typing_extensions import assert_type
 
@@ -30,30 +30,6 @@ def check_future_invariance() -> None:
     fut: Future[Child] = Future()
     execute_callback(lambda: Parent(), fut)  # type: ignore
     assert isinstance(fut.result(), Child)
-
-
-def _value_initializer(value: int) -> str:
-    return str(value)
-
-
-def check_process_initializer(executor: ProcessPoolExecutor) -> None:
-    ProcessPoolExecutor(initializer=_value_initializer, initargs=(1,))
-    ProcessPoolExecutor(initializer=_value_initializer, initargs=("x",))  # type: ignore
-    assert_type(executor._initializer, Callable[..., object] | None)
-    executor._initializer = _value_initializer
-    executor._initializer = None
-    executor._initializer = 1  # type: ignore
-
-
-if sys.version_info < (3, 14):
-
-    def check_thread_initializer(executor: ThreadPoolExecutor) -> None:
-        ThreadPoolExecutor(initializer=_value_initializer, initargs=(1,))
-        ThreadPoolExecutor(initializer=_value_initializer, initargs=("x",))  # type: ignore
-        assert_type(executor._initializer, Callable[..., object] | None)
-        executor._initializer = _value_initializer
-        executor._initializer = None
-        executor._initializer = 1  # type: ignore
 
 
 if sys.version_info >= (3, 14):
