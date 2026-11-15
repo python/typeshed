@@ -58,9 +58,14 @@ assert_type(dt_tz - dt_both, timedelta)
 
 # Combine
 
-assert_type(datetime.combine(date(2000, 1, 1), time(12, 0)), datetime[None])
-assert_type(datetime.combine(date(2000, 1, 1), time(12, 0), tzinfo=None), datetime[None])
-assert_type(datetime.combine(date(2000, 1, 1), time(12, 0), tzinfo=UTC), datetime[tzinfo])
+d = date(2000, 1, 1)
+naive_time = time(12, 0)
+aware_time = time(12, 0, tzinfo=UTC)
+
+assert_type(datetime.combine(d, naive_time), Union[datetime[tzinfo], datetime[None]])
+assert_type(datetime.combine(d, aware_time), Union[datetime[tzinfo], datetime[None]])
+assert_type(datetime.combine(d, aware_time, tzinfo=None), datetime[None])
+assert_type(datetime.combine(d, naive_time, tzinfo=UTC), datetime[tzinfo])
 
 # Replace
 
