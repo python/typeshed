@@ -5,8 +5,8 @@ from _typeshed import ReadableBuffer
 from collections.abc import Callable
 from io import BufferedIOBase
 from socket import socket as _socket
-from typing import Any, ClassVar, TypeAlias
-from typing_extensions import Self
+from typing import Any, ClassVar, Generic, TypeAlias
+from typing_extensions import Self, TypeVar
 
 __all__ = [
     "BaseServer",
@@ -41,9 +41,11 @@ _AfInet6Address: TypeAlias = tuple[str | bytes | bytearray, int, int, int]  # ad
 class BaseServer:
     server_address: _Address
     timeout: float | None
-    RequestHandlerClass: Callable[[Any, _RetAddress, Self], BaseRequestHandler]
+    RequestHandlerClass: Callable[[Any, _RetAddress, Self], BaseRequestHandler[Self] | BaseRequestHandler]
     def __init__(
-        self, server_address: _Address, RequestHandlerClass: Callable[[Any, _RetAddress, Self], BaseRequestHandler]
+        self,
+        server_address: _Address,
+        RequestHandlerClass: Callable[[Any, _RetAddress, Self], BaseRequestHandler[Self] | BaseRequestHandler],
     ) -> None: ...
     def handle_request(self) -> None: ...
     def serve_forever(self, poll_interval: float = 0.5) -> None: ...
@@ -64,6 +66,8 @@ class BaseServer:
     def shutdown_request(self, request: _RequestType) -> None: ...  # undocumented
     def close_request(self, request: _RequestType) -> None: ...  # undocumented
 
+_ServerT = TypeVar("_ServerT", bound=BaseServer, default=BaseServer)
+
 class TCPServer(BaseServer):
     address_family: int
     socket: _socket
@@ -76,7 +80,7 @@ class TCPServer(BaseServer):
     def __init__(
         self,
         server_address: _AfInetAddress | _AfInet6Address,
-        RequestHandlerClass: Callable[[Any, _RetAddress, Self], BaseRequestHandler],
+        RequestHandlerClass: Callable[[Any, _RetAddress, Self], BaseRequestHandler[Self] | BaseRequestHandler],
         bind_and_activate: bool = True,
     ) -> None: ...
     def fileno(self) -> int: ...
@@ -93,7 +97,7 @@ if sys.platform != "win32":
         def __init__(
             self,
             server_address: _AfUnixAddress,
-            RequestHandlerClass: Callable[[Any, _RetAddress, Self], BaseRequestHandler],
+            RequestHandlerClass: Callable[[Any, _RetAddress, Self], BaseRequestHandler[Self] | BaseRequestHandler],
             bind_and_activate: bool = True,
         ) -> None: ...
 
@@ -102,7 +106,7 @@ if sys.platform != "win32":
         def __init__(
             self,
             server_address: _AfUnixAddress,
-            RequestHandlerClass: Callable[[Any, _RetAddress, Self], BaseRequestHandler],
+            RequestHandlerClass: Callable[[Any, _RetAddress, Self], BaseRequestHandler[Self] | BaseRequestHandler],
             bind_and_activate: bool = True,
         ) -> None: ...
 
@@ -139,7 +143,7 @@ if sys.platform != "win32":
     class ThreadingUnixStreamServer(ThreadingMixIn, UnixStreamServer): ...
     class ThreadingUnixDatagramServer(ThreadingMixIn, UnixDatagramServer): ...
 
-class BaseRequestHandler:
+class BaseRequestHandler(Generic[_ServerT]):
     # `request` is technically of type _RequestType,
     # but there are some concerns that having a union here would cause
     # too much inconvenience to people using it (see
@@ -148,13 +152,13 @@ class BaseRequestHandler:
     # Note also that _RetAddress is also just an alias for `Any`
     request: Any
     client_address: _RetAddress
-    server: BaseServer
-    def __init__(self, request: _RequestType, client_address: _RetAddress, server: BaseServer) -> None: ...
+    server: _ServerT
+    def __init__(self, request: _RequestType, client_address: _RetAddress, server: _ServerT) -> None: ...
     def setup(self) -> None: ...
     def handle(self) -> None: ...
     def finish(self) -> None: ...
 
-class StreamRequestHandler(BaseRequestHandler):
+class StreamRequestHandler(BaseRequestHandler[_ServerT]):
     rbufsize: ClassVar[int]  # undocumented
     wbufsize: ClassVar[int]  # undocumented
     timeout: ClassVar[float | None]  # undocumented
@@ -163,7 +167,7 @@ class StreamRequestHandler(BaseRequestHandler):
     rfile: BufferedIOBase
     wfile: BufferedIOBase
 
-class DatagramRequestHandler(BaseRequestHandler):
+class DatagramRequestHandler(BaseRequestHandler[_ServerT]):
     packet: bytes  # undocumented
     socket: _socket  # undocumented
     rfile: BufferedIOBase
