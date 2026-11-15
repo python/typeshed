@@ -104,6 +104,11 @@ _StopT_co = TypeVar("_StopT_co", covariant=True, default=_StartT_co)  # slice[A]
 # FIXME: https://github.com/python/typing/issues/213 (replace step=start|stop with step=start&stop)
 _StepT_co = TypeVar("_StepT_co", covariant=True, default=_StartT_co | _StopT_co)  # slice[A,B] -> slice[A, B, A|B]
 
+if sys.version_info >= (3, 15):
+    _TypeNamespace: TypeAlias = dict[str, Any] | frozendict[str, Any]
+else:
+    _TypeNamespace: TypeAlias = dict[str, Any]
+
 @disjoint_base
 class object:
     __doc__: str | None
@@ -207,13 +212,13 @@ class type:
     @overload
     def __init__(self, o: object, /) -> None: ...
     @overload
-    def __init__(self, name: str, bases: tuple[type, ...], dict: dict[str, Any], /, **kwds: Any) -> None: ...
+    def __init__(self, name: str, bases: tuple[type, ...], dict: _TypeNamespace, /, **kwds: Any) -> None: ...
 
     @overload
     def __new__(cls, o: object, /) -> type: ...
     @overload
     def __new__(
-        cls: type[_typeshed.Self], name: str, bases: tuple[type, ...], namespace: dict[str, Any], /, **kwds: Any
+        cls: type[_typeshed.Self], name: str, bases: tuple[type, ...], namespace: _TypeNamespace, /, **kwds: Any
     ) -> _typeshed.Self: ...
 
     def __call__(self, *args: Any, **kwds: Any) -> Any: ...
