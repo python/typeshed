@@ -67,6 +67,8 @@ else:
 
 _T = TypeVar("_T")
 _T_co = TypeVar("_T_co", covariant=True)
+_T_sync_co = TypeVar("_T_sync_co", covariant=True)
+_T_async_co = TypeVar("_T_async_co", covariant=True)
 _T1 = TypeVar("_T1")
 _T2 = TypeVar("_T2")
 _T3 = TypeVar("_T3")
@@ -87,9 +89,16 @@ ALL_COMPLETED: Final = concurrent.futures.ALL_COMPLETED
 
 if sys.version_info >= (3, 13):
     @type_check_only
-    class _SyncAndAsyncIterator(Iterator[Coroutine[Any, Any, _T]], AsyncIterator[Future[_T]], Protocol[_T]): ...
+    class _SyncAndAsyncIterator(Iterator[_T_sync_co], AsyncIterator[_T_async_co], Protocol[_T_sync_co, _T_async_co]): ...
 
-    def as_completed(fs: Iterable[_FutureLike[_T]], *, timeout: float | None = None) -> _SyncAndAsyncIterator[_T]: ...
+    @overload
+    def as_completed(
+        fs: Iterable[Task[_T]], *, timeout: float | None = None
+    ) -> _SyncAndAsyncIterator[Coroutine[Any, Any, _T], Task[_T]]: ...
+    @overload
+    def as_completed(
+        fs: Iterable[_FutureLike[_T]], *, timeout: float | None = None
+    ) -> _SyncAndAsyncIterator[Coroutine[Any, Any, _T], Future[_T]]: ...
 
 else:
     def as_completed(fs: Iterable[_FutureLike[_T]], *, timeout: float | None = None) -> Iterator[Future[_T]]: ...
