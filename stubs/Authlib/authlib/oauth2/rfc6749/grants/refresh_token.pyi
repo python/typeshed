@@ -1,10 +1,8 @@
 from logging import Logger
-from typing import ClassVar, Literal, TypeAlias
+from typing import ClassVar, Literal
 
 from authlib.oauth2.rfc6749 import BaseGrant, TokenEndpointMixin, TokenMixin
 from authlib.oauth2.rfc6750.token import _Token
-
-_ServerResponse: TypeAlias = tuple[int, str, list[tuple[str, str]]]
 
 log: Logger
 
