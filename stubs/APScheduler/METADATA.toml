@@ -1,0 +1,6 @@
+version = "3.11.*"
+upstream-repository = "https://github.com/agronholm/apscheduler"
+partial-stub = true
+
+[tool.stubtest]
+ignore-missing-stub = true

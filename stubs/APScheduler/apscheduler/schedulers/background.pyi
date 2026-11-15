@@ -1,0 +1,3 @@
+from apscheduler.schedulers.blocking import BlockingScheduler
+
+class BackgroundScheduler(BlockingScheduler): ...
