@@ -99,6 +99,11 @@ _StopT_co = TypeVar("_StopT_co", covariant=True, default=_StartT_co)  # slice[A]
 # FIXME: https://github.com/python/typing/issues/213 (replace step=start|stop with step=start&stop)
 _StepT_co = TypeVar("_StepT_co", covariant=True, default=_StartT_co | _StopT_co)  # slice[A,B] -> slice[A, B, A|B]
 
+if sys.version_info >= (3, 15):
+    _TypeNamespace: TypeAlias = dict[str, Any] | frozendict[str, Any]
+else:
+    _TypeNamespace: TypeAlias = dict[str, Any]
+
 @disjoint_base
 class object:
     __doc__: str | None
@@ -1428,11 +1433,6 @@ if sys.version_info >= (3, 15):
         def __ror__(self, value: dict[_T1, _T2], /) -> dict[_KT | _T1, _VT_co | _T2]: ...
         @overload
         def __ror__(self, value: frozendict[_T1, _T2], /) -> frozendict[_KT | _T1, _VT_co | _T2]: ...
-
-    _TypeNamespace: TypeAlias = dict[str, Any] | frozendict[str, Any]
-
-else:
-    _TypeNamespace: TypeAlias = dict[str, Any]
 
 @disjoint_base
 class set(MutableSet[_T]):
