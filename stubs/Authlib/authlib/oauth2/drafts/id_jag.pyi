@@ -6,7 +6,7 @@ from authlib.oauth2.rfc6749.grants.base import BaseGrant, TokenEndpointMixin
 from authlib.oauth2.rfc6750.token import _Token
 from joserfc import jwk
 
-log = Logger
+log: Logger
 
 class IDJAGGrant(BaseGrant, TokenEndpointMixin):
     GRANT_TYPE: ClassVar[str]
