@@ -14,12 +14,11 @@ Typeshed supports Python versions 3.10 to 3.15.
 
 ## Using with Type Checkers
 
-All major type checkers (e.g., [mypy](https://github.com/python/mypy/),
-[pyright](https://github.com/microsoft/pyright), or PyCharm's built-in type
-checker) bundle the standard library stubs. Type stubs for third-party packages
-can be installed from [PyPI](https://pypi.org/). A typeshed stub package for a
-library `x` is usually called `types-x`. For example, if you are using
-`html5lib`, you can install the type stubs using
+All major type checkers and language servers bundle the standard library stubs.
+Type stubs for third-party packages can be installed from
+[PyPI](https://pypi.org/). A typeshed stub package for a library `x` is usually
+called `types-x`. For example, if you are using `html5lib`, you can install the
+type stubs using
 
 ```shell
 pip install types-html5lib
