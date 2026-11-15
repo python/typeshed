@@ -22,7 +22,8 @@ _K = TypeVar("_K")
 _V = TypeVar("_V")
 _P = ParamSpec("_P")
 
-# operator returns the rich comparison result without testing its truth value.
+# operator returns the rich comparison result without testing its truth value, so these protocols
+# return `object` (unlike the similar protocols in `_typeshed`).
 @type_check_only
 class _SupportsDunderLT(Protocol[_T_contra]):
     def __lt__(self, other: _T_contra, /) -> object: ...
@@ -39,18 +40,15 @@ class _SupportsDunderLE(Protocol[_T_contra]):
 class _SupportsDunderGE(Protocol[_T_contra]):
     def __ge__(self, other: _T_contra, /) -> object: ...
 
-# Some projects use _SupportsComparison without a type argument.
-_OperandT = TypeVar("_OperandT", default=Any)
-_SupportsComparison: TypeAlias = (
-    _SupportsDunderLT[_OperandT] | _SupportsDunderGT[_OperandT] | _SupportsDunderLE[_OperandT] | _SupportsDunderGE[_OperandT]
-)
+_SupportsComparisonWith: TypeAlias = _SupportsDunderLT[_T] | _SupportsDunderGT[_T] | _SupportsDunderLE[_T] | _SupportsDunderGE[_T]
+_SupportsComparison: TypeAlias = _SupportsComparisonWith[Any]
 
 # _T is the argument type accepted by the other operand's ordering method.
-# _SupportsComparison[Any] preserves the rule that any two operands with
+# _SupportsComparison preserves the rule that any two operands with
 # ordering methods are accepted. For example, if x.__lt__ has separate int and
 # str overloads and y is int | str, neither overload accepts the whole union.
 # The fallback accepts lt(x, y) because int and str each define an ordering method.
-_ComparisonOperand: TypeAlias = _T | _SupportsComparison[Any]
+_ComparisonOperand: TypeAlias = _T | _SupportsComparison
 
 @type_check_only
 class _SupportsInversion(Protocol[_T_co]):
@@ -201,32 +199,32 @@ class _SupportsIConcat(Protocol[_T_contra, _T_co]):
     def __iadd__(self, value: _T_contra, /) -> _T_co: ...
     def __getitem__(self, key: Any) -> Any: ...  # method needs only exist
 
-# Either operand can implement the comparison. Dispatch tables rely on all four
-# ordering functions having the same signatures (#6462).
+# Either operand can implement the comparison. Keep the four ordering functions' signatures
+# identical so mypy infers a common callable type when they are stored in a dictionary (see check_operator.py).
 @overload
-def lt(a: _SupportsComparison[_T], b: _ComparisonOperand[_T], /) -> Any: ...
+def lt(a: _SupportsComparisonWith[_T], b: _ComparisonOperand[_T], /) -> Any: ...
 @overload
-def lt(a: _ComparisonOperand[_T], b: _SupportsComparison[_T], /) -> Any: ...
+def lt(a: _ComparisonOperand[_T], b: _SupportsComparisonWith[_T], /) -> Any: ...
 
 @overload
-def le(a: _SupportsComparison[_T], b: _ComparisonOperand[_T], /) -> Any: ...
+def le(a: _SupportsComparisonWith[_T], b: _ComparisonOperand[_T], /) -> Any: ...
 @overload
-def le(a: _ComparisonOperand[_T], b: _SupportsComparison[_T], /) -> Any: ...
+def le(a: _ComparisonOperand[_T], b: _SupportsComparisonWith[_T], /) -> Any: ...
 
-# Equality accepts any operands. Using Any also lets mypy infer a callable
-# for a dispatch table containing both equality and ordering functions.
+# Equality accepts any operands. Using Any lets mypy infer a callable value type for
+# ops = {"<": lt, "==": eq}, so ops[symbol](a, b) type-checks.
 def eq(a: Any, b: Any, /) -> Any: ...
 def ne(a: Any, b: Any, /) -> Any: ...
 
 @overload
-def ge(a: _SupportsComparison[_T], b: _ComparisonOperand[_T], /) -> Any: ...
+def ge(a: _SupportsComparisonWith[_T], b: _ComparisonOperand[_T], /) -> Any: ...
 @overload
-def ge(a: _ComparisonOperand[_T], b: _SupportsComparison[_T], /) -> Any: ...
+def ge(a: _ComparisonOperand[_T], b: _SupportsComparisonWith[_T], /) -> Any: ...
 
 @overload
-def gt(a: _SupportsComparison[_T], b: _ComparisonOperand[_T], /) -> Any: ...
+def gt(a: _SupportsComparisonWith[_T], b: _ComparisonOperand[_T], /) -> Any: ...
 @overload
-def gt(a: _ComparisonOperand[_T], b: _SupportsComparison[_T], /) -> Any: ...
+def gt(a: _ComparisonOperand[_T], b: _SupportsComparisonWith[_T], /) -> Any: ...
 
 def not_(a: object, /) -> bool: ...
 def truth(a: object, /) -> bool: ...
