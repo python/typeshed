@@ -39,7 +39,11 @@ class _SupportsDunderLE(Protocol[_T_contra]):
 class _SupportsDunderGE(Protocol[_T_contra]):
     def __ge__(self, other: _T_contra, /) -> object: ...
 
-_SupportsComparison: TypeAlias = _SupportsDunderLT[_T] | _SupportsDunderGT[_T] | _SupportsDunderLE[_T] | _SupportsDunderGE[_T]
+# Some projects use _SupportsComparison without a type argument.
+_OperandT = TypeVar("_OperandT", default=Any)
+_SupportsComparison: TypeAlias = (
+    _SupportsDunderLT[_OperandT] | _SupportsDunderGT[_OperandT] | _SupportsDunderLE[_OperandT] | _SupportsDunderGE[_OperandT]
+)
 
 # _T is the argument type accepted by the other operand's ordering method.
 # _SupportsComparison[Any] preserves the rule that any two operands with
