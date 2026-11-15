@@ -1,0 +1,6 @@
+from logging import Logger
+
+logger: Logger
+
+class RedirectUriError(ValueError): ...
+class TokenTypeError(ValueError): ...
