@@ -11,6 +11,5 @@ extra-description = """\
 """
 
 [tool.stubtest]
-skip = true                # https://github.com/python/typeshed/issues/15236
 ci-platforms = ["linux"]
 apt-dependencies = ["gdb"]

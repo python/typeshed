@@ -48,8 +48,15 @@ def run_stubtest(dist: Path, *, verbose: bool = False, ci_platforms_only: bool =
         tmp = tempfile.mkdtemp(prefix="stubtest-")  # TODO: Python 3.12: Use TemporaryDirectory
         venv_dir = Path(tmp)
         try:
+            extra_args: list[str] = []
+            if dist_name == "gdb":
+                version = get_gdb_python_version()
+                if version:
+                    extra_args.extend(["--python", version])
+                else:
+                    formatter.append_warning("Could not determine gdb's the Python version; using the default Python for venv.")
             try:
-                subprocess.run(["uv", "venv", venv_dir, "--seed"], capture_output=True, check=True)
+                subprocess.run(["uv", "venv", venv_dir, "--seed", *extra_args], capture_output=True, check=True)
             except subprocess.CalledProcessError as e:
                 formatter.command_error("fail (could not create a virtualenv)", e)
                 return False
@@ -284,7 +291,7 @@ def gdb_version_check(formatter: StatusLineFormatter) -> bool:
     if "Python scripting is not supported in this copy of GDB" in gdb_version_output:
         formatter.error("fail (GDB version does not support Python scripting)")
         return False
-    m = re.search(r"GNU gdb\s+.*?(\d+\.\d+(\.[\da-z-]+)+)", gdb_version_output)
+    m = re.search(r"GNU gdb\s+.*?(\d+\.\d+(\.[\da-z-]+)*)", gdb_version_output)
     if m is None:
         formatter.error("failed to determine gdb version")
         formatter.append_output(gdb_version_output)
@@ -292,6 +299,27 @@ def gdb_version_check(formatter: StatusLineFormatter) -> bool:
     gdb_version = m.group(1)
     formatter.append_output(f"GDB version: {gdb_version}")
     return True
+
+
+def get_gdb_python_version() -> str | None:
+    """Return the 'X.Y' Python version embedded in gdb, or None if it cannot be determined."""
+    gdb_cmd = [
+        "gdb",
+        "--batch",
+        "--ex",
+        "python import sys; print('GDB_PY_VERSION:%d.%d' % (sys.version_info[0], sys.version_info[1]))",
+    ]
+    env = os.environ.copy()
+    # See setup_gdb_stubtest_command() for why LD_LIBRARY_PATH is removed.
+    env.pop("LD_LIBRARY_PATH", None)
+    try:
+        result = subprocess.run(gdb_cmd, env=env, capture_output=True, text=True, check=False)
+    except FileNotFoundError:
+        return None
+    m = re.search(r"GDB_PY_VERSION:(\d+\.\d+)", result.stdout)
+    if m is None:
+        return None
+    return m.group(1)
 
 
 def setup_uwsgi_stubtest_command(dist: Path, venv_dir: Path, stubtest_cmd: list[str], formatter: StatusLineFormatter) -> bool:
