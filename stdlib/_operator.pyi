@@ -2,10 +2,6 @@ import sys
 from _typeshed import (
     ReadableBuffer,
     SupportsAdd,
-    SupportsDunderGE,
-    SupportsDunderGT,
-    SupportsDunderLE,
-    SupportsDunderLT,
     SupportsGetItem,
     SupportsMul,
     SupportsRAdd,
@@ -26,7 +22,24 @@ _K = TypeVar("_K")
 _V = TypeVar("_V")
 _P = ParamSpec("_P")
 
-_SupportsComparison: TypeAlias = SupportsDunderLE[Any] | SupportsDunderGE[Any] | SupportsDunderGT[Any] | SupportsDunderLT[Any]
+# operator returns the rich comparison result without testing its truth value.
+@type_check_only
+class _SupportsDunderLT(Protocol):
+    def __lt__(self, other: Any, /) -> object: ...
+
+@type_check_only
+class _SupportsDunderGT(Protocol):
+    def __gt__(self, other: Any, /) -> object: ...
+
+@type_check_only
+class _SupportsDunderLE(Protocol):
+    def __le__(self, other: Any, /) -> object: ...
+
+@type_check_only
+class _SupportsDunderGE(Protocol):
+    def __ge__(self, other: Any, /) -> object: ...
+
+_SupportsComparison: TypeAlias = _SupportsDunderLE | _SupportsDunderGE | _SupportsDunderGT | _SupportsDunderLT
 
 @type_check_only
 class _SupportsInversion(Protocol[_T_co]):
