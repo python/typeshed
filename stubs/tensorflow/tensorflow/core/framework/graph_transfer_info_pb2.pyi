@@ -3,217 +3,235 @@
 isort:skip_file
 """
 
-import builtins
-import collections.abc
+import builtins as _builtins
 import sys
-import typing
+import typing as _typing
+from collections import abc as _abc
 
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.internal.enum_type_wrapper
-import google.protobuf.message
-import tensorflow.core.framework.types_pb2
+from google.protobuf import descriptor as _descriptor, message as _message
+from google.protobuf.internal import containers as _containers, enum_type_wrapper as _enum_type_wrapper
+from tensorflow.core.framework import types_pb2 as _types_pb2
 
-if sys.version_info >= (3, 10):
-    import typing as typing_extensions
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
 else:
-    import typing_extensions
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+DESCRIPTOR: _descriptor.FileDescriptor
 
-@typing.final
-class GraphTransferNodeInput(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class GraphTransferNodeInput(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NODE_ID_FIELD_NUMBER: builtins.int
-    OUTPUT_PORT_FIELD_NUMBER: builtins.int
-    node_id: builtins.int
-    output_port: builtins.int
-    def __init__(self, *, node_id: builtins.int | None = ..., output_port: builtins.int | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["node_id", b"node_id", "output_port", b"output_port"]) -> None: ...
+    NODE_ID_FIELD_NUMBER: _builtins.int
+    OUTPUT_PORT_FIELD_NUMBER: _builtins.int
+    node_id: _builtins.int
+    output_port: _builtins.int
+    def __init__(self, *, node_id: _builtins.int | None = ..., output_port: _builtins.int | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["node_id", b"node_id", "output_port", b"output_port"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___GraphTransferNodeInput = GraphTransferNodeInput
+Global___GraphTransferNodeInput: _TypeAlias = GraphTransferNodeInput  # noqa: Y015
 
-@typing.final
-class GraphTransferNodeInfo(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class GraphTransferNodeInfo(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    NODE_ID_FIELD_NUMBER: builtins.int
-    TYPE_NAME_FIELD_NUMBER: builtins.int
-    SOC_OP_ID_FIELD_NUMBER: builtins.int
-    PADDING_ID_FIELD_NUMBER: builtins.int
-    INPUT_COUNT_FIELD_NUMBER: builtins.int
-    OUTPUT_COUNT_FIELD_NUMBER: builtins.int
-    name: builtins.str
-    node_id: builtins.int
-    type_name: builtins.str
-    soc_op_id: builtins.int
-    padding_id: builtins.int
-    input_count: builtins.int
-    output_count: builtins.int
+    NAME_FIELD_NUMBER: _builtins.int
+    NODE_ID_FIELD_NUMBER: _builtins.int
+    TYPE_NAME_FIELD_NUMBER: _builtins.int
+    SOC_OP_ID_FIELD_NUMBER: _builtins.int
+    PADDING_ID_FIELD_NUMBER: _builtins.int
+    INPUT_COUNT_FIELD_NUMBER: _builtins.int
+    OUTPUT_COUNT_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
+    node_id: _builtins.int
+    type_name: _builtins.str
+    soc_op_id: _builtins.int
+    padding_id: _builtins.int
+    input_count: _builtins.int
+    output_count: _builtins.int
     def __init__(
         self,
         *,
-        name: builtins.str | None = ...,
-        node_id: builtins.int | None = ...,
-        type_name: builtins.str | None = ...,
-        soc_op_id: builtins.int | None = ...,
-        padding_id: builtins.int | None = ...,
-        input_count: builtins.int | None = ...,
-        output_count: builtins.int | None = ...,
+        name: _builtins.str | None = ...,
+        node_id: _builtins.int | None = ...,
+        type_name: _builtins.str | None = ...,
+        soc_op_id: _builtins.int | None = ...,
+        padding_id: _builtins.int | None = ...,
+        input_count: _builtins.int | None = ...,
+        output_count: _builtins.int | None = ...,
     ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "input_count",
-            b"input_count",
-            "name",
-            b"name",
-            "node_id",
-            b"node_id",
-            "output_count",
-            b"output_count",
-            "padding_id",
-            b"padding_id",
-            "soc_op_id",
-            b"soc_op_id",
-            "type_name",
-            b"type_name",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "input_count",
+        b"input_count",
+        "name",
+        b"name",
+        "node_id",
+        b"node_id",
+        "output_count",
+        b"output_count",
+        "padding_id",
+        b"padding_id",
+        "soc_op_id",
+        b"soc_op_id",
+        "type_name",
+        b"type_name",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___GraphTransferNodeInfo = GraphTransferNodeInfo
+Global___GraphTransferNodeInfo: _TypeAlias = GraphTransferNodeInfo  # noqa: Y015
 
-@typing.final
-class GraphTransferConstNodeInfo(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class GraphTransferConstNodeInfo(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    NODE_ID_FIELD_NUMBER: builtins.int
-    SHAPE_FIELD_NUMBER: builtins.int
-    DATA_FIELD_NUMBER: builtins.int
-    DTYPE_FIELD_NUMBER: builtins.int
-    name: builtins.str
-    node_id: builtins.int
-    data: builtins.bytes
-    dtype: tensorflow.core.framework.types_pb2.DataType.ValueType
-    @property
-    def shape(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
+    NAME_FIELD_NUMBER: _builtins.int
+    NODE_ID_FIELD_NUMBER: _builtins.int
+    SHAPE_FIELD_NUMBER: _builtins.int
+    DATA_FIELD_NUMBER: _builtins.int
+    DTYPE_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
+    node_id: _builtins.int
+    data: _builtins.bytes
+    dtype: _types_pb2.DataType.ValueType
+    @_builtins.property
+    def shape(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]: ...
     def __init__(
         self,
         *,
-        name: builtins.str | None = ...,
-        node_id: builtins.int | None = ...,
-        shape: collections.abc.Iterable[builtins.int] | None = ...,
-        data: builtins.bytes | None = ...,
-        dtype: tensorflow.core.framework.types_pb2.DataType.ValueType | None = ...,
+        name: _builtins.str | None = ...,
+        node_id: _builtins.int | None = ...,
+        shape: _abc.Iterable[_builtins.int] | None = ...,
+        data: _builtins.bytes | None = ...,
+        dtype: _types_pb2.DataType.ValueType | None = ...,
     ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal["data", b"data", "dtype", b"dtype", "name", b"name", "node_id", b"node_id", "shape", b"shape"],
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "data", b"data", "dtype", b"dtype", "name", b"name", "node_id", b"node_id", "shape", b"shape"
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___GraphTransferConstNodeInfo: _TypeAlias = GraphTransferConstNodeInfo  # noqa: Y015
+
+@_typing.final
+class GraphTransferNodeInputInfo(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    NODE_ID_FIELD_NUMBER: _builtins.int
+    NODE_INPUT_FIELD_NUMBER: _builtins.int
+    node_id: _builtins.int
+    @_builtins.property
+    def node_input(self) -> _containers.RepeatedCompositeFieldContainer[Global___GraphTransferNodeInput]: ...
+    def __init__(
+        self, *, node_id: _builtins.int | None = ..., node_input: _abc.Iterable[Global___GraphTransferNodeInput] | None = ...
     ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["node_id", b"node_id", "node_input", b"node_input"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___GraphTransferConstNodeInfo = GraphTransferConstNodeInfo
+Global___GraphTransferNodeInputInfo: _TypeAlias = GraphTransferNodeInputInfo  # noqa: Y015
 
-@typing.final
-class GraphTransferNodeInputInfo(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class GraphTransferNodeOutputInfo(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NODE_ID_FIELD_NUMBER: builtins.int
-    NODE_INPUT_FIELD_NUMBER: builtins.int
-    node_id: builtins.int
-    @property
-    def node_input(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___GraphTransferNodeInput]: ...
+    NODE_ID_FIELD_NUMBER: _builtins.int
+    MAX_BYTE_SIZE_FIELD_NUMBER: _builtins.int
+    node_id: _builtins.int
+    @_builtins.property
+    def max_byte_size(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]: ...
+    def __init__(
+        self, *, node_id: _builtins.int | None = ..., max_byte_size: _abc.Iterable[_builtins.int] | None = ...
+    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["max_byte_size", b"max_byte_size", "node_id", b"node_id"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
+
+Global___GraphTransferNodeOutputInfo: _TypeAlias = GraphTransferNodeOutputInfo  # noqa: Y015
+
+@_typing.final
+class GraphTransferGraphInputNodeInfo(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    NAME_FIELD_NUMBER: _builtins.int
+    SHAPE_FIELD_NUMBER: _builtins.int
+    DTYPE_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
+    dtype: _types_pb2.DataType.ValueType
+    @_builtins.property
+    def shape(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]: ...
     def __init__(
         self,
         *,
-        node_id: builtins.int | None = ...,
-        node_input: collections.abc.Iterable[global___GraphTransferNodeInput] | None = ...,
+        name: _builtins.str | None = ...,
+        shape: _abc.Iterable[_builtins.int] | None = ...,
+        dtype: _types_pb2.DataType.ValueType | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["node_id", b"node_id", "node_input", b"node_input"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["dtype", b"dtype", "name", b"name", "shape", b"shape"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___GraphTransferNodeInputInfo = GraphTransferNodeInputInfo
+Global___GraphTransferGraphInputNodeInfo: _TypeAlias = GraphTransferGraphInputNodeInfo  # noqa: Y015
 
-@typing.final
-class GraphTransferNodeOutputInfo(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class GraphTransferGraphOutputNodeInfo(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NODE_ID_FIELD_NUMBER: builtins.int
-    MAX_BYTE_SIZE_FIELD_NUMBER: builtins.int
-    node_id: builtins.int
-    @property
-    def max_byte_size(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
-    def __init__(
-        self, *, node_id: builtins.int | None = ..., max_byte_size: collections.abc.Iterable[builtins.int] | None = ...
-    ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["max_byte_size", b"max_byte_size", "node_id", b"node_id"]) -> None: ...
-
-global___GraphTransferNodeOutputInfo = GraphTransferNodeOutputInfo
-
-@typing.final
-class GraphTransferGraphInputNodeInfo(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-    NAME_FIELD_NUMBER: builtins.int
-    SHAPE_FIELD_NUMBER: builtins.int
-    DTYPE_FIELD_NUMBER: builtins.int
-    name: builtins.str
-    dtype: tensorflow.core.framework.types_pb2.DataType.ValueType
-    @property
-    def shape(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
+    NAME_FIELD_NUMBER: _builtins.int
+    SHAPE_FIELD_NUMBER: _builtins.int
+    DTYPE_FIELD_NUMBER: _builtins.int
+    name: _builtins.str
+    dtype: _types_pb2.DataType.ValueType
+    @_builtins.property
+    def shape(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]: ...
     def __init__(
         self,
         *,
-        name: builtins.str | None = ...,
-        shape: collections.abc.Iterable[builtins.int] | None = ...,
-        dtype: tensorflow.core.framework.types_pb2.DataType.ValueType | None = ...,
+        name: _builtins.str | None = ...,
+        shape: _abc.Iterable[_builtins.int] | None = ...,
+        dtype: _types_pb2.DataType.ValueType | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["dtype", b"dtype", "name", b"name", "shape", b"shape"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["dtype", b"dtype", "name", b"name", "shape", b"shape"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___GraphTransferGraphInputNodeInfo = GraphTransferGraphInputNodeInfo
+Global___GraphTransferGraphOutputNodeInfo: _TypeAlias = GraphTransferGraphOutputNodeInfo  # noqa: Y015
 
-@typing.final
-class GraphTransferGraphOutputNodeInfo(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-    NAME_FIELD_NUMBER: builtins.int
-    SHAPE_FIELD_NUMBER: builtins.int
-    DTYPE_FIELD_NUMBER: builtins.int
-    name: builtins.str
-    dtype: tensorflow.core.framework.types_pb2.DataType.ValueType
-    @property
-    def shape(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
-    def __init__(
-        self,
-        *,
-        name: builtins.str | None = ...,
-        shape: collections.abc.Iterable[builtins.int] | None = ...,
-        dtype: tensorflow.core.framework.types_pb2.DataType.ValueType | None = ...,
-    ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["dtype", b"dtype", "name", b"name", "shape", b"shape"]) -> None: ...
-
-global___GraphTransferGraphOutputNodeInfo = GraphTransferGraphOutputNodeInfo
-
-@typing.final
-class GraphTransferInfo(google.protobuf.message.Message):
+@_typing.final
+class GraphTransferInfo(_message.Message):
     """Protocol buffer representing a handle to a tensorflow resource. Handles are
     not valid across executions, but can be serialized back and forth from within
     a single run.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
     class _Destination:
-        ValueType = typing.NewType("ValueType", builtins.int)
-        V: typing_extensions.TypeAlias = ValueType
+        ValueType = _typing.NewType("ValueType", _builtins.int)
+        V: _TypeAlias = ValueType  # noqa: Y015
 
     class _DestinationEnumTypeWrapper(
-        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[GraphTransferInfo._Destination.ValueType], builtins.type
+        _enum_type_wrapper._EnumTypeWrapper[GraphTransferInfo._Destination.ValueType], _builtins.type
     ):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        DESCRIPTOR: _descriptor.EnumDescriptor
         NOP: GraphTransferInfo._Destination.ValueType  # 0
         HEXAGON: GraphTransferInfo._Destination.ValueType  # 1
 
@@ -221,70 +239,61 @@ class GraphTransferInfo(google.protobuf.message.Message):
     NOP: GraphTransferInfo.Destination.ValueType  # 0
     HEXAGON: GraphTransferInfo.Destination.ValueType  # 1
 
-    NODE_INFO_FIELD_NUMBER: builtins.int
-    CONST_NODE_INFO_FIELD_NUMBER: builtins.int
-    NODE_INPUT_INFO_FIELD_NUMBER: builtins.int
-    NODE_OUTPUT_INFO_FIELD_NUMBER: builtins.int
-    GRAPH_INPUT_NODE_INFO_FIELD_NUMBER: builtins.int
-    GRAPH_OUTPUT_NODE_INFO_FIELD_NUMBER: builtins.int
-    DESTINATION_FIELD_NUMBER: builtins.int
-    destination: global___GraphTransferInfo.Destination.ValueType
+    NODE_INFO_FIELD_NUMBER: _builtins.int
+    CONST_NODE_INFO_FIELD_NUMBER: _builtins.int
+    NODE_INPUT_INFO_FIELD_NUMBER: _builtins.int
+    NODE_OUTPUT_INFO_FIELD_NUMBER: _builtins.int
+    GRAPH_INPUT_NODE_INFO_FIELD_NUMBER: _builtins.int
+    GRAPH_OUTPUT_NODE_INFO_FIELD_NUMBER: _builtins.int
+    DESTINATION_FIELD_NUMBER: _builtins.int
+    destination: Global___GraphTransferInfo.Destination.ValueType
     """Destination of graph transfer"""
-    @property
-    def node_info(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___GraphTransferNodeInfo]: ...
-    @property
-    def const_node_info(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___GraphTransferConstNodeInfo]: ...
-    @property
-    def node_input_info(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___GraphTransferNodeInputInfo]: ...
-    @property
-    def node_output_info(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___GraphTransferNodeOutputInfo]: ...
-    @property
-    def graph_input_node_info(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___GraphTransferGraphInputNodeInfo]:
+    @_builtins.property
+    def node_info(self) -> _containers.RepeatedCompositeFieldContainer[Global___GraphTransferNodeInfo]: ...
+    @_builtins.property
+    def const_node_info(self) -> _containers.RepeatedCompositeFieldContainer[Global___GraphTransferConstNodeInfo]: ...
+    @_builtins.property
+    def node_input_info(self) -> _containers.RepeatedCompositeFieldContainer[Global___GraphTransferNodeInputInfo]: ...
+    @_builtins.property
+    def node_output_info(self) -> _containers.RepeatedCompositeFieldContainer[Global___GraphTransferNodeOutputInfo]: ...
+    @_builtins.property
+    def graph_input_node_info(self) -> _containers.RepeatedCompositeFieldContainer[Global___GraphTransferGraphInputNodeInfo]:
         """Input Node parameters of transferred graph"""
 
-    @property
+    @_builtins.property
     def graph_output_node_info(
         self,
-    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___GraphTransferGraphOutputNodeInfo]: ...
+    ) -> _containers.RepeatedCompositeFieldContainer[Global___GraphTransferGraphOutputNodeInfo]: ...
     def __init__(
         self,
         *,
-        node_info: collections.abc.Iterable[global___GraphTransferNodeInfo] | None = ...,
-        const_node_info: collections.abc.Iterable[global___GraphTransferConstNodeInfo] | None = ...,
-        node_input_info: collections.abc.Iterable[global___GraphTransferNodeInputInfo] | None = ...,
-        node_output_info: collections.abc.Iterable[global___GraphTransferNodeOutputInfo] | None = ...,
-        graph_input_node_info: collections.abc.Iterable[global___GraphTransferGraphInputNodeInfo] | None = ...,
-        graph_output_node_info: collections.abc.Iterable[global___GraphTransferGraphOutputNodeInfo] | None = ...,
-        destination: global___GraphTransferInfo.Destination.ValueType | None = ...,
+        node_info: _abc.Iterable[Global___GraphTransferNodeInfo] | None = ...,
+        const_node_info: _abc.Iterable[Global___GraphTransferConstNodeInfo] | None = ...,
+        node_input_info: _abc.Iterable[Global___GraphTransferNodeInputInfo] | None = ...,
+        node_output_info: _abc.Iterable[Global___GraphTransferNodeOutputInfo] | None = ...,
+        graph_input_node_info: _abc.Iterable[Global___GraphTransferGraphInputNodeInfo] | None = ...,
+        graph_output_node_info: _abc.Iterable[Global___GraphTransferGraphOutputNodeInfo] | None = ...,
+        destination: Global___GraphTransferInfo.Destination.ValueType | None = ...,
     ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "const_node_info",
-            b"const_node_info",
-            "destination",
-            b"destination",
-            "graph_input_node_info",
-            b"graph_input_node_info",
-            "graph_output_node_info",
-            b"graph_output_node_info",
-            "node_info",
-            b"node_info",
-            "node_input_info",
-            b"node_input_info",
-            "node_output_info",
-            b"node_output_info",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "const_node_info",
+        b"const_node_info",
+        "destination",
+        b"destination",
+        "graph_input_node_info",
+        b"graph_input_node_info",
+        "graph_output_node_info",
+        b"graph_output_node_info",
+        "node_info",
+        b"node_info",
+        "node_input_info",
+        b"node_input_info",
+        "node_output_info",
+        b"node_output_info",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___GraphTransferInfo = GraphTransferInfo
+Global___GraphTransferInfo: _TypeAlias = GraphTransferInfo  # noqa: Y015

@@ -134,6 +134,7 @@ class SparseCategoricalCrossentropy(Loss):
         from_logits: bool = False,
         ignore_class: int | None = None,
         reduction: _ReductionValues = "sum_over_batch_size",
+        axis: int = -1,
         name: str = "sparse_categorical_crossentropy",
         dtype=None,
     ) -> None: ...
