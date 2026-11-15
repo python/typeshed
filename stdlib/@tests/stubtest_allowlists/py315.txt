@@ -72,9 +72,6 @@ concurrent.interpreters._crossinterp.UNBOUND_REMOVE
 # Condition functions are exported in __init__
 threading.Condition.locked
 
-# Assigning `__new__` causes `func` not to get recognized.
-functools.partialmethod.__new__
-
 # These protocols use ABC hackery at runtime.
 (io|typing_extensions)\.Reader\.__class_getitem__
 (io|typing_extensions)\.Reader\.read
