@@ -1,4 +1,4 @@
-from collections.abc import Callable, Collection, Mapping
+from collections.abc import Callable, Collection
 from typing import Any, TypeAlias, overload
 from typing_extensions import deprecated
 

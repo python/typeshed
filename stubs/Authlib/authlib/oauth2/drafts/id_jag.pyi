@@ -18,18 +18,7 @@ class IDJAGGrant(BaseGrant, TokenEndpointMixin):
 
     @staticmethod
     def sign(
-        key,
-        issuer,
-        audience,
-        subject,
-        client_id,
-        jti=None,
-        issued_at=None,
-        expires_at=None,
-        claims=None,
-        *,
-        header={},
-        **kwargs,
+        key, issuer, audience, subject, client_id, jti=None, issued_at=None, expires_at=None, claims=None, *, header={}, **kwargs
     ): ...
     def validate_token_request(self) -> None: ...
     def create_token_response(self) -> tuple[Literal[200], _Token, list[tuple[str, str]]]: ...
