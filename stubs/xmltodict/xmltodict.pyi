@@ -106,6 +106,7 @@ def parse(
     force_list: _ForceList = None,
     comment_key: str = "#comment",
 ) -> dict[str, Any] | None: ...
+
 @overload
 def unparse(
     input_dict: Mapping[str, Any],
