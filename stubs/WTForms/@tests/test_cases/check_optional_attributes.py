@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from datetime import tzinfo
 from collections.abc import Callable
+from datetime import tzinfo
 from typing import Any
 from typing_extensions import assert_type
 
@@ -12,7 +12,7 @@ from wtforms.validators import DateRange
 
 # render_kw is None unless it was passed to the field
 field = StringField()
-assert_type(field.render_kw, "dict[str, Any] | None")
+assert_type(field.render_kw, dict[str, Any] | None)
 if field.render_kw is not None:
     field.render_kw["class"] = "form-control"
 
