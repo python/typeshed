@@ -17,6 +17,11 @@ class _WriteStream(Protocol[_T_contra]):
     # encoding: str
     # def flush(self) -> object: ...
 
+@type_check_only
+class _TextWriteStream(_WriteStream[str], Protocol):
+    @property
+    def encoding(self) -> str | None: ...
+
 class EmitterError(YAMLError): ...
 
 class ScalarAnalysis:

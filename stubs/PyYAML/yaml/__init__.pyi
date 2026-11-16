@@ -9,7 +9,7 @@ from .cyaml import *
 from .cyaml import _CLoader
 from .dumper import *
 from .dumper import _Inf
-from .emitter import _WriteStream, _YAMLObject
+from .emitter import _TextWriteStream, _WriteStream, _YAMLObject
 from .error import *
 from .events import *
 from .loader import *
@@ -54,7 +54,7 @@ def emit(
 @overload
 def serialize_all(
     nodes,
-    stream: _WriteStream[_YAMLObject],
+    stream: _WriteStream[str],
     Dumper=...,
     *,
     canonical: bool | None = None,
@@ -62,7 +62,41 @@ def serialize_all(
     width: int | _Inf | None = None,
     allow_unicode: bool | None = None,
     line_break: str | None = None,
-    encoding: str | None = None,
+    encoding: None = None,
+    explicit_start: bool | None = None,
+    explicit_end: bool | None = None,
+    version: tuple[int, int] | None = None,
+    tags: Mapping[str, str] | None = None,
+) -> None: ...
+@overload
+def serialize_all(
+    nodes,
+    stream: _TextWriteStream,
+    Dumper=...,
+    *,
+    canonical: bool | None = None,
+    indent: int | None = None,
+    width: int | _Inf | None = None,
+    allow_unicode: bool | None = None,
+    line_break: str | None = None,
+    encoding: str,
+    explicit_start: bool | None = None,
+    explicit_end: bool | None = None,
+    version: tuple[int, int] | None = None,
+    tags: Mapping[str, str] | None = None,
+) -> None: ...
+@overload
+def serialize_all(
+    nodes,
+    stream: _WriteStream[bytes],
+    Dumper=...,
+    *,
+    canonical: bool | None = None,
+    indent: int | None = None,
+    width: int | _Inf | None = None,
+    allow_unicode: bool | None = None,
+    line_break: str | None = None,
+    encoding: str,
     explicit_start: bool | None = None,
     explicit_end: bool | None = None,
     version: tuple[int, int] | None = None,
@@ -106,7 +140,7 @@ def serialize_all(
 @overload
 def serialize(
     node,
-    stream: _WriteStream[_YAMLObject],
+    stream: _WriteStream[str],
     Dumper=...,
     *,
     canonical: bool | None = None,
@@ -114,7 +148,41 @@ def serialize(
     width: int | _Inf | None = None,
     allow_unicode: bool | None = None,
     line_break: str | None = None,
-    encoding: str | None = None,
+    encoding: None = None,
+    explicit_start: bool | None = None,
+    explicit_end: bool | None = None,
+    version: tuple[int, int] | None = None,
+    tags: Mapping[str, str] | None = None,
+) -> None: ...
+@overload
+def serialize(
+    node,
+    stream: _TextWriteStream,
+    Dumper=...,
+    *,
+    canonical: bool | None = None,
+    indent: int | None = None,
+    width: int | _Inf | None = None,
+    allow_unicode: bool | None = None,
+    line_break: str | None = None,
+    encoding: str,
+    explicit_start: bool | None = None,
+    explicit_end: bool | None = None,
+    version: tuple[int, int] | None = None,
+    tags: Mapping[str, str] | None = None,
+) -> None: ...
+@overload
+def serialize(
+    node,
+    stream: _WriteStream[bytes],
+    Dumper=...,
+    *,
+    canonical: bool | None = None,
+    indent: int | None = None,
+    width: int | _Inf | None = None,
+    allow_unicode: bool | None = None,
+    line_break: str | None = None,
+    encoding: str,
     explicit_start: bool | None = None,
     explicit_end: bool | None = None,
     version: tuple[int, int] | None = None,
@@ -158,7 +226,7 @@ def serialize(
 @overload
 def dump_all(
     documents: Iterable[_YAMLObject],
-    stream: _WriteStream[_YAMLObject],
+    stream: _WriteStream[str],
     Dumper=...,
     *,
     default_style: str | None = None,
@@ -168,7 +236,47 @@ def dump_all(
     width: int | _Inf | None = None,
     allow_unicode: bool | None = None,
     line_break: str | None = None,
-    encoding: str | None = None,
+    encoding: None = None,
+    explicit_start: bool | None = None,
+    explicit_end: bool | None = None,
+    version: tuple[int, int] | None = None,
+    tags: Mapping[str, str] | None = None,
+    sort_keys: bool = True,
+) -> None: ...
+@overload
+def dump_all(
+    documents: Iterable[_YAMLObject],
+    stream: _TextWriteStream,
+    Dumper=...,
+    *,
+    default_style: str | None = None,
+    default_flow_style: bool | None = False,
+    canonical: bool | None = None,
+    indent: int | None = None,
+    width: int | _Inf | None = None,
+    allow_unicode: bool | None = None,
+    line_break: str | None = None,
+    encoding: str,
+    explicit_start: bool | None = None,
+    explicit_end: bool | None = None,
+    version: tuple[int, int] | None = None,
+    tags: Mapping[str, str] | None = None,
+    sort_keys: bool = True,
+) -> None: ...
+@overload
+def dump_all(
+    documents: Iterable[_YAMLObject],
+    stream: _WriteStream[bytes],
+    Dumper=...,
+    *,
+    default_style: str | None = None,
+    default_flow_style: bool | None = False,
+    canonical: bool | None = None,
+    indent: int | None = None,
+    width: int | _Inf | None = None,
+    allow_unicode: bool | None = None,
+    line_break: str | None = None,
+    encoding: str,
     explicit_start: bool | None = None,
     explicit_end: bool | None = None,
     version: tuple[int, int] | None = None,
@@ -219,7 +327,7 @@ def dump_all(
 @overload
 def dump(
     data: _YAMLObject,
-    stream: _WriteStream[_YAMLObject],
+    stream: _WriteStream[str],
     Dumper=...,
     *,
     default_style: str | None = None,
@@ -229,7 +337,47 @@ def dump(
     width: int | _Inf | None = None,
     allow_unicode: bool | None = None,
     line_break: str | None = None,
-    encoding: str | None = None,
+    encoding: None = None,
+    explicit_start: bool | None = None,
+    explicit_end: bool | None = None,
+    version: tuple[int, int] | None = None,
+    tags: Mapping[str, str] | None = None,
+    sort_keys: bool = True,
+) -> None: ...
+@overload
+def dump(
+    data: _YAMLObject,
+    stream: _TextWriteStream,
+    Dumper=...,
+    *,
+    default_style: str | None = None,
+    default_flow_style: bool | None = False,
+    canonical: bool | None = None,
+    indent: int | None = None,
+    width: int | _Inf | None = None,
+    allow_unicode: bool | None = None,
+    line_break: str | None = None,
+    encoding: str,
+    explicit_start: bool | None = None,
+    explicit_end: bool | None = None,
+    version: tuple[int, int] | None = None,
+    tags: Mapping[str, str] | None = None,
+    sort_keys: bool = True,
+) -> None: ...
+@overload
+def dump(
+    data: _YAMLObject,
+    stream: _WriteStream[bytes],
+    Dumper=...,
+    *,
+    default_style: str | None = None,
+    default_flow_style: bool | None = False,
+    canonical: bool | None = None,
+    indent: int | None = None,
+    width: int | _Inf | None = None,
+    allow_unicode: bool | None = None,
+    line_break: str | None = None,
+    encoding: str,
     explicit_start: bool | None = None,
     explicit_end: bool | None = None,
     version: tuple[int, int] | None = None,
@@ -280,7 +428,7 @@ def dump(
 @overload
 def safe_dump_all(
     documents: Iterable[_YAMLObject],
-    stream: _WriteStream[_YAMLObject],
+    stream: _WriteStream[str],
     *,
     default_style: str | None = None,
     default_flow_style: bool | None = False,
@@ -289,7 +437,45 @@ def safe_dump_all(
     width: int | _Inf | None = None,
     allow_unicode: bool | None = None,
     line_break: str | None = None,
-    encoding: str | None = None,
+    encoding: None = None,
+    explicit_start: bool | None = None,
+    explicit_end: bool | None = None,
+    version: tuple[int, int] | None = None,
+    tags: Mapping[str, str] | None = None,
+    sort_keys: bool = True,
+) -> None: ...
+@overload
+def safe_dump_all(
+    documents: Iterable[_YAMLObject],
+    stream: _TextWriteStream,
+    *,
+    default_style: str | None = None,
+    default_flow_style: bool | None = False,
+    canonical: bool | None = None,
+    indent: int | None = None,
+    width: int | _Inf | None = None,
+    allow_unicode: bool | None = None,
+    line_break: str | None = None,
+    encoding: str,
+    explicit_start: bool | None = None,
+    explicit_end: bool | None = None,
+    version: tuple[int, int] | None = None,
+    tags: Mapping[str, str] | None = None,
+    sort_keys: bool = True,
+) -> None: ...
+@overload
+def safe_dump_all(
+    documents: Iterable[_YAMLObject],
+    stream: _WriteStream[bytes],
+    *,
+    default_style: str | None = None,
+    default_flow_style: bool | None = False,
+    canonical: bool | None = None,
+    indent: int | None = None,
+    width: int | _Inf | None = None,
+    allow_unicode: bool | None = None,
+    line_break: str | None = None,
+    encoding: str,
     explicit_start: bool | None = None,
     explicit_end: bool | None = None,
     version: tuple[int, int] | None = None,
@@ -338,7 +524,7 @@ def safe_dump_all(
 @overload
 def safe_dump(
     data: _YAMLObject,
-    stream: _WriteStream[_YAMLObject],
+    stream: _WriteStream[str],
     *,
     default_style: str | None = None,
     default_flow_style: bool | None = False,
@@ -347,7 +533,45 @@ def safe_dump(
     width: int | _Inf | None = None,
     allow_unicode: bool | None = None,
     line_break: str | None = None,
-    encoding: str | None = None,
+    encoding: None = None,
+    explicit_start: bool | None = None,
+    explicit_end: bool | None = None,
+    version: tuple[int, int] | None = None,
+    tags: Mapping[str, str] | None = None,
+    sort_keys: bool = True,
+) -> None: ...
+@overload
+def safe_dump(
+    data: _YAMLObject,
+    stream: _TextWriteStream,
+    *,
+    default_style: str | None = None,
+    default_flow_style: bool | None = False,
+    canonical: bool | None = None,
+    indent: int | None = None,
+    width: int | _Inf | None = None,
+    allow_unicode: bool | None = None,
+    line_break: str | None = None,
+    encoding: str,
+    explicit_start: bool | None = None,
+    explicit_end: bool | None = None,
+    version: tuple[int, int] | None = None,
+    tags: Mapping[str, str] | None = None,
+    sort_keys: bool = True,
+) -> None: ...
+@overload
+def safe_dump(
+    data: _YAMLObject,
+    stream: _WriteStream[bytes],
+    *,
+    default_style: str | None = None,
+    default_flow_style: bool | None = False,
+    canonical: bool | None = None,
+    indent: int | None = None,
+    width: int | _Inf | None = None,
+    allow_unicode: bool | None = None,
+    line_break: str | None = None,
+    encoding: str,
     explicit_start: bool | None = None,
     explicit_end: bool | None = None,
     version: tuple[int, int] | None = None,
