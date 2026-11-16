@@ -32,30 +32,32 @@ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 
-import builtins
-import collections.abc
+import builtins as _builtins
 import sys
-import typing
+import typing as _typing
+from collections import abc as _abc
 
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.internal.enum_type_wrapper
-import google.protobuf.internal.well_known_types
-import google.protobuf.message
+from google.protobuf import descriptor as _descriptor, message as _message
+from google.protobuf.internal import (
+    containers as _containers,
+    enum_type_wrapper as _enum_type_wrapper,
+    well_known_types as _well_known_types,
+)
 
-if sys.version_info >= (3, 10):
-    import typing as typing_extensions
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
 else:
-    import typing_extensions
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+DESCRIPTOR: _descriptor.FileDescriptor
 
 class _NullValue:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _NullValueEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_NullValue.ValueType], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _NullValueEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_NullValue.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     NULL_VALUE: _NullValue.ValueType  # 0
     """Null value."""
 
@@ -66,17 +68,17 @@ class NullValue(_NullValue, metaclass=_NullValueEnumTypeWrapper):
     the null value for the `Value` type union.
 
     A field of type `NullValue` with any value other than `0` is considered
-    invalid. Most ProtoJSON serializers will emit a Value with a `null_value` set
-    as a JSON `null` regardless of the integer value, and so will round trip to
-    a `0` value.
+    invalid. Most ProtoJSON serializers will emit a `Value` with a `null_value`
+    set as a JSON `null` regardless of the integer value, and so will round trip
+    to a `0` value.
     """
 
 NULL_VALUE: NullValue.ValueType  # 0
 """Null value."""
-global___NullValue = NullValue
+Global___NullValue: _TypeAlias = NullValue  # noqa: Y015
 
-@typing.final
-class Struct(google.protobuf.message.Message, google.protobuf.internal.well_known_types.Struct):
+@_typing.final
+class Struct(_message.Message, _well_known_types.Struct):
     """Represents a JSON object.
 
     An unordered key-value map, intending to perfectly capture the semantics of a
@@ -92,33 +94,40 @@ class Struct(google.protobuf.message.Message, google.protobuf.internal.well_know
     typed message should be preferred instead of using this type.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class FieldsEntry(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class FieldsEntry(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        KEY_FIELD_NUMBER: builtins.int
-        VALUE_FIELD_NUMBER: builtins.int
-        key: builtins.str
-        @property
-        def value(self) -> global___Value: ...
-        def __init__(self, *, key: builtins.str | None = ..., value: global___Value | None = ...) -> None: ...
-        def HasField(self, field_name: typing.Literal["value", b"value"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
+        KEY_FIELD_NUMBER: _builtins.int
+        VALUE_FIELD_NUMBER: _builtins.int
+        key: _builtins.str
+        @_builtins.property
+        def value(self) -> Global___Value: ...
+        def __init__(self, *, key: _builtins.str | None = ..., value: Global___Value | None = ...) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["value", b"value"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["key", b"key", "value", b"value"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    FIELDS_FIELD_NUMBER: builtins.int
-    @property
-    def fields(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, global___Value]:
+    FIELDS_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def fields(self) -> _containers.MessageMap[_builtins.str, Global___Value]:
         """Unordered map of dynamically typed values."""
 
-    def __init__(self, *, fields: collections.abc.Mapping[builtins.str, global___Value] | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["fields", b"fields"]) -> None: ...
+    def __init__(self, *, fields: _abc.Mapping[_builtins.str, Global___Value] | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["fields", b"fields"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___Struct = Struct
+Global___Struct: _TypeAlias = Struct  # noqa: Y015
 
-@typing.final
-class Value(google.protobuf.message.Message):
+@_typing.final
+class Value(_message.Message):
     """Represents a JSON value.
 
     `Value` represents a dynamically typed value which can be either
@@ -127,100 +136,102 @@ class Value(google.protobuf.message.Message):
     variants. Absence of any variant is an invalid state.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    NULL_VALUE_FIELD_NUMBER: builtins.int
-    NUMBER_VALUE_FIELD_NUMBER: builtins.int
-    STRING_VALUE_FIELD_NUMBER: builtins.int
-    BOOL_VALUE_FIELD_NUMBER: builtins.int
-    STRUCT_VALUE_FIELD_NUMBER: builtins.int
-    LIST_VALUE_FIELD_NUMBER: builtins.int
-    null_value: global___NullValue.ValueType
+    NULL_VALUE_FIELD_NUMBER: _builtins.int
+    NUMBER_VALUE_FIELD_NUMBER: _builtins.int
+    STRING_VALUE_FIELD_NUMBER: _builtins.int
+    BOOL_VALUE_FIELD_NUMBER: _builtins.int
+    STRUCT_VALUE_FIELD_NUMBER: _builtins.int
+    LIST_VALUE_FIELD_NUMBER: _builtins.int
+    null_value: Global___NullValue.ValueType
     """Represents a JSON `null`."""
-    number_value: builtins.float
+    number_value: _builtins.float
     """Represents a JSON number. Must not be `NaN`, `Infinity` or
     `-Infinity`, since those are not supported in JSON. This also cannot
     represent large Int64 values, since JSON format generally does not
     support them in its number type.
     """
-    string_value: builtins.str
+    string_value: _builtins.str
     """Represents a JSON string."""
-    bool_value: builtins.bool
+    bool_value: _builtins.bool
     """Represents a JSON boolean (`true` or `false` literal in JSON)."""
-    @property
-    def struct_value(self) -> global___Struct:
+    @_builtins.property
+    def struct_value(self) -> Global___Struct:
         """Represents a JSON object."""
 
-    @property
-    def list_value(self) -> global___ListValue:
+    @_builtins.property
+    def list_value(self) -> Global___ListValue:
         """Represents a JSON array."""
 
     def __init__(
         self,
         *,
-        null_value: global___NullValue.ValueType | None = ...,
-        number_value: builtins.float | None = ...,
-        string_value: builtins.str | None = ...,
-        bool_value: builtins.bool | None = ...,
-        struct_value: global___Struct | None = ...,
-        list_value: global___ListValue | None = ...,
+        null_value: Global___NullValue.ValueType | None = ...,
+        number_value: _builtins.float | None = ...,
+        string_value: _builtins.str | None = ...,
+        bool_value: _builtins.bool | None = ...,
+        struct_value: Global___Struct | None = ...,
+        list_value: Global___ListValue | None = ...,
     ) -> None: ...
-    def HasField(
-        self,
-        field_name: typing.Literal[
-            "bool_value",
-            b"bool_value",
-            "kind",
-            b"kind",
-            "list_value",
-            b"list_value",
-            "null_value",
-            b"null_value",
-            "number_value",
-            b"number_value",
-            "string_value",
-            b"string_value",
-            "struct_value",
-            b"struct_value",
-        ],
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "bool_value",
-            b"bool_value",
-            "kind",
-            b"kind",
-            "list_value",
-            b"list_value",
-            "null_value",
-            b"null_value",
-            "number_value",
-            b"number_value",
-            "string_value",
-            b"string_value",
-            "struct_value",
-            b"struct_value",
-        ],
-    ) -> None: ...
-    def WhichOneof(
-        self, oneof_group: typing.Literal["kind", b"kind"]
-    ) -> typing.Literal["null_value", "number_value", "string_value", "bool_value", "struct_value", "list_value"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal[
+        "bool_value",
+        b"bool_value",
+        "kind",
+        b"kind",
+        "list_value",
+        b"list_value",
+        "null_value",
+        b"null_value",
+        "number_value",
+        b"number_value",
+        "string_value",
+        b"string_value",
+        "struct_value",
+        b"struct_value",
+    ]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "bool_value",
+        b"bool_value",
+        "kind",
+        b"kind",
+        "list_value",
+        b"list_value",
+        "null_value",
+        b"null_value",
+        "number_value",
+        b"number_value",
+        "string_value",
+        b"string_value",
+        "struct_value",
+        b"struct_value",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType_kind: _TypeAlias = _typing.Literal[
+        "null_value", "number_value", "string_value", "bool_value", "struct_value", "list_value"
+    ]  # noqa: Y015
+    _WhichOneofArgType_kind: _TypeAlias = _typing.Literal["kind", b"kind"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType_kind) -> _WhichOneofReturnType_kind | None: ...
 
-global___Value = Value
+Global___Value: _TypeAlias = Value  # noqa: Y015
 
-@typing.final
-class ListValue(google.protobuf.message.Message, google.protobuf.internal.well_known_types.ListValue):
+@_typing.final
+class ListValue(_message.Message, _well_known_types.ListValue):
     """Represents a JSON array."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VALUES_FIELD_NUMBER: builtins.int
-    @property
-    def values(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Value]:
+    VALUES_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def values(self) -> _containers.RepeatedCompositeFieldContainer[Global___Value]:
         """Repeated field of dynamically typed values."""
 
-    def __init__(self, *, values: collections.abc.Iterable[global___Value] | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["values", b"values"]) -> None: ...
+    def __init__(self, *, values: _abc.Iterable[Global___Value] | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["values", b"values"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___ListValue = ListValue
+Global___ListValue: _TypeAlias = ListValue  # noqa: Y015
