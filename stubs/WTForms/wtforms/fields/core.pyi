@@ -49,7 +49,7 @@ class Field:
     meta: DefaultMeta
     default: Any | None
     description: _Text
-    render_kw: dict[str, Any]
+    render_kw: dict[str, Any] | None
     filters: Sequence[_Filter]
     flags: Flags
     name: str
