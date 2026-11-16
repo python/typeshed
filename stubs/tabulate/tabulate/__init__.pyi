@@ -1,3 +1,4 @@
+from _typeshed import DataclassInstance
 from collections.abc import Callable, Container, Iterable, Mapping, Sequence
 from typing import Any, Final, Literal, NamedTuple, TypeAlias
 from typing_extensions import Self
@@ -44,7 +45,7 @@ multiline_formats: dict[str, str]
 def simple_separated_format(separator: str) -> TableFormat: ...
 def tabulate(
     # The key is converted using str().
-    tabular_data: Mapping[Any, Iterable[Any]] | Iterable[Iterable[Any]],
+    tabular_data: Mapping[Any, Iterable[Any]] | Iterable[Iterable[Any]] | Iterable[DataclassInstance],
     headers: str | dict[str, str] | Sequence[str] = (),
     tablefmt: str | TableFormat = "simple",
     floatfmt: str | Iterable[str] = "g",
@@ -61,7 +62,7 @@ def tabulate(
     headersglobalalign: Literal["right", "center", "left"] | None = None,
     headersalign: Iterable[str | None] | None = None,
     rowalign: str | Iterable[str] | None = None,
-    maxheadercolwidths: int | Iterable[int] | None = None,
+    maxheadercolwidths: int | Iterable[int | None] | None = None,
     break_long_words: bool = True,
     break_on_hyphens: bool = True,
 ) -> str: ...
