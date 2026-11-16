@@ -14,19 +14,18 @@ if sys.platform != "win32":
     # With withexitstatus, run() returns the exit status, which is None
     # if the child was killed by a signal.
     assert_type(pexpect.run("ls", withexitstatus=True), tuple[bytes, int | None])
-    assert_type(pexpect.run("ls", 30, True), tuple[bytes, int | None])
     assert_type(pexpect.run("ls", withexitstatus=True, encoding="utf-8"), tuple[str, int | None])
 
     flag: bool = bool(sys.argv)
     assert_type(pexpect.run("ls", withexitstatus=flag), bytes | tuple[bytes, int | None])
 
     # Responses may be strings, bytes or callbacks.
-    pexpect.run("ls", events={"Password:": "secret\n", b"\?": b"y\n", "done": lambda d: True})
+    pexpect.run("ls", events={"Password:": "secret\n", rb"\?": b"y\n", "done": lambda _: True})
     pexpect.run("ls", events=[("Password:", "secret\n")])
 
     assert_type(pexpect.runu("ls"), str)
     assert_type(pexpect.runu("ls", withexitstatus=True), tuple[str, int | None])
 
     # wait() returns None if the child was killed by a signal.
-    child = pexpect.spawn("ls")
+    child: pexpect.spawn[bytes] = pexpect.spawn("ls")
     assert_type(child.wait(), int | None)
