@@ -22,8 +22,9 @@ _K = TypeVar("_K")
 _V = TypeVar("_V")
 _P = ParamSpec("_P")
 
-# operator returns the rich comparison result without testing its truth value, so these protocols
-# return `object` (unlike the similar protocols in `_typeshed`).
+# The ordering functions in `operator` return the comparison result without testing its truth value.
+# The ordering protocols in `_typeshed` require `SupportsBool`, so we use local protocols
+# whose methods can return any object.
 @type_check_only
 class _SupportsDunderLT(Protocol[_T_contra]):
     def __lt__(self, other: _T_contra, /) -> object: ...
