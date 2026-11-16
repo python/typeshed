@@ -35,20 +35,28 @@ def DeleteFile(fileName: str, /) -> None: ...
 
 @overload
 def DeviceIoControl(
-    Device: int, IoControlCode: int, InBuffer: ReadableBuffer | None, OutBuffer: int, Overlapped: None = None
+    Device: int | _win32typing.PyHANDLE,
+    IoControlCode: int,
+    InBuffer: ReadableBuffer | None,
+    OutBuffer: int,
+    Overlapped: None = None,
 ) -> bytes: ...
 @overload
 def DeviceIoControl(
-    Device: int, IoControlCode: int, InBuffer: ReadableBuffer | None, OutBuffer: int, Overlapped: _win32typing.PyOVERLAPPED
+    Device: int | _win32typing.PyHANDLE,
+    IoControlCode: int,
+    InBuffer: ReadableBuffer | None,
+    OutBuffer: int,
+    Overlapped: _win32typing.PyOVERLAPPED,
 ) -> memoryview: ...
 @overload
 def DeviceIoControl(
-    Device: int,
+    Device: int | _win32typing.PyHANDLE,
     IoControlCode: int,
     InBuffer: ReadableBuffer | None,
-    OutBuffer: WriteableBuffer,
+    OutBuffer: _BufferT,
     Overlapped: _win32typing.PyOVERLAPPED | None = None,
-) -> WriteableBuffer: ...
+) -> _BufferT: ...
 
 def FindClose(hFindFile, /) -> None: ...
 def FindCloseChangeNotification(hChangeHandle, /) -> None: ...
