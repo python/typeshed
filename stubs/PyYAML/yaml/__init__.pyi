@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Callable, Iterable, Iterator, Mapping
 from re import Pattern
-from typing import Final, TypeVar, overload
+from typing import Final, Protocol, TypeVar, overload, type_check_only
 
 from . import resolver as resolver  # Help mypy a bit; this is implied by loader and dumper
 from .constructor import BaseConstructor
@@ -9,7 +9,7 @@ from .cyaml import *
 from .cyaml import _CLoader
 from .dumper import *
 from .dumper import _Inf
-from .emitter import _TextWriteStream, _WriteStream, _YAMLObject
+from .emitter import _WriteStream, _YAMLObject
 from .error import *
 from .events import *
 from .loader import *
@@ -23,6 +23,11 @@ from .tokens import *
 _T = TypeVar("_T")
 _Constructor = TypeVar("_Constructor", bound=BaseConstructor)
 _Representer = TypeVar("_Representer", bound=BaseRepresenter)
+
+@type_check_only
+class _TextWriteStream(_WriteStream[str], Protocol):
+    @property
+    def encoding(self) -> str | None: ...
 
 __with_libyaml__: Final[bool]
 __version__: Final[str]

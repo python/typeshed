@@ -1,3 +1,6 @@
+# Pyright may resolve the published types-PyYAML package, which predates these overloads.
+# pyright: reportUnnecessaryTypeIgnoreComment=false
+
 from io import BytesIO, StringIO
 from typing_extensions import assert_type
 
