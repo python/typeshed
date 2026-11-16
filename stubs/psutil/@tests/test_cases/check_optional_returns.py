@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import sys
-
 from typing_extensions import assert_type
 
 import psutil
