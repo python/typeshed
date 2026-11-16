@@ -1,7 +1,7 @@
 import sys
 from abc import abstractmethod
 from time import struct_time
-from typing import Any, ClassVar, Final, Generic, SupportsIndex, TypeAlias, TypeVar, final, overload, type_check_only
+from typing import Any, ClassVar, Final, Generic, Literal, SupportsIndex, TypeAlias, TypeVar, final, overload, type_check_only
 from typing_extensions import CapsuleType, Never, Self, deprecated, disjoint_base
 
 if sys.version_info >= (3, 11):
@@ -158,7 +158,9 @@ class time:
     def __gt__(self, value: time, /) -> bool: ...
     def __eq__(self, value: object, /) -> bool: ...
     def __hash__(self) -> int: ...
-    def isoformat(self, timespec: str = "auto") -> str: ...
+    def isoformat(
+        self, timespec: Literal["auto", "hours", "minutes", "seconds", "milliseconds", "microseconds"] = "auto"
+    ) -> str: ...
 
     if sys.version_info >= (3, 15):
         @classmethod
@@ -479,7 +481,9 @@ class datetime(date, Generic[_TzInfoT]):
     ) -> datetime[None]: ...
 
     def astimezone(self, tz: _TzInfo | None = None) -> datetime[_TzInfo]: ...
-    def isoformat(self, sep: str = "T", timespec: str = "auto") -> str: ...
+    def isoformat(
+        self, sep: str = "T", timespec: Literal["auto", "hours", "minutes", "seconds", "milliseconds", "microseconds"] = "auto"
+    ) -> str: ...
 
     if sys.version_info >= (3, 15):
         @classmethod
