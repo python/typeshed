@@ -12,7 +12,7 @@ __all__ = ["MultiPolygon"]
 class MultiPolygon(BaseMultipartGeometry[Polygon]):
     __slots__: list[str] = []
     def __new__(
-        self,
+        cls,
         polygons: (
             BaseMultipartGeometry
             | Collection[Polygon | tuple[_PolygonShellLike] | tuple[_PolygonShellLike, _PolygonHolesLike] | None]

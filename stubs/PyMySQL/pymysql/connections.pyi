@@ -265,12 +265,11 @@ class MySQLResult:
     warning_count: int
     message: str | None
     field_count: int
-    description: Incomplete
-    rows: Incomplete
+    description: tuple[tuple[str, int, None, int, int, int, bool], ...] | None
+    rows: tuple[tuple[Any, ...], ...] | None
     has_next: bool | None
     unbuffered_active: bool
     def __init__(self, connection: Connection[Any]) -> None: ...
     def __del__(self) -> None: ...
-    first_packet: Incomplete
     def read(self) -> None: ...
     def init_unbuffered_query(self) -> None: ...

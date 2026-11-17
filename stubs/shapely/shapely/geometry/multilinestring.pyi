@@ -11,7 +11,7 @@ __all__ = ["MultiLineString"]
 
 class MultiLineString(BaseMultipartGeometry[LineString]):
     __slots__: list[str] = []
-    def __new__(self, lines: BaseMultipartGeometry | Collection[_ConvertibleToLineString] | None = None) -> Self: ...
+    def __new__(cls, lines: BaseMultipartGeometry | Collection[_ConvertibleToLineString] | None = None) -> Self: ...
     def svg(self, scale_factor: FloatInt = 1.0, stroke_color: str | None = None, opacity: FloatInt | None = None) -> str: ...  # type: ignore[override]
     # more precise base overrides
     @property
