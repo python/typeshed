@@ -109,7 +109,7 @@ class croniter(Generic[_R_co]):
     cur: float
 
     expanded: list[list[str]]
-    nth_weekday_of_month: dict[str, set[int]]
+    nth_weekday_of_month: dict[int, set[int | Literal["l"]]]
     expressions: _Expressions
     nearest_weekday: set[int]
     fields: tuple[int, ...]
@@ -255,7 +255,7 @@ class croniter(Generic[_R_co]):
         from_timestamp: float | None = None,
         strict: bool = False,
         strict_year: int | Iterable[int] | None = None,
-    ) -> tuple[list[ExpandedExpression], dict[str, set[int]]]: ...
+    ) -> tuple[list[ExpandedExpression], dict[int, set[int | Literal["l"]]]]: ...
     @classmethod
     def is_valid(
         cls,
