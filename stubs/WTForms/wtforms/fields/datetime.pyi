@@ -130,6 +130,7 @@ class WeekField(DateField):
     ) -> None: ...
 
 class DateTimeLocalField(DateTimeField):
+    tz: tzinfo | Callable[[], tzinfo | None] | None
     def __init__(
         self,
         label: _Text | None = None,

@@ -91,7 +91,7 @@ class SelectFieldBase(Field):
 class SelectField(SelectFieldBase):
     coerce: Callable[[Any], Any]
     validate_choice: bool
-    invalid_choice_message: _Text
+    invalid_choice_message: _Text | None
 
     @overload
     @deprecated("Starting with WTForms 3.4 only SelectChoice will be supported as choices inputs")
