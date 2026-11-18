@@ -1,0 +1,3 @@
+# Internal modules
+user_agents\.compat
+user_agents\.tests
