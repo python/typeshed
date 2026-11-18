@@ -184,7 +184,7 @@ class type:
     # On CPython, `type.__dict__["__basicsize__"]` holds a member descriptor, while `int.__basicsize__` returns an integer.
     # Annotating these attributes as `types.MemberDescriptorType` would give reads the type `Any` because its `__get__`
     # stub returns `Any`. We use `@property` so type checkers infer each attribute's type from its getter.
-
+    #
     # object.__base__ is None. Otherwise, it would be a type.
     @final
     @property  # `types.MemberDescriptorType` on CPython
