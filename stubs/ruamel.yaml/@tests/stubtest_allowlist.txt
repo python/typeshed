@@ -1,0 +1,67 @@
+# Removed module-level APIs always raise; their stubs intentionally use
+# deprecated + (*args, **kwargs) -> NoReturn instead of the obsolete signatures.
+ruamel.yaml.main.compose
+ruamel.yaml.main.compose_all
+ruamel.yaml.main.dump
+ruamel.yaml.main.dump_all
+ruamel.yaml.main.emit
+ruamel.yaml.main.load
+ruamel.yaml.main.load_all
+ruamel.yaml.main.parse
+ruamel.yaml.main.round_trip_dump
+ruamel.yaml.main.round_trip_load
+ruamel.yaml.main.round_trip_load_all
+ruamel.yaml.main.safe_dump
+ruamel.yaml.main.safe_load
+ruamel.yaml.main.safe_load_all
+ruamel.yaml.main.scan
+ruamel.yaml.main.serialize
+ruamel.yaml.main.serialize_all
+
+# LazyEval proxies lazily compiled regular expressions; expose the Pattern API.
+ruamel.yaml.constructor.SafeConstructor.timestamp_regexp
+ruamel.yaml.reader.Reader.NON_PRINTABLE
+ruamel.yaml.serializer.Serializer.ANCHOR_RE
+ruamel.yaml.util.timestamp_regexp
+
+# Without a stream, ordinary YAML.dump raises; context-manager dumping has its
+# own specialized stub. __delsingleitem__ also fails when its index is omitted.
+ruamel.yaml.main.YAML.dump
+ruamel.yaml.comments.CommentedSeq.__delsingleitem__
+
+# Internal sentinel defaults are omitted from the public parameter types.
+ruamel.yaml.comments.CommentedMap.pop
+ruamel.yaml.events.Event.__init__
+
+# Keep datetime.__new__'s constructor checking; runtime __init__ merely records
+# YAML metadata and accepts the arguments already checked by __new__.
+ruamel.yaml.timestamp.TimeStamp.__init__
+
+# Internal sentinel function.
+ruamel.yaml.events.CommentCheck
+
+# A copied flag imported from events; assigning it does not toggle event reprs.
+ruamel.yaml.main.SHOW_LINES
+
+# Default-value helper for the removed module-level APIs, not a debug setting.
+ruamel.yaml.enc
+ruamel.yaml.main.enc
+
+# Debug-only slots recording where comments are created and consumed.
+ruamel.yaml.scanner.CommentBase.fline
+ruamel.yaml.scanner.CommentBase.function
+ruamel.yaml.scanner.CommentBase.ufun
+ruamel.yaml.scanner.CommentBase.uline
+
+# Optional C-extension aliases leak into the package namespace (None when absent).
+ruamel.yaml.CEmitter
+ruamel.yaml.CParser
+
+# Bundled C-extension build machinery, not part of the typed API.
+ruamel.yaml.clibz
+ruamel.yaml.clibz.setup
+
+# The test environment has neither optional C extension installed.
+# These entries should be removed when testing against an installed extension.
+ruamel.yaml.cyaml
+_ruamel_yaml

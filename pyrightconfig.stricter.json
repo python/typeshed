@@ -89,6 +89,7 @@
         "stubs/PyYAML",
         "stubs/reportlab",
         "stubs/requests-oauthlib",
+        "stubs/ruamel.yaml",
         "stubs/seaborn",
         "stubs/setuptools/setuptools",
         "stubs/shapely",
