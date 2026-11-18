@@ -103,6 +103,7 @@ _StopT_co = TypeVar("_StopT_co", covariant=True, default=_StartT_co)  # slice[A]
 #   the default (start|stop) is chosen to cater to the most common case of int/index slices.
 # FIXME: https://github.com/python/typing/issues/213 (replace step=start|stop with step=start&stop)
 _StepT_co = TypeVar("_StepT_co", covariant=True, default=_StartT_co | _StopT_co)  # slice[A,B] -> slice[A, B, A|B]
+_FileT = TypeVar("_FileT", bound=FileDescriptorOrPath)
 
 if sys.version_info >= (3, 15):
     _TypeNamespace: TypeAlias = dict[str, Any] | frozendict[str, Any]
@@ -2082,7 +2083,7 @@ def open(
 # Unbuffered binary mode: returns a FileIO
 @overload
 def open(
-    file: FileDescriptorOrPath,
+    file: _FileT,
     mode: OpenBinaryMode,
     buffering: Literal[0],
     encoding: None = None,
@@ -2090,7 +2091,7 @@ def open(
     newline: None = None,
     closefd: bool = True,
     opener: _Opener | None = None,
-) -> FileIO: ...
+) -> FileIO[_FileT]: ...
 
 # Buffering is on: return BufferedRandom, BufferedReader, or BufferedWriter
 @overload

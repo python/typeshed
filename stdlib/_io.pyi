@@ -10,6 +10,7 @@ from typing import IO, Any, BinaryIO, Final, Generic, Literal, Protocol, TextIO,
 from typing_extensions import Self, disjoint_base
 
 _S = TypeVar("_S", bound=str)
+_FileT = TypeVar("_FileT", bound=FileDescriptorOrPath)
 
 if sys.version_info >= (3, 14):
     DEFAULT_BUFFER_SIZE: Final = 131072
@@ -100,14 +101,12 @@ class _BufferedIOBase(_IOBase):
     def read1(self, size: int = -1, /) -> bytes: ...
 
 @disjoint_base
-class FileIO(RawIOBase, _RawIOBase, BinaryIO):  # type: ignore[misc]  # incompatible definitions of writelines in the base classes
+class FileIO(RawIOBase, _RawIOBase, BinaryIO, Generic[_FileT]):  # type: ignore[misc]  # incompatible definitions of writelines in the base classes
     mode: str
-    # The type of "name" equals the argument passed in to the constructor,
-    # but that can make FileIO incompatible with other I/O types that assume
-    # "name" is a str. In the future, making FileIO generic might help.
-    name: Any
+    # The type of "name" equals the argument passed in to the constructor.
+    name: _FileT
     def __init__(
-        self, file: FileDescriptorOrPath, mode: str = "r", closefd: bool = True, opener: _Opener | None = None
+        self, file: _FileT, mode: str = "r", closefd: bool = True, opener: _Opener | None = None
     ) -> None: ...
     @property
     def closefd(self) -> bool: ...

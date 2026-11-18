@@ -943,8 +943,10 @@ class IO(Generic[AnyStr]):
     @property
     def mode(self) -> str: ...
     # Usually str, but may be bytes if a bytes path was passed to open().
+    # At least FileIO stores the passed in path, which might also be a
+    # file description (int) or a Path object.
     @property
-    def name(self) -> str | bytes: ...
+    def name(self) -> object: ...
     @abstractmethod
     def close(self) -> None: ...
     @property
@@ -1007,6 +1009,10 @@ class BinaryIO(IO[bytes]):
 class TextIO(IO[str]):
     # See comment regarding the @properties in the `IO` class
     __slots__ = ()
+    # All TextIO users in the standard library only return str or bytes for
+    # the name property.
+    @property
+    def name(self) -> str | bytes: ...
     @property
     def buffer(self) -> BinaryIO: ...
     @property
