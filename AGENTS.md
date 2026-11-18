@@ -53,3 +53,4 @@ When opening pull requests, do the following:
     documentation if possible.
   - Don't include a testing plan.
 - Add the name of the agent used to the PR description.
+- Never squash commits or force push.
