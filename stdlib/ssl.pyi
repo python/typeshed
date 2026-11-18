@@ -141,7 +141,7 @@ PROTOCOL_TLS_CLIENT: Final = _SSLMethod.PROTOCOL_TLS_CLIENT
 PROTOCOL_TLS_SERVER: Final = _SSLMethod.PROTOCOL_TLS_SERVER
 
 class Options(enum.IntFlag):
-    OP_ALL: int
+    OP_ALL = ...
     OP_NO_SSLv2 = 0
     OP_NO_SSLv3 = 33554432
     OP_NO_TLSv1 = 67108864
@@ -262,8 +262,18 @@ class Purpose(_ASN1Object, enum.Enum):
     # because this is an enum, the inherited __new__ is replaced at runtime with
     # Enum.__new__.
     def __new__(cls, value: object) -> Self: ...
-    SERVER_AUTH = (129, "serverAuth", "TLS Web Server Authentication", "1.3.6.1.5.5.7.3.2")  # pyright: ignore[reportCallIssue]
-    CLIENT_AUTH = (130, "clientAuth", "TLS Web Client Authentication", "1.3.6.1.5.5.7.3.1")  # pyright: ignore[reportCallIssue]
+    SERVER_AUTH = (  # ty:ignore[invalid-assignment]
+        129,
+        "serverAuth",
+        "TLS Web Server Authentication",
+        "1.3.6.1.5.5.7.3.2",
+    )  # pyright: ignore[reportCallIssue]
+    CLIENT_AUTH = (  # ty:ignore[invalid-assignment]
+        130,
+        "clientAuth",
+        "TLS Web Client Authentication",
+        "1.3.6.1.5.5.7.3.1",
+    )  # pyright: ignore[reportCallIssue]
 
 class SSLSocket(socket.socket):
     context: SSLContext
@@ -290,8 +300,17 @@ class SSLSocket(socket.socket):
     def sendto(self, data: ReadableBuffer, flags_or_addr: int, addr: socket._Address) -> int: ...
 
     def shutdown(self, how: int) -> None: ...
+
+    @overload
     @deprecated("Deprecated since Python 3.6. Use `SSLSocket.recv` method instead.")
-    def read(self, len: int = 1024, buffer: WriteableBuffer | None = None) -> bytes: ...
+    def read(self, len: int = 1024, buffer: None = None) -> bytes: ...
+    @overload
+    @deprecated("Deprecated since Python 3.6. Use `SSLSocket.recv` method instead.")
+    def read(self, len: int, buffer: WriteableBuffer) -> int: ...
+    @overload
+    @deprecated("Deprecated since Python 3.6. Use `SSLSocket.recv` method instead.")
+    def read(self, *, buffer: WriteableBuffer) -> int: ...
+
     @deprecated("Deprecated since Python 3.6. Use `SSLSocket.send` method instead.")
     def write(self, data: ReadableBuffer) -> int: ...
     def do_handshake(self, block: bool = False) -> None: ...  # block is undocumented
@@ -466,7 +485,14 @@ class SSLObject:
     @property
     def session_reused(self) -> bool: ...
     def __init__(self, *args: Any, **kwargs: Any) -> None: ...
-    def read(self, len: int = 1024, buffer: WriteableBuffer | None = None) -> bytes: ...
+
+    @overload
+    def read(self, len: int = 1024, buffer: None = None) -> bytes: ...
+    @overload
+    def read(self, len: int, buffer: WriteableBuffer) -> int: ...
+    @overload
+    def read(self, *, buffer: WriteableBuffer) -> int: ...
+
     def write(self, data: ReadableBuffer) -> int: ...
 
     @overload

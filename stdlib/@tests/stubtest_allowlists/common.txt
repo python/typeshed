@@ -34,7 +34,6 @@ _frozen_importlib_external.WindowsRegistryFinder.REGISTRY_KEY
 _frozen_importlib_external.WindowsRegistryFinder.REGISTRY_KEY_DEBUG
 
 builtins.OSError.characters_written  # GetSetDescriptor that always raises AttributeError
-builtins.ellipsis  # does not exist at runtime, see https://github.com/python/typeshed/issues/7580
 builtins.float.__getformat__  # Internal method for CPython test suite
 
 # These super() dunders don't seem to be particularly useful,
@@ -42,6 +41,15 @@ builtins.float.__getformat__  # Internal method for CPython test suite
 builtins.super.__self__
 builtins.super.__self_class__
 builtins.super.__thisclass__
+
+# The following reverse operators are present in the C implementation
+# (probably incidental), but missing from the Python implementation.
+datetime.date.__rsub__
+datetime.datetime.__rsub__
+datetime.timedelta.__rdivmod__
+datetime.timedelta.__rfloordiv__
+datetime.timedelta.__rmod__
+datetime.timedelta.__rtruediv__
 
 # Undocumented implementation details
 email.contentmanager.get_and_fixup_unknown_message_content
@@ -157,7 +165,6 @@ _ctypes.CFuncPtr  # stubtest erroneously thinks it can't be subclassed
 _frozen_importlib_external.ExtensionFileLoader.get_filename
 _frozen_importlib_external.FileLoader.get_filename
 _frozen_importlib_external.FileLoader.get_resource_reader
-_frozen_importlib_external.FileLoader.load_module
 
 # Mismatch of default values of `report` parameter:
 _markupbase.ParserBase.parse_comment
@@ -186,7 +193,6 @@ asyncio.locks.Condition.locked
 asyncio.locks.Condition.release
 
 builtins.memoryview.__contains__  # C type that implements __getitem__
-builtins.property.__set_name__  # Doesn't actually exist
 builtins.reveal_locals  # Builtins that type checkers pretends exist
 builtins.reveal_type  # Builtins that type checkers pretends exist
 
@@ -277,7 +283,6 @@ importlib._abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined
 
 # runtime is *args, **kwargs due to a wrapper; we have more accurate signatures in the stubs
 importlib.abc.FileLoader.get_filename
-importlib.abc.FileLoader.load_module
 
 importlib.metadata._meta.SimplePath.joinpath  # Runtime definition of protocol is incorrect
 
@@ -285,12 +290,17 @@ importlib.metadata._meta.SimplePath.joinpath  # Runtime definition of protocol i
 inspect.Parameter.__init__
 inspect.Signature.__init__
 
+# Abstract methods that don't exist at runtime
+_io._IOBase.read
+_io._IOBase.write
+
 logging.LogRecord.__setattr__  # doesn't exist, but makes things easy if we pretend it does
 
 # Iterable classes that don't define __iter__ at runtime (usually iterable via __getitem__)
 # These would ideally be special-cased by type checkers; see https://github.com/python/mypy/issues/2220
 mmap.mmap.__iter__
 mmap.mmap.__contains__
+multiprocessing.shared_memory.ShareableList.__iter__
 
 # These multiprocessing proxy methods have *args, **kwargs signatures at runtime,
 # But have more precise (accurate) signatures in the stub
@@ -398,7 +408,6 @@ typing.type_check_only  # typing decorator that is not available at runtime
 # Details of runtime definition don't need to be in stubs
 typing._Final
 typing._Final.__init_subclass__
-typing\.Protocol
 typing(_extensions)?\._TypedDict
 typing(_extensions)?\.Any.*
 typing(_extensions)?\.TypedDict

@@ -1,9 +1,9 @@
-from _typeshed import Incomplete
 from collections.abc import Mapping, Sequence
 
 from networkx.utils.backends import _dispatchable
 from numpy.random import RandomState
 
+from ..classes.digraph import DiGraph
 from ..classes.graph import Graph
 
 __all__ = ["is_valid_joint_degree", "is_valid_directed_joint_degree", "joint_degree_graph", "directed_joint_degree_graph"]
@@ -11,9 +11,7 @@ __all__ = ["is_valid_joint_degree", "is_valid_directed_joint_degree", "joint_deg
 @_dispatchable
 def is_valid_joint_degree(joint_degrees: Mapping[int, Mapping[int, int]]) -> bool: ...
 @_dispatchable
-def joint_degree_graph(
-    joint_degrees: Mapping[int, Mapping[int, int]], seed: int | RandomState | None = None
-) -> Graph[Incomplete]: ...
+def joint_degree_graph(joint_degrees: Mapping[int, Mapping[int, int]], seed: int | RandomState | None = None) -> Graph[int]: ...
 @_dispatchable
 def is_valid_directed_joint_degree(
     in_degrees: Sequence[int], out_degrees: Sequence[int], nkk: Mapping[int, Mapping[int, int]]
@@ -24,4 +22,4 @@ def directed_joint_degree_graph(
     out_degrees: Sequence[int],
     nkk: Mapping[int, Mapping[int, int]],
     seed: int | RandomState | None = None,
-) -> Graph[Incomplete]: ...
+) -> DiGraph[int]: ...

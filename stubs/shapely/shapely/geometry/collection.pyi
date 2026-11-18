@@ -1,5 +1,5 @@
 from collections.abc import Collection
-from typing import overload
+from typing import Literal, overload
 from typing_extensions import Self
 
 from .._typing import OptGeoArrayLike
@@ -11,11 +11,13 @@ class GeometryCollection(BaseMultipartGeometry[_GeoT_co]):
 
     @overload
     def __new__(
-        self, geoms: BaseMultipartGeometry[_GeoT_co] | GeometrySequence[BaseMultipartGeometry[_GeoT_co]] | Collection[_GeoT_co]
+        cls, geoms: BaseMultipartGeometry[_GeoT_co] | GeometrySequence[BaseMultipartGeometry[_GeoT_co]] | Collection[_GeoT_co]
     ) -> Self: ...
     @overload
-    def __new__(self, geoms: OptGeoArrayLike = None) -> Self: ...
+    def __new__(cls, geoms: OptGeoArrayLike = None) -> Self: ...
 
     # more precise base overrides
+    @property
+    def geom_type(self) -> Literal["GeometryCollection"]: ...
     @property
     def boundary(self) -> None: ...

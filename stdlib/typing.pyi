@@ -1,11 +1,22 @@
 # Since this module defines "overload" it is not recognized by Ruff as typing.overload
 # TODO: The collections import is required, otherwise mypy crashes.
 # https://github.com/python/mypy/issues/16744
-import collections  # noqa: F401  # pyright: ignore[reportUnusedImport]
+import collections  # ruff: ignore[unused-import]  # pyright: ignore[reportUnusedImport]
 import sys
 import typing_extensions
 from _collections_abc import dict_items, dict_keys, dict_values
-from _typeshed import IdentityFunction, ReadableBuffer, SupportsGetItem, SupportsGetItemViewable, SupportsKeysAndGetItem, Viewable
+from _typeshed import (
+    IdentityFunction,
+    ReadableBuffer,
+    SupportsGetItem,
+    SupportsGetItemViewable,
+    SupportsKeysAndGetItem,
+    SupportsRAnd,
+    SupportsROr,
+    SupportsRSub,
+    SupportsRXor,
+    Viewable,
+)
 from abc import ABCMeta, abstractmethod
 from re import Match as Match, Pattern as Pattern
 from types import (
@@ -238,7 +249,6 @@ class _SpecialForm(_Final):
     def __ror__(self, other: Any) -> _SpecialForm: ...
 
 Union: _SpecialForm
-Protocol: _SpecialForm
 Callable: _SpecialForm
 Type: _SpecialForm
 NoReturn: _SpecialForm
@@ -412,6 +422,7 @@ _FT = TypeVar("_FT", bound=Callable[..., Any] | type)
 
 # These type variables are used by the container types.
 _S = TypeVar("_S")
+_R = TypeVar("_R")
 _KT = TypeVar("_KT")  # Key type.
 _VT = TypeVar("_VT")  # Value type.
 _T_co = TypeVar("_T_co", covariant=True)  # Any type covariant containers.
@@ -428,7 +439,7 @@ def overload(func: _F) -> _F: ...
 def no_type_check(arg: _F) -> _F: ...
 
 if sys.version_info < (3, 15):
-    @deprecated("Deprecated since Python 3.13; removed in Python 3.15.")
+    @deprecated("Deprecated; removed in Python 3.15.")
     def no_type_check_decorator(decorator: Callable[_P, _T]) -> Callable[_P, _T]: ...
 
 if sys.version_info >= (3, 15):
@@ -476,6 +487,11 @@ class _Generic:
     def __class_getitem__(cls, args: TypeVar | ParamSpec | tuple[TypeVar | ParamSpec, ...]) -> _Final: ...
 
 Generic: type[_Generic]
+
+@type_check_only
+class _Protocol: ...
+
+Protocol: type[_Protocol]
 
 class _ProtocolMeta(ABCMeta):
     if sys.version_info >= (3, 12):
@@ -608,10 +624,8 @@ class Awaitable(Protocol[_T_co]):
 _SendT_nd_contra = TypeVar("_SendT_nd_contra", contravariant=True)
 _ReturnT_nd_co = TypeVar("_ReturnT_nd_co", covariant=True)
 
-class Coroutine(Awaitable[_ReturnT_nd_co], Generic[_YieldT_co, _SendT_nd_contra, _ReturnT_nd_co]):
-    __name__: str
-    __qualname__: str
-
+@runtime_checkable
+class Coroutine(Awaitable[_ReturnT_nd_co], Protocol[_YieldT_co, _SendT_nd_contra, _ReturnT_nd_co]):
     @abstractmethod
     def send(self, value: _SendT_nd_contra, /) -> _YieldT_co: ...
 
@@ -743,10 +757,20 @@ class AbstractSet(Collection[_T_co]):
     def __lt__(self, other: AbstractSet[Any], /) -> bool: ...
     def __gt__(self, other: AbstractSet[Any], /) -> bool: ...
     def __ge__(self, other: AbstractSet[Any], /) -> bool: ...
+    # These annotations describe what all implementations support, including
+    # set and frozenset, which don't use the mixin methods. While the mixin
+    # methods accept any iterable, set and frozenset only accept set and
+    # frozenset. The forward methods still accept any AbstractSet, because
+    # if one operand doesn't support the other, Python falls back to the
+    # other operand's reflected method, which always returns an AbstractSet.
     def __and__(self, other: AbstractSet[Any], /) -> AbstractSet[_T_co]: ...
     def __or__(self, other: AbstractSet[_T], /) -> AbstractSet[_T_co | _T]: ...
     def __sub__(self, other: AbstractSet[Any], /) -> AbstractSet[_T_co]: ...
     def __xor__(self, other: AbstractSet[_T], /) -> AbstractSet[_T_co | _T]: ...
+    def __rand__(self, other: AbstractSet[_T], /) -> AbstractSet[_T]: ...
+    def __ror__(self, other: AbstractSet[_T], /) -> AbstractSet[_T_co | _T]: ...
+    def __rsub__(self, other: AbstractSet[_T], /) -> AbstractSet[_T]: ...
+    def __rxor__(self, other: AbstractSet[_T], /) -> AbstractSet[_T_co | _T]: ...
     def __eq__(self, other: object, /) -> bool: ...
     def isdisjoint(self, other: Iterable[Any], /) -> bool: ...
 
@@ -759,10 +783,32 @@ class MutableSet(AbstractSet[_T]):
     def clear(self) -> None: ...
     def pop(self) -> _T: ...
     def remove(self, value: _T, /) -> None: ...
-    def __ior__(self, it: AbstractSet[_T], /) -> typing_extensions.Self: ...  # type: ignore[override,misc]
-    def __iand__(self, it: AbstractSet[Any], /) -> typing_extensions.Self: ...
-    def __ixor__(self, it: AbstractSet[_T], /) -> typing_extensions.Self: ...  # type: ignore[override,misc]
-    def __isub__(self, it: AbstractSet[Any], /) -> typing_extensions.Self: ...
+
+    # These annotations describe what all implementations support, including
+    # set, which doesn't use the mixin methods. While the mixin methods accept
+    # any iterable and always modify the set in place, set only does so for
+    # set and frozenset arguments. For other arguments, Python falls back to
+    # the argument's reflected method and rebinds the target to its result,
+    # which might not even be a mutable set.
+    @overload  # type: ignore[override,misc]
+    def __ior__(self, it: set[_T] | frozenset[_T], /) -> typing_extensions.Self: ...
+    @overload
+    def __ior__(self, it: SupportsROr[MutableSet[_T], _R], /) -> typing_extensions.Self | _R: ...
+
+    @overload  # type: ignore[misc]
+    def __iand__(self, it: set[Any] | frozenset[Any], /) -> typing_extensions.Self: ...
+    @overload
+    def __iand__(self, it: SupportsRAnd[MutableSet[_T], _R], /) -> typing_extensions.Self | _R: ...
+
+    @overload  # type: ignore[override,misc]
+    def __ixor__(self, it: set[_T] | frozenset[_T], /) -> typing_extensions.Self: ...
+    @overload
+    def __ixor__(self, it: SupportsRXor[MutableSet[_T], _R], /) -> typing_extensions.Self | _R: ...
+
+    @overload  # type: ignore[misc]
+    def __isub__(self, it: set[Any] | frozenset[Any], /) -> typing_extensions.Self: ...
+    @overload
+    def __isub__(self, it: SupportsRSub[MutableSet[_T], _R], /) -> typing_extensions.Self | _R: ...
 
 class MappingView(Sized):
     __slots__ = ("_mapping",)
@@ -819,7 +865,7 @@ class Mapping(Collection[_KT], Generic[_KT, _VT_co]):
     @overload
     def get(self, key: _KT, /) -> _VT_co | None: ...
     @overload
-    def get(self, key: _KT, default: _VT_co, /) -> _VT_co: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues] # Covariant type as parameter
+    def get(self, key: _KT, default: _VT_co, /) -> _VT_co: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues] # Covariant type as parameter  # pyrefly: ignore [invalid-variance]
     @overload
     def get(self, key: _KT, default: _T, /) -> _VT_co | _T: ...
 
@@ -1054,23 +1100,30 @@ if sys.version_info >= (3, 11):
 class NamedTuple(tuple[Any, ...]):
     _field_defaults: ClassVar[dict[str, Any]]
     _fields: ClassVar[tuple[str, ...]]
+    __match_args__: ClassVar[tuple[str, ...]] = ...
     # __orig_bases__ sometimes exists on <3.12, but not consistently
     # So we only add it to the stub on 3.12+.
     if sys.version_info >= (3, 12):
         __orig_bases__: ClassVar[tuple[Any, ...]]
 
-    @overload
-    def __init__(self, typename: str, fields: Iterable[tuple[str, Any]], /) -> None: ...
-    @overload
-    @deprecated("Creating a typing.NamedTuple using keyword arguments is deprecated and support will be removed in Python 3.15")
-    def __init__(self, typename: str, fields: None = None, /, **kwargs: Any) -> None: ...
+    if sys.version_info >= (3, 15):
+        def __init__(self, typename: str, fields: Iterable[tuple[str, Any]], /) -> None: ...
+    else:
+        @overload
+        def __init__(self, typename: str, fields: Iterable[tuple[str, Any]], /) -> None: ...
+        @overload
+        @deprecated("Creating a typing.NamedTuple using keyword arguments is deprecated; support removed in Python 3.15")
+        def __init__(self, typename: str, fields: None = None, /, **kwargs: Any) -> None: ...
 
+    @final
     @classmethod
-    def _make(cls, iterable: Iterable[Any]) -> typing_extensions.Self: ...
+    def _make(cls, iterable: Iterable[Any]) -> typing_extensions.Self: ...  # ty:ignore[invalid-type-form]
+    @final
     def _asdict(self) -> dict[str, Any]: ...
-    def _replace(self, **kwargs: Any) -> typing_extensions.Self: ...
+    @final
+    def _replace(self, **kwargs: Any) -> typing_extensions.Self: ...  # ty:ignore[invalid-type-form]
     if sys.version_info >= (3, 13):
-        def __replace__(self, **kwargs: Any) -> typing_extensions.Self: ...
+        def __replace__(self, **kwargs: Any) -> typing_extensions.Self: ...  # ty:ignore[invalid-type-form]
 
 # Internal mypy fallback type for all typed dicts (does not exist at runtime)
 # N.B. Keep this mostly in sync with typing_extensions._TypedDict/mypy_extensions._TypedDict
@@ -1087,6 +1140,10 @@ class _TypedDict(Mapping[str, object], metaclass=ABCMeta):
     if sys.version_info >= (3, 13):
         __readonly_keys__: ClassVar[frozenset[str]]
         __mutable_keys__: ClassVar[frozenset[str]]
+    if sys.version_info >= (3, 15):
+        # PEP 728
+        __closed__: ClassVar[bool | None]
+        __extra_items__: ClassVar[Any]  # AnnotationForm
 
     def copy(self) -> typing_extensions.Self: ...
     # Using Never so that only calls using mypy plugin hook that specialize the signature
@@ -1204,7 +1261,15 @@ if sys.version_info >= (3, 12):
 
     @final
     class TypeAliasType:
-        def __new__(cls, name: str, value: Any, *, type_params: tuple[_TypeParameter, ...] = ()) -> Self: ...
+        if sys.version_info >= (3, 15):
+            def __new__(
+                cls, name: str, value: Any, *, type_params: tuple[_TypeParameter, ...] = (), qualname: str | None = None
+            ) -> Self: ...
+            @property
+            def __qualname__(self) -> str: ...
+        else:
+            def __new__(cls, name: str, value: Any, *, type_params: tuple[_TypeParameter, ...] = ()) -> Self: ...
+
         @property
         def __value__(self) -> Any: ...  # AnnotationForm
         @property
@@ -1213,9 +1278,6 @@ if sys.version_info >= (3, 12):
         def __parameters__(self) -> tuple[Any, ...]: ...  # AnnotationForm
         @property
         def __name__(self) -> str: ...
-        if sys.version_info >= (3, 15):
-            @property
-            def __qualname__(self) -> str: ...
         # It's writable on types, but not on instances of TypeAliasType.
         @property
         def __module__(self) -> str | None: ...  # type: ignore[override]

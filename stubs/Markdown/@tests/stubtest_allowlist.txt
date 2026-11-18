@@ -1,4 +1,11 @@
-# Deprecated types are infered as functions:
+# Implementation detail
+markdown.htmlparser.spec
+
+# *args/**kwargs in implementation properly typed in stubs
+markdown.extensions.md_in_html.HTMLExtractorExtra.__init__
+markdown.htmlparser.HTMLExtractor.__init__
+
+# Deprecated types are infered as functions
 markdown.extensions.abbr.AbbrPreprocessor
 markdown.extensions.abbr.AbbrInlineProcessor
 markdown.postprocessors.UnescapePostprocessor

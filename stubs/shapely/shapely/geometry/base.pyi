@@ -1,7 +1,8 @@
+from _typeshed import MaybeNone
 from array import array
 from collections.abc import Iterator
-from typing import Any, Generic, Literal, NoReturn, overload
-from typing_extensions import Self, TypeVar, deprecated
+from typing import Any, Generic, Literal, overload
+from typing_extensions import Never, Self, TypeVar, deprecated
 
 import numpy as np
 from numpy.typing import NDArray
@@ -36,9 +37,8 @@ class BaseGeometry(Geometry):
         "Directly calling 'BaseGeometry()' is deprecated. To create an empty geometry, "
         "use one of the subclasses instead, for example 'GeometryCollection()'."
     )
-    def __new__(self) -> GeometryCollection: ...
+    def __new__(cls) -> GeometryCollection: ...
     def __bool__(self) -> bool: ...
-    def __nonzero__(self) -> bool: ...
     def __format__(self, format_spec: str) -> str: ...
 
     @overload
@@ -111,7 +111,7 @@ class BaseGeometry(Geometry):
     @property
     def minimum_clearance(self) -> float: ...
     @property
-    def boundary(self) -> BaseMultipartGeometry | Any: ...  # is None for GeometryCollection
+    def boundary(self) -> BaseMultipartGeometry | MaybeNone: ...  # is None for GeometryCollection
     @property
     def bounds(self) -> tuple[float, float, float, float]: ...
     @property
@@ -301,7 +301,7 @@ _GeoT_co = TypeVar("_GeoT_co", bound=Geometry, default=BaseGeometry, covariant=T
 class BaseMultipartGeometry(BaseGeometry, Generic[_GeoT_co]):
     __slots__: list[str] = []
     @property
-    def coords(self) -> NoReturn: ...
+    def coords(self) -> Never: ...
     @property
     def geoms(self) -> GeometrySequence[Self]: ...
     def svg(self, scale_factor: float = 1.0, color: str | None = None) -> str: ...  # type: ignore[override]
@@ -323,4 +323,4 @@ class EmptyGeometry(BaseGeometry):
         "The 'EmptyGeometry()' constructor is deprecated. Use one of the "
         "geometry subclasses instead, for example 'GeometryCollection()'."
     )
-    def __new__(self) -> GeometryCollection: ...  # type: ignore[misc]
+    def __new__(cls) -> GeometryCollection: ...  # type: ignore[misc]

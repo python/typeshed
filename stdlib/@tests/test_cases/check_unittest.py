@@ -5,7 +5,7 @@ from collections.abc import Iterator, Mapping
 from datetime import datetime, timedelta
 from decimal import Decimal
 from fractions import Fraction
-from typing import TypedDict, Union
+from typing import TypedDict
 from typing_extensions import assert_type
 from unittest.mock import _ANY, ANY, AsyncMock, MagicMock, Mock, patch
 
@@ -19,6 +19,7 @@ case.assertAlmostEqual(1, 2.4)
 case.assertAlmostEqual(2.4, 2.41)
 case.assertAlmostEqual(Fraction(49, 50), Fraction(48, 50))
 case.assertAlmostEqual(3.14, complex(5, 6))
+case.assertAlmostEqual(datetime(1999, 1, 2), datetime(1999, 1, 2, microsecond=1))
 case.assertAlmostEqual(datetime(1999, 1, 2), datetime(1999, 1, 2, microsecond=1), delta=timedelta(hours=1))
 case.assertAlmostEqual(datetime(1999, 1, 2), datetime(1999, 1, 2, microsecond=1), None, "foo", timedelta(hours=1))
 case.assertAlmostEqual(Decimal("1.1"), Decimal("1.11"))
@@ -28,7 +29,6 @@ case.assertAlmostEqual(2.4, 2.41, None, "foo", 0.02)
 
 case.assertAlmostEqual(2.4, 2.41, places=9, delta=0.02)  # type: ignore
 case.assertAlmostEqual("foo", "bar")  # type: ignore
-case.assertAlmostEqual(datetime(1999, 1, 2), datetime(1999, 1, 2, microsecond=1))  # type: ignore
 case.assertAlmostEqual(Decimal("0.4"), Fraction(1, 2))  # type: ignore
 case.assertAlmostEqual(complex(2, 3), Decimal("0.9"))  # type: ignore
 
@@ -39,12 +39,12 @@ case.assertAlmostEqual(complex(2, 3), Decimal("0.9"))  # type: ignore
 case.assertAlmostEqual(1, 2.4)
 case.assertNotAlmostEqual(Fraction(49, 50), Fraction(48, 50))
 case.assertAlmostEqual(3.14, complex(5, 6))
+case.assertNotAlmostEqual(datetime(1999, 1, 2), datetime(1999, 1, 2, microsecond=1))
 case.assertNotAlmostEqual(datetime(1999, 1, 2), datetime(1999, 1, 2, microsecond=1), delta=timedelta(hours=1))
 case.assertNotAlmostEqual(datetime(1999, 1, 2), datetime(1999, 1, 2, microsecond=1), None, "foo", timedelta(hours=1))
 
 case.assertNotAlmostEqual(2.4, 2.41, places=9, delta=0.02)  # type: ignore
 case.assertNotAlmostEqual("foo", "bar")  # type: ignore
-case.assertNotAlmostEqual(datetime(1999, 1, 2), datetime(1999, 1, 2, microsecond=1))  # type: ignore
 case.assertNotAlmostEqual(Decimal("0.4"), Fraction(1, 2))  # type: ignore
 case.assertNotAlmostEqual(complex(2, 3), Decimal("0.9"))  # type: ignore
 
@@ -181,7 +181,7 @@ assert_type(TestXYZ.method(), int)
 
 
 with patch("sys.exit") as default_new_enter:
-    assert_type(default_new_enter, Union[MagicMock, AsyncMock])
+    assert_type(default_new_enter, MagicMock | AsyncMock)
 
 with patch("sys.exit", new=42) as explicit_new_enter:
     assert_type(explicit_new_enter, int)
@@ -219,7 +219,7 @@ obj_f_explicit_new_callable("a")  # Same as default new
 
 
 with patch.object(Decimal, "exp") as obj_default_new_enter:
-    assert_type(obj_default_new_enter, Union[MagicMock, AsyncMock])
+    assert_type(obj_default_new_enter, MagicMock | AsyncMock)
 
 with patch.object(Decimal, "exp", new=42) as obj_explicit_new_enter:
     assert_type(obj_explicit_new_enter, int)

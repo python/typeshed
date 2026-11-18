@@ -1,0 +1,3 @@
+# Upb messages accept (*args, **kwargs) at runtime. HealthListRequest has no
+# fields, so its constructor takes no arguments.
+grpc_health.v1.health_pb2.HealthListRequest.__init__

@@ -10,23 +10,9 @@ import collections
 import math
 import operator
 import sys
+from collections.abc import Callable, Collection, Hashable, Iterable, Iterator, Sequence
 from itertools import chain, combinations, count, cycle, filterfalse, groupby, islice, product, repeat, starmap, tee, zip_longest
-from typing import (
-    Any,
-    Callable,
-    Collection,
-    Hashable,
-    Iterable,
-    Iterator,
-    Literal,
-    Sequence,
-    Tuple,
-    Type,
-    TypeAlias,
-    TypeVar,
-    Union,
-    overload,
-)
+from typing import Any, Literal, TypeAlias, TypeVar, overload
 from typing_extensions import TypeVarTuple, Unpack
 
 _T = TypeVar("_T")
@@ -141,7 +127,7 @@ def first_true(iterable: Iterable[object], default: object = False, pred: Callab
     return next(filter(pred, iterable), default)
 
 
-_ExceptionOrExceptionTuple: TypeAlias = Union[Type[BaseException], Tuple[Type[BaseException], ...]]
+_ExceptionOrExceptionTuple: TypeAlias = type[BaseException] | tuple[type[BaseException], ...]
 
 
 @overload

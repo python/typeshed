@@ -17,8 +17,6 @@ Xlib.protocol.rq.GetAttrData.__setattr__
 
 # Can be None or str once instantiated
 Xlib.protocol.rq.*.structcode
-# Should only ever be str once instantiated
-Xlib.protocol.rq.*.name
 
 # Iteration variable that bleeds into the global scope
 Xlib.protocol.rq.c

@@ -40,20 +40,21 @@ _Palette: TypeAlias = str | Sequence[ColorType] | Mapping[Any, ColorType]  # noq
 _Seed: TypeAlias = int | np.random.Generator | np.random.RandomState  # noqa: Y047
 _Scalar: TypeAlias = (
     # numeric
-    float
-    | complex
+    complex
+    | float
+    | int
     | np.number[Any]
-    # categorical
-    | bool
-    | str
-    | bytes
-    | None
     # dates
     | dt.date
     | dt.datetime
     | dt.timedelta
     | pd.Timestamp
     | pd.Timedelta
+    # categorical
+    | bool
+    | str
+    | bytes
+    | None
 )
 _Vector: TypeAlias = Iterable[_Scalar]
 _DataSourceWideForm: TypeAlias = (  # noqa: Y047

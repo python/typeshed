@@ -1,7 +1,7 @@
 import sys
 from _collections_abc import dict_keys
 from _typeshed import FileDescriptorOrPath, ReadableBuffer, SupportsRead, SupportsWrite
-from collections.abc import Callable, Generator, ItemsView, Iterable, Iterator, Mapping, Sequence
+from collections.abc import Callable, Generator, ItemsView, Iterable, Iterator, Mapping
 from typing import Any, Final, Generic, Literal, Protocol, SupportsIndex, TypeAlias, TypeGuard, TypeVar, overload, type_check_only
 from typing_extensions import deprecated, disjoint_base
 from xml.parsers.expat import XMLParserType
@@ -310,7 +310,7 @@ def XMLID(text: str | ReadableBuffer, parser: XMLParser | None = None) -> tuple[
 # This is aliased to XML in the source.
 fromstring = XML
 
-def fromstringlist(sequence: Sequence[str | ReadableBuffer], parser: XMLParser | None = None) -> Element: ...
+def fromstringlist(sequence: Iterable[str | ReadableBuffer], parser: XMLParser | None = None) -> Element: ...
 
 # This type is both not precise enough and too precise. The TreeBuilder
 # requires the elementfactory to accept tag and attrs in its args and produce

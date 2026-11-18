@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from typing import List, Union
 from typing_extensions import assert_type
 
 
@@ -16,6 +15,6 @@ class Bar:
 
 
 combined = [Foo()] + [Bar()]
-assert_type(combined, List[Union[Foo, Bar]])
+assert_type(combined, list[Foo | Bar])
 for item in combined:
     assert_type(item.asd(), int)

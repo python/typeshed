@@ -5,6 +5,7 @@
         "bierner.github-markdown-preview",
         "charliermarsh.ruff",
         "editorconfig.editorconfig",
+        "jasonnutter.vscode-codeowners",
         "ms-python.black-formatter",
         "ms-python.flake8",
         "ms-python.mypy-type-checker",

@@ -1,0 +1,6 @@
+# Interactive command-line tester ("python -m msal"), not a library API.
+msal.__main__
+
+# Requires the optional dependency pymsalruntime (installed with "msal[broker]");
+# importing this module without it raises ImportError.
+msal.broker
