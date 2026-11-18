@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from collections.abc import Callable, Collection, Iterable
+from collections.abc import Callable, Collection, Iterable, Mapping
 
 from networkx.classes.graph import Graph, _Data, _EdgeData, _Node, _NodeData
 from networkx.utils.backends import _dispatchable
@@ -30,7 +30,7 @@ def to_dict_of_dicts(
 ) -> dict[Incomplete, Incomplete]: ...
 @_dispatchable
 def from_dict_of_dicts(
-    d: dict[Incomplete, Incomplete],
+    d: Mapping[Incomplete, Mapping[Incomplete, Incomplete]],
     create_using: Graph[Incomplete] | type[Graph[Incomplete]] | None = None,
     multigraph_input: bool = False,
 ) -> Graph[Incomplete]: ...

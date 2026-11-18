@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from collections.abc import Callable, Iterable
+from collections.abc import Callable, Iterable, Mapping
 
 from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
@@ -22,7 +22,7 @@ def random_geometric_graph(
     n: int | Iterable[Incomplete],
     radius: float,
     dim: int = 2,
-    pos: dict[Incomplete, Incomplete] | None = None,
+    pos: Mapping[Incomplete, Incomplete] | None = None,
     p: float = 2,
     seed=None,
 ) -> Graph[Incomplete]: ...
@@ -31,9 +31,9 @@ def soft_random_geometric_graph(
     n: int | Iterable[Incomplete],
     radius: float,
     dim: int = 2,
-    pos: dict[Incomplete, Incomplete] | None = None,
+    pos: Mapping[Incomplete, Incomplete] | None = None,
     p: float = 2,
-    p_dist: Callable[..., Incomplete] | None = None,
+    p_dist: Callable[[float], float] | None = None,
     seed=None,
 ) -> Graph[Incomplete]: ...
 @_dispatchable
@@ -41,10 +41,10 @@ def geographical_threshold_graph(
     n: int | Iterable[Incomplete],
     theta: float,
     dim: int = 2,
-    pos: dict[Incomplete, Incomplete] | None = None,
-    weight: dict[Incomplete, Incomplete] | None = None,
-    metric: Callable[..., Incomplete] | None = None,
-    p_dist: Callable[..., Incomplete] | None = None,
+    pos: Mapping[Incomplete, Incomplete] | None = None,
+    weight: Mapping[Incomplete, float] | None = None,
+    metric: Callable[[Incomplete, Incomplete], float] | None = None,
+    p_dist: Callable[[float], float] | None = None,
     seed=None,
 ) -> Graph[Incomplete]: ...
 @_dispatchable

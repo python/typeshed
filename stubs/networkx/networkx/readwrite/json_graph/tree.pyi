@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from collections.abc import Mapping
 
 from networkx.classes.digraph import DiGraph
 from networkx.classes.graph import _Node
@@ -8,4 +9,4 @@ __all__ = ["tree_data", "tree_graph"]
 
 def tree_data(G: DiGraph[_Node], root, ident: str = "id", children: str = "children") -> dict[Incomplete, Incomplete]: ...
 @_dispatchable
-def tree_graph(data: dict[Incomplete, Incomplete], ident: str = "id", children: str = "children") -> DiGraph[Incomplete]: ...
+def tree_graph(data: Mapping[str, Incomplete], ident: str = "id", children: str = "children") -> DiGraph[Incomplete]: ...

@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from collections.abc import Iterable, Sequence
 from dataclasses import dataclass
 from typing import Final
 from typing_extensions import Self
@@ -65,7 +66,13 @@ class ArborescenceIterator:
     partition_key: str
     init_partition: Incomplete
 
-    def __init__(self, G: DiGraph[_Node], weight: str = "weight", minimum: bool = True, init_partition=None) -> None: ...
+    def __init__(
+        self,
+        G: DiGraph[_Node],
+        weight: str = "weight",
+        minimum: bool = True,
+        init_partition: Sequence[Iterable[Incomplete]] | None = None,
+    ) -> None: ...
     partition_queue: Incomplete
 
     def __iter__(self) -> Self: ...

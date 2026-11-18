@@ -11,7 +11,10 @@ __all__ = ["gn_graph", "gnc_graph", "gnr_graph", "random_k_out_graph", "scale_fr
 
 @_dispatchable
 def gn_graph(
-    n: int, kernel: Callable[..., Incomplete] | None = None, create_using: DiGraph[Incomplete] | None = None, seed=None
+    n: int,
+    kernel: Callable[[int], float] | None = None,
+    create_using: DiGraph[Incomplete] | type[DiGraph[Incomplete]] | None = None,
+    seed=None,
 ): ...
 @_dispatchable
 def gnr_graph(n: int, p: float, create_using: DiGraph[Incomplete] | type[DiGraph[Incomplete]] | None = None, seed=None): ...
