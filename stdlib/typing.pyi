@@ -1012,6 +1012,7 @@ class TextIO(IO[str]):
     # All TextIO users in the standard library only return str or bytes for
     # the name property.
     @property
+    @abstractmethod
     def name(self) -> str | bytes: ...
     @property
     def buffer(self) -> BinaryIO: ...
