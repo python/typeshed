@@ -15,10 +15,11 @@ allowed-unresolved-imports = [
 # Incompatible overrides and deprecations are inherited from the implementation
 # and are not actionable in typeshed. Keep in sync with pyrightconfig.json.
 deprecated = "ignore"
-invalid-attribute-override = "ignore"
-invalid-method-override = "ignore"
-invalid-mutable-override = "ignore"
-invalid-property-type-override = "ignore"
+incompatible-attribute-override = "ignore"
+incompatible-method-override = "ignore"
+incompatible-mutable-override = "ignore"
+incompatible-property-override = "ignore"
+lost-keyword-for-regular-parameter = "ignore"
 override-of-final-method = "ignore"
 # Some `__init__` self annotations retain class-scoped type variables for mypy
 # compatibility (https://github.com/python/typeshed/pull/11780). Disable ty's
