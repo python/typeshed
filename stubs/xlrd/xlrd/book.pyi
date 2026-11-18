@@ -1,5 +1,5 @@
 import sys
-from _typeshed import SupportsWrite
+from _typeshed import StrOrBytesPath, SupportsWrite
 from collections.abc import Iterator
 from types import TracebackType
 from typing import Final, Literal
@@ -23,7 +23,7 @@ builtin_name_from_code: Final[dict[str, str]]
 code_from_builtin_name: Final[dict[str, str]]
 
 def open_workbook_xls(
-    filename: str | None = None,
+    filename: StrOrBytesPath | None = None,
     logfile: SupportsWrite[str] = sys.stdout,
     verbosity: int = 0,
     use_mmap: bool = True,
@@ -104,7 +104,7 @@ class Book(BaseObject):
     base: int
     def biff2_8_load(
         self,
-        filename: str | None = None,
+        filename: StrOrBytesPath | None = None,
         file_contents: bytes | None = None,
         logfile: SupportsWrite[str] = sys.stdout,
         verbosity: int = 0,

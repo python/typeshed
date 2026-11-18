@@ -1,5 +1,5 @@
 import sys
-from _typeshed import SupportsWrite
+from _typeshed import StrOrBytesPath, StrPath, SupportsWrite
 from typing import Final
 
 from . import timemachine as timemachine
@@ -24,9 +24,9 @@ FILE_FORMAT_DESCRIPTIONS: Final[dict[str, str]]
 ZIP_SIGNATURE: Final[bytes]
 PEEK_SIZE: Final[int]
 
-def inspect_format(path: str | None = None, content: bytes | None = None) -> str | None: ...
+def inspect_format(path: StrPath | None = None, content: bytes | None = None) -> str | None: ...
 def open_workbook(
-    filename: str | None = None,
+    filename: StrOrBytesPath | None = None,
     logfile: SupportsWrite[str] = sys.stdout,
     verbosity: int = 0,
     use_mmap: bool = True,
@@ -37,5 +37,5 @@ def open_workbook(
     ragged_rows: bool = False,
     ignore_workbook_corruption: bool = False,
 ) -> Book: ...
-def dump(filename: str, outfile: SupportsWrite[str] = sys.stdout, unnumbered: bool = False) -> None: ...
-def count_records(filename: str, outfile: SupportsWrite[str] = sys.stdout) -> None: ...
+def dump(filename: StrOrBytesPath, outfile: SupportsWrite[str] = sys.stdout, unnumbered: bool = False) -> None: ...
+def count_records(filename: StrOrBytesPath, outfile: SupportsWrite[str] = sys.stdout) -> None: ...
