@@ -76,7 +76,13 @@ def create(
     id_of: Callable[[Schema], str] = ...,
     applicable_validators: Callable[[Schema], Iterable[tuple[str, _ValidatorCallback]]] = ...,
 ) -> type[_Validator]: ...
-def extend(validator, validators=(), version=None, type_checker=None, format_checker=None): ...
+def extend(
+    validator: type[_Validator],
+    validators: Mapping[str, _ValidatorCallback] | tuple[()] = (),
+    version: str | None = None,
+    type_checker: TypeChecker | None = None,
+    format_checker: FormatChecker | None = None,
+) -> type[_Validator]: ...
 
 # At runtime these are fields that are assigned the return values of create() calls.
 class Draft3Validator(_Validator):
