@@ -1,8 +1,8 @@
 from _typeshed import SupportsWrite
 from asyncio import Future
 from collections.abc import AsyncIterator, Awaitable, Callable, Iterable, Iterator, Mapping
-from typing import Generic, Literal, TypedDict, TypeVar, overload, type_check_only
-from typing_extensions import Never, Self, Unpack
+from typing import Literal, TypeVar, overload
+from typing_extensions import Never, Self
 
 from .std import tqdm as std_tqdm
 
@@ -10,33 +10,6 @@ __all__ = ["tqdm_asyncio", "tarange", "tqdm", "trange"]
 
 _T = TypeVar("_T")
 _ResultT = TypeVar("_ResultT")
-
-@type_check_only
-class _GatherKwargs(TypedDict, Generic[_ResultT], total=False):
-    iterable: Iterable[_ResultT]
-    desc: str | None
-    leave: bool | None
-    file: SupportsWrite[str] | None
-    ncols: int | None
-    mininterval: float
-    maxinterval: float
-    miniters: float | None
-    ascii: bool | str | None
-    disable: bool | None
-    unit: str
-    unit_scale: bool | float
-    dynamic_ncols: bool
-    smoothing: float
-    bar_format: str | None
-    initial: float
-    position: int | None
-    postfix: Mapping[str, object] | str | None
-    unit_divisor: float
-    write_bytes: bool | None
-    lock_args: tuple[bool | None, float | None] | tuple[bool | None] | None
-    nrows: int | None
-    colour: str | None
-    delay: float | None
 
 class tqdm_asyncio(std_tqdm[_T]):
     iterable_awaitable: bool
@@ -78,7 +51,6 @@ class tqdm_asyncio(std_tqdm[_T]):
         colour: str | None = ...,
         delay: float | None = ...,
     ) -> Iterator[Future[_T]]: ...
-
     @overload
     @classmethod
     async def gather(
@@ -88,7 +60,29 @@ class tqdm_asyncio(std_tqdm[_T]):
         timeout: float | None = None,
         total: int | None = None,
         return_exceptions: Literal[False] = False,
-        **tqdm_kwargs: Unpack[_GatherKwargs[_ResultT]],
+        desc: str | None = ...,
+        leave: bool | None = ...,
+        file: SupportsWrite[str] | None = ...,
+        ncols: int | None = ...,
+        mininterval: float = ...,
+        maxinterval: float = ...,
+        miniters: float | None = ...,
+        ascii: bool | str | None = ...,
+        disable: bool | None = ...,
+        unit: str = ...,
+        unit_scale: bool | float = ...,
+        dynamic_ncols: bool = ...,
+        smoothing: float = ...,
+        bar_format: str | None = ...,
+        initial: float = ...,
+        position: int | None = ...,
+        postfix: Mapping[str, object] | str | None = ...,
+        unit_divisor: float = ...,
+        write_bytes: bool | None = ...,
+        lock_args: tuple[bool | None, float | None] | tuple[bool | None] | None = ...,
+        nrows: int | None = ...,
+        colour: str | None = ...,
+        delay: float | None = ...,
     ) -> list[_ResultT]: ...
     @overload
     @classmethod
@@ -99,7 +93,29 @@ class tqdm_asyncio(std_tqdm[_T]):
         timeout: float | None = None,
         total: int | None = None,
         return_exceptions: Literal[True],
-        **tqdm_kwargs: Unpack[_GatherKwargs[_ResultT]],
+        desc: str | None = ...,
+        leave: bool | None = ...,
+        file: SupportsWrite[str] | None = ...,
+        ncols: int | None = ...,
+        mininterval: float = ...,
+        maxinterval: float = ...,
+        miniters: float | None = ...,
+        ascii: bool | str | None = ...,
+        disable: bool | None = ...,
+        unit: str = ...,
+        unit_scale: bool | float = ...,
+        dynamic_ncols: bool = ...,
+        smoothing: float = ...,
+        bar_format: str | None = ...,
+        initial: float = ...,
+        position: int | None = ...,
+        postfix: Mapping[str, object] | str | None = ...,
+        unit_divisor: float = ...,
+        write_bytes: bool | None = ...,
+        lock_args: tuple[bool | None, float | None] | tuple[bool | None] | None = ...,
+        nrows: int | None = ...,
+        colour: str | None = ...,
+        delay: float | None = ...,
     ) -> list[_ResultT | Exception]: ...
     @overload
     @classmethod
@@ -110,9 +126,30 @@ class tqdm_asyncio(std_tqdm[_T]):
         timeout: float | None = None,
         total: int | None = None,
         return_exceptions: bool,
-        **tqdm_kwargs: Unpack[_GatherKwargs[_ResultT]],
+        desc: str | None = ...,
+        leave: bool | None = ...,
+        file: SupportsWrite[str] | None = ...,
+        ncols: int | None = ...,
+        mininterval: float = ...,
+        maxinterval: float = ...,
+        miniters: float | None = ...,
+        ascii: bool | str | None = ...,
+        disable: bool | None = ...,
+        unit: str = ...,
+        unit_scale: bool | float = ...,
+        dynamic_ncols: bool = ...,
+        smoothing: float = ...,
+        bar_format: str | None = ...,
+        initial: float = ...,
+        position: int | None = ...,
+        postfix: Mapping[str, object] | str | None = ...,
+        unit_divisor: float = ...,
+        write_bytes: bool | None = ...,
+        lock_args: tuple[bool | None, float | None] | tuple[bool | None] | None = ...,
+        nrows: int | None = ...,
+        colour: str | None = ...,
+        delay: float | None = ...,
     ) -> list[_ResultT] | list[_ResultT | Exception]: ...
-
     @overload
     def __init__(
         self,
