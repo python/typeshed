@@ -51,6 +51,7 @@ class tqdm_asyncio(std_tqdm[_T]):
         colour: str | None = ...,
         delay: float | None = ...,
     ) -> Iterator[Future[_T]]: ...
+
     @overload
     @classmethod
     async def gather(
@@ -150,6 +151,7 @@ class tqdm_asyncio(std_tqdm[_T]):
         colour: str | None = ...,
         delay: float | None = ...,
     ) -> list[_ResultT] | list[_ResultT | Exception]: ...
+
     @overload
     def __init__(
         self,
