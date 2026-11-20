@@ -1,7 +1,7 @@
 from _typeshed import SupportsWrite
 from asyncio import Future
 from collections.abc import AsyncIterator, Awaitable, Callable, Iterable, Iterator, Mapping
-from typing import TypeVar, overload
+from typing import Literal, TypeVar, overload
 from typing_extensions import Never, Self
 
 from .std import tqdm as std_tqdm
@@ -9,6 +9,7 @@ from .std import tqdm as std_tqdm
 __all__ = ["tqdm_asyncio", "tarange", "tqdm", "trange"]
 
 _T = TypeVar("_T")
+_ResultT = TypeVar("_ResultT")
 
 class tqdm_asyncio(std_tqdm[_T]):
     iterable_awaitable: bool
@@ -50,15 +51,16 @@ class tqdm_asyncio(std_tqdm[_T]):
         colour: str | None = ...,
         delay: float | None = ...,
     ) -> Iterator[Future[_T]]: ...
+
+    @overload
     @classmethod
     async def gather(
         cls,
-        *fs: Awaitable[_T],
+        *fs: Awaitable[_ResultT],
         loop: bool | None = None,
         timeout: float | None = None,
         total: int | None = None,
-        return_exceptions: bool = False,
-        iterable: Iterable[_T] = ...,
+        return_exceptions: Literal[False] = False,
         desc: str | None = ...,
         leave: bool | None = ...,
         file: SupportsWrite[str] | None = ...,
@@ -82,7 +84,73 @@ class tqdm_asyncio(std_tqdm[_T]):
         nrows: int | None = ...,
         colour: str | None = ...,
         delay: float | None = ...,
-    ) -> list[_T]: ...
+    ) -> list[_ResultT]: ...
+    @overload
+    @classmethod
+    async def gather(
+        cls,
+        *fs: Awaitable[_ResultT],
+        loop: bool | None = None,
+        timeout: float | None = None,
+        total: int | None = None,
+        return_exceptions: Literal[True],
+        desc: str | None = ...,
+        leave: bool | None = ...,
+        file: SupportsWrite[str] | None = ...,
+        ncols: int | None = ...,
+        mininterval: float = ...,
+        maxinterval: float = ...,
+        miniters: float | None = ...,
+        ascii: bool | str | None = ...,
+        disable: bool | None = ...,
+        unit: str = ...,
+        unit_scale: bool | float = ...,
+        dynamic_ncols: bool = ...,
+        smoothing: float = ...,
+        bar_format: str | None = ...,
+        initial: float = ...,
+        position: int | None = ...,
+        postfix: Mapping[str, object] | str | None = ...,
+        unit_divisor: float = ...,
+        write_bytes: bool | None = ...,
+        lock_args: tuple[bool | None, float | None] | tuple[bool | None] | None = ...,
+        nrows: int | None = ...,
+        colour: str | None = ...,
+        delay: float | None = ...,
+    ) -> list[_ResultT | Exception]: ...
+    @overload
+    @classmethod
+    async def gather(
+        cls,
+        *fs: Awaitable[_ResultT],
+        loop: bool | None = None,
+        timeout: float | None = None,
+        total: int | None = None,
+        return_exceptions: bool,
+        desc: str | None = ...,
+        leave: bool | None = ...,
+        file: SupportsWrite[str] | None = ...,
+        ncols: int | None = ...,
+        mininterval: float = ...,
+        maxinterval: float = ...,
+        miniters: float | None = ...,
+        ascii: bool | str | None = ...,
+        disable: bool | None = ...,
+        unit: str = ...,
+        unit_scale: bool | float = ...,
+        dynamic_ncols: bool = ...,
+        smoothing: float = ...,
+        bar_format: str | None = ...,
+        initial: float = ...,
+        position: int | None = ...,
+        postfix: Mapping[str, object] | str | None = ...,
+        unit_divisor: float = ...,
+        write_bytes: bool | None = ...,
+        lock_args: tuple[bool | None, float | None] | tuple[bool | None] | None = ...,
+        nrows: int | None = ...,
+        colour: str | None = ...,
+        delay: float | None = ...,
+    ) -> list[_ResultT] | list[_ResultT | Exception]: ...
 
     @overload
     def __init__(
