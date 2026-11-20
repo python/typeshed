@@ -6,7 +6,7 @@ if sys.platform == "win32":
     from signal import Signals
     from typing import Final, Literal, ParamSpec, TypedDict, TypeVar, overload, type_check_only
 
-    from psutil import _psutil_windows
+    from psutil import _psutil
     from psutil._common import (
         ENCODING as ENCODING,
         AccessDenied as AccessDenied,
@@ -16,12 +16,11 @@ if sys.platform == "win32":
         conn_to_ntuple as conn_to_ntuple,
         debug as debug,
         isfile_strict as isfile_strict,
-        memoize as memoize,
         memoize_when_activated as memoize_when_activated,
         parse_environ_block as parse_environ_block,
         usage_percent as usage_percent,
     )
-    from psutil._psutil_windows import (
+    from psutil._psutil import (
         ABOVE_NORMAL_PRIORITY_CLASS as ABOVE_NORMAL_PRIORITY_CLASS,
         BELOW_NORMAL_PRIORITY_CLASS as BELOW_NORMAL_PRIORITY_CLASS,
         HIGH_PRIORITY_CLASS as HIGH_PRIORITY_CLASS,
@@ -45,12 +44,12 @@ if sys.platform == "win32":
 
     # These noqas workaround https://github.com/astral-sh/ruff/issues/10874
     class Priority(enum.IntEnum):
-        ABOVE_NORMAL_PRIORITY_CLASS = _psutil_windows.ABOVE_NORMAL_PRIORITY_CLASS
-        BELOW_NORMAL_PRIORITY_CLASS = _psutil_windows.BELOW_NORMAL_PRIORITY_CLASS
-        HIGH_PRIORITY_CLASS = _psutil_windows.HIGH_PRIORITY_CLASS
-        IDLE_PRIORITY_CLASS = _psutil_windows.IDLE_PRIORITY_CLASS
-        NORMAL_PRIORITY_CLASS = _psutil_windows.NORMAL_PRIORITY_CLASS
-        REALTIME_PRIORITY_CLASS = _psutil_windows.REALTIME_PRIORITY_CLASS
+        ABOVE_NORMAL_PRIORITY_CLASS = _psutil.ABOVE_NORMAL_PRIORITY_CLASS
+        BELOW_NORMAL_PRIORITY_CLASS = _psutil.BELOW_NORMAL_PRIORITY_CLASS
+        HIGH_PRIORITY_CLASS = _psutil.HIGH_PRIORITY_CLASS
+        IDLE_PRIORITY_CLASS = _psutil.IDLE_PRIORITY_CLASS
+        NORMAL_PRIORITY_CLASS = _psutil.NORMAL_PRIORITY_CLASS
+        REALTIME_PRIORITY_CLASS = _psutil.REALTIME_PRIORITY_CLASS
 
     class IOPriority(enum.IntEnum):
         IOPRIO_VERYLOW = 0
@@ -70,12 +69,12 @@ if sys.platform == "win32":
 
     def convert_dos_path(s: str) -> str: ...
     def getpagesize() -> int: ...
-    def virtual_memory() -> ntp.svmem: ...
-    def swap_memory() -> ntp.sswap: ...
+    def memory_physical() -> ntp.smem: ...
+    def memory_swap() -> ntp.sswap: ...
 
-    heap_info = _psutil_windows.heap_info
-    heap_trim = _psutil_windows.heap_trim
-    disk_io_counters = _psutil_windows.disk_io_counters
+    heap_info = _psutil.heap_info
+    heap_trim = _psutil.heap_trim
+    disk_io_counters = _psutil.disk_io_counters
 
     def disk_usage(path: str) -> ntp.sdiskusage: ...
     def disk_partitions(all: bool) -> list[ntp.sdiskpart]: ...
@@ -126,9 +125,9 @@ if sys.platform == "win32":
         def description(self) -> str: ...
         def as_dict(self) -> _WindowsServiceAttrs: ...
 
-    pids = _psutil_windows.pids
-    pid_exists = _psutil_windows.pid_exists
-    ppid_map = _psutil_windows.ppid_map
+    pids = _psutil.pids
+    pid_exists = _psutil.pid_exists
+    ppid_map = _psutil.ppid_map
 
     def is_permission_err(exc: OSError) -> bool: ...
 
@@ -152,7 +151,8 @@ if sys.platform == "win32":
         def environ(self) -> dict[str, str]: ...
         def ppid(self) -> int: ...
         def memory_info(self) -> ntp.pmem: ...
-        def memory_full_info(self) -> ntp.pfullmem: ...
+        def memory_extras(self) -> ntp.pmem_extras: ...
+        def memory_footprint(self) -> ntp.pfootprint: ...
         def memory_maps(self) -> Iterator[tuple[str, str, str, int]]: ...
         def kill(self) -> None: ...
         def send_signal(self, sig: Literal[Signals.SIGTERM, Signals.CTRL_C_EVENT, Signals.CTRL_BREAK_EVENT]) -> None: ...
@@ -176,4 +176,5 @@ if sys.platform == "win32":
         def cpu_affinity_get(self) -> list[int]: ...
         def cpu_affinity_set(self, value: Iterable[int]) -> None: ...
         def num_handles(self) -> int: ...
-        def num_ctx_switches(self) -> ntp.pctxsw: ...
+        def ctx_switches(self) -> ntp.pctxsw: ...
+        def page_faults(self) -> ntp.ppagefaults: ...

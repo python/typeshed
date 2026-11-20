@@ -3,6 +3,8 @@ from _typeshed import Incomplete
 from socket import AddressFamily, SocketKind
 from typing import Any, NamedTuple
 
+from ._enums import ConnectionStatus
+
 # All named tuples are defined in this file, but due to the inability to detect some platforms,
 # it was decided to store the correct named tuples inside platform-specific files.
 
@@ -51,7 +53,7 @@ class suser(NamedTuple):
     terminal: str | None
     host: str | None
     started: float
-    pid: str
+    pid: int | None
 
 class sconn(NamedTuple):
     fd: int
@@ -59,7 +61,7 @@ class sconn(NamedTuple):
     type: SocketKind
     laddr: addr | tuple[()]
     raddr: addr | tuple[()]
-    status: str
+    status: ConnectionStatus
     pid: int | None
 
 class snicaddr(NamedTuple):
@@ -157,13 +159,17 @@ class pctxsw(NamedTuple):
     voluntary: int
     involuntary: int
 
+class ppagefaults(NamedTuple):
+    minor: int
+    major: int
+
 class pconn(NamedTuple):
     fd: int
     family: AddressFamily
     type: SocketKind
     laddr: addr
     raddr: addr
-    status: str
+    status: ConnectionStatus
 
 class addr(NamedTuple):
     ip: str
@@ -174,9 +180,9 @@ if sys.platform == "linux":
         # Note: scputimes has different fields depending on exactly how Linux
         # is setup, but we'll include the "complete" set of fields
         user: float
-        nice: float
         system: float
         idle: float
+        nice: float
         iowait: float
         irq: float
         softirq: float
@@ -184,7 +190,7 @@ if sys.platform == "linux":
         guest: float
         guest_nice: float
 
-    class svmem(NamedTuple):
+    class smem(NamedTuple):
         total: int
         available: int
         percent: float
@@ -220,18 +226,29 @@ if sys.platform == "linux":
         vms: int
         shared: int
         text: int
-        lib: int
         data: int
-        dirty: int
+
+    class pmem_extras(NamedTuple):
+        peak_rss: int
+        peak_vms: int
+        rss_anon: int
+        rss_file: int
+        rss_shmem: int
+        swap_anon: int
+        locked: int
+
+    class pfootprint(NamedTuple):
+        uss: int
+        shared: int
+        pss: int
+        swap: int
 
     class pfullmem(NamedTuple):
         rss: int
         vms: int
         shared: int
         text: int
-        lib: int
         data: int
-        dirty: int
         uss: int
         pss: int
         swap: int
@@ -287,7 +304,7 @@ elif sys.platform == "win32":
         interrupt: float
         dpc: float
 
-    class svmem(NamedTuple):
+    class smem(NamedTuple):
         total: int
         available: int
         percent: float
@@ -297,30 +314,26 @@ elif sys.platform == "win32":
     class pmem(NamedTuple):
         rss: int
         vms: int
-        num_page_faults: int
-        peak_wset: int
-        wset: int
-        peak_paged_pool: int
+        peak_rss: int
+        peak_vms: int
+
+    class pmem_extras(NamedTuple):
+        virtual: int
+        peak_virtual: int
         paged_pool: int
-        peak_nonpaged_pool: int
         nonpaged_pool: int
-        pagefile: int
-        peak_pagefile: int
-        private: int
+        peak_paged_pool: int
+        peak_nonpaged_pool: int
+
+    class pfootprint(NamedTuple):
+        uss: int
+        shared: int
 
     class pfullmem(NamedTuple):
         rss: int
         vms: int
-        num_page_faults: int
-        peak_wset: int
-        wset: int
-        peak_paged_pool: int
-        paged_pool: int
-        peak_nonpaged_pool: int
-        nonpaged_pool: int
-        pagefile: int
-        peak_pagefile: int
-        private: int
+        peak_rss: int
+        peak_vms: int
         uss: int
 
     class pmmap_grouped(NamedTuple):
@@ -344,11 +357,11 @@ elif sys.platform == "win32":
 elif sys.platform == "darwin":
     class scputimes(NamedTuple):
         user: float
-        nice: float
         system: float
         idle: float
+        nice: float
 
-    class svmem(NamedTuple):
+    class smem(NamedTuple):
         total: int
         available: int
         percent: float
@@ -361,24 +374,40 @@ elif sys.platform == "darwin":
     class pmem(NamedTuple):
         rss: int
         vms: int
-        pfaults: int
-        pageins: int
+
+    class pmem_extras(NamedTuple):
+        phys_footprint: int
+        peak_phys_footprint: int
+
+    class pfootprint(NamedTuple):
+        uss: int
+        shared: int
 
     class pfullmem(NamedTuple):
         rss: int
         vms: int
-        pfaults: int
-        pageins: int
         uss: int
+
+    class pmmap_grouped(NamedTuple):
+        path: str
+        rss: int
+
+    class pmmap_ext(NamedTuple):
+        addr: str
+        perms: str
+        path: str
+        rss: int
 
 else:
     # See _psbsd.pyi, _pssunos.pyi or _psaix.pyi
-    # BSD: svmem, scputimes, pmem, pfullmem, pcputimes, pmmap_grouped, pmmap_ext, sdiskio
-    # SUNOS: scputimes, pcputimes, svmem, pmem, pfullmem, pmmap_grouped, pmmap_ext
-    # AIX: pmem, pfullmem, scputimes, svmem
+    # BSD: smem, scputimes, pmem, pfullmem, pcputimes, pmmap_grouped, pmmap_ext, sdiskio
+    # SUNOS: scputimes, pcputimes, smem, pmem, pfullmem, pmmap_grouped, pmmap_ext
+    # AIX: pmem, pfullmem, scputimes, smem
 
     scputimes = Incomplete
 
     class pmem(Any): ...
+    class pmem_extras(Any): ...
+    class pfootprint(Any): ...
     class pfullmem(Any): ...
-    class svmem(Any): ...
+    class smem(Any): ...
