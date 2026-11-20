@@ -42,3 +42,5 @@ playhouse\.\w+?
 playhouse.flask_utils.PaginatedQuery
 playhouse.flask_utils.get_\w+
 playhouse.flask_utils.object_list
+# Only a small part of these modules is stubbed
+playhouse\.(postgres_ext|sqlite_ext|test_utils)(\.\w+)*
