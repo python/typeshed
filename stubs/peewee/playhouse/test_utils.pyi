@@ -1,6 +1,5 @@
 from logging import LogRecord
 from types import TracebackType
-
 from typing_extensions import Self
 
 class count_queries:
