@@ -1,0 +1,25 @@
+from abc import ABCMeta, abstractmethod
+from collections.abc import Iterable, Sequence
+from datetime import datetime
+
+from apscheduler.events import JobExecutionEvent
+from apscheduler.job import Job
+from apscheduler.schedulers.base import BaseScheduler
+
+class MaxInstancesReachedError(Exception):  # undocumented
+    def __init__(self, job: Job) -> None: ...
+
+class BaseExecutor(metaclass=ABCMeta):
+    def __init__(self) -> None: ...
+    def start(self, scheduler: BaseScheduler, alias: str) -> None: ...
+    def shutdown(self, wait: bool = True) -> None: ...
+    def submit_job(self, job: Job, run_times: Sequence[datetime]) -> None: ...
+    @abstractmethod
+    def _do_submit_job(self, job: Job, run_times: Sequence[datetime]) -> None: ...  # undocumented
+
+def run_job(  # undocumented
+    job: Job, jobstore_alias: str | None, run_times: Iterable[datetime], logger_name: str
+) -> list[JobExecutionEvent]: ...
+async def run_coroutine_job(  # undocumented
+    job: Job, jobstore_alias: str | None, run_times: Iterable[datetime], logger_name: str
+) -> list[JobExecutionEvent]: ...
