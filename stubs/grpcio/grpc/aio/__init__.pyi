@@ -129,7 +129,7 @@ def secure_channel(
 
 def server(
     migration_thread_pool: futures.Executor | None = None,
-    handlers: Sequence[GenericRpcHandler] | None = None,
+    handlers: Sequence[GenericRpcHandler[RpcMethodHandler[Any, Any] | _AsyncRpcMethodHandler[Any, Any]]] | None = None,
     interceptors: Sequence[ServerInterceptor] | None = None,
     options: _Options | None = None,
     maximum_concurrent_rpcs: int | None = None,
@@ -189,9 +189,11 @@ class Channel(abc.ABC):
 
 class Server(metaclass=abc.ABCMeta):
     @abc.abstractmethod
-    def add_generic_rpc_handlers(self, generic_rpc_handlers: Iterable[GenericRpcHandler]) -> None: ...
+    def add_generic_rpc_handlers(
+        self, generic_rpc_handlers: Iterable[GenericRpcHandler[RpcMethodHandler[Any, Any] | _AsyncRpcMethodHandler[Any, Any]]]
+    ) -> None: ...
     def add_registered_method_handlers(
-        self, service_name: str, method_handlers: Mapping[str, RpcMethodHandler[Any, Any]]
+        self, service_name: str, method_handlers: Mapping[str, RpcMethodHandler[Any, Any] | _AsyncRpcMethodHandler[Any, Any]]
     ) -> None: ...
 
     # Returns an integer port on which server will accept RPC requests.
@@ -443,7 +445,27 @@ class StreamStreamClientInterceptor(ClientInterceptor, metaclass=abc.ABCMeta):
 
 # Server-Side Interceptor:
 
+# Async version of grpc.RpcMethodHandler. As opposed to the former, this type
+# does not exist at runtime.
+@type_check_only
+class _AsyncRpcMethodHandler(Generic[_TRequest, _TResponse]):
+    request_streaming: bool
+    response_streaming: bool
+    request_deserializer: _Deserializer[_TRequest] | None
+    response_serializer: _Serializer[_TResponse] | None
+    unary_unary: Callable[[_TRequest, ServicerContext[_TRequest, _TResponse]], Awaitable[_TResponse]] | None
+    unary_stream: (
+        Callable[[_TRequest, ServicerContext[_TRequest, _TResponse]], AsyncIterator[_TResponse] | Awaitable[None]] | None
+    )
+    stream_unary: Callable[[AsyncIterator[_TRequest], ServicerContext[_TRequest, _TResponse]], Awaitable[_TResponse]] | None
+    stream_stream: (
+        Callable[[AsyncIterator[_TRequest], ServicerContext[_TRequest, _TResponse]], AsyncIterator[_TResponse] | Awaitable[None]]
+        | None
+    )
+
 class ServerInterceptor(metaclass=abc.ABCMeta):
+    # aio servers also run synchronous handlers in a thread pool, so continuation
+    # can return either kind of handler without adapting its behavior.
     # This method (not the class) is generic over _TRequest and _TResponse
     # and the types must satisfy the no-op implementation of
     # `return await continuation(handler_call_details)`.
@@ -453,9 +475,12 @@ class ServerInterceptor(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     async def intercept_service(
         self,
-        continuation: Callable[[HandlerCallDetails], Awaitable[RpcMethodHandler[_TRequest, _TResponse] | None]],
+        continuation: Callable[
+            [HandlerCallDetails],
+            Awaitable[RpcMethodHandler[_TRequest, _TResponse] | _AsyncRpcMethodHandler[_TRequest, _TResponse] | None],
+        ],
         handler_call_details: HandlerCallDetails,
-    ) -> RpcMethodHandler[_TRequest, _TResponse] | None: ...
+    ) -> RpcMethodHandler[_TRequest, _TResponse] | _AsyncRpcMethodHandler[_TRequest, _TResponse] | None: ...
 
 # Multi-Callable Interfaces:
 
