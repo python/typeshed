@@ -1,0 +1,6 @@
+version = "0.21.*"
+upstream-repository = "https://github.com/socialwifi/RouterOS-api"
+partial-stub = true
+
+[tool.stubtest]
+ignore-missing-stub = true
