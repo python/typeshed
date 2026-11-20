@@ -1,42 +1,15 @@
+from _typeshed import StrOrBytesPath, SupportsRead
 from argparse import ArgumentParser
 from collections.abc import Iterable, Mapping, Sequence
 from typing import Any, TypeAlias, overload
 
-from xmldiff.actions import (
-    DeleteAttrib,
-    DeleteNamespace,
-    DeleteNode,
-    InsertAttrib,
-    InsertComment,
-    InsertNamespace,
-    InsertNode,
-    MoveNode,
-    RenameAttrib,
-    RenameNode,
-    UpdateAttrib,
-    UpdateTextAfter,
-    UpdateTextIn,
-)
+from xmldiff.actions import _Action
 from xmldiff.formatting import BaseFormatter
 
 __version__: str
 FORMATTERS: Mapping[str, BaseFormatter]
 
-_ACTIONS: TypeAlias = (
-    DeleteNode
-    | InsertNode
-    | RenameNode
-    | MoveNode
-    | UpdateTextIn
-    | UpdateTextAfter
-    | UpdateAttrib
-    | DeleteAttrib
-    | InsertAttrib
-    | RenameAttrib
-    | InsertComment
-    | InsertNamespace
-    | DeleteNamespace
-)
+_ACTIONS: TypeAlias = _Action
 _ET: TypeAlias = Any  # lxml.etree._ElementTree
 
 @overload
@@ -65,8 +38,10 @@ def diff_files(
 def validate_F(arg: float | str) -> float: ...
 def make_diff_parser() -> ArgumentParser: ...
 def diff_command(args: Sequence[str] | None = None) -> int | None: ...
-def patch_tree(actions, tree): ...
-def patch_text(actions, tree): ...
-def patch_file(actions, tree, diff_encoding=None): ...
-def make_patch_parser(): ...
-def patch_command(args=None) -> None: ...
+def patch_tree(actions: Iterable[_ACTIONS], tree: _ET) -> _ET: ...
+def patch_text(actions: str, tree: str | bytes) -> str: ...
+def patch_file(
+    actions: str | SupportsRead[str], tree: StrOrBytesPath | SupportsRead[bytes | str], diff_encoding: str | None = None
+) -> str: ...
+def make_patch_parser() -> ArgumentParser: ...
+def patch_command(args: Sequence[str] | None = None) -> None: ...
