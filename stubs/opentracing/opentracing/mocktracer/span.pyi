@@ -8,7 +8,7 @@ from .tracer import MockTracer
 
 class MockSpan(Span):
     operation_name: str | None
-    start_time: Any
+    start_time: float | None
     parent_id: int | None
     tags: dict[str, Any]
     finish_time: float
@@ -34,5 +34,5 @@ class MockSpan(Span):
 
 class LogData:
     key_values: dict[str, Any]
-    timestamp: float | None
+    timestamp: float
     def __init__(self, key_values: dict[str, Any], timestamp: float | None = None) -> None: ...
