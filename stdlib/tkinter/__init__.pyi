@@ -354,8 +354,8 @@ class IntVar(Variable):
     def get(self) -> int: ...
 
 class DoubleVar(Variable):
-    def __init__(self, master: Misc | None = None, value: FloatInt | None = None, name: str | None = None) -> None: ...
-    def set(self, value: FloatInt) -> None: ...
+    def __init__(self, master: Misc | None = None, value: int | float | None = None, name: str | None = None) -> None: ...
+    def set(self, value: int | float) -> None: ...
     initialize = set
     def get(self) -> float: ...
 
@@ -377,8 +377,8 @@ _P = ParamSpec("_P")
 
 @type_check_only
 class _GridIndexInfo(TypedDict, total=False):
-    minsize: FloatInt | str
-    pad: FloatInt | str
+    minsize: int
+    pad: int
     uniform: str | None
     weight: int
 
@@ -488,7 +488,7 @@ class Misc:
     def winfo_containing(self, rootX: int, rootY: int, displayof: Literal[0] | Misc | None = 0) -> Misc | None: ...
     def winfo_depth(self) -> int: ...
     def winfo_exists(self) -> bool: ...
-    def winfo_fpixels(self, number: FloatInt | str) -> float: ...
+    def winfo_fpixels(self, number: int | float | str) -> float: ...
     def winfo_geometry(self) -> str: ...
     def winfo_height(self) -> int: ...
     def winfo_id(self) -> int: ...
@@ -498,7 +498,7 @@ class Misc:
     def winfo_name(self) -> str: ...
     def winfo_parent(self) -> str: ...  # return value needs nametowidget()
     def winfo_pathname(self, id: int, displayof: Literal[0] | Misc | None = 0): ...
-    def winfo_pixels(self, number: FloatInt | str) -> int: ...
+    def winfo_pixels(self, number: int | float | str) -> int: ...
     def winfo_pointerx(self) -> int: ...
     def winfo_pointerxy(self) -> tuple[int, int]: ...
     def winfo_pointery(self) -> int: ...
@@ -614,8 +614,8 @@ class Misc:
         index: int | str | list[int] | tuple[int, ...],
         cnf: _GridIndexInfo = {},
         *,
-        minsize: FloatInt | str = ...,
-        pad: FloatInt | str = ...,
+        minsize: int | float | str = ...,
+        pad: int | float | str = ...,
         uniform: str = ...,
         weight: int = ...,
     ) -> _GridIndexInfo | MaybeNone: ...  # can be None but annoying to check
@@ -624,14 +624,14 @@ class Misc:
         index: int | str | list[int] | tuple[int, ...],
         cnf: _GridIndexInfo = {},
         *,
-        minsize: FloatInt | str = ...,
-        pad: FloatInt | str = ...,
+        minsize: int | float | str = ...,
+        pad: int | float | str = ...,
         uniform: str = ...,
         weight: int = ...,
     ) -> _GridIndexInfo | MaybeNone: ...  # can be None but annoying to check
     columnconfigure = grid_columnconfigure
     rowconfigure = grid_rowconfigure
-    def grid_location(self, x: FloatInt | str, y: FloatInt | str) -> tuple[int, int]: ...
+    def grid_location(self, x: int | float | str, y: int | float | str) -> tuple[int, int]: ...
 
     @overload
     def grid_propagate(self, flag: bool) -> None: ...
@@ -658,32 +658,32 @@ class Misc:
         sequence: str,
         *,
         above: Misc | int = ...,
-        borderwidth: FloatInt | str = ...,
+        borderwidth: int | float | str = ...,
         button: int = ...,
         count: int = ...,
         data: Any = ...,  # anything with usable str() value
         delta: int = ...,
         detail: str = ...,
         focus: bool = ...,
-        height: FloatInt | str = ...,
+        height: int | float | str = ...,
         keycode: int = ...,
         keysym: str = ...,
         mode: str = ...,
         override: bool = ...,
         place: Literal["PlaceOnTop", "PlaceOnBottom"] = ...,
         root: Misc | int = ...,
-        rootx: FloatInt | str = ...,
-        rooty: FloatInt | str = ...,
+        rootx: int | float | str = ...,
+        rooty: int | float | str = ...,
         sendevent: bool = ...,
         serial: int = ...,
         state: int | str = ...,
         subwindow: Misc | int = ...,
         time: int = ...,
         warp: bool = ...,
-        width: FloatInt | str = ...,
+        width: int | float | str = ...,
         when: Literal["now", "tail", "head", "mark"] = ...,
-        x: FloatInt | str = ...,
-        y: FloatInt | str = ...,
+        x: int | float | str = ...,
+        y: int | float | str = ...,
     ) -> None: ...
     def event_info(self, virtual: str | None = None) -> tuple[str, ...]: ...
     def image_names(self) -> tuple[str, ...]: ...
@@ -708,12 +708,12 @@ class XView:
     @overload
     def xview(self, *args) -> None: ...
 
-    def xview_moveto(self, fraction: FloatInt) -> None: ...
+    def xview_moveto(self, fraction: int | float) -> None: ...
 
     @overload
     def xview_scroll(self, number: int, what: Literal["units", "pages"]) -> None: ...
     @overload
-    def xview_scroll(self, number: FloatInt | str, what: Literal["pixels"]) -> None: ...
+    def xview_scroll(self, number: int | float | str, what: Literal["pixels"]) -> None: ...
 
 class YView:
     @overload
@@ -721,17 +721,17 @@ class YView:
     @overload
     def yview(self, *args) -> None: ...
 
-    def yview_moveto(self, fraction: FloatInt) -> None: ...
+    def yview_moveto(self, fraction: int | float) -> None: ...
 
     @overload
     def yview_scroll(self, number: int, what: Literal["units", "pages"]) -> None: ...
     @overload
-    def yview_scroll(self, number: FloatInt | str, what: Literal["pixels"]) -> None: ...
+    def yview_scroll(self, number: int | float | str, what: Literal["pixels"]) -> None: ...
 
 if sys.platform == "darwin":
     @type_check_only
     class _WmAttributes(TypedDict):
-        alpha: FloatInt
+        alpha: float
         fullscreen: bool
         modified: bool
         notify: bool
@@ -743,7 +743,7 @@ if sys.platform == "darwin":
 elif sys.platform == "win32":
     @type_check_only
     class _WmAttributes(TypedDict):
-        alpha: FloatInt
+        alpha: float
         transparentcolor: str
         disabled: bool
         fullscreen: bool
@@ -754,7 +754,7 @@ else:
     # X11
     @type_check_only
     class _WmAttributes(TypedDict):
-        alpha: FloatInt
+        alpha: float
         topmost: bool
         zoomed: bool
         fullscreen: bool
@@ -848,7 +848,7 @@ class Wm:
     @overload
     def wm_attributes(self, option: str, /): ...
     @overload
-    def wm_attributes(self, option: Literal["-alpha"], value: FloatInt, /) -> Literal[""]: ...
+    def wm_attributes(self, option: Literal["-alpha"], value: int | float, /) -> Literal[""]: ...
     @overload
     def wm_attributes(self, option: Literal["-fullscreen"], value: bool, /) -> Literal[""]: ...
     @overload
@@ -887,7 +887,7 @@ class Wm:
             def wm_attributes(
                 self,
                 *,
-                alpha: FloatInt = ...,
+                alpha: float | int = ...,
                 fullscreen: bool = ...,
                 modified: bool = ...,
                 notify: bool = ...,
@@ -900,7 +900,7 @@ class Wm:
             def wm_attributes(
                 self,
                 *,
-                alpha: FloatInt = ...,
+                alpha: float | int = ...,
                 transparentcolor: str = ...,
                 disabled: bool = ...,
                 fullscreen: bool = ...,
@@ -911,7 +911,7 @@ class Wm:
             # X11
             @overload
             def wm_attributes(
-                self, *, alpha: FloatInt = ..., topmost: bool = ..., zoomed: bool = ..., fullscreen: bool = ..., type: str = ...
+                self, *, alpha: float | int = ..., topmost: bool = ..., zoomed: bool = ..., fullscreen: bool = ..., type: str = ...
             ) -> None: ...
 
     attributes = wm_attributes
@@ -1044,7 +1044,7 @@ class Tk(Misc, Wm):
         use: str | None = None,
     ) -> None: ...
 
-    # Keep this in sync with ttktheme.ThemedTk. See issue #13858
+    # Keep this in sync with ttkthemes.ThemedTk. See issue #13858
     @overload
     def configure(
         self,
@@ -1152,10 +1152,10 @@ class Pack:
         expand: bool | Literal[0, 1] = 0,
         fill: Literal["none", "x", "y", "both"] = ...,
         side: Literal["left", "right", "top", "bottom"] = ...,
-        ipadx: FloatInt | str = ...,
-        ipady: FloatInt | str = ...,
-        padx: FloatInt | str | tuple[FloatInt | str, FloatInt | str] = ...,
-        pady: FloatInt | str | tuple[FloatInt | str, FloatInt | str] = ...,
+        ipadx: int | float | str = ...,
+        ipady: int | float | str = ...,
+        padx: int | float | str | tuple[int | float | str, int | float | str] = ...,
+        pady: int | float | str | tuple[int | float | str, int | float | str] = ...,
         in_: Misc = ...,
         **kw: Any,  # allow keyword argument named 'in', see #4836
     ) -> None: ...
@@ -1185,15 +1185,15 @@ class Place:
         *,
         anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"] = ...,
         bordermode: Literal["inside", "outside", "ignore"] = ...,
-        width: FloatInt | str = ...,
-        height: FloatInt | str = ...,
-        x: FloatInt | str = ...,
-        y: FloatInt | str = ...,
+        width: int | float | str = ...,
+        height: int | float | str = ...,
+        x: int | float | str = ...,
+        y: int | float | str = ...,
         # str allowed for compatibility with place_info()
-        relheight: str | FloatInt = ...,
-        relwidth: str | FloatInt = ...,
-        relx: str | FloatInt = ...,
-        rely: str | FloatInt = ...,
+        relheight: float | int = ...,
+        relwidth: float | int = ...,
+        relx: float | int | str = ...,
+        rely: float | int | str = ...,
         in_: Misc = ...,
         **kw: Any,  # allow keyword argument named 'in', see #4836
     ) -> None: ...
@@ -1223,10 +1223,10 @@ class Grid:
         columnspan: int = ...,
         row: int = ...,
         rowspan: int = ...,
-        ipadx: FloatInt | str = ...,
-        ipady: FloatInt | str = ...,
-        padx: FloatInt | str | tuple[FloatInt | str, FloatInt | str] = ...,
-        pady: FloatInt | str | tuple[FloatInt | str, FloatInt | str] = ...,
+        ipadx: int | float | str = ...,
+        ipady: int | float | str = ...,
+        padx: int | float | str | tuple[int | float | str, int | float | str] = ...,
+        pady: int | float | str | tuple[int | float | str, int | float | str] = ...,
         sticky: (
             str | list[str] | tuple[str, ...]
         ) = ...,  # consists of letters 'n', 's', 'w', 'e', may contain repeats, may be empty
@@ -1273,28 +1273,28 @@ class Toplevel(BaseWidget, Wm):
         cnf: dict[str, Any] | None = {},
         *,
         background: str = ...,
-        bd: FloatInt | str = 0,
+        bd: int | float | str = 0,
         bg: str = ...,
-        border: FloatInt | str = 0,
-        borderwidth: FloatInt | str = 0,
+        border: int | float | str = 0,
+        borderwidth: int | float | str = 0,
         class_: str = "Toplevel",
         colormap: Literal["new", ""] | Misc = "",
         container: bool = False,
         cursor: _Cursor = "",
-        height: FloatInt | str = 0,
+        height: int | float | str = 0,
         highlightbackground: str = ...,
         highlightcolor: str = ...,
-        highlightthickness: FloatInt | str = 0,
+        highlightthickness: int | float | str = 0,
         menu: Menu = ...,
         name: str = ...,
-        padx: FloatInt | str = 0,
-        pady: FloatInt | str = 0,
+        padx: int | float | str = 0,
+        pady: int | float | str = 0,
         relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = "flat",
         screen: str = "",  # can't be changed after creating widget
         takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = 0,
         use: int = ...,
         visual: str | tuple[str, int] = "",
-        width: FloatInt | str = 0,
+        width: int | float | str = 0,
     ) -> None: ...
 
     @overload
@@ -1303,21 +1303,21 @@ class Toplevel(BaseWidget, Wm):
         cnf: dict[str, Any] | None = None,
         *,
         background: str = ...,
-        bd: FloatInt | str = ...,
+        bd: int | float | str = ...,
         bg: str = ...,
-        border: FloatInt | str = ...,
-        borderwidth: FloatInt | str = ...,
+        border: int | float | str = ...,
+        borderwidth: int | float | str = ...,
         cursor: _Cursor = ...,
-        height: FloatInt | str = ...,
+        height: int | float | str = ...,
         highlightbackground: str = ...,
         highlightcolor: str = ...,
-        highlightthickness: FloatInt | str = ...,
+        highlightthickness: int | float | str = ...,
         menu: Menu = ...,
-        padx: FloatInt | str = ...,
-        pady: FloatInt | str = ...,
+        padx: int | float | str = ...,
+        pady: int | float | str = ...,
         relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
         takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = ...,
-        width: FloatInt | str = ...,
+        width: int | float | str = ...,
     ) -> dict[str, tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> tuple[str, str, str, Any, Any]: ...
@@ -1334,11 +1334,11 @@ class Button(Widget):
         activeforeground: str = ...,
         anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"] = "center",
         background: str = ...,
-        bd: FloatInt | str = ...,  # same as borderwidth
+        bd: int | float | str = ...,  # same as borderwidth
         bg: str = ...,  # same as background
         bitmap: str = "",
-        border: FloatInt | str = ...,  # same as borderwidth
-        borderwidth: FloatInt | str = ...,
+        border: int | float | str = ...,  # same as borderwidth
+        borderwidth: int | float | str = ...,
         command: str | Callable[[], Any] = "",
         compound: Literal["top", "left", "center", "right", "bottom", "none"] = "none",
         cursor: _Cursor = "",
@@ -1349,29 +1349,29 @@ class Button(Widget):
         foreground: str = ...,
         # width and height must be int for buttons containing just text, but
         # buttons with an image accept any screen units.
-        height: FloatInt | str = 0,
+        height: int | float | str = 0,
         highlightbackground: str = ...,
         highlightcolor: str = ...,
-        highlightthickness: FloatInt | str = 1,
+        highlightthickness: int | float | str = 1,
         image: _Image | str = "",
         justify: Literal["left", "center", "right"] = "center",
         name: str = ...,
         overrelief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove", ""] = "",
-        padx: FloatInt | str = ...,
-        pady: FloatInt | str = ...,
+        padx: int | float | str = ...,
+        pady: int | float | str = ...,
         relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
         repeatdelay: int = ...,
         repeatinterval: int = ...,
         state: Literal["normal", "active", "disabled"] = "normal",
         takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = "",
-        text: FloatInt | str = "",
+        text: str | int | float = "",
         # We allow the textvariable to be any Variable, not necessarily
         # StringVar. This is useful for e.g. a button that displays the value
         # of an IntVar.
         textvariable: Variable = ...,
         underline: int = -1,
-        width: FloatInt | str = 0,
-        wraplength: FloatInt | str = 0,
+        width: int | float | str = 0,
+        wraplength: int | float | str = 0,
     ) -> None: ...
 
     @overload
@@ -1383,11 +1383,11 @@ class Button(Widget):
         activeforeground: str = ...,
         anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"] = ...,
         background: str = ...,
-        bd: FloatInt | str = ...,
+        bd: int | float | str = ...,
         bg: str = ...,
         bitmap: str = ...,
-        border: FloatInt | str = ...,
-        borderwidth: FloatInt | str = ...,
+        border: int | float | str = ...,
+        borderwidth: int | float | str = ...,
         command: str | Callable[[], Any] = ...,
         compound: Literal["top", "left", "center", "right", "bottom", "none"] = ...,
         cursor: _Cursor = ...,
@@ -1396,25 +1396,25 @@ class Button(Widget):
         fg: str = ...,
         font: _FontDescription = ...,
         foreground: str = ...,
-        height: FloatInt | str = ...,
+        height: int | float | str = ...,
         highlightbackground: str = ...,
         highlightcolor: str = ...,
-        highlightthickness: FloatInt | str = ...,
+        highlightthickness: int | float | str = ...,
         image: _Image | str = ...,
         justify: Literal["left", "center", "right"] = ...,
         overrelief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove", ""] = ...,
-        padx: FloatInt | str = ...,
-        pady: FloatInt | str = ...,
+        padx: int | float | str = ...,
+        pady: int | float | str = ...,
         relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
         repeatdelay: int = ...,
         repeatinterval: int = ...,
         state: Literal["normal", "active", "disabled"] = ...,
         takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = ...,
-        text: FloatInt | str = ...,
+        text: str | int | float = ...,
         textvariable: Variable = ...,
         underline: int = ...,
-        width: FloatInt | str = ...,
-        wraplength: FloatInt | str = ...,
+        width: int | float | str = ...,
+        wraplength: int | float | str = ...,
     ) -> dict[str, tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> tuple[str, str, str, Any, Any]: ...
@@ -1430,39 +1430,39 @@ class Canvas(Widget, XView, YView):
         cnf: dict[str, Any] | None = {},
         *,
         background: str = ...,
-        bd: FloatInt | str = 0,
+        bd: int | float | str = 0,
         bg: str = ...,
-        border: FloatInt | str = 0,
-        borderwidth: FloatInt | str = 0,
-        closeenough: FloatInt = 1.0,
+        border: int | float | str = 0,
+        borderwidth: int | float | str = 0,
+        closeenough: float | int = 1.0,
         confine: bool = True,
         cursor: _Cursor = "",
-        height: FloatInt | str = ...,  # see COORDINATES in canvas manual page
+        height: int | float | str = ...,  # see COORDINATES in canvas manual page
         highlightbackground: str = ...,
         highlightcolor: str = ...,
-        highlightthickness: FloatInt | str = ...,
+        highlightthickness: int | float | str = ...,
         insertbackground: str = ...,
-        insertborderwidth: FloatInt | str = 0,
+        insertborderwidth: int | float | str = 0,
         insertofftime: int = 300,
         insertontime: int = 600,
-        insertwidth: FloatInt | str = 2,
+        insertwidth: int | float | str = 2,
         name: str = ...,
         offset=...,  # undocumented
         relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = "flat",
         # Setting scrollregion to None doesn't reset it back to empty,
         # but setting it to () does.
-        scrollregion: tuple[FloatInt | str, FloatInt | str, FloatInt | str, FloatInt | str] | tuple[()] = (),
+        scrollregion: tuple[int | float | str, int | float | str, int | float | str, int | float | str] | tuple[()] = (),
         selectbackground: str = ...,
-        selectborderwidth: FloatInt | str = 1,
+        selectborderwidth: int | float | str = 1,
         selectforeground: str = ...,
         # man page says that state can be 'hidden', but it can't
         state: Literal["normal", "disabled"] = "normal",
         takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = "",
-        width: FloatInt | str = ...,
-        xscrollcommand: str | Callable[[FloatInt, FloatInt], object] = "",
-        xscrollincrement: FloatInt | str = 0,
-        yscrollcommand: str | Callable[[FloatInt, FloatInt], object] = "",
-        yscrollincrement: FloatInt | str = 0,
+        width: int | float | str = ...,
+        xscrollcommand: Callable[[str, str], object] | str = "",
+        xscrollincrement: int | float | str = 0,
+        yscrollcommand: Callable[[str, str], object] | str = "",
+        yscrollincrement: int | float | str = 0,
     ) -> None: ...
 
     @overload
@@ -1471,35 +1471,35 @@ class Canvas(Widget, XView, YView):
         cnf: dict[str, Any] | None = None,
         *,
         background: str = ...,
-        bd: FloatInt | str = ...,
+        bd: int | float | str = ...,
         bg: str = ...,
-        border: FloatInt | str = ...,
-        borderwidth: FloatInt | str = ...,
-        closeenough: FloatInt = ...,
+        border: int | float | str = ...,
+        borderwidth: int | float | str = ...,
+        closeenough: float | int = ...,
         confine: bool = ...,
         cursor: _Cursor = ...,
-        height: FloatInt | str = ...,
+        height: int | float | str = ...,
         highlightbackground: str = ...,
         highlightcolor: str = ...,
-        highlightthickness: FloatInt | str = ...,
+        highlightthickness: int | float | str = ...,
         insertbackground: str = ...,
-        insertborderwidth: FloatInt | str = ...,
+        insertborderwidth: int | float | str = ...,
         insertofftime: int = ...,
         insertontime: int = ...,
-        insertwidth: FloatInt | str = ...,
+        insertwidth: int | float | str = ...,
         offset=...,  # undocumented
         relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
-        scrollregion: tuple[FloatInt | str, FloatInt | str, FloatInt | str, FloatInt | str] | tuple[()] = ...,
+        scrollregion: tuple[int | float | str, int | float | str, int | float | str, int | float | str] | tuple[()] = ...,
         selectbackground: str = ...,
-        selectborderwidth: FloatInt | str = ...,
+        selectborderwidth: int | float | str = ...,
         selectforeground: str = ...,
         state: Literal["normal", "disabled"] = ...,
         takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = ...,
-        width: FloatInt | str = ...,
-        xscrollcommand: str | Callable[[FloatInt, FloatInt], object] = ...,
-        xscrollincrement: FloatInt | str = ...,
-        yscrollcommand: str | Callable[[FloatInt, FloatInt], object] = ...,
-        yscrollincrement: FloatInt | str = ...,
+        width: int | float | str = ...,
+        xscrollcommand: Callable[[str, str], object] | str = ...,
+        xscrollincrement: int | float | str = ...,
+        yscrollcommand: Callable[[str, str], object] | str = ...,
+        yscrollincrement: int | float | str = ...,
     ) -> dict[str, tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> tuple[str, str, str, Any, Any]: ...
