@@ -6,6 +6,7 @@
 - [CONTRIBUTING.md](../CONTRIBUTING.md) – Contribution Guidelines
 - [docs/maintainers.md](./maintainers.md) – Active and Former Maintainers
 - [docs/maintainer-guide.md](./maintainer-guide.md) – Guidelines for Maintainers
+- [docs/metadata-files.md](./metadata-files.md) – Description of `METADATA.toml` files
 - [tests/README.md](../tests/README.md) – Test Suite Overview
 - [tests/REGRESSION.md](../tests/REGRESSION.md) – Regression Tests
 - [stdlib/_typeshed/README.md](../stdlib/_typeshed/README.md) – Utility Types in `_typeshed`
