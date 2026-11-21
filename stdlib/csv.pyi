@@ -21,9 +21,9 @@ if sys.version_info >= (3, 12):
     from _csv import QUOTE_NOTNULL as QUOTE_NOTNULL, QUOTE_STRINGS as QUOTE_STRINGS
 from _csv import Reader, Writer
 from _typeshed import SupportsWrite
-from collections.abc import Collection, Iterable, Mapping, Sequence
+from collections.abc import Collection, Iterable, Iterator, Mapping, Sequence
 from types import GenericAlias
-from typing import Any, Generic, Literal, TypeVar, overload
+from typing import Any, Generic, Literal, TypeAlias, TypeVar, overload
 from typing_extensions import Self
 
 __all__ = [
@@ -53,6 +53,13 @@ if sys.version_info < (3, 13):
     __all__ += ["__doc__", "__version__"]
 
 _T = TypeVar("_T")
+
+if sys.version_info >= (3, 12):
+    _ReaderFieldnames: TypeAlias = Sequence[_T] | Iterator[_T]
+    _WriterFieldnames: TypeAlias = Collection[_T] | Iterator[_T]
+else:
+    _ReaderFieldnames: TypeAlias = Sequence[_T]
+    _WriterFieldnames: TypeAlias = Collection[_T]
 
 # Note that this is often the wrong class: it is only useful for sub-classing
 # (e.g. csv.excel). Dialect objects returned at runtime, such as the return
@@ -85,7 +92,7 @@ class DictReader(Generic[_T]):
     def __init__(
         self,
         f: Iterable[str],
-        fieldnames: Sequence[_T],
+        fieldnames: _ReaderFieldnames[_T],
         restkey: _T | None = None,
         restval: str | Any | None = None,
         dialect: _DialectLike = "excel",
@@ -103,7 +110,7 @@ class DictReader(Generic[_T]):
     def __init__(
         self: DictReader[str],
         f: Iterable[str],
-        fieldnames: Sequence[str] | None = None,
+        fieldnames: _ReaderFieldnames[str] | None = None,
         restkey: str | None = None,
         restval: str | None = None,
         dialect: _DialectLike = "excel",
@@ -117,7 +124,6 @@ class DictReader(Generic[_T]):
         quoting: _QuotingType = 0,
         strict: bool = False,
     ) -> None: ...
-
     def __iter__(self) -> Self: ...
     def __next__(self) -> dict[_T | Any, str | Any]: ...
     if sys.version_info >= (3, 12):
@@ -131,7 +137,7 @@ class DictWriter(Generic[_T]):
     def __init__(
         self,
         f: SupportsWrite[str],
-        fieldnames: Collection[_T],
+        fieldnames: _WriterFieldnames[_T],
         restval: Any | None = "",
         extrasaction: Literal["raise", "ignore"] = "raise",
         dialect: _DialectLike = "excel",
