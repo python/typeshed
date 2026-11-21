@@ -8,7 +8,7 @@ from pymeeus.Angle import Angle
 DAY2SEC: Final = 86400.0
 DAY2MIN: Final = 1440.0
 DAY2HOURS: Final = 24.0
-LEAP_TABLE: Final[dict[FloatInt, int]]
+LEAP_TABLE: Final[dict[float, int]]
 
 class Epoch:
     @overload

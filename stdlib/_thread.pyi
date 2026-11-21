@@ -93,7 +93,7 @@ def allocate() -> LockType: ...  # undocumented
 def get_ident() -> int: ...
 def stack_size(size: int = 0, /) -> int: ...
 
-TIMEOUT_MAX: Final[FloatInt]
+TIMEOUT_MAX: Final[float]
 
 def get_native_id() -> int: ...  # only available on some platforms
 

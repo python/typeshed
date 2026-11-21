@@ -21,7 +21,7 @@ __all__ = [
 
 KINDS: Final[set[str]]
 STYLES: Final[dict[str, str]]
-INF: Final[FloatInt]
+INF: Final[float]
 
 def random_string(L=15, seed=None): ...
 @_dispatchable

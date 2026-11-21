@@ -3,7 +3,7 @@ from _typeshed import FloatInt, MaybeNone
 from collections.abc import Awaitable, Callable, Coroutine, Iterable, Mapping, Sequence
 from contextlib import _GeneratorContextManager
 from types import TracebackType
-from typing import Any, ClassVar, Final, Generic, Literal, ParamSpec, TypeAlias, TypeVar, overload, type_check_only
+from typing import Any, ClassVar, Generic, Literal, ParamSpec, TypeAlias, TypeVar, overload, type_check_only
 from typing_extensions import Self, disjoint_base
 
 _T = TypeVar("_T")
@@ -542,7 +542,7 @@ class PropertyMock(Mock):
 
 if sys.version_info >= (3, 13):
     class ThreadingMixin(Base):
-        DEFAULT_TIMEOUT: Final[FloatInt | None] = None
+        DEFAULT_TIMEOUT: ClassVar[float | int | None] = None
 
         def __init__(self, /, *args: Any, timeout: FloatInt | _SentinelObject | None = ..., **kwargs: Any) -> None: ...
         # Same as `NonCallableMock.reset_mock.`

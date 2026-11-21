@@ -11,6 +11,6 @@ def rgb_to_hsv(r: FloatInt, g: FloatInt, b: FloatInt) -> tuple[float, float, flo
 def hsv_to_rgb(h: FloatInt, s: FloatInt, v: FloatInt) -> tuple[float, float, float]: ...
 
 # undocumented
-ONE_SIXTH: Final[FloatInt]
-ONE_THIRD: Final[FloatInt]
-TWO_THIRD: Final[FloatInt]
+ONE_THIRD: Final[float]
+ONE_SIXTH: Final[float]
+TWO_THIRD: Final[float]
