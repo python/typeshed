@@ -6,6 +6,7 @@ from math import prod
 from typing import Any, Literal
 from typing_extensions import assert_type
 
+
 class SupportsMul:
     def __mul__(self, other: Any) -> SupportsMul:
         return SupportsMul()
