@@ -1,4 +1,4 @@
-from _typeshed import Unused
+from _typeshed import FloatInt, Unused
 from collections.abc import Callable, Generator, Iterable, Iterator, Sequence
 from typing import Any, Final, Literal, overload, type_check_only
 from typing_extensions import Never, Self
@@ -11,21 +11,21 @@ from _cffi_backend import _CDataBase
 # pyright has no error code for subclassing final
 @type_check_only
 class _JackPositionT(_CDataBase):  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]  # ty:ignore[subclass-of-final-class]  # pyrefly: ignore [invalid-inheritance]
-    audio_frames_per_video_frame: float
+    audio_frames_per_video_frame: FloatInt
     bar: int
-    bar_start_tick: float
+    bar_start_tick: FloatInt
     bbt_offset: int
     beat: int
-    beat_type: float
-    beats_per_bar: float
-    beats_per_minute: float
+    beat_type: FloatInt
+    beats_per_bar: FloatInt
+    beats_per_minute: FloatInt
     frame: int
     frame_rate: int
-    frame_time: float
-    next_time: float
+    frame_time: FloatInt
+    next_time: FloatInt
     padding: _CDataBase  # <cdata 'int32_t[7]'>
     tick: int
-    ticks_per_beat: float
+    ticks_per_beat: FloatInt
     unique_1: int
     unique_2: int
     usecs: int
@@ -153,7 +153,7 @@ class Client:
         self, callback: Callable[[Port, str, str], object] | None = None, only_available: bool = True
     ) -> None: ...
     def set_graph_order_callback(self, callback: Callable[[], object]) -> None: ...
-    def set_xrun_callback(self, callback: Callable[[float], object]) -> None: ...
+    def set_xrun_callback(self, callback: Callable[[FloatInt], object]) -> None: ...
     def set_sync_callback(self, callback: Callable[[int, _JackPositionT], object] | None) -> None: ...
     def release_timebase(self) -> None: ...
     def set_timebase_callback(

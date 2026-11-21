@@ -1,11 +1,12 @@
+from _typeshed import FloatInt
 from collections.abc import Sequence
 from decimal import Decimal
 from typing import TypeAlias
 
 from geojson.base import GeoJSON
 
-_InputCoord: TypeAlias = float | Decimal | Geometry | Sequence[_InputCoord]
-_CleanCoord: TypeAlias = float | Decimal | list[_CleanCoord]
+_InputCoord: TypeAlias = FloatInt | Decimal | Geometry | Sequence[_InputCoord]
+_CleanCoord: TypeAlias = FloatInt | Decimal | list[_CleanCoord]
 
 DEFAULT_PRECISION: int
 

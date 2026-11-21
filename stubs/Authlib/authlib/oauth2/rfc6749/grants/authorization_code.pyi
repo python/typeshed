@@ -1,23 +1,23 @@
 from collections.abc import Collection
 from logging import Logger
-from typing import TypeAlias
+from typing import ClassVar, Literal
 
 from authlib.oauth2 import OAuth2Request
 from authlib.oauth2.rfc6749 import AuthorizationEndpointMixin, BaseGrant, ClientMixin, TokenEndpointMixin
-
-_ServerResponse: TypeAlias = tuple[int, str, list[tuple[str, str]]]
+from authlib.oauth2.rfc6750.token import _Token
 
 log: Logger
 
 class AuthorizationCodeGrant(BaseGrant, AuthorizationEndpointMixin, TokenEndpointMixin):
-    TOKEN_ENDPOINT_AUTH_METHODS: Collection[str]
+    TOKEN_ENDPOINT_AUTH_METHODS: ClassVar[list[str]]
     AUTHORIZATION_CODE_LENGTH: int
     RESPONSE_TYPES: Collection[str]
-    GRANT_TYPE: str
+    GRANT_TYPE: ClassVar[str]
+
     def validate_authorization_request(self) -> str: ...
-    def create_authorization_response(self, redirect_uri: str, grant_user) -> _ServerResponse: ...
+    def create_authorization_response(self, redirect_uri: str, grant_user) -> tuple[Literal[302], str, list[tuple[str, str]]]: ...
     def validate_token_request(self) -> None: ...
-    def create_token_response(self) -> _ServerResponse: ...
+    def create_token_response(self) -> tuple[Literal[200], _Token, list[tuple[str, str]]]: ...
     def generate_authorization_code(self) -> str: ...
     def save_authorization_code(self, code: str, request: OAuth2Request): ...
     def query_authorization_code(self, code: str, client: ClientMixin): ...

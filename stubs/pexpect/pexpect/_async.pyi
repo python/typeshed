@@ -1,10 +1,11 @@
 import asyncio
+from _typeshed import FloatInt
 from typing import AnyStr, Generic
 
 from .expect import Expecter
 
-async def expect_async(expecter: Expecter[AnyStr], timeout: float | None = None) -> int: ...
-async def repl_run_command_async(repl, cmdlines, timeout: float | None = -1): ...
+async def expect_async(expecter: Expecter[AnyStr], timeout: FloatInt | None = None) -> int: ...
+async def repl_run_command_async(repl, cmdlines, timeout: FloatInt | None = -1): ...
 
 class PatternWaiter(asyncio.Protocol, Generic[AnyStr]):
     transport: asyncio.ReadTransport | None

@@ -2,10 +2,6 @@ import sys
 from _typeshed import (
     ReadableBuffer,
     SupportsAdd,
-    SupportsDunderGE,
-    SupportsDunderGT,
-    SupportsDunderLE,
-    SupportsDunderLT,
     SupportsGetItem,
     SupportsMul,
     SupportsRAdd,
@@ -26,7 +22,34 @@ _K = TypeVar("_K")
 _V = TypeVar("_V")
 _P = ParamSpec("_P")
 
-_SupportsComparison: TypeAlias = SupportsDunderLE[Any] | SupportsDunderGE[Any] | SupportsDunderGT[Any] | SupportsDunderLT[Any]
+# The ordering functions in `operator` return the comparison result without testing its truth value.
+# The ordering protocols in `_typeshed` require `SupportsBool`, so we use local protocols
+# whose methods can return any object.
+@type_check_only
+class _SupportsDunderLT(Protocol[_T_contra]):
+    def __lt__(self, other: _T_contra, /) -> object: ...
+
+@type_check_only
+class _SupportsDunderGT(Protocol[_T_contra]):
+    def __gt__(self, other: _T_contra, /) -> object: ...
+
+@type_check_only
+class _SupportsDunderLE(Protocol[_T_contra]):
+    def __le__(self, other: _T_contra, /) -> object: ...
+
+@type_check_only
+class _SupportsDunderGE(Protocol[_T_contra]):
+    def __ge__(self, other: _T_contra, /) -> object: ...
+
+_SupportsComparisonWith: TypeAlias = _SupportsDunderLT[_T] | _SupportsDunderGT[_T] | _SupportsDunderLE[_T] | _SupportsDunderGE[_T]
+_SupportsComparison: TypeAlias = _SupportsComparisonWith[Any]
+
+# _T is the argument type accepted by the other operand's ordering method.
+# _SupportsComparison preserves the rule that any two operands with
+# ordering methods are accepted. For example, if x.__lt__ has separate int and
+# str overloads and y is int | str, neither overload accepts the whole union.
+# The fallback accepts lt(x, y) because int and str each define an ordering method.
+_ComparisonOperand: TypeAlias = _T | _SupportsComparison
 
 @type_check_only
 class _SupportsInversion(Protocol[_T_co]):
@@ -177,13 +200,33 @@ class _SupportsIConcat(Protocol[_T_contra, _T_co]):
     def __iadd__(self, value: _T_contra, /) -> _T_co: ...
     def __getitem__(self, key: Any) -> Any: ...  # method needs only exist
 
-# All four comparison functions must have the same signature, or we get false-positive errors
-def lt(a: _SupportsComparison, b: _SupportsComparison, /) -> Any: ...
-def le(a: _SupportsComparison, b: _SupportsComparison, /) -> Any: ...
-def eq(a: object, b: object, /) -> Any: ...
-def ne(a: object, b: object, /) -> Any: ...
-def ge(a: _SupportsComparison, b: _SupportsComparison, /) -> Any: ...
-def gt(a: _SupportsComparison, b: _SupportsComparison, /) -> Any: ...
+# Either operand can implement the comparison. Keep the four ordering functions' signatures
+# identical so mypy infers a common callable type when they are stored in a dictionary (see check_operator.py).
+@overload
+def lt(a: _SupportsComparisonWith[_T], b: _ComparisonOperand[_T], /) -> Any: ...
+@overload
+def lt(a: _ComparisonOperand[_T], b: _SupportsComparisonWith[_T], /) -> Any: ...
+
+@overload
+def le(a: _SupportsComparisonWith[_T], b: _ComparisonOperand[_T], /) -> Any: ...
+@overload
+def le(a: _ComparisonOperand[_T], b: _SupportsComparisonWith[_T], /) -> Any: ...
+
+# Equality accepts any operands. Using Any lets mypy infer a callable value type for
+# ops = {"<": lt, "==": eq}, so ops[symbol](a, b) type-checks.
+def eq(a: Any, b: Any, /) -> Any: ...
+def ne(a: Any, b: Any, /) -> Any: ...
+
+@overload
+def ge(a: _SupportsComparisonWith[_T], b: _ComparisonOperand[_T], /) -> Any: ...
+@overload
+def ge(a: _ComparisonOperand[_T], b: _SupportsComparisonWith[_T], /) -> Any: ...
+
+@overload
+def gt(a: _SupportsComparisonWith[_T], b: _ComparisonOperand[_T], /) -> Any: ...
+@overload
+def gt(a: _ComparisonOperand[_T], b: _SupportsComparisonWith[_T], /) -> Any: ...
+
 def not_(a: object, /) -> bool: ...
 def truth(a: object, /) -> bool: ...
 def is_(a: object, b: object, /) -> bool: ...

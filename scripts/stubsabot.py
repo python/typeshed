@@ -875,7 +875,8 @@ def get_update_pr_body(update: Update, settings: StubtestSettings) -> str:
 
 def remove_stubs(distribution: str) -> None:
     stub_path = distribution_path(distribution)
-    target_path_prefix = f'"stubs/{distribution}'
+    target_path = f'"stubs/{distribution}"'
+    target_path_prefix = f'"stubs/{distribution}/'
 
     if stub_path.exists() and stub_path.is_dir():
         shutil.rmtree(stub_path)
@@ -883,7 +884,7 @@ def remove_stubs(distribution: str) -> None:
     with PYRIGHT_CONFIG.open("r", encoding="UTF-8") as f:
         lines = f.readlines()
 
-    lines = [line for line in lines if not line.lstrip().startswith(target_path_prefix)]
+    lines = [line for line in lines if line.strip() != target_path and not line.lstrip().startswith(target_path_prefix)]
 
     with PYRIGHT_CONFIG.open("w", encoding="UTF-8") as f:
         f.writelines(lines)

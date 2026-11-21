@@ -1,4 +1,4 @@
-from _typeshed import OptExcInfo
+from _typeshed import FloatInt, OptExcInfo
 from _typeshed.wsgi import ErrorStream, InputStream, StartResponse, WSGIApplication, WSGIEnvironment
 from abc import abstractmethod
 from collections.abc import Callable, MutableMapping
@@ -9,7 +9,7 @@ from .util import FileWrapper
 
 __all__ = ["BaseHandler", "SimpleHandler", "BaseCGIHandler", "CGIHandler", "IISCGIHandler", "read_environ"]
 
-def format_date_time(timestamp: float | None) -> str: ...  # undocumented
+def format_date_time(timestamp: FloatInt | None) -> str: ...  # undocumented
 def read_environ() -> dict[str, str]: ...
 
 class BaseHandler:

@@ -1,4 +1,4 @@
-from _typeshed import Incomplete, ReadableBuffer
+from _typeshed import FloatInt, Incomplete, ReadableBuffer
 from collections.abc import Iterable
 from typing import ClassVar, Literal, SupportsBytes, SupportsIndex
 from typing_extensions import Self
@@ -31,17 +31,17 @@ class AsymmetricKey(Key):
         self,
         encoding: Literal["PEM", "DER"] | None = None,
         is_private: bool = False,
-        password: str | bytes | float | Iterable[SupportsIndex] | SupportsIndex | SupportsBytes | ReadableBuffer | None = None,
+        password: str | bytes | FloatInt | Iterable[SupportsIndex] | SupportsIndex | SupportsBytes | ReadableBuffer | None = None,
     ): ...
     def as_pem(
         self,
         is_private: bool = False,
-        password: str | bytes | float | Iterable[SupportsIndex] | SupportsIndex | SupportsBytes | ReadableBuffer | None = None,
+        password: str | bytes | FloatInt | Iterable[SupportsIndex] | SupportsIndex | SupportsBytes | ReadableBuffer | None = None,
     ): ...
     def as_der(
         self,
         is_private: bool = False,
-        password: str | bytes | float | Iterable[SupportsIndex] | SupportsIndex | SupportsBytes | ReadableBuffer | None = None,
+        password: str | bytes | FloatInt | Iterable[SupportsIndex] | SupportsIndex | SupportsBytes | ReadableBuffer | None = None,
     ): ...
     @classmethod
     def import_dict_key(cls, raw, options=None) -> Self: ...

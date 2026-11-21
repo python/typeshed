@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Iterable
 from decimal import Decimal
 from re import Pattern
@@ -19,7 +20,7 @@ REFERENCE_YEAR: int
 class _GuessesResult(TypedDict):
     password: str
     guesses: int
-    guesses_log10: float
+    guesses_log10: FloatInt
     sequence: list[_Match]
 
 def nCk(n: int, k: int) -> float: ...
@@ -34,8 +35,8 @@ def sequence_guesses(match: _Match) -> int: ...
 def regex_guesses(match: _Match) -> int | None: ...
 def date_guesses(match: _Match) -> int: ...
 
-KEYBOARD_AVERAGE_DEGREE: float
-KEYPAD_AVERAGE_DEGREE: float
+KEYBOARD_AVERAGE_DEGREE: FloatInt
+KEYPAD_AVERAGE_DEGREE: FloatInt
 KEYBOARD_STARTING_POSITIONS: int
 KEYPAD_STARTING_POSITIONS: int
 

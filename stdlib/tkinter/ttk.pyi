@@ -1,7 +1,7 @@
 import _tkinter
 import sys
 import tkinter
-from _typeshed import MaybeNone
+from _typeshed import FloatInt, MaybeNone
 from collections.abc import Callable, Iterable, Sequence
 from tkinter.font import _FontDescription
 from typing import Any, Literal, ParamSpec, TypeAlias, TypedDict, TypeVar, overload, type_check_only
@@ -39,12 +39,12 @@ def tclobjs_to_py(adict: dict[Any, Any]) -> dict[Any, Any]: ...
 def setup_master(master: tkinter.Misc | None = None): ...
 
 _Padding: TypeAlias = (
-    float
+    FloatInt
     | str
-    | tuple[float | str]
-    | tuple[float | str, float | str]
-    | tuple[float | str, float | str, float | str]
-    | tuple[float | str, float | str, float | str, float | str]
+    | tuple[FloatInt | str]
+    | tuple[FloatInt | str, FloatInt | str]
+    | tuple[FloatInt | str, FloatInt | str, FloatInt | str]
+    | tuple[FloatInt | str, FloatInt | str, FloatInt | str, FloatInt | str]
 )
 
 # Last item (option value to apply) varies between different options so use Any.
@@ -72,10 +72,10 @@ _LayoutSpec: TypeAlias = list[tuple[str, _Layout | None]]
 @type_check_only
 class _ElementCreateImageKwargs(TypedDict, total=False):
     border: _Padding
-    height: float | str
+    height: FloatInt | str
     padding: _Padding
     sticky: str
-    width: float | str
+    width: FloatInt | str
 
 _ElementCreateArgsCrossPlatform: TypeAlias = (
     # Could be any sequence here but types are not homogenous so just type it as tuple
@@ -94,8 +94,8 @@ if sys.platform == "win32" and sys.version_info >= (3, 13):
 
     @type_check_only
     class _ElementCreateVsapiKwargsSize(TypedDict):
-        width: float | str
-        height: float | str
+        width: FloatInt | str
+        height: FloatInt | str
 
     _ElementCreateVsapiKwargsDict: TypeAlias = (
         _ElementCreateVsapiKwargsPadding | _ElementCreateVsapiKwargsMargin | _ElementCreateVsapiKwargsSize
@@ -154,10 +154,10 @@ class Style:
         /,
         *imagespec: _ImageStatespec,
         border: _Padding = ...,
-        height: float | str = ...,
+        height: FloatInt | str = ...,
         padding: _Padding = ...,
         sticky: str = ...,
-        width: float | str = ...,
+        width: FloatInt | str = ...,
     ) -> None: ...
     @overload
     def element_create(self, elementname: str, etype: Literal["from"], themename: str, fromelement: str = ..., /) -> None: ...
@@ -199,8 +199,8 @@ class Style:
             vs_statespec: _VsapiStatespec = ...,
             /,
             *,
-            width: float | str,
-            height: float | str,
+            width: FloatInt | str,
+            height: FloatInt | str,
         ) -> None: ...
 
     def element_names(self) -> tuple[str, ...]: ...
@@ -243,7 +243,7 @@ class Button(Widget):
         state: str = "normal",
         style: str = "",
         takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = ...,
-        text: float | str = "",
+        text: FloatInt | str = "",
         textvariable: tkinter.Variable = ...,
         underline: int = -1,
         width: int | Literal[""] = "",
@@ -263,7 +263,7 @@ class Button(Widget):
         state: str = ...,
         style: str = ...,
         takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = ...,
-        text: float | str = ...,
+        text: FloatInt | str = ...,
         textvariable: tkinter.Variable = ...,
         underline: int = ...,
         width: int | Literal[""] = ...,
@@ -291,7 +291,7 @@ class Checkbutton(Widget):
         state: str = "normal",
         style: str = "",
         takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = ...,
-        text: float | str = "",
+        text: FloatInt | str = "",
         textvariable: tkinter.Variable = ...,
         underline: int = -1,
         # Seems like variable can be empty string, but actually setting it to
@@ -316,7 +316,7 @@ class Checkbutton(Widget):
         state: str = ...,
         style: str = ...,
         takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = ...,
-        text: float | str = ...,
+        text: FloatInt | str = ...,
         textvariable: tkinter.Variable = ...,
         underline: int = ...,
         variable: tkinter.Variable = ...,
@@ -351,7 +351,7 @@ class Entry(Widget, tkinter.Entry):
         validate: Literal["none", "focus", "focusin", "focusout", "key", "all"] = "none",
         validatecommand: str | list[str] | tuple[str, ...] | Callable[[], bool] = "",
         width: int = 20,
-        xscrollcommand: str | Callable[[float, float], object] = "",
+        xscrollcommand: str | Callable[[FloatInt, FloatInt], object] = "",
     ) -> None: ...
 
     @overload  # type: ignore[override]
@@ -374,7 +374,7 @@ class Entry(Widget, tkinter.Entry):
         validate: Literal["none", "focus", "focusin", "focusout", "key", "all"] = ...,
         validatecommand: str | list[str] | tuple[str, ...] | Callable[[], bool] = ...,
         width: int = ...,
-        xscrollcommand: str | Callable[[float, float], object] = ...,
+        xscrollcommand: str | Callable[[FloatInt, FloatInt], object] = ...,
     ) -> dict[str, tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> tuple[str, str, str, Any, Any]: ...
@@ -400,7 +400,7 @@ class Entry(Widget, tkinter.Entry):
         validate: Literal["none", "focus", "focusin", "focusout", "key", "all"] = ...,
         validatecommand: str | list[str] | tuple[str, ...] | Callable[[], bool] = ...,
         width: int = ...,
-        xscrollcommand: str | Callable[[float, float], object] = ...,
+        xscrollcommand: str | Callable[[FloatInt, FloatInt], object] = ...,
     ) -> dict[str, tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def config(self, cnf: str) -> tuple[str, str, str, Any, Any]: ...
@@ -434,7 +434,7 @@ class Combobox(Entry):
         validatecommand: str | list[str] | tuple[str, ...] | Callable[[], bool] = ...,  # undocumented
         values: list[str] | tuple[str, ...] = ...,
         width: int = 20,
-        xscrollcommand: str | Callable[[float, float], object] = ...,  # undocumented
+        xscrollcommand: str | Callable[[FloatInt, FloatInt], object] = ...,  # undocumented
     ) -> None: ...
 
     @overload  # type: ignore[override]
@@ -460,7 +460,7 @@ class Combobox(Entry):
         validatecommand: str | list[str] | tuple[str, ...] | Callable[[], bool] = ...,
         values: list[str] | tuple[str, ...] = ...,
         width: int = ...,
-        xscrollcommand: str | Callable[[float, float], object] = ...,
+        xscrollcommand: str | Callable[[FloatInt, FloatInt], object] = ...,
     ) -> dict[str, tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> tuple[str, str, str, Any, Any]: ...
@@ -489,7 +489,7 @@ class Combobox(Entry):
         validatecommand: str | list[str] | tuple[str, ...] | Callable[[], bool] = ...,
         values: list[str] | tuple[str, ...] = ...,
         width: int = ...,
-        xscrollcommand: str | Callable[[float, float], object] = ...,
+        xscrollcommand: str | Callable[[FloatInt, FloatInt], object] = ...,
     ) -> dict[str, tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def config(self, cnf: str) -> tuple[str, str, str, Any, Any]: ...
@@ -504,17 +504,17 @@ class Frame(Widget):
         self,
         master: tkinter.Misc | None = None,
         *,
-        border: float | str = ...,
-        borderwidth: float | str = ...,
+        border: FloatInt | str = ...,
+        borderwidth: FloatInt | str = ...,
         class_: str = "",
         cursor: tkinter._Cursor = "",
-        height: float | str = 0,
+        height: FloatInt | str = 0,
         name: str = ...,
         padding: _Padding = ...,
         relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
         style: str = "",
         takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = "",
-        width: float | str = 0,
+        width: FloatInt | str = 0,
     ) -> None: ...
 
     @overload
@@ -522,15 +522,15 @@ class Frame(Widget):
         self,
         cnf: dict[str, Any] | None = None,
         *,
-        border: float | str = ...,
-        borderwidth: float | str = ...,
+        border: FloatInt | str = ...,
+        borderwidth: FloatInt | str = ...,
         cursor: tkinter._Cursor = ...,
-        height: float | str = ...,
+        height: FloatInt | str = ...,
         padding: _Padding = ...,
         relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
         style: str = ...,
         takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = ...,
-        width: float | str = ...,
+        width: FloatInt | str = ...,
     ) -> dict[str, tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> tuple[str, str, str, Any, Any]: ...
@@ -544,8 +544,8 @@ class Label(Widget):
         *,
         anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"] = ...,
         background: str = "",
-        border: float | str = ...,  # alias for borderwidth
-        borderwidth: float | str = ...,  # undocumented
+        border: FloatInt | str = ...,  # alias for borderwidth
+        borderwidth: FloatInt | str = ...,  # undocumented
         class_: str = "",
         compound: Literal["", "text", "image", "top", "left", "center", "right", "bottom", "none"] = "",
         cursor: tkinter._Cursor = "",
@@ -559,11 +559,11 @@ class Label(Widget):
         state: str = "normal",
         style: str = "",
         takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = "",
-        text: float | str = "",
+        text: FloatInt | str = "",
         textvariable: tkinter.Variable = ...,
         underline: int = -1,
         width: int | Literal[""] = "",
-        wraplength: float | str = ...,
+        wraplength: FloatInt | str = ...,
     ) -> None: ...
 
     @overload
@@ -573,8 +573,8 @@ class Label(Widget):
         *,
         anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"] = ...,
         background: str = ...,
-        border: float | str = ...,
-        borderwidth: float | str = ...,
+        border: FloatInt | str = ...,
+        borderwidth: FloatInt | str = ...,
         compound: Literal["", "text", "image", "top", "left", "center", "right", "bottom", "none"] = ...,
         cursor: tkinter._Cursor = ...,
         font: _FontDescription = ...,
@@ -586,11 +586,11 @@ class Label(Widget):
         state: str = ...,
         style: str = ...,
         takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = ...,
-        text: float | str = ...,
+        text: FloatInt | str = ...,
         textvariable: tkinter.Variable = ...,
         underline: int = ...,
         width: int | Literal[""] = ...,
-        wraplength: float | str = ...,
+        wraplength: FloatInt | str = ...,
     ) -> dict[str, tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> tuple[str, str, str, Any, Any]: ...
@@ -602,11 +602,11 @@ class Labelframe(Widget):
         self,
         master: tkinter.Misc | None = None,
         *,
-        border: float | str = ...,
-        borderwidth: float | str = ...,  # undocumented
+        border: FloatInt | str = ...,
+        borderwidth: FloatInt | str = ...,  # undocumented
         class_: str = "",
         cursor: tkinter._Cursor = "",
-        height: float | str = 0,
+        height: FloatInt | str = 0,
         labelanchor: Literal["nw", "n", "ne", "en", "e", "es", "se", "s", "sw", "ws", "w", "wn"] = ...,
         labelwidget: tkinter.Misc = ...,
         name: str = ...,
@@ -614,9 +614,9 @@ class Labelframe(Widget):
         relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,  # undocumented
         style: str = "",
         takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = "",
-        text: float | str = "",
+        text: FloatInt | str = "",
         underline: int = -1,
-        width: float | str = 0,
+        width: FloatInt | str = 0,
     ) -> None: ...
 
     @overload
@@ -624,19 +624,19 @@ class Labelframe(Widget):
         self,
         cnf: dict[str, Any] | None = None,
         *,
-        border: float | str = ...,
-        borderwidth: float | str = ...,
+        border: FloatInt | str = ...,
+        borderwidth: FloatInt | str = ...,
         cursor: tkinter._Cursor = ...,
-        height: float | str = ...,
+        height: FloatInt | str = ...,
         labelanchor: Literal["nw", "n", "ne", "en", "e", "es", "se", "s", "sw", "ws", "w", "wn"] = ...,
         labelwidget: tkinter.Misc = ...,
         padding: _Padding = ...,
         relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
         style: str = ...,
         takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = ...,
-        text: float | str = ...,
+        text: FloatInt | str = ...,
         underline: int = ...,
-        width: float | str = ...,
+        width: FloatInt | str = ...,
     ) -> dict[str, tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> tuple[str, str, str, Any, Any]: ...
@@ -661,7 +661,7 @@ class Menubutton(Widget):
         state: str = "normal",
         style: str = "",
         takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = ...,
-        text: float | str = "",
+        text: FloatInt | str = "",
         textvariable: tkinter.Variable = ...,
         underline: int = -1,
         width: int | Literal[""] = "",
@@ -681,7 +681,7 @@ class Menubutton(Widget):
         state: str = ...,
         style: str = ...,
         takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = ...,
-        text: float | str = ...,
+        text: FloatInt | str = ...,
         textvariable: tkinter.Variable = ...,
         underline: int = ...,
         width: int | Literal[""] = ...,
@@ -810,18 +810,18 @@ class Progressbar(Widget):
         font: _FontDescription = ...,  # new in Tcl/Tk 9.0
         foreground: str = ...,  # new in Tcl/Tk 9.0
         justify: Literal["left", "center", "right"] = ...,  # new in Tcl/Tk 9.0
-        length: float | str = 100,
-        maximum: float = 100,
+        length: FloatInt | str = 100,
+        maximum: FloatInt = 100,
         mode: Literal["determinate", "indeterminate"] = "determinate",
         name: str = ...,
         orient: Literal["horizontal", "vertical"] = "horizontal",
         phase: int = 0,  # docs say read-only but assigning int to this works
         style: str = "",
         takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = "",
-        text: float | str = "",  # new in Tcl/Tk 9.0
-        value: float = 0.0,
+        text: FloatInt | str = "",  # new in Tcl/Tk 9.0
+        value: FloatInt = 0.0,
         variable: tkinter.IntVar | tkinter.DoubleVar = ...,
-        wraplength: float | str = ...,  # new in Tcl/Tk 9.0
+        wraplength: FloatInt | str = ...,  # new in Tcl/Tk 9.0
     ) -> None: ...
 
     @overload
@@ -834,24 +834,24 @@ class Progressbar(Widget):
         font: _FontDescription = ...,  # new in Tcl/Tk 9.0
         foreground: str = ...,  # new in Tcl/Tk 9.0
         justify: Literal["left", "center", "right"] = ...,  # new in Tcl/Tk 9.0
-        length: float | str = ...,
-        maximum: float = ...,
+        length: FloatInt | str = ...,
+        maximum: FloatInt = ...,
         mode: Literal["determinate", "indeterminate"] = ...,
         orient: Literal["horizontal", "vertical"] = ...,
         phase: int = ...,
         style: str = ...,
         takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = ...,
-        text: float | str = ...,  # new in Tcl/Tk 9.0
-        value: float = ...,
+        text: FloatInt | str = ...,  # new in Tcl/Tk 9.0
+        value: FloatInt = ...,
         variable: tkinter.IntVar | tkinter.DoubleVar = ...,
-        wraplength: float | str = ...,  # new in Tcl/Tk 9.0
+        wraplength: FloatInt | str = ...,  # new in Tcl/Tk 9.0
     ) -> dict[str, tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> tuple[str, str, str, Any, Any]: ...
 
     config = configure
     def start(self, interval: Literal["idle"] | int | None = None) -> None: ...
-    def step(self, amount: float | None = None) -> None: ...
+    def step(self, amount: FloatInt | None = None) -> None: ...
     def stop(self) -> None: ...
 
 class Radiobutton(Widget):
@@ -869,7 +869,7 @@ class Radiobutton(Widget):
         state: str = "normal",
         style: str = "",
         takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = ...,
-        text: float | str = "",
+        text: FloatInt | str = "",
         textvariable: tkinter.Variable = ...,
         underline: int = -1,
         value: Any = "1",
@@ -890,7 +890,7 @@ class Radiobutton(Widget):
         state: str = ...,
         style: str = ...,
         takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = ...,
-        text: float | str = ...,
+        text: FloatInt | str = ...,
         textvariable: tkinter.Variable = ...,
         underline: int = ...,
         value: Any = ...,
@@ -912,15 +912,15 @@ class Scale(Widget, tkinter.Scale):  # type: ignore[misc]
         class_: str = "",
         command: str | Callable[[str], object] = "",
         cursor: tkinter._Cursor = "",
-        from_: float = 0,
-        length: float | str = 100,
+        from_: FloatInt = 0,
+        length: FloatInt | str = 100,
         name: str = ...,
         orient: Literal["horizontal", "vertical"] = "horizontal",
         state: str = ...,  # undocumented
         style: str = "",
         takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = ...,
-        to: float = 1.0,
-        value: float = 0,
+        to: FloatInt = 1.0,
+        value: FloatInt = 0,
         variable: tkinter.IntVar | tkinter.DoubleVar = ...,
     ) -> None: ...
 
@@ -931,14 +931,14 @@ class Scale(Widget, tkinter.Scale):  # type: ignore[misc]
         *,
         command: str | Callable[[str], object] = ...,
         cursor: tkinter._Cursor = ...,
-        from_: float = ...,
-        length: float | str = ...,
+        from_: FloatInt = ...,
+        length: FloatInt | str = ...,
         orient: Literal["horizontal", "vertical"] = ...,
         state: str = ...,
         style: str = ...,
         takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = ...,
-        to: float = ...,
-        value: float = ...,
+        to: FloatInt = ...,
+        value: FloatInt = ...,
         variable: tkinter.IntVar | tkinter.DoubleVar = ...,
     ) -> dict[str, tuple[str, str, str, Any, Any]] | None: ...
     @overload
@@ -952,14 +952,14 @@ class Scale(Widget, tkinter.Scale):  # type: ignore[misc]
         *,
         command: str | Callable[[str], object] = ...,
         cursor: tkinter._Cursor = ...,
-        from_: float = ...,
-        length: float | str = ...,
+        from_: FloatInt = ...,
+        length: FloatInt | str = ...,
         orient: Literal["horizontal", "vertical"] = ...,
         state: str = ...,
         style: str = ...,
         takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = ...,
-        to: float = ...,
-        value: float = ...,
+        to: FloatInt = ...,
+        value: FloatInt = ...,
         variable: tkinter.IntVar | tkinter.DoubleVar = ...,
     ) -> dict[str, tuple[str, str, str, Any, Any]] | None: ...
     @overload
@@ -1078,8 +1078,8 @@ class Spinbox(Entry):
         font: _FontDescription = ...,  # undocumented
         foreground: str = ...,  # undocumented
         format: str = "",
-        from_: float = 0,
-        increment: float = 1,
+        from_: FloatInt = 0,
+        increment: FloatInt = 1,
         invalidcommand: str | list[str] | tuple[str, ...] | Callable[[], object] = ...,  # undocumented
         justify: Literal["left", "center", "right"] = ...,  # undocumented
         name: str = ...,
@@ -1088,13 +1088,13 @@ class Spinbox(Entry):
         style: str = "",
         takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = ...,
         textvariable: tkinter.Variable = ...,  # undocumented
-        to: float = 0,
+        to: FloatInt = 0,
         validate: Literal["none", "focus", "focusin", "focusout", "key", "all"] = "none",
         validatecommand: str | list[str] | tuple[str, ...] | Callable[[], bool] = "",
         values: list[str] | tuple[str, ...] = ...,
         width: int = ...,  # undocumented
         wrap: bool = False,
-        xscrollcommand: str | Callable[[float, float], object] = "",
+        xscrollcommand: str | Callable[[FloatInt, FloatInt], object] = "",
     ) -> None: ...
 
     @overload  # type: ignore[override]
@@ -1109,8 +1109,8 @@ class Spinbox(Entry):
         font: _FontDescription = ...,
         foreground: str = ...,
         format: str = ...,
-        from_: float = ...,
-        increment: float = ...,
+        from_: FloatInt = ...,
+        increment: FloatInt = ...,
         invalidcommand: str | list[str] | tuple[str, ...] | Callable[[], object] = ...,
         justify: Literal["left", "center", "right"] = ...,
         show=...,
@@ -1118,13 +1118,13 @@ class Spinbox(Entry):
         style: str = ...,
         takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = ...,
         textvariable: tkinter.Variable = ...,
-        to: float = ...,
+        to: FloatInt = ...,
         validate: Literal["none", "focus", "focusin", "focusout", "key", "all"] = ...,
         validatecommand: str | list[str] | tuple[str, ...] | Callable[[], bool] = ...,
         values: list[str] | tuple[str, ...] = ...,
         width: int = ...,
         wrap: bool = ...,
-        xscrollcommand: str | Callable[[float, float], object] = ...,
+        xscrollcommand: str | Callable[[FloatInt, FloatInt], object] = ...,
     ) -> dict[str, tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> tuple[str, str, str, Any, Any]: ...
@@ -1184,8 +1184,8 @@ class Treeview(Widget, tkinter.XView, tkinter.YView):
         show: Literal["tree", "headings", "tree headings", ""] | list[str] | tuple[str, ...] = ("tree", "headings"),
         style: str = "",
         takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = ...,
-        xscrollcommand: str | Callable[[float, float], object] = "",
-        yscrollcommand: str | Callable[[float, float], object] = "",
+        xscrollcommand: str | Callable[[FloatInt, FloatInt], object] = "",
+        yscrollcommand: str | Callable[[FloatInt, FloatInt], object] = "",
     ) -> None: ...
 
     @overload
@@ -1202,8 +1202,8 @@ class Treeview(Widget, tkinter.XView, tkinter.YView):
         show: Literal["tree", "headings", "tree headings", ""] | list[str] | tuple[str, ...] = ...,
         style: str = ...,
         takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = ...,
-        xscrollcommand: str | Callable[[float, float], object] = ...,
-        yscrollcommand: str | Callable[[float, float], object] = ...,
+        xscrollcommand: str | Callable[[FloatInt, FloatInt], object] = ...,
+        yscrollcommand: str | Callable[[FloatInt, FloatInt], object] = ...,
     ) -> dict[str, tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> tuple[str, str, str, Any, Any]: ...
@@ -1396,21 +1396,21 @@ class LabeledScale(Frame):
         self,
         master: tkinter.Misc | None = None,
         variable: tkinter.IntVar | tkinter.DoubleVar | None = None,
-        from_: float = 0,
-        to: float = 10,
+        from_: FloatInt = 0,
+        to: FloatInt = 10,
         *,
-        border: float | str = ...,
-        borderwidth: float | str = ...,
+        border: FloatInt | str = ...,
+        borderwidth: FloatInt | str = ...,
         class_: str = "",
         compound: Literal["top", "bottom"] = "top",
         cursor: tkinter._Cursor = "",
-        height: float | str = 0,
+        height: FloatInt | str = 0,
         name: str = ...,
         padding: _Padding = ...,
         relief: Literal["raised", "sunken", "flat", "ridge", "solid", "groove"] = ...,
         style: str = "",
         takefocus: bool | Literal[0, 1, ""] | Callable[[str], bool | None] = "",
-        width: float | str = 0,
+        width: FloatInt | str = 0,
     ) -> None: ...
     # destroy is overridden, signature does not change
     value: Any

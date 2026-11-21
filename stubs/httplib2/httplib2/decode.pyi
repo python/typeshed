@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from typing import Final, Protocol
 
 class DecodeRatioError(Exception): ...
@@ -41,7 +42,7 @@ class LimitDecoder(DecoderProtocol):
     def __init__(
         self,
         decoder: DecoderProtocol,
-        ratio: float = 100,
+        ratio: FloatInt = 100,
         chunk_size: int = 65536,
         safe_limit: int = 10485760,
         hard_limit: int = ...,

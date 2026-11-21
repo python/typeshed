@@ -2,7 +2,7 @@ import http.client
 import ssl
 import sys
 import urllib.request
-from _typeshed import Incomplete, SupportsKeysAndGetItem
+from _typeshed import FloatInt, Incomplete, SupportsKeysAndGetItem
 from typing import Any, TypeVar
 
 import socks
@@ -28,7 +28,7 @@ class SocksiPyConnection(http.client.HTTPConnection):  # undocumented
         password: str | None = None,
         host: str | None = None,
         port: int | None = None,
-        timeout: float | None = ...,
+        timeout: FloatInt | None = ...,
         source_address: tuple[str, int] | None = None,
         blocksize: int = 8192,
     ) -> None: ...
@@ -49,7 +49,7 @@ class SocksiPyConnectionS(http.client.HTTPSConnection):  # undocumented
             host: str | None = None,
             port: int | None = None,
             *,
-            timeout: float | None = ...,
+            timeout: FloatInt | None = ...,
             source_address: tuple[str, int] | None = None,
             context: ssl.SSLContext | None = None,
             blocksize: int = 8192,
@@ -67,7 +67,7 @@ class SocksiPyConnectionS(http.client.HTTPSConnection):  # undocumented
             port: int | None = None,
             key_file: str | None = None,
             cert_file: str | None = None,
-            timeout: float | None = ...,
+            timeout: FloatInt | None = ...,
             source_address: tuple[str, int] | None = None,
             *,
             context: ssl.SSLContext | None = None,

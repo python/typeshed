@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Callable, Collection, Hashable, Iterable, Iterator, Mapping, MutableMapping
 from decimal import Decimal
 from functools import cached_property
@@ -83,7 +84,7 @@ class Graph(Collection[_Node], Generic[_Node, _NodeData, _EdgeData]):
     def add_edges_from(self, ebunch_to_add: Iterable[_EdgePlus[_Node, _EdgeData]], **attr: Any) -> None: ...
     # attr: Edge data (or labels or objects) can be assigned using keyword arguments
     def add_weighted_edges_from(
-        self, ebunch_to_add: Iterable[tuple[_Node, _Node, float | Decimal | None]], weight: str = "weight", **attr: Any
+        self, ebunch_to_add: Iterable[tuple[_Node, _Node, FloatInt | Decimal | None]], weight: str = "weight", **attr: Any
     ) -> None: ...
     # attr: Edge attributes to add/update for all edges.
     def remove_edge(self, u: _Node, v: _Node) -> None: ...

@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from typing import Literal, SupportsIndex, final, overload
 from typing_extensions import Never, Self, disjoint_base
 
@@ -18,6 +19,7 @@ contains: np.ufunc
 contains_properly: np.ufunc
 contains_xy: np.ufunc
 convex_hull: np.ufunc
+coverage_clean: np.ufunc
 coverage_invalid_edges: np.ufunc
 coverage_is_valid: np.ufunc
 coverage_simplify: np.ufunc
@@ -92,13 +94,13 @@ line_merge: np.ufunc
 line_merge_directed: np.ufunc
 linearrings: np.ufunc
 linestrings: np.ufunc
-make_valid: np.ufunc
 make_valid_with_params: np.ufunc
 maximum_inscribed_circle: np.ufunc
 minimum_bounding_circle: np.ufunc
 minimum_bounding_radius: np.ufunc
 minimum_clearance: np.ufunc
 minimum_clearance_line: np.ufunc
+minimum_width: np.ufunc
 node: np.ufunc
 normalize: np.ufunc
 offset_curve: np.ufunc
@@ -160,7 +162,7 @@ class STRtree:
     def nearest(self, geoms: NDArray[np.object_], /) -> NDArray[np.int64]: ...
     def query(self, geoms: NDArray[np.object_], predicate: SupportsIndex, /) -> NDArray[np.int64]: ...
     def query_nearest(
-        self, geoms: NDArray[np.object_], max_distance: float, exclusive: SupportsIndex, all_matches: SupportsIndex, /
+        self, geoms: NDArray[np.object_], max_distance: FloatInt, exclusive: SupportsIndex, all_matches: SupportsIndex, /
     ) -> tuple[NDArray[np.int64], NDArray[np.float64]]: ...
 
 class ShapelyError(Exception): ...

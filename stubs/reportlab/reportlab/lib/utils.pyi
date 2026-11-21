@@ -1,6 +1,6 @@
 import datetime as _datetime
 import zipimport
-from _typeshed import Incomplete, SupportsItems
+from _typeshed import FloatInt, Incomplete, SupportsItems
 from builtins import _ClassInfo
 from collections.abc import Generator, Iterable, MutableMapping
 from os import PathLike
@@ -155,7 +155,7 @@ class _FmtSelfDict:
 
 class FmtSelfDict: ...
 
-def simpleSplit(text: str | bytes, fontName: str | None, fontSize: float, maxWidth: float | None): ...
+def simpleSplit(text: str | bytes, fontName: str | None, fontSize: FloatInt, maxWidth: FloatInt | None): ...
 
 @overload
 def escapeTextOnce(text: None) -> None: ...
@@ -179,14 +179,14 @@ class RLString(str):
 def makeFileName(s): ...
 
 class FixedOffsetTZ(_datetime.tzinfo):
-    def __init__(self, h: float, m: float, name: str | None) -> None: ...
+    def __init__(self, h: FloatInt, m: FloatInt, name: str | None) -> None: ...
     def utcoffset(self, dt: _datetime.datetime | None) -> _datetime.timedelta: ...
     def tzname(self, dt: _datetime.datetime | None) -> str | None: ...
     def dst(self, dt: _datetime.datetime | None) -> _datetime.timedelta: ...
 
 class TimeStamp:
     tzname: str
-    t: float
+    t: FloatInt
     lt: struct_time | _TimeTuple
     YMDhms: tuple[int, ...]
     dhh: int

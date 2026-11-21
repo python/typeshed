@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Generator
 from typing import IO, Any, overload
 from typing_extensions import Self
@@ -14,7 +15,7 @@ def reverse_iter_lines(file_obj: IO[str], blocksize: int, preseek: bool, encodin
 class JSONLIterator:
     ignore_errors: bool
     def __init__(
-        self, file_obj: IO[str], ignore_errors: bool = False, reverse: bool = False, rel_seek: float | None = None
+        self, file_obj: IO[str], ignore_errors: bool = False, reverse: bool = False, rel_seek: FloatInt | None = None
     ) -> None: ...
     @property
     def cur_byte_pos(self) -> int: ...

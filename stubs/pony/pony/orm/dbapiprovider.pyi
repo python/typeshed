@@ -1,7 +1,7 @@
 import json
 import re
 import types
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from collections.abc import Iterable
 from typing import ClassVar
 
@@ -142,7 +142,7 @@ class IntConverter(Converter):
 class RealConverter(Converter):
     EQ: str
     NE: str
-    default_tolerance: float
+    default_tolerance: FloatInt
     optimistic: bool
     def init(self, kwargs) -> None: ...
     def validate(self, val, obj=None): ...

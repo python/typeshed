@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 
 from reportlab.graphics.barcode.code39 import Standard39
 
@@ -6,7 +6,7 @@ class BaseLTOLabel(Standard39):
     LABELWIDTH: Incomplete
     LABELHEIGHT: Incomplete
     LABELROUND: Incomplete
-    CODERATIO: float
+    CODERATIO: FloatInt
     CODENOMINALWIDTH: Incomplete
     CODEBARHEIGHT: Incomplete
     CODEBARWIDTH: Incomplete
@@ -25,7 +25,7 @@ class VerticalLTOLabel(BaseLTOLabel):
     LABELFONT: Incomplete
     BLOCKWIDTH: Incomplete
     BLOCKHEIGHT: Incomplete
-    LINEWIDTH: float
+    LINEWIDTH: FloatInt
     NBBLOCKS: int
     COLORSCHEME: Incomplete
     colored: Incomplete

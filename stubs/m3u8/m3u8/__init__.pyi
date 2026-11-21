@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Callable, Mapping
 from typing import Any, TypeAlias
 
@@ -64,7 +65,7 @@ _CustomTagsParser: TypeAlias = Callable[[str, int, dict[str, Any], dict[str, Any
 def loads(content: str, uri: str | None = None, custom_tags_parser: _CustomTagsParser | None = None) -> M3U8: ...
 def load(
     uri: str,
-    timeout: float | None = None,
+    timeout: FloatInt | None = None,
     headers: Mapping[str, Any] = {},
     custom_tags_parser: _CustomTagsParser | None = None,
     http_client: _HTTPClientProtocol = ...,

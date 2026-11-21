@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections import OrderedDict
 from collections.abc import Callable
 from typing import Any, NamedTuple, TypeVar, overload
@@ -197,7 +198,7 @@ class ReplicationCursor(_replicationCursor):
     ) -> None: ...
     def fileno(self): ...
     def consume_stream(
-        self, consume: Callable[[ReplicationMessage], object], keepalive_interval: float | None = None
+        self, consume: Callable[[ReplicationMessage], object], keepalive_interval: FloatInt | None = None
     ) -> None: ...
 
 class UUID_adapter:

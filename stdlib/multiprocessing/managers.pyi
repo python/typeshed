@@ -2,7 +2,7 @@ import builtins
 import queue
 import sys
 import threading
-from _typeshed import SupportsKeysAndGetItem, SupportsRichComparison, SupportsRichComparisonT
+from _typeshed import FloatInt, SupportsKeysAndGetItem, SupportsRichComparison, SupportsRichComparisonT
 from collections.abc import (
     Callable,
     Iterable,
@@ -291,7 +291,7 @@ class BaseManager:
             serializer: str = "pickle",
             ctx: BaseContext | None = None,
             *,
-            shutdown_timeout: float = 1.0,
+            shutdown_timeout: FloatInt = 1.0,
         ) -> None: ...
     else:
         def __init__(
@@ -306,7 +306,7 @@ class BaseManager:
     def connect(self) -> None: ...
     def start(self, initializer: Callable[..., object] | None = None, initargs: Iterable[Any] = ()) -> None: ...
     shutdown: _Finalize  # only available after start() was called
-    def join(self, timeout: float | None = None) -> None: ...  # undocumented
+    def join(self, timeout: FloatInt | None = None) -> None: ...  # undocumented
     @property
     def address(self) -> _Address | None: ...
     @classmethod
@@ -326,7 +326,7 @@ class BaseManager:
 
 class SyncManager(BaseManager):
     def Barrier(
-        self, parties: int, action: Callable[[], None] | None = None, timeout: float | None = None
+        self, parties: int, action: Callable[[], None] | None = None, timeout: FloatInt | None = None
     ) -> threading.Barrier: ...
     def BoundedSemaphore(self, value: int = 1) -> threading.BoundedSemaphore: ...
     def Condition(self, lock: threading.Lock | threading._RLock | None = None) -> threading.Condition: ...

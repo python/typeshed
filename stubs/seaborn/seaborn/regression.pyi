@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from collections.abc import Callable, Iterable
 from typing import Any, Literal, TypeAlias, overload
 
@@ -24,8 +24,8 @@ def lmplot(
     row: str | None = None,
     palette: _Palette | None = None,
     col_wrap: int | None = None,
-    height: float = 5,
-    aspect: float = 1,
+    height: FloatInt = 5,
+    aspect: FloatInt = 1,
     markers: str = "o",
     sharex: bool | Literal["col", "row"] | None = None,  # deprecated
     sharey: bool | Literal["col", "row"] | None = None,  # deprecated
@@ -51,8 +51,8 @@ def lmplot(
     x_partial: str | None = None,
     y_partial: str | None = None,
     truncate: bool = True,
-    x_jitter: float | None = None,
-    y_jitter: float | None = None,
+    x_jitter: FloatInt | None = None,
+    y_jitter: FloatInt | None = None,
     scatter_kws: dict[str, Any] | None = None,
     line_kws: dict[str, Any] | None = None,
     facet_kws: dict[str, Any] | None = None,
@@ -82,8 +82,8 @@ def regplot(
     y_partial: _Vector | None = None,
     truncate: bool = True,
     dropna: bool = True,
-    x_jitter: float | None = None,
-    y_jitter: float | None = None,
+    x_jitter: FloatInt | None = None,
+    y_jitter: FloatInt | None = None,
     label: str | None = None,
     color: ColorType | None = None,
     marker: str = "o",
@@ -115,8 +115,8 @@ def regplot(
     y_partial: str | _Vector | None = None,
     truncate: bool = True,
     dropna: bool = True,
-    x_jitter: float | None = None,
-    y_jitter: float | None = None,
+    x_jitter: FloatInt | None = None,
+    y_jitter: FloatInt | None = None,
     label: str | None = None,
     color: ColorType | None = None,
     marker: str = "o",

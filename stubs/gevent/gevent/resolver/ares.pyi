@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Sequence
 from typing import TypedDict, type_check_only
 
@@ -9,7 +10,7 @@ from gevent.resolver.cares import channel
 @type_check_only
 class _ChannelArgs(TypedDict):
     flags: str | int | None
-    timeout: str | float | None
+    timeout: str | FloatInt | None
     tries: str | int | None
     ndots: str | int | None
     udp_port: str | int | None
@@ -29,7 +30,7 @@ class Resolver(AbstractResolver):
         use_environ: bool = True,
         *,
         flags: str | int | None = None,
-        timeout: str | float | None = None,
+        timeout: str | FloatInt | None = None,
         tries: str | int | None = None,
         ndots: str | int | None = None,
         udp_port: str | int | None = None,

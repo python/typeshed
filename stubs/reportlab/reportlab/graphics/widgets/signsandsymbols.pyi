@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from typing import Final
 
 from reportlab.graphics.widgetbase import Widget
@@ -12,7 +12,7 @@ class _Symbol(Widget):
     size: int
     fillColor: Incomplete
     strokeColor: Incomplete
-    strokeWidth: float
+    strokeWidth: FloatInt
     def __init__(self) -> None: ...
     def demo(self): ...
 
@@ -156,7 +156,7 @@ class CrossHair(_Symbol):
     size: int
     fillColor: Incomplete
     strokeColor: Incomplete
-    strokeWidth: float
+    strokeWidth: FloatInt
     innerGap: str
     def __init__(self) -> None: ...
     def draw(self): ...

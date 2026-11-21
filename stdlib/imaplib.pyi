@@ -1,7 +1,7 @@
 import subprocess
 import sys
 import time
-from _typeshed import ReadableBuffer, SizedBuffer, StrOrBytesPath, Unused
+from _typeshed import FloatInt, ReadableBuffer, SizedBuffer, StrOrBytesPath, Unused
 from builtins import list as _list  # conflicts with a method named "list"
 from collections.abc import Callable, Generator
 from datetime import datetime
@@ -41,8 +41,8 @@ class IMAP4:
     welcome: bytes
     capabilities: tuple[str, ...]
     PROTOCOL_VERSION: str
-    def __init__(self, host: str = "", port: int = 143, timeout: float | None = None) -> None: ...
-    def open(self, host: str = "", port: int = 143, timeout: float | None = None) -> None: ...
+    def __init__(self, host: str = "", port: int = 143, timeout: FloatInt | None = None) -> None: ...
+    def open(self, host: str = "", port: int = 143, timeout: FloatInt | None = None) -> None: ...
     if sys.version_info >= (3, 14):
         @property
         @deprecated("IMAP4.file is unsupported, can cause errors, and may be removed.")
@@ -82,7 +82,7 @@ class IMAP4:
     def getquota(self, root: str) -> _CommandResults: ...
     def getquotaroot(self, mailbox: str) -> _CommandResults: ...
     if sys.version_info >= (3, 14):
-        def idle(self, duration: float | None = None) -> Idler: ...
+        def idle(self, duration: FloatInt | None = None) -> Idler: ...
 
     if sys.version_info >= (3, 13):
         # Default was fixed in Python 3.13.15, 3.14.7
@@ -131,17 +131,17 @@ class IMAP4:
 
 if sys.version_info >= (3, 14):
     class Idler:
-        def __init__(self, imap: IMAP4, duration: float | None = None) -> None: ...
+        def __init__(self, imap: IMAP4, duration: FloatInt | None = None) -> None: ...
         def __enter__(self) -> Self: ...
         def __exit__(self, exc_type: object, exc_val: Unused, exc_tb: Unused) -> Literal[False]: ...
         def __iter__(self) -> Self: ...
         def __next__(self) -> tuple[str, float | None]: ...
-        def burst(self, interval: float = 0.1) -> Generator[tuple[str, float | None]]: ...
+        def burst(self, interval: FloatInt = 0.1) -> Generator[tuple[str, float | None]]: ...
 
 class IMAP4_SSL(IMAP4):
     if sys.version_info >= (3, 12):
         def __init__(
-            self, host: str = "", port: int = 993, *, ssl_context: SSLContext | None = None, timeout: float | None = None
+            self, host: str = "", port: int = 993, *, ssl_context: SSLContext | None = None, timeout: FloatInt | None = None
         ) -> None: ...
     else:
         @overload
@@ -152,7 +152,7 @@ class IMAP4_SSL(IMAP4):
             keyfile: None = None,
             certfile: None = None,
             ssl_context: SSLContext | None = None,
-            timeout: float | None = None,
+            timeout: FloatInt | None = None,
         ) -> None: ...
         @overload
         @deprecated(
@@ -166,7 +166,7 @@ class IMAP4_SSL(IMAP4):
             keyfile: StrOrBytesPath | None = None,
             certfile: StrOrBytesPath | None = None,
             ssl_context: None = None,
-            timeout: float | None = None,
+            timeout: FloatInt | None = None,
         ) -> None: ...
 
         keyfile: StrOrBytesPath | None
@@ -179,7 +179,7 @@ class IMAP4_SSL(IMAP4):
     else:
         file: IO[Any]
 
-    def open(self, host: str = "", port: int | None = 993, timeout: float | None = None) -> None: ...
+    def open(self, host: str = "", port: int | None = 993, timeout: FloatInt | None = None) -> None: ...
     def ssl(self) -> SSLSocket: ...
 
 class IMAP4_stream(IMAP4):
@@ -194,7 +194,7 @@ class IMAP4_stream(IMAP4):
     process: subprocess.Popen[bytes]
     writefile: IO[Any]
     readfile: IO[Any]
-    def open(self, host: str | None = None, port: int | None = None, timeout: float | None = None) -> None: ...
+    def open(self, host: str | None = None, port: int | None = None, timeout: FloatInt | None = None) -> None: ...
 
 class _Authenticator:
     mech: Callable[[bytes], bytes | bytearray | memoryview | str | None]
@@ -207,6 +207,6 @@ def Internaldate2tuple(resp: ReadableBuffer) -> time.struct_time | None: ...
 def Int2AP(num: SupportsAbs[SupportsInt]) -> bytes: ...
 def ParseFlags(resp: ReadableBuffer) -> tuple[bytes, ...]: ...
 
-_TimeLike: TypeAlias = float | time.struct_time | time._TimeTuple | datetime | str
+_TimeLike: TypeAlias = FloatInt | time.struct_time | time._TimeTuple | datetime | str
 
 def Time2Internaldate(date_time: _TimeLike) -> str: ...

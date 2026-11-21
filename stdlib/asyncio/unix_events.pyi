@@ -1,6 +1,6 @@
 import sys
 import types
-from _typeshed import StrPath
+from _typeshed import FloatInt, StrPath
 from abc import ABCMeta, abstractmethod
 from collections.abc import Callable
 from socket import socket
@@ -161,8 +161,8 @@ if sys.platform != "win32":
                 sock: socket | None = None,
                 backlog: int = 100,
                 ssl: _SSLContext = None,
-                ssl_handshake_timeout: float | None = None,
-                ssl_shutdown_timeout: float | None = None,
+                ssl_handshake_timeout: FloatInt | None = None,
+                ssl_shutdown_timeout: FloatInt | None = None,
                 start_serving: bool = True,
                 cleanup_socket: bool = True,
             ) -> Server: ...

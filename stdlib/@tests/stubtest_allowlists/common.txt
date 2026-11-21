@@ -300,6 +300,7 @@ logging.LogRecord.__setattr__  # doesn't exist, but makes things easy if we pret
 # These would ideally be special-cased by type checkers; see https://github.com/python/mypy/issues/2220
 mmap.mmap.__iter__
 mmap.mmap.__contains__
+multiprocessing.shared_memory.ShareableList.__iter__
 
 # These multiprocessing proxy methods have *args, **kwargs signatures at runtime,
 # But have more precise (accurate) signatures in the stub

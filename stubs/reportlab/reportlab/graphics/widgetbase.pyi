@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from typing import Final
 
 from reportlab.graphics import shapes
@@ -25,7 +25,7 @@ class ScaleWidget(Widget):
     y: Incomplete
     contents: Incomplete
     scale: Incomplete
-    def __init__(self, x: int = 0, y: int = 0, scale: float = 1.0, contents=None) -> None: ...
+    def __init__(self, x: int = 0, y: int = 0, scale: FloatInt = 1.0, contents=None) -> None: ...
     def draw(self): ...
 
 class CloneMixin:

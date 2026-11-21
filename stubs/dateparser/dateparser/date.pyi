@@ -1,5 +1,5 @@
 import re
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from collections import OrderedDict
 from collections.abc import Callable, Iterable, Iterator, Set as AbstractSet
 from datetime import date, datetime, tzinfo
@@ -11,7 +11,7 @@ from dateparser.languages.locale import Locale
 
 _DateT = TypeVar("_DateT", bound=date)
 
-_DetectLanguagesFunction: TypeAlias = Callable[[str, float], list[str]]
+_DetectLanguagesFunction: TypeAlias = Callable[[str, FloatInt], list[str]]
 _Period: TypeAlias = Literal["time", "day", "week", "month", "year"]
 # Work around attribute and type having the same name.
 _Weekday: TypeAlias = Incomplete  # Actually it's dateutil._common.weekday class

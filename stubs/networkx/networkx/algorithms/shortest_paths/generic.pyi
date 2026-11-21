@@ -72,7 +72,7 @@ def shortest_path(  # source and target are not specified => generator of (t, {s
     *,
     backend: str | None = None,
     **backend_kwargs,
-) -> Generator[tuple[_Node, dict[str, list[_Node]]]]: ...
+) -> Generator[tuple[_Node, dict[_Node, list[_Node]]]]: ...
 
 @overload  # both source and target are specified => len(s -> t)
 def shortest_path_length(

@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from typing import Literal, TypeAlias, TypedDict, type_check_only
 
 import numpy as np
@@ -18,7 +19,7 @@ class _ImageEvaluationResult(TypedDict):
     gtIds: list[int]
     dtMatches: _NDFloatArray
     gtMatches: _NDFloatArray
-    dtScores: list[float]
+    dtScores: list[FloatInt]
     gtIgnore: _NDFloatArray
     dtIgnore: _NDFloatArray
 
@@ -38,7 +39,7 @@ class COCOeval:
     eval: _EvaluationResult
     params: Params
     stats: _NDFloatArray
-    ious: dict[tuple[int, int], list[float]]
+    ious: dict[tuple[int, int], list[FloatInt]]
     def __init__(self, cocoGt: COCO | None = None, cocoDt: COCO | None = None, iouType: _TIOU = "segm") -> None: ...
     def evaluate(self) -> None: ...
     def computeIoU(self, imgId: int, catId: int) -> list[float]: ...
@@ -53,7 +54,7 @@ class Params:
     iouThrs: _NDFloatArray
     recThrs: _NDFloatArray
     maxDets: list[int]
-    areaRng: list[list[float]]
+    areaRng: list[list[FloatInt]]
     areaRngLbl: list[str]
     useCats: int
     kpt_oks_sigmas: _NDFloatArray

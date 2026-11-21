@@ -1,4 +1,4 @@
-from _typeshed import MaybeNone
+from _typeshed import FloatInt, MaybeNone
 from enum import IntEnum
 from typing import Literal, SupportsIndex, TypeAlias, overload
 
@@ -29,6 +29,7 @@ __all__ = [
     "get_point",
     "get_precision",
     "get_rings",
+    "get_segments",
     "get_srid",
     "get_type_id",
     "get_x",
@@ -185,16 +186,29 @@ def get_precision(geometry: Geometry | None, **kwargs) -> np.float64: ...
 @overload
 def get_precision(geometry: OptGeoArrayLikeSeq, **kwargs) -> NDArray[np.float64]: ...
 
+@overload
+def get_segments(
+    geometry: OptGeoArrayLike, *, include_z: bool = False, return_index: Literal[False] = False, **kwargs
+) -> GeoArray: ...
+@overload
+def get_segments(
+    geometry: OptGeoArrayLike, *, include_z: bool = False, return_index: Literal[True], **kwargs
+) -> tuple[GeoArray, NDArray[np.int64]]: ...
+@overload
+def get_segments(
+    geometry: OptGeoArrayLike, *, include_z: bool = False, return_index: bool, **kwargs
+) -> GeoArray | tuple[GeoArray, NDArray[np.int64]]: ...
+
 class SetPrecisionMode(ParamEnum):
     valid_output = 0
     pointwise = 1
     keep_collapsed = 2
 
 @overload
-def set_precision(geometry: OptGeoT, grid_size: float, mode: _PrecisionMode = "valid_output", **kwargs) -> OptGeoT: ...
+def set_precision(geometry: OptGeoT, grid_size: FloatInt, mode: _PrecisionMode = "valid_output", **kwargs) -> OptGeoT: ...
 @overload
 def set_precision(
-    geometry: OptGeoArrayLikeSeq, grid_size: float, mode: _PrecisionMode = "valid_output", **kwargs
+    geometry: OptGeoArrayLikeSeq, grid_size: FloatInt, mode: _PrecisionMode = "valid_output", **kwargs
 ) -> GeoArray: ...
 
 @overload
@@ -203,8 +217,8 @@ def force_2d(geometry: OptGeoT, **kwargs) -> OptGeoT: ...
 def force_2d(geometry: OptGeoArrayLikeSeq, **kwargs) -> GeoArray: ...
 
 @overload
-def force_3d(geometry: OptGeoT, z: float = 0.0, **kwargs) -> OptGeoT: ...
+def force_3d(geometry: OptGeoT, z: FloatInt = 0.0, **kwargs) -> OptGeoT: ...
 @overload
-def force_3d(geometry: OptGeoArrayLikeSeq, z: ArrayLike[float] = 0.0, **kwargs) -> GeoArray: ...
+def force_3d(geometry: OptGeoArrayLikeSeq, z: ArrayLike[FloatInt] = 0.0, **kwargs) -> GeoArray: ...
 @overload
-def force_3d(geometry: OptGeoArrayLike, z: ArrayLikeSeq[float], **kwargs) -> GeoArray: ...
+def force_3d(geometry: OptGeoArrayLike, z: ArrayLikeSeq[FloatInt], **kwargs) -> GeoArray: ...

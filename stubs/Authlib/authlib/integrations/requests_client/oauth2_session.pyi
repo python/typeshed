@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Callable
 from http.cookiejar import CookieJar
 from typing import Any, ClassVar, TypeVar
@@ -40,7 +41,7 @@ class OAuth2Session(OAuth2Client, Session):
     token_auth_class: ClassVar[type[OAuth2Auth]]
     oauth_error_class: ClassVar[type[OAuthError]]
     SESSION_REQUEST_PARAMS: ClassVar[tuple[str, ...]]
-    default_timeout: float | tuple[float | None, float | None] | None
+    default_timeout: FloatInt | tuple[FloatInt | None, FloatInt | None] | None
     def __init__(
         self,
         client_id: str | None = None,
@@ -54,7 +55,7 @@ class OAuth2Session(OAuth2Client, Session):
         token_placement: str = ...,
         update_token: Callable[[OAuth2Token], None] | None = None,
         leeway: int = 60,
-        default_timeout: float | tuple[float | None, float | None] | None = None,
+        default_timeout: FloatInt | tuple[FloatInt | None, FloatInt | None] | None = None,
         **kwargs,
     ) -> None: ...
     def fetch_access_token(self, url: str | None = None, **kwargs) -> OAuth2Token: ...

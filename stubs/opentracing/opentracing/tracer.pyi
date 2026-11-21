@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from typing import Any, NamedTuple
 
 from .scope import Scope
@@ -16,7 +17,7 @@ class Tracer:
         child_of: Span | SpanContext | None = None,
         references: list[Reference] | None = None,
         tags: dict[Any, Any] | None = None,
-        start_time: float | None = None,
+        start_time: FloatInt | None = None,
         ignore_active_span: bool = False,
         finish_on_close: bool = True,
     ) -> Scope: ...
@@ -26,7 +27,7 @@ class Tracer:
         child_of: Span | SpanContext | None = None,
         references: list[Reference] | None = None,
         tags: dict[Any, Any] | None = None,
-        start_time: float | None = None,
+        start_time: FloatInt | None = None,
         ignore_active_span: bool = False,
     ) -> Span: ...
     def inject(self, span_context: SpanContext, format: str, carrier: dict[Any, Any]) -> None: ...
@@ -43,5 +44,5 @@ class Reference(NamedTuple):
 def child_of(referenced_context: SpanContext | None = None) -> Reference: ...
 def follows_from(referenced_context: SpanContext | None = None) -> Reference: ...
 def start_child_span(
-    parent_span: Span, operation_name: str, tags: dict[Any, Any] | None = None, start_time: float | None = None
+    parent_span: Span, operation_name: str, tags: dict[Any, Any] | None = None, start_time: FloatInt | None = None
 ) -> Span: ...

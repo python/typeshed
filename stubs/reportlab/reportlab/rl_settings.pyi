@@ -51,7 +51,7 @@ decimalSymbol: Final[str]
 errorOnDuplicatePageLabelPage: Final[int]
 autoGenerateMissingTTFName: Final[int]
 allowTTFSubsetting: Final[list[str]]
-spaceShrinkage: Final[float]
+spaceShrinkage: Final = 0.05
 hyphenationLang: Final[str]
 uriWasteReduce: Final[int]
 embeddedHyphenation: Final[int]
@@ -65,7 +65,7 @@ renderPMBackend: Final[str]
 xmlParser: Final[str]
 textPaths: Final[str]
 toColorCanUse: Final[str]
-defCWRF: Final[float]
+defCWRF: Final = 0.02
 unShapedFontGlob: list[str] | None
 std14Embed: Final[bool]
 T1SearchPath: Final[tuple[str, ...]]

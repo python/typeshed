@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from logging import Logger
 
 from pika.connection import Connection
@@ -5,7 +6,7 @@ from pika.connection import Connection
 LOGGER: Logger
 
 class HeartbeatChecker:
-    def __init__(self, connection: Connection, timeout: float) -> None: ...
+    def __init__(self, connection: Connection, timeout: FloatInt) -> None: ...
     @property
     def bytes_received_on_connection(self) -> int: ...
     @property

@@ -1,6 +1,6 @@
 import sys
 from _socket import _Address as _SourceAddress
-from _typeshed import ReadableBuffer, SizedBuffer, StrOrBytesPath
+from _typeshed import FloatInt, ReadableBuffer, SizedBuffer, StrOrBytesPath
 from collections.abc import Sequence
 from email.message import Message as _Message
 from re import Pattern
@@ -83,7 +83,7 @@ class SMTP:
     ehlo_resp: bytes | None
     does_esmtp: bool
     default_port: int
-    timeout: float
+    timeout: FloatInt
     esmtp_features: dict[str, str]
     command_encoding: str
     source_address: _SourceAddress | None
@@ -93,7 +93,7 @@ class SMTP:
         host: str = "",
         port: int = 0,
         local_hostname: str | None = None,
-        timeout: float = ...,
+        timeout: FloatInt = ...,
         source_address: _SourceAddress | None = None,
     ) -> None: ...
     def __enter__(self) -> Self: ...
@@ -173,7 +173,7 @@ class SMTP_SSL(SMTP):
             port: int = 0,
             local_hostname: str | None = None,
             *,
-            timeout: float = ...,
+            timeout: FloatInt = ...,
             source_address: _SourceAddress | None = None,
             context: SSLContext | None = None,
         ) -> None: ...
@@ -186,7 +186,7 @@ class SMTP_SSL(SMTP):
             local_hostname: str | None = None,
             keyfile: None = None,
             certfile: None = None,
-            timeout: float = ...,
+            timeout: FloatInt = ...,
             source_address: _SourceAddress | None = None,
             context: SSLContext | None = None,
         ) -> None: ...
@@ -202,7 +202,7 @@ class SMTP_SSL(SMTP):
             local_hostname: str | None = None,
             keyfile: StrOrBytesPath | None = None,
             certfile: StrOrBytesPath | None = None,
-            timeout: float = ...,
+            timeout: FloatInt = ...,
             source_address: _SourceAddress | None = None,
             context: None = None,
         ) -> None: ...
@@ -219,5 +219,5 @@ class LMTP(SMTP):
         port: int = 2003,
         local_hostname: str | None = None,
         source_address: _SourceAddress | None = None,
-        timeout: float = ...,
+        timeout: FloatInt = ...,
     ) -> None: ...

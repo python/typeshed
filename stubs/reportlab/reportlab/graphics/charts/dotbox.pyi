@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 
 from reportlab.graphics.widgetbase import Widget
 from reportlab.lib.attrmap import *
@@ -10,7 +10,7 @@ class DotBox(Widget):
     labelFontName: str
     labelFontSize: int
     labelOffset: int
-    strokeWidth: float
+    strokeWidth: FloatInt
     gridDivWidth: Incomplete
     gridColor: Incomplete
     dotDiameter: Incomplete

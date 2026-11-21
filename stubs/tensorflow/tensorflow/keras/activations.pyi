@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Callable
 from typing import Any, TypeAlias
 
@@ -8,7 +9,7 @@ from tensorflow._aliases import FloatArray, FloatDataSequence, FloatTensorCompat
 # The implementation uses isinstance so it must be dict and not any Mapping.
 _Activation: TypeAlias = str | Callable[[Tensor], Tensor] | dict[str, Any] | None
 # Ints are not allowed.
-_ActivationInput: TypeAlias = Tensor | FloatDataSequence | FloatArray | np.number[Any] | float
+_ActivationInput: TypeAlias = Tensor | FloatDataSequence | FloatArray | np.number[Any] | FloatInt
 
 def deserialize(config: dict[str, Any], custom_objects: dict[str, Callable[..., Any]] | None = None) -> Callable[..., Any]: ...
 def elu(x: _ActivationInput, alpha: FloatTensorCompatible | FloatDataSequence = 1.0) -> Tensor: ...

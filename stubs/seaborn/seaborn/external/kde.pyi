@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Callable
 from typing import Any, Literal, Protocol, TypeAlias, type_check_only
 
@@ -24,7 +25,7 @@ class _GaussianKDELike(Protocol):
     @property
     def neff(self) -> NDArray[Any]: ...
 
-_Scalar: TypeAlias = float | np.number[Any]
+_Scalar: TypeAlias = FloatInt | np.number[Any]
 _BwMethodType: TypeAlias = Literal["scott", "silverman"] | Callable[[_GaussianKDELike], _Scalar] | _Scalar | None
 
 class gaussian_kde:

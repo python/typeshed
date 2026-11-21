@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Iterable, Iterator
 from typing import Final, Literal, TypeAlias, TypeVar, overload, type_check_only
 from typing_extensions import Self
@@ -5,16 +6,18 @@ from typing_extensions import Self
 _ColorT = TypeVar("_ColorT", bound=Color)
 # NOTE: Reportlab is very inconsistent and sometimes uses the interpretation
 #       used in reportlab.pdfgen.textobject instead, so we pick a different name
-_ConvertibleToColor: TypeAlias = Color | list[float] | tuple[float, float, float, float] | tuple[float, float, float] | str | int
+_ConvertibleToColor: TypeAlias = (
+    Color | list[FloatInt] | tuple[FloatInt, FloatInt, FloatInt, FloatInt] | tuple[FloatInt, FloatInt, FloatInt] | str | int
+)
 
 __version__: Final[str]
 
 class Color:
-    red: float
-    green: float
-    blue: float
-    alpha: float
-    def __init__(self, red: float = 0, green: float = 0, blue: float = 0, alpha: float = 1) -> None: ...
+    red: FloatInt
+    green: FloatInt
+    blue: FloatInt
+    alpha: FloatInt
+    def __init__(self, red: FloatInt = 0, green: FloatInt = 0, blue: FloatInt = 0, alpha: FloatInt = 1) -> None: ...
     @property
     def __key__(self) -> tuple[float, ...]: ...
     def __hash__(self) -> int: ...
@@ -44,24 +47,24 @@ class Color:
 def opaqueColor(c: object) -> bool: ...
 
 class CMYKColor(Color):
-    cyan: float
-    magenta: float
-    yellow: float
-    black: float
+    cyan: FloatInt
+    magenta: FloatInt
+    yellow: FloatInt
+    black: FloatInt
     spotName: str | None
-    density: float
+    density: FloatInt
     knockout: bool | None
-    alpha: float
+    alpha: FloatInt
     def __init__(
         self,
-        cyan: float = 0,
-        magenta: float = 0,
-        yellow: float = 0,
-        black: float = 0,
+        cyan: FloatInt = 0,
+        magenta: FloatInt = 0,
+        yellow: FloatInt = 0,
+        black: FloatInt = 0,
         spotName: str | None = None,
-        density: float = 1,
+        density: FloatInt = 1,
         knockout: bool | None = None,
-        alpha: float = 1,
+        alpha: FloatInt = 1,
     ) -> None: ...
     def fader(self, n: int, reverse: bool = False) -> list[Self]: ...
     def cmyk(self) -> tuple[float, float, float, float]: ...
@@ -70,49 +73,49 @@ class CMYKColor(Color):
 class PCMYKColor(CMYKColor):
     def __init__(
         self,
-        cyan: float,
-        magenta: float,
-        yellow: float,
-        black: float,
-        density: float = 100,
+        cyan: FloatInt,
+        magenta: FloatInt,
+        yellow: FloatInt,
+        black: FloatInt,
+        density: FloatInt = 100,
         spotName: str | None = None,
         knockout: bool | None = None,
-        alpha: float = 100,
+        alpha: FloatInt = 100,
     ) -> None: ...
 
 class CMYKColorSep(CMYKColor):
     def __init__(
         self,
-        cyan: float = 0,
-        magenta: float = 0,
-        yellow: float = 0,
-        black: float = 0,
+        cyan: FloatInt = 0,
+        magenta: FloatInt = 0,
+        yellow: FloatInt = 0,
+        black: FloatInt = 0,
         spotName: str | None = None,
-        density: float = 1,
-        alpha: float = 1,
+        density: FloatInt = 1,
+        alpha: FloatInt = 1,
     ) -> None: ...
 
 class PCMYKColorSep(PCMYKColor, CMYKColorSep):
     def __init__(
         self,
-        cyan: float = 0,
-        magenta: float = 0,
-        yellow: float = 0,
-        black: float = 0,
+        cyan: FloatInt = 0,
+        magenta: FloatInt = 0,
+        yellow: FloatInt = 0,
+        black: FloatInt = 0,
         spotName: str | None = None,
-        density: float = 100,
-        alpha: float = 100,
+        density: FloatInt = 100,
+        alpha: FloatInt = 100,
     ) -> None: ...
 
-def cmyk2rgb(cmyk: tuple[float, float, float, float], density: float = 1) -> tuple[float, float, float]: ...
-def rgb2cmyk(r: float, g: float, b: float) -> tuple[float, float, float, float]: ...
+def cmyk2rgb(cmyk: tuple[FloatInt, FloatInt, FloatInt, FloatInt], density: FloatInt = 1) -> tuple[float, float, float]: ...
+def rgb2cmyk(r: FloatInt, g: FloatInt, b: FloatInt) -> tuple[float, float, float, float]: ...
 def color2bw(colorRGB: Color) -> Color: ...
 def HexColor(val: str | int, htmlOnly: bool = False, hasAlpha: bool = False) -> Color: ...
-def linearlyInterpolatedColor(c0: _ColorT, c1: _ColorT, x0: float, x1: float, x: float) -> _ColorT: ...
+def linearlyInterpolatedColor(c0: _ColorT, c1: _ColorT, x0: FloatInt, x1: FloatInt, x: FloatInt) -> _ColorT: ...
 
 @overload
 def obj_R_G_B(
-    c: Color | list[float] | tuple[float, float, float, float] | tuple[float, float, float],
+    c: Color | list[FloatInt] | tuple[FloatInt, FloatInt, FloatInt, FloatInt] | tuple[FloatInt, FloatInt, FloatInt],
 ) -> tuple[float, float, float]: ...
 @overload
 def obj_R_G_B(c: None) -> None: ...
@@ -289,8 +292,8 @@ def describe(aColor: Color, mode: Literal[1]) -> str: ...
 @overload
 def describe(aColor: Color, mode: Literal[2]) -> tuple[str, float]: ...
 
-def hue2rgb(m1: float, m2: float, h: float) -> float: ...
-def hsl2rgb(h: float, s: float, l: float) -> tuple[float, float, float]: ...
+def hue2rgb(m1: FloatInt, m2: FloatInt, h: FloatInt) -> float: ...
+def hsl2rgb(h: FloatInt, s: FloatInt, l: FloatInt) -> tuple[float, float, float]: ...
 
 @type_check_only
 class _cssParse:
@@ -299,7 +302,7 @@ class _cssParse:
     def rgbVal(self, v: str) -> float: ...
     def floatVal(self, v: str) -> float: ...
     def hueVal(self, v: str) -> float: ...
-    def alphaVal(self, v: str, c: float = 1, n: str = "alpha") -> float: ...
+    def alphaVal(self, v: str, c: FloatInt = 1, n: str = "alpha") -> float: ...
     s: str
     def __call__(self, s: str) -> Color: ...
 
@@ -320,6 +323,6 @@ def toColorOrNone(arg: None, default: Color | None) -> None: ...
 def toColorOrNone(arg: _ConvertibleToColor, default: Color | None = None) -> Color: ...
 
 def setColors(**kw: _ConvertibleToColor) -> None: ...
-def Whiter(c: _ColorT, f: float) -> _ColorT: ...
-def Blacker(c: _ColorT, f: float) -> _ColorT: ...
-def fade(aSpotColor: CMYKColor, percentages: Iterable[float]) -> list[CMYKColor]: ...
+def Whiter(c: _ColorT, f: FloatInt) -> _ColorT: ...
+def Blacker(c: _ColorT, f: FloatInt) -> _ColorT: ...
+def fade(aSpotColor: CMYKColor, percentages: Iterable[FloatInt]) -> list[CMYKColor]: ...

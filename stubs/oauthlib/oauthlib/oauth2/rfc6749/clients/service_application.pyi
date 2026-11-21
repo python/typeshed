@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from collections.abc import Callable
 
 from .base import Client, _TokenPlacement
@@ -39,8 +39,8 @@ class ServiceApplicationClient(Client):
         subject: str | None = None,
         issuer: str | None = None,
         audience: str | None = None,
-        expires_at: float | None = None,
-        issued_at: float | None = None,
+        expires_at: FloatInt | None = None,
+        issued_at: FloatInt | None = None,
         extra_claims: dict[str, Incomplete] | None = None,
         body: str = "",
         scope: str | set[object] | tuple[object] | list[object] | None = None,
