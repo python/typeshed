@@ -1,4 +1,4 @@
-from _typeshed import ConvertibleToInt, SliceableBuffer, Unused
+from _typeshed import ConvertibleToInt, FloatInt, SliceableBuffer, Unused
 from array import array
 
 # Avoid name collision with List.type
@@ -251,7 +251,7 @@ class PropertyData(ValueField):
         self, data: SliceableBuffer, display: Unused, length: ConvertibleToInt | None, format: int
     ) -> tuple[tuple[int, SliceableBuffer] | None, SliceableBuffer]: ...
     def pack_value(  # type: ignore[override]  # Override Callable
-        self, value: tuple[int, Sequence[float] | Sequence[str]]
+        self, value: tuple[int, Sequence[FloatInt] | Sequence[str]]
     ) -> tuple[bytes, int, Literal[8, 16, 32]]: ...
 
 class FixedPropertyData(PropertyData):

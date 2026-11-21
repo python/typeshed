@@ -1,4 +1,4 @@
-from _typeshed import FileDescriptorOrPath
+from _typeshed import FileDescriptorOrPath, FloatInt
 from collections.abc import Iterable, Mapping
 from typing import Protocol, type_check_only
 from typing_extensions import Never
@@ -39,14 +39,14 @@ class SSHClient(ClosingContextManager):
         password: str | None = None,
         pkey: PKey | None = None,
         key_filename: str | None = None,
-        timeout: float | None = None,
+        timeout: FloatInt | None = None,
         allow_agent: bool = True,
         look_for_keys: bool = True,
         compress: bool = False,
         sock: _SocketLike | None = None,
-        banner_timeout: float | None = None,
-        auth_timeout: float | None = None,
-        channel_timeout: float | None = None,
+        banner_timeout: FloatInt | None = None,
+        auth_timeout: FloatInt | None = None,
+        channel_timeout: FloatInt | None = None,
         passphrase: str | None = None,
         disabled_algorithms: Mapping[str, Iterable[str]] | None = None,
         transport_factory: _TransportFactory | None = None,
@@ -57,7 +57,7 @@ class SSHClient(ClosingContextManager):
         self,
         command: str,
         bufsize: int = -1,
-        timeout: float | None = None,
+        timeout: FloatInt | None = None,
         get_pty: bool = False,
         environment: Mapping[str, str] | None = None,
     ) -> tuple[ChannelStdinFile, ChannelFile, ChannelStderrFile]: ...

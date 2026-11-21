@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 
 from reportlab.platypus.flowables import Flowable
 
@@ -43,9 +43,9 @@ class I2of5(Barcode):
     patterns: Incomplete
     barHeight: Incomplete
     barWidth: Incomplete
-    ratio: float
+    ratio: FloatInt
     checksum: int
-    bearers: float
+    bearers: FloatInt
     bearerBox: bool
     quiet: int
     lquiet: Incomplete
@@ -65,9 +65,9 @@ class MSI(Barcode):
     stop: int
     barHeight: Incomplete
     barWidth: Incomplete
-    ratio: float
+    ratio: FloatInt
     checksum: int
-    bearers: float
+    bearers: FloatInt
     quiet: int
     lquiet: Incomplete
     rquiet: Incomplete
@@ -87,9 +87,9 @@ class Codabar(Barcode):
     stop: int
     barHeight: Incomplete
     barWidth: Incomplete
-    ratio: float
+    ratio: FloatInt
     checksum: int
-    bearers: float
+    bearers: FloatInt
     quiet: int
     lquiet: Incomplete
     rquiet: Incomplete
@@ -110,9 +110,9 @@ class Code11(Barcode):
     stop: int
     barHeight: Incomplete
     barWidth: Incomplete
-    ratio: float
+    ratio: FloatInt
     checksum: int
-    bearers: float
+    bearers: FloatInt
     quiet: int
     lquiet: Incomplete
     rquiet: Incomplete

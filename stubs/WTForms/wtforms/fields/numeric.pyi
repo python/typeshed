@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Callable, Sequence
 from decimal import Decimal
 from typing import Any, Literal, overload
@@ -129,10 +130,10 @@ class DecimalField(LocaleAwareNumberField):
     ) -> None: ...
 
 class FloatField(Field):
-    data: float | None
+    data: FloatInt | None
     # technically this is not as strict and will accept anything
     # that can be passed into float(), but we might as well be
-    default: float | Callable[[], float] | None
+    default: FloatInt | Callable[[], float] | None
     def __init__(
         self,
         label: _Text | None = None,
@@ -142,7 +143,7 @@ class FloatField(Field):
         filters: Sequence[_Filter] = (),
         description: _Text = "",
         id: str | None = None,
-        default: float | Callable[[], float] | None = None,
+        default: FloatInt | Callable[[], float] | None = None,
         widget: _Widget[Self] | None = None,
         render_kw: dict[str, Any] | None = None,
         name: str | None = None,

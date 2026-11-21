@@ -7,13 +7,13 @@ from openpyxl.descriptors.serialisable import Serialisable
 
 class NestedGapAmount(NestedMinMax[float, bool]):
     allow_none: bool
-    min: float
-    max: float
+    min: float | int
+    max: float | int
 
 class NestedOverlap(NestedMinMax[float, bool]):
     allow_none: bool
-    min: float
-    max: float
+    min: float | int
+    max: float | int
 
 class NumberFormatDescriptor(Typed[NumFmt, Literal[True]]):
     expected_type: type[NumFmt]

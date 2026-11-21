@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from typing import Any
 
 ECO_VERSION: str
@@ -16,7 +17,7 @@ HAVE_THREADING: bool
 HAVE_IPV6: bool
 RLIMIT_FDS_SOFT: int
 RLIMIT_FDS_HARD: int
-START_TIME_INFO: dict[str, str | float]
+START_TIME_INFO: dict[str, str | FloatInt]
 
 def getrandbits(k: int) -> int: ...
 def get_python_info() -> dict[str, Any]: ...

@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from typing import Literal, overload
 
 from pymeeus.Angle import Angle
@@ -17,30 +18,30 @@ class JupiterMoons:
     @staticmethod
     def apparent_rectangular_coordinates(
         epoch: Epoch,
-        X: float,
-        Y: float,
-        Z: float,
-        OMEGA: float,
-        psi: float,
-        i: float,
-        lambda_0: float,
-        beta_0: float,
-        D: float = 0,
+        X: FloatInt,
+        Y: FloatInt,
+        Z: FloatInt,
+        OMEGA: FloatInt,
+        psi: FloatInt,
+        i: FloatInt,
+        lambda_0: FloatInt,
+        beta_0: FloatInt,
+        D: FloatInt = 0,
         isFictional: Literal[True] = ...,
     ) -> float: ...
     @overload
     @staticmethod
     def apparent_rectangular_coordinates(
         epoch: Epoch,
-        X: float,
-        Y: float,
-        Z: float,
-        OMEGA: float,
-        psi: float,
-        i: float,
-        lambda_0: float,
-        beta_0: float,
-        D: float = 0,
+        X: FloatInt,
+        Y: FloatInt,
+        Z: FloatInt,
+        OMEGA: FloatInt,
+        psi: FloatInt,
+        i: FloatInt,
+        lambda_0: FloatInt,
+        beta_0: FloatInt,
+        D: FloatInt = 0,
         isFictional: Literal[False] | None = False,
     ) -> tuple[float, float, float]: ...
 
@@ -52,12 +53,12 @@ class JupiterMoons:
     @overload
     @staticmethod
     def correct_rectangular_positions(
-        R: float, i_sat: int, DELTA: float, X_coordinate: list[float] | tuple[float, float, float]
+        R: FloatInt, i_sat: int, DELTA: FloatInt, X_coordinate: list[FloatInt] | tuple[FloatInt, FloatInt, FloatInt]
     ) -> tuple[float, float, float]: ...
     @overload
     @staticmethod
     def correct_rectangular_positions(
-        R: float, i_sat: int, DELTA: float, X_coordinate: float, Y_coordinate: float = 0, Z_coordinate: float = 0
+        R: FloatInt, i_sat: int, DELTA: FloatInt, X_coordinate: FloatInt, Y_coordinate: FloatInt = 0, Z_coordinate: FloatInt = 0
     ) -> tuple[float, float, float]: ...
 
     @overload
@@ -70,14 +71,14 @@ class JupiterMoons:
     @staticmethod
     def is_phenomena(epoch: Epoch) -> list[list[bool]]: ...
     @staticmethod
-    def check_coordinates(X: float, Y: float) -> float: ...
+    def check_coordinates(X: FloatInt, Y: FloatInt) -> float: ...
     @staticmethod
     def check_occultation(
-        X: float = 0, Y: float = 0, Z: float = 0, epoch: Epoch | None = None, i_sat: int | None = None
+        X: FloatInt = 0, Y: FloatInt = 0, Z: FloatInt = 0, epoch: Epoch | None = None, i_sat: int | None = None
     ) -> float: ...
     @staticmethod
     def check_eclipse(
-        X_0: float = 0, Y_0: float = 0, Z_0: float = 0, epoch: Epoch | None = None, i_sat: int | None = None
+        X_0: FloatInt = 0, Y_0: FloatInt = 0, Z_0: FloatInt = 0, epoch: Epoch | None = None, i_sat: int | None = None
     ) -> float: ...
 
 def main() -> None: ...

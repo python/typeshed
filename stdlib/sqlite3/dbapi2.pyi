@@ -49,6 +49,7 @@ from _sqlite3 import (
     register_converter as register_converter,
     sqlite_version as sqlite_version,
 )
+from _typeshed import FloatInt
 from datetime import date, datetime, time
 from sqlite3 import (
     Connection as Connection,
@@ -232,9 +233,9 @@ Date = date
 Time = time
 Timestamp = datetime
 
-def DateFromTicks(ticks: float) -> Date: ...
-def TimeFromTicks(ticks: float) -> Time: ...
-def TimestampFromTicks(ticks: float) -> Timestamp: ...
+def DateFromTicks(ticks: FloatInt) -> Date: ...
+def TimeFromTicks(ticks: FloatInt) -> Time: ...
+def TimestampFromTicks(ticks: FloatInt) -> Timestamp: ...
 
 if sys.version_info < (3, 14):
     # Deprecated in 3.12, removed in 3.14.

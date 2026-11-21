@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Iterable
 from typing import Literal, TypedDict, type_check_only
 
@@ -38,4 +39,4 @@ class HttpCommunicator(ApplicationCommunicator):
         body: bytes = b"",
         headers: Iterable[tuple[bytes, bytes]] | None = None,
     ) -> None: ...
-    async def get_response(self, timeout: float = 1) -> _HTTPTestResponse: ...
+    async def get_response(self, timeout: FloatInt = 1) -> _HTTPTestResponse: ...

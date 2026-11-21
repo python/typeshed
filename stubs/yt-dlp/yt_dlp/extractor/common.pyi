@@ -1,5 +1,5 @@
 import re
-from _typeshed import Incomplete, Unused
+from _typeshed import FloatInt, Incomplete, Unused
 from collections.abc import Callable, Collection, Iterable, Iterator, Mapping, Sequence
 from functools import cached_property
 from json.decoder import JSONDecoder
@@ -400,7 +400,7 @@ class InfoExtractor:
         errnote: str | None = None,
         fatal: bool = True,
         tries: int = 1,
-        timeout: float | type[NO_DEFAULT] = ...,
+        timeout: FloatInt | type[NO_DEFAULT] = ...,
         # Remaining arguments are collected with *args, **kwargs and
         # forwarded to _download_webpage_handle().
         encoding: str | None = ...,
@@ -568,7 +568,7 @@ class InfoExtractor:
     def _remove_duplicate_formats(formats: list[dict[str, Any]]) -> None: ...
     def _is_valid_url(self, url: str, video_id: str, item: str = "video", headers: Mapping[str, Any] = {}) -> bool: ...
     def _proto_relative_url(self, url: str, scheme: str | None = None) -> str: ...
-    def _sleep(self, timeout: float, video_id: str, msg_template: str | None = None) -> None: ...
+    def _sleep(self, timeout: FloatInt, video_id: str, msg_template: str | None = None) -> None: ...
     def _extract_f4m_formats(
         self,
         manifest_url: str,
@@ -873,7 +873,7 @@ class InfoExtractor:
         base: int | None = None,
     ) -> int | None: ...
     def _float(
-        self, v: Any, name: str, fatal: bool = False, *, scale: int = 1, invscale: int = 1, default: float | None = None
+        self, v: Any, name: str, fatal: bool = False, *, scale: int = 1, invscale: int = 1, default: FloatInt | None = None
     ) -> float | None: ...
     def _set_cookie(
         self,
@@ -918,7 +918,7 @@ class InfoExtractor:
         chapter_list: Iterable[Mapping[str, Any]],
         start_function: Callable[..., Any],
         title_function: Callable[..., Any],
-        duration: float,
+        duration: FloatInt,
         strict: bool = True,
     ) -> list[dict[str, int]] | None: ...
     def _extract_chapters_from_description(

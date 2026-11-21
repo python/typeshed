@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Iterable
 
 from docutils.utils.math.mathml_elements import MathElement, mover, msub, msubsup, msup, mtd, munder, munderover
@@ -15,8 +16,8 @@ small_operators: dict[str, str]
 movablelimits: tuple[str, ...]
 spaces: dict[str, str]
 accents: dict[str, str]
-over: dict[str, tuple[str, float]]
-under: dict[str, tuple[str, float]]
+over: dict[str, tuple[str, FloatInt]]
+under: dict[str, tuple[str, FloatInt]]
 anomalous_chars: dict[str, str]
 mathbb: dict[str, str]
 matrices: dict[str, tuple[str, str]]

@@ -1,5 +1,5 @@
 import os
-from _typeshed import Incomplete, SupportsGetItem, SupportsKeysAndGetItem
+from _typeshed import FloatInt, Incomplete, SupportsGetItem, SupportsKeysAndGetItem
 from collections.abc import Iterable, Mapping
 from typing import Any, Final
 
@@ -16,7 +16,7 @@ def _read_parquet(
     path: str | os.PathLike[str],
     columns: Iterable[str] | None = None,
     storage_options: SupportsKeysAndGetItem[str, Any] | None = None,  # type depend on the connection
-    bbox: SupportsGetItem[int, float] | None = None,
+    bbox: SupportsGetItem[int, FloatInt] | None = None,
     to_pandas_kwargs: Mapping[str, Incomplete] | None = None,
     **kwargs,  # kwargs passed to pyarrow.parquet.read_table
 ) -> GeoDataFrame: ...

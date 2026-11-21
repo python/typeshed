@@ -16,7 +16,7 @@ class EndSessionRequest(EndpointRequest):
 class EndSessionEndpoint(Endpoint):
     ENDPOINT_NAME: str
     def validate_request(self, request: OAuth2Request) -> EndSessionRequest: ...
-    def create_response(self, validated_request: EndSessionRequest) -> tuple[int, Incomplete, list[tuple[str, str]]] | None: ...  # type: ignore[override]
+    def create_response(self, validated_request: EndSessionRequest) -> tuple[int, str, list[tuple[str, str]]] | None: ...  # type: ignore[override]
     def resolve_client_from_id_token_claims(self, id_token_claims: dict[Incomplete, Incomplete]) -> Incomplete | None: ...
     def is_post_logout_redirect_uri_legitimate(
         self, request: OAuth2Request, post_logout_redirect_uri: str, client, logout_hint: str | None

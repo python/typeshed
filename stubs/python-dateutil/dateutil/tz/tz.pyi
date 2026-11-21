@@ -1,5 +1,5 @@
 import sys
-from _typeshed import Unused
+from _typeshed import FloatInt, Unused
 from datetime import datetime, timedelta, tzinfo
 from typing import Any, ClassVar, Literal, Protocol, TypeVar, type_check_only
 from typing_extensions import Self
@@ -33,7 +33,7 @@ class tzutc(tzinfo):
 UTC: tzutc
 
 class tzoffset(tzinfo):
-    def __init__(self, name: str | None, offset: float | timedelta) -> None: ...
+    def __init__(self, name: str | None, offset: FloatInt | timedelta) -> None: ...
     def utcoffset(self, dt: datetime | None) -> timedelta | None: ...
     def dst(self, dt: datetime | None) -> timedelta | None: ...
     def is_ambiguous(self, dt: datetime | None) -> bool: ...
@@ -44,7 +44,7 @@ class tzoffset(tzinfo):
     def __ne__(self, other: object) -> bool: ...
     __reduce__ = object.__reduce__
     @classmethod
-    def instance(cls, name: str | None, offset: float | timedelta) -> tzoffset: ...
+    def instance(cls, name: str | None, offset: FloatInt | timedelta) -> tzoffset: ...
 
 class tzlocal(_tzinfo):
     def __init__(self) -> None: ...
@@ -59,7 +59,7 @@ class tzlocal(_tzinfo):
 
 class _ttinfo:
     __slots__ = ["offset", "delta", "isdst", "abbr", "isstd", "isgmt", "dstoffset"]
-    offset: float
+    offset: FloatInt
     delta: timedelta
     isdst: bool
     abbr: str
@@ -108,7 +108,7 @@ class tzstr(tzrange):
     hasdst: bool
     def __init__(self, s: str, posix_offset: bool = False) -> None: ...
     @classmethod
-    def instance(cls, name: str | None, offset: float | timedelta) -> tzoffset: ...
+    def instance(cls, name: str | None, offset: FloatInt | timedelta) -> tzoffset: ...
 
 @type_check_only
 class _ICalReader(Protocol):

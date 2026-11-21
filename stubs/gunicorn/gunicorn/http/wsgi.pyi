@@ -7,13 +7,14 @@ from collections.abc import Callable
 from typing import Any, Final, Protocol, overload, type_check_only
 from typing_extensions import Self
 
+from gunicorn._types import _AddressType, _EnvironType, _HeadersType, _StatusType
 from gunicorn.config import Config
 from gunicorn.http import Request
 
-from .._types import _AddressType, _EnvironType, _HeadersType, _StatusType
-
 BLKSIZE: Final = 0x3FFFFFFF
 HEADER_VALUE_RE: Final[re.Pattern[str]]
+STATUS_RE: Final[re.Pattern[str]]
+
 log: logging.Logger
 
 @type_check_only

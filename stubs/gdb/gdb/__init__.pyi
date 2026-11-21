@@ -72,7 +72,7 @@ class GdbError(Exception): ...
 
 # Values
 
-_ValueOrNative: TypeAlias = bool | int | float | str | Value | LazyString
+_ValueOrNative: TypeAlias = bool | float | int | str | Value | LazyString
 _ValueOrInt: TypeAlias = Value | int
 
 @disjoint_base

@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from typing import Literal
 
 from ._canonical_names import canonical_names as canonical_names, normalize_name as normalize_name
@@ -9,7 +10,7 @@ class KeyboardEvent:
     event_type: Literal["down", "up"] | None
     scan_code: int
     name: str | None
-    time: float | None
+    time: FloatInt | None
     device: str | None
     modifiers: tuple[str, ...] | None
     is_keypad: bool | None
@@ -19,7 +20,7 @@ class KeyboardEvent:
         event_type: Literal["down", "up"] | None,
         scan_code: int,
         name: str | None = None,
-        time: float | None = None,
+        time: FloatInt | None = None,
         device: str | None = None,
         modifiers: tuple[str, ...] | None = None,
         is_keypad: bool | None = None,

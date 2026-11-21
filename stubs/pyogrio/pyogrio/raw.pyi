@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Collection, Iterable
 from contextlib import AbstractContextManager
 from typing import Any, Literal, TypedDict, overload, type_check_only
@@ -35,7 +36,7 @@ def read(
     skip_features: int = 0,
     max_features: int | None = None,
     where: str | None = None,
-    bbox: tuple[float, float, float, float] | None = None,
+    bbox: tuple[FloatInt, FloatInt, FloatInt, FloatInt] | None = None,
     mask: shp.Geometry | None = None,
     fids: ArrayLikeInt | None = None,
     sql: str | None = None,
@@ -56,7 +57,7 @@ def read(
     skip_features: int = 0,
     max_features: int | None = None,
     where: str | None = None,
-    bbox: tuple[float, float, float, float] | None = None,
+    bbox: tuple[FloatInt, FloatInt, FloatInt, FloatInt] | None = None,
     mask: shp.Geometry | None = None,
     fids: ArrayLikeInt | None = None,
     sql: str | None = None,
@@ -78,7 +79,7 @@ def read_arrow(
     skip_features: int = 0,
     max_features: int | None = None,
     where: str | None = None,
-    bbox: tuple[float, float, float, float] | None = None,
+    bbox: tuple[FloatInt, FloatInt, FloatInt, FloatInt] | None = None,
     mask: shp.Geometry | None = None,
     fids: ArrayLikeInt | None = None,
     sql: str | None = None,
@@ -102,7 +103,7 @@ def open_arrow(
     skip_features: int = 0,
     max_features: int | None = None,
     where: str | None = None,
-    bbox: tuple[float, float, float, float] | None = None,
+    bbox: tuple[FloatInt, FloatInt, FloatInt, FloatInt] | None = None,
     mask: shp.Geometry | None = None,
     fids: ArrayLikeInt | None = None,
     sql: str | None = None,
@@ -125,7 +126,7 @@ def open_arrow(
     skip_features: int = 0,
     max_features: int | None = None,
     where: str | None = None,
-    bbox: tuple[float, float, float, float] | None = None,
+    bbox: tuple[FloatInt, FloatInt, FloatInt, FloatInt] | None = None,
     mask: shp.Geometry | None = None,
     fids: ArrayLikeInt | None = None,
     sql: str | None = None,

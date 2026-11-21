@@ -1,6 +1,6 @@
 import ssl
 import sys
-from _typeshed import ReadableBuffer, StrPath
+from _typeshed import FloatInt, ReadableBuffer, StrPath
 from collections.abc import Awaitable, Callable, Iterable, Sequence, Sized
 from types import ModuleType
 from typing import Any, Protocol, SupportsIndex, TypeAlias, type_check_only
@@ -33,7 +33,7 @@ async def open_connection(
     port: int | str | None = None,
     *,
     limit: int = 65536,
-    ssl_handshake_timeout: float | None = None,
+    ssl_handshake_timeout: FloatInt | None = None,
     **kwds: Any,
 ) -> tuple[StreamReader, StreamWriter]: ...
 async def start_server(
@@ -42,7 +42,7 @@ async def start_server(
     port: int | str | None = None,
     *,
     limit: int = 65536,
-    ssl_handshake_timeout: float | None = None,
+    ssl_handshake_timeout: FloatInt | None = None,
     **kwds: Any,
 ) -> Server: ...
 
@@ -91,12 +91,12 @@ class StreamWriter:
             sslcontext: ssl.SSLContext,
             *,
             server_hostname: str | None = None,
-            ssl_handshake_timeout: float | None = None,
-            ssl_shutdown_timeout: float | None = None,
+            ssl_handshake_timeout: FloatInt | None = None,
+            ssl_shutdown_timeout: FloatInt | None = None,
         ) -> None: ...
     elif sys.version_info >= (3, 11):
         async def start_tls(
-            self, sslcontext: ssl.SSLContext, *, server_hostname: str | None = None, ssl_handshake_timeout: float | None = None
+            self, sslcontext: ssl.SSLContext, *, server_hostname: str | None = None, ssl_handshake_timeout: FloatInt | None = None
         ) -> None: ...
 
     if sys.version_info >= (3, 13):

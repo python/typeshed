@@ -1,4 +1,4 @@
-from _typeshed import MaybeNone
+from _typeshed import FloatInt, MaybeNone
 from typing import Literal, SupportsIndex, TypeAlias, overload
 
 import numpy as np
@@ -33,7 +33,7 @@ class STRtree:
 
     @overload
     def query(
-        self, geometry: OptGeoArrayLike, predicate: Literal["dwithin"], distance: ArrayLike[float]
+        self, geometry: OptGeoArrayLike, predicate: Literal["dwithin"], distance: ArrayLike[FloatInt]
     ) -> NDArray[np.int64]: ...
     @overload
     def query(
@@ -50,7 +50,7 @@ class STRtree:
     def query_nearest(
         self,
         geometry: OptGeoArrayLike,
-        max_distance: float | None = None,
+        max_distance: FloatInt | None = None,
         return_distance: Literal[False] = False,
         exclusive: bool = False,
         all_matches: bool = True,
@@ -59,7 +59,7 @@ class STRtree:
     def query_nearest(
         self,
         geometry: OptGeoArrayLike,
-        max_distance: float | None = None,
+        max_distance: FloatInt | None = None,
         *,
         return_distance: Literal[True],
         exclusive: bool = False,
@@ -69,7 +69,7 @@ class STRtree:
     def query_nearest(
         self,
         geometry: OptGeoArrayLike,
-        max_distance: float | None,
+        max_distance: FloatInt | None,
         return_distance: Literal[True],
         exclusive: bool = False,
         all_matches: bool = True,
@@ -78,7 +78,7 @@ class STRtree:
     def query_nearest(
         self,
         geometry: OptGeoArrayLike,
-        max_distance: float | None = None,
+        max_distance: FloatInt | None = None,
         return_distance: bool = False,
         exclusive: bool = False,
         all_matches: bool = True,

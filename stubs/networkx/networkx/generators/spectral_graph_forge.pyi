@@ -1,7 +1,9 @@
+from _typeshed import FloatInt
+
 from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
 
 __all__ = ["spectral_graph_forge"]
 
 @_dispatchable
-def spectral_graph_forge(G: Graph[_Node], alpha: float, transformation: str = "identity", seed=None) -> Graph[int]: ...
+def spectral_graph_forge(G: Graph[_Node], alpha: FloatInt, transformation: str = "identity", seed=None) -> Graph[int]: ...

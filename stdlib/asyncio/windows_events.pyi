@@ -1,6 +1,6 @@
 import socket
 import sys
-from _typeshed import Incomplete, ReadableBuffer, WriteableBuffer
+from _typeshed import FloatInt, Incomplete, ReadableBuffer, WriteableBuffer
 from collections.abc import Callable
 from typing import IO, Any, ClassVar, Final
 from typing_extensions import Never
@@ -44,8 +44,8 @@ if sys.platform == "win32":
     INFINITE: Final = 0xFFFFFFFF
     ERROR_CONNECTION_REFUSED: Final = 1225
     ERROR_CONNECTION_ABORTED: Final = 1236
-    CONNECT_PIPE_INIT_DELAY: float
-    CONNECT_PIPE_MAX_DELAY: float
+    CONNECT_PIPE_INIT_DELAY: FloatInt
+    CONNECT_PIPE_MAX_DELAY: FloatInt
 
     class PipeServer:
         def __init__(self, address: str) -> None: ...

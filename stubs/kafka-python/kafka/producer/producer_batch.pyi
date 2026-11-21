@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from enum import IntEnum
 
 from kafka.producer.future import FutureProduceResult
@@ -10,15 +10,15 @@ class FinalState(IntEnum):
 
 class ProducerBatch:
     max_record_size: int
-    created: float
+    created: FloatInt
     drained: Incomplete | None
     attempts: int
-    last_attempt: float
-    last_append: float
+    last_attempt: FloatInt
+    last_append: FloatInt
     records: Incomplete
     topic_partition: Incomplete
     produce_future: FutureProduceResult
-    def __init__(self, tp, records, now: float | None = None) -> None: ...
+    def __init__(self, tp, records, now: FloatInt | None = None) -> None: ...
     @property
     def final_state(self): ...
     @property

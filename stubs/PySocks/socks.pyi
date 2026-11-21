@@ -1,7 +1,7 @@
 import logging
 import socket
 import types
-from _typeshed import ReadableBuffer
+from _typeshed import FloatInt, ReadableBuffer
 from collections.abc import Callable, Iterable, Mapping
 from typing import Final, ParamSpec, TypeAlias, TypeVar, overload
 
@@ -98,7 +98,7 @@ class socksocket(_BaseSocket):
     def __init__(
         self, family: socket.AddressFamily = ..., type: socket.SocketKind = ..., proto: int = 0, fileno: int | None = None
     ) -> None: ...
-    def settimeout(self, timeout: float | None) -> None: ...
+    def settimeout(self, timeout: FloatInt | None) -> None: ...
     def gettimeout(self) -> float | None: ...
     def setblocking(self, v: bool) -> None: ...
     def set_proxy(

@@ -1,4 +1,4 @@
-from _typeshed import Incomplete, Unused
+from _typeshed import FloatInt, Incomplete, Unused
 from collections.abc import Generator, Iterable, Mapping, MutableSet, Reversible
 from decimal import Decimal
 from typing_extensions import Never
@@ -110,5 +110,5 @@ class PlanarEmbedding(DiGraph[_Node]):
     def add_edge(self, u_of_edge: _Node, v_of_edge: _Node, **attr: Unused) -> Never: ...
     def add_edges_from(self, ebunch_to_add: Iterable[_EdgePlus[_Node]], **attr: Unused) -> Never: ...
     def add_weighted_edges_from(
-        self, ebunch_to_add: Iterable[tuple[_Node, _Node, float | Decimal | None]], weight: str = "weight", **attr: Unused
+        self, ebunch_to_add: Iterable[tuple[_Node, _Node, FloatInt | Decimal | None]], weight: str = "weight", **attr: Unused
     ) -> Never: ...

@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Collection
 from typing import Literal
 
@@ -27,7 +28,7 @@ def directed_laplacian_matrix(
     nodelist: Collection[_Node] | None = None,
     weight: str | None = "weight",
     walk_type: Literal["random", "lazy", "pagerank"] | None = None,
-    alpha: float = 0.95,
+    alpha: FloatInt = 0.95,
 ) -> Array2D[np.float64]: ...
 @_dispatchable
 def directed_combinatorial_laplacian_matrix(
@@ -35,5 +36,5 @@ def directed_combinatorial_laplacian_matrix(
     nodelist: Collection[_Node] | None = None,
     weight: str | None = "weight",
     walk_type: Literal["random", "lazy", "pagerank"] | None = None,
-    alpha: float = 0.95,
+    alpha: FloatInt = 0.95,
 ) -> Array2D[np.float64]: ...

@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Callable, Sequence
 from typing import Any, Generic, Protocol, TypeVar, overload, type_check_only
 from typing_extensions import Never
@@ -53,7 +54,7 @@ class Config:
     # SettingType inserts a property into Config for every subclass of Setting
     resolver: _SettingDescriptor[type[_Resolver]]
     threadpool: _SettingDescriptor[type[Threadpool]]
-    threadpool_idle_task_timeout: _SettingDescriptor[float]
+    threadpool_idle_task_timeout: _SettingDescriptor[FloatInt]
     loop: _SettingDescriptor[type[_Loop]]
     format_context: _SettingDescriptor[Callable[[Any], str]]
     libev_backend: _SettingDescriptor[str | None]
@@ -61,15 +62,15 @@ class Config:
     disable_watch_children: _SettingDescriptor[bool]
     track_greenlet_tree: _SettingDescriptor[bool]
     monitor_thread: _SettingDescriptor[bool]
-    max_blocking_time: _SettingDescriptor[float]
-    memory_monitor_period: _SettingDescriptor[float]
+    max_blocking_time: _SettingDescriptor[FloatInt]
+    memory_monitor_period: _SettingDescriptor[FloatInt]
     max_memory_usage: _SettingDescriptor[int | None]
     resolver_nameservers: _SettingDescriptor[Sequence[str] | str | None]
-    resolver_timeout: _SettingDescriptor[float | None]
+    resolver_timeout: _SettingDescriptor[FloatInt | None]
     # these get parsed by gevent.resolver.cares.channel so the Setting does not
     # perform any conversion, but we know at least what types can be valid
     ares_flags: _SettingDescriptor[str | int | None]
-    ares_timeout: _SettingDescriptor[str | float | None]
+    ares_timeout: _SettingDescriptor[str | FloatInt | None]
     ares_tries: _SettingDescriptor[str | int | None]
     ares_ndots: _SettingDescriptor[str | int | None]
     ares_udp_port: _SettingDescriptor[str | int | None]
@@ -110,7 +111,7 @@ class Threadpool(ImportableSetting[type[ThreadPool]], Setting[type[ThreadPool]])
 class ThreadpoolIdleTaskTimeout(FloatSettingMixin, Setting[float]):
     document: bool
     desc: str
-    default: float
+    default: FloatInt
 
 class Loop(ImportableSetting[type[_Loop]], Setting[type[_Loop]]):
     desc: str
@@ -142,7 +143,7 @@ class MonitorThread(BoolSettingMixin, Setting[bool]):
     desc: str
 
 class MaxBlockingTime(FloatSettingMixin, Setting[float]):
-    default: float
+    default: FloatInt
     desc: str
 
 class PrintBlockingReports(BoolSettingMixin, Setting[bool]):

@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Iterable, Sequence
 from typing import Any, Literal, Protocol, type_check_only
 
@@ -158,7 +159,7 @@ class Window(Drawable):
         property: int,
         property_type: int,
         format: int,
-        data: Sequence[float] | Sequence[str],
+        data: Sequence[FloatInt] | Sequence[str],
         mode: int = 0,
         onerror: ErrorHandler[object] | None = None,
     ) -> None: ...

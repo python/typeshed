@@ -1,4 +1,5 @@
 import datetime
+from _typeshed import FloatInt
 from collections.abc import Iterable
 from decimal import Decimal
 from typing import TypedDict, type_check_only
@@ -11,7 +12,7 @@ from .time_estimates import _TimeEstimate
 class _Result(_TimeEstimate, TypedDict):
     password: str
     guesses: Decimal
-    guesses_log10: float
+    guesses_log10: FloatInt
     sequence: list[_Match]
     calc_time: datetime.timedelta
     feedback: _Feedback

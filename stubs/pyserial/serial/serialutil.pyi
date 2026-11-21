@@ -1,5 +1,5 @@
 import io
-from _typeshed import ReadableBuffer, WriteableBuffer
+from _typeshed import FloatInt, ReadableBuffer, WriteableBuffer
 from abc import abstractmethod
 from collections.abc import Callable, Generator
 from typing import Any, Final
@@ -16,7 +16,7 @@ PARITY_ODD: Final = "O"
 PARITY_MARK: Final = "M"
 PARITY_SPACE: Final = "S"
 STOPBITS_ONE: Final = 1
-STOPBITS_ONE_POINT_FIVE: float
+STOPBITS_ONE_POINT_FIVE: FloatInt
 STOPBITS_TWO: Final = 2
 FIVEBITS: Final = 5
 SIXBITS: Final = 6
@@ -34,18 +34,18 @@ class Timeout:
     TIME: Callable[[], float]
     is_infinite: bool
     is_non_blocking: bool
-    duration: float
-    target_time: float
-    def __init__(self, duration: float) -> None: ...
+    duration: FloatInt
+    target_time: FloatInt
+    def __init__(self, duration: FloatInt) -> None: ...
     def expired(self) -> bool: ...
     def time_left(self) -> float: ...
-    def restart(self, duration: float) -> None: ...
+    def restart(self, duration: FloatInt) -> None: ...
 
 class SerialBase(io.RawIOBase):
     BAUDRATES: tuple[int, ...]
     BYTESIZES: tuple[int, ...]
     PARITIES: tuple[str, ...]
-    STOPBITS: tuple[int, float, int]
+    STOPBITS: tuple[int, FloatInt, int]
     is_open: bool
     portstr: str | None
     name: str | None
@@ -55,13 +55,13 @@ class SerialBase(io.RawIOBase):
         baudrate: int = 9600,
         bytesize: int = 8,
         parity: str = "N",
-        stopbits: float = 1,
-        timeout: float | None = None,
+        stopbits: FloatInt = 1,
+        timeout: FloatInt | None = None,
         xonxoff: bool = False,
         rtscts: bool = False,
-        write_timeout: float | None = None,
+        write_timeout: FloatInt | None = None,
         dsrdtr: bool = False,
-        inter_byte_timeout: float | None = None,
+        inter_byte_timeout: FloatInt | None = None,
         exclusive: bool | None = None,
     ) -> None: ...
 
@@ -108,22 +108,22 @@ class SerialBase(io.RawIOBase):
     @property
     def stopbits(self) -> float: ...
     @stopbits.setter
-    def stopbits(self, stopbits: float) -> None: ...
+    def stopbits(self, stopbits: FloatInt) -> None: ...
 
     @property
     def timeout(self) -> float | None: ...
     @timeout.setter
-    def timeout(self, timeout: float | None) -> None: ...
+    def timeout(self, timeout: FloatInt | None) -> None: ...
 
     @property
     def write_timeout(self) -> float | None: ...
     @write_timeout.setter
-    def write_timeout(self, timeout: float | None) -> None: ...
+    def write_timeout(self, timeout: FloatInt | None) -> None: ...
 
     @property
     def inter_byte_timeout(self) -> float | None: ...
     @inter_byte_timeout.setter
-    def inter_byte_timeout(self, ic_timeout: float | None) -> None: ...
+    def inter_byte_timeout(self, ic_timeout: FloatInt | None) -> None: ...
 
     @property
     def xonxoff(self) -> bool: ...
@@ -163,7 +163,7 @@ class SerialBase(io.RawIOBase):
     def get_settings(self) -> dict[str, Any]: ...
     def apply_settings(self, d: dict[str, Any]) -> None: ...
     def readinto(self, buffer: WriteableBuffer, /) -> int: ...  # returns int unlike `io.RawIOBase`
-    def send_break(self, duration: float = 0.25) -> None: ...
+    def send_break(self, duration: FloatInt = 0.25) -> None: ...
     def read_all(self) -> bytes: ...
     def read_until(self, expected: bytes = b"\n", size: int | None = None) -> bytes: ...
     def iread_until(self, expected: bytes = ..., size: int | None = ...) -> Generator[bytes]: ...

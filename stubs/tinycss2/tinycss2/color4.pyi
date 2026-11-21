@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Iterable, Iterator
 from typing import Literal
 
@@ -5,7 +6,7 @@ from .ast import Node
 
 class Color:
     COLOR_SPACES: set[str] | None
-    def __init__(self, space: str, coordinates: tuple[float | None, ...], alpha: float) -> None: ...
+    def __init__(self, space: str, coordinates: tuple[FloatInt | None, ...], alpha: FloatInt) -> None: ...
     def __iter__(self) -> Iterator[float | None]: ...
     def __getitem__(self, key: int) -> float: ...
     def __hash__(self) -> int: ...
@@ -15,5 +16,5 @@ class Color:
 def parse_color(input: str | Iterable[Node]) -> Color | Literal["currentcolor"] | None: ...
 
 COLOR_SPACES: set[str]
-D50: tuple[float, float, float]
-D65: tuple[float, float, float]
+D50: tuple[FloatInt, FloatInt, FloatInt]
+D65: tuple[FloatInt, FloatInt, FloatInt]

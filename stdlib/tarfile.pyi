@@ -1,7 +1,7 @@
 import bz2
 import io
 import sys
-from _typeshed import FileDescriptorOrPath, ReadableBuffer, StrOrBytesPath, StrPath, SupportsRead, WriteableBuffer
+from _typeshed import FileDescriptorOrPath, FloatInt, ReadableBuffer, StrOrBytesPath, StrPath, SupportsRead, WriteableBuffer
 from builtins import list as _list  # aliases to avoid name clashes with fields named "type" or "list"
 from collections.abc import Callable, Iterable, Iterator, Mapping
 from gzip import _ReadableFileobj as _GzipReadableFileobj, _WritableFileobj as _GzipWritableFileobj
@@ -151,7 +151,7 @@ class TarFile:
             errorlevel: Literal[0, 1, 2] | None = None,  # default 1
             copybufsize: int | None = None,  # undocumented
             stream: bool = False,
-            mtime: float | None = None,
+            mtime: FloatInt | None = None,
         ) -> None: ...
     elif sys.version_info >= (3, 13):
         def __init__(
@@ -793,7 +793,7 @@ class TarInfo:
     )
     name: str
     size: int
-    mtime: int | float
+    mtime: float | int
     chksum: int
     devmajor: int
     devminor: int
@@ -836,7 +836,7 @@ class TarInfo:
         self,
         *,
         name: str = ...,
-        mtime: float = ...,
+        mtime: FloatInt = ...,
         mode: int = ...,
         linkname: str = ...,
         uid: int = ...,

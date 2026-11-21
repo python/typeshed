@@ -1,5 +1,5 @@
 import sys
-from _typeshed import MaybeNone, ReadableBuffer, StrOrBytesPath, SupportsLenAndGetItem, Unused
+from _typeshed import FloatInt, MaybeNone, ReadableBuffer, StrOrBytesPath, SupportsLenAndGetItem, Unused
 from collections.abc import Callable, Generator, Iterable, Iterator, Mapping, Sequence
 from sqlite3.dbapi2 import (
     PARSE_COLNAMES as PARSE_COLNAMES,
@@ -215,7 +215,7 @@ if sys.version_info < (3, 12):
     from sqlite3.dbapi2 import enable_shared_cache as enable_shared_cache, version as version
 
 _CursorT = TypeVar("_CursorT", bound=Cursor)
-_SqliteData: TypeAlias = str | ReadableBuffer | int | float | None
+_SqliteData: TypeAlias = str | ReadableBuffer | float | int | None
 # Data that is passed through adapters can be of any type accepted by an adapter.
 _AdaptedInputData: TypeAlias = _SqliteData | Any
 # The Mapping must really be a dict, but making it invariant is too annoying.
@@ -319,7 +319,7 @@ class Connection:
         def __init__(
             self,
             database: StrOrBytesPath,
-            timeout: float = 5.0,
+            timeout: FloatInt = 5.0,
             detect_types: int = 0,
             isolation_level: _IsolationLevel = "DEFERRED",
             check_same_thread: bool = True,
@@ -332,7 +332,7 @@ class Connection:
         def __init__(
             self,
             database: StrOrBytesPath,
-            timeout: float = 5.0,
+            timeout: FloatInt = 5.0,
             detect_types: int = 0,
             isolation_level: _IsolationLevel = "DEFERRED",
             check_same_thread: bool = True,
@@ -419,7 +419,7 @@ class Connection:
         pages: int = -1,
         progress: Callable[[int, int, int], object] | None = None,
         name: str = "main",
-        sleep: float = 0.25,
+        sleep: FloatInt = 0.25,
     ) -> None: ...
     if sys.version_info >= (3, 11):
         def setlimit(self, category: int, limit: int, /) -> int: ...
