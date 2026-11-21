@@ -1,0 +1,990 @@
+{
+  "generator_commit": "b20030cb8594aa8f3ac13c813fbc2505e01d6c3d",
+  "source_commit": "c65cccd7cf993d87301a2f733820888a4545e5e5",
+  "stubs": {
+    "_win32typing.pyi": {
+      "package": "_win32typing-stubs/__init__.pyi",
+      "sha256": "0a8791ef473f1a6a4666cdfe0565ab6e975d94791bb36cc71e98e4afffaae55c"
+    },
+    "commctrl.pyi": {
+      "package": "commctrl-stubs/__init__.pyi",
+      "sha256": "92e0196d9ec969f8ddcebe75a49bd8d6396d9f7951c52a637b39fff6d493027a"
+    },
+    "dde.pyi": {
+      "package": "dde-stubs/__init__.pyi",
+      "sha256": "b1a33393675cdde4674eb717538bc8fbdf0f502babeaafad05af67a9d27c342d"
+    },
+    "isapi/__init__.pyi": {
+      "package": "isapi-stubs/__init__.pyi",
+      "sha256": "06e02771d471093c23035fd54ffbc51a048306bd3aea278176ead93f2231ff9a"
+    },
+    "isapi/install.pyi": {
+      "package": "isapi-stubs/install.pyi",
+      "sha256": "99ed4bee2643a5c41ebe3542545ca6eaa541ff0de2e3173d49902c514380c5c7"
+    },
+    "isapi/isapicon.pyi": {
+      "package": "isapi-stubs/isapicon.pyi",
+      "sha256": "a6ed8d3088d2fd66fb5b6bad1aaf73411ebd16905ae67abc8bb7898fc8110e6d"
+    },
+    "isapi/simple.pyi": {
+      "package": "isapi-stubs/simple.pyi",
+      "sha256": "6e6b1927bdbf3b949971a8c0d2565a5afea189b6359e010a30953982adc8f72c"
+    },
+    "isapi/threaded_extension.pyi": {
+      "package": "isapi-stubs/threaded_extension.pyi",
+      "sha256": "638174af59bae88fc3b6c027d05dbfb4d33fd7ed481db2f937626eb431a8e50a"
+    },
+    "mmapfile.pyi": {
+      "package": "mmapfile-stubs/__init__.pyi",
+      "sha256": "aeb7b2367de816bc135bb1e048920e83f892737cbe5652985deae4ae1b4f9038"
+    },
+    "mmsystem.pyi": {
+      "package": "mmsystem-stubs/__init__.pyi",
+      "sha256": "da3673173e76c628e8d83e392a3af098b6d7a7ed0ac0f65af1b51c3c1fcaee4b"
+    },
+    "ntsecuritycon.pyi": {
+      "package": "ntsecuritycon-stubs/__init__.pyi",
+      "sha256": "e698c053cf6177824b30fd2907493528033cc4acad92348779de9839b0234533"
+    },
+    "odbc.pyi": {
+      "package": "odbc-stubs/__init__.pyi",
+      "sha256": "270b698707ac8e360d39e1e79467718c04f09425b3bb0202d2065686718370b5"
+    },
+    "perfmon.pyi": {
+      "package": "perfmon-stubs/__init__.pyi",
+      "sha256": "d99c0c13a7b019592606fb9c1299b1e29e48eb77dbb799e6cc335a9453f51d15"
+    },
+    "pythoncom.pyi": {
+      "package": "pythoncom-stubs/__init__.pyi",
+      "sha256": "6a5ec1d1775014ce40da78ac0485340afccd3e871db92ffbde660a8f4f8cb783"
+    },
+    "pythonwin/__init__.pyi": {
+      "package": "pythonwin-stubs/__init__.pyi",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "pythonwin/dde.pyi": {
+      "package": "pythonwin-stubs/dde.pyi",
+      "sha256": "7a3b2dc4ef1c0dc72d064f95ece2f9635e7c9c80b6812c496ad91d9a9ca799f7"
+    },
+    "pythonwin/win32ui.pyi": {
+      "package": "pythonwin-stubs/win32ui.pyi",
+      "sha256": "c6481a39f6e5060c477ef1fa586d4c91eb932568d7a79bcb9ac83cde24e4f1ad"
+    },
+    "pythonwin/win32uiole.pyi": {
+      "package": "pythonwin-stubs/win32uiole.pyi",
+      "sha256": "549fa160255ca629f2f2b2b3e93cfecbcc9667eddaf5299057536cabdf7a81fc"
+    },
+    "pywintypes.pyi": {
+      "package": "pywintypes-stubs/__init__.pyi",
+      "sha256": "596c1a8e073fda8063a2927343f2b4ad7341c0b63c92829934a79b9693e43eb9"
+    },
+    "regutil.pyi": {
+      "package": "regutil-stubs/__init__.pyi",
+      "sha256": "f4ed347febba2965b54791de677884c928120271372098f1e5255799d89765e3"
+    },
+    "servicemanager.pyi": {
+      "package": "servicemanager-stubs/__init__.pyi",
+      "sha256": "63f1be984d0aa54c0f286db1dc4b23c87a6b80943ae8e1c848d0892b55d40dd1"
+    },
+    "sspicon.pyi": {
+      "package": "sspicon-stubs/__init__.pyi",
+      "sha256": "ea93f9b086b383a4585377ec5c37b05397799bd3b4a22680cf98e357fe8c936e"
+    },
+    "timer.pyi": {
+      "package": "timer-stubs/__init__.pyi",
+      "sha256": "e38d18eb70c16dc66f45dcba9bc73764be6b683dd20518eb1f3022e7ccec5909"
+    },
+    "win2kras.pyi": {
+      "package": "win2kras-stubs/__init__.pyi",
+      "sha256": "b9ec198f50b82218201de728ca38084466b0e309f4e9125ae5be72bdcbdf1add"
+    },
+    "win32/__init__.pyi": {
+      "package": "win32-stubs/__init__.pyi",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "win32/lib/__init__.pyi": {
+      "package": "win32-stubs/lib/__init__.pyi",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "win32/lib/commctrl.pyi": {
+      "package": "win32-stubs/lib/commctrl.pyi",
+      "sha256": "698756693c6fab49b36dad9813edcf370ada2a6130cf70c97f92590a7bbc8b4e"
+    },
+    "win32/lib/mmsystem.pyi": {
+      "package": "win32-stubs/lib/mmsystem.pyi",
+      "sha256": "799b745e9dcea399b2060dcaac498c2c6533b333d91db6558c046915a9934cfa"
+    },
+    "win32/lib/ntsecuritycon.pyi": {
+      "package": "win32-stubs/lib/ntsecuritycon.pyi",
+      "sha256": "0155a2cb3d8ffcabd5450e2b18f32fde02a4a5700f2d272f1a6f2a29c6aac2b9"
+    },
+    "win32/lib/pywintypes.pyi": {
+      "package": "win32-stubs/lib/pywintypes.pyi",
+      "sha256": "151120987b7f2e7553616de8098d857333c4346cfff89524932dd5b953121dc8"
+    },
+    "win32/lib/regutil.pyi": {
+      "package": "win32-stubs/lib/regutil.pyi",
+      "sha256": "5bb04f1215b85c40140c5f153cd2687dc03df0f831e6b688c31c934119c8d711"
+    },
+    "win32/lib/sspicon.pyi": {
+      "package": "win32-stubs/lib/sspicon.pyi",
+      "sha256": "94c84227f443541e2464022ac2a058162f8081c25ec0c890ad941673f6ec0544"
+    },
+    "win32/lib/win2kras.pyi": {
+      "package": "win32-stubs/lib/win2kras.pyi",
+      "sha256": "535c352a044360d3fe90f2b907753bb3b0c37f7883a13b63850d36d30d78844f"
+    },
+    "win32/lib/win32con.pyi": {
+      "package": "win32-stubs/lib/win32con.pyi",
+      "sha256": "e0b7d446f527801e2c2094190dcb3ae945282aeaf8ec5184948ee363d7b53e68"
+    },
+    "win32/lib/win32cryptcon.pyi": {
+      "package": "win32-stubs/lib/win32cryptcon.pyi",
+      "sha256": "f7c8a693e72f2c4c3139f07c80b8dc46c670a2bfa2c000fe04e23e713beef25f"
+    },
+    "win32/lib/win32evtlogutil.pyi": {
+      "package": "win32-stubs/lib/win32evtlogutil.pyi",
+      "sha256": "c8f9e93de5489bceefa8593130ece6a1b40c177e934aeeda426e34c5c1be67ed"
+    },
+    "win32/lib/win32gui_struct.pyi": {
+      "package": "win32-stubs/lib/win32gui_struct.pyi",
+      "sha256": "c8707c82c06eea79c329081fb4a2fa047459fe7d5e44ca582b85c5841df01555"
+    },
+    "win32/lib/win32inetcon.pyi": {
+      "package": "win32-stubs/lib/win32inetcon.pyi",
+      "sha256": "915717f834653168086ba18cf2a8485454219da928a2a0ab71fe77af08c16fe8"
+    },
+    "win32/lib/win32netcon.pyi": {
+      "package": "win32-stubs/lib/win32netcon.pyi",
+      "sha256": "07207eb3b8ee1f0afcccc633a2480dfb133200fdf38f4a297731e197c049cba5"
+    },
+    "win32/lib/win32pdhquery.pyi": {
+      "package": "win32-stubs/lib/win32pdhquery.pyi",
+      "sha256": "1d4f1d13c0d7fa5545d6684305c2189750b8e46531b531c9bce88ab4ac91b98c"
+    },
+    "win32/lib/win32serviceutil.pyi": {
+      "package": "win32-stubs/lib/win32serviceutil.pyi",
+      "sha256": "e378ac9a4e775bce90beaf45b592a2d3f29e25a11c9c15892f57c5df33bc4a6f"
+    },
+    "win32/lib/win32timezone.pyi": {
+      "package": "win32-stubs/lib/win32timezone.pyi",
+      "sha256": "06c13a81d61e6d29d4b136ba269bf3b2e94c1d3e8c83521ae31d86cc30ea9b5f"
+    },
+    "win32/lib/win32verstamp.pyi": {
+      "package": "win32-stubs/lib/win32verstamp.pyi",
+      "sha256": "9a89f16a44181ed996bc6acd74f455b319d293d622f87ab6ec64a2589a566294"
+    },
+    "win32/lib/winerror.pyi": {
+      "package": "win32-stubs/lib/winerror.pyi",
+      "sha256": "4ecbdcae53cf70f6d0a8714ce8da092d3d8e6bbe19cedf42d616c84a5ef556f1"
+    },
+    "win32/lib/winioctlcon.pyi": {
+      "package": "win32-stubs/lib/winioctlcon.pyi",
+      "sha256": "0e26f66d78b6795c4e7cfe6568bde36c04ecfd209b4b4af0eab8d502bd481955"
+    },
+    "win32/lib/winnt.pyi": {
+      "package": "win32-stubs/lib/winnt.pyi",
+      "sha256": "4573391c8b87ce998cc9940d2b1a4a77383dae14dbfe3d41b91442f730a2a8d3"
+    },
+    "win32/lib/winperf.pyi": {
+      "package": "win32-stubs/lib/winperf.pyi",
+      "sha256": "debad5d2e14ea4c207ed5bbf7704cca00500e1f87bb84d30af428d3b1645ea23"
+    },
+    "win32/lib/winxptheme.pyi": {
+      "package": "win32-stubs/lib/winxptheme.pyi",
+      "sha256": "23cece75624635fa5ab53d08e045238816fcd8b1469139f1f728bc754d078ea2"
+    },
+    "win32/mmapfile.pyi": {
+      "package": "win32-stubs/mmapfile.pyi",
+      "sha256": "743813a1397493953377fca2a4f571deae38bd74149910a67dd895307e5a7cb8"
+    },
+    "win32/odbc.pyi": {
+      "package": "win32-stubs/odbc.pyi",
+      "sha256": "e99df6f23674278e990d49cfed307ac2d387f5b90373ea70ebd180f6737c52ef"
+    },
+    "win32/perfmon.pyi": {
+      "package": "win32-stubs/perfmon.pyi",
+      "sha256": "011969f8521988edd6011ccbe6017d62f67603fdc1fb4d07145d58d75e6df95e"
+    },
+    "win32/servicemanager.pyi": {
+      "package": "win32-stubs/servicemanager.pyi",
+      "sha256": "e0600de9f971a218b7de710fc8e0b102745d6b25edbe45284586bdc62671b502"
+    },
+    "win32/timer.pyi": {
+      "package": "win32-stubs/timer.pyi",
+      "sha256": "1f340bbe047ab5335ff88165ea3054024ca77835f042a44f3f22b62d1d895f7e"
+    },
+    "win32/win32api.pyi": {
+      "package": "win32-stubs/win32api.pyi",
+      "sha256": "4cd7b58931ef5f9c2c48600177831a25f0ec7ec392f485ef8a827c370ba29a59"
+    },
+    "win32/win32clipboard.pyi": {
+      "package": "win32-stubs/win32clipboard.pyi",
+      "sha256": "fd588898e895263ee9a4af717419f83d7e32211dbec57687aa18d6249dec2c9d"
+    },
+    "win32/win32console.pyi": {
+      "package": "win32-stubs/win32console.pyi",
+      "sha256": "3ad532fc36f1c0f9b94ebf47b200490dfd03eee74a7d27bdcad1a27fb2aa95aa"
+    },
+    "win32/win32cred.pyi": {
+      "package": "win32-stubs/win32cred.pyi",
+      "sha256": "b54aaa79358cb73259b70f9a7fb3f047142631d0880de9266dc51149a6790b77"
+    },
+    "win32/win32crypt.pyi": {
+      "package": "win32-stubs/win32crypt.pyi",
+      "sha256": "ce9d7bdbe6cf45cdbb53c88803c251aa3b70526cac13dd08e9344b0a35839bb4"
+    },
+    "win32/win32event.pyi": {
+      "package": "win32-stubs/win32event.pyi",
+      "sha256": "bf6ca12710225c28a8aed1f903c3e673b5758d379d835780a32703ae7f6186e7"
+    },
+    "win32/win32evtlog.pyi": {
+      "package": "win32-stubs/win32evtlog.pyi",
+      "sha256": "9f8e0b084e3d2dba7dee036d482407ea7f43a791626892ecfdf487086581f43a"
+    },
+    "win32/win32file.pyi": {
+      "package": "win32-stubs/win32file.pyi",
+      "sha256": "1becd9614651392631a05d418f52927005e62005ecf90e2441ab6e269985a95f"
+    },
+    "win32/win32gui.pyi": {
+      "package": "win32-stubs/win32gui.pyi",
+      "sha256": "1b84fb68e64f10996a9465187a672217aba16f6bedb44646cd5a91894d7ef4f3"
+    },
+    "win32/win32help.pyi": {
+      "package": "win32-stubs/win32help.pyi",
+      "sha256": "2fbdb143105f2f11cd2c2538973c299555d51cc75fc307eb0a225d4998d08970"
+    },
+    "win32/win32inet.pyi": {
+      "package": "win32-stubs/win32inet.pyi",
+      "sha256": "c274092f7c11afb5808ec369430ff25372cdf6e9c755b4d1ab7e0fc0659fdcd4"
+    },
+    "win32/win32job.pyi": {
+      "package": "win32-stubs/win32job.pyi",
+      "sha256": "b416374c2b913c85a08f4d06d13372a1dd20b2af674c474364cd73e2ab224afd"
+    },
+    "win32/win32lz.pyi": {
+      "package": "win32-stubs/win32lz.pyi",
+      "sha256": "2282d504091cdac42dd51f4e7aca837d8bc8b4772d2dd371ab96d561d870c093"
+    },
+    "win32/win32net.pyi": {
+      "package": "win32-stubs/win32net.pyi",
+      "sha256": "38f337c80d34bd3858727830ea4ad9e2654500ed81ec79386e59feac185ce256"
+    },
+    "win32/win32pdh.pyi": {
+      "package": "win32-stubs/win32pdh.pyi",
+      "sha256": "e0d80f629526e90c11b48f2687aae390c45102e3dc520ead358bb39cdf86d100"
+    },
+    "win32/win32pipe.pyi": {
+      "package": "win32-stubs/win32pipe.pyi",
+      "sha256": "baee6a4e49ee83ee41e70be0f38daf0c48376ceff49cefcb91ebd85e53dfbc0d"
+    },
+    "win32/win32print.pyi": {
+      "package": "win32-stubs/win32print.pyi",
+      "sha256": "83c85df388cb2585e00734acec03dda8b9eac23de84a42e0dc962e330c5b5bb9"
+    },
+    "win32/win32process.pyi": {
+      "package": "win32-stubs/win32process.pyi",
+      "sha256": "5aca5873e118401956cb60096b13b9adb185593ee1e88e930e6c06f21a09d7fc"
+    },
+    "win32/win32profile.pyi": {
+      "package": "win32-stubs/win32profile.pyi",
+      "sha256": "7a142bcda3dbb3bc20bd4765d528d5ffce06014cfcf60555ddb350322d2464bc"
+    },
+    "win32/win32ras.pyi": {
+      "package": "win32-stubs/win32ras.pyi",
+      "sha256": "f77c12ea6ee75d98cab85cd4fa18ea48d12a66f351ecc6b7314f7817103d312a"
+    },
+    "win32/win32security.pyi": {
+      "package": "win32-stubs/win32security.pyi",
+      "sha256": "0e00bb31664e00ff3d64bc3e95014d991069ee92c4d2cadfb742ea6daba8814e"
+    },
+    "win32/win32service.pyi": {
+      "package": "win32-stubs/win32service.pyi",
+      "sha256": "4393cfff9ee5ac4eff7acca2763cc2b1385aed175a5e3a75aa0a6620222adba6"
+    },
+    "win32/win32trace.pyi": {
+      "package": "win32-stubs/win32trace.pyi",
+      "sha256": "92076bb5293e86a7ed18fc9f7adcc1e0490cf95a264c722a1c4e6f06ca17fe5d"
+    },
+    "win32/win32transaction.pyi": {
+      "package": "win32-stubs/win32transaction.pyi",
+      "sha256": "283dcaae1ed701acd103d3a521b0cfaa1023a5aa03460506c640b012e66cbec3"
+    },
+    "win32/win32ts.pyi": {
+      "package": "win32-stubs/win32ts.pyi",
+      "sha256": "ad5b1ad0ecbeffa4a56c96a28ed12ce9ba97ce7affdeaeb2ce90369da7e3a74c"
+    },
+    "win32/win32wnet.pyi": {
+      "package": "win32-stubs/win32wnet.pyi",
+      "sha256": "34b67d9a5b153408a051ccde7965666c7e376f2b671adf0cba109dc10f4964cd"
+    },
+    "win32/winxpgui.pyi": {
+      "package": "win32-stubs/winxpgui.pyi",
+      "sha256": "57a4a1bac1fe4702c09632e22bb754e8cb2f092557a321234192c20aed871483"
+    },
+    "win32api.pyi": {
+      "package": "win32api-stubs/__init__.pyi",
+      "sha256": "b1da711c9ec1b4b0a1007f108726c9c249288c19e89550decaf7509fa8bf8bf2"
+    },
+    "win32clipboard.pyi": {
+      "package": "win32clipboard-stubs/__init__.pyi",
+      "sha256": "c2de66cf6fc8080cef584cb5bc2baf414f120b58f402e5757e31a624233e7a74"
+    },
+    "win32com/__init__.pyi": {
+      "package": "win32com-stubs/__init__.pyi",
+      "sha256": "5fe334938c5486da775c54df753d53862155d4e0356e8808e9dda9786d0aa49d"
+    },
+    "win32com/adsi/__init__.pyi": {
+      "package": "win32com-stubs/adsi/__init__.pyi",
+      "sha256": "acf9929c1995d46bbdd4a25d7021e62a29465b062698b29c78ed0eb0eb8332e8"
+    },
+    "win32com/adsi/adsi.pyi": {
+      "package": "win32com-stubs/adsi/adsi.pyi",
+      "sha256": "7609672862f454b271695b2db5d8e59f20f9331af0c8d8469fe554d052fa75a5"
+    },
+    "win32com/adsi/adsicon.pyi": {
+      "package": "win32com-stubs/adsi/adsicon.pyi",
+      "sha256": "c3b6c5b53e76ebe298d53ff5e75606258618ddd7d32d6780f9d732701cc40a36"
+    },
+    "win32com/authorization/__init__.pyi": {
+      "package": "win32com-stubs/authorization/__init__.pyi",
+      "sha256": "13838ad719f0c05b596085b8d775875957efc141b676e9625186be13c032dba4"
+    },
+    "win32com/authorization/authorization.pyi": {
+      "package": "win32com-stubs/authorization/authorization.pyi",
+      "sha256": "19be5f0d61cbdb986b15c3a31bf2f7b5dbcc440801ef993d94b819875528e713"
+    },
+    "win32com/axcontrol/__init__.pyi": {
+      "package": "win32com-stubs/axcontrol/__init__.pyi",
+      "sha256": "3f4416dd10575bc8056824f880d6be532f342f4bbd0c9dd4c59c37a10a0c5ab8"
+    },
+    "win32com/axcontrol/axcontrol.pyi": {
+      "package": "win32com-stubs/axcontrol/axcontrol.pyi",
+      "sha256": "08df8e290abe99e9fc8f5010605546562e422defeb50294c5a2fc7a987055763"
+    },
+    "win32com/axdebug/__init__.pyi": {
+      "package": "win32com-stubs/axdebug/__init__.pyi",
+      "sha256": "b2a4beb4235d4479bb01ffef5c35f8dc4dfb1b10e635542bd98677f3a9375cf3"
+    },
+    "win32com/axdebug/adb.pyi": {
+      "package": "win32com-stubs/axdebug/adb.pyi",
+      "sha256": "81f5f7b62a1ba3f75afb35f17331a014221f40ec11da92f50ac724244447c631"
+    },
+    "win32com/axdebug/axdebug.pyi": {
+      "package": "win32com-stubs/axdebug/axdebug.pyi",
+      "sha256": "4a47d8ccc5b689a92e3b405bdf2de2d9fe60638f080dfebbe7c1e0d14682dc65"
+    },
+    "win32com/axdebug/codecontainer.pyi": {
+      "package": "win32com-stubs/axdebug/codecontainer.pyi",
+      "sha256": "870683598eccaf0dfb8f04993702364294301b7164ebb5e8cde4420bfc84bd89"
+    },
+    "win32com/axdebug/contexts.pyi": {
+      "package": "win32com-stubs/axdebug/contexts.pyi",
+      "sha256": "963126cae445b5fee4966e6c8024119aa8243af4fc814c91f1f0aaa4e9af242f"
+    },
+    "win32com/axdebug/debugger.pyi": {
+      "package": "win32com-stubs/axdebug/debugger.pyi",
+      "sha256": "d4cad4d2a69873295175edae9c097ceccee4418a5c6550b3b6e283b8f8d76e4e"
+    },
+    "win32com/axdebug/documents.pyi": {
+      "package": "win32com-stubs/axdebug/documents.pyi",
+      "sha256": "834a6aac9bba41c6d70e27b8e4a39e9aee1708a1f559fd75c881110e0bf2b15b"
+    },
+    "win32com/axdebug/expressions.pyi": {
+      "package": "win32com-stubs/axdebug/expressions.pyi",
+      "sha256": "cd5500f52d5557e62074edd44c0dbe7b1afed5d674e5e7b982e66634da3f6b88"
+    },
+    "win32com/axdebug/gateways.pyi": {
+      "package": "win32com-stubs/axdebug/gateways.pyi",
+      "sha256": "38eccaed9cdd7d9b0f8c8b6ec9de0ad649dc3c1d694ad67610bfd2d40d092051"
+    },
+    "win32com/axdebug/stackframe.pyi": {
+      "package": "win32com-stubs/axdebug/stackframe.pyi",
+      "sha256": "d581ce79e18302f61d4e9fbeb2f3ae4666a29170b56b12ee37e51ce3ed852bd6"
+    },
+    "win32com/axdebug/util.pyi": {
+      "package": "win32com-stubs/axdebug/util.pyi",
+      "sha256": "ae3d52e79b451524ba8f05e60c937420d40bae8a69d8496148fcadd748859d6b"
+    },
+    "win32com/axscript/__init__.pyi": {
+      "package": "win32com-stubs/axscript/__init__.pyi",
+      "sha256": "eeb12c333180b29f30604f35d2a3d18bfd45c39711e98a016e9ecbac1d365cf6"
+    },
+    "win32com/axscript/asputil.pyi": {
+      "package": "win32com-stubs/axscript/asputil.pyi",
+      "sha256": "3a454aced90f6d9d824b2ddd33d5e1bb5cb38858fe0ba91ffce07bc854128c4b"
+    },
+    "win32com/axscript/axscript.pyi": {
+      "package": "win32com-stubs/axscript/axscript.pyi",
+      "sha256": "46ad64fb517fb8429188628ad0461f84b5bbc689e80f9cc521f7f20789da950f"
+    },
+    "win32com/axscript/client/__init__.pyi": {
+      "package": "win32com-stubs/axscript/client/__init__.pyi",
+      "sha256": "7c434cc61aae11e4e47bc6a64f4a56b55e48d746a02c4b67b896bc9484abf1d2"
+    },
+    "win32com/axscript/client/debug.pyi": {
+      "package": "win32com-stubs/axscript/client/debug.pyi",
+      "sha256": "2a392dea2a21cfd2761612d6969353304800e76e1cd97dbfdc154f9fee346e58"
+    },
+    "win32com/axscript/client/error.pyi": {
+      "package": "win32com-stubs/axscript/client/error.pyi",
+      "sha256": "646cdc601ce9ff4bcfb542e46af574589763b794e04370d65bbc198fe6da2177"
+    },
+    "win32com/axscript/client/framework.pyi": {
+      "package": "win32com-stubs/axscript/client/framework.pyi",
+      "sha256": "d20ef99ff12d8b25f26cf86821652668c5757a1d6b29aa4966400fcf418ba511"
+    },
+    "win32com/axscript/server/__init__.pyi": {
+      "package": "win32com-stubs/axscript/server/__init__.pyi",
+      "sha256": "dc5407f430a38ad129890d841c77cbe895152cbb53029084d11d45f380358454"
+    },
+    "win32com/axscript/server/axsite.pyi": {
+      "package": "win32com-stubs/axscript/server/axsite.pyi",
+      "sha256": "2848f5bc7f006469d4e379f2b3a0dc5c13f4bf1bc210a98b1cd921158d6ed1ea"
+    },
+    "win32com/bits/__init__.pyi": {
+      "package": "win32com-stubs/bits/__init__.pyi",
+      "sha256": "07b74dcc1c74a2f30a069a151e831282e3273575ec38ae781dd87205fd48f70a"
+    },
+    "win32com/bits/bits.pyi": {
+      "package": "win32com-stubs/bits/bits.pyi",
+      "sha256": "5f9ad32f2e62ddba450634ae811a3b834c39b5cb7a83301e18adabec13d3f8cb"
+    },
+    "win32com/client/__init__.pyi": {
+      "package": "win32com-stubs/client/__init__.pyi",
+      "sha256": "bbfbb2610569ae5d26736ec20dc83731420b1758809a554a46634d9142ee3aad"
+    },
+    "win32com/client/build.pyi": {
+      "package": "win32com-stubs/client/build.pyi",
+      "sha256": "79cf48ce712cbb9256c881cd55269332ccbb6e92472c4b2c3954a334dfeea64a"
+    },
+    "win32com/client/dynamic.pyi": {
+      "package": "win32com-stubs/client/dynamic.pyi",
+      "sha256": "8fea4618a4095aaad5b24e6e70f6adb96a995655fd8d105e16c3078f1c7365f5"
+    },
+    "win32com/client/gencache.pyi": {
+      "package": "win32com-stubs/client/gencache.pyi",
+      "sha256": "28dced0b68f7c8bbeb4d23ed65b412bb2fb6293fd589e33daa177311f5100786"
+    },
+    "win32com/directsound/__init__.pyi": {
+      "package": "win32com-stubs/directsound/__init__.pyi",
+      "sha256": "d7fbc17a7081c8e7466c4c17e19a71380c505855953d979e6e27232e388eeb1d"
+    },
+    "win32com/directsound/directsound.pyi": {
+      "package": "win32com-stubs/directsound/directsound.pyi",
+      "sha256": "487991395faf0e1aff0ad0cef69c3525f2eaa3b7fb3803c58c5908082e8e86a5"
+    },
+    "win32com/gen_py/__init__.pyi": {
+      "package": "win32com-stubs/gen_py/__init__.pyi",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "win32com/ifilter/__init__.pyi": {
+      "package": "win32com-stubs/ifilter/__init__.pyi",
+      "sha256": "392666ad32e706dc195d9be7d8a40b7aa7ab93dd0a9d1d495cdf083ed62121a1"
+    },
+    "win32com/ifilter/ifilter.pyi": {
+      "package": "win32com-stubs/ifilter/ifilter.pyi",
+      "sha256": "1a03a2aa3dd770dddb1a86bcba3e0fc57a03849b548f0b0613fa42dccc8049c3"
+    },
+    "win32com/ifilter/ifiltercon.pyi": {
+      "package": "win32com-stubs/ifilter/ifiltercon.pyi",
+      "sha256": "3e5e3c4c72fd9f67bcec2423d8d708c4779e2de76afceb408ebf4cb212b6697a"
+    },
+    "win32com/internet/__init__.pyi": {
+      "package": "win32com-stubs/internet/__init__.pyi",
+      "sha256": "e40b75ba80f1a69bab800b1ae567072ccaf8ad5cb8de2f3dae8cbd8ebba17801"
+    },
+    "win32com/internet/inetcon.pyi": {
+      "package": "win32com-stubs/internet/inetcon.pyi",
+      "sha256": "b80ed721178545fa8ddbcd244a6fd357ffbad6ca5984dc1fa0a5f79302b0bc71"
+    },
+    "win32com/internet/internet.pyi": {
+      "package": "win32com-stubs/internet/internet.pyi",
+      "sha256": "c624fab1b7888793f044d00f140273d14bb491a98491cc6b835bfb3c038c2012"
+    },
+    "win32com/mapi/__init__.pyi": {
+      "package": "win32com-stubs/mapi/__init__.pyi",
+      "sha256": "1360067d879aed8942f62f997228b95e1d733d5ed9f3656490c3c934fb53bfd3"
+    },
+    "win32com/mapi/emsabtags.pyi": {
+      "package": "win32com-stubs/mapi/emsabtags.pyi",
+      "sha256": "a77bbe4b9f7057fc66b5401b1fda846e2de027aab54622b946c456d375a63274"
+    },
+    "win32com/mapi/exchange.pyi": {
+      "package": "win32com-stubs/mapi/exchange.pyi",
+      "sha256": "a120f944608d20030bc6007420717b5d063547093a5ef3a4b58ca033ea2cc9c4"
+    },
+    "win32com/mapi/mapi.pyi": {
+      "package": "win32com-stubs/mapi/mapi.pyi",
+      "sha256": "9cc0a347cb5485116567cd489e21560c93860e112cd26607bcba17df559b6e2c"
+    },
+    "win32com/mapi/mapitags.pyi": {
+      "package": "win32com-stubs/mapi/mapitags.pyi",
+      "sha256": "6821d4e65825a6f5994ca772148d0c637de1ff093b9ecae225f34f32e672af16"
+    },
+    "win32com/mapi/mapiutil.pyi": {
+      "package": "win32com-stubs/mapi/mapiutil.pyi",
+      "sha256": "8408e6fad5ef448b2b3e989dd43ca6fe7d77f827a04880afe6312617783ccf14"
+    },
+    "win32com/olectl.pyi": {
+      "package": "win32com-stubs/olectl.pyi",
+      "sha256": "73066574b139f6ed07d09bd5c88078f5aade6bda8f5e507c24e402083c8415ff"
+    },
+    "win32com/propsys/__init__.pyi": {
+      "package": "win32com-stubs/propsys/__init__.pyi",
+      "sha256": "ff811112201cac8fdb932e8665ee80126b5e5bdbad50c63506f057aa26c6bd74"
+    },
+    "win32com/propsys/propsys.pyi": {
+      "package": "win32com-stubs/propsys/propsys.pyi",
+      "sha256": "d822b7eb7b870b25e38d65ef960fcb487e598ca46e47af243486976f4d9d2290"
+    },
+    "win32com/propsys/pscon.pyi": {
+      "package": "win32com-stubs/propsys/pscon.pyi",
+      "sha256": "001ed42c827ba34dc91271928840c8aff652ecfa3a8eaee8ec0e1ce741ec22ec"
+    },
+    "win32com/server/__init__.pyi": {
+      "package": "win32com-stubs/server/__init__.pyi",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "win32com/server/connect.pyi": {
+      "package": "win32com-stubs/server/connect.pyi",
+      "sha256": "0a9bc3436eda2b5ee1477f376f55eed6c1c8f10a8009957bb969943e3fa20671"
+    },
+    "win32com/server/dispatcher.pyi": {
+      "package": "win32com-stubs/server/dispatcher.pyi",
+      "sha256": "9ca37c84067a0b18090a1621cfee81c41af9676999c97ae596f8521c092867d4"
+    },
+    "win32com/server/exception.pyi": {
+      "package": "win32com-stubs/server/exception.pyi",
+      "sha256": "484621316f55fcccb782b8a5af48a7bc15f4de9b87134153c5de811aab2ed690"
+    },
+    "win32com/server/factory.pyi": {
+      "package": "win32com-stubs/server/factory.pyi",
+      "sha256": "b23724d1100629ebb247202143a66beda48081ebc4fb9ab61c24ed99631684dd"
+    },
+    "win32com/server/localserver.pyi": {
+      "package": "win32com-stubs/server/localserver.pyi",
+      "sha256": "d4eac17ae761ef824931377fc6f46e68a6e7468f12046c5797df720cab366026"
+    },
+    "win32com/server/policy.pyi": {
+      "package": "win32com-stubs/server/policy.pyi",
+      "sha256": "8932625249f2a078923d146f8d182eb6bd2ffb3df45d4cc82d8673a68e2ac109"
+    },
+    "win32com/server/register.pyi": {
+      "package": "win32com-stubs/server/register.pyi",
+      "sha256": "f5f9a42bae93836c1e851302101a0a771e943c581959cbf8a02bc1767d08d018"
+    },
+    "win32com/server/util.pyi": {
+      "package": "win32com-stubs/server/util.pyi",
+      "sha256": "d2869569f801f0cfe7b3b6dca5abaf1619f47ce6c0868bbd86c3dd181cce9d16"
+    },
+    "win32com/shell/__init__.pyi": {
+      "package": "win32com-stubs/shell/__init__.pyi",
+      "sha256": "c1db6bbc5a975b0a554f7c8f4aae42c9db484aa9d9d1a3c1308e4551efeff910"
+    },
+    "win32com/shell/shell.pyi": {
+      "package": "win32com-stubs/shell/shell.pyi",
+      "sha256": "0a7049ddb27c1d9d783f35faab0be5981bcdc79d0d78a65add660c122af84f49"
+    },
+    "win32com/shell/shellcon.pyi": {
+      "package": "win32com-stubs/shell/shellcon.pyi",
+      "sha256": "07080020b92e00098b73ead154bbd51c51ad4b086db70b363109383d7f1697db"
+    },
+    "win32com/storagecon.pyi": {
+      "package": "win32com-stubs/storagecon.pyi",
+      "sha256": "840344d2b6ff2abdb7189bdfdae7ddeb38a5d841a8076c8605776b55e04dc72d"
+    },
+    "win32com/taskscheduler/__init__.pyi": {
+      "package": "win32com-stubs/taskscheduler/__init__.pyi",
+      "sha256": "26030b014e8f9e9477b08b1f388593993aa07aae0a14f686d41445004c6f3340"
+    },
+    "win32com/taskscheduler/taskscheduler.pyi": {
+      "package": "win32com-stubs/taskscheduler/taskscheduler.pyi",
+      "sha256": "1728509facb5b29b8f4b9317dd9ee8351475b1135284da75df5ea5a8843aa036"
+    },
+    "win32com/universal.pyi": {
+      "package": "win32com-stubs/universal.pyi",
+      "sha256": "d0cda7a8fa0a94384338ef40f949ab0427c48e4c8423503a23044239e6b05103"
+    },
+    "win32com/util.pyi": {
+      "package": "win32com-stubs/util.pyi",
+      "sha256": "7e90b3a43118bd69ef29ac63f077b3a43463e652e6a94cc5af2164c494c012b3"
+    },
+    "win32comext/__init__.pyi": {
+      "package": "win32comext-stubs/__init__.pyi",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "win32comext/adsi/__init__.pyi": {
+      "package": "win32comext-stubs/adsi/__init__.pyi",
+      "sha256": "725034216856cffbd60bd8c79f569d0a41315b56f0e8dea79c7566a356fb4897"
+    },
+    "win32comext/adsi/adsi.pyi": {
+      "package": "win32comext-stubs/adsi/adsi.pyi",
+      "sha256": "8174260e655cae82b32c242604ec8c8783df53ed67d409c64199a51666f5b6f4"
+    },
+    "win32comext/adsi/adsicon.pyi": {
+      "package": "win32comext-stubs/adsi/adsicon.pyi",
+      "sha256": "96fb4b04991b57b3ae19c239393ee523b203c072953453e301083f1c72275c0d"
+    },
+    "win32comext/authorization/__init__.pyi": {
+      "package": "win32comext-stubs/authorization/__init__.pyi",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "win32comext/authorization/authorization.pyi": {
+      "package": "win32comext-stubs/authorization/authorization.pyi",
+      "sha256": "0ea0d9fe5610c6204b478755b92bb8f646dd3d534414887c0d6179cd49896ade"
+    },
+    "win32comext/axcontrol/__init__.pyi": {
+      "package": "win32comext-stubs/axcontrol/__init__.pyi",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "win32comext/axcontrol/axcontrol.pyi": {
+      "package": "win32comext-stubs/axcontrol/axcontrol.pyi",
+      "sha256": "f9e8376f2580d5d41173f170ff26fc5f3727cfb87086f47b4395af3733eefbee"
+    },
+    "win32comext/axdebug/__init__.pyi": {
+      "package": "win32comext-stubs/axdebug/__init__.pyi",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "win32comext/axdebug/adb.pyi": {
+      "package": "win32comext-stubs/axdebug/adb.pyi",
+      "sha256": "cd994df66a0cd4766c6c7e1cd0dd1a76742afa7eeebbfe82feeeca10d9616ec9"
+    },
+    "win32comext/axdebug/axdebug.pyi": {
+      "package": "win32comext-stubs/axdebug/axdebug.pyi",
+      "sha256": "36694aae7162f7f90caca7cd00c88b887e2c1d2d5e61857f075adaf3f2f56213"
+    },
+    "win32comext/axdebug/codecontainer.pyi": {
+      "package": "win32comext-stubs/axdebug/codecontainer.pyi",
+      "sha256": "31c4bd172922d7d06aaa7c19e29f24f24a7876dcf3400c93bf88e21fed0360ae"
+    },
+    "win32comext/axdebug/contexts.pyi": {
+      "package": "win32comext-stubs/axdebug/contexts.pyi",
+      "sha256": "eff0141c9cd3b42df2208fde27f1dfa94a3dcb6c32d992e10f5f7126943c36a0"
+    },
+    "win32comext/axdebug/debugger.pyi": {
+      "package": "win32comext-stubs/axdebug/debugger.pyi",
+      "sha256": "0e43ca196693da024016fc105f00b747b496d9d05207e685205b182b4529ce99"
+    },
+    "win32comext/axdebug/documents.pyi": {
+      "package": "win32comext-stubs/axdebug/documents.pyi",
+      "sha256": "c020e2f8db8db0bb985b72aa41752c19f799c904ca5268e9f58e2f7d3e4fac82"
+    },
+    "win32comext/axdebug/expressions.pyi": {
+      "package": "win32comext-stubs/axdebug/expressions.pyi",
+      "sha256": "4b9a2a43dabd19fa07ddaefd2857130742ddd422ff0d73cfd2472afae52b81f4"
+    },
+    "win32comext/axdebug/gateways.pyi": {
+      "package": "win32comext-stubs/axdebug/gateways.pyi",
+      "sha256": "5e5b1d0618f8924491eaafd33a6b520bf25a83186b48e2816e60a617ba49dc16"
+    },
+    "win32comext/axdebug/stackframe.pyi": {
+      "package": "win32comext-stubs/axdebug/stackframe.pyi",
+      "sha256": "870ddbab42653a5dd1386c5cfdc3b2c753860318688c22c121bbbb1fe0a6fee2"
+    },
+    "win32comext/axdebug/util.pyi": {
+      "package": "win32comext-stubs/axdebug/util.pyi",
+      "sha256": "a762039c804535400b2206c21185ac9c14c0f0790d595969a7197e6b91d89ee3"
+    },
+    "win32comext/axscript/__init__.pyi": {
+      "package": "win32comext-stubs/axscript/__init__.pyi",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "win32comext/axscript/asputil.pyi": {
+      "package": "win32comext-stubs/axscript/asputil.pyi",
+      "sha256": "dad4f09ed19984cc6feaecd6fef9cf7f544be69cb022000a7158aa22db14c819"
+    },
+    "win32comext/axscript/axscript.pyi": {
+      "package": "win32comext-stubs/axscript/axscript.pyi",
+      "sha256": "467015027abe7dc544ba222651f05b6555689351a06650d71a4095a67c4034ac"
+    },
+    "win32comext/axscript/client/__init__.pyi": {
+      "package": "win32comext-stubs/axscript/client/__init__.pyi",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "win32comext/axscript/client/debug.pyi": {
+      "package": "win32comext-stubs/axscript/client/debug.pyi",
+      "sha256": "c04122172277f6f6e8a9bb5ba9601f141229d46ee6f3b4a397dc69084bdba0e4"
+    },
+    "win32comext/axscript/client/error.pyi": {
+      "package": "win32comext-stubs/axscript/client/error.pyi",
+      "sha256": "654a8a7943a33e37aa815995c292965dfb8dced8a6de23b801cab77c9278bcdb"
+    },
+    "win32comext/axscript/client/framework.pyi": {
+      "package": "win32comext-stubs/axscript/client/framework.pyi",
+      "sha256": "d3f6875a0e9d43a9fde028239fc4e6663fc24b7674f8bba41bb049e2cc1ad1bf"
+    },
+    "win32comext/axscript/server/__init__.pyi": {
+      "package": "win32comext-stubs/axscript/server/__init__.pyi",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "win32comext/axscript/server/axsite.pyi": {
+      "package": "win32comext-stubs/axscript/server/axsite.pyi",
+      "sha256": "9ca7b01dccc1edb520080bd2b77399ff25cc7ed1ca61482ae6598ee5341e1bbd"
+    },
+    "win32comext/bits/__init__.pyi": {
+      "package": "win32comext-stubs/bits/__init__.pyi",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "win32comext/bits/bits.pyi": {
+      "package": "win32comext-stubs/bits/bits.pyi",
+      "sha256": "9e307f8c267a5fa253d809b7437fcfc8d95c25bad92203a83a6aab891db515d8"
+    },
+    "win32comext/directsound/__init__.pyi": {
+      "package": "win32comext-stubs/directsound/__init__.pyi",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "win32comext/directsound/directsound.pyi": {
+      "package": "win32comext-stubs/directsound/directsound.pyi",
+      "sha256": "1c20b042f9d88dd55c6f1a6255ec40e052560db094d886c255f496763f55a234"
+    },
+    "win32comext/ifilter/__init__.pyi": {
+      "package": "win32comext-stubs/ifilter/__init__.pyi",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "win32comext/ifilter/ifilter.pyi": {
+      "package": "win32comext-stubs/ifilter/ifilter.pyi",
+      "sha256": "e079b3565bd594ad4d92110bb76e71750d4e755942aaef99b05693a17f775438"
+    },
+    "win32comext/ifilter/ifiltercon.pyi": {
+      "package": "win32comext-stubs/ifilter/ifiltercon.pyi",
+      "sha256": "08967ca8fca06795f510c22adbcab108a3658fda24b30b1a1c11448011d2b88d"
+    },
+    "win32comext/internet/__init__.pyi": {
+      "package": "win32comext-stubs/internet/__init__.pyi",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "win32comext/internet/inetcon.pyi": {
+      "package": "win32comext-stubs/internet/inetcon.pyi",
+      "sha256": "cde04af49e443d4dcee00b984a098f3f56ff6504f8ccf545c37bd6957057d7c0"
+    },
+    "win32comext/internet/internet.pyi": {
+      "package": "win32comext-stubs/internet/internet.pyi",
+      "sha256": "ccc6b76db485890cb7d279913bece2e605d2b3bab6ee4040389a11827013a0fe"
+    },
+    "win32comext/mapi/__init__.pyi": {
+      "package": "win32comext-stubs/mapi/__init__.pyi",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "win32comext/mapi/emsabtags.pyi": {
+      "package": "win32comext-stubs/mapi/emsabtags.pyi",
+      "sha256": "47bd4d4feac1f1ba4729e2a8aac5c0175ff804c562b39f958f0c25ef7ef08fa3"
+    },
+    "win32comext/mapi/exchange.pyi": {
+      "package": "win32comext-stubs/mapi/exchange.pyi",
+      "sha256": "cedf26babbc92260c90edc31faad2561756f4f770331ca98516cdebfb6c52f9a"
+    },
+    "win32comext/mapi/mapi.pyi": {
+      "package": "win32comext-stubs/mapi/mapi.pyi",
+      "sha256": "611c456fc2d1325c0aa0499712509e0d06f7b6006aa3d4fc75a507cb7226a434"
+    },
+    "win32comext/mapi/mapitags.pyi": {
+      "package": "win32comext-stubs/mapi/mapitags.pyi",
+      "sha256": "ef482a584d229fb80329029064d5daebec769cf7d20a6a3c5570700216bbc287"
+    },
+    "win32comext/mapi/mapiutil.pyi": {
+      "package": "win32comext-stubs/mapi/mapiutil.pyi",
+      "sha256": "61129b85231cf92e29d046b4c3ddec0f72e516cb21cd5467a3e1d52b8efa97fd"
+    },
+    "win32comext/propsys/__init__.pyi": {
+      "package": "win32comext-stubs/propsys/__init__.pyi",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "win32comext/propsys/propsys.pyi": {
+      "package": "win32comext-stubs/propsys/propsys.pyi",
+      "sha256": "51f8155540765d73c41e8726bf77c289a41ac4eadea5b89ffbcccce3b5a69180"
+    },
+    "win32comext/propsys/pscon.pyi": {
+      "package": "win32comext-stubs/propsys/pscon.pyi",
+      "sha256": "a31e117e0490c99e4b14431e17b43a3ae9a623ebf165de83de00681232c7fcff"
+    },
+    "win32comext/shell/__init__.pyi": {
+      "package": "win32comext-stubs/shell/__init__.pyi",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "win32comext/shell/shell.pyi": {
+      "package": "win32comext-stubs/shell/shell.pyi",
+      "sha256": "78ce685081cf835c2168d4de6b5c9c11343bac176d15906a725994b5f205ae9c"
+    },
+    "win32comext/shell/shellcon.pyi": {
+      "package": "win32comext-stubs/shell/shellcon.pyi",
+      "sha256": "56a4dd5e9458dee06db25f8d5c5c2f390b846ad80e41d309d8edfcf8f5be3890"
+    },
+    "win32comext/taskscheduler/__init__.pyi": {
+      "package": "win32comext-stubs/taskscheduler/__init__.pyi",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "win32comext/taskscheduler/taskscheduler.pyi": {
+      "package": "win32comext-stubs/taskscheduler/taskscheduler.pyi",
+      "sha256": "9107ee077d0b16997cf28a1c3c6877c33372b872e4c91d9e5a7888e235eb8328"
+    },
+    "win32con.pyi": {
+      "package": "win32con-stubs/__init__.pyi",
+      "sha256": "a843d02aa7f387cb4470addf04f483780d504f24d771139acfd838a1564e2290"
+    },
+    "win32console.pyi": {
+      "package": "win32console-stubs/__init__.pyi",
+      "sha256": "7a78a3d558257efcdbd766776c765e53b5e4f8e1a5170b979e6d139c022b2de9"
+    },
+    "win32cred.pyi": {
+      "package": "win32cred-stubs/__init__.pyi",
+      "sha256": "f987a710e558a12b60251d92598e3975831e6a0e275f2a4e03bafa0b7c642b20"
+    },
+    "win32crypt.pyi": {
+      "package": "win32crypt-stubs/__init__.pyi",
+      "sha256": "0f22953b9bd0dbceaa90c70e2d3b87a1ea5debd345daa6fc6332f30c6e55a3e0"
+    },
+    "win32cryptcon.pyi": {
+      "package": "win32cryptcon-stubs/__init__.pyi",
+      "sha256": "2017f85762aa0f14c14f5cf92522041e8b1cebaebff0385483a1d143d57c2c0d"
+    },
+    "win32event.pyi": {
+      "package": "win32event-stubs/__init__.pyi",
+      "sha256": "822f79b8ff796c83aaf80f0ee5e0413e9acd5e243bc6cf666ed2e67cf0751214"
+    },
+    "win32evtlog.pyi": {
+      "package": "win32evtlog-stubs/__init__.pyi",
+      "sha256": "5dbe10204242c0ba6b99f8fdcd8c7169b1a03af9e33fbe8ba3adac22578fb0d3"
+    },
+    "win32evtlogutil.pyi": {
+      "package": "win32evtlogutil-stubs/__init__.pyi",
+      "sha256": "0671a94bb8c7a1dc1641a560eb526b0df6fbf71a6e0f9edb31383cb4f38e117f"
+    },
+    "win32file.pyi": {
+      "package": "win32file-stubs/__init__.pyi",
+      "sha256": "47b0f2fe3c13ecc83afad75b2940a71e320be3a4dabde2e31a2b2a9413a9bbb8"
+    },
+    "win32gui.pyi": {
+      "package": "win32gui-stubs/__init__.pyi",
+      "sha256": "ac3504463522b1993c18ae62f666d6cd683ca635f5f10df7940cada0cda67121"
+    },
+    "win32gui_struct.pyi": {
+      "package": "win32gui_struct-stubs/__init__.pyi",
+      "sha256": "f234a15785a2dc0a266a521fcee2c3ed3581a42bf4b4bfa624446c407b5f7058"
+    },
+    "win32help.pyi": {
+      "package": "win32help-stubs/__init__.pyi",
+      "sha256": "7b640da2cda1657d406cb830787948f82050b643dc5631de4359d573148fcd61"
+    },
+    "win32inet.pyi": {
+      "package": "win32inet-stubs/__init__.pyi",
+      "sha256": "655864822c9865dcc9ea907702c6c03a93099aa05eee9030276bd4edc77eb906"
+    },
+    "win32inetcon.pyi": {
+      "package": "win32inetcon-stubs/__init__.pyi",
+      "sha256": "eda1ae24b39fee34a1ede8a72532934d734c5d1309ddd33e02682fa15fbddab8"
+    },
+    "win32job.pyi": {
+      "package": "win32job-stubs/__init__.pyi",
+      "sha256": "db968a9ab6ec1a73bc2e778e3e60ca5b3a8e140fe4a276f87c6ebbfdc37d3197"
+    },
+    "win32lz.pyi": {
+      "package": "win32lz-stubs/__init__.pyi",
+      "sha256": "3d8940ab00bf452232def84bd073f2df2b73b0d92895faaabc9394306285dd16"
+    },
+    "win32net.pyi": {
+      "package": "win32net-stubs/__init__.pyi",
+      "sha256": "81b1f8aa80cfb7e767cb7ce4b71473f73b29b3f2f5314e1c963fbef4e16d1775"
+    },
+    "win32netcon.pyi": {
+      "package": "win32netcon-stubs/__init__.pyi",
+      "sha256": "76c2e12fcb449e68dbdea2d992ea0274ccf6b038e267224b186478983b39d6d8"
+    },
+    "win32pdh.pyi": {
+      "package": "win32pdh-stubs/__init__.pyi",
+      "sha256": "f609224b47fea3e732c7739f463e60e88fc485ee758e706ededa965d53322eba"
+    },
+    "win32pdhquery.pyi": {
+      "package": "win32pdhquery-stubs/__init__.pyi",
+      "sha256": "3f0acc46026ac09d5b5732a702d68f4bc4ed1c4d8ebca6d3988dbe27dd30391e"
+    },
+    "win32pipe.pyi": {
+      "package": "win32pipe-stubs/__init__.pyi",
+      "sha256": "463f0bbf905b9908ce6e06d32c0dcd396032052cdd048bbca10087266471dbe4"
+    },
+    "win32print.pyi": {
+      "package": "win32print-stubs/__init__.pyi",
+      "sha256": "11f329dd7ffac38c6eb1eeaef7162f9f6a10ecf3c3de71c19bd3f950d916f470"
+    },
+    "win32process.pyi": {
+      "package": "win32process-stubs/__init__.pyi",
+      "sha256": "d20241d1916dfc962ccb21f4a3feea8e1fbaa6ee9fa3d269289645820ad0b964"
+    },
+    "win32profile.pyi": {
+      "package": "win32profile-stubs/__init__.pyi",
+      "sha256": "32631661a3989658349ee5d86b0fafc3a56de7bac0d188cc4e30ab864cc9e311"
+    },
+    "win32ras.pyi": {
+      "package": "win32ras-stubs/__init__.pyi",
+      "sha256": "535c352a044360d3fe90f2b907753bb3b0c37f7883a13b63850d36d30d78844f"
+    },
+    "win32security.pyi": {
+      "package": "win32security-stubs/__init__.pyi",
+      "sha256": "4b60765a48bdf9be79b2577b111d145660655f3b2b0062649ec298b8449f1862"
+    },
+    "win32service.pyi": {
+      "package": "win32service-stubs/__init__.pyi",
+      "sha256": "dea30379e205eab83e8e138eae9257def65ea62e52b69c57b899e490b541b9c7"
+    },
+    "win32serviceutil.pyi": {
+      "package": "win32serviceutil-stubs/__init__.pyi",
+      "sha256": "24d3d4742dd95eca260c3773dce0e88c3ca29e8e4cdbf5a8b287be8c55470b96"
+    },
+    "win32timezone.pyi": {
+      "package": "win32timezone-stubs/__init__.pyi",
+      "sha256": "88a8e7d5e8ed70beffccf81b22c70b0bfa05baefa74b7a88a8853fd538556378"
+    },
+    "win32trace.pyi": {
+      "package": "win32trace-stubs/__init__.pyi",
+      "sha256": "3b565ac19e00a8bc9648b4b6201e03180e8bfc121cc3a15273e8e6c1c8127eaf"
+    },
+    "win32transaction.pyi": {
+      "package": "win32transaction-stubs/__init__.pyi",
+      "sha256": "a27086dc4e0b619bf799087352f6210c63a4c5afd01c0b9ceaf1e5572955a976"
+    },
+    "win32ts.pyi": {
+      "package": "win32ts-stubs/__init__.pyi",
+      "sha256": "356ec234a77feba12041814abbf4c72e0461527f3210808b5865a20187aa2a21"
+    },
+    "win32ui.pyi": {
+      "package": "win32ui-stubs/__init__.pyi",
+      "sha256": "16259688ba618e0d21cddb6de506e8c26977d2a4959fa410aff53da43ae5ec2e"
+    },
+    "win32uiole.pyi": {
+      "package": "win32uiole-stubs/__init__.pyi",
+      "sha256": "363ba4dfbe1dc64a950555a0466f24605da610f8a3830c885bb24a5ac0815b6a"
+    },
+    "win32verstamp.pyi": {
+      "package": "win32verstamp-stubs/__init__.pyi",
+      "sha256": "afa69fac3b826a56430113619cfff3410e17b1bd8cf0821713ec071f9444ad6d"
+    },
+    "win32wnet.pyi": {
+      "package": "win32wnet-stubs/__init__.pyi",
+      "sha256": "8fb638a0272a4faed66747ac54ae733b58609d4527c3ccc6089aedf826cb160e"
+    },
+    "winerror.pyi": {
+      "package": "winerror-stubs/__init__.pyi",
+      "sha256": "3d841427fa759caf850e9b6d4f085503cf3602ae28d92de18810467df8b35aa9"
+    },
+    "winioctlcon.pyi": {
+      "package": "winioctlcon-stubs/__init__.pyi",
+      "sha256": "3efdf661354008a5b6b4ff6263efa6aa1ba79e6f571591ddd19b98a8f0ea9484"
+    },
+    "winnt.pyi": {
+      "package": "winnt-stubs/__init__.pyi",
+      "sha256": "018c5a61042e4f9ef44867d4baae4374bdfd1c91360d638968dec2a4b9f7564f"
+    },
+    "winperf.pyi": {
+      "package": "winperf-stubs/__init__.pyi",
+      "sha256": "779d955797d440008e178a4570776afa135b4147d19657988451e2edcfdf566e"
+    },
+    "winxpgui.pyi": {
+      "package": "winxpgui-stubs/__init__.pyi",
+      "sha256": "320edf138b36f924465bea257fbef1337cfeceb1fdf43eb0cebe1e33301868e7"
+    },
+    "winxptheme.pyi": {
+      "package": "winxptheme-stubs/__init__.pyi",
+      "sha256": "edcb93a050965025087fd6b24e6642bae3b543115ecaafada5d48535c1709519"
+    }
+  }
+}

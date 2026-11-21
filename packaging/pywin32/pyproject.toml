@@ -1,0 +1,96 @@
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = ["setuptools>=82.0.1"]
+
+[project]
+name = "types-pywin32"
+version = "312.0.0.20261118+stablekite.1"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+description = "Typing stubs for pywin32"
+readme = "README.md"
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Typing :: Stubs Only",
+]
+requires-python = ">=3.10"
+dependencies = []
+
+
+
+[project.urls]
+"Homepage" = "https://github.com/StableKite/typeshed"
+"Source" = "https://github.com/StableKite/typeshed"
+"Changes" = "https://github.com/typeshed-internal/stub_uploader/blob/main/data/changelogs/pywin32.md"
+"Issue tracker" = "https://github.com/StableKite/typeshed/issues"
+"Chat" = "https://gitter.im/python/typing"
+
+[tool.setuptools]
+packages = ['commctrl-stubs', 'dde-stubs', 'isapi-stubs', 'mmapfile-stubs', 'mmsystem-stubs', 'ntsecuritycon-stubs', 'odbc-stubs', 'perfmon-stubs', 'pythoncom-stubs', 'pythonwin-stubs', 'pywintypes-stubs', 'regutil-stubs', 'servicemanager-stubs', 'sspicon-stubs', 'timer-stubs', 'win2kras-stubs', 'win32-stubs', 'win32api-stubs', 'win32clipboard-stubs', 'win32com-stubs', 'win32comext-stubs', 'win32con-stubs', 'win32console-stubs', 'win32cred-stubs', 'win32crypt-stubs', 'win32cryptcon-stubs', 'win32event-stubs', 'win32evtlog-stubs', 'win32evtlogutil-stubs', 'win32file-stubs', 'win32gui-stubs', 'win32gui_struct-stubs', 'win32help-stubs', 'win32inet-stubs', 'win32inetcon-stubs', 'win32job-stubs', 'win32lz-stubs', 'win32net-stubs', 'win32netcon-stubs', 'win32pdh-stubs', 'win32pdhquery-stubs', 'win32pipe-stubs', 'win32print-stubs', 'win32process-stubs', 'win32profile-stubs', 'win32ras-stubs', 'win32security-stubs', 'win32service-stubs', 'win32serviceutil-stubs', 'win32timezone-stubs', 'win32trace-stubs', 'win32transaction-stubs', 'win32ts-stubs', 'win32ui-stubs', 'win32uiole-stubs', 'win32verstamp-stubs', 'win32wnet-stubs', 'winerror-stubs', 'winioctlcon-stubs', 'winnt-stubs', 'winperf-stubs', 'winxpgui-stubs', 'winxptheme-stubs', '_win32typing-stubs']
+include-package-data = false
+
+[tool.setuptools.package-data]
+"commctrl-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"dde-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"isapi-stubs" = ["__init__.pyi", "install.pyi", "isapicon.pyi", "simple.pyi", "threaded_extension.pyi", "METADATA.toml", "py.typed"]
+"mmapfile-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"mmsystem-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"ntsecuritycon-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"odbc-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"perfmon-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"pythoncom-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"pythonwin-stubs" = ["__init__.pyi", "dde.pyi", "win32ui.pyi", "win32uiole.pyi", "METADATA.toml", "py.typed"]
+"pywintypes-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"regutil-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"servicemanager-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"sspicon-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"timer-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"win2kras-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"win32-stubs" = ["__init__.pyi", "lib/__init__.pyi", "lib/commctrl.pyi", "lib/mmsystem.pyi", "lib/ntsecuritycon.pyi", "lib/pywintypes.pyi", "lib/regutil.pyi", "lib/sspicon.pyi", "lib/win2kras.pyi", "lib/win32con.pyi", "lib/win32cryptcon.pyi", "lib/win32evtlogutil.pyi", "lib/win32gui_struct.pyi", "lib/win32inetcon.pyi", "lib/win32netcon.pyi", "lib/win32pdhquery.pyi", "lib/win32serviceutil.pyi", "lib/win32timezone.pyi", "lib/win32verstamp.pyi", "lib/winerror.pyi", "lib/winioctlcon.pyi", "lib/winnt.pyi", "lib/winperf.pyi", "lib/winxptheme.pyi", "mmapfile.pyi", "odbc.pyi", "perfmon.pyi", "servicemanager.pyi", "timer.pyi", "win32api.pyi", "win32clipboard.pyi", "win32console.pyi", "win32cred.pyi", "win32crypt.pyi", "win32event.pyi", "win32evtlog.pyi", "win32file.pyi", "win32gui.pyi", "win32help.pyi", "win32inet.pyi", "win32job.pyi", "win32lz.pyi", "win32net.pyi", "win32pdh.pyi", "win32pipe.pyi", "win32print.pyi", "win32process.pyi", "win32profile.pyi", "win32ras.pyi", "win32security.pyi", "win32service.pyi", "win32trace.pyi", "win32transaction.pyi", "win32ts.pyi", "win32wnet.pyi", "winxpgui.pyi", "METADATA.toml", "py.typed"]
+"win32api-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"win32clipboard-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"win32com-stubs" = ["__init__.pyi", "adsi/__init__.pyi", "adsi/adsi.pyi", "adsi/adsicon.pyi", "authorization/__init__.pyi", "authorization/authorization.pyi", "axcontrol/__init__.pyi", "axcontrol/axcontrol.pyi", "axdebug/__init__.pyi", "axdebug/adb.pyi", "axdebug/axdebug.pyi", "axdebug/codecontainer.pyi", "axdebug/contexts.pyi", "axdebug/debugger.pyi", "axdebug/documents.pyi", "axdebug/expressions.pyi", "axdebug/gateways.pyi", "axdebug/stackframe.pyi", "axdebug/util.pyi", "axscript/__init__.pyi", "axscript/asputil.pyi", "axscript/axscript.pyi", "axscript/client/__init__.pyi", "axscript/client/debug.pyi", "axscript/client/error.pyi", "axscript/client/framework.pyi", "axscript/server/__init__.pyi", "axscript/server/axsite.pyi", "bits/__init__.pyi", "bits/bits.pyi", "client/__init__.pyi", "client/build.pyi", "client/dynamic.pyi", "client/gencache.pyi", "directsound/__init__.pyi", "directsound/directsound.pyi", "gen_py/__init__.pyi", "ifilter/__init__.pyi", "ifilter/ifilter.pyi", "ifilter/ifiltercon.pyi", "internet/__init__.pyi", "internet/inetcon.pyi", "internet/internet.pyi", "mapi/__init__.pyi", "mapi/emsabtags.pyi", "mapi/exchange.pyi", "mapi/mapi.pyi", "mapi/mapitags.pyi", "mapi/mapiutil.pyi", "olectl.pyi", "propsys/__init__.pyi", "propsys/propsys.pyi", "propsys/pscon.pyi", "server/__init__.pyi", "server/connect.pyi", "server/dispatcher.pyi", "server/exception.pyi", "server/factory.pyi", "server/localserver.pyi", "server/policy.pyi", "server/register.pyi", "server/util.pyi", "shell/__init__.pyi", "shell/shell.pyi", "shell/shellcon.pyi", "storagecon.pyi", "taskscheduler/__init__.pyi", "taskscheduler/taskscheduler.pyi", "universal.pyi", "util.pyi", "METADATA.toml", "py.typed"]
+"win32comext-stubs" = ["__init__.pyi", "adsi/__init__.pyi", "adsi/adsi.pyi", "adsi/adsicon.pyi", "authorization/__init__.pyi", "authorization/authorization.pyi", "axcontrol/__init__.pyi", "axcontrol/axcontrol.pyi", "axdebug/__init__.pyi", "axdebug/adb.pyi", "axdebug/axdebug.pyi", "axdebug/codecontainer.pyi", "axdebug/contexts.pyi", "axdebug/debugger.pyi", "axdebug/documents.pyi", "axdebug/expressions.pyi", "axdebug/gateways.pyi", "axdebug/stackframe.pyi", "axdebug/util.pyi", "axscript/__init__.pyi", "axscript/asputil.pyi", "axscript/axscript.pyi", "axscript/client/__init__.pyi", "axscript/client/debug.pyi", "axscript/client/error.pyi", "axscript/client/framework.pyi", "axscript/server/__init__.pyi", "axscript/server/axsite.pyi", "bits/__init__.pyi", "bits/bits.pyi", "directsound/__init__.pyi", "directsound/directsound.pyi", "ifilter/__init__.pyi", "ifilter/ifilter.pyi", "ifilter/ifiltercon.pyi", "internet/__init__.pyi", "internet/inetcon.pyi", "internet/internet.pyi", "mapi/__init__.pyi", "mapi/emsabtags.pyi", "mapi/exchange.pyi", "mapi/mapi.pyi", "mapi/mapitags.pyi", "mapi/mapiutil.pyi", "propsys/__init__.pyi", "propsys/propsys.pyi", "propsys/pscon.pyi", "shell/__init__.pyi", "shell/shell.pyi", "shell/shellcon.pyi", "taskscheduler/__init__.pyi", "taskscheduler/taskscheduler.pyi", "METADATA.toml", "py.typed"]
+"win32con-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"win32console-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"win32cred-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"win32crypt-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"win32cryptcon-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"win32event-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"win32evtlog-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"win32evtlogutil-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"win32file-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"win32gui-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"win32gui_struct-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"win32help-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"win32inet-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"win32inetcon-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"win32job-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"win32lz-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"win32net-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"win32netcon-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"win32pdh-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"win32pdhquery-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"win32pipe-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"win32print-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"win32process-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"win32profile-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"win32ras-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"win32security-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"win32service-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"win32serviceutil-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"win32timezone-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"win32trace-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"win32transaction-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"win32ts-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"win32ui-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"win32uiole-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"win32verstamp-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"win32wnet-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"winerror-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"winioctlcon-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"winnt-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"winperf-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"winxpgui-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"winxptheme-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
+"_win32typing-stubs" = ["__init__.pyi", "METADATA.toml", "py.typed"]
