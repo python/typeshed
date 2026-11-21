@@ -6,7 +6,8 @@ from typing_extensions import TypeVar
 
 import numpy as np
 
-_ScalarT = TypeVar("_ScalarT", bound=bool | int | float | complex | str | bytes | np.generic)
+Scalar: TypeAlias = bool | int | float | complex | str | bytes | np.generic
+_ScalarT = TypeVar("_ScalarT", bound=Scalar)
 _GenericT = TypeVar("_GenericT", bound=np.generic)
 _GenericT_co = TypeVar("_GenericT_co", bound=np.generic, covariant=True)
 _ShapeT_co = TypeVar("_ShapeT_co", bound=tuple[int, ...], default=Any, covariant=True)
