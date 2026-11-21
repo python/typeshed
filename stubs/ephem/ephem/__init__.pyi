@@ -9,28 +9,28 @@ from . import _libastro
 __version__: Final[str]
 
 # Mathematical constants
-tau: Final[FloatInt]
-twopi: Final[FloatInt]
-halfpi: Final[FloatInt]
-quarterpi: Final[FloatInt]
-eighthpi: Final[FloatInt]
-degree: Final[FloatInt]
-arcminute: Final[FloatInt]
-arcsecond: Final[FloatInt]
-half_arcsecond: Final[FloatInt]
-tiny: Final[FloatInt]
+tau: Final[float]
+twopi: Final[float]
+halfpi: Final[float]
+quarterpi: Final[float]
+eighthpi: Final[float]
+degree: Final[float]
+arcminute: Final[float]
+arcsecond: Final[float]
+half_arcsecond: Final[float]
+tiny: Final[float]
 
 # Physical constants
-c: Final[FloatInt]
-meters_per_au: Final[FloatInt]
-earth_radius: Final[FloatInt]
-moon_radius: Final[FloatInt]
-sun_radius: Final[FloatInt]
+c: Final[float]
+meters_per_au: Final[float]
+earth_radius: Final[float]
+moon_radius: Final[float]
+sun_radius: Final[float]
 
 # Epoch constants
-B1900: Final[FloatInt]
-B1950: Final[FloatInt]
-J2000: Final[FloatInt]
+B1900: Final[float]
+B1950: Final[float]
+J2000: Final[float]
 
 # Type imports from _libastro
 Angle = _libastro.Angle
@@ -39,12 +39,12 @@ hours = _libastro.hours
 Date = _libastro.Date
 
 # Time constants
-hour: Final[FloatInt]
-minute: Final[FloatInt]
-second: Final[FloatInt]
+hour: Final[float]
+minute: Final[float]
+second: Final[float]
 
 # Precision constants
-default_newton_precision: Final[FloatInt]
+default_newton_precision: Final[float]
 rise_set_iterations: Final[tuple[int, int, int, int, int, int, int]]
 
 # Function imports from _libastro

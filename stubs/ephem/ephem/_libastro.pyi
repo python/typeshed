@@ -57,12 +57,12 @@ class _AngleDescriptorDegreesRadians:
     @overload
     def __set__(self, obj: object, value: FloatInt | str) -> None: ...
 
-J2000: Final[FloatInt]
-MJD0: Final[FloatInt]
-earth_radius: Final[FloatInt]
-meters_per_au: Final[FloatInt]
-moon_radius: Final[FloatInt]
-sun_radius: Final[FloatInt]
+J2000: Final[float]
+MJD0: Final[float]
+earth_radius: Final[float]
+meters_per_au: Final[float]
+moon_radius: Final[float]
+sun_radius: Final[float]
 
 @disjoint_base
 class Angle(float):  # type: ignore[type-var]

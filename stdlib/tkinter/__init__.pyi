@@ -167,8 +167,8 @@ __all__ = [
 
 TclError = _tkinter.TclError
 wantobjects: int
-TkVersion: Final[FloatInt]
-TclVersion: Final[FloatInt]
+TkVersion: Final[float]
+TclVersion: Final[float]
 READABLE: Final = _tkinter.READABLE
 WRITABLE: Final = _tkinter.WRITABLE
 EXCEPTION: Final = _tkinter.EXCEPTION
