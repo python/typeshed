@@ -1,13 +1,12 @@
-from _typeshed import FloatInt
 from typing import Final, SupportsComplex, SupportsFloat, SupportsIndex, TypeAlias
 
-e: Final[FloatInt]
-pi: Final[FloatInt]
-inf: Final[FloatInt]
+e: Final[float]
+pi: Final[float]
+inf: Final[float]
 infj: Final[complex]
-nan: Final[FloatInt]
+nan: Final[float]
 nanj: Final[complex]
-tau: Final[FloatInt]
+tau: Final[float]
 
 _F: TypeAlias = SupportsFloat | SupportsIndex
 _C: TypeAlias = SupportsComplex | SupportsFloat | SupportsIndex | complex | float | int

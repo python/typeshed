@@ -1,10 +1,17 @@
 from __future__ import annotations
 
+import math
 from decimal import Decimal
 from fractions import Fraction
 from math import prod
 from typing import Any, Literal
 from typing_extensions import assert_type
+
+assert_type(math.e, float)
+assert_type(math.pi, float)
+assert_type(math.inf, float)
+assert_type(math.nan, float)
+assert_type(math.tau, float)
 
 
 class SupportsMul:
