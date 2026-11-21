@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Sequence
 from typing import Any, Final
 
@@ -27,7 +28,7 @@ dtype_fwd: Final[dict[int, str | None]]
 dtype_rev: Final[dict[str | None, int]]
 typename_fwd: Final[dict[int, str]]
 typename_rev: Final[dict[str, int]]
-dtype_ranges: Final[dict[str, tuple[float, float]]]
+dtype_ranges: Final[dict[str, tuple[FloatInt, FloatInt]]]
 dtype_info_registry: Final[dict[str, type]]
 
 # `numpy.finfo` instances cached at module import; used by `in_dtype_range`.
@@ -35,7 +36,7 @@ f16i: Final[np.finfo[np.float16]]
 f32i: Final[np.finfo[np.float32]]
 f64i: Final[np.finfo[np.float64]]
 
-def in_dtype_range(value: float, dtype: DTypeLike) -> bool: ...
+def in_dtype_range(value: FloatInt, dtype: DTypeLike) -> bool: ...
 def check_dtype(dt: DTypeLike) -> bool: ...
 def get_minimum_dtype(values: ArrayLike) -> str: ...
 

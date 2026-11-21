@@ -1,4 +1,4 @@
-from _typeshed import Incomplete, SupportsItems
+from _typeshed import FloatInt, Incomplete, SupportsItems
 from collections.abc import Callable, Collection, Hashable, Iterable, Mapping, Sequence
 from typing import Any, Generic, Literal, TypeAlias, TypedDict, TypeVar, overload, type_check_only
 from typing_extensions import Unpack
@@ -37,7 +37,7 @@ __all__ = [
 _G = TypeVar("_G", bound=Graph[Any, Any, Any])
 
 # types from matplotlib
-_FontSize: TypeAlias = Literal["xx-small", "x-small", "small", "medium", "large", "x-large", "xx-large"] | float
+_FontSize: TypeAlias = Literal["xx-small", "x-small", "small", "medium", "large", "x-large", "xx-large"] | FloatInt
 _FontWeight: TypeAlias = (
     Literal[
         "ultralight",
@@ -63,23 +63,23 @@ _VAlign: TypeAlias = Literal["baseline", "bottom", "center", "center_baseline", 
 @type_check_only
 class _DrawNetworkxKwds(TypedDict, Generic[_Node], total=False):
     # draw nodes keywords; keep in sync with draw_networkx_nodes
-    node_color: ColorType | Collection[ColorType] | Collection[float]
+    node_color: ColorType | Collection[ColorType] | Collection[FloatInt]
     cmap: str | Colormap | None
-    vmin: float | None
-    vmax: float | None
-    linewidths: float | Collection[float] | None
-    edgecolors: Literal["face", "none"] | ColorType | Collection[ColorType] | Collection[float] | None
-    margins: float | tuple[float, float] | None
+    vmin: FloatInt | None
+    vmax: FloatInt | None
+    linewidths: FloatInt | Collection[FloatInt] | None
+    edgecolors: Literal["face", "none"] | ColorType | Collection[ColorType] | Collection[FloatInt] | None
+    margins: FloatInt | tuple[FloatInt, FloatInt] | None
     # draw edges keywords; keep in sync with draw_networkx_edges
     edgelist: Collection[_Node | Hashable] | None  # (u, v, k) for multigraphs and (u, v) for simple graphs
-    width: float | Collection[float]
+    width: FloatInt | Collection[FloatInt]
     edge_color: ColorType | Collection[ColorType]
     style: str | Collection[str]
     arrowstyle: str | Collection[str] | None
-    arrowsize: float | list[int] | list[float]
+    arrowsize: FloatInt | list[int] | list[FloatInt]
     edge_cmap: Colormap | None
-    edge_vmin: float | None
-    edge_vmax: float | None
+    edge_vmin: FloatInt | None
+    edge_vmax: FloatInt | None
     connectionstyle: str | Iterable[str]
     min_source_margin: int | Collection[int]
     min_target_margin: int | Collection[int]
@@ -95,9 +95,9 @@ class _DrawNetworkxKwds(TypedDict, Generic[_Node], total=False):
     clip_on: bool
     # common keywords
     nodelist: Sequence[_Node] | None
-    node_size: float | Collection[float]
+    node_size: FloatInt | Collection[FloatInt]
     node_shape: str
-    alpha: float | Collection[float] | None
+    alpha: FloatInt | Collection[FloatInt] | None
     label: str | None
     hide_ticks: bool
 
@@ -106,14 +106,14 @@ def apply_matplotlib_colors(
     src_attr: str,
     dest_attr: str,
     map: str | Colormap,
-    vmin: float | None = None,
-    vmax: float | None = None,
+    vmin: FloatInt | None = None,
+    vmax: FloatInt | None = None,
     nodes: bool = True,
 ) -> None: ...
 
 class CurvedArrowTextBase:
     arrow: FancyArrowPatch
-    label_pos: float
+    label_pos: FloatInt
     labels_horizontal: bool
     ax: Axes
     x: Incomplete
@@ -123,7 +123,7 @@ class CurvedArrowTextBase:
         self,
         arrow: FancyArrowPatch,
         *args,
-        label_pos: float = 0.5,
+        label_pos: FloatInt = 0.5,
         labels_horizontal: bool = False,
         ax: Axes | None = None,
         **kwargs,
@@ -137,7 +137,7 @@ def display(
     pos: str | Callable[[_G], Mapping[_Node, Collection[float]]] = ...,
     node_visible: str | bool = ...,
     node_color: str = ...,
-    node_size: str | float = ...,
+    node_size: str | FloatInt = ...,
     node_label: str | bool = ...,
     node_shape: str = ...,
     node_alpha: str = ...,
@@ -148,7 +148,7 @@ def display(
     edge_color: str | ColorType = ...,
     edge_label: str = ...,
     edge_style: str = ...,
-    edge_alpha: str | float = ...,
+    edge_alpha: str | FloatInt = ...,
     arrowstyle: str = ...,
     arrowsize: str | int = ...,
     edge_curvature: str = ...,
@@ -158,7 +158,7 @@ def display(
 ) -> _G: ...
 def draw(
     G: Graph[_Node, _NodeData, _EdgeData],
-    pos: Mapping[_Node, Collection[float]] | None = None,
+    pos: Mapping[_Node, Collection[FloatInt]] | None = None,
     ax: Axes | None = None,
     *,
     with_labels: bool = ...,  # default depends on whether a label argument is passed
@@ -166,7 +166,7 @@ def draw(
 ) -> None: ...
 def draw_networkx(
     G: Graph[_Node, _NodeData, _EdgeData],
-    pos: Mapping[_Node, Collection[float]] | None = None,
+    pos: Mapping[_Node, Collection[FloatInt]] | None = None,
     arrows: bool | None = None,
     with_labels: bool = True,
     *,
@@ -175,41 +175,41 @@ def draw_networkx(
 ) -> None: ...
 def draw_networkx_nodes(  # keep in sync with _DrawNetworkxKwds above
     G: Graph[_Node, _NodeData, _EdgeData],
-    pos: Mapping[_Node, Collection[float]],
+    pos: Mapping[_Node, Collection[FloatInt]],
     nodelist: Collection[_Node] | None = None,
-    node_size: float | Collection[float] = 300,
-    node_color: ColorType | Collection[ColorType] | Collection[float] = "#1f78b4",
+    node_size: FloatInt | Collection[FloatInt] = 300,
+    node_color: ColorType | Collection[ColorType] | Collection[FloatInt] = "#1f78b4",
     node_shape: str = "o",
-    alpha: float | Collection[float] | None = None,
+    alpha: FloatInt | Collection[FloatInt] | None = None,
     cmap: str | Colormap | None = None,
-    vmin: float | None = None,
-    vmax: float | None = None,
+    vmin: FloatInt | None = None,
+    vmax: FloatInt | None = None,
     ax: Axes | None = None,
-    linewidths: float | Collection[float] | None = None,
-    edgecolors: Literal["face", "none"] | ColorType | Collection[ColorType] | Collection[float] | None = None,
+    linewidths: FloatInt | Collection[FloatInt] | None = None,
+    edgecolors: Literal["face", "none"] | ColorType | Collection[ColorType] | Collection[FloatInt] | None = None,
     label: str | None = None,
-    margins: float | tuple[float, float] | None = None,
+    margins: FloatInt | tuple[FloatInt, FloatInt] | None = None,
     hide_ticks: bool = True,
 ) -> PathCollection: ...
 
 @overload  # arrows=None -> LineCollection if G is undirected, list[FancyArrowPatch] if G is directed
 def draw_networkx_edges(  # keep in sync with _DrawNetworkxKwds above
     G: Graph[_Node, _NodeData, _EdgeData],
-    pos: Mapping[_Node, Collection[float]],
+    pos: Mapping[_Node, Collection[FloatInt]],
     edgelist: Collection[_Node | Hashable] | None = None,  # (u, v, k) for multigraphs and (u, v) for simple graphs
-    width: float | Collection[float] = 1.0,
+    width: FloatInt | Collection[FloatInt] = 1.0,
     edge_color: ColorType | Collection[ColorType] = "k",
     style: str | Collection[str] = "solid",
-    alpha: float | Collection[float] | None = None,
+    alpha: FloatInt | Collection[FloatInt] | None = None,
     arrowstyle: str | Collection[str] | None = None,
-    arrowsize: float | list[int] | list[float] = 10,  # documented as int, mpl accepts float
+    arrowsize: FloatInt | list[int] | list[FloatInt] = 10,  # documented as int, mpl accepts float
     edge_cmap: Colormap | None = None,
-    edge_vmin: float | None = None,
-    edge_vmax: float | None = None,
+    edge_vmin: FloatInt | None = None,
+    edge_vmax: FloatInt | None = None,
     ax: Axes | None = None,
     arrows: None = None,
     label: str | None = None,  # documented as str, mpl accepts any object as it calls str on it
-    node_size: float | Collection[float] = 300,
+    node_size: FloatInt | Collection[FloatInt] = 300,
     nodelist: Sequence[_Node] | None = None,
     node_shape: str = "o",
     connectionstyle: str | Iterable[str] = "arc3",
@@ -220,21 +220,21 @@ def draw_networkx_edges(  # keep in sync with _DrawNetworkxKwds above
 @overload  # directed graph and arrows=None -> list[FancyArrowPatch]
 def draw_networkx_edges(
     G: DiGraph[_Node, _NodeData, _EdgeData],
-    pos: Mapping[_Node, Collection[float]],
+    pos: Mapping[_Node, Collection[FloatInt]],
     edgelist: Collection[_Node | Hashable] | None = None,  # (u, v, k) for multigraphs and (u, v) for simple graphs
-    width: float | Collection[float] = 1.0,
+    width: FloatInt | Collection[FloatInt] = 1.0,
     edge_color: ColorType | Collection[ColorType] = "k",
     style: str | Collection[str] = "solid",
-    alpha: float | Collection[float] | None = None,
+    alpha: FloatInt | Collection[FloatInt] | None = None,
     arrowstyle: str | Collection[str] | None = None,
-    arrowsize: float | list[int] | list[float] = 10,  # documented as int, mpl accepts float
+    arrowsize: FloatInt | list[int] | list[FloatInt] = 10,  # documented as int, mpl accepts float
     edge_cmap: Colormap | None = None,
-    edge_vmin: float | None = None,
-    edge_vmax: float | None = None,
+    edge_vmin: FloatInt | None = None,
+    edge_vmax: FloatInt | None = None,
     ax: Axes | None = None,
     arrows: None = None,
     label: str | None = None,  # documented as str, mpl accepts any object as it calls str on it
-    node_size: float | Collection[float] = 300,
+    node_size: FloatInt | Collection[FloatInt] = 300,
     nodelist: Sequence[_Node] | None = None,
     node_shape: str = "o",
     connectionstyle: str | Iterable[str] = "arc3",
@@ -245,22 +245,22 @@ def draw_networkx_edges(
 @overload  # arrows=True -> list[FancyArrowPatch]
 def draw_networkx_edges(
     G: Graph[_Node, _NodeData, _EdgeData],
-    pos: Mapping[_Node, Collection[float]],
+    pos: Mapping[_Node, Collection[FloatInt]],
     edgelist: Collection[_Node | Hashable] | None = None,  # (u, v, k) for multigraphs and (u, v) for simple graphs
-    width: float | Collection[float] = 1.0,
+    width: FloatInt | Collection[FloatInt] = 1.0,
     edge_color: ColorType | Collection[ColorType] = "k",
     style: str | Collection[str] = "solid",
-    alpha: float | Collection[float] | None = None,
+    alpha: FloatInt | Collection[FloatInt] | None = None,
     arrowstyle: str | Collection[str] | None = None,
-    arrowsize: float | list[int] | list[float] = 10,  # documented as int, mpl accepts float
+    arrowsize: FloatInt | list[int] | list[FloatInt] = 10,  # documented as int, mpl accepts float
     edge_cmap: Colormap | None = None,
-    edge_vmin: float | None = None,
-    edge_vmax: float | None = None,
+    edge_vmin: FloatInt | None = None,
+    edge_vmax: FloatInt | None = None,
     ax: Axes | None = None,
     *,
     arrows: Literal[True],
     label: str | None = None,  # documented as str, mpl accepts any object as it calls str on it
-    node_size: float | Collection[float] = 300,
+    node_size: FloatInt | Collection[FloatInt] = 300,
     nodelist: Sequence[_Node] | None = None,
     node_shape: str = "o",
     connectionstyle: str | Iterable[str] = "arc3",
@@ -271,20 +271,20 @@ def draw_networkx_edges(
 @overload  # arrows=False -> LineCollection
 def draw_networkx_edges(
     G: Graph[_Node, _NodeData, _EdgeData],
-    pos: Mapping[_Node, Collection[float]],
+    pos: Mapping[_Node, Collection[FloatInt]],
     edgelist: Collection[_Node | Hashable] | None = None,  # (u, v, k) for multigraphs and (u, v) for simple graphs
-    width: float | Collection[float] = 1.0,
+    width: FloatInt | Collection[FloatInt] = 1.0,
     edge_color: ColorType | Collection[ColorType] = "k",
     style: str | Collection[str] = "solid",
-    alpha: float | Collection[float] | None = None,
+    alpha: FloatInt | Collection[FloatInt] | None = None,
     *,
     edge_cmap: Colormap | None = None,
-    edge_vmin: float | None = None,
-    edge_vmax: float | None = None,
+    edge_vmin: FloatInt | None = None,
+    edge_vmax: FloatInt | None = None,
     ax: Axes | None = None,
     arrows: Literal[False],
     label: str | None = None,  # documented as str, mpl accepts any object as it calls str on it
-    node_size: float | Collection[float] = 300,
+    node_size: FloatInt | Collection[FloatInt] = 300,
     nodelist: Sequence[_Node] | None = None,
     node_shape: str = "o",
     hide_ticks: bool = True,
@@ -292,13 +292,13 @@ def draw_networkx_edges(
 
 def draw_networkx_labels(  # keep in sync with _DrawNetworkxKwds above
     G: Graph[_Node, _NodeData, _EdgeData],
-    pos: Mapping[_Node, Collection[float]],
+    pos: Mapping[_Node, Collection[FloatInt]],
     labels: Mapping[_Node, object] | None = None,  # labels are explicitly converted to str
     font_size: _FontSize | Mapping[_Node, _FontSize] = 12,
     font_color: ColorType | Mapping[_Node, Colormap] = "k",
     font_family: str | Mapping[_Node, str] = "sans-serif",
     font_weight: _FontWeight | Mapping[_Node, _FontWeight] = "normal",
-    alpha: float | Mapping[_Node, float] | None = None,
+    alpha: FloatInt | Mapping[_Node, FloatInt] | None = None,
     bbox: dict[str, Any] | None = None,  # Any comes from mpl
     horizontalalignment: _HAlign = "center",  # doc is wrong, doesn't really accept array
     verticalalignment: _VAlign = "center",  # doc is wrong, doesn't really accept array
@@ -309,7 +309,7 @@ def draw_networkx_labels(  # keep in sync with _DrawNetworkxKwds above
 def draw_networkx_edge_labels(
     # TODO: find a way to have a covariant list for params annotated with `something | list[Incomplete]`
     G: Graph[_Node, _NodeData, _EdgeData],
-    pos: Mapping[_Node, Collection[float]],
+    pos: Mapping[_Node, Collection[FloatInt]],
     edge_labels: (
         SupportsItems[
             Collection[_Node | Hashable],  # (u, v, k) for multigraphs and (u, v) for simple graphs
@@ -317,19 +317,19 @@ def draw_networkx_edge_labels(
         ]
         | None
     ) = None,
-    label_pos: float | list[Incomplete] = 0.5,
+    label_pos: FloatInt | list[Incomplete] = 0.5,
     font_size: _FontSize | list[Incomplete] = 10,
     font_color: ColorType | list[Incomplete] = "k",
     font_family: str = "sans-serif",
     font_weight: _FontWeight | list[Incomplete] = "normal",
-    alpha: float | list[Incomplete] | None = None,
+    alpha: FloatInt | list[Incomplete] | None = None,
     bbox: dict[str, Any] | None = None,  # Any comes from mpl
     horizontalalignment: _HAlign | list[Incomplete] = "center",
     verticalalignment: _VAlign | list[Incomplete] = "center",
     ax: Axes | None = None,
     rotate: bool | list[bool] = True,
     clip_on: bool = True,
-    node_size: float | Collection[float] = 300,
+    node_size: FloatInt | Collection[FloatInt] = 300,
     nodelist: Sequence[_Node] | None = None,
     connectionstyle: str | Iterable[str] = "arc3",
     hide_ticks: bool = True,
@@ -399,10 +399,10 @@ def draw_forceatlas2(
     **kwargs: Unpack[_DrawNetworkxKwds[_Node]],
 ) -> None: ...
 def apply_alpha(
-    colors: ColorType | Collection[ColorType] | Collection[float],
-    alpha: float | Collection[float],
+    colors: ColorType | Collection[ColorType] | Collection[FloatInt],
+    alpha: FloatInt | Collection[FloatInt],
     elem_list: Collection[object],  # nx objects (nodes, edges, labels) but its content is not used!
     cmap: str | Colormap | None = None,
-    vmin: float | None = None,
-    vmax: float | None = None,
+    vmin: FloatInt | None = None,
+    vmax: FloatInt | None = None,
 ) -> Array2D[np.float64]: ...

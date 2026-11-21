@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from dataclasses import dataclass
 
 @dataclass
@@ -10,10 +11,10 @@ class VersionMatchingError(Exception):
 class VersionMatchRuleBase:
     description: str
     how_to_fix: str
-    version: float
+    version: FloatInt
     line_number: int
     line: str
-    def __init__(self, version: float, line_number: int, line: str) -> None: ...
+    def __init__(self, version: FloatInt, line_number: int, line: str) -> None: ...
     def validate(self) -> bool: ...
     def get_error(self) -> VersionMatchingError: ...
 

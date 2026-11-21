@@ -1,4 +1,5 @@
 import abc
+from _typeshed import FloatInt
 from collections.abc import Callable
 from socket import socket
 from ssl import SSLContext
@@ -17,7 +18,7 @@ class AbstractIOServices(pika.compat.AbstractBase, metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def add_callback_threadsafe(self, callback: Callable[..., None]) -> None: ...
     @abc.abstractmethod
-    def call_later(self, delay: float, callback: Callable[..., None]) -> AbstractTimerReference: ...
+    def call_later(self, delay: FloatInt, callback: Callable[..., None]) -> AbstractTimerReference: ...
     @abc.abstractmethod
     def getaddrinfo(
         self,

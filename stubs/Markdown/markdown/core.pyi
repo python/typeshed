@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from codecs import _ReadableStream, _WritableStream
 from collections.abc import Callable, Mapping, Sequence
 from logging import Logger
@@ -24,7 +25,7 @@ class Markdown:
     doc_tag: ClassVar[str]
     output_formats: ClassVar[dict[Literal["xhtml", "html"], Callable[[Element], str]]]
 
-    last_run: float
+    last_run: FloatInt
     tab_length: int
     ESCAPED_CHARS: list[str]
     block_level_elements: list[str]

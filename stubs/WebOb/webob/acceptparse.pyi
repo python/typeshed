@@ -1,4 +1,4 @@
-from _typeshed import SupportsItems
+from _typeshed import FloatInt, SupportsItems
 from collections.abc import Callable, Iterable, Iterator, Sequence
 from typing import Any, Literal, NamedTuple, Protocol, TypeAlias, TypeVar, overload, type_check_only
 from typing_extensions import Self
@@ -7,7 +7,7 @@ from webob._types import AsymmetricPropertyWithDelete
 
 _T = TypeVar("_T")
 _ListOrTuple: TypeAlias = list[_T] | tuple[_T, ...]
-_ParsedAccept: TypeAlias = tuple[str, float, list[tuple[str, str]], list[str | tuple[str, str]]]
+_ParsedAccept: TypeAlias = tuple[str, FloatInt, list[tuple[str, str]], list[str | tuple[str, str]]]
 
 @type_check_only
 class _SupportsStr(Protocol):
@@ -22,8 +22,8 @@ _AcceptProperty: TypeAlias = AsymmetricPropertyWithDelete[
     _AnyAcceptHeader,
     (
         _AnyAcceptHeader
-        | SupportsItems[str, float | tuple[float, str]]
-        | _ListOrTuple[str | tuple[str, float, str] | list[Any]]
+        | SupportsItems[str, FloatInt | tuple[FloatInt, str]]
+        | _ListOrTuple[str | tuple[str, FloatInt, str] | list[Any]]
         | _SupportsStr
         | str
         | None
@@ -33,8 +33,8 @@ _AcceptCharsetProperty: TypeAlias = AsymmetricPropertyWithDelete[
     _AnyAcceptCharsetHeader,
     (
         _AnyAcceptCharsetHeader
-        | SupportsItems[str, float]
-        | _ListOrTuple[str | tuple[str, float] | list[Any]]
+        | SupportsItems[str, FloatInt]
+        | _ListOrTuple[str | tuple[str, FloatInt] | list[Any]]
         | _SupportsStr
         | str
         | None
@@ -44,8 +44,8 @@ _AcceptEncodingProperty: TypeAlias = AsymmetricPropertyWithDelete[
     _AnyAcceptEncodingHeader,
     (
         _AnyAcceptEncodingHeader
-        | SupportsItems[str, float]
-        | _ListOrTuple[str | tuple[str, float] | list[Any]]
+        | SupportsItems[str, FloatInt]
+        | _ListOrTuple[str | tuple[str, FloatInt] | list[Any]]
         | _SupportsStr
         | str
         | None
@@ -55,8 +55,8 @@ _AcceptLanguageProperty: TypeAlias = AsymmetricPropertyWithDelete[
     _AnyAcceptLanguageHeader,
     (
         _AnyAcceptLanguageHeader
-        | SupportsItems[str, float]
-        | _ListOrTuple[str | tuple[str, float] | list[Any]]
+        | SupportsItems[str, FloatInt]
+        | _ListOrTuple[str | tuple[str, FloatInt] | list[Any]]
         | _SupportsStr
         | str
         | None
@@ -89,8 +89,8 @@ class AcceptValidHeader(Accept):
         self,
         other: (
             _AnyAcceptHeader
-            | SupportsItems[str, float | tuple[float, str]]
-            | _ListOrTuple[str | tuple[str, float, str] | list[Any]]
+            | SupportsItems[str, FloatInt | tuple[FloatInt, str]]
+            | _ListOrTuple[str | tuple[str, FloatInt, str] | list[Any]]
             | _SupportsStr
             | str
             | None
@@ -103,8 +103,8 @@ class AcceptValidHeader(Accept):
         self,
         other: (
             _AnyAcceptHeader
-            | SupportsItems[str, float | tuple[float, str]]
-            | _ListOrTuple[str | tuple[str, float, str] | list[Any]]
+            | SupportsItems[str, FloatInt | tuple[FloatInt, str]]
+            | _ListOrTuple[str | tuple[str, FloatInt, str] | list[Any]]
             | _SupportsStr
             | str
             | None
@@ -116,9 +116,9 @@ class AcceptValidHeader(Accept):
     def acceptable_offers(self, offers: Sequence[str]) -> list[tuple[str, float]]: ...
 
     @overload
-    def best_match(self, offers: Iterable[str | tuple[str, float] | list[Any]], default_match: None = None) -> str | None: ...
+    def best_match(self, offers: Iterable[str | tuple[str, FloatInt] | list[Any]], default_match: None = None) -> str | None: ...
     @overload
-    def best_match(self, offers: Iterable[str | tuple[str, float] | list[Any]], default_match: str) -> str: ...
+    def best_match(self, offers: Iterable[str | tuple[str, FloatInt] | list[Any]], default_match: str) -> str: ...
 
     def quality(self, offer: str) -> float | None: ...
 
@@ -132,9 +132,9 @@ class _AcceptInvalidOrNoHeader(Accept):
     def acceptable_offers(self, offers: Sequence[str]) -> list[tuple[str, float]]: ...
 
     @overload
-    def best_match(self, offers: Iterable[str | tuple[str, float] | list[Any]], default_match: None = None) -> str | None: ...
+    def best_match(self, offers: Iterable[str | tuple[str, FloatInt] | list[Any]], default_match: None = None) -> str | None: ...
     @overload
-    def best_match(self, offers: Iterable[str | tuple[str, float] | list[Any]], default_match: str) -> str: ...
+    def best_match(self, offers: Iterable[str | tuple[str, FloatInt] | list[Any]], default_match: str) -> str: ...
 
     def quality(self, offer: str) -> float: ...
 
@@ -155,8 +155,8 @@ class AcceptNoHeader(_AcceptInvalidOrNoHeader):
         self,
         other: (
             _AnyAcceptHeader
-            | SupportsItems[str, float | tuple[float, str]]
-            | _ListOrTuple[str | tuple[str, float, str] | list[Any]]
+            | SupportsItems[str, FloatInt | tuple[FloatInt, str]]
+            | _ListOrTuple[str | tuple[str, FloatInt, str] | list[Any]]
             | _SupportsStr
             | str
             | None
@@ -172,8 +172,8 @@ class AcceptNoHeader(_AcceptInvalidOrNoHeader):
         self,
         other: (
             _AnyAcceptHeader
-            | SupportsItems[str, float | tuple[float, str]]
-            | _ListOrTuple[str | tuple[str, float, str] | list[Any]]
+            | SupportsItems[str, FloatInt | tuple[FloatInt, str]]
+            | _ListOrTuple[str | tuple[str, FloatInt, str] | list[Any]]
             | _SupportsStr
             | str
             | None
@@ -197,8 +197,8 @@ class AcceptInvalidHeader(_AcceptInvalidOrNoHeader):
         self,
         other: (
             _AnyAcceptHeader
-            | SupportsItems[str, float | tuple[float, str]]
-            | _ListOrTuple[str | tuple[str, float, str] | list[Any]]
+            | SupportsItems[str, FloatInt | tuple[FloatInt, str]]
+            | _ListOrTuple[str | tuple[str, FloatInt, str] | list[Any]]
             | _SupportsStr
             | str
             | None
@@ -214,8 +214,8 @@ class AcceptInvalidHeader(_AcceptInvalidOrNoHeader):
         self,
         other: (
             _AnyAcceptHeader
-            | SupportsItems[str, float | tuple[float, str]]
-            | _ListOrTuple[str | tuple[str, float, str] | list[Any]]
+            | SupportsItems[str, FloatInt | tuple[FloatInt, str]]
+            | _ListOrTuple[str | tuple[str, FloatInt, str] | list[Any]]
             | _SupportsStr
             | str
             | None
@@ -250,8 +250,8 @@ class AcceptCharsetValidHeader(AcceptCharset):
         self,
         other: (
             _AnyAcceptCharsetHeader
-            | SupportsItems[str, float]
-            | _ListOrTuple[str | tuple[str, float] | list[Any]]
+            | SupportsItems[str, FloatInt]
+            | _ListOrTuple[str | tuple[str, FloatInt] | list[Any]]
             | _SupportsStr
             | str
             | None
@@ -264,8 +264,8 @@ class AcceptCharsetValidHeader(AcceptCharset):
         self,
         other: (
             _AnyAcceptCharsetHeader
-            | SupportsItems[str, float]
-            | _ListOrTuple[str | tuple[str, float] | list[Any]]
+            | SupportsItems[str, FloatInt]
+            | _ListOrTuple[str | tuple[str, FloatInt] | list[Any]]
             | _SupportsStr
             | str
             | None
@@ -274,9 +274,9 @@ class AcceptCharsetValidHeader(AcceptCharset):
     def acceptable_offers(self, offers: Sequence[str]) -> list[tuple[str, float]]: ...
 
     @overload
-    def best_match(self, offers: Iterable[str | tuple[str, float] | list[Any]], default_match: None = None) -> str | None: ...
+    def best_match(self, offers: Iterable[str | tuple[str, FloatInt] | list[Any]], default_match: None = None) -> str | None: ...
     @overload
-    def best_match(self, offers: Iterable[str | tuple[str, float] | list[Any]], default_match: str) -> str: ...
+    def best_match(self, offers: Iterable[str | tuple[str, FloatInt] | list[Any]], default_match: str) -> str: ...
 
     def quality(self, offer: str) -> float | None: ...
 
@@ -287,9 +287,9 @@ class _AcceptCharsetInvalidOrNoHeader(AcceptCharset):
     def acceptable_offers(self, offers: Iterable[str]) -> list[tuple[str, float]]: ...
 
     @overload
-    def best_match(self, offers: Iterable[str | tuple[str, float] | list[Any]], default_match: None = None) -> str | None: ...
+    def best_match(self, offers: Iterable[str | tuple[str, FloatInt] | list[Any]], default_match: None = None) -> str | None: ...
     @overload
-    def best_match(self, offers: Iterable[str | tuple[str, float] | list[Any]], default_match: str) -> str: ...
+    def best_match(self, offers: Iterable[str | tuple[str, FloatInt] | list[Any]], default_match: str) -> str: ...
 
     def quality(self, offer: str) -> float | None: ...
 
@@ -310,8 +310,8 @@ class AcceptCharsetNoHeader(_AcceptCharsetInvalidOrNoHeader):
         self,
         other: (
             _AnyAcceptCharsetHeader
-            | SupportsItems[str, float]
-            | _ListOrTuple[str | tuple[str, float] | list[Any]]
+            | SupportsItems[str, FloatInt]
+            | _ListOrTuple[str | tuple[str, FloatInt] | list[Any]]
             | _SupportsStr
             | str
             | None
@@ -327,8 +327,8 @@ class AcceptCharsetNoHeader(_AcceptCharsetInvalidOrNoHeader):
         self,
         other: (
             _AnyAcceptCharsetHeader
-            | SupportsItems[str, float]
-            | _ListOrTuple[str | tuple[str, float] | list[Any]]
+            | SupportsItems[str, FloatInt]
+            | _ListOrTuple[str | tuple[str, FloatInt] | list[Any]]
             | _SupportsStr
             | str
             | None
@@ -354,8 +354,8 @@ class AcceptCharsetInvalidHeader(_AcceptCharsetInvalidOrNoHeader):
         self,
         other: (
             _AnyAcceptCharsetHeader
-            | SupportsItems[str, float]
-            | _ListOrTuple[str | tuple[str, float] | list[Any]]
+            | SupportsItems[str, FloatInt]
+            | _ListOrTuple[str | tuple[str, FloatInt] | list[Any]]
             | _SupportsStr
             | str
             | None
@@ -373,8 +373,8 @@ class AcceptCharsetInvalidHeader(_AcceptCharsetInvalidOrNoHeader):
         self,
         other: (
             _AnyAcceptCharsetHeader
-            | SupportsItems[str, float]
-            | _ListOrTuple[str | tuple[str, float] | list[Any]]
+            | SupportsItems[str, FloatInt]
+            | _ListOrTuple[str | tuple[str, FloatInt] | list[Any]]
             | _SupportsStr
             | str
             | None
@@ -409,8 +409,8 @@ class AcceptEncodingValidHeader(AcceptEncoding):
         self,
         other: (
             _AnyAcceptEncodingHeader
-            | SupportsItems[str, float]
-            | _ListOrTuple[str | tuple[str, float] | list[Any]]
+            | SupportsItems[str, FloatInt]
+            | _ListOrTuple[str | tuple[str, FloatInt] | list[Any]]
             | _SupportsStr
             | str
             | None
@@ -423,8 +423,8 @@ class AcceptEncodingValidHeader(AcceptEncoding):
         self,
         other: (
             _AnyAcceptEncodingHeader
-            | SupportsItems[str, float]
-            | _ListOrTuple[str | tuple[str, float] | list[Any]]
+            | SupportsItems[str, FloatInt]
+            | _ListOrTuple[str | tuple[str, FloatInt] | list[Any]]
             | _SupportsStr
             | str
             | None
@@ -433,9 +433,9 @@ class AcceptEncodingValidHeader(AcceptEncoding):
     def acceptable_offers(self, offers: Sequence[str]) -> list[tuple[str, float]]: ...
 
     @overload
-    def best_match(self, offers: Iterable[str | tuple[str, float] | list[Any]], default_match: None = None) -> str | None: ...
+    def best_match(self, offers: Iterable[str | tuple[str, FloatInt] | list[Any]], default_match: None = None) -> str | None: ...
     @overload
-    def best_match(self, offers: Iterable[str | tuple[str, float] | list[Any]], default_match: str) -> str: ...
+    def best_match(self, offers: Iterable[str | tuple[str, FloatInt] | list[Any]], default_match: str) -> str: ...
 
     def quality(self, offer: str) -> float | None: ...
 
@@ -446,9 +446,9 @@ class _AcceptEncodingInvalidOrNoHeader(AcceptEncoding):
     def acceptable_offers(self, offers: Iterable[str]) -> list[tuple[str, float]]: ...
 
     @overload
-    def best_match(self, offers: Iterable[str | tuple[str, float] | list[Any]], default_match: None = None) -> str | None: ...
+    def best_match(self, offers: Iterable[str | tuple[str, FloatInt] | list[Any]], default_match: None = None) -> str | None: ...
     @overload
-    def best_match(self, offers: Iterable[str | tuple[str, float] | list[Any]], default_match: str) -> str: ...
+    def best_match(self, offers: Iterable[str | tuple[str, FloatInt] | list[Any]], default_match: str) -> str: ...
 
     def quality(self, offer: str) -> float | None: ...
 
@@ -469,8 +469,8 @@ class AcceptEncodingNoHeader(_AcceptEncodingInvalidOrNoHeader):
         self,
         other: (
             _AnyAcceptEncodingHeader
-            | SupportsItems[str, float]
-            | _ListOrTuple[str | tuple[str, float] | list[Any]]
+            | SupportsItems[str, FloatInt]
+            | _ListOrTuple[str | tuple[str, FloatInt] | list[Any]]
             | _SupportsStr
             | str
             | None
@@ -486,8 +486,8 @@ class AcceptEncodingNoHeader(_AcceptEncodingInvalidOrNoHeader):
         self,
         other: (
             _AnyAcceptEncodingHeader
-            | SupportsItems[str, float]
-            | _ListOrTuple[str | tuple[str, float] | list[Any]]
+            | SupportsItems[str, FloatInt]
+            | _ListOrTuple[str | tuple[str, FloatInt] | list[Any]]
             | _SupportsStr
             | str
             | None
@@ -511,8 +511,8 @@ class AcceptEncodingInvalidHeader(_AcceptEncodingInvalidOrNoHeader):
         self,
         other: (
             _AnyAcceptEncodingHeader
-            | SupportsItems[str, float]
-            | _ListOrTuple[str | tuple[str, float] | list[Any]]
+            | SupportsItems[str, FloatInt]
+            | _ListOrTuple[str | tuple[str, FloatInt] | list[Any]]
             | _SupportsStr
             | str
             | None
@@ -528,8 +528,8 @@ class AcceptEncodingInvalidHeader(_AcceptEncodingInvalidOrNoHeader):
         self,
         other: (
             _AnyAcceptEncodingHeader
-            | SupportsItems[str, float]
-            | _ListOrTuple[str | tuple[str, float] | list[Any]]
+            | SupportsItems[str, FloatInt]
+            | _ListOrTuple[str | tuple[str, FloatInt] | list[Any]]
             | _SupportsStr
             | str
             | None
@@ -564,8 +564,8 @@ class AcceptLanguageValidHeader(AcceptLanguage):
         self,
         other: (
             _AnyAcceptLanguageHeader
-            | SupportsItems[str, float]
-            | _ListOrTuple[str | tuple[str, float] | list[Any]]
+            | SupportsItems[str, FloatInt]
+            | _ListOrTuple[str | tuple[str, FloatInt] | list[Any]]
             | _SupportsStr
             | str
             | None
@@ -578,8 +578,8 @@ class AcceptLanguageValidHeader(AcceptLanguage):
         self,
         other: (
             _AnyAcceptLanguageHeader
-            | SupportsItems[str, float]
-            | _ListOrTuple[str | tuple[str, float] | list[Any]]
+            | SupportsItems[str, FloatInt]
+            | _ListOrTuple[str | tuple[str, FloatInt] | list[Any]]
             | _SupportsStr
             | str
             | None
@@ -588,9 +588,9 @@ class AcceptLanguageValidHeader(AcceptLanguage):
     def basic_filtering(self, language_tags: Sequence[str]) -> list[tuple[str, float]]: ...
 
     @overload
-    def best_match(self, offers: Iterable[str | tuple[str, float] | list[Any]], default_match: None = None) -> str | None: ...
+    def best_match(self, offers: Iterable[str | tuple[str, FloatInt] | list[Any]], default_match: None = None) -> str | None: ...
     @overload
-    def best_match(self, offers: Iterable[str | tuple[str, float] | list[Any]], default_match: str) -> str: ...
+    def best_match(self, offers: Iterable[str | tuple[str, FloatInt] | list[Any]], default_match: str) -> str: ...
 
     @overload
     def lookup(
@@ -631,9 +631,9 @@ class _AcceptLanguageInvalidOrNoHeader(AcceptLanguage):
     def basic_filtering(self, language_tags: Iterable[str]) -> list[tuple[str, float]]: ...
 
     @overload
-    def best_match(self, offers: Iterable[str | tuple[str, float] | list[Any]], default_match: None = None) -> str | None: ...
+    def best_match(self, offers: Iterable[str | tuple[str, FloatInt] | list[Any]], default_match: None = None) -> str | None: ...
     @overload
-    def best_match(self, offers: Iterable[str | tuple[str, float] | list[Any]], default_match: str) -> str: ...
+    def best_match(self, offers: Iterable[str | tuple[str, FloatInt] | list[Any]], default_match: str) -> str: ...
 
     @overload
     def lookup(self, language_tags: object, default_range: object, default_tag: str, default: object = None) -> str: ...
@@ -672,8 +672,8 @@ class AcceptLanguageNoHeader(_AcceptLanguageInvalidOrNoHeader):
         self,
         other: (
             _AnyAcceptLanguageHeader
-            | SupportsItems[str, float]
-            | _ListOrTuple[str | tuple[str, float] | list[Any]]
+            | SupportsItems[str, FloatInt]
+            | _ListOrTuple[str | tuple[str, FloatInt] | list[Any]]
             | _SupportsStr
             | str
             | None
@@ -689,8 +689,8 @@ class AcceptLanguageNoHeader(_AcceptLanguageInvalidOrNoHeader):
         self,
         other: (
             _AnyAcceptLanguageHeader
-            | SupportsItems[str, float]
-            | _ListOrTuple[str | tuple[str, float] | list[Any]]
+            | SupportsItems[str, FloatInt]
+            | _ListOrTuple[str | tuple[str, FloatInt] | list[Any]]
             | _SupportsStr
             | str
             | None
@@ -716,8 +716,8 @@ class AcceptLanguageInvalidHeader(_AcceptLanguageInvalidOrNoHeader):
         self,
         other: (
             _AnyAcceptLanguageHeader
-            | SupportsItems[str, float]
-            | _ListOrTuple[str | tuple[str, float] | list[Any]]
+            | SupportsItems[str, FloatInt]
+            | _ListOrTuple[str | tuple[str, FloatInt] | list[Any]]
             | _SupportsStr
             | str
             | None
@@ -735,8 +735,8 @@ class AcceptLanguageInvalidHeader(_AcceptLanguageInvalidOrNoHeader):
         self,
         other: (
             _AnyAcceptLanguageHeader
-            | SupportsItems[str, float]
-            | _ListOrTuple[str | tuple[str, float] | list[Any]]
+            | SupportsItems[str, FloatInt]
+            | _ListOrTuple[str | tuple[str, FloatInt] | list[Any]]
             | _SupportsStr
             | str
             | None

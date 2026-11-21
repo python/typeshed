@@ -1,4 +1,4 @@
-from _typeshed import FileDescriptor, StrOrBytesPath
+from _typeshed import FileDescriptor, FloatInt, StrOrBytesPath
 from collections.abc import Callable
 from types import TracebackType
 from typing import Any, Literal, overload
@@ -46,7 +46,7 @@ class IoMixin:
 
 class TimerMixin:
     def __init__(
-        self, loop: _Loop, after: float = 0.0, repeat: float = 0.0, ref: bool = True, priority: int | None = None
+        self, loop: _Loop, after: FloatInt = 0.0, repeat: FloatInt = 0.0, ref: bool = True, priority: int | None = None
     ) -> None: ...
 
     @overload
@@ -84,7 +84,7 @@ class ChildMixin:
 
 class StatMixin:
     def __init__(
-        self, _loop: _Loop, path: StrOrBytesPath, interval: float = 0.0, ref: bool = True, priority: float | None = None
+        self, _loop: _Loop, path: StrOrBytesPath, interval: FloatInt = 0.0, ref: bool = True, priority: FloatInt | None = None
     ) -> None: ...
     @property
     def path(self) -> StrOrBytesPath: ...

@@ -1,4 +1,5 @@
 import logging
+from _typeshed import FloatInt
 from types import TracebackType
 from typing import Any, Final
 from typing_extensions import Self, deprecated
@@ -35,7 +36,7 @@ class MemoryFile(MemoryFileBase):
         crs: CRSInput | None = None,
         transform: Affine | None = None,
         dtype: DTypeLike | None = None,
-        nodata: float | None = None,
+        nodata: FloatInt | None = None,
         sharing: bool = False,
         thread_safe: bool = False,
         **kwargs: _OpenOption,

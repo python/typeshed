@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Iterable
 from socket import socket as Socket
 from typing import AnyStr
@@ -18,7 +19,7 @@ class SocketSpawn(SpawnBase[AnyStr]):
         self,
         socket: Socket,
         args: None = None,
-        timeout: float | None = 30,
+        timeout: FloatInt | None = 30,
         maxread: int = 2000,
         searchwindowsize: int | None = None,
         logfile: _Logfile | None = None,
@@ -32,4 +33,4 @@ class SocketSpawn(SpawnBase[AnyStr]):
     def sendline(self, s: str | bytes) -> int: ...
     def write(self, s: str | bytes) -> None: ...
     def writelines(self, sequence: Iterable[str | bytes]) -> None: ...
-    def read_nonblocking(self, size: int = 1, timeout: float | None = -1) -> AnyStr: ...
+    def read_nonblocking(self, size: int = 1, timeout: FloatInt | None = -1) -> AnyStr: ...

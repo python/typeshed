@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from typing import ClassVar, TypedDict, type_check_only
 from typing_extensions import NotRequired
 
@@ -11,7 +12,7 @@ class _Rule(TypedDict):
     http_method: NotRequired[str]
     url_path: NotRequired[str]
     fixed_target: NotRequired[int]
-    rate: NotRequired[float]
+    rate: NotRequired[FloatInt]
 
 class SamplingRule:
     FIXED_TARGET: ClassVar[str]

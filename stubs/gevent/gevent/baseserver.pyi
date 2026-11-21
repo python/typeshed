@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Callable, Container
 from types import TracebackType
 from typing import Generic, Literal, ParamSpec, Protocol, TypeAlias, type_check_only
@@ -18,13 +19,13 @@ class _SpawnFunc(Protocol):
 _Spawner: TypeAlias = Pool | _SpawnFunc | int | Literal["default"] | None
 
 class BaseServer(Generic[Unpack[_Ts]]):
-    min_delay: float
-    max_delay: float
+    min_delay: FloatInt
+    max_delay: FloatInt
     max_accept: int
-    stop_timeout: float
+    stop_timeout: FloatInt
     fatal_errors: Container[int]
     pool: Pool | None
-    delay: float
+    delay: FloatInt
     loop: _Loop
     family: int
     address: str | tuple[str, int]
@@ -58,8 +59,8 @@ class BaseServer(Generic[Unpack[_Ts]]):
     def close(self) -> None: ...
     @property
     def closed(self) -> bool: ...
-    def stop(self, timeout: float | None = None) -> None: ...
-    def serve_forever(self, stop_timeout: float | None = None) -> None: ...
+    def stop(self, timeout: FloatInt | None = None) -> None: ...
+    def serve_forever(self, stop_timeout: FloatInt | None = None) -> None: ...
     def is_fatal_error(self, ex: BaseException) -> bool: ...
 
 __all__ = ["BaseServer"]

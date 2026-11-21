@@ -1,4 +1,5 @@
 import sys
+from _typeshed import FloatInt
 
 from serial.serialutil import *
 
@@ -17,14 +18,14 @@ def serial_for_url(
     baudrate: int = ...,
     bytesize: int = ...,
     parity: str = ...,
-    stopbits: float = ...,
-    timeout: float | None = ...,
+    stopbits: FloatInt = ...,
+    timeout: FloatInt | None = ...,
     xonxoff: bool = ...,
     rtscts: bool = ...,
-    write_timeout: float | None = ...,
+    write_timeout: FloatInt | None = ...,
     dsrdtr: bool = ...,
-    inter_byte_timeout: float | None = ...,
-    exclusive: float | None = ...,
+    inter_byte_timeout: FloatInt | None = ...,
+    exclusive: FloatInt | None = ...,
     *,
     do_not_open: bool = ...,
 ) -> Serial: ...

@@ -1,13 +1,14 @@
+from _typeshed import FloatInt
 from typing import Final
 
 from pymeeus.Angle import Angle
 from pymeeus.Epoch import Epoch
 
-VSOP87_L: Final[list[list[list[float]]]]
-VSOP87_B: Final[list[list[list[float]]]]
-VSOP87_R: Final[list[list[list[float]]]]
-ORBITAL_ELEM: Final[list[list[float]]]
-ORBITAL_ELEM_J2000: Final[list[list[float]]]
+VSOP87_L: Final[list[list[list[FloatInt]]]]
+VSOP87_B: Final[list[list[list[FloatInt]]]]
+VSOP87_R: Final[list[list[list[FloatInt]]]]
+ORBITAL_ELEM: Final[list[list[FloatInt]]]
+ORBITAL_ELEM_J2000: Final[list[list[FloatInt]]]
 
 class Venus:
     @staticmethod
@@ -39,6 +40,6 @@ class Venus:
     @staticmethod
     def illuminated_fraction(epoch: Epoch) -> float: ...
     @staticmethod
-    def magnitude(sun_dist: float, earth_dist: float, phase_angle: float | Angle) -> float: ...
+    def magnitude(sun_dist: FloatInt, earth_dist: FloatInt, phase_angle: FloatInt | Angle) -> float: ...
 
 def main() -> None: ...

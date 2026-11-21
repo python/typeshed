@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from collections.abc import Mapping, MutableMapping, Sequence
 from re import Pattern
 from typing import Any, Final, Literal, TypeAlias, TypedDict, overload, type_check_only
@@ -13,7 +13,7 @@ LAUNCHER_COMMAND: Final[str]
 LAUNCHER_JNLP: Final[str]
 LAUNCHER_WINDOWS_SERVICE: Final[str]
 DEFAULT_HEADERS: Final[dict[str, str]]
-DEFAULT_TIMEOUT: Final[float]
+DEFAULT_TIMEOUT: Final[FloatInt]
 DEFAULT_RETRIES: Final = 0
 INFO: Final[str]
 PLUGIN_INFO: Final[str]

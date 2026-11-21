@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from collections.abc import Callable, Iterable, Sequence
 from typing import Any, Generic, Literal, TypeAlias, TypeVar, overload, type_check_only
 from typing_extensions import Self
@@ -236,8 +236,8 @@ class BatchNormalization(Layer[tf.Tensor, tf.Tensor]):
     def __init__(
         self,
         axis: int = -1,
-        momentum: float = 0.99,
-        epsilon: float = 0.001,
+        momentum: FloatInt = 0.99,
+        epsilon: FloatInt = 0.001,
         center: bool = True,
         scale: bool = True,
         beta_initializer: _Initializer = "zeros",
@@ -261,9 +261,9 @@ class BatchNormalization(Layer[tf.Tensor, tf.Tensor]):
 class ReLU(Layer[tf.Tensor, tf.Tensor]):
     def __init__(
         self,
-        max_value: float | None = None,
-        negative_slope: float | None = 0.0,
-        threshold: float | None = 0.0,
+        max_value: FloatInt | None = None,
+        negative_slope: FloatInt | None = 0.0,
+        threshold: FloatInt | None = 0.0,
         *,
         # **kwargs passed to Layer
         activity_regularizer: _Regularizer = None,
@@ -276,7 +276,7 @@ class ReLU(Layer[tf.Tensor, tf.Tensor]):
 class Dropout(Layer[tf.Tensor, tf.Tensor]):
     def __init__(
         self,
-        rate: float,
+        rate: FloatInt,
         noise_shape: TensorCompatible | Sequence[int | None] | None = None,
         seed: int | None = None,
         *,
@@ -354,7 +354,7 @@ class LayerNormalization(Layer[tf.Tensor, tf.Tensor]):
     def __init__(
         self,
         axis: int = -1,
-        epsilon: float = 0.001,
+        epsilon: FloatInt = 0.001,
         center: bool = True,
         scale: bool = True,
         rms_scaling: bool = False,
@@ -379,7 +379,7 @@ class MultiHeadAttention(Layer[Any, tf.Tensor]):
         num_heads: int,
         key_dim: int | None,
         value_dim: int | None = None,
-        dropout: float = 0.0,
+        dropout: FloatInt = 0.0,
         use_bias: bool = True,
         output_shape: tuple[int, ...] | None = None,
         attention_axes: tuple[int, ...] | None = None,
@@ -436,7 +436,7 @@ class MultiHeadAttention(Layer[Any, tf.Tensor]):
 class GaussianDropout(Layer[tf.Tensor, tf.Tensor]):
     def __init__(
         self,
-        rate: float,
+        rate: FloatInt,
         seed: int | None = None,
         *,
         # **kwargs passed to Layer

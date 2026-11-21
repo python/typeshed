@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from typing import Final
 
 from reportlab.graphics.widgetbase import PropHolder, Widget
@@ -44,7 +44,7 @@ class Legend(Widget):
     yGap: int
     variColumn: int
     dividerLines: int
-    dividerWidth: float
+    dividerWidth: FloatInt
     dividerDashArray: Incomplete
     dividerColor: Incomplete
     dividerOffsX: Incomplete
@@ -74,7 +74,7 @@ class TotalAnnotator(LegendColEndCallout):
         fontName: str | None = None,
         fontSize: int = 10,
         fillColor=...,
-        strokeWidth: float = 0.5,
+        strokeWidth: FloatInt = 0.5,
         strokeColor=...,
         strokeDashArray=None,
         dx: int = 0,

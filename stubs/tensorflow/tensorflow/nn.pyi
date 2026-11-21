@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Sequence
 from typing import Any, Literal, overload
 
@@ -50,7 +51,7 @@ def avg_pool3d(
     name: str | None = None,
 ) -> Tensor: ...
 def batch_normalization(
-    x: Tensor, mean: Tensor, variance: Tensor, offset: Tensor, scale: Tensor, variance_epsilon: float, name: str | None = None
+    x: Tensor, mean: Tensor, variance: Tensor, offset: Tensor, scale: Tensor, variance_epsilon: FloatInt, name: str | None = None
 ) -> Tensor: ...
 def bias_add(
     value: Tensor, bias: Tensor, data_format: Literal["N...C", "NC..."] | None = None, name: str | None = None
@@ -159,14 +160,14 @@ def ctc_unique_labels(labels: Tensor, name: str | None = None) -> tuple[Tensor, 
 
 @overload
 def embedding_lookup(
-    params: TensorCompatible, ids: TensorCompatible, max_norm: float | None = None, name: str | None = None
+    params: TensorCompatible, ids: TensorCompatible, max_norm: FloatInt | None = None, name: str | None = None
 ) -> Tensor: ...
 @overload
 def embedding_lookup(
-    params: TensorCompatible, ids: RaggedTensor, max_norm: float | None = None, name: str | None = None
+    params: TensorCompatible, ids: RaggedTensor, max_norm: FloatInt | None = None, name: str | None = None
 ) -> RaggedTensor: ...
 
-def leaky_relu(features: TensorCompatible, alpha: float = 0.2, name: str | None = None) -> Tensor: ...
+def leaky_relu(features: TensorCompatible, alpha: FloatInt = 0.2, name: str | None = None) -> Tensor: ...
 def log_poisson_loss(
     targets: TensorCompatible, log_input: TensorCompatible, compute_full_loss: bool = False, name: str | None = None
 ) -> Tensor: ...
@@ -189,7 +190,7 @@ def safe_embedding_lookup_sparse(
     sparse_weights: SparseTensor | None = None,
     combiner: str = "mean",
     default_id: ScalarTensorCompatible | None = None,
-    max_norm: float | None = None,
+    max_norm: FloatInt | None = None,
     name: str | None = None,
     allow_fast_lookup: bool = False,
 ) -> Tensor: ...

@@ -1,4 +1,4 @@
-from _typeshed import Unused
+from _typeshed import FloatInt, Unused
 from collections.abc import Callable, Sequence
 from typing import Any, Literal, TypeVar
 from typing_extensions import deprecated
@@ -26,7 +26,7 @@ def set_theme(
     style: Literal["white", "dark", "whitegrid", "darkgrid", "ticks"] | dict[str, Any] = "darkgrid",
     palette: str | Sequence[ColorType] | None = "deep",
     font: str = "sans-serif",
-    font_scale: float = 1,
+    font_scale: FloatInt = 1,
     color_codes: bool = True,
     rc: dict[str, Any] | None = None,
 ) -> None: ...
@@ -36,7 +36,7 @@ def set(
     style: Literal["white", "dark", "whitegrid", "darkgrid", "ticks"] | dict[str, Any] = "darkgrid",
     palette: str | Sequence[ColorType] | None = "deep",
     font: str = "sans-serif",
-    font_scale: float = 1,
+    font_scale: FloatInt = 1,
     color_codes: bool = True,
     rc: dict[str, Any] | None = None,
 ) -> None: ...
@@ -52,12 +52,12 @@ def set_style(
 ) -> None: ...
 def plotting_context(
     context: Literal["paper", "notebook", "talk", "poster"] | dict[str, Any] | None = None,
-    font_scale: float = 1,
+    font_scale: FloatInt = 1,
     rc: dict[str, Any] | None = None,
 ) -> _PlottingContext[str, Any]: ...
 def set_context(
     context: Literal["paper", "notebook", "talk", "poster"] | dict[str, Any] | None = None,
-    font_scale: float = 1,
+    font_scale: FloatInt = 1,
     rc: dict[str, Any] | None = None,
 ) -> None: ...
 
@@ -70,5 +70,8 @@ class _AxesStyle(_RCAesthetics[_KT, _VT]): ...
 class _PlottingContext(_RCAesthetics[_KT, _VT]): ...
 
 def set_palette(
-    palette: str | Sequence[ColorType] | None, n_colors: int | None = None, desat: float | None = None, color_codes: bool = False
+    palette: str | Sequence[ColorType] | None,
+    n_colors: int | None = None,
+    desat: FloatInt | None = None,
+    color_codes: bool = False,
 ) -> None: ...

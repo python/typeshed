@@ -1,4 +1,4 @@
-from _typeshed import StrPath
+from _typeshed import FloatInt, StrPath
 from collections.abc import Collection
 
 from xdg.IniFile import IniFile
@@ -43,8 +43,8 @@ class IconData(IniFile):
 icondirs: list[str]
 themes: list[IconTheme]
 theme_cache: dict[str, IconTheme]
-dir_cache: dict[str, tuple[str, float, float]]
-icon_cache: dict[tuple[str, int, str, tuple[str, ...]], tuple[float, str]]
+dir_cache: dict[str, tuple[str, FloatInt, FloatInt]]
+icon_cache: dict[tuple[str, int, str, tuple[str, ...]], tuple[FloatInt, str]]
 
 def getIconPath(
     iconname: str, size: int | None = None, theme: str | None = None, extensions: Collection[str] = ["png", "svg", "xpm"]

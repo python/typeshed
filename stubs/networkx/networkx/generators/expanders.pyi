@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from typing_extensions import deprecated
 
 from networkx.classes.graph import Graph, _Node
@@ -31,6 +31,6 @@ def maybe_regular_expander_graph(n: int, d: int, *, create_using=None, max_tries
 )
 def maybe_regular_expander(n, d, *, create_using=None, max_tries: int = 100, seed=None): ...
 @_dispatchable
-def is_regular_expander(G: Graph[_Node], *, epsilon: float = 0) -> bool: ...
+def is_regular_expander(G: Graph[_Node], *, epsilon: FloatInt = 0) -> bool: ...
 @_dispatchable
 def random_regular_expander_graph(n: int, d: int, *, epsilon=0, create_using=None, max_tries=100, seed=None) -> Graph[int]: ...

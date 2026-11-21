@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from typing import Literal
 
 from shapely import MultiPolygon, Polygon
@@ -8,10 +9,10 @@ from ..geoseries import GeoSeries
 def make_grid(
     input_geometry: Polygon | MultiPolygon | GeoSeries | GeoDataFrame,
     /,
-    cell_size: float,
+    cell_size: FloatInt,
     grid_type: Literal["square", "hexagon"] = "square",
     feature_type: Literal["centers", "corners", "polygons"] = "polygons",
-    offset: tuple[float, float] | None = None,
+    offset: tuple[FloatInt, FloatInt] | None = None,
     intersect: bool = True,
     flat_topped: bool = False,
 ) -> GeoSeries: ...

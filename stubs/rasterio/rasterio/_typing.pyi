@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Callable, Mapping, Sequence
 from enum import Enum
 from typing import Any, BinaryIO, Protocol, TypeAlias, type_check_only
@@ -57,7 +58,7 @@ _OGRGeometry: TypeAlias = Any  # noqa: Y047
 
 # Scalar or arbitrarily nested list of scalars; used by helpers that
 # recurse into sequences while preserving the nesting depth.
-_NestedScalar: TypeAlias = float | list[_NestedScalar]  # noqa: Y047
+_NestedScalar: TypeAlias = FloatInt | list[_NestedScalar]  # noqa: Y047
 
 # fsspec-style opener forwarded to `rasterio.open(opener=...)`:
 # `(path: str, mode: str) -> file-like`.

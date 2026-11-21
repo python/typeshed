@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from typing import Final, Literal
 
 __version__: Final[str]
@@ -25,7 +25,7 @@ eps_ttf_embed_uid: Final[int]
 overlapAttachedSpace: Final[int]
 longTableOptimize: Final[int]
 autoConvertEncoding: Final[int]
-_FUZZ: Final[float]
+_FUZZ: Final[FloatInt]
 wrapA85: Final[int]
 fsEncodings: Final[tuple[Literal["utf8"], Literal["cp1252"], Literal["cp430"]]]
 odbc_driver: Final[str]
@@ -51,7 +51,7 @@ decimalSymbol: Final[str]
 errorOnDuplicatePageLabelPage: Final[int]
 autoGenerateMissingTTFName: Final[int]
 allowTTFSubsetting: Final[list[str]]
-spaceShrinkage: Final[float]
+spaceShrinkage: Final[FloatInt]
 hyphenationLang: Final[str]
 uriWasteReduce: Final[int]
 embeddedHyphenation: Final[int]
@@ -65,7 +65,7 @@ renderPMBackend: Final[str]
 xmlParser: Final[str]
 textPaths: Final[str]
 toColorCanUse: Final[str]
-defCWRF: Final[float]
+defCWRF: Final[FloatInt]
 unShapedFontGlob: list[str] | None
 std14Embed: Final[bool]
 T1SearchPath: Final[tuple[str, ...]]
