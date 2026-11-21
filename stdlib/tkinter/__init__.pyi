@@ -911,7 +911,13 @@ class Wm:
             # X11
             @overload
             def wm_attributes(
-                self, *, alpha: float | int = ..., topmost: bool = ..., zoomed: bool = ..., fullscreen: bool = ..., type: str = ...
+                self,
+                *,
+                alpha: float | int = ...,
+                topmost: bool = ...,
+                zoomed: bool = ...,
+                fullscreen: bool = ...,
+                type: str = ...,
             ) -> None: ...
 
     attributes = wm_attributes
