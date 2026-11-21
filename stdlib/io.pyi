@@ -20,7 +20,7 @@ from _io import (
     open as open,
     open_code as open_code,
 )
-from typing import Final, Protocol, TypeVar
+from typing import Final, Protocol, TypeVar, runtime_checkable
 
 __all__ = [
     "BlockingIOError",
@@ -66,10 +66,12 @@ class BufferedIOBase(_BufferedIOBase, IOBase): ...
 class TextIOBase(_TextIOBase, IOBase): ...
 
 if sys.version_info >= (3, 14):
+    @runtime_checkable
     class Reader(Protocol[_T_co]):
         __slots__ = ()
         def read(self, size: int = ..., /) -> _T_co: ...
 
+    @runtime_checkable
     class Writer(Protocol[_T_contra]):
         __slots__ = ()
         def write(self, data: _T_contra, /) -> int: ...
