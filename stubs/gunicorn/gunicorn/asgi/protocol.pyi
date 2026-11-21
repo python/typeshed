@@ -10,7 +10,11 @@ from gunicorn.workers.gasgi import ASGIWorker
 
 from .._types import _ASGIAppType
 
+def secure_scheme_names(secure_scheme_headers: Iterable[str]) -> frozenset[bytes]: ...
+
 HIGH_WATER_LIMIT: Final = 65536
+
+class ClientDisconnected(OSError): ...
 
 class FlowControl:
     __slots__ = ("_transport", "read_paused", "write_paused", "_is_writable_event")
@@ -38,12 +42,28 @@ class _BodyReceieverReceiveReturnType(TypedDict):
     more_body: NotRequired[bool]
 
 class BodyReceiver:
-    __slots__ = ("_chunks", "_complete", "_body_finished", "_closed", "_body_wait_expired", "_waiter", "request", "protocol")
+    __slots__ = (
+        "_chunks",
+        "_complete",
+        "_source",
+        "_complete",
+        "_body_finished",
+        "_closed",
+        "_body_wait_expired",
+        "_waiter",
+        "request",
+        "protocol",
+        "expect_continue",
+    )
+
     request: CallbackRequest
     protocol: ASGIProtocol
+    expect_continue: bool
 
     def __init__(self, request: CallbackRequest, protocol: ASGIProtocol) -> None: ...
     def feed(self, chunk: bytes) -> None: ...
+    @property
+    def buffered(self) -> int: ...
     def set_complete(self) -> None: ...
     def signal_disconnect(self) -> None: ...
     async def receive(self) -> _BodyReceieverReceiveReturnType: ...
