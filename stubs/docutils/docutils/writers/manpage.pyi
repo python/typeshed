@@ -14,11 +14,11 @@ class _RegexPatternSub(Protocol):
     def __call__(self, /, repl: str | Callable[[re.Match[str]], str], string: str, count: int = 0) -> str: ...
 
 __docformat__: Final = "reStructuredText"
-FIELD_LIST_INDENT: Final[int]
-DEFINITION_LIST_INDENT: Final[int]
-OPTION_LIST_INDENT: Final[int]
-BLOCKQOUTE_INDENT: Final[FloatInt]
-LITERAL_BLOCK_INDENT: Final[FloatInt]
+FIELD_LIST_INDENT: Final = 7
+DEFINITION_LIST_INDENT: Final = 7
+OPTION_LIST_INDENT: Final = 7
+BLOCKQOUTE_INDENT: Final = 3.5
+LITERAL_BLOCK_INDENT: Final = 3.5
 MACRO_DEF: Final[str]
 NONPRINTING_BREAKPOINT: Final[str]
 NONBREAKING_INSERT_RE: Final[re.Pattern[str]]

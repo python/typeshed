@@ -1,10 +1,10 @@
-from _typeshed import FloatInt
 from typing import Final
 
 __version__: Final[str]
-inch: Final[FloatInt]
-cm: Final[FloatInt]
-mm: Final[FloatInt]
-pica: Final[FloatInt]
+
+inch: Final[float]
+cm: Final[float]
+mm: Final[float]
+pica: Final[float]
 
 def toLength(s: str) -> float: ...

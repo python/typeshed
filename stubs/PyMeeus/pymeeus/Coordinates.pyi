@@ -6,8 +6,8 @@ from pymeeus.Angle import Angle
 from pymeeus.Epoch import Epoch
 
 NUTATION_ARG_TABLE: Final[list[list[int]]]
-NUTATION_SINE_COEF_TABLE: Final[list[list[FloatInt]]]
-NUTATION_COSINE_COEF_TABLE: Final[list[list[FloatInt]]]
+NUTATION_SINE_COEF_TABLE: Final[list[list[float]]]
+NUTATION_COSINE_COEF_TABLE: Final[list[list[float]]]
 
 @overload
 def mean_obliquity(

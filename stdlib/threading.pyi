@@ -81,7 +81,7 @@ if sys.version_info >= (3, 15):
 
 def stack_size(size: int = 0, /) -> int: ...
 
-TIMEOUT_MAX: Final[FloatInt]
+TIMEOUT_MAX: Final[float]
 
 ThreadError = _thread.error
 local = _thread._local
