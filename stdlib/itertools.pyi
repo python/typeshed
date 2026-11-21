@@ -7,7 +7,7 @@ from typing_extensions import Self, disjoint_base
 
 _T = TypeVar("_T")
 _S = TypeVar("_S")
-_N = TypeVar("_N", int, float, SupportsFloat, SupportsInt, SupportsIndex, SupportsComplex)
+_N = TypeVar("_N", float, int, SupportsFloat, SupportsInt, SupportsIndex, SupportsComplex)
 _T_co = TypeVar("_T_co", covariant=True)
 _S_co = TypeVar("_S_co", covariant=True)
 _T1 = TypeVar("_T1")

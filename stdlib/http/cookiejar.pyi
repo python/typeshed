@@ -1,4 +1,4 @@
-from _typeshed import StrPath
+from _typeshed import FloatInt, StrPath
 from collections.abc import Iterator, Sequence
 from http.client import HTTPResponse
 from re import Pattern
@@ -140,7 +140,7 @@ class Cookie:
         path: str,
         path_specified: bool,
         secure: bool,
-        expires: float | str | None,
+        expires: FloatInt | str | None,
         discard: bool,
         comment: str | None,
         comment_url: str | None,

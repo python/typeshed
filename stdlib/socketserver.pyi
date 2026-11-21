@@ -1,7 +1,7 @@
 import sys
 import types
 from _socket import _Address, _RetAddress
-from _typeshed import ReadableBuffer
+from _typeshed import FloatInt, ReadableBuffer
 from collections.abc import Callable
 from io import BufferedIOBase
 from socket import socket as _socket
@@ -40,13 +40,13 @@ _AfInet6Address: TypeAlias = tuple[str | bytes | bytearray, int, int, int]  # ad
 # This can possibly be generic at some point:
 class BaseServer:
     server_address: _Address
-    timeout: float | None
+    timeout: FloatInt | None
     RequestHandlerClass: Callable[[Any, _RetAddress, Self], BaseRequestHandler]
     def __init__(
         self, server_address: _Address, RequestHandlerClass: Callable[[Any, _RetAddress, Self], BaseRequestHandler]
     ) -> None: ...
     def handle_request(self) -> None: ...
-    def serve_forever(self, poll_interval: float = 0.5) -> None: ...
+    def serve_forever(self, poll_interval: FloatInt = 0.5) -> None: ...
     def shutdown(self) -> None: ...
     def server_close(self) -> None: ...
     def finish_request(self, request: _RequestType, client_address: _RetAddress) -> None: ...
@@ -108,7 +108,7 @@ if sys.platform != "win32":
 
 if sys.platform != "win32":
     class ForkingMixIn:
-        timeout: float | None  # undocumented
+        timeout: FloatInt | None  # undocumented
         active_children: set[int] | None  # undocumented
         max_children: int  # undocumented
         block_on_close: bool
@@ -157,7 +157,7 @@ class BaseRequestHandler:
 class StreamRequestHandler(BaseRequestHandler):
     rbufsize: ClassVar[int]  # undocumented
     wbufsize: ClassVar[int]  # undocumented
-    timeout: ClassVar[float | None]  # undocumented
+    timeout: ClassVar[FloatInt | None]  # undocumented
     disable_nagle_algorithm: ClassVar[bool]  # undocumented
     connection: Any  # undocumented
     rfile: BufferedIOBase

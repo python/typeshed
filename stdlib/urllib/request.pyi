@@ -1,6 +1,6 @@
 import ssl
 import sys
-from _typeshed import ReadableBuffer, StrOrBytesPath, SupportsItems, SupportsRead
+from _typeshed import FloatInt, ReadableBuffer, StrOrBytesPath, SupportsItems, SupportsRead
 from collections.abc import Callable, Iterable, Mapping, MutableMapping, Sequence
 from email.message import Message
 from http.client import HTTPConnection, HTTPMessage, HTTPResponse
@@ -61,7 +61,11 @@ _DataType: TypeAlias = ReadableBuffer | SupportsRead[bytes] | Iterable[bytes] | 
 
 if sys.version_info >= (3, 13):
     def urlopen(
-        url: str | Request, data: _DataType | None = None, timeout: float | None = ..., *, context: ssl.SSLContext | None = None
+        url: str | Request,
+        data: _DataType | None = None,
+        timeout: FloatInt | None = ...,
+        *,
+        context: ssl.SSLContext | None = None,
     ) -> _UrlopenRet: ...
 
 else:
@@ -69,7 +73,7 @@ else:
     def urlopen(
         url: str | Request,
         data: _DataType | None = None,
-        timeout: float | None = ...,
+        timeout: FloatInt | None = ...,
         *,
         cafile: None = None,
         capath: None = None,
@@ -84,7 +88,7 @@ else:
     def urlopen(
         url: str | Request,
         data: _DataType | None = None,
-        timeout: float | None = ...,
+        timeout: FloatInt | None = ...,
         *,
         cafile: StrOrBytesPath | None = None,
         capath: StrOrBytesPath | None = None,
@@ -138,7 +142,7 @@ class Request:
     unredirected_hdrs: dict[str, str]
     unverifiable: bool
     method: str | None
-    timeout: float | None  # Undocumented, only set after __init__() by OpenerDirector.open()
+    timeout: FloatInt | None  # Undocumented, only set after __init__() by OpenerDirector.open()
     def __init__(
         self,
         url: str,
@@ -167,7 +171,7 @@ class Request:
 class OpenerDirector:
     addheaders: list[tuple[str, str]]
     def add_handler(self, handler: BaseHandler) -> None: ...
-    def open(self, fullurl: str | Request, data: _DataType = None, timeout: float | None = ...) -> _UrlopenRet: ...
+    def open(self, fullurl: str | Request, data: _DataType = None, timeout: FloatInt | None = ...) -> _UrlopenRet: ...
     def error(self, proto: str, *args: Any) -> _UrlopenRet: ...
     def close(self) -> None: ...
 
@@ -275,7 +279,7 @@ class _HTTPConnectionProtocol(Protocol):
         /,
         *,
         port: int | None = ...,
-        timeout: float = ...,
+        timeout: FloatInt = ...,
         source_address: tuple[str, int] | None = ...,
         blocksize: int = ...,
     ) -> HTTPConnection: ...
@@ -318,7 +322,7 @@ class DataHandler(BaseHandler):
 
 class ftpwrapper:  # undocumented
     def __init__(
-        self, user: str, passwd: str, host: str, port: int, dirs: str, timeout: float | None = None, persistent: bool = True
+        self, user: str, passwd: str, host: str, port: int, dirs: str, timeout: FloatInt | None = None, persistent: bool = True
     ) -> None: ...
     def close(self) -> None: ...
     def endtransfer(self) -> None: ...
@@ -330,11 +334,11 @@ class ftpwrapper:  # undocumented
 class FTPHandler(BaseHandler):
     def ftp_open(self, req: Request) -> addinfourl: ...
     def connect_ftp(
-        self, user: str, passwd: str, host: str, port: int, dirs: str, timeout: float
+        self, user: str, passwd: str, host: str, port: int, dirs: str, timeout: FloatInt
     ) -> ftpwrapper: ...  # undocumented
 
 class CacheFTPHandler(FTPHandler):
-    def setTimeout(self, t: float) -> None: ...
+    def setTimeout(self, t: FloatInt) -> None: ...
     def setMaxConns(self, m: int) -> None: ...
     def check_cache(self) -> None: ...  # undocumented
     def clear_cache(self) -> None: ...  # undocumented
