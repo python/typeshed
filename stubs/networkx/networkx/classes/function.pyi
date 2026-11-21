@@ -1,8 +1,9 @@
 from _typeshed import Incomplete, SupportsItems, SupportsKeysAndGetItem, Unused
 from collections.abc import Callable, Collection, Generator, Iterable, Iterator
-from typing import Literal, TypeVar, overload
+from typing import Any, Literal, TypeVar, overload
 
 from networkx import _dispatchable
+from networkx._typing import Scalar
 from networkx.algorithms.planarity import PlanarEmbedding
 from networkx.classes.digraph import DiGraph
 from networkx.classes.graph import Graph, _EdgeData, _NBunch, _Node, _NodeData
@@ -82,15 +83,15 @@ def to_directed(graph): ...
 def to_undirected(graph): ...
 def create_empty_copy(G: Graph[_Node], with_data: bool = True): ...
 
-# incomplete: Can "Any scalar value" be enforced?
+# Values can be a dict-like mapping or any scalar value when name is provided
 @overload
 def set_node_attributes(
     G: Graph[_Node],
-    values: SupportsItems[_Node, Unused],
+    values: SupportsItems[_Node, Unused] | Scalar,
     name: str,
     *,
-    backend=None,  # @_dispatchable adds these arguments, but we can't use this decorator with @overload
-    **backend_kwargs,
+    backend: str | None = None,  # @_dispatchable adds these arguments, but we can't use this decorator with @overload
+    **backend_kwargs: Any,
 ) -> None: ...
 @overload
 def set_node_attributes(
@@ -98,8 +99,8 @@ def set_node_attributes(
     values: SupportsItems[_Node, SupportsKeysAndGetItem[Incomplete, Incomplete] | Iterable[tuple[Incomplete, Incomplete]]],
     name: None = None,
     *,
-    backend=None,
-    **backend_kwargs,
+    backend: str | None = None,
+    **backend_kwargs: Any,
 ) -> None: ...
 
 @_dispatchable
@@ -109,24 +110,36 @@ def remove_node_attributes(G: Graph[_Node], *attr_names, nbunch=None) -> None: .
 
 @overload
 def set_edge_attributes(
-    G: Graph[_Node],
-    values: SupportsItems[tuple[_Node, _Node], Incomplete],
-    name: str,
-    *,
-    backend: str | None = None,  # @_dispatchable adds these arguments, but we can't use this decorator with @overload
-    **backend_kwargs,
-) -> None: ...
-@overload
-def set_edge_attributes(
     G: MultiGraph[_Node],
-    values: dict[tuple[_Node, _Node, Incomplete], Incomplete],
+    values: dict[tuple[_Node, _Node, Incomplete], Incomplete] | Scalar,
     name: str,
     *,
     backend: str | None = None,
-    **backend_kwargs,
+    **backend_kwargs: Any,
 ) -> None: ...
 @overload
-def set_edge_attributes(G: Graph[_Node], values, name: None = None, *, backend: str | None = None, **backend_kwargs) -> None: ...
+def set_edge_attributes(
+    G: Graph[_Node],
+    values: SupportsItems[tuple[_Node, _Node], Incomplete] | Scalar,
+    name: str,
+    *,
+    backend: str | None = None,  # @_dispatchable adds these arguments, but we can't use this decorator with @overload
+    **backend_kwargs: Any,
+) -> None: ...
+@overload
+def set_edge_attributes(
+    G: Graph[_Node],
+    values: (
+        SupportsItems[
+            tuple[_Node, _Node], SupportsKeysAndGetItem[Incomplete, Incomplete] | Iterable[tuple[Incomplete, Incomplete]]
+        ]
+        | Incomplete
+    ),
+    name: None = None,
+    *,
+    backend: str | None = None,
+    **backend_kwargs: Any,
+) -> None: ...
 
 @_dispatchable
 def get_edge_attributes(G: Graph[_Node], name: str, default=None) -> dict[tuple[_Node, _Node], Incomplete]: ...

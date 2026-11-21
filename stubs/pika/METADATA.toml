@@ -2,6 +2,7 @@ version = "1.4.*"
 upstream-repository = "https://github.com/pika/pika"
 stub-distribution = "types-pika-ts" # https://github.com/python/typeshed/issues/9246
 optional-dependencies = ["types-gevent"]
+obsolete-since = {version = "1.5.0", date = "2026-11-17"}
 
 [tool.stubtest]
 stubtest-dependencies = ["gevent", "tornado", "twisted"]
