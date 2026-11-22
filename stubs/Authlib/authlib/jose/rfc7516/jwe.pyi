@@ -1,12 +1,13 @@
 from _typeshed import FloatInt, Incomplete, ReadableBuffer
 from collections import OrderedDict
 from collections.abc import Iterable
-from typing import SupportsBytes, SupportsIndex
+from typing import Final, SupportsBytes, SupportsIndex
 
 from .models import JWEAlgorithmBase, JWEEncAlgorithm, JWEZipAlgorithm
 
 class JsonWebEncryption:
     REGISTERED_HEADER_PARAMETER_NAMES: frozenset[str]
+    MAX_RECIPIENTS: Final = 16
     ALG_REGISTRY: dict[str, JWEAlgorithmBase]
     ENC_REGISTRY: dict[str, JWEEncAlgorithm]
     ZIP_REGISTRY: dict[str, JWEZipAlgorithm]
