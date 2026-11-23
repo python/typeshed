@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
 
-from networkx.classes.graph import Graph, _Node
+from networkx.classes.graph import Graph, _EdgeData, _Node, _NodeData
 from networkx.utils.backends import _dispatchable
 
 __all__ = [
@@ -16,28 +16,34 @@ __all__ = [
 ]
 
 @_dispatchable
-def single_source_shortest_path_length(G: Graph[_Node], source: _Node, cutoff: int | None = None) -> dict[Incomplete, int]: ...
+def single_source_shortest_path_length(
+    G: Graph[_Node, _NodeData, _EdgeData], source: _Node, cutoff: int | None = None
+) -> dict[Incomplete, int]: ...
 @_dispatchable
 def single_target_shortest_path_length(
-    G: Graph[_Node], target: _Node, cutoff: int | None = None
+    G: Graph[_Node, _NodeData, _EdgeData], target: _Node, cutoff: int | None = None
 ) -> dict[Incomplete, Incomplete]: ...
 @_dispatchable
-def all_pairs_shortest_path_length(G: Graph[_Node], cutoff: int | None = None) -> Generator[Incomplete]: ...
+def all_pairs_shortest_path_length(G: Graph[_Node, _NodeData, _EdgeData], cutoff: int | None = None) -> Generator[Incomplete]: ...
 @_dispatchable
-def bidirectional_shortest_path(G: Graph[_Node], source: _Node, target: _Node) -> list[Incomplete]: ...
+def bidirectional_shortest_path(G: Graph[_Node, _NodeData, _EdgeData], source: _Node, target: _Node) -> list[Incomplete]: ...
 @_dispatchable
 def single_source_shortest_path(
-    G: Graph[_Node], source: _Node, cutoff: int | None = None
+    G: Graph[_Node, _NodeData, _EdgeData], source: _Node, cutoff: int | None = None
 ) -> dict[Incomplete, list[Incomplete]]: ...
 @_dispatchable
 def single_target_shortest_path(
-    G: Graph[_Node], target: _Node, cutoff: int | None = None
+    G: Graph[_Node, _NodeData, _EdgeData], target: _Node, cutoff: int | None = None
 ) -> dict[Incomplete, list[Incomplete]]: ...
 @_dispatchable
 def all_pairs_shortest_path(
-    G: Graph[_Node], cutoff: int | None = None
+    G: Graph[_Node, _NodeData, _EdgeData], cutoff: int | None = None
 ) -> Generator[tuple[Incomplete, dict[Incomplete, list[Incomplete]]]]: ...
 @_dispatchable
 def predecessor(
-    G: Graph[_Node], source: _Node, target: _Node | None = None, cutoff: int | None = None, return_seen: bool | None = None
+    G: Graph[_Node, _NodeData, _EdgeData],
+    source: _Node,
+    target: _Node | None = None,
+    cutoff: int | None = None,
+    return_seen: bool | None = None,
 ) -> dict[_Node, list[_Node]] | list[_Node] | tuple[dict[_Node, list[_Node]], dict[_Node, int]] | tuple[list[_Node], int]: ...
