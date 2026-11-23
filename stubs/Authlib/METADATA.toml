@@ -1,4 +1,4 @@
-version = "1.9.6"
+version = "1.9.10"
 upstream-repository = "https://github.com/authlib/authlib"
 dependencies = ["cryptography"]
 # Requires a version of flask with a `py.typed` file
