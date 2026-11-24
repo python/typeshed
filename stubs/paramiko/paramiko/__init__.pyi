@@ -39,7 +39,11 @@ from paramiko.ssh_exception import (
     ProxyCommandFailure as ProxyCommandFailure,
     SSHException as SSHException,
 )
-from paramiko.transport import SecurityOptions as SecurityOptions, Transport as Transport
+from paramiko.transport import (
+    SecurityOptions as SecurityOptions,
+    ServiceRequestingTransport as ServiceRequestingTransport,
+    Transport as Transport,
+)
 
 __version__: Final[str]
 __author__: Final[str]
