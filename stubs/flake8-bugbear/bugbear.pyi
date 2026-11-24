@@ -271,6 +271,8 @@ B006_MUTABLE_LITERALS: Final[tuple[Literal["Dict"], Literal["List"], Literal["Se
 B006_MUTABLE_COMPREHENSIONS: Final[tuple[Literal["ListComp"], Literal["DictComp"], Literal["SetComp"]]]
 B006_MUTABLE_CALLS: Final[set[str]]
 B008_IMMUTABLE_CALLS: Final[set[str]]
+B040_HANDLED_EXCEPTION_CALLS: Final[tuple[str, str]]
+B040_HANDLED_EXCEPTION_NAMES: Final[set[str]]
 B014_REDUNDANT_EXCEPTIONS: Final[dict[Literal["OSError", "ValueError"], set[str]]]
 B019_CACHES: Final[set[str]]
 B046_DICT_TYPES: Final[set[str]]
