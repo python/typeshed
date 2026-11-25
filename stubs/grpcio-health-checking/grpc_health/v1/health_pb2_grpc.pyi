@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 from typing import Any, Final
 
 import grpc
@@ -8,6 +9,9 @@ GRPC_GENERATED_VERSION: Final[str]
 GRPC_VERSION: Final[str]
 
 class HealthStub:
+    Check: Incomplete
+    List: Incomplete
+    Watch: Incomplete
     def __init__(self, channel: grpc.Channel | aio.Channel) -> None: ...
 
 class HealthServicer:
