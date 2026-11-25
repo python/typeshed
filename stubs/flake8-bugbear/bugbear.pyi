@@ -1,7 +1,7 @@
 import argparse
 import ast
-import tokenize
 import sys
+import tokenize
 from collections.abc import Iterable, Iterator
 from logging import Logger
 from typing import Any, ClassVar, Final, Literal, NamedTuple, Protocol
@@ -205,6 +205,7 @@ class BugBearVisitor(ast.NodeVisitor):
         def check_for_b047(self, node: ast.Try | ast.TryStar) -> None: ...
     else:
         def check_for_b047(self, node: ast.Try) -> None: ...
+
     def check_for_b048(self, node: ast.Call) -> None: ...
     def check_for_b049(self, node: ast.FunctionDef | ast.AsyncFunctionDef) -> None: ...
     def check_for_b909(self, node: ast.For) -> None: ...
