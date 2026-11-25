@@ -1,10 +1,11 @@
 import urllib.request
+from _typeshed import FloatInt
 from typing import Any, Protocol, type_check_only
 
 @type_check_only
 class _HTTPClientProtocol(Protocol):  # noqa: Y046
     def download(
-        self, uri: str, timeout: float | None = None, headers: dict[str, Any] = {}, verify_ssl: bool = True
+        self, uri: str, timeout: FloatInt | None = None, headers: dict[str, Any] = {}, verify_ssl: bool = True
     ) -> tuple[str, str]: ...
 
 class DefaultHTTPClient:
@@ -12,7 +13,7 @@ class DefaultHTTPClient:
 
     def __init__(self, proxies: dict[str, str] | None = None) -> None: ...
     def download(
-        self, uri: str, timeout: float | None = None, headers: dict[str, Any] = {}, verify_ssl: bool = True
+        self, uri: str, timeout: FloatInt | None = None, headers: dict[str, Any] = {}, verify_ssl: bool = True
     ) -> tuple[str, str]: ...
 
 class HTTPSHandler:

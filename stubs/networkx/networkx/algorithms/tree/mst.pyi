@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from collections.abc import Callable, Generator, Iterator
 from dataclasses import dataclass
 from enum import Enum
@@ -69,24 +69,24 @@ def maximum_spanning_edges(
 @_dispatchable
 def minimum_spanning_tree(
     G: Graph[_Node], weight: str = "weight", algorithm: str = "kruskal", ignore_nan: bool = False
-) -> Graph[Incomplete]: ...
+) -> Graph[_Node]: ...
 @_dispatchable
 def partition_spanning_tree(
     G: Graph[_Node], minimum: bool = True, weight: str = "weight", partition: str = "partition", ignore_nan: bool = False
-) -> Graph[Incomplete]: ...
+) -> Graph[_Node]: ...
 @_dispatchable
 def maximum_spanning_tree(
     G: Graph[_Node], weight: str = "weight", algorithm: str = "kruskal", ignore_nan: bool = False
-) -> Graph[Incomplete]: ...
+) -> Graph[_Node]: ...
 @_dispatchable
 def random_spanning_tree(
     G: Graph[_Node], weight: str | None = None, *, multiplicative=True, seed: int | RandomState | None = None
-) -> Graph[Incomplete]: ...
+) -> Graph[_Node]: ...
 
 class SpanningTreeIterator:
     @dataclass(order=True)
     class Partition:
-        mst_weight: float
+        mst_weight: FloatInt
         partition_dict: dict[Incomplete, Incomplete]
         def __copy__(self) -> SpanningTreeIterator.Partition: ...
 

@@ -40,6 +40,14 @@ When merging pull requests, follow these guidelines:
   and assume that the reader has no access to the diff.
 * Delete branches for merged PRs (by maintainers pushing to the main repo).
 
+## Subscribing to Changes with CODEOWNERS
+
+The [`.github/CODEOWNERS`](../.github/CODEOWNERS) file lets maintainers subscribe to changes to specific stubs. GitHub automatically requests a review from everyone listed for the paths a pull request touches.
+
+Despite its name, this file is not about who "owns" the code. Being listed is only a way to get notified. It grants no extra permissions, and a review from a listed person is not required to merge a PR.
+
+Maintainers can freely add and remove themselves. GitHub [requires code owners to have write access to the repository](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners#codeowners-syntax).
+
 ## Marking PRs as "deferred"
 
 *See also the [guidelines in the CONTRIBUTING file](../CONTRIBUTING.md#marking-prs-as-deferred).*

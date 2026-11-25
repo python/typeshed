@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Mapping
 from typing import TypeAlias
 
@@ -10,7 +11,7 @@ from .emitter import _WriteStream, _YAMLObject
 
 # Ideally, there would be a way to limit these values to only +/- float("inf"),
 # but that's not possible at the moment (https://github.com/python/typing/issues/1160).
-_Inf: TypeAlias = float
+_Inf: TypeAlias = FloatInt
 
 class BaseDumper(Emitter, Serializer, BaseRepresenter, BaseResolver):
     def __init__(

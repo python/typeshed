@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from typing import IO, Final
 
 from reportlab.graphics.renderbase import Renderer
@@ -8,7 +8,7 @@ from reportlab.platypus import Flowable
 
 __version__: Final[str]
 
-def draw(drawing: Drawing, canvas: Canvas, x: float, y: float, showBoundary=...) -> None: ...
+def draw(drawing: Drawing, canvas: Canvas, x: FloatInt, y: FloatInt, showBoundary=...) -> None: ...
 
 class _PDFRenderer(Renderer):
     def __init__(self) -> None: ...

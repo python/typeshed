@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from abc import ABC, abstractmethod
 from collections.abc import Callable
 from typing import Any, Final, Literal, TypeAlias, TypeGuard, TypeVar, overload
@@ -27,7 +28,7 @@ class BinaryCrossentropy(Loss):
     def __init__(
         self,
         from_logits: bool = False,
-        label_smoothing: float = 0.0,
+        label_smoothing: FloatInt = 0.0,
         axis: int = -1,
         reduction: _ReductionValues = "sum_over_batch_size",
         name: str | None = "binary_crossentropy",
@@ -39,10 +40,10 @@ class BinaryFocalCrossentropy(Loss):
     def __init__(
         self,
         apply_class_balancing: bool = False,
-        alpha: float = 0.25,
-        gamma: float = 2.0,
+        alpha: FloatInt = 0.25,
+        gamma: FloatInt = 2.0,
         from_logits: bool = False,
-        label_smoothing: float = 0.0,
+        label_smoothing: FloatInt = 0.0,
         axis: int = -1,
         reduction: _ReductionValues = "sum_over_batch_size",
         name: str | None = "binary_focal_crossentropy",
@@ -54,7 +55,7 @@ class CategoricalCrossentropy(Loss):
     def __init__(
         self,
         from_logits: bool = False,
-        label_smoothing: float = 0.0,
+        label_smoothing: FloatInt = 0.0,
         axis: int = -1,
         reduction: _ReductionValues = "sum_over_batch_size",
         name: str | None = "categorical_crossentropy",
@@ -84,7 +85,11 @@ class Hinge(Loss):
 
 class Huber(Loss):
     def __init__(
-        self, delta: float = 1.0, reduction: _ReductionValues = "sum_over_batch_size", name: str | None = "huber_loss", dtype=None
+        self,
+        delta: FloatInt = 1.0,
+        reduction: _ReductionValues = "sum_over_batch_size",
+        name: str | None = "huber_loss",
+        dtype=None,
     ) -> None: ...
     def call(self, y_true: Tensor, y_pred: Tensor) -> Tensor: ...
 
@@ -158,7 +163,7 @@ class Reduction:
 _ReductionValues: TypeAlias = Literal["auto", "none", "sum", "sum_over_batch_size"]
 
 def categorical_hinge(y_true: TensorCompatible, y_pred: TensorCompatible) -> Tensor: ...
-def huber(y_true: TensorCompatible, y_pred: TensorCompatible, delta: float = 1.0) -> Tensor: ...
+def huber(y_true: TensorCompatible, y_pred: TensorCompatible, delta: FloatInt = 1.0) -> Tensor: ...
 def deserialize(name: str | dict[str, Any], custom_objects: dict[str, Any] | None = None) -> Loss: ...
 def serialize(loss: KerasSerializable) -> dict[str, Any]: ...
 

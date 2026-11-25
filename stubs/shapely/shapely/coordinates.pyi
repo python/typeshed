@@ -1,12 +1,13 @@
-from collections.abc import Callable
+from _typeshed import FloatInt
+from collections.abc import Callable, Sequence
 from typing import Literal, overload
 
 import numpy as np
-from numpy.typing import NDArray
+from numpy.typing import ArrayLike, NDArray
 
 from ._typing import ArrayLikeSeq, GeoArray, GeoT, OptGeoArrayLike, OptGeoArrayLikeSeq, OptGeoT
 
-__all__ = ["transform", "count_coordinates", "get_coordinates", "set_coordinates"]
+__all__ = ["transform", "count_coordinates", "get_coordinates", "set_coordinates", "transform_coordseq"]
 
 @overload
 def transform(
@@ -23,6 +24,39 @@ def transform(
     include_z: bool = False,
     *,
     interleaved: bool = True,
+) -> GeoArray: ...
+
+@overload
+def transform_coordseq(
+    geometry: OptGeoT,
+    transformation: Callable[[NDArray[np.float64]], NDArray[np.float64]],
+    *,
+    include_z: bool | None = False,
+    interleaved: bool = True,
+) -> OptGeoT: ...
+@overload
+def transform_coordseq(
+    geometry: OptGeoArrayLikeSeq,
+    transformation: Callable[[NDArray[np.float64]], NDArray[np.float64]],
+    *,
+    include_z: bool | None = False,
+    interleaved: bool = True,
+) -> GeoArray: ...
+@overload
+def transform_coordseq(
+    geometry: OptGeoT,
+    transformation: Callable[..., Sequence[ArrayLike] | NDArray[np.float64]],
+    *,
+    include_z: bool | None = False,
+    interleaved: Literal[False],
+) -> OptGeoT: ...
+@overload
+def transform_coordseq(
+    geometry: OptGeoArrayLikeSeq,
+    transformation: Callable[..., Sequence[ArrayLike] | NDArray[np.float64]],
+    *,
+    include_z: bool | None = False,
+    interleaved: Literal[False],
 ) -> GeoArray: ...
 
 def count_coordinates(geometry: OptGeoArrayLike) -> int: ...
@@ -49,6 +83,6 @@ def get_coordinates(
 ) -> NDArray[np.float64] | tuple[NDArray[np.float64], NDArray[np.int64]]: ...
 
 @overload
-def set_coordinates(geometry: GeoT, coordinates: ArrayLikeSeq[float]) -> GeoT: ...
+def set_coordinates(geometry: GeoT, coordinates: ArrayLikeSeq[FloatInt]) -> GeoT: ...
 @overload
-def set_coordinates(geometry: OptGeoArrayLikeSeq, coordinates: ArrayLikeSeq[float]) -> GeoArray: ...
+def set_coordinates(geometry: OptGeoArrayLikeSeq, coordinates: ArrayLikeSeq[FloatInt]) -> GeoArray: ...

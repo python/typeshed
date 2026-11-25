@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from collections.abc import Callable, Sequence
 from dataclasses import dataclass
 from typing import Any, ClassVar, TypeAlias
@@ -54,18 +54,18 @@ class Continuous(ContinuousBase):
         self,
         locator: Locator | None = None,
         *,
-        at: Sequence[float] | None = None,
+        at: Sequence[FloatInt] | None = None,
         upto: int | None = None,
         count: int | None = None,
-        every: float | None = None,
-        between: tuple[float, float] | None = None,
+        every: FloatInt | None = None,
+        between: tuple[FloatInt, FloatInt] | None = None,
         minor: int | None = None,
     ) -> Self: ...
     def label(
         self,
         formatter: Formatter | None = None,
         *,
-        like: str | Callable[[float], str] | None = None,
+        like: str | Callable[[FloatInt], str] | None = None,
         base: int | Default | None = ...,
         unit: str | None = None,
     ) -> Self: ...
@@ -84,9 +84,9 @@ class PseudoAxis:
     major: Ticker
     minor: Ticker
     def __init__(self, scale: ScaleBase) -> None: ...
-    def set_view_interval(self, vmin: float, vmax: float) -> None: ...
+    def set_view_interval(self, vmin: FloatInt, vmax: FloatInt) -> None: ...
     def get_view_interval(self) -> tuple[float, float]: ...
-    def set_data_interval(self, vmin: float, vmax: float) -> None: ...
+    def set_data_interval(self, vmin: FloatInt, vmax: FloatInt) -> None: ...
     def get_data_interval(self) -> tuple[float, float]: ...
     def get_tick_space(self) -> int: ...
     def set_major_locator(self, locator: Locator) -> None: ...

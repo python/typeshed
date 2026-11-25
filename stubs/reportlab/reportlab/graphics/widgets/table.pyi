@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from typing import Final
 
 from reportlab.graphics.widgetbase import Widget
@@ -14,11 +14,11 @@ class TableWidget(Widget):
     height: int
     borderStrokeColor: Incomplete
     fillColor: Incomplete
-    borderStrokeWidth: float
+    borderStrokeWidth: FloatInt
     horizontalDividerStrokeColor: Incomplete
     verticalDividerStrokeColor: Incomplete
-    horizontalDividerStrokeWidth: float
-    verticalDividerStrokeWidth: float
+    horizontalDividerStrokeWidth: FloatInt
+    verticalDividerStrokeWidth: FloatInt
     dividerDashArray: Incomplete
     data: Incomplete
     boxAnchor: str

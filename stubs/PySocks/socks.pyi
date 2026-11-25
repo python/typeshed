@@ -1,7 +1,7 @@
 import logging
 import socket
 import types
-from _typeshed import ReadableBuffer
+from _typeshed import FloatInt, ReadableBuffer
 from collections.abc import Callable, Iterable, Mapping
 from typing import Final, ParamSpec, TypeAlias, TypeVar, overload
 
@@ -28,7 +28,7 @@ def set_self_blocking(function: Callable[_P, _T]) -> Callable[_P, _T]: ...  # un
 
 class ProxyError(IOError):
     msg: str
-    socket_err: socket.error
+    socket_err: socket.error | None
     def __init__(self, msg: str, socket_err: socket.error | None = None) -> None: ...
 
 class GeneralProxyError(ProxyError): ...
@@ -74,7 +74,7 @@ _Endpoint: TypeAlias = tuple[str, int]
 
 def create_connection(
     dest_pair: _Endpoint,
-    timeout: int | None = None,
+    timeout: float | int | None = None,
     source_address: _Endpoint | None = None,
     proxy_type: _ProxyType | None = None,
     proxy_addr: str | None = None,
@@ -98,7 +98,7 @@ class socksocket(_BaseSocket):
     def __init__(
         self, family: socket.AddressFamily = ..., type: socket.SocketKind = ..., proto: int = 0, fileno: int | None = None
     ) -> None: ...
-    def settimeout(self, timeout: float | None) -> None: ...
+    def settimeout(self, timeout: FloatInt | None) -> None: ...
     def gettimeout(self) -> float | None: ...
     def setblocking(self, v: bool) -> None: ...
     def set_proxy(

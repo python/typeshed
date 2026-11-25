@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from collections.abc import Iterable, Mapping
 from datetime import date, datetime, timedelta
 from typing import Any, Protocol, TypeAlias, type_check_only
@@ -11,16 +11,16 @@ from pandas import DataFrame, Index, Series, Timedelta, Timestamp
 class SupportsDataFrame(Protocol):
     def __dataframe__(self, nan_as_null: bool = ..., allow_copy: bool = ...): ...
 
-ColumnName: TypeAlias = str | bytes | date | datetime | timedelta | bool | complex | Timestamp | Timedelta
+ColumnName: TypeAlias = str | bytes | date | datetime | timedelta | bool | complex | float | int | Timestamp | Timedelta
 Vector: TypeAlias = Series[Any] | Index[Any] | ndarray[Any, Any]
 VariableSpec: TypeAlias = ColumnName | Vector | None
 VariableSpecList: TypeAlias = list[VariableSpec] | Index[Any] | None
 DataSource: TypeAlias = DataFrame | SupportsDataFrame | Mapping[Any, Incomplete] | None
 OrderSpec: TypeAlias = Iterable[str] | None
-NormSpec: TypeAlias = tuple[float | None, float | None] | Normalize | None
+NormSpec: TypeAlias = tuple[FloatInt | None, FloatInt | None] | Normalize | None
 PaletteSpec: TypeAlias = str | list[Incomplete] | dict[Incomplete, Incomplete] | Colormap | None
 DiscreteValueSpec: TypeAlias = dict[Incomplete, Incomplete] | list[Incomplete] | None
-ContinuousValueSpec: TypeAlias = tuple[float, float] | list[float] | dict[Any, float] | None
+ContinuousValueSpec: TypeAlias = tuple[FloatInt, FloatInt] | list[FloatInt] | dict[Any, FloatInt] | None
 
 class Default: ...
 class Deprecated: ...

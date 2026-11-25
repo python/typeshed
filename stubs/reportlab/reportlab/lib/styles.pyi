@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from typing import Any, ClassVar, Literal, TypeAlias, TypeVar, overload
 from typing_extensions import Self
 
@@ -26,45 +26,45 @@ class PropertySet:
 class ParagraphStyle(PropertySet):
     # NOTE: We list the attributes this has for sure due to defaults
     fontName: str
-    fontSize: float
-    leading: float
-    leftIndent: float
-    rightIndent: float
-    firstLineIndent: float
+    fontSize: FloatInt
+    leading: FloatInt
+    leftIndent: FloatInt
+    rightIndent: FloatInt
+    firstLineIndent: FloatInt
     alignment: _Alignment
-    spaceBefore: float
-    spaceAfter: float
+    spaceBefore: FloatInt
+    spaceAfter: FloatInt
     bulletFontName: str
-    bulletFontSize: float
-    bulletIndent: float
+    bulletFontSize: FloatInt
+    bulletIndent: FloatInt
     textColor: Color
     backColor: Color | None
     wordWrap: Incomplete | None
-    borderWidth: float
-    borderPadding: float
+    borderWidth: FloatInt
+    borderPadding: FloatInt
     borderColor: Color | None
-    borderRadius: float | None
+    borderRadius: FloatInt | None
     allowWidows: Incomplete
     allowOrphans: Incomplete
     textTransform: Incomplete | None
     endDots: Incomplete | None
     splitLongWords: Incomplete
-    underlineWidth: float
-    bulletAnchor: Literal["start", "middle", "end"] | float
+    underlineWidth: FloatInt
+    bulletAnchor: Literal["start", "middle", "end"] | FloatInt
     justifyLastLine: Incomplete
     justifyBreaks: Incomplete
-    spaceShrinkage: float
-    strikeWidth: float
-    underlineOffset: float
-    underlineGap: float
-    strikeOffset: float
-    strikeGap: float
+    spaceShrinkage: FloatInt
+    strikeWidth: FloatInt
+    underlineOffset: FloatInt
+    underlineGap: FloatInt
+    strikeOffset: FloatInt
+    strikeGap: FloatInt
     linkUnderline: Incomplete
     underlineColor: Color | None
     strikeColor: Color | None
     hyphenationLang: str
     embeddedHyphenation: Incomplete
-    uriWasteReduce: float
+    uriWasteReduce: FloatInt
     # NOTE: We redefine __init__ for the same reason
     def __init__(
         self,
@@ -72,45 +72,45 @@ class ParagraphStyle(PropertySet):
         parent: PropertySet | None = None,
         *,
         fontName: str = ...,
-        fontSize: float = ...,
-        leading: float = ...,
-        leftIndent: float = ...,
-        rightIndent: float = ...,
-        firstLineIndent: float = ...,
+        fontSize: FloatInt = ...,
+        leading: FloatInt = ...,
+        leftIndent: FloatInt = ...,
+        rightIndent: FloatInt = ...,
+        firstLineIndent: FloatInt = ...,
         alignment: _Alignment = ...,
-        spaceBefore: float = ...,
-        spaceAfter: float = ...,
+        spaceBefore: FloatInt = ...,
+        spaceAfter: FloatInt = ...,
         bulletFontName: str = ...,
-        bulletFontSize: float = ...,
-        bulletIndent: float = ...,
+        bulletFontSize: FloatInt = ...,
+        bulletIndent: FloatInt = ...,
         textColor: Color = ...,
         backColor: Color | None = ...,
         wordWrap: Incomplete | None = ...,
-        borderWidth: float = ...,
-        borderPadding: float = ...,
+        borderWidth: FloatInt = ...,
+        borderPadding: FloatInt = ...,
         borderColor: Color | None = ...,
-        borderRadius: float | None = ...,
+        borderRadius: FloatInt | None = ...,
         allowWidows=...,
         allowOrphans=...,
         textTransform: Incomplete | None = ...,
         endDots: Incomplete | None = ...,
         splitLongWords=...,
-        underlineWidth: float = ...,
-        bulletAnchor: Literal["start", "middle", "end"] | float = ...,
+        underlineWidth: FloatInt = ...,
+        bulletAnchor: Literal["start", "middle", "end"] | FloatInt = ...,
         justifyLastLine=...,
         justifyBreaks=...,
-        spaceShrinkage: float = ...,
-        strikeWidth: float = ...,
-        underlineOffset: float = ...,
-        underlineGap: float = ...,
-        strikeOffset: float = ...,
-        strikeGap: float = ...,
+        spaceShrinkage: FloatInt = ...,
+        strikeWidth: FloatInt = ...,
+        underlineOffset: FloatInt = ...,
+        underlineGap: FloatInt = ...,
+        strikeOffset: FloatInt = ...,
+        strikeGap: FloatInt = ...,
         linkUnderline=...,
         underlineColor: Color | None = ...,
         strikeColor: Color | None = ...,
         hyphenationLang: str = ...,
         embeddedHyphenation=...,
-        uriWasteReduce: float = ...,
+        uriWasteReduce: FloatInt = ...,
         **kw: Any,
     ) -> None: ...
 
@@ -121,24 +121,24 @@ def str2alignment(
 
 class LineStyle(PropertySet):
     # NOTE: We list the attributes this has for sure due to defaults
-    width: float
+    width: FloatInt
     color: Color
     def prepareCanvas(self, canvas) -> None: ...
     # NOTE: We redefine __init__ for the same reason
     def __init__(
-        self, name: str, parent: PropertySet | None = None, *, width: float = ..., color: Color = ..., **kw: Any
+        self, name: str, parent: PropertySet | None = None, *, width: FloatInt = ..., color: Color = ..., **kw: Any
     ) -> None: ...
 
 class ListStyle(PropertySet):
     # NOTE: We list the attributes this has for sure due to defaults
-    leftIndent: float
-    rightIndent: float
+    leftIndent: FloatInt
+    rightIndent: FloatInt
     bulletAlign: _Alignment
     bulletType: str
     bulletColor: Color
     bulletFontName: str
-    bulletFontSize: float
-    bulletOffsetY: float
+    bulletFontSize: FloatInt
+    bulletOffsetY: FloatInt
     bulletDedent: Incomplete
     bulletDir: Incomplete
     bulletFormat: Incomplete | None
@@ -149,14 +149,14 @@ class ListStyle(PropertySet):
         name: str,
         parent: PropertySet | None = None,
         *,
-        leftIndent: float = ...,
-        rightIndent: float = ...,
+        leftIndent: FloatInt = ...,
+        rightIndent: FloatInt = ...,
         bulletAlign: _Alignment = ...,
         bulletType: str = ...,
         bulletColor: Color = ...,
         bulletFontName: str = ...,
-        bulletFontSize: float = ...,
-        bulletOffsetY: float = ...,
+        bulletFontSize: FloatInt = ...,
+        bulletOffsetY: FloatInt = ...,
         bulletDedent=...,
         bulletDir=...,
         bulletFormat: Incomplete | None = ...,

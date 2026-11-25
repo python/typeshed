@@ -1,12 +1,13 @@
-from _typeshed import Incomplete, ReadableBuffer
+from _typeshed import FloatInt, Incomplete, ReadableBuffer
 from collections import OrderedDict
 from collections.abc import Iterable
-from typing import SupportsBytes, SupportsIndex
+from typing import Final, SupportsBytes, SupportsIndex
 
 from .models import JWEAlgorithmBase, JWEEncAlgorithm, JWEZipAlgorithm
 
 class JsonWebEncryption:
     REGISTERED_HEADER_PARAMETER_NAMES: frozenset[str]
+    MAX_RECIPIENTS: Final = 16
     ALG_REGISTRY: dict[str, JWEAlgorithmBase]
     ENC_REGISTRY: dict[str, JWEEncAlgorithm]
     ZIP_REGISTRY: dict[str, JWEZipAlgorithm]
@@ -18,7 +19,7 @@ class JsonWebEncryption:
     def serialize(self, header, payload, key, sender_key=None) -> OrderedDict[Incomplete, Incomplete] | bytes: ...
     def deserialize_compact(
         self,
-        s: str | bytes | float | Iterable[SupportsIndex] | SupportsIndex | SupportsBytes | ReadableBuffer,
+        s: str | bytes | FloatInt | Iterable[SupportsIndex] | SupportsIndex | SupportsBytes | ReadableBuffer,
         key,
         decode=None,
         sender_key=None,
@@ -29,6 +30,6 @@ class JsonWebEncryption:
     def parse_json(obj) -> dict[Incomplete, Incomplete]: ...
     def get_header_alg(self, header) -> JWEAlgorithmBase: ...
     def get_header_enc(self, header) -> JWEEncAlgorithm: ...
-    def get_header_zip(self, header) -> JWEZipAlgorithm: ...
+    def get_header_zip(self, header) -> JWEZipAlgorithm | None: ...
 
 def prepare_key(alg, header, key): ...

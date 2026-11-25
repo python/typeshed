@@ -1,5 +1,5 @@
 from collections.abc import Iterable, Sequence
-from typing import Any, NamedTuple
+from typing import Any, NamedTuple, overload
 
 from consolemenu.screen import Screen
 from consolemenu.validators.base import BaseValidator
@@ -9,9 +9,19 @@ class InputResult(NamedTuple):
     validation_result: bool
 
 class PromptFormatter:
+    @overload
     @staticmethod
     def format_prompt(
-        prompt: str | None = None,
+        prompt: None = None,
+        default: str | None = None,
+        enable_quit: bool = False,
+        quit_string: str = "q",
+        quit_message: str = "(enter q to Quit)",
+    ) -> None: ...
+    @overload
+    @staticmethod
+    def format_prompt(
+        prompt: str,
         default: str | None = None,
         enable_quit: bool = False,
         quit_string: str = "q",

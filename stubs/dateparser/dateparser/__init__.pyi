@@ -1,4 +1,5 @@
 import datetime
+from _typeshed import FloatInt
 from typing import Any, Final, Literal, TypedDict, type_check_only
 
 from dateparser.conf import Settings
@@ -31,7 +32,7 @@ class _Settings(TypedDict, total=False):  # noqa: Y049
     DEFAULT_DAYS_IN_MONTH: int
     PARSERS: list[Literal["timestamp", "relative-time", "custom-formats", "absolute-time", "no-spaces-time"]]
     DEFAULT_LANGUAGES: list[str]
-    LANGUAGE_DETECTION_CONFIDENCE_THRESHOLD: float
+    LANGUAGE_DETECTION_CONFIDENCE_THRESHOLD: FloatInt
     CACHE_SIZE_LIMIT: int
 
 def parse(

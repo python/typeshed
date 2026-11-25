@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Sequence
 from enum import Enum
 from typing import Literal, TypeAlias
@@ -86,19 +87,19 @@ def fixed_unigram_candidate_sampler(
     unique: bool,
     range_max: int,
     vocab_file: str = "",
-    distortion: float = 1.0,
+    distortion: FloatInt = 1.0,
     num_reserved_ids: int = 0,
     num_shards: int = 1,
     shard: int = 0,
-    unigrams: Sequence[float] = (),
+    unigrams: Sequence[FloatInt] = (),
     seed: int | None = None,
     name: str | None = None,
 ) -> tuple[tf.Tensor, tf.Tensor, tf.Tensor]: ...
 def fold_in(seed: tf.Tensor | Sequence[int], data: int, alg: _Alg = "auto_select") -> int: ...
 def gamma(
     shape: tf.Tensor | Sequence[int],
-    alpha: tf.Tensor | float | Sequence[float],
-    beta: tf.Tensor | float | Sequence[float] | None = None,
+    alpha: tf.Tensor | FloatInt | Sequence[FloatInt],
+    beta: tf.Tensor | FloatInt | Sequence[FloatInt] | None = None,
     dtype: DTypeLike = ...,
     seed: int | None = None,
     name: str | None = None,
@@ -163,8 +164,8 @@ def stateless_gamma(
 def stateless_normal(
     shape: tf.Tensor | Sequence[int],
     seed: tuple[int, int] | tf.Tensor,
-    mean: float | tf.Tensor = 0.0,
-    stddev: float | tf.Tensor = 1.0,
+    mean: FloatInt | tf.Tensor = 0.0,
+    stddev: FloatInt | tf.Tensor = 1.0,
     dtype: DTypeLike = ...,
     name: str | None = None,
     alg: _Alg = "auto_select",
@@ -172,10 +173,10 @@ def stateless_normal(
 def stateless_parameterized_truncated_normal(
     shape: tf.Tensor | Sequence[int],
     seed: tuple[int, int] | tf.Tensor,
-    means: float | tf.Tensor = 0.0,
-    stddevs: float | tf.Tensor = 1.0,
-    minvals: tf.Tensor | float = -2.0,
-    maxvals: tf.Tensor | float = 2.0,
+    means: FloatInt | tf.Tensor = 0.0,
+    stddevs: FloatInt | tf.Tensor = 1.0,
+    minvals: tf.Tensor | FloatInt = -2.0,
+    maxvals: tf.Tensor | FloatInt = 2.0,
     name: str | None = None,
 ) -> tf.Tensor: ...
 def stateless_poisson(
@@ -188,8 +189,8 @@ def stateless_poisson(
 def stateless_truncated_normal(
     shape: tf.Tensor | Sequence[int],
     seed: tuple[int, int] | tf.Tensor,
-    mean: float | tf.Tensor = 0.0,
-    stddev: float | tf.Tensor = 1.0,
+    mean: FloatInt | tf.Tensor = 0.0,
+    stddev: FloatInt | tf.Tensor = 1.0,
     dtype: DTypeLike = ...,
     name: str | None = None,
     alg: _Alg = "auto_select",
@@ -197,24 +198,24 @@ def stateless_truncated_normal(
 def stateless_uniform(
     shape: tf.Tensor | Sequence[int],
     seed: tuple[int, int] | tf.Tensor,
-    minval: float | tf.Tensor = 0,
-    maxval: float | tf.Tensor | None = None,
+    minval: FloatInt | tf.Tensor = 0,
+    maxval: FloatInt | tf.Tensor | None = None,
     dtype: DTypeLike = ...,
     name: str | None = None,
     alg: _Alg = "auto_select",
 ) -> tf.Tensor: ...
 def truncated_normal(
     shape: tf.Tensor | Sequence[int],
-    mean: float | tf.Tensor = 0.0,
-    stddev: float | tf.Tensor = 1.0,
+    mean: FloatInt | tf.Tensor = 0.0,
+    stddev: FloatInt | tf.Tensor = 1.0,
     dtype: DTypeLike = ...,
     seed: int | None = None,
     name: str | None = None,
 ) -> tf.Tensor: ...
 def uniform(
     shape: tf.Tensor | Sequence[int],
-    minval: float | tf.Tensor = 0,
-    maxval: float | tf.Tensor | None = None,
+    minval: FloatInt | tf.Tensor = 0,
+    maxval: FloatInt | tf.Tensor | None = None,
     dtype: DTypeLike = ...,
     seed: int | None = None,
     name: str | None = None,

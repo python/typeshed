@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from typing import Final
 
 from pymeeus.Angle import Angle
@@ -33,7 +34,7 @@ class Saturn:
     @staticmethod
     def passage_nodes(epoch: Epoch, ascending: bool = True) -> tuple[Epoch, float]: ...
     @staticmethod
-    def magnitude(sun_dist: float, earth_dist: float, delta_U: float | Angle, B: float | Angle) -> float: ...
+    def magnitude(sun_dist: FloatInt, earth_dist: FloatInt, delta_U: FloatInt | Angle, B: FloatInt | Angle) -> float: ...
     @staticmethod
     def ring_inclination(epoch: Epoch) -> Angle: ...
     @staticmethod

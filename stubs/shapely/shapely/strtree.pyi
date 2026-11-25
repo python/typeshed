@@ -1,4 +1,5 @@
-from typing import Any, Literal, SupportsIndex, TypeAlias, overload
+from _typeshed import FloatInt, MaybeNone
+from typing import Literal, SupportsIndex, TypeAlias, overload
 
 import numpy as np
 from numpy.typing import NDArray
@@ -32,7 +33,7 @@ class STRtree:
 
     @overload
     def query(
-        self, geometry: OptGeoArrayLike, predicate: Literal["dwithin"], distance: ArrayLike[float]
+        self, geometry: OptGeoArrayLike, predicate: Literal["dwithin"], distance: ArrayLike[FloatInt]
     ) -> NDArray[np.int64]: ...
     @overload
     def query(
@@ -41,15 +42,15 @@ class STRtree:
 
     # nearest may return `None` if the tree is empty, use the "Any trick"
     @overload
-    def nearest(self, geometry: Geometry) -> np.int64 | Any: ...
+    def nearest(self, geometry: Geometry) -> np.int64 | MaybeNone: ...
     @overload
-    def nearest(self, geometry: GeoArrayLikeSeq) -> NDArray[np.int64] | Any: ...
+    def nearest(self, geometry: GeoArrayLikeSeq) -> NDArray[np.int64] | MaybeNone: ...
 
     @overload  # return_distance=False
     def query_nearest(
         self,
         geometry: OptGeoArrayLike,
-        max_distance: float | None = None,
+        max_distance: FloatInt | None = None,
         return_distance: Literal[False] = False,
         exclusive: bool = False,
         all_matches: bool = True,
@@ -58,7 +59,7 @@ class STRtree:
     def query_nearest(
         self,
         geometry: OptGeoArrayLike,
-        max_distance: float | None = None,
+        max_distance: FloatInt | None = None,
         *,
         return_distance: Literal[True],
         exclusive: bool = False,
@@ -68,7 +69,7 @@ class STRtree:
     def query_nearest(
         self,
         geometry: OptGeoArrayLike,
-        max_distance: float | None,
+        max_distance: FloatInt | None,
         return_distance: Literal[True],
         exclusive: bool = False,
         all_matches: bool = True,
@@ -77,7 +78,7 @@ class STRtree:
     def query_nearest(
         self,
         geometry: OptGeoArrayLike,
-        max_distance: float | None = None,
+        max_distance: FloatInt | None = None,
         return_distance: bool = False,
         exclusive: bool = False,
         all_matches: bool = True,

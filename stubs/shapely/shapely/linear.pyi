@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from typing import overload
 
 import numpy as np
@@ -10,22 +11,22 @@ from .lib import Geometry
 __all__ = ["line_interpolate_point", "line_locate_point", "line_merge", "shared_paths", "shortest_line"]
 
 @overload
-def line_interpolate_point(line: None, distance: float, normalized: bool = False, **kwargs) -> None: ...
+def line_interpolate_point(line: None, distance: FloatInt, normalized: bool = False, **kwargs) -> None: ...
 @overload
 def line_interpolate_point(
-    line: None, distance: ArrayLikeSeq[float], normalized: bool = False, **kwargs
+    line: None, distance: ArrayLikeSeq[FloatInt], normalized: bool = False, **kwargs
 ) -> NDArray[np.object_]: ...  # Array of None
 @overload
 def line_interpolate_point(
-    line: LineString | MultiLineString | GeometryCollection, distance: float, normalized: bool = False, **kwargs
+    line: LineString | MultiLineString | GeometryCollection, distance: FloatInt, normalized: bool = False, **kwargs
 ) -> Point: ...
 @overload
 def line_interpolate_point(
-    line: LineString | MultiLineString | GeometryCollection, distance: ArrayLikeSeq[float], normalized: bool = False, **kwargs
+    line: LineString | MultiLineString | GeometryCollection, distance: ArrayLikeSeq[FloatInt], normalized: bool = False, **kwargs
 ) -> GeoArray: ...
 @overload
 def line_interpolate_point(
-    line: OptGeoArrayLikeSeq, distance: ArrayLike[float], normalized: bool = False, **kwargs
+    line: OptGeoArrayLikeSeq, distance: ArrayLike[FloatInt], normalized: bool = False, **kwargs
 ) -> GeoArray: ...
 
 @overload

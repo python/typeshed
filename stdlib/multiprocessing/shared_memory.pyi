@@ -1,12 +1,12 @@
 import sys
-from collections.abc import Iterable
+from collections.abc import Iterable, Iterator
 from types import GenericAlias
 from typing import Any, Generic, TypeVar, overload
 from typing_extensions import Self
 
 __all__ = ["SharedMemory", "ShareableList"]
 
-_SLT = TypeVar("_SLT", int, float, bool, str, bytes, None)
+_SLT = TypeVar("_SLT", float, int, bool, str, bytes, None)
 
 class SharedMemory:
     if sys.version_info >= (3, 13):
@@ -36,6 +36,7 @@ class ShareableList(Generic[_SLT]):
     def __setitem__(self, position: int, value: _SLT) -> None: ...
     def __reduce__(self) -> tuple[Self, tuple[_SLT, ...]]: ...
     def __len__(self) -> int: ...
+    def __iter__(self) -> Iterator[_SLT]: ...
     @property
     def format(self) -> str: ...
     def count(self, value: _SLT) -> int: ...

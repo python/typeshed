@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Iterable, Mapping
 from decimal import Decimal
 from re import Pattern
@@ -13,7 +14,7 @@ class _Match(TypedDict):
     i: int
     j: int
     guesses: NotRequired[int]  # all patterns except 'date'
-    guesses_log10: NotRequired[float]  # all patterns except 'date'
+    guesses_log10: NotRequired[FloatInt]  # all patterns except 'date'
 
     # pattern == 'date'
     separator: NotRequired[str]
@@ -38,7 +39,7 @@ class _Match(TypedDict):
     base_token: NotRequired[str]
     # base_guesses: NotRequired[Decimal]
     base_matches: NotRequired[list[Any]]  # Any = _Match, https://github.com/python/mypy/issues/731
-    repeat_count: NotRequired[float]
+    repeat_count: NotRequired[FloatInt]
 
     # pattern == 'regex'
     regex_name: NotRequired[str]

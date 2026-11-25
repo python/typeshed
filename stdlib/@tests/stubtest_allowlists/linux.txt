@@ -137,6 +137,11 @@ _?socket.SOL_ROSE
 # not present on GitHub Actions runners.
 termios.TIOCTTYGSTRUCT
 
+# Python built against glibc 2.42 or newer omits termios.NCC because
+# <sys/ioctl.h> no longer defines NCC. Builds using older glibc headers,
+# such as those on Ubuntu 24.04, still expose it.
+(termios\.NCC)?
+
 # Only defined when Python was built against glibc 2.42 or newer
 (termios.B7200)?
 (termios.B14400)?

@@ -1,7 +1,7 @@
 import re
 import sys
 import types
-from _typeshed import Incomplete, StrOrBytesPath
+from _typeshed import FloatInt, Incomplete, StrOrBytesPath
 from sqlite3 import Connection as _Connection
 from typing import Any, ClassVar, overload
 
@@ -194,7 +194,7 @@ class SQLitePool(Pool):
             filename: StrOrBytesPath,
             create_db: bool | None,
             *,
-            timeout: float = 5.0,
+            timeout: FloatInt = 5.0,
             detect_types: int = 0,
             check_same_thread: bool = True,
             factory: type[_Connection],
@@ -209,7 +209,7 @@ class SQLitePool(Pool):
             filename: StrOrBytesPath,
             create_db: bool | None,
             *,
-            timeout: float = 5.0,
+            timeout: FloatInt = 5.0,
             detect_types: int = 0,
             check_same_thread: bool = True,
             factory: type[_Connection],

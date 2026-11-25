@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Callable, Iterable
 
 from networkx.algorithms.flow import edmonds_karp
@@ -23,7 +24,7 @@ def local_node_connectivity(
     flow_func: Callable[[DiGraph[_Node], _Node, _Node], DiGraph[_Node]] | None = None,
     auxiliary: DiGraph[_Node] | None = None,
     residual: DiGraph[_Node] | None = None,
-    cutoff: float | None = None,
+    cutoff: FloatInt | None = None,
 ) -> float: ...
 @_dispatchable
 def node_connectivity(
@@ -50,7 +51,7 @@ def local_edge_connectivity(
     flow_func: Callable[[DiGraph[_Node], _Node, _Node], DiGraph[_Node]] | None = None,
     auxiliary: DiGraph[_Node] | None = None,
     residual: DiGraph[_Node] | None = None,
-    cutoff: float | None = None,
+    cutoff: FloatInt | None = None,
 ) -> float: ...
 @_dispatchable
 def edge_connectivity(
@@ -58,5 +59,5 @@ def edge_connectivity(
     s: _Node | None = None,
     t: _Node | None = None,
     flow_func: Callable[[DiGraph[_Node], _Node, _Node], DiGraph[_Node]] | None = None,
-    cutoff: float | None = None,
+    cutoff: FloatInt | None = None,
 ) -> float: ...

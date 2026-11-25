@@ -1,5 +1,5 @@
 # Not available at runtime. Contains type definitions that are otherwise not exposed and not part of a specific module.
-from _typeshed import Incomplete, ReadableBuffer, Unused
+from _typeshed import FloatInt, Incomplete, ReadableBuffer, Unused
 from collections.abc import Callable, Iterable, Sequence
 from typing import Literal, SupportsIndex, TypeAlias, TypedDict, final, overload, type_check_only
 from typing_extensions import Never, NotRequired, Required, Self, deprecated, disjoint_base
@@ -1437,7 +1437,8 @@ class PyOVERLAPPED:
     Internal: int
     InternalHigh: int
 
-class PyOVERLAPPEDReadBuffer: ...
+# Is actually a memoryview over a bytearray, as created by win32file.AllocateReadBuffer
+PyOVERLAPPEDReadBuffer: TypeAlias = memoryview
 
 class PyPERF_COUNTER_DEFINITION:
     @property
@@ -3028,7 +3029,9 @@ class PyDSOP_SCOPE_INIT_INFO:
 
 @disjoint_base
 class PyDSOP_SCOPE_INIT_INFOs:
-    def __new__(cls, size, /): ...
+    def __new__(cls, size: int, /) -> Self: ...
+    def __len__(self) -> int: ...
+    def __getitem__(self, index: SupportsIndex, /) -> PyDSOP_SCOPE_INIT_INFO: ...
 
 class PyDSOP_UPLEVEL_FILTER_FLAGS:
     @property
@@ -4290,7 +4293,7 @@ class PyIOleControlSite:
     def LockInPlaceActive(self, fLock, /) -> None: ...
     def GetExtendedControl(self) -> None: ...
     def TransformCoords(
-        self, PtlHimetric: tuple[Incomplete, Incomplete], pPtfContainer: tuple[float, float], dwFlags, /
+        self, PtlHimetric: tuple[Incomplete, Incomplete], pPtfContainer: tuple[FloatInt, FloatInt], dwFlags, /
     ) -> None: ...
     def TranslateAccelerator(self, pMsg: PyMSG, grfModifiers, /) -> None: ...
     def OnFocus(self, fGotFocus, /) -> None: ...
@@ -5031,7 +5034,8 @@ class PyIViewObject2:
 
 class PyMAPINAMEIDArray: ...
 class PyOLEMENUGROUPWIDTHS: ...
-class PyPROPERTYKEY: ...
+
+PyPROPERTYKEY: TypeAlias = tuple[PyIID, int]
 
 @final
 class PyPROPVARIANT:

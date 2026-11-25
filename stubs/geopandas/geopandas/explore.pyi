@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Callable, Hashable, MutableMapping, Sequence
 from typing import Any
 
@@ -26,10 +27,10 @@ def _explore(
     legend: bool = True,
     scheme: str | None = None,
     k: int = 5,
-    vmin: float | None = None,
-    vmax: float | None = None,
-    width: float | str = "100%",
-    height: float | str = "100%",
+    vmin: FloatInt | None = None,
+    vmax: FloatInt | None = None,
+    width: FloatInt | str = "100%",
+    height: FloatInt | str = "100%",
     categories: Sequence[Any] | NDArray[Any] | pd.Series[Any] | pd.Index[Any] | None = None,  # categories can have "any" type
     classification_kwds: MutableMapping[str, Any] | None = None,
     control_scale: bool = True,
@@ -52,8 +53,8 @@ def _explore_geoseries(
     tiles: str | folium.TileLayer | xyzservices.TileProvider | None = "OpenStreetMap",
     attr: str | None = None,
     highlight: bool = True,
-    width: float | str = "100%",
-    height: float | str = "100%",
+    width: FloatInt | str = "100%",
+    height: FloatInt | str = "100%",
     control_scale: bool = True,
     marker_type: str | folium.Marker | None = None,
     # The following kwds will never be typed more precisely than "Any"

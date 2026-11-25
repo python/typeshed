@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from collections.abc import Callable
 from logging import Logger
 from threading import Thread
@@ -35,8 +35,8 @@ class _SocketIOServerOptions(TypedDict, total=False):
 @type_check_only
 class _EngineIOServerConfig(TypedDict, total=False):
     async_mode: Literal["threading", "eventlet", "gevent", "gevent_uwsgi"]
-    ping_interval: float | tuple[float, float]  # seconds
-    ping_timeout: float  # seconds
+    ping_interval: FloatInt | tuple[FloatInt, FloatInt]  # seconds
+    ping_timeout: FloatInt  # seconds
     max_http_buffer_size: int
     allow_upgrades: bool
     http_compression: bool

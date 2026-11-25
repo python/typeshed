@@ -1,10 +1,10 @@
 import socket
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 
 class KafkaTCPTransport:
     host: Incomplete | None
-    last_write: float
-    last_read: float
+    last_write: FloatInt
+    last_read: FloatInt
     def __init__(self, net, sock, host=None) -> None: ...
     @property
     def last_activity(self) -> float: ...

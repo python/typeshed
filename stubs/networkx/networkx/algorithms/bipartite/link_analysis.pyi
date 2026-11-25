@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Iterable, Mapping
 
 from networkx.classes.graph import Graph, _Node
@@ -10,11 +11,11 @@ def birank(
     G: Graph[_Node],
     nodes: Iterable[_Node],
     *,
-    alpha: float | None = None,
-    beta: float | None = None,
-    top_personalization: Mapping[_Node, float] | None = None,
-    bottom_personalization: Mapping[_Node, float] | None = None,
+    alpha: FloatInt | None = None,
+    beta: FloatInt | None = None,
+    top_personalization: Mapping[_Node, FloatInt] | None = None,
+    bottom_personalization: Mapping[_Node, FloatInt] | None = None,
     max_iter: int = 100,
-    tol: float = 1.0e-6,
+    tol: FloatInt = 1.0e-6,
     weight: str | None = "weight",
 ) -> dict[_Node, float]: ...

@@ -161,5 +161,4 @@ jobs:
               repo: "typeshed",
               title: `Daily tests failed on ${new Date().toDateString()}`,
               body: "Run listed here: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}",
-              labels: ["help wanted"],
             })

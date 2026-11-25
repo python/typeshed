@@ -1,11 +1,17 @@
 import sys
 import threading
 from collections.abc import Callable, Iterable
+from os import PathLike
 from re import Pattern
-from typing import Final, TypeAlias, TypedDict, type_check_only
+from typing import AnyStr, Final, TypeAlias, TypedDict, overload, type_check_only
 from typing_extensions import Never
 
 COMPILED_EXT_RE: Final[Pattern[str]]
+
+@overload
+def symlink_target_dir(filename: PathLike[AnyStr]) -> AnyStr | None: ...
+@overload
+def symlink_target_dir(filename: AnyStr) -> AnyStr | None: ...
 
 class ReloaderBase(threading.Thread):
     daemon: bool

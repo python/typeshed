@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from typing import Any
 
 from ..scope_manager import ScopeManager
@@ -20,7 +21,7 @@ class MockTracer(Tracer):
         child_of: Span | SpanContext | None = None,
         references: list[Reference] | None = None,
         tags: dict[Any, Any] | None = None,
-        start_time: float | None = None,
+        start_time: FloatInt | None = None,
         ignore_active_span: bool = False,
     ) -> MockSpan: ...
     def extract(self, format: str, carrier: dict[Any, Any]) -> SpanContext: ...

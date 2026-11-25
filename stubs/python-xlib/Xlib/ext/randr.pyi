@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Sequence
 from typing import Final, TypeAlias
 
@@ -127,7 +128,7 @@ def configure_output_property(self: Display | resource.Resource, output: int, pr
 class ChangeOutputProperty(rq.Request): ...
 
 def change_output_property(
-    self: Display | resource.Resource, output: int, property: int, type: int, mode: int, value: Sequence[float] | Sequence[str]
+    self: Display | resource.Resource, output: int, property: int, type: int, mode: int, value: Sequence[FloatInt] | Sequence[str]
 ) -> ChangeOutputProperty: ...
 
 class DeleteOutputProperty(rq.Request): ...

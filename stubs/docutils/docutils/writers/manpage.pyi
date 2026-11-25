@@ -1,5 +1,5 @@
 import re
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from collections.abc import Callable
 from typing import ClassVar, Final, Protocol, type_check_only
 from typing_extensions import Never
@@ -14,11 +14,11 @@ class _RegexPatternSub(Protocol):
     def __call__(self, /, repl: str | Callable[[re.Match[str]], str], string: str, count: int = 0) -> str: ...
 
 __docformat__: Final = "reStructuredText"
-FIELD_LIST_INDENT: Final[int]
-DEFINITION_LIST_INDENT: Final[int]
-OPTION_LIST_INDENT: Final[int]
-BLOCKQOUTE_INDENT: Final[float]
-LITERAL_BLOCK_INDENT: Final[float]
+FIELD_LIST_INDENT: Final = 7
+DEFINITION_LIST_INDENT: Final = 7
+OPTION_LIST_INDENT: Final = 7
+BLOCKQOUTE_INDENT: Final = 3.5
+LITERAL_BLOCK_INDENT: Final = 3.5
 MACRO_DEF: Final[str]
 NONPRINTING_BREAKPOINT: Final[str]
 NONBREAKING_INSERT_RE: Final[re.Pattern[str]]
@@ -184,7 +184,7 @@ class Translator(nodes.NodeVisitor):
     def depart_math_block(self, node: nodes.math_block) -> None: ...
     def visit_note(self, node: nodes.note) -> None: ...
     def depart_note(self, node: nodes.note) -> None: ...
-    def indent(self, by: float = 0.5) -> None: ...
+    def indent(self, by: FloatInt = 0.5) -> None: ...
     def dedent(self) -> None: ...
     def visit_option_list(self, node: nodes.option_list) -> None: ...
     def depart_option_list(self, node: nodes.option_list) -> None: ...

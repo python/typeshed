@@ -3,8 +3,8 @@ from typing import Final, Literal
 from pymeeus.Angle import Angle
 from pymeeus.Epoch import Epoch
 
-PERIODIC_TERMS_LR_TABLE: Final[list[list[float]]]
-PERIODIC_TERMS_B_TABLE: Final[list[list[float]]]
+PERIODIC_TERMS_LR_TABLE: Final[list[list[float | int]]]
+PERIODIC_TERMS_B_TABLE: Final[list[list[float | int]]]
 
 class Moon:
     @staticmethod

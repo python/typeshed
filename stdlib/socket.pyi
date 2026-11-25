@@ -133,7 +133,7 @@ from _socket import (
     ntohs as ntohs,
     setdefaulttimeout as setdefaulttimeout,
 )
-from _typeshed import ReadableBuffer, Unused, WriteableBuffer
+from _typeshed import FloatInt, ReadableBuffer, Unused, WriteableBuffer
 from collections.abc import Iterable
 from enum import IntEnum, IntFlag
 from io import BufferedReader, BufferedRWPair, BufferedWriter, RawIOBase, TextIOWrapper
@@ -961,6 +961,11 @@ if sys.platform == "linux" and sys.version_info >= (3, 13):
 
     __all__ += ["NI_IDN", "SO_BINDTOIFINDEX"]
 
+if sys.platform == "linux" and sys.version_info >= (3, 15):
+    from _socket import SO_PASSRIGHTS as SO_PASSRIGHTS
+
+    __all__ += ["SO_PASSRIGHTS"]
+
 if sys.version_info >= (3, 12):
     from _socket import (
         IP_ADD_SOURCE_MEMBERSHIP as IP_ADD_SOURCE_MEMBERSHIP,
@@ -1560,7 +1565,7 @@ def getfqdn(name: str = "") -> str: ...
 if sys.version_info >= (3, 11):
     def create_connection(
         address: tuple[str | None, bytes | str | int | None],
-        timeout: float | None = ...,
+        timeout: FloatInt | None = ...,
         source_address: _Address | None = None,
         *,
         all_errors: bool = False,
@@ -1568,7 +1573,7 @@ if sys.version_info >= (3, 11):
 
 else:
     def create_connection(
-        address: tuple[str | None, int], timeout: float | None = ..., source_address: _Address | None = None
+        address: tuple[str | None, int], timeout: FloatInt | None = ..., source_address: _Address | None = None
     ) -> socket: ...
 
 def has_dualstack_ipv6() -> bool: ...

@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Callable
 from typing import Final
 
@@ -9,7 +10,7 @@ def evaluate_file(
     jpathdir: str | list[str] | None = ...,
     max_stack: int = 500,
     gc_min_objects: int = 1000,
-    gc_growth_trigger: float = 2,
+    gc_growth_trigger: FloatInt = 2,
     ext_vars: dict[str, str] | None = ...,
     ext_codes: dict[str, str] | None = ...,
     tla_vars: dict[str, str] | None = ...,
@@ -24,7 +25,7 @@ def evaluate_snippet(
     jpathdir: str | list[str] | None = ...,
     max_stack: int = 500,
     gc_min_objects: int = 1000,
-    gc_growth_trigger: float = 2,
+    gc_growth_trigger: FloatInt = 2,
     ext_vars: dict[str, str] | None = ...,
     ext_codes: dict[str, str] | None = ...,
     tla_vars: dict[str, str] | None = ...,

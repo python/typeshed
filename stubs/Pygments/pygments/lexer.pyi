@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import FloatInt, Incomplete
 from collections.abc import Iterable, Iterator, Sequence
 from re import Pattern, RegexFlag
 from typing import ClassVar, Final
@@ -33,7 +33,7 @@ class Lexer(metaclass=LexerMeta):
     filenames: ClassVar[Sequence[str]]
     alias_filenames: ClassVar[Sequence[str]]
     mimetypes: ClassVar[Sequence[str]]
-    priority: ClassVar[float]
+    priority: ClassVar[FloatInt]
     url: ClassVar[str]  # Set to None, but always overridden with a non-None value in subclasses.
     version_added: ClassVar[str]  # Set to None, but always overridden with a non-None value in subclasses.
     options: Incomplete
@@ -47,7 +47,7 @@ class Lexer(metaclass=LexerMeta):
     def add_filter(self, filter_, **options) -> None: ...
     @staticmethod  # @staticmethod added by special handling in metaclass
     def analyse_text(text: str) -> float: ...
-    def get_tokens(self, text: str, unfiltered: bool = False) -> Iterator[tuple[_TokenType, str]]: ...
+    def get_tokens(self, text: str | bytes | bytearray, unfiltered: bool = False) -> Iterator[tuple[_TokenType, str]]: ...
     def get_tokens_unprocessed(self, text: str) -> Iterator[tuple[int, _TokenType, str]]: ...
 
 class DelegatingLexer(Lexer):

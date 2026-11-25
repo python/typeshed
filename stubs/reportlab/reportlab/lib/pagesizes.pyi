@@ -1,6 +1,7 @@
 from typing import Final
 
 __version__: Final[str]
+
 A0: Final[tuple[float, float]]
 A1: Final[tuple[float, float]]
 A2: Final[tuple[float, float]]

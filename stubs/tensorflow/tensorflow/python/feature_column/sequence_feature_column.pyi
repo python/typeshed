@@ -1,3 +1,4 @@
+from _typeshed import FloatInt
 from collections.abc import Callable
 from typing_extensions import Self
 
@@ -10,7 +11,7 @@ from tensorflow.python.feature_column.feature_column_v2 import SequenceDenseColu
 class SequenceNumericColumn(SequenceDenseColumn):
     key: str
     shape: ShapeLike
-    default_value: float
+    default_value: FloatInt
     dtype: tf.DType
     normalizer_fn: Callable[[tf.Tensor], tf.Tensor] | None
 
@@ -18,7 +19,7 @@ class SequenceNumericColumn(SequenceDenseColumn):
         _cls,
         key: str,
         shape: ShapeLike,
-        default_value: float,
+        default_value: FloatInt,
         dtype: tf.DType,
         normalizer_fn: Callable[[tf.Tensor], tf.Tensor] | None,
     ) -> Self: ...

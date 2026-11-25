@@ -5,6 +5,7 @@ from _typeshed import (
     FileDescriptor,
     FileDescriptorLike,
     FileDescriptorOrPath,
+    FloatInt,
     GenericPath,
     OpenBinaryMode,
     OpenBinaryModeReading,
@@ -234,12 +235,15 @@ if sys.platform == "linux" and sys.version_info >= (3, 15):
         "AT_STATX_DONT_SYNC",
         "AT_STATX_FORCE_SYNC",
         "AT_STATX_SYNC_AS_STAT",
+        "RWF_ATOMIC",
+        "RWF_DONTCACHE",
         "STATX_ATIME",
         "STATX_BASIC_STATS",
         "STATX_BLOCKS",
         "STATX_BTIME",
         "STATX_CTIME",
         "STATX_DIOALIGN",
+        "STATX_DIO_READ_ALIGN",
         "STATX_GID",
         "STATX_INO",
         "STATX_MNT_ID",
@@ -248,8 +252,10 @@ if sys.platform == "linux" and sys.version_info >= (3, 15):
         "STATX_MTIME",
         "STATX_NLINK",
         "STATX_SIZE",
+        "STATX_SUBVOL",
         "STATX_TYPE",
         "STATX_UID",
+        "STATX_WRITE_ATOMIC",
         "statx",
         "statx_result",
     ]
@@ -703,12 +709,15 @@ if sys.platform == "linux" and sys.version_info >= (3, 15):
     AT_STATX_DONT_SYNC: Final[int]
     AT_STATX_FORCE_SYNC: Final[int]
     AT_STATX_SYNC_AS_STAT: Final[int]
+    RWF_ATOMIC: Final[int]
+    RWF_DONTCACHE: Final[int]
     STATX_ATIME: Final[int]
     STATX_BASIC_STATS: Final[int]
     STATX_BLOCKS: Final[int]
     STATX_BTIME: Final[int]
     STATX_CTIME: Final[int]
     STATX_DIOALIGN: Final[int]
+    STATX_DIO_READ_ALIGN: Final[int]
     STATX_GID: Final[int]
     STATX_INO: Final[int]
     STATX_MNT_ID: Final[int]
@@ -717,8 +726,10 @@ if sys.platform == "linux" and sys.version_info >= (3, 15):
     STATX_MTIME: Final[int]
     STATX_NLINK: Final[int]
     STATX_SIZE: Final[int]
+    STATX_SUBVOL: Final[int]
     STATX_TYPE: Final[int]
     STATX_UID: Final[int]
+    STATX_WRITE_ATOMIC: Final[int]
 
 if sys.platform != "win32":
     O_FSYNC: Final[int]
@@ -1408,6 +1419,18 @@ if sys.platform == "linux" and sys.version_info >= (3, 15):
         def stx_dio_mem_align(self) -> int | None: ...
         @property
         def stx_dio_offset_align(self) -> int | None: ...
+        @property
+        def stx_subvol(self) -> int | None: ...
+        @property
+        def stx_atomic_write_unit_min(self) -> int | None: ...
+        @property
+        def stx_atomic_write_unit_max(self) -> int | None: ...
+        @property
+        def stx_atomic_write_segments_max(self) -> int | None: ...
+        @property
+        def stx_dio_read_offset_align(self) -> int | None: ...
+        @property
+        def stx_atomic_write_unit_max_opt(self) -> int | None: ...
 
     def statx(
         path: FileDescriptorOrPath, mask: int, *, flags: int = 0, dir_fd: int | None = None, follow_symlinks: bool = True
@@ -1424,7 +1447,7 @@ def truncate(path: FileDescriptorOrPath, length: int) -> None: ...  # Unix only 
 def unlink(path: StrOrBytesPath, *, dir_fd: int | None = None) -> None: ...
 def utime(
     path: FileDescriptorOrPath,
-    times: tuple[int, int] | tuple[float, float] | None = None,
+    times: tuple[int, int] | tuple[FloatInt, FloatInt] | None = None,
     *,
     ns: tuple[int, int] = ...,
     dir_fd: int | None = None,
@@ -1862,7 +1885,7 @@ if sys.version_info >= (3, 13) and sys.platform == "linux":
 
     def timerfd_create(clockid: int, /, *, flags: int = 0) -> int: ...
     def timerfd_settime(
-        fd: FileDescriptor, /, *, flags: int = 0, initial: float = 0.0, interval: float = 0.0
+        fd: FileDescriptor, /, *, flags: int = 0, initial: FloatInt = 0.0, interval: FloatInt = 0.0
     ) -> tuple[float, float]: ...
     def timerfd_settime_ns(fd: FileDescriptor, /, *, flags: int = 0, initial: int = 0, interval: int = 0) -> tuple[int, int]: ...
     def timerfd_gettime(fd: FileDescriptor, /) -> tuple[float, float]: ...

@@ -7,7 +7,7 @@ __all__ = ("LANGUAGES", "Pyphen", "language_fallback")
 LANGUAGES: dict[str, Path]
 _Data: TypeAlias = tuple[str, int, int]
 
-def language_fallback(language: str) -> str: ...
+def language_fallback(language: str) -> str | None: ...
 
 class AlternativeParser:
     change: str

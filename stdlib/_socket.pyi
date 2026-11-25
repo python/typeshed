@@ -1,5 +1,5 @@
 import sys
-from _typeshed import ReadableBuffer, WriteableBuffer
+from _typeshed import FloatInt, ReadableBuffer, WriteableBuffer
 from collections.abc import Iterable
 from socket import error as error, gaierror as gaierror, herror as herror, timeout as timeout
 from typing import Any, Final, SupportsIndex, TypeAlias, overload
@@ -98,6 +98,8 @@ if sys.platform != "win32" and sys.platform != "darwin" and sys.platform != "lin
     SO_SETFIB: Final[int]
 if sys.platform == "linux" and sys.version_info >= (3, 13):
     SO_BINDTOIFINDEX: Final[int]
+if sys.platform == "linux" and sys.version_info >= (3, 15):
+    SO_PASSRIGHTS: Final[int]
 
 SOMAXCONN: Final[int]
 
@@ -904,7 +906,7 @@ class socket:
         ) -> int: ...
 
     def setblocking(self, flag: bool, /) -> None: ...
-    def settimeout(self, value: float | None, /) -> None: ...
+    def settimeout(self, value: FloatInt | None, /) -> None: ...
 
     @overload
     def setsockopt(self, level: int, optname: int, value: int | ReadableBuffer, /) -> None: ...
@@ -946,7 +948,7 @@ def inet_ntop(address_family: int, packed_ip: ReadableBuffer, /) -> str: ...
 def getdefaulttimeout() -> float | None: ...
 
 # F811: "Redefinition of unused `timeout`"
-def setdefaulttimeout(timeout: float | None, /) -> None: ...
+def setdefaulttimeout(timeout: FloatInt | None, /) -> None: ...
 
 if sys.platform != "win32":
     def sethostname(name: str, /) -> None: ...

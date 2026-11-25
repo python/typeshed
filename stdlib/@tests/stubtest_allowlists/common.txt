@@ -193,7 +193,6 @@ asyncio.locks.Condition.locked
 asyncio.locks.Condition.release
 
 builtins.memoryview.__contains__  # C type that implements __getitem__
-builtins.property.__set_name__  # Doesn't actually exist
 builtins.reveal_locals  # Builtins that type checkers pretends exist
 builtins.reveal_type  # Builtins that type checkers pretends exist
 
@@ -291,12 +290,17 @@ importlib.metadata._meta.SimplePath.joinpath  # Runtime definition of protocol i
 inspect.Parameter.__init__
 inspect.Signature.__init__
 
+# Abstract methods that don't exist at runtime
+_io._IOBase.read
+_io._IOBase.write
+
 logging.LogRecord.__setattr__  # doesn't exist, but makes things easy if we pretend it does
 
 # Iterable classes that don't define __iter__ at runtime (usually iterable via __getitem__)
 # These would ideally be special-cased by type checkers; see https://github.com/python/mypy/issues/2220
 mmap.mmap.__iter__
 mmap.mmap.__contains__
+multiprocessing.shared_memory.ShareableList.__iter__
 
 # These multiprocessing proxy methods have *args, **kwargs signatures at runtime,
 # But have more precise (accurate) signatures in the stub
