@@ -45,7 +45,7 @@ class _InProcessGlobalCache(GlobalCache):
 class RedisCache(GlobalCache):
     transient_errors: Incomplete
     @classmethod
-    def from_environment(cls, strict_read: bool = False, strict_write: bool = True) -> Self: ...
+    def from_environment(cls, strict_read: bool = False, strict_write: bool = True) -> Self | None: ...
     redis: Incomplete
     strict_read: Incomplete
     strict_write: Incomplete
@@ -71,7 +71,7 @@ class MemcacheCache(GlobalCache):
 
     transient_errors: Incomplete
     @classmethod
-    def from_environment(cls, max_pool_size: int = 4, strict_read: bool = False, strict_write: bool = True) -> Self: ...
+    def from_environment(cls, max_pool_size: int = 4, strict_read: bool = False, strict_write: bool = True) -> Self | None: ...
     client: Incomplete
     strict_read: Incomplete
     strict_write: Incomplete
