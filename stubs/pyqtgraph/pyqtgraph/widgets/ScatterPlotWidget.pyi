@@ -1,0 +1,39 @@
+from _typeshed import Incomplete
+
+from ..Qt import QtWidgets
+
+__all__ = ["ScatterPlotWidget"]
+
+class ScatterPlotWidget(QtWidgets.QSplitter):
+    sigScatterPlotClicked: Incomplete
+    sigScatterPlotHovered: Incomplete
+    ctrlPanel: Incomplete
+    fieldList: Incomplete
+    ptree: Incomplete
+    filter: Incomplete
+    colorMap: Incomplete
+    params: Incomplete
+    plot: Incomplete
+    filterText: Incomplete
+    data: Incomplete
+    indices: Incomplete
+    mouseOverField: Incomplete
+    scatterPlot: Incomplete
+    selectionScatter: Incomplete
+    selectedIndices: Incomplete
+    style: Incomplete
+    def __init__(self, parent=None) -> None: ...
+    fields: Incomplete
+    def setFields(self, fields, mouseOverField=None) -> None: ...
+    def setSelectedFields(self, *fields) -> None: ...
+    filtered: Incomplete
+    filteredIndices: Incomplete
+    def setData(self, data) -> None: ...
+    def setSelectedIndices(self, inds) -> None: ...
+    def setSelectedPoints(self, points) -> None: ...
+    def fieldSelectionChanged(self) -> None: ...
+    def filterChanged(self, f) -> None: ...
+    def updatePlot(self) -> None: ...
+    def updateSelected(self) -> None: ...
+    def plotClicked(self, plot, points, ev) -> None: ...
+    def plotHovered(self, plot, points, ev) -> None: ...
