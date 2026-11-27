@@ -1,8 +1,13 @@
+from _typeshed import Incomplete
 from collections.abc import Callable, Container, Iterable, Mapping, Sequence
 from typing import Any, Final, Literal, NamedTuple, TypeAlias
 from typing_extensions import Self
 
 __all__ = ["tabulate", "tabulate_formats", "simple_separated_format"]
+
+# stub_uploader won't allow pandas-stubs in the requires field https://github.com/typeshed-internal/stub_uploader/issues/90
+# from pandas import DataFrame
+_DataFrame: TypeAlias = Incomplete
 
 __version__: Final[str]
 # These constants are meant to be configurable
@@ -44,7 +49,7 @@ multiline_formats: dict[str, str]
 def simple_separated_format(separator: str) -> TableFormat: ...
 def tabulate(
     # The key is converted using str().
-    tabular_data: Mapping[Any, Iterable[Any]] | Iterable[Iterable[Any]],
+    tabular_data: Mapping[Any, Iterable[Any]] | Iterable[Iterable[Any]] | _DataFrame,
     headers: str | dict[str, str] | Sequence[str] = (),
     tablefmt: str | TableFormat = "simple",
     floatfmt: str | Iterable[str] = "g",
