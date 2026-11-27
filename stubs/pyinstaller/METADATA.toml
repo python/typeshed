@@ -1,3 +1,7 @@
 version = "~=6.22.1"
 upstream-repository = "https://github.com/pyinstaller/pyinstaller"
 partial-stub = true
+
+[tool.stubtest]
+# PyInstaller.utils.win32.versioninfo can only be imported on Windows
+ci-platforms = ["linux", "win32"]
