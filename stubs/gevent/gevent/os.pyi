@@ -6,6 +6,25 @@ from typing import Literal
 
 from gevent._types import _ChildWatcher, _Loop
 
+__all__ = ["tp_read", "tp_write"]
+
+if sys.platform != "win32":
+    __all__ += [
+        "close",
+        "fork",
+        "fork_and_watch",
+        "fork_gevent",
+        "forkpty",
+        "forkpty_and_watch",
+        "forkpty_gevent",
+        "make_nonblocking",
+        "nb_read",
+        "nb_write",
+        "posix_spawn",
+        "posix_spawnp",
+        "waitpid",
+    ]
+
 def tp_read(fd: FileDescriptor, n: int) -> bytes: ...
 def tp_write(fd: FileDescriptor, buf: ReadableBuffer) -> int: ...
 
