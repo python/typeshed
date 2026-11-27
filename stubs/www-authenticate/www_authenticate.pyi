@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from collections import OrderedDict
 from typing import Protocol, TypeVar, overload, type_check_only
 
@@ -33,4 +32,4 @@ class CaseFoldedOrderedDict(OrderedDict[str, _VT]):
     @overload
     def pop(self, key: _SupportsCasefold | _SupportsLower, default: _T) -> _VT | _T: ...
 
-def parse(value: str) -> CaseFoldedOrderedDict[Incomplete]: ...
+def parse(value: str) -> CaseFoldedOrderedDict[str | dict[str, str] | None]: ...
