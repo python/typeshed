@@ -40,20 +40,33 @@ def safe_load(stream: _ReadStream) -> _YAMLObject: ...
 def safe_load_all(stream: _ReadStream) -> Iterator[_YAMLObject]: ...
 def unsafe_load(stream: _ReadStream) -> _YAMLObject: ...
 def unsafe_load_all(stream: _ReadStream) -> Iterator[_YAMLObject]: ...
+
+@overload
 def emit(
-    events,
-    stream: _WriteStream[_YAMLObject] | None = None,
+    events: Iterable[Event],
+    stream: _WriteStream[_YAMLObject],
     Dumper=...,
     canonical: bool | None = None,
     indent: int | None = None,
     width: int | _Inf | None = None,
     allow_unicode: bool | None = None,
     line_break: str | None = None,
-): ...
+) -> None: ...
+@overload
+def emit(
+    events: Iterable[Event],
+    stream: None = None,
+    Dumper=...,
+    canonical: bool | None = None,
+    indent: int | None = None,
+    width: int | _Inf | None = None,
+    allow_unicode: bool | None = None,
+    line_break: str | None = None,
+) -> str: ...
 
 @overload
 def serialize_all(
-    nodes,
+    nodes: Iterable[Node],
     stream: _WriteStream[_YAMLObject],
     Dumper=...,
     *,
@@ -70,7 +83,7 @@ def serialize_all(
 ) -> None: ...
 @overload
 def serialize_all(
-    nodes,
+    nodes: Iterable[Node],
     stream: None = None,
     Dumper=...,
     *,
@@ -87,7 +100,7 @@ def serialize_all(
 ) -> str: ...
 @overload
 def serialize_all(
-    nodes,
+    nodes: Iterable[Node],
     stream: None = None,
     Dumper=...,
     *,
@@ -105,7 +118,7 @@ def serialize_all(
 
 @overload
 def serialize(
-    node,
+    node: Node,
     stream: _WriteStream[_YAMLObject],
     Dumper=...,
     *,
@@ -122,7 +135,7 @@ def serialize(
 ) -> None: ...
 @overload
 def serialize(
-    node,
+    node: Node,
     stream: None = None,
     Dumper=...,
     *,
@@ -139,7 +152,7 @@ def serialize(
 ) -> str: ...
 @overload
 def serialize(
-    node,
+    node: Node,
     stream: None = None,
     Dumper=...,
     *,
