@@ -1,5 +1,4 @@
 import collections.abc
-from _typeshed import Incomplete
 from collections import OrderedDict
 from collections.abc import Callable, Mapping
 from typing import Any
@@ -9,7 +8,7 @@ from parsimonious.expressions import _CALLABLE_TYPE, Expression, Literal, Lookah
 from parsimonious.nodes import Node, NodeVisitor
 
 class Grammar(OrderedDict[str, Expression]):
-    default_rule: Expression | Incomplete
+    default_rule: Expression | None
     def __init__(self, rules: str = "", **more_rules: Expression | _CALLABLE_TYPE) -> None: ...
     def default(self, rule_name: str) -> Grammar: ...
     def parse(self, text: str, pos: int = 0) -> Node: ...
