@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from collections.abc import Callable
 from logging import Logger
 from typing import Any, Literal, Protocol, TypeAlias, TypedDict, overload, type_check_only
 
@@ -30,29 +31,29 @@ class _ComplianceHooks(TypedDict):
 log: Logger
 
 class TokenUpdated(Warning):
-    token: Incomplete
-    def __init__(self, token) -> None: ...
+    token: _Token
+    def __init__(self, token: _Token) -> None: ...
 
 class OAuth2Session(requests.Session):
-    redirect_uri: Incomplete
-    state: Incomplete
+    redirect_uri: str | None
+    state: str | Callable[[], str]
     auto_refresh_url: str | None
     auto_refresh_kwargs: dict[str, Any]
-    token_updater: Incomplete
+    token_updater: Callable[[_Token], object] | None
     compliance_hook: _ComplianceHooks
     def __init__(
         self,
-        client_id=None,
+        client_id: str | None = None,
         client: Client | None = None,
         auto_refresh_url: str | None = None,
         auto_refresh_kwargs: dict[str, Any] | None = None,
-        scope=None,
-        redirect_uri=None,
-        token=None,
-        state=None,
-        token_updater=None,
-        pkce=None,
-        **kwargs,
+        scope: str | list[str] | set[str] | tuple[str, ...] | None = None,
+        redirect_uri: str | None = None,
+        token: _Token | None = None,
+        state: str | Callable[[], str] | None = None,
+        token_updater: Callable[[_Token], object] | None = None,
+        pkce: Literal["S256", "plain"] | None = None,
+        **kwargs: Any,
     ) -> None: ...
 
     @property
@@ -60,62 +61,62 @@ class OAuth2Session(requests.Session):
     @scope.setter
     def scope(self, value: Incomplete | None) -> None: ...
 
-    def new_state(self): ...
+    def new_state(self) -> str: ...
 
     @property
-    def client_id(self) -> Incomplete | None: ...  # oauthlib.oauth2.Client.client_id
+    def client_id(self) -> str | None: ...
     @client_id.setter
-    def client_id(self, value: Incomplete | None) -> None: ...
+    def client_id(self, value: str | None) -> None: ...
     @client_id.deleter
     def client_id(self) -> None: ...
 
     @property
-    def token(self): ...  # oauthlib.oauth2.Client.token
+    def token(self) -> _Token: ...
     @token.setter
-    def token(self, value) -> None: ...
+    def token(self, value: _Token) -> None: ...
 
     @property
-    def access_token(self): ...  # oauthlib.oauth2.Client.access_token
+    def access_token(self) -> str | None: ...
     @access_token.setter
-    def access_token(self, value) -> None: ...
+    def access_token(self, value: str | None) -> None: ...
     @access_token.deleter
     def access_token(self) -> None: ...
 
     @property
     def authorized(self) -> bool: ...
-    def authorization_url(self, url: str, state=None, **kwargs) -> tuple[str, str]: ...
+    def authorization_url(self, url: str, state: str | None = None, **kwargs: Any) -> tuple[str, str]: ...
     def fetch_token(
         self,
         token_url: str,
-        code=None,
-        authorization_response=None,
+        code: str | None = None,
+        authorization_response: str | None = None,
         body: str = "",
-        auth=None,
-        username=None,
-        password=None,
+        auth: _types.AuthType = None,
+        username: str | None = None,
+        password: str | None = None,
         method: str = "POST",
         force_querystring: bool = False,
-        timeout=None,
-        headers=None,
-        verify: bool | None = None,
-        proxies=None,
-        include_client_id=None,
-        client_secret=None,
-        cert=None,
-        **kwargs,
+        timeout: _types.TimeoutType = None,
+        headers: _types.HeadersType = None,
+        verify: _types.VerifyType | None = None,
+        proxies: dict[str, str] | None = None,
+        include_client_id: bool | None = None,
+        client_secret: str | None = None,
+        cert: _types.CertType = None,
+        **kwargs: Any,
     ) -> _Token: ...
     def token_from_fragment(self, authorization_response: str) -> _Token: ...
     def refresh_token(
         self,
         token_url: str,
-        refresh_token=None,
+        refresh_token: str | None = None,
         body: str = "",
-        auth=None,
-        timeout=None,
-        headers=None,
-        verify: bool | None = None,
-        proxies=None,
-        **kwargs,
+        auth: _types.AuthType = None,
+        timeout: _types.TimeoutType = None,
+        headers: _types.HeadersType = None,
+        verify: _types.VerifyType | None = None,
+        proxies: dict[str, str] | None = None,
+        **kwargs: Any,
     ) -> _Token: ...
     def request(  # type: ignore[override]
         self,
@@ -124,8 +125,8 @@ class OAuth2Session(requests.Session):
         data: _types.DataType = None,
         headers: _types.HeadersType = None,
         withhold_token: bool = False,
-        client_id=None,
-        client_secret=None,
+        client_id: str | None = None,
+        client_secret: str | None = None,
         files: _types.FilesType = None,
         *,
         params: _types.ParamsType = None,
@@ -138,7 +139,7 @@ class OAuth2Session(requests.Session):
         stream: bool | None = None,
         verify: _types.VerifyType | None = None,
         cert: _types.CertType = None,
-        json=None,
+        json: _types.JsonType = None,
     ) -> requests.Response: ...
 
     @overload
