@@ -1,2 +1,2 @@
-version = "~=3.11.3"
+version = "~=3.11.4"
 upstream-repository = "https://github.com/Python-Markdown/markdown"
