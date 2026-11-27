@@ -62,11 +62,11 @@ class Process:
     def __eq__(self, other: object) -> bool: ...
 
 class CronTab:
-    lines: list[str | CronItem] | None
-    crons: list[CronItem] | None
+    lines: list[str | CronItem]
+    crons: list[CronItem]
     filen: str | None
     cron_command: str
-    env: OrderedVariableList[str, str] | None
+    env: OrderedVariableList[str, str]
     root: bool
     intab: str | None
     tabfile: str | None
@@ -121,7 +121,12 @@ class CronTab:
     ) -> int: ...
     def remove(self, *items: CronItem | Iterable[CronItem]) -> int: ...
     def __iter__(self) -> Iterator[CronItem]: ...
+
+    @overload
     def __getitem__(self, i: SupportsIndex) -> CronItem: ...
+    @overload
+    def __getitem__(self, i: slice) -> list[CronItem]: ...
+
     def __len__(self) -> int: ...
 
 class CronItem:
