@@ -2,7 +2,7 @@ import sys
 import time
 from _typeshed import FloatInt
 from collections.abc import Callable, Sequence
-from typing import IO, Any, TypeAlias
+from typing import IO, Any, SupportsIndex, TypeAlias
 
 __all__ = ["Timer", "timeit", "repeat", "default_timer"]
 
@@ -20,8 +20,8 @@ class Timer:
         globals: dict[str, Any] | None = None,
     ) -> None: ...
     def print_exc(self, file: IO[str] | None = None) -> None: ...
-    def timeit(self, number: int = 1000000) -> float: ...
-    def repeat(self, repeat: int = 5, number: int = 1000000) -> list[float]: ...
+    def timeit(self, number: SupportsIndex = 1000000) -> float: ...
+    def repeat(self, repeat: SupportsIndex = 5, number: SupportsIndex = 1000000) -> list[float]: ...
     if sys.version_info >= (3, 15):
         def autorange(
             self, callback: Callable[[int, FloatInt], object] | None = None, target_time: FloatInt = 0.2
@@ -33,15 +33,15 @@ def timeit(
     stmt: _Stmt = "pass",
     setup: _Stmt = "pass",
     timer: _Timer = time.perf_counter,
-    number: int = 1000000,
+    number: SupportsIndex = 1000000,
     globals: dict[str, Any] | None = None,
 ) -> float: ...
 def repeat(
     stmt: _Stmt = "pass",
     setup: _Stmt = "pass",
     timer: _Timer = time.perf_counter,
-    repeat: int = 5,
-    number: int = 1000000,
+    repeat: SupportsIndex = 5,
+    number: SupportsIndex = 1000000,
     globals: dict[str, Any] | None = None,
 ) -> list[float]: ...
 def main(args: Sequence[str] | None = None, *, _wrap_timer: Callable[[_Timer], _Timer] | None = None) -> None: ...
