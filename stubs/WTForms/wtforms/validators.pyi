@@ -89,7 +89,7 @@ class NumberRange:
 class DateRange:
     min: date | datetime | Callable[[], date | datetime | None] | None
     max: date | datetime | Callable[[], date | datetime | None] | None
-    message: _Text
+    message: _Text | None
     field_flags: dict[str, Any]
     def __init__(
         self,
