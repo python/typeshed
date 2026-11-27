@@ -3,31 +3,30 @@
 isort:skip_file
 """
 
-import builtins
-import collections.abc
+import builtins as _builtins
 import sys
-import typing
+import typing as _typing
+from collections import abc as _abc
 
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.internal.enum_type_wrapper
-import google.protobuf.message
+from google.protobuf import descriptor as _descriptor, message as _message
+from google.protobuf.internal import containers as _containers, enum_type_wrapper as _enum_type_wrapper
 
-if sys.version_info >= (3, 10):
-    import typing as typing_extensions
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
 else:
-    import typing_extensions
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+DESCRIPTOR: _descriptor.FileDescriptor
 
 class _VariableSynchronization:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
 class _VariableSynchronizationEnumTypeWrapper(
-    google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_VariableSynchronization.ValueType], builtins.type
+    _enum_type_wrapper._EnumTypeWrapper[_VariableSynchronization.ValueType], _builtins.type
 ):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    DESCRIPTOR: _descriptor.EnumDescriptor
     VARIABLE_SYNCHRONIZATION_AUTO: _VariableSynchronization.ValueType  # 0
     """`AUTO`: Indicates that the synchronization will be determined by the
     current `DistributionStrategy` (eg. With `MirroredStrategy` this would be
@@ -68,16 +67,14 @@ VARIABLE_SYNCHRONIZATION_ON_READ: VariableSynchronization.ValueType  # 3
 when it is read (eg. when checkpointing or when evaluating an op that uses
 the variable).
 """
-global___VariableSynchronization = VariableSynchronization
+Global___VariableSynchronization: _TypeAlias = VariableSynchronization  # noqa: Y015
 
 class _VariableAggregation:
-    ValueType = typing.NewType("ValueType", builtins.int)
-    V: typing_extensions.TypeAlias = ValueType
+    ValueType = _typing.NewType("ValueType", _builtins.int)
+    V: _TypeAlias = ValueType  # noqa: Y015
 
-class _VariableAggregationEnumTypeWrapper(
-    google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_VariableAggregation.ValueType], builtins.type
-):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+class _VariableAggregationEnumTypeWrapper(_enum_type_wrapper._EnumTypeWrapper[_VariableAggregation.ValueType], _builtins.type):
+    DESCRIPTOR: _descriptor.EnumDescriptor
     VARIABLE_AGGREGATION_NONE: _VariableAggregation.ValueType  # 0
     """`NONE`: This is the default, giving an error if you use a
     variable-update operation with multiple replicas.
@@ -112,118 +109,119 @@ VARIABLE_AGGREGATION_ONLY_FIRST_REPLICA: VariableAggregation.ValueType  # 3
 update, but we only want to perform the update once. Used, e.g., for the
 global step counter.
 """
-global___VariableAggregation = VariableAggregation
+Global___VariableAggregation: _TypeAlias = VariableAggregation  # noqa: Y015
 
-@typing.final
-class VariableDef(google.protobuf.message.Message):
+@_typing.final
+class VariableDef(_message.Message):
     """Protocol buffer representing a Variable."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    VARIABLE_NAME_FIELD_NUMBER: builtins.int
-    INITIAL_VALUE_NAME_FIELD_NUMBER: builtins.int
-    INITIALIZER_NAME_FIELD_NUMBER: builtins.int
-    SNAPSHOT_NAME_FIELD_NUMBER: builtins.int
-    SAVE_SLICE_INFO_DEF_FIELD_NUMBER: builtins.int
-    IS_RESOURCE_FIELD_NUMBER: builtins.int
-    TRAINABLE_FIELD_NUMBER: builtins.int
-    SYNCHRONIZATION_FIELD_NUMBER: builtins.int
-    AGGREGATION_FIELD_NUMBER: builtins.int
-    variable_name: builtins.str
+    VARIABLE_NAME_FIELD_NUMBER: _builtins.int
+    INITIAL_VALUE_NAME_FIELD_NUMBER: _builtins.int
+    INITIALIZER_NAME_FIELD_NUMBER: _builtins.int
+    SNAPSHOT_NAME_FIELD_NUMBER: _builtins.int
+    SAVE_SLICE_INFO_DEF_FIELD_NUMBER: _builtins.int
+    IS_RESOURCE_FIELD_NUMBER: _builtins.int
+    TRAINABLE_FIELD_NUMBER: _builtins.int
+    SYNCHRONIZATION_FIELD_NUMBER: _builtins.int
+    AGGREGATION_FIELD_NUMBER: _builtins.int
+    variable_name: _builtins.str
     """Name of the variable tensor."""
-    initial_value_name: builtins.str
+    initial_value_name: _builtins.str
     """Name of the tensor holding the variable's initial value."""
-    initializer_name: builtins.str
+    initializer_name: _builtins.str
     """Name of the initializer op."""
-    snapshot_name: builtins.str
+    snapshot_name: _builtins.str
     """Name of the snapshot tensor."""
-    is_resource: builtins.bool
+    is_resource: _builtins.bool
     """Whether to represent this as a ResourceVariable."""
-    trainable: builtins.bool
+    trainable: _builtins.bool
     """Whether this variable should be trained."""
-    synchronization: global___VariableSynchronization.ValueType
+    synchronization: Global___VariableSynchronization.ValueType
     """Indicates when a distributed variable will be synced."""
-    aggregation: global___VariableAggregation.ValueType
+    aggregation: Global___VariableAggregation.ValueType
     """Indicates how a distributed variable will be aggregated."""
-    @property
-    def save_slice_info_def(self) -> global___SaveSliceInfoDef:
+    @_builtins.property
+    def save_slice_info_def(self) -> Global___SaveSliceInfoDef:
         """Support for saving variables as slices of a larger variable."""
 
     def __init__(
         self,
         *,
-        variable_name: builtins.str | None = ...,
-        initial_value_name: builtins.str | None = ...,
-        initializer_name: builtins.str | None = ...,
-        snapshot_name: builtins.str | None = ...,
-        save_slice_info_def: global___SaveSliceInfoDef | None = ...,
-        is_resource: builtins.bool | None = ...,
-        trainable: builtins.bool | None = ...,
-        synchronization: global___VariableSynchronization.ValueType | None = ...,
-        aggregation: global___VariableAggregation.ValueType | None = ...,
+        variable_name: _builtins.str | None = ...,
+        initial_value_name: _builtins.str | None = ...,
+        initializer_name: _builtins.str | None = ...,
+        snapshot_name: _builtins.str | None = ...,
+        save_slice_info_def: Global___SaveSliceInfoDef | None = ...,
+        is_resource: _builtins.bool | None = ...,
+        trainable: _builtins.bool | None = ...,
+        synchronization: Global___VariableSynchronization.ValueType | None = ...,
+        aggregation: Global___VariableAggregation.ValueType | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["save_slice_info_def", b"save_slice_info_def"]) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "aggregation",
-            b"aggregation",
-            "initial_value_name",
-            b"initial_value_name",
-            "initializer_name",
-            b"initializer_name",
-            "is_resource",
-            b"is_resource",
-            "save_slice_info_def",
-            b"save_slice_info_def",
-            "snapshot_name",
-            b"snapshot_name",
-            "synchronization",
-            b"synchronization",
-            "trainable",
-            b"trainable",
-            "variable_name",
-            b"variable_name",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["save_slice_info_def", b"save_slice_info_def"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "aggregation",
+        b"aggregation",
+        "initial_value_name",
+        b"initial_value_name",
+        "initializer_name",
+        b"initializer_name",
+        "is_resource",
+        b"is_resource",
+        "save_slice_info_def",
+        b"save_slice_info_def",
+        "snapshot_name",
+        b"snapshot_name",
+        "synchronization",
+        b"synchronization",
+        "trainable",
+        b"trainable",
+        "variable_name",
+        b"variable_name",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___VariableDef = VariableDef
+Global___VariableDef: _TypeAlias = VariableDef  # noqa: Y015
 
-@typing.final
-class SaveSliceInfoDef(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+@_typing.final
+class SaveSliceInfoDef(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
 
-    FULL_NAME_FIELD_NUMBER: builtins.int
-    FULL_SHAPE_FIELD_NUMBER: builtins.int
-    VAR_OFFSET_FIELD_NUMBER: builtins.int
-    VAR_SHAPE_FIELD_NUMBER: builtins.int
-    full_name: builtins.str
+    FULL_NAME_FIELD_NUMBER: _builtins.int
+    FULL_SHAPE_FIELD_NUMBER: _builtins.int
+    VAR_OFFSET_FIELD_NUMBER: _builtins.int
+    VAR_SHAPE_FIELD_NUMBER: _builtins.int
+    full_name: _builtins.str
     """Name of the full variable of which this is a slice."""
-    @property
-    def full_shape(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+    @_builtins.property
+    def full_shape(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]:
         """Shape of the full variable."""
 
-    @property
-    def var_offset(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+    @_builtins.property
+    def var_offset(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]:
         """Offset of this variable into the full variable."""
 
-    @property
-    def var_shape(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+    @_builtins.property
+    def var_shape(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]:
         """Shape of this variable."""
 
     def __init__(
         self,
         *,
-        full_name: builtins.str | None = ...,
-        full_shape: collections.abc.Iterable[builtins.int] | None = ...,
-        var_offset: collections.abc.Iterable[builtins.int] | None = ...,
-        var_shape: collections.abc.Iterable[builtins.int] | None = ...,
+        full_name: _builtins.str | None = ...,
+        full_shape: _abc.Iterable[_builtins.int] | None = ...,
+        var_offset: _abc.Iterable[_builtins.int] | None = ...,
+        var_shape: _abc.Iterable[_builtins.int] | None = ...,
     ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "full_name", b"full_name", "full_shape", b"full_shape", "var_offset", b"var_offset", "var_shape", b"var_shape"
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "full_name", b"full_name", "full_shape", b"full_shape", "var_offset", b"var_offset", "var_shape", b"var_shape"
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___SaveSliceInfoDef = SaveSliceInfoDef
+Global___SaveSliceInfoDef: _TypeAlias = SaveSliceInfoDef  # noqa: Y015

@@ -3,18 +3,24 @@
 isort:skip_file
 """
 
-import builtins
-import collections.abc
-import typing
+import builtins as _builtins
+import sys
+import typing as _typing
+from collections import abc as _abc
 
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.message
+from google.protobuf import descriptor as _descriptor, message as _message
+from google.protobuf.internal import containers as _containers
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
+else:
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-@typing.final
-class VersionDef(google.protobuf.message.Message):
+DESCRIPTOR: _descriptor.FileDescriptor
+
+@_typing.final
+class VersionDef(_message.Message):
     """Version information for a piece of serialized data
 
     There are different types of versions for each type of data
@@ -29,29 +35,32 @@ class VersionDef(google.protobuf.message.Message):
       consumer not in bad_consumers
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    PRODUCER_FIELD_NUMBER: builtins.int
-    MIN_CONSUMER_FIELD_NUMBER: builtins.int
-    BAD_CONSUMERS_FIELD_NUMBER: builtins.int
-    producer: builtins.int
+    PRODUCER_FIELD_NUMBER: _builtins.int
+    MIN_CONSUMER_FIELD_NUMBER: _builtins.int
+    BAD_CONSUMERS_FIELD_NUMBER: _builtins.int
+    producer: _builtins.int
     """The version of the code that produced this data."""
-    min_consumer: builtins.int
+    min_consumer: _builtins.int
     """Any consumer below this version is not allowed to consume this data."""
-    @property
-    def bad_consumers(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+    @_builtins.property
+    def bad_consumers(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]:
         """Specific consumer versions which are disallowed (e.g. due to bugs)."""
 
     def __init__(
         self,
         *,
-        producer: builtins.int | None = ...,
-        min_consumer: builtins.int | None = ...,
-        bad_consumers: collections.abc.Iterable[builtins.int] | None = ...,
+        producer: _builtins.int | None = ...,
+        min_consumer: _builtins.int | None = ...,
+        bad_consumers: _abc.Iterable[_builtins.int] | None = ...,
     ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal["bad_consumers", b"bad_consumers", "min_consumer", b"min_consumer", "producer", b"producer"],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "bad_consumers", b"bad_consumers", "min_consumer", b"min_consumer", "producer", b"producer"
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___VersionDef = VersionDef
+Global___VersionDef: _TypeAlias = VersionDef  # noqa: Y015

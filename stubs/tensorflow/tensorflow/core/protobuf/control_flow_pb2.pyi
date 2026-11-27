@@ -3,241 +3,255 @@
 isort:skip_file
 """
 
-import builtins
-import collections.abc
-import typing
+import builtins as _builtins
+import sys
+import typing as _typing
+from collections import abc as _abc
 
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.message
+from google.protobuf import descriptor as _descriptor, message as _message
+from google.protobuf.internal import containers as _containers
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
+else:
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-@typing.final
-class ValuesDef(google.protobuf.message.Message):
+DESCRIPTOR: _descriptor.FileDescriptor
+
+@_typing.final
+class ValuesDef(_message.Message):
     """Control flow context related protocol buffers.
 
     Protocol buffer representing the values in ControlFlowContext.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class ExternalValuesEntry(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    @_typing.final
+    class ExternalValuesEntry(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
 
-        KEY_FIELD_NUMBER: builtins.int
-        VALUE_FIELD_NUMBER: builtins.int
-        key: builtins.str
-        value: builtins.str
-        def __init__(self, *, key: builtins.str | None = ..., value: builtins.str | None = ...) -> None: ...
-        def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
+        KEY_FIELD_NUMBER: _builtins.int
+        VALUE_FIELD_NUMBER: _builtins.int
+        key: _builtins.str
+        value: _builtins.str
+        def __init__(self, *, key: _builtins.str | None = ..., value: _builtins.str | None = ...) -> None: ...
+        _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["key", b"key", "value", b"value"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    VALUES_FIELD_NUMBER: builtins.int
-    EXTERNAL_VALUES_FIELD_NUMBER: builtins.int
-    @property
-    def values(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    VALUES_FIELD_NUMBER: _builtins.int
+    EXTERNAL_VALUES_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def values(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """Value names that have been seen in this context."""
 
-    @property
-    def external_values(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, builtins.str]:
+    @_builtins.property
+    def external_values(self) -> _containers.ScalarMap[_builtins.str, _builtins.str]:
         """Value names referenced by but external to this context."""
 
     def __init__(
         self,
         *,
-        values: collections.abc.Iterable[builtins.str] | None = ...,
-        external_values: collections.abc.Mapping[builtins.str, builtins.str] | None = ...,
+        values: _abc.Iterable[_builtins.str] | None = ...,
+        external_values: _abc.Mapping[_builtins.str, _builtins.str] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["external_values", b"external_values", "values", b"values"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["external_values", b"external_values", "values", b"values"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___ValuesDef = ValuesDef
+Global___ValuesDef: _TypeAlias = ValuesDef  # noqa: Y015
 
-@typing.final
-class ControlFlowContextDef(google.protobuf.message.Message):
+@_typing.final
+class ControlFlowContextDef(_message.Message):
     """Container for any kind of control flow context. Any other control flow
     contexts that are added below should also be added here.
     """
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    COND_CTXT_FIELD_NUMBER: builtins.int
-    WHILE_CTXT_FIELD_NUMBER: builtins.int
-    @property
-    def cond_ctxt(self) -> global___CondContextDef: ...
-    @property
-    def while_ctxt(self) -> global___WhileContextDef: ...
+    COND_CTXT_FIELD_NUMBER: _builtins.int
+    WHILE_CTXT_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def cond_ctxt(self) -> Global___CondContextDef: ...
+    @_builtins.property
+    def while_ctxt(self) -> Global___WhileContextDef: ...
     def __init__(
-        self, *, cond_ctxt: global___CondContextDef | None = ..., while_ctxt: global___WhileContextDef | None = ...
+        self, *, cond_ctxt: Global___CondContextDef | None = ..., while_ctxt: Global___WhileContextDef | None = ...
     ) -> None: ...
-    def HasField(
-        self, field_name: typing.Literal["cond_ctxt", b"cond_ctxt", "ctxt", b"ctxt", "while_ctxt", b"while_ctxt"]
-    ) -> builtins.bool: ...
-    def ClearField(
-        self, field_name: typing.Literal["cond_ctxt", b"cond_ctxt", "ctxt", b"ctxt", "while_ctxt", b"while_ctxt"]
-    ) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["ctxt", b"ctxt"]) -> typing.Literal["cond_ctxt", "while_ctxt"] | None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal[
+        "cond_ctxt", b"cond_ctxt", "ctxt", b"ctxt", "while_ctxt", b"while_ctxt"
+    ]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "cond_ctxt", b"cond_ctxt", "ctxt", b"ctxt", "while_ctxt", b"while_ctxt"
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    _WhichOneofReturnType_ctxt: _TypeAlias = _typing.Literal["cond_ctxt", "while_ctxt"]  # noqa: Y015
+    _WhichOneofArgType_ctxt: _TypeAlias = _typing.Literal["ctxt", b"ctxt"]  # noqa: Y015
+    def WhichOneof(self, oneof_group: _WhichOneofArgType_ctxt) -> _WhichOneofReturnType_ctxt | None: ...
 
-global___ControlFlowContextDef = ControlFlowContextDef
+Global___ControlFlowContextDef: _TypeAlias = ControlFlowContextDef  # noqa: Y015
 
-@typing.final
-class CondContextDef(google.protobuf.message.Message):
+@_typing.final
+class CondContextDef(_message.Message):
     """Protocol buffer representing a CondContext object."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    CONTEXT_NAME_FIELD_NUMBER: builtins.int
-    PRED_NAME_FIELD_NUMBER: builtins.int
-    PIVOT_NAME_FIELD_NUMBER: builtins.int
-    BRANCH_FIELD_NUMBER: builtins.int
-    VALUES_DEF_FIELD_NUMBER: builtins.int
-    NESTED_CONTEXTS_FIELD_NUMBER: builtins.int
-    context_name: builtins.str
+    CONTEXT_NAME_FIELD_NUMBER: _builtins.int
+    PRED_NAME_FIELD_NUMBER: _builtins.int
+    PIVOT_NAME_FIELD_NUMBER: _builtins.int
+    BRANCH_FIELD_NUMBER: _builtins.int
+    VALUES_DEF_FIELD_NUMBER: _builtins.int
+    NESTED_CONTEXTS_FIELD_NUMBER: _builtins.int
+    context_name: _builtins.str
     """Name of the context."""
-    pred_name: builtins.str
+    pred_name: _builtins.str
     """Name of the pred tensor."""
-    pivot_name: builtins.str
+    pivot_name: _builtins.str
     """Name of the pivot tensor."""
-    branch: builtins.int
+    branch: _builtins.int
     """Branch prediction. 0 or 1."""
-    @property
-    def values_def(self) -> global___ValuesDef:
+    @_builtins.property
+    def values_def(self) -> Global___ValuesDef:
         """Values and external values in control flow context."""
 
-    @property
-    def nested_contexts(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ControlFlowContextDef]:
+    @_builtins.property
+    def nested_contexts(self) -> _containers.RepeatedCompositeFieldContainer[Global___ControlFlowContextDef]:
         """Contexts contained inside this context (e.g. nested conds)."""
 
     def __init__(
         self,
         *,
-        context_name: builtins.str | None = ...,
-        pred_name: builtins.str | None = ...,
-        pivot_name: builtins.str | None = ...,
-        branch: builtins.int | None = ...,
-        values_def: global___ValuesDef | None = ...,
-        nested_contexts: collections.abc.Iterable[global___ControlFlowContextDef] | None = ...,
+        context_name: _builtins.str | None = ...,
+        pred_name: _builtins.str | None = ...,
+        pivot_name: _builtins.str | None = ...,
+        branch: _builtins.int | None = ...,
+        values_def: Global___ValuesDef | None = ...,
+        nested_contexts: _abc.Iterable[Global___ControlFlowContextDef] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["values_def", b"values_def"]) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "branch",
-            b"branch",
-            "context_name",
-            b"context_name",
-            "nested_contexts",
-            b"nested_contexts",
-            "pivot_name",
-            b"pivot_name",
-            "pred_name",
-            b"pred_name",
-            "values_def",
-            b"values_def",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["values_def", b"values_def"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "branch",
+        b"branch",
+        "context_name",
+        b"context_name",
+        "nested_contexts",
+        b"nested_contexts",
+        "pivot_name",
+        b"pivot_name",
+        "pred_name",
+        b"pred_name",
+        "values_def",
+        b"values_def",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___CondContextDef = CondContextDef
+Global___CondContextDef: _TypeAlias = CondContextDef  # noqa: Y015
 
-@typing.final
-class WhileContextDef(google.protobuf.message.Message):
+@_typing.final
+class WhileContextDef(_message.Message):
     """Protocol buffer representing a WhileContext object."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    CONTEXT_NAME_FIELD_NUMBER: builtins.int
-    PARALLEL_ITERATIONS_FIELD_NUMBER: builtins.int
-    BACK_PROP_FIELD_NUMBER: builtins.int
-    SWAP_MEMORY_FIELD_NUMBER: builtins.int
-    PIVOT_NAME_FIELD_NUMBER: builtins.int
-    PIVOT_FOR_PRED_NAME_FIELD_NUMBER: builtins.int
-    PIVOT_FOR_BODY_NAME_FIELD_NUMBER: builtins.int
-    LOOP_EXIT_NAMES_FIELD_NUMBER: builtins.int
-    LOOP_ENTER_NAMES_FIELD_NUMBER: builtins.int
-    VALUES_DEF_FIELD_NUMBER: builtins.int
-    MAXIMUM_ITERATIONS_NAME_FIELD_NUMBER: builtins.int
-    NESTED_CONTEXTS_FIELD_NUMBER: builtins.int
-    context_name: builtins.str
+    CONTEXT_NAME_FIELD_NUMBER: _builtins.int
+    PARALLEL_ITERATIONS_FIELD_NUMBER: _builtins.int
+    BACK_PROP_FIELD_NUMBER: _builtins.int
+    SWAP_MEMORY_FIELD_NUMBER: _builtins.int
+    PIVOT_NAME_FIELD_NUMBER: _builtins.int
+    PIVOT_FOR_PRED_NAME_FIELD_NUMBER: _builtins.int
+    PIVOT_FOR_BODY_NAME_FIELD_NUMBER: _builtins.int
+    LOOP_EXIT_NAMES_FIELD_NUMBER: _builtins.int
+    LOOP_ENTER_NAMES_FIELD_NUMBER: _builtins.int
+    VALUES_DEF_FIELD_NUMBER: _builtins.int
+    MAXIMUM_ITERATIONS_NAME_FIELD_NUMBER: _builtins.int
+    NESTED_CONTEXTS_FIELD_NUMBER: _builtins.int
+    context_name: _builtins.str
     """Name of the context."""
-    parallel_iterations: builtins.int
+    parallel_iterations: _builtins.int
     """The number of iterations allowed to run in parallel."""
-    back_prop: builtins.bool
+    back_prop: _builtins.bool
     """Whether backprop is enabled for this while loop."""
-    swap_memory: builtins.bool
+    swap_memory: _builtins.bool
     """Whether GPU-CPU memory swap is enabled for this loop."""
-    pivot_name: builtins.str
+    pivot_name: _builtins.str
     """Name of the pivot tensor."""
-    pivot_for_pred_name: builtins.str
+    pivot_for_pred_name: _builtins.str
     """Name of the pivot_for_pred tensor."""
-    pivot_for_body_name: builtins.str
+    pivot_for_body_name: _builtins.str
     """Name of the pivot_for_body tensor."""
-    maximum_iterations_name: builtins.str
+    maximum_iterations_name: _builtins.str
     """Optional name of the maximum_iterations tensor."""
-    @property
-    def loop_exit_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def loop_exit_names(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """List of names for exit tensors."""
 
-    @property
-    def loop_enter_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+    @_builtins.property
+    def loop_enter_names(self) -> _containers.RepeatedScalarFieldContainer[_builtins.str]:
         """List of names for enter tensors."""
 
-    @property
-    def values_def(self) -> global___ValuesDef:
+    @_builtins.property
+    def values_def(self) -> Global___ValuesDef:
         """Values and external values in control flow context."""
 
-    @property
-    def nested_contexts(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ControlFlowContextDef]:
+    @_builtins.property
+    def nested_contexts(self) -> _containers.RepeatedCompositeFieldContainer[Global___ControlFlowContextDef]:
         """Contexts contained inside this context (e.g. nested whiles)."""
 
     def __init__(
         self,
         *,
-        context_name: builtins.str | None = ...,
-        parallel_iterations: builtins.int | None = ...,
-        back_prop: builtins.bool | None = ...,
-        swap_memory: builtins.bool | None = ...,
-        pivot_name: builtins.str | None = ...,
-        pivot_for_pred_name: builtins.str | None = ...,
-        pivot_for_body_name: builtins.str | None = ...,
-        loop_exit_names: collections.abc.Iterable[builtins.str] | None = ...,
-        loop_enter_names: collections.abc.Iterable[builtins.str] | None = ...,
-        values_def: global___ValuesDef | None = ...,
-        maximum_iterations_name: builtins.str | None = ...,
-        nested_contexts: collections.abc.Iterable[global___ControlFlowContextDef] | None = ...,
+        context_name: _builtins.str | None = ...,
+        parallel_iterations: _builtins.int | None = ...,
+        back_prop: _builtins.bool | None = ...,
+        swap_memory: _builtins.bool | None = ...,
+        pivot_name: _builtins.str | None = ...,
+        pivot_for_pred_name: _builtins.str | None = ...,
+        pivot_for_body_name: _builtins.str | None = ...,
+        loop_exit_names: _abc.Iterable[_builtins.str] | None = ...,
+        loop_enter_names: _abc.Iterable[_builtins.str] | None = ...,
+        values_def: Global___ValuesDef | None = ...,
+        maximum_iterations_name: _builtins.str | None = ...,
+        nested_contexts: _abc.Iterable[Global___ControlFlowContextDef] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["values_def", b"values_def"]) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "back_prop",
-            b"back_prop",
-            "context_name",
-            b"context_name",
-            "loop_enter_names",
-            b"loop_enter_names",
-            "loop_exit_names",
-            b"loop_exit_names",
-            "maximum_iterations_name",
-            b"maximum_iterations_name",
-            "nested_contexts",
-            b"nested_contexts",
-            "parallel_iterations",
-            b"parallel_iterations",
-            "pivot_for_body_name",
-            b"pivot_for_body_name",
-            "pivot_for_pred_name",
-            b"pivot_for_pred_name",
-            "pivot_name",
-            b"pivot_name",
-            "swap_memory",
-            b"swap_memory",
-            "values_def",
-            b"values_def",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["values_def", b"values_def"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "back_prop",
+        b"back_prop",
+        "context_name",
+        b"context_name",
+        "loop_enter_names",
+        b"loop_enter_names",
+        "loop_exit_names",
+        b"loop_exit_names",
+        "maximum_iterations_name",
+        b"maximum_iterations_name",
+        "nested_contexts",
+        b"nested_contexts",
+        "parallel_iterations",
+        b"parallel_iterations",
+        "pivot_for_body_name",
+        b"pivot_for_body_name",
+        "pivot_for_pred_name",
+        b"pivot_for_pred_name",
+        "pivot_name",
+        b"pivot_name",
+        "swap_memory",
+        b"swap_memory",
+        "values_def",
+        b"values_def",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___WhileContextDef = WhileContextDef
+Global___WhileContextDef: _TypeAlias = WhileContextDef  # noqa: Y015

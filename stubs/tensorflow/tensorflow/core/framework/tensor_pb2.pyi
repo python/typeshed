@@ -3,46 +3,54 @@
 isort:skip_file
 """
 
-import builtins
-import collections.abc
-import typing
+import builtins as _builtins
+import sys
+import typing as _typing
+from collections import abc as _abc
 
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.message
-import tensorflow.core.framework.resource_handle_pb2
-import tensorflow.core.framework.tensor_shape_pb2
-import tensorflow.core.framework.types_pb2
+from google.protobuf import descriptor as _descriptor, message as _message
+from google.protobuf.internal import containers as _containers
+from tensorflow.core.framework import (
+    resource_handle_pb2 as _resource_handle_pb2,
+    tensor_shape_pb2 as _tensor_shape_pb2,
+    types_pb2 as _types_pb2,
+)
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
+else:
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-@typing.final
-class TensorProto(google.protobuf.message.Message):
+DESCRIPTOR: _descriptor.FileDescriptor
+
+@_typing.final
+class TensorProto(_message.Message):
     """Protocol buffer representing a tensor."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    DTYPE_FIELD_NUMBER: builtins.int
-    TENSOR_SHAPE_FIELD_NUMBER: builtins.int
-    VERSION_NUMBER_FIELD_NUMBER: builtins.int
-    TENSOR_CONTENT_FIELD_NUMBER: builtins.int
-    HALF_VAL_FIELD_NUMBER: builtins.int
-    FLOAT_VAL_FIELD_NUMBER: builtins.int
-    DOUBLE_VAL_FIELD_NUMBER: builtins.int
-    INT_VAL_FIELD_NUMBER: builtins.int
-    STRING_VAL_FIELD_NUMBER: builtins.int
-    SCOMPLEX_VAL_FIELD_NUMBER: builtins.int
-    INT64_VAL_FIELD_NUMBER: builtins.int
-    BOOL_VAL_FIELD_NUMBER: builtins.int
-    DCOMPLEX_VAL_FIELD_NUMBER: builtins.int
-    RESOURCE_HANDLE_VAL_FIELD_NUMBER: builtins.int
-    VARIANT_VAL_FIELD_NUMBER: builtins.int
-    UINT32_VAL_FIELD_NUMBER: builtins.int
-    UINT64_VAL_FIELD_NUMBER: builtins.int
-    FLOAT8_VAL_FIELD_NUMBER: builtins.int
-    dtype: tensorflow.core.framework.types_pb2.DataType.ValueType
+    DTYPE_FIELD_NUMBER: _builtins.int
+    TENSOR_SHAPE_FIELD_NUMBER: _builtins.int
+    VERSION_NUMBER_FIELD_NUMBER: _builtins.int
+    TENSOR_CONTENT_FIELD_NUMBER: _builtins.int
+    HALF_VAL_FIELD_NUMBER: _builtins.int
+    FLOAT_VAL_FIELD_NUMBER: _builtins.int
+    DOUBLE_VAL_FIELD_NUMBER: _builtins.int
+    INT_VAL_FIELD_NUMBER: _builtins.int
+    STRING_VAL_FIELD_NUMBER: _builtins.int
+    SCOMPLEX_VAL_FIELD_NUMBER: _builtins.int
+    INT64_VAL_FIELD_NUMBER: _builtins.int
+    BOOL_VAL_FIELD_NUMBER: _builtins.int
+    DCOMPLEX_VAL_FIELD_NUMBER: _builtins.int
+    RESOURCE_HANDLE_VAL_FIELD_NUMBER: _builtins.int
+    VARIANT_VAL_FIELD_NUMBER: _builtins.int
+    UINT32_VAL_FIELD_NUMBER: _builtins.int
+    UINT64_VAL_FIELD_NUMBER: _builtins.int
+    FLOAT8_VAL_FIELD_NUMBER: _builtins.int
+    dtype: _types_pb2.DataType.ValueType
     """Data type of the tensor."""
-    version_number: builtins.int
+    version_number: _builtins.int
     """Only one of the representations below is set, one of "tensor_contents" and
     the "xxx_val" attributes.  We are not using oneof because as oneofs cannot
     contain repeated fields it would require another extra set of messages.
@@ -53,23 +61,23 @@ class TensorProto(google.protobuf.message.Message):
     element, that element is repeated to fill the shape.  This makes it easy
     to represent a constant Tensor with a single value.
     """
-    tensor_content: builtins.bytes
+    tensor_content: _builtins.bytes
     """Serialized raw tensor content from either Tensor::AsProtoTensorContent or
     memcpy in tensorflow::grpc::EncodeTensorToByteBuffer. This representation
     can be used for all tensor types. The purpose of this representation is to
     reduce serialization overhead during RPC call by avoiding serialization of
     many repeated small items.
     """
-    float8_val: builtins.bytes
+    float8_val: _builtins.bytes
     """DT_FLOAT8_*, use variable-sized set of bytes
     (i.e. the equivalent of repeated uint8, if such a thing existed).
     """
-    @property
-    def tensor_shape(self) -> tensorflow.core.framework.tensor_shape_pb2.TensorShapeProto:
+    @_builtins.property
+    def tensor_shape(self) -> _tensor_shape_pb2.TensorShapeProto:
         """Shape of the tensor.  TODO(touts): sort out the 0-rank issues."""
 
-    @property
-    def half_val(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+    @_builtins.property
+    def half_val(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]:
         """Type specific representations that make it easy to create tensor protos in
         all languages.  Only the representation corresponding to "dtype" can
         be set.  The values hold the flattened representation of the tensor in
@@ -79,157 +87,155 @@ class TensorProto(google.protobuf.message.Message):
         have some pointless zero padding for each value here.
         """
 
-    @property
-    def float_val(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.float]:
+    @_builtins.property
+    def float_val(self) -> _containers.RepeatedScalarFieldContainer[_builtins.float]:
         """DT_FLOAT."""
 
-    @property
-    def double_val(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.float]:
+    @_builtins.property
+    def double_val(self) -> _containers.RepeatedScalarFieldContainer[_builtins.float]:
         """DT_DOUBLE."""
 
-    @property
-    def int_val(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+    @_builtins.property
+    def int_val(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]:
         """DT_INT32, DT_INT16, DT_UINT16, DT_INT8, DT_UINT8."""
 
-    @property
-    def string_val(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.bytes]:
+    @_builtins.property
+    def string_val(self) -> _containers.RepeatedScalarFieldContainer[_builtins.bytes]:
         """DT_STRING"""
 
-    @property
-    def scomplex_val(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.float]:
+    @_builtins.property
+    def scomplex_val(self) -> _containers.RepeatedScalarFieldContainer[_builtins.float]:
         """DT_COMPLEX64. scomplex_val(2*i) and scomplex_val(2*i+1) are real
         and imaginary parts of i-th single precision complex.
         """
 
-    @property
-    def int64_val(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+    @_builtins.property
+    def int64_val(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]:
         """DT_INT64"""
 
-    @property
-    def bool_val(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.bool]:
+    @_builtins.property
+    def bool_val(self) -> _containers.RepeatedScalarFieldContainer[_builtins.bool]:
         """DT_BOOL"""
 
-    @property
-    def dcomplex_val(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.float]:
+    @_builtins.property
+    def dcomplex_val(self) -> _containers.RepeatedScalarFieldContainer[_builtins.float]:
         """DT_COMPLEX128. dcomplex_val(2*i) and dcomplex_val(2*i+1) are real
         and imaginary parts of i-th double precision complex.
         """
 
-    @property
-    def resource_handle_val(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
-        tensorflow.core.framework.resource_handle_pb2.ResourceHandleProto
-    ]:
+    @_builtins.property
+    def resource_handle_val(self) -> _containers.RepeatedCompositeFieldContainer[_resource_handle_pb2.ResourceHandleProto]:
         """DT_RESOURCE"""
 
-    @property
-    def variant_val(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___VariantTensorDataProto]:
+    @_builtins.property
+    def variant_val(self) -> _containers.RepeatedCompositeFieldContainer[Global___VariantTensorDataProto]:
         """DT_VARIANT"""
 
-    @property
-    def uint32_val(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+    @_builtins.property
+    def uint32_val(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]:
         """DT_UINT32"""
 
-    @property
-    def uint64_val(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+    @_builtins.property
+    def uint64_val(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]:
         """DT_UINT64"""
 
     def __init__(
         self,
         *,
-        dtype: tensorflow.core.framework.types_pb2.DataType.ValueType | None = ...,
-        tensor_shape: tensorflow.core.framework.tensor_shape_pb2.TensorShapeProto | None = ...,
-        version_number: builtins.int | None = ...,
-        tensor_content: builtins.bytes | None = ...,
-        half_val: collections.abc.Iterable[builtins.int] | None = ...,
-        float_val: collections.abc.Iterable[builtins.float] | None = ...,
-        double_val: collections.abc.Iterable[builtins.float] | None = ...,
-        int_val: collections.abc.Iterable[builtins.int] | None = ...,
-        string_val: collections.abc.Iterable[builtins.bytes] | None = ...,
-        scomplex_val: collections.abc.Iterable[builtins.float] | None = ...,
-        int64_val: collections.abc.Iterable[builtins.int] | None = ...,
-        bool_val: collections.abc.Iterable[builtins.bool] | None = ...,
-        dcomplex_val: collections.abc.Iterable[builtins.float] | None = ...,
-        resource_handle_val: (
-            collections.abc.Iterable[tensorflow.core.framework.resource_handle_pb2.ResourceHandleProto] | None
-        ) = ...,
-        variant_val: collections.abc.Iterable[global___VariantTensorDataProto] | None = ...,
-        uint32_val: collections.abc.Iterable[builtins.int] | None = ...,
-        uint64_val: collections.abc.Iterable[builtins.int] | None = ...,
-        float8_val: builtins.bytes | None = ...,
+        dtype: _types_pb2.DataType.ValueType | None = ...,
+        tensor_shape: _tensor_shape_pb2.TensorShapeProto | None = ...,
+        version_number: _builtins.int | None = ...,
+        tensor_content: _builtins.bytes | None = ...,
+        half_val: _abc.Iterable[_builtins.int] | None = ...,
+        float_val: _abc.Iterable[_builtins.float] | None = ...,
+        double_val: _abc.Iterable[_builtins.float] | None = ...,
+        int_val: _abc.Iterable[_builtins.int] | None = ...,
+        string_val: _abc.Iterable[_builtins.bytes] | None = ...,
+        scomplex_val: _abc.Iterable[_builtins.float] | None = ...,
+        int64_val: _abc.Iterable[_builtins.int] | None = ...,
+        bool_val: _abc.Iterable[_builtins.bool] | None = ...,
+        dcomplex_val: _abc.Iterable[_builtins.float] | None = ...,
+        resource_handle_val: _abc.Iterable[_resource_handle_pb2.ResourceHandleProto] | None = ...,
+        variant_val: _abc.Iterable[Global___VariantTensorDataProto] | None = ...,
+        uint32_val: _abc.Iterable[_builtins.int] | None = ...,
+        uint64_val: _abc.Iterable[_builtins.int] | None = ...,
+        float8_val: _builtins.bytes | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["tensor_shape", b"tensor_shape"]) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "bool_val",
-            b"bool_val",
-            "dcomplex_val",
-            b"dcomplex_val",
-            "double_val",
-            b"double_val",
-            "dtype",
-            b"dtype",
-            "float8_val",
-            b"float8_val",
-            "float_val",
-            b"float_val",
-            "half_val",
-            b"half_val",
-            "int64_val",
-            b"int64_val",
-            "int_val",
-            b"int_val",
-            "resource_handle_val",
-            b"resource_handle_val",
-            "scomplex_val",
-            b"scomplex_val",
-            "string_val",
-            b"string_val",
-            "tensor_content",
-            b"tensor_content",
-            "tensor_shape",
-            b"tensor_shape",
-            "uint32_val",
-            b"uint32_val",
-            "uint64_val",
-            b"uint64_val",
-            "variant_val",
-            b"variant_val",
-            "version_number",
-            b"version_number",
-        ],
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _typing.Literal["tensor_shape", b"tensor_shape"]  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "bool_val",
+        b"bool_val",
+        "dcomplex_val",
+        b"dcomplex_val",
+        "double_val",
+        b"double_val",
+        "dtype",
+        b"dtype",
+        "float8_val",
+        b"float8_val",
+        "float_val",
+        b"float_val",
+        "half_val",
+        b"half_val",
+        "int64_val",
+        b"int64_val",
+        "int_val",
+        b"int_val",
+        "resource_handle_val",
+        b"resource_handle_val",
+        "scomplex_val",
+        b"scomplex_val",
+        "string_val",
+        b"string_val",
+        "tensor_content",
+        b"tensor_content",
+        "tensor_shape",
+        b"tensor_shape",
+        "uint32_val",
+        b"uint32_val",
+        "uint64_val",
+        b"uint64_val",
+        "variant_val",
+        b"variant_val",
+        "version_number",
+        b"version_number",
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___TensorProto = TensorProto
+Global___TensorProto: _TypeAlias = TensorProto  # noqa: Y015
 
-@typing.final
-class VariantTensorDataProto(google.protobuf.message.Message):
+@_typing.final
+class VariantTensorDataProto(_message.Message):
     """Protocol buffer representing the serialization format of DT_VARIANT tensors."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    TYPE_NAME_FIELD_NUMBER: builtins.int
-    METADATA_FIELD_NUMBER: builtins.int
-    TENSORS_FIELD_NUMBER: builtins.int
-    type_name: builtins.str
+    TYPE_NAME_FIELD_NUMBER: _builtins.int
+    METADATA_FIELD_NUMBER: _builtins.int
+    TENSORS_FIELD_NUMBER: _builtins.int
+    type_name: _builtins.str
     """Name of the type of objects being serialized."""
-    metadata: builtins.bytes
+    metadata: _builtins.bytes
     """Portions of the object that are not Tensors."""
-    @property
-    def tensors(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___TensorProto]:
+    @_builtins.property
+    def tensors(self) -> _containers.RepeatedCompositeFieldContainer[Global___TensorProto]:
         """Tensors contained within objects being serialized."""
 
     def __init__(
         self,
         *,
-        type_name: builtins.str | None = ...,
-        metadata: builtins.bytes | None = ...,
-        tensors: collections.abc.Iterable[global___TensorProto] | None = ...,
+        type_name: _builtins.str | None = ...,
+        metadata: _builtins.bytes | None = ...,
+        tensors: _abc.Iterable[Global___TensorProto] | None = ...,
     ) -> None: ...
-    def ClearField(
-        self, field_name: typing.Literal["metadata", b"metadata", "tensors", b"tensors", "type_name", b"type_name"]
-    ) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal[
+        "metadata", b"metadata", "tensors", b"tensors", "type_name", b"type_name"
+    ]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___VariantTensorDataProto = VariantTensorDataProto
+Global___VariantTensorDataProto: _TypeAlias = VariantTensorDataProto  # noqa: Y015

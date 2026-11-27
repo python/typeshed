@@ -3,227 +3,263 @@
 isort:skip_file
 """
 
-import builtins
-import collections.abc
-import typing
+import builtins as _builtins
+import sys
+import typing as _typing
+from collections import abc as _abc
 
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.message
-import tensorflow.core.framework.tensor_shape_pb2
-import tensorflow.core.framework.types_pb2
+from google.protobuf import descriptor as _descriptor, message as _message
+from google.protobuf.internal import containers as _containers
+from tensorflow.core.framework import tensor_shape_pb2 as _tensor_shape_pb2, types_pb2 as _types_pb2
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
+else:
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-@typing.final
-class CostGraphDef(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+if sys.version_info >= (3, 13):
+    from warnings import deprecated as _deprecated
+else:
+    from typing_extensions import deprecated as _deprecated
 
-    @typing.final
-    class Node(google.protobuf.message.Message):
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+DESCRIPTOR: _descriptor.FileDescriptor
 
-        @typing.final
-        class InputInfo(google.protobuf.message.Message):
+@_typing.final
+class CostGraphDef(_message.Message):
+    DESCRIPTOR: _descriptor.Descriptor
+
+    @_typing.final
+    class Node(_message.Message):
+        DESCRIPTOR: _descriptor.Descriptor
+
+        @_typing.final
+        class InputInfo(_message.Message):
             """Inputs of this node. They must be executed before this node can be
             executed. An input is a particular output of another node, specified
             by the node id and the output index.
             """
 
-            DESCRIPTOR: google.protobuf.descriptor.Descriptor
+            DESCRIPTOR: _descriptor.Descriptor
 
-            PRECEDING_NODE_FIELD_NUMBER: builtins.int
-            PRECEDING_PORT_FIELD_NUMBER: builtins.int
-            preceding_node: builtins.int
-            preceding_port: builtins.int
+            PRECEDING_NODE_FIELD_NUMBER: _builtins.int
+            PRECEDING_PORT_FIELD_NUMBER: _builtins.int
+            preceding_node: _builtins.int
+            preceding_port: _builtins.int
             def __init__(
-                self, *, preceding_node: builtins.int | None = ..., preceding_port: builtins.int | None = ...
+                self, *, preceding_node: _builtins.int | None = ..., preceding_port: _builtins.int | None = ...
             ) -> None: ...
-            def ClearField(
-                self, field_name: typing.Literal["preceding_node", b"preceding_node", "preceding_port", b"preceding_port"]
-            ) -> None: ...
+            _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+            def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+            _ClearFieldArgType: _TypeAlias = _typing.Literal[
+                "preceding_node", b"preceding_node", "preceding_port", b"preceding_port"
+            ]  # noqa: Y015
+            def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+            def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-        @typing.final
-        class OutputInfo(google.protobuf.message.Message):
+        @_typing.final
+        class OutputInfo(_message.Message):
             """Outputs of this node."""
 
-            DESCRIPTOR: google.protobuf.descriptor.Descriptor
+            DESCRIPTOR: _descriptor.Descriptor
 
-            SIZE_FIELD_NUMBER: builtins.int
-            ALIAS_INPUT_PORT_FIELD_NUMBER: builtins.int
-            SHAPE_FIELD_NUMBER: builtins.int
-            DTYPE_FIELD_NUMBER: builtins.int
-            size: builtins.int
-            alias_input_port: builtins.int
+            SIZE_FIELD_NUMBER: _builtins.int
+            ALIAS_INPUT_PORT_FIELD_NUMBER: _builtins.int
+            SHAPE_FIELD_NUMBER: _builtins.int
+            DTYPE_FIELD_NUMBER: _builtins.int
+            size: _builtins.int
+            alias_input_port: _builtins.int
             """If >= 0, the output is an alias of an input. Note that an alias input
             may itself be an alias. The algorithm will therefore need to follow
             those pointers.
             """
-            dtype: tensorflow.core.framework.types_pb2.DataType.ValueType
-            @property
-            def shape(self) -> tensorflow.core.framework.tensor_shape_pb2.TensorShapeProto: ...
+            dtype: _types_pb2.DataType.ValueType
+            @_builtins.property
+            def shape(self) -> _tensor_shape_pb2.TensorShapeProto: ...
             def __init__(
                 self,
                 *,
-                size: builtins.int | None = ...,
-                alias_input_port: builtins.int | None = ...,
-                shape: tensorflow.core.framework.tensor_shape_pb2.TensorShapeProto | None = ...,
-                dtype: tensorflow.core.framework.types_pb2.DataType.ValueType | None = ...,
+                size: _builtins.int | None = ...,
+                alias_input_port: _builtins.int | None = ...,
+                shape: _tensor_shape_pb2.TensorShapeProto | None = ...,
+                dtype: _types_pb2.DataType.ValueType | None = ...,
             ) -> None: ...
-            def HasField(self, field_name: typing.Literal["shape", b"shape"]) -> builtins.bool: ...
-            def ClearField(
-                self,
-                field_name: typing.Literal[
-                    "alias_input_port", b"alias_input_port", "dtype", b"dtype", "shape", b"shape", "size", b"size"
-                ],
-            ) -> None: ...
+            _HasFieldArgType: _TypeAlias = _typing.Literal["shape", b"shape"]  # noqa: Y015
+            def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+            _ClearFieldArgType: _TypeAlias = _typing.Literal[
+                "alias_input_port", b"alias_input_port", "dtype", b"dtype", "shape", b"shape", "size", b"size"
+            ]  # noqa: Y015
+            def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+            def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-        NAME_FIELD_NUMBER: builtins.int
-        DEVICE_FIELD_NUMBER: builtins.int
-        ID_FIELD_NUMBER: builtins.int
-        INPUT_INFO_FIELD_NUMBER: builtins.int
-        OUTPUT_INFO_FIELD_NUMBER: builtins.int
-        TEMPORARY_MEMORY_SIZE_FIELD_NUMBER: builtins.int
-        PERSISTENT_MEMORY_SIZE_FIELD_NUMBER: builtins.int
-        HOST_TEMP_MEMORY_SIZE_FIELD_NUMBER: builtins.int
-        DEVICE_TEMP_MEMORY_SIZE_FIELD_NUMBER: builtins.int
-        DEVICE_PERSISTENT_MEMORY_SIZE_FIELD_NUMBER: builtins.int
-        COMPUTE_COST_FIELD_NUMBER: builtins.int
-        COMPUTE_TIME_FIELD_NUMBER: builtins.int
-        MEMORY_TIME_FIELD_NUMBER: builtins.int
-        IS_FINAL_FIELD_NUMBER: builtins.int
-        CONTROL_INPUT_FIELD_NUMBER: builtins.int
-        INACCURATE_FIELD_NUMBER: builtins.int
-        name: builtins.str
+        NAME_FIELD_NUMBER: _builtins.int
+        DEVICE_FIELD_NUMBER: _builtins.int
+        ID_FIELD_NUMBER: _builtins.int
+        INPUT_INFO_FIELD_NUMBER: _builtins.int
+        OUTPUT_INFO_FIELD_NUMBER: _builtins.int
+        TEMPORARY_MEMORY_SIZE_FIELD_NUMBER: _builtins.int
+        PERSISTENT_MEMORY_SIZE_FIELD_NUMBER: _builtins.int
+        HOST_TEMP_MEMORY_SIZE_FIELD_NUMBER: _builtins.int
+        DEVICE_TEMP_MEMORY_SIZE_FIELD_NUMBER: _builtins.int
+        DEVICE_PERSISTENT_MEMORY_SIZE_FIELD_NUMBER: _builtins.int
+        COMPUTE_COST_FIELD_NUMBER: _builtins.int
+        COMPUTE_TIME_FIELD_NUMBER: _builtins.int
+        MEMORY_TIME_FIELD_NUMBER: _builtins.int
+        IS_FINAL_FIELD_NUMBER: _builtins.int
+        CONTROL_INPUT_FIELD_NUMBER: _builtins.int
+        INACCURATE_FIELD_NUMBER: _builtins.int
+        name: _builtins.str
         """The name of the node. Names are globally unique."""
-        device: builtins.str
+        device: _builtins.str
         """The device of the node. Can be empty if the node is mapped to the
         default partition or partitioning hasn't been run yet.
         """
-        id: builtins.int
+        id: _builtins.int
         """The id of the node. Node ids are only unique inside a partition."""
-        temporary_memory_size: builtins.int
+        temporary_memory_size: _builtins.int
         """Temporary memory used by this node."""
-        persistent_memory_size: builtins.int
+        persistent_memory_size: _builtins.int
         """Persistent memory used by this node."""
-        host_temp_memory_size: builtins.int
-        device_temp_memory_size: builtins.int
-        device_persistent_memory_size: builtins.int
-        compute_cost: builtins.int
+
+        @_builtins.property
+        @_deprecated("""This field has been marked as deprecated using proto field options.""")
+        def host_temp_memory_size(self) -> _builtins.int: ...
+        @host_temp_memory_size.setter
+        @_deprecated("""This field has been marked as deprecated using proto field options.""")
+        def host_temp_memory_size(self, value: _builtins.int) -> None: ...
+
+        @_builtins.property
+        @_deprecated("""This field has been marked as deprecated using proto field options.""")
+        def device_temp_memory_size(self) -> _builtins.int: ...
+        @device_temp_memory_size.setter
+        @_deprecated("""This field has been marked as deprecated using proto field options.""")
+        def device_temp_memory_size(self, value: _builtins.int) -> None: ...
+
+        @_builtins.property
+        @_deprecated("""This field has been marked as deprecated using proto field options.""")
+        def device_persistent_memory_size(self) -> _builtins.int: ...
+        @device_persistent_memory_size.setter
+        @_deprecated("""This field has been marked as deprecated using proto field options.""")
+        def device_persistent_memory_size(self, value: _builtins.int) -> None: ...
+
+        compute_cost: _builtins.int
         """Estimate of the computational cost of this node, in microseconds."""
-        compute_time: builtins.int
+        compute_time: _builtins.int
         """Analytical estimate of the computational cost of this node, in
         microseconds.
         """
-        memory_time: builtins.int
+        memory_time: _builtins.int
         """Analytical estimate of the memory access cost of this node, in
         microseconds.
         """
-        is_final: builtins.bool
+        is_final: _builtins.bool
         """If true, the output is permanent: it can't be discarded, because this
         node is part of the "final output". Nodes may depend on final nodes.
         """
-        inaccurate: builtins.bool
+        inaccurate: _builtins.bool
         """Are the costs inaccurate?"""
-        @property
-        def input_info(
-            self,
-        ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___CostGraphDef.Node.InputInfo]: ...
-        @property
-        def output_info(
-            self,
-        ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___CostGraphDef.Node.OutputInfo]: ...
-        @property
-        def control_input(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+        @_builtins.property
+        def input_info(self) -> _containers.RepeatedCompositeFieldContainer[Global___CostGraphDef.Node.InputInfo]: ...
+        @_builtins.property
+        def output_info(self) -> _containers.RepeatedCompositeFieldContainer[Global___CostGraphDef.Node.OutputInfo]: ...
+        @_builtins.property
+        def control_input(self) -> _containers.RepeatedScalarFieldContainer[_builtins.int]:
             """Ids of the control inputs for this node."""
 
         def __init__(
             self,
             *,
-            name: builtins.str | None = ...,
-            device: builtins.str | None = ...,
-            id: builtins.int | None = ...,
-            input_info: collections.abc.Iterable[global___CostGraphDef.Node.InputInfo] | None = ...,
-            output_info: collections.abc.Iterable[global___CostGraphDef.Node.OutputInfo] | None = ...,
-            temporary_memory_size: builtins.int | None = ...,
-            persistent_memory_size: builtins.int | None = ...,
-            host_temp_memory_size: builtins.int | None = ...,
-            device_temp_memory_size: builtins.int | None = ...,
-            device_persistent_memory_size: builtins.int | None = ...,
-            compute_cost: builtins.int | None = ...,
-            compute_time: builtins.int | None = ...,
-            memory_time: builtins.int | None = ...,
-            is_final: builtins.bool | None = ...,
-            control_input: collections.abc.Iterable[builtins.int] | None = ...,
-            inaccurate: builtins.bool | None = ...,
+            name: _builtins.str | None = ...,
+            device: _builtins.str | None = ...,
+            id: _builtins.int | None = ...,
+            input_info: _abc.Iterable[Global___CostGraphDef.Node.InputInfo] | None = ...,
+            output_info: _abc.Iterable[Global___CostGraphDef.Node.OutputInfo] | None = ...,
+            temporary_memory_size: _builtins.int | None = ...,
+            persistent_memory_size: _builtins.int | None = ...,
+            host_temp_memory_size: _builtins.int | None = ...,
+            device_temp_memory_size: _builtins.int | None = ...,
+            device_persistent_memory_size: _builtins.int | None = ...,
+            compute_cost: _builtins.int | None = ...,
+            compute_time: _builtins.int | None = ...,
+            memory_time: _builtins.int | None = ...,
+            is_final: _builtins.bool | None = ...,
+            control_input: _abc.Iterable[_builtins.int] | None = ...,
+            inaccurate: _builtins.bool | None = ...,
         ) -> None: ...
-        def ClearField(
-            self,
-            field_name: typing.Literal[
-                "compute_cost",
-                b"compute_cost",
-                "compute_time",
-                b"compute_time",
-                "control_input",
-                b"control_input",
-                "device",
-                b"device",
-                "device_persistent_memory_size",
-                b"device_persistent_memory_size",
-                "device_temp_memory_size",
-                b"device_temp_memory_size",
-                "host_temp_memory_size",
-                b"host_temp_memory_size",
-                "id",
-                b"id",
-                "inaccurate",
-                b"inaccurate",
-                "input_info",
-                b"input_info",
-                "is_final",
-                b"is_final",
-                "memory_time",
-                b"memory_time",
-                "name",
-                b"name",
-                "output_info",
-                b"output_info",
-                "persistent_memory_size",
-                b"persistent_memory_size",
-                "temporary_memory_size",
-                b"temporary_memory_size",
-            ],
-        ) -> None: ...
+        _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal[
+            "compute_cost",
+            b"compute_cost",
+            "compute_time",
+            b"compute_time",
+            "control_input",
+            b"control_input",
+            "device",
+            b"device",
+            "device_persistent_memory_size",
+            b"device_persistent_memory_size",
+            "device_temp_memory_size",
+            b"device_temp_memory_size",
+            "host_temp_memory_size",
+            b"host_temp_memory_size",
+            "id",
+            b"id",
+            "inaccurate",
+            b"inaccurate",
+            "input_info",
+            b"input_info",
+            "is_final",
+            b"is_final",
+            "memory_time",
+            b"memory_time",
+            "name",
+            b"name",
+            "output_info",
+            b"output_info",
+            "persistent_memory_size",
+            b"persistent_memory_size",
+            "temporary_memory_size",
+            b"temporary_memory_size",
+        ]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    @typing.final
-    class AggregatedCost(google.protobuf.message.Message):
+    @_typing.final
+    class AggregatedCost(_message.Message):
         """Total cost of this graph, typically used for balancing decisions."""
 
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+        DESCRIPTOR: _descriptor.Descriptor
 
-        COST_FIELD_NUMBER: builtins.int
-        DIMENSION_FIELD_NUMBER: builtins.int
-        cost: builtins.float
+        COST_FIELD_NUMBER: _builtins.int
+        DIMENSION_FIELD_NUMBER: _builtins.int
+        cost: _builtins.float
         """Aggregated cost value."""
-        dimension: builtins.str
+        dimension: _builtins.str
         """Aggregated cost dimension (e.g. 'memory', 'compute', 'network')."""
-        def __init__(self, *, cost: builtins.float | None = ..., dimension: builtins.str | None = ...) -> None: ...
-        def ClearField(self, field_name: typing.Literal["cost", b"cost", "dimension", b"dimension"]) -> None: ...
+        def __init__(self, *, cost: _builtins.float | None = ..., dimension: _builtins.str | None = ...) -> None: ...
+        _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal["cost", b"cost", "dimension", b"dimension"]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-    NODE_FIELD_NUMBER: builtins.int
-    COST_FIELD_NUMBER: builtins.int
-    @property
-    def node(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___CostGraphDef.Node]: ...
-    @property
-    def cost(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___CostGraphDef.AggregatedCost]: ...
+    NODE_FIELD_NUMBER: _builtins.int
+    COST_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def node(self) -> _containers.RepeatedCompositeFieldContainer[Global___CostGraphDef.Node]: ...
+    @_builtins.property
+    def cost(self) -> _containers.RepeatedCompositeFieldContainer[Global___CostGraphDef.AggregatedCost]: ...
     def __init__(
         self,
         *,
-        node: collections.abc.Iterable[global___CostGraphDef.Node] | None = ...,
-        cost: collections.abc.Iterable[global___CostGraphDef.AggregatedCost] | None = ...,
+        node: _abc.Iterable[Global___CostGraphDef.Node] | None = ...,
+        cost: _abc.Iterable[Global___CostGraphDef.AggregatedCost] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["cost", b"cost", "node", b"node"]) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["cost", b"cost", "node", b"node"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___CostGraphDef = CostGraphDef
+Global___CostGraphDef: _TypeAlias = CostGraphDef  # noqa: Y015

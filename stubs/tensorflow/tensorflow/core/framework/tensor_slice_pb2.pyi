@@ -3,46 +3,56 @@
 isort:skip_file
 Protocol buffer representing slices of a tensor"""
 
-import builtins
-import collections.abc
-import typing
+import builtins as _builtins
+import sys
+import typing as _typing
+from collections import abc as _abc
 
-import google.protobuf.descriptor
-import google.protobuf.internal.containers
-import google.protobuf.message
+from google.protobuf import descriptor as _descriptor, message as _message
+from google.protobuf.internal import containers as _containers
 
-DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+if sys.version_info >= (3, 11):
+    from typing import Never as _Never, TypeAlias as _TypeAlias
+else:
+    from typing import TypeAlias as _TypeAlias
+    from typing_extensions import Never as _Never
 
-@typing.final
-class TensorSliceProto(google.protobuf.message.Message):
+DESCRIPTOR: _descriptor.FileDescriptor
+
+@_typing.final
+class TensorSliceProto(_message.Message):
     """Can only be interpreted if you know the corresponding TensorShape."""
 
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+    DESCRIPTOR: _descriptor.Descriptor
 
-    @typing.final
-    class Extent(google.protobuf.message.Message):
+    @_typing.final
+    class Extent(_message.Message):
         """Extent of the slice in one dimension.
         Either both or no attributes must be set.  When no attribute is set
         means: All data in that dimension.
         """
 
-        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+        DESCRIPTOR: _descriptor.Descriptor
 
-        START_FIELD_NUMBER: builtins.int
-        LENGTH_FIELD_NUMBER: builtins.int
-        start: builtins.int
+        START_FIELD_NUMBER: _builtins.int
+        LENGTH_FIELD_NUMBER: _builtins.int
+        start: _builtins.int
         """Start index of the slice, starting at 0."""
-        length: builtins.int
-        def __init__(self, *, start: builtins.int | None = ..., length: builtins.int | None = ...) -> None: ...
-        def HasField(self, field_name: typing.Literal["has_length", b"has_length", "length", b"length"]) -> builtins.bool: ...
-        def ClearField(
-            self, field_name: typing.Literal["has_length", b"has_length", "length", b"length", "start", b"start"]
-        ) -> None: ...
-        def WhichOneof(self, oneof_group: typing.Literal["has_length", b"has_length"]) -> typing.Literal["length"] | None: ...
+        length: _builtins.int
+        def __init__(self, *, start: _builtins.int | None = ..., length: _builtins.int | None = ...) -> None: ...
+        _HasFieldArgType: _TypeAlias = _typing.Literal["has_length_hack", b"has_length_hack", "length", b"length"]  # noqa: Y015
+        def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+        _ClearFieldArgType: _TypeAlias = _typing.Literal[
+            "has_length_hack", b"has_length_hack", "length", b"length", "start", b"start"
+        ]  # noqa: Y015
+        def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+        _WhichOneofReturnType_has_length_hack: _TypeAlias = _typing.Literal["length"]  # noqa: Y015
+        _WhichOneofArgType_has_length_hack: _TypeAlias = _typing.Literal["has_length_hack", b"has_length_hack"]  # noqa: Y015
+        def WhichOneof(self, oneof_group: _WhichOneofArgType_has_length_hack) -> _WhichOneofReturnType_has_length_hack | None: ...
 
-    EXTENT_FIELD_NUMBER: builtins.int
-    @property
-    def extent(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___TensorSliceProto.Extent]:
+    EXTENT_FIELD_NUMBER: _builtins.int
+    @_builtins.property
+    def extent(self) -> _containers.RepeatedCompositeFieldContainer[Global___TensorSliceProto.Extent]:
         """Extent of the slice in all tensor dimensions.
 
         Must have one entry for each of the dimension of the tensor that this
@@ -50,7 +60,11 @@ class TensorSliceProto(google.protobuf.message.Message):
         dimensions in the TensorShape.
         """
 
-    def __init__(self, *, extent: collections.abc.Iterable[global___TensorSliceProto.Extent] | None = ...) -> None: ...
-    def ClearField(self, field_name: typing.Literal["extent", b"extent"]) -> None: ...
+    def __init__(self, *, extent: _abc.Iterable[Global___TensorSliceProto.Extent] | None = ...) -> None: ...
+    _HasFieldArgType: _TypeAlias = _Never  # noqa: Y015
+    def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["extent", b"extent"]  # noqa: Y015
+    def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
+    def WhichOneof(self, oneof_group: _Never) -> None: ...
 
-global___TensorSliceProto = TensorSliceProto
+Global___TensorSliceProto: _TypeAlias = TensorSliceProto  # noqa: Y015
