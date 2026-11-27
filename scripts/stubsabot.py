@@ -143,6 +143,7 @@ class Update:
     new_version_spec: Specifier
     links: dict[str, str]
     diff_analysis: DiffAnalysis | None
+    diff_analysis_error: str | None = None
 
     def __str__(self) -> str:
         return f"{colored('updating', 'yellow')} from '{self.old_version_spec}' to '{self.new_version_spec}'"
@@ -336,6 +337,44 @@ def get_github_api_headers() -> Mapping[str, str]:
     if secret is not None:
         headers["Authorization"] = f"token {secret}" if secret.startswith("ghp") else f"Bearer {secret}"
     return headers
+
+
+_GITHUB_RATE_LIMIT_HEADERS = (
+    "x-ratelimit-resource",
+    "x-ratelimit-limit",
+    "x-ratelimit-remaining",
+    "x-ratelimit-used",
+    "x-ratelimit-reset",
+    "retry-after",
+)
+
+
+def _describe_github_rate_limit(headers: Mapping[str, str]) -> str:
+    parts: list[str] = []
+    for name in _GITHUB_RATE_LIMIT_HEADERS:
+        value = headers.get(name)
+        if value is None:
+            continue
+        if name == "x-ratelimit-reset" and value.isdigit():
+            value = datetime.datetime.fromtimestamp(int(value), tz=datetime.timezone.utc).isoformat()
+        parts.append(f"{name.removeprefix('x-ratelimit-')}={value}")
+    return ", ".join(parts)
+
+
+async def raise_for_github_status(response: aiohttp.ClientResponse) -> None:
+    """Like response.raise_for_status(), but include GitHub's error and rate limit details."""
+    if response.ok:
+        return
+    message = response.reason or ""
+    with contextlib.suppress(Exception):
+        github_message = (await response.json(content_type=None)).get("message")
+        if github_message:
+            message += f": {github_message}"
+    if rate_limit_info := _describe_github_rate_limit(response.headers):
+        message += f" [{rate_limit_info}]"
+    raise aiohttp.ClientResponseError(
+        response.request_info, response.history, status=response.status, message=message, headers=response.headers
+    )
 
 
 GitHost: TypeAlias = Literal["github", "gitlab"]
@@ -540,7 +579,7 @@ async def analyze_github_diff(
 ) -> DiffAnalysis | None:
     url = f"https://api.github.com/repos/{repo_path}/compare/{old_tag}...{new_tag}"
     async with session.get(url, headers=get_github_api_headers()) as response:
-        response.raise_for_status()
+        await raise_for_github_status(response)
         json_resp: dict[str, list[FileInfo]] = await response.json()
         assert isinstance(json_resp, dict)
     # https://docs.github.com/en/rest/commits/commits#compare-two-commits
@@ -701,17 +740,22 @@ async def determine_action_no_error_handling(
             links=links,
         )
 
-    if diff_info is None:
-        diff_analysis: DiffAnalysis | None = None
-    else:
+    diff_analysis: DiffAnalysis | None = None
+    diff_analysis_error: str | None = None
+    if diff_info is not None:
         analyze_diff = {"github": analyze_github_diff, "gitlab": analyze_gitlab_diff}[diff_info.host]
-        diff_analysis = await analyze_diff(
-            repo_path=diff_info.repo_path,
-            distribution=distribution,
-            old_tag=diff_info.old_tag,
-            new_tag=diff_info.new_tag,
-            session=session,
-        )
+        # The diff analysis is only informational, so don't let failures
+        # (e.g. hitting GitHub rate limits) prevent the update.
+        try:
+            diff_analysis = await analyze_diff(
+                repo_path=diff_info.repo_path,
+                distribution=distribution,
+                old_tag=diff_info.old_tag,
+                new_tag=diff_info.new_tag,
+                session=session,
+            )
+        except aiohttp.ClientError as exc:
+            diff_analysis_error = str(exc)
 
     return Update(
         distribution=stub_info.distribution,
@@ -719,6 +763,7 @@ async def determine_action_no_error_handling(
         new_version_spec=get_updated_version_spec(stub_info.version_spec, latest_version),
         links=links,
         diff_analysis=diff_analysis,
+        diff_analysis_error=diff_analysis_error,
     )
 
 
@@ -748,7 +793,7 @@ async def create_or_update_pull_request(*, title: str, body: str, branch_name: s
         ):
             pr_number = await update_existing_pull_request(title=title, body=body, branch_name=branch_name, session=session)
         else:
-            response.raise_for_status()
+            await raise_for_github_status(response)
             raise AssertionError(f"Unexpected response: {response.status}")
     await update_pull_request_label(pr_number=pr_number, session=session)
 
@@ -761,7 +806,7 @@ async def find_existing_pr(*, branch_name: str, session: aiohttp.ClientSession) 
         params={"state": "open", "head": f"{fork_owner}:{branch_name}", "base": "main"},
         headers=get_github_api_headers(),
     ) as response:
-        response.raise_for_status()
+        await raise_for_github_status(response)
         resp_json = await response.json()
         assert len(resp_json) >= 1
         pr_number = resp_json[0]["number"]
@@ -777,7 +822,7 @@ async def update_existing_pull_request(*, title: str, body: str, branch_name: st
     async with session.patch(
         f"{TYPESHED_API_URL}/pulls/{pr_number}", json={"title": title, "body": body}, headers=get_github_api_headers()
     ) as response:
-        response.raise_for_status()
+        await raise_for_github_status(response)
     return pr_number
 
 
@@ -786,7 +831,7 @@ async def update_pull_request_label(*, pr_number: int, session: aiohttp.ClientSe
     async with session.post(
         f"{TYPESHED_API_URL}/issues/{pr_number}/labels", json={"labels": [STUBSABOT_LABEL]}, headers=get_github_api_headers()
     ) as response:
-        response.raise_for_status()
+        await raise_for_github_status(response)
 
 
 def remote_branch_exists(branch: str) -> bool:
@@ -1011,6 +1056,13 @@ async def main() -> int:
             action_count = 0
             for task in asyncio.as_completed(tasks):
                 action = await task
+                if isinstance(action, Update) and action.diff_analysis_error is not None:
+                    print(
+                        colored(
+                            f"{action.distribution}: diff analysis failed, continuing without it: {action.diff_analysis_error}",
+                            "red",
+                        )
+                    )
                 print(f"{action.distribution}... ", end="")
 
                 if isinstance(action, NoUpdate):
