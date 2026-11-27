@@ -13,10 +13,9 @@ from ._utils import Unset, URIDict
 from .exceptions import ValidationError
 from .protocols import Validator
 
-# these type aliases do not exist at runtime, they're only defined here in the stub
-_JsonObject: TypeAlias = Mapping[str, Any]
-_JsonValue: TypeAlias = _JsonObject | list[Any] | str | int | float | bool | None
-_ValidatorCallback: TypeAlias = Callable[[Any, Any, _JsonValue, _JsonObject], Iterator[ValidationError]]
+# Keyword callbacks receive any instance (upstream annotates it `Any`), and in practice
+# narrow their parameters to the keyword they serve.
+_ValidatorCallback: TypeAlias = Callable[[Any, Any, Any, Any], Iterator[ValidationError]]
 
 # This class does not exist at runtime. Compatible classes are created at
 # runtime by create().
@@ -67,16 +66,46 @@ class _Validator(Validator):
     def is_valid(self, instance, _schema: Schema | None) -> bool: ...
 
 def validates(version: str) -> Callable[[_Validator], _Validator]: ...
+
+# `validators` is passed to `dict()`: a mapping or (keyword, callback) pairs. Overloads, because
+# against a union mypy infers a dict literal of differently-annotated callbacks as `dict[str, function]`.
+@overload
 def create(
     meta_schema: Schema,
-    validators: Mapping[str, _ValidatorCallback] | tuple[()] = (),
-    version=None,
+    validators: Mapping[str, _ValidatorCallback],
+    version: str | None = None,
     type_checker: TypeChecker = ...,
     format_checker: FormatChecker = ...,
     id_of: Callable[[Schema], str] = ...,
     applicable_validators: Callable[[Schema], Iterable[tuple[str, _ValidatorCallback]]] = ...,
 ) -> type[_Validator]: ...
-def extend(validator, validators=(), version=None, type_checker=None, format_checker=None): ...
+@overload
+def create(
+    meta_schema: Schema,
+    validators: Iterable[tuple[str, _ValidatorCallback]] = (),
+    version: str | None = None,
+    type_checker: TypeChecker = ...,
+    format_checker: FormatChecker = ...,
+    id_of: Callable[[Schema], str] = ...,
+    applicable_validators: Callable[[Schema], Iterable[tuple[str, _ValidatorCallback]]] = ...,
+) -> type[_Validator]: ...
+
+@overload
+def extend(
+    validator: type[Validator],
+    validators: Mapping[str, _ValidatorCallback],
+    version: str | None = None,
+    type_checker: TypeChecker | None = None,
+    format_checker: FormatChecker | None = None,
+) -> type[_Validator]: ...
+@overload
+def extend(
+    validator: type[Validator],
+    validators: Iterable[tuple[str, _ValidatorCallback]] = (),
+    version: str | None = None,
+    type_checker: TypeChecker | None = None,
+    format_checker: FormatChecker | None = None,
+) -> type[_Validator]: ...
 
 # At runtime these are fields that are assigned the return values of create() calls.
 class Draft3Validator(_Validator):
