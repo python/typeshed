@@ -26,4 +26,5 @@ class DjangoFilterBackend:
 
     # Filters any model type
     def filter_queryset(self, request: HttpRequest, queryset: QuerySet[Any], view: _APIView) -> QuerySet[Any]: ...
-    def to_html(self, request: HttpRequest, queryset: QuerySet[Any], view: _APIView) -> str: ...  # Renders form for any model
+    # Renders form for any model
+    def to_html(self, request: HttpRequest, queryset: QuerySet[Any], view: _APIView) -> str | None: ...
